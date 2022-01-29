@@ -1,0 +1,2 @@
+# Cytomorph
+Cytomorph is a open software based on the main general features of cytoneme-meditated gradient formation. This sfotware allows to upload different experimental data to study in silico the role of different biological parameters of this type of signaling. Cytomorph can also work as an in silico tester for other biological hypotheses that are difficult to validate experimentally. In addition, the software architecture is designed in different modules that make Cytomorph an adaptive computational tool in which new advances can be integrated.

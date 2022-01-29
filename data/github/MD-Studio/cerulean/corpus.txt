@@ -1,0 +1,1 @@
+gener use bash sshkeygen rsa id_rsa passphras id_rsa passphras kingfish

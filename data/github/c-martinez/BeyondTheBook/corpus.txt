@@ -1,0 +1,1 @@
+requir python packag ipaddress mwclient instal via pip instal gitgitgithubcommwclientmwclientgit pydot

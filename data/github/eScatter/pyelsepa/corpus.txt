@@ -1,0 +1,1 @@
+elsepa docker imag use docker version elsepa first make sure latest version dockerhttpdockercom instal build imag download file adus_v_targzhttpwwwcpccsqubacuksummariesadus_v_html place directori run docker build elsepa want sure contain work start interact session run hsubsubo exampl docker run elsepa elscatm hoin

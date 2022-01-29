@@ -1,0 +1,6 @@
+rse
+gensim
+nltk
+pandas
+scipy
+scikit-learn

@@ -1,0 +1,1 @@
+changelog correctli handl array dont mask attribut fix indent bug caus observ ignor stabl releas beta releas
