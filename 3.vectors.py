@@ -85,7 +85,7 @@ def main():
     embedding = fit.fit_transform(distance)
     emb = pandas.DataFrame(embedding, index=distance.index, columns=["x", "y"])
     emb.index.name = "name"
-    emb.to_csv("software-embeddings.csv")
+    emb.to_csv(os.path.join("docs","software-embeddings.csv"))
 
 
 if __name__ == "__main__":

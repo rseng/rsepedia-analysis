@@ -113,8 +113,8 @@ def main():
 
     shutil.rmtree(tempdir)
 
-    # Save topics to file
-    write_json(topics, 'topics.json')
+    # Save topics to file (in docs so we don't overwhelm github pages)
+    write_json(topics, os.path.join('docs','topics.json'))
 
 if __name__ == "__main__":
     main()
