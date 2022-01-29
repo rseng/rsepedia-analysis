@@ -231,10 +231,8 @@ d3.csv("software-embeddings.csv", function(data) {
     var colorDomain = d3.set(theData, function(d) {return d.language});
     colorDomain.remove("null")
     colorDomain.remove("undefined")
-    colorDomain.remove("unknown")
 
     // remove variations of null, undefined unknown
-    console.log(colorDomain)
     colorDomain = colorDomain.values()
     colorDomain.sort()
 
@@ -393,7 +391,7 @@ d3.csv("software-embeddings.csv", function(data) {
       .attr("class", function(d) {
           language = parse_language(d.language)
           return language + " software-node"})
-      .style("fill", function(d) {return colorize(d.language)})
+      .style("fill", function(d) {return colorize(parse_language(d.language))})
       .style("opacity", 1)
       .on("mouseover", function(d, i) {
         d3.select(this)
@@ -414,7 +412,7 @@ d3.csv("software-embeddings.csv", function(data) {
               })
               html = ":" + html
           }          
-          html = d.name + " " + html
+          html = d.name + "language: " + d.language + " " + html
           $("#topic-info").html(html);
           crosshair.style('display', null); // enable crosshair visibility 
           setCrosshair(xScale(d.cx), yScale(d.cy));
@@ -425,7 +423,7 @@ d3.csv("software-embeddings.csv", function(data) {
             "stroke": "none"
           })
           .style("fill", function(d) {
-            return colorize(d.language);
+            return colorize(parse_language(d.language));
           });
       })
   //      if enabled will not snap to element
