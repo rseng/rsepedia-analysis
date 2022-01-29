@@ -170,14 +170,21 @@ function generateColor() {
   return color;
 }
 
+function parse_language(language) {
+
+  if (!language || language == "null" || language == "undefined") {
+    language = "unknown"
+  }
+  language = language.replaceAll('+', '_')
+  language = language.replaceAll("#", "-") 
+  console.log(language)
+  return language
+}
+
 // On mouseover, add a color border around selected
 function filtercolor(div) {
    language = $(div).attr('data-language')
-   if (!language || language == null) {
-      language = "unknown"
-   }
-   language = language.replace('+', '_')
-   language = language.replace("#", "-")
+   language = parse_language(language)
    $(".software-node").attr('display', 'none')
    $("." + language).attr('display', 'normal')
 }
@@ -384,12 +391,7 @@ d3.csv("software-embeddings.csv", function(data) {
       .attr("cy", function(d) {return yScale(d.cy)})
       .attr("r", function(d) {return sizeScale(sizeDomain[0])})
       .attr("class", function(d) {
-          language = d.language
-          if (!language) {
-             language = "unknown"
-          }
-          language = language.replace('+', '_')
-          language = language.replace("#", "-") 
+          language = parse_language(d.language)
           return language + " software-node"})
       .style("fill", function(d) {return colorize(d.language)})
       .style("opacity", 1)
