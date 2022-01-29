@@ -20,7 +20,6 @@ import sys
 import os
 
 
-
 def get_parser():
     parser = argparse.ArgumentParser(
         description="Research Software Encyclopedia Vectorizer",
@@ -37,6 +36,7 @@ def get_parser():
 class SoftwareCorpus:
     def __init__(self, datadir):
         self.datadir = datadir
+
     def iter_text(self):
         for filename in recursive_find(self.datadir, "corpus.txt"):
             uid = os.path.dirname(filename.replace(self.datadir, "").strip(os.sep))
@@ -46,6 +46,7 @@ class SoftwareCorpus:
         for uid, words in self.iter_text():
             print("Training with %s" % uid)
             yield TaggedDocument(words, [uid])
+
 
 def main():
 
@@ -58,13 +59,13 @@ def main():
         sys.exit("%s does not exist!" % datadir)
 
     corpus = SoftwareCorpus(datadir)
-    
+
     # 40 epochs means we do it 40 times
     model = Doc2Vec(corpus, vector_size=50, min_count=100, workers=4, epochs=40)
 
     # Save the model if we need again
     model.save("model.doc2vec")
-    
+
     # Create a vector for each document
     # UIDS as id for each row, vectors across columns
     df = pandas.DataFrame(columns=range(50))
@@ -74,10 +75,12 @@ def main():
         df.loc[uid] = model.infer_vector(words)
 
     # Save dataframe to file
-    df.to_csv("vectors.csv")    
+    df.to_csv("vectors.csv")
 
     # Create a distance matrix
-    distance = pandas.DataFrame(squareform(pdist(df)), index=list(df.index), columns=list(df.index))
+    distance = pandas.DataFrame(
+        squareform(pdist(df)), index=list(df.index), columns=list(df.index)
+    )
     distance.to_csv("software-distances.csv")
 
     # Make the tsne!
@@ -85,7 +88,7 @@ def main():
     embedding = fit.fit_transform(distance)
     emb = pandas.DataFrame(embedding, index=distance.index, columns=["x", "y"])
     emb.index.name = "name"
-    emb.to_csv(os.path.join("docs","software-embeddings.csv"))
+    emb.to_csv(os.path.join("docs", "software-embeddings.csv"))
 
 
 if __name__ == "__main__":

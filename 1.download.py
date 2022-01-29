@@ -76,10 +76,8 @@ def main():
 
     for i, reponame in enumerate(repos):
         repo = pedia.get(reponame[0])
-        topics[repo.uid] = repo.data['data'].get('topics', [])
-
-        # TODO we need to add language!
-        languages[repo.uid] = repo.data['data'].get('langauge', 'unknown')
+        topics[repo.uid] = repo.data["data"].get("topics", [])
+        languages[repo.uid] = repo.data["data"].get("language", "unknown")
 
         datadir = os.path.join(outdir, repo.uid)
         destfile = os.path.join(datadir, "CONCAT.md")
@@ -114,7 +112,9 @@ def main():
     shutil.rmtree(tempdir)
 
     # Save topics to file (in docs so we don't overwhelm github pages)
-    write_json(topics, os.path.join('docs','topics.json'))
+    write_json(topics, os.path.join("docs", "topics.json"))
+    write_json(languages, os.path.join("docs", "languages.json"))
+
 
 if __name__ == "__main__":
     main()

@@ -123,7 +123,14 @@ text {
 <div style="float:right; text-align:right"><p id="topic-info" class="alert alert-info">topics will go here</p></div>
     </div>
 </div>
-<div id="plot"></div>
+<div class="row">
+   <div class="col-md-10">
+      <div id="plot"></div>
+   </div>
+   <div class="col-md-2">
+      <div id="colors"></div>
+   </div>
+</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
     integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
@@ -149,21 +156,46 @@ var margin = {
   right: 30
 }
 
-var width = totalWidth - margin.left - margin.right;
+var width = totalWidth - margin.left - margin.right - 300;
 var height = totalHeight - margin.top - margin.bottom;
 
 var formatDecimal = d3.format(',.0f');
 
-// Load topics for each repo
-$.getJSON("topics.json", function(topics) {
-    window.topics = topics
-});
+function generateColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+// On mouseover, add a color border around selected
+function filtercolor(div) {
+   language = $(div).attr('data-language')
+   if (!language || language == null) {
+      language = "unknown"
+   }
+   language = language.replace('+', '_')
+   language = language.replace("#", "-")
+   $(".software-node").attr('display', 'none')
+   $("." + language).attr('display', 'normal')
+}
+
+function showall() {
+   $(".software-node").attr('display', 'normal')
+}
+
+// Load topics and languages for each repo
+$.getJSON("topics.json", function(topics) {window.topics = topics});
 
 d3.csv("software-embeddings.csv", function(data) {
-
+  $.getJSON("languages.json", function(langs) {
+  
+    console.log(data)
     theData = []
     for (var i = 0; i < data.length; i++) {
-        theData.push({"radius": 3, "cx": data[i].x, "cy": data[i].y, "name": data[i].name})
+        theData.push({"radius": 3, "cx": data[i].x, "cy": data[i].y, "name": data[i].name, "language": langs[data[i].name]})
     }
     console.log(theData);
 
@@ -189,12 +221,33 @@ d3.csv("software-embeddings.csv", function(data) {
     var yScale = d3.scaleLinear().domain(yDomain).range(yRange).nice(1);
 
     // COLOR SCALE 
-    var colorDomain = d3.extent(theData, function(d) {return d.radius});
-    var colorize = d3.scaleSequential(d3.interpolateTurbo);
-    var colorScale = d3.scaleLinear()
-      .domain(colorDomain)
-      .range([0, 1]);
+    var colorDomain = d3.set(theData, function(d) {return d.language});
+    colorDomain.remove("null")
+    colorDomain.remove("undefined")
+    colorDomain.remove("unknown")
 
+    // remove variations of null, undefined unknown
+    console.log(colorDomain)
+    colorDomain = colorDomain.values()
+    colorDomain.sort()
+
+    // Generate random colors
+    colors = []
+    legend = ""
+    console.log(colorDomain)
+    for (var i = 0; i < colorDomain.length; i++) {
+        console.log(colorDomain[i])
+        newColor = generateColor()
+        legend += "<span onmouseout='showall()' onmouseover='filtercolor(this)' data-language='" + colorDomain[i] +"' class='badge' style='color:white;cursor:pointer;background-color:" + newColor + "'>" + colorDomain[i] + "</span><br>"
+        colors.push(newColor)
+    }    
+    var colorize = d3.scaleOrdinal()
+      .domain(colorDomain)
+      .range(colors);
+
+    // Add colors
+    $('#colors').html(legend)
+    
     var xAxis = d3.axisBottom(xScale)
       //.ticks(10)
       .tickSize(6)
@@ -208,7 +261,7 @@ d3.csv("software-embeddings.csv", function(data) {
     // SVG GROUP HIERARCHY 
     var svg = d3.select('#plot').append('svg')
       .attr("id", "scatterplot")
-      .attr("width", totalWidth)
+      .attr("width", width)
       .attr("height", totalHeight)
       .style( "background-color", "hsl(0, 0%, 100%)" )
       .style( "border", "dashed 1px gray" );
@@ -257,7 +310,6 @@ d3.csv("software-embeddings.csv", function(data) {
       .attr("id", "circleGroup");
 
     // CHART ASSEMBLY
-
     var crosshairSettings = {
       xLabelTextOffset: height + 12,
       yLabelTextOffset: -9,
@@ -328,18 +380,18 @@ d3.csv("software-embeddings.csv", function(data) {
       .data(theData)
       .enter()
       .append('circle')
-      .attr("cx", function(d) {
-        return xScale(d.cx)
-      })
-      .attr("cy", function(d) {
-        return yScale(d.cy)
-      })
-      .attr("r", function(d) {
-        return sizeScale(sizeDomain[0]);
-      })
-      .style("fill", function(d) {
-        return colorize(colorScale(d.radius));
-      })
+      .attr("cx", function(d) {return xScale(d.cx)})
+      .attr("cy", function(d) {return yScale(d.cy)})
+      .attr("r", function(d) {return sizeScale(sizeDomain[0])})
+      .attr("class", function(d) {
+          language = d.language
+          if (!language) {
+             language = "unknown"
+          }
+          language = language.replace('+', '_')
+          language = language.replace("#", "-") 
+          return language + " software-node"})
+      .style("fill", function(d) {return colorize(d.language)})
       .style("opacity", 1)
       .on("mouseover", function(d, i) {
         d3.select(this)
@@ -351,7 +403,6 @@ d3.csv("software-embeddings.csv", function(data) {
           .styles({
             "fill": "darkorange",
           });
-          console.log(window.topics)
           html = " does not have any topics."
           if (d.name in window.topics) {
               var topics = window.topics[d.name]     
@@ -372,7 +423,7 @@ d3.csv("software-embeddings.csv", function(data) {
             "stroke": "none"
           })
           .style("fill", function(d) {
-            return colorize(colorScale(d.radius));
+            return colorize(d.language);
           });
       })
   //      if enabled will not snap to element
@@ -443,8 +494,8 @@ function setCrosshair(x, y) {
     .attr("transform", "translate( " + -crosshairSettings.labelWidth + ", " + (y - 8) + ")")
 
 }
-
-
+  
+  });
 });
 
 </script>

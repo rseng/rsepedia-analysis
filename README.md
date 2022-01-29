@@ -17,6 +17,7 @@ On a higher level, once we have the embeddings the topics can be used to train a
 3. Cluster the vectors to minimally look at similarity (add topics known to see patterns).
 4. Then try training the probabilistic models.
 
+If this basic idea works (has signal), we could explore looking for more robust sources of text for each repository.
 
 ## Usage
 
