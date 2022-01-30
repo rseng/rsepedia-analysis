@@ -66,8 +66,6 @@ a space separated `corpus.txt` in each subfolder.
 $ python 2.preprocess.py ./data
 ```
 
-**TODO** need to add languages for color!
-
 ### 3. Model and Vectors
 
 And then train the model!
@@ -80,8 +78,6 @@ This will generate vectors along with embeddings and the distance matrix for
 those embeddings that drive the visualization in `index.html`. The plot shows
 the different repository embeddings, colored by language.
 
-1. fix jumping of UI 
-2. Color by language
 
 ### 4. Probabilistic Model
 
@@ -92,3 +88,8 @@ The labels are too distinct I think to be useful, so instead I'm going to try:
 3. Associate the words and add to the plot!
 
 **under development**
+
+## TODO
+
+1. Try finding pretrained model (wikipedia? other)?
+2. Can we add more data -spack sources?

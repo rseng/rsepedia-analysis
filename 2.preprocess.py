@@ -89,11 +89,14 @@ def main():
         sys.exit("%s does not exist!" % datadir)
 
     for concat in recursive_find(datadir, "CONCAT.md"):
+        outfile = os.path.join(os.path.dirname(concat), "corpus.txt")
+        # Don't generate existing again!
+        if os.path.exists(outfile):
+            continue
         uid = os.path.dirname(concat.replace(datadir, "").strip(os.sep))
         text = read_file(concat, readlines=False)
         text = process_text(text)
         # Output file should be corpus.txt in same folder
-        outfile = os.path.join(os.path.dirname(concat), "corpus.txt")
         print("Writing %s" % outfile)
         write_file(outfile, text)
 

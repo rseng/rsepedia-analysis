@@ -120,7 +120,7 @@ text {
         <small>Similarity of software based on markdown in the repository</small>
     </div>
     <div class="col-md-4">
-<div style="float:right; text-align:right"><p id="topic-info" class="alert alert-info">topics will go here</p></div>
+<div style="float:right; text-align:right"><p id="topic-info"></p></div>
     </div>
 </div>
 <div class="row">
@@ -128,6 +128,7 @@ text {
       <div id="plot"></div>
    </div>
    <div class="col-md-2">
+      <div id="repo-info" style="min-height:200px"></div>
       <div id="colors"></div>
    </div>
 </div>
@@ -175,9 +176,12 @@ function parse_language(language) {
   if (!language || language == "null" || language == "undefined") {
     language = "unknown"
   }
-  language = language.replaceAll('+', '_')
-  language = language.replaceAll("#", "-") 
-  console.log(language)
+  if (language == "C#") {
+      language = "Csharp"
+  }
+  if (language == "C++") {
+      language = "Cpp"
+  }
   return language
 }
 
@@ -193,16 +197,15 @@ function showall() {
    $(".software-node").attr('display', 'normal')
 }
 
-// Load topics and languages for each repo
-$.getJSON("topics.json", function(topics) {window.topics = topics});
-
 d3.csv("software-embeddings.csv", function(data) {
-  $.getJSON("languages.json", function(langs) {
+
+  // Load topics, meta, and languages for each repo
+  $.getJSON("meta.json", function(meta) {
   
     console.log(data)
     theData = []
     for (var i = 0; i < data.length; i++) {
-        theData.push({"radius": 3, "cx": data[i].x, "cy": data[i].y, "name": data[i].name, "language": langs[data[i].name]})
+        theData.push({"radius": 3, "cx": data[i].x, "cy": data[i].y, "name": data[i].name, "language": meta['language'][data[i].name], "url": meta['url'][data[i].name]})
     }
     console.log(theData);
 
@@ -228,7 +231,7 @@ d3.csv("software-embeddings.csv", function(data) {
     var yScale = d3.scaleLinear().domain(yDomain).range(yRange).nice(1);
 
     // COLOR SCALE 
-    var colorDomain = d3.set(theData, function(d) {return d.language});
+    var colorDomain = d3.set(theData, function(d) {return parse_language(d.language)});
     colorDomain.remove("null")
     colorDomain.remove("undefined")
 
@@ -241,9 +244,8 @@ d3.csv("software-embeddings.csv", function(data) {
     legend = ""
     console.log(colorDomain)
     for (var i = 0; i < colorDomain.length; i++) {
-        console.log(colorDomain[i])
         newColor = generateColor()
-        legend += "<span onmouseout='showall()' onmouseover='filtercolor(this)' data-language='" + colorDomain[i] +"' class='badge' style='color:white;cursor:pointer;background-color:" + newColor + "'>" + colorDomain[i] + "</span><br>"
+        legend += "<span onmouseout='showall()' onmouseover='filtercolor(this)' data-language='" + colorDomain[i] +"' class='badge' style='color:white;width:200px;cursor:pointer;background-color:" + newColor + "'>" + colorDomain[i] + "</span><br>"
         colors.push(newColor)
     }    
     var colorize = d3.scaleOrdinal()
@@ -403,17 +405,16 @@ d3.csv("software-embeddings.csv", function(data) {
           .styles({
             "fill": "darkorange",
           });
-          html = " does not have any topics."
-          if (d.name in window.topics) {
-              var topics = window.topics[d.name]     
-              html = ""
+          html = ""
+          if (d.name in meta['topics']) {
+              var topics = meta['topics'][d.name]
               $.each(topics, function(i, e){
-                  html = html + "<span style='margin-right:10px' class='badge badge-primary'>" + e + "</span>"
+                  html = html + "<span style='margin-right:2px' class='badge badge-primary'>" + e + "</span>"
               })
-              html = ":" + html
-          }          
-          html = d.name + "language: " + d.language + " " + html
-          $("#topic-info").html(html);
+          }   
+          repo_info = "<a href='" + d.url + "' target='_blank'>" + d.name + "</a><br>"       
+          html = repo_info + "language: " + parse_language(d.language) + "<br>" + html
+          $("#repo-info").html(html);          
           crosshair.style('display', null); // enable crosshair visibility 
           setCrosshair(xScale(d.cx), yScale(d.cy));
       })

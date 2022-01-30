@@ -68,16 +68,14 @@ def main():
     repos = list(pedia.list())
     total = len(repos)
 
-    # Keep a master lookup of topics
-    topics = {}
-
-    # And languages (to color by later)
-    languages = {}
+    # Keep a master lookup of topics and metadata (a lookup)
+    meta = {"topics": {}, "language": {}, "url": {}}
 
     for i, reponame in enumerate(repos):
         repo = pedia.get(reponame[0])
-        topics[repo.uid] = repo.data["data"].get("topics", [])
-        languages[repo.uid] = repo.data["data"].get("language", "unknown")
+        meta['topics'][repo.uid] = repo.data["data"].get("topics", [])
+        meta['language'][repo.uid] = repo.data["data"].get("language", "unknown")
+        meta['url'][repo.uid] = repo.url
 
         datadir = os.path.join(outdir, repo.uid)
         destfile = os.path.join(datadir, "CONCAT.md")
@@ -111,9 +109,8 @@ def main():
 
     shutil.rmtree(tempdir)
 
-    # Save topics to file (in docs so we don't overwhelm github pages)
-    write_json(topics, os.path.join("docs", "topics.json"))
-    write_json(languages, os.path.join("docs", "languages.json"))
+    # Save topics, etc. to file (in docs so we don't overwhelm github pages)
+    write_json(meta, os.path.join("docs", "meta.json"))
 
 
 if __name__ == "__main__":
