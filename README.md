@@ -111,6 +111,24 @@ The labels are too distinct I think to be useful, so instead I'm going to try:
 
 **under development**
 
+## Diary
+
+I first did steps 1-3 (download through vectors) just using markdown files. The result looked like lips -
+there was distinction between Python and R but only slightly.
+
+![docs/img/md-only-lips.png](docs/img/md-only-lips.png)
+
+It looked a little bit like lips? I figured this happens because it's probably impossible to remove the language terms for README and other
+markdown files - e.g., "this is a Python project..." or similar. So then I decided to run steps 1-3 again,
+but this time include markdown, Rmd, Rd, and rst files. There is now more of a distinction between Python and R
+repositories.
+
+![docs/img/md-plus-others-brain.png](docs/img/md-plus-others-brain.png)
+
+And this one looks a little bit like a brain? I'm worried that the distinction might be due to using
+Rmd documentation files that tend to have more code in them, and the greatest distinction reflecting
+common documentation practices over anything else. But we will see!
+
 ## TODO
 
 1. Try finding pretrained model (wikipedia? other)?
