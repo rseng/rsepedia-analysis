@@ -459,3 +459,791 @@ to CRAN later this year. So, for now, we will host this package on GitHub and
 replace the database back-end and send to CRAN when the successor package is ready.
 We've added a note to the README showing that users need package build tools for
 the current version.
+---
+output:
+  github_document:
+    html_preview: FALSE
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(dplyr)
+```
+
+
+# citesdb
+
+```{r authors, echo = FALSE, results = 'asis'}
+unclass(desc::desc_get_authors(here::here("DESCRIPTION"))) %>%
+  purrr::keep(~"aut" %in% .$role) %>%
+  purrr::map_chr(~paste(.$given, .$family)) %>%
+  glue::glue_collapse(sep = ", ", last = " and ") %>%
+  paste0("Authors: _", ., "_") %>%
+  cat()
+```
+
+<!-- badges: start -->
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg){data-external="1"}](https://opensource.org/licenses/MIT)
+[![rOpensci\_Badge](https://badges.ropensci.org/292_status.svg)](https://github.com/ropensci/software-review/issues/292)
+[![Published in the Journal of Open Source Software](http://joss.theoj.org/papers/10.21105/joss.01483/status.svg){data-external="1"}](https://doi.org/10.21105/joss.01483)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2630836.svg){data-external="1"}](https://doi.org/10.5281/zenodo.2630836)
+[![CircleCI](https://circleci.com/gh/ropensci/citesdb/tree/master.svg?style=shield){data-external="1"}](https://circleci.com/gh/ropensci/citesdb)
+[![codecov](https://codecov.io/gh/ropensci/citesdb/branch/master/graph/badge.svg){data-external="1"}](https://codecov.io/gh/ropensci/citesdb)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+<!-- badges: end -->
+
+**citesdb** is an R package to conveniently analyze the full CITES shipment-level wildlife trade database, available at <https://trade.cites.org/>. This data consists of over 40 years and 20 million records of reported shipments of wildlife and wildlife products subject to oversight under the [Convention on International Trade in Endangered Species of Wild Fauna and Flora](https://www.cites.org). The source data are maintained by the [UN Environment World Conservation Monitoring Centre](https://www.unep-wcmc.org/).
+
+
+## Installation
+
+Install the **citesdb** package with this command:
+
+```{r install_me, eval = FALSE}
+devtools::install_github("ropensci/citesdb")
+```
+
+Note that since **citesdb** installs a source dependency from GitHub, you
+will need [package build tools](http://stat545.com/packages01_system-prep.html).
+
+```{r message = FALSE, warning = FALSE, error = FALSE, include = FALSE}
+options(width = 120)
+knitr::opts_chunk$set(cache = TRUE)
+citesdb::cites_disconnect()
+```
+
+
+## Usage
+
+### Getting the data
+
+When you first load the package, you will see a message like this:
+
+    library(citesdb)
+    #> Local CITES database empty or corrupt. Download with cites_db_download()
+
+Not to worry, just do as it says and run `cites_db_download()`. This will fetch the most recent database from online, an approximately 158 MB download. It will expand to over 1 GB in the local database. During the download and database building, up to 3.5 GB of disk space may be used temporarily.
+
+### Using the database
+
+Once you fetch the data, you can connect to the database with the `cites_db()` command. The `cites_shipments()` command loads a remote `tibble` that is backed by the database but is not loaded into R. You can use this command to analyze CITES data without ever loading it into memory, gathering your results with the `dplyr` function `collect()`. For example:
+
+```{r getdata, include = FALSE}
+if (!citesdb::cites_status()) citesdb::cites_db_download()
+```
+
+```{r, warning = FALSE}
+library(citesdb)
+library(dplyr)
+
+start <- Sys.time()
+
+cites_shipments() %>%
+  group_by(Year) %>%
+  summarize(n_records = n()) %>%
+  arrange(desc(Year)) %>%
+  collect()
+
+stop <- Sys.time()
+```
+
+(_Note that running `collect()` on all of `cites_shipments()` will load a >3 GB data frame into memory!_)
+
+The back-end database, [duckdb](https://duckdb.org/), is very fast and powerful, making analyses on such large data quite snappy using normal desktops and laptops. Here's the timing of the above query, which processes over 20 million records:
+
+```{r}
+stop - start
+```
+
+If you are using a recent version of RStudio interactively, loading the CITES package also brings up a browsable pane in the "Connections" tab that lets you explore and preview the database, as well as interact with it directly via SQL commands.
+
+If you don't need any of the bells and whistles of this package, you can download the raw data as a single compressed TSV file from the [releases page](https://github.com/ropensci/citesdb/releases), or as a `.zip` file of many CSV files from the original source at <https://trade.cites.org/>.
+
+### Metadata
+
+The package database also contains tables of field metadata, codes used, and CITES countries. This information comes from ["A guide to using the CITES Trade Database"](https://trade.cites.org/cites_trade_guidelines/en-CITES_Trade_Database_Guide.pdf), on the CITES website. Convenience functions `cites_metadata()`, `cites_codes()`, and `cites_parties()` access this information:
+
+```{r}
+head(cites_metadata())
+
+head(cites_codes())
+
+head(cites_parties())
+```
+
+```{r message = FALSE, warning = FALSE, error = FALSE, include = FALSE}
+citesdb::cites_disconnect()
+```
+
+More information on the release of shipment-level CITES data can be found in the `?guidance` help file.
+
+
+## Related work
+
+The [**rcites**](https://github.com/ropensci/rcites) package provides access to the Speciesplus/CITES Checklist API, which includes metadata about species and their protected status through time.
+
+
+## Citation
+
+If you use **citesdb** in a publication, please cite both the package and source data:
+
+```{r, results = "asis", echo = FALSE}
+print(citation("citesdb"), style = "textVersion")
+```
+
+
+## Contributing
+
+Have feedback or want to contribute? Great! Please take a look at the [contributing guidelines](https://github.com/ropensci/citesdb/blob/master/.github/CONTRIBUTING.md) before filing an issue or pull request.
+
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/ropensci/citesdb/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![Created by EcoHealth Alliance](https://raw.githubusercontent.com/ropensci/citesdb/master/vignettes/figures/eha-footer.png){data-external="1"}](https://www.ecohealthalliance.org/)
+---
+title: "Exploring CITES Trade Data with citesdb"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Exploring CITES Trade Data with citesdb}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: citations.bib
+link-citations: true
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6.5,
+  fig.align = "center"
+)
+```
+
+
+**citesdb** is an R package to conveniently analyze the full CITES shipment-level wildlife trade database, available at <https://trade.cites.org/>. This data consists of over 40 years and 20 million records of reported shipments of wildlife and wildlife products subject to oversight under the [Convention on International Trade in Endangered Species of Wild Fauna and Flora](https://www.cites.org). The source data are maintained by the [UN Environment World Conservation Monitoring Centre](https://www.unep-wcmc.org/). @Harfoot_2018 provide a recent overview of broad temporal and spatial trends in the data.
+
+
+## Installation
+
+Install the **citesdb** package with this command:
+
+```{r install_me, eval = FALSE}
+devtools::install_github("ropensci/citesdb")
+```
+
+Note that since **citesdb** installs a source dependency from GitHub, you
+will need [package build tools](http://stat545.com/packages01_system-prep.html).
+
+```{r message = FALSE, warning = FALSE, error = FALSE, include = FALSE}
+options(width = 120)
+citesdb::cites_disconnect()
+```
+
+
+## Usage
+
+### Getting the data
+
+When you first load the package you will see a message like this:
+
+    library(citesdb)
+    #> Local CITES database empty or corrupt. Download with cites_db_download()
+
+Not to worry, just do as it says and run `cites_db_download()`. This will fetch the most recent[^1] database from online, an approximately 158 MB download. It will expand to over 1 GB in the local database. During the download and database building, up to 3.5 GB of disk space may be used temporarily.
+
+[^1]: When data is updated on the CITES website, we check for changes in structure, metadata, or documentation that we should pass on to the user (e.g., in the `?guidance` help file) and re-package the data for distribution in our own repository. Data updates are expected twice per year, and we expect our repository to update within 2 weeks of the official release.
+
+### Using the database for basic analyses
+
+Once you fetch the data you can connect to the database with the `cites_db()` command. You can use the `cites_shipments()` command to load a remote `tibble` that is backed by the database but not loaded into R. You can use this to analyze CITES data without ever loading it into memory, then gather your results with the `dplyr` function `collect()`. For example, as demonstrated in the package README file, one could compute the number of shipment records per year like so:
+
+```{r getdata, include = FALSE}
+if (!citesdb::cites_status()) citesdb::cites_db_download()
+```
+
+```{r, warning = FALSE}
+library(citesdb)
+library(dplyr)
+
+cites_shipments() %>%
+  group_by(Year) %>%
+  summarize(n_records = n()) %>%
+  arrange(desc(Year)) %>%
+  collect()
+```
+
+(_Note that running `collect()` on all of `cites_shipments()` will load a >3 GB data frame into memory!_)
+
+Alternatively, one could visualize the same information by piping results from a `cites_shipments()` call directly into `ggplot()`:
+
+```{r message = FALSE, warning = FALSE}
+library(ggplot2)
+
+breaks <- seq(from = 1975, to = 2020, by = 5)
+
+cites_shipments() %>%
+  group_by(Year) %>%
+  summarize(n_records = n()) %>%
+  mutate(log10_n_records = log10(n_records)) %>%
+  ggplot(aes(x = Year, y = n_records)) +
+  geom_point() +
+  geom_line(linetype = "dashed", size = 0.2) +
+  ylab("Number of Records") +
+  theme_minimal() +
+  scale_x_continuous(breaks = breaks)
+
+cites_shipments() %>%
+  group_by(Year) %>%
+  summarize(n_records = n()) %>%
+  mutate(log10_n_records = log10(n_records)) %>%
+  ggplot(aes(x = Year, y = log10_n_records)) +
+  geom_point() +
+  geom_line(linetype = "dashed", size = 0.2) +
+  ylab("log10(Number of Records)") +
+  ylim(1.5, 6.5) +
+  theme_minimal() +
+  scale_x_continuous(breaks = breaks)
+```
+
+### Metadata
+
+The package database also contains tables of field metadata, codes used, and CITES countries. This information comes from ["A guide to using the CITES Trade Database"](https://trade.cites.org/cites_trade_guidelines/en-CITES_Trade_Database_Guide.pdf), on the CITES website. Convenience functions `cites_metadata()`, `cites_codes()`, and `cites_parties()` access this information:
+
+```{r}
+head(cites_metadata())
+
+head(cites_codes())
+
+head(cites_parties())
+```
+
+More information on the release of shipment-level data can be found in the `?guidance` help file.
+
+
+## Direct Database Connection 
+
+**citesdb** stores data in an on-disk [DuckDB](https://duckdb.org/) SQL database. If you want to use SQL commands for complex queries or otherwise want to directly access the database connection, use the `cites_db()` command:
+
+```{r}
+con <- cites_db()
+DBI::dbListTables(con)
+```
+
+Note that DuckDB, as implemented by the [DuckDB](https://cran.r-project.org/package=duckdb) package, currently has a limitation of only one connection to the database at a time. Therefore, if you are running R in multiple sessions (say, one in a console and separately knitting an R Markdown document), you will receive this error:
+
+```
+Error: Local citesdb database is locked by another R session.
+ Try closing or running cites_disconnect() in that session.
+```
+
+`cites_disconnect()` shuts down the current connection, freeing up your other session to connect.
+
+If you are using a recent version of RStudio interactively, loading the `citesdb` package also brings up a browsable pane in the "Connections" tab that lets you explore and preview the database tables.
+
+![](figures/cites_pane.gif)
+
+Click on the arrows to see the data types in each table, or the table icon to the right for a preview of the table. The **SQL** button (which appears in RStudio >=1.2) opens an SQL document to [write and preview SQL queries directly](https://blog.rstudio.com/2018/10/02/rstudio-1-2-preview-sql/).
+
+
+## CITES Metadata with `rcites`
+
+Suppose we were interested in CITES data on sharks from the order Lamniformes. We might begin an analysis by visualizing shipments of these organisms and their derived products over time:
+
+```{r}
+cites_shipments() %>%
+  filter(Order == "Lamniformes") %>%
+  group_by(Year, Taxon) %>%
+  summarize(n_records = n()) %>%
+  ggplot(aes(x = Year, y = n_records, color = Taxon)) +
+  geom_point() +
+  geom_line(linetype = "dashed", size = 0.2) +
+  ylab("Number of Records") +
+  theme_minimal() +
+  scale_x_continuous(breaks = breaks, limits = c(1990, max(breaks)))
+```
+
+What accounts for the temporal differences in the number of CITES records we observe? Why are there no data prior to 2001? It would be helpful to know more about the history of these particular species within CITES.
+
+Fortunately, the [**rcites**](https://github.com/ropensci/rcites) package provides access to the Speciesplus/CITES Checklist API, which includes metadata about species and their protected status through time. To use the functions within this package, users will first need to [sign up for a Speciesplus API account](https://api.speciesplus.net/users/sign_up) in order to generate a personal access token. This token can then be set for the current R session using `rcites::set_token()` or can be stored permanently if written to the user's `.Renviron` file (the approach taken in this tutorial). See [here](https://docs.ropensci.org/rcites/articles/a_get_started.html) for more information on use of the API access tokens.
+
+As an initial step in `rcites` workflows, it will typically be most useful to call `spp_taxonconcept()` on some taxa of interest. Using the specific example of one of our Lamniformes sharks, the great white (*Carcharodon carcharias*), as a query taxon, we can see that this function returns a variety of information: 
+
+```{r, eval = FALSE}
+library(rcites)
+
+spp_taxonconcept(query_taxon = "Carcharodon carcharias")$general$id
+```
+
+```{r, echo = FALSE, eval = TRUE}
+library(rcites)
+readRDS(system.file("extdata", "rcites1.rds", package = "citesdb"))
+```
+
+Importantly, we can collect the ID for our taxon of interest from this output and store it as an object for ease of reference:
+
+```{r, echo = TRUE, eval = FALSE}
+great_white_id <- spp_taxonconcept("Carcharodon carcharias")$general$id
+```
+
+Using our stored ID variable, we can query other `rcites` functions like `spp_cites_legislation()`, which returns the CITES listing and reservation status for the query taxon. Note that [reservations](https://www.cites.org/eng/app/reserve_intro.php) are essentially exemptions declared by particular CITES Parties in reference to specific taxa.
+
+```{r, echo = TRUE, eval = FALSE}
+spp_cites_legislation(great_white_id)$cites_listings
+```
+
+```{r, echo = FALSE, eval = TRUE}
+readRDS(system.file("extdata", "rcites2.rds", package = "citesdb"))
+```
+
+So this function query reveals that the great white is listed under CITES Appendix II (as of 12 January 2005) and that three CITES Parties have active reservations for this species.
+
+To reveal the full listing and reservation history, rather than just current information, we use the `scope = "all"` argument:
+
+```{r, echo = TRUE, eval = FALSE}
+spp_cites_legislation(great_white_id, scope = "all")$cites_listings
+```
+
+```{r, echo = FALSE, eval = TRUE}
+readRDS(system.file("extdata", "rcites3.rds", package = "citesdb"))
+```
+
+Here, we see that the species was in fact listed under CITES Appendix III as early as 29 October 2001. This may account for the CITES trade records for this species that date prior to its uplisting to Appendix II, a status which affords more stringent protection and monitoring. 
+
+In general, the historical listing information provides critical context for CITES data interpretation. In this case, for instance, it is clear that the lack of CITES data for great white sharks prior to the year 2002 should not be taken as an indication of a lack of trade in this species during that time frame but rather a lack of intergovernmental oversight and data collection.
+
+`rcites` also offers functions that return other useful metadata such as species distribution information:
+
+```{r, echo = TRUE, eval = FALSE}
+spp_distributions(great_white_id)$distributions
+```
+
+```{r, echo = FALSE, eval = TRUE}
+readRDS(system.file("extdata", "rcites4.rds", package = "citesdb"))
+```
+
+More in-depth description of `rcites` and usage tutorials can be found via the package [publication](http://joss.theoj.org/papers/10.21105/joss.01091) and [website](https://docs.ropensci.org/rcites/).
+
+
+## Pitfalls of Working with CITES Trade Data
+
+The CITES shipment-level data is a valuable resource for understanding part of the global wildlife trade. However, care must be taken in working with this data. Incomplete or ambiguous data can lead to misinterpretation and different approaches to handling the data can lead to different conclusions. @Harrington_2015, @Berec_2018, @Robinson_2018, and @Eskew_2019 all provide greater detail on challenges related to analyzing the CITES Trade Database. Also note the shipment-level guidance provided by CITES, which can be found in the `?guidance` help file.
+
+As an example, single shipments may be recorded multiple times, as they may be reported by both exporting and importing countries. Here we examine a set of shipments of orchids from a US exporter to the Netherlands:
+
+```{r, echo = TRUE, eval = TRUE}
+cites_shipments() %>% 
+  filter(Year == 2016, Export.permit.RandomID == "ce63001ff5", Genus == "Paphiopedilum") %>% 
+  collect() %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+See that each pair of shipments is identical except for `Reporter.type`, indicating that the shipment was reported both from the US and from the Netherlands. Note that while the importer reported both import and export permit numbers, the exporter reported only the export permit numbers.
+
+How to deal with repeat records? If you are aggregating records to calculate total shipments it is best to remove them, but not every record is recorded twice. This code filters to use only the importer's records, should all fields other than `Reporter.type` and `Import.permit.RandomID` be the same:
+
+```{r}
+cites_shipments() %>% 
+  filter(Year == 2016, Export.permit.RandomID == "ce63001ff5", Genus == "Paphiopedilum") %>% 
+  collect() %>% 
+  group_by_at(vars(-Reporter.type, -Import.permit.RandomID)) %>% 
+  mutate(n = n()) %>% 
+  filter((n > 1 & Reporter.type == "I") | n == 1) %>% 
+  ungroup() %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+```{r message = FALSE, warning = FALSE, error = FALSE, include = FALSE}
+citesdb::cites_disconnect()
+duckdb::duckdb_shutdown(duckdb::duckdb())
+```
+
+
+## Citation
+
+If you use **citesdb** in a publication, please cite both the package and source data:
+
+```{r, results = "asis", echo = FALSE}
+print(citation("citesdb"), style = "textVersion")
+```
+
+
+## Contributing
+
+Have feedback or want to contribute? Great! Please take a look at the [contributing guidelines](https://github.com/ropensci/citesdb/blob/master/.github/CONTRIBUTING.md) before filing an issue or pull request.
+
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/ropensci/citesdb/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+
+## References
+
+<div id="refs"></div>
+
+[![Created by EcoHealth Alliance](figures/eha-footer.png)](https://www.ecohealthalliance.org/)
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/onattach.R
+\name{cites_status}
+\alias{cites_status}
+\title{Get the status of the current local CITES database}
+\usage{
+cites_status(verbose = TRUE)
+}
+\arguments{
+\item{verbose}{Whether to print a status message}
+}
+\value{
+TRUE if the database exists, FALSE if it is not detected. (invisible)
+}
+\description{
+Get the status of the current local CITES database
+}
+\examples{
+cites_status()
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/connect.R
+\name{cites_metadata}
+\alias{cites_metadata}
+\alias{metadata}
+\alias{cites_codes}
+\alias{cites_parties}
+\title{CITES shipment metadata}
+\usage{
+cites_metadata()
+
+cites_codes()
+
+cites_parties()
+}
+\value{
+A tibble of metadata
+}
+\description{
+The CITES database also includes tables of column-level metadata and
+meanings of codes in columns, as well as a listing of CITES Parties/country abbreviations.
+Convenience functions access these tables. As they are small, the functions
+collect the tables into R session memory, rather than returning a remote table.
+
+This information is drawn from
+\href{https://trade.cites.org/cites_trade_guidelines/en-CITES_Trade_Database_Guide.pdf}{"A guide to using the CITES Trade Database"},
+from the CITES website. More information on the shipment-level data can be
+found in the \link{guidance} help file.
+}
+\examples{
+if (cites_status()) {
+  library(dplyr)
+
+  # See the field definitions for cites_shipments()
+  cites_metadata()
+
+  # See the codes used for shipment purpose
+  cites_codes() \%>\%
+   filter(field == "Purpose")
+
+  # See the most recent countries to join CITES
+  cites_parties() \%>\%
+    arrange(desc(date)) \%>\%
+    head(10)
+
+  # See countries or locations with non-standaard or outdated ISO codes
+  cites_parties() \%>\%
+    filter(former_code | non_ISO_code)
+
+  # For remote connections to these tables, access the database directly:
+  dplyr::tbl(cites_db(), "cites_metadata")
+  dplyr::tbl(cites_db(), "cites_codes")
+  dplyr::tbl(cites_db(), "cites_parties")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/connect.R
+\name{cites_shipments}
+\alias{cites_shipments}
+\title{CITES shipment data}
+\usage{
+cites_shipments()
+}
+\value{
+A \strong{dplyr} remote tibble (\code{\link[dplyr:tbl]{dplyr::tbl()}})
+}
+\description{
+Returns a remote database table with all CITES shipment data.  This is the
+bulk of the data in the package and constitutes > 20 million records.  Loading
+the whole table into R via the \code{\link[dplyr:compute]{dplyr::collect()}} command will use over
+3 GB of RAM, so you may want to pre-process data in the database, as in
+the examples below.
+}
+\examples{
+if (cites_status()) {
+  library(dplyr)
+
+  # See the number of CITES shipment records per year
+  cites_shipments() \%>\%
+    group_by(Year) \%>\%
+    summarize(n_records = n()) \%>\%
+    arrange(desc(Year)) \%>\%
+    collect()
+
+  # See what pangolin shipments went to which countries in 1990
+   cites_shipments() \%>\%
+     filter(Order == "Pholidota", Year == 1990) \%>\%
+     count(Year, Importer, Term) \%>\%
+     collect() \%>\%
+     left_join(select(cites_parties(), country, code),
+               by = c("Importer" = "code"))
+
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cites-guidance.R
+\name{guidance}
+\alias{guidance}
+\alias{si}
+\alias{supplementary}
+\title{CITES Trade Database shipment-level guidance}
+\description{
+\emph{This text copied from the supplementary information file
+accompanying the full database download from \url{https://trade.cites.org/}}
+}
+\section{Recommended citation}{
+
+
+UNEP-WCMC (Comps.) 2019. Full CITES Trade Database Download. Version
+2019.2. CITES Secretariat, Geneva, Switzerland. Compiled by UNEP-WCMC,
+Cambridge, UK. Available at: trade.cites.org.
+}
+
+\section{Background}{
+
+
+Under Article VIII of the Convention, Parties are required to provide
+information regarding their trade in CITES-listed specimens through their
+annual reports, and the Secretariat makes this information available
+through the CITES Trade Database (trade.cites.org). This database currently
+contains over 20 million records of international trade in CITES-listed
+species. Parties recognise the importance of these reports as a tool for
+monitoring the implementation of the Convention, assessing the
+effectiveness of their wildlife management and trade policies, and to
+enhance the detection of potentially harmful or illicit trade.
+
+At the 70th meeting of the Standing Committee, Parties agreed that a full
+non-aggregated version of the CITES Trade Database should be made available
+and updated twice a year. These files represent the periodic release of the
+CITES trade data in a shipment-by-shipment format with unique identifiers
+replacing confidential permit numbers (see \href{https://cites.org/sites/default/files/eng/com/sc/70/E-SC70-26-02.pdf}{SC70 Doc 26.2} and \href{https://cites.org/sites/default/files/eng/com/sc/70/Inf/E-SC70-Inf-01.pdf}{SC70 Inf. 1}
+for further background).
+}
+
+\section{Overview of data}{
+
+
+This zip file contains all trade records (including all historic data)
+entered in the CITES Trade Database by 29 January 2019 and extracted at the
+shipment level on 30 January 2019. This file is 2019.v2 and replaces
+version 2019.v1 which contained some formatting anomalies and strengthens
+security.
+
+While the data provided through the search function on the \href{https://trade.cites.org/}{Web Portal of the CITES Trade Database} are aggregated, the
+database contains non-aggregated data. The data provided in this download
+is on a per-shipment basis i.e. it provides the relevant information about
+each line item in box 7 to 12 of the \href{https://www.cites.org/sites/default/files/document/E-Res-12-03-R17.pdf}{CITES permit}
+(Annex 1, in line with Notification No. 2017/006) in a separate row. Each
+csv data file contains 500 thousand rows of data, and files are numbered
+chronologically with the earliest trade records in the files with the lower
+numbers.
+
+Given their confidential nature, import, export and re-export CITES permit
+numbers have been replaced with unique identifiers. This ensures that no
+confidential data are made available, whilst still enabling users of the
+data to identify instances where the same permit number may have been used
+for multiple shipments. The method for generating these unique identifiers
+is detailed below.
+
+Subsequent additions to the database will be extracted twice a year and
+added as new csv files, which will be detailed with each new release.
+}
+
+\section{Replacement of the permit number by a unique identifier}{
+
+
+The permit numbers in the download have been replaced with a unique
+identification number (‘identifier’). This identifier is a ten character
+alpha/numeric string which is built from a cryptographically secure
+pseudo-random alpha-numeric string (which is independent of the permit
+number), which is then hashed via secure, non-reversible cryptographic hash
+function (Secure Hash Algorithm 2, SHA-512 which uses 64-bit words to
+construct the hash. SHA-512 is specified in \href{http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf}{document FIPF PUB 180-4, National Institute of Technology (NIST)}). This
+process preserves the relationship between exports and re-exports if the
+Parties have reported corresponding export and re-export permit numbers.
+Permit numbers always retain the same unique identifier in each release.
+The same unique identifier is assigned irrespective of whether the permit
+number is reported as an import, export or re-export permit.
+}
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/download.R
+\name{cites_db_download}
+\alias{cites_db_download}
+\title{Download the CITES database to your local computer}
+\usage{
+cites_db_download(
+  tag = NULL,
+  destdir = tempdir(),
+  cleanup = TRUE,
+  verbose = interactive()
+)
+}
+\arguments{
+\item{tag}{What release tag of data to download. Defaults to the most recent.
+Releases are expected to come twice per year. See all releases at
+\url{https://github.com/ropensci/citesdb/releases}.}
+
+\item{destdir}{Where to download the compressed file.}
+
+\item{cleanup}{Whether to delete the compressed file after loading into the database.}
+
+\item{verbose}{Whether to display messages and download progress}
+}
+\description{
+This command downloads the CITES shipments database and populates a local
+database. The download is large (~158 MB), and the database will be ~5 GB
+on disk. During import 10 GB of disk space may be used temporarily.
+}
+\details{
+The database is stored by default under \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}, or its
+location can be set with the environment variable \code{CITES_DB_DIR}.
+}
+\examples{
+\donttest{
+\dontrun{
+cites_db_download()
+}
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/connect.R
+\name{cites_disconnect}
+\alias{cites_disconnect}
+\title{Disconnect from the CITES database}
+\usage{
+cites_disconnect()
+}
+\description{
+A utility function for disconnecting from the database.
+}
+\examples{
+cites_disconnect()
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/citesdb-package.R
+\docType{package}
+\name{citesdb-package}
+\alias{citesdb}
+\alias{citesdb-package}
+\title{The CITES database package}
+\description{
+\strong{citesdb} provides over 40 years of wildlife trade data from the \href{https://www.cites.org}{Convention on International Trade in Endangered Species of Wild Fauna and Flora}.
+These data on imports and exports of CITES annex species are provided by
+CITES member countries to the CITES secretariat.
+}
+\details{
+This package allows you to download the full database of historic transactions
+(commonly called the \href{https://trade.cites.org/}{CITES Trade Database})
+to analyze locally on your computer. Because of the large size of this data,
+the \strong{citesdb} package stores it as an on-disk \href{https://duckdb.org/}{DuckDB}
+that can be queried without loading into RAM.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/citesdb}
+  \item \url{https://github.com/ropensci/citesdb}
+  \item \url{https://www.cites.org/}
+  \item Report bugs at \url{https://github.com/ropensci/citesdb/issues}
+}
+
+}
+\author{
+Noam Ross and Evan A. Eskew, \href{https://www.ecohealthalliance.org/}{EcoHealth Alliance}
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/onattach.R
+\name{cites_db_delete}
+\alias{cites_db_delete}
+\title{Remove the local CITES database}
+\usage{
+cites_db_delete()
+}
+\description{
+Deletes all tables from the local database
+}
+\examples{
+\donttest{
+\dontrun{
+cites_db_delete()
+}
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/connection-pane.R
+\name{cites_pane}
+\alias{cites_pane}
+\title{Open CITES database connection pane in RStudio}
+\usage{
+cites_pane()
+}
+\description{
+This function launches the RStudio "Connection" pane to interactively
+explore the database.
+}
+\examples{
+if (!is.null(getOption("connectionObserver"))) cites_pane()
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/connect.R
+\name{cites_db}
+\alias{cites_db}
+\title{The local CITES database}
+\usage{
+cites_db(dbdir = cites_path())
+}
+\arguments{
+\item{dbdir}{The location of the database on disk. Defaults to
+\code{citesdb} under \code{\link[rappdirs:user_data_dir]{rappdirs::user_data_dir()}}, or the environment variable \code{CITES_DB_DIR}.}
+}
+\value{
+A DuckDB DBI connection
+}
+\description{
+Returns a connection to the local CITES database. This is a DBI-compliant
+\code{\link[duckdb:duckdb]{duckdb::duckdb()}} database connection. When using \strong{dplyr}-based
+workflows, one typically accesses tables with functions such as
+\code{\link[=cites_shipments]{cites_shipments()}}, but this function lets one interact with the database
+directly via SQL.
+}
+\examples{
+if (cites_status()) {
+  library(DBI)
+
+  dbListTables(cites_db())
+
+  parties <- dbReadTable(cites_db(), "cites_parties")
+
+  dbGetQuery(
+   cites_db(),
+   'SELECT "Taxon", "Importer" FROM cites_shipments WHERE "Year" = 1976 LIMIT 100;'
+   )
+}
+}

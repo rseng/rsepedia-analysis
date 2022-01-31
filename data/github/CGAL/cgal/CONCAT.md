@@ -6376,3 +6376,44 @@ can be used to find out which CGAL data structures can be used given a specific 
 ### [Classification](https://doc.cgal.org/5.3/Manual/packages.html#PkgClassification)
 -   **Breaking change**: the support for TensorFlow has been dropped; the
     classifier `CGAL::TensorFlow::Neural_network_classifier` has been removed.
+.. cmake-module:: ../CGAL_SetupCGAL_CoreDependencies.cmake
+.. cmake-module:: ../CGAL_SetupCGAL_Qt5Dependencies.cmake
+.. cmake-module:: ../CGAL_SetupBoost.cmake
+.. cmake-module:: ../CGAL_SetupCGAL_ImageIODependencies.cmake
+.. cmake-module:: ../CGAL_SetupCGALDependencies.cmake
+.. cmake-module:: ../CGAL_SetupGMP.cmake
+.. cmake-module:: ../CGAL_SetupLEDA.cmake
+.. CGAL CMake Modules documentation master file, created by
+   sphinx-quickstart on Fri Sep 23 22:51:32 2016.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to CGAL CMake Modules's documentation!
+==============================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 1
+
+   CGAL_SetupGMP
+   CGAL_SetupLEDA
+   CGAL_SetupBoost
+   CGAL_SetupCGALDependencies
+   CGAL_SetupCGAL_CoreDependencies
+   CGAL_SetupCGAL_Qt5Dependencies
+   CGAL_SetupCGAL_ImageIODependencies
+
+TODO
+^^^^
+- ``CGAL_SetupDependencies.cmake``
+- ``CGAL_SetupFlags.cmake``
+- ``CGAL_SetupVLD.cmake``
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

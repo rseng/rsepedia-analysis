@@ -437,3 +437,106 @@ You can test the docs locally by running `sphinx-build -a -b html -W docs/ docs/
 
 [good-first-issue]:https://github.com/dpalmasan/TRUNAJOD2.0/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
 [help-wanted]:https://github.com/dpalmasan/TRUNAJOD2.0/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+.. mdinclude:: ../README.md
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   api_reference/root
+.. _ref-api-reference-givenness:
+
+Givenness
+=========
+
+.. automodule:: TRUNAJOD.givenness
+    :members:
+
+.. bibliography:: givenness_ref.bib.. _ref-api-reference-entity_grid:
+
+Entity Grids
+============
+
+.. automodule:: TRUNAJOD.entity_grid
+    :members:
+
+.. bibliography:: entity_grid.bib.. _ref-api-reference-lexico_semantic_norms:
+
+Lexico-Semantic Norms
+=====================
+
+.. automodule:: TRUNAJOD.lexico_semantic_norms
+    :members:
+
+.. bibliography:: lexico_ref.bib
+.. _ref-api-reference-discourse_markers:
+
+Discourse Markers
+=================
+
+.. automodule:: TRUNAJOD.discourse_markers
+    :members:
+
+.. bibliography:: discourse_markers_ref.bib.. _ref-api-reference-utils:
+
+Utils
+=====
+
+.. automodule:: TRUNAJOD.utils
+    :members:.. _api-reference:
+
+*************
+API Reference
+*************
+
+.. toctree::
+   :maxdepth: 2
+
+   discourse_markers
+   emotions
+   entity_grid
+   givenness
+   lexico_semantic_norms
+   semantic_measures
+   surface_proxies
+   syllabizer
+   ttr
+   utils
+   .. _ref-api-reference-emotions:
+
+Emotions
+========
+
+.. automodule:: TRUNAJOD.emotions
+    :members:
+
+.. bibliography:: emotions_ref.bib.. _ref-api-reference-ttr:
+
+Type Token Ratios
+=================
+
+.. automodule:: TRUNAJOD.ttr
+    :members:
+
+.. bibliography:: ttr.bib.. _ref-api-reference-surface_proxies:
+
+Surface Proxies
+================
+
+.. automodule:: TRUNAJOD.surface_proxies
+    :members:.. _ref-api-reference-syllabizer:
+
+Syllabizer
+==========
+
+.. automodule:: TRUNAJOD.syllabizer
+    :members:.. _ref-api-reference-semantic_measurements:
+
+Semantic Measures
+=================
+
+.. automodule:: TRUNAJOD.semantic_measures
+    :members:
+
+
+.. bibliography:: semantic_ref.bib

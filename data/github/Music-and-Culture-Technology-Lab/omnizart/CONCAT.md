@@ -637,3 +637,1390 @@ General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Add New Modules
+===============
+
+This page describes how to add new modules into Omnizart project, adapt the original implementations
+to omnizart's architecture.
+
+Before starting walking through the integration process, be sure you have already read the
+`CONTRIBUTING.md <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/CONTRIBUTING.md>`_,
+and the `slides of omnziart <https://drive.google.com/file/d/1IO1lh07nMvSi0X0nzRDT7kuE1f468Rl1/view?usp=sharing>`_
+could also be helpful for your understanding of this project.
+Additionally, there are few more things to be always kept in mind while developing omnizart.
+
+Principles
+##########
+
+* **Find an existing module and start development** - There are already several implemented modules
+  that are fully functional, and being great examples that give you hints on your way developing
+  new modules. Most of them are very similar of their overall architecture, but vary in detail.
+  Most the time, you could just copy and paste the small pieces to your module, and modify just a
+  small part of them to adapt to your task.
+* **Try not to make your own wheels** - There have been many useful and validated functions that are
+  developed to deal with the daily works. They are already there to cover 90% of every details of a
+  module, thus new logics are in very small chances being needed.
+  Most of the time you need to implement the most would be the part of feature and label extraction,
+  which will be explained in the upcoming sections.
+* **Check with linters frequently** - You should always do ``make lint`` before you push to github,
+  checking that there aren't any errors with the code format, or the build process would fail.
+* **Don't permit linter errors easily** - You may find some comments that permits the linter errors
+  while surfing the code. Those are quick solutions while in the early development of omnizart, which
+  saves lots of time fixing those lint errors. But it should not be the main concern now, as the
+  architecture is more stable and less error prone. You should follow every hints by the linters
+  and fix them before you file a pull request.
+
+
+----
+
+So now we are all set and ready to add a new module to omnizart. Here we will take the
+`PR #11 <https://github.com/Music-and-Culture-Technology-Lab/omnizart/pull/11>`_ as the example.
+
+Setup
+#####
+
+1. **IMPORTANT** - Give your module a short, yet descriptive name. In the example, the name is
+   ``PatchCNN`` (camel-case), ``patch_cnn`` (snake-case), and ``patch-cnn`` (for CLI use).
+
+2. Create a folder named after your module under ``omnizart``. There should be at least two files:
+   ``app.py`` and ``__init__.py``.
+
+Implement Feature Generation
+############################
+
+The process unit should be **a dataset**, means the function accepts the path to the dataset itself, and will handle the rest
+of the things like dataset type inferring, folder structure handling, file parsing, feature extraction, and output storage.
+
+Commits
+*******
+
+* `3ff6c4a <https://github.com/Music-and-Culture-Technology-Lab/omnizart/pull/11/commits/3ff6c4abe5ab98242d33c146353b5282ce5f6b66>`_
+  - Builds the main structure of feature extraction.
+* `f3138eb <https://github.com/Music-and-Culture-Technology-Lab/omnizart/pull/11/commits/f3138eb4a0650c91692f70e09bab1578be11c132>`_
+  - Contains the patch of label extraction function.
+* `0190f18 <https://github.com/Music-and-Culture-Technology-Lab/omnizart/pull/11/commits/0190f1895027cf859647c2099d3c03a24f73246a>`_
+  - Contains the patch of label extraction function.
+
+Critical Files/Functions
+************************
+
+* `omnizart.patch_cnn.app.PatchCNNTranscription.generate_feature <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L106-L193>`_
+  - The main function for managing the process of feature generation.
+
+* `omnizart.feature.cfp.extract_patch_cfp <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/feature/cfp.py#L355-L451>`_
+  - The function for feature extraction, which takes audio path as the input and outputs the required feature representations.
+
+* `omnizart.patch_cnn.app.extract_label <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L278-L327>`_
+  - The function for label extraction, generating the representation of ground-truth. Accepts the path to the ground-truth file, parses the contents
+  into intermediate format (see :class:`omnizart.base.Label`), and extracts necessary informations.
+
+  Normally, it should be defined in a separate file called ``labels.py`` under *omnizart/<module>/* when the extraction process contains lots of logics.
+  Since the label extraction in this example is relatively simple, it is okay to put it under ``omnizart.patch_cnn.app``.
+  See the conventional case :class:`omnizart.drum.labels`.
+
+* `omnizart.patch_cnn._parallel_feature_extraction <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L336-L373>`_
+
+  - To boost the process of feature extraction, files are processed in parallel. You can use the function
+  :class:`omnizart.utils.parallel_generator` to accelerate the process.
+
+* `omnizart.setting_loaders.PatchCNNSettings <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/setting_loaders.py#L330-L357>`_
+  - The data class that holds the necessary hyper parameters that will be used by different functions of this module. For feature extraction, the
+  parameters are registered under ``PatchCNNSettings.feature`` attribute.
+
+* `omnizart/defatuls/patch_cnn.yaml <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/checkpoints/patch_cnn/patch_cnn_melody/configurations.yaml#L13-L53>`_
+  - The configuration file of the module, records the values of hyper parameters and will be consumed by the data class (i.e. PatchCNNSettings).
+
+Overall Process Flow
+********************
+
+1. Determine the dataset type from the given dataset path.
+    * `music module <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/music/app.py#L169-L179>`_
+2. Choose the corresponding dataset structure class.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L135>`_
+    * `music module <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/music/app.py#L182-L186>`_
+3. Parse audio/ground-truth file pairs.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L163-L167>`_
+4. Make sure feature output path exists.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L169-L172>`_
+5. Parallel generate feature and label representation.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L174-L188>`_
+6. Write the settings to the output path, named as *.success.yaml*.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L190-L193>`_
+
+
+Implement Model Training
+########################
+
+All the training should happen in the ``.fit()`` function to fine-tune the model. There is supposed no need to manually
+write the training loop.
+
+Commits
+*******
+
+* `2d6f74d <https://github.com/Music-and-Culture-Technology-Lab/omnizart/pull/11/commits/2d6f74da88e52cef7ef6e96f3b93be97771bdf31>`_
+
+Critical Files/Functions
+************************
+
+* `omnizart.patch_cnn.app.PatchCNNTranscription.train <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L195-L275>`_
+  - The main function for managing the training flow.
+
+* `omnizart.models.patch_cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/models/patch_cnn.py>`_
+  - Definition of the model. You can also customize the ``train_step`` function to do more sophisticated loss computation. See examples
+  in `vocal <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/models/pyramid_net.py#L233-L284>`_
+  and `chord <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/models/chord_model.py#L547-L600>`_
+  modules.
+
+* `omnizart.patch_cnn.app.PatchCNNDatasetLoader <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L376-L380>`_
+  - The dataset loader for feeding data to models. Dealing with listing files, iterating through all feature/label pairs,
+  indexing, and additionally augmenting, clipping, or transforming the feature/label on the fly.
+
+* `omnizart.setting_loaders.PatchCNNSettings <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/setting_loaders.py#L366-L386>`_
+  - The data class that holds the necessary hyper parameters that will be used by different functions of this module. For model training,
+  related hyper parameters are registered under ``PatchCNNSettings.dataset``, ``PatchCNNSettings.model``, and
+  ``PatchCNNSettings.training`` attributes.
+
+* `omnizart/defatuls/patch_cnn.yaml (1) <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/checkpoints/patch_cnn/patch_cnn_melody/configurations.yaml#L54-L75>`_ /
+  `omnizart/defatuls/patch_cnn.yaml (2) <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/checkpoints/patch_cnn/patch_cnn_melody/configurations.yaml#L88-L118>`_
+  - The configuration file of the module, records the values of hyper parameters and will be consumed by the data class (i.e. PatchCNNSettings).
+
+Overall Process Flow
+********************
+
+1. Check whether there is an input model or not. If given input model path, this indicating the user wants to fine-tune on a previously trained model. The coressponding settings should also be updated.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L216-L219>`_
+    * `drum <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/drum/app.py#L167-L172>`_
+2. Decide the portion of training and validation set.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L221-L223>`_
+    * `drum <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/drum/app.py#L174-L176>`_
+3. Construct dataset loader instances for training and validation.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L225-L236>`_
+4. Construct a fresh model if there is no input model.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L238-L240>`_
+5. Compile the model with loss function
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L242-L244>`_
+    * `music <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/master/omnizart/drum/app.py#L167-L172>`_
+6. Resolve the output path of the model
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L246-L255>`_
+7. Construct the callbacks for storing the checkpoints, early stopping the training, and others.
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L257-L262>`_
+8. Start training
+    * `patch-cnn <https://github.com/Music-and-Culture-Technology-Lab/omnizart/blob/273fc60fbc6e3728c07abf71e06cf8f092bfabeb/omnizart/patch_cnn/app.py#L264-L274>`_
+
+
+Implement Transcription
+#######################
+
+Add Unit Tests
+##############
+
+Commit Checkpoints
+##################
+
+Implement CLI
+#############
+
+Add Documentation
+#################
+
+----
+
+Optional
+########
+
+This section holds the optional actions you can do, while it is not necessary to be done
+during implementing a new module.
+
+Add new supported datasets
+**************************
+
+If you want to add a new dataset that is currently not supported by ``omnizart`` (which is defined in
+:class:`omnizart.constants.datasets`), things should be noticed are explained in this section.
+
+(To be continued...)
+Feature
+=======
+
+
+.. Introduction
+
+.. automodule:: omnizart.feature
+    :members:
+
+
+CFP
+###
+
+.. automodule:: omnizart.feature.cfp
+    :members:
+    :undoc-members:
+
+
+HCFP
+####
+
+.. automodule:: omnizart.feature.hcfp
+    :members:
+    :undoc-members:
+
+
+CQT
+###
+
+.. automodule:: omnizart.feature.cqt
+    :members:
+    :undoc-members:
+
+
+Beat Tracking
+#############
+
+.. automodule:: omnizart.feature.beat_for_drum
+    :members:
+    :undoc-members:
+Utilities
+=========
+
+Some common utility functions.
+
+
+Remote
+######
+
+.. automodule:: omnizart.remote
+    :members:
+    :undoc-members:
+
+
+Utility Functions
+#################
+
+.. automodule:: omnizart.utils
+    :members:
+    :undoc-members:
+Models
+======
+
+.. Introduction
+
+.. automodule:: omnizart.models
+    :members:
+
+
+U-Net
+#####
+
+.. automodule:: omnizart.models.u_net
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Tensor2Tensor
+#############
+
+.. automodule:: omnizart.models.t2t
+    :members:
+    :undoc-members:
+
+
+Spectral Normalization Model
+############################
+
+.. automodule:: omnizart.models.spectral_norm_net
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Chord Transformer
+#################
+
+.. automodule:: omnizart.models.chord_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Pyramid Net
+###########
+
+.. automodule:: omnizart.models.pyramid_net
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Utils
+#####
+
+.. automodule:: omnizart.models.utils
+    :members:
+    :undoc-members:
+Base Classes
+============
+
+.. automodule:: omnizart.base
+
+
+Transcription
+-------------
+.. autoclass:: omnizart.base.BaseTranscription
+    :members:
+
+
+Label
+-----
+.. autoclass:: omnizart.base.Label
+    :members:
+
+
+Dataset Loader
+--------------
+.. autoclass:: omnizart.base.BaseDatasetLoader
+    :members:
+
+Training
+========
+
+Including logics of main training loop, progress visualization, and callback
+functions.
+
+
+Training
+########
+
+.. autodata:: omnizart.train.PROGRESS_BAR_FORMAT
+    :annotation: = Format of the training progress bar
+
+.. automodule:: omnizart.train
+    :members:
+    :undoc-members:
+
+
+Callbacks
+#########
+.. automodule:: omnizart.callbacks
+    :members:
+.. Documents are written in reStructured Text (.rst) format.
+   Learn the syntax from: https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
+
+   Heading Level (most significant to least):
+     Underline with '='
+     Underline with '#'
+     Underline with '*'
+
+
+Tutorial
+========
+
+This page describes the workflow and usage of ``omnizart`` command-line interface,
+covering core and utility.
+
+The root entry is ``omnizart`` followed by sub-commands.
+The available sub-commands can be found by typing ``omnizart --help``.
+
+Core
+####
+
+In general, the core sub-commands follow a pipeline of ``application``-``action``-``arguments``:
+
+.. code-block:: bash
+
+   omnizart application action --arguments
+
+where we apply an ``action`` to the ``application`` of interest, with corresponding ``arguments``.
+Detailed descriptions for the usage of each sub-command can be found in the dedicated pages for each ``application``:
+
+* :doc:`music/cli`
+* :doc:`drum/cli`
+* :doc:`chord/cli`
+* :doc:`vocal-contour/cli`
+* :doc:`vocal/cli`
+* :doc:`beat/cli`
+
+All the applications share a same set of actions: **transcribe**, **generate-feature**, and **train-model**.
+Let's have a walkthrough of each ``action``.
+
+Transcribe
+**********
+
+As the name suggests, this action transcribes a given input.
+The supported applications are as follows:
+
+* ``music`` - Transcribe musical notes of pitched instruments in MIDI.
+* ``drum`` - Transcribe events of percussive instruments in MIDI.
+* ``chord`` - Transcribe chord progressions in MIDI and CSV.
+* ``vocal`` - Transcribe note-level vocal melody in MIDI.
+* ``vocal-contour`` - Transcribe frame-level vocal melody (F0) in text.
+* ``beat`` - Transcribe beat position.
+
+Note that all the applications receive polyphonic music in WAV, except ``beat`` receives inputs in MIDI.
+
+Example usage:
+
+.. code-block:: bash
+
+   # Transcribe percussive events given pop.wav, with specified model path and output directory
+   omnizart drum transcribe pop.wav --model-path ./my-model --output ./trans_pop.mid
+
+Note: ``--model-path`` can be left unspecified, and the default will be the downloaded checkpoints.
+Execute ``omnizart download-checkpoints`` if you have not done in the installation from :doc:`quick-start`.
+
+
+Generate Feature
+****************
+
+This action generates the features that are necessary for training and testing.
+You can definitely skip this if you are only into transcribing with the given checkpoints.
+The processed features will be stored in *<path/to/dataset>/train_feature* and *<path/to/dataset>/test_feature*.
+
+The supported datasets for feature processing are application-dependent, summarized as follows:
+
++-------------+-------+------+-------+------+-------+---------------+------+
+| Module      | music | drum | chord | beat | vocal | vocal-contour | beat |
++=============+=======+======+=======+======+=======+===============+======+
+| Maestro     |   O   |      |       |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| Maps        |   O   |      |       |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| MusicNet    |   O   |      |       |      |       |               |  O   |
++-------------+-------+------+-------+------+-------+---------------+------+
+| Pop         |   O   |  O   |       |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| Ext-Su      |   O   |      |       |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| BillBoard   |       |      |   O   |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| BPS-FH      |       |      |       |      |       |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| MIR-1K      |       |      |       |      |   O   |       O       |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| MedleyDB    |       |      |       |      |       |       O       |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+| Tonas       |       |      |       |      |   O   |               |      |
++-------------+-------+------+-------+------+-------+---------------+------+
+
+Before running the commands below, make sure to download the corresponding datasets first.
+This can be easily done in :ref:`Download Datasets`.
+
+.. code-block:: bash
+
+   # Generate features for the music application
+   omnizart music generate-feature --dataset-path <path/to/dataset>
+
+   # Generate features for the drum application
+   omnizart drum generate-feature --dataset-path <path/to/dataset>
+
+
+Train Model
+***********
+
+This action trains a model from scratch given the generated features from :ref:`Generate Feature`.
+Once again, you can skip this if you are only up to transcribing music, and use the provided checkpoints.
+
+.. code-block:: bash
+
+   omnizart music train-model -d <path/to/feature/folder> --model-name My-Music
+   omnizart drum train-model -d <path/to/feature/folder> --model-name My-Drum
+   omnizart chord train-model -d <path/to/feature/folder> --model-name My-Chord
+
+
+Utility
+#######
+
+
+Download Datasets
+*****************
+
+This sub-command belongs to the utility, used to download the datasets for training and testing the models.
+Current supported datasets are:
+
+* `Maestro <https://magenta.tensorflow.org/datasets/maestro>`_ - MIDI and Audio Edited for Synchronous TRacks and Organization dataset.
+* `MusicNet <https://homes.cs.washington.edu/~thickstn/musicnet.html>`_ - MusicNet dataset with a collection of 330 freely-licensed classical music recordings.
+* `McGill <https://ddmal.music.mcgill.ca/research/The_McGill_Billboard_Project_(Chord_Analysis_Dataset)/>`_ - McGill BillBoard dataset.
+* `BPS-FH <https://github.com/Tsung-Ping/functional-harmony>`_ - Beethoven Piano Sonata with Function Harmony dataset.
+* Ext-Su - Extended Su dataset.
+* `MIR-1K <https://sites.google.com/site/unvoicedsoundseparation/mir-1k>`_ - 1000 short clips of Mandarin pop songs.
+* `MedleyDB <http://medleydb.weebly.com/>`_ - 122 multitracks.
+
+Example usage:
+
+.. code-block:: bash
+
+   # Download the MAESTRO dataset and output to the */data* folder.
+   omnizart download-dataset Maestro --output /data
+
+   # Download the MusicNet dataset and unzip the dataset after download.
+   omnizart download-dataset MusicNet --unzip
+
+   # To see a complete list of available datasets, execute the following command
+   omnizart download-dataset --help
+
+
+Download Checkpoints
+********************
+
+This is the other sub-command for the utility, used to download the archived checkpoints of pre-trained models.
+
+.. code-block:: bash
+
+   # Simply run the following command, and no other options are needed to be specified.
+   omnizart download-checkpoints
+.. omnizart documentation master file, created by
+   sphinx-quickstart on Tue Aug 25 10:43:56 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+
+OMNIZART: MUSIC TRANSCRIPTION MADE EASY
+=======================================
+
+.. figure:: ../../figures/features2.png
+   :align: center
+
+
+Omnizart is a Python library and a streamlined solution for automatic music transcription.
+This library gathers the research outcomes from `Music and Cultural Technology Lab <https://sites.google.com/view/mctl/home>`_, 
+analyzing polyphonic music and transcribes 
+**musical notes of instruments** :cite:`music`,
+**chord progression** :cite:`chord`,
+**drum events** :cite:`drum`,
+**frame-level vocal melody** :cite:`vocalcontour`,
+**note-level vocal melody**  :cite:`vocal`, and
+**beat** :cite:`beat`.
+
+Omnizart provides the main functionalities that construct the life-cycle of deep learning-based music transcription,
+covering from *dataset downloading*, *feature pre-processing*, *model training*, to *transcription* and *sonification*.
+Pre-trained checkpoints are also provided for the immediate usage of transcription. The paper can be found from
+`Journal of Open Source Software (JOSS) <https://doi.org/10.21105/joss.03391>`_.
+
+Demonstration
+#############
+
+Colab
+*****
+
+Play with the `Colab notebook <https://bit.ly/OmnizartColab>`_ to transcribe your favorite song almost immediately!
+
+Replicate web demo
+******************
+
+Transcribe music with `Replicate web UI <https://replicate.com/breezewhite/omnizart>`_.
+
+Sound samples
+*************
+
+Original song
+
+.. raw:: html
+
+   <iframe src="https://www.youtube-nocookie.com/embed/hjJhweRlE-A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Chord transcription
+
+.. raw:: html
+
+   <audio controls="controls">
+      <source src="_audio/high_chord_synth.mp3" type="audio/mpeg">
+      Your browser does not support the <code>audio</code> element.
+   </audio>
+
+
+Drum transcription
+
+.. raw:: html
+
+   <audio controls="controls">
+      <source src="_audio/high_drum_synth.mp3" type="audio/mpeg">
+      Your browser does not support the <code>audio</code> element.
+   </audio>
+
+
+Note-level vocal transcription
+
+.. raw:: html
+
+   <audio controls="controls">
+      <source src="_audio/high_vocal_synth.mp3" type="audio/mpeg">
+      Your browser does not support the <code>audio</code> element.
+   </audio>
+
+
+Frame-level vocal transcription
+
+.. raw:: html
+
+   <audio controls="controls">
+      <source src="_audio/high_vocal_contour.mp3" type="audio/mpeg">
+      Your browser does not support the <code>audio</code> element.
+   </audio>
+
+
+Source files can be downloaded `here <https://drive.google.com/file/d/15VqHearznV9L83cyl61ccACsXXJ4vBHo/view?usp=sharing>`_.
+You can use *Audacity* to open the files.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents
+
+   quick-start.rst
+   tutorial.rst
+   demo.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Command Line Interface
+
+   music/cli.rst
+   drum/cli.rst
+   chord/cli.rst
+   vocal/cli.rst
+   vocal-contour/cli.rst
+   beat/cli.rst
+   patch-cnn/cli.rst
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   music/api.rst
+   drum/api.rst
+   chord/api.rst
+   vocal/api.rst
+   vocal-contour/api.rst
+   patch-cnn/api.rst
+   beat/api.rst
+   feature.rst
+   models.rst
+   training.rst
+   base.rst
+   constants.rst
+   utils.rst
+
+.. Indices and tables
+  ==================
+   * :ref:`genindex`
+   * :ref:`modindex`
+   * :ref:`search`
+
+
+References
+##########
+
+.. bibliography::
+   refs.bib
+Constants
+=========
+
+.. Introduction
+
+.. automodule:: omnizart.constants
+    :members:
+    :undoc-members:
+
+
+Feature
+#######
+
+Records the settings of the feature extraction process.
+There are also default settings that can be adjusted, and are records in `defaults/*.yaml` files.
+
+.. automodule:: omnizart.constants.feature
+    :members:
+    :undoc-members:
+
+
+Datasets
+########
+
+Records the directory structure of each dataset, and will be used for extracting the feature
+of the whole dataset (not yet supported...).
+
+.. automodule:: omnizart.constants.datasets
+    :members:
+    :show-inheritance:
+
+
+Midi
+####
+
+Records MIDI related settings, including mapping of program number and the corresponding 
+instrument name.
+
+.. automodule:: omnizart.constants.midi
+    :members:
+    :undoc-members:
+Demonstration
+=============
+
+
+葬予規路火烌猶在 - 柯拉琪 Collage
+-------------------------------
+
+.. raw:: html
+
+    <iframe src="_static/demo-collage.html" style="border: none; height: 500px;"></iframe>
+
+
+Last Stardust Piano Ver. - Animenz
+---------------------------------
+
+.. raw:: html
+
+    <iframe src="_static/demo-stardust.html" style="border: none; height: 500px;"></iframe>
+
+
+Self Spiral - The Surrealist
+----------------------------
+A pure instrumental piece.
+
+.. raw:: html
+
+    <iframe src="_static/demo-surrealist.html" style="border: none; height: 500px;"></iframe>
+
+
+Question Everything - Dreamshade
+--------------------------------
+
+.. raw:: html
+
+    <iframe src="_static/demo-dreamshade.html" style="border: none; height: 700px;"></iframe>
+
+
+Cosmo Funk - Snail's House
+--------------------------
+
+.. raw:: html
+
+    <iframe src="_static/demo-cosmo.html" style="border: none; height: 800px;"></iframe>
+Quick Start
+===========
+
+Colab
+#####
+
+Play with the `Colab notebook <https://bit.ly/omnizart-colab>`_  to transcribe your favorite song without hassles.
+You can also follow the installation below to enjoy Omnizart locally.
+
+Installation
+############
+
+Using pip
+*********
+
+Omnizart is under development and will be updated regularly on PyPI.
+Use ``pip`` to install the latest stable version.
+
+.. code-block:: bash
+
+    # Install the prerequisites manually since there are some dependencies can't be
+    # resolved automatically.
+    pip install numpy Cython
+
+    # Additional system packages are required to fully use Omnizart.
+    sudo apt-get install libsndfile-dev fluidsynth ffmpeg
+
+    # Install Omnizart
+    pip install omnizart
+
+    # Then download the checkpoints
+    omnizart download-checkpoints
+
+
+Development installation
+************************
+
+For the development installation, clone the git repo and the installation
+creates a virtual environment under the directory *omnizart/* by default.
+
+.. code-block:: bash
+
+    # Clone the omnizart repository from GitHub
+    git clone https://github.com/Music-and-Culture-Technology-Lab/omnizart.git
+
+    # Install dependencies, with checkpoints automatically downloaded
+    cd omnizart
+    make install
+
+    # Install Dev dependencies, since they will not be installed by default
+    poetry install
+
+
+CLI
+###
+
+Below is an example usage of pitched instrument transcription with the command-line interface,
+first transcribing a piece of music and then synthesizing the results.
+For more details and other types of transcription, refer to :doc:`tutorial`.
+
+Transcription
+*************
+
+The example transcribes a piece of music, being monophonic or polyphonic,
+to a MIDI file of the transcribed pitched notes and a CSV file with more information.
+
+.. code-block:: bash
+
+    omnizart music transcribe <path/to/example.wav>
+
+
+Sonification
+************
+
+Omnizart renders the transcribed MIDI file with default soundfonts,
+synthesizing an audio in WAV by the command below.
+For the first-time execution, it is expected to take a bit for downloading the free-licensed soundfonts.
+
+.. code-block:: bash
+
+    omnizart synth example.mid
+
+
+Auto Completion
+***************
+
+To enable auto completion, type the following according to your environment type.
+
+.. code-block:: bash
+
+    # For bash
+    _OMNIZART_COMPLETE=source_bash omnizart > omnizart-complete.sh
+
+    # For zsh
+    _OMNIZART_COMPLETE=source_zsh omnizart > omnizart-complete.sh
+
+    # Source the generated script to enable
+    source omnizart-complete.sh
+omnizart vocal-contour
+======================
+
+Lists the available options of each sub-command.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.vocal_contour.transcribe:transcribe
+    :prog: omnizart vocal-contour transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.vocal_contour.generate_feature:generate_feature
+    :prog: omnizart vocal_contour generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.vocal_contour.train_model:train_model
+    :prog: omnizart vocal_contour train-model
+Vocal-Contour Transcription
+===========================
+
+
+.. automodule:: omnizart.vocal_contour
+
+
+App
+###
+.. automodule:: omnizart.vocal_contour.app
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.vocal_contour.inference
+    :members:
+
+
+Loss Functions
+##############
+.. automodule:: omnizart.music.losses
+    :members:
+
+
+Settings
+########
+Below are the default settings for frame-level vocal transcription. 
+It will be loaded by the class :class:`omnizart.setting_loaders.VocalContourSettings`. 
+The name of the attributes will be converted to snake-case (e.g. HopSize -> hop_size). 
+There is also a path transformation when applying the settings into the ``VocalContourSettings`` instance. 
+For example, the attribute ``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize* is transformed 
+to *VocalContourSettings.training.batch_size*. 
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/vocal_contour.yaml
+    :language: yaml
+omnizart beat
+=============
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.beat.transcribe:transcribe
+    :prog: omnizart beat transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.beat.generate_feature:generate_feature
+    :prog: omnizart beat generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.beat.train_model:train_model
+    :prog: omnizart beat train-model
+Beat Transcription
+===================
+
+
+.. automodule:: omnizart.beat
+
+
+App
+###
+.. autoclass:: omnizart.beat.app.BeatTranscription
+    :members:
+    :show-inheritance:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.beat.app.BeatDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.beat.inference
+    :members:
+
+
+Loss Functions
+##############
+.. autofunction:: omnizart.beat.app.weighted_binary_crossentropy
+
+
+Features
+########
+.. automodule:: omnizart.beat.features
+    :members:
+
+
+Prediction
+##########
+.. automodule:: omnizart.beat.prediction
+    :members:
+
+
+Settings
+########
+Below are the default settings for building the beat model. It will be loaded
+by the class :class:`omnizart.setting_loaders.BeatSettings`. The name of the
+attributes will be converted to snake-case (e.g., HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``BeatSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the corresponding attribute will be *BeatSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/beat.yaml
+    :language: yaml
+omnizart chord
+==============
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.chord.transcribe:transcribe
+    :prog: omnizart chord transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.chord.generate_feature:generate_feature
+    :prog: omnizart chord generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.chord.train_model:train_model
+    :prog: omnizart chord train-model
+Chord Transcription
+===================
+
+
+.. automodule:: omnizart.chord
+
+
+App
+###
+.. autoclass:: omnizart.chord.app.ChordTranscription
+    :members:
+    :show-inheritance:
+
+
+Feature
+#######
+.. automodule:: omnizart.chord.features
+    :members:
+    :undoc-members:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.chord.app.McGillDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.chord.inference
+    :members:
+    :undoc-members:
+
+
+Settings
+########
+Below are the default settings for building the chord model. It will be loaded
+by the class :class:`omnizart.setting_loaders.ChordSettings`. The name of the
+attributes will be converted to snake-case (e.g., HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``ChordSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the corresponding attribute will be *ChordSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/chord.yaml
+    :language: yaml
+omnizart drum
+=============
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.drum.transcribe:transcribe
+    :prog: omnizart drum transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.drum.generate_feature:generate_feature
+    :prog: omnizart drum generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.drum.train_model:train_model
+    :prog: omnizart drum train-model
+Drum Transcription
+==================
+
+
+.. automodule:: omnizart.drum
+
+
+App
+###
+.. autoclass:: omnizart.drum.app.DrumTranscription
+    :members:
+    :show-inheritance:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.drum.app.PopDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.drum.inference
+    :members:
+    :undoc-members:
+
+
+Labels
+######
+.. automodule:: omnizart.drum.labels
+    :members:
+    :undoc-members:
+
+
+Prediction
+##########
+.. automodule:: omnizart.drum.prediction
+    :members:
+    :undoc-members:
+
+
+Settings
+########
+Below are the default settings for building the drum model. It will be loaded
+by the class :class:`omnizart.setting_loaders.DrumSettings`. The name of the
+attributes will be converted to snake-case (e.g., HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``DrumSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the corresponding attribute will be *DrumSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/drum.yaml
+    :language: yaml
+omnizart music
+==============
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.music.transcribe:transcribe
+    :prog: omnizart music transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.music.generate_feature:generate_feature
+    :prog: omnizart music generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.music.train_model:train_model
+    :prog: omnizart music train-model
+Music Transcription
+===================
+
+
+.. automodule:: omnizart.music
+
+
+App
+###
+.. autoclass:: omnizart.music.app.MusicTranscription
+    :members:
+    :show-inheritance:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.music.app.MusicDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.music.inference
+    :members:
+
+
+Loss Functions
+##############
+.. automodule:: omnizart.music.losses
+    :members:
+
+
+Labels
+######
+.. automodule:: omnizart.music.labels
+    :members:
+    :undoc-members:
+
+
+Prediction
+##########
+.. automodule:: omnizart.music.prediction
+    :members:
+
+
+Settings
+########
+Below are the default settings for building the music model. It will be loaded
+by the class :class:`omnizart.setting_loaders.MusicSettings`. The name of the
+attributes will be converted to snake-case (e.g., HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``MusicSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the corresponding attribute will be *MusicSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/music.yaml
+    :language: yaml
+omnizart patch-cnn
+==================
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+.. click:: omnizart.cli.patch_cnn.transcribe:transcribe
+    :prog: omnizart patch-cnn transcribe
+
+
+
+generate-feature
+################
+.. click:: omnizart.cli.patch_cnn.generate_feature:generate_feature
+    :prog: omnizart patch-cnn generate-feature
+
+
+train-model
+###########
+.. click:: omnizart.cli.patch_cnn.train_model:train_model
+    :prog: omnizart patch-cnn train-model
+Patch-CNN Transcription
+=======================
+
+
+.. automodule:: omnizart.patch_cnn
+
+
+App
+###
+.. autoclass:: omnizart.patch_cnn.app.PatchCNNTranscription
+    :members:
+    :show-inheritance:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.patch_cnn.app.PatchCNNDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.patch_cnn.inference
+    :members:
+
+
+Labels
+######
+.. autofunction:: omnizart.patch_cnn.app.extract_label
+
+
+
+Settings
+########
+Below are the default settings for building the PatchCNN model. It will be loaded
+by the class :class:`omnizart.setting_loaders.PatchCNNSettings`. The name of the
+attributes will be converted to snake-case (e.g. HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``PatchCNNSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the coressponding attribute will be *MusicSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/patch_cnn.yaml
+    :language: yaml
+omnizart vocal
+==============
+
+Lists the detailed available options of each sub-commands.
+
+
+transcribe
+##########
+
+.. click:: omnizart.cli.vocal.transcribe:transcribe
+    :prog: omnizart vocal transcribe
+
+
+generate-feature
+################
+
+.. click:: omnizart.cli.vocal.generate_feature:generate_feature
+    :prog: omnizart vocal generate-feature
+
+
+train-model
+###########
+
+.. click:: omnizart.cli.vocal.train_model:train_model
+    :prog: omnizart vocal train-model
+Vocal Transcription
+===================
+
+
+.. automodule:: omnizart.vocal
+
+
+App
+###
+.. autoclass:: omnizart.vocal.app.VocalTranscription
+    :members:
+    :show-inheritance:
+
+
+Dataset
+#######
+.. autoclass:: omnizart.vocal.app.VocalDatasetLoader
+    :members:
+    :show-inheritance:
+
+
+Inference
+#########
+.. automodule:: omnizart.vocal.inference
+    :members:
+
+
+Labels
+######
+.. automodule:: omnizart.vocal.labels
+    :members:
+    :undoc-members:
+
+
+Prediction
+##########
+.. automodule:: omnizart.vocal.prediction
+    :members:
+    :undoc-members:
+
+
+Settings
+########
+Below are the default settings for building the vocal model. It will be loaded
+by the class :class:`omnizart.setting_loaders.VocalSettings`. The name of the
+attributes will be converted to snake-case (e.g. HopSize -> hop_size). There
+is also a path transformation process when applying the settings into the
+``VocalSettings`` instance. For example, if you want to access the attribute
+``BatchSize`` defined in the yaml path *General/Training/Settings/BatchSize*,
+the coressponding attribute will be *VocalSettings.training.batch_size*.
+The level of */Settings* is removed among all fields.
+
+.. literalinclude:: ../../../omnizart/defaults/vocal.yaml
+    :language: yaml

@@ -588,3 +588,1060 @@ Development of this software was funded by the Gordon and Betty Moore Foundation
 
 ## References
 
+---
+title: "Provenance & Reproducibility Using the rdataretriever"
+output: rmarkdown::html_vignette
+bibliography: refs.bibtex
+vignette: >
+  %\VignetteIndexEntry{Provenance & Reproducibility Using the rdataretriever}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+Datasets that are regularly updated are increasingly common [@yenni2019].
+This presents two challenges for reprodubility.
+First, if the underlying structure of the dataset changes then previously written code for processing the data will often cease to run properly.
+Second, if the version of the data used in a particularly analysis isn't archived then if the data changes it will be difficult to reproduce the original analysis. 
+
+The `retriever` and `rdataretriever` address both of these limitations.
+The centrally maintained scripts for processing datasets are updated when datasets change structure and so as long as `rdataretriever::get_updates()` is run before installing the dataset all data code for downloading, cleaning, and installing the data will continue to work.
+While the regularly updated data processing recipes ensure that code analyzing the datasets will always continue to run, it is important for reproducibility that we be able to rerun the exact data processing steps on the exact data that was used for the original analysis.
+The `rdataretriever` has built in provenance functionality to support this.
+
+To store the data and processing script in their current state we use the `commit()` function to store both components of the data processing in a zip file for future reuse.
+This is logically similar to a git commit in that we store the state of the data and the process at a moment in time using a hash.
+
+For example, the `portal-dev` dataset is updated weekly.
+If we want to be able rerun our original analysis after the reviews for a paper come back we'll need to store that version of the data.
+
+```{r, eval=FALSE}
+rdataretriever::commit('portal-dev', commit_message='Archive Portal data processing for initial submission on 2020-02-26', path = '.')
+```
+
+When we want to reanalyze this exact state of the dataset we can load it back into SQLite (or any of the other backends). Use the hash number related to the commit.
+
+```{r eval = FALSE}
+rdataretriever::install_sqlite("portal-dev-326d87.zip")
+```
+
+## References
+---
+title: "Using the rdataretriever to quickly analyze Breeding Bird Survey data"
+output: rmarkdown::html_vignette
+bibliography: refs.bibtex
+vignette: >
+  %\VignetteIndexEntry{Using the rdataretriever to quickly analyze Breeding Bird Survey data}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+## Introduction
+
+The Breeding Bird Survey of North America (BBS) is a widely used dataset for understanding geospatial variation and dynamic changes in bird communities.
+The dataset is a continental scale community science project where thousands of birders count birds at locations across North America.
+It has been used in hundreds of research projects including research on biodiversity gradients [@hurlbert2003], ecological forecasting [@harris2018], and bird declines [@rosenberg2019].
+
+However working with the Breeding Bird Survey data can be challenging because it is composed of roughly 100 different files that need to be cleaned and then combined in multiple ways.
+These initial phases of the data analysis pipeline can require hours of work for even experienced users to understand the detailed layout of the data and either manually assemble it or write code to combine the data.
+The data structure and location also changes regularly meaning that code for this work that is not regularly tested quickly stops working.
+
+This vignette demonstrates how using the `rdataretriever` can eliminate hours of work on data cleaning and restructing allowing researchers to quickly begin addressing interesting scientific questions.
+To do this is demonstrates analyzing the BBS data to evaluate correlates of biodiversity (in the form of species richness).
+
+## Load R Packages
+
+We start by loading the necessary packages.
+In addition to the `rdataretriever` in this demo we'll also use `DBI`, `RSQLite` and `dplyr` to work with the data, `raster` for working with environmental data, and `ggplot2` for visualization.
+
+```{r, eval=FALSE}
+library(rdataretriever)
+library(DBI)
+library(dplyr)
+library(dbplyr)
+library(raster)
+library(ggplot2)
+```
+
+## Install And Connect To The Breeding Bird Survey Data
+
+First we'll update the `rdataretriever` to make sure we have the newest data processing recipes in case something about the structure or location of the dataset has changed.
+Centrally updated data recipes reproducible research with this dataset because something changes every year when the newest data is released meaning that any custom code for processing the data stops working.
+When this happens the `retriever` recipe is updated and after running `get_updates()` data analysis code continues to run as it always has.
+
+```{r, echo = FALSE, results = "hide", eval=FALSE}
+rdataretriever::get_updates()
+```
+
+Next install the BBS data into an SQLite database named `bbs.sqlite`.
+
+```{r, echo = FALSE, results = "hide", eval=FALSE}
+rdataretriever::install_sqlite('breed-bird-survey', 'bbs.sqlite')
+```
+
+We could also load the data straight into R (using `rdataretriever::fetch('breed-bird-survey')`), store it as flat files (CSV, JSON, or XML), or load it into other database management systems (PostgreSQL, MariaDB, MySQL).
+The data is moderately large (~1GB) so SQLite represents a nice compromise between efficiently conducting the first steps in the data manipulation pipeline while requiring no additional setup or expertise.
+The large number of storage backends makes the `rdataretriever` easy to integrate into existing data processing workflows and to implement designs appropriate to the scale of the data with no additional work. 
+
+Having installed the data into SQLite we can then connect to the database to start analyzing the data.
+
+```{r, eval=FALSE}
+bbs_db <- dbConnect(RSQLite::SQLite(), 'bbs.sqlite')
+```
+
+The two key tables for this analysis are the `surveys` and `sites` tables, so let's create connections to those tables.
+
+```{r, eval=FALSE}
+surveys <- tbl(bbs_db, "breed_bird_survey_counts")
+sites <- tbl(bbs_db, "breed_bird_survey_routes")
+```
+
+The `surveys` table holds the data on how many individuals of each species are sampled at each site.
+The `sites` table holds information on where each site is which we'll use to link the data to environmental variables.
+
+## Analyze The Data
+
+To calculate the measure of biodiversity, which is species richness or the number of species, we'll use `dplyr` to determine the number of species observed at each site in a recent year.
+
+```{r, eval=FALSE}
+rich_data <- surveys %>%
+  filter(year == 2016) %>%
+  group_by(statenum, route) %>%
+  summarize(richness = n()) %>%
+  collect()
+rich_data
+```
+
+The data is now smaller than the original ~1 GB, so we used `collect` to load the summarized data directly into R.
+
+Next we need to get environmental data for each site, which we'll get from the `worldclim` dataset.
+
+```{r, eval=FALSE}
+bioclim <- getData('worldclim', var = 'bio', res = 10)
+```
+
+To extract the environmental data we first make our sites data spatial and add them to our map.
+
+```{r, eval=FALSE}
+sites <- as.data.frame(sites)
+sites_spatial <- SpatialPointsDataFrame(sites[c('longitude', 'latitude')], sites)
+```
+
+We can then extract the environmental data for each site from the bioclim raster and add it to the data on biodiversity.
+
+```{r, eval=FALSE}
+bioclim_bbs <- extract(bioclim, sites_spatial) %>%
+  cbind(sites)
+richness_w_env <- inner_join(rich_data, bioclim_bbs)
+richness_w_env
+```
+
+Now let's see how richness relates to the precipitation.
+Annual precipition is stored in `bio12`.
+
+```{r, eval=FALSE}
+ggplot(richness_w_env, aes(x = bio12, y = richness)) +
+  geom_point(alpha = 0.5) +
+  labs(x = "Annual Precipitation", y = "Number of Species")
+```
+
+It looks like there's a pattern here, so let's fit a smoother through it.
+
+```{r, eval=FALSE}
+ggplot(richness_w_env, aes(x = bio12, y = richness)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth()
+```
+
+This shows that there is low bird biodiversity in really dry areas, biodiversity peaks at intermediate precipitations, and then drops off at the highest precipitation values.
+
+If we wanted to use this kind of information to inform conservation decisions at the state level, could look at the patterns within each state after filtering to ensure enough data points.
+
+```{r, fig.height = 8, fig.width = 8, warning = FALSE, eval=FALSE}
+richness_w_env_high_n <- richness_w_env %>%
+  group_by(statenum) %>%
+  filter(n() >= 50)
+
+ggplot(richness_w_env_high_n, aes(x = bio12, y = richness)) +
+  geom_point() +
+  geom_smooth() +
+  facet_wrap(~statenum, scales = 'free') +
+  labs(x = "Annual Precipitation", y = "Number of Species")
+```
+
+Looking back at this demo there is only one line of code directly involving the `rdataretriever` (other than installation).
+This demonstrates the strength that the `rdataretriever` brings to the the early phases of the data acquistion and processing pipeline by distilling those steps to a single line that provides the data in a ready-to-analyze form so that researchers can focus on the analysis of the data itself.
+
+## Conclusion
+
+Thanks to the `rdataretriever` we can generate meaningful information about large scale bird biodiversity patterns in about 15 minutes.
+If we'd been working with the raw BBS data we would likely have spent hours manipulating and cleaning data before we could start this analysis.
+
+## References
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{fetch}
+\alias{fetch}
+\title{Fetch a dataset via the Data Retriever}
+\usage{
+fetch(dataset, quiet = TRUE, data_names = NULL)
+}
+\arguments{
+\item{dataset}{the names of the dataset that you wish to download}
+
+\item{quiet}{logical, if true retriever runs in quiet mode}
+
+\item{data_names}{the names you wish to assign to cells of the list which
+stores the fetched dataframes. This is only relevant if you are
+downloading more than one dataset.}
+}
+\description{
+Each datafile in a given dataset is downloaded to a temporary directory and
+then imported as a data.frame as a member of a named list.
+}
+\examples{
+\dontrun{
+## fetch the portal Database
+portal <- rdataretriever::fetch("portal")
+class(portal)
+names(portal)
+## preview the data in the portal species datafile
+head(portal$species)
+vegdata <- rdataretriever::fetch(c("plant-comp-ok", "plant-occur-oosting"))
+names(vegdata)
+names(vegdata$plant_comp_ok)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_script_citation}
+\alias{get_script_citation}
+\title{Get citation}
+\usage{
+get_script_citation(dataset = NULL)
+}
+\arguments{
+\item{dataset}{dataset to obtain citation}
+}
+\description{
+Get citation
+}
+\examples{
+\dontrun{
+rdataretriever::get_script_citation(dataset = "")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{use_RetrieverPath}
+\alias{use_RetrieverPath}
+\title{Setting path of retriever}
+\usage{
+use_RetrieverPath(path)
+}
+\arguments{
+\item{path}{location of retriever in the system}
+}
+\description{
+Setting path of retriever
+}
+\examples{
+\dontrun{
+rdataretriever::use_RetrieverPath("/home/<system_name>/anaconda2/envs/py27/bin/")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{reload_scripts}
+\alias{reload_scripts}
+\title{Update the retriever's global_script_list with the scripts present
+in the ~/.retriever directory.}
+\usage{
+reload_scripts()
+}
+\description{
+Update the retriever's global_script_list with the scripts present
+in the ~/.retriever directory.
+}
+\examples{
+\dontrun{
+rdataretriever::reload_scripts()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_msaccess}
+\alias{install_msaccess}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_msaccess(
+  dataset,
+  file = "access.mdb",
+  table_name = "[{db} {table}]",
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{file}{file name for database}
+
+\item{table_name}{table name for installing of dataset}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{Setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in MSAccess database
+}
+\examples{
+\dontrun{
+rdataretriever::install_msaccess(dataset = "iris", file = "sqlite.db")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{reset}
+\alias{reset}
+\title{Reset the scripts or data(raw_data) directory or both}
+\usage{
+reset(scope = "all")
+}
+\arguments{
+\item{scope}{All resets both scripst and data directory}
+}
+\description{
+Reset the scripts or data(raw_data) directory or both
+}
+\examples{
+\dontrun{
+rdataretriever::reset("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install}
+\alias{install}
+\title{Install datasets via the Data Retriever (deprecated).}
+\usage{
+install(
+  dataset,
+  connection,
+  db_file = NULL,
+  conn_file = NULL,
+  data_dir = ".",
+  log_dir = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to download}
+
+\item{connection}{what type of database connection should be used.
+The options include: mysql, postgres, sqlite, msaccess, or csv'}
+
+\item{db_file}{the name of the datbase file the dataset should be loaded
+into}
+
+\item{conn_file}{the path to the .conn file that contains the connection
+configuration options for mysql and postgres databases. This defaults to
+mysql.conn or postgres.conn respectively. The connection file is a file that
+is formated in the following way:
+\tabular{ll}{
+  host     \tab my_server@my_host.com\cr
+  port     \tab my_port_number       \cr
+  user     \tab my_user_name         \cr
+  password \tab my_password
+}}
+
+\item{data_dir}{the location where the dataset should be installed.
+Only relevant for csv connection types. Defaults to current working directory}
+
+\item{log_dir}{the location where the retriever log should be stored if
+the progress is not printed to the console}
+}
+\description{
+Data is stored in either CSV files or one of the following database management
+systems: MySQL, PostgreSQL, SQLite, or Microsoft Access.
+}
+\examples{
+\dontrun{
+rdataretriever::install("iris", "csv")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{socrata_dataset_info}
+\alias{socrata_dataset_info}
+\title{Get socrata dataset info}
+\usage{
+socrata_dataset_info(dataset_name)
+}
+\arguments{
+\item{dataset_name}{dataset name to obtain info}
+}
+\description{
+Get socrata dataset info
+}
+\examples{
+\dontrun{
+rdataretriever::socrata_dataset_info()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{dataset_names}
+\alias{dataset_names}
+\title{Name all available dataset scripts.}
+\usage{
+dataset_names()
+}
+\value{
+returns a character vector with the available datasets for download
+}
+\description{
+Additional information on the available datasets can be found at url https://retriever.readthedocs.io/en/latest/datasets.html
+}
+\examples{
+\dontrun{
+rdataretriever::dataset_names()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_xml}
+\alias{install_xml}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_xml(
+  dataset,
+  table_name = "{db}_{table}.xml",
+  data_dir = getwd(),
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{table_name}{the name of the database file to store data}
+
+\item{data_dir}{the dir path to store data, defaults to working dir}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{Setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in XML files
+}
+\examples{
+\dontrun{
+rdataretriever::install_xml("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{update_rdataset_catalog}
+\alias{update_rdataset_catalog}
+\title{Updates the datasets_url.json from the github repo}
+\usage{
+update_rdataset_catalog(test = FALSE)
+}
+\arguments{
+\item{test}{flag set when testing}
+}
+\description{
+Updates the datasets_url.json from the github repo
+}
+\examples{
+\dontrun{
+rdataretriever::update_rdataset_catalog()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_retriever_citation}
+\alias{get_retriever_citation}
+\title{Get retriever citation}
+\usage{
+get_retriever_citation()
+}
+\description{
+Get retriever citation
+}
+\examples{
+\dontrun{
+rdataretriever::get_retriever_citation()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_dataset_names_upstream}
+\alias{get_dataset_names_upstream}
+\title{Get dataset names from upstream}
+\usage{
+get_dataset_names_upstream(keywords = "", licenses = "", repo = "")
+}
+\arguments{
+\item{keywords}{filter datasets based on keywords}
+
+\item{licenses}{filter datasets based on license}
+
+\item{repo}{path to the repository}
+}
+\description{
+Get dataset names from upstream
+}
+\examples{
+\dontrun{
+rdataretriever::get_dataset_names_upstream(keywords = "", licenses = "", repo = "")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_rdataset_names}
+\alias{get_rdataset_names}
+\title{Returns a list of all the available RDataset names present}
+\usage{
+get_rdataset_names()
+}
+\description{
+Returns a list of all the available RDataset names present
+}
+\examples{
+\dontrun{
+rdataretriever::get_rdataset_names()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{download}
+\alias{download}
+\title{Download datasets via the Data Retriever.}
+\usage{
+download(
+  dataset,
+  path = "./",
+  quiet = FALSE,
+  sub_dir = "",
+  debug = FALSE,
+  use_cache = TRUE
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to download}
+
+\item{path}{the path where the data should be downloaded to}
+
+\item{quiet}{logical, if true retriever runs in quiet mode}
+
+\item{sub_dir}{downloaded dataset is stored into a custom subdirectory.}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{Setting FALSE reinstalls scripts even if they are already installed}
+}
+\description{
+Directly downloads data files with no processing, allowing downloading of
+non-tabular data.
+}
+\examples{
+\dontrun{
+rdataretriever::download("plant-comp-ok")
+# downloaded files will be copied to your working directory
+# when no path is specified
+dir()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_retriever}
+\alias{install_retriever}
+\title{install the python module `retriever`}
+\usage{
+install_retriever(method = "auto", conda = "auto")
+}
+\arguments{
+\item{method}{Installation method. By default, "auto" automatically finds a
+method that will work in the local environment. Change the default to force
+a specific installation method. Note that the "virtualenv" method is not
+available on Windows.}
+
+\item{conda}{The path to a \code{conda} executable. Use \code{"auto"} to allow
+\code{reticulate} to automatically find an appropriate \code{conda} binary. See
+\strong{Finding Conda} for more details.}
+}
+\description{
+install the python module `retriever`
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{display_all_rdataset_names}
+\alias{display_all_rdataset_names}
+\title{Displays the list of rdataset names present in the list of packages provided}
+\usage{
+display_all_rdataset_names(package_name = NULL)
+}
+\arguments{
+\item{package_name}{print datasets in the package, default to print rdataset and all to print all}
+}
+\description{
+Can take a list of packages, or NULL or a string 'all' for all rdataset packages and datasets
+}
+\examples{
+\dontrun{
+rdataretriever::display_all_rdataset_names()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{socrata_autocomplete_search}
+\alias{socrata_autocomplete_search}
+\title{Returns the list of dataset names after autocompletion}
+\usage{
+socrata_autocomplete_search(dataset)
+}
+\arguments{
+\item{dataset}{the name of the dataset}
+}
+\description{
+Returns the list of dataset names after autocompletion
+}
+\examples{
+\dontrun{
+rdataretriever::socrata_autocomplete_search()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_csv}
+\alias{install_csv}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_csv(
+  dataset,
+  table_name = "{db}_{table}.csv",
+  data_dir = getwd(),
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{table_name}{the name of the database file to store data}
+
+\item{data_dir}{the dir path to store data, defaults to working dir}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{Setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in CSV files
+}
+\examples{
+\dontrun{
+rdataretriever::install_csv("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{commit_log}
+\alias{commit_log}
+\title{See the log of committed dataset stored in provenance directory}
+\usage{
+commit_log(dataset)
+}
+\arguments{
+\item{dataset}{name of the dataset stored in provenance directory}
+}
+\description{
+See the log of committed dataset stored in provenance directory
+}
+\examples{
+\dontrun{
+rdataretriever::commit_log("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{find_socrata_dataset_by_id}
+\alias{find_socrata_dataset_by_id}
+\title{Returns metadata for the following dataset id}
+\usage{
+find_socrata_dataset_by_id(dataset_id)
+}
+\arguments{
+\item{dataset_id}{id of the dataset}
+}
+\description{
+Returns metadata for the following dataset id
+}
+\examples{
+\dontrun{
+rdataretriever::socrata_dataset_info()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_postgres}
+\alias{install_postgres}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_postgres(
+  dataset,
+  user = "postgres",
+  password = "",
+  host = "localhost",
+  port = 5432,
+  database = "postgres",
+  database_name = "{db}",
+  table_name = "{db}.{table}",
+  bbox = list(),
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{user}{username for database connection}
+
+\item{password}{password for database connection}
+
+\item{host}{hostname for connection}
+
+\item{port}{port number for connection}
+
+\item{database}{the database name default is postres}
+
+\item{database_name}{database schema name in which dataset will be installed}
+
+\item{table_name}{table name specified especially for datasets
+containing one file}
+
+\item{bbox}{optional extent values used to fetch data from the spatial dataset}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in PostgreSQL database
+}
+\examples{
+\dontrun{
+rdataretriever::install_postgres(dataset = "portal", user = "postgres", password = "abcdef")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{datasets}
+\alias{datasets}
+\title{Name all available dataset scripts.}
+\usage{
+datasets(keywords = "", licenses = "")
+}
+\arguments{
+\item{keywords}{search all datasets by keywords}
+
+\item{licenses}{search all datasets by licenses}
+}
+\value{
+returns a character vector with the available datasets for download
+}
+\description{
+Additional information on the available datasets can be found at url https://retriever.readthedocs.io/en/latest/datasets.html
+}
+\examples{
+\dontrun{
+rdataretriever::datasets()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{data_retriever_version}
+\alias{data_retriever_version}
+\title{Get Data Retriever version}
+\usage{
+data_retriever_version(clean = TRUE)
+}
+\arguments{
+\item{clean}{boolean return cleaned version appropriate for semver}
+}
+\value{
+returns a string with the version information
+}
+\description{
+Get Data Retriever version
+}
+\examples{
+\dontrun{
+rdataretriever::data_retriever_version()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{commit}
+\alias{commit}
+\title{Commit a dataset}
+\usage{
+commit(dataset, commit_message = "", path = NULL, quiet = FALSE)
+}
+\arguments{
+\item{dataset}{name of the dataset}
+
+\item{commit_message}{commit message for the commit}
+
+\item{path}{path to save the committed dataset, if no path given save in provenance directory}
+
+\item{quiet}{logical, if true retriever runs in quiet mode}
+}
+\description{
+Commit a dataset
+}
+\examples{
+\dontrun{
+rdataretriever::commit("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_updates}
+\alias{get_updates}
+\title{Update the retriever's dataset scripts to the most recent versions.}
+\usage{
+get_updates()
+}
+\description{
+This function will check if the version of the retriever's scripts in your local
+directory \file{~/.retriever/scripts/} is up-to-date with the most recent official
+retriever release. Note it is possible that even more updated scripts exist
+at the retriever repository \url{https://github.com/weecology/retriever/tree/main/scripts}
+that have not yet been incorperated into an official release, and you should
+consider checking that page if you have any concerns.
+}
+\examples{
+\dontrun{
+rdataretriever::get_updates()
+}
+}
+\keyword{utilities}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_mysql}
+\alias{install_mysql}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_mysql(
+  dataset,
+  user = "root",
+  password = "",
+  host = "localhost",
+  port = 3306,
+  database_name = "{db}",
+  table_name = "{db}.{table}",
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{user}{username for database connection}
+
+\item{password}{password for database connection}
+
+\item{host}{hostname for connection}
+
+\item{port}{port number for connection}
+
+\item{database_name}{database name in which dataset will be installed}
+
+\item{table_name}{table name specified especially for datasets
+containing one file}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in MySQL database
+}
+\examples{
+\dontrun{
+rdataretriever::install_mysql(dataset = "portal", user = "postgres", password = "abcdef")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{check_for_updates}
+\alias{check_for_updates}
+\title{Check for updates}
+\usage{
+check_for_updates(repo = "")
+}
+\arguments{
+\item{repo}{path to the repository}
+}
+\description{
+Check for updates
+}
+\examples{
+\dontrun{
+rdataretriever::check_for_updates()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_json}
+\alias{install_json}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_json(
+  dataset,
+  table_name = "{db}_{table}.json",
+  data_dir = getwd(),
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{table_name}{the name of the database file to store data}
+
+\item{data_dir}{the dir path to store data, defaults to working dir}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in JSON files
+}
+\examples{
+\dontrun{
+rdataretriever::install_json("iris")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{install_sqlite}
+\alias{install_sqlite}
+\title{Install datasets via the Data Retriever.}
+\usage{
+install_sqlite(
+  dataset,
+  file = "sqlite.db",
+  table_name = "{db}_{table}",
+  data_dir = getwd(),
+  debug = FALSE,
+  use_cache = TRUE,
+  force = FALSE,
+  hash_value = NULL
+)
+}
+\arguments{
+\item{dataset}{the name of the dataset that you wish to install or path to a committed dataset zip file}
+
+\item{file}{Sqlite database file name or path}
+
+\item{table_name}{table name for installing of dataset}
+
+\item{data_dir}{the dir path to store the db, defaults to working dir}
+
+\item{debug}{setting TRUE helps in debugging in case of errors}
+
+\item{use_cache}{setting FALSE reinstalls scripts even if they are already installed}
+
+\item{force}{setting TRUE doesn't prompt for confirmation while installing committed datasets when changes are discovered in environment}
+
+\item{hash_value}{the hash value of committed dataset when installing from provenance directory}
+}
+\description{
+Data is stored in SQLite database
+}
+\examples{
+\dontrun{
+rdataretriever::install_sqlite(dataset = "iris", file = "sqlite.db")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{check_retriever_availability}
+\alias{check_retriever_availability}
+\title{Check to see if minimum version of retriever Python package is installed}
+\usage{
+check_retriever_availability()
+}
+\value{
+boolean
+}
+\description{
+Check to see if minimum version of retriever Python package is installed
+}
+\examples{
+\dontrun{
+rdataretriever::check_retriever_availability()
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rdataretriever.R
+\name{get_script_upstream}
+\alias{get_script_upstream}
+\title{Get script upstream}
+\usage{
+get_script_upstream(dataset, repo = "")
+}
+\arguments{
+\item{dataset}{name of the dataset}
+
+\item{repo}{path to the repository}
+}
+\description{
+Get script upstream
+}
+\examples{
+\dontrun{
+rdataretriever::get_script_upstream("iris")
+}
+}

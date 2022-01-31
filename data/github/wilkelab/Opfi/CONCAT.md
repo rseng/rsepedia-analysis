@@ -429,3 +429,676 @@ The `FilterSet` class is used to resolve features with sequences that overlap by
 The authors would like to thank the staff of the Texas Advanced Computing Center for providing computational resources, and members of the Finkelstein and Wilke labs for helpful discussions. This work was supported by an NIGMS grant R01GM124141 (to I.J.F.), the Welch Foundation grant F-1808 (to I.J.F.), NIGMS grant R01 GM088344 (to C.O.W.), and the College of Natural Sciences Catalyst Award for seed funding.
 
 # References
+Contributing
+============
+
+Thank you for your interest in contributing to Opfi. Contribututions can take many forms, including:
+
+- Reporting a bug
+- Discussing the current state of the code
+- Submitting a fix
+- Proposing new features
+
+Issues
+------
+
+Issues should be used to report problems or bugs with the library, to request new features, or to discuss potential changes before PRs are created.
+
+Good bug reports have:
+
+- A summary of the issue
+- Specific steps to reproduce the problem, preferably in the form of code examples
+- A description of expected behavior
+- A description of actual behavior
+
+Pull Requests
+-------------
+
+In general, we use `Github Flow <https://guides.github.com/introduction/flow/index.html>`_. This means that all changes happen through Pull Requests:
+
+1. Fork the repository to your own Github account
+2. Clone the project to your machine
+3. Create a branch locally with a succinct but descriptive name
+4. Commit changes to the branch
+5. Push changes to your fork
+6. Open a PR in our repository and include a description of the changes and a reference to the issue the PR addresses
+
+Coding Style
+------------
+
+Contributors should attempt to adhere to the `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ style guide when possible, although this is not currently strictly enforced. At a minimum, new contributions should follow a style that is consistent with the preexisting code base. 
+
+Testing
+-------
+
+We use the `pytest <https://docs.pytest.org/en/6.2.x/>`_ framework for creating unit tests. Please write tests for any new code contributed to this project.
+
+License
+-------
+
+By contributing, you agree that your contributions will be licensed under its MIT License.
+
+Code of Conduct
+---------------
+
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our `Code of Conduct <https://github.com/wilkelab/Opfi/blob/contributing-guide/CODE-OF-CONDUCT.md>`_.
+
+Attribution
+-----------
+
+This document was adapted from the `General Contributing Guidelines <https://github.com/extendr/rextendr/blob/main/CONTRIBUTING.md>`_ of the rextendr project, and from the `contributing template <https://gist.github.com/briandk/3d2e8b3ec8daf5a27a62>`_ developed by `briandk <https://gist.github.com/briandk>`_.Inputs and Outputs
+==================
+
+.. _building-sequence-databases:
+
+Building sequence databases
+---------------------------
+
+To search for gene clusters with Opfi, users must compile representative protein (or nucleic acid) sequences for any genes expected in target clusters (or for any non-essential accessory genes of interest). These may be from a pre-existing, private collection of sequences (perhaps from a previous bioinformatics analysis). Alternatively, users may download sequences from a publically available database such as `Uniprot <https://www.uniprot.org/>`_ (maintained by the `European Bioinformatics Institute <https://www.ebi.ac.uk/>`_ ) or one of the `databases <https://www.ncbi.nlm.nih.gov/>`_ provided by the National Center for Biotechnology Information. 
+
+Once target sequences have been compiled, they must be converted to an application-specific database format. Opfi currently supports :program:`BLAST+`, :program:`mmseqs2`, and :program:`diamond` for homology searching:
+
+* `Instructions for creating sequence databases for BLAST using makeblastdb <https://www.ncbi.nlm.nih.gov/books/NBK569841/>`_
+* `Instructions for creating sequence databases for mmseqs2 using mmseqs createdb <https://github.com/soedinglab/mmseqs2/wiki#searching>`_
+* `Diamond makedb command options <https://github.com/bbuchfink/diamond/wiki/3.-Command-line-options#makedb-options>`_
+
+The FASTA file format
+#####################
+
+Both genomic input data and reference sequence data should be in `FASTA <https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=BlastHelp>`_ format. This is a simple flat text representation of biological sequence data, where individual sequences are delineated by the ``>`` greater than character. For example:
+
+.. code-block:: 
+
+    >UniRef50_Q02ML7 CRISPR-associated endonuclease Cas1 n=1700 RepID=CAS1_PSEAB
+    MDDISPSELKTILHSKRANLYYLQHCRVLVNGGRVEYVTDEGRHSHYWNIPIANTTSLLL
+    GTGTSITQAAMRELARAGVLVGFCGGGGTPLFSANEVDVEVSWLTPQSEYRPTEYLQRWV
+    GFWFDEEKRLVAARHFQRARLERIRHSWLEDRVLRDAGFAVDATALAVAVEDSARALEQA
+    PNHEHLLTEEARLSKRLFKLAAQATRYGEFVRAKRGSGGDPANRFLDHGNYLAYGLAATA
+    TWVLGIPHGLAVLHGKTRRGGLVFDVADLIKDSLILPQAFLSAMRGDEEQDFRQACLDNL
+    SRAQALDFMIDTLKDVAQRSTVSA
+    >UniRef50_Q2RY21 CRISPR-associated endonuclease Cas1 1 n=1034 RepID=CAS1A_RHORT
+    MADPAFVPLRPIAIKDRSSIVFLQRGQLDVVDGAFVLIDQEGVRVQIPVGGLACLMLEPG
+    TRITHAAIVLCARVGCLVIWVGERGTRLYAAGQPGGARADRLLFQARNALDETARLNVVR
+    EMYRRRFDDDPPARRSVDQLRGMEGVRVREIYRLLAKKYAVDWNARRYDHNDWDGADIPN
+    RCLSAATACLYGLCEAAILAAGYAPAIGFLHRGKPQSFVYDVADLYKVETVVPTAFSIAA
+    KIAAGKGDDSPPERQVRIACRDQFRKSGLLEKIIPDIEEILRAGGLEPPLDAPEAVDPVI
+    PPEEPSGDDGHRG
+
+The sequence definition (defline) comes directly after the ``>`` character, and should be on a separate line from the sequence (which can be on one or more subsequent lines). There is no specific defline format, however, Opfi requires that, for both genomic input and sequence data, each definition line contain a unique sequence identifer. This should be a single word/token immediately following the ``>`` character (i.e. spaces between the ``>`` character and the identifier are not allowed). Any additional text on the defline is parsed as a single string, and appears in the output CSV (see :ref:`opfi-output-format`).
+
+.. tip::
+
+    Biological sequences downloaded from most public databases will have an accession number/identifier by default.
+
+.. _labeling-sequences:
+
+Annotating sequence databases
+#############################
+
+To take full advantage of the rule-based filtering methods in :mod:`operon_analyzer.rules`, users are encouraged to annotate reference sequences with a name/label that is easily searched. Labels can be as broad or as specific as is necessary to provide meaningful annotation of target gene clusters.
+
+Gene labels are parsed from sequence deflines; specifically, Opfi looks for the second word/token following the ``>`` character. For example, the following FASTA sequence has been annotated with the label "cas1":
+
+.. code-block:: 
+
+    >UniRef50_Q02ML7 cas1 CRISPR-associated endonuclease Cas1 n=1700 RepID=CAS1_PSEAB
+    MDDISPSELKTILHSKRANLYYLQHCRVLVNGGRVEYVTDEGRHSHYWNIPIANTTSLLL
+    GTGTSITQAAMRELARAGVLVGFCGGGGTPLFSANEVDVEVSWLTPQSEYRPTEYLQRWV
+    GFWFDEEKRLVAARHFQRARLERIRHSWLEDRVLRDAGFAVDATALAVAVEDSARALEQA
+    PNHEHLLTEEARLSKRLFKLAAQATRYGEFVRAKRGSGGDPANRFLDHGNYLAYGLAATA
+    TWVLGIPHGLAVLHGKTRRGGLVFDVADLIKDSLILPQAFLSAMRGDEEQDFRQACLDNL
+    SRAQALDFMIDTLKDVAQRSTVSA
+
+After running :class:`gene_finder.pipeline.Pipeline`, users could select candidates with hits against this sequence using the following rule set:
+
+.. code-block:: Python
+
+    from operon_analyzer.rules import RuleSet
+
+    rs = RuleSet.require("cas1")
+
+In practice, a genomics search might use a reference database of hundreds (or even thousands) of representative protein sequences, in which case labeling each sequence individually would be tedious. It is recommended to organize sequences into groups of related proteins that can be given a single label. This script uses the Python package :program:`Biopython` to annotate sequences in a multi-sequence FASTA file:
+
+.. code-block:: Python 
+
+    from Bio import SeqIO
+    import os, sys
+
+    def annotate_reference(prot_ref_file, label):
+        records = list(SeqIO.parse(ref_fasta, "fasta"))
+            
+        for record in records:
+            des = record.description.split()
+            prot_id = des.pop(0)
+            des_with_label = "{} {} {}".format(prot_id, label, " ".join(des))
+            record.description = des_with_label
+
+        SeqIO.write(records, ref_fasta, "fasta")
+
+    if __name__ == "__main__":
+        ref_fasta = sys.argv[1]
+        label = sys.argv[2]
+        annotate_reference(ref_fasta, label)
+
+It is possible to use the entire sequence description (i.e. all text following the sequence identifier) as the gene label. This is particularly useful when using a pre-built database like `nr <https://www.ncbi.nlm.nih.gov/refseq/about/nonredundantproteins/>`_, which contains representative protein sequences for many different protein families. When using sequence databases that haven't been annotated, users should set ``parse_descriptions=False`` for each :class:`gene_finder.pipeline.Pipeline` ``add_step()`` method call.
+
+Converting sequence files to a sequence database
+################################################
+
+Once reference sequences have been compiled (and, optionally, labeled) they must be converted to a sequence database format that is specific to the homology search program used. Currently, Opfi supports :program:`BLAST`, :program:`mmseqs2`, and :program:`diamond`. Each software package is automatically installed with a companion utility program for generating sequence databases. The following example shows what a typical call to :program:`makeblastdb`, the BLAST+ database utility program, might look like:
+
+.. code-block:: bash 
+
+    makeblastdb -in "my_sequences.fasta" -out my_sequences/db -dbtype prot -title "my_sequences" -hash_index
+
+The command takes a text/FASTA file ``my_sequences.fasta`` as input, and writes the resulting database files to the directory ``my_sequences``. Database files are prefixed with "db". ``-dbtype prot`` specifies that the input is amino acid sequences. We use ``-title`` to name the database (required by BLAST). ``-hash_index`` directs :program:`makeblastdb` to generate a hash index of protein sequences, which can speed up computation time.
+
+.. tip::
+
+    :program:`mmseqs2` and :program:`diamond` have similar database creation commands, see :ref:`building-sequence-databases`. 
+
+BLAST advanced options
+----------------------
+
+BLAST+ programs have a number of tunable parameters that can, for example, be used to adjust the sensitivity of the search algorithm. We anticipate that application defaults will be sufficient for most users; nevertheless, it is possible to use non-default program options by passing them as keyword arguments to :class:`gene_finder.pipeline.Pipeline` ``add_step()`` methods. 
+
+For example, when using :program:`blastp` on the command line, we could adjust the number of CPUs to four by passing the argument ``-num_threads 4`` to the program. When using Opfi, this would look like ``num_threads=4``. 
+
+Flags (boolean arguments that generally do not precede additional data) are also possible. For example, the command line flag ``-use_sw_tback`` tells :program:`blastp` to compute locally optimal Smith-Waterman alignments. The correct way to specify this behavior via the :class:`gene_finder.pipeline.Pipeline` API would be to use the argument ``use_sw_tback=True``. 
+
+Below is a list of options accepted by Opfi. Note that some BLAST+ options are not allowed, mainly those that modify BLAST output.
+
+.. csv-table::
+    :header: "Program", "Allowed Options"
+
+    ":program:`blastp` and :program:`psiblast`", "dbsize word_size gapopen gapextend qcov_hsp_perc xdrop_ungap xdrop_gap xdrop_gap_final searchsp sum_stats seg soft_masking matrix threshold culling_limit window_size num_threads comp_based_stats gilist seqidlist negative_gilistdb_soft_mask db_hard_mask entrez_query max_hspsbest_hit_overhang best_hit_score_edge max_target_seqsimport_search_strategy export_search_strategy num_alignments"
+    ":program:`blastp` only", "task"
+    ":program:`psiblast` only", "gap_trigger num_iterations out_pssm out_ascii_pssm pseudocount inclusion_ethresh"
+    ":program:`blastp` (flags)", "lcase_masking ungapped use_sw_tback remote"
+    ":program:`psiblast` (flags)", "lcase_masking use_sw_tback save_pssm_after_last_round save_each_pssm remote"
+    ":program:`blastn`", "filtering_algorithm sum_stats window_masker_db window_size template_type version parse_deflines min_raw_gapped_score string format max_hsps taxids negative_taxids num_alignments strand off_diagonal_range subject_besthit num_sequences no_greedy negative_taxidlist culling_limit xdrop_ungap open_penalty DUST_options sorthits xdrop_gap_final negative_gilist subject use_index bool_value filename seqidlist task_name sort_hits database_name lcase_masking query_loc subject_loc sort_hsps line_length boolean db_hard_mask negative_seqidlist template_length filtering_db filtering_database penalty searchsp ungapped type gapextend db_soft_mask dbsize qcov_hsp_perc sorthsps window_masker_taxid index_name export_search_strategy float_value soft_masking gilist entrez_query show_gis best_hit_score_edge gapopen subject_input_file range html word_size best_hit_overhang perc_identity input_file num_descriptions xdrop_gap dust taxidlist max_target_seqs num_threads task remote int_value extend_penalty reward import_search_strategy num_letters"
+
+You can read more about BLAST+ options in the `BLAST+ appendices <https://www.ncbi.nlm.nih.gov/books/NBK279684/>`_. 
+
+.. note::
+
+    Using advanced options with :program:`mmseqs2` and :program:`diamond` is not supported at this time. 
+
+.. _opfi-output-format:
+
+Opfi output format
+------------------
+
+Results from :class:`gene_finder.pipeline.Pipeline` searches are written to a single CSV file. Below is an example from the tutorial (see :ref:`example-usage`):
+
+.. csv-table::
+    :file: csv/example_output.csv
+    :header-rows: 0
+
+The first two columns contain the input genome/contig sequence ID (sometimes called an accession number) and the coordinates of the candidate gene cluster, respectively. Since an input file can have multiple genomic sequences, these two fields together uniquely specify a candidate gene cluster. Each row represents a single annotated feature in the candidate locus. Features from the same candidate are always grouped together in the CSV. 
+
+Descriptions of each output field are provided below. Alignment statistic naming conventions are from the BLAST documentation, see `BLAST+ appendices <https://www.ncbi.nlm.nih.gov/books/NBK279684/>`_ (specifically "outfmt" in table C1). This `glossary <https://www.ncbi.nlm.nih.gov/books/NBK62051/>`_ of common BLAST terms may also be useful in interpreting alignment statistic meaning. 
+
+.. csv-table::
+    :file: csv/fieldnames.csv
+    :header-rows: 1
+.. _example-usage:
+
+Example Usage
+=============
+
+Example 1: Finding CRISPR-Cas systems in a cyanobacteria genome
+---------------------------------------------------------------
+
+In this example, we will annotate and visualize CRISPR-Cas systems in the cyanobacteria species Rippkaea orientalis. CRISPR-Cas is a widespread bacterial defense system, found in at least 50% of all known prokaryotic species. This system is significant in that it can be leveraged as a precision gene editing tool, an advancement that was awarded the 2020 Nobel Prize in Chemistry. The genome of R. orientalis harbors two complete CRISPR-Cas loci (one chromosomal, and one extrachromosomal/plasmid).
+
+You can download the complete assembled genome `here <https://www.ncbi.nlm.nih.gov/assembly/GCF_000024045.1/>`_; it is also available at `<https://github.com/wilkelab/Opfi>`_ under ``tutorials``, along with the other data files necessary to run these examples, and an interactive jupyter notebook version of this tutorial. 
+
+This tutorial assumes the user has already installed Opfi and all dependencies (if installing with conda, this is done automatically). Some familiarity with BLAST and the basic homology search algorithm may also be helpful, but is not required. 
+
+1. Use the makeblastdb utility to convert a Cas protein database to BLAST format
+################################################################################
+
+We start by converting a Cas sequence database to a format that BLAST can recognize, using the command line utility :program:`makeblastdb`, which is part of the core NCBI BLAST+ distribution. A set of ~20,000 non-redundant Cas sequences, downloaded from `Uniprot <https://www.uniprot.org/uniref/>`_ is available as a tar archive ``tutorials/cas_database.tar.gz`` . We'll make a new directory, "blastdb", and extract sequences there:
+
+.. code-block:: bash
+
+    mkdir blastdb
+    cd blastdb && tar -xzf cas_database.tar.gz && cd ..
+
+Next, create two BLAST databases for the sequence data: one containing Cas1 sequences only, and another that contains the remaining Cas sequences.
+
+.. code-block:: bash
+
+    cd blastdb && cat cas1.fasta | makeblastdb -dbtype prot -title cas1 -hash_index -out cas1_db && cd ..
+    cd blastdb && cat cas[2-9].fasta cas1[0-2].fasta casphi.fasta | makeblastdb -dbtype prot -title cas_all -hash_index -out cas_all_but_1_db && cd ..
+
+``-dbtype prot`` simply tells :program:`makeblastdb` to expect amino acid sequences. We use ``-title`` and ``-out`` to name the database (required by BLAST) and to prefix the database files, respectively. ``-hash_index`` directs :program:`makeblastdb` to generate a hash index of protein sequences, which can speed up computation time.
+
+2. Use Gene Finder to search for CRISPR-Cas loci
+################################################
+
+CRISPR-Cas systems are extremely diverse. The most recent `classification effort <https://www.nature.com/articles/s41579-019-0299-x>`_ identifies 6 major types, and over 40 subtypes, of compositionally destinct systems. Although there is sufficent sequence similarity between subtypes to infer the existence of a common ancestor, the only protein family present in the majority of CRISPR-cas subtypes is the conserved endonuclease Cas1. For our search, we will define candidate CRISPR-cas loci as having, minimally, a cas1 gene.
+
+First, create another directory for output:
+
+.. code-block:: bash
+
+    mkdir example_1_output
+
+The following bit of code uses Opfi's :mod:`gene_finder.pipeline` module to search for CRISPR-Cas systems:
+
+.. code-block:: Python
+
+    from gene_finder.pipeline import Pipeline
+    import os
+
+    genomic_data = "GCF_000024045.1_ASM2404v1_genomic.fna.gz"
+    output_directory = "example_1_output"
+
+    p = Pipeline()
+    p.add_seed_step(db="blastdb/cas1_db", name="cas1", e_val=0.001, blast_type="PROT", num_threads=1)
+    p.add_filter_step(db="blastdb/cas_all_but_1_db", name="cas_all", e_val=0.001, blast_type="PROT", num_threads=1)
+    p.add_crispr_step()
+
+    # use the input filename as the job id
+    # results will be written to the file <job id>_results.csv
+    job_id = os.path.basename(genomic_data)
+    results = p.run(job_id=job_id, data=genomic_data, output_directory=output_directory, min_prot_len=90, span=10000, gzip=True)
+
+First, we initialize a :class:`gene_finder.pipeline.Pipeline` object, which keeps track of all search parameters, as well as a running list of systems that meet search criteria. Next, we add three search steps to the pipeline:
+
+1. :meth:`gene_finder.pipeline.Pipeline.add_seed_step` : BLAST is used to search the input genome against a database of Cas1 sequences. Regions around putative Cas1 hits become the intial candidates, and the rest of the genome is ignored.
+2. :meth:`gene_finder.pipeline.Pipeline.add_filter_step` : Candidate regions are searched for any additional Cas genes. Candidates without at least one additional putative Cas gene are also discarded.
+3. :meth:`gene_finder.pipeline.Pipeline.add_crispr_step` : Remaining candidates are annotated for CRISPR repeat sequences using PILER-CR. 
+
+Finally, we run the pipeline, executing steps in the order they we added. ``min_prot_len`` sets the minimum length (in amino acid residues) of hits to keep (really short hits are unlikely real protein encoding genes). ``span`` is the region directly up- and downstream of initial hits. So, each candidate system will be about 20 kbp in length. Results are written to a single CSV file. Final candidate loci contain at least one putative Cas1 gene and one additional Cas gene. As we will see, this relatively permissive criteria captures some non-CRISPR-Cas loci. Opfi has additional modules for reducing unlikely systems after the gene finding stage.
+
+3. Visualize annotated CRISPR-Cas gene clusters with Operon Analyzer
+####################################################################
+
+It is sometimes useful to visualize candidate systems, especially during the exploratory phase of a genomics survey. Opfi provides a few functions for visualizing candidate systems in :mod:`operon_analyzer.visualize`. We'll use these to visualize the CRISPR-Cas gene clusters in R. orientalis:
+
+.. code-block:: Python
+
+    import csv
+    import sys
+    from operon_analyzer import load, visualize
+
+    feature_colors = { "cas1": "lightblue",
+                        "cas2": "seagreen",
+                        "cas3": "gold",
+                        "cas4": "springgreen",
+                        "cas5": "darkred",
+                        "cas6": "thistle",
+                        "cas7": "coral",
+                        "cas8": "red",
+                        "cas9": "palegreen",
+                        "cas10": "yellow",
+                        "cas11": "tan",
+                        "cas12": "orange",
+                        "cas13": "saddlebrown",
+                        "casphi": "olive",
+                        "CRISPR array": "purple"
+                        }
+
+    # read in the output from Gene Finder and create a gene diagram for each cluster (operon)
+    with open("example_1_output/GCF_000024045.1_ASM2404v1_genomic.fna.gz_results.csv", "r") as operon_data:
+        operons = load.load_operons(operon_data)
+        visualize.plot_operons(operons=operons, output_directory="example_1_output", feature_colors=feature_colors, nucl_per_line=25000)
+
+Running this script produces the following three gene diagrams, one for each system in the input CSV:
+
+.. _fig-1:
+.. figure:: img/operon_image_1.png
+    
+    A CRISPR-Cas system in the chromosome of R. orientalis.  
+
+.. _fig-2:
+.. figure:: img/operon_image_2.png
+
+    A second CRISPR-Cas system in R. orientalis plasmid 1.  
+
+.. _fig-3:
+.. figure:: img/operon_image_3.png
+
+    An R. orientalis locus with a putative CRISPR-Cas gene.
+
+   
+We can see that both CRISPR-Cas systems were identified (:numref:`fig-1` and :numref:`fig-2`). We also see some systems that don't resemble functional CRISPR-Cas operons (:numref:`fig-3`). Because we used a relatively permissive e-value threshhold of 0.001 when running BLAST, Opfi retained regions with very low sequence similarity to true CRISPR-Cas genes. In fact, these regions are likely not CRISPR-Cas loci at all. Using a lower e-value would likely eliminate these "false positive" systems, but :mod:`operon_analyzer.rules` exposes functions for filtering out unlikely candidates *after* the intial BLAST search. 
+
+In general, we have found that using permissive BLAST parameters intially, and then filtering or eliminating candidates during the downstream analysis, is an effective way to search for gene clusters in large amounts of genomic/metagenomic data. In this toy example, we could re-run BLAST many times without significant cost. But on a more realistic dataset, needing to re-do the computationally expensive homology search could detrail a project. Since the optimal search parameters may not be known *a priori*, it can be better to do a permissive homology search initially, and then narrow down results later.
+
+Finally, clean up the temporary directories, if desired:
+
+.. code-block:: bash
+
+    rm -r example_1_output blastdb
+
+Example 2: Filter and classify CRISPR-Cas systems based on genomic composition
+------------------------------------------------------------------------------
+
+As discussed in the previous example, known CRISPR-Cas systems fall into 6 broad categories, based on the presence of particular "signature" genes, as well as overall composition and genomic architecture. In this example, we will use Opfi to search for and classify CRISPR-Cas systems in ~300 strains of fusobacteria. 
+
+This dataset was chosen because it is more representative (in magnitude) of what would be encountered in a real genomics study. Additionally, the fusobacteria phylum contains a variety of CRISPR-Cas subtypes. Given that the homology search portion of the analysis takes several hours (using a single core) to complete, we have pre-run Gene Finder using the same setup as the previous example. 
+
+1. Make another temporary directory for output:
+###############################################
+
+.. code-block:: bash
+
+    mkdir example_2_output
+
+2. Filter Gene Finder output and extract high-confidence CRISPR-Cas systems
+###########################################################################
+
+The following code reads in unfiltered output from :class:`gene_finder.pipeline.Pipeline` and applies a set of conditions ("rules") to accomplish two things:
+1. Select (and bin) systems according to type, and,
+2. Eliminate candidates that likely do not represent true CRISPR-Cas systems
+
+To do this, we'll leverage the :mod:`operon_analyzer.rules` and :mod:`operon_analyzer.analyze` modules.
+
+.. code-block:: Python
+
+    from operon_analyzer import analyze, rules
+
+
+    fs = rules.FilterSet().pick_overlapping_features_by_bit_score(0.9)
+    cas_types = ["I", "II", "III", "V"]
+
+    rulesets = []
+    # type I rules
+    rulesets.append(rules.RuleSet().contains_group(feature_names = ["cas5", "cas7"], max_gap_distance_bp = 1000, require_same_orientation = True) \
+                                .require("cas3"))
+    # type II rules
+    rulesets.append(rules.RuleSet().contains_at_least_n_features(feature_names = ["cas1", "cas2", "cas9"], feature_count = 3) \
+                                .minimum_size("cas9", 3000))
+    # type III rules
+    rulesets.append(rules.RuleSet().contains_group(feature_names = ["cas5", "cas7"], max_gap_distance_bp = 1000, require_same_orientation = True) \
+                                .require("cas10"))
+    # type V rules
+    rulesets.append(rules.RuleSet().contains_at_least_n_features(feature_names = ["cas1", "cas2", "cas12"], feature_count = 3))
+
+    for rs, cas_type in zip(rulesets, cas_types):
+        with open("refseq_fusobacteria.csv", "r") as input_csv:
+            with open(f"example_2_output/refseq_fuso_filtered_type{cas_type}.csv", "w") as output_csv:
+                analyze.evaluate_rules_and_reserialize(input_csv, rs, fs, output_csv)
+
+The rule sets are informed by an established CRISPR-Cas classification system, which you can learn more about in this `paper <https://www.nature.com/articles/s41579-019-0299-x>`_ . The most recent system recognizes 6 major CRISPR-Cas types, but since fusobacteria doesn't contain type IV or VI systems that can be identified with our protein dataset, we didn't define the corresponding rule sets.
+
+3. Verify results with additional visualizations
+################################################
+
+Altogther, this analysis will identify several hundred systems. We won't look at each system individually (but you are free to do so!). For the sake of confirming that the code ran as expected, we'll create gene diagrams for just the type V systems, since there are only two:
+
+.. code-block:: Python
+
+    import csv
+    import sys
+    from operon_analyzer import load, visualize
+
+    feature_colors = { "cas1": "lightblue",
+                        "cas2": "seagreen",
+                        "cas3": "gold",
+                        "cas4": "springgreen",
+                        "cas5": "darkred",
+                        "cas6": "thistle",
+                        "cas7": "coral",
+                        "cas8": "red",
+                        "cas9": "palegreen",
+                        "cas10": "yellow",
+                        "cas11": "tan",
+                        "cas12": "orange",
+                        "cas13": "saddlebrown",
+                        "casphi": "olive",
+                        "CRISPR array": "purple"
+                        }
+
+    # read in the output from Gene Finder and create a gene diagram for each cluster (operon)
+    with open("example_2_output/refseq_fuso_filtered_typeV.csv", "r") as operon_data:
+        operons = load.load_operons(operon_data)
+        visualize.plot_operons(operons=operons, output_directory="example_2_output", feature_colors=feature_colors, nucl_per_line=25000)
+
+The plotted systems should look like this:
+
+.. figure:: img/operon_image_4.png
+
+    A type V CRISPR-Cas system.
+
+.. figure:: img/operon_image_5.png
+
+    A second type V CRISPR-Cas system.
+
+
+Finally, clean up the temporary output directory, if desired:
+
+.. code-block:: bash
+
+    rm -r example_2_output
+Gene Finder
+============
+
+gene\_finder.pipeline
+---------------------
+
+.. automodule:: gene_finder.pipeline
+   :members:
+   :member-order: bysource
+Getting Started
+===============
+
+.. _installation:
+
+Installation
+------------
+
+The recommended way to install Opfi is with `Bioconda <https://bioconda.github.io/>`_, which requires the `conda <https://docs.conda.io/en/latest/>`_ package manager. This will install Opfi and all of its dependencies (which you can read more about below, see :ref:`dependencies`).
+
+Currently, Bioconda supports only 64-bit Linux and Mac OS. Windows users can still install Opfi with pip (see below); however, the complete installation procedure has not been fully tested on a Windows system. 
+
+.. _install-with-conda:
+
+Install with conda (Linux and Mac OS only)
+##########################################
+
+First, set up conda and Bioconda following the `quickstart <https://bioconda.github.io/user/install.html>`_ guide. Once this is done, run:
+
+.. code-block:: bash
+
+    conda install -c bioconda opfi
+
+And that's it! Note that this will install Opfi in the conda environment that is currently active. To create a fresh environment with Opfi installed, do:
+
+.. code-block:: bash
+
+    conda create --name opfi-env -c bioconda opfi
+    conda activate opfi-env
+
+.. _install-with-pip:
+
+Install with pip
+################
+
+This method does not automatically install non-Python dependencies, so they will need to be installed separately, following their individual installation instructions. A complete list of required software is provided below, see :ref:`dependencies`. Once this step is complete, install Opfi with pip by running:
+
+.. code-block:: bash
+
+    pip install opfi
+
+Install from source
+###################
+
+Finally, the latest development build may be installed directly from Github. First, non-Python :ref:`dependencies` will need to be installed in the working environment. An easy way to do this is to first install Opfi with conda using the :ref:`install-with-conda` method (we'll re-install the development version of the Opfi package in the next step). Alternatively, dependencies can be installed individually.
+
+Once dependencies have been installed in the working environment, run the following code to download and install the development build:
+
+.. code-block:: bash
+
+    git clone https://github.com/wilkelab/Opfi.git
+    cd Opfi
+    pip install . # or pip install -e . for an editable version
+    pip install -r requirements # if conda was used, this can be skipped
+
+Testing the build
+#################
+
+Regardless of installation method, users can download and run Opfi's suite of unit tests to confirm that the build is working as expected. First download the tests from Github:
+
+.. code-block:: bash
+
+    git clone https://github.com/wilkelab/Opfi
+    cd Opfi
+
+And then run the test suite using pytest:
+
+.. code-block:: bash
+
+    pytest --runslow --runmmseqs --rundiamond
+
+This may take a minute or so to complete. 
+
+.. _dependencies:    
+
+Dependencies
+------------
+
+Opfi uses the following bioinformatics software packages to find and annotate genomic features:
+
+.. csv-table:: Software dependencies
+   :header: "Application", "Description"
+
+   "`NCBI BLAST+ <https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs>`_", "Protein and nucleic acid homology search tool"
+   "`Diamond <https://github.com/bbuchfink/diamond>`_", "Alternative to BLAST+ for fast protein homology searches"
+   "`MMseqs2 <https://github.com/soedinglab/MMseqs2>`_", "Alternative to BLAST+ for fast protein homology searches"
+   "`PILER-CR <https://www.drive5.com/pilercr/>`_", "CRISPR repeat detection"
+   "`Generic Repeat Finder <https://github.com/bioinfolabmu/GenericRepeatFinder>`_", "Transposon-associated repeat detection"
+
+The first three (BLAST+, Diamond, and MMseqs2) are popular homology search applications, that is, programs that look for local similarities between input sequences (either protein or nucleic acid) and a target. These are used by Opfi in :class:`gene_finder.pipeline.Pipeline` for annotation of genes or non-coding regions of interest in the input genome/contig. The user specifies which homology search tool to use during pipeline setup (see :class:`gene_finder.pipeline.Pipeline` for details). Note that the BLAST+ distribution contains multiple programs for homology searching, three of which (blastp, blastn, and PSI-BLAST) are currently supported by Opfi. 
+
+The following table summarizes the main difference between each homology search program. It may help users decide which application will best meet their needs. Note that performance tests are inherently hardware and context dependent, so this should be taken as a loose guide, rather than a definitive comparison. 
+
+.. csv-table:: Comparison of homology search programs supported by Opfi
+    :header: "Application", "Relative sensitivity", "Relative speed", "Requires a protein or nucleic acid sequence database?"
+
+    "Diamond", `+`, `++++`, "protein"
+    "MMseqs2", `++`, `+++`, "protein"
+    "blastp", `+++`, `++`, "protein"
+    "PSI-BLAST", `++++`, `+`, "protein"
+    "blastn", "NA", "NA", "nucleic acid"
+
+The last two software dependencies, PILER-CR and Generic Repeat Finder (GRF), deal with annotation of repetive sequences in DNA. PILER-CR identifies CRISPR arrays, regions of alternatating ~30 bp direct repeat and variable sequences that play a role in prokaryotic immunity. GRF identifies repeats associated with transposable elements, such as terminal inverted repeats (TIRs) and long terminal repeats (LTRs).
+Operon Analyzer
+===============
+
+The following modules comprise the core Operon Analyzer functionality.
+
+operon\_analyzer.genes
+----------------------
+
+.. automodule:: operon_analyzer.genes
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.rules
+----------------------
+
+.. automodule:: operon_analyzer.rules
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.analyze
+------------------------
+
+.. automodule:: operon_analyzer.analyze
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.visualize
+--------------------------
+
+.. automodule:: operon_analyzer.visualize
+   :members:
+   :member-order: bysource
+   :exclude-members: build_image_filename, calculate_adjusted_operon_bounds, plot_operon_pair, make_operon_pairs, create_operon_figure, save_operon_figure, save_pair_figure, build_operon_dictionary
+
+operon\_analyzer.overview
+-------------------------
+
+.. automodule:: operon_analyzer.overview
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.reannotation
+-----------------------------
+
+.. automodule:: operon_analyzer.reannotation
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.load
+---------------------
+
+.. automodule:: operon_analyzer.load
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.parse
+----------------------
+
+.. automodule:: operon_analyzer.parse
+   :members:
+   :exclude-members: parse_coordinates, read_pipeline_output
+
+The next set of modules expose simple functions for dealing with CRISPR array sequences. Presumably, these would only be useful to researchers interested in CRISPR-Cas genomic systems. 
+
+operon\_analyzer.piler\_parse
+-----------------------------
+
+.. automodule:: operon_analyzer.piler_parse
+   :members:
+   :member-order: bysource
+
+operon\_analyzer.repeat\_finder
+-------------------------------
+
+.. automodule:: operon_analyzer.repeat_finder
+   :members:
+   :member-order: bysource
+   :exclude-members: BufferedSequence
+
+operon\_analyzer.spacers
+------------------------
+
+.. automodule:: operon_analyzer.spacers
+   :members:
+   :member-order: bysource
+API Reference
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   gene_finder
+   operon_analyzer.. Opfi documentation master file, created by
+    sphinx-quickstart on Mon Aug 10 12:29:45 2020.
+    You can adapt this file completely to your liking, but it should at least
+    contain the root `toctree` directive.
+
+Opfi
+====
+
+Welcome to the Opfi documentation site! Opfi is a modular, rule-based framework for creating gene cluster identification pipelines, particularly for large genomics or metagenomics datasets. 
+
+Opfi is implemented entirely in Python, and can be downloaded with conda or the from the Python Package Index. It consists of two major modules: Gene Finder, for discovery of novel gene clusters, and Operon Analyzer, for rule-based filtering, deduplication, visualization, and re-annotation of systems identified by Gene Finder.
+
+Contents
+--------
+
+.. toctree::
+    :maxdepth: 2
+    
+    installation
+    examples
+    tips
+    modules
+    contributing

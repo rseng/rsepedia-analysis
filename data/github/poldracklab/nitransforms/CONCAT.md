@@ -242,3 +242,265 @@ comparison tests assess the correct implementation of third-party software.
 The testing suite is incorporated into a continuous integration framework, which assesses the continuity of the implementation along the development life and ensures that code changes and additions do not break existing functionalities.
 
 # References
+Contributing to *NiTransforms* (a *NiBabel* feature-repo)
+=========================================================
+Welcome to *NiBabel*, and the *NiTransforms* repository! We’re excited
+you’re here and want to contribute.
+
+Please see the `NiBabel Developer
+Guidelines <https://nipy.org/nibabel/devel/devguide.html>`__ on our on
+our `documentation website <https://nipy.org/nibabel>`__.
+
+These guidelines are designed to make it as easy as possible to get
+involved. If you have any questions that aren’t discussed in our
+documentation, or it’s difficult to find what you’re looking for, please
+let us know by opening an
+`issue <https://github.com/poldracklab/fmriprep/issues>`__!
+21.0.0 (September 10, 2021)
+===========================
+A first release of *NiTransforms*.
+This release accompanies a corresponding `JOSS submission <https://doi.org/10.21105/joss.03459>`__.
+
+  * FIX: Final edits to JOSS submission (#135)
+  * FIX: Add mention to potential alternatives in JOSS submission (#132)
+  * FIX: Misinterpretation of voxel ordering in LTAs (#129)
+  * FIX: Suggested edits to the JOSS submission (#121)
+  * FIX: Invalid DOI (#124)
+  * FIX: Remove the ``--inv`` flag from regression ``mri_vol2vol`` regression test (#78)
+  * FIX: Improve handling of optional fields in LTA (#65)
+  * FIX: LTA conversions (#36)
+  * ENH: Add more comprehensive comments to notebook (#134)
+  * ENH: Add an ``.asaffine()`` member to ``TransformChain`` (#90)
+  * ENH: Read (and apply) *ITK*/*ANTs*' composite HDF5 transforms (#79)
+  * ENH: Improved testing of LTA handling - *ITK*-to-LTA, ``mri_concatenate_lta`` (#75)
+  * ENH: Add *FS* transform regression (#74)
+  * ENH: Add *ITK*-LTA conversion test (#66)
+  * ENH: Support for transforms mappings (e.g., head-motion correction) (#59)
+  * ENH: command line interface (#55)
+  * ENH: Facilitate loading of displacements field transforms (#54)
+  * ENH: First implementation of *AFNI* displacement fields (#50)
+  * ENH: Base implementation of transforms chains (composition) (#43)
+  * ENH: First implementation of loading and applying *ITK* displacements fields (#42)
+  * ENH: Refactor of *AFNI* and *FSL* I/O with ``StringStructs`` (#39)
+  * ENH: More comprehensive implementation of ITK affines I/O (#35)
+  * ENH: Added some minimal test-cases to the Affine class (#33)
+  * ENH: Rewrite load/save utilities for ITK's MatrixOffsetBased transforms in ``io`` (#31)
+  * ENH: Rename ``resample()`` with ``apply()`` (#30)
+  * ENH: Write tests pulling up the coverage of base submodule (#28)
+  * ENH: Add tests and implementation for Displacements fields and refactor linear accordingly (#27)
+  * ENH: Uber-refactor of code style, method names, etc. (#24)
+  * ENH: Increase coverage of linear transforms code (#23)
+  * ENH: FreeSurfer LTA file support (#17)
+  * ENH: Use ``obliquity`` directly from nibabel (#18)
+  * ENH: Setting up a battery of tests (#9)
+  * ENH: Revise doctests and get them ready for more thorough testing. (#10)
+  * DOC: Add *Zenodo* metadata record (#136)
+  * DOC: Better document the *IPython* notebooks (#133)
+  * DOC: Transfer ``CoC`` from *NiBabel* (#131)
+  * DOC: Clarify integration plans with *NiBabel* in the ``README`` (#128)
+  * DOC: Add contributing page to RTD (#130)
+  * DOC: Add ``CONTRIBUTING.md`` file pointing at *NiBabel* (#127)
+  * DOC: Add example notebooks to sphinx documentation (#126)
+  * DOC: Add an *Installation* section (#122)
+  * DOC: Display API per module (#120)
+  * DOC: Add figure to JOSS draft / Add @smoia to author list (#61)
+  * DOC: Initial JOSS draft (#47)
+  * MAINT: Add imports of modules in ``__init__.py`` to workaround #91 (#92)
+  * MAINT: Fix missing ``python3`` binary on CircleCI build job step (#85)
+  * MAINT: Use ``setuptools_scm`` to manage versioning (#83)
+  * MAINT: Split binary test-data out from gh repo (#84)
+  * MAINT: Add Docker image/circle build (#80)
+  * MAINT: Drop Python 3.5 (#77)
+  * MAINT: Better config on ``setup.py`` (binary operator starting line) (#60)
+  * MAINT: add docker build to travis matrix (#29)
+  * MAINT: testing coverage (#16)
+  * MAINT: pep8 complaints (#14)
+  * MAINT: skip unfinished implementation tests (#15)
+  * MAINT: pep8speaks (#13)
+.. include:: ../CONTRIBUTING.rst
+========
+Examples
+========
+
+A collection of Jupyter Notebooks to serve as interactive tutorials.
+
+.. toctree::
+    :maxdepth: 1
+
+    notebooks/01_preparing_images
+    notebooks/02_afni_deoblique
+    notebooks/isbi2020
+-----------
+What's new?
+-----------
+
+.. include:: ../CHANGES.rstInstallation
+============
+*NiTransforms* is distributed via *Pypi* and can easily be installed
+within your Python distribution with::
+
+  python -m pip install nitransforms
+
+Alternatively, you can install the bleeding-edge version of the software
+directly from the GitHub repo with::
+
+  python -m pip install git+https://github.com/poldracklab/nitransforms.git@master
+
+To verify the installation, you can run the following command::
+
+  python -c "import nitransforms as nt; print(nt.__version__)"
+
+You should see the version number.
+
+Developers
+----------
+Advanced users and developers who plan to contribute with bugfixes, documentation,
+etc. can first clone our Git repository::
+
+  git clone https://github.com/poldracklab/nitransforms.git
+
+
+and install the tool in *editable* mode::
+
+  cd nitransforms
+  python -m pip install -e .
+.. include:: links.rst
+
+NiTransforms
+============
+A development repo for `nipy/nibabel#656 <https://github.com/nipy/nibabel/pull/656>`__.
+
+.. image:: https://img.shields.io/pypi/v/nitransforms.svg
+  :target: https://pypi.python.org/pypi/nitransforms/
+  :alt: Latest Version
+
+.. image:: https://codecov.io/gh/poldracklab/nitransforms/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/poldracklab/nitransforms
+
+.. image:: https://circleci.com/gh/poldracklab/nitransforms.svg?style=svg
+    :target: https://circleci.com/gh/poldracklab/nitransforms
+
+.. image:: https://github.com/poldracklab/nitransforms/actions/workflows/travis.yml/badge.svg
+    :target: https://github.com/poldracklab/nitransforms/actions
+
+.. image:: https://img.shields.io/badge/doi-10.31219%2Fosf.io%2F8aq7b-blue.svg
+    :target: https://doi.org/10.31219/osf.io/8aq7b
+
+.. image:: https://mybinder.org/badge_logo.svg
+    :target: https://mybinder.org/v2/gh/poldracklab/nitransforms/master?filepath=docs%2Fnotebooks%2F
+
+About
+-----
+Spatial transforms formalize mappings between coordinates of objects in biomedical images.
+Transforms typically are the outcome of image registration methodologies, which estimate
+the alignment between two images.
+Image registration is a prominent task present in nearly all standard image processing
+and analysis pipelines.
+The proliferation of software implementations of image registration methodologies has
+resulted in a spread of data structures and file formats used to preserve and communicate
+transforms.
+This segregation of formats precludes the compatibility between tools and endangers the
+reproducibility of results.
+We propose a software tool capable of converting between formats and resampling images
+to apply transforms generated by the most popular neuroimaging packages and libraries
+(AFNI, FSL, FreeSurfer, ITK, and SPM).
+The proposed software is subject to continuous integration tests to check the
+compatibility with each supported tool after every change to the code base.
+Compatibility between software tools and imaging formats is a necessary bridge
+to ensure the reproducibility of results and enable the optimization and evaluation
+of current image processing and analysis workflows.
+
+
+Contents
+--------
+
+.. toctree::
+    :maxdepth: 2
+
+    installation
+    examples
+    contributing
+    changes
+    api
+Library API (application program interface)
+===========================================
+Information on specific functions, classes, and methods for developers.
+
+.. toctree::
+   :maxdepth: 1
+
+   _api/base
+   _api/io
+   _api/linear
+   _api/manip
+   _api/nonlinear
+   _api/patched
+=========================
+Patched Nibabel Functions
+=========================
+
+.. automodule:: nitransforms.patched
+    :members:
+=============
+Manipulations
+=============
+
+.. automodule:: nitransforms.manip
+    :members:
+=================
+Linear Transforms
+=================
+
+.. automodule:: nitransforms.linear
+    :members:
+====================
+Nonlinear Transforms
+====================
+
+.. automodule:: nitransforms.nonlinear
+    :members:
+====
+Base
+====
+
+.. automodule:: nitransforms.base
+    :members:
+===
+IO
+===
+
+Reading and writing of transform files.
+
+--------
+Base I/O
+--------
+.. automodule:: nitransforms.io.base
+    :members:
+
+-----------------
+Tool Specific I/O
+-----------------
+
+^^^^
+AFNI
+^^^^
+.. automodule:: nitransforms.io.afni
+    :members:
+
+^^^
+FSL
+^^^
+.. automodule:: nitransforms.io.fsl
+    :members:
+
+^^^
+ITK
+^^^
+.. automodule:: nitransforms.io.itk
+    :members:
+
+^^^^^^^^^^^^^^
+FreeSurfer/LTA
+^^^^^^^^^^^^^^
+.. automodule:: nitransforms.io.lta
+    :members:

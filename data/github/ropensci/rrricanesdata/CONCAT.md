@@ -782,4 +782,605 @@ This Code of Conduct is adapted from the [Contributor Covenant][homepage], versi
 available at [http://contributor-covenant.org/version/1/4][version]
 
 [homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
+[version]: http://contributor-covenant.org/version/1/4/---
+output: github_document
+---
+
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.3.3-6666ff.svg)](https://cran.r-project.org/) 
+[![GitHub (pre-)release](https://img.shields.io/github/release/ropensci/rrricanesdata/all.svg)](https://github.com/ropensci/rrricanesdata/tags)
+[![](https://badges.ropensci.org/118_status.svg)](https://github.com/ropensci/onboarding/issues/118)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rrricanesdata)](https://cran.r-project.org/package=rrricanesdata)
+[![Build Status](https://img.shields.io/travis/ropensci/rrricanesdata/master.svg)](https://travis-ci.org/ropensci/rrricanesdata)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/timtrice/rrricanesdata-on6xt/master.svg)](https://ci.appveyor.com/project/timtrice/rrricanesdata-on6xt)
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# rrricanesdata
+
+`rrricanesdata` is the complementary dataset for [rrricanes](https://github.com/ropensci/rrricanes). Currently it contains all product datasets for every cyclone that has developed in the north Atlantic and northeast Pacific basins since 1998.
+
+`rrricanesdata` will be updated on the first of every month.
+
+## Prerequisites
+
+No prerequisites.
+
+## Installing
+
+`rrricanesdata` can be installed with the following command:
+
+```r
+install.packages("rrricanesdata", 
+                 repos = "https://timtrice.github.io/drat/", 
+                 type = "source")
+```
+
+This package is not nor will be made available in CRAN.
+
+### Updating
+
+As `rrricanesdata` will be updated monthly (provided any advisory was issued the previous month), you will want to ensure you have the latest datasets prior to running any analysis. You need to add the package repository to your `repos` options, such as:
+
+```r
+options(repos = c(getOption("repos"), "https://timtrice.github.io/drat/")
+```
+
+You can then run `update.packages` to check for and install any new updates.
+
+## Datasets
+
+### adv
+  * Key: Unique identifier of cyclone
+  * Adv: Advisory number
+  * Date: Date and time of advisory
+  * Status: Classification of cyclone
+  * Name: Name of cyclone
+  * Lat: Latitude of cyclone center
+  * Lon: Longitude of cyclone center
+  * Wind: Maximum sustained one-minute winds in knots
+  * Gust: Maximum sustained one-minute gusts in knots
+  * Pressure: Minimum central pressure in millibars
+  * PosAcc: Position accuracy of cyclone in nautical miles
+  * FwdDir: Compass angle of forward motion
+  * FwdSpeed: Forward speed in miles per hour
+  * Eye: Size of eye in nautical miles
+  * SeasNE: Radius of 12ft seas in northeast quadrant
+  * SeasSE: Radius of 12ft seas in southeast quadrant
+  * SeasSW: Radius of 12ft seas in southwest quadrant
+  * SeasNW: Radius of 12ft seas in northwest quadrant
+
+### discus
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Adv: Advisory Number
+  * Date: Date of advisory issuance
+  * Key: ID of cyclone
+  * Contents: Text content of product
+
+### fcst
+  * Key: Unique identifier of cyclone
+  * Adv: Advisory number
+  * Date: Date and time of advisory
+  * FcstDate: Forecast date and time in UTC
+  * Lat: Forecast latitude
+  * Lon: Forecast Longitude
+  * Wind: Forecast wind in knots
+  * Gust: Forecast gust in knots
+
+### fcst_wr
+  * Key: Unique identifier of cyclone
+  * Adv: Advisory number
+  * Date: Date and time of advisory
+  * FcstDate: Forecast date and time in UTC
+  * WindField: Minimum sustained wind field for quadrants
+  * NE: Radius in nautical miles for northeast quadrant
+  * SE: Radius in nautical miles for southeast quadrant
+  * SW: Radius in nautical miles for southwest quadrant
+  * NW: Radius in nautical miles for northwest quadrant
+
+### fstadv
+  * Status: Classification of cyclone
+  * Name: Name of cyclone
+  * Adv: Advisory number
+  * Date: Date and time of advisory
+  * Key: Unique identifier of cyclone
+  * Lat: Latitude of cyclone center
+  * Lon: Longitude of cyclone center
+  * Wind: Maximum sustained one-minute winds in knots
+  * Gust: Maximum sustained one-minute gusts in knots
+  * Pressure: Minimum central pressure in millibars
+  * PosAcc: Position accuracy of cyclone in nautical miles
+  * FwdDir: Compass angle of forward motion
+  * FwdSpeed: Forward speed in miles per hour
+  * Eye: Size of eye in nautical miles
+  * NE64: Radius of >=64kt winds in northeast quadrant
+  * SE64: Radius of >=64kt winds in southeast quadrant
+  * SW64: Radius of >=64kt winds in southwest quadrant
+  * NW64: Radius of >=64kt winds in northwest quadrant
+  * NE50: Radius of >=50kt winds in northeast quadrant
+  * SE50: Radius of >=50kt winds in southeast quadrant
+  * SW50: Radius of >=50kt winds in southwest quadrant
+  * NW50: Radius of >=50kt winds in northwest quadrant
+  * NE34: Radius of >=34kt winds in northwest quadrant
+  * SE34: Radius of >=34kt winds in southeast quadrant
+  * SW34: Radius of >=34kt winds in southwest quadrant
+  * NW34: Radius of >=34kt winds in northwest quadrant
+  * Hr\{n\}FcstDate: Forecast valid date
+  * Hr\{n\}Lat: Forecast latitude in n hours
+  * Hr\{n\}Lon: Forecast longitude in n hours
+  * Hr\{n\}Wind: Forecast maximum wind in n hours
+  * Hr\{n\}Gust: Forecast maximum gust in n hours
+  * Hr\{n\}NE64: Forecast wind radius in n hours
+  * Hr\{n\}SE64: Forecast wind radius in n hours
+  * Hr\{n\}SW64: Forecast wind radius in n hours
+  * Hr\{n\}NW64: Forecast wind radius in n hours
+  * Hr\{n\}NE50: Forecast wind radius in n hours
+  * Hr\{n\}SE50: Forecast wind radius in n hours
+  * Hr\{n\}SW50: Forecast wind radius in n hours
+  * Hr\{n\}NW50: Forecast wind radius in n hours
+  * Hr\{n\}NE34: Forecast wind radius in n hours
+  * Hr\{n\}SE34: Forecast wind radius in n hours
+  * Hr\{n\}SW34: Forecast wind radius in n hours
+  * Hr\{n\}NW34: Forecast wind radius in n hours
+  * SeasNE: Radius of 12ft seas in northeast quadrant
+  * SeasSE: Radius of 12ft seas in southeast quadrant
+  * SeasSW: Radius of 12ft seas in southwest quadrant
+  * SeasNW: Radius of 12ft seas in northwest quadrant
+
+### posest
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Date: Date of advisory issuance
+  * Contents: Text content of product
+
+### prblty
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Adv: Advisory Number
+  * Date: Date of advisory issuance
+  * Location: Location for which the probability statistics rely
+  * A: Probability of a strike within the next 12 hours
+  * B: Probability of a strike between 12 and 24 hours
+  * C: Probability of a strike between 24 and 36 hours
+  * D: Probability of a strike between 36 and 48 hours
+  * E: Probability of a strike between 48 and 72 hours
+
+### public
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Adv: Advisory Number
+  * Date: Date of advisory issuance
+  * Key: Unique ID of the cyclone
+  * Contents: Text content of product
+
+### storms
+  * Key: Storm ID
+  * Name: Storm name
+  * Wind: Peak wind speed in knots
+  * StartDate: Date/time of first advisory
+  * EndDate: Date/time of last advisory
+
+### update
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Date: Date of advisory issuance
+  * Key: Unique ID of cyclone
+  * Contents: Text content of product
+
+### wndprb
+  * Status: Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.
+  * Name: Name of storm
+  * Adv: Advisory Number
+  * Date: Date of advisory issuance
+  * Wind: Minimum wind speed for which probabilities reference
+  * Wind12: Probability of sustained Wind within 12 hours
+  * Wind24: Probability of sustained Wind within 24 hours
+  * Wind24Cum: Cumulative probability through 24 hours
+  * Wind36: Probability of sustained Wind within 36 hours
+  * Wind36Cum: Cumulative probability through 36 hours
+  * Wind48: Probability of sustained Wind within 48 hours
+  * Wind48Cum: Cumulative probability through 48 hours
+  * Wind72: Probability of sustained Wind within 72 hours
+  * Wind72Cum: Cumulative probability through 72 hours
+  * Wind96: Probability of sustained Wind within 96 hours
+  * Wind96Cum: Cumulative probability through 96 hours
+  * Wind120: Probability of sustained Wind within 120 hours
+  * Wind120Cum: Cumulative probability through 120 hours
+
+### wr
+  * Key: Unique identifier of cyclone
+  * Adv: Advisory number
+  * Date: Date and time of advisory
+  * Windfield: Minimum wind speed expected
+  * NE: Radius of Windfield in the northeast quadrant
+  * SE: Radius of Windfield in the southeast quadrant
+  * SW: Radius of Windfield in the southwest quadrant
+  * NW: Radius of Windfield in the northwest quadrant
+
+## Built With
+
+* [R 3.3.3](https://www.r-project.org/) - The R Project for Statistical Computing
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://github.com/ropensci/rrricanesdata/blob/master/.github/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ropensci/rrricanesdata/tags). 
+
+## Authors
+
+* **Tim Trice** - *Initial work* - [timtrice](https://github.com/timtrice)
+
+See also the list of [contributors](https://github.com/ropensci/rrricanesdata/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* [Salmon, Maëlle](https://github.com/maelle)
+* [Stachelek, Joseph](https://github.com/jsta)
+* [Robinson, Emily](https://github.com/robinsones)
+
+## Known Data Quality Issues
+
+1. Hurricane Juan (AL152003), Adv 15; no status leads to improper `Status` and `Name` values in some datasets. ([#82](https://github.com/ropensci/rrricanes/issues/82))
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{public}
+\alias{public}
+\title{Public Advisory}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 14080 rows and 6 columns.}
+\usage{
+public
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Adv}{Advisory Number}
+  \item{Date}{Date of advisory issuance}
+  \item{Key}{Unique ID of the cyclone}
+  \item{Contents}{Text content of product}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{posest}
+\alias{posest}
+\title{Position Estimates}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 85 rows and 4 columns.}
+\usage{
+posest
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Date}{Date of advisory issuance}
+  \item{Contents}{Text content of product}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{package}
+\name{rrricanesdata}
+\alias{rrricanesdata}
+\alias{rrricanesdata-package}
+\title{rrricanesdata}
+\description{
+rrricanesdata is the complimentary data package to `rrricanes`.
+  It includes all product datasets for north Atlantic and northeast
+  Pacific tropical cyclones from 1998 through the previous month. This
+  package will be updated on the first of every month provided at least one
+  cyclone advisory was issued in the previous month.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{storms}
+\alias{storms}
+\title{Storm Summary}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 647 rows and 5 columns.}
+\usage{
+storms
+}
+\description{
+\describe{
+  \item{Key}{Storm ID}
+  \item{Name}{Storm name}
+  \item{Wind}{Peak wind speed in knots}
+  \item{StartDate}{Date/time of first advisory}
+  \item{EndDate}{Date/time of last advisory}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{fstadv}
+\alias{fstadv}
+\title{Forecast/Advisory}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 12874 rows and 117 columns.}
+\usage{
+fstadv
+}
+\description{
+\describe{
+   \item{Status}{Classification of cyclone}
+   \item{Name}{Name of cyclone}
+   \item{Adv}{Advisory number}
+   \item{Date}{Date and time of advisory}
+   \item{Key}{Unique identifier of cyclone}
+   \item{Lat}{Latitude of cyclone center}
+   \item{Lon}{Longitude of cyclone center}
+   \item{Wind}{Maximum sustained one-minute winds in knots}
+   \item{Gust}{Maximum sustained one-minute gusts in knots}
+   \item{Pressure}{Minimum central pressure in millibars}
+   \item{PosAcc}{Position accuracy of cyclone in nautical miles}
+   \item{FwdDir}{Compass angle of forward motion}
+   \item{FwdSpeed}{Forward speed in miles per hour}
+   \item{Eye}{Size of eye in nautical miles}
+   \item{NE64}{Radius of >=64kt winds in northeast quadrant}
+   \item{SE64}{Radius of >=64kt winds in southeast quadrant}
+   \item{SW64}{Radius of >=64kt winds in southwest quadrant}
+   \item{NW64}{Radius of >=64kt winds in northwest quadrant}
+   \item{NE50}{Radius of >=50kt winds in northeast quadrant}
+   \item{SE50}{Radius of >=50kt winds in southeast quadrant}
+   \item{SW50}{Radius of >=50kt winds in southwest quadrant}
+   \item{NW50}{Radius of >=50kt winds in northwest quadrant}
+   \item{NE34}{Radius of >=34kt winds in northwest quadrant}
+   \item{SE34}{Radius of >=34kt winds in southeast quadrant}
+   \item{SW34}{Radius of >=34kt winds in southwest quadrant}
+   \item{NW34}{Radius of >=34kt winds in northwest quadrant}
+   \item{Hr\{n\}FcstDate}{Forecast valid date}
+   \item{Hr\{n\}Lat}{Forecast latitude in `n` hours}
+   \item{Hr\{n\}Lon}{Forecast longitude in `n` hours}
+   \item{Hr\{n\}Wind}{Forecast maximum wind in `n` hours}
+   \item{Hr\{n\}Gust}{Forecast maximum gust in `n` hours}
+   \item{Hr\{n\}NE64}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SE64}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SW64}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}NW64}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}NE50}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SE50}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SW50}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}NW50}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}NE34}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SE34}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}SW34}{Forecast wind radius in `n` hours}
+   \item{Hr\{n\}NW34}{Forecast wind radius in `n` hours}
+   \item{SeasNE}{Radius of 12ft seas in northeast quadrant}
+   \item{SeasSE}{Radius of 12ft seas in southeast quadrant}
+   \item{SeasSW}{Radius of 12ft seas in southwest quadrant}
+   \item{SeasNW}{Radius of 12ft seas in northwest quadrant}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{wndprb}
+\alias{wndprb}
+\title{Wind Speed Probabilities}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 118222 rows and 18 columns.}
+\usage{
+wndprb
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Adv}{Advisory Number}
+  \item{Date}{Date of advisory issuance}
+  \item{Wind}{Minimum wind speed for which probabilities reference}
+  \item{Wind12}{Probability of sustained `Wind` within 12 hours}
+  \item{Wind24}{Probability of sustained `Wind` within 24 hours}
+  \item{Wind24Cum}{Cumulative probability through 24 hours}
+  \item{Wind36}{Probability of sustained `Wind` within 36 hours}
+  \item{Wind36Cum}{Cumulative probability through 36 hours}
+  \item{Wind48}{Probability of sustained `Wind` within 48 hours}
+  \item{Wind48Cum}{Cumulative probability through 48 hours}
+  \item{Wind72}{Probability of sustained `Wind` within 72 hours}
+  \item{Wind72Cum}{Cumulative probability through 72 hours}
+  \item{Wind96}{Probability of sustained `Wind` within 96 hours}
+  \item{Wind96Cum}{Cumulative probability through 96 hours}
+  \item{Wind120}{Probability of sustained `Wind` within 120 hours}
+  \item{Wind120Cum}{Cumulative probability through 120 hours}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{wr}
+\alias{wr}
+\title{Wind Radius - Current wind radius}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 19294 rows and 8 columns.}
+\usage{
+wr
+}
+\description{
+\describe{
+   \item{Key}{Unique identifier of cyclone}
+   \item{Adv}{Advisory number}
+   \item{Date}{Date and time of advisory}
+   \item{Windfield}{Minimum wind speed expected}
+   \item{NE}{Radius of `Windfield` in the northeast quadrant}
+   \item{SE}{Radius of `Windfield` in the southeast quadrant}
+   \item{SW}{Radius of `Windfield` in the southwest quadrant}
+   \item{NW}{Radius of `Windfield` in the northwest quadrant}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{adv}
+\alias{adv}
+\title{Advisory - Basic advisory data}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 12862 rows and 18 columns.}
+\usage{
+adv
+}
+\description{
+\describe{
+   \item{Key}{Unique identifier of cyclone}
+   \item{Adv}{Advisory number}
+   \item{Date}{Date and time of advisory}
+   \item{Status}{Classification of cyclone}
+   \item{Name}{Name of cyclone}
+   \item{Lat}{Latitude of cyclone center}
+   \item{Lon}{Longitude of cyclone center}
+   \item{Wind}{Maximum sustained one-minute winds in knots}
+   \item{Gust}{Maximum sustained one-minute gusts in knots}
+   \item{Pressure}{Minimum central pressure in millibars}
+   \item{PosAcc}{Position accuracy of cyclone in nautical miles}
+   \item{FwdDir}{Compass angle of forward motion}
+   \item{FwdSpeed}{Forward speed in miles per hour}
+   \item{Eye}{Size of eye in nautical miles}
+   \item{SeasNE}{Radius of 12ft seas in northeast quadrant}
+   \item{SeasSE}{Radius of 12ft seas in southeast quadrant}
+   \item{SeasSW}{Radius of 12ft seas in southwest quadrant}
+   \item{SeasNW}{Radius of 12ft seas in northwest quadrant}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{discus}
+\alias{discus}
+\title{Storm Discussions}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 12847 rows and 6 columns.}
+\usage{
+discus
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Adv}{Advisory Number}
+  \item{Date}{Date of advisory issuance}
+  \item{Key}{ID of cyclone}
+  \item{Contents}{Text content of product}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{prblty}
+\alias{prblty}
+\title{Strike Probabilities}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 55571 rows and 10 columns.}
+\usage{
+prblty
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Adv}{Advisory Number}
+  \item{Date}{Date of advisory issuance}
+  \item{Location}{Location for which the probability statistics rely}
+  \item{A}{Probability of a strike within the next 12 hours}
+  \item{B}{Probability of a strike between 12 and 24 hours}
+  \item{C}{Probability of a strike between 24 and 36 hours}
+  \item{D}{Probability of a strike between 36 and 48 hours}
+  \item{E}{Probability of a strike between 48 and 72 hours}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{update}
+\alias{update}
+\title{Tropical Cyclone Updates}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 237 rows and 5 columns.}
+\usage{
+update
+}
+\description{
+\describe{
+  \item{Status}{Classification of storm, e.g., Tropical Storm, Hurricane,
+    etc.}
+  \item{Name}{Name of storm}
+  \item{Date}{Date of advisory issuance}
+  \item{Key}{Unique ID of cyclone}
+  \item{Contents}{Text content of product}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{fcst}
+\alias{fcst}
+\title{Forecasts - Forecast positions per Forecast/Advisory}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 66170 rows and 8 columns.}
+\usage{
+fcst
+}
+\description{
+\describe{
+   \item{Key}{Unique identifier of cyclone}
+   \item{Adv}{Advisory number}
+   \item{Date}{Date and time of advisory}
+   \item{FcstDate}{Forecast date and time in UTC}
+   \item{Lat}{Forecast latitude}
+   \item{Lon}{Forecast Longitude}
+   \item{Wind}{Forecast wind in knots}
+   \item{Gust}{Forecast gust in knots}
+}
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{fcst_wr}
+\alias{fcst_wr}
+\title{Forecast Wind Radius - Wind radius for each \code{fcst}}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 85255 rows and 9 columns.}
+\usage{
+fcst_wr
+}
+\description{
+\describe{
+   \item{Key}{Unique identifier of cyclone}
+   \item{Adv}{Advisory number}
+   \item{Date}{Date and time of advisory}
+   \item{FcstDate}{Forecast date and time in UTC}
+   \item{WindField}{Minimum sustained wind field for quadrants}
+   \item{NE}{Radius in nautical miles for northeast quadrant}
+   \item{SE}{Radius in nautical miles for southeast quadrant}
+   \item{SW}{Radius in nautical miles for southwest quadrant}
+   \item{NW}{Radius in nautical miles for northwest quadrant}
+}
+}
+\keyword{datasets}

@@ -31156,3 +31156,18215 @@ The bulk of the SPDX standard describes syntax and semantics of XML metadata fil
     ```
 
 The Linux Foundation and its contributors license the SPDX standard under the terms of [the Creative Commons Attribution License 3.0 Unported (SPDX: "CC-BY-3.0")](http://spdx.org/licenses/CC-BY-3.0).  "SPDX" is a United States federally registered trademark of the Linux Foundation.  The authors of this package license their work under the terms of the MIT License.
+---
+title: "Unicode: Emoji, accents, and international text"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Unicode: Emoji, accents, and international text}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+Character encoding
+------------------
+
+Before we can analyze a text in R, we first need to get its digital
+representation, a sequence of ones and zeros. In practice this works by first
+choosing an *encoding* for the text that assigns each character a numerical
+value, and then translating the sequence of characters in the text to the
+corresponding sequence of numbers specified by the encoding. Today, most new
+text is encoded according to the [Unicode standard][unicode], specifically the
+8-bit block Unicode Transfer Format, [UTF-8][utf8].  Joel Spolsky gives a
+good overview of the situation in an [essay from 2003][spolsky2003].
+
+
+The software community has mostly moved to UTF-8 as a standard for text
+storage and interchange, but there is still a large volume of text in other
+encodings. Whenever you read a text file into R, you need to specify the
+encoding. If you don't, R will try to guess the encoding, and if it guesses
+incorrectly, it will wrongly interpret the sequence of ones and zeros.
+
+
+We will demonstrate the difficulties of encodings with the text of
+Jane Austen's novel, _Mansfield Park_ provided by
+[Project Gutenberg][gutenberg]. We will download the text, then
+read in the lines of the novel.
+
+
+```r
+# download the zipped text from a Project Gutenberg mirror
+url <-  "http://mirror.csclub.uwaterloo.ca/gutenberg/1/4/141/141.zip"
+tmp <- tempfile()
+download.file(url, tmp)
+
+# read the text from the zip file
+con <- unz(tmp, "141.txt", encoding = "UTF-8")
+lines <- readLines(con)
+close(con)
+```
+
+The `unz` function and other similar file connection functions have `encoding`
+arguments which, if left unspecified default to assuming that text is encoded
+in your operating system's native encoding. To ensure consistent behavior
+across all platforms (Mac, Windows, and Linux), you should set this option
+explicitly. Here, we set `encoding = "UTF-8"`. This is a reasonable default,
+but it is not always appropriate. In general, you should determine the
+appropriate `encoding` value by looking at the file. Unfortunately, the file
+extension `".txt"` is not informative, and could correspond to any encoding.
+However, if we read the first few lines of the file, we see the following:
+
+
+```r
+lines[11:20]
+```
+
+```
+ [1] "Author: Jane Austen"                                         
+ [2] ""                                                            
+ [3] "Release Date: June, 1994  [Etext #141]"                      
+ [4] "Posting Date: February 11, 2015"                             
+ [5] ""                                                            
+ [6] "Language: English"                                           
+ [7] ""                                                            
+ [8] "Character set encoding: ASCII"                               
+ [9] ""                                                            
+[10] "*** START OF THIS PROJECT GUTENBERG EBOOK MANSFIELD PARK ***"
+```
+
+The character set encoding is reported as ASCII, which is a subset of UTF-8.
+So, we should be in good shape.
+
+
+Unfortunately, we run into trouble as soon as we try to process the text:
+
+
+```r
+corpus::term_stats(lines) # produces an error
+```
+
+```
+Error in corpus::term_stats(lines): argument entry 15252 is incorrectly marked as "UTF-8": invalid leading byte (0xA3) at position 36
+```
+
+The error message tells us that line 15252 contains an invalid byte.
+
+
+```r
+lines[15252]
+```
+
+```
+[1] "the command of her beauty, and her \xa320,000, any one who could satisfy the"
+```
+
+We might wonder if there are other lines with invalid data.  We can find
+all such lines using the `utf8_valid` function:
+
+```r
+lines[!utf8_valid(lines)]
+```
+
+```
+[1] "the command of her beauty, and her \xa320,000, any one who could satisfy the"
+```
+So, there are no other invalid lines.
+
+The offending byte in line 15252 is displayed as `\xa3`, an escape code
+for hexadecimal value 0xa3, decimal value 163. To understand why this
+is invalid, we need to learn more about UTF-8 encoding.
+
+
+UTF-8
+-----
+
+### ASCII
+
+The smallest unit of data transfer on modern computers is the byte, a sequence
+of eight ones and zeros that can encode a number between 0 and 255
+(hexadecimal 0x00 and 0xff). In the earliest character encodings, the numbers
+from 0 to 127 (hexadecimal 0x00 to 0x7f) were standardized in an encoding
+known as ASCII, the American Standard Code for Information Interchange.
+Here are the characters corresponding to these codes:
+
+
+```r
+codes <- matrix(0:127, 8, 16, byrow = TRUE,
+                dimnames = list(0:7, c(0:9, letters[1:6])))
+ascii <- apply(codes, c(1, 2), intToUtf8)
+
+# replace control codes with ""
+ascii["0", c(0:6, "e", "f")] <- ""
+ascii["1",] <- ""
+ascii["7", "f"] <- ""
+
+utf8_print(ascii, quote = FALSE)
+```
+
+```
+  0 1 2 3 4 5 6 7  8  9  a  b  c  d  e f
+0               \a \b \t \n \v \f \r    
+1                                       
+2   ! " # $ % & '  (  )  *  +  ,  -  . /
+3 0 1 2 3 4 5 6 7  8  9  :  ;  <  =  > ?
+4 @ A B C D E F G  H  I  J  K  L  M  N O
+5 P Q R S T U V W  X  Y  Z  [  \\ ]  ^ _
+6 ` a b c d e f g  h  i  j  k  l  m  n o
+7 p q r s t u v w  x  y  z  {  |  }  ~  
+```
+The first 32 codes (the first two rows of the table) are special control
+codes, the most common of which, `0x0a` denotes a new line (`\n`). The special
+code `0x00` often denotes the end of the input, and R does not allow this
+value in character strings. Code `0x7f` corresponds to a "delete" control.
+
+When you call `utf8_print`, it uses the low level `utf8_encode` subroutine
+format control codes; they format as `\uXXXX` for four hexadecimal digits
+`XXXX` or as `\UXXXXYYYY` for eight hexadecimal digits `XXXXYYYY`:
+
+
+```r
+utf8_print(intToUtf8(1:0x0f), quote = FALSE)
+```
+
+```
+[1] \u0001\u0002\u0003\u0004\u0005\u0006\a\b\t\n\v\f\r\u000e\u000f
+```
+
+Compare `utf8_print` output with the output with the base R print function:
+
+
+```r
+print(intToUtf8(1:0x0f), quote = FALSE)
+```
+
+```
+[1] \001\002\003\004\005\006\a\b\t\n\v\f\r\016\017
+```
+
+Base R format control codes below 128 using octal escapes. There are some
+other differences between the function which we will highlight below.
+
+
+### Latin-1
+
+ASCII works fine for most text in English, but not for other languages. The
+Latin-1 encoding extends ASCII to Latin languages by assigning the numbers
+128 to 255 (hexadecimal 0x80 to 0xff) to other common characters in Latin
+languages. We can see these characters below.
+
+
+```r
+codes <- matrix(128:255, 8, 16, byrow = TRUE,
+                dimnames = list(c(8:9, letters[1:6]), c(0:9, letters[1:6])))
+latin1 <- apply(codes, c(1, 2), intToUtf8)
+
+# replace control codes with ""
+latin1[c("8", "9"),] <- ""
+
+utf8_print(latin1, quote = FALSE)
+```
+
+```
+  0 1 2 3 4 5 6 7 8 9 a b c d e f
+8                                
+9                                
+a   ¡ ¢ £ ¤ ¥ ¦ § ¨ © ª « ¬   ® ¯
+b ° ± ² ³ ´ µ ¶ · ¸ ¹ º » ¼ ½ ¾ ¿
+c À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï
+d Ð Ñ Ò Ó Ô Õ Ö × Ø Ù Ú Û Ü Ý Þ ß
+e à á â ã ä å æ ç è é ê ë ì í î ï
+f ð ñ ò ó ô õ ö ÷ ø ù ú û ü ý þ ÿ
+```
+
+As with ASCII, the first 32 numbers are control codes. The others are
+characters common in Latin languages. Note that `0xa3`, the invalid byte
+from _Mansfield Park_, corresponds to a pound sign in the Latin-1 encoding.
+Given the context of the byte:
+
+
+```r
+lines[15252]
+```
+
+```
+[1] "the command of her beauty, and her \xa320,000, any one who could satisfy the"
+```
+
+this is probably the right symbol. The text is probably encoded in Latin-1,
+not UTF-8 or ASCII as claimed in the file.
+
+If you run into an error while reading text that claims to be ASCII, it
+is probably encoded as Latin-1. Note, however, that this is not the only
+possibility, and there are many other encodings. The `iconvlist` function
+will list the ones that R knows how to process:
+
+
+```r
+head(iconvlist(), n = 20)
+```
+
+```
+ [1] "437"            "850"            "852"            "855"           
+ [5] "857"            "860"            "861"            "862"           
+ [9] "863"            "865"            "866"            "869"           
+[13] "ANSI_X3.4-1968" "ANSI_X3.4-1986" "ARABIC"         "ARMSCII-8"     
+[17] "ASCII"          "ASMO-708"       "ATARI"          "ATARIST"       
+```
+
+### UTF-8
+
+With only 256 unique values, a single byte is not enough to encode every
+character. Multi-byte encodings allow for encoding more. UTF-8 encodes
+characters using between 1 and 4 bytes each and allows for up to 1,112,064
+character codes. Most of these codes are currently unassigned, but every year
+the Unicode consortium meets and adds new characters. You can find a list of
+all of the characters in the [Unicode Character Database][unicode-data]. A
+listing of the Emoji characters is [available separately][emoji-data].
+
+
+Say you want to input the Unicode character with hexadecimal code 0x2603.
+You can do so in one of three ways:
+
+```r
+"\u2603"           # with \u + 4 hex digits
+```
+
+```
+[1] "☃"
+```
+
+```r
+"\U00002603"       # with \U + 8 hex digits
+```
+
+```
+[1] "☃"
+```
+
+```r
+intToUtf8(0x2603)  # from an integer
+```
+
+```
+[1] "☃"
+```
+For characters above `0xffff`, the first method won't work. On Windows,
+a bug in the current version of R (fixed in R-devel) prevents using the
+second method.
+
+
+When you try to print Unicode in R, the system will first try to determine
+whether the code is printable or not. Non-printable codes include control
+codes and unassigned codes. On Mac OS, R uses an outdated function to make
+this determination, so it is unable to print most emoji. The `utf8_print`
+function uses the most recent version (10.0.0) of the Unicode standard,
+and will print all Unicode characters supported by your system:
+
+
+```r
+print(intToUtf8(0x1f600 + 0:79)) # base R
+```
+
+```
+[1] "\U0001f600\U0001f601\U0001f602\U0001f603\U0001f604\U0001f605\U0001f606\U0001f607\U0001f608\U0001f609\U0001f60a\U0001f60b\U0001f60c\U0001f60d\U0001f60e\U0001f60f\U0001f610\U0001f611\U0001f612\U0001f613\U0001f614\U0001f615\U0001f616\U0001f617\U0001f618\U0001f619\U0001f61a\U0001f61b\U0001f61c\U0001f61d\U0001f61e\U0001f61f\U0001f620\U0001f621\U0001f622\U0001f623\U0001f624\U0001f625\U0001f626\U0001f627\U0001f628\U0001f629\U0001f62a\U0001f62b\U0001f62c\U0001f62d\U0001f62e\U0001f62f\U0001f630\U0001f631\U0001f632\U0001f633\U0001f634\U0001f635\U0001f636\U0001f637\U0001f638\U0001f639\U0001f63a\U0001f63b\U0001f63c\U0001f63d\U0001f63e\U0001f63f\U0001f640\U0001f641\U0001f642\U0001f643\U0001f644\U0001f645\U0001f646\U0001f647\U0001f648\U0001f649\U0001f64a\U0001f64b\U0001f64c\U0001f64d\U0001f64e\U0001f64f"
+```
+
+```r
+utf8_print(intToUtf8(0x1f600 + 0:79)) # truncates to line width
+```
+
+```
+[1] "😀​😁​😂​😃​😄​😅​😆​😇​😈​😉​😊​😋​😌​😍​😎​😏​😐​😑​😒​😓​😔​😕​😖​😗​😘​😙​😚​😛​😜​😝​😞​😟​😠​😡​😢​😣​…"
+```
+
+```r
+utf8_print(intToUtf8(0x1f600 + 0:79), chars = 500) # increase character limit
+```
+
+```
+[1] "😀​😁​😂​😃​😄​😅​😆​😇​😈​😉​😊​😋​😌​😍​😎​😏​😐​😑​😒​😓​😔​😕​😖​😗​😘​😙​😚​😛​😜​😝​😞​😟​😠​😡​😢​😣​😤​😥​😦​😧​😨​😩​😪​😫​😬​😭​😮​😯​😰​😱​😲​😳​😴​😵​😶​😷​😸​😹​😺​😻​😼​😽​😾​😿​🙀​🙁​🙂​🙃​🙄​🙅​🙆​🙇​🙈​🙉​🙊​🙋​🙌​🙍​🙎​🙏​"
+```
+
+(Characters with codes above 0xffff, including most emoji, are not
+supported on Windows.)
+
+The *utf8* package provides the following utilities for validating, formatting,
+and printing UTF-8 characters:
+
+ + `as_utf8()` attempts to convert character data to UTF-8, throwing an
+   error if the data is invalid;
+
+ + `utf8_valid()` tests whether character data is valid according to its
+   declared encoding;
+
+ + `utf8_normalize()` converts text to Unicode composed normal form (NFC),
+   optionally applying case-folding and compatibility maps;
+
+ + `utf8_encode()` encodes a character string, escaping all control
+   characters, so that it can be safely printed to the screen;
+
+ + `utf8_format()` formats a character vector by truncating to a specified
+   character width limit or by left, right, or center justifying;
+
+ + `utf8_print()` prints UTF-8 character data to the screen;
+
+ + `utf8_width()` measures the display with of UTF-8 character strings
+    (many emoji and East Asian characters are twice as wide as other
+    characters).
+
+The package does not provide a method to translate from another encoding to
+UTF-8 as the `iconv()` function from base R already serves this purpose.
+
+
+Translating to UTF-8
+--------------------
+
+Back to our original problem: getting the text of _Mansfield Park_ into R.
+Our first attempt failed:
+
+
+```r
+corpus::term_stats(lines)
+```
+
+```
+Error in corpus::term_stats(lines): argument entry 15252 is incorrectly marked as "UTF-8": invalid leading byte (0xA3) at position 36
+```
+
+We discovered a problem on line 15252:
+
+
+```r
+lines[15252]
+```
+
+```
+[1] "the command of her beauty, and her \xa320,000, any one who could satisfy the"
+```
+
+The text is likely encoded in Latin-1, not UTF-8 (or ASCII) as we had
+originally thought. We can test this by attempting to convert from
+Latin-1 to UTF-8 with the `iconv()` function and inspecting the output:
+
+
+```r
+lines2 <- iconv(lines, "latin1", "UTF-8")
+lines2[15252]
+```
+
+```
+[1] "the command of her beauty, and her £20,000, any one who could satisfy the"
+```
+
+It worked! Now we can analyze our text.
+
+
+```r
+f <- corpus::text_filter(drop_punct = TRUE, drop = corpus::stopwords_en)
+corpus::term_stats(lines2, f)
+```
+
+```
+   term     count support
+1  fanny      816     806
+2  must       508     492
+3  crawford   493     488
+4  mr         482     466
+5  much       459     450
+6  miss       432     419
+7  said       406     400
+8  mrs        408     399
+9  sir        372     366
+10 edmund     364     364
+11 one        370     358
+12 think      349     346
+13 now        333     331
+14 might      324     320
+15 time       310     307
+16 little     309     300
+17 nothing    301     291
+18 well       299     286
+19 thomas     288     285
+20 good       280     275
+⋮  (8450 rows total)
+```
+
+The *readtext* package
+----------------------
+
+If you need more than reading in a single text file, the [readtext][readtext]
+package supports reading in text in a variety of file formats and encodings.
+Beyond just plain text, that package can read in PDFs, Word documents, RTF,
+and many other formats. (Unfortunately, that package currently fails when
+trying to read in _Mansfield Park_; the authors are aware of the issue and are
+working on a fix.)
+
+
+Summary
+-------
+
+Text comes in a variety of encodings, and you cannot analyze a text without
+first knowing its encoding. Many functions for reading in text assume that it
+is encoded in UTF-8, but this assumption sometimes fails to hold.  If you get
+an error message reporting that your UTF-8 text is invalid, use `utf8_valid`
+to find the offending texts. Try printing the data to the console before and
+after using `iconv` to convert between character encodings. You can use
+`utf8_print` to print UTF-8 characters that R refuses to display, including
+emoji characters. For reading in exotic file formats like PDF or Word, try
+the [readtext][readtext] package.
+
+
+
+[emoji-data]: http://www.unicode.org/Public/emoji/5.0/emoji-data.txt
+
+[gutenberg]: http://www.gutenberg.org
+
+[readr]: https://github.com/tidyverse/readr#readme
+
+[readtext]: https://github.com/kbenoit/readtext#readtext
+
+[spolsky2003]: https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+
+[unicode]: http://unicode.org/charts/
+
+[unicode-data]: http://www.unicode.org/Public/10.0.0/ucd/UnicodeData.txt
+
+[utf8]: https://en.wikipedia.org/wiki/UTF-8
+
+[windows1252]: https://en.wikipedia.org/wiki/Windows-1252
+---
+title: "Profiling Performance"
+author: "Thomas Lin Pedersen"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Profiling Performance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+In order to continuously monitor the performance of gtable
+the following piece of code is used to generate a profile and inspect it:
+
+```{r}
+library(ggplot2)
+library(profvis)
+
+p <- ggplot(mtcars, aes(mpg, disp)) + 
+  geom_point() + 
+  facet_grid(gear~cyl)
+
+p_build <- ggplot_build(p)
+
+profile <- profvis(for (i in seq_len(100)) ggplot_gtable(p_build))
+
+profile
+```
+
+```{r, eval=FALSE, include=FALSE}
+saveRDS(profile, file.path('profilings', paste0(packageVersion('gtable'), '.rds')))
+```
+
+The use of an empty ggplot2 ensures that the profile is based on real-life
+use and includes complex gtable assembly. Profiles for old version are kept 
+for reference and can be accessed at the 
+[github repository](https://github.com/r-lib/gtable/tree/master/vignettes/profilings).
+Care should be taken in not comparing profiles across versions, as 
+changes to code outside of gtable can have profound effect on the results.
+Thus, the intend of profiling is to identify bottlenecks in the implementation
+that are ripe for improvement, more then to quantify improvements to performance
+over time.
+
+## Performance focused changes across versions
+To keep track of changes focused on improving the performance of gtable they
+are summarised below:
+
+### v`r packageVersion('gtable')`
+Profiling results from gtable v0.2.0 identified a range of areas that could be
+easily improved by fairly small code changes. These changes resulted in roughly
+20% decrease in running time on the profiling code in general, while gtable 
+related functions were between 50 and 80% decrease in running time specifically.
+
+- **`data.frame` construction and indexing.** gtable now includes a minimal 
+  constructor that makes no input checking used for working with the layout data
+  frame. Further, indexing into the layout data frame has been improved by 
+  either treating as a list internally or directly calling `.subset2`
+- **Input validation.** `stopifnot()` was identified as a bottleneck and has 
+  removed in favor of a standard `if (...) stop()`
+- **Dimension querying.** The use of `nrow()` and `ncol()` has internally been 
+  substituted for direct calls to `length()` of the `heights` and `widths` unit
+  vectors
+---
+title: "Speed of glue"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Speed of glue}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  % \VignetteDepends{R.utils
+    R.utils,
+    forcats,
+    microbenchmark,
+    rprintf,
+    stringr,
+    ggplot2}
+---
+
+Glue is advertised as
+
+> Fast, dependency free string literals
+
+So what do we mean when we say that glue is fast. This does not mean glue is
+the fastest thing to use in all cases, however for the features it provides we
+can confidently say it is fast.
+
+A good way to determine this is to compare it's speed of execution to some alternatives.
+
+- `base::paste0()`, `base::sprintf()` - Functions in base R implemented in C
+  that provide variable insertion (but not interpolation).
+- `R.utils::gstring()`, `stringr::str_interp()` - Provides a similar interface
+  as glue, but using `${}` to delimit blocks to interpolate.
+- `pystr::pystr_format()`[^1], `rprintf::rprintf()` - Provide a interfaces similar
+  to python string formatters with variable replacement, but not arbitrary
+  interpolation.
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>",
+  eval = as.logical(Sys.getenv("EVAL_VIGNETTES", "FALSE")),
+  cache = FALSE)
+library(glue)
+```
+
+```{r setup2, include = FALSE}
+plot_comparison <- function(x, ...) {
+  library(ggplot2)
+  library(microbenchmark)
+  x$expr <- forcats::fct_reorder(x$expr, x$time)
+  colors <- ifelse(levels(x$expr) == "glue", "orange", "grey")
+  autoplot(x, ...) +
+    theme(axis.text.y = element_text(color = colors)) +
+      aes(fill = expr) + scale_fill_manual(values = colors, guide = FALSE)
+}
+```
+
+## Simple concatenation
+
+```{r, message = FALSE}
+bar <- "baz"
+
+simple <-
+  microbenchmark::microbenchmark(
+  glue = glue::glue("foo{bar}"),
+  gstring = R.utils::gstring("foo${bar}"),
+  paste0 = paste0("foo", bar),
+  sprintf = sprintf("foo%s", bar),
+  str_interp = stringr::str_interp("foo${bar}"),
+  rprintf = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+print(unit = "eps", order = "median", signif = 4, simple)
+
+plot_comparison(simple)
+```
+
+While `glue()` is slower than `paste0`,`sprintf()` it is
+twice as fast as `str_interp()` and `gstring()`, and on par with `rprintf()`.
+
+`paste0()`, `sprintf()` don't do string interpolation and will likely always be
+significantly faster than glue, glue was never meant to be a direct replacement
+for them.
+
+`rprintf()` does only variable interpolation, not arbitrary expressions, which
+was one of the explicit goals of writing glue.
+
+So glue is ~2x as fast as the two functions (`str_interp()`, `gstring()`) which do have
+roughly equivalent functionality.
+
+It also is still quite fast, with over 6000 evaluations per second on this machine.
+
+## Vectorized performance
+
+Taking advantage of glue's vectorization is the best way to avoid performance.
+For instance the vectorized form of the previous benchmark is able to generate
+100,000 strings in only 22ms with performance much closer to that of
+`paste0()` and `sprintf()`. NB. `str_interp()` does not support
+vectorization, so were removed.
+
+```{r, message = FALSE}
+bar <- rep("bar", 1e5)
+
+vectorized <-
+  microbenchmark::microbenchmark(
+  glue = glue::glue("foo{bar}"),
+  gstring = R.utils::gstring("foo${bar}"),
+  paste0 = paste0("foo", bar),
+  sprintf = sprintf("foo%s", bar),
+  rprintf = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+print(unit = "ms", order = "median", signif = 4, vectorized)
+
+plot_comparison(vectorized, log = FALSE)
+```
+
+[^1]: pystr is no longer available from CRAN due to failure to correct
+installation errors and was therefore removed from further testing.
+---
+title: "Transformers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Transformers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Transformers allow you to apply functions to the glue input and output, before
+and after evaluation. This allows you to write things like `glue_sql()`, which
+automatically quotes variables for you or add a syntax for automatically
+collapsing outputs.
+
+The transformer functions simply take two arguments `text` and `envir`, where
+`text` is the unparsed string inside the glue block and `envir` is the
+execution environment. Most transformers will then call `eval(parse(text = text,
+keep.source = FALSE), envir)` which parses and evaluates the code.
+
+You can then supply the transformer function to glue with the `.transformer`
+argument. In this way users can define manipulate the text before parsing and
+change the output after evaluation.
+
+It is often useful to write a `glue()` wrapper function which supplies a
+`.transformer` to `glue()` or `glue_data()` and potentially has additional
+arguments. One important consideration when doing this is to include
+`.envir = parent.frame()` in the wrapper to ensure the evaluation environment
+is correct.
+
+Some examples implementations of potentially useful transformers follow. The
+aim right now is not to include most of these custom functions within the
+`glue` package. Rather users are encouraged to create custom functions using
+transformers to fit their individual needs.
+
+```{r, include = FALSE}
+library(glue)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+### collapse transformer
+
+A transformer which automatically collapses any glue block ending with `*`.
+
+```{r}
+collapse_transformer <- function(regex = "[*]$", ...) {
+  function(text, envir) {
+    if (grepl(regex, text)) {
+        text <- sub(regex, "", text)
+    }
+    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    glue_collapse(res, ...)
+  }
+}
+
+glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
+
+glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
+```
+
+### Shell quoting transformer
+
+A transformer which automatically quotes variables for use in shell commands,
+e.g. via `system()` or `system2()`.
+
+```{r}
+shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
+  type <- match.arg(type)
+  function(text, envir) {
+    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    shQuote(res)
+  }
+}
+
+glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
+  .type <- match.arg(.type)
+  glue(..., .envir = .envir, .transformer = shell_transformer(.type))
+
+}
+
+filename <- "test"
+writeLines(con = filename, "hello!")
+
+command <- glue_sh("cat {filename}")
+command
+system(command)
+```
+
+### emoji transformer
+
+A transformer which converts the text to the equivalent emoji.
+
+```{r, eval = require("emo")}
+emoji_transformer <- function(text, envir) {
+  if (grepl("[*]$", text)) {
+    text <- sub("[*]$", "", text)
+    glue_collapse(ji_find(text)$emoji)
+  } else {
+    ji(text)
+  }
+}
+
+glue_ji <- function(..., .envir = parent.frame()) {
+  glue(..., .open = ":", .close = ":", .envir = .envir, .transformer = emoji_transformer)
+}
+glue_ji("one :heart:")
+glue_ji("many :heart*:")
+```
+
+### sprintf transformer
+
+A transformer which allows succinct sprintf format strings.
+
+```{r}
+sprintf_transformer <- function(text, envir) {
+  m <- regexpr(":.+$", text)
+  if (m != -1) {
+    format <- substring(regmatches(text, m), 2)
+    regmatches(text, m) <- ""
+    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    do.call(sprintf, list(glue("%{format}f"), res))
+  } else {
+    eval(parse(text = text, keep.source = FALSE), envir)
+  }
+}
+
+glue_fmt <- function(..., .envir = parent.frame()) {
+  glue(..., .transformer = sprintf_transformer, .envir = .envir)
+}
+glue_fmt("π = {pi:.2}")
+```
+
+### safely transformer
+
+A transformer that acts like `purrr::safely()`, which returns a value instead of an error.
+
+```{r}
+safely_transformer <- function(otherwise = NA) {
+  function(text, envir) {
+    tryCatch(
+      eval(parse(text = text, keep.source = FALSE), envir),
+      error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
+  }
+}
+
+glue_safely <- function(..., .otherwise = NA, .envir = parent.frame()) {
+  glue(..., .transformer = safely_transformer(.otherwise), .envir = .envir)
+}
+
+# Default returns missing if there is an error
+glue_safely("foo: {xyz}")
+
+# Or an empty string
+glue_safely("foo: {xyz}", .otherwise = "Error")
+
+# Or output the error message in red
+library(crayon)
+glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
+```
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{Introducing magrittr}
+-->
+
+```{r, echo = FALSE, message = FALSE}
+library(magrittr)
+options(scipen = 3)
+knitr::opts_chunk$set(
+  comment = NA,
+  error   = FALSE,
+  tidy    = FALSE)
+```
+
+![magrittr-pipe](magrittr.jpg)
+
+*This version: November, 2014. Stefan Milton Bache* 
+
+# Abstract
+
+*The magrittr* (to be pronounced with a sophisticated french accent) is
+a package with two aims: to decrease development time and to improve 
+readability and maintainability of code. Or even shortr: to make your code smokin' (puff puff)!
+
+To archive its humble aims, *magrittr* (remember the accent) provides a new 
+"pipe"-like operator, `%>%`, with which you may pipe a value forward into an 
+expression or function call; something along the lines of ` x %>% f `, rather
+than ` f(x)`. This is not an unknown feature
+elsewhere; a prime example is the `|>` operator used extensively in `F#`
+(to say the least) and indeed this -- along with Unix pipes -- served as a 
+motivation for developing the magrittr package.
+
+This vignette describes the main features of *magrittr* and demonstrates
+some features which has been added since the initial release.
+
+# Introduction and basics
+
+At first encounter, you may wonder whether an operator such as `%>%`  can really 
+be all that beneficial; but as you may notice, it semantically changes your 
+code in a way that makes it more intuitive to both read and write.
+
+Consider the following example, in which the `mtcars` dataset shipped with
+R is munged a little.
+```{r}
+library(magrittr)
+
+car_data <- 
+  mtcars %>%
+  subset(hp > 100) %>%
+  aggregate(. ~ cyl, data = ., FUN = . %>% mean %>% round(2)) %>%
+  transform(kpl = mpg %>% multiply_by(0.4251)) %>%
+  print
+```
+We start with a value, here `mtcars` (a `data.frame`). Based on this, we 
+first extract a subset, then  we aggregate the information based on the number 
+of cylinders, and then we transform the dataset by adding a variable
+for kilometers per liter as supplement to miles per gallon. Finally we print
+the result before assigning it.
+Note how the code is arranged in the logical
+order of how you think about the task: data->transform->aggregate, which
+is also the same order as the code will execute. It's like a recipe -- easy to
+read, easy to follow!
+
+A horrific alternative would be to write
+```{r}
+car_data <- 
+  transform(aggregate(. ~ cyl, 
+                      data = subset(mtcars, hp > 100), 
+                      FUN = function(x) round(mean(x, 2))), 
+            kpl = mpg*0.4251)
+```
+There is a lot more clutter with parentheses, and the mental task of deciphering
+the code is more challenging---in particular if you did not write it yourself.
+
+Note also how "building" a function on the fly for use in `aggregate` is very
+simple in *magrittr*: rather than an actual value as left-hand side in 
+pipeline, just use the placeholder. This is also very useful in R's 
+`*apply` family of functions.
+
+Granted: you may make the second example better, perhaps throw in a few temporary
+variables (which is often avoided to some degree when using *magrittr*),
+but one often sees cluttered lines like the ones presented. 
+
+And here is another selling point. Suppose I want to quickly want to add
+another step somewhere in the process. This is very easy in the
+to do in the pipeline version, but a little more challenging in the 
+"standard" example.
+
+The combined example shows a few neat features of the pipe (which it is not):
+
+1. By default the left-hand side (LHS) will be *piped in* as the first argument of 
+the function appearing on the right-hand side (RHS). This is the case in the 
+`subset` and `transform` expressions.
+2. `%>%` may be used in a nested fashion, e.g. it may appear in expressions within 
+arguments. This is used in the `mpg` to `kpl` conversion.
+3. When the LHS is needed at a position other than the first, one can use
+the dot,`'.'`, as placeholder. This is used in the `aggregate` expression.
+4. The dot in e.g. a formula is *not* confused with a placeholder, which is
+utilized in the `aggregate` expression.
+5. Whenever only *one* argument is needed, the LHS, then one can omit the
+empty parentheses. This is used in the call to `print` (which also returns its
+argument). Here, `LHS %>% print()`, or even `LHS %>% print(.)` would also work.
+6. A pipeline with a dot (`.`) as LHS will create a unary function. This is
+used to define the aggregator function.
+
+One feature, which was not utilized above is piping into *anonymous functions*,
+or *lambdas*. This is possible using standard function definitions, e.g.
+```{r, eval = FALSE}
+car_data %>%
+(function(x) {
+  if (nrow(x) > 2) 
+    rbind(head(x, 1), tail(x, 1))
+  else x
+})
+```
+However, *magrittr* also allows a short-hand notation:
+```{r}
+car_data %>%
+{ 
+  if (nrow(.) > 0)
+    rbind(head(., 1), tail(., 1))
+  else .
+}
+```
+Since all right-hand sides are really "body expressions" of unary functions, this
+is only the natural extension the simple right-hand side expressions. Of course
+longer and more complex functions can be made using this approach.
+
+In the first example the anonymous function is enclosed in parentheses.
+Whenever you want to use a function- or call-generating statement as right-hand side, 
+parentheses are used to evaluate the right-hand side before piping takes place.
+
+Another, less useful example is:
+```{r}
+1:10 %>% (substitute(f(), list(f = sum)))
+```
+
+# Additional pipe operators
+*magrittr* also provides three related pipe operators. These are not as
+common as `%>%` but they become useful in special cases. 
+
+The "tee" operator, `%T>%` works like `%>%`, except it returns the left-hand
+side value, and not the result of the right-hand side operation.
+This is useful when a step in a pipeline is used for its side-effect (printing,
+plotting, logging, etc.). As an example (where the actual plot is omitted here):
+```{r, fig.keep='none'}
+rnorm(200) %>%
+matrix(ncol = 2) %T>%
+plot %>% # plot usually does not return anything. 
+colSums
+```
+
+The "exposition" pipe operator, `%$%` exposes the names within the left-hand side
+object to the right-hand side expression. Essentially, it is a short-hand for 
+using the `with` functions (and the same left-hand side objects are accepted).
+This operator is handy when functions do not themselves have a data argument, as for 
+example `lm` and `aggregate` do. Here are a few examples as illustration:
+
+```{r, eval = FALSE}
+iris %>%
+  subset(Sepal.Length > mean(Sepal.Length)) %$%
+  cor(Sepal.Length, Sepal.Width)
+   
+data.frame(z = rnorm(100)) %$% 
+  ts.plot(z)
+```
+
+Finally, the compound assignment pipe operator `%<>%` can be used as the first pipe
+in a chain. The effect will be that the result of the pipeline is assigned to the 
+left-hand side object, rather than returning the result as usual. It is essentially
+shorthand notation for expressions like `foo <- foo %>% bar %>% baz`, which
+boils down to `foo %<>% bar %>% baz`. Another example is
+
+```{r, eval = FALSE}
+iris$Sepal.Length %<>% sqrt
+```
+
+The `%<>%` can be used whenever `expr <- ...` makes sense, e.g. 
+
+* `x %<>% foo %>% bar`
+* `x[1:10] %<>% foo %>% bar`
+* `x$baz %<>% foo %>% bar`
+
+# Aliases
+
+In addition to the `%>%`-operator, *magrittr* provides some aliases for other
+operators which make operations such as addition or multiplication fit well 
+into the *magrittr*-syntax. As an example, consider:
+```{r}
+rnorm(1000)    %>%
+multiply_by(5) %>%
+add(5)         %>%
+{ 
+   cat("Mean:", mean(.), 
+       "Variance:", var(.), "\n")
+   head(.)
+}
+```
+which could be written in more compact form as
+```{r, results = 'hide'}
+rnorm(100) %>% `*`(5) %>% `+`(5) %>% 
+{
+  cat("Mean:", mean(.), "Variance:", var(.),  "\n")
+  head(.)
+}
+```
+To see a list of the aliases, execute e.g. `?multiply_by`. 
+
+# Development
+The *magrittr* package is also available in a development version at the
+GitHub development page:
+[github.com/smbache/magrittr](http://github.com/smbache/magrittr).
+---
+title: "Extending tibble"
+author: "Kirill Müller, Hadley Wickham"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extending tibble}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+To extend the tibble package for new types of columnar data, you need to understand how printing works. The presentation of a column in a tibble is powered by four S3 generics:
+
+* `type_sum()` determines what goes into the column header.
+* `pillar_shaft()` determines what goes into the body of the column.
+* `is_vector_s3()` and `obj_sum()` are used when rendering list columns.
+
+If you have written an S3 or S4 class that can be used as a column, you can override these generics to make sure your data prints well in a tibble. To start, you must import the `pillar` package that powers the printing of tibbles. Either add `pillar` to the `Imports:` section of your `DESCRIPTION`, or simply call:
+
+```{r, eval = FALSE}
+usethis::use_package("pillar")
+```
+
+This short vignette assumes a package that implements an S3 class `"latlon"` and uses `roxygen2` to create documentation and the `NAMESPACE` file.  For this vignette to work we need to attach pillar:
+
+
+## Prerequisites
+
+We define a class `"latlon"` that encodes geographic coordinates in a complex number. For simplicity, the values are printed as degrees and minutes only.
+
+```{r}
+#' @export
+latlon <- function(lat, lon) {
+  as_latlon(complex(real = lon, imaginary = lat))
+}
+
+#' @export
+as_latlon <- function(x) {
+  structure(x, class = "latlon")
+}
+
+#' @export
+c.latlon <- function(x, ...) {
+  as_latlon(NextMethod())
+}
+
+#' @export
+`[.latlon` <- function(x, i) {
+  as_latlon(NextMethod())
+}
+
+#' @export
+format.latlon <- function(x, ..., formatter = deg_min) {
+  x_valid <- which(!is.na(x))
+
+  lat <- unclass(Im(x[x_valid]))
+  lon <- unclass(Re(x[x_valid]))
+
+  ret <- rep("<NA>", length(x))
+  ret[x_valid] <- paste(
+    formatter(lat, c("N", "S")),
+    formatter(lon, c("E", "W"))
+  )
+  format(ret, justify = "right")
+}
+
+deg_min <- function(x, pm) {
+  sign <- sign(x)
+  x <- abs(x)
+  deg <- trunc(x)
+  x <- x - deg
+  min <- round(x * 60)
+
+  ret <- sprintf("%d°%.2d'%s", deg, min, pm[ifelse(sign >= 0, 1, 2)])
+  format(ret, justify = "right")
+}
+
+#' @export
+print.latlon <- function(x, ...) {
+  cat(format(x), sep = "\n")
+  invisible(x)
+}
+
+latlon(32.7102978, -117.1704058)
+```
+
+More methods are needed to make this class fully compatible with data frames, see e.g. the [hms](https://github.com/tidyverse/hms/) package for a more complete example.
+
+
+## Using in a tibble
+
+Columns on this class can be used in a tibble right away, but the output will be less than ideal:
+
+```{r}
+library(tibble)
+data <- tibble(
+  venue = "rstudio::conf",
+  year  = 2017:2019,
+  loc   = latlon(
+    c(28.3411783, 32.7102978, NA),
+    c(-81.5480348, -117.1704058, NA)
+  ),
+  paths = list(
+    loc[1],
+    c(loc[1], loc[2]),
+    loc[2]
+  )
+)
+
+data
+```
+
+(The `paths` column is a list that contains arbitrary data, in our case `latlon` vectors. A list column is a powerful way to attach hierarchical or unstructured data to an observation in a data frame.)
+
+The output has three main problems:
+
+1. The column type of the `loc` column is displayed as `<S3: latlon>`.  This default formatting works reasonably well for any kind of object, but the generated output may be too wide and waste precious space when displaying the tibble.
+1. The values in the `loc` column are formatted as complex numbers (the underlying storage), without using the `format()` method we have defined. This is by design.
+1. The cells in the `paths` column are also displayed as `<S3: latlon>`.
+
+In the remainder I'll show how to fix these problems, and also how to implement rendering that adapts to the available width.
+
+
+## Fixing the data type
+
+To display `<geo>` as data type, we need to override the `type_sum()` method.  This method should return a string that can be used in a column header.  For your own classes, strive for an evocative abbreviation that's under 6 characters.
+
+
+```{r include=FALSE}
+import::from(pillar, type_sum)
+```
+
+```{r}
+#' @importFrom pillar type_sum
+#' @export
+type_sum.latlon <- function(x) {
+  "geo"
+}
+```
+
+Because the value shown there doesn't depend on the data, we just return a constant. (For date-times, the column info will eventually contain information about the timezone, see [#53](https://github.com/r-lib/pillar/pull/53).)
+
+```{r}
+data
+```
+
+
+## Rendering the value
+
+To use our format method for rendering, we implement the `pillar_shaft()` method for our class. (A [*pillar*](https://en.wikipedia.org/wiki/Column#Nomenclature) is mainly a *shaft* (decorated with an *ornament*), with a *capital* above and a *base* below. Multiple pillars form a *colonnade*, which can be stacked in multiple *tiers*. This is the motivation behind the names in our API.)
+
+```{r include=FALSE}
+import::from(pillar, pillar_shaft)
+```
+
+```{r}
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.latlon <- function(x, ...) {
+  out <- format(x)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "right")
+}
+```
+
+The simplest variant calls our `format()` method, everything else is handled by pillar, in particular by the `new_pillar_shaft_simple()` helper. Note how the `align` argument affects the alignment of NA values and of the column name and type.
+
+```{r}
+data
+```
+
+We could also use left alignment and indent only the `NA` values:
+
+```{r}
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.latlon <- function(x, ...) {
+  out <- format(x)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "left", na_indent = 5)
+}
+
+data
+```
+
+
+## Adaptive rendering
+
+If there is not enough space to render the values, the formatted values are truncated with an ellipsis. This doesn't currently apply to our class, because we haven't specified a minimum width for our values:
+
+```{r}
+print(data, width = 35)
+```
+
+If we specify a minimum width when constructing the shaft, the `loc` column will be truncated:
+
+```{r}
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.latlon <- function(x, ...) {
+  out <- format(x)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "right", min_width = 10)
+}
+
+print(data, width = 35)
+```
+
+This may be useful for character data, but for lat-lon data we may prefer to show full degrees and remove the minutes if the available space is not enough to show accurate values. A more sophisticated implementation of the `pillar_shaft()` method is required to achieve this:
+
+```{r}
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.latlon <- function(x, ...) {
+  deg <- format(x, formatter = deg)
+  deg[is.na(x)] <- pillar::style_na("NA")
+  deg_min <- format(x)
+  deg_min[is.na(x)] <- pillar::style_na("NA")
+  pillar::new_pillar_shaft(
+    list(deg = deg, deg_min = deg_min),
+    width = pillar::get_max_extent(deg_min),
+    min_width = pillar::get_max_extent(deg),
+    subclass = "pillar_shaft_latlon"
+  )
+}
+```
+
+Here, `pillar_shaft()` returns an object of the `"pillar_shaft_latlon"` class created by the generic `new_pillar_shaft()` constructor. This object contains the necessary information to render the values, and also minimum and maximum width values. For simplicity, both formattings are pre-rendered, and the minimum and maximum widths are computed from there. Note that we also need to take care of `NA` values explicitly. (`get_max_extent()` is a helper that computes the maximum display width occupied by the values in a character vector.)
+
+For completeness, the code that implements the degree-only formatting looks like this:
+
+```{r}
+deg <- function(x, pm) {
+  sign <- sign(x)
+  x <- abs(x)
+  deg <- round(x)
+
+  ret <- sprintf("%d°%s", deg, pm[ifelse(sign >= 0, 1, 2)])
+  format(ret, justify = "right")
+}
+```
+
+All that's left to do is to implement a `format()` method for our new `"pillar_shaft_latlon"` class. This method will be called with a `width` argument, which then determines which of the formattings to choose:
+
+```{r}
+#' @export
+format.pillar_shaft_latlon <- function(x, width, ...) {
+  if (all(crayon::col_nchar(x$deg_min) <= width)) {
+    ornament <- x$deg_min
+  } else {
+    ornament <- x$deg
+  }
+
+  pillar::new_ornament(ornament)
+}
+
+data
+print(data, width = 35)
+```
+
+
+## Adding color
+
+Both `new_pillar_shaft_simple()` and `new_ornament()` accept ANSI escape codes for coloring, emphasis, or other ways of highlighting text on terminals that support it. Some formattings are predefined, e.g. `style_subtle()` displays text in a light gray. For default data types, this style is used for insignificant digits. We'll be formatting the degree and minute signs in a subtle style, because they serve only as separators. You can also use the [crayon](https://cran.r-project.org/package=crayon) package to add custom formattings to your output.
+
+```{r}
+#' @importFrom pillar pillar_shaft
+#' @export
+pillar_shaft.latlon <- function(x, ...) {
+  out <- format(x, formatter = deg_min_color)
+  out[is.na(x)] <- NA
+  pillar::new_pillar_shaft_simple(out, align = "left", na_indent = 5)
+}
+
+deg_min_color <- function(x, pm) {
+  sign <- sign(x)
+  x <- abs(x)
+  deg <- trunc(x)
+  x <- x - deg
+  rad <- round(x * 60)
+  ret <- sprintf(
+    "%d%s%.2d%s%s",
+    deg,
+    pillar::style_subtle("°"),
+    rad,
+    pillar::style_subtle("'"),
+    pm[ifelse(sign >= 0, 1, 2)]
+  )
+  ret[is.na(x)] <- ""
+  format(ret, justify = "right")
+}
+
+data
+```
+
+Currently, ANSI escapes are not rendered in vignettes, so the display here isn't much different from earlier examples. This may change in the future.
+
+
+## Fixing list columns
+
+To tweak the output in the `paths` column, we simply need to indicate that our class is an S3 vector:
+
+```{r include=FALSE}
+import::from(pillar, is_vector_s3)
+```
+
+```{r}
+#' @importFrom pillar is_vector_s3
+#' @export
+is_vector_s3.latlon <- function(x) TRUE
+
+data
+```
+
+This is picked up by the default implementation of `obj_sum()`, which then shows the type and the length in brackets. If your object is built on top of an atomic vector the default will be adequate. You, will, however, need to provide an `obj_sum()` method for your class if your object is vectorised and built on top of a list.
+
+An example of an object of this type in base R is `POSIXlt`: it is a list with 9 components.
+
+```{r}
+time <- as.POSIXlt("2018-12-20 23:29:51", tz = "CET")
+x <- as.POSIXlt(time + c(0, 60, 3600))
+str(unclass(x))
+```
+
+But it pretends to be a vector with 3 elements:
+
+```{r}
+x
+length(x)
+str(x)
+```
+
+So we need to define a method that returns a character vector the same length as `x`:
+
+```{r include=FALSE}
+import::from(pillar, obj_sum)
+```
+
+```{r}
+#' @importFrom pillar obj_sum
+#' @export
+obj_sum.POSIXlt <- function(x) {
+  rep("POSIXlt", length(x))
+}
+```
+
+## Testing
+
+If you want to test the output of your code, you can compare it with a known state recorded in a text file. For this, pillar offers the `expect_known_display()` expectation which requires and works best with the testthat package. Make sure that the output is generated only by your package to avoid inconsistencies when external code is updated. Here, this means that you test only the shaft portion of the pillar, and not the entire pillar or even a tibble that contains a column with your data type!
+
+The tests work best with the testthat package:
+
+```{r}
+library(testthat)
+```
+
+```{r include = FALSE}
+unlink("latlon.txt")
+unlink("latlon-bw.txt")
+```
+
+The code below will compare the output of `pillar_shaft(data$loc)` with known output stored in the `latlon.txt` file. The first run warns because the file doesn't exist yet. 
+
+```{r error = TRUE, warning = TRUE}
+test_that("latlon pillar matches known output", {
+  pillar::expect_known_display(
+    pillar_shaft(data$loc),
+    file = "latlon.txt"
+  )
+})
+```
+
+From the second run on, the printing will be compared with the file:
+
+```{r}
+test_that("latlon pillar matches known output", {
+  pillar::expect_known_display(
+    pillar_shaft(data$loc),
+    file = "latlon.txt"
+  )
+})
+```
+
+However, if we look at the file we'll notice strange things: The output contains ANSI escapes!
+
+```{r}
+readLines("latlon.txt")
+```
+
+We can turn them off by passing `crayon = FALSE` to the expectation, but we need to run twice again:
+
+```{r error = TRUE, warning = TRUE}
+library(testthat)
+test_that("latlon pillar matches known output", {
+  pillar::expect_known_display(
+    pillar_shaft(data$loc),
+    file = "latlon.txt",
+    crayon = FALSE
+  )
+})
+```
+
+```{r}
+test_that("latlon pillar matches known output", {
+  pillar::expect_known_display(
+    pillar_shaft(data$loc),
+    file = "latlon.txt",
+    crayon = FALSE
+  )
+})
+
+readLines("latlon.txt")
+```
+
+You may want to create a series of output files for different scenarios:
+
+- Colored vs. plain (to simplify viewing differences)
+- With or without special Unicode characters (if your output uses them)
+- Different widths
+
+For this it is helpful to create your own expectation function.  Use the tidy evaluation framework to make sure that construction and printing happens at the right time:
+
+```{r}
+expect_known_latlon_display <- function(x, file_base) {
+  quo <- rlang::quo(pillar::pillar_shaft(x))
+  pillar::expect_known_display(
+    !! quo,
+    file = paste0(file_base, ".txt")
+  )
+  pillar::expect_known_display(
+    !! quo,
+    file = paste0(file_base, "-bw.txt"),
+    crayon = FALSE
+  )
+}
+```
+
+```{r error = TRUE, warning = TRUE}
+test_that("latlon pillar matches known output", {
+  expect_known_latlon_display(data$loc, file_base = "latlon")
+})
+```
+
+```{r}
+readLines("latlon.txt")
+readLines("latlon-bw.txt")
+```
+
+Learn more about the tidyeval framework in the [dplyr vignette](http://dplyr.tidyverse.org/articles/programming.html).
+
+```{r include = FALSE}
+unlink("latlon.txt")
+unlink("latlon-bw.txt")
+```
+---
+title: "Tibbles"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tibbles}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, echo = FALSE, message = FALSE, error = TRUE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+library(tibble)
+set.seed(1014)
+
+options(crayon.enabled = TRUE)
+options(pillar.bold = TRUE)
+
+knitr::opts_chunk$set(collapse = TRUE, comment = pillar::style_subtle("#>"))
+
+colourise_chunk <- function(type) {
+  function(x, options) {
+    # lines <- strsplit(x, "\\n")[[1]]
+    lines <- x
+    if (type != "output") {
+      lines <- crayon::red(lines)
+    }
+    paste0(
+      '<div class="sourceCode"><pre class="sourceCode"><code class="sourceCode">',
+      paste0(
+        sgr_to_html(htmltools::htmlEscape(lines)),
+        collapse = "\n"
+      ),
+      "</code></pre></div>"
+    )
+  }
+}
+
+knitr::knit_hooks$set(
+  output = colourise_chunk("output"),
+  message = colourise_chunk("message"),
+  warning = colourise_chunk("warning"),
+  error = colourise_chunk("error")
+)
+
+# Fallback if fansi is missing
+sgr_to_html <- identity
+sgr_to_html <- fansi::sgr_to_html
+```
+
+Tibbles are a modern take on data frames. They keep the features that have stood the test of time, and drop the features that used to be convenient but are now frustrating (i.e. converting character vectors to factors).
+
+## Creating
+
+`tibble()` is a nice way to create data frames. It encapsulates best practices for data frames:
+
+  * It never changes an input's type (i.e., no more `stringsAsFactors = FALSE`!).
+    
+    ```{r}
+    tibble(x = letters)
+    ```
+    
+    This makes it easier to use with list-columns:
+    
+    ```{r}
+    tibble(x = 1:3, y = list(1:5, 1:10, 1:20))
+    ```
+    
+    List-columns are most commonly created by `do()`, but they can be useful to
+    create by hand.
+      
+  * It never adjusts the names of variables:
+  
+    ```{r}
+    names(data.frame(`crazy name` = 1))
+    names(tibble(`crazy name` = 1))
+    ```
+
+  * It evaluates its arguments lazily and sequentially:
+  
+    ```{r}
+    tibble(x = 1:5, y = x ^ 2)
+    ```
+
+  * It never uses `row.names()`. The whole point of tidy data is to 
+    store variables in a consistent way. So it never stores a variable as 
+    special attribute.
+  
+  * It only recycles vectors of length 1. This is because recycling vectors of greater lengths 
+    is a frequent source of bugs.
+
+## Coercion
+
+To complement `tibble()`, tibble provides `as_tibble()` to coerce objects into tibbles. Generally, `as_tibble()` methods are much simpler than `as.data.frame()` methods, and in fact, it's precisely what `as.data.frame()` does, but it's similar to `do.call(cbind, lapply(x, data.frame))` - i.e. it coerces each component to a data frame and then `cbinds()` them all together. 
+
+`as_tibble()` has been written with an eye for performance:
+
+```{r error = TRUE, eval = FALSE}
+l <- replicate(26, sample(100), simplify = FALSE)
+names(l) <- letters
+
+timing <- bench::mark(
+  as_tibble(l),
+  as.data.frame(l),
+  check = FALSE
+)
+
+timing
+```
+
+```{r echo = FALSE}
+readRDS("timing.rds")
+```
+
+The speed of `as.data.frame()` is not usually a bottleneck when used interactively, but can be a problem when combining thousands of messy inputs into one tidy data frame.
+
+## Tibbles vs data frames
+
+There are three key differences between tibbles and data frames: printing, subsetting, and recycling rules.
+
+### Printing
+
+When you print a tibble, it only shows the first ten rows and all the columns that fit on one screen. It also prints an abbreviated description of the column type, and uses font styles and color for highlighting:
+    
+```{r}
+tibble(x = -5:1000)
+```
+
+You can control the default appearance with options:
+
+* `options(tibble.print_max = n, tibble.print_min = m)`: if there are more 
+  than `n` rows, print only the first `m` rows. Use 
+  `options(tibble.print_max = Inf)` to always show all rows.
+
+* `options(tibble.width = Inf)` will always print all columns, regardless
+   of the width of the screen.
+
+### Subsetting
+
+Tibbles are quite strict about subsetting. `[` always returns another tibble. Contrast this with a data frame: sometimes `[` returns a data frame and sometimes it just returns a vector:
+    
+```{r}
+df1 <- data.frame(x = 1:3, y = 3:1)
+class(df1[, 1:2])
+class(df1[, 1])
+
+df2 <- tibble(x = 1:3, y = 3:1)
+class(df2[, 1:2])
+class(df2[, 1])
+```
+
+To extract a single column use `[[` or `$`:
+
+```{r}
+class(df2[[1]])
+class(df2$x)
+```
+
+Tibbles are also stricter with `$`. Tibbles never do partial matching, and will throw a warning and return `NULL` if the column does not exist:
+
+```{r, error = TRUE}
+df <- data.frame(abc = 1)
+df$a
+
+df2 <- tibble(abc = 1)
+df2$a
+```
+
+As of version 1.4.1, tibbles no longer ignore the `drop` argument:
+
+```{r}
+data.frame(a = 1:3)[, "a", drop = TRUE]
+tibble(a = 1:3)[, "a", drop = TRUE]
+```
+
+
+### Recycling
+
+When constructing a tibble, only values of length 1 are recycled.  The first column with length different to one determines the number of rows in the tibble, conflicts lead to an error.  This also extends to tibbles with *zero* rows, which is sometimes important for programming:
+
+```{r, error = TRUE}
+tibble(a = 1, b = 1:3)
+tibble(a = 1:3, b = 1)
+tibble(a = 1:3, c = 1:2)
+tibble(a = 1, b = integer())
+tibble(a = integer(), b = 1)
+```
+---
+title: "ANSI CSI SGR Sequences in Rmarkdown"
+author: "Brodie Gaslam"
+output:
+    rmarkdown::html_vignette:
+        css: styles.css
+mathjax: local
+vignette: >
+  %\VignetteIndexEntry{ANSI CSI SGR Sequences in Rmarkdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r echo=FALSE}
+library(fansi)
+knitr::knit_hooks$set(document=function(x, options) gsub("\033", "\uFFFD", x))
+```
+
+### Browsers Do Not Interpret ANSI CSI SGR Sequences
+
+Over the past few years color has been gaining traction in the R terminal,
+particularly since Gábor Csárdi's [crayon](https://github.com/r-lib/crayon)
+made it easy to format text with [ANSI CSI SGR
+sequences](https://en.wikipedia.org/wiki/ANSI_escape_code).  At the
+same time the advent of JJ Alaire and Yihui Xie `rmarkdown` and `knitr`
+packages, along with John MacFarlane `pandoc`, made it easy to automatically
+incorporate R code and output in HTML documents.
+
+Unfortunately ANSI CSI SGR sequences are not recognized by web browsers and end
+up rendering weirdly<a href=#f1><sup>1</sub></a>:
+
+```{r}
+sgr.string <- c(
+  "\033[43;34mday > night\033[0m",
+  "\033[44;33mdawn < dusk\033[0m"
+)
+writeLines(sgr.string)
+```
+
+### Automatically Convert ANSI CSI SGR to HTML
+
+`fansi` provides the `sgr_to_html` function which converts the ANSI CSI SGR
+sequences into HTML markup.  When we combine it with `knitr::knit_hooks` we can
+modify the rendering of the `rmarkdown` document such that ANSI CSI SGR
+encoding is shown in the equivalent HTML.
+
+`fansi::set_knit_hooks` is a convenience function that does just this.  You
+should call it in an `rmarkdown` document with the:
+
+  * Chunk option `results` set to "asis".
+  * Chunk option `comments` set to "" (empty string).
+  * The `knitr::knit_hooks` object as an argument.
+
+The corresponding `rmarkdown` hunk should look as follows:
+
+````
+```{r, comment="", results="asis"}`r ''`
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+````
+
+```{r comment="", results="asis", echo=FALSE}
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+We run this function for its side effects, which cause the output to be
+displayed as intended:
+
+```{r}
+writeLines(sgr.string)
+```
+
+We can also set hooks for the other types of outputs, and add some additional
+CSS styles.
+
+````
+```{r, comment="", results="asis"}`r ''`
+styles <- c(
+  getOption("fansi.style"),  # default style
+  "PRE.fansi CODE {background-color: transparent;}",
+  "PRE.fansi-error {background-color: #DDAAAA;}",
+  "PRE.fansi-warning {background-color: #DDDDAA;}",
+  "PRE.fansi-message {background-color: #AAAADD;}"
+)
+old.hooks <- c(
+  old.hooks,
+  fansi::set_knit_hooks(
+    knitr::knit_hooks,
+    which=c("warning", "error", "message"),
+    style=styles
+) )
+```
+````
+```{r comment="", results="asis", echo=FALSE}
+styles <- c(
+  getOption("fansi.style"),  # default style
+  "PRE.fansi CODE {background-color: transparent;}",
+  "PRE.fansi-error {background-color: #DDAAAA;}",
+  "PRE.fansi-warning {background-color: #DDDDAA;}",
+  "PRE.fansi-message {background-color: #AAAADD;}"
+)
+old.hooks <- c(
+  old.hooks,
+  fansi::set_knit_hooks(
+    knitr::knit_hooks,
+    which=c("warning", "error", "message"),
+    style=styles
+) )
+```
+```{r error=TRUE}
+message(paste0(sgr.string, collapse="\n"))
+warning(paste0(c("", sgr.string), collapse="\n"))
+stop(paste0(c("", sgr.string), collapse="\n"))
+```
+
+You can restore the old hooks at any time in your document with:
+
+```{r}
+do.call(knitr::knit_hooks$set, old.hooks)
+writeLines(sgr.string)
+```
+
+See `?fansi::set_knit_hooks` for details.
+
+### Crayon
+
+If you use `crayon` to generate your ANSI CSI SGR style strings you may need to
+set `options(crayon.enabled=TRUE)`, as in some cases `crayon` suppresses the SGR
+markup if it thinks it is not outputting to a terminal.
+
+----
+<a name='f1'></a><sup>1</sup>For illustrative purposes we output raw ANSI
+CSI SGR sequences in this document.  However, because the ESC control character
+causes problems with some HTML rendering services we replace it with the �
+symbol.  Depending on the browser and process it would normally not be
+visible at all, or substituted with some other symbol.
+
+---
+title: "Calculating SHA1 hashes with digest() and sha1()"
+author: "Thierry Onkelinx and Dirk Eddelbuettel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{sha1() versus digest()}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+NB: This vignette is work-in-progress and not yet complete.
+
+## Short intro on hashes
+
+TBD
+
+## Difference between `digest()` and `sha1()`
+
+R [FAQ 7.31](https://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f) illustrates potential problems with floating point arithmetic. Mathematically the equality $x = \sqrt{x}^2$ should hold. But the precision of floating points numbers is finite. Hence some rounding is done, leading to numbers which are no longer identical.
+
+An illustration:
+
+```{r faq7_31}
+# FAQ 7.31
+a0 <- 2
+b <- sqrt(a0)
+a1 <- b ^ 2
+identical(a0, a1)
+a0 - a1
+a <- c(a0, a1)
+# hexadecimal representation
+sprintf("%a", a)
+```
+
+Although the difference is small, any difference will result in different hash when using the `digest()` function. 
+However, the `sha1()` function tackles this problem by using the hexadecimal representation of the numbers and truncates 
+that representation to a certain number of digits prior to calculating the hash function. 
+
+```{r faq7_31digest}
+library(digest)
+# different hashes with digest
+sapply(a, digest, algo = "sha1")
+# same hash with sha1 with default digits (14)
+sapply(a, sha1)
+# larger digits can lead to different hashes
+sapply(a, sha1, digits = 15)
+# decreasing the number of digits gives a stronger truncation
+# the hash will change when then truncation gives a different result
+# case where truncating gives same hexadecimal value
+sapply(a, sha1, digits = 13)
+sapply(a, sha1, digits = 10)
+# case where truncating gives different hexadecimal value
+c(sha1(pi), sha1(pi, digits = 13), sha1(pi, digits = 10))
+```
+
+The result of floating point arithematic on 32-bit and 64-bit can be slightly different. E.g. `print(pi ^ 11, 22)` returns `294204.01797389047` on 32-bit and `294204.01797389053` on 64-bit. Note that only the last 2 digits are different.  
+
+| command | 32-bit | 64-bit|
+| - | - | - |
+| `print(pi ^ 11, 22)` | `294204.01797389047` | `294204.01797389053` |
+| `sprintf("%a", pi ^ 11)`| `"0x1.1f4f01267bf5fp+18"` | `"0x1.1f4f01267bf6p+18"` |
+| `digest(pi ^ 11, algo = "sha1")` | `"c5efc7f167df1bb402b27cf9b405d7cebfba339a"` | `"b61f6fea5e2a7952692cefe8bba86a00af3de713"`|
+| `sha1(pi ^ 11, digits = 14)` | `"5c7740500b8f78ec2354ea6af58ea69634d9b7b1"` | `"4f3e296b9922a7ddece2183b1478d0685609a359"` |
+| `sha1(pi ^ 11, digits = 13)` | `"372289f87396b0877ccb4790cf40bcb5e658cad7"` | `"372289f87396b0877ccb4790cf40bcb5e658cad7"` |
+| `sha1(pi ^ 11, digits = 10)` | `"c05965af43f9566bfb5622f335817f674abfc9e4"` | `"c05965af43f9566bfb5622f335817f674abfc9e4"` |
+
+## Choosing `digest()` or `sha1()`
+
+TBD
+
+## Creating a sha1 method for other classes
+
+### How to
+
+1. Identify the relevant components for the hash.
+1. Determine the class of each relevant component and check if they are handled by `sha1()`.
+    - Write a method for each component class not yet handled by `sha1`.
+1. Extract the relevant components.
+1. Combine the relevant components into a list. Not required in case of a single component.
+1. Apply `sha1()` on the (list of) relevant component(s).
+1. Turn this into a function with name sha1._classname_.
+1. sha1._classname_ needs exactly the same arguments as `sha1()`
+1. Choose sensible defaults for the arguments
+    - `zapsmall = 7` is recommended.
+    - `digits = 14` is recommended in case all numerics are data.
+    - `digits = 4` is recommended in case some numerics stem from floating point arithmetic.
+
+###  summary.lm
+
+Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
+
+```{r sha1_lm_sum}
+# taken from the help file of lm.influence
+lm_SR <- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LifeCycleSavings)
+lm_sum <- summary(lm_SR)
+class(lm_sum)
+# str() gives the structure of the lm object
+str(lm_sum)
+# extract the coefficients and their standard error
+coef_sum <- coef(lm_sum)[, c("Estimate", "Std. Error")]
+# extract sigma
+sigma <- lm_sum$sigma
+# check the class of each component
+class(coef_sum)
+class(sigma)
+# sha1() has methods for both matrix and numeric
+# because the values originate from floating point arithmetic it is better to use a low number of digits
+sha1(coef_sum, digits = 4)
+sha1(sigma, digits = 4)
+# we want a single hash
+# combining the components in a list is a solution that works
+sha1(list(coef_sum, sigma), digits = 4)
+# now turn everything into an S3 method
+#   - a function with name "sha1.classname"
+#   - must have the same arguments as sha1()
+sha1.summary.lm <- function(x, digits = 4, zapsmall = 7){
+    coef_sum <- coef(x)[, c("Estimate", "Std. Error")]
+    sigma <- x$sigma
+    combined <- list(coef_sum, sigma)
+    sha1(combined, digits = digits, zapsmall = zapsmall)
+}
+sha1(lm_sum)
+
+# try an altered dataset
+LCS2 <- LifeCycleSavings[rownames(LifeCycleSavings) != "Zambia", ]
+lm_SR2 <- lm(sr ~ pop15 + pop75 + dpi + ddpi, data = LCS2)
+sha1(summary(lm_SR2))
+```
+
+###  lm
+
+Let's illustrate this using the summary of a simple linear regression. Suppose that we want a hash that takes into account the coefficients, their standard error and sigma.
+
+```{r sha1_lm}
+class(lm_SR)
+# str() gives the structure of the lm object
+str(lm_SR)
+# extract the model and the terms
+lm_model <- lm_SR$model
+lm_terms <- lm_SR$terms
+# check their class
+class(lm_model) # handled by sha1()
+class(lm_terms) # not handled by sha1()
+# define a method for formula
+sha1.formula <- function(x, digits = 14, zapsmall = 7, ..., algo = "sha1"){
+    sha1(as.character(x), digits = digits, zapsmall = zapsmall, algo = algo)
+}
+sha1(lm_terms)
+sha1(lm_model)
+# define a method for lm
+sha1.lm <- function(x, digits = 14, zapsmall = 7, ..., algo = "sha1"){
+    lm_model <- x$model
+    lm_terms <- x$terms
+    combined <- list(lm_model, lm_terms)
+    sha1(combined, digits = digits, zapsmall = zapsmall, ..., algo = algo)
+}
+sha1(lm_SR)
+sha1(lm_SR2)
+```
+
+## Using hashes to track changes in analysis
+
+Use case
+
+- automated analysis
+- update frequency of the data might be lower than the frequency of automated analysis
+- similar analyses on many datasets (e.g. many species in ecology)
+- analyses that require a lot of computing time
+    - not rerunning an analysis because nothing has changed saves enough resources to compensate the overhead of tracking changes
+
+- Bundle all relevant information on an analysis in a class
+    - data
+    - method
+    - formula
+    - other metadata
+    - resulting model
+- calculate `sha1()`
+
+    file fingerprint
+      ~ `sha1()` on the stable parts
+    
+    status fingerprint
+      ~ `sha1()` on the parts that result for the model
+
+1. Prepare analysis objects
+1. Store each analysis object in a rda file which uses the file fingerprint as filename
+    - File will already exist when no change in analysis
+    - Don't overwrite existing files
+1. Loop over all rda files
+    - Do nothing if the analysis was run
+    - Otherwise run the analysis and update the status and status fingerprint
+---
+title: "Lazyeval: a new approach to NSE"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Lazyeval: a new approach to NSE}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+rownames(mtcars) <- NULL
+```
+
+This document outlines my previous approach to non-standard evaluation (NSE). You should avoid it unless you are working with an older version of dplyr or tidyr.
+
+There are three key ideas:
+
+* Instead of using `substitute()`, use `lazyeval::lazy()` to capture both expression
+  and environment. (Or use `lazyeval::lazy_dots(...)` to capture promises in `...`)
+  
+* Every function that uses NSE should have a standard evaluation (SE) escape 
+  hatch that does the actual computation. The SE-function name should end with 
+  `_`.
+  
+* The SE-function has a flexible input specification to make it easy for people
+  to program with.
+
+## `lazy()`
+
+The key tool that makes this approach possible is `lazy()`, an equivalent to `substitute()` that captures both expression and environment associated with a function argument:
+
+```{r}
+library(lazyeval)
+f <- function(x = a - b) {
+  lazy(x)
+}
+f()
+f(a + b)
+```
+
+As a complement to `eval()`, the lazy package provides `lazy_eval()` that uses the environment associated with the lazy object:
+
+```{r}
+a <- 10
+b <- 1
+lazy_eval(f())
+lazy_eval(f(a + b))
+```
+
+The second argument to lazy eval is a list or data frame where names should be looked up first:
+
+```{r}
+lazy_eval(f(), list(a = 1))
+```
+
+`lazy_eval()` also works with formulas, since they contain the same information as a lazy object: an expression (only the RHS is used by convention) and an environment:
+
+```{r}
+lazy_eval(~ a + b)
+h <- function(i) {
+  ~ 10 + i
+}
+lazy_eval(h(1))
+```
+
+## Standard evaluation
+
+Whenever we need a function that does non-standard evaluation, always write the standard evaluation version first. For example, let's implement our own version of `subset()`:
+
+```{r}
+subset2_ <- function(df, condition) {
+  r <- lazy_eval(condition, df)
+  r <- r & !is.na(r)
+  df[r, , drop = FALSE]
+} 
+
+subset2_(mtcars, lazy(mpg > 31))
+```
+
+`lazy_eval()` will always coerce it's first argument into a lazy object, so a variety of specifications will work:
+
+```{r}
+subset2_(mtcars, ~mpg > 31)
+subset2_(mtcars, quote(mpg > 31))
+subset2_(mtcars, "mpg > 31")
+```
+
+Note that quoted called and strings don't have environments associated with them, so `as.lazy()` defaults to using `baseenv()`. This will work if the expression is self-contained (i.e. doesn't contain any references to variables in the local environment), and will otherwise fail quickly and robustly.
+
+## Non-standard evaluation
+
+With the SE version in hand, writing the NSE version is easy. We just use `lazy()` to capture the unevaluated expression and corresponding environment:
+
+```{r}
+subset2 <- function(df, condition) {
+  subset2_(df, lazy(condition))
+}
+subset2(mtcars, mpg > 31)
+```
+
+This standard evaluation escape hatch is very important because it allows us to implement different NSE approaches. For example, we could create a subsetting function that finds all rows where a variable is above a threshold:
+
+```{r}
+above_threshold <- function(df, var, threshold) {
+  cond <- interp(~ var > x, var = lazy(var), x = threshold)
+  subset2_(df, cond)
+}
+above_threshold(mtcars, mpg, 31)
+```
+
+Here we're using `interp()` to modify a formula. We use the value of `threshold` and the expression in  by `var`.
+
+## Scoping
+
+Because `lazy()` captures the environment associated with the function argument, we automatically avoid a subtle scoping bug present in `subset()`:
+  
+```{r}
+x <- 31
+f1 <- function(...) {
+  x <- 30
+  subset(mtcars, ...)
+}
+# Uses 30 instead of 31
+f1(mpg > x)
+
+f2 <- function(...) {
+  x <- 30
+  subset2(mtcars, ...)
+}
+# Correctly uses 31
+f2(mpg > x)
+```
+
+`lazy()` has another advantage over `substitute()` - by default, it follows promises across function invocations. This simplifies the casual use of NSE.
+
+```{r, eval = FALSE}
+x <- 31
+g1 <- function(comp) {
+  x <- 30
+  subset(mtcars, comp)
+}
+g1(mpg > x)
+#> Error: object 'mpg' not found
+```
+
+```{r}
+g2 <- function(comp) {
+  x <- 30
+  subset2(mtcars, comp)
+}
+g2(mpg > x)
+```
+
+Note that `g2()` doesn't have a standard-evaluation escape hatch, so it's not suitable for programming with in the same way that `subset2_()` is. 
+
+## Chained promises
+
+Take the following example:
+
+```{r}
+library(lazyeval)
+f1 <- function(x) lazy(x)
+g1 <- function(y) f1(y)
+
+g1(a + b)
+```
+
+`lazy()` returns `a + b` because it always tries to find the top-level promise.
+
+In this case the process looks like this:
+
+1. Find the object that `x` is bound to.
+2. It's a promise, so find the expr it's bound to (`y`, a symbol) and the
+   environment in which it should be evaluated (the environment of `g()`).
+3. Since `x` is bound to a symbol, look up its value: it's bound to a promise.
+4. That promise has expression `a + b` and should be evaluated in the global
+   environment.
+5. The expression is not a symbol, so stop.
+
+Occasionally, you want to avoid this recursive behaviour, so you can use `follow_symbol = FALSE`:
+
+```{r}
+f2 <- function(x) lazy(x, .follow_symbols = FALSE)
+g2 <- function(y) f2(y)
+
+g2(a + b)
+```
+
+Either way, if you evaluate the lazy expression you'll get the same result:
+
+```{r}
+a <- 10
+b <- 1
+
+lazy_eval(g1(a + b))
+lazy_eval(g2(a + b))
+```
+
+Note that the resolution of chained promises only works with unevaluated objects. This is because R deletes the information about the environment associated with a promise when it has been forced, so that the garbage collector is allowed to remove the environment from memory in case it is no longer used. `lazy()` will fail with an error in such situations.
+
+```{r, error = TRUE, purl = FALSE}
+var <- 0
+
+f3 <- function(x) {
+  force(x)
+  lazy(x)
+}
+
+f3(var)
+```
+---
+title: "Non-standard evaluation"
+author: "Hadley Wickham"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Non-standard evaluation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(lazyeval)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+This document describes lazyeval, a package that provides principled tools to perform non-standard evaluation (NSE) in R. You should read this vignette if you want to program with packages like dplyr and ggplot2[^1], or you want a principled way of working with delayed expressions in your own package. As the name suggests, non-standard evaluation breaks away from the standard evaluation (SE) rules in order to do something special. There are three common uses of NSE:
+
+1.  __Labelling__ enhances plots and tables by using the expressions
+    supplied to a function, rather than their values. For example, note the
+    axis labels in this plot:
+
+    ```{r, fig.width = 4, fig.height = 2.5}
+    par(mar = c(4.5, 4.5, 1, 0.5))
+    grid <- seq(0, 2 * pi, length = 100)
+    plot(grid, sin(grid), type = "l")
+    ```
+
+1.  __Non-standard scoping__ looks for objects in places other than the current
+    environment. For example, base R has `with()`, `subset()`, and `transform()` 
+    that look for objects in a data frame (or list) before the current 
+    environment:
+
+    ```{r}
+    df <- data.frame(x = c(1, 5, 4, 2, 3), y = c(2, 1, 5, 4, 3))
+    
+    with(df, mean(x))
+    subset(df, x == y)
+    transform(df, z = x + y)
+    ```
+
+1.  __Metaprogramming__ is a catch-all term that covers all other uses of 
+    NSE (such as in `bquote()` and `library()`). Metaprogramming is so called 
+    because it involves computing on the unevaluated code in some way.
+
+This document is broadly organised according to the three types of non-standard evaluation described above. The main difference is that after [labelling], we'll take a detour to learn more about [formulas]. You're probably familiar with formulas from linear models (e.g. `lm(mpg ~ displ, data = mtcars)`) but formulas are more than just a tool for modelling: they are a general way of capturing an unevaluated expression. 
+
+The approaches recommended here are quite different to my previous generation of recommendations. I am fairly confident these new approaches are correct, and will not have to change substantially again. The current tools make it easy to solve a number of practical problems that were previously challenging and are rooted in [long-standing theory](http://repository.readscheme.org/ftp/papers/pepm99/bawden.pdf).
+
+[^1]: Currently neither ggplot2 nor dplyr actually use these tools since I've only just figured it out. But I'll be working hard to make sure all my packages are consistent in the near future.
+
+## Labelling
+
+In base R, the classic way to turn an argument into a label is to use `deparse(substitute(x))`:
+
+```{r}
+my_label <- function(x) deparse(substitute(x))
+my_label(x + y)
+```
+
+There are two potential problems with this approach:
+
+1.  For long some expressions, `deparse()` generates a character vector with 
+    length > 1:
+    
+    ```{r}
+    my_label({
+      a + b
+      c + d
+    })
+    ```
+
+1.  `substitute()` only looks one level up, so you lose the original label if 
+    the function isn't called directly:
+    
+    ```{r}
+    my_label2 <- function(x) my_label(x)
+    my_label2(a + b)
+    ```
+
+Both of these problems are resolved by `lazyeval::expr_text()`:
+
+```{r}
+my_label <- function(x) expr_text(x)
+my_label2 <- function(x) my_label(x)
+   
+my_label({
+  a + b
+  c + d
+})
+my_label2(a + b)
+```
+
+There are two variations on the theme of `expr_text()`:
+
+*   `expr_find()` find the underlying expression. It works similarly to 
+    `substitute()` but will follow a chain of promises back up to the original
+    expression. This is often useful for [metaprogramming].
+  
+*   `expr_label()` is a customised version of `expr_text()` that produces 
+    labels designed to be used in messages to the user:
+
+    ```{r}
+    expr_label(x)
+    expr_label(a + b + c)
+    expr_label(foo({
+      x + y
+    }))
+    ```
+
+### Exercises
+
+1.  `plot()` uses `deparse(substitute(x))` to generate labels for the x and y
+    axes. Can you generate input that causes it to display bad labels?
+    Write your own wrapper around `plot()` that uses `expr_label()` to compute
+    `xlim` and `ylim`.
+    
+1.  Create a simple implementation of `mean()` that stops with an informative
+    error message if the argument is not numeric:
+    
+    ```{r, eval = FALSE}
+    x <- c("a", "b", "c")
+    my_mean(x)
+    #> Error: `x` is a not a numeric vector.
+    my_mean(x == "a")
+    #> Error: `x == "a"` is not a numeric vector.
+    my_mean("a")
+    #> Error: "a" is not a numeric vector.
+    ```
+
+1.  Read the source code for `expr_text()`. How does it work? What additional
+    arguments to `deparse()` does it use?
+
+## Formulas
+
+Non-standard scoping is probably the most useful NSE tool, but before we can talk about a solid approach, we need to take a detour to talk about formulas. Formulas are a familiar tool from linear models, but their utility is not limited to models. In fact, formulas are a powerful, general purpose tool, because a formula captures two things: 
+
+1. An unevaluated expression.
+1. The context (environment) in which the expression was created.
+
+`~` is a single character that allows you to say: "I want to capture the meaning of this code, without evaluating it right away". For that reason, the formula can be thought of as a "quoting" operator.
+
+### Definition of a formula
+
+Technically, a formula is a "language" object (i.e. an unevaluated expression) with a class of "formula" and an attribute that stores the environment:
+
+```{r}
+f <- ~ x + y + z
+typeof(f)
+attributes(f)
+```
+
+The structure of the underlying object is slightly different depending on whether you have a one-sided or two-sided formula:
+
+*   One-sided formulas have length two:
+
+    ```{r}
+    length(f)
+    # The 1st element is always ~
+    f[[1]]
+    # The 2nd element is the RHS
+    f[[2]]
+    ```
+
+*   Two-sided formulas have length three:
+
+    ```{r}
+    g <- y ~ x + z
+    length(g)
+    # The 1st element is still ~
+    g[[1]]
+    # But now the 2nd element is the LHS
+    g[[2]]
+    # And the 3rd element is the RHS
+    g[[3]]
+    ```
+
+To abstract away these differences, lazyeval provides `f_rhs()` and `f_lhs()` to access either side of the formula, and `f_env()` to access its environment:
+
+```{r}
+f_rhs(f)
+f_lhs(f)
+f_env(f)
+
+f_rhs(g)
+f_lhs(g)
+f_env(g)
+```
+
+### Evaluating a formula
+
+A formula captures delays the evaluation of an expression so you can later evaluate it with `f_eval()`:
+
+```{r}
+f <- ~ 1 + 2 + 3
+f
+f_eval(f)
+```
+
+This allows you to use a formula as a robust way of delaying evaluation, cleanly separating the creation of the formula from its evaluation. Because formulas capture the code and context, you get the correct result even when a formula is created and evaluated in different places. In the following example, note that the value of `x` inside `add_1000()` is used:
+
+```{r}
+x <- 1
+add_1000 <- function(x) {
+  ~ 1000 + x
+}
+
+add_1000(3)
+f_eval(add_1000(3))
+```
+
+It can be hard to see what's going on when looking at a formula because important values are stored in the environment, which is largely opaque. You can use `f_unwrap()` to replace names with their corresponding values:
+
+```{r}
+f_unwrap(add_1000(3))
+```
+
+### Non-standard scoping
+
+`f_eval()` has an optional second argument: a named list (or data frame) that overrides values found in the formula's environment. 
+
+```{r}
+y <- 100
+f_eval(~ y)
+f_eval(~ y, data = list(y = 10))
+
+# Can mix variables in environment and data argument
+f_eval(~ x + y, data = list(x = 10))
+# Can even supply functions
+f_eval(~ f(y), data = list(f = function(x) x * 3))
+```
+
+This makes it very easy to implement non-standard scoping:
+
+```{r}
+f_eval(~ mean(cyl), data = mtcars)
+```
+
+One challenge with non-standard scoping is that we've introduced some ambiguity. For example, in the code below does `x` come from `mydata` or the environment?
+
+```{r, eval = FALSE}
+f_eval(~ x, data = mydata)
+```
+
+You can't tell without knowing whether or not `mydata` has a variable called `x`. To overcome this problem, `f_eval()` provides two pronouns:
+
+* `.data` is bound to the data frame.
+* `.env` is bound to the formula environment.
+
+They both start with `.` to minimise the chances of clashing with existing variables.
+
+With these pronouns we can rewrite the previous formula to remove the ambiguity:
+
+```{r}
+mydata <- data.frame(x = 100, y = 1)
+x <- 10
+
+f_eval(~ .env$x, data = mydata)
+f_eval(~ .data$x, data = mydata)
+```
+
+If the variable or object doesn't exist, you'll get an informative error:
+
+```{r, error = TRUE}
+f_eval(~ .env$z, data = mydata)
+f_eval(~ .data$z, data = mydata)
+```
+
+### Unquoting
+
+`f_eval()` has one more useful trick up its sleeve: unquoting. Unquoting allows you to write functions where the user supplies part of the formula. For example, the following function allows you to compute the mean of any column (or any function of a column):
+
+```{r}
+df_mean <- function(df, variable) {
+  f_eval(~ mean(uq(variable)), data = df)
+}
+
+df_mean(mtcars, ~ cyl)
+df_mean(mtcars, ~ disp * 0.01638)
+df_mean(mtcars, ~ sqrt(mpg))
+```
+
+To see how this works, we can use `f_interp()` which `f_eval()` calls internally (you shouldn't call it in your own code, but it's useful for debugging). The key is `uq()`: `uq()` evaluates its first (and only) argument and inserts the value into the formula:
+    
+```{r}
+variable <- ~cyl
+f_interp(~ mean(uq(variable)))
+
+variable <- ~ disp * 0.01638
+f_interp(~ mean(uq(variable)))
+```
+
+Unquoting allows you to create code "templates", where you write most of the expression, while still allowing the user to control important components. You can even use `uq()` to change the function being called:
+
+```{r}
+f <- ~ mean
+f_interp(~ uq(f)(uq(variable)))
+```
+
+Note that `uq()` only takes the RHS of a formula, which makes it difficult to insert literal formulas into a call:
+
+```{r}
+formula <- y ~ x
+f_interp(~ lm(uq(formula), data = df))
+```
+
+You can instead use `uqf()` which uses the whole formula, not just the RHS:
+
+```{r}
+f_interp(~ lm(uqf(formula), data = df))
+```
+
+Unquoting is powerful, but it only allows you to modify a single argument: it doesn't allow you to add an arbitrary number of arguments. To do that, you'll need "unquote-splice", or `uqs()`. The first (and only) argument to `uqs()` should be a list of arguments to be spliced into the call:
+
+```{r}
+variable <- ~ x
+extra_args <- list(na.rm = TRUE, trim = 0.9)
+f_interp(~ mean(uq(variable), uqs(extra_args)))
+```
+
+### Exercises
+
+1.  Create a wrapper around `lm()` that allows the user to supply the 
+    response and predictors as two separate formulas.
+    
+1.  Compare and contrast `f_eval()` with `with()`.
+
+1.  Why does this code work even though `f` is defined in two places? (And
+    one of them is not a function).
+
+    ```{r}
+    f <- function(x) x + 1
+    f_eval(~ f(10), list(f = "a"))
+    ```
+
+## Non-standard scoping
+
+Non-standard scoping (NSS) is an important part of R because it makes it easy to write functions tailored for interactive data exploration. These functions require less typing, at the cost of some ambiguity and "magic". This is a good trade-off for interactive data exploration because you want to get ideas out of your head and into the computer as quickly as possible. If a function does make a bad guess, you'll spot it quickly because you're working interactively.
+
+There are three challenges to implementing non-standard scoping:
+
+1.  You must correctly delay the evaluation of a function argument, capturing 
+    both the computation (the expression), and the context (the environment).
+    I recommend making this explicit by requiring the user to "quote" any NSS
+    arguments with `~`, and then evaluating explicit with `f_eval()`.
+  
+1.  When writing functions that use NSS-functions, you need some way to
+    avoid the automatic lookup and be explicit about where objects should be
+    found. `f_eval()` solves this problem with the `.data.` and `.env` 
+    pronouns.
+
+1.  You need some way to allow the user to supply parts of a formula. 
+    `f_eval()` solves this with unquoting.
+
+To illustrate these challenges, I will implement a `sieve()` function that works similarly to `base::subset()` or `dplyr::filter()`. The goal of `sieve()` is to make it easy to select observations that match criteria defined by a logical expression. `sieve()` has three advantages over `[`:
+
+1.  It is much more compact when the condition uses many variables, because 
+    you don't need to repeat the name of the data frame many times.
+
+1.  It drops rows where the condition evaluates to `NA`, rather than filling 
+    them with `NA`s.
+    
+1.  It always returns a data frame.
+
+The implementation of `sieve()` is straightforward. First we use `f_eval()` to perform NSS. Then we then check that we have a logical vector, replace `NA`s with `FALSE`, and subset with `[`.
+
+```{R}
+sieve <- function(df, condition) {
+  rows <- f_eval(condition, df)
+  if (!is.logical(rows)) {
+    stop("`condition` must be logical.", call. = FALSE)
+  }
+  
+  rows[is.na(rows)] <- FALSE
+  df[rows, , drop = FALSE]
+}
+
+df <- data.frame(x = 1:5, y = 5:1)
+sieve(df, ~ x <= 2)
+sieve(df, ~ x == y)
+```
+
+### Programming with `sieve()`
+
+Imagine that you've written some code that looks like this:
+
+```{r, eval = FALSE}
+sieve(march, ~ x > 100)
+sieve(april, ~ x > 50)
+sieve(june, ~ x > 45)
+sieve(july, ~ x > 17)
+```
+
+(This is a contrived example, but it illustrates all of the important issues you'll need to consider when writing more useful functions.)
+
+Instead of continuing to copy-and-paste your code, you decide to wrap up the common behaviour in a function: 
+
+```{r}
+threshold_x <- function(df, threshold) {
+  sieve(df, ~ x > threshold)
+}
+threshold_x(df, 3)
+```
+
+There are two ways that this function might fail:
+
+1.  The data frame might not have a variable called `x`. This will fail unless
+    there's a variable called `x` hanging around in the global environment:
+    
+    ```{r, error = TRUE}
+    rm(x)
+    df2 <- data.frame(y = 5:1)
+    
+    # Throws an error
+    threshold_x(df2, 3)
+    
+    # Silently gives the incorrect result!
+    x <- 5
+    threshold_x(df2, 3)
+    ```
+    
+1.  The data frame might have a variable called `threshold`:
+
+    ```{r}
+    df3 <- data.frame(x = 1:5, y = 5:1, threshold = 4)
+    threshold_x(df3, 3)
+    ```
+
+These failures are partiuclarly pernicious because instead of throwing an error they silently produce the wrong answer. Both failures arise because `f_eval()` introduces ambiguity by looking in two places for each name: the supplied data and formula environment. 
+
+To make `threshold_x()` more reliable, we need to be more explicit by using the `.data` and `.env` pronouns:
+
+```{r, error = TRUE}
+threshold_x <- function(df, threshold) {
+  sieve(df, ~ .data$x > .env$threshold)
+}
+
+threshold_x(df2, 3)
+threshold_x(df3, 3)
+```
+
+Here `.env` is bound to the environment where `~` is evaluated, namely the inside of `threshold_x()`.
+
+### Adding arguments
+
+The `threshold_x()` function is not very useful because it's bound to a specific variable. It would be more powerful if we could vary both the threshold and the variable it applies to. We can do that by taking an additional argument to specify which variable to use. 
+
+One simple approach is to use a string and `[[`:
+
+```{r}
+threshold <- function(df, variable, threshold) {
+  stopifnot(is.character(variable), length(variable) == 1)
+  
+  sieve(df, ~ .data[[.env$variable]] > .env$threshold)
+}
+threshold(df, "x", 4)
+```
+
+This is a simple and robust solution, but only allows us to use an existing variable, not an arbitrary expression like `sqrt(x)`.
+
+A more general solution is to allow the user to supply a formula, and use unquoting:
+
+```{r}
+threshold <- function(df, variable = ~x, threshold = 0) {
+  sieve(df, ~ uq(variable) > .env$threshold)
+}
+
+threshold(df, ~ x, 4)
+threshold(df, ~ abs(x - y), 2)
+```
+
+In this case, it's the responsibility of the user to ensure the `variable` is specified unambiguously. `f_eval()` is designed so that `.data` and `.env` work even when evaluated inside of `uq()`:
+
+```{r}
+x <- 3
+threshold(df, ~ .data$x - .env$x, 0)
+```
+
+### Dot-dot-dot
+
+There is one more tool that you might find useful for functions that take `...`. For example, the code below implements a function similar to `dplyr::mutate()` or `base::transform()`.
+
+```{r}
+mogrify <- function(`_df`, ...) {
+  args <- list(...)
+  
+  for (nm in names(args)) {
+    `_df`[[nm]] <- f_eval(args[[nm]], `_df`)
+  }
+  
+  `_df`
+}
+```
+
+(NB: the first argument is a non-syntactic name (i.e. it requires quoting with `` ` ``) so it doesn't accidentally match one of the names of the new variables.)
+
+`transmogrifty()` makes it easy to add new variables to a data frame:
+
+```{r}
+df <- data.frame(x = 1:5, y = sample(5))
+mogrify(df, z = ~ x + y, z2 = ~ z * 2)
+```
+
+One problem with this implementation is that it's hard to specify the names of the generated variables. Imagine you want a function where the name and expression are in separate variables. This is awkward because the variable name is supplied as an argument name to `mogrify()`:
+
+```{r}
+add_variable <- function(df, name, expr) {
+  do.call("mogrify", c(list(df), setNames(list(expr), name)))
+}
+add_variable(df, "z", ~ x + y)
+```
+
+Lazyeval provides the `f_list()` function to make writing this sort of function a little easier. It takes a list of formulas and evaluates the LHS of each formula (if present) to rename the elements:
+
+```{r}
+f_list("x" ~ y, z = ~z)
+```
+
+If we tweak `mogrify()` to use `f_list()` instead of `list()`:
+
+```{r}
+mogrify <- function(`_df`, ...) {
+  args <- f_list(...)
+  
+  for (nm in names(args)) {
+    `_df`[[nm]] <- f_eval(args[[nm]], `_df`)
+  }
+  
+  `_df`
+}
+```
+
+`add_new()` becomes much simpler:
+
+```{r}
+add_variable <- function(df, name, expr) {
+  mogrify(df, name ~ uq(expr))
+}
+add_variable(df, "z", ~ x + y)
+```
+
+### Exercises
+
+1.  Write a function that selects all rows of `df` where `variable` is 
+    greater than its mean. Make the function more general by allowing the
+    user to specify a function to use instead of `mean()` (e.g. `median()`).
+
+1.  Create a version of `mogrify()` where the first argument is `x`?
+    What happens if you try to create a new variable called `x`?
+
+## Non-standard evaluation
+
+In some situations you might want to eliminate the formula altogether, and allow the user to type expressions directly. I was once much enamoured with this approach (witness ggplot2, dplyr, ...). However, I now think that it should be used sparingly because explict quoting with `~` leads to simpler code, and makes it more clear to the user that something special is going on.
+
+That said, lazyeval does allow you to eliminate the `~` if you really want to. In this case, I recommend having both a NSE and SE version of the function. The SE version, which takes formuals, should have suffix `_`:
+
+```{r}
+sieve_ <- function(df, condition) {
+  rows <- f_eval(condition, df)
+  if (!is.logical(rows)) {
+    stop("`condition` must be logical.", call. = FALSE)
+  }
+  
+  rows[is.na(rows)] <- FALSE
+  df[rows, , drop = FALSE]
+}
+```
+
+Then create the NSE version which doesn't need the explicit formula. The key is the use of `f_capture()` which takes an unevaluated argument (a promise) and captures it as a formula:
+
+```{r}
+sieve <- function(df, expr) {
+  sieve_(df, f_capture(expr))
+}
+sieve(df, x == 1)
+```
+
+If you're familiar with `substitute()` you might expect the same drawbacks to apply. However, `f_capture()` is smart enough to follow a chain of promises back to the original value, so, for example, this code works fine:
+
+```{r}
+scramble <- function(df) {
+  df[sample(nrow(df)), , drop = FALSE]
+}
+subscramble <- function(df, expr) {
+  scramble(sieve(df, expr))
+}
+subscramble(df, x < 4)
+```
+
+### Dot-dot-dot
+
+If you want a `...` function that doesn't require formulas, I recommend that the SE version take a list of arguments, and the NSE version uses `dots_capture()` to capture multiple arguments as a list of formulas.
+
+```{r}
+mogrify_ <- function(`_df`, args) {
+  args <- as_f_list(args)
+  
+  for (nm in names(args)) {
+    `_df`[[nm]] <- f_eval(args[[nm]], `_df`)
+  }
+  
+  `_df`
+}
+
+mogrify <- function(`_df`, ...) {
+  mogrify_(`_df`, dots_capture(...))
+}
+```
+
+### Exercises
+
+1.  Recreate `subscramble()` using `base::subset()` instead of `sieve()`.
+    Why does it fail?
+
+## Metaprogramming
+
+The final use of non-standard evaluation is to do metaprogramming. This is a catch-all term that encompasses any function that does computation on an unevaluated expression. You can learn about metaprogrgramming in <http://adv-r.had.co.nz/Expressions.html>, particularly <http://adv-r.had.co.nz/Expressions.html#ast-funs>. Over time, the goal is to move all useful metaprogramming helper functions into this package, and discuss metaprogramming more here.
+---
+title: "Extending ggplot2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extending ggplot2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
+library(ggplot2)
+```
+
+This vignette documents the official extension mechanism provided in ggplot2 2.0.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extend ggplot2 by creating a new stat, geom, or theme.
+
+As you read this document, you'll see many things that will make you scratch your head and wonder why on earth is it designed this way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many of those issues as possible in the 2.0.0 release, but some fixes simply weren't worth the effort.
+
+## ggproto
+
+All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using [proto]( https://cran.r-project.org/package=proto) because I needed mutable objects. This was well before the creation of (the briefly lived) [mutatr](http://vita.had.co.nz/papers/mutatr.html), reference classes and R6: proto was the only game in town.
+
+But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could've modified proto, but that would've first involved understanding exactly how proto worked, and secondly making sure that the changes didn't affect other users of proto.
+
+It's strange to say, but this is a case where inventing a new OO system was actually the right answer to the problem! Fortunately Winston is now very good at creating OO systems, so it only took him a day to come up with ggproto: it maintains all the features of proto that ggplot2 needs, while allowing cross package inheritance to work.
+
+Here's a quick demo of ggproto in action:
+
+```{r ggproto-intro}
+A <- ggproto("A", NULL,
+  x = 1,
+  inc = function(self) {
+    self$x <- self$x + 1
+  }
+)
+A$x
+A$inc()
+A$x
+A$inc()
+A$inc()
+A$x
+```
+
+The majority of ggplot2 classes are immutable and static: the methods neither use nor modify state in the class. They're mostly used as a convenient way of bundling related methods together.
+
+To create a new geom or stat, you will just create a new ggproto that inherits from `Stat`, `Geom` and override the methods described below.
+
+## Creating a new stat
+
+### The simplest stat
+
+We'll start by creating a very simple stat: one that gives the convex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
+
+```{r chull}
+StatChull <- ggproto("StatChull", Stat,
+  compute_group = function(data, scales) {
+    data[chull(data$x, data$y), , drop = FALSE]
+  },
+  
+  required_aes = c("x", "y")
+)
+```
+
+The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
+
+Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. 
+
+All layer functions follow the same form - you specify defaults in the function arguments and then call the `layer()` function, sending `...` into the `params` argument. The arguments in `...` will either be arguments for the geom (if you're making a stat wrapper), arguments for the stat (if you're making a geom wrapper), or aesthetics to be set. `layer()` takes care of teasing the different parameters apart and making sure they're stored in the right place:
+
+```{r}
+stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
+                       position = "identity", na.rm = FALSE, show.legend = NA, 
+                       inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatChull, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+```
+
+(Note that if you're writing this in your own package, you'll either need to call `ggplot2::layer()` explicitly, or import the `layer()` function into your package namespace.)
+
+Once we have a layer function we can try our new stat:
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_chull(fill = NA, colour = "black")
+```
+
+(We'll see later how to change the defaults of the geom so that you don't need to specify `fill = NA` every time.)
+
+Once we've written this basic object, ggplot2 gives a lot for free. For example, ggplot2 automatically preserves aesthetics that are constant within each group:
+
+```{r}
+ggplot(mpg, aes(displ, hwy, colour = drv)) + 
+  geom_point() + 
+  stat_chull(fill = NA)
+```
+
+We can also override the default geom to display the convex hull in a different way:
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) + 
+  stat_chull(geom = "point", size = 4, colour = "red") +
+  geom_point()
+```
+
+### Stat parameters
+
+A more complex stat will do some computation. Let's implement a simple version of `geom_smooth()` that adds a line of best fit to a plot. We create a `StatLm` that inherits from `Stat` and a layer function, `stat_lm()`:
+
+```{r}
+StatLm <- ggproto("StatLm", Stat, 
+  required_aes = c("x", "y"),
+  
+  compute_group = function(data, scales) {
+    rng <- range(data$x, na.rm = TRUE)
+    grid <- data.frame(x = rng)
+    
+    mod <- lm(y ~ x, data = data)
+    grid$y <- predict(mod, newdata = grid)
+    
+    grid
+  }
+)
+
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
+                    inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_lm()
+```
+
+`StatLm` is inflexible because it has no parameters. We might want to allow the user to control the model formula and the number of points used to generate the grid. To do so, we add arguments to the `compute_group()` method and our wrapper function:
+
+```{r}
+StatLm <- ggproto("StatLm", Stat, 
+  required_aes = c("x", "y"),
+  
+  compute_group = function(data, scales, params, n = 100, formula = y ~ x) {
+    rng <- range(data$x, na.rm = TRUE)
+    grid <- data.frame(x = seq(rng[1], rng[2], length = n))
+    
+    mod <- lm(formula, data = data)
+    grid$y <- predict(mod, newdata = grid)
+    
+    grid
+  }
+)
+
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
+                    inherit.aes = TRUE, n = 50, formula = y ~ x, 
+                    ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, formula = formula, na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  stat_lm(formula = y ~ poly(x, 10)) + 
+  stat_lm(formula = y ~ poly(x, 10), geom = "point", colour = "red", n = 20)
+```
+
+Note that we don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2::stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
+
+```{r}
+#' @export
+#' @inheritParams ggplot2::stat_identity
+#' @param formula The modelling formula passed to \code{lm}. Should only 
+#'   involve \code{y} and \code{x}
+#' @param n Number of points used for interpolation.
+stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
+                    position = "identity", na.rm = FALSE, show.legend = NA, 
+                    inherit.aes = TRUE, n = 50, formula = y ~ x, 
+                    ...) {
+  layer(
+    stat = StatLm, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(n = n, formula = formula, na.rm = na.rm, ...)
+  )
+}
+
+```
+
+`stat_lm()` must be exported if you want other people to use it. You could also consider exporting `StatLm` if you want people to extend the underlying object; this should be done with care.
+
+### Picking defaults
+
+Sometimes you have calculations that should be performed once for the complete dataset, not once for each group. This is useful for picking sensible default values. For example, if we want to do a density estimate, it's reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the `stat_density()` that picks one bandwidth for all groups by choosing the mean of the "best" bandwidth for each group (I have no theoretical justification for this, but it doesn't seem unreasonable).
+
+To do this we override the `setup_params()` method. It's passed the data and a list of params, and returns an updated list.
+
+```{r}
+StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
+  required_aes = "x",
+  
+  setup_params = function(data, params) {
+    if (!is.null(params$bandwidth))
+      return(params)
+    
+    xs <- split(data$x, data$group)
+    bws <- vapply(xs, bw.nrd0, numeric(1))
+    bw <- mean(bws)
+    message("Picking bandwidth of ", signif(bw, 3))
+    
+    params$bandwidth <- bw
+    params
+  },
+  
+  compute_group = function(data, scales, bandwidth = 1) {
+    d <- density(data$x, bw = bandwidth)
+    data.frame(x = d$x, y = d$y)
+  }  
+)
+
+stat_density_common <- function(mapping = NULL, data = NULL, geom = "line",
+                                position = "identity", na.rm = FALSE, show.legend = NA, 
+                                inherit.aes = TRUE, bandwidth = NULL,
+                                ...) {
+  layer(
+    stat = StatDensityCommon, data = data, mapping = mapping, geom = geom, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(bandwidth = bandwidth, na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, colour = drv)) + 
+  stat_density_common()
+
+ggplot(mpg, aes(displ, colour = drv)) + 
+  stat_density_common(bandwidth = 0.5)
+```
+
+I recommend using `NULL` as a default value. If you pick important parameters automatically, it's a good idea to `message()` to the user (and when printing a floating point parameter, using `signif()` to show only a few significant digits).
+
+### Variable names and default aesthetics
+
+This stat illustrates another important point. If we want to make this stat usable with other geoms, we should return a variable called `density` instead of `y`. Then we can set up the `default_aes` to automatically map `density` to `y`, which allows the user to override it to use with different geoms:
+
+```{r}
+StatDensityCommon <- ggproto("StatDensity2", Stat, 
+  required_aes = "x",
+  default_aes = aes(y = stat(density)),
+
+  compute_group = function(data, scales, bandwidth = 1) {
+    d <- density(data$x, bw = bandwidth)
+    data.frame(x = d$x, density = d$y)
+  }  
+)
+
+ggplot(mpg, aes(displ, drv, colour = stat(density))) + 
+  stat_density_common(bandwidth = 1, geom = "point")
+```
+
+However, using this stat with the area geom doesn't work quite right. The areas don't stack on top of each other:
+
+```{r}
+ggplot(mpg, aes(displ, fill = drv)) + 
+  stat_density_common(bandwidth = 1, geom = "area", position = "stack")
+```
+
+This is because each density is computed independently, and the estimated `x`s don't line up. We can resolve that issue by computing the range of the data once in `setup_params()`.
+
+```{r}
+StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
+  required_aes = "x",
+  default_aes = aes(y = stat(density)),
+
+  setup_params = function(data, params) {
+    min <- min(data$x) - 3 * params$bandwidth
+    max <- max(data$x) + 3 * params$bandwidth
+    
+    list(
+      bandwidth = params$bandwidth,
+      min = min,
+      max = max,
+      na.rm = params$na.rm
+    )
+  },
+  
+  compute_group = function(data, scales, min, max, bandwidth = 1) {
+    d <- density(data$x, bw = bandwidth, from = min, to = max)
+    data.frame(x = d$x, density = d$y)
+  }  
+)
+
+ggplot(mpg, aes(displ, fill = drv)) + 
+  stat_density_common(bandwidth = 1, geom = "area", position = "stack")
+ggplot(mpg, aes(displ, drv, fill = stat(density))) + 
+  stat_density_common(bandwidth = 1, geom = "raster")
+```
+
+### Exercises
+
+1.  Extend `stat_chull` to compute the alpha hull, as from the
+    [alphahull](https://cran.r-project.org/package=alphahull) package. Your
+    new stat should take an `alpha` argument.
+
+1.  Modify the final version of `StatDensityCommon` to allow the user to 
+    specify the `min` and `max` parameters. You'll need to modify both the
+    layer function and the `compute_group()` method.
+    
+    Note: be careful when adding parameters to a layer function. The following 
+    names *col*, *color*, *pch*, *cex*, *lty*, *lwd*, *srt*, *adj*, *bg*, *fg*, 
+    *min*, and *max* are intentionally renamed to accomodate base graphical 
+    parameter names. For example, a value passed as *min* to a layer appears as 
+    *ymin* in the `setup_params` list of params. It is recommended you avoid 
+    using these names for layer parameters.
+
+1.  Compare and contrast `StatLm` to `ggplot2::StatSmooth`. What key
+    differences make `StatSmooth` more complex than `StatLm`?
+
+## Creating a new geom
+
+It's harder to create a new geom than a new stat because you also need to know some grid. ggplot2 is built on top of grid, so you'll need to know the basics of drawing with grid. If you're serious about adding a new geom, I'd recommend buying [R graphics](http://amzn.com/B00I60M26G) by Paul Murrell. It tells you everything you need to know about drawing with grid.
+
+### A simple geom
+
+It's easiest to start with a simple example. The code below is a simplified version of `geom_point()`:
+
+```{r GeomSimplePoint}
+GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
+  required_aes = c("x", "y"),
+  default_aes = aes(shape = 19, colour = "black"),
+  draw_key = draw_key_point,
+
+  draw_panel = function(data, panel_params, coord) {
+    coords <- coord$transform(data, panel_params)
+    grid::pointsGrob(
+      coords$x, coords$y,
+      pch = coords$shape,
+      gp = grid::gpar(col = coords$colour)
+    )
+  }
+)
+
+geom_simple_point <- function(mapping = NULL, data = NULL, stat = "identity",
+                              position = "identity", na.rm = FALSE, show.legend = NA, 
+                              inherit.aes = TRUE, ...) {
+  layer(
+    geom = GeomSimplePoint, mapping = mapping,  data = data, stat = stat, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_simple_point()
+```
+
+This is very similar to defining a new stat. You always need to provide fields/methods for the four pieces shown above:
+
+* `required_aes` is a character vector which lists all the aesthetics that
+  the user must provide.
+  
+* `default_aes` lists the aesthetics that have default values.
+
+* `draw_key` provides the function used to draw the key in the legend. 
+  You can see a list of all the build in key functions in `?draw_key`
+  
+* `draw_panel()` is where the magic happens. This function takes three
+  arguments and returns a grid grob. It is called once for each panel.
+  It's the most complicated part and is described in more detail below.
+  
+`draw_panel()` has three arguments:
+
+* `data`: a data frame with one column for each aesthetic.
+
+* `panel_params`: a list of per-panel parameters generated by the coord.
+  You should consider this an opaque data structure: don't look inside 
+  it, just pass along to `coord` methods.
+
+* `coord`: an object describing the coordinate system.
+
+You need to use `panel_params` and `coord` together to transform the data  `coords <- coord$transform(data, panel_params)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function. (Transforming for non-Cartesian coordinate systems is quite complex - you're best off transforming your data to the form accepted by an existing ggplot2 geom and passing it.)
+
+### Collective geoms
+
+Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override `draw_group()`.
+
+The following code makes a simplified version of `GeomPolygon`:
+
+```{r}
+GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
+  required_aes = c("x", "y"),
+  
+  default_aes = aes(
+    colour = NA, fill = "grey20", size = 0.5,
+    linetype = 1, alpha = 1
+  ),
+
+  draw_key = draw_key_polygon,
+
+  draw_group = function(data, panel_params, coord) {
+    n <- nrow(data)
+    if (n <= 2) return(grid::nullGrob())
+
+    coords <- coord$transform(data, panel_params)
+    # A polygon can only have a single colour, fill, etc, so take from first row
+    first_row <- coords[1, , drop = FALSE]
+
+    grid::polygonGrob(
+      coords$x, coords$y, 
+      default.units = "native",
+      gp = grid::gpar(
+        col = first_row$colour,
+        fill = scales::alpha(first_row$fill, first_row$alpha),
+        lwd = first_row$size * .pt,
+        lty = first_row$linetype
+      )
+    )
+  }
+)
+geom_simple_polygon <- function(mapping = NULL, data = NULL, stat = "chull",
+                                position = "identity", na.rm = FALSE, show.legend = NA, 
+                                inherit.aes = TRUE, ...) {
+  layer(
+    geom = GeomSimplePolygon, mapping = mapping, data = data, stat = stat, 
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_simple_polygon(aes(colour = class), fill = NA)
+```
+
+There are a few things to note here:
+
+* We override `draw_group()` instead of `draw_panel()` because we want
+  one polygon per group, not one polygon per row. 
+  
+* If the data contains two or fewer points, there's no point trying to draw
+  a polygon, so we return a `nullGrob()`. This is the graphical equivalent
+  of `NULL`: it's a grob that doesn't draw anything and doesn't take up
+  any space.
+  
+* Note the units: `x` and `y` should always be drawn in "native" units. 
+  (The default units for `pointGrob()` is a native, so we didn't need to 
+  change it there). `lwd` is measured in points, but ggplot2 uses mm, 
+  so we need to multiply it by the adjustment factor `.pt`.
+
+You might want to compare this to the real `GeomPolygon`. You'll see it overrides `draw_panel()` because it uses some tricks to make `polygonGrob()` produce multiple polygons in one call. This is considerably more complicated, but gives better performance.
+
+### Inheriting from an existing Geom
+
+Sometimes you just want to make a small modification to an existing geom. In this case, rather than inheriting from `Geom` you can inherit from an existing subclass. For example, we might want to change the defaults for `GeomPolygon` to work better with `StatChull`:
+
+```{r}
+GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
+  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+    alpha = NA)
+  )
+geom_chull <- function(mapping = NULL, data = NULL, 
+                       position = "identity", na.rm = FALSE, show.legend = NA, 
+                       inherit.aes = TRUE, ...) {
+  layer(
+    stat = StatChull, geom = GeomPolygonHollow, data = data, mapping = mapping,
+    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+    params = list(na.rm = na.rm, ...)
+  )
+}
+
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() + 
+  geom_chull()
+```
+
+This doesn't allow you to use different geoms with the stat, but that seems appropriate here since the convex hull is primarily a polygonal feature.
+
+### Exercises
+
+1. Compare and contrast `GeomPoint` with `GeomSimplePoint`.
+
+1. Compare and contrast `GeomPolygon` with `GeomSimplePolygon`.
+
+## Creating your own theme
+
+If you're going to create your own complete theme, there are a few things you need to know:
+
+* Overriding existing elements, rather than modifying them
+* The four global elements that affect (almost) every other theme element
+* Complete vs. incomplete elements
+
+### Overriding elements
+
+By default, when you add a new theme element, it inherits values from the existing theme. For example, the following code sets the key colour to red, but it inherits the existing fill colour:
+
+```{r}
+theme_grey()$legend.key
+
+new_theme <- theme_grey() + theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+```
+
+To override it completely, use `%+replace%` instead of `+`:
+
+```{r}
+new_theme <- theme_grey() %+replace% theme(legend.key = element_rect(colour = "red"))
+new_theme$legend.key
+```
+
+### Global elements
+
+There are four elements that affect the global appearance of the plot:
+
+Element      | Theme function    | Description
+-------------|-------------------|------------------------
+line         | `element_line()`  | all line elements
+rect         | `element_rect()`  | all rectangular elements
+text         | `element_text()`  | all text
+title        | `element_text()`  | all text in title elements (plot, axes & legend)
+
+These set default properties that are inherited by more specific settings. These are most useful for setting an overall "background" colour and overall font settings (e.g. family and size).
+
+```{r axis-line-ex}
+df <- data.frame(x = 1:3, y = 1:3)
+base <- ggplot(df, aes(x, y)) + 
+  geom_point() + 
+  theme_minimal()
+
+base
+base + theme(text = element_text(colour = "red"))
+```
+
+You should generally start creating a theme by modifying these values.
+
+### Complete vs incomplete
+
+It is useful to understand the difference between complete and incomplete theme objects. A *complete* theme object is one produced by calling a theme function with the attribute `complete = TRUE`. 
+
+Theme functions `theme_grey()` and `theme_bw()` are examples of complete theme functions. Calls to `theme()` produce *incomplete* theme objects, since they represent (local) modifications to a theme object rather than returning a complete theme object per se. When adding an incomplete theme to a complete one, the result is a complete theme. 
+
+Complete and incomplete themes behave somewhat differently when added to a ggplot object:
+
+* Adding an incomplete theme augments the current theme object, replacing only 
+  those properties of elements defined in the call to `theme()`.
+  
+* Adding a complete theme wipes away the existing theme and applies the new theme.
+
+## Creating a new faceting
+
+One of the more daunting exercises in ggplot2 extensions is to create a new faceting system. The reason for this is that when creating new facetings you take on the responsibility of how (almost) everything is drawn on the screen, and many do not have experience with directly using [gtable](https://cran.r-project.org/package=gtable) and [grid](https://cran.r-project.org/package=grid) upon which the ggplot2 rendering is built. If you decide to venture into faceting extensions, it is highly recommended to gain proficiency with the above-mentioned packages.
+
+The `Facet` class in ggplot2 is very powerful as it takes on responsibility of a wide range of tasks. The main tasks of a `Facet` object are:
+
+* Define a layout; that is, a partitioning of the data into different plot areas (panels) as well as which panels share position scales.
+
+* Map plot data into the correct panels, potentially duplicating data if it should exist in multiple panels (e.g. margins in `facet_grid()`).
+
+* Assemble all panels into a final gtable, adding axes, strips and decorations in the process.
+
+Apart from these three tasks, for which functionality must be implemented, there are a couple of additional extension points where sensible defaults have been provided. These can generally be ignored, but adventurous developers can override them for even more control:
+
+* Initialization and training of positional scales for each panel.
+
+* Decoration in front of and behind each panel.
+
+* Drawing of axis labels
+
+To show how a new faceting class is created we will start simple and go through each of the required methods in turn to build up `facet_duplicate()` that simply duplicate our plot into two panels. After this we will tinker with it a bit to show some of the more powerful possibilities.
+
+### Creating a layout specification
+
+A layout in the context of facets is a `data.frame` that defines a mapping between data and the panels it should reside in as well as which positional scales should be used. The output should at least contain the columns `PANEL`, `SCALE_X`, and `SCALE_Y`, but will often contain more to help assign data to the correct panel (`facet_grid()` will e.g. also return the faceting variables associated with each panel). Let's make a function that defines a duplicate layout:
+
+```{r}
+layout <- function(data, params) {
+  data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
+}
+```
+
+This is quite simple as the faceting should just define two panels irrespectively of the input data and parameters.
+
+### Mapping data into panels
+
+In order for ggplot2 to know which data should go where it needs the data to be assigned to a panel. The purpose of the mapping step is to assign a `PANEL` column to the layer data identifying which panel it belongs to.
+
+```{r}
+mapping <- function(data, layout, params) {
+  if (plyr::empty(data)) {
+    return(cbind(data, PANEL = integer(0)))
+  }
+  rbind(
+    cbind(data, PANEL = 1L),
+    cbind(data, PANEL = 2L)
+  )
+}
+```
+
+here we first investigate whether we have gotten an empty `data.frame` and if not we duplicate the data and assign the original data to the first panel and the new data to the second panel.
+
+### Laying out the panels
+
+While the two functions above have been deceivingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.
+
+```{r}
+render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
+                   theme, params) {
+  # Place panels according to settings
+  if (params$horizontal) {
+    # Put panels in matrix and convert to a gtable
+    panels <- matrix(panels, ncol = 2)
+    panel_table <- gtable::gtable_matrix("layout", panels, 
+      widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
+    # Add spacing according to theme
+    panel_spacing <- if (is.null(theme$panel.spacing.x)) {
+      theme$panel.spacing
+    } else {
+      theme$panel.spacing.x
+    }
+    panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
+  } else {
+    panels <- matrix(panels, ncol = 1)
+    panel_table <- gtable::gtable_matrix("layout", panels, 
+      widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
+    panel_spacing <- if (is.null(theme$panel.spacing.y)) {
+      theme$panel.spacing
+    } else {
+      theme$panel.spacing.y
+    }
+    panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
+  }
+  # Name panel grobs so they can be found later
+  panel_table$layout$name <- paste0("panel-", c(1, 2))
+  
+  # Construct the axes
+  axes <- render_axes(ranges[1], ranges[1], coord, theme, 
+    transpose = TRUE)
+
+  # Add axes around each panel
+  panel_pos_h <- panel_cols(panel_table)$l
+  panel_pos_v <- panel_rows(panel_table)$t
+  axis_width_l <- unit(grid::convertWidth(
+    grid::grobWidth(axes$y$left[[1]]), "cm", TRUE), "cm")
+  axis_width_r <- unit(grid::convertWidth(
+    grid::grobWidth(axes$y$right[[1]]), "cm", TRUE), "cm")
+  ## We do it reverse so we don't change the position of panels when we add axes
+  for (i in rev(panel_pos_h)) {
+    panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r, i)
+    panel_table <- gtable::gtable_add_grob(panel_table, 
+      rep(axes$y$right, length(panel_pos_v)), t = panel_pos_v, l = i + 1, 
+      clip = "off")
+    panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l, i - 1)
+    panel_table <- gtable::gtable_add_grob(panel_table, 
+      rep(axes$y$left, length(panel_pos_v)), t = panel_pos_v, l = i, 
+      clip = "off")
+  }
+  ## Recalculate as gtable has changed
+  panel_pos_h <- panel_cols(panel_table)$l
+  panel_pos_v <- panel_rows(panel_table)$t
+  axis_height_t <- unit(grid::convertHeight(
+    grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
+  axis_height_b <- unit(grid::convertHeight(
+    grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE), "cm")
+  for (i in rev(panel_pos_v)) {
+    panel_table <- gtable::gtable_add_rows(panel_table, axis_height_b, i)
+    panel_table <- gtable::gtable_add_grob(panel_table, 
+      rep(axes$x$bottom, length(panel_pos_h)), t = i + 1, l = panel_pos_h, 
+      clip = "off")
+    panel_table <- gtable::gtable_add_rows(panel_table, axis_height_t, i - 1)
+    panel_table <- gtable::gtable_add_grob(panel_table, 
+      rep(axes$x$top, length(panel_pos_h)), t = i, l = panel_pos_h, 
+      clip = "off")
+  }
+  panel_table
+}
+```
+
+### Assembling the Facet class
+
+Usually all methods are defined within the class definition in the same way as is done for  `Geom` and `Stat`. Here we have split it out so we could go through each in turn. All that remains is to assign our functions to the correct methods as well as making a constructor
+
+```{r}
+# Constructor: shrink is required to govern whether scales are trained on 
+# Stat-transformed data or not.
+facet_duplicate <- function(horizontal = TRUE, shrink = TRUE) {
+  ggproto(NULL, FacetDuplicate,
+    shrink = shrink,
+    params = list(
+      horizontal = horizontal
+    )
+  )
+}
+
+FacetDuplicate <- ggproto("FacetDuplicate", Facet,
+  compute_layout = layout,
+  map_data = mapping,
+  draw_panels = render
+)
+```
+
+Now with everything assembled, lets test it out:
+
+```{r}
+p <- ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point()
+p
+p + facet_duplicate()
+```
+
+### Doing more with facets
+
+The example above was pretty useless and we'll now try to expand on it to add some actual usability. We are going to make a faceting that adds panels with y-transformed axes:
+
+```{r}
+library(scales)
+
+facet_trans <- function(trans, horizontal = TRUE, shrink = TRUE) {
+  ggproto(NULL, FacetTrans,
+    shrink = shrink,
+    params = list(
+      trans = scales::as.trans(trans),
+      horizontal = horizontal
+    )
+  )
+}
+
+FacetTrans <- ggproto("FacetTrans", Facet,
+  # Almost as before but we want different y-scales for each panel
+  compute_layout = function(data, params) {
+    data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = c(1L, 2L))
+  },
+  # Same as before
+  map_data = function(data, layout, params) {
+    if (plyr::empty(data)) {
+      return(cbind(data, PANEL = integer(0)))
+    }
+    rbind(
+      cbind(data, PANEL = 1L),
+      cbind(data, PANEL = 2L)
+    )
+  },
+  # This is new. We create a new scale with the defined transformation
+  init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
+    scales <- list()
+    if (!is.null(x_scale)) {
+      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+    }
+    if (!is.null(y_scale)) {
+      y_scale_orig <- y_scale$clone()
+      y_scale_new <- y_scale$clone()
+      y_scale_new$trans <- params$trans
+      # Make sure that oob values are kept
+      y_scale_new$oob <- function(x, ...) x
+      scales$y <- list(y_scale_orig, y_scale_new)
+    }
+    scales
+  },
+  # We must make sure that the second scale is trained on transformed data
+  train_scales = function(x_scales, y_scales, layout, data, params) {
+    # Transform data for second panel prior to scale training
+    if (!is.null(y_scales)) {
+      data <- lapply(data, function(layer_data) {
+        match_id <- match(layer_data$PANEL, layout$PANEL)
+        y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
+        trans_scale <- layer_data$PANEL == 2L
+        for (i in y_vars) {
+          layer_data[trans_scale, i] <- y_scales[[2]]$transform(layer_data[trans_scale, i])
+        }
+        layer_data
+      })
+    }
+    Facet$train_scales(x_scales, y_scales, layout, data, params)
+  },
+  # this is where we actually modify the data. It cannot be done in $map_data as that function
+  # doesn't have access to the scales
+  finish_data = function(data, layout, x_scales, y_scales, params) {
+    match_id <- match(data$PANEL, layout$PANEL)
+    y_vars <- intersect(y_scales[[1]]$aesthetics, names(data))
+    trans_scale <- data$PANEL == 2L
+    for (i in y_vars) {
+      data[trans_scale, i] <- y_scales[[2]]$transform(data[trans_scale, i])
+    }
+    data
+  },
+  # A few changes from before to accommodate that axes are now not duplicate of each other
+  # We also add a panel strip to annotate the different panels
+  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord,
+                         data, theme, params) {
+    # Place panels according to settings
+    if (params$horizontal) {
+      # Put panels in matrix and convert to a gtable
+      panels <- matrix(panels, ncol = 2)
+      panel_table <- gtable::gtable_matrix("layout", panels, 
+        widths = unit(c(1, 1), "null"), heights = unit(1, "null"), clip = "on")
+      # Add spacing according to theme
+      panel_spacing <- if (is.null(theme$panel.spacing.x)) {
+        theme$panel.spacing
+      } else {
+        theme$panel.spacing.x
+      }
+      panel_table <- gtable::gtable_add_col_space(panel_table, panel_spacing)
+    } else {
+      panels <- matrix(panels, ncol = 1)
+      panel_table <- gtable::gtable_matrix("layout", panels, 
+        widths = unit(1, "null"), heights = unit(c(1, 1), "null"), clip = "on")
+      panel_spacing <- if (is.null(theme$panel.spacing.y)) {
+        theme$panel.spacing
+      } else {
+        theme$panel.spacing.y
+      }
+      panel_table <- gtable::gtable_add_row_space(panel_table, panel_spacing)
+    }
+    # Name panel grobs so they can be found later
+    panel_table$layout$name <- paste0("panel-", c(1, 2))
+    
+    # Construct the axes
+    axes <- render_axes(ranges[1], ranges, coord, theme, 
+      transpose = TRUE)
+  
+    # Add axes around each panel
+    grobWidths <- function(x) {
+      unit(vapply(x, function(x) {
+        grid::convertWidth(
+          grid::grobWidth(x), "cm", TRUE)
+      }, numeric(1)), "cm")
+    }
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
+    axis_width_l <- grobWidths(axes$y$left)
+    axis_width_r <- grobWidths(axes$y$right)
+    ## We do it reverse so we don't change the position of panels when we add axes
+    if (params$horizontal) {
+      for (i in rev(seq_along(panel_pos_h))) {
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[i], panel_pos_h[i])
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$right[i], t = panel_pos_v, l = panel_pos_h[i] + 1,
+          clip = "off")
+
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[i], panel_pos_h[i] - 1)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$left[i], t = panel_pos_v, l = panel_pos_h[i],
+          clip = "off")
+      }
+    } else {
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[1], panel_pos_h)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$right, t = panel_pos_v, l = panel_pos_h + 1,
+          clip = "off")
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[1], panel_pos_h - 1)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$left, t = panel_pos_v, l = panel_pos_h,
+          clip = "off")
+      }
+
+    ## Recalculate as gtable has changed
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
+    axis_height_t <- unit(grid::convertHeight(
+      grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
+    axis_height_b <- unit(grid::convertHeight(
+      grid::grobHeight(axes$x$bottom[[1]]), "cm", TRUE), "cm")
+    for (i in rev(panel_pos_v)) {
+      panel_table <- gtable::gtable_add_rows(panel_table, axis_height_b, i)
+      panel_table <- gtable::gtable_add_grob(panel_table, 
+        rep(axes$x$bottom, length(panel_pos_h)), t = i + 1, l = panel_pos_h, 
+        clip = "off")
+      panel_table <- gtable::gtable_add_rows(panel_table, axis_height_t, i - 1)
+      panel_table <- gtable::gtable_add_grob(panel_table, 
+        rep(axes$x$top, length(panel_pos_h)), t = i, l = panel_pos_h, 
+        clip = "off")
+    }
+    
+    # Add strips
+    strips <- render_strips(
+      x = data.frame(name = c("Original", paste0("Transformed (", params$trans$name, ")"))),
+      labeller = label_value, theme = theme)
+    
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
+    strip_height <- unit(grid::convertHeight(
+      grid::grobHeight(strips$x$top[[1]]), "cm", TRUE), "cm")
+    for (i in rev(seq_along(panel_pos_v))) {
+      panel_table <- gtable::gtable_add_rows(panel_table, strip_height, panel_pos_v[i] - 1)
+      if (params$horizontal) {
+        panel_table <- gtable::gtable_add_grob(panel_table, strips$x$top, 
+          t = panel_pos_v[i], l = panel_pos_h, clip = "off")
+      } else {
+        panel_table <- gtable::gtable_add_grob(panel_table, strips$x$top[i], 
+          t = panel_pos_v[i], l = panel_pos_h, clip = "off")
+      }
+    }
+    
+    
+    panel_table
+  }
+)
+```
+
+As is very apparent, the `draw_panel` method can become very unwieldy once it begins to take multiple possibilities into account. The fact that we want to support both horizontal and vertical layout leads to a lot of if/else blocks in the above code. In general, this is the big challenge when writing facet extensions so be prepared to be very meticulous when writing these methods.
+
+Enough talk - lets see if our new and powerful faceting extension works:
+
+```{r}
+ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
+```
+
+## Extending existing facet function
+
+As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing faceting classes to achieve a range of new facetings. Below we will subclass `facet_wrap()` to make a `facet_bootstrap()` class that splits the input data into a number of panels at random.
+
+```{r}
+facet_bootstrap <- function(n = 9, prop = 0.2, nrow = NULL, ncol = NULL, 
+  scales = "fixed", shrink = TRUE, strip.position = "top") {
+  
+  facet <- facet_wrap(~.bootstrap, nrow = nrow, ncol = ncol, scales = scales, 
+    shrink = shrink, strip.position = strip.position)
+  facet$params$n <- n
+  facet$params$prop <- prop
+  ggproto(NULL, FacetBootstrap,
+    shrink = shrink,
+    params = facet$params
+  )
+}
+
+FacetBootstrap <- ggproto("FacetBootstrap", FacetWrap,
+  compute_layout = function(data, params) {
+    id <- seq_len(params$n)
+
+    dims <- wrap_dims(params$n, params$nrow, params$ncol)
+    layout <- data.frame(PANEL = factor(id))
+
+    if (params$as.table) {
+      layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
+    } else {
+      layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
+    }
+    layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
+
+    layout <- layout[order(layout$PANEL), , drop = FALSE]
+    rownames(layout) <- NULL
+
+    # Add scale identification
+    layout$SCALE_X <- if (params$free$x) id else 1L
+    layout$SCALE_Y <- if (params$free$y) id else 1L
+
+    cbind(layout, .bootstrap = id)
+  },
+  map_data = function(data, layout, params) {
+    if (is.null(data) || nrow(data) == 0) {
+      return(cbind(data, PANEL = integer(0)))
+    }
+    n_samples <- round(nrow(data) * params$prop)
+    new_data <- lapply(seq_len(params$n), function(i) {
+      cbind(data[sample(nrow(data), n_samples), , drop = FALSE], PANEL = i)
+    })
+    do.call(rbind, new_data)
+  }
+)
+
+ggplot(diamonds, aes(carat, price)) + 
+  geom_point(alpha = 0.1) + 
+  facet_bootstrap(n = 9, prop = 0.05)
+```
+
+What we are doing above is to intercept the `compute_layout` and `map_data` methods and instead of dividing the data by a variable we randomly assigns rows to a panel based on the sampling parameters (`n` determines the number of panels, `prop` determines the proportion of data in each panel). It is important here that the layout returned by `compute_layout` is a valid layout for `FacetWrap` as we are counting on the `draw_panel` method from `FacetWrap` to do all the work for us. Thus if you want to subclass FacetWrap or FacetGrid, make sure you understand the nature of their layout specification.
+
+### Exercises
+
+1. Rewrite FacetTrans to take a vector of transformations and create an additional panel for each transformation.
+2. Based on the FacetWrap implementation rewrite FacetTrans to take the strip.placement theme setting into account.
+3. Think about which caveats there are in FacetBootstrap specifically related to adding multiple layers with the same data.
+
+---
+title: "Aesthetic specifications"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Aesthetic specifications}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(ggplot2)
+knitr::opts_chunk$set(fig.dpi = 96, collapse = TRUE, comment = "#>")
+```
+
+This vignette summarises the various formats that grid drawing functions take.  Most of this information is available scattered throughout the R documentation.  This appendix brings it all together in one place. 
+
+## Colour and fill
+
+Almost every geom has either colour, fill, or both. Colours and fills can be specified in the following ways:
+
+*   A __name__, e.g., `"red"`. R has `r length(colours())` built-in named
+    colours, which can be listed with `colours()`. The Stowers Institute 
+    provides a nice printable pdf that lists all colours: 
+    <http://research.stowers.org/mcm/efg/R/Color/Chart/>.
+    
+*   An __rgb specification__, with a string of the form `"#RRGGBB"` where each of 
+    the pairs `RR`, `GG`, `BB` consists of two hexadecimal digits giving a value 
+    in the range `00` to `FF`
+    
+    You can optionally make the colour transparent by using the form 
+    `"#RRGGBBAA"`.
+
+*   An __NA__, for a completely transparent colour.
+
+*   The [munsell](https://github.com/cwickham/munsell) package, by Charlotte 
+    Wickham, makes it easy to specific colours using a system designed by 
+    Alfred Munsell. If you invest a little in learning the system, it provides
+    a convenient way of specifying aesthetically pleasing colours.
+    
+    ```{r}
+    munsell::mnsl("5PB 5/10")
+    ```
+
+## Lines
+
+As well as `colour`, the appearance of a line is affected by `size`, `linetype`, `linejoin` and `lineend`.
+
+### Line type {#sec:line-type-spec}
+
+Line types can be specified with:
+
+*   An __integer__ or __name__: 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 
+    4 = dotdash, 5 = longdash, 6 = twodash, as shown below:
+
+    ```{r}
+    lty <- c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
+    linetypes <- data.frame(
+      y = seq_along(lty),
+      lty = lty
+    ) 
+    ggplot(linetypes, aes(0, y)) + 
+      geom_segment(aes(xend = 5, yend = y, linetype = lty)) + 
+      scale_linetype_identity() + 
+      geom_text(aes(label = lty), hjust = 0, nudge_y = 0.2) +
+      scale_x_continuous(NULL, breaks = NULL) + 
+      scale_y_reverse(NULL, breaks = NULL)
+    ```
+
+*   The lengths of on/off stretches of line. This is done with a string 
+    containing 2, 4, 6, or 8 hexadecimal digits which give the lengths of
+    consecutive lengths. For example, the string `"33"` specifies three units 
+    on followed by three off and `"3313"` specifies three units on followed by 
+    three off followed by one on and finally three off. 
+    
+    ```{r}
+    lty <- c("11", "18", "1f", "81", "88", "8f", "f1", "f8", "ff")
+    linetypes <- data.frame(
+      y = seq_along(lty),
+      lty = lty
+    ) 
+    ggplot(linetypes, aes(0, y)) + 
+      geom_segment(aes(xend = 5, yend = y, linetype = lty)) + 
+      scale_linetype_identity() + 
+      geom_text(aes(label = lty), hjust = 0, nudge_y = 0.2) +
+      scale_x_continuous(NULL, breaks = NULL) + 
+      scale_y_reverse(NULL, breaks = NULL)
+    ```
+    
+    The five standard dash-dot line types described above correspond to 44, 13, 
+    1343, 73, and 2262.
+
+### Size
+
+The `size` of a line is its width in mm.
+
+### Line end/join paramters
+
+*   The appearance of the line end is controlled by the `lineend` paramter,
+    and can be one of "round", "butt" (the default), or "square".
+
+    ```{r, out.width = "30%", fig.show = "hold"}
+    df <- data.frame(x = 1:3, y = c(4, 1, 9))
+    base <- ggplot(df, aes(x, y)) + xlim(0.5, 3.5) + ylim(0, 10)
+    base + 
+      geom_path(size = 10) + 
+      geom_path(size = 1, colour = "red")
+    
+    base + 
+      geom_path(size = 10, lineend = "round") + 
+      geom_path(size = 1, colour = "red")
+    
+    base + 
+      geom_path(size = 10, lineend = "square") + 
+      geom_path(size = 1, colour = "red")
+    ```
+
+*   The appearance of line joins is controlled by `linejoin` and can be one of 
+    "round" (the default), "mitre", or "bevel".
+
+    ```{r, out.width = "30%", fig.show = "hold"}
+    df <- data.frame(x = 1:3, y = c(9, 1, 9))
+    base <- ggplot(df, aes(x, y)) + ylim(0, 10)
+    base + 
+      geom_path(size = 10) + 
+      geom_path(size = 1, colour = "red")
+    
+    base + 
+      geom_path(size = 10, linejoin = "mitre") + 
+      geom_path(size = 1, colour = "red")
+    
+    base + 
+      geom_path(size = 10, linejoin = "bevel") + 
+      geom_path(size = 1, colour = "red")
+    ```
+
+Mitre joins are automatically converted to bevel joins whenever the angle is too small (which would create a very long bevel). This is controlled by the `linemitre` parameter which specifies the maximum ratio between the line width and the length of the mitre.
+
+## Polygons
+
+The border of the polygon is controlled by the `colour`, `linetype`, and `size` aesthetics as described above. The inside is controlled by `fill`.
+
+## Point
+
+### Shape {#sec:shape-spec}
+
+Shapes take five types of values:
+
+*   An __integer__ in $[0, 25]$:
+
+    ```{r}
+    shapes <- data.frame(
+      shape = c(0:19, 22, 21, 24, 23, 20),
+      x = 0:24 %/% 5,
+      y = -(0:24 %% 5)
+    )
+    ggplot(shapes, aes(x, y)) + 
+      geom_point(aes(shape = shape), size = 5, fill = "red") +
+      geom_text(aes(label = shape), hjust = 0, nudge_x = 0.15) +
+      scale_shape_identity() +
+      expand_limits(x = 4.1) +
+      scale_x_continuous(NULL, breaks = NULL) + 
+      scale_y_continuous(NULL, breaks = NULL)
+    ```
+   
+*   The __name__ of the shape:
+     
+```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
+shape_names <- c(
+  "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
+  "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
+  "diamond", paste("diamond", c("open", "filled", "plus")),
+  "triangle", paste("triangle", c("open", "filled", "square")),
+  paste("triangle down", c("open", "filled")),
+  "plus", "cross", "asterisk"
+)
+
+shapes <- data.frame(
+  shape_names = shape_names,
+  x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
+  y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
+)
+
+ggplot(shapes, aes(x, y)) +
+  geom_point(aes(shape = shape_names), fill = "red", size = 5) +
+  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
+  scale_shape_identity() +
+  scale_x_continuous(NULL, breaks = NULL) +
+  scale_y_continuous(NULL, breaks = NULL)
+```
+
+*   A __single character__, to use that character as a plotting symbol.
+
+*   A `.` to draw the smallest rectangle that is visible, usualy 1 pixel.
+   
+*   An `NA`, to draw nothing.
+
+### Colour and fill
+
+Note that shapes 21-24 have both stroke `colour` and a `fill`. The size of the filled part is controlled by `size`, the size of the stroke is controlled by `stroke`. Each is measured in mm, and the total size of the point is the sum of the two. Note that the size is constant along the diagonal in the following figure.
+
+```{r}
+sizes <- expand.grid(size = (0:3) * 2, stroke = (0:3) * 2)
+ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) + 
+  geom_abline(slope = -1, intercept = 6, colour = "white", size = 6) + 
+  geom_point(shape = 21, fill = "red") +
+  scale_size_identity()
+```
+
+## Text
+
+### Font face
+
+There are only three fonts that are guaranteed to work everywhere: "sans" (the default), "serif", or "mono":
+
+```{r}
+df <- data.frame(x = 1, y = 3:1, family = c("sans", "serif", "mono"))
+ggplot(df, aes(x, y)) + 
+  geom_text(aes(label = family, family = family))
+```
+
+It's trickier to include a system font on a plot because text drawing is done differently by each graphics device (GD). There are five GDs in common use (`png()`, `pdf()`, on screen devices for Windows, Mac and Linux), so to have a font work everywhere you need to configure five devices in five different ways. Two packages simplify the quandary a bit: 
+
+* `showtext` makes GD-independent plots by rendering all text as polygons. 
+
+* `extrafont` converts fonts to a standard format that all devices can use. 
+
+Both approaches have pros and cons, so you will to need to try both of them and see which works best for your needs.
+
+### Font face
+
+```{r}
+df <- data.frame(x = 1:4, fontface = c("plain", "bold", "italic", "bold.italic"))
+ggplot(df, aes(1, x)) + 
+  geom_text(aes(label = fontface, fontface = fontface))
+```
+
+
+### Justification
+
+Horizontal and vertical justification have the same parameterisation, either a string ("top", "middle", "bottom", "left", "center", "right") or a number between 0 and 1:
+
+* top = 1, middle = 0.5, bottom = 0
+* left = 0, center = 0.5, right = 1
+
+```{r}
+just <- expand.grid(hjust = c(0, 0.5, 1), vjust = c(0, 0.5, 1))
+just$label <- paste0(just$hjust, ", ", just$vjust)
+
+ggplot(just, aes(hjust, vjust)) +
+  geom_point(colour = "grey70", size = 5) + 
+  geom_text(aes(label = label, hjust = hjust, vjust = vjust))
+```
+
+Note that you can use numbers outside the range (0, 1), but it's not recommended. 
+---
+title: \pkg{Rcpp} Attributes
+
+# Use letters for affiliations
+author:
+  - name: J.J. Allaire
+    affiliation: a
+  - name: Dirk Eddelbuettel
+    affiliation: b
+  - name: Romain François
+    affiliation: c
+
+address:
+  - code: a
+    address: \url{https://rstudio.com}
+  - code: b
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: c
+    address: \url{https://romain.rbind.io/}
+    
+# For footer text  TODO(fold into template, allow free form two-authors)
+lead_author_surname: Allaire, Eddelbuettel, François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  \textsl{Rcpp attributes} provide a high-level syntax for declaring \proglang{C++}
+  functions as callable from \proglang{R} and automatically generating the code
+  required to invoke them. Attributes are intended to facilitate both interactive use
+  of \proglang{C++} within \proglang{R} sessions as well as to support \proglang{R}
+  package development. The implementation of attributes  is based on previous
+  work in the \pkg{inline} package \citep{CRAN:inline}.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - attributes
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Bibliography 
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Omit \pnasbreak at end
+skip_final_break: true
+
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-attributes}
+  %\VignetteKeywords{Rcpp, attributes, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+Attributes are a new feature of \pkg{Rcpp} version 0.10.0 \citep{CRAN:Rcpp,JSS:Rcpp}
+that provide infrastructure for seamless language bindings between \proglang{R} and
+\proglang{C++}. The motivation for attributes is several-fold:
+
+1. Reduce the learning curve associated with using C++ and R together
+1. Eliminate boilerplate conversion and marshaling code wherever
+  possible
+1. Seamless use of C++ within interactive R sessions
+1. Unified syntax for interactive work and package development
+
+The core concept is to add annotations to \proglang{C++} source
+files that provide the context required to automatically generate \proglang{R}
+bindings to \proglang{C++} functions. Attributes and their supporting
+functions include:
+
+- `Rcpp::export` attribute to export a \proglang{C++} function
+  to \proglang{R}
+- `sourceCpp` function to source exported functions from a file
+- `cppFunction` and `evalCpp` functions for inline
+  declarations and execution
+- `Rcpp::depends` attribute for specifying additional build
+  dependencies for `sourceCpp`
+
+Attributes can also be used for package development via the
+`compileAttributes` function, which automatically generates
+`extern "C"` and `.Call` wrappers for \proglang{C++}
+functions within packages.
+
+# Using Attributes 
+
+Attributes are annotations that are added to C++ source files to provide
+additional information to the compiler. \pkg{Rcpp} supports attributes
+to indicate that C++ functions should be made available as R functions,
+as well as to optionally specify additional build dependencies for source files.
+
+\proglang{C++11} specifies a standard syntax for attributes
+\citep{Maurer+Wong:2008:AttributesInC++}. Since this standard isn't yet
+fully supported across all compilers, \pkg{Rcpp} attributes are included in
+source files using specially formatted comments.
+
+## Exporting C++ Functions 
+
+The `sourceCpp` function parses a \proglang{C++} file and looks for
+functions marked with the `Rcpp::export` attribute. A shared
+library is then built and its exported functions are made available as R
+functions in the specified environment. For example, this source file
+contains an implementation of convolve (note the `Rcpp::export`
+attribute in the comment above the function):
+
+```{Rcpp, eval = FALSE}
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector convolveCpp(NumericVector a,
+                          NumericVector b) {
+
+    int na = a.size(), nb = b.size();
+    int nab = na + nb - 1;
+    NumericVector xab(nab);
+
+    for (int i = 0; i < na; i++)
+        for (int j = 0; j < nb; j++)
+            xab[i + j] += a[i] * b[j];
+
+    return xab;
+}
+```
+
+The addition of the export attribute allows us to do this from the \proglang{R}
+prompt:
+
+```{r, eval = FALSE}
+sourceCpp("convolve.cpp")
+convolveCpp(x, y)
+```
+
+We can now write \proglang{C++} functions using built-in \proglang{C++} types
+and \pkg{Rcpp} wrapper types and then source them just as we would an
+\proglang{R} script.
+
+The `sourceCpp` function performs caching based on the last
+modified date of the source file and it's local dependencies so as 
+long as the source does not change the compilation will occur only 
+once per R session.
+
+## Specifying Argument Defaults 
+
+If default argument values are provided in the C++ function definition
+then these defaults are also used for the exported R function. For example,
+the following C++ function:
+
+```{Rcpp, eval = FALSE}
+DataFrame readData(CharacterVector file,
+                   CharacterVector colNames =
+                         CharacterVector::create(),
+                   std::string comment = "#",
+                   bool header = true)
+``` 
+
+Will be exported to R as:
+
+```{r, eval = FALSE}
+function(file, colNames=character(),
+         comment="#", header=TRUE)
+```
+
+Note that C++ rules for default arguments still apply: they must occur
+consecutively at the end of the function signature and (unlike R) can't rely
+on the values of other arguments.
+
+Not all \proglang{C++} default argument values can be parsed into their
+\proglang{R} equivalents, however the most common cases are supported, including:
+
+- String literals delimited by quotes (e.g. `"foo"`)
+- Decimal numeric values (e.g. `10` or `4.5`)
+- Pre-defined constants including `true`, `false`,
+  `R_NilValue`, `NA_STRING`, `NA_INTEGER`,
+  `NA_REAL`, and `NA_LOGICAL`.
+- Selected vector types (`CharacterVector`, `IntegerVector`,
+  and `NumericVector`) instantiated using the `::create`
+  static member function.
+- `Matrix` types instantiated using the `rows`,
+  `cols` constructor.
+
+## Signaling Errors 
+
+Within \proglang{R} code the `stop` function is typically used to signal
+errors. Within \proglang{R} extensions written in \proglang{C} the `Rf_error` function is typically used. However, within \proglang{C++} code you cannot
+safely use `Rf_error` because it results in a `longjmp` over
+any \proglang{C++} destructors on the stack.
+
+The correct way to signal errors within \proglang{C++} functions is to throw an `Rcpp::exception`. For example:
+
+```{Rcpp, eval = FALSE}
+if (unexpectedCondition)
+    throw Rcpp::exception("Unexpected "
+                          "condition occurred");
+```
+
+There is also an `Rcpp::stop` function that is shorthand for throwing
+an `Rcpp::exception`. For example:
+
+```{Rcpp, eval = FALSE}
+if (unexpectedCondition)
+    Rcpp::stop("Unexpected condition occurred");
+```
+
+In both cases the \proglang{C++} exception will be caught by \pkg{Rcpp}
+prior to returning control to \proglang{R} and converted into the correct
+signal to \proglang{R} that execution should stop with the specified message.
+
+You can similarly also signal warnings with the `Rcpp::warning`
+function:
+
+```{Rcpp, eval = FALSE}
+if (unexpectedCondition)
+    Rcpp::warning("Unexpected condition occurred");
+```
+
+## Supporting User Interruption 
+
+If your function may run for an extended period of time, users will appreciate
+the ability to interrupt it's processing and return to the REPL. This is
+handled automatically for R code (as R checks for user interrupts periodically
+during processing) however requires explicit accounting for in C and C++ 
+extensions to R. To make computations interrupt-able, you should periodically
+call the `Rcpp::checkUserInterrupt` function, for example:
+
+```{Rcpp, eval = FALSE}
+for (int i=0; i<1000000; i++) {
+    // check for interrupt every 1000 iterations
+    if (i % 1000 == 0)
+        Rcpp::checkUserInterrupt();
+    
+    // ...do some expensive work...
+}
+```
+
+A good guideline is to call `Rcpp::checkUserInterrupt` every 1 or 2
+seconds that your computation is running. In the above code, if the user
+requests an interrupt then an exception is thrown and the attributes wrapper
+code arranges for the user to be returned to the REPL.
+
+Note that R provides a \proglang{C} API for the same purpose 
+(`R_CheckUserInterrupt`) however this API is not safe to use in 
+\proglang{C++} code as it uses `longjmp` to exit the current scope,
+bypassing any C++ destructors on the stack. The `Rcpp::checkUserInterrupt`
+function is provided as a safe alternative for \proglang{C++} code.
+
+## Embedding R Code 
+
+Typically \proglang{C++} and \proglang{R} code are kept in their own source
+files. However, it's often convenient to bundle code from both languages into
+a common source file that can be executed using single call to `sourceCpp`.
+
+To embed chunks of \proglang{R} code within a \proglang{C++}
+source file you include the \proglang{R} code within a block comment that
+has the prefix of `/*** R`. For example:
+
+```{Rcpp, eval = FALSE}
+/*** R
+
+# Call the fibonacci function defined in C++
+fibonacci(10)
+
+*/
+```
+
+Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
+`sourceCpp` function will first compile the \proglang{C++} code into a
+shared library and then source the embedded \proglang{R} code.
+
+## Modifying Function Names 
+
+You can change the name of an exported function as it appears to \proglang{R} by
+adding a name parameter to `Rcpp::export`. For example:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::export(name = ".convolveCpp")]]
+NumericVector convolveCpp(NumericVector a,
+                          NumericVector b)
+```
+
+Note that in this case since the specified name is prefaced by a \code{.} the
+exported R function will be hidden. You can also use this method to provide
+implementations of S3 methods (which wouldn't otherwise be possible because
+C++ functions can't contain a '.' in their name).
+
+## Function Requirements 
+
+Functions marked with the `Rcpp::export` attribute must meet several
+requirements to be correctly handled:
+
+- Be defined in the global namespace (i.e. not within a C++ namespace declaration)
+- Have a return type that is either void or compatible with `Rcpp::wrap`
+  and parameter types that are compatible with `Rcpp::as` (see sections
+  3.1 and 3.2 of the '\textsl{Rcpp-jss-2011}' vignette for more details).
+- Use fully qualified type names for the return value and all parameters.
+  Rcpp types may however appear without a namespace qualifier (i.e.
+  `DataFrame` is okay as a type name but `std::string` must be
+  specified fully).
+
+## Random Number Generation 
+
+\proglang{R} functions implemented in \proglang{C} or \proglang{C++} need
+to be careful to surround use of internal random number generation routines
+(e.g. `unif_rand`) with calls to `GetRNGstate` and
+`PutRNGstate`.
+
+Within \pkg{Rcpp}, this is typically done using the `RNGScope` class.
+However, this is not necessary for \proglang{C++} functions exported using
+attributes because an `RNGScope` is established for them automatically.
+Note that \pkg{Rcpp} implements `RNGScope` using a counter, so it's
+still safe to execute code that may establish it's own `RNGScope` (such
+as the \pkg{Rcpp} sugar functions that deal with random number generation).
+
+The overhead associated with using `RNGScope` is negligible (only a 
+couple of milliseconds) and it provides a guarantee that all C++ code
+will inter-operate correctly with R's random number generation. If you are 
+certain that no C++ code will make use of random number generation and the 
+2ms of execution time is meaningful in your context, you can disable the
+automatic injection of `RNGScope` using the `rng` parameter
+of the `Rcpp::export` attribute. For example:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::export(rng = false)]]
+double myFunction(double input) {
+    // ...code that never uses the
+    // R random number generation... 
+}
+```
+
+## Importing Dependencies 
+
+It's also possible to use the `Rcpp::depends` attribute to declare
+dependencies on other packages. For example:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::depends(RcppArmadillo)]]
+
+#include <RcppArmadillo.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+List fastLm(NumericVector yr, NumericMatrix Xr) {
+
+    int n = Xr.nrow(), k = Xr.ncol();
+
+    arma::mat X(Xr.begin(), n, k, false);
+    arma::colvec y(yr.begin(), yr.size(), false);
+
+    arma::colvec coef = arma::solve(X, y);
+    arma::colvec rd = y - X*coef;
+
+    double sig2 = 
+      arma::as_scalar(arma::trans(rd)*rd/(n-k));
+    arma::colvec sderr = arma::sqrt(sig2 *
+      arma::diagvec(arma::inv(arma::trans(X)*X)));
+
+    return List::create(Named("coef") = coef,
+                        Named("sderr")= sderr);
+}
+``` 
+
+The inclusion of the `Rcpp::depends` attribute causes `sourceCpp`
+to configure the build environment to correctly compile and link against the
+\pkg{RcppArmadillo} package. Source files can declare more than one dependency
+either by using multiple `Rcpp::depends` attributes or with syntax like this:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::depends(Matrix, RcppArmadillo)]]
+```
+
+Dependencies are discovered both by scanning for package include directories
+and by invoking \pkg{inline} plugins if they are available for a package.
+
+Note that while the `Rcpp::depends` attribute establishes dependencies
+for `sourceCpp`, it's important to note that if you include the same
+source file in an \proglang{R} package these dependencies must still be
+listed in the `Imports` and/or `LinkingTo` fields of the package
+`DESCRIPTION` file.
+
+## Sharing Code 
+
+The core use case for `sourceCpp` is the compilation of a single
+self-contained source file. Code within this file can import other C++ code
+by using the `Rcpp::depends` attribute as described above.
+
+The recommended practice for sharing C++ code across many uses of 
+`sourceCpp` is therefore to create an R package to wrap the C++
+code. This has many benefits not the least of which is easy distribution of
+shared code. More information on creating packages that contain C++ code
+is included in the Package Development section below.
+
+### Shared Code in Header Files 
+
+If you need to share a small amount of C++ code between source files 
+compiled with `sourceCpp` and the option of creating a package
+isn't practical, then you can also share code using local includes of C++
+header files. To do this, create a header file with the definition of 
+shared functions, classes, enums, etc. For example:
+
+```{Rcpp, eval = FALSE}
+#ifndef __UTILITIES__
+#define __UTILITIES__
+
+inline double timesTwo(double x) {
+    return x * 2;
+}
+
+#endif // __UTILITIES__
+```
+
+Note the use of the `#ifndef` include guard, this is important to ensure
+that code is not included more than once in a source file. You should 
+use an include guard and be sure to pick a unique name for the corresponding
+`#define`. 
+
+Also note the use of the \code{inline} keyword preceding the function. This
+is important to ensure that there are not multiple definitions of
+functions included from header files. Classes fully defined in header files
+automatically have inline semantics so don't require this treatment.
+
+To use this code in a source file you'd just include
+it based on it's relative path (being sure to use `"` as the 
+delimiter to indicate a local file reference). For example:
+
+```{Rcpp, eval = FALSE}
+#include "shared/utilities.hpp"
+
+// [[Rcpp::export]]
+double transformValue(double x) {
+    return timesTwo(x) * 10;
+}
+```
+
+### Shared Code in C++ Files 
+
+When scanning for locally included header files \code{sourceCpp} also checks
+for a corresponding implementation file and automatically includes it in the
+compilation if it exists.
+
+This enables you to break the shared code entirely into it's own source file.
+In terms of the above example, this would mean having only a function 
+declaration in the header:
+
+```{Rcpp, eval = FALSE}
+#ifndef __UTILITIES__
+#define __UTILITIES__
+
+double timesTwo(double x);
+
+#endif // __UTILITIES__
+```
+
+Then actually defining the function in a separate source file with the 
+same base name as the header file but with a .cpp extension (in the above
+example this would be \code{utilities.cpp}):
+
+```{Rcpp, eval = FALSE}
+#include "utilities.hpp"
+
+double timesTwo(double x) {
+    return x * 2;
+}
+```
+
+It's also possible to use attributes to declare dependencies and exported 
+functions within shared header and source files. This enables you to take
+a source file that is typically used standalone and include it when compiling
+another source file. 
+
+Note that since additional source files are processed as separate translation
+units the total compilation time will increase proportional to the number of
+files processed. From this standpoint it's often preferable to use shared 
+header files with definitions fully inlined as demonstrated above.
+
+Note also that embedded R code is only executed for the main source file not
+those referenced by local includes.
+
+## Including C++ Inline 
+
+Maintaining C++ code in it's own source file provides several benefits including
+the ability to use \proglang{C++} aware text-editing tools and straightforward
+mapping of compilation errors to lines in the source file. However, it's also
+possible to do inline declaration and execution of C++ code.
+
+There are several ways to accomplish this, including passing a code
+string to `sourceCpp` or using the shorter-form `cppFunction`
+or `evalCpp` functions. For example:
+
+```{r, eval = FALSE}
+cppFunction('
+  int fibonacci(const int x) {
+    if (x < 2)
+      return x;
+    else
+      return (fibonacci(x-1)) + fibonacci(x-2);
+  }
+')
+
+evalCpp('std::numeric_limits<double>::max()')
+```
+
+You can also specify a depends parameter to `cppFunction` or `evalCpp`:
+
+```{r, eval = FALSE}
+cppFunction(depends='RcppArmadillo', code='...')
+```
+
+# Package Development 
+
+One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
+ad-hoc and interactive work with \proglang{C++} while also making it very easy to
+migrate that work into an \proglang{R} package. There are several benefits of
+moving code from a standalone \proglang{C++} source file to a package:
+
+1. Your code can be made available to users without \proglang{C++} development
+   tools (at least on Windows or Mac OS X where binary packages are common)
+1. Multiple source files and their dependencies are handled automatically
+   by the \proglang{R} package build system
+1. Packages provide additional infrastructure for testing, documentation
+   and consistency
+
+## Package Creation 
+
+To create a package that is based on \pkg{Rcpp} you should follow the
+guidelines in the '\textsl{Rcpp-package}' vignette. For a new package this
+is most conveniently done using  the `Rcpp.package.skeleton` function.
+
+To generate a new package with a simple hello, world function that uses
+attributes you can do the following:
+
+```{r, eval = FALSE}
+Rcpp.package.skeleton("NewPackage",
+                      attributes = TRUE)
+```
+
+To generate a package based on \proglang{C++} files that you've been using
+with `sourceCpp` you can use the `cpp_files` parameter:
+
+```{r, eval = FALSE}
+Rcpp.package.skeleton("NewPackage",
+                      example_code = FALSE,
+                      cpp_files = c("convolve.cpp"))
+``` 
+
+## Specifying Dependencies 
+
+Once you've migrated \proglang{C++} code into a package, the dependencies for
+source files are derived from the `Imports` and `LinkingTo` fields
+in the package `DESCRIPTION` file rather than the `Rcpp::depends`
+attribute. Some packages also require the addition of an entry to the package
+`NAMESPACE` file to ensure that the package's shared library is loaded
+prior to callers using the package. For every package you import C++ code from
+(including \pkg{Rcpp}) you need to add these entries.
+
+Packages that provide only C++ header files (and no shared library) need only
+be referred to using `LinkingTo`. You should consult the documentation
+for the package you are using for the requirements particular to that package.
+
+For example, if your package depends on \pkg{Rcpp} you'd have the following
+entries in the `DESCRIPTION` file:
+
+```{bash, eval = FALSE}
+Imports: Rcpp (>= 0.11.4)
+LinkingTo: Rcpp
+``` 
+
+And the following entry in your `NAMESPACE` file:
+
+```{bash, eval = FALSE}
+importFrom(Rcpp, evalCpp)
+```
+
+If your package additionally depended on the \pkg{BH} (Boost headers) package
+you'd just add an entry for \pkg{BH} to the `LinkingTo` field since
+\pkg{BH} is a header-only package:
+
+```{bash, eval = FALSE}
+Imports: Rcpp (>= 0.11.4)
+LinkingTo: Rcpp, BH
+``` 
+
+
+## Exporting R Functions 
+
+Within interactive sessions you call the `sourceCpp` function
+on individual files to export \proglang{C++} functions into the global
+environment. However, for packages you call a single utility function to
+export all \proglang{C++} functions within the package.
+
+The `compileAttributes` function scans the source files within a package
+for export attributes and generates code as required. For example, executing
+this from within the package working directory:
+
+```{r, eval = FALSE}
+compileAttributes()
+```
+
+Results in the generation of the following two source files:
+
+- `src/RcppExports.cpp` -- The `extern "C"` wrappers required
+  to call exported \proglang{C++} functions within the package.
+- `R/RcppExports.R` -- The `.Call` wrappers required to call
+  the `extern "C"` functions defined in `RcppExports.cpp`.
+
+You should re-run `compileAttributes` whenever functions are added,
+removed, or have their signatures changed. Note that if you are using either
+RStudio or \pkg{devtools} to build your package then the 
+`compileAttributes` function is called automatically whenever your
+package is built.
+
+The `compileAttributes` function deals only with exporting
+\proglang{C++} functions to \proglang{R}. If you want the functions to
+additionally be publicly available from your package's namespace another
+step may be required. Specifically, if your package `NAMESPACE` file
+does not use a pattern to export functions then you should add an explicit
+entry to `NAMESPACE` for each R function you want publicly available.
+
+## Package Init Functions
+
+Rcpp attribute compilation will automatically generate a package R_init function that does native routine registration as described here: <https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Registering-native-routines>.
+
+You may however want to add additional C++ code to the package initialization sequence. To do this, you can add the `[[Rcpp::init]]` attribute to functions within your package. For example:
+
+```{cpp, eval = FALSE}
+// [[Rcpp::init]]
+void my_package_init(DllInfo *dll) {
+  // initialization code here
+}
+```
+
+In this case, a call to `my_package_init()` will be added to the end of the automatically generated R_init function within RcppExports.cpp. For example:
+
+```{cpp, eval = FALSE}
+void my_package_init(DllInfo *dll);
+RcppExport void R_init_pkgname(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+    my_package_init(dll);
+}
+```
+
+## Types in Generated Code 
+
+In some cases the signatures of the C++ functions that are generated within
+`RcppExports.cpp` may have additional type requirements beyond the core 
+standard library and \pkg{Rcpp} types (e.g. `CharacterVector`,
+`NumericVector`, etc.). Examples might include convenience typedefs,
+as/wrap handlers for marshaling between custom types and SEXP, or types 
+wrapped by the Rcpp `XPtr` template.
+
+In this case, you can create a header file that contains these type definitions
+(either defined inline or by including other headers) and have this header
+file automatically included in `RcppExports.cpp`. Headers named with
+the convention `pkgname_types` are automatically included along with
+the generated C++ code. For example, if your package is named \pkg{fastcode}
+then any of the following header files would be automatically included in
+`RcppExports.cpp`:
+
+```{Rcpp, eval = FALSE}
+src/fastcode_types.h
+src/fastcode_types.hpp
+inst/include/fastcode_types.h
+inst/include/fastcode_types.hpp
+```
+
+There is one other mechanism for type visibility in `RcppExports.cpp`.
+If your package provides a master include file for consumption by C++ clients
+then this file will also be automatically included. For example, if the 
+\pkg{fastcode} package had a C++ API and the following header file:
+
+```{Rcpp, eval = FALSE}
+inst/include/fastcode.h
+```
+
+This header file will also automatically be included in 
+`RcppExports.cpp`. Note that the convention of using `.h` for
+header files containing C++ code may seem unnatural, but this comes from the
+recommended practices described in '\textsl{Writing R Extensions}' 
+\citep{R:Extensions}.
+
+## Roxygen Comments 
+
+The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for
+automatically generating \proglang{R} documentation files based on specially
+formatted comments in \proglang{R} source code.
+
+If you include roxygen comments in your \proglang{C++} source file with a
+`//'` prefix then `compileAttributes` will transpose them
+into R roxygen comments within `R/RcppExports.R`. For example the
+following code in a \proglang{C++} source file:
+
+```{Rcpp, eval = FALSE}
+//' The length of a string (in characters).
+//'
+//' @param str input character vector
+//' @return characters in each element of the vector
+// [[Rcpp::export]]
+NumericVector strLength(CharacterVector str)
+```
+
+Results in the following code in the generated \proglang{R} source file:
+
+```{r, eval = FALSE}
+#' The length of a string (in characters).
+#'
+#' @param str input character vector
+#' @return characters in each element of the vector
+strLength <- function(str)
+```
+
+## Providing a C++ Interface 
+
+The interface exposed from \proglang{R} packages is most typically a set of
+\proglang{R} functions. However, the \proglang{R} package system also provides
+a mechanism to allow the exporting of \proglang{C} and \proglang{C++}
+interfaces using package header files.  This is based on the
+`R_RegisterCCallable` and `R_GetCCallable` functions described in
+'\textsl{Writing R Extensions}' \citep{R:Extensions}.
+
+\proglang{C++} interfaces to a package are published within the
+top level `include` directory of the package (which within the package
+source directory is located at `inst/include`). The \proglang{R} build
+system automatically adds the required `include` directories for all
+packages specified in the `LinkingTo` field of the package
+`DESCRIPTION` file.
+
+### Interfaces Attribute 
+
+The `Rcpp::interfaces` attribute can be used to automatically
+generate a header-only interface to your \proglang{C++} functions
+within the `include` directory of your package.
+
+The `Rcpp::interfaces` attribute is specified on a per-source
+file basis, and indicates which interfaces (\proglang{R}, \proglang{C++},
+or both) should be provided for exported functions within the file.
+
+For example, the following specifies that both R and \proglang{C++} interfaces
+should be generated for a source file:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::interfaces(r, cpp)]]
+```
+
+Note that the default behavior if an `Rcpp::interfaces` attribute
+is not included in a source file is to generate an R interface only.
+
+### Generated Code 
+
+If you request a `cpp` interface for a source file then
+`compileAttributes` generates the following header files
+(substituting \emph{Package} with the name of the package code is being
+generated for):
+
+```{bash, eval = FALSE}
+inst/include/Package.h
+inst/include/Package_RcppExports.h
+```
+
+The `Package_RcppExports.h` file has inline definitions for all
+exported \proglang{C++} functions that enable calling them using the
+`R_GetCCallable` mechanism.
+
+The `Package.h` file does nothing other than include the
+`Package_RcppExports.h` header. This is done so
+that package authors can replace the `Package.h` header with
+a custom one and still be able to include the automatically generated exports
+(details on doing this are provided in the next section).
+
+The exported functions are defined within a \proglang{C++} namespace that matches
+the name of the package. For example, an exported \proglang{C++} function
+`bar` could be called from package `MyPackage` as follows:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::depends(MyPackage)]]
+
+#include <MyPackage.h>
+
+void foo() {
+    MyPackage::bar();
+}
+```
+
+### Including Additional Code 
+
+You might wish to use the `Rcpp::interfaces` attribute to generate
+a part of your package's \proglang{C++} interface but also provide
+additional custom \proglang{C++} code. In this case you
+should replace the generated `Package.h` file with one of your own.
+
+Note that the way \pkg{Rcpp} distinguishes user verses generated files is by checking
+for the presence a special token in the file (if it's present then it's known
+to be generated and thus safe to overwrite). You'll see this token at the top
+of the generated `Package.h` file, be sure to remove it if you want
+to provide a custom header.
+
+Once you've established a custom package header file, you need only include the
+`Package_RcppExports.h` file within your header to make available
+the automatically generated code alongside your own.
+
+If you need to include code from your custom header files within the
+compilation of your package source files, you will also need to add the
+following entry to `Makevars` and `Makevars.win` (both are
+in the `src` directory of your package):
+
+```{bash, eval = FALSE}
+PKG_CPPFLAGS += -I../inst/include/
+```
+
+Note that the R package build system does not automatically force a rebuild
+when headers in `inst/include` change, so you should be sure to perform a
+full rebuild of the package after making changes to these headers.
+---
+title: |
+       | Extending \rlang with C++:
+       | A Brief Introduction to Rcpp
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: James Joseph Balamuta
+    affiliation: b
+address:
+  - code: a
+    address: Debian and R Projects; Chicago, IL, USA; \url{edd@debian.org}
+  - code: b
+    address: Depts of Informatics and Statistics, Univ. of Illinois at Urbana-Champaign; Champaign, IL, USA; \url{balamut2@illinois.edu}
+
+# For footer text  TODO(fold into template, allow free form two-authors)
+lead_author_surname: Eddelbuettel and Balamuta
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  \rlang has always provided an application programming interface (API) for extensions.
+  Based on the \clang language, it uses a number of macros and other low-level constructs
+  to exchange data structures between the \rlang process and any dynamically-loaded component
+  modules authors added to it. With the introduction of the \rcpp package, and its later
+  refinements, this process has become considerably easier yet also more robust.  By now, \rcpp has
+  become the most popular extension mechanism for \rlangns. This article introduces \rcppns, and
+  illustrates with several examples how the _Rcpp Attributes_ mechanism in particular
+  eases the transition of objects between \rlang and \cpp code.
+
+# Acknowledgements
+acknowledgements: |
+  We thank Bob Rudis and Lionel Henry for excellent comments and suggestion on an earlier
+  draft of this manuscript. Furthermore, we appreciate the improved \cpp annotated function
+  graphic provided by Bob Rudis. This version is a pre-print of \citet{PeerJ:Rcpp,TAS:Rcpp}.
+
+# One or more keywords
+keywords:
+  - applications and case studies
+  - statistical computing
+  - computationally intensive methods
+  - simulation
+
+# Bibliography
+bibliography: Rcpp
+
+# Enable a watermark on the document
+watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Produce a pinp document
+output:
+    pinp::pinp:
+        collapse: true
+
+# Local additiona of a few definitions we use
+header-includes: >
+  \newcommand{\TODO}{\marginnote{TODO}}
+  \newcommand{\rlang}{\textit{R }}
+  \newcommand{\rlangns}{\textit{R}}
+  \newcommand{\slang}{\textit{S }}
+  \newcommand{\rcpp}{\textit{Rcpp }}
+  \newcommand{\rcppns}{\textit{Rcpp}}
+  \newcommand{\clang}{\textit{C }}
+  \newcommand{\clangns}{\textit{C}}
+  \newcommand{\cpp}{\textit{C++ }}
+  \newcommand{\cppns}{\textit{C++}}
+  \newcommand{\fortran}{\textit{Fortran }}
+  \newcommand{\fortranns}{\textit{Fortran}}
+  \newcommand{\python}{\textit{Python}}
+  \newcommand{\julia}{\textit{Julia}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-introduction}
+  %\VignetteKeywords{Rcpp, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+library(Rcpp)
+options("width"=50, digits=5)
+```
+
+
+# Introduction
+
+The \rlang language and environment \citep{R:main} has established itself as
+both an increasingly dominant facility for data analysis, and the
+*lingua franca* for statistical computing in both research and
+application settings.
+
+Since the beginning, and as we argue below, "by design",
+the \rlang system has always provided an application programming interface (API)
+suitable for extending \rlang with code written in \clang or \fortranns.  Being
+implemented chiefly in \rlang and \clang (with a generous sprinkling of \fortran
+for well-established numerical subroutines), \rlang has always been
+extensible via a \clang interface.  Both the actual
+implementation and the \clang interface use a number of macros and other
+low-level constructs to exchange data structures between the \rlang process
+and any dynamically-loaded component modules authors added to it.
+
+A \clang interface will generally also be accessible to other languages.
+Particularly noteworthy here is the \cpp language, developed originally as a
+'better \clangns', which is by its design very interoperable with
+\clangns. And with the introduction of the \rcpp package
+\citep{JSS:Rcpp,Eddelbuettel:2013:Rcpp,CRAN:Rcpp}, and its later refinements, this
+process of extending \rlang has become considerably easier yet also more robust.
+To date, \rcpp has become the most popular extension system for
+\rlangns. This article introduces \rcppns, and illustrates with several
+examples how the _Rcpp Attributes_ mechanism
+\citep{CRAN:Rcpp:Attributes} in particular eases the transition of
+objects between \rlang and \cpp code.
+
+
+## Background
+
+\citet[p. 3]{Chambers:2008:SoDA} provides a very thorough discussion of
+desirable traits for a system designed to _program with data_,
+and the \rlang system in particular. Two key themes motivate the introductory
+discussion. First, the _Mission_ is to aid exploration in order to
+provide the best platform to analyse data: "to boldly go where no one
+has gone before." Second, the _Prime Directive_ is that the software
+systems we build must be _trustworthy_: "the many computational steps
+between original data source and displayed result must all be
+trustful."  The remainder of the book then discusses \rlangns, leading
+to two final chapters on interfaces.
+
+\citet[p. 4]{Chambers:2016:ExtR} builds and expands on this theme.  Two core
+facets of what "makes" \rlang are carried over from the previous book. The
+first states what \rlang is composed of: _Everything that exists in \rlang is
+an object_.  The second states how these objects are created or
+altered: _Everything that happens in \rlang is a function call_. A third
+statement is now added: _Interfaces to other software are part of \rlangns_.
+
+This last addition is profound. If and when suitable and performant
+software for a task exists, it is in fact desirable to have a (preferably
+also perfomant) interface to this software from \rlangns.
+\cite{Chambers:2016:ExtR} discusses several possible approaches for simpler
+interfaces and illustrates them with reference implementations to both \python\ and
+\julia. However, the most performant interface for \rlang is provided at the
+subroutine level, and rather than discussing the older \clang interface for
+\rlangns, \cite{Chambers:2016:ExtR} prefers to discuss \rcppns.  This article
+follows the same school of thought and aims to introduce \rcpp to
+analysts and data scientists, aiming to enable them to use---and
+create--- further _interfaces_ for \rlang which aid the _mission_ while
+staying true to the _prime directive_.  Adding interfaces in such a way is in
+fact a natural progression from the earliest designs for its predecessor
+\slang which was after all designed to provide a more useable 'interface' to
+underlying routines in \fortranns.
+
+The rest of the paper is structured as follows. We start by discussing
+possible first steps, chiefly to validate correct installations. This
+is followed by an introduction to simple \cpp functions, comparison to
+the \clang API, a discussion of packaging with \rcpp and a linear algebra
+example.  The appendix contains some empirical illustrations of the
+adoption of \rcppns.
+
+
+# First Steps with \rcpp
+
+\rcpp is a CRAN package and can be installed
+by using `install.packages('Rcpp')` just like any other \rlang package. On
+some operating systems this will download _pre-compiled_ binary packages; on
+others an installation from source will be attempted.  But \rcpp is a little
+different from many standard \rlang packages in one important aspect: it helps the user
+to _write C(++) programs more easily_.  The key aspect to note here is \cpp
+programs: to operate, \rcpp needs not only \rlang but also an additional
+_toolchain_ of a compiler, linker and more in order to be able to create _binary_ object
+code extending \rlangns.
+
+We note that this requirement is no different from what is needed with base \rlang when
+compilation of extensions is attempted.  How to achieve this using only base \rlang is described in
+some detail in the _Writing R Extensions_ manual \citep{R:Extensions} that is included
+with \rlangns. As for the toolchain requirements, on Linux and macOS, all required
+components are likely to be present. The macOS can offer additional challenges as toolchain
+elements can be obtained in different ways. Some of these are addressed in the _Rcpp FAQ_
+\citep{CRAN:Rcpp:FAQ} in sections 2.10 and 2.16.  On Windows, users will have to install
+the Rtools kit provided by R Core available at <https://cran.r-project.org/bin/windows/Rtools/>.
+Details of these installation steps are beyond the scope of this
+paper. However, many external resources exist that provide detailed
+installation guides for \rlang toolschains in
+[Windows](http://thecoatlessprofessor.com/programming/rcpp/install-rtools-for-rcpp/)
+and
+[macOS](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/).
+
+As a first step, and chiefly to establish that the toolchain is set up correctly, consider
+a minimal use case such as the following:
+
+```{r evalCpp}
+library("Rcpp")
+evalCpp("2 + 2")
+```
+
+Here the \rcpp package is loaded first via the `library()` function.  Next, we deploy one
+of its simplest functions, `evalCpp()`, which is described in the _Rcpp Attributes_ vignette
+\citep{CRAN:Rcpp:Attributes}. It takes the first (and often only) argument---a character
+object---and evaluates it as a minimal \cpp expression.  The value assignment and return
+are implicit, as is the addition of a trailing semicolon and more.  In fact, `evalCpp()`
+surrounds the expression with the required 'glue' to make it a minimal source file which
+can be compiled, linked and loaded. The exact details behind this process
+are available in-depth when the `verbose` option of the function is set.
+If everything is set up correctly, the newly-created \rlang function will be
+returned.
+
+While such a simple expression is not interesting in itself, it serves a
+useful purpose here to unequivocally establish whether \rcpp is correctly
+set up.  Having accomplished that, we can proceed to the next step of
+creating simple functions.
+
+# A first \cpp function using \rcpp
+
+As a first example, consider the determination of whether a number is odd or even. The
+default practice is to use modular arithmetic to check if a remainder exists under $x
+\bmod 2$. Within \rlangns, this can be implemented as follows:
+
+```{r isOddR, cache=TRUE}
+isOddR <- function(num = 10L) {
+   result <- (num %% 2L == 1L)
+   return(result)
+}
+isOddR(42L)
+```
+
+The operator `%%` implements the $\bmod$ operation in \rlangns. For the default
+(integer) argument of ten used in the example, $10 \bmod 2$ results in zero, which is then
+mapped to `FALSE` in the context of a logical expression.
+
+Translating this implementation into \cppns, several small details have to be
+considered. First and foremost, as \cpp is a _statically-typed language_, there needs to
+be additional (compile-time) information provided for each of the variables. Specifically,
+a *type*, _i.e._ the kind of storage used by a variable must be explicitly
+defined. Typed languages generally offer benefits in terms of both correctness
+(as it is harder to accidentally assign to an ill-matched type) and
+performance (as the compiler can optimize code based on the storage and cpu
+characteristics). Here we have an `int` argument, but return a logical, or
+`bool` for short.  Two more smaller differences are that each statement
+within the body must be concluded with a semicolon, and that `return` does
+not require parentheses around its argument. A graphical breakdown of all
+aspects of a corresponding \cpp function is given in Figure \ref{fig:cpp-function-annotation}.
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=5.5in]{figures/function_annotation_cpp.png}
+    \caption{Graphical annotation of the \texttt{is\_odd\_cpp} function.}
+    \label{fig:cpp-function-annotation}
+  \end{center}
+\end{figure*}
+
+When using \rcppns, such \cpp functions can be directly embedded and compiled in an \rlang
+script file through the use of the `cppFunction()` provided by _Rcpp Attributes_
+\citep{CRAN:Rcpp:Attributes}. The first parameter of the function accepts string input
+that represents the \cpp code. Upon calling the `cppFunction()`, and similarly to the
+earlier example involving `evalCpp()`, the \cpp code is both _compiled_ and _linked_, and
+then _imported_ into \rlang under the name of the function supplied (_e.g._ here `isOddCpp()`).
+
+```{r isOddRcpp}
+library("Rcpp")
+cppFunction("
+bool isOddCpp(int num = 10) {
+   bool result = (num % 2 == 1);
+   return result;
+}")
+isOddCpp(42L)
+```
+
+# Extending \rlang via its \clang API
+
+Let us first consider the case of 'standard \rlangns', _i.e._ the API as
+defined in the core \rlang documentation.  Extending \rlang with routines written
+using the \clang language requires the use of internal macros and functions
+documented in Chapter 5 of _Writing R Extensions_ \citep{R:Extensions}.
+
+```{Rcpp convolutionC, eval = FALSE}
+#include <R.h>
+#include <Rinternals.h>
+
+SEXP convolve2(SEXP a, SEXP b) {
+    int na, nb, nab;
+    double *xa, *xb, *xab;
+    SEXP ab;
+
+    a = PROTECT(coerceVector(a, REALSXP));
+    b = PROTECT(coerceVector(b, REALSXP));
+    na = length(a); nb = length(b);
+    nab = na + nb - 1;
+    ab = PROTECT(allocVector(REALSXP, nab));
+    xa = REAL(a); xb = REAL(b); xab = REAL(ab);
+    for (int i = 0; i < nab; i++)
+        xab[i] = 0.0;
+    for (int i = 0; i < na; i++)
+	    for (int j = 0; j < nb; j++)
+            xab[i + j] += xa[i] * xb[j];
+    UNPROTECT(3);
+    return ab;
+}
+```
+
+This function computes a _convolution_ of two vectors supplied on input, $a$ and
+$b$, which is defined to be ${ab_{k + 1}} = \sum\limits_{i + j == k} {{a_i} \cdot {b_j}}$.
+Before computing the convolution (which is really just the three lines involving two
+nested for loops with indices $i$ and $j$), a total of ten lines of mere housekeeping
+are required. Vectors $a$ and $b$ are coerced to `double`, and a results vector `ab` is
+allocated. This expression involves three calls to the `PROTECT` macro for which a _precisely_
+matching `UNPROTECT(3)` is required as part of the interfacing of internal memory
+allocation. The vectors are accessed through pointer equivalents `xa`, `xb` and `xab`; and
+the latter has to be explicitly zeroed prior to the convolution calculation involving
+incremental summary at index $i+j$.
+
+
+# Extending \rlang via the \cpp API of \rcpp
+
+Using the idioms of \rcppns, the above example can be written in a much more
+compact fashion---leading to code that is simpler to read and
+maintain.
+
+```{Rcpp convolutionRcpp, eval = FALSE}
+#include "Rcpp.h"
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector
+convolve_cpp(const NumericVector& a,
+             const NumericVector& b) {
+
+    // Declare loop counters, and vector sizes
+    int i, j,
+        na = a.size(), nb = b.size(),
+        nab = na + nb - 1;
+
+    // Create vector filled with 0
+    NumericVector ab(nab);
+
+    // Crux of the algorithm
+    for(i = 0; i < na; i++) {
+        for(j = 0; j < nb; j++) {
+            ab[i + j] += a[i] * b[j];
+        }
+    }
+
+    // Return result
+    return ab;
+}
+```
+
+To deploy such code from within an \rlang script or session, first save it into a new
+file---which could be called **convolve.cpp**---in either the working directory, a
+temporary directoy or a project directory. Then from within the \rlang session,
+use `Rcpp::sourceCpp("convolve.cpp")` (possibly using a path as well as the filename). This
+not only compiles, links and loads the code within the external file but also adds the
+necessary "glue" to make the \rcpp function available in the \rlang environment. Once the
+code is compiled and linked, call the newly-created `convolve_cpp()` function with the
+appropriate parameters as done in previous examples.
+
+What is notable about the \rcpp version is that it has no `PROTECT` or `UNPROTECT`
+which not only frees the programmer from a tedious (and error-prone) step but
+more importantly also shows that memory management can be handled automatically.
+The result vector is already initialized at zero as well,
+reducing the entire function to just the three lines for the two nested loops,
+plus some variable declarations and the `return` statement.  The resulting code is
+shorter, easier to read, comprehend and maintain. Furthermore, the \rcpp code
+is more similar to traditional \rlang code, which reduces
+the barrier of entry.
+
+
+# Data Driven Performance Decisions with \rcpp
+
+When beginning to implement an idea, more so an algorithm, there are many ways
+one is able to correctly implement it. Prior to the routine being used in
+production, two questions must be asked:
+
+1. Does the implementation produce the _correct_ results?
+2. What implementation of the routine is the _best_?
+
+The first question is subject to a binary pass-fail unit test verification
+while the latter question is where the details of an implementation are scrutinized
+to extract maximal efficiency from the routine. The quality of the _best_ routine
+follows first and foremost from its correctness. To that end,
+\rlang offers many different unit testing frameworks such as \pkg{RUnit} by
+\cite{CRAN:RUnit}, which is used to construct \rcppns's 1385+ unit tests, and
+\pkg{testthat} by \cite{CRAN:testthat}. Only when correctness is
+achieved is it wise to begin the procedure of optimizing the efficiency of
+the routine and, in turn, selecting the best routine.
+
+Optimization of an algorithm involves performing a quantitative analysis of the
+routine's properties. There are two main approaches to analyzing the behavior
+of a routine: theoretical analysis\footnote{
+Theoretical analysis is often directed to describing
+the limiting behavior of a function through asymptotic notation,
+commonly referred to as Big O and denoted as $\mathcal{O}(\cdot)$.}
+or an empirical examination using profiling tools.\footnote{
+Within base \rlangns, profiling can be activated by \code{utils::Rprof()}
+for individual command timing information, \code{utils::Rprofmem()} for memory
+information, and \code{System.time(\{\})} for a quick overall execution timing.
+Additional profiling \rlang packages such as \pkg{profvis} by
+\cite{CRAN:profvis}, \pkg{Rperform} by \cite{GitHub:Rperform}, and
+benchmarking packages have extended the ability to analyze performance.}
+Typically, the latter option is more prominently used
+as the routine's theoretical properties are derived prior to an implementation
+being started. Often the main concern regarding an implementation in \rlang relates
+to the speed of the algorithm as it impacts how quickly analyses
+can be done and reports can be provided to decision makers. Coincidentally, the
+speed of code is one of the key governing use cases of \rcppns. Profiling \rlang
+code will reveal shortcomings related to loops, _e.g._ `for`, `while`, and `repeat`;
+conditional statements, _e.g._ `if`-`else if`-`else` and `switch`;
+and recursive functions, _i.e._ a function written in terms of itself such that the
+problem is broken down on each call in a reduced state until an answer can be
+obtained. In contrast, the overhead for such operations is significantly less
+in \cppns. Thus, critical components of a given routine should be written
+in \rcpp to capture maximal efficiency.
+
+Returning to the second question, to decide which
+implementation works the best, one needs to employ a benchmark
+to obtain _quantifiable results_. Benchmarks are an ideal way to quantify how
+well a method performs because they have the ability to show the amount of time the
+code has been running and where bottlenecks exist within functions.
+This does not imply that benchmarks are completely infallible as user error
+can influence the end results. For example, if a user decides
+to benchmark code in one \rlang session and in another session performs a heavy
+computation, then the benchmark will be biased (if "wall clock" is measured).
+
+There are different levels of magnification that a benchmark can provide. For a more macro
+analysis, one should benchmark data using `benchmark(test = func(), test2 = func2())`,
+a function from the \pkg{rbenchmark} \rlang package by \cite{CRAN:rbenchmark}. This form of
+benchmarking will be used when the computation is more intensive.
+The motivating example `isOdd()`
+(which is only able to accept a single `integer`) warrants a much more
+microscopic timing comparison.  In cases such as this, the objective
+is to obtain precise results in the amount of nanoseconds elapsed. Using the
+`microbenchmark` function from the \pkg{microbenchmark} \rlang package by
+\cite{CRAN:microbenchmark} is more helpful to obtain timing information.
+To perform the benchmark:
+
+```{r microbenchmark_isOdd, dependson=c("isOddR", "isOddRcpp"), eval=FALSE}
+library("microbenchmark")
+results <- microbenchmark(isOddR   = isOddR(12L),
+                          isOddCpp = isOddCpp(12L))
+print(summary(results)[, c(1:7)],digits=1)
+```
+
+By looking at the summary of 100 evaluations, we note that the
+\rcpp function performed better than the equivalent in \rlang by achieving
+a lower run time on average. The lower run time in this part is not necessarily
+critical as the difference is nanoseconds on a trivial computation.
+However, each section of code does contribute to a faster overall runtime.
+
+# Random Numbers within \rcppns: An Example of _Rcpp Sugar_
+
+\rcpp connects \rlang with \cppns. Only the former is vectorized: \cpp is not.
+_Rcpp Sugar_, however, provides a convenient way to work with high-performing
+\cpp functions in a similar way to how \rlang offers vectorized operations.
+The _Rcpp Sugar_ vignette \citep{CRAN:Rcpp:Sugar} details these, as well as
+many more functions directly accessible to \rcpp in a way that should feel
+familiar to \rlang users. Some examples of _Rcpp Sugar_ functions
+include special math functions like gamma and beta, statistical distributions
+and random number generation.
+
+We will illustrate a case of random number generation.  Consider drawing one
+or more $N(0,1)$-distributed random variables. The very
+simplest case can just use `evalCpp()`:
+
+```{r rnormScalar}
+evalCpp("R::rnorm(0, 1)")
+```
+
+By setting a seed, we can make this reproducible:
+
+```{r normWithSeed}
+set.seed(123)
+evalCpp("R::rnorm(0, 1)")
+```
+
+One important aspect of the behind-the-scenes code generation for the single expression
+(as well as all code created via _Rcpp Attributes_) is the automatic preservation of the
+state of the random nunber generators in \rlangns.  This means that from a given seed, we will
+receive _identical_ draws of random numbers whether we access them from \rlang or via \cpp code
+accessing the same generators (via the \rcpp interfaces). To illustrate, the
+same number is drawn via \rlang code after resetting the seed:
+
+```{r rnormWithSeedFromR}
+set.seed(123)
+# Implicit mean of 0, sd of 1
+rnorm(1)
+```
+
+We can make the _Rcpp Sugar_
+function `rnorm()` accessible from \rlang in the same way to return a vector of values:
+
+```{r rnormExCpp}
+set.seed(123)
+evalCpp("Rcpp::rnorm(3)")
+```
+
+Note that we use the `Rcpp::` namespace explicitly here to
+contrast the vectorised `Rcpp::rnorm()` with the scalar `R::rnorm()`
+also provided as a convenience wrapper for the \clang API of \rlangns.
+
+And as expected, this too replicates from \rlang as the very
+same generators are used in both cases along with consistent handling
+of generator state permitting to alternate:
+
+```{r rnormExR}
+set.seed(123)
+rnorm(3)
+```
+
+# Translating Code from \rlang into \rcppns: Bootstrap Example
+
+Statistical inference relied primarily upon asymptotic theory until
+\cite{Efron:1979:Bootstrap} proposed the bootstrap. Bootstrapping is known
+to be computationally intensive due to the need to use loops. Thus, it is an ideal candidate to use as an
+example. Before starting to write \cpp code using \rcpp, prototype the code in \rlangns.
+
+```{r bootstrap_in_r}
+# Function declaration
+bootstrap_r <- function(ds, B = 1000) {
+
+  # Preallocate storage for statistics
+  boot_stat <- matrix(NA, nrow = B, ncol = 2)
+
+  # Number of observations
+  n <- length(ds)
+
+  # Perform bootstrap
+  for(i in seq_len(B)) {
+     # Sample initial data
+     gen_data <- ds[ sample(n, n, replace=TRUE) ]
+     # Calculate sample data mean and SD
+     boot_stat[i,] <- c(mean(gen_data),
+                        sd(gen_data))
+  }
+
+  # Return bootstrap result
+  return(boot_stat)
+}
+```
+
+Before continuing, check that the initial prototype \rlang code works. To
+do so, write a short \rlang script. Note the use of `set.seed()` to ensure
+reproducible draws.
+
+```{r bootstrap_example}
+# Set seed to generate data
+set.seed(512)
+# Generate data
+initdata <- rnorm(1000, mean = 21, sd = 10)
+# Set a new _different_ seed for bootstrapping
+set.seed(883)
+# Perform bootstrap
+result_r <- bootstrap_r(initdata)
+```
+
+Figure \ref{fig:bootstrap-graphs} shows that the bootstrap procedure worked well!
+
+```{r dist_graphs, echo = FALSE, results = "hide"}
+make_boot_graph <- function(ds, actual, type, ylim){
+  hist(ds, main = paste(type, "Bootstrap"), xlab = "Samples",
+       col = "lightblue", lwd = 2, prob = TRUE, ylim = ylim, cex.axis = .85, cex.lab = .90)
+  abline(v = actual, col = "orange2", lwd = 2)
+  lines(density(ds))
+}
+pdf("figures/bootstrap.pdf", width=6.5, height=3.25)
+par(mfrow=c(1,2))
+make_boot_graph(result_r[,1], 21, "Mean", c(0, 1.23))
+make_boot_graph(result_r[,2], 10, "SD", c(0, 1.85))
+dev.off()
+```
+
+\begin{figure*}
+  \begin{center}
+    \includegraphics[width=6.5in, height=3.25in]{figures/bootstrap}
+    \caption{Results of the bootstrapping procedure for sample mean and variance.}
+    \label{fig:bootstrap-graphs}
+  \end{center}
+\end{figure*}
+
+With reassurances that the method to be implemented within \rcpp works
+appropriately in \rlangns, proceed to translating the code
+into \rcppns. As indicated previously, there are many convergences between \rcpp
+syntax and base \rlang via \rcpp Sugar.
+
+
+```{Rcpp bootstrap_in_cpp}
+#include <Rcpp.h>
+
+// Function declaration with export tag
+// [[Rcpp::export]]
+Rcpp::NumericMatrix
+bootstrap_cpp(Rcpp::NumericVector ds,
+              int B = 1000) {
+
+  // Preallocate storage for statistics
+  Rcpp::NumericMatrix boot_stat(B, 2);
+
+  // Number of observations
+  int n = ds.size();
+
+  // Perform bootstrap
+  for(int i = 0; i < B; i++) {
+    // Sample initial data
+    Rcpp::NumericVector gen_data =
+        ds[ floor(Rcpp::runif(n, 0, n)) ];
+    // Calculate sample mean and std dev
+    boot_stat(i, 0) = mean(gen_data);
+    boot_stat(i, 1) = sd(gen_data);
+  }
+
+  // Return bootstrap results
+  return boot_stat;
+}
+```
+
+In the \rcpp version of the bootstrap function, there are a few additional
+changes that occurred during the translation. In particular, the use of
+`Rcpp::runif(n, 0, n)` enclosed by `floor()`, which rounds down to the nearest integer,
+in place of `sample(n, n, replace = TRUE)` to sample row ids. This is an
+equivalent substitution since equal weight is being placed upon all row ids and
+replacement is allowed.\footnote{For more flexibility in sampling see Christian Gunning's
+Sample extension for \pkg{RcppArmadillo} and
+\href{http://gallery.rcpp.org/articles/using-the-Rcpp-based-sample-implementation/}{Rcpp Gallery: Using the \pkg{RcppArmadillo}-based Implementation of R's sample()} or consider using the \code{Rcpp::sample()} sugar function added in 0.12.9 by Nathan Russell.}
+Note that the upper bound of the interval, `n`, will never be reached. While
+this may seem flawed, it is important to note that vectors and matrices in
+\cpp use a zero-based indexing system, meaning that they begin at 0 instead of 1
+and go up to $n-1$ instead of $n$, which is unlike \rlangns's system. Thus, an
+out of bounds error would be triggered if `n` was used as that point does _not_
+exist within the data structure. The application of this logic can be seen
+in the span the `for` loop takes in \cpp when compared to \rlangns. Another
+syntactical change is the use of `()` in place of `[]`
+while accessing the matrix. This change is due to the governance of \cpp
+and its comma operator making it impossible to place multiple indices inside
+the square brackets.
+
+To validate that the translation was successful, first run the \cpp function
+under the _same_ data and seed as was given for the \rlang function.
+
+```{r bootstrap_cpp}
+# Use the same seed use in R and C++
+set.seed(883)
+# Perform bootstrap with C++ function
+result_cpp <- bootstrap_cpp(initdata)
+```
+
+Next, check the output between the functions using \rlang's `all.equal()` function
+that allows for an $\varepsilon$-neighborhood around a number.
+
+```{r check_r_to_cpp}
+# Compare output
+all.equal(result_r, result_cpp)
+```
+
+Lastly, make sure to benchmark the newly translated \rcpp function against the
+\rlang implementation. As stated earlier, data is paramount to making a decision
+related to which function to use in an analysis or package.
+
+```{r benchmark_r_to_cpp}
+library(rbenchmark)
+
+benchmark(r = bootstrap_r(initdata),
+          cpp = bootstrap_cpp(initdata))[, 1:4]
+```
+
+# Using \rcpp as an Interface to External Libraries: Exploring Linear Algebra Extensions
+
+Many of the previously illustrated \rcpp examples were directed primarily to
+show the gains in computational efficiency that are possible by implementing
+code directly in \cppns; however, this is only one potential application of \rcppns.
+Perhaps one of the most understated features of \rcpp is its ability to
+enable \cite{Chambers:2016:ExtR}'s third statement of
+_Interfaces to other software are part of \rlangns_. In particular, \rcpp is
+designed to facilitate interfacing libraries written in \cpp or \clang to \rlangns.
+Hence, if there is a specific feature within a \cpp or \clang library,
+then one can create a bridge to it using \rcpp to enable it from within \rlangns.
+
+An example is the use of \cpp matrix algebra libraries like
+\pkg{Armadillo} \citep{Sanderson:2010:Armadillo}
+<!-- \citep{Sanderson+Curtin:2016} -->
+or \pkg{Eigen} \citep{Eigen:Web}.  By outsourcing complex linear
+algebra operations to matrix libraries, the need to directly call
+functions within \pkg{Linear Algebra PACKage (LAPACK)}
+\citep{Anderson:1990:UGLAPACK} is negated. Moreover, the \rcpp design
+allows for seamless transfer between object types by using automatic
+converters governed by `wrap()`, \cpp to \rlang, and `as<T>()`, \rlang
+to \cpp with the `T` indicating the type of object being cast into.
+These two helper functions provide a non-invasive way to work with an
+external object. Thus, a further benefit to using external \cpp
+libraries is the ability to have a portable code base that can be
+implemented within a standalone \cpp program or within another
+computational language.
+
+
+## Compute RNG draws from a multivariate Normal
+
+A common application in statistical computing is simulating from a multivariate normal distribution.
+The algorithm relies on a linear transformation of the
+standard Normal distribution.
+Letting $\boldsymbol{Y}_{m \times 1} = \boldsymbol{A}_{m\times n}\boldsymbol{Z}_{n\times 1} + \boldsymbol{b}_{m\times 1}$,
+where $\boldsymbol{A}$ is a $m \times n$ matrix, $\boldsymbol{b} \in \mathbb{R}^m$, $\boldsymbol{Z} \sim N(\boldsymbol{0}_{n},\boldsymbol{I}_n)$,
+and $\boldsymbol{I}_n$ is the identity matrix, then ${\boldsymbol{Y}} \sim N_{m}\left({\boldsymbol{\mu} = \boldsymbol{b}, \boldsymbol{\Sigma} = \boldsymbol{A}\boldsymbol{A}^T}\right)$.
+To obtain the matrix $\boldsymbol{A}$ from $\boldsymbol{\Sigma}$, either a Cholesky or Eigen decomposition
+is required. As noted in \citet{Venables+Ripley:2002:MASS}, the Eigen decomposition is more
+stable in addition to being more computationally demanding compared to
+the Cholesky decomposition. For simplicity and speed, we have opted to implement
+the sampling procedure using a Cholesky decomposition. Regardless, there
+is a need to involve one of the above matrix libraries to make the sampling
+viable in \cppns.
+
+Here, we demonstrate how to take advantage of the *Armadillo* linear algebra template
+classes \citep{Sanderson+Curtin:2016} via the \pkg{RcppArmadillo} package
+\citep{Eddelbuettel+Sanderson:2013:RcppArmadillo, CRAN:RcppArmadillo}. Prior to
+running this example, the \pkg{RcppArmadillo} package must be installed using
+`install.packages('RcppArmadillo')`.\footnote{macOS users may encounter `-lgfortran`
+and `-lquadmath` errors on compilations with this package if the development environment
+is not appropriately set up. \href{https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf}{Section 2.16 of the Rcpp FAQ} provides details regarding the necessary `gfortran` binaries.}
+One important caveat when using additional packages
+within the \rcpp ecosystem is the correct header file may not be `Rcpp.h`.
+In a majority of cases, the additional package ships a dedicated header
+(as _e.g._ `RcppArmadillo.h` here) which not only declares data
+structures from both systems, but may also add complementary integration and conversion
+routines.  It typically needs to be listed in an `include` statement along with a
+`depends()` attribute to tell \rlang where to find the additional header files:
+
+```{Rcpp armaDepends, eval = F}
+// Use the RcppArmadillo package
+// Requires different header file from Rcpp.h
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+```
+
+With this in mind, sampling from a multivariate normal distribution can
+be obtained in a straightforward manner. Using only _Armadillo_
+data types and values:
+
+```{Rcpp rmvnorm, eval = FALSE}
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// Sample N x P observations from a Standard
+// Multivariate Normal given N observations, a
+// vector  of P means, and a P x P cov matrix
+// [[Rcpp::export]]
+arma::mat rmvnorm(int n,
+                  const arma::vec& mu,
+                  const arma::mat& Sigma) {
+    unsigned int p = Sigma.n_cols;
+
+    // First draw N x P values from a N(0,1)
+    Rcpp::NumericVector draw = Rcpp::rnorm(n*p);
+
+    // Instantiate an Armadillo matrix with the
+    // drawn values using advanced constructor
+    // to reuse allocated memory
+    arma::mat Z = arma::mat(draw.begin(), n, p,
+                            false, true);
+
+    // Simpler, less performant alternative
+    // arma::mat Z = Rcpp::as<arma::mat>(draw);
+
+    // Generate a sample from the Transformed
+    // Multivariate Normal
+    arma::mat Y = arma::repmat(mu, 1, n).t() +
+        Z * arma::chol(Sigma);
+
+    return Y;
+}
+```
+
+As a result of using a random number generation (RNG), there is an
+additional requirement to ensure reproducible results: the necessity
+to explicitly set a seed (as shown above). Because of the
+(programmatic) interface provided by \rlang to its own RNGs, this setting of the
+seed has to occur at the \rlang level
+via the `set.seed()` function as no (public) interface is provided by
+the \rlang header files.
+
+
+## Faster linear model fits
+
+As a second example, consider the problem of estimating a common
+linear model repeatedly. One use case might be the
+simulation of size and power of standard tests. Many users of \rlang would
+default to using `lm()`, however, the overhead associated with this function
+greatly impacts speed with which an estimate can be obtained. Another approach
+would be to take the base \rlang function `lm.fit()`, which is called by `lm()`,
+to compute estimated $\hat{\beta}$ in just about the fastest time possible.
+However, this approach is also not viable as it does not report the estimated
+standard errors. As a result, we cannot use any default
+\rlang functions in the context of simulating finite sample population
+effects on inference.
+
+One alternative is provided by the `fastLm()` function in
+\pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}.
+
+```{Rcpp fastLm, eval = FALSE}
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// Compute coefficients and their standard error
+// during multiple linear regression given a
+// design matrix X containing N observations with
+// P regressors and a vector y containing of
+// N responses
+// [[Rcpp::export]]
+Rcpp::List fastLm(const arma::mat& X,
+                  const arma::colvec& y) {
+    // Dimension information
+    int n = X.n_rows, p = X.n_cols;
+    // Fit model y ~ X
+    arma::colvec coef = arma::solve(X, y);
+    // Compute the residuals
+    arma::colvec res  = y - X*coef;
+    // Estimated variance of the random error
+    double s2 =
+        std::inner_product(res.begin(), res.end(),
+                           res.begin(), 0.0)
+                           / (n - p);
+
+    // Standard error matrix of coefficients
+    arma::colvec std_err = arma::sqrt(s2 *
+        arma::diagvec(arma::pinv(X.t()*X)));
+
+    // Create named list with the above quantities
+    return Rcpp::List::create(
+        Rcpp::Named("coefficients") = coef,
+        Rcpp::Named("stderr")       = std_err,
+        Rcpp::Named("df.residual")  = n - p    );
+}
+```
+
+The interface is very simple: a matrix $X_{n \times p}$ of regressors, and a
+dependent variable $y_{n \times 1}$ as a vector.  We invoke the standard Armadillo
+function `solve()` to fit the model `y ~ X`.\footnote{We should note
+that this will use the standard \pkg{LAPACK} functionality via Armadillo whereas R
+uses an internal refinement of \pkg{LINPACK} \citep{Dongarra:1979:UGLINPACK} via pivoting,
+rendering the operation numerically more stable.  That is an important
+robustness aspect---though common datasets on current hardware almost
+never lead to actual differences.  That said, if in doubt, stick with
+the R implementation.  What is shown here is mostly for exposition of
+the principles.}  We then compute residuals, and extract the
+(appropriately scaled) diagonal of the covariance matrix, also taking
+its square root, in order to return both estimates $\hat{\beta}$ and $\hat{\sigma}$.
+
+# \rcpp in Packages
+
+Once a project containing compiled code has matured to the point of sharing it with
+collaborators\footnote{It is sometimes said that every project has two collaborators:
+self, and future self. Packaging code is \textsl{best practices} even for code not
+intended for public uploading.} or using it within a parallel computing environments, the
+ideal way forward is to embed the code within an \rlang package. Not only does an \rlang
+package provide a way to automatically compile source code, but also enables the use of
+the \rlang help system to document how the written functions should be used. As a further
+benefit, the package format enables the use of unit tests to ensure that the functions are
+producing the correct output.  Lastly, having a package provides the option of uploading
+to a repository such as CRAN for wider dissemination.
+
+To facilitate package building, \rcpp provides a function `Rcpp.package.skeleton()` that
+is modeled after the base \rlang function `package.skeleton()`. This function automates
+the creation of a skeleton package appropriate for distributing \rcppns:
+
+```{r skeleton, eval = FALSE}
+library("Rcpp")
+Rcpp.package.skeleton("samplePkg")
+```
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=3in]{figures/samplePkg-files-light-bg.png}
+    \caption{Graphical annotation of the \texttt{is\_odd\_cpp} function.}
+    \label{fig:package-files}
+  \end{center}
+\end{figure}
+
+
+This shows how distinct directories `man`, `R`, `src` are created for,
+respectively, the help pages, files with \rlang code and files with
+\cpp code. Generally speaking, all compiled code, be it from \clangns,
+\cpp or \fortran sources, should be placed within the `src/`
+directory.
+
+Alternatively, one can achieve similar results to using
+`Rcpp.package.skeleton()` by using a feature of the
+RStudio IDE. Specifically, while creating a new package project there
+is an option to select the type of package by engaging a dropdown menu
+to select "Package w/ Rcpp" in RStudio versions prior to v1.1.0. In RStudio
+versions later than v1.1.0, support for package templates has been added
+allowing users to directly create \rcppns-based packages that use Eigen or Armadillo.
+
+Lastly, one more option exists for users who are familiar with the \pkg{devtools}
+\rlang package. To create the \rlang package skeleton
+use `devtools::create("samplePkg")`. From here, part of the
+structure required by \rcpp can be added by using `devtools::use_rcpp()`.
+The remaining aspects needed by \rcpp must be manually copied from
+the roxygen tags written to console and pasted into one of the package's \rlang
+files to successfully incorporate the dynamic library and link to \rcppns's
+headers.
+
+All of these methods take care of a number of small settings one would have to enable
+manually otherwise.  These include an 'Imports:' and 'LinkingTo:' declaration in file
+DESCRIPTION, as well as 'useDynLib' and 'importFrom' in NAMESPACE. For _Rcpp Attributes_
+use, the `compileAttributes()` function has to be called. Similarly, to take advantage of
+its documentation-creation feature, the `roxygenize()` function from \pkg{roxygen2} has to
+be called.\footnote{The \pkg{littler} package \citep{CRAN:littler} has a helper script `roxy.r`
+for this.} Additional details on using \rcpp within a package scope are detailed in
+\citet{CRAN:Rcpp:Package}.
+
+# Conclusion
+
+\rlang has always provided mechanisms to extend it.  The bare-bones \clang API is already used
+to great effect by a large number of packages.  By taking advantage of a number of \cpp
+features, \rcpp has been able to make extending \rlang easier, offering a combination of
+both speed _and_ ease of use that has been finding increasingly widespread utilization by
+researchers and data scientists.  We are thrilled about this adoption, and look forward to
+seeing more exciting extensions to \rlang being built.
+---
+title: Writing a package that uses \pkg{Rcpp} 
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This document provides a short overview of how to use
+  \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} when writing
+  an \proglang{R} package.  It shows how usage of the function
+  \rdoc{Rcpp}{Rcpp.package.skeleton} which creates a complete and
+  self-sufficient example package using \pkg{Rcpp}. All components of the
+  directory tree created by \rdoc{Rcpp}{Rcpp.package.skeleton} are discussed
+  in detail.  This document thereby complements the \textsl{Writing R
+    Extensions} manual \citep{R:Extensions} which is the authoritative source
+  on how to extend \proglang{R} in general.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - package
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\sugar}{\textsl{Rcpp sugar}~}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-package}
+  %\VignetteKeywords{Rcpp, package, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+# Introduction
+
+\pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} is an extension
+package for \proglang{R} which offers an easy-to-use yet featureful interface
+between \proglang{C++} and \proglang{R}.  However, it is somewhat different
+from a traditional \proglang{R} package because its key component is a
+\proglang{C++} library. A client package that wants to make use of the
+\pkg{Rcpp} features must link against the library provided by \pkg{Rcpp}.
+
+It should be noted that \proglang{R} has only limited support for
+\proglang{C(++)}-level dependencies between packages \citep{R:Extensions}. The
+`LinkingTo` declaration in the package `DESCRIPTION` file
+allows the client package to retrieve the headers of the target package (here
+\pkg{Rcpp}), but support for linking against a library is not provided by
+\proglang{R} and has to be added manually.
+
+This document follows the steps of the \rdoc{Rcpp}{Rcpp.package.skeleton}
+function to illustrate a recommended way of using \pkg{Rcpp} from a client
+package. We illustrate this using a simple \proglang{C++} function
+which will be called by an \proglang{R} function.
+
+We strongly encourage the reader to become familiar with the material in the
+\textsl{Writing R Extensions} manual \citep{R:Extensions}, as well as with other
+documents on \proglang{R} package creation such as \cite{Leisch:2008:Tutorial}. Given
+a basic understanding of how to create \proglang{R} package, the present
+document aims to provide the additional information on how to use \pkg{Rcpp}
+in such add-on packages.
+
+# Using `Rcpp.package.skeleton`
+
+## Overview
+
+\pkg{Rcpp} provides a function \rdoc{Rcpp}{Rcpp.package.skeleton}, modeled
+after the base \proglang{R} function \rdoc{utils}{package.skeleton}, which
+facilitates creation of a skeleton package using \pkg{Rcpp}.
+
+\rdoc{Rcpp}{Rcpp.package.skeleton} has a number of arguments documented on
+its help page (and similar to those of \rdoc{utils}{package.skeleton}). The
+main argument is the first one which provides the name of the package one
+aims to create by invoking the function.  An illustration of a call using an
+argument `mypackage` is provided below.
+
+```r
+Rcpp.package.skeleton("mypackage")
+```
+
+\begin{ShadedResult}
+\begin{verbatim}
+$ ls -1R mypackage/
+DESCRIPTION
+NAMESPACE
+R
+Read-and-delete-me
+man
+src
+
+mypackage/R:
+RcppExports.R
+
+mypackage/man:
+mypackage-package.Rd
+rcpp_hello_world.Rd
+
+mypackage/src:
+Makevars            # until Rcpp 0.10.6, see below
+Makevars.win        # until Rcpp 0.10.6, see below
+RcppExports.cpp
+rcpp_hello_world.cpp
+$
+\end{verbatim}
+\end{ShadedResult}
+
+Using \rdoc{Rcpp}{Rcpp.package.skeleton} is by far the simplest approach
+as it fulfills two roles. It creates the complete set of files needed for a
+package, and it also includes the different components needed for using
+\pkg{Rcpp} that we discuss in the following sections.
+
+## \proglang{C++} code
+
+If the `attributes` argument is set to `TRUE`[^1], the 
+following \proglang{C++} file is included in the `src/` directory:
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+List rcpp_hello_world() {
+
+    CharacterVector x = 
+        CharacterVector::create("foo", "bar");
+    NumericVector y   = 
+        NumericVector::create( 0.0, 1.0 ) ;
+    List z            = List::create( x, y ) ;
+
+    return z ;
+}
+```
+
+The file defines the simple `rcpp_hello_world` function that
+uses a few \pkg{Rcpp} classes and returns a `List`.
+
+This function is preceded by the `Rcpp::export` attribute to automatically
+handle argument conversion because \proglang{R} has to be taught how to
+e.g. handle the `List` class.
+
+\rdoc{Rcpp}{Rcpp.package.skeleton} then invokes \rdoc{Rcpp}{compileAttributes}
+on the package, which generates the `RcppExports.cpp` file (where we indented
+the first two lines for the more compact display here):
+
+```rcpp
+// Generated by using Rcpp::compileAttributes() \
+//        -> do not edit by hand
+// Generator token: \
+//        10BE3573-1514-4C36-9D1C-5A225CD40393
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+// rcpp_hello_world
+List rcpp_hello_world();
+RcppExport SEXP mypackage_rcpp_hello_world() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen =
+           Rcpp::wrap(rcpp_hello_world());
+    return rcpp_result_gen;
+END_RCPP
+}
+```
+
+This file defines a function with the appropriate calling convention, suitable for
+\rdoc{base}{.Call}. It needs to be regenerated each time functions
+exposed by attributes are modified. This is the task of the
+\rdoc{Rcpp}{compileAttributes} function. A discussion on attributes is
+beyond the scope of this document and more information is available
+in the attributes vignette \citep{CRAN:Rcpp:Attributes}.
+
+## \proglang{R} code
+
+The \rdoc{Rcpp}{compileAttributes} also generates \proglang{R} code
+that uses the \proglang{C++} function.
+
+```r
+# Generated by using Rcpp::compileAttributes() \
+#        -> do not edit by hand
+# Generator token: \
+#        10BE3573-1514-4C36-9D1C-5A225CD40393
+
+rcpp_hello_world <- function() {
+    .Call('mypackage_rcpp_hello_world', 
+          PACKAGE = 'mypackage')
+}
+```
+
+This is also a generated file so it should not be modified manually, rather
+regenerated as needed by \rdoc{Rcpp}{compileAttributes}.
+
+## `DESCRIPTION`
+
+The skeleton generates an appropriate `DESCRIPTION` file, using
+both `Imports:` and `LinkingTo` for \pkg{Rcpp}:
+
+\begin{ShadedResult}
+\begin{verbatim}
+Package: mypackage
+Type: Package
+Title: What the package does (short line)
+Version: 1.0
+Date: 2013-09-17
+Author: Who wrote it
+Maintainer: Who <yourfault@somewhere.net>
+Description: More about what it does (maybe
+  more than one line)
+License: What Licence is it under ?
+Imports: Rcpp (>= 0.11.0)
+LinkingTo: Rcpp
+\end{verbatim}
+\end{ShadedResult}
+
+
+\rdoc{Rcpp}{Rcpp.package.skeleton} adds the three last lines to the
+`DESCRIPTION` file generated by \rdoc{utils}{package.skeleton}.
+
+The `Imports` declaration indicates \proglang{R}-level dependency
+between the client package and \pkg{Rcpp}; code from the latter is being
+imported into the package described here. The `LinkingTo` declaration
+indicates that the client package needs to use header files exposed by
+\pkg{Rcpp}.
+
+## Now optional: `Makevars` and `Makevars.win`
+
+This behaviour changed with \pkg{Rcpp} release 0.11.0. These files used to be
+mandatory, now they are merely optional. 
+
+We will describe the old setting first as it was in use for a few years. The
+new standard, however, is much easier and is described below.
+
+## Releases up until 0.10.6
+
+Unfortunately, the `LinkingTo` declaration in itself was not
+enough to link to the user \proglang{C++} library of \pkg{Rcpp}. Until more
+explicit support for libraries is added to \proglang{R}, ones needes to manually
+add the \pkg{Rcpp} library to the `PKG_LIBS` variable in the
+`Makevars` and `Makevars.win` files. (This has now changed with
+release 0.11.0; see below).
+\pkg{Rcpp} provides the unexported function `Rcpp:::LdFlags()` to ease the process:
+
+```sh
+## Use the R_HOME indirection to support
+## installations of multiple R version
+##
+## NB: No longer needed, see below
+PKG_LIBS = `$(R_HOME)/bin/Rscript -e \
+                      "Rcpp:::LdFlags()"`
+
+```
+
+The `Makevars.win` is the equivalent, targeting windows.
+
+```sh
+## Use the R_HOME indirection to support
+## installations of multiple R version
+##
+## NB: No longer needed, see below
+PKG_LIBS = $(shell \
+   "${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" \
+   -e "Rcpp:::LdFlags()")
+```
+
+## Releases since 0.11.0
+
+As of release 0.11.0, this is no longer needed as client packages obtain the
+required code from \pkg{Rcpp} via explicit function registration. The user
+does not have to do anything.  
+
+This means that `PKG_LIBS` can now be empty---unless some client
+libraries are needed.  For example, \pkg{RcppCNPy} needs compression support
+and hence uses `PKG_LIBS= -lz`. Similarly, when a third-party library is
+required, it can and should be set here.
+
+## `NAMESPACE`
+
+The \rdoc{Rcpp}{Rcpp.package.skeleton} function also creates a file
+`NAMESPACE`.
+
+```sh
+useDynLib(mypackage)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+```
+
+This file serves three purposes. First, it ensure that the dynamic library
+contained in the package we are creating via
+\rdoc{Rcpp}{Rcpp.package.skeleton} will be loaded and thereby made
+available to the newly created \proglang{R} package. 
+
+Second, it declares which functions should be globally visible from the
+namespace of this package. As a reasonable default, we export all functions.
+
+Third, it instructs R to import a symbol from \pkg{Rcpp}. This sets up the
+import of all registered function and, together with the `Imports:`
+statement in `DESCRIPTION`, provides what is needed for client packages
+to access \pkg{Rcpp} functionality.
+
+## Help files
+
+Also created is a directory `man` containing two help files. One is
+for the package itself, the other for the (single) \proglang{R} function
+being provided and exported.
+
+The \textsl{Writing R Extensions} manual \citep{R:Extensions} provides the complete
+documentation on how to create suitable content for help files.
+
+## `mypackage-package.Rd`
+
+The help file `mypackage-package.Rd` can be used to describe
+the new package (and we once again indented some lines):
+
+```sh
+\name{mypackage-package}
+\alias{mypackage-package}
+\alias{mypackage}
+\docType{package}
+\title{
+What the package does (short line)
+}
+\description{
+More about what it does (maybe more than one line)
+~~ A concise (1-5 lines) description of the
+package ~~
+}
+\details{
+\tabular{ll}{
+Package: \tab mypackage\cr
+Type: \tab Package\cr
+Version: \tab 1.0\cr
+Date: \tab 2013-09-17\cr
+License: \tab What license is it under?\cr
+}
+~~ An overview of how to use the package,
+including the most important functions ~~
+}
+\author{
+Who wrote it
+
+Maintainer: Who <yourfault@somewhere.net>
+}
+\references{
+~~ Literature or other references for
+background information ~~
+}
+~~ Optionally other standard keywords, one per
+line, from file KEYWORDS in the R
+documentation directory ~~
+\keyword{ package }
+\seealso{
+~~ Optional links to other man pages, e.g. ~~
+~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+}
+\examples{
+%% ~~ simple examples of the most important
+%% functions ~~
+}
+```
+
+## `rcpp_hello_world.Rd`
+
+The help file `rcpp_hello_world.Rd` serves as documentation for the
+example \proglang{R} function.
+
+```sh
+\name{rcpp_hello_world}
+\alias{rcpp_hello_world}
+\docType{package}
+\title{
+Simple function using Rcpp
+}
+\description{
+Simple function using Rcpp
+}
+\usage{
+rcpp_hello_world()
+}
+\examples{
+\dontrun{
+rcpp_hello_world()
+}
+}
+```
+
+# Using modules
+
+This document does not cover the use of the `module` argument
+of \rdoc{Rcpp}{Rcpp.package.skeleton}. It is covered
+in the modules vignette \citep{CRAN:Rcpp:Modules}.
+
+# Further examples
+
+The canonical example of a package that uses \pkg{Rcpp} is the
+\pkg{RcppExamples} \citep{CRAN:RcppExamples} package. \pkg{RcppExamples}
+contains various examples of using \pkg{Rcpp}. Hence, the \pkg{RcppExamples}
+package is provided as a template for employing \pkg{Rcpp} in packages.
+
+Other CRAN packages using the \pkg{Rcpp} package are \pkg{RcppArmadillo}
+\citep{CRAN:RcppArmadillo},
+and \pkg{minqa} \citep{CRAN:minqa}. Several other packages follow older (but still supported
+and appropriate) instructions. They can serve examples on how to get data to
+and from \proglang{C++} routines, but should not be considered templates for
+how to connect to \pkg{Rcpp}. The full list of packages using \pkg{Rcpp} can
+be found at the [CRAN page](http://CRAN.R-project.org/package=Rcpp) of
+\pkg{Rcpp}.
+
+# Other compilers
+
+Less experienced \proglang{R} users on the Windows platform frequently ask
+about using \pkg{Rcpp} with the Visual Studio toolchain.  That is simply not
+possible as \proglang{R} is built with the \pkg{gcc} compiler. Different
+compilers have different linking conventions. These conventions are
+particularly hairy when it comes to using \proglang{C++}.  In short, it is
+not possible to simply drop sources (or header files) from \pkg{Rcpp} into a
+\proglang{C++} project built with Visual Studio, and this note makes no
+attempt at claiming otherwise.
+
+\pkg{Rcpp} is fully usable on Windows provided the standard Windows
+toolchain for \proglang{R} is used. See the \textsl{Writing R Extensions}
+manual \citep{R:Extensions} for details.
+
+# Summary
+
+This document described how to use the \pkg{Rcpp} package for \proglang{R}
+and \proglang{C++} integration when writing an \proglang{R} extension
+package. The use of the \rdoc{Rcpp}{Rcpp.package.skeleton} was shown in
+detail, and references to further examples were provided.
+
+[^1]: Setting `attributes` to `TRUE` is the default. This document
+    does not cover the behavior of `Rcpp.package.skeleton` when `attributes` is set
+    to `FALSE` as we try to encourage package developpers to use
+    attributes. 
+---
+title: | 
+       | Exposing \proglang{C++} functions and classes 
+       | with \pkg{Rcpp} modules
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This note discusses \textsl{Rcpp modules}. \textsl{Rcpp modules} allow programmers to
+  expose \proglang{C++} functions and classes to \proglang{R} with relative
+  ease.  \textsl{Rcpp modules} are inspired from the \pkg{Boost.Python}
+  \proglang{C++} library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python}
+  which provides similar features for \proglang{Python}.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - modules
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Omit \pnasbreak at end
+skip_final_break: true
+
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\sugar}{\textsl{Rcpp sugar}~}
+  \newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-modules}
+  %\VignetteKeywords{Rcpp, modules, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Motivation
+
+Exposing \proglang{C++} functionality to \proglang{R} is greatly facilitated
+by the \pkg{Rcpp} package and its underlying \proglang{C++} library
+\citep{CRAN:Rcpp,JSS:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
+\proglang{R} and \proglang{C++} integration by replacing the traditional
+\proglang{R} Application Programming Interface (API) described in
+'\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
+classes. The '\textsl{Rcpp-jss-2011}' vignette \citep{CRAN:Rcpp,JSS:Rcpp} describes the API and
+provides an introduction to using \pkg{Rcpp}.
+
+These \pkg{Rcpp} facilities offer a lot of assistance to the programmer
+wishing to interface \proglang{R} and \proglang{C++}. At the same time, these
+facilities are limited as they operate on a function-by-function basis. The
+programmer has to implement a `.Call` compatible function (to
+conform to the \proglang{R} API) using classes of the \pkg{Rcpp} API as
+described in the next section.
+
+## Exposing functions using \pkg{Rcpp}
+
+Exposing existing \proglang{C++} functions to \proglang{R} through \pkg{Rcpp}
+usually involves several steps. One approach is to write an additional wrapper
+function that is responsible for converting input objects to the appropriate
+types, calling the actual worker function and converting the results back to
+a suitable type that can be returned to \proglang{R} (`SEXP`).
+Consider the `norm` function below:
+
+```cpp
+double norm( double x, double y ) {
+    return sqrt( x*x + y*y );
+}
+```
+
+This simple function does not meet the requirements set by the `.Call`
+convention, so it cannot be called directly by \proglang{R}. Exposing the
+function involves writing a simple wrapper function
+that does match the `.Call` requirements. \pkg{Rcpp} makes this easy.
+
+```cpp
+using namespace Rcpp;
+RcppExport SEXP norm_wrapper(SEXP x_, SEXP y_) {
+    // step 0: convert input to C++ types
+    double x = as<double>(x_), y = as<double>(y_);
+
+    // step 1: call the underlying C++ function
+    double res = norm(x, y);
+
+    // step 2: return the result as a SEXP
+    return wrap(res);
+}
+```
+
+Here we use the (templated) \pkg{Rcpp} converter `as()` which can
+transform from a `SEXP` to a number of different \proglang{C++} and
+\pkg{Rcpp} types. The \pkg{Rcpp} function `wrap()` offers the opposite
+functionality and converts many known types to a `SEXP`.
+
+This process is simple enough, and is used by a number of CRAN packages.
+However, it requires direct involvement from the programmer, which quickly
+becomes tiresome when many functions are involved. \textsl{Rcpp modules}
+provides a much more elegant and unintrusive way to expose \proglang{C++}
+functions such as the `norm` function shown above to \proglang{R}.
+
+We should note that \pkg{Rcpp} now has \textsl{Rcpp attributes} which extends
+certain aspect of \textsl{Rcpp modules} and makes binding to simple functions
+such as this one even easier.  With \textsl{Rcpp attribues} we can just write
+
+```cpp
+# include <Rcpp.h>
+
+// [[Rcpp::export]]
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+```
+
+See the corresponding vignette \citep{CRAN:Rcpp:Attributes} for details, but
+read on for \textsl{Rcpp modules} which contains to provide features not
+covered by \textsl{Rcpp attributes}, particularly when it comes to binding
+entire C++ classes and more.
+
+## Exposing classes using Rcpp
+
+Exposing \proglang{C++} classes or structs is even more of a challenge because it
+requires writing glue code for each member function that is to be exposed.
+
+Consider the simple `Uniform` class below:
+
+```cpp
+class Uniform {
+public:
+    Uniform(double min_, double max_) : 
+       min(min_), max(max_) {}
+
+    NumericVector draw(int n) {
+        RNGScope scope;
+        return runif(n, min, max);
+    }
+
+private:
+    double min, max;
+};
+```
+
+To use this class from R, we at least need to expose the constructor and
+the `draw` method. External pointers
+\citep{R:Extensions} are the perfect vessel for this, and using the
+`Rcpp:::XPtr` template from \pkg{Rcpp} we can expose the class
+with these two functions:
+
+```cpp
+using namespace Rcpp;
+
+/// create external pointer to a Uniform object
+RcppExport SEXP Uniform__new(SEXP min_, 
+                             SEXP max_) {
+    // convert inputs to appropriate C++ types
+    double min = as<double>(min_), 
+           max = as<double>(max_);
+
+    // create pointer to an Uniform object and 
+    // wrap it as an external pointer
+    Rcpp::XPtr<Uniform> 
+    ptr( new Uniform( min, max ), true );
+
+    // return the external pointer to the R side
+    return ptr;
+}
+
+/// invoke the draw method
+RcppExport SEXP Uniform__draw(SEXP xp, SEXP n_) {
+    // grab the object as a XPtr (smart pointer) 
+    // to Uniform
+    Rcpp::XPtr<Uniform> ptr(xp);
+
+    // convert the parameter to int
+    int n = as<int>(n_);
+
+    // invoke the function
+    NumericVector res = ptr->draw( n );
+
+    // return the result to R
+    return res;
+}
+```
+
+As it is generally a bad idea to expose external pointers `as is',
+they usually get wrapped as a slot of an S4 class.
+
+Using `cxxfunction()` from the \pkg{inline} package, we can build this
+example on the fly. Suppose the previous example code assigned to a text variable
+`unifModcode`, we could then do
+
+<!--
+DE 21 Sep 2013: there must a bug somewhere in the vignette processing
+             as the following example produces only empty lines preceded
+             by '+' -- same for 0.10.4 release and current 0.10.5 pre-release
+             hence shortened example to not show code again
+-->
+
+```{r, eval=FALSE}
+f1 <- cxxfunction( , "", includes = unifModCode,
+                  plugin = "Rcpp" )
+getDynLib(f1)  ## will display info about 'f1' 
+```
+
+The following listing shows some \textsl{manual} wrapping to access the code,
+we will see later how this can be automated:
+
+```{r, eval=FALSE}
+setClass("Uniform",
+         representation( pointer = "externalptr"))
+
+# helper
+Uniform_method <- function(name) {
+    paste("Uniform", name, sep = "__")
+}
+
+# syntactic sugar to allow object$method( ... )
+setMethod("$", "Uniform", function(x, name) {
+    function(...)
+        .Call(Uniform_method(name) ,
+              x@pointer, ...)
+} )
+# syntactic sugar to allow new( "Uniform", ... )
+setMethod("initialize", "Uniform",
+          function(.Object, ...) {
+    .Object@pointer <- 
+        .Call(Uniform_method("new"), ...)
+    .Object
+} )
+
+u <- new("Uniform", 0, 10)
+u$draw( 10L )
+```
+
+\pkg{Rcpp} considerably simplifies the code that would
+be involved for using external pointers with the traditional \proglang{R} API.
+Yet this still involves a lot of mechanical code that quickly
+becomes hard to maintain and error prone.
+\textsl{Rcpp modules} offer an elegant way to expose the `Uniform`
+class in a way that makes both the internal
+\proglang{C++} code and the \proglang{R} code easier.
+
+
+
+# Rcpp modules 
+
+The design of Rcpp modules has been influenced by \proglang{Python} modules which are generated by the
+`Boost.Python` library \citep{Abrahams+Grosse-Kunstleve:2003:Boost.Python}.
+Rcpp modules provide a convenient and easy-to-use way
+to expose \proglang{C++} functions and classes to \proglang{R}, grouped
+together in a single entity.
+
+A Rcpp module is created in a `cpp` file using the `RCPP_MODULE`
+macro, which then provides declarative code of what the module
+exposes to \proglang{R}.
+
+## Exposing \proglang{C++} functions using Rcpp modules
+
+Consider the `norm` function from the previous section.
+We can expose it to \proglang{R} :
+
+```cpp
+using namespace Rcpp;
+
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod) {
+    function("norm", &norm);
+}
+```
+
+The code creates an Rcpp module called `mod`
+that exposes the `norm` function. \pkg{Rcpp} automatically
+deduces the conversions that are needed for input and output. This alleviates
+the need for a wrapper function using either \pkg{Rcpp} or the \proglang{R} API.
+
+On the \proglang{R} side, the module is retrieved by using the
+`Module` function from \pkg{Rcpp}
+
+```{r, eval=FALSE}
+inc <- '
+using namespace Rcpp;
+
+double norm( double x, double y ) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod) {
+    function("norm", &norm);
+}
+'
+
+fx <- cxxfunction(signature(),
+                  plugin="Rcpp", include=inc)
+mod <- Module("mod", getDynLib(fx))
+```
+
+Note that this example assumed that the previous code segment defining the
+module was returned by the `cxxfunction()` (from the \pkg{inline}
+package) as callable R function `fx` from which we can extract the
+relevant pointer using `getDynLib()`.  In the case of using Rcpp modules
+via a package (which is detailed in Section \ref{sec:package} below), modules
+are actually loaded differently and we would have used
+
+```{r, eval=FALSE}
+require(nameOfMyModulePackage)
+mod <- new( mod )
+mod$norm( 3, 4 )
+```
+
+where the module is loaded upon startup and we use the constructor
+directly. More details on this aspect follow below.
+
+A module can contain any number of calls to `function` to register
+many internal functions to \proglang{R}. For example, these 6 functions :
+
+```cpp
+std::string hello() {
+    return "hello";
+}
+
+int bar( int x) {
+    return x*2;
+}
+
+double foo( int x, double y) {
+    return x * y;
+}
+
+void bla( ) {
+    Rprintf("hello\\n");
+}
+
+void bla1( int x) {
+    Rprintf("hello (x = %d)\\n", x);
+}
+
+void bla2( int x, double y) {
+    Rprintf("hello (x = %d, y = %5.2f)\\n", x, y);
+}
+```
+
+can be exposed with the following minimal code:
+
+```cpp
+RCPP_MODULE(yada) {
+    using namespace Rcpp;
+
+    function("hello" , &hello);
+    function("bar"   , &bar  );
+    function("foo"   , &foo  );
+    function("bla"   , &bla  );
+    function("bla1"  , &bla1 );
+    function("bla2"  , &bla2 );
+}
+```
+
+which can then be used from \proglang{R}:
+
+```{r, eval=FALSE}
+require(Rcpp)
+
+yd <- Module("yada", getDynLib(fx))
+yd$bar(2L)
+yd$foo(2L, 10.0)
+yd$hello()
+yd$bla()
+yd$bla1(2L)
+yd$bla2(2L, 5.0)
+```
+
+In the case of a package (as for example the one created by
+`Rcpp.package.skeleton()` with argument `module=TRUE`; more on that
+below), we can use
+
+```{r, eval=FALSE}
+require(myModulePackage)    ## if another name
+
+bar(2L)
+foo(2L, 10.0)
+hello()
+bla()
+bla1(2L)
+bla2(2L, 5.0)
+```
+
+
+The requirements for a function to be exposed to \proglang{R} via Rcpp modules
+are:
+
+- The function takes between 0 and 65 parameters.
+- The type of each input parameter must be manageable by the `Rcpp::as` template.
+- The return type of the function must be either `void` or any type that
+  can be managed by the `Rcpp::wrap` template.
+- The function name itself has to be unique in the module.
+  In other words, no two functions with
+  the same name but different signatures are allowed. C++ allows overloading
+  functions. This might be added in future versions of modules.
+
+### Documentation for exposed functions using Rcpp modules
+
+In addition to the name of the function and the function pointer, it is possible
+to pass a short description of the function as the third parameter of `function`.
+
+```cpp
+using namespace Rcpp;
+
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod) {
+    function("norm", &norm, 
+             "Provides a simple vector norm");
+}
+```
+
+The description is used when displaying the function to the R prompt:
+
+```{r, eval=FALSE}
+mod <- Module("mod", getDynLib(fx))
+show(mod$norm)
+```
+
+### Formal arguments specification
+
+`function` also gives the possibility to specify the formal arguments
+of the R function that encapsulates the C++ function, by passing
+a `Rcpp::List` after the function pointer.
+
+```cpp
+using namespace Rcpp;
+
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod_formals) {
+    function("norm",
+             &norm,
+             List::create(_["x"] = 0.0, 
+                          _["y"] = 0.0),
+             "Provides a simple vector norm");
+}
+```
+
+A simple usage example is provided below:
+
+```{r, eval=FALSE}
+norm <- mod$norm
+norm()
+norm(y = 2)
+norm(x = 2, y = 3)
+args(norm)
+```
+
+To set formal arguments without default values, simply omit the rhs.
+
+```cpp
+using namespace Rcpp;
+
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod_formals2) {
+    function("norm", &norm,
+             List::create(_["x"], _["y"] = 0.0),
+             "Provides a simple vector norm");
+}
+```
+
+This can be used as follows:
+
+```{r, eval=FALSE}
+norm <- mod$norm
+args(norm)
+```
+
+The ellipsis (`...`) can be used to denote that additional arguments
+are optional; it does not take a default value.
+
+```cpp
+using namespace Rcpp;
+
+double norm(double x, double y) {
+    return sqrt(x*x + y*y);
+}
+
+RCPP_MODULE(mod_formals3) {
+    function("norm", &norm,
+             List::create(_["x"], _["..."]),
+             "documentation for norm");
+}
+```
+
+and from the R side:
+
+```{r, eval=FALSE}
+norm <- mod$norm
+args(norm)
+```
+
+
+## Exposing \proglang{C++} classes using Rcpp modules
+
+Rcpp modules also provide a mechanism for exposing \proglang{C++} classes, based
+on the reference classes introduced in R 2.12.0.
+
+### Initial example
+
+A class is exposed using the `class_` keyword. The `Uniform`
+class may be exposed to \proglang{R} as follows:
+
+```cpp
+using namespace Rcpp;
+class Uniform {
+public:
+    Uniform(double min_, double max_) : 
+       min(min_), max(max_) {}
+
+    NumericVector draw(int n) const {
+        RNGScope scope;
+        return runif(n, min, max);
+    }
+
+    double min, max;
+};
+
+double uniformRange(Uniform* w) {
+    return w->max - w->min;
+}
+
+RCPP_MODULE(unif_module) {
+
+    class_<Uniform>("Uniform")
+
+    .constructor<double,double>()
+
+    .field("min", &Uniform::min)
+    .field("max", &Uniform::max)
+
+    .method("draw", &Uniform::draw)
+    .method("range", &uniformRange)
+    ;
+
+}
+```
+
+```{r, eval=FALSE}
+## assumes   fx_unif <- cxxfunction(...)   ran
+unif_module <- Module("unif_module",
+                      getDynLib(fx_unif))
+Uniform <- unif_module$Uniform
+u <- new(Uniform, 0, 10)
+u$draw(10L)
+u$range()
+u$max <- 1
+u$range()
+u$draw(10)
+```
+
+`class_` is templated by the \proglang{C++} class or struct
+that is to be exposed to \proglang{R}.
+The parameter of the `class_<Uniform>` constructor is the name we will
+use on the \proglang{R} side. It usually makes sense to use the same name as the class
+name. While this is not enforced, it might be useful when exposing a class
+generated from a template.
+
+Then constructors, fields and methods are exposed.
+
+### Exposing constructors using Rcpp modules
+
+Public constructors that take from 0 and 6 parameters can be exposed
+to the R level using the `.constuctor` template method of `.class_`.
+
+Optionally, `.constructor` can take a description as the first argument.
+
+```cpp
+ .constructor<double,double>("sets the min and "
+      "max value of the distribution")
+```
+
+Also, the second argument can be a function pointer (called validator)
+matching the following type :
+
+```cpp
+typedef bool (*ValidConstructor)(SEXP*,int);
+```
+
+The validator can be used to implement dispatch to the appropriate constructor,
+when multiple constructors taking the same number of arguments are exposed.
+The default validator always accepts the constructor as valid if it is passed
+the appropriate number of arguments. For example, with the call above, the default
+validator accepts any call from R with two `double` arguments (or
+arguments that can be cast to `double`).
+
+TODO: include validator example here
+
+### Exposing fields and properties
+
+`class_` has three ways to expose fields and properties, as
+illustrated in the example below :
+
+```cpp
+using namespace Rcpp;
+class Foo {
+public:
+    Foo(double x_, double y_, double z_):
+        x(x_), y(y_), z(z_) {}
+
+    double x;
+    double y;
+
+    double get_z() { return z; }
+    void set_z(double z_) { z = z_; }
+
+private:
+    double z;
+};
+
+RCPP_MODULE(mod_foo) {
+    class_<Foo>( "Foo" )
+
+    .constructor<double,double,double>()
+
+    .field("x", &Foo::x)
+    .field_readonly("y", &Foo::y)
+
+    .property("z", &Foo::get_z, &Foo::set_z)
+    ;
+}
+```
+
+The `.field` method exposes a public field with read/write access from R.
+`field` accepts an extra parameter to give a short description of the
+field:
+
+```cpp
+  .field("x", &Foo::x, "documentation for x")
+```
+
+The `.field_readonly` exposes a public field with read-only access from R.
+It also accepts the description of the field.
+
+```cpp
+  .field_readonly("y", &Foo::y, 
+                  "documentation for y")
+```
+
+The `.property` method allows indirect access to fields through
+a getter and a setter. The setter is optional, and the property is considered
+read-only if the setter is not supplied. A description of the property is also
+allowed:
+
+```cpp
+  // with getter and setter
+  .property("z", &Foo::get_z, 
+            &Foo::set_z, "Documentation for z")
+
+  // with only getter
+  .property("z", 
+            &Foo::get_z, "Documentation for z")
+```
+
+The type of the field (\textbf{T}) is deduced from the return type of the getter, and if a
+setter is given its unique parameter should be of the same type.
+
+Getters can be member functions taking no parameter and returning a \textbf{T}
+(for example `get_z` above), or
+a free function taking a pointer to the exposed
+class and returning a \textbf{T}, for example:
+
+```cpp
+double z_get(Foo* foo) { return foo->get_z(); }
+```
+
+Setters can be either a member function taking a `T` and returning void, such
+as `set_z` above, or a free function taking a pointer to the target
+class and a \textbf{T} :
+
+```cpp
+void z_set(Foo* foo, double z) { foo->set_z(z); }
+```
+
+Using properties gives more flexibility in case field access has to be tracked
+or has impact on other fields. For example, this class keeps track of how many times
+the `x` field is read and written.
+
+```cpp
+class Bar {
+public:
+
+    Bar(double x_) : x(x_), nread(0), nwrite(0) {}
+
+    double get_x() {
+        nread++;
+        return x;
+    }
+
+    void set_x(double x_) {
+        nwrite++;
+        x = x_;
+    }
+
+    IntegerVector stats() const {
+        return 
+        IntegerVector::create(_["read"] = nread,
+                              _["write"] = nwrite);
+    }
+
+private:
+    double x;
+    int nread, nwrite;
+};
+
+RCPP_MODULE(mod_bar) {
+    class_<Bar>( "Bar" )
+
+    .constructor<double>()
+
+    .property( "x", &Bar::get_x, &Bar::set_x )
+    .method( "stats", &Bar::stats )
+    ;
+}
+```
+
+Here is a simple usage example:
+
+```{r, eval=FALSE}
+Bar <- mod_bar$Bar
+b <- new(Bar, 10)
+b$x + b$x
+b$stats()
+b$x <- 10
+b$stats()
+```
+
+### Exposing methods using Rcpp modules
+
+`class_` has several overloaded and templated `.method`
+functions allowing the programmer to expose a method associated with the class.
+
+A legitimate method to be exposed by `.method` can be:
+
+- A public member function of the class, either const or non const, that
+  returns void or any type that can be handled by `Rcpp::wrap`, and that
+  takes between 0 and 65 parameters whose types can be handled by `Rcpp::as`.
+- A free function that takes a pointer to the target class as its first
+  parameter, followed by 0 or more (up to 65) parameters that can be handled by
+  `Rcpp::as` and returning a type that can be handled by `Rcpp::wrap`
+  or void.
+
+### Documenting methods
+
+`.method` can also include a short documentation of the method, after the method
+(or free function) pointer.
+
+```cpp
+.method("stats", &Bar::stats,
+        "vector indicating the number of "
+        "times x has been read and written")
+```
+
+TODO: mention overloading, need good example.
+
+
+### Const and non-const member functions
+
+`method` is able to expose both `const` and `non const`
+member functions of a class. There are however situations where
+a class defines two versions of the same method, differing only in their
+signature by the `const`-ness. It is for example the case of the
+member functions `back` of the `std::vector` template from
+the STL.
+
+```cpp
+reference back ( );
+const_reference back ( ) const;
+```
+
+To resolve the ambiguity, it is possible to use `const_method`
+or `nonconst_method` instead of `method` in order
+to restrict the candidate methods.
+
+### Special methods
+
+\pkg{Rcpp} considers the methods `[[` and `[[<-` special, 
+and promotes them to indexing methods on the \proglang{R} side.
+
+### Object finalizers
+
+The `.finalizer` member function of `class_` can be used to
+register a finalizer. A finalizer is a free function that takes a pointer
+to the target class and return `void`. The finalizer is called
+before the destructor and so operates on a valid object of the target class.
+
+It can be used to perform operations, releasing resources, etc ...
+
+The finalizer is called automatically when the \proglang{R} object that encapsulates
+the \proglang{C++} object is garbage collected.
+
+### Object factories
+
+The `.factory` member function of `class_` can be used to register a
+[factory](https://en.wikipedia.org/wiki/Factory_method_pattern) that
+can be used as alternative to a constructor.  A factory can be a
+static member function or a free function that returns a pointer to
+the target class. Typical use-cases include creating objects in a
+hierarchy:
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// abstract class
+class Base {
+    public:
+        virtual ~Base() {}
+        virtual std::string name() const = 0;
+};
+
+// first derived class
+class Derived1: public Base {
+    public:
+        Derived1() : Base() {}
+        virtual std::string name() const {
+		    return "Derived1";
+		}
+};
+
+// second derived class
+class Derived2: public Base {
+    public:
+        Derived2() : Base() {}
+        virtual std::string name() const {
+		    return "Derived2";
+		}
+};
+
+Base *newBase( const std::string &name ) {
+    if (name == "d1"){
+        return new Derived1;
+    } else if (name == "d2"){
+        return new Derived2;
+    } else {
+        return 0;
+    }
+}
+
+RCPP_MODULE(mod) {
+    Rcpp::class_< Base >("Base")
+        .factory<const std::string&>(newBase)
+        .method("name", &Base::name);
+}
+```
+
+The `newBase` method returns a pointer to a `Base` object. Since that
+class is an abstract class, the objects are actually instances of
+`Derived1` or `Derived2`. The same behavior is now available in R:
+
+```{r, eval=FALSE}
+dv1 <- new(Base, "d1")
+dv1$name() # returns "Derived1"
+dv2 <- new(Base, "d2")
+dv2$name() # returns "Derived2"
+```
+
+### S4 dispatch
+
+When a \proglang{C++} class is exposed by the `class_` template,
+a new S4 class is registered as well. The name of the S4 class is
+obfuscated in order to avoid name clashes (i.e. two modules exposing the
+same class).
+
+This allows implementation of \proglang{R}-level
+(S4) dispatch. For example, one might implement the `show`
+method for \proglang{C++} `World` objects:
+
+```{r, eval=FALSE}
+setMethod("show", yada$World , function(object) {
+    msg <- paste("World object with message : ",
+                 object$greet())
+    writeLines(msg)
+} )
+```
+
+TODO: mention R inheritance (John ?)
+
+### Full example
+
+<!-- TODO: maybe replace this by something from wls or RcppModels ? -->
+
+The following example illustrates how to use Rcpp modules to expose
+the class `std::vector<double>` from the STL.
+
+```cpp
+typedef std::vector<double> vec; 	
+void vec_assign(vec* obj, 
+                Rcpp::NumericVector data) {
+    obj->assign(data.begin(), data.end());
+}
+void vec_insert(vec* obj, int position, 
+                Rcpp::NumericVector data) {
+    vec::iterator it = obj->begin() + position;
+    obj->insert(it, data.begin(), data.end());
+}
+Rcpp::NumericVector vec_asR( vec* obj ) { 
+   return Rcpp::wrap( *obj ); 
+}
+void vec_set(vec* obj, int i, double value) { 
+   obj->at( i ) = value; 
+}
+
+RCPP_MODULE(mod_vec) {
+    using namespace Rcpp;
+
+    // we expose class std::vector<double> 
+    // as "vec" on the R side
+    class_<vec>("vec")
+
+    // exposing constructors
+    .constructor()
+    .constructor<int>()
+
+    // exposing member functions
+    .method("size", &vec::size)
+    .method("max_size", &vec::max_size)
+    .method("resize", &vec::resize)
+    .method("capacity", &vec::capacity)
+    .method("empty", &vec::empty)
+    .method("reserve", &vec::reserve)
+    .method("push_back", &vec::push_back)
+    .method("pop_back", &vec::pop_back)
+    .method("clear", &vec::clear)
+
+    // exposing const member functions
+    .const_method("back", &vec::back)
+    .const_method("front", &vec::front)
+    .const_method("at", &vec::at )
+
+    // exposing free functions taking a 
+    // std::vector<double>* as their first 
+    // argument
+    .method("assign", &vec_assign)
+    .method("insert", &vec_insert)
+    .method("as.vector", &vec_asR)
+
+    // special methods for indexing
+    .const_method("[[", &vec::at)
+    .method("[[<-", &vec_set)
+    ;
+}
+```
+
+```{r, eval=FALSE}
+# for code compiled on the fly using
+# cxxfunction() into 'fx_vec', we use
+mod_vec <- Module("mod_vec",
+                  getDynLib(fx_vec),
+                  mustStart = TRUE)
+vec <- mod_vec$vec
+# and that is not needed in a package
+# setup as e.g. one created
+# via Rcpp.package.skeleton(..., module=TRUE)
+v <- new(vec)
+v$reserve(50L)
+v$assign(1:10)
+v$push_back(10)
+v$size()
+v$capacity()
+v[[ 0L ]]
+v$as.vector()
+```
+
+# Using modules in other packages {#sec:package}
+
+## Namespace import/export
+
+### Import all functions and classes
+
+When using \pkg{Rcpp} modules in a packages, the client package needs to
+import \pkg{Rcpp}'s namespace. This is achieved by adding the
+following line to the `NAMESPACE` file.
+
+```{r, echo=FALSE,eval=TRUE}
+options( prompt = " ", continue = " " )
+```
+
+```{r, eval=FALSE}
+import(Rcpp)
+```
+
+In some case we have found that explicitly naming a symbol can be preferable:
+
+```{r, eval=FALSE}
+import(Rcpp, evalCpp)
+```
+
+## Load the module
+
+### Deprecated older method using loadRcppModules
+
+Note: This approach is deprecated as of Rcpp 0.12.5, and now triggers a warning
+message.  Eventually this function will be withdrawn.
+
+The simplest way to load all functions and classes from a module directly
+into a package namespace used to be to use the `loadRcppModules` function
+within the `.onLoad` body.
+
+```{r, eval=FALSE}
+.onLoad <- function(libname, pkgname) {
+    loadRcppModules()
+}
+```
+
+This will look in the package's DESCRIPTION file for the `RcppModules`
+field, load each declared module and populate their contents into the
+package's namespace. For example, both the \pkg{testRcppModule} package
+(which is part of large unit test suite for \pkg{Rcpp}) and the package
+created via `Rcpp.package.skeleton("somename", module=TRUE)` have this
+declaration:
+
+```
+RcppModules: yada, stdVector, NumEx
+```
+
+The `loadRcppModules` function has a single argument `direct`
+with a default value of `TRUE`. With this default value, all content
+from the module is exposed directly in the package namespace. If set to
+`FALSE`, all content is exposed as components of the module.
+
+### Preferred current method using loadModule
+
+Starting with release 0.9.11, an alternative is provided by the
+`loadModule()` function which takes the module name as an argument.
+It can be placed in any `.R` file in the package. This is useful as it allows to load
+the module from the same file as some auxiliary \proglang{R} functions using the
+module. For the example module, the equivalent code to the `.onLoad()`
+use shown above then becomes
+
+```{r, eval=FALSE}
+loadModule("yada")
+loadModule("stdVector")
+loadModule("NumEx")
+```
+
+This feature is also used in the new Rcpp Classes introduced with Rcpp 0.9.11.
+
+### Just expose the module
+
+Alternatively, it is possible to just expose the module to the user of the package,
+and let them extract the functions and classes as needed. This uses lazy loading
+so that the module is only loaded the first time the user attempts to extract
+a function or a class with the dollar extractor.
+
+```{r, eval=FALSE}
+yada <- Module( "yada" )
+
+.onLoad <- function(libname, pkgname) {
+    # placeholder
+}
+```
+
+```{r, echo=FALSE,eval=TRUE}
+options(prompt = "> ", continue = "+ ")
+```
+
+
+## Support for modules in skeleton generator
+
+The `Rcpp.package.skeleton` function has been improved to help
+\pkg{Rcpp} modules. When the `module` argument is set to `TRUE`,
+the skeleton generator installs code that uses a simple module.
+
+```{r, eval=FALSE}
+Rcpp.package.skeleton("testmod", module = TRUE)
+```
+
+Creating a new package using \textsl{Rcpp modules} is easiest via the call to
+`Rcpp.package.skeleton()` with argument `module=TRUE` as a working
+package with three example Modules results.
+
+## Module documentation
+
+\pkg{Rcpp} defines a `prompt` method for the
+`Module` class, allowing generation of a skeleton of an Rd
+file containing some information about the module.
+
+```{r, eval=FALSE}
+yada <- Module("yada")
+prompt(yada, "yada-module.Rd")
+```
+
+We strongly recommend using a package when working with Modules.  But in case a
+manually compiled shared library has to loaded, the return argument of the
+`getDynLib()` function can be supplied as the `PACKAGE` argument to
+the `Module()` function as well.
+
+
+# Future extensions {#sec:future}
+
+`Boost.Python` has many more features that we would like to port
+to Rcpp modules : class inheritance, default arguments, enum
+types, ...
+
+# Known shortcomings {#sec:misfeatures}
+
+There are some things \textsl{Rcpp modules} is not good at:
+
+- serialization and deserialization of objects: modules are
+  implemented via an external pointer using a memory location, which is
+  non-constant and varies between session. Objects have to be re-created,
+  which is different from the (de-)serialization that R offers. So these
+  objects cannot be saved from session to session.
+- mulitple inheritance: currently, only simple class structures are
+  representable via \textsl{Rcpp modules}.
+
+# Summary
+
+This note introduced \textsl{Rcpp modules} and illustrated how to expose
+\proglang{C++} function and classes more easily to \proglang{R}.
+We hope that \proglang{R} and \proglang{C++} programmers
+find \textsl{Rcpp modules} useful.
+
+
+---
+title: \pkg{Rcpp} FAQ
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This document attempts to answer the most Frequently Asked
+  Questions (FAQ) regarding the \pkg{Rcpp}
+  \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} package.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - FAQ
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+secnumdepth: 5
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Omit \pnasbreak at end
+skip_final_break: true
+
+# Produce a pinp document
+output:
+    pinp::pinp:
+        collapse: true
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-FAQ}
+  %\VignetteKeywords{Rcpp, FAQ, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+\tableofcontents
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE)
+library(Rcpp)
+library(inline)
+options("width"=50, digits=5)
+```
+
+# Getting started
+
+## How do I get started
+
+If you have \pkg{Rcpp} installed, please execute the following command
+in \proglang{R} to access the introductory vignette (which is a
+variant of the \citet{JSS:Rcpp} and \citet{PeerJ:Rcpp,TAS:Rcpp} papers) for a
+detailed introduction, ideally followed by at least the Rcpp
+Attributes \citep{CRAN:Rcpp:Attributes} vignette:
+
+```{r, eval=FALSE}
+vignette("Rcpp-jss-2011")
+vignette("Rcpp-introduction")
+vignette("Rcpp-attributes")
+```
+
+If you do not have \pkg{Rcpp} installed, these documents should also be available
+whereever you found this document, \textsl{i.e.,} on every mirror site of CRAN.
+
+## What do I need
+
+Obviously, \proglang{R} must be installed. \pkg{Rcpp} provides a
+\proglang{C++} API as an extension to the \proglang{R} system.  As such, it
+is bound by the choices made by \proglang{R} and is also influenced by how
+\proglang{R} is configured.
+
+In general, the standard environment for building a CRAN package from source
+(particularly when it contains \proglang{C} or \proglang{C++} code) is required. This
+means one needs:
+
+- a development environment with a suitable compiler (see
+  below), header files and required libraries;
+- \proglang{R} should be built in a way that permits linking and possibly
+  embedding of \proglang{R}; this is typically ensured by the
+  `--enable-shared-lib` option;
+- standard development tools such as `make` etc.
+
+Also see the [RStudio documentation](http://www.rstudio.com/ide/docs/packages/prerequisites)
+on pre-requisites for R package development.
+
+## What compiler can I use
+
+On almost all platforms, the GNU Compiler Collection (or `gcc`, which
+is also the name of its \proglang{C} language compiler) has to be used along
+with the corresponding `g++` compiler for the \proglang{C++} language.
+A minimal suitable version is a final 4.2.* release; earlier 4.2.* were
+lacking some \proglang{C++} features (and even 4.2.1, still used on OS X as the
+last gcc release), has issues).
+
+Generally speaking, the default compilers on all the common platforms are suitable.
+
+Specific per-platform notes:
+
+\begin{description}
+  \item[Windows] users need the \texttt{Rtools} package from the site maintained by
+    Duncan Murdoch which contains all the required tools in a single package;
+    complete instructions specific to Windows are in the `R Administration'
+    manual \citep[Appendix D]{R:Administration}. As of August 2014, it still
+    installs the \texttt{gcc/g++} 4.6.* compiler which limits the ability to use
+    modern C++ standards so only \code{s-std=c++0x} is supported. R 3.1.0 and
+    above detect this and set appropriate flags.
+  \item[OS X] users, as noted in the `R Administration' manual \citep[Appendix
+    C.4]{R:Administration}, need to install the Apple Developer Tools
+    (\textsl{e.g.}, \href{https://itunes.apple.com/us/app/xcode/id497799835?mt=12}{Xcode} (OS X $\le 10.8$) or \href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode Command Line Tools} (OS X $\ge 10.9$) (as well as \texttt{gfortran} if \proglang{R} or
+    Fortran-using packages are to be built); also see \faq{q:OSX} and
+    \faq{q:OSXArma} below. Depending on whether on OS X release before or after
+    Mavericks is used, different additional installation may be needed. Consult
+    the \code{r-sig-mac} list (and its archives) for (current) details.
+  \item[Linux] user need to install the standard developement packages. Some
+    distributions provide helper packages which pull in all the required
+    packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
+\end{description}
+
+The `clang` and `clang++` compilers from the LLVM project can
+also be used. On Linux, they are inter-operable with `gcc` et al. On
+OS X, they are unfortunately not ABI compatible.  The `clang++`
+compiler is interesting as it emits much more comprehensible error messages
+than `g++` (though `g++` 4.8 and 4.9 have caught up).
+
+The Intel `icc` family has also been used successfully  as its output
+files can also be combined with those from `gcc`.
+
+## What other packages are useful
+
+Additional packages that we have found useful are:
+
+\begin{description}
+\item[\pkg{inline}] which is invaluable for direct compilation, linking and loading
+  of short code snippets---but now effectively superseded by the Rcpp
+  Attributes (see \faq{using-attributes} and
+  \faq{prototype-using-attributes}) feature provided by \pkg{Rcpp};
+\item[\pkg{RUnit}] is used for unit testing; the package is recommended and
+  will be needed to re-run some of our tests but it is not strictly required
+  during use of \pkg{Rcpp};
+\item[\pkg{rbenchmark}] to run simple timing comparisons and benchmarks; it is also
+  recommended but not required.
+\item[\pkg{microbenchmark}] is an alternative for benchmarking.
+\item[\pkg{devtools}] can help the process of building, compiling and testing
+  a package but it too is entirely optional.
+\end{description}
+
+## What licenses can I choose for my code
+
+The \pkg{Rcpp} package is licensed under the terms of the
+[GNU GPL 2 or later](http://www.gnu.org/licenses/gpl-2.0.html), just like
+\proglang{R} itself. A key goal of the \pkg{Rcpp} package is to make
+extending \proglang{R} more seamless.  But by \textsl{linking} your code against
+\proglang{R} (as well as \pkg{Rcpp}), the combination is bound by the GPL as
+well.  This is very clearly
+stated at the
+[FSF website](https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic):
+
+> Linking a GPL covered work statically or dynamically with other modules is
+> making a combined work based on the GPL covered work. Thus, the terms and
+> conditions of the GNU General Public License cover the whole combination.
+
+So you are free to license your work under whichever terms you find suitable
+(provided they are GPL-compatible, see the
+[FSF site for details](http://www.gnu.org/licenses/licenses.html)). However,
+the combined work will remain under the terms and conditions of the GNU General
+Public License.  This restriction comes from both \proglang{R} which is GPL-licensed
+as well as from \pkg{Rcpp} and whichever other GPL-licensed components you may
+be linking against.
+
+
+# Compiling and Linking
+
+## How do I use \pkg{Rcpp} in my package {#make-package}
+
+\pkg{Rcpp} has been specifically designed to be used by other packages.
+Making a package that uses \pkg{Rcpp} depends on the same mechanics that are
+involved in making any \proglang{R} package that use compiled code --- so
+reading the \textsl{Writing R Extensions} manual \citep{R:Extensions} is a required
+first step.
+
+Further steps, specific to \pkg{Rcpp}, are described in a separate vignette.
+
+```{r, eval=FALSE}
+vignette("Rcpp-package")
+```
+
+## How do I quickly prototype my code
+
+There are two toolchains which can help with this:
+
+- The older one is provided by the \pkg{inline} package and described in
+  Section~\ref{using-inline}.
+- Starting with \pkg{Rcpp} 0.10.0, the Rcpp Attributes feature (described
+  in Section~\ref{using-attributes}) offered an even easier alternative via
+  the function \rdoc{Rcpp}{evalCpp}, \rdoc{Rcpp}{cppFunction} and
+  \rdoc{Rcpp}{sourceCpp}.
+
+The next two subsections show an example each.
+
+### Using inline
+
+The \pkg{inline} package \citep{CRAN:inline} provides the functions
+\rdoc{inline}{cfunction} and \rdoc{inline}{cxxfunction}. Below is a simple
+function that uses `accumulate` from the (\proglang{C++}) Standard
+Template Library to sum the elements of a numeric vector.
+
+```{r}
+fx <- cxxfunction(signature(x = "numeric"),
+    'NumericVector xx(x);
+     return wrap(
+              std::accumulate(xx.begin(),
+                              xx.end(),
+                              0.0)
+            );',
+    plugin = "Rcpp")
+res <- fx(seq(1, 10, by=0.5))
+res
+```
+
+One might want to use code that lives in a \proglang{C++} file instead of writing
+the code in a character string in R. This is easily achieved by using
+\rdoc{base}{readLines}:
+
+```{r, eval=FALSE}
+fx <- cxxfunction(signature(),
+                  paste(readLines("myfile.cpp"),
+                        collapse="\n"),
+                  plugin = "Rcpp")
+```
+
+The `verbose` argument of \rdoc{inline}{cxxfunction} is very
+useful as it shows how \pkg{inline} runs the show.
+
+### Using Rcpp Attributes {#using-attributes}
+
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes}, and also discussed in
+\faq{prototype-using-attributes} below, permits an even easier
+route to integrating R and C++.  It provides three key functions.
+First, \rdoc{Rcpp}{evalCpp} provide a means to evaluate simple C++
+expression which is often useful for small tests, or to simply check
+if the toolchain is set up correctly. Second, \rdoc{Rcpp}{cppFunction}
+can be used to create C++ functions for R use on the fly.  Third,
+`Rcpp::sourceCpp` can integrate entire files in order to define
+multiple functions.
+
+The example above can now be rewritten as:
+
+```{r}
+cppFunction('double accu(NumericVector x) {
+   return(
+      std::accumulate(x.begin(), x.end(), 0.0)
+   );
+}')
+res <- accu(seq(1, 10, by=0.5))
+res
+```
+
+The \rdoc{Rcpp}{cppFunction} parses the supplied text, extracts the desired
+function names, creates the required scaffolding, compiles, links and loads
+the supplied code and makes it available under the selected identifier.
+
+Similarly, \rdoc{Rcpp}{sourceCpp} can read in a file and compile, link and load
+the code therein.
+
+## How do I convert my prototyped code to a package {#from-inline-to-package}
+
+Since release 0.3.5 of \pkg{inline}, one can combine \faq{using-inline} and
+\faq{make-package}. See `help("package.skeleton-methods")` once
+\pkg{inline} is loaded and use the skeleton-generating functionality to
+transform a prototyped function into the minimal structure of a package.
+After that you can proceed with working on the package in the spirit of
+\faq{make-package}.
+
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes} also offers a means to convert
+functions written using Rcpp Attributes into a function via the
+\rdoc{Rdoc}{compileAttributes} function; see the vignette for details.
+
+## How do I quickly prototype my code in a package {#using-a-package}
+
+The simplest way may be to work directly with a package.  Changes to both the
+\proglang{R} and \proglang{C++} code can be compiled and tested from the
+command line via:
+
+```{bash, eval = FALSE}
+$ R CMD INSTALL mypkg && \
+     Rscript --default-packages=mypkg -e \
+         'someFunctionToTickle(3.14)'
+```
+
+This first installs the packages, and then uses the command-line tool
+\rdoc{utils}{Rscript} (which ships with `R`) to load the package, and execute
+the \proglang{R} expression following the `-e` switch. Such an
+expression can contain multiple statements separated by semicolons.
+\rdoc{utils}{Rscript} is available on all three core operating systems.
+
+On Linux, one can also use `r` from the `littler` package by Horner
+and Eddelbuettel which is an alternative front end to \proglang{R} designed
+for both `#!` (hashbang) scripting and command-line use. It has slightly
+faster start-up times than \rdoc{utils}{Rscript}; and both give a guaranteed clean
+slate as a new session is created.
+
+The example then becomes
+
+```{bash, eval = FALSE}
+$ R CMD INSTALL mypkg && \
+     r -l mypkg -e 'someFunctionToTickle(3.14)'
+```
+
+The `-l` option calls 'suppressMessages(library(mypkg))' before executing the
+\proglang{R} expression. Several packages can be listed, separated by a comma.
+
+More choice are provide by the \pkg{devtools} package, and by using
+RStudio. See the respective documentation for details.
+
+## But I want to compile my code with R CMD SHLIB {#using-r-cmd-shlib}
+
+The recommended way is to create a package and follow \faq{make-package}. The
+alternate recommendation is to use \pkg{inline} and follow \faq{using-inline}
+because it takes care of all the details.
+
+However, some people have shown that they prefer not to follow recommended
+guidelines and compile their code using the traditional `R CMD SHLIB`. To
+do so, we need to help `SHLIB` and let it know about the header files
+that \pkg{Rcpp} provides and the \proglang{C++} library the code must link
+against.
+
+On the Linux command-line, you can do the following:
+
+```{bash, eval = FALSE}
+$ # if Rcpp older than 0.11.0
+$ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
+$ export PKG_CXXFLAGS=\
+              `Rscript -e "Rcpp:::CxxFlags()"`
+$ R CMD SHLIB myfile.cpp
+```
+
+which first defines and exports two relevant environment variables which
+`R CMD SHLIB` then relies on.  On other operating systems, appropriate
+settings may have to be used to define the environment variables.
+
+This approach corresponds to the very earliest ways of building programs and
+can still be found in some deprecated documents (as _e.g._ some of
+Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
+recommended as there are tools and automation mechanisms that can do the work
+for you.
+
+\pkg{Rcpp} versions 0.11.0 or later can do with the definition of
+`PKG_LIBS` as a user-facing library is no longer needed (and hence no
+longer shipped with the package).  One still needs to set `PKG_CXXFLAGS`
+to tell R where the \pkg{Rcpp} headers files are located.
+
+Once `R CMD SHLIB` has created the dyanmically-loadable file (with
+extension `.so` on Linux, `.dylib` on OS X or `.dll` on
+Windows), it can be loaded in an R session via \rdoc{base}{dyn.load}, and the
+function can be executed via \rdoc{base}{.Call}.  Needless to say, we
+\emph{strongly} recommend using a package, or at least Rcpp Attributes as
+either approach takes care of a lot of these tedious and error-prone manual
+steps.
+
+
+## But R CMD SHLIB still does not work
+
+We have had reports in the past where build failures occurred when users had
+non-standard code in their `~/.Rprofile` or `Rprofile.site` (or
+equivalent) files.
+
+If such code emits text on `stdout`, the frequent and implicit
+invocation of `Rscript -e "..."` (as in \faq{using-r-cmd-shlib}
+above) to retrieve settings directly from \pkg{Rcpp} will fail.
+
+You may need to uncomment such non-standard code, or protect it by wrapping
+it inside `if (interactive())`, or possibly try to use
+`Rscript --vanilla` instead of plain `Rscript`.
+
+## What about `LinkingTo `
+
+\proglang{R} has only limited support for cross-package linkage.
+
+We now employ the `LinkingTo` field of the `DESCRIPTION` file
+of packages using \pkg{Rcpp}. But this only helps in having \proglang{R}
+compute the location of the header files for us.
+
+The actual library location and argument still needs to be provided by the
+user. How to do so has been shown above, and we recommned you use either
+\faq{make-package} or \faq{using-inline} both which use the \pkg{Rcpp}
+function `Rcpp:::LdFlags()`.
+
+If and when `LinkingTo` changes and lives up to its name, we will be
+sure to adapt \pkg{Rcpp} as well.
+
+An important change arrive with \pkg{Rcpp} release 0.11.0 and concern the
+automatic registration of functions; see Section~\ref{function-registration} below.
+
+
+## Does \pkg{Rcpp} work on windows
+
+Yes of course. See the Windows binaries provided by CRAN.
+
+## Can I use \pkg{Rcpp} with Visual Studio
+
+Not a chance.
+
+And that is not because we are meanies but because \proglang{R} and Visual
+Studio simply do not get along. As \pkg{Rcpp} is all about extending
+\proglang{R} with \proglang{C++} interfaces, we are bound by the available
+toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
+complain to its vendor if you are still upset.
+
+## I am having problems building Rcpp on macOS, any help  {#q:OSX}
+
+There are three known issues regarding Rcpp build problems on macOS.  If you are
+building packages with RcppArmadillo, there is yet another issue that is
+addressed separately in \faq{q:OSXArma} below.
+
+### Lack of a Compiler
+
+By default, macOS does not ship with an active compiler. Depending on the
+\proglang{R} version being used, there are different development environment
+setup procedures. For the current \proglang{R} version, we recommend observing
+the official procedure used in
+[Section 6.3.2 macOS](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS-packages)
+and [Section C.3 macOS](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS)
+of the [R Installation and Administration](https://cran.r-project.org/doc/manuals/r-release/R-admin.html)
+manual.
+
+### Differing macOS R Versions Leading to Binary Failures
+
+There are currently _three_ distinct versions of R for macOS.
+The first version is a legacy version meant for macOS 10.6 (Snow Leopard) -
+10.8 (Mountain Lion). The second version is for more recent system
+macOS 10.9 (Mavericks) and 10.10 (Yosemite). Finally, the third and most
+up-to-date version supports macOS 10.11 (El Capitan), 10.12 (Sierra), and 10.13 (High Sierra).
+The distinction comes as a result of a change in the compilers shipped with the
+operating system as highlighted previously. As a result, avoid sending
+\textbf{package binaries} to collaborators if they are working on older
+operating systems as the \proglang{R} binaries for these versions will not be
+able to mix. In such cases, it is better to provide collaborators with the
+\textbf{package source} and allow them to build the package locally.
+
+### OpenMP Support
+
+By default, the macOS operating environment lacks the ability to parallelize
+sections of code using the  \proglang{[OpenMP](http://openmp.org/wp/)}
+standard. Within \proglang{R} 3.4.*, the default developer environment was
+_changed_ to allow for \proglang{OpenMP} to be used on macOS by using
+a non-default toolchain provided by R Core Team maintainers for macOS.
+Having said this, it is still important to protect any reference to
+\proglang{OpenMP} as some users may not yet have the ability to
+use \proglang{OpenMP}.
+
+To setup the appropriate protection for using \proglang{OpenMP}, the process
+is two-fold. First, protect the inclusion of headers with:
+
+```cpp
+#ifdef _OPENMP
+  #include <omp.h>
+#endif
+```
+
+Second, when parallelizing portions of code use:
+
+```cpp
+#ifdef _OPENMP
+    // multithreaded OpenMP version of code
+#else
+    // single-threaded version of code
+#endif
+```
+
+Under this approach, the code will be _safely_ parallelized when
+support exists for \proglang{OpenMP} on Windows, macOS, and Linux.
+
+### Additional Information and Help
+
+Below are additional resources that provide information regarding compiling Rcpp code on macOS.
+
+1. A helpful post was provided by Brian Ripley regarding the use of
+   compiling R code with macOS in April 2014
+   [on the `r-sig-mac` list](https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html),
+   which is generally recommended for OS X-specific questions and further consultation.
+2. Another helpful write-up for installation / compilation on OS X Mavericks is provided
+   [by the BioConductor project](http://www.bioconductor.org/developers/how-to/mavericks-howto/).
+3. Lastly, another resource that exists for installation / compilation
+   help is provided at
+   <http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/>.
+
+\textbf{Note:} If you are running into trouble compiling code with \pkg{RcppArmadillo}, please also see \faq{q:OSXArma} listed below.
+
+<!--
+At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
+(just like CRAN) supports all OS X releases greater or equal to 10.5.
+However, building \pkg{Rcpp} from source (or building packages using
+\pkg{Rcpp}) also requires a recent-enough version of Xcode. For the
+\textsl{Leopard} release of OS X, the current version is 3.1.4 which can be
+downloaded free of charge from the Apple Developer site. Users may have to
+manually select `g++-4.2` via the symbolic link `/usr/bin/g++`.
+The \textsl{Snow Leopard} release already comes with Xcode 3.2.x and work as
+is.
+-->
+
+## Does \pkg{Rcpp} work on solaris/suncc
+
+Yes, it generally does.  But as we do not have access to such systems, some
+issues persist on the CRAN test systems.
+
+## Does \pkg{Rcpp} work with Revolution R
+
+We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
+with the compilers used by Revolution R (if those differ from the defaults).
+
+## Is it related to Rho (formerly CXXR)
+
+Rho, previously known as CXXR, is an ambitious project that aims to
+totally refactor the \proglang{R} interpreter in \proglang{C++}. There
+are a few similaritites with \pkg{Rcpp} but the projects are
+unrelated.
+
+Rho / CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
+but they do it in very different ways.
+
+## How do I quickly prototype my code using Attributes {#prototype-using-attributes}
+
+\pkg{Rcpp} version 0.10.0 and later offer a new feature 'Rcpp Attributes'
+which is described in detail in its own vignette
+\citep{CRAN:Rcpp:Attributes}.  In short, it offers functions \rdoc{Rcpp}{evalCpp},
+\rdoc{Rcpp}{cppFunction} and \rdoc{Rcpp}{sourceCpp} which extend the functionality of the
+\rdoc{Rcpp}{cxxfunction} function.
+
+
+## What about the new 'no-linking' feature {#function-registration}
+
+Starting with \pkg{Rcpp} 0.11.0, functionality provided by \pkg{Rcpp} and
+used by packages built with \pkg{Rcpp} accessed via the registration facility
+offered by R (and which is used by \pkg{lme4} and \pkg{Matrix}, as well as by
+\pkg{xts} and \pkg{zoo}).  This requires no effort from the user /
+programmer, and even frees us from explicit linking instruction. In most
+cases, the files `src/Makevars` and `src/Makevars.win` can now be
+removed. Exceptions are the use of \pkg{RcppArmadillo} (which needs an entry
+`PKG_LIBS=$(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)`) and packages linking
+to external libraries they use.
+
+But for most packages using \pkg{Rcpp}, only two things are required:
+
+- an entry in `DESCRIPTION` such as `Imports: Rcpp` (which may
+  be versioned as in `Imports: Rcpp (>= 0.11.0)`), and
+- an entry in `NAMESPACE` to ensure \pkg{Rcpp} is correctly
+  instantiated, for example `importFrom(Rcpp, evalCpp)`.
+
+The name of the symbol does not really matter; once one symbol is imported all
+symbols should be available.
+
+## I am having problems building RcppArmadillo on macOS, any help  {#q:OSXArma}
+
+Odds are your build failures are due to the absence of `gfortran`
+and its associated libraries. The errors that you may receive are related to either
+`-lgfortran` or `-lquadmath`.
+
+To rectify the root of these errors, there are two options available. The first
+option is to download and use a fixed set of `gfortran` binaries that are
+used to compile R for macOS (e.g. given by the maintainers of the macOS build).
+The second option is to either use pre-existing `gfortran` binaries on
+your machine or download the latest. These options are described in-depth
+in [Section C.3 macOS](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS)
+of the [R Installation and Administration](https://cran.r-project.org/doc/manuals/r-release/R-admin.html)
+manual. Please consult this manual for up-to-date information regarding `gfortran`
+binaries on macOS. We have also documented _other_ common macOS compile
+issues in Section \faq{q:OSX}.
+
+# Examples
+
+The following questions were asked on the
+[Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
+mailing list, which is our preferred place to ask questions as it guarantees
+exposure to a number of advanced Rcpp users.  The
+[StackOverflow tag for rcpp](http://stackoverflow.com/questions/tagged/rcpp)
+is an alternative; that site is also easily searchable.
+
+Several dozen fully documented examples are provided at the
+[Rcpp Gallery](http://gallery.rcpp.org) -- which is also open for new contributions.
+
+
+## Can I use templates with \pkg{Rcpp}
+
+> I'm curious whether one can provide a class definition inline in an R
+> script and then initialize an instance of the class and call a method on
+> the class, all inline in R.
+
+This question was initially about using templates with \pkg{inline}, and we
+show that (older) answer first. It is also easy with Rcpp Attributes which is
+what we show below.
+
+
+### Using inline with Templated Code
+Most certainly, consider this simple example of a templated class
+which squares its argument:
+
+```{r}
+inc <- 'template <typename T>
+        class square :
+          public std::unary_function<T,T> {
+            public:
+              T operator()( T t) const {
+                return t*t;
+              }
+        };
+       '
+
+src <- '
+       double x = Rcpp::as<double>(xs);
+       int i = Rcpp::as<int>(is);
+       square<double> sqdbl;
+       square<int> sqint;
+       return Rcpp::DataFrame::create(
+                    Rcpp::Named("x", sqdbl(x)),
+                    Rcpp::Named("i", sqint(i)));
+       '
+fun <- cxxfunction(signature(xs="numeric",
+                             is="integer"),
+                   body=src, include=inc,
+                   plugin="Rcpp")
+
+fun(2.2, 3L)
+```
+
+### Using Rcpp Attributes with Templated Code
+
+We can also use 'Rcpp Attributes' \citep{CRAN:Rcpp:Attributes}---as described
+in \faq{using-attributes} and \faq{prototype-using-attributes} above. Simply
+place the following code into a file and use \rdoc{Rcpp}{sourceCpp} on it. It
+will even run the R part at the end.
+
+```cpp
+#include <Rcpp.h>
+
+template <typename T> class square :
+    public std::unary_function<T,T> {
+      public:
+      T operator()( T t) const {
+        return t*t ;
+      }
+};
+
+// [[Rcpp::export]]
+Rcpp::DataFrame fun(double x, int i) {
+       square<double> sqdbl;
+       square<int> sqint;
+       return Rcpp::DataFrame::create(
+           Rcpp::Named("x", sqdbl(x)),
+           Rcpp::Named("i", sqint(i)));
+}
+
+/*** R
+fun(2.2, 3L)
+*/
+```
+
+## Can I do matrix algebra with Rcpp {#matrix-algebra}
+
+
+> \pkg{Rcpp} allows element-wise operations on vector and matrices through
+> operator overloading and STL interface, but what if I want to multiply a
+> matrix by a vector, etc ...
+
+\noindent Currently, \pkg{Rcpp} does not provide binary operators to allow operations
+involving entire objects. Adding operators to \pkg{Rcpp} would be a major
+project (if done right) involving advanced techniques such as expression
+templates. We currently do not plan to go in this direction, but we would
+welcome external help. Please send us a design document.
+
+However, we have developed the \pkg{RcppArmadillo} package
+\citep{CRAN:RcppArmadillo,Eddelbuettel+Sanderson:2014:RcppArmadillo} that
+provides a bridge between \pkg{Rcpp} and \pkg{Armadillo}
+\citep{Sanderson:2010:Armadillo}. \pkg{Armadillo}
+supports binary operators on its types in a way that takes full advantage of
+expression templates to remove temporaries and allow chaining of
+operations. That is a mouthful of words meaning that it makes the code go
+faster by using fiendishly clever ways available via the so-called template
+meta programming, an advanced \proglang{C++} technique.
+Also, the \pkg{RcppEigen} package \citep{JSS:RcppEigen} provides an alternative using the
+[Eigen](http://eigen.tuxfamily.org) template library.
+
+### Using inline with RcppArmadillo {#using-inline-armadillo}
+
+The following example is adapted from the examples available at the project
+page of Armadillo. It calculates $x' \times Y^{-1} \times z$
+
+```{r, eval = FALSE}
+lines = '// copy the data to armadillo structures
+arma::colvec x = Rcpp::as<arma::colvec> (x_);
+arma::mat Y = Rcpp::as<arma::mat>(Y_) ;
+arma::colvec z = Rcpp::as<arma::colvec>(z_) ;
+
+// calculate the result
+double result = arma::as_scalar(
+                 arma::trans(x) * arma::inv(Y) * z
+                );
+
+// return it to R
+return Rcpp::wrap( result );'
+
+writeLines(a, file = "myfile.cpp")
+```
+
+If stored in a file `myfile.cpp`, we can use it via \pkg{inline}:
+
+```{r, eval = FALSE}
+fx <- cxxfunction(signature(x_="numeric",
+                            Y_="matrix",
+                            z_="numeric" ),
+                  paste(readLines("myfile.cpp"),
+                        collapse="\n"),
+                  plugin="RcppArmadillo" )
+fx(1:4, diag(4), 1:4)
+```
+
+The focus is on the code `arma::trans(x) * arma::inv(Y) * z`, which
+performs the same operation as the R code `t(x) %*% solve(Y) %*% z`,
+although Armadillo turns it into only one operation, which makes it quite fast.
+Armadillo benchmarks against other \proglang{C++} matrix algebra libraries
+are provided on [the Armadillo website](http://arma.sourceforge.net/speed.html).
+
+It should be noted that code below depends on the version `0.3.5` of
+\pkg{inline} and the version `0.2.2` of \pkg{RcppArmadillo}.
+
+### Using Rcpp Attributes with RcppArmadillo
+
+We can also write the same example for use with Rcpp Attributes:
+
+```cpp
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// [[Rcpp::export]]
+double fx(arma::colvec x, arma::mat Y,
+          arma::colvec z) {
+    // calculate the result
+    double result = arma::as_scalar(
+        arma::trans(x) * arma::inv(Y) * z
+    );
+    return result;
+}
+
+/*** R
+fx(1:4, diag(4), 1:4)
+*/
+```
+
+Here, the additional `Rcpp::depends(RcppArmadillo)` ensures that code
+can be compiled against the \pkg{RcppArmadillo} header, and that the correct
+libraries are linked to the function built from the supplied code example.
+
+Note how we do not have to concern ourselves with conversion; R object
+automatically become (Rcpp)Armadillo objects and we can focus on the single
+computing a (scalar) result.
+
+## Can I use code from the Rmath header and library with \pkg{Rcpp}
+
+> Can I call functions defined in the Rmath header file and the
+> standalone math library for R--as for example the random number generators?
+
+\noindent Yes, of course. This math library exports a subset of R, but \pkg{Rcpp} has
+access to much more.  Here is another simple example. Note how we have to use
+and instance of the `RNGScope` class to set and re-set the
+random-number generator. This also illustrates Rcpp sugar as we are using a
+vectorised call to `rnorm`. Moreover, because the RNG is reset, the
+two calls result in the same random draws. If we wanted to control the draws,
+we could explicitly set the seed after the `RNGScope` object has been
+instantiated.
+
+```{r}
+fx <- cxxfunction(signature(),
+                  'RNGScope();
+                   return rnorm(5, 0, 100);',
+                  plugin="Rcpp")
+set.seed(42)
+fx()
+fx()
+```
+
+Newer versions of Rcpp also provide the actual Rmath function in the `R`
+namespace, \textsl{i.e.} as `R::rnorm(m,s)` to obtain a scalar
+random variable distributed as $N(m,s)$.
+
+Using Rcpp Attributes, this can be as simple as
+
+```{r}
+cppFunction('Rcpp::NumericVector ff(int n) {
+              return rnorm(n, 0, 100);  }')
+set.seed(42)
+ff(5)
+ff(5)
+set.seed(42)
+rnorm(5, 0, 100)
+rnorm(5, 0, 100)
+```
+
+This illustrates the Rcpp Attributes adds the required `RNGScope` object
+for us. It also shows how setting the seed from R affects draws done via C++
+as well as R, and that identical random number draws are obtained.
+
+## Can I use `NA` and `Inf` with \pkg{Rcpp}
+
+> R knows about `NA` and `Inf`. How do I use them from C++?
+
+\noindent Yes, see the following example:
+
+```{r}
+src <- 'Rcpp::NumericVector v(4);
+        v[0] = R_NegInf; // -Inf
+        v[1] = NA_REAL;  // NA
+        v[2] = R_PosInf; // Inf
+        v[3] = 42;       // c.f. Hitchhiker Guide
+        return Rcpp::wrap(v);'
+fun <- cxxfunction(signature(), src, plugin="Rcpp")
+fun()
+```
+
+Similarly, for Rcpp Attributes:
+
+```cpp
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector fun(void) {
+    Rcpp::NumericVector v(4);
+    v[0] = R_NegInf; // -Inf
+    v[1] = NA_REAL;  // NA
+    v[2] = R_PosInf; // Inf
+    v[3] = 42;       // c.f. Hitchhiker Guide
+    return v;
+}
+```
+
+## Can I easily multiply matrices
+
+> Can I multiply matrices easily?
+
+\noindent Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
+wonderful Armadillo library described above in \faq{matrix-algebra}:
+
+```{r, eval = FALSE}
+txt <- 'arma::mat Am = Rcpp::as< arma::mat >(A);
+        arma::mat Bm = Rcpp::as< arma::mat >(B);
+        return Rcpp::wrap( Am * Bm );'
+mmult <- cxxfunction(signature(A="numeric",
+                               B="numeric"),
+                     body=txt,
+                     plugin="RcppArmadillo")
+A <- matrix(1:9, 3, 3)
+B <- matrix(9:1, 3, 3)
+C <- mmult(A, B)
+C
+```
+
+Armadillo supports a full range of common linear algebra operations.
+
+The \pkg{RcppEigen} package provides an alternative using the
+[Eigen](http://eigen.tuxfamily.org) template library.
+
+Rcpp Attributes, once again, makes this even easier:
+
+```cpp
+
+#include <RcppArmadillo.h>
+
+// [[Rcpp::depends(RcppArmadillo)]]
+
+// [[Rcpp::export]]
+arma::mat mult(arma::mat A, arma::mat B) {
+    return A*B;
+}
+
+/*** R
+A <- matrix(1:9, 3, 3)
+B <- matrix(9:1, 3, 3)
+mult(A,B)
+*/
+```
+
+which can be built, and run, from R via a simple \rdoc{Rcpp}{sourceCpp}
+call---and will also run the small R example at the end.
+
+## How do I write a plugin for \pkg{inline} and/or Rcpp Attributes
+
+> How can I create my own plugin for use by the \pkg{inline} package?
+
+Here is an example which shows how to it using GSL libraries as an
+example. This is merely for demonstration, it is also not perfectly general
+as we do not detect locations first---but it serves as an example:
+
+```{r, eval = FALSE}
+# simple example of seeding RNG and
+# drawing one random number
+gslrng <- '
+int seed = Rcpp::as<int>(par) ;
+gsl_rng_env_setup();
+gsl_rng *r = gsl_rng_alloc (gsl_rng_default);
+gsl_rng_set (r, (unsigned long) seed);
+double v = gsl_rng_get (r);
+gsl_rng_free(r);
+return Rcpp::wrap(v);'
+
+plug <- Rcpp::Rcpp.plugin.maker(
+    include.before = "#include <gsl/gsl_rng.h>",
+    libs = paste(
+"-L/usr/local/lib/R/site-library/Rcpp/lib -lRcpp",
+"-Wl,-rpath,/usr/local/lib/R/site-library/Rcpp/lib",
+"-L/usr/lib -lgsl -lgslcblas -lm")
+)
+registerPlugin("gslDemo", plug )
+fun <- cxxfunction(signature(par="numeric"),
+                   gslrng, plugin="gslDemo")
+fun(0)
+```
+
+Here the \pkg{Rcpp} function `Rcpp.plugin.maker` is used to create a
+plugin 'plug' which is then registered, and subsequently used by \pkg{inline}.
+
+The same plugins can be used by Rcpp Attributes as well.
+
+## How can I pass one additional flag to the compiler
+
+> How can I pass another flag to the `g++` compiler without writing a new plugin?
+
+The quickest way is to modify the return value from an existing plugin. Here
+we use the default one from \pkg{Rcpp} itself in order to pass the new flag
+`-std=c++0x`. As it does not set the `PKG_CXXFLAGS` variable, we
+simply assign this. For other plugins, one may need to append to the existing
+values instead.
+
+```{r, eval=FALSE}
+myplugin <- getPlugin("Rcpp")
+myplugin$env$PKG_CXXFLAGS <- "-std=c++11"
+f <- cxxfunction(signature(),
+                 settings = myplugin, body = '
+    // fails without -std=c++0x
+    std::vector<double> x = { 1.0, 2.0, 3.0 };
+    return Rcpp::wrap(x);
+')
+f()
+```
+
+For Rcpp Attributes, the attributes `Rcpp::plugin()` can be
+used. Currently supported plugins are for C++11 as well as for OpenMP.
+
+## How can I set matrix row and column names
+
+> Ok, I can create a matrix, but how do I set its row and columns names?
+
+Pretty much the same way as in \proglang{R} itself: We define a list with two
+character vectors, one each for row and column names, and assign this to the
+`dimnames` attribute:
+
+```{r, eval = FALSE}
+src <- '
+  Rcpp::NumericMatrix x(2,2);
+  x.fill(42);           // or another value
+  Rcpp::List dimnms =   // list with 2 vecs
+    Rcpp::List::create( // with static names
+      Rcpp::CharacterVector::create("cc", "dd"),
+      Rcpp::CharacterVector::create("ee", "ff")
+    );
+  // and assign it
+  x.attr("dimnames") = dimnms;
+  return(x);
+'
+fun <- cxxfunction(signature(),
+                   body=src, plugin="Rcpp")
+fun()
+```
+
+The same logic, but used with Rcpp Attributes:
+
+```cpp
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::List fun(void) {
+    Rcpp::NumericMatrix x(2,2);
+    x.fill(42);           // or another value
+    Rcpp::List dimnms =   // list with 2 vecs
+      Rcpp::List::create( // with static names
+        Rcpp::CharacterVector::create("cc", "dd"),
+        Rcpp::CharacterVector::create("ee", "ff"));
+    // and assign it
+    x.attr("dimnames") = dimnms;
+    return(x);
+}
+```
+
+## Why can long long types not be cast correctly
+
+That is a good and open question. We rely on the basic \proglang{R} types,
+notably `integer` and `numeric`.  These can be cast to and from
+\proglang{C++} types without problems.  But there are corner cases.  The
+following example, contributed by a user, shows that we cannot reliably cast
+`long` types (on a 64-bit machines).
+
+```{r, eval = FALSE}
+BigInts <- cxxfunction(signature(),
+  'std::vector<long> bigints;
+   bigints.push_back(12345678901234567LL);
+   bigints.push_back(12345678901234568LL);
+   Rprintf("Difference of %ld\\n",
+       12345678901234568LL - 12345678901234567LL);
+   return wrap(bigints);',
+  plugin="Rcpp", includes="#include <vector>")
+
+retval <- BigInts()
+
+# Unique 64-bit integers were cast to identical
+# lower precision numerics behind my back with
+# no warnings or errors whatsoever.  Error.
+
+stopifnot(length(unique(retval)) == 2)
+```
+
+While the difference of one is evident at the \proglang{C++} level, it is no
+longer present once cast to \proglang{R}. The 64-bit integer values get cast
+to a floating point types with a 53-bit mantissa. We do not have a good
+suggestion or fix for casting 64-bit integer values: 32-bit integer values
+fit into `integer` types, up to 53 bit precision fits into
+`numeric` and beyond that truly large integers may have to converted
+(rather crudely) to text and re-parsed. Using a different representation as
+for example from the [GNU Multiple Precision Arithmetic Library](http://gmplib.org/)
+may be an alternative.
+
+## What LaTeX packages do I need to typeset the vignettes
+
+> I would like to typeset the vignettes. What do I need?
+
+The [TeXLive](https://www.tug.org/texlive/) distribution seems to get
+bigger and bigger.  What you need to install may depend on your operating
+system.
+
+Specific per-platform notes:
+
+- **Windows** users probably want the [MiKTeX](http://miktex.org/).
+  Suggestions for a more detailed walk through would be appreciated.
+- **OS X** users seem to fall into camps which like or do not like brew /
+  homebrew. One suggestion was to install
+  [MacTeX](https://tug.org/mactex/mactex-download.html) but at
+  approximately 2.5gb (as of January 2016) this is not lightweight.
+- **Linux** users probably want the full
+  [TeXLive](https://www.tug.org/texlive/) set from their distribution. On
+  [Debian](http://www.debian.org) these packages are installed to build
+  the R package itself: `texlive-base, texlive-latex-base,
+    texlive-generic-recommended, texlive-fonts-recommended,
+    texlive-fonts-extra, texlive-extra-utils, texlive-latex-recommended,
+    texlive-latex-extra`.  Using `texlive-full` may be a shortcut.
+  Fedora and other distributions should have similar packages.
+
+## Why is there a limit of 20 on some constructors
+
+> Ok, I would like to pass $N$ object but you only allow 20. How come?
+
+In essence, and in order to be able to compile it with the largest number of
+compilers, \pkg{Rcpp} is constrained by the older C++ standards which do not
+support variadic function arguments.  So we actually use macros and code
+generator scripts to explicitly enumerate arguments, and that number has to stop
+at some limit. We chose 20.
+
+A good discussion is available at
+[this StackOverflow question](http://stackoverflow.com/questions/27371543)
+concering data.frame creation with \pkg{Rcpp}. One solution offers a custom
+`ListBuilder` class to circumvent the limit; another suggests to simply
+nest lists.
+
+## Can I use default function parameters with \pkg{Rcpp}
+
+Yes, you can use default parameters with _some_ limitations.
+The limitations are mainly related to string literals and empty vectors.
+This is what is currently supported:
+
+- String literals delimited by quotes (e.g. `"foo"`)
+- Integer and Decimal numeric values (e.g. `10` or `4.5`)
+- Pre-defined constants including:
+    - Booleans: `true` and `false`
+    - Null Values: `R_NilValue`, `NA_STRING`, `NA_INTEGER`, `NA_REAL`, and `NA_LOGICAL`.
+- Selected vector types can be instantiated using the empty form of the
+  `::create` static member function.
+    - `CharacterVector`, `IntegerVector`, and `NumericVector`
+- Matrix types instantiated using the rows, cols constructor
+  `Rcpp::<Type>Matrix n(rows,cols)`
+    - `CharacterMatrix`, `IntegerMatrix`, and `NumericMatrix`
+
+To illustrate, please consider the following example that provides a short
+how-to:
+
+```cpp
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+void sample_defaults(
+        NumericVector x =
+        NumericVector::create(), // Size 0 vector
+        bool bias = true,        // Set to true
+        std::string method =
+            "rcpp rules!") {     // Set string
+
+    Rcpp::Rcout << "x size: " << x.size() << ", ";
+    Rcpp::Rcout << "bias value: " << bias << ", ";
+    Rcpp::Rcout << "method value: " << ".";
+
+}
+
+/*** R
+sample_defaults()                 # all defaults
+sample_defaults(1:5)              # supply x values
+
+sample_defaults(bias = FALSE,     # supply bool
+                method = "Rlang") # and string
+*/
+```
+
+Note: In `cpp`, the default `bool` values are `true` and
+`false` whereas in R the valid types are `TRUE` or `FALSE`.
+
+## Can I use C++11, C++14, C++17, ... with \pkg{Rcpp}
+
+But of course.  In a nutshell, this boils down to \emph{what your compiler
+  supports}, and also \emph{what R supports}.  We expanded a little on this in
+[Rcpp Gallery article](http://gallery.rcpp.org/articles/rcpp-and-c++11-c++14-c++17/) providing more detail.  What follows in an abridged summary.
+
+You can always \emph{locally} set appropriate `PKG_CXXFLAGS` as an
+environment variable, or via `~/.R/Makevars`. You can also plugins and/or R
+support from `src/Makevars`:
+
+- _C++11_: has been supported since early 2013 via a plugin selecting
+  the language standard which is useful for `sourceCpp()` etc. For
+  packages, R has supported it since R 3.1.0 which added the option to select
+  the language standard via `CXX_STD = CXX11`. As of early 2017, over 120
+  packages on CRAN use this.
+- _C++14_: has been supported since early 2016 via a plugin selecting
+  the language standard which is useful for `sourceCpp()` etc. For
+  packages, R supports it since R 3.4.0 adding the option to select the language
+  standard via `CXX_STD = CXX14`.
+- _C++17_: is itself more experimental now, but if you have a compiler
+  supporting (at least parts of) it, you can use it via plugin (starting with
+  Rcpp 0.12.10) for use via `sourceCpp()`, or via `PKG_CXXFLAGS` or
+  other means to set compiler options. R support may be available at a later
+  date.
+
+## How do I use it within (Python's) Conda setup?
+
+In a comment to [issue ticket #770](https://github.com/RcppCore/Rcpp/issues/770#issuecomment-346716808) it is stated that running
+
+```sh
+conda install gxx_linux-64
+```
+
+helps within this environment as it installs the corresponding
+`x86_64-conda_cos6-linux-gnu-c++` compiler. Documentation for this and other
+systems is provided
+[at this page](https://conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html).
+
+# Support
+
+## Is the API documented
+
+You bet. We use \proglang{doxygen} to generate html, latex and man page
+documentation from the source. The html documentation is available for
+[browsing](http://dirk.eddelbuettel.com/code/rcpp/html/index.html), as a
+[very large pdf file](http://dirk.eddelbuettel.com/code/rcpp/Rcpp_refman.pdf),
+and all three formats are also available a zip-archives:
+[html](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-html.zip),
+[latex](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip), and
+[man](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip).
+
+## Does it really work
+
+We take quality seriously and have developped an extensive unit test suite to
+cover many possible uses of the \pkg{Rcpp} API.
+
+We are always on the look for more coverage in our testing. Please let us know
+if something has not been tested enough.
+
+## Where can I ask further questions
+
+The
+[Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
+mailing list hosted at R-forge is by far the best place.  You may also want
+to look at the list archives to see if your question has been asked before.
+
+You can also use [StackOverflow via its 'rcpp' tag](http://stackoverflow.com/questions/tagged/rcpp).
+
+## Where can I read old questions and answers
+
+The normal [Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
+mailing list hosting at R-forge contains an archive, which can be
+[searched via swish](http://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel).
+
+Alternatively, one can also use
+[Mail-Archive on Rcpp-devel](http://www.mail-archive.com/rcpp-devel@lists.r-forge.r-project.org/info.html)
+which offers web-based interfaces, including searching.
+
+## I like it. How can I help {#helping}
+
+We maintain a list of
+[open issues in the Github repository](https://github.com/RcppCore/Rcpp/issues?state=open).
+We welcome pull requests and suggest that code submissions
+come corresponding unit tests and, if applicable, documentation.
+
+If you are willing to donate time and have skills in C++, let us know. If you are
+willing to donate money to sponsor improvements, let us know too.
+
+You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
+that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could blog about
+it, or get the word out otherwise.
+
+Last but not least the [Rcpp Gallery](http://gallery.rcpp.org) is open
+for user contributions.
+
+## I don't like it. How can I help {#dont-like-help}
+
+It is very generous of you to still want to help. Perhaps you can tell us
+what it is that you dislike. We are very open to \emph{constructive} criticism.
+
+## Can I have commercial support for \pkg{Rcpp}
+
+Sure you can. Just send us an email, and we will be happy to discuss the
+request.
+
+## I want to learn quickly. Do you provide training courses
+
+Yes. Just send us an email.
+
+## Where is the code repository
+
+From late 2008 to late 2013, we used the
+[Subversion repository at R-Forge](https://r-forge.r-project.org/scm/?group_id=155)
+which contained \pkg{Rcpp} and a number of related packages. It still has the full
+history as well as number of support files.
+
+We have since switched to a [Git repository at Github](http://github.com/RcppCore/Rcpp)
+for \pkg{Rcpp} (as well as for \pkg{RcppArmadillo} and \pkg{RcppEigen}).
+
+# Known Issues
+
+Contained within this section is a list of known issues regarding \pkg{Rcpp}.
+The issues listed here are either not able to be fixed due to breaking
+application binary interface (ABI), would impact the ability to reproduce
+pre-existing results, or require significant work. Generally speaking, these
+issues come to light only when pushing the edge capabilities of \pkg{Rcpp}.
+
+## \pkg{Rcpp} changed the (const) object I passed by value
+
+\pkg{Rcpp} objects are wrappers around the underlying \proglang{R} objects' `SEXP`,
+or S-expression. The `SEXP` is a pointer variable that holds the location
+of where the \proglang{R} object data has been stored \citep[][Section 1.1]{R:Internals}.
+That is to say, the `SEXP` does _not_ hold the actual data of the
+\proglang{R} object but merely a reference to where the data resides. When creating a new
+\pkg{Rcpp} object for an \proglang{R} object to enter \proglang{C++}, this object will
+use the same `SEXP` that powers the original \proglang{R} object if the types match
+otherwise a new `SEXP` must be created to be type safe. In essence, the
+underlying `SEXP` objects are passed by reference without explicit copies
+being made into \proglang{C++}. We refer to this arrangement as a
+_proxy model_.
+
+As for the actual implementation, there are a few consequences of the proxy
+model. The foremost consequence within this paradigm is that pass by value is
+really a pass by reference. In essence, the distinction between the following
+two functions is only visual sugar:
+
+```cpp
+void implicit_ref(NumericVector X);
+void explicit_ref(NumericVector& X);
+```
+
+In particular, when one is passing by value what occurs is the instantiation of
+the new \pkg{Rcpp} object that uses the same `SEXP` for the \proglang{R} object.
+As a result, the \pkg{Rcpp} object is ``linked'' to the original \proglang{R} object.
+Thus, if an operation is performed on the \pkg{Rcpp} object, such as adding 1
+to each element, the operation also updates the \proglang{R} object causing the change to be propagated to \proglang{R}'s interactive environment.
+
+```{Rcpp}
+#include<Rcpp.h>
+
+// [[Rcpp::export]]
+void implicit_ref(Rcpp::NumericVector X) {
+   X = X + 1.0;
+}
+
+// [[Rcpp::export]]
+void explicit_ref(Rcpp::NumericVector& X) {
+   X = X + 1.0;
+}
+```
+
+R use
+
+```{r}
+a <- 1.5:4.5
+b <- 1.5:4.5
+implicit_ref(a)
+a
+explicit_ref(b)
+b
+```
+
+There are two exceptions to this rule. The first exception is that a deep copy
+of the object can be made by explicit use of `Rcpp:clone()`. In this case,
+the cloned object has no link to the original \proglang{R} object. However, there is a
+time cost associated with this procedure as new memory must be allocated and
+the previous values must be copied over.  The second exception, which was
+previously foreshadowed, is encountered when \pkg{Rcpp} and \proglang{R} object types
+do not match. One frequent example of this case is when the \proglang{R} object generated
+from `seq()` or `a:b` reports a class of `"integer"` while the
+\pkg{Rcpp} object is setup to receive the class of `"numeric"` as its
+object is set to `NumericVector` or `NumericMatrix`.  In such cases,
+this would lead to a new `SEXP` object being created behind the scenes
+and, thus, there would _not_ be a link between the \pkg{Rcpp} object
+and \proglang{R} object. So, any changes in \proglang{C++} would not be propagated to
+\proglang{R} unless otherwise specified.
+
+```{Rcpp}
+#include<Rcpp.h>
+
+// [[Rcpp::export]]
+void int_vec_type(Rcpp::IntegerVector X) {
+   X = X + 1.0;
+}
+
+// [[Rcpp::export]]
+void num_vec_type(Rcpp::NumericVector X) {
+   X = X + 1.0;
+}
+```
+
+R use:
+
+```{r}
+a <- 1:5
+b <- 1:5
+class(a)
+int_vec_type(a)
+a # variable a changed as a side effect
+num_vec_type(b)
+b # b unchanged as copy was made for numeric
+```
+
+With this being said, there is one last area of contention with the proxy model:
+the keyword `const`. The `const` declaration indicates that an object
+is not allowed to be modified by any action. Due to the way the proxy
+model paradigm works, there is a way to "override" the `const` designation.
+Simply put, one can create a new \pkg{Rcpp} object without the `const`
+declaration from a pre-existing one. As a result, the new \pkg{Rcpp} object
+would be allowed to be modified by the compiler and, thus, modifying the initial
+`SEXP` object. Therefore, the initially secure \proglang{R} object would be altered.
+To illustrate this phenomenon, consider the following scenario:
+
+```{Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::IntegerVector const_override_ex(
+        const Rcpp::IntegerVector& X) {
+
+  Rcpp::IntegerVector Y(X); // Create object
+                            // from SEXP
+
+  Y = Y * 2;                // Modify new object
+
+  return Y;                 // Return new object
+}
+```
+
+R use:
+
+```{r}
+x <- 1:10    # an integer sequence
+# returning an altered value
+const_override_ex(x)
+# but the original value is altered too!
+x
+```
+
+So we see that with `SEXP` objects, the `const` declaration can be
+circumvented as it is really a pointer to the underlying R object.
+
+
+## Issues with implicit conversion from an \pkg{Rcpp} object to a scalar or other \pkg{Rcpp} object
+
+Not all \pkg{Rcpp} expressions are directly compatible with
+`operator=`.  Compability issues stem from many \pkg{Rcpp} objects and
+functions returning an intermediary result which requires an explicit
+conversion.  In such cases, the user may need to assist the compiler
+with the conversion.
+
+There are two ways to assist with the conversion. The first is to construct
+storage variable for a result, calculate the result, and then store a value
+into it. This is typically what is needed when working with
+`Character<Type>` and `String` in \pkg{Rcpp} due to the
+`Rcpp::internal::string_proxy` class. Within the following code snippet,
+the aforementioned approach is emphasized:
+
+```cpp
+#include<Rcpp.h>
+
+// [[Rcpp::export]]
+std::string explicit_string_conv(
+        Rcpp::CharacterVector X) {
+
+    std::string s;  // define storage
+    s = X[0];       // assign from CharacterVector
+
+    return s;
+}
+```
+
+If one were to use a direct allocation and assignment strategy,
+e.g. `std::string s = X[0]`, this would result in the compiler triggering
+a conversion error on _some_ platforms. The error would be similar to:
+
+```{bash, eval = FALSE}
+error: no viable conversion from 'Proxy'
+(aka 'string_proxy<16>') to 'std::string'
+(aka 'basic_string<char, char_traits<char>,
+allocator<char> >')
+```
+
+The second way to help the compiler is to use an explicit \pkg{Rcpp} type conversion
+function, if one were to exist. Examples of \pkg{Rcpp} type conversion functions
+include `as<T>()`, `.get()` for `cumsum()`, `is_true()`
+and `is_false()` for `any()` or `all()`.
+
+
+## Using `operator=` with a scalar replaced the object instead of filling element-wise
+
+Assignment using the `operator=` with either `Vector` and
+`Matrix` classes will not elicit an element-wise fill. If you seek an
+element-wise fill, then use the `.fill()` member method to propagate a
+single value throughout the object. With this being said, the behavior of
+`operator=` differs for the `Vector` and `Matrix` classes.
+
+The implementation of the `operator=` for the `Vector` class will
+replace the existing vector with the assigned value. This behavior is valid
+even if the assigned value is a scalar value such as 3.14 or 25 as the object
+is cast into the appropriate \pkg{Rcpp} object type. Therefore, if a
+`Vector` is initialized to have a length of 10 and a scalar is assigned
+via `operator=`, then the resulting `Vector` would have a length of
+1. See the following code snippet for the aforementioned behavior.
+
+```{Rcpp}
+#include<Rcpp.h>
+
+// [[Rcpp::export]]
+void vec_scalar_assign(int n, double fill_val) {
+  Rcpp::NumericVector X(n);
+  Rcpp::Rcout << "Value of Vector " <<
+      "on Creation: " <<
+      std::endl << X << std::endl;
+
+  X = fill_val;
+
+  Rcpp::Rcout << "Value of Vector " <<
+      "after Assignment: " <<
+      std::endl << X << std::endl;
+}
+```
+
+R use:
+
+```{r}
+vec_scalar_assign(5L, 3.14)
+```
+
+
+Now, the `Matrix` class does not define its own `operator=` but
+instead uses the `Vector` class implementation. This leads to unexpected
+results while attempting to use the assignment operator with a scalar. In
+particular, the scalar will be coerced into a square `Matrix` and then
+assigned. For an example of this behavior, consider the following code:
+
+```{Rcpp}
+#include<Rcpp.h>
+
+// [[Rcpp::export]]
+void mat_scalar_assign(int n, double fill_val) {
+  Rcpp::NumericMatrix X(n, n);
+  Rcpp::Rcout << "Value of Matrix " <<
+      "on Creation: " <<
+      std::endl << X << std::endl;
+
+  X = fill_val;
+
+  Rcpp::Rcout << "Value of Matrix " <<
+      "after Assignment: " <<
+      std::endl << X << std::endl;
+}
+```
+
+R use:
+
+```{r}
+mat_scalar_assign(2L, 3.0)
+```
+
+## Long Vector support on Windows
+
+Prior to \proglang{R}'s 3.0.0, the largest vector one could obtain was at most $2^{31} - 1$
+elements. With the release of \proglang{R}'s 3.0.0, long vector support was added to
+allow for largest vector possible to increase up to $2^{52}$ elements on x64 bit
+operating systems (c.f. [Long Vectors help entry](https://stat.ethz.ch/R-manual/R-devel/library/base/html/LongVectors.html)).
+Once this was established, support for long vectors within the \pkg{Rcpp} paradigm
+was introduced with \pkg{Rcpp} version 0.12.0 (c.f [\pkg{Rcpp} 0.12.0 annoucement](http://dirk.eddelbuettel.com/blog/2015/07/25/)).
+
+However, the requirement for using long vectors in \pkg{Rcpp} necessitates the
+presence of compiler support for the `R_xlen_t`, which is platform
+dependent on how `ptrdiff_t` is implemented. Unfortunately, this means
+that on the Windows platform the definition of `R_xlen_t` is of type
+`long` instead of `long long` when compiling under the
+\proglang{C++98} specification. Therefore, to solve this issue one must compile
+under the specification for \proglang{C++11} or later version.
+
+There are three options to trigger compilation with  \proglang{C++11}.
+The first -- and most likely option to use -- will be the plugin support offered
+by \pkg{Rcpp} attributes. This is engaged by adding
+`// [[Rcpp::plugins(cpp11)]]` to the top of the \proglang{C++} script.
+For diagnostic and illustrativative purposes, consider the following code
+which checks to see if `R_xlen_t` is available on your platform:
+
+```{Rcpp}
+#include <Rcpp.h>
+// Force compilation mode to C++11
+// [[Rcpp::plugins(cpp11)]]
+
+// [[Rcpp::export]]
+bool test_long_vector_support() {
+#ifdef RCPP_HAS_LONG_LONG_TYPES
+  return true;
+#else
+  return false;
+#endif
+}
+```
+
+R use:
+
+```{r}
+test_long_vector_support()
+```
+
+The remaining two options are for users who have opted to embed \pkg{Rcpp} code
+within an \proglang{R} package. In particular, the second option requires adding
+`CXX_STD = CXX11` to a `Makevars` file found in the `/src`
+directory. Finally, the third option is to add `SystemRequirements:C++11`
+in the package's `DESCRIPTION` file.
+
+Please note that the support for \proglang{C++11} prior to \proglang{R} v3.3.0 on Windows
+is limited. Therefore, plan accordingly if the goal is to support older
+versions of \proglang{R}.
+
+## Sorting with STL on a `CharacterVector` produces problematic results
+
+The Standard Template Library's (STL) `std::sort` algorithm performs
+adequately for the majority of \pkg{Rcpp} data types. The notable exception
+that makes what would otherwise be a universal quantifier into an existential
+quantifier is the `CharacterVector` data type. Chiefly, the issue with
+sorting strings is related to how the `CharacterVector` relies upon the
+use of `Rcpp::internal::string_proxy`.
+In particular, `Rcpp::internal::string_proxy` is _not_ MoveAssignable since the
+left hand side of `operator=(const string_proxy \&rhs)` is _not_
+viewed as equivalent to the right hand side before the
+operation \citep[][p. 466, Table 22]{Cpp11}. This further complicates matters
+when using `CharacterVector` with `std::swap`, `std::move`,
+`std::copy` and their variants.
+
+To avoid unwarranted pain with sorting, the preferred approach is to use the
+`.sort()` member function of \pkg{Rcpp} objects. The member function
+correctly applies the sorting procedure to \pkg{Rcpp} objects regardless of
+type. Though, sorting is slightly problematic due to locale as explained in the
+next entry. In the interim, the following code example illustrates the preferred
+approach alongside the problematic STL approach:
+
+```{Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::CharacterVector preferred_sort(
+        Rcpp::CharacterVector x) {
+
+  Rcpp::CharacterVector y = Rcpp::clone(x);
+  y.sort();
+
+  return y;
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterVector stl_sort(
+        Rcpp::CharacterVector x) {
+
+  Rcpp::CharacterVector y = Rcpp::clone(x);
+  std::sort(y.begin(), y.end());
+
+  return y;
+}
+```
+
+R use:
+
+```{r}
+set.seed(123)
+(X <- sample(c(LETTERS[1:5], letters[1:6]), 11))
+preferred_sort(X)
+stl_sort(X)
+```
+
+In closing, the results of using the STL approach do change depending on
+whether `libc++` or `libstdc++` standard library is used to compile
+the code. When debugging, this does make the issue particularly complex to
+sort out. Principally, compilation with `libc++` and STL has been shown
+to yield the correct results. However, it is not wise to rely upon this library
+as a majority of code is compiled against `libstdc++` as it more complete.
+
+## Lexicographic order of string sorting differs due to capitalization
+
+Comparing strings within \proglang{R} hinges on the ability to process the locale or
+native-language environment of the string. In \proglang{R}, there is a function called
+`Scollate` that performs the comparison on locale. Unfortunately, this
+function has not been made publicly available and, thus, \pkg{Rcpp} does
+_not_ have access to it within its implementation of `StrCmp`.
+As a result, strings that are sorted under the `.sort()` member function
+are ordered improperly. Specifically, if capitalization is present, then
+capitalized words are sorted together followed by the sorting of lowercase
+words instead of a mixture of capitalized and lowercase words. The issue is
+illustrated by the following code example:
+
+```{Rcpp}
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::CharacterVector rcpp_sort(
+        Rcpp::CharacterVector X) {
+  X.sort();
+  return X;
+}
+```
+
+R use:
+
+```{r}
+x <- c("B", "b", "c", "A", "a")
+sort(x)
+rcpp_sort(x)
+```
+
+## Package building fails with 'symbols not found'
+
+R 3.4.0 and later strongly encourage registering dynamically loadable
+symbols. In the stronger form (where `.registration=TRUE` is added to the
+`useDynLib()` statement in `NAMESPACE`), only registered symbols can be
+loaded. This is fully supported by Rcpp 0.12.12 and later, and the required code
+is added to `src/RcppExports.cpp`.
+
+However, the transition from the previously generated file `src/RcppExports.cpp`
+to the new one may require running `compileAttributes()` twice (which does not
+happen when, _e.g._, devtools is used). When `Rcpp::compileAttributes()` is
+called, it also calls `tools::package_native_routine_registration_skeleton()`,
+which crawls through usages of `.Call()` in the `R/` source files of the package to
+figure out what routines need to be registered. If an older `RcppExports.R` file
+is discovered, its out-of-date symbol names get picked up, and registration
+rules for those symbols get written as well. This will register more symbols for
+the package than are actually defined, leading to an error. This point has been
+discussed at some length both in the GitHub issue tickes, on StackOverflow and
+elsewhere.
+
+So if your autogenerated file fails, and a `symbols not found` error is reported
+by the linker, consider running `compileAttributes()` twice. Deleting
+`R/RcppExports.R` and `src/RcppExports.cpp` may also work.
+---
+title: \pkg{Rcpp} Extending
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This note provides an overview of the steps programmers should follow to
+  extend \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp} for use with their own classes. This document
+  is based on our experience in extending \pkg{Rcpp} to work with the
+  \pkg{Armadillo} \citep{Sanderson:2010:Armadillo} classes, available in the separate package
+  \pkg{RcppArmadillo} \citep{CRAN:RcppArmadillo}. This document assumes
+  knowledge of \pkg{Rcpp} as well as some knowledge of \proglang{C++}
+  templates \citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming}.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - extending
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Omit \pnasbreak at end
+skip_final_break: true
+
+# Produce a pinp document
+output:
+    pinp::pinp:
+        collapse: true
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-extending}
+  %\VignetteKeywords{Rcpp, extending, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+\pkg{Rcpp} facilitates data interchange between \proglang{R} and
+\proglang{C++} through the templated functions `Rcpp::as` (for
+conversion of objects from \proglang{R} to \proglang{C++}) and
+`Rcpp::wrap` (for conversion from \proglang{C++} to \proglang{R}).  In
+other words, we convert between the so-called \proglang{S}-expression
+pointers (in type `SEXP`) to a templated \proglang{C++} type, and vice
+versa.  The corresponding function declarations are as follows:
+
+```{Rcpp, eval = FALSE}
+// conversion from R to C++
+template <typename T> T as(SEXP x);
+
+// conversion from C++ to R
+template <typename T> SEXP wrap(const T& object);
+```
+
+These converters are often used implicitly, as in the following code chunk:
+
+```{Rcpp}
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+List fx(List input) { // we get a list from R
+// pull std::vector<double> from R list
+// this is achieved through an implicit
+// call to Rcpp::as
+std::vector<double> x = input["x"];
+
+// return an R list; this is achieved
+// through an implicit call to Rcpp::wrap
+return List::create(_["front"] = x.front(),
+                    _["back"]  = x.back());
+}
+```
+
+Example:
+
+```{r}
+# Run sourceCpp compilation to include file
+# Rcpp::sourceCpp(file= "code.cpp")
+input <- list( x = seq(1, 10, by = 0.5) )
+fx(input)
+```
+
+The \pkg{Rcpp} converter function `Rcpp::as` and `Rcpp::wrap` have been
+designed to be extensible to user-defined types and third-party types.
+
+# Extending `Rcpp::wrap`
+
+The \pkg{Rcpp::wrap} converter is extensible in essentially two ways : intrusive
+and non-intrusive.
+
+## Intrusive extension
+
+When extending \pkg{Rcpp} with your own data type, the recommended way is to
+implement a conversion to `SEXP`. This lets `Rcpp::wrap` know
+about the new data type.  The template meta programming (or TMP) dispatch is able to
+recognize that a type is convertible to a `SEXP` and
+`Rcpp::wrap` will use that conversion.
+
+The caveat is that the type must be declared before the main header
+file `Rcpp.h` is included.
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+class Foo {
+public:
+    Foo();
+
+    // this operator enables implicit Rcpp::wrap
+    operator SEXP();
+}
+
+#include <Rcpp.h>
+```
+
+This is called \emph{intrusive} because the conversion to `SEXP`
+operator has to be declared within the class.
+
+## Non-intrusive extension
+
+It is often desirable to offer automatic conversion to third-party types, over
+which the developer has no control and can therefore not include a conversion
+to `SEXP` operator in the class definition.
+
+To provide automatic conversion from \proglang{C++} to \proglang{R}, one must
+declare a specialization of the `Rcpp::wrap` template between the
+includes of `RcppCommon.h` and `Rcpp.h`.
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+// third party library that declares class Bar
+#include <foobar.h>
+
+// declaring the specialization
+namespace Rcpp {
+    template <> SEXP wrap(const Bar&);
+}
+
+// this must appear after the specialization,
+// otherwise the specialization will not be
+// seen by Rcpp types
+#include <Rcpp.h>
+```
+
+It should be noted that only the declaration is required. The implementation
+can appear after the `Rcpp.h` file is included, and therefore take
+full advantage of the \pkg{Rcpp} type system.
+
+Another non-intrusive option is to expose an external pointer. The macro
+`RCPP_EXPOSED_WRAP` provides an easy way to expose a \proglang{C++} class
+to \proglang{R} as an external pointer. It can be used instead of specializing
+`Rcpp::wrap`, and should not be used simultaneously.
+
+```{Rcpp, eval = FALSE}
+#include RcppCommon.h
+#include foobar.h
+
+RCPP_EXPOSED_WRAP(Bar)
+```
+
+## Templates and partial specialization
+
+It is perfectly valid to declare a partial specialization for the
+`Rcpp::wrap` template. The compiler will identify the appropriate
+overload:
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+// third party library that declares
+// a template class Bling<T>
+#include <foobar.h>
+
+// declaring the partial specialization
+namespace Rcpp {
+    namespace traits {
+
+        template <typename T>
+        SEXP wrap(const Bling<T>&);
+
+    }
+}
+
+// this must appear after the specialization, or
+// specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+
+```
+
+
+# Extending `Rcpp::as`
+
+Conversion from \proglang{R} to \proglang{C++} is also possible
+in both intrusive and non-intrusive ways.
+
+## Intrusive extension
+
+As part of its template meta programming dispatch logic, `Rcpp::as`
+will attempt to use the constructor of the target class taking a `SEXP`.
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+class Foo{
+    public:
+        Foo();
+
+        // this ctor enables implicit Rcpp::as
+        Foo(SEXP);
+}
+
+
+// this must appear after the specialization, or
+// specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+```
+
+## Non-intrusive extension
+
+It is also possible to fully specialize `Rcpp::as` to enable
+non-intrusive implicit conversion capabilities.
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+// third party library that declares class Bar
+#include <foobar.h>
+
+// declaring the specialization
+namespace Rcpp {
+    template <> Bar as(SEXP);
+}
+
+// this must appear after the specialization, or
+// specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+```
+
+Furthermore, another non-intrusive option is to opt for sharing an R
+external pointer. The macro `RCPP_EXPOSED_AS` provides an easy way to
+extend `Rcpp::as` to expose \proglang{R} external pointers to
+\proglang{C++}. It can be used instead of specializing `Rcpp::as`, and
+should not be used simultaneously.
+
+```{Rcpp, eval = FALSE}
+#include RcppCommon.h
+#include foobar.h
+
+RCPP_EXPOSED_AS(Bar)
+```
+
+With this being said, there is one additional macro that can be used to
+simultaneously define both `Rcpp::wrap` and `Rcpp::as`
+specialization for an external pointer. The macro `RCPP_EXPOSED_CLASS`
+can be use to transparently exchange a class between \proglang{R} and
+\proglang{C++} as an external pointer. Do not simultaneously use it alongside
+`RCPP_EXPOSED_AS`, `RCPP_EXPOSED_WRAP`, `Rcpp::wrap`, or
+`Rcpp::as`.
+
+
+## Templates and partial specialization
+
+The signature of `Rcpp::as` does not allow partial specialization.
+When exposing a templated class to `Rcpp::as`, the programmer must
+specialize the \pkg{Rcpp::traits::Exporter} template class. The TMP dispatch
+will recognize that a specialization of `Exporter` is available
+and delegate the conversion to this class. \pkg{Rcpp} defines
+the `Rcpp::traits::Exporter` template class as follows :
+
+```{Rcpp, eval = FALSE}
+namespace Rcpp {
+    namespace traits {
+
+        template <typename T> class Exporter{
+        public:
+            Exporter(SEXP x) : t(x){}
+            inline T get() { return t; }
+
+        private:
+            T t;
+        };
+    }
+}
+```
+
+This is the reason why the default behavior of `Rcpp::as` is to
+invoke the constructor of the type `T` taking a `SEXP`.
+
+Since partial specialization of class templates is allowed, we can expose
+a set of classes as follows:
+
+```{Rcpp, eval = FALSE}
+#include <RcppCommon.h>
+
+// third party library that declares
+// a template class Bling<T>
+#include <foobar.h>
+
+// declaring the partial specialization
+namespace Rcpp {
+    namespace traits {
+        template <typename T>
+        class Exporter< Bling<T> >;
+    }
+}
+
+// this must appear after the specialization, or
+// specialization will not be seen by Rcpp types
+#include <Rcpp.h>
+```
+
+Using this approach, the requirements for the
+`Exporter< Bling<T> >` class are:
+
+- it should have a constructor taking a `SEXP`
+- it should have a methods called `get` that returns an instance
+  of the `Bling<T>` type.
+
+# Summary
+
+The \pkg{Rcpp} package greatly facilitates the transfer of objects between
+\proglang{R} and \proglang{C++}. This note has shown how to extend \pkg{Rcpp}
+to either user-defined or third-party classes via the `Rcpp::as` and
+`Rcpp::wrap` template functions. Both intrusive and non-intrusive
+approaches were discussed.
+---
+title: \pkg{Rcpp} syntactic sugar
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This note describes \sugar which has been introduced in version
+  0.8.3 of \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp}. \sugar brings a
+  higher-level of abstraction to \proglang{C++} code written using the
+  \pkg{Rcpp} API.  \sugar is based on expression templates
+  \citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming,Vandevoorde+Josuttis:2003:Templates}
+  and provides some 'syntactic sugar' facilities directly in
+  \pkg{Rcpp}. This is similar to how \pkg{RcppArmadillo}
+  \citep{CRAN:RcppArmadillo} offers linear algebra \proglang{C++}
+  classes based on \pkg{Armadillo} \citep{Sanderson:2010:Armadillo}.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - sugar
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Enable section numbering, default is unnumbered
+numbersections: true
+
+# Optional: Specify the depth of section number, default is 5
+#secnumdepth: 5
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Omit \pnasbreak at end
+skip_final_break: true
+
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\sugar}{\textsl{Rcpp sugar}~}
+  \newcommand{\ith}{\textsl{i}-\textsuperscript{th}}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-sugar}
+  %\VignetteKeywords{Rcpp, sugar, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Motivation
+
+\pkg{Rcpp} facilitates development of internal compiled code in an \proglang{R}
+package by abstracting low-level details of the \proglang{R} API \citep{R:Extensions}
+into a consistent set of \proglang{C++} classes.
+
+Code written using \pkg{Rcpp} classes is easier to read, write and maintain,
+without loosing performance. Consider the following code example which
+provides a function `foo` as a \proglang{C++} extension to
+\proglang{R} by using the \pkg{Rcpp} API:
+
+```cpp
+RcppExport SEXP foo(SEXP x, SEXP y) {
+    Rcpp::NumericVector xx(x), yy(y);
+    int n = xx.size();
+    Rcpp::NumericVector res(n);
+    double x_ = 0.0, y_ = 0.0;
+    for (int i=0; i<n; i++) {
+        x_ = xx[i];
+        y_ = yy[i];
+        if (x_ < y_) {
+            res[i] = x_ * x_;
+        } else {
+            res[i] = -(y_ * y_);
+        }
+    }
+    return res;
+}
+```
+
+The goal of the function `foo` code is simple. Given two
+`numeric` vectors, we create a third one. This is typical low-level
+\proglang{C++} code that that could be written much more consicely in
+\proglang{R} thanks to vectorisation as shown in the next example.
+
+```{r, eval = FALSE}
+foo <- function(x, y) {
+    ifelse(x < y, x * x, -(y * y))
+}
+```
+
+Put succinctly, the motivation of \sugar is to bring a subset of the
+high-level \proglang{R} syntax in \proglang{C++}. Hence, with \sugar, the
+\proglang{C++} version of `foo` now becomes:
+
+```cpp
+Rcpp::NumericVector foo(Rcpp::NumericVector x, 
+                        Rcpp::NumericVector y) {
+    return ifelse(x < y, x * x, -(y * y));
+}
+```
+
+Apart from being strongly-typed and the need for explicit `return`
+statement, the code is now identical between highly-vectorised
+\proglang{R} and \proglang{C++}.
+
+\sugar is written using expression templates and lazy evaluation techniques
+\citep{Abrahams+Gurtovoy:2004:TemplateMetaprogramming,Vandevoorde+Josuttis:2003:Templates}.
+This not only allows a much nicer high-level syntax, but also makes it
+rather efficient (as we detail in section \ref{sec:performance} below).
+
+# Operators
+
+\sugar takes advantage of \proglang{C++} operator overloading. The next few
+sections discuss several examples.
+
+## Binary arithmetic operators
+
+\sugar defines the usual binary arithmetic operators : `+`, `-`,
+`*`, `/`.
+
+```cpp
+// two numeric vectors of the same size
+NumericVector x;
+NumericVector y;
+
+// expressions involving two vectors
+NumericVector res = x + y;
+NumericVector res = x - y;
+NumericVector res = x * y;
+NumericVector res = x / y;
+
+// one vector, one single value
+NumericVector res = x + 2.0;
+NumericVector res = 2.0 - x;
+NumericVector res = y * 2.0;
+NumericVector res = 2.0 / y;
+
+// two expressions
+NumericVector res = x * y + y / 2.0;
+NumericVector res = x * (y - 2.0);
+NumericVector res = x / (y * y);
+```
+
+The left hand side (lhs) and the right hand side (rhs) of each binary
+arithmetic expression must be of the same type (for example they should be both
+`numeric` expressions).
+
+The lhs and the rhs can either have the same size or one of them could
+be a primitive value of the appropriate type, for example adding a
+`NumericVector` and a `double`.
+
+## Binary logical operators
+
+Binary logical operators create a `logical` sugar expression
+from either two sugar expressions of the same type or one sugar expression
+and a primitive value of the associated type.
+
+```cpp
+// two integer vectors of the same size
+NumericVector x;
+NumericVector y;
+
+// expressions involving two vectors
+LogicalVector res = x < y;
+LogicalVector res = x > y;
+LogicalVector res = x <= y;
+LogicalVector res = x >= y;
+LogicalVector res = x == y;
+LogicalVector res = x != y;
+
+// one vector, one single value
+LogicalVector res = x < 2;
+LogicalVector res = 2 > x;
+LogicalVector res = y <= 2;
+LogicalVector res = 2 != y;
+
+// two expressions
+LogicalVector res = (x + y) <  (x*x);
+LogicalVector res = (x + y) >= (x*x);
+LogicalVector res = (x + y) == (x*x);
+```
+
+## Unary operators
+
+The unary `operator-` can be used to negate a (numeric) sugar expression.
+whereas the unary `operator!` negates a logical sugar expression:
+
+```cpp
+// a numeric vector
+NumericVector x;
+
+// negate x
+NumericVector res = -x;
+
+// use it as part of a numerical expression
+NumericVector res = -x * (x + 2.0);
+
+// two integer vectors of the same size
+NumericVector y;
+NumericVector z;
+
+// negate the logical expression "y < z"
+LogicalVector res = !(y < z);
+```
+
+# Functions
+
+\sugar defines functions that closely match the behavior of \proglang{R}
+functions of the same name.
+
+## Functions producing a single logical result
+
+Given a logical sugar expression, the `all` function identifies if all
+the elements are `TRUE`. Similarly, the `any` function
+identifies if any the element is `TRUE` when
+given a logical sugar expression.
+
+
+```cpp
+IntegerVector x = seq_len(1000);
+all(x*x < 3);
+any(x*x < 3);
+```
+
+Either call to `all` and `any` creates an object of a class
+that has member functions `is_true`, `is_false`,
+`is_na` and a conversion to `SEXP` operator.
+
+One important thing to highlight is that `all` is lazy. Unlike
+\proglang{R}, there is no need to fully evaluate the expression. In the
+example above, the result of `all` is fully resolved after evaluating
+only the two first indices of the expression \verb|x * x < 3|. `any`
+is lazy too, so it will only need to resolve the first element of the example
+above.
+
+### Conversion to bool
+
+One important thing to note concerns the conversion to the `bool`
+type. In order to respect the concept of missing values (`NA`) in
+\proglang{R}, expressions generated by `any` or `all` can not
+be converted to `bool`. Instead one must use `is_true`,
+`is_false` or `is_na`:
+
+```cpp
+// wrong: will generate a compile error
+bool res = any(x < y);
+
+// ok
+bool res = is_true(any( x < y ));
+bool res = is_false(any( x < y ));
+bool res = is_na(any( x < y ));
+```
+
+<!-- % FIXME this may need some expanding the trivariate bool and how to use it-->
+
+
+## Functions producing sugar expressions
+
+### is_na
+
+Given a sugar expression of any type, \verb|is_na| (just like the other
+functions in this section) produces a logical sugar expression of the same
+length. Each element of the result expression evaluates to `TRUE` if
+the corresponding input is a missing value, or `FALSE` otherwise.
+
+```cpp
+IntegerVector x = 
+    IntegerVector::create(0, 1, NA_INTEGER, 3);
+
+is_na(x)
+all(is_na( x ))
+any(!is_na( x ))
+```
+
+### seq_along
+
+Given a sugar expression of any type, `seq_along` creates an
+integer sugar expression whose values go from 1 to the size of the input.
+
+```cpp
+IntegerVector x = 
+    IntegerVector::create( 0, 1, NA_INTEGER, 3 );
+
+IntegerVector y = seq_along(x);
+IntegerVector z = seq_along(x * x * x * x * x * x);
+```
+
+This is the most lazy function, as it only needs to call the `size`
+member function of the input expression. The input expression need not to be
+resolved. The two examples above gives the same result with the same efficiency
+at runtime. The compile time will be affected by the complexity of the
+second expression, since the abstract syntax tree is built at compile time.
+
+### seq_len
+
+`seq_len` creates an integer sugar expression whose 
+\ith\ element expands to `i`. `seq_len` is particularly useful in
+conjunction with `sapply` and `lapply`.
+
+```cpp
+// 1, 2, ..., 10
+IntegerVector x = seq_len(10);
+
+List y = lapply(seq_len(10), seq_len);
+```
+
+### pmin and pmax
+
+Given two sugar expressions of the same type and size, or one expression and
+one primitive value of the appropriate type, `pmin` (`pmax`)
+generates a sugar expression of the same type whose \ith\ element expands to
+the lowest (highest) value between the \ith\ element of the first expression
+and the \ith element of the second expression.
+
+```cpp
+IntegerVector x = seq_len(10);
+
+pmin(x, x*x);
+pmin(x*x, 2);
+
+pmin(x, x*x);
+pmin(x*x, 2);
+```
+
+### ifelse
+
+Given a logical sugar expression and either :
+\begin{itemize}
+\item two compatible sugar expression (same type, same size)
+\item one sugar expression and one compatible primitive
+\end{itemize}
+`ifelse` expands to a sugar expression whose \ith\
+element is the \ith\ element of the first expression
+if the \ith\ element of the condition expands to `TRUE`
+or the \ith\ of the second expression if
+the \ith\ element of the condition expands to `FALSE`,
+or the appropriate missing value otherwise.
+
+```cpp
+IntegerVector x;
+IntegerVector y;
+
+ifelse(x < y, x, (x+y)*y)
+ifelse(x > y, x, 2)
+```
+
+### sapply
+
+`sapply` applies a \proglang{C++} function to each element
+of the given expression to create a new expression. The type of the
+resulting expression is deduced by the compiler from the result type of
+the function.
+
+The function can be a free \proglang{C++} function such as the overload
+generated by the template function below:
+
+```cpp
+template <typename T>
+T square(const T& x){
+    return x * x;
+}
+sapply(seq_len(10), square<int>);
+```
+
+Alternatively, the function can be a functor whose type has a nested type
+called `result_type`
+
+```cpp
+template <typename T>
+struct square : std::unary_function<T, T> {
+    T operator()(const T& x){
+        return x * x;
+    }
+}
+sapply(seq_len(10), square<int>());
+```
+
+### lapply
+
+`lapply` is similar to `sapply` except that the result is
+allways an list expression (an expression of type `VECSXP`).
+
+### sign
+
+Given a numeric or integer expression, `sign` expands to an expression
+whose values are one of 1, 0, -1 or `NA`, depending on the sign
+of the input expression.
+
+```cpp
+IntegerVector xx;
+
+sign(xx)
+sign(xx * xx)
+```
+
+### diff
+
+The \ith\ element of the result of `diff` is
+the difference between the $(i+1)^{\text{th}}$ and the
+\ith\ element of the input expression. Supported types are
+integer and numeric.
+
+```cpp
+IntegerVector xx;
+
+diff(xx)
+```
+
+## Mathematical functions
+
+For the following set of functions, generally speaking, the \ith\ element of
+the result of the given function (say, `abs`) is the result of
+applying that function to this \ith\ element of the input expression.
+Supported types are integer and numeric.
+
+```cpp
+IntegerVector x;
+
+abs(x)
+exp(x)
+floor(x)
+ceil(x)
+pow(x, z)     // x to the power of z
+```
+
+<!-- % log() and log10() maybe?  Or ln() ?-->
+
+## The d/q/p/r statistical functions
+
+The framework provided by \sugar also permits easy and efficient access the
+density, distribution function, quantile and random number generation
+functions function by \proglang{R} in the \code{Rmath} library.
+
+Currently, most of these functions are vectorised for the first element which
+denote size. Consequently, these calls works in \proglang{C++} just as they
+would in \proglang{R}:
+
+```cpp
+x1 = dnorm(y1, 0, 1); // density of y1 at m=0, sd=1
+x2 = qnorm(y2, 0, 1); // quantiles of y2
+x3 = pnorm(y3, 0, 1); // distribution of y3
+x4 = rnorm(n, 0, 1);  // 'n' RNG draws of N(0, 1)
+```
+
+Similar d/q/p/r functions are provided for the most common distributions:
+beta, binom, cauchy, chisq, exp, f, gamma, geom, hyper, lnorm, logis, nbeta,
+nbinom, nbinom_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
+
+Note that the parameterization used in these sugar functions may differ between
+the top-level functions exposed in an \proglang{R} session. For example, 
+the internal \code{rexp} is parameterized by \code{scale},
+whereas the R-level \code{stats::rexp} is parameterized by \code{rate}. 
+Consult \href{http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Distribution-functions}{Distribution Functions}
+for more details on the parameterization used for these sugar functions.
+
+One point to note is that the programmer using these functions needs to
+initialize the state of the random number generator as detailed in Section
+6.3 of the `Writing R Extensions' manual \citep{R:Extensions}.  A nice
+\proglang{C++} solution for this is to use a \textsl{scoped} class that sets
+the random number generatator on entry to a block and resets it on exit. We
+offer the \code{RNGScope} class which allows code such as
+
+```cpp
+RcppExport SEXP getRGamma() {
+    RNGScope scope;
+    NumericVector x = rgamma(10, 1, 1);
+    return x;
+}
+```
+
+As there is some computational overhead involved in using \code{RNGScope}, we
+are not wrapping it around each inner function.  Rather, the user of these
+functions (\textsl{i.e.} you) should place an \code{RNGScope} at the
+appropriate level of your code.
+
+
+# Performance
+\label{sec:performance}
+
+TBD
+
+# Implementation
+
+This section details some of the techniques used in the implementation of
+\sugar. Note that the user need not to be familiar with the implementation
+details in order to use \sugar, so this section can be skipped upon a first
+read of the paper.
+
+Writing \sugar functions is fairly repetitive and follows a well-structured
+pattern. So once the basic concepts are mastered (which may take time given
+the inherent complexities in template programming), it should be possible to
+extend the set of function further following the established pattern.
+
+## The curiously recurring template pattern
+
+Expression templates such as those used by \sugar use a technique
+called the _Curiously Recurring Template Pattern_ (CRTP). The general
+form of CRTP is:
+
+```cpp
+// The Curiously Recurring Template Pattern (CRTP)
+template <typename T>
+struct base {
+    // ...
+};
+struct derived : base<derived> {
+    // ...
+};
+```
+
+The `base` class is templated by the class that derives from it :
+`derived`. This shifts the relationship between a base class and a
+derived class as it allows the base class to access methods of the derived
+class.
+
+## The VectorBase class
+
+The CRTP is used as the basis for \sugar with the `VectorBase`
+class template. All sugar expression derive from one class generated by the
+`VectorBase` template. The current definition of `VectorBase`
+is given here:
+
+```cpp
+template <int RTYPE, bool na, typename VECTOR>
+class VectorBase {
+public:
+    struct r_type : 
+        traits::integral_constant<int,RTYPE>{};
+    struct can_have_na :
+        traits::integral_constant<bool,na>{};
+    
+    typedef typename 
+        traits::storage_type<RTYPE>::type 
+        stored_type;
+
+    VECTOR& get_ref(){
+        return static_cast<VECTOR&>(*this);
+    }
+
+    inline stored_type operator[](int i) const {
+        return static_cast<const VECTOR*>(
+                           this)->operator[](i);
+    }
+
+    inline int size() const { 
+        return static_cast<const VECTOR*>(
+                           this)->size(); 
+    }
+
+    /* definition ommited here */
+    class iterator;
+
+    inline iterator begin() const { 
+        return iterator(*this, 0); 
+    }
+    inline iterator end() const { 
+        return iterator(*this, size());
+    }
+}
+```
+
+The `VectorBase` template has three parameters:
+
+
+- `RTYPE`: This controls the type of expression (INTSXP, REALSXP, ...)
+- `na`: This embeds in the derived type information about whether
+  instances may contain missing values. \pkg{Rcpp} vector types
+  (`IntegerVector`, ...)  derive from `VectorBase` with this
+  parameter set to `true` because there is no way to know at
+  compile-time if the vector will contain missing values at run-time.
+  However, this parameter is set to `false` for types that are
+  generated by sugar expressions as these are guaranteed to produce
+  expressions that are without missing values. An example is the
+  `is_na` function. This parameter is used in several places as part
+  of the compile time dispatch to limit the occurence of redundant
+  operations.
+- `VECTOR`: This parameter is the key of \sugar. This is the
+  manifestation of CRTP. The indexing operator and the `size` method
+  of `VectorBase` use a static cast of `this` to the
+  `VECTOR` type to forward calls to the actual method of the derived
+  class.
+
+## Example: sapply
+
+As an example, the current implementation of `sapply`, supported by
+the template class `Rcpp::sugar::Sapply` is given below:
+
+```cpp
+template <int RTYPE, bool NA,
+          typename T, typename Function>
+class Sapply : public VectorBase<
+    Rcpp::traits::r_sexptype_traits< typename 
+        ::Rcpp::traits::result_of<Function>::type
+    >::rtype,
+    true,
+    Sapply<RTYPE, NA, T, Function>
+> {
+public:
+    typedef typename 
+      ::Rcpp::traits::result_of<Function>::type;
+    
+    const static int RESULT_R_TYPE =
+        Rcpp::traits::r_sexptype_traits<
+            result_type>::rtype;
+    
+    typedef Rcpp::VectorBase<RTYPE,NA,T> VEC;
+    
+    typedef typename 
+        Rcpp::traits::r_vector_element_converter<
+        RESULT_R_TYPE>::type
+        converter_type;
+    
+    typedef typename Rcpp::traits::storage_type<
+        RESULT_R_TYPE>::type STORAGE;
+
+    Sapply(const VEC& vec_, Function fun_) :
+        vec(vec_), fun(fun_){}
+
+    inline STORAGE operator[]( int i ) const {
+        return converter_type::get(fun(vec[i]));
+    }
+    
+    inline int size() const { 
+        return vec.size(); 
+    }
+
+private:
+    const VEC& vec;
+    Function fun;
+};
+
+// sugar
+
+template <int RTYPE, bool _NA_, 
+          typename T, typename Function >
+inline sugar::Sapply<RTYPE, _NA_, T, Function>
+sapply(const Rcpp::VectorBase<RTYPE,_NA_,T>& t,
+        Function fun) {
+    
+    return 
+      sugar::Sapply<RTYPE,_NA_,T,Function>(t, fun);
+}
+```
+
+### The sapply function
+
+`sapply` is a template function that takes two arguments.
+
+- The first argument is a sugar expression, which we recognize because of 
+  the relationship with the `VectorBase` class template.
+- The second argument is the function to apply.
+
+The `sapply` function itself does not do anything, it is just used
+to trigger compiler detection of the template parameters that will be used
+in the `sugar::Sapply` template.
+
+### Detection of return type of the function
+
+In order to decide which kind of expression is built, the `Sapply`
+template class queries the template argument via the `Rcpp::traits::result_of`
+template.
+
+```cpp
+typedef typename 
+    ::Rcpp::traits::result_of<Function>::type 
+    result_type;
+```
+
+The `result_of` type trait is implemented as such:
+
+```{Rcpp, eval = FALSE}
+template <typename T>
+struct result_of{
+    typedef typename T::result_type type;
+};
+
+template <typename RESULT_TYPE, 
+          typename INPUT_TYPE>
+struct result_of<RESULT_TYPE (*)(INPUT_TYPE)> {
+    typedef RESULT_TYPE type;
+};
+```
+
+The generic definition of `result_of` targets functors
+with a nested `result_type` type.
+
+The second definition is a partial specialization targetting
+function pointers.
+
+### Indentification of expression type
+
+Based on the result type of the function, the `r_sexptype_traits`
+trait is used to identify the expression type.
+
+```cpp
+const static int RESULT_R_TYPE =
+    Rcpp::traits::r_sexptype_traits<
+        result_type>::rtype;
+```
+
+### Converter
+
+The `r_vector_element_converter` class is used to convert an
+object of the function's result type to the actual storage type suitable
+for the sugar expression.
+
+```cpp
+typedef typename
+    Rcpp::traits::r_vector_element_converter<
+        RESULT_R_TYPE>::type
+    converter_type;
+```
+
+### Storage type
+
+The `storage_type` trait is used to get access to the storage type
+associated with a sugar expression type. For example, the storage type
+of a `REALSXP` expression is `double`.
+
+```cpp
+typedef typename
+    Rcpp::traits::storage_type<RESULT_R_TYPE>::type 
+    STORAGE;
+```
+
+### Input expression base type
+
+The input expression --- the expression over which `sapply` runs --- is
+also typedef'ed for convenience:
+
+```cpp
+typedef Rcpp::VectorBase<RTYPE, NA, T> VEC;
+```
+
+### Output expression base type
+
+In order to be part of the \sugar system, the type generated by the
+`Sapply` class template must inherit from `VectorBase`.
+
+```cpp
+template <int RTYPE, bool NA,
+          typename T, typename Function>
+class Sapply : public VectorBase<
+    Rcpp::traits::r_sexptype_traits<
+        typename 
+        ::Rcpp::traits::result_of<Function>::type
+    >::rtype,
+    true,
+    Sapply<RTYPE,NA,T,Function>
+>
+```
+
+The expression built by `Sapply` depends on the result type
+of the function, may contain missing values, and the third argument
+is the manifestation of the _CRTP_.
+
+### Constructor
+
+The constructor of the `Sapply` class template is straightforward, it
+simply consists of holding the reference to the input expression and the
+function.
+
+```cpp
+Sapply(const VEC& vec_, Function fun_): 
+    vec(vec_), fun(fun_){}
+
+private:
+    const VEC& vec;
+    Function fun;
+```
+
+### Implementation
+
+The indexing operator and the `size` member function is what
+the `VectorBase` expects. The size of the result expression is
+the same as the size of the input expression and the $i^{\text{th}}$
+element of the result is simply retrieved by applying the function
+and the converter. Both these methods are inline to maximize performance:
+
+```cpp
+inline STORAGE operator[](int i) const {
+	return converter_type::get(fun(vec[i]));
+}
+inline int size() const { 
+    return vec.size(); 
+}
+```
+
+# Summary
+
+TBD
+---
+title: \pkg{Rcpp} Quick Reference Guide
+
+# Use letters for affiliations
+author:
+  - name: Dirk Eddelbuettel
+    affiliation: a
+  - name: Romain François
+    affiliation: b
+
+address:
+  - code: a
+    address: \url{http://dirk.eddelbuettel.com}
+  - code: b
+    address: \url{https://romain.rbind.io/}
+
+# For footer text
+lead_author_surname: Eddelbuettel and François
+
+# Place DOI URL or CRAN Package URL here
+doi: "https://cran.r-project.org/package=Rcpp"
+
+# Abstract
+abstract: |
+  This document provides short code snippets that are helpful for using the
+  \pkg{Rcpp} \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp}.
+
+# Optional: Acknowledgements
+# acknowledgements: |
+
+# Optional: One or more keywords
+keywords:
+  - Rcpp
+  - quickref
+  - R
+  - C++
+
+# Font size of the document, values of 9pt (default), 10pt, 11pt and 12pt
+fontsize: 9pt
+
+# Optional: Force one-column layout, default is two-column
+#one_column: true
+
+# Optional: Enables lineo mode, but only if one_column mode is also true
+#lineno: true
+
+# Optional: Enable one-sided layout, default is two-sided
+#one_sided: true
+
+# Optional: Bibliography
+bibliography: Rcpp
+
+# Optional: Enable a 'Draft' watermark on the document
+#watermark: false
+
+# Customize footer, eg by referencing the vignette
+footer_contents: "Rcpp Vignette"
+
+# Produce a pinp document
+output: pinp::pinp
+
+header-includes: >
+  \newcommand{\proglang}[1]{\textsf{#1}}
+  \newcommand{\pkg}[1]{\textbf{#1}}
+  \newcommand{\faq}[1]{FAQ~\ref{#1}}
+  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\sugar}{\textsl{Rcpp sugar}~}
+
+vignette: >
+  %\VignetteIndexEntry{Rcpp-quickref}
+  %\VignetteKeywords{Rcpp, quickref, R, Cpp}
+  %\VignettePackage{Rcpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Important Notes
+
+```cpp
+// If you experience compiler errors, please check
+// that you have an appropriate version of g++.
+// See `Rcpp-FAQ' for more information.
+
+// Many of the examples here imply the following:
+#include <Rcpp.h>
+using namespace Rcpp;
+// The cppFunction will automatically add this.
+
+// Or, prefix Rcpp objects with the Rcpp namespace
+// as e.g. in:
+Rcpp::NumericVector xx(10);
+```
+
+# Create simple vectors
+
+```cpp
+SEXP x; std::vector<double> y(10);
+
+// from SEXP
+NumericVector xx(x);
+
+// of a given size (filled with 0)
+NumericVector xx(10);
+// ... with a default for all values
+NumericVector xx(10, 2.0);
+
+// range constructor
+NumericVector xx(y.begin(), y.end());
+
+// using create
+NumericVector xx =
+    NumericVector::create(1.0, 2.0, 3.0, 4.0);
+NumericVector yy =
+    NumericVector::create(Named("foo") = 1.0,
+                         _["bar"]      = 2.0);
+                         // _ short for Named
+```
+
+# Extract and set single elements
+
+```cpp
+// extract single values
+double x0 = xx[0];
+double x1 = xx(1);
+
+double y0 = yy["foo"];
+double y1 = yy["bar"];
+
+// set single values
+xx[0] = 2.1;
+xx(1) = 4.2;
+
+yy["foo"] = 3.0;
+
+// grow the vector
+yy["foobar"] = 10.0;
+```
+
+# Using matrices
+
+```cpp
+// Initializing from SEXP,
+// dimensions handled automatically
+SEXP x;
+NumericMatrix xx(x);
+
+// Matrix of 4 rows & 5 columns (filled with 0)
+NumericMatrix xx(4, 5);
+
+// Fill with value
+int xsize = xx.nrow() * xx.ncol();
+for (int i = 0; i < xsize; i++) {
+    xx[i] = 7;
+}
+// Same as above, using STL fill
+std::fill(xx.begin(), xx.end(), 8);
+
+// Assign this value to single element
+// (1st row, 2nd col)
+xx(0,1) = 4;
+
+// Reference the second column
+// Changes propagate to xx (same applies for Row)
+NumericMatrix::Column zzcol = xx( _, 1);
+zzcol = zzcol * 2;
+
+// Copy the second column into new object
+NumericVector zz1 = xx( _, 1);
+// Copy submatrix (top left 3x3) into new object
+NumericMatrix zz2 = xx( Range(0,2), Range(0,2));
+```
+
+# Inline C++ Compile in R
+
+```{r, eval = FALSE}
+## Note - this is R code. 
+## cppFunction in Rcpp allows rapid testing.
+require(Rcpp)
+
+cppFunction("
+NumericVector exfun(NumericVector x, int i){
+    x = x*i;
+    return x;
+}")
+
+exfun(1:5, 3)
+
+## Use evalCpp to evaluate C++ expressions
+evalCpp("std::numeric_limits<double>::max()")
+```
+
+# Interface with R
+
+## First step in R
+
+```{r, eval = FALSE}
+# In R, create a package shell. For details,
+# see the "Writing R Extensions" manual and
+# the "Rcpp-package" vignette.
+
+Rcpp.package.skeleton("myPackage")
+
+# Add R code to pkg R/ directory. Call C++
+# function. Do type-checking in R.
+
+myfunR <- function(Rx, Ry) {
+    ret = .Call("myCfun", Rx, Ry,
+                package="myPackage")
+    return(ret)
+}
+```
+
+## Additional C++
+
+```cpp
+// Add C++ code to pkg src/ directory.
+using namespace Rcpp;
+// Define function as extern with RcppExport
+RcppExport SEXP myCfun( SEXP x, SEXP y) {
+    // If R/C++ types match, use pointer to x.
+    // Pointer is faster, but changes to xx
+    // propagate to R ( xx -> x == Rx).
+    NumericVector xx(x);
+    
+    // clone is slower and uses extra memory.
+    // Safe. No side effects.
+    NumericVector yy(clone(y));
+    
+    xx[0] = yy[0] = -1.5;
+    int zz = xx[0];
+
+    // use wrap() to return non-SEXP objects, e.g:
+    // return(wrap(zz));
+    // Build and return a list
+    List ret;
+    ret["x"] = xx;
+    ret["y"] = yy;
+    return(ret);
+}
+```
+
+## On the command-line
+
+```sh
+# From shell, above package directory
+R CMD build myPackage
+R CMD check myPackage_1.0.tar.gz  ## Optional
+R CMD INSTALL myPackage_1.0.tar.gz
+```
+
+## Back in R
+
+```{r, eval=FALSE}
+require(myPackage)
+
+aa <- 1.5
+bb <- 1.5
+cc <- myfunR(aa, bb)
+aa == bb
+# FALSE, C++ modifies aa
+
+aa <- 1:2
+bb <- 1:2
+cc <-  myfunR(aa, bb)
+identical(aa, bb)
+# TRUE, R/C++ types don't match
+# so a copy was made
+```
+
+# STL interface
+
+```cpp
+// sum a vector from beginning to end
+double s = std::accumulate(x.begin(),
+                           x.end(), 0.0);
+// prod of elements from beginning to end
+int p = std::accumulate(vec.begin(),
+                        vec.end(), 1,
+                        std::multiplies<int>());
+// inner_product to compute sum of squares
+double s2 = std::inner_product(res.begin(),
+                               res.end(),
+                               res.begin(), 0.0);
+```
+
+# Rcpp Attributes
+
+## In C++
+
+```cpp
+// Add code below into C++ file Rcpp_example.cpp
+
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// Place the 'Rcpp::export' tag
+// right above function declaration.
+
+// [[Rcpp::export]]
+double muRcpp(NumericVector x){
+    int n = x.size(); // Size of vector
+    double sum = 0;   // Sum value  
+    
+    // For loop, note cpp index shift to 0
+    for(int i = 0; i < n; i++){ 
+        // Shorthand for sum = sum + x[i]
+        sum += x[i];     
+    }
+    
+    return sum/n;  // Obtain and return the Mean
+}
+
+// Place dependent functions above call or 
+// declare the function definition with:
+double muRcpp(NumericVector x);
+
+// [[Rcpp::export]]
+double varRcpp(NumericVector x, bool bias = true){
+    // Calculate the mean using C++ function
+    double mean = muRcpp(x);
+    double sum = 0;
+    int n = x.size();
+    
+    for(int i = 0; i < n; i++){   
+        sum += pow(x[i] - mean, 2.0); // Square
+    }
+    
+    return sum/(n-bias); // Return variance 
+}
+```
+
+## In R:
+
+```{r, eval=FALSE}
+Rcpp::sourceCpp("path/to/file/Rcpp_example.cpp")
+x <- 1:5
+all.equal(muRcpp(x), mean(x))
+all.equal(var(x),varRcpp(x))
+```
+
+# Rcpp Extensions
+
+```cpp
+// Enable C++11
+// [[Rcpp::plugins(cpp11)]]
+
+// Enable OpenMP (excludes macOS)
+// [[Rcpp::plugins(openmp)]]
+
+// Use the RcppArmadillo package
+// Requires different header file from Rcpp.h
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
+```
+
+# Rcpp sugar
+
+```cpp
+NumericVector x =
+    NumericVector::create(-2.0,-1.0,0.0,1.0,2.0);
+IntegerVector y =
+    IntegerVector::create(-2, -1, 0, 1, 2);
+
+NumericVector xx = abs( x );
+IntegerVector yy = abs( y );
+
+bool b = all( x < 3.0 ).is_true() ;
+bool b = any( y > 2 ).is_true();
+
+NumericVector xx = ceil( x );
+NumericVector xx = ceiling( x );
+NumericVector yy = floor( y );
+NumericVector yy = floor( y );
+
+NumericVector xx = exp( x );
+NumericVector yy = exp( y );
+
+NumericVector xx = head( x, 2 );
+IntegerVector yy = head( y, 2 );
+
+IntegerVector xx = seq_len( 10 );
+IntegerVector yy = seq_along( y );
+
+NumericVector xx = rep( x, 3 );
+NumericVector xx = rep_len( x, 10 );
+NumericVector xx = rep_each( x, 3 );
+
+IntegerVector yy = rev( y );
+```
+
+# Random Number Generation functions}
+
+```cpp
+// Set seed
+RNGScope scope;
+
+// For details see Section 6.7.1--Distribution
+// functions of the `Writing R Extensions' manual.
+// In some cases (e.g. rnorm), dist-specific
+// arguments can be omitted; when in doubt, 
+// specify all dist-specific arguments. The use 
+// of doublesrather than integers for dist-
+// specific arguments is recommended. Unless
+// explicitly specified, log=FALSE.
+
+// Equivalent to R calls
+NumericVector xx = runif(20);
+NumericVector xx1 = rnorm(20);
+NumericVector xx1 = rnorm(20, 0);
+NumericVector xx1 = rnorm(20, 0, 1);
+
+// Example vector of quantiles
+NumericVector quants(5);
+for (int i = 0; i < 5; i++) {
+    quants[i] = (i-2);
+}
+
+// in R, dnorm(-2:2)
+NumericVector yy = dnorm(quants) ;
+NumericVector yy = dnorm(quants, 0.0, 1.0) ;
+
+// in R, dnorm(-2:2, mean=2, log=TRUE)
+NumericVector yy = dnorm(quants, 2.0, true) ;
+
+// Note - cannot specify sd without mean
+// in R, dnorm(-2:2, mean=0, sd=2, log=TRUE)
+NumericVector yy = dnorm(quants, 0.0, 2.0, true) ;
+
+// To get original R api, use Rf_*
+double zz = Rf_rnorm(0, 2);
+```
+
+
+# Environment
+
+```cpp
+// Special environments
+Environment::Rcpp_namespace();
+Environment::base_env();
+Environment::base_namespace();
+Environment::global_env();
+Environment::empty_env();
+
+// Obtain an R environment
+Environment stats("package:stats");
+Environment env( 2 ); // by position
+Environment glob = Environment::global_env();
+
+// Extract function from specific environment
+Function rnorm = stats["rnorm"];
+
+// Assign into the environment
+glob["x"] = "foo";
+glob["y"] = 3;
+
+// Retrieve information from environment
+std::string x = glob["x"];
+glob.assign( "foo" , 3 );
+int foo = glob.get( "foo" );
+int foo = glob.find( "foo" );
+CharacterVector names = glob.ls(TRUE)
+bool b = glob.exists( "foo" );
+glob.remove( "foo" );
+
+// Administration
+glob.lockBinding("foo");
+glob.unlockBinding("foo");
+bool b = glob.bindingIsLocked("foo");
+bool b = glob.bindingIsActive("foo");
+
+// Retrieve related environments
+Environment e = stats.parent();
+Environment e = glob.new_child();
+```
+
+# Calling Functions in R
+
+```cpp
+// Do NOT expect to have a performance gain
+// when calling R functions from R! 
+
+// Retrieve functions from default loaded env.
+Function rnorm("rnorm");
+rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
+
+// Passing in an R function and obtaining results
+// Make sure function conforms with return type!
+NumericVector callFunction(NumericVector x, 
+                           Function f) {
+    NumericVector res = f(x);
+    return res;
+}
+
+/*** R
+# The following is R code executed
+# by sourceCpp() as a convenience.
+x = 1:5
+callFunction(x, sum)
+*/
+```
+
+# Modules
+
+```cpp
+// Warning -- Module-based objects do not persist
+// across quit(save="yes")/reload cycles.  To be
+// safe, save results to R objects and remove
+// module objects before exiting R.
+
+// To create a module-containing package from R:
+// Rcpp.package.skeleton("mypackage", module=TRUE)
+
+class Bar {
+  public:
+    Bar(double x_) : x(x_), nread(0), nwrite(0) {}
+
+    double get_x( ) {
+      nread++;
+      return x;
+    }
+
+    void set_x( double x_) {
+      nwrite++;
+      x = x_;
+    }
+
+    IntegerVector stats() const {
+      return
+      IntegerVector::create(_["read"] = nread,
+                            _["write"] = nwrite);
+    }
+  private:
+    double x; int nread, nwrite;
+};
+
+RCPP_MODULE(mod_bar) {
+  class_<Bar>( "Bar" )
+  .constructor<double>()
+  .property( "x", &Bar::get_x, &Bar::set_x,
+    "Docstring for x" )
+  .method( "stats", &Bar::stats,
+    "Docstring for stats")
+;}
+
+/*** R
+## The following is R code.
+require(mypackage) s
+how(Bar)
+b <- new(Bar, 10)
+b$x <- 10
+b_persist <- list(stats=b$stats(), x=b$x)
+rm(b)
+*/
+```
+---
+title: "Introduction to stringr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to stringr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+library(stringr)
+knitr::opts_chunk$set(
+  comment = "#>", 
+  collapse = TRUE
+)
+```
+
+There are four main families of functions in stringr: 
+
+1.  Character manipulation: these functions allow you to manipulate 
+    individual characters within the strings in character vectors.
+   
+1.  Whitespace tools to add, remove, and manipulate whitespace.
+
+1.  Locale sensitive operations whose operations will vary from locale
+    to locale.
+    
+1.  Pattern matching functions. These recognise four engines of
+    pattern description. The most common is regular expressions, but there
+    are three other tools.
+
+## Getting and setting individual characters
+
+You can get the length of the string with `str_length()`:
+
+```{r}
+str_length("abc")
+```
+
+This is now equivalent to the base R function `nchar()`. Previously it was needed to work around issues with `nchar()` such as the fact that it returned 2 for `nchar(NA)`. This has been fixed as of R 3.3.0, so it is no longer so important.
+
+You can access individual character using `str_sub()`. It takes three arguments: a character vector, a `start` position and an `end` position. Either position can either be a positive integer, which counts from the left, or a negative integer which counts from the right. The positions are inclusive, and if longer than the string, will be silently truncated.
+
+```{r}
+x <- c("abcdef", "ghifjk")
+
+# The 3rd letter
+str_sub(x, 3, 3)
+
+# The 2nd to 2nd-to-last character
+str_sub(x, 2, -2)
+
+```
+
+You can also use `str_sub()` to modify strings:
+
+```{r}
+str_sub(x, 3, 3) <- "X"
+x
+```
+
+To duplicate individual strings, you can use `str_dup()`:
+
+```{r}
+str_dup(x, c(2, 3))
+```
+
+## Whitespace
+
+Three functions add, remove, or modify whitespace:
+
+1. `str_pad()` pads a string to a fixed length by adding extra whitespace on 
+    the left, right, or both sides.
+    
+    ```{r}
+    x <- c("abc", "defghi")
+    str_pad(x, 10) # default pads on left
+    str_pad(x, 10, "both")
+    ```
+    
+    (You can pad with other characters by using the `pad` argument.)
+    
+    `str_pad()` will never make a string shorter:
+    
+    ```{r}
+    str_pad(x, 4)
+    ```
+    
+    So if you want to ensure that all strings are the same length (often useful
+    for print methods), combine `str_pad()` and `str_trunc()`:
+    
+    ```{r}
+    x <- c("Short", "This is a long string")
+    
+    x %>% 
+      str_trunc(10) %>% 
+      str_pad(10, "right")
+    ```
+
+1.  The opposite of `str_pad()` is `str_trim()`, which removes leading and 
+    trailing whitespace:
+    
+    ```{r}
+    x <- c("  a   ", "b   ",  "   c")
+    str_trim(x)
+    str_trim(x, "left")
+    ```
+
+1.  You can use `str_wrap()` to modify existing whitespace in order to wrap
+    a paragraph of text, such that the length of each line is as similar as 
+    possible. 
+    
+    ```{r}
+    jabberwocky <- str_c(
+      "`Twas brillig, and the slithy toves ",
+      "did gyre and gimble in the wabe: ",
+      "All mimsy were the borogoves, ",
+      "and the mome raths outgrabe. "
+    )
+    cat(str_wrap(jabberwocky, width = 40))
+    ```
+
+## Locale sensitive
+
+A handful of stringr functions are locale-sensitive: they will perform differently in different regions of the world. These functions are case transformation functions:
+
+```{r}
+x <- "I like horses."
+str_to_upper(x)
+str_to_title(x)
+
+str_to_lower(x)
+# Turkish has two sorts of i: with and without the dot
+str_to_lower(x, "tr")
+```
+
+String ordering and sorting:
+
+```{r}
+x <- c("y", "i", "k")
+str_order(x)
+
+str_sort(x)
+# In Lithuanian, y comes between i and k
+str_sort(x, locale = "lt")
+```
+
+The locale always defaults to English to ensure that the default behaviour is identical across systems. Locales always include a two letter ISO-639-1 language code (like "en" for English or "zh" for Chinese), and optionally a ISO-3166 country code (like "en_UK" vs "en_US"). You can see a complete list of available locales by running `stringi::stri_locale_list()`.
+
+## Pattern matching
+
+The vast majority of stringr functions work with patterns. These are parameterised by the task they perform and the types of patterns they match.
+
+### Tasks
+
+Each pattern matching function has the same first two arguments, a character vector of `string`s to process and a single `pattern` to match. stringr provides pattern matching functions to **detect**, **locate**, **extract**, **match**, **replace**, and **split** strings. I'll illustrate how they work with some strings and a regular expression designed to match (US) phone numbers:
+
+```{r}
+strings <- c(
+  "apple", 
+  "219 733 8965", 
+  "329-293-8753", 
+  "Work: 579-499-7527; Home: 543.355.3679"
+)
+phone <- "([2-9][0-9]{2})[- .]([0-9]{3})[- .]([0-9]{4})"
+```
+
+-   `str_detect()` detects the presence or absence of a pattern and returns a 
+    logical vector (similar to `grepl()`). `str_subset()` returns the elements
+    of a character vector that match a regular expression (similar to `grep()` 
+    with `value = TRUE`)`.
+    
+    ```{r}
+    # Which strings contain phone numbers?
+    str_detect(strings, phone)
+    str_subset(strings, phone)
+    ```
+
+-  `str_count()` counts the number of matches:
+
+    ```{r}
+    # How many phone numbers in each string?
+    str_count(strings, phone)
+    ```
+
+-   `str_locate()` locates the **first** position of a pattern and returns a numeric 
+    matrix with columns start and end. `str_locate_all()` locates all matches, 
+    returning a list of numeric matrices. Similar to `regexpr()` and `gregexpr()`.
+
+    ```{r}
+    # Where in the string is the phone number located?
+    (loc <- str_locate(strings, phone))
+    str_locate_all(strings, phone)
+    ```
+
+-   `str_extract()` extracts text corresponding to the **first** match, returning a 
+    character vector. `str_extract_all()` extracts all matches and returns a 
+    list of character vectors.
+
+    ```{r}
+    # What are the phone numbers?
+    str_extract(strings, phone)
+    str_extract_all(strings, phone)
+    str_extract_all(strings, phone, simplify = TRUE)
+    ```
+
+-   `str_match()` extracts capture groups formed by `()` from the **first** match. 
+    It returns a character matrix with one column for the complete match and 
+    one column for each group. `str_match_all()` extracts capture groups from 
+    all matches and returns a list of character matrices. Similar to 
+    `regmatches()`.
+
+    ```{r}
+    # Pull out the three components of the match
+    str_match(strings, phone)
+    str_match_all(strings, phone)
+    ```
+
+-   `str_replace()` replaces the **first** matched pattern and returns a character
+    vector. `str_replace_all()` replaces all matches. Similar to `sub()` and 
+    `gsub()`.
+
+    ```{r}
+    str_replace(strings, phone, "XXX-XXX-XXXX")
+    str_replace_all(strings, phone, "XXX-XXX-XXXX")
+    ```
+
+-   `str_split_fixed()` splits a string into a **fixed** number of pieces based 
+    on a pattern and returns a character matrix. `str_split()` splits a string 
+    into a **variable** number of pieces and returns a list of character vectors.
+    
+    ```{r}
+    str_split("a-b-c", "-")
+    str_split_fixed("a-b-c", "-", n = 2)
+    ```
+
+### Engines
+
+There are four main engines that stringr can use to describe patterns:
+
+* Regular expressions, the default, as shown above, and described in
+  `vignette("regular-expressions")`. 
+  
+* Fixed bytewise matching, with `fixed()`.
+
+* Locale-sensitive character matching, with `coll()`
+
+* Text boundary analysis with `boundary()`.
+
+#### Fixed matches
+
+`fixed(x)` only matches the exact sequence of bytes specified by `x`. This is a very limited "pattern", but the restriction can make matching much faster. Beware using `fixed()` with non-English data. It is problematic because there are often multiple ways of representing the same character. For  example, there are two ways to define "á": either as a single character or as an "a" plus an accent:
+
+```{r}
+a1 <- "\u00e1"
+a2 <- "a\u0301"
+c(a1, a2)
+a1 == a2
+```
+
+They render identically, but because they're defined differently, 
+`fixed()` doesn't find a match. Instead, you can use `coll()`, explained
+below, to respect human character comparison rules:
+
+```{r}
+str_detect(a1, fixed(a2))
+str_detect(a1, coll(a2))
+```
+    
+#### Collation search
+    
+`coll(x)` looks for a match to `x` using human-language **coll**ation rules, and is particularly important if you want to do case insensitive matching. Collation rules differ around the world, so you'll also need to supply a `locale` parameter.
+
+```{r}
+i <- c("I", "İ", "i", "ı")
+i
+
+str_subset(i, coll("i", ignore_case = TRUE))
+str_subset(i, coll("i", ignore_case = TRUE, locale = "tr"))
+```
+
+The downside of `coll()` is speed. Because the rules for recognising which characters are the same are complicated, `coll()` is relatively slow compared to `regex()` and `fixed()`. Note that when both `fixed()` and `regex()` have `ignore_case` arguments, they perform a much simpler comparison than `coll()`.
+
+#### Boundary
+
+`boundary()` matches boundaries between characters, lines, sentences or words. It's most useful with `str_split()`, but can be used with all pattern matching functions:
+
+```{r}
+x <- "This is a sentence."
+str_split(x, boundary("word"))
+str_count(x, boundary("word"))
+str_extract_all(x, boundary("word"))
+```
+
+By convention, `""` is treated as `boundary("character")`:
+
+```{r}
+str_split(x, "")
+str_count(x, "")
+```
+---
+title: "Regular expressions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Regular expressions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(stringr)
+```
+
+Regular expressions are a concise and flexible tool for describing patterns in strings. This vignette describes the key features of stringr's regular expressions, as implemented by [stringi](https://github.com/gagolews/stringi). It is not a tutorial, so if you're unfamiliar regular expressions, I'd recommend starting at <http://r4ds.had.co.nz/strings.html>. If you want to master the details, I'd recommend reading the classic [_Mastering Regular Expressions_](https://amzn.com/0596528124) by Jeffrey E. F. Friedl. 
+
+Regular expressions are the default pattern engine in stringr. That means when you use a pattern matching function with a bare string, it's equivalent to wrapping it in a call to `regex()`:
+
+```{r, eval = FALSE}
+# The regular call:
+str_extract(fruit, "nana")
+# Is shorthand for
+str_extract(fruit, regex("nana"))
+```
+
+You will need to use `regex()` explicitly if you want to override the default options, as you'll see in examples below.
+
+## Basic matches
+
+The simplest patterns match exact strings:
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_extract(x, "an")
+```
+
+You can perform a case-insensitive match using `ignore_case = TRUE`:
+    
+```{r}
+bananas <- c("banana", "Banana", "BANANA")
+str_detect(bananas, "banana")
+str_detect(bananas, regex("banana", ignore_case = TRUE))
+```
+
+The next step up in complexity is `.`, which matches any character except a newline:
+
+```{r}
+str_extract(x, ".a.")
+```
+
+You can allow `.` to match everything, including `\n`, by setting `dotall = TRUE`:
+
+```{r}
+str_detect("\nX\n", ".X.")
+str_detect("\nX\n", regex(".X.", dotall = TRUE))
+```
+
+## Escaping
+
+If "`.`" matches any character, how do you match a literal "`.`"? You need to use an "escape" to tell the regular expression you want to match it exactly, not use its special behaviour. Like strings, regexps use the backslash, `\`, to escape special behaviour. So to match an `.`, you need the regexp `\.`. Unfortunately this creates a problem. We use strings to represent regular expressions, and `\` is also used as an escape symbol in strings. So to create the regular expression `\.` we need the string `"\\."`. 
+
+```{r}
+# To create the regular expression, we need \\
+dot <- "\\."
+
+# But the expression itself only contains one:
+writeLines(dot)
+
+# And this tells R to look for an explicit .
+str_extract(c("abc", "a.c", "bef"), "a\\.c")
+```
+
+If `\` is used as an escape character in regular expressions, how do you match a literal `\`? Well you need to escape it, creating the regular expression `\\`. To create that regular expression, you need to use a string, which also needs to escape `\`. That means to match a literal `\` you need to write `"\\\\"` --- you need four backslashes to match one!
+
+```{r}
+x <- "a\\b"
+writeLines(x)
+
+str_extract(x, "\\\\")
+```
+
+In this vignette, I use `\.` to denote the regular expression, and `"\\."` to denote the string that represents the regular expression.
+
+An alternative quoting mechanism is `\Q...\E`: all the characters in `...` are treated as exact matches. This is useful if you want to exactly match user input as part of a regular expression.
+
+```{r}
+x <- c("a.b.c.d", "aeb")
+starts_with <- "a.b"
+
+str_detect(x, paste0("^", starts_with))
+str_detect(x, paste0("^\\Q", starts_with, "\\E"))
+```
+
+## Special characters
+
+Escapes also allow you to specify individual characters that are otherwise hard to type. You can specify individual unicode characters in five ways, either as a variable number of hex digits (four is most common), or by name:
+
+* `\xhh`: 2 hex digits.
+
+* `\x{hhhh}`: 1-6 hex digits.
+
+* `\uhhhh`: 4 hex digits.
+
+* `\Uhhhhhhhh`: 8 hex digits.
+
+* `\N{name}`, e.g. `\N{grinning face}` matches the basic smiling emoji.
+
+Similarly, you can specify many common control characters:
+
+* `\a`: bell.
+
+* `\cX`: match a control-X character.
+
+* `\e`: escape  (`\u001B`).
+
+* `\f`: form feed (`\u000C`).
+
+* `\n`: line feed (`\u000A`).
+
+* `\r`: carriage return (`\u000D`).
+
+* `\t`: horizontal tabulation (`\u0009`).
+
+* `\0ooo` match an octal character. 'ooo' is from one to three octal digits, 
+  from 000 to 0377. The leading zero is required.
+
+(Many of these are only of historical interest and are only included here for the sake of completeness.)
+
+## Matching multiple characters
+
+There are a number of patterns that match more than one character. You've already seen `.`, which matches any character (except a newline). A closely related operator is `\X`, which matches a __grapheme cluster__, a set of individual elements that form a single symbol. For example, one way of representing "á" is as the letter "a" plus an accent: `.` will match the component "a", while `\X` will match the complete symbol:
+    
+```{r}
+x <- "a\u0301"
+str_extract(x, ".")
+str_extract(x, "\\X")
+```
+
+There are five other escaped pairs that match narrower classes of characters:
+   
+*   `\d`: matches any digit. The complement, `\D`, matches any character that 
+    is not a decimal digit.
+
+    ```{r}
+    str_extract_all("1 + 2 = 3", "\\d+")[[1]]
+    ```
+
+    Technically, `\d` includes any character in the Unicode Category of Nd 
+    ("Number, Decimal Digit"), which also includes numeric symbols from other 
+    languages:
+    
+    ```{r}
+    # Some Laotian numbers
+    str_detect("១២៣", "\\d")
+    ```
+    
+*   `\s`: matches any whitespace. This includes tabs, newlines, form feeds, 
+    and any character in the Unicode Z Category (which includes a variety of 
+    space characters and other separators.). The complement, `\S`, matches any
+    non-whitespace character.
+    
+    ```{r}
+    (text <- "Some  \t badly\n\t\tspaced \f text")
+    str_replace_all(text, "\\s+", " ")
+    ```
+
+*   `\p{property name}` matches any character with specific unicode property,
+    like `\p{Uppercase}` or `\p{Diacritic}`. The complement, 
+    `\P{property name}`, matches all characters without the property.
+    A complete list of unicode properties can be found at
+    <http://www.unicode.org/reports/tr44/#Property_Index>.
+    
+    ```{r}
+    (text <- c('"Double quotes"', "«Guillemet»", "“Fancy quotes”"))
+    str_replace_all(text, "\\p{quotation mark}", "'")
+    ```
+
+*   `\w` matches any "word" character, which includes alphabetic characters, 
+    marks and decimal numbers. The complement, `\W`, matches any non-word
+    character.
+    
+    ```{r}
+    str_extract_all("Don't eat that!", "\\w+")[[1]]
+    str_split("Don't eat that!", "\\W")[[1]]
+    ```
+    
+    Technically, `\w` also matches connector punctuation, `\u200c` (zero width
+    connector), and `\u200d` (zero width joiner), but these are rarely seen in
+    the wild.
+
+*   `\b` matches word boundaries, the transition between word and non-word 
+    characters. `\B` matches the opposite: boundaries that have either both
+    word or non-word characters on either side.
+    
+    ```{r}
+    str_replace_all("The quick brown fox", "\\b", "_")
+    str_replace_all("The quick brown fox", "\\B", "_")
+    ```
+
+You can also create your own __character classes__ using `[]`:
+
+* `[abc]`: matches a, b, or c.
+* `[a-z]`: matches every character between a and z 
+   (in Unicode code point order).
+* `[^abc]`: matches anything except a, b, or c.
+* `[\^\-]`: matches `^` or `-`.
+
+There are a number of pre-built classes that you can use inside `[]`:
+
+* `[:punct:]`: punctuation.
+* `[:alpha:]`: letters.
+* `[:lower:]`: lowercase letters.
+* `[:upper:]`: upperclass letters.
+* `[:digit:]`: digits.
+* `[:xdigit:]`: hex digits.
+* `[:alnum:]`: letters and numbers.
+* `[:cntrl:]`: control characters.
+* `[:graph:]`: letters, numbers, and punctuation.
+* `[:print:]`: letters, numbers, punctuation, and whitespace.
+* `[:space:]`: space characters (basically equivalent to `\s`).
+* `[:blank:]`: space and tab.
+
+These all go inside the `[]` for character classes, i.e. `[[:digit:]AX]` matches all digits, A, and X.
+
+You can also using Unicode properties, like `[\p{Letter}]`, and various set operations, like `[\p{Letter}--\p{script=latin}]`. See `?"stringi-search-charclass"` for details.
+
+## Alternation
+
+`|` is the __alternation__ operator, which will pick between one or more possible matches. For example, `abc|def` will match `abc` or `def`. 
+
+```{r}
+str_detect(c("abc", "def", "ghi"), "abc|def")
+```
+
+Note that the precedence for `|` is low, so that `abc|def` matches `abc` or `def` not `abcyz` or `abxyz`. 
+
+## Grouping
+
+You can use parentheses to override the default precedence rules:
+
+```{r}
+str_extract(c("grey", "gray"), "gre|ay")
+str_extract(c("grey", "gray"), "gr(e|a)y")
+```
+
+Parenthesis also define "groups" that you can refer to with __backreferences__, like `\1`, `\2` etc, and can be extracted with `str_match()`. For example, the following regular expression finds all fruits that have a repeated pair of letters:
+
+```{r}
+pattern <- "(..)\\1"
+fruit %>% 
+  str_subset(pattern)
+
+fruit %>% 
+  str_subset(pattern) %>% 
+  str_match(pattern)
+```
+
+You can use `(?:...)`, the non-grouping parentheses, to control precedence but not capture the match in a group. This is slightly more efficient than capturing parentheses.
+
+```{r}
+str_match(c("grey", "gray"), "gr(e|a)y")
+str_match(c("grey", "gray"), "gr(?:e|a)y")
+```
+
+This is most useful for more complex cases where you need to capture matches and control precedence independently.
+
+## Anchors
+
+By default, regular expressions will match any part of a string. It's often useful to __anchor__ the regular expression so that it matches from the start or end of the string:
+
+* `^` matches the start of string. 
+* `$` matches the end of the string.
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_extract(x, "^a")
+str_extract(x, "a$")
+```
+
+To match a literal "$" or "^", you need to escape them, `\$`, and `\^`.
+
+For multiline strings, you can use `regex(multiline = TRUE)`. This changes the behaviour of `^` and `$`, and introduces three new operators:
+
+* `^` now matches the start of each line. 
+
+* `$` now matches the end of each line.
+
+* `\A` matches the start of the input.
+
+* `\z` matches the end of the input.
+
+* `\Z` matches the end of the input, but before the final line terminator, 
+  if it exists.
+
+```{r}
+x <- "Line 1\nLine 2\nLine 3\n"
+str_extract_all(x, "^Line..")[[1]]
+str_extract_all(x, regex("^Line..", multiline = TRUE))[[1]]
+str_extract_all(x, regex("\\ALine..", multiline = TRUE))[[1]]
+```
+
+## Repetition
+
+You can control how many times a pattern matches with the repetition operators:
+
+* `?`: 0 or 1.
+* `+`: 1 or more.
+* `*`: 0 or more.
+
+```{r}
+x <- "1888 is the longest year in Roman numerals: MDCCCLXXXVIII"
+str_extract(x, "CC?")
+str_extract(x, "CC+")
+str_extract(x, 'C[LX]+')
+```
+
+Note that the precedence of these operators is high, so you can write: `colou?r` to match either American or British spellings. That means most uses will need parentheses, like `bana(na)+`.
+
+You can also specify the number of matches precisely:
+
+* `{n}`: exactly n
+* `{n,}`: n or more
+* `{n,m}`: between n and m
+
+```{r}
+str_extract(x, "C{2}")
+str_extract(x, "C{2,}")
+str_extract(x, "C{2,3}")
+```
+
+By default these matches are "greedy": they will match the longest string possible. You can make them "lazy", matching the shortest string possible by putting a `?` after them:
+
+* `??`: 0 or 1, prefer 0.
+* `+?`: 1 or more, match as few times as possible.
+* `*?`: 0 or more, match as few times as possible.
+* `{n,}?`: n or more, match as few times as possible.
+* `{n,m}?`: between n and m, , match as few times as possible, but at least n.
+
+```{r}
+str_extract(x, c("C{2,3}", "C{2,3}?"))
+str_extract(x, c("C[LX]+", "C[LX]+?"))
+```
+
+You can also make the matches possessive by putting a `+` after them, which means that if later parts of the match fail, the repetition will not be re-tried with a smaller number of characters. This is an advanced feature used to improve performance in worst-case scenarios (called "catastrophic backtracking").
+
+* `?+`: 0 or 1, possessive.
+* `++`: 1 or more, possessive.
+* `*+`: 0 or more, possessive.
+* `{n}+`: exactly n, possessive.
+* `{n,}+`: n or more, possessive.
+* `{n,m}+`: between n and m, possessive.
+
+A related concept is the __atomic-match__ parenthesis, `(?>...)`. If a later match fails and the engine needs to back-track, an atomic match is kept as is: it succeeds or fails as a whole. Compare the following two regular expressions:
+
+```{r}
+str_detect("ABC", "(?>A|.B)C")
+str_detect("ABC", "(?:A|.B)C")
+```
+
+The atomic match fails because it matches A, and then the next character is a C so it fails. The regular match succeeds because it matches A, but then C doesn't match, so it back-tracks and tries B instead.
+
+## Look arounds
+
+These assertions look ahead or behind the current match without "consuming" any characters (i.e. changing the input position).
+
+* `(?=...)`: positive look-ahead assertion. Matches if `...` matches at the 
+  current input.
+  
+* `(?!...)`: negative look-ahead assertion. Matches if `...` __does not__ 
+  match at the current input.
+  
+* `(?<=...)`: positive look-behind assertion. Matches if `...` matches text 
+  preceding the current position, with the last character of the match 
+  being the character just before the current position. Length must be bounded  
+  (i.e. no `*` or `+`).
+
+* `(?<!...)`: negative look-behind assertion. Matches if `...` __does not__
+  match text preceding the current position. Length must be bounded  
+  (i.e. no `*` or `+`).
+
+These are useful when you want to check that a pattern exists, but you don't want to include it in the result:
+
+```{r}
+x <- c("1 piece", "2 pieces", "3")
+str_extract(x, "\\d+(?= pieces?)")
+
+y <- c("100", "$400")
+str_extract(y, "(?<=\\$)\\d+")
+```
+
+## Comments
+
+There are two ways to include comments in a regular expression. The first is with `(?#...)`:
+
+```{r}
+str_detect("xyz", "x(?#this is a comment)")
+```
+
+The second is to use `regex(comments = TRUE)`. This form ignores spaces and newlines, and anything everything after `#`. To match a literal space, you'll need to escape it: `"\\ "`. This is a useful way of describing complex regular expressions:
+
+```{r}
+phone <- regex("
+  \\(?     # optional opening parens
+  (\\d{3}) # area code
+  [)- ]?   # optional closing parens, dash, or space
+  (\\d{3}) # another three numbers
+  [ -]?    # optional space or dash
+  (\\d{3}) # three more numbers
+  ", comments = TRUE)
+
+str_match("514-791-8141", phone)
+```
+---
+title: "colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes"
+author: "Achim Zeileis, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, Claus O. Wilke"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+bibliography: color.bib
+vignette: >
+  %\VignetteIndexEntry{colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{colorspace,ggplot2}
+  %\VignetteKeywords{RGB, sRGB, XYZ, LUV, LAB, HLS, HSV, HCL, qualitative palette, sequential palette, diverging palette, shiny, visualization, color vision deficiency}
+  %\VignettePackage{colorspace}
+---
+
+```{r preliminaries, echo=FALSE, message=FALSE}
+library("colorspace")
+library("ggplot2")
+theme_set(theme_minimal())
+prefix <- "http://colorspace.R-Forge.R-project.org/articles/" ## ""
+```
+
+## Overview
+
+The _colorspace_ package provides a broad toolbox for selecting individual
+colors or color palettes, manipulating these colors, and employing
+them in various kinds of visualizations.
+
+At the core of the package there are various utilities for computing with
+color spaces (as the name conveys). Thus, the package helps to map various three-dimensional
+representations of color to each other. A particularly important
+mapping is the one from the perceptually-based and device-independent color model
+HCL (Hue-Chroma-Luminance) to standard Red-Green-Blue (sRGB) which is the basis for color
+specifications in many systems based on the corresponding hex codes (e.g., in HTML but also
+in R). For completeness further standard color models are included as well in the package:
+`polarLUV()` (= HCL), `LUV()`, `polarLAB()`, `LAB()`, `XYZ()`, `RGB()`, `sRGB()`, `HLS()`,
+`HSV()`.
+
+The HCL space (= polar coordinates in CIELUV) is particularly useful for
+specifying individual colors and color palettes as its three axes match those
+of the human visual system very well: Hue (= type of color, dominant wavelength),
+chroma (= colorfulness), luminance (= brightness).
+
+```{r hcl-properties, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 4, fig.height = 2.2, fig.align = "center", dev = "png"}
+swatchplot(
+  "Hue"       = sequential_hcl(5, h = c(0, 300), c = c(60, 60), l = 65),
+  "Chroma"    = sequential_hcl(5, h = 0, c = c(100, 0), l = 65, rev = TRUE, power = 1),
+  "Luminance" = sequential_hcl(5, h = 260, c = c(25, 25), l = c(25, 90), rev = TRUE, power = 1),
+  off = 0
+)
+```
+
+The _colorspace_ package provides three types of palettes based on the HCL model:
+
+* _Qualitative:_ Designed for coding categorical information, i.e.,
+  where no particular ordering of categories is available and every color
+  should receive the same perceptual weight. Function: `qualitative_hcl()`.
+* _Sequential:_ Designed for coding ordered/numeric information, i.e.,
+  where colors go from high to low (or vice versa). Function: `sequential_hcl()`.
+* _Diverging:_ Designed for coding ordered/numeric information around a central
+  neutral value, i.e., where colors diverge from neutral to two extremes.
+  Function: `diverging_hcl()`.
+
+To aid choice and application of these palettes there are: scales for use
+with _ggplot2_; _shiny_ (and _tcltk_) apps for interactive exploration;
+visualizations of palette properties; accompanying manipulation utilities
+(like desaturation, lighten/darken, and emulation of color vision deficiencies).
+
+More detailed overviews and examples are provided in the articles:
+
+* [Color Spaces: S4 Classes and Utilities](`r prefix`color_spaces.html)
+* [HCL-Based Color Palettes](`r prefix`hcl_palettes.html)
+* [HCL-Based Color Scales for _ggplot2_](`r prefix`ggplot2_color_scales.html)
+* [Palette Visualization and Assessment](`r prefix`palette_visualization.html)
+* [Apps for Choosing Colors and Palettes Interactively](`r prefix`hclwizard.html)
+* [Color Vision Deficiency Emulation](`r prefix`color_vision_deficiency.html)
+* [Color Manipulation and Utilities](`r prefix`manipulation_utilities.html)
+* [Approximating Palettes from Other Packages](`r prefix`approximations.html)
+* [Somewhere over the Rainbow](`r prefix`endrainbow.html)
+
+
+## Installation
+
+The stable release version of _colorspace_ is hosted on the Comprehensive R Archive Network
+(CRAN) at <https://CRAN.R-project.org/package=colorspace> and can be installed via
+
+```{r installation-cran, eval=FALSE}
+install.packages("colorspace")
+```
+
+The development version of _colorspace_ is hosted on R-Forge at
+<https://R-Forge.R-project.org/projects/colorspace/> in a Subversion (SVN) repository.
+It can be installed via
+
+```{r installation-rforge, eval=FALSE}
+install.packages("colorspace", repos = "http://R-Forge.R-project.org")
+```
+
+For Python users a beta re-implementation of the full _colorspace_ package in
+Python 2/Python 3 is also available, see <https://github.com/retostauffer/python-colorspace>.
+
+
+## Choosing HCL-based color palettes
+
+The _colorspace_ package ships with a wide range of predefined color palettes,
+specified through suitable trajectories in the HCL (hue-chroma-luminance) color space.
+A quick overview can be gained easily with the `hcl_palettes()` function:
+
+```{r hcl-palettes, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 9, fig.width = 16, dpi = 48, out.width = "100%"}
+library("colorspace")
+hcl_palettes(plot = TRUE)
+```
+
+A suitable vector of colors can be easily computed by specifying the desired number of colors and the palette name (see the plot above), e.g.,
+
+```{r qualitative-hcl-4}
+q4 <- qualitative_hcl(4, palette = "Dark 3")
+q4
+```
+
+The functions `sequential_hcl()`, and `diverging_hcl()` work analogously. Additionally,
+their hue/chroma/luminance parameters can be modified, thus allowing for easy customization of
+each palette. Moreover, the `choose_palette()`/`hclwizard()` app provide convenient user
+interfaces to perform palette customization interactively. Finally, even more flexible diverging
+HCL palettes are provided by `divergingx_hcl()`.
+
+
+## Usage with base graphics
+
+The color vectors returned by the HCL palette functions can usually be passed directly
+to most base graphics function, typically through the `col` argument. Here, the `q4`
+vector created above is used in a time series display:
+
+```{r eustockmarkets, eval = FALSE}
+plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
+legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
+```
+
+```{r eustockmarkets-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
+q4 <- qualitative_hcl(4)
+par(mar = c(5, 4, 1, 1))
+plot(log(EuStockMarkets), plot.type = "single", col = q4, lwd = 2)
+legend("topleft", colnames(EuStockMarkets), col = q4, lwd = 3, bty = "n")
+```
+
+As another example for a sequential palette, we demonstrate how to create a spine plot
+displaying the proportion of Titanic passengers that survived per class.
+The `Purples 3` palette is used, which is quite similar to the **ColorBrewer.org**
+palette `Purples`. Here, only two colors are employed, yielding a dark purple
+and light gray.
+
+```{r titanic, eval = FALSE}
+ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+spineplot(ttnc, col = sequential_hcl(2, palette = "Purples 3"))
+```
+
+```{r titanic-plot, echo = FALSE, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
+ttnc <- margin.table(Titanic, c(1, 4))[, 2:1]
+par(mar = c(5, 4, 1, 1))
+spineplot(ttnc, col = sequential_hcl(2, "Purples 3"))
+```
+
+
+## Usage with _ggplot2_
+
+To provide access to the HCL color palettes from within _ggplot2_ graphics suitable discrete and/or
+continuous _gglot2_ color scales are provided. The scales are named via the scheme
+`scale_<aesthetic>_<datatype>_<colorscale>()`, where `<aesthetic>` is the name
+of the aesthetic (`fill`, `color`, `colour`), `<datatype>` is the type of the
+variable plotted (`discrete` or `continuous`) and `<colorscale>` sets the type
+of the color scale used (`qualitative`, `sequential`, `diverging`,
+`divergingx`).
+
+To illustrate their usage two simple examples are shown using the qualitative `Dark 3`
+and sequential `Purples 3` palettes that were also employed above. For the first example, semi-transparent
+shaded densities of the sepal length from the iris data are shown, grouped by species.
+
+```{r iris-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
+library("ggplot2")
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.6) +
+  scale_fill_discrete_qualitative(palette = "Dark 3")
+```
+
+And for the second example the sequential palette is used to code the cut levels in a scatter of price by carat
+in the diamonds data (or rather a small subsample thereof). The scale function first
+generates six colors but then drops the first color because the light gray is too light
+here. (Alternatively, the chroma and luminance parameters could also be tweaked.)
+
+```{r diamonds-ggplot, message = FALSE, warning = FALSE, fig.align = "left", fig.height = 4, fig.width = 6, dpi = 48, out.width = "100%"}
+dsamp <- diamonds[1 + 1:1000 * 50, ]
+ggplot(dsamp, aes(carat, price, color = cut)) + geom_point() +
+  scale_color_discrete_sequential(palette = "Purples 3", nmax = 6, order = 2:6)
+```
+
+
+## Palette visualization and assessment
+
+The _colorspace_ package also provides a number of functions that aid visualization and
+assessment of its palettes.
+
+* `demoplot()` can display a palette (with arbitrary number of colors) in a range of
+  typical and somewhat simplified statistical graphics.
+* `hclplot()` converts the colors of a palette to the corresponding hue/chroma/luminance
+  coordinates and displays them in HCL space with one dimension collapsed. The collapsed
+  dimension is the luminance for qualitative palettes and the hue for sequential/diverging palettes.
+* `specplot()` also converts the colors to hue/chroma/luminance coordinates but draws
+  the resulting spectrum in a line plot.
+
+For the qualitative `Dark 3` palette from above the following plots can be obtained.
+
+```{r visualiation-qualitative, eval = FALSE}
+demoplot(q4, "bar")
+hclplot(q4)
+specplot(q4, type = "o")
+```
+
+```{r allplots-qualitative, echo = FALSE, fig.height = 4.5, fig.width = 14, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+allplots <- function(palette, ...) {
+  layout(cbind(1, 2, 3:4), heights = c(2, 10))
+  par(oma = c(2, 5, 2, 3), mar = rep(0.5, 4))
+  demoplot(palette, ...)
+  hclplot(palette)
+  par(xaxt = "n", yaxt = "n", mar = c(0.2, 3, 0.2, 0), cex = 1)
+  image(matrix(seq_along(palette), ncol = 1L), col = palette)
+  par(yaxt = "s")
+  specplot(palette, type = "o", palette = FALSE, oma = FALSE, mar = c(0.2, 3, 0.2, 0))
+}
+allplots(q4, "bar")
+```
+
+The bar plot is used as a typical application for a qualitative palette (in addition to the
+time series and density plots used above). The other two displays show that luminance
+is (almost) constant in the palette while the hue changes linearly along the color
+"wheel". Ideally, chroma would have also been constant to completely balance the colors.
+However, at this luminance the maximum chroma differs across hues so that the palette
+is fixed up to use less chroma for the yellow and green elements.
+
+Note also that in a bar plot areas are shaded (and not just points or lines) so that
+lighter colors would be preferable. In the density plot above
+this was achieved through semi-transparency. Alternatively, luminance could be increased
+as is done in the `"Pastel 1"` or `"Set 3"` palettes.
+
+Subsequently, the same types of assessment are carried out for the sequential `"Purples 3"` palette
+as employed above. 
+
+```{r visualization-sequential, eval = FALSE}
+s9 <- sequential_hcl(9, "Purples 3")
+demoplot(s9, "heatmap")
+hclplot(s9)
+specplot(s9, type = "o")
+```
+
+```{r allplots-sequential, echo = FALSE, fig.height = 4.5, fig.width = 14, fig.align = "center", dev = "png", dpi = 48, out.width = "100%"}
+s9 <- sequential_hcl(9, "Purples 3")
+allplots(s9, "heatmap")
+```
+
+Here, a heatmap (based on the well-known Maunga Whau volcano data) is used as a typical
+application for a sequential palette. The elevation of the volcano is brought out clearly,
+using dark colors to give emphasis to higher elevations.
+
+The other two displays show that hue is constant in the palette while luminance and chroma vary.
+Luminance increases monotonically from dark to light (as required for a proper sequential palette).
+Chroma is triangular-shaped which allows to better distinguish the middle colors in the palette
+when compared to a monotonic chroma trajectory.
+---
+title: "withr"
+author: "Jim Hester"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{withr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(withr)
+```
+
+# Whither withr?
+
+Many functions in R modify global state in some fashion. Some common examples
+are `par()` for graphics parameters, `dir()` to change the current directory
+and `options()` to set a global option. Using these functions is handy
+when using R interactively, because you can set them early in your
+experimentation and they will remain set for the duration of the session.
+However this makes programming with these settings difficult, because they make
+your function impure by modifying a global state. Therefore you should always
+strive to reset the previous state when the function exits.
+
+One common idiom for dealing with this problem is to save the current state,
+make your change, then restore the previous state.
+
+```{r}
+par("col" = "black")
+my_plot <- function(new) {
+  old <- par(col = "red", pch = 19)
+  plot(mtcars$hp, mtcars$wt)
+  par(old)
+}
+my_plot()
+par("col")
+```
+
+However this approach can fail if there's an error before you are able to reset
+the options.
+
+```{r, error = TRUE}
+par("col" = "black")
+my_plot <- function(new) {
+  old <- par(col = "red", pch = 19)
+  plot(mtcars$hpp, mtcars$wt)
+  par(old)
+}
+my_plot()
+par("col")
+```
+
+Using the base function `on.exit()` is a robust solution to this problem.
+`on.exit()` will run the code when the function is exited, regardless
+of whether it exits normally or with an error.
+
+```{r, error = TRUE}
+par("col" = "black")
+my_plot <- function(new) {
+  old <- par(col = "red", pch = 19)
+  on.exit(par(old))
+  plot(mtcars$hpp, mtcars$wt)
+}
+my_plot()
+par("col")
+
+options(test = 1)
+{
+  print(getOption("test"))
+  on.exit(options(test = 2))
+}
+getOption("test")
+```
+
+However this solution is somewhat cumbersome to work with. You
+need to remember to use an `on.exit()` call after each stateful call. In
+addition by default each `on.exit()` action will overwrite any previous
+`on.exit()` action in the same function unless you use the `add = TRUE` option.
+`add = TRUE` also adds additional code to the _end_ of existing code, which
+means the code is not run in the [Last-In,
+First-Out](https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting) order you
+would generally prefer. It is also not possible to have this cleanup code
+performed before the function has finished.
+
+[withr](http://withr.r-lib.org) is a solution to these issues. It defines a
+[large set of
+functions](http://withr.r-lib.org/#withr---run-code-with-modified-state) for
+dealing with global settings in R, such as `with_par()`. These functions set one of
+the global settings for the duration of a block of code, then automatically
+reset it after the block is completed.
+
+```{r}
+par("col" = "black")
+my_plot <- function(new) {
+  with_par(list(col = "red", pch = 19),
+    plot(mtcars$hp, mtcars$wt)
+  )
+  par("col")
+}
+my_plot()
+par("col")
+```
+
+In addition to the `with_*` functions there are `local_*` variants whose effects
+last until the end of the function they are included in. These work similar to
+`on.exit()`, but you can set the options in one call rather than two.
+
+```{r}
+par("col" = "black")
+my_plot <- function(new) {
+  local_par(list(col = "red", pch = 19))
+  plot(mtcars$hp, mtcars$wt)
+}
+my_plot()
+par("col")
+```
+
+# Private configuration for R packages
+
+[![Linux Build Status](https://travis-ci.org/r-lib/pkgconfig.svg?branch=master)](https://travis-ci.org/r-lib/pkgconfig)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgconfig?svg=true)](https://ci.appveyor.com/project/gaborcsardi/pkgconfig)
+[![](http://www.r-pkg.org/badges/version/pkgconfig)](http://www.r-pkg.org/pkg/pkgconfig)
+[![](http://cranlogs.r-pkg.org/badges/pkgconfig)](http://www.r-pkg.org/pkg/pkgconfig)
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/pkgconfig/master.svg)](https://codecov.io/github/r-lib/pkgconfig?branch=master)
+
+Easy way to create configuration parameters in your R package. Configuration
+values set in different packages are independent.
+
+Call `set_config()` to set a configuration parameter.
+Call `get_config()` to query it.
+
+## Installation
+
+Use the `devtools` package:
+
+```r
+devtools::install_github("r-lib/pkgconfig")
+```
+
+## Typical usage
+
+> Note: this is a real example, but it is not yet implemented in
+> the CRAN version of the `igraph` package.
+
+The igraph package has two ways of returning a set of vertices. Before
+version 1.0.0, it simply returned a numeric vector. From version 1.0.0
+it sets an S3 class on this vector by default, but it has an option
+called `return.vs.es` that can be set to `FALSE` to request the old
+behavior.
+
+The problem with the `return.vs.es` option is that it is global. Once set
+to `FALSE` (interactively or from a package), R will use that setting in
+all packages, which breaks packages that expect the new behavior.
+
+`pkgconfig` solves this problem, by providing configuration settings
+that are private to packages. Setting a configuration key from a
+given package will only apply to that package.
+
+## Workflow
+
+Let's assume that two packages, `pkgA` and `pkgB`, both set the igraph
+option `return.vs.es`, but `pkgA` sets it to `TRUE`, and `pkgB` sets it
+to `FALSE`. Here is how their code will look.
+
+### `pkgA`
+
+`pkgA` imports `set_config` from the `pkgconfig` package, and sets
+the `return.vs.es` option from it's `.onLoad` function:
+
+```r
+.onLoad <- function(lib, pkg) {
+    pkgconfig::set_config("igraph::return.vs.es" = TRUE)
+}
+```
+
+### `pkgB`
+
+`pkgB` is similar, but it sets the option to `FALSE`:
+
+```r
+.onLoad <- function(lib, pkg) {
+    pkgconfig::set_config("igraph::return.vs.es" = FALSE)
+}
+```
+
+### `igraph`
+
+The igraph package will use `get_config` to query the option, and
+will supply a fallback value for the cases when it is not set:
+
+```r
+return_vs_es_default <- TRUE
+# ...
+igraph_func <- function() {
+    # ...
+    pkgconfig::get_config("igraph::return.vs.es", return_vs_es_default)
+	# ...
+}
+```
+
+If `igraph_func` is called from `pkgA` (maybe through other packages),
+`get_config` will return `TRUE`, and if it is called from `pkgB`,
+`get_config` will return `FALSE`. For all other packages the
+`igraph::return.vs.es` option is not set, and the default value is used,
+as specified in `igraph`.
+
+## What if `pkgA` calls `pkgB`?
+
+It might happen that both `pkgA` and `pkgB` set an option, and
+`pkgA` also calls functions from `pkgB`, which in turn, might call
+`igraph`. In this case the package that is further down the call
+stack wins. In other words, if the call sequence looks like this:
+
+```
+... -> pkgA -> ... -> pkgB -> ... -> igraph
+```
+
+then `pkgB`'s value is used in `igraph`. (Assuming the last  `...` does
+not contain a call to `pkgA` of course.)
+
+## Feedback
+
+Please comment in the
+[Github issue tracker](https://github.com/r-lib/pkgconfig/issues)
+of the project.
+
+## License
+
+MIT © [Gábor Csárdi](https://github.com/gaborcsardi)
+\name{menu.ttest}
+\alias{menu.ttest}
+\alias{menu.ttest2}
+\alias{menu.ttest3}
+
+\alias{del.ttest}
+
+\title{An Example Dialog for t Tests}
+\description{
+  An example of writing a dialog box for an \R function.
+}
+\usage{
+menu.ttest()
+menu.ttest2()
+menu.ttest3()
+
+del.ttest()
+}
+\value{
+  This just calls \code{\link{t.test}} and returns its value for
+  printing by \code{print.htest}.
+}
+\details{
+  The purpose of these functions is to exemplify GUI programming. See
+  the source C code for the details.  The three functions differ in
+  the way they return the information. \code{menu.ttest} returns the
+  values of the fields etc for assembly in \R code. \code{menu.ttest2}
+  submits a string directly to the console.  \code{menu.ttest3}
+  returns the parsed and evaluated expression as an \R object.
+
+  \code{del.test()} will remove the menu.
+}
+
+\examples{
+## The functions are currently defined as
+menu.ttest <- function () 
+{
+    z <- .C("menu_ttest", vars = character(2), ints = integer(4), 
+            level = double(1))
+    ## check for cancel button
+    if (z$ints[4] > 1) return(invisible())
+    ## do it this way to get named variables in the answer
+    oc <- call("t.test", x = as.name(z$vars[1]), y = as.name(z$vars[2]), 
+               alternative = c("two.sided", "less", "greater")[z$ints[1]], 
+               paired = z$ints[2] != 0, var.equal = z$ints[3] != 0, 
+               conf.level = z$level)
+    eval(oc)
+}
+
+menu.ttest2 <- function()
+{
+    .C("menu_ttest2")
+    return(invisible())
+}
+
+menu.ttest3 <- function() .Call("menu_ttest3")
+}
+\keyword{misc}
+\name{NEWS}
+\title{NEWS file for the rpart package}
+
+\section{Changes in version 4.1-0}{
+  \itemize{
+    \item The C and R code has been reformatted for legibility.
+    
+    \item The old compatibility function \code{rpconvert()} has been removed.
+    
+    \item The cross-validation functions allow for user interrupt at the
+    end of evaluating each split.
+    
+    \item Variable \code{Reliability} in data set \code{car90} is
+    corrected to be an ordered factor, as documented.
+
+    \item Surrogate splits are now considered only if they send two or
+    more cases \emph{with non-zero weight} each way.  For
+    numeric/ordinal variables the restriction to non-zero weights is
+    new: for categorical variables this is a new restriction.
+
+    \item Surrogate splits which improve only by rounding error over the
+    default split are no longer returned.  Where weights and missing
+    values are present, the \code{splits} component for some of these
+    was not returned correctly.
+  }
+}
+
+
+\section{Changes in version 4.0-3}{
+  \itemize{
+    \item A fit of class \samp{"rpart"} now contains a component for
+    variable \sQuote{importance}, which is reported by the
+    \code{summary()} method.
+
+    \item The \code{text()} method gains a \code{minlength} argument,
+    like the \code{labels()} method.  This adds finer control: the
+    default remains \code{pretty = NULL}, \code{minlength = 1L}.
+
+    \item The handling of fits with zero and fractional weights has been
+    corrected: the results may be slightly different (or even
+    substantially different when the proportion of zero weights is
+    large).
+
+    \item Some memory leaks have been plugged.
+
+    \item There is a second vignette, \file{longintro.Rnw}, a version of
+    the original Mayo Tecnical Report on \pkg{rpart}.
+  }
+}
+
+\section{Changes in version 4.0-2}{
+  \itemize{
+    \item Added dataset \code{car90}, a corrected version of the
+    S-PLUS dataset \code{car.all} (used with permission).
+
+    \item This version does not use \code{paste0{}} and so works
+    with \R 2.14.x.
+  }
+}
+    
+\section{Changes in version 4.0-1}{
+  \itemize{
+    
+    \item Merged in a set of Splus code changes that had accumulated at
+    Mayo over the course of a decade. The primary one is a change in how
+    indexing is done in the underlying C code, which leads to a major
+    speed increase for large data sets.  Essentially, for the lower
+    leaves all our time used to be eaten up by bookkeeping, and this was
+    replaced by a different approach.  The primary routine also uses
+    \code{.Call{}} so as to be more memory efficient.
+    
+    \item The other major change was an error for asymmetric loss
+    matrices, prompted by a user query.  With L=loss asymmetric, the
+    altered priors were computed incorrectly -- they were using L'
+    instead of L.  Upshot -- the tree would not not necessarily choose
+    optimal splits for the given loss matrix.  Once chosen, splits were
+    evaluated correctly.  The printed \dQuote{improvement} values are of
+    course the wrong ones as well.  It is interesting that for my little
+    test case, with L quite asymmetric, the early splits in the tree are
+    unchanged -- a good split still looks good.
+	
+    \item Add the \code{return.all} argument to \code{xpred.rpart()}.
+
+    \item Added a set of formal tests, i.e., cases with known answers to
+    which we can compare.
+    
+    \item Add a \file{usercode} vignette, explaining how to add user defined
+    splitting functions.
+    
+    \item The class method now also returns the node probability.
+    
+    \item Add the \code{stagec} data set, used in some tests.
+    
+    \item The \code{plot.rpart} routine needs to store a value that will
+    be visible to the \code{rpartco} routine at a later time.  This is
+    now done in an environment in the namespace.
+  }
+}
+
+\section{Changes in version 3.1-55}{
+  \itemize{
+    \item Force use of registered symbols in R >= 2.16.0
+    \item Update Polish translations.
+    \item Work on message formats.
+  }
+}
+
+\section{Changes in version 3.1-54}{
+  \itemize{
+    \item Add Polish translations
+  }
+}
+
+\section{Changes in version 3.1-53}{
+  \itemize{
+    \item \code{rpart}, \code{rpart.matrix}: allow backticks in formulae.
+    \item \file{tests/backtick.R}: regession test
+  }
+}
+
+\section{Changes in version 3.1-52}{
+  \itemize{
+    \item \file{src/xval.c}: ensure unused code is not compiled in.
+  }
+}
+
+\section{Changes in version 3.1-51}{
+  \itemize{
+    \item  Change description of \samp{margin} in \code{?plot.rpart}
+    as suggested by Bill Venables.
+  }
+}
+% Check from R:
+%  news(db = tools:::.build_news_db_from_package_NEWS_Rd("~/R/Pkgs/Matrix/inst/NEWS.Rd"))
+\name{NEWS}
+\title{News for \R Package \pkg{Matrix}}% MM: look into ../svn-log-from.all
+\encoding{UTF-8}
+%% as long as not R >= 3.2.0, ~/R/D/r-devel/R/share/Rd/macros/system.Rd :
+\newcommand{\CRANpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\sspace}{\ifelse{latex}{\out{~}}{ }}
+%% NB: The date (yyyy-mm-dd) is the "Packaged:" date in ../DESCRIPTION
+
+%%_NOT YET__FIXME_ : needs *MORE THAN* cholmod_l_dense_to_sparse() in
+%%----------------   our dense_to_Csparse() in ../src/dense.c (see there)
+%%
+%% \item \code{as(<large-matrix>, "sparseMatrix")} no longer fails
+%%  when \code{prod(dim(.))} is larger than \eqn{2^{31} - 1}.
+%
+\section{Changes in version 1.2-15 (2018-08-20, svn r3283)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{image()} gets new optional argument \code{border.color}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{image(Matrix(0, n,m))} now works.
+    }
+  }
+}
+
+
+\section{Changes in version 1.2-14 (2018-04-08, svn r3278)}{
+  \subsection{New Features}{
+    \itemize{
+      \item German translation updates.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item one more \code{PROTECT()}.
+    }
+  }
+}
+
+\section{Changes in version 1.2-13 (2018-03-25, svn r3275)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Faster \code{as(<matrix>, "sparseMatrix")} and coercion
+	\code{"dgCMatrix"}, \code{"ngCMatrix"}, etc, via new direct C
+	\code{matrix_to_Csparse()} which does \emph{not} go via
+	\code{"dgeMatrix"}.  This also works for large matrices
+	\code{m}, i.e., when \code{length(m) >= .Machine$integer.max}.
+
+	Also provide low-level \R functions \code{.m2dgC()},
+	\code{.m2lgC()}, and \code{.m2ngC()} for these.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{cbind(NULL,<Matrix>)} no longer return \code{NULL};
+      analogously for \code{rbind()}, \code{rbind2()}, \code{cbind2()},
+      fixing very long standing typo in the corresponsing \code{cbind2()}
+      and \code{rbind2()} methods.
+
+      \item The deprecation warning (once per session) for
+      \code{cBind()} and \code{rBind()} finally works (fixing a simple thinko).
+
+      \item \code{cbind()} and \code{rbind()} for largish sparse
+      matrices no longer gives an error because of integer overflow
+      (in the default case where \code{sparse} is not been specified
+      hence is chosen by a \code{nnzero()} based heuristic).
+
+      \item \code{.symDiagonal(5, 5:1)} and \code{.trDiagonal(x = 4:1)}
+      now work as expected.
+
+      \item \code{Sp[i]} now is much more efficient for large sparse
+      matrices \code{Sp}, notably when the result is short.
+
+      \item \code{<sparseVector>[ <negative integer> ]} now also gives
+      the correct answer when the result is \dQuote{empty}, i.e., all
+      zero or false.
+
+      \item large \code{"dspMatrix"} and \code{"dtpMatrix"} objects can
+      now be constructed via \code{new(*, Dim = *, x = *)} also when
+      \code{length(x)} is larger than 2^31 (as the C internal
+      validation method no longer suffers from integer overflow).
+
+      \item More \samp{PROTECT()}ing to be \dQuote{rather safe than
+	sorry} thanks to Tomas Kalibera's check tools.
+    }
+  }
+}
+
+\section{Changes in version 1.2-12 (2017-11-10, svn r3239)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{crossprod(x,y)} and \code{kronecker(x,y)} have become
+      considerably more efficient for large \code{"indMatrix"} objects
+      \code{x, y}, thanks to private nudging by Boris Vaillant.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item (R-forge Matrix bug #6185): \code{c < 0} now also works for
+      derived sparse Matrices (which only \emph{contain} Matrix
+      classes); via improving hidden \code{MatrixClass()}.   Part of
+      such derived matrices only work in R >= 3.5.0.
+
+      \item using \code{Authors@R} in \file{../DESCRIPTION} to list all
+      contributors.
+
+      \item \code{solve(-m)} no longer should use a cached Cholesky
+      factorization (of \code{m}).
+    }
+  }
+}
+
+\section{Changes in version 1.2-11 (2017-08-10, svn r3225)}{
+  \subsection{New Features}{
+    \itemize{
+      \item S4 method dispatch no longer emits ambiguity
+      notes (by default) for everybody, apart from the package
+      maintainer.  You can reactivate them by
+      \code{options(Matrix.ambiguityNotes = TRUE)}
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{rankMatrix(<matrix of all 0>)} now gives zero for all
+      methods, as it should be.
+
+      \item no longer calling \code{length(NULL) <- <positive>} which
+      has been deprecated in R-devel since July.
+
+      \item \code{qr.coef(<sparseQR>, y)} now finally has correct (row)
+      names (from pivot back permutation).
+
+      \item \code{.trDiagonal()} utility is now exported.
+    }
+  }
+}
+
+\section{Changes in version 1.2-10 (2017-04-19, svn r3216)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item quite a collection of new \code{PROTECT(.)}'s thanks to
+      Tomas Kalibera's \sQuote{rprotect} analysis.
+    }
+  }
+}
+
+\section{Changes in version 1.2-9 (2017-03-08, svn r3211)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{"Ops"} between "table", "xtabs", and our matrices now work.
+      \item \code{as(matrix(diag(3), 3, dimnames=rep(list(c("A","b","c")),2)),
+ 	"diagonalMatrix")@x} is no longer named.
+      \item \code{norm(x, "2")} now works as well (and equivalently to \code{base::norm}).
+      \item \code{sparseVector()} now also works without \code{x} argument.
+      \item \code{c.sparseVector()} method for \code{c()} of
+      sparseVectors (and available as regular function on purpose).
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{as(Diagonal(3), "denseMatrix")} no longer returns a
+      non-dense \code{"ddiMatrix"}.
+
+      \item \code{S[sel,] <- value} and similar no longer segfault, but
+      give a \code{"not (yet?) supported"} error
+      for sparse matrices \code{S} and logical \code{sel} when
+      \code{sel} contains \code{NA}s.
+
+      The same error (instead of a low-level one) is signalled for
+      \emph{indexing} (with NA-containing logical \code{sel}), i.e.,
+      \code{S[sel,]}.
+      %% from in ../TODO :
+      %% \item \code{S[sel,]}, \code{S[,sel] <- value} and similar now also work for
+      %% sparse matrices \code{S} and logical \code{sel} when \code{sel} contains \code{NA}s.
+
+      \item \code{which(x, arr.ind=TRUE, *)} (when \code{x} is a
+      \code{"lMatrix"} or \code{"nMatrix"}) now works the same as
+      \code{base::which}, obeying an optional \code{useNames} argument
+      which defaults to \code{TRUE}.  Previously, the resulting
+      two-column matrix typically had empty \code{dimnames}.
+    }
+  }
+}
+
+\section{Changes in version 1.2-8 (2017-01-16, svn r3201)}{
+  \subsection{New Features}{
+    \itemize{
+      \item 0-length matrix \code{"Ops"} (binary operations) are now
+      compatible to R-devel (to be \R 3.4.0).
+      \item C-API: \code{SuiteSparse_long} is now defined as
+      \code{int64_t} on all platforms, and we now include (C99) \file{inttypes.h}
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{x[.] <- value} now also works for
+      \code{"sparseVector"}'s, both as \code{x} and as \code{value}.
+      \item \code{x[FALSE] <- value} now also works for \code{"sparseVector"}'s.
+
+      \item \code{rep(x, *)} now works for \code{"sparseVector"}s and
+      sparse and dense \code{"Matrix"}-classed matrices \code{x}.
+
+      \item \code{solve(<sparse_LU>)} no gives an error in some cases of
+      singular matrices, where before the C code accessed illegal memory locations.
+    }
+  }
+}
+
+
+\section{Changes in version 1.2-7.1 (2016-08-29, svn r3187)}{
+  \itemize{ \item in C code, protect _POSIX_C_SOURCE by #ifdef __GLIBC__ }
+}
+\section{Changes in version 1.2-7 (2016-08-27, svn r3185)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{cBind()} and \code{rBind()} have been almost silently
+      deprecated in \R \code{>= 3.2.0} and now give a warning,
+      \dQuote{once per session} only.
+
+      \item \code{bandSparse(*, k=k, *)} now returns matrices inheriting from
+      \code{"triangularMatrix"} when obvious from the diagonal indices \code{k}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{KhatriRao(X,Y)} now also works when \code{X} or
+      \code{Y} is completely zero.
+    }
+  }
+}
+
+\section{Changes in version 1.2-6 (2016-04-27, svn r3175)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item The 0-dim. Matrix multiplication fix in 1.2-5 did trigger
+      wrong warnings in other diagonal matrix multiplications.
+    }
+  }
+}
+
+\section{Changes in version 1.2-5 (2016-04-14, svn r3170)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{isSymmetric(m)} now also works for \code{"indMatrix"} \code{m}.
+      \item \code{isSymmetric(m)} is faster for large dense asymmetric matrices.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Matrix multiplications (\code{A \%*\% B}) now work correctly
+      when one of the matrices is diagonal and the other has a zero dimension.
+    }
+  }
+}
+
+\section{Changes in version 1.2-4 (2016-02-29, svn r3162)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{sparseMatrix()} gets new argument \code{triangular}
+      and a smarter default for \code{dims} when \code{symmetric} or
+      \code{triangular} is true.
+      \item \code{as(<sparse>, "denseMatrix")} now works in more cases
+      when \code{prod(dim(.))} is larger than \eqn{2^{31} - 1}.
+      Hence, e.g., \code{!S} now works for much larger sparse matrices
+      \code{S}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item creating very large dense matrices, e.g., by
+      \code{as(<sparseM.>, "matrix")} would segfault (in case it could
+      allocate enough storage).
+    }
+  }
+}
+
+\section{Changes in version 1.2-3 (2015-11-19, svn r3155)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{MatrixClass()} is exported now.
+      \item More exports of semi-internal functions (for speed, named
+      \code{".<foo>"}, i.e., inofficial API), such as \code{.solve.dgC.lu()}.
+      \item more Korean translations
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Packages \emph{linking} to \pkg{Matrix} (\code{LinkingTo:}
+      in \file{DESCRIPTION}) now find
+      \samp{alloca} properly defined in \file{Matrix.h} even for non-GNU
+      compilation environments such as on Solaris or AIX.
+
+      \item extended "n?CMatrix" classes (e.g., from \code{setClass(.,
+	contains="ngCMatrix")}) now can be coerced via \code{as(.)} to
+      \code{"d.CMatrix"}.
+
+      \item The printing of largish sparse matrices is improved, notably
+      in the case where columns are suppressed, via new \code{fitWidth =
+	TRUE} option in \code{printSpMatrix2()}. %%% FIXME __ EXAMPLES __
+
+      \item \code{cbind2()} and \code{rbind2()} no longer fail to
+      determine \code{sparse} when it is unspecified and hence
+      \code{NA}, fixing R-forge bug #6259.
+    }
+  }
+}
+
+\section{Changes in version 1.2-2 (2015-07-03, svn r3131)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Explicitly import from \dQuote{base} packages such as \code{"stats"}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Our \code{colSums(x)}, \code{rowMeans(y)}, \dots, methods
+      now \dQuote{keep names}, i.e., if the result is a numeric vector,
+      and the matrix \code{x} has column or row names, these become the
+      \code{names(.)} of the result, fixing R-forge bug #6018.
+    }
+  }
+}
+
+\section{Changes in version 1.2-1 (2015-05-30, svn r3127)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{"Matrix"} now has an \code{initialization()} method
+      coercing 0-length dimnames components to \code{NULL} and other
+      non-\code{NULL} dimnames to \code{character}.  Before, e.g.,
+      numeric dimnames components partially worked, even though it has
+      always been documented that non-\code{NULL} dimnames should be
+      \code{character}.
+      \item For \code{symmetricMatrix} objects which have symmetrical
+      dimnames by definition, it is allowed to only set one half of the
+      \code{dimnames} to save storage, e.g., \code{list(NULL, nms)} is
+      \emph{semantically} equivalent to \code{list(nms, nms)}.
+
+      \item \code{as.vector(<sparseVector>)} etc, now work, too.
+      \item \code{lu(\emph{<sparseMatrix>})} now keeps \code{dimnames}.
+      \item better \file{NEWS.Rd} (which pleases Kurt and \command{tidy} ;-)
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{S[] <- T} and \code{S[] <- spV} now work (in more cases)
+      for sparse matrices S, T and sparseVector \code{spV}.
+      \item Huge dense matrix multiplication did lead to segfaults, see
+      R-help, \dQuote{does segfault mean (always) a bug?}, May 5, 2015.
+      Fixed by using C's Alloca() only in smallish cases.
+      \item Optional arguments in \code{image()}, e.g., \code{main=
+	<..>)} now also work for \code{lgCMatrix}, \code{nMatrix} etc;
+      thanks to a 4.5 years old report by Mstislav Elagin.
+      \item \code{dimnames(A) <- val} now resets the \code{factors} slot
+      to empty, as the factorizations now keep dimnames more often.
+      \item \code{crossprod(<matrix>, Diagonal(<n>))} works again (and
+      these are tested more systematically).
+      \item Matrix products (\code{\%*\%}, \code{crossprod}, and
+      \code{tcrossprod}) for \code{"dtrMatrix"} are correct in all
+      cases, including keeping dimnames.
+      \item \code{Matrix(d)} (and other coercions to \code{"Matrix"})
+      now correctly keeps \code{dimnames} also when \code{d} is a
+      traditional \emph{diagonal} \code{"matrix"}.
+    }
+  }
+}
+
+\section{Changes in version 1.2-0 (2015-04-03, svn r3096)}{
+  \subsection{New Features}{
+    \itemize{
+      \item New \code{\%&\%} for \dQuote{boolean arithmetic} matrix product.
+      \item New argument \code{boolArith = NA} in \code{crossprod()} and
+      \code{tcrossprod()}.  \code{boolArith = TRUE} now forces boolean
+      arithmetic, where \code{boolArith = FALSE} forces numeric one.
+
+      Several of these products are more efficient thanks to new C
+      functionality based on our new \code{chm_transpose_dense()}, and
+      others based on \code{geMatrix_crossprod},
+      \code{geMatrix_matrix_mm}, etc.
+
+      \item Most dense matrix products, also for non-\code{dgeMatrix},
+      including \code{"l..Matrix"} and \code{"n..Matrix"} ones are now
+      directly handled by new \code{.Call()}s.
+
+      \item \code{"dMatrix"} (numeric) and \code{"lMatrix"} (logical)
+      matrices can now be coerced to \code{"nMatrix"} (non-zero pattern
+      or \dQuote{boolean}) even when they contain \code{NA}s, which then
+      become \code{TRUE}s.
+
+      \item More thorough checking of \code{cbind2()} and
+      \code{rbind2()} methods, notably as they are called from \code{cbind()}
+      and \code{rbind()} from \R version 3.2.0 on.
+
+      \code{rbind2(<dense>, <dense>)} is faster, being based on new C code.
+
+      \item symmetric Matrices (i.e., inheriting from
+      \code{"symmetricMatrix"}) are allowed to have \code{dimnames} of
+      the form \code{list(NULL, <names>)} \emph{and} now print correctly
+      and get correctly coerced to general matrices.
+
+      \item \code{indMatrix} object (\dQuote{index matrices}) no longer
+      need to be \dQuote{skinny}.
+
+      \item \code{rsparseMatrix()} now accepts \code{rand.x = NULL} and
+      then creates a random \emph{patter\bold{n}} matrix
+      (\code{"nsparseMatrix"}).
+
+      \item \code{anyDuplicatedT()} and \code{uniqTsparse()} low level
+      utilities are exported now.
+
+      \item Partial Korean translations of messages.
+    }
+  }
+  \subsection{Deprecation}{
+    \itemize{
+      \item For \eqn{R \ge 3.2.0}, \code{cBind()} and \code{rBind()}
+      are deprecated, as they are no longer needed since \code{cbind()}
+      and \code{rbind()} do work automatically.
+    }
+  }
+
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Fix some \code{rbind2()} methods.
+      \item \code{t()} now transposes the dimnames even for symmetric
+      matrices.
+      \item \code{diag(M) <- val} did not always recycle \code{val} to
+      full length, e.g., when \code{M} was a \code{"dtrMatrix"}.
+      \item \code{crossprod(<indMatrix>)} was wrong in cases where the
+      matrix had all-zero columns.
+      \item Matrix products (\code{\%*\%}, \code{crossprod}, and
+      \code{tcrossprod}) with one sparse and one dense argument now
+      return \emph{numeric} (a \code{"dMatrix"}) when they should, i.e.,
+      unless the new setting \code{boolArith = TRUE} is applied.
+    }
+  }
+}
+
+\section{Changes in version 1.1-5 (2015-01-18, svn r3037)}{
+  \subsection{New Features}{
+    \itemize{
+      \item More use of \code{anyNA()} (for speedup).
+      \item Matrix products (\code{\%*\%}, \code{crossprod},
+      \code{tcrossprod}) now behave compatibly to \R 3.2.0, i.e., more
+      lenient in matching dimensions for matrix - vector products.
+      \item \code{isTriangular()} gets new optional argument \code{upper = NA}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{crossprod()} and \code{tcrossprod()} fixes for
+      several <diagonal> o <sparse> combinations.
+      \item \code{rowMeans(<dgeMatrix>, na.rm=TRUE)} was wrong sometimes.
+      \item fix and speedup of coercions (\code{as(., .)}) from and to
+      symmetric or triangular matrices.
+      \item \code{invPerm()} coercion to integer
+      \item \code{dimnames( solve(.,.) )} fix [r3036]
+      \item \code{tril()} and \code{triu()} now return correct \code{uplo}.
+      \item \code{names(dimnames(.))} now preserved, e.g. in
+      \code{symmpart()} or subsetting (\code{A[i,j]}).
+    }
+  }
+}
+
+\section{Changes in version 1.1-4 (2014-06-14, svn r2994)}{
+  \subsection{New Features}{
+    \itemize{
+      \item new \code{rsparsematrix()} for random sparse Matrices.
+      \item improved warnings, notably for unused arguments previously
+      swallowed into \code{...}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{crossprod(<vec>, <dsyMatrix>)} fixed.
+      \item \code{crossprod()} and \code{kronecker()} fixes for some
+      <indMatrix> cases.
+    }
+  }
+}
+
+\section{Changes in version 1.1-3 (2014-03-30, svn r2982)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{\%*\%} and \code{crossprod()} now also work with
+      \code{sparseVector}s.
+      \item speedup of \code{crossprod(v, <sparseM>)}, thanks to nudge
+      by Niels Richard Hansen.
+      \item new help page for all such matrix products
+      (\file{../man/matrix-products.Rd}).
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{image()} now gets correct \code{ylim} again.
+      \item More consistent matrix products.
+    }
+  }
+}
+
+\section{Changes in version 1.1-2-2 (2014-03-04, svn r2966)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item correct adaption to \R 3.1.0
+      \item using \code{tolerance} (and not \sQuote{tol}) in \code{all.equal()}
+    }
+  }
+}
+
+\section{Changes in version 1.1-2 (2014-01-28, svn r2962)}{
+  \subsection{New Features}{
+    \itemize{
+      \item export fast power-user coercion utilities
+      \code{.dsy2mat()}, \code{.dxC2mat()}, \code{.T2Cmat()}, \code{..2dge()}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item matrix products now (mostly) work with \code{sparseVector}s;
+      and correctly in some more cases.
+    }
+  }
+}
+
+\section{Changes in version 1.1-1.1 (2013-12-30, svn r2957)}{
+    \itemize{
+      \item Testing code's \code{assertWarning()} adapted for \eqn{R \le 3.0.1}.
+      \item \code{Depends: R >= 2.15.2} eases checking.
+    }
+}
+
+\section{Changes in version 1.1-1 (2013-12-28)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{image(.., xlim, ylim)}: nicer defaults %% ../R/dgTMatrix.R
+      for the axis limits, and \code{ylim} is sorted decreasingly; not
+      strictly back-compatible but should never harm.
+      \item \code{rankMatrix(*, method="qr")} now using \code{tol}
+      \item \code{T2graph()} and \code{graph2T()} export old functionality explicitly.
+      Tweaks in conversions between \code{"graph"} and
+      \code{"sparseMatrix"} objects.  Notably, \code{as(<graph>,
+	<Matrix>)} now more often returns a (0/1 pattern) "n..Matrix".
+      \item \code{sparseMatrix()}: new \code{use.last.ij} argument.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{KhatriRao()}: fix rownames (X <-> Y)
+      \item \code{qr.coef()}, \code{qr.fitted}, and \code{qr.resid} now
+      also work with \emph{sparse} RHS \code{y}.
+      \item sparse matrix \dQuote{sub assignments}, e.g., \code{M[ii] <- v},
+      speedup and fixes.
+      \item bug fixes also in \code{M[negative indices] <- value} and
+      \code{<sparseMatrix>[cbind(i,j)]}.
+    }
+  }
+}
+
+\section{Changes in version 1.1-0 (2013-10-21, svn r2930)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{fac2sparse} and \code{fac2Sparse} now exported, with a
+      new \code{giveCsparse} option.
+      \item Update to latest \command{SuiteSparse} C library by Tim Davis,
+      U. Florida.
+      \item ensuing \dQuote{C API changes}
+      \item new \code{.SuiteSparse_version()} function
+      \item Many \sQuote{Imports:} instead of \sQuote{Depends:}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item fixed long lasting undetected \code{solve(<dsCMatrix>, *)}
+      bug.
+      \item Our \code{all.equal()} methods no longer sometimes return
+      \code{c("TRUE", "....difference..")}.
+      \item \code{rankMatrix(<matrix>)}: fix the internal \code{x.dense}
+      definition.
+    }
+  }
+}
+
+\section{Changes in version 1.0-14 (2013-09-12, svn r2907)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Revert some wrong changes to \code{solve(<sparse>, *)} from
+      1.0-13 (\dQuote{stop gap fix} for \R 3.0.2).
+    }
+  }
+}
+
+\section{Changes in version 1.0-13 (2013-09-10, svn r2904)}{
+  \subsection{New Features}{
+    \itemize{
+      \item New (efficient) \code{KhatriRao()} function by Michael Cysouw
+      \item New \code{"indMatrix"} class of \dQuote{index matrices}, a
+      generalization of \code{"pMatrix"}, the permutation matrices, many
+      methods generalized from pMatrix to indMatrix.  All (initial)
+      functionality contributed by Fabian Scheibl, Univ.\sspace{} Munich.
+      \item Export and document \code{isDiagonal()} and
+      \code{isTriangular()} as they are useful outside of \pkg{Matrix}.
+      \item \code{rankMatrix(M, method="qr")} no longer needs
+      \code{sval} which makes it considerably more useful for large
+      sparse \code{M}.
+      \item Start providing \code{anyNA} methods for \eqn{R >= 3.1.0}.
+      \item \code{solve(<sparse> a, <sparse> b)}: if \code{a} is
+      symmetric, now compute \emph{sparse} result.
+      \item \code{nearPD()} gets new option \code{conv.norm.type = "I"}.
+      \item \code{determinant(<dpoMatrix>)} now uses \code{chol()}, and
+      hence also an existing (\sQuote{cached}) Cholesky factor.
+      \item 3 new \code{C -> R} utilities (including hidden \R function
+      \code{.set.factors()} for caching also from \R, not just in C).
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{M[] <- v} for unitriangular \code{M} now correct.
+      \item \code{lu(.)} no longer sometimes returns unsorted columns.
+    }
+  }
+}
+
+\section{Changes in version 1.0-12 (2013-03-26, svn r2872)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+
+\section{Changes in version 1.0-11 (2013-02-02)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{as(<csr>, "dgCMatrix")} (from package \CRANpkg{SparseM})
+      now works again.
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-10 (2012-10-22)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{.sparseDiagonal()}: new \code{unitri} argument, and
+      more flexibility;
+      \item new \code{solve(<dsCMatrix>, <missing>)} via efficient C code.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-9 (2012-09-05)}{
+  \subsection{New Features}{
+    \itemize{
+      \item new \code{sparseVector()} constructor function.
+      \item \code{is.finite()} \code{is.infinite()} now work for our
+      matrices and "*sparseVector" objects.
+      \item \code{diag(.) <- V} now preserves symmetricity,
+      triangularity and even uni-triangularity sometimes.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Quite a few fixes for \code{Ops} (arithmetic, logic, etc)
+      group methods.
+      \item Ditto for \code{diagonalMatrix} methods.
+    }
+  }
+}
+
+\section{Changes in version 1.0-6 (2012-03-16, publ. 2012-06-18)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-5 (2012-03-15)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-4 (2012-02-21)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-3 (2012-01-13)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-2 (2011-11-19)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-1 (2011-10-18)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 1.0-0 (2011-10-04)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 0.9996875-3 (2011-08-13)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 0.9996875-2 (2011-08-09)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 0.9996875-1 (2011-08-08)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+\section{Changes in version 0.999375-50 (2011-04-08)}{
+  \subsection{New Features}{
+    \itemize{
+      \item .
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+
+% How can I add vertical space ?
+
+% \preformatted{} is not allowed, nor is \cr
+
+
+
+
+
+%--------------- start of DB+MM history: ------------------------
+
+\section{Changes in version 0.95-1 (2005-02-18, svn r561)}{
+  \subsection{Authorship}{
+    \itemize{
+      \item During Doug Bates' sabbatical in Zurich,
+      Martin Maechler becomes co-author of the \pkg{Matrix} package.
+    }
+  }
+  \subsection{New Features}{
+    \itemize{
+      \item Beginning of class reorganization with a more systematic
+      naming scheme.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item More (correct) coercions \code{as(<from>, <to>)}.
+    }
+  }
+}
+
+\section{Changes in version 0.9-1 (2005-01-24, svn r451)}{
+  \subsection{New Features}{
+    \itemize{
+      \item lme4 / lmer specific R code moved out to \CRANpkg{lme4} package.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item .
+    }
+  }
+}
+
+
+
+
+% How can I add vertical space ?  ( \preformatted{} is not allowed, nor is \cr )
+
+
+%--------------- pre-pre-history: ------------------------
+
+\section{Changes in version 0.8-2 (2004-04-06, svn r51)}{
+  \subsection{Authorship}{
+    \itemize{
+      \item Doug Bates (only)
+    }
+  }
+  \subsection{New Features}{
+    \itemize{
+      \item Sparse matrices, classes and methods, partly via
+      \item Interface to LDL, TAUCS, Metis and UMFPACK C libraries
+    }
+  }
+}
+
+% How can I add vertical space ? .................................
+
+
+\section{Version 0.2-4}{
+\subsection{..., 0.3-1, 0.3-n (n=3,5,...,26): 22 more CRAN releases}{
+  \itemize{ \item ............................................. } }}
+
+% How can I add vertical space ?
+% \preformatted{} is not allowed, nor is \cr
+
+
+
+\section{Version 0.2-1 (2000-07-15)}{
+  The first CRAN release of the \pkg{Matrix} package,
+  titled \dQuote{A Matrix library for R} authored by
+  Douglas Bates (maintainer, principal author) and Saikat DebRoy.
+  \subsection{Features}{
+    \itemize{
+      \item \code{Matrix()} constructor for \R objects of class \code{Matrix}.
+      \item \code{Matrix.class()} returning informal subclasses such as
+      \code{"Hermitian"}, \code{"LowerTriangular"}
+      \item \code{is.Orthonormal()}, \code{is.Hermitian()} ,
+      \code{is.UpperTriangular()} functions.
+      \item \code{SVD()}, \code{lu()}, and \code{schur()} decomposition
+      generics with \code{"Matrix"} methods.
+      \item \code{rcond()}, \code{norm()}, \code{det()};
+      \code{expand()} and \code{facmul()}.
+
+      \item C++ interface to LAPACK
+    }
+  }
+}
+\name{NEWS}
+\title{NEWS file for the survival package}
+\section{Changes in version 2.43-2}{
+  \itemize{
+    \item In concordance, allow y to be an orderable factor (either
+    is.ordered=TRUE or it has only 2 levels), instead of giving an error
+    message.  Repair some missing references in the vignette.
+
+    \item Fix an error check in survSplit, when the response has missing
+    values.  The routine would fail with an error message when there was
+    no error. (Pointed out by  Daniel Wollschläger.)
+
+    \item Fix serious error in the finegray function when called with
+    (start, stop) data, e.g., with time-dependent covariates: the
+    censoring distribution G was incorrect which leads to incorrect weights,
+    including NA.  Pointed out by Deqiang Zheng along with an example.
+    (The use of time-dependent covariates in a FG model has serious -- I
+    think fatal -- statistical issues, however.  The FG approach adds
+    extra 'imputed' follow-up to each subject; but what is the future
+    value of a time-dependent covariate over this new interval?)
+
+    \item Update the finegray function to allow case weights.  If the
+    original data has sampling weights, for instance, this propogates
+    them properly to the created fgwt variable. 
+}}
+
+\section{Changes in version 2.43-1}{
+  \itemize{
+    \item Minor change to the concordance method to better accomodate
+    another package; add one more test case as well.
+    \item Change coxph to use concordance() rather than survConcordance.  
+    Be aware that this changes the default variance estimate (to a
+    better estimator however).
+    \item Add a test to verify that tmerge works with Date objects as
+    the time scale
+    \item Add timefix=TRUE option to survdiff
+    \item Add code for an edge case to coxph: a data set with no events.
+}}
+
+\section{Changes in version 2.43.0}{
+  \itemize{
+    \item Finish test suite and vignette for concordance.
+    \item Run the tests for all packages that depend on survival.
+    Submit to CRAN
+}}
+
+\section{Changes in version 2.42-7}{
+  \itemize{
+    \item Add arguments to survfit: survfit.matrix did not have
+    start.time, and survfitCI did not have p0.  Now both of them have
+    both.
+
+    \item Fix two small errors triggered by the new checks for the use
+    of && or || with arguments whose length is >1.  Pointed out by
+    Martin Maechler.
+
+    \item Add the concordance function, an upgrade of the older
+    survConcordance function.  The latter will be depricated.  (The draft
+    vignette still needs some polish.)
+
+    \item Change survreg so that a returned "y" in the object is the
+    original response, not the transformed y used for computation. This
+    was prompted by the concordance.survreg method, but is also more
+    consistent. It forced a change in residuals.survreg and uncovered
+    a long standing bug for any fit that had specified y=FALSE. 
+
+    \item Fix bug pointed out by C McCort: tmerge with "tdc(time, x)"
+    would fail if x is of mode character.  Add this case to the test suite.
+}}
+
+\section{Changes in version 2.42-6}{
+  \itemize{
+    \item Remove the cbind.Surv and rbind.Surv methods. 
+    The problem is when one is called with mixed arguments, e.g.
+    cbind(Surv(1:4), data.frame(x=6:9, z=c('a', 'b', 'a', 'a'))
+    In the above cbind.Surv is never called, but the \emph{presence}
+    of a cbind.Surv method messes up the default behavior, see the
+    Dispatch section of help('cbind').
+}}
+
+\section{Changes in version 2.42-5}{
+  \itemize{
+    \item Add a plot.Surv method per the suggestion of Goran Brostram.
+    Improve the cbind.Surv and rbind.Surv methods to handle mixed
+    argument lists (when there are some Surv arguments and some not). 
+
+    \item Add a Survmethods.Rd page documenting the added methods.
+
+    \item Add "F" and "S" to the list of fun= arguments to plot.survfit,
+    they are aliases for "event" and "identity", respectively.
+}}
+\section{Changes in version 2.42-4}{
+  \itemize{
+    \item Undo a bug that was introduced in tmerge in 2.42-3; an essential
+    line got commented out with the result that if sequential tmerge calls
+    modify the same variable only the final change was retained.  Add a
+    check to the test suite to prevent this in the future.
+
+    \item Improve multi-state survfit when the input data has extra
+    censored rows, e.g., a subject with transitions to state 1 at time 2
+    and state 2 at time 8 but data of (0,2,1), (2,5,0), (5,8,2); the
+    survSplit routine often generates such rows.
+    Formerly the transitions table in the output would be incorrect for
+    this case, and the life table would get an extra "censoring" line at
+    time 5.  The estimated P(state) and its se was correct.
+
+    \item Fix an edge case in tmerge, when using cumevent and the input
+    data has a 'censored' row.  Add a test for this, and for another edge
+    case of repeated updates at the same time point.
+
+    \item repair xtfrm.Surv: it had returned a partial ordering for
+    survival objects (like order()), it instead needs to be the analog
+    of order(order(x)), a vector of integers with the same sort order as
+    x.  Add test cases and a manual page.
+    
+    \item Add more Surv methods: head, tail, rep, rbind, c, rev, t,
+    mean, median, plot, points, lines, levels. 
+  }}
+
+\section{Changes in version 2.42-3}{
+  \itemize{
+    \item Remove the coxph warning "X matrix deemed to be singular".
+    The coefficients are NA, just as before, we simply say less.
+
+    \item Fix minor bug in coxph: a covariate that was a constant would
+    have its coefficent reported as 0 rather than NA, if (and only if)
+    it was the only variable in the model, e.g.,
+    coxph(Surv(1:10) ~ rep(4,10)).
+}}
+
+\section{Changes in version 2.42-1}{
+  \itemize{
+    \item Add xtfrm method for Surv objects.
+    \item Fix error in logLik.coxph.null (incorrect class)
+    \item Fix error in pyears, would fail for a model with no
+    predictors and dataframe=TRUE.
+    \item tmerge would fail if an id was missing, give a message
+    instead
+    \item Stronger date checks in survexp, i.e., that the column
+    of a data frame is a date if and only if the matching ratetable
+    dimension is a date.
+    \item Restore the order of the elements of coxph objects; as some
+    other packages depend on both the names and the order.  It had been
+    modified when the residual argument was added to coxph.fit.
+    \item Add a more rigorous check for overflow in the coxph iteration:
+    M Tsagris supplied an edge case example where the information matrix
+    fails one iteration before anything else.  
+}}
+
+    
+\section{Changes in version 2.42-0}{
+  \itemize{
+    \item Fix a bug in the agfit4.c routine, based on data sets from Ivo
+    Sousa Ferreira and Marloes Derks.  This was introduced in 2.39-1 and
+    leads to incorrect solutions for selected data sets.  Such data sets
+    are a rare edge case, however.  In detail:
+    In a start stop data set with strata assume two adjacent event times
+    in one stratum of d1 and d2, say, and a set of k censored intervals
+    (a,b) also in that stratum such that a>=d1 and b<d2.  (Such intervals are
+    never at risk for an event and could be elminated from the data set
+    without loss.) If k >= the number of intervals that overlap both d1
+    and d2, and in the prior stratum the smallest time was an event,
+    some variables that track who is in the risk set got out of sync,
+    and contributions to the loglik, first and second derivative at d1
+    would be incorrect.  I expect such data sets are extremely rare.
+    However, the survSplit routine and mstate packages can generate data
+    sets with a LOT of the unneeded intervals.  (The data set in
+    question came from mstate.)
+
+    \item Use format.pval() and printCoefmat in more of the print
+    functions.  This aligns the format with that of base R.
+
+    \item Update the vcov function to accept the new complete= argument.
+    \item Update statefig to accept vectors of colors.
+
+    \item The [.survfit routine would complain on the use of fit[1]
+    when fit contained a single curve.  This is now legal.
+    \item Change NAMED() to MAYBE_REFERENCED() at the suggestion of R
+    core
+
+    \item Add the yates() routine for population prediction,
+    and accompanying vignette.
+    \item Update the survival rate tables (survexp.mn, survexp.us,
+    survexp.usr), to add data for more calendar years.
+
+    \item Bow to user pressure: marks now appear on survival curves for
+    censoring times that are tied with an event time, plotted at the
+    midpoint of the vertical step.  Also, replace the outdated
+    \code{mark} option with \code{pch}.
+  }
+}
+
+\section{Changes in version 2.41-5}{
+  \itemize{
+    \item Update the survexp.us and survexp.usr rate tables.  They now
+    contain years 1940 to 2012.  They however lost the breakdown of the
+    first year of life into smaller intervals as the recent US census data
+    lacks that information.  Update the code for ratetables: a cutpoint
+    attribute vector can now be of class Date, and names(dimnames) can
+    supplant the dimid attribute.  (Only creators of rate tables are impacted
+    by these last two.)
+
+    \item Change all instances of "1-pchisq(...)" to instead use the
+    lower.tail=FALSE argument.
+}}
+
+\section{Changes in version 2.41-4}{
+  \itemize{
+    \item The coxph routine did not check for infinite predictors (these
+    are not screened out by na.action), and these could cause the
+    iteration to fail.  Added a check and stop() statement.  The example
+    was provided by Glenn Tisdale.
+
+    \item When conf.times was used in plot.survfit, the bars were not
+    perfectly centered on the target values
+
+    \item Add the residual and concordance argument to coxph.fit and
+    agreg.fit, at the request of S Venkat.  These speed up the function
+    when a calling routine only needs the partial likelihood.
+
+    \item Fix error in survfit: if timefix=FALSE was specified we forgot
+    to set a key variable and the routine fails.  Pointed out by Sarah
+    Streett. 8Apr2017.
+
+    \item Change the scale argument of summary.coxph so that it affects
+    the coefficient and se(coef), not just the confidence interval.
+
+    \item Fix an error in survfitCI when using the start.time argument, and
+    add a test case for it.
+
+    \item Add tail.Surv method per a request from Michael Lawrence.
+    Also add duplicated, anyDuplicated, and unique methods.
+}}
+
+\section{Changes in version 2.41-3}{
+  \itemize{
+    \item A check for infinite loglik was incorrect in agfit4.c, and could
+    fail to detect the need for step halving.  It required a very
+    unusual data set to trigger this.
+
+    \item The survfit routine would fail for interval censored data, on
+    a group that had only a single step in the curve.  (Needed to add
+    drop=FALSE to a matrix subscript.)
+
+    \item Minor change to Surv to ensure that its check for difftime
+    objects will not trigger a "length >1 inside an if ()" warning.
+
+    \item The summary.survfit function had n.censor wrong when there
+    were multiple curves and censor=TRUE (spurious NA values).  Added more
+    lines to the test suite.
+
+    \item Pointed out by Mikko Korpela: the dynamic symbols check added
+    in 2.41-0 requires R version 2.16 or later.  Add an ifdef to init.c
+    that checks the version of R, mimicking a similar line in the MASS library.
+}}
+
+\section{Changes in version 2.41-2}{
+  \itemize{
+    \item Fix two memory leaks and an uninitialized array, found by B Ripley. 
+
+    \item With Surv(a,b, type='interval2') and a or b infinite, the
+    infinite values were incorrectly retained rather then being
+    transformed into left or right censoring.  The downstream survfit
+    and/or survreg results could then sometimes be in error.
+
+    \item Update cch to correctly deal with nearly tied times, in line
+     with the many changes in version 2.40.
+
+     \item Update the README.md file, for github users who didn't read
+    noweb/Readme and then get R CMD build errors.
+  }
+}
+\section{Changes in version 2.41-0}{
+  \itemize{
+    \item Per request if the R-core, add R_useDynamicSymbols(dll,FALSE)
+      to the initialization.  This prevents .Call from accessing the
+      library when its first argument is a character string.  The reason
+      is to stop accidental linking to the routines.
+    \item Fix a bug in tmerge, if data2 was not sorted by time within id
+      then a tdc(time, x) call's outcomte was incorrect.  Add the ability
+      to use a factor as the second variable in a tdc call, and add the
+      tdcstart option.
+    \item Expose the aeqSurv routine, which is used rectify tied
+     time issues.
+     \item The survfit routines now save the start.time option (if used) in
+     the output object.  This is then used as a default starting point for
+     the x-axis in any plots.
+     \item Allow survfit.matrix to use different p0 values for different
+     curves.
+     \item Add type="survival" to predict.coxph
+ }}
+ 
+\section{Changes in version 2.40-2}{
+  \itemize{
+    \item Fix an error in the finegray routine: with strata() the
+    resulting data sets could have incorrect status values.  Pointed out
+    by Mark Donoghoe.  Added a strata test to tests/finegray.R.  
+
+    \item Remove many "is.R" and "oldClass" calls (vestiges of Splus).
+    \item The summary.pyears routine now prints pandoc style tables.
+    \item Fix multiple spelling errors in the Rd files; contributed by
+    Luca Braglia.
+    \item For a multi-state curve, the cumhaz component accidentally had
+    the final state removed.  All values were correct, simply an
+    overzealous trimming of the final result.
+
+    \item Add a short vignette describing the issue with round off error
+    and tied survival times.
+
+    \item Errors in survSplit: a factor status was not propogated, and a
+    missing time gave a spurious error message.
+}}
+
+\section{Changes in version 2.40-1}{
+  \itemize{
+    \item For multi-state survival with a big data set and the
+    influence=TRUE option, the resulting object could be so long that it
+    overflowed an integer counter in the C code.  Add a check in the R
+    code and a caution in the help file.
+  }
+}
+\section{Changes in version 2.40-0}{
+  \itemize{
+    \item Code changes to avoid the new warnings for multiplication of a
+    vector * (1 by 1 matrix). 
+    
+    \item Add a more thorough test case for multi-state survival:
+    not all subjects start in the same state, delayed entry, and
+    case weights that change within a subject.  This uncovered some
+    errors.  More carefully document the influence option.
+    
+    \item Consistently deal with "almost tied" survival times in the survfit and
+    coxph routines.  Uses the same rule and tolerance as the all.equal
+    function to declare two time value equal.  The issue arises due to
+    round off errors, e.g., from cacluations using days/365.25.
+    
+    \item Add the statefig function and a multi-state vignette.
+
+    \item The rsurvreg function was not exported.  NAMESPACE fix.
+
+    \item Fix some labeling errors in the graphs for the adjusted
+    survival curves vignette (consequences of the xscale change in
+    2.38-5).
+
+    \item Update multi-state survival so that the robust (default)
+    variance for a weighted data set treats these as sampling weights
+    rather than case weights.  This makes it consistent with the
+    behavior of coxph.  (Multiplication of all the weights by a constant
+    now leaves the variance unchanged.) (9/2016)
+
+    \item Surv(time, status) would fail when status was a factor with
+    only two levels.  This was due to an assumption that no user would
+    ever want this, i.e., ever do it on purpose, and so it must be a mistake
+    which should be caught.  This was a bad assumption.
+
+    \item Add the start.time argument to survfit.coxph. 10Sep2017
+}}
+\section{Changes in version 2.39-5}{
+  \itemize{
+    \item The summary.survfit routine assumed that the times argument
+    was sorted, contrary to the documentation.  Pointed out by Torsten
+    Hothorn.
+    \item The tmerge function would fail if the time variable was a Date
+      object.  It was due to the fact that as.Date(as.numeric(x)) 
+      fails when x is a date.  (A design flaw in Date, IMHO).  There were
+      also flaws when both the first and second data set were not sorted
+      by id; added a more complete test case for this.
+
+    \item An earlier change in dim.survfit had felled the survfit.matrix
+    function: it incorrectly assumed strata when there were none.
+    Unfortunately this didn't generate an error but rather multiple
+    copies of a single curve (and an incomprehensible explanation of
+    this single curve in the vignette).  Pointed out by E Lundt.
+
+    \item print.summary.survfitms would complain if only a single time
+    was returned.  A case where drop=FALSE was needed.
+
+    \item Add a test for survSplit to ensure that it works with both the
+    formula based and old interface.  Add documention on
+    how variable names are chosen to the help file.
+
+    \item Error in subscripting survival curves: if fit was a survfit
+    curve from left-truncated data, fit[k] had an incorrect n.enter
+    component.  (An old error, which shows how rarely that component is
+    used.)  Pointed out by Beth Atkinson.
+
+    \item Remove n.enter from the default printout of summary.survfit,
+    to make the printout more compact.
+    It remains in the summary object but was very rarely used.
+    \item Update the points.survfit function to handle multiple colors
+    and/or plotting characters.  If a survfit object has multiple curves
+    we cycle through these in the same manner as matpoints would.
+    
+}}
+
+\section{Changes in version 2.39-4}{
+  \itemize{
+    \item Create a stronger test suite for summary.survfit, and use
+    it to actually fix the error that 2.39-3 claimed to fix.  This
+    uncovered a long-standing inaccuracy with n.risk for in-between
+    time points.
+    \item Add a section on monotone splines to the splines vignette.
+}}
+  
+\section{Changes in version 2.39-3}{
+  \itemize{
+    \item For multi-state curves, the returned n.event component lost
+    its dimensions if any of the curves had only one observation.
+
+    \item Fix error in summary.survreg.  For multiple curves and
+    requested time points at or before the first time point in the data,
+    the values from curve 1 was used for all.  Pointed out by T Eigentler.
+
+    \item Fix an unitialized variable in C code, pointed out by Brian Ripley.
+}}
+
+\section{Changes in version 2.39-2}{
+  \itemize{
+    \item Small updates based on feedback from CRAN
+}}
+
+\section{Changes in version 2.39-1}{
+  \itemize{
+    \item Label the output dimnames from pyears with the variable names
+    from the model.  This makes it easier to read.
+    
+    \item Replace any refrences to model.frame with "stats::model.frame"
+    (all 38 of them).  The model.frame function uses non-standard
+    evaluation rules, and holding its hand like this is the only way to
+    ensure that we don't call a user function of the same name.
+    
+    \item The Surv function would almost always label the columns of the
+    resulting matrix, and the glmnet function depended on this. It now
+    always labels them per a request from Trevor Hastie.
+
+    \item Add the finegray function and expand the competing risks
+    vignette to document it.
+
+    \item Add a check to the quantile.survfit function for multi-state
+    models; quantiles are not well defined for this case.
+
+    \item Changes to the iteration path and convergence tests for coxph
+    models with (start, stop] data, driven by two user examples that
+    failed.  The data sets had serious statistical issues of
+    collinearity and/or outliers such that the final fits are not
+    practically useful, but now the routine finishes gracefully instead
+    of dying.  The upshot is much more care about the order in which
+    additions and subtractions of large numbers are done so as to avoid
+    cancellation error.
+
+    \item Fix an error to summary.survfit with the times argument: for
+    intermediate time points it would sometimes choose the wrong value
+    for the number at risk.  (Number at risk is a left continuous
+    function.) 
+}}
+    
+\section{Changes in version 2.38-5}{
+  \itemize{
+    \item Add more graphical arguments to plot.cox.zph in response to a user
+    request.
+    
+    \item Remove some of last vestiges of Splus support from the header
+    files for the C code, per a request from R core to remove mention of S.h.
+    
+    \item Multiple updates and corrections to the tmerge function,
+    including improvements to the vignette.  (As a result of using it in
+    a class where the TA tried out all manner of combinations.)
+    
+    \item Update survSplit: it now handles all types of status variables
+    (0/1, TRUE/FALSE, factors), the id and episode arguments are useful
+    for start/stop data, the data retains its original sort order (new
+    observations are inserted rather than put at the end), and the
+    function is illustrated in a vignette.
+    
+    \item Add the conf.times argument to plot.survfit.  This
+    allows for confidence bars at specified times, which are useful
+    when the plot is crowded.
+
+    \item Survfit changes that are NOT backward compatable!
+    \itemize{
+      \item Change the default for mark.time to FALSE
+      \item Change the behavior of xscale so that it matches that of
+      yscale, i.e., it changes only the label and not the underlying
+      scale.  Follow on annotations such as legend or locator are in the
+      orignal scale of the data.
+      \item For a matrix of curves, e.g. competing risks, print and
+      plot them in column major order rather than row major, so as 
+      to match the usual R behavior.
+      }
+    
+    \item Fix an error in the help page for the cohort
+    argument of survexp, pointed out by Karl Ove Hufthammer.
+
+    \item The anova and logLik functions would fail when given a
+    null model (right hand side of 1 or only an offset).  Pointed
+    out by Karl Ove Hufthammer.
+
+    \item The recently added code to generate an error when the same
+    variable appears on both sides of a formula in coxph (a good idea)
+    caused a failure if there was offset statement that contains a '-'
+    sign.  Pointed out by Abra Jeffers.
+}}
+
+\section{Changes in version 2.38-3}{
+  \itemize{
+    \item Add more imports to the NAMESPACE file per a request from CRAN
+
+    \item Add a length method for Surv objects.  Requested by Max Kuhn.
+    (2015/6/17).
+
+    \item Fix an error in neardate. When both input data sets were
+    unsorted the last match could be wrong.
+}}
+
+\section{Changes in version 2.38-2}{
+  \itemize{
+    \item Change print.coxph to use the printCoefmat routine, which l
+    leads to nicer p-values.  Other print routines will follow unless
+    there is an outcry.  (But I forced signif.stars=FALSE: my tolerance of
+    bad practice has limits.)
+    
+    \item Make those parts of the competing risks vignette which depend
+    on the cmprsk library conditional.  Otherwise the build fails for
+    those without the pacakge.
+    
+    \item The coxph function could fail converge for a set of very collinear
+    predictors when using (start, stop) data; revealed in a test case
+    sent by G Borstrom.  This was due to deficiency in a check for
+    near infinite coefficients, which had already been updated for some
+    but not all cases.  (2015/6/3)
+    
+    \item Update anova.coxph to use the model.frame.coxph function; the 
+    current code had scoping errors if embedded in a function.  Add an
+    anova.coxph.penal function to correctly handle models with pspline
+    terms.
+
+    \item Fix an error in the tmerge function.  Using the options
+    argument would generate a spurious error.
+    \item Pyears could fail on very long formulas due to a deparse() issue.
+    
+    \item Add the number of observations used and deleted due to missing
+    to summary.pyears.
+    
+    \item Allow the combination of a null coxph model (~1 on the right)
+    and the exact calculation for tied times.  No one had ever asked for
+    this before.  (2015/3/25)
+    
+    \item Shorten the default printout for survfit. The records, n.max
+    and n.start columns are often the same: if so suppress duplicates.
+    
+    \item Move the anova.coxphlist function from the survival package to
+    coxme.  (2015/3/3)
+
+    \item Change the logLik method for coxph models so that the nobs
+    component is the number of events rather than the number of rows in
+    the data.  This is superior for follow on methods such as AIC.
+
+    \item Add a test to the coxexact.c routine for too large a data set;
+    too many tied times could lead to integer overflow.  "Fixing" the error
+    is not sensible: the computation for such a data set would take decades.
+    Add some more explanation to the help pages as well.
+}}
+
+\section{Changes in version 2.38-1}{
+  \itemize{
+    \item Fix an error discovered by CRAN, which triggered a core dump
+    for them on a particular manual page (but never for me).  The linear
+    predictors from a frailty model contained NA values (incorrect),
+    leading to failure in survConcordance.fit. (2015/2/16).
+    
+    \item An error was found in the mgus data set (a progression after
+    death).  Now corrected, and added a little more follow-up time for
+    some subjects.
+    
+    \item Add error check for infitinte weights or offsets.  This in respose
+    to a bug report where someone did this on purpose, trying to mimic
+    cure fractions, and then found that survfit.coxph failed.
+
+    \item Robust variance is not supported for a coxph model with the
+    "exact" approximation.  (Rarely requested and a lot of work to add.)
+    Add an error message to clogit(), so users get a more useful notice of
+    the issue rather than a late error from residuals.coxph.
+    
+    \item Update the rats data set: it now includes both female and male
+    litters so as to match the documentation.
+    
+    \item The term frailty(x) would fail if x were a factor, and not all
+    levels were present.  Pointed out by Theodor Balan.
+    
+    \item Fix error of "abs" instead of "fabs" in the agfit4.c code;
+    pointed out to me by CRAN.
+    
+    \item Replace all instances of the obsolete prmatrix function.
+    
+    \item Modify pyears to allow cbind(time, count) as the response,
+    giving a cumulative sum of counts, when the counts per observation
+    may be other than 0/1.
+    
+    \item The lines.survfit function was incorrect for data sets that
+    used the start.time option and xscale (it neglected to rescale the
+    start time.)
+
+    \item An increasingly common error is for user to put the time
+    variable on both sides of a coxph equation in the mistaken belief
+    that this is a way to create time-dependent coefficients.  Generate
+    a warning message for this case.
+    
+    \item Update the basehaz function to a simple alias for "survfit".
+    Prior versions called surfit but then only returned part of the
+    object.  Update 2/2015: reverted the change.  It turns out that 6
+    different packages that depend on survival also depended on the
+    old behavior.  
+    
+    \item Make the default value for the shortlabel argument of strata()
+    more nuanced.  If the argument is a single factor, assume that we
+    don't need to prepend the variable name to its levels.
+    
+    \item Return the weights vector, if present, as part of the survreg
+    object.
+    
+    \item For interval censored points and the symmetric distributions
+    (Gaussian and logistic) response type residuals were incorrect.
+    Silly error: needed (x-mean)/scale not x/scale - mean.
+
+    \item Martingale residuals could be incorrect for the case of model with
+    (start, stop] data and a pspline term.  Refactor the code so that
+    all of the possible code paths call the same C routine to do the residuals.
+    Add a new test for this case, and further tests to verify that
+    predict(type='expected') and residuals agree.
+        
+    \item Fix bug pointed out by D Dunker: if a model had both tt() and
+    cluster() terms it would fail with a length error.
+    
+    \item Fix a rare bug in plot.survfit: if a multistate curve rose and
+    then later fell to exactly the same value, the line would be
+    incorrect.
+    
+    \item Add calls to the R_CheckUserInterrupt to several routines, so
+    that long calculations can be interrupted by the user.
+
+    \item The anova.coxph function would fail if the original call had a
+    subset argument. Pointed out by R Fisher.   11May2014
+}}
+    
+\section{Changes in version 2.37-7}{
+  \itemize{
+    \item Remove a dependency on the survey package from the adjusted
+    survival curves vignette, at the request of CRAN.  (The base +
+    required bundle needs to be capable of a stand-alone build.)
+    
+    \item Fix error in calcuation of the y-axis range for survival curve
+    plots whenever the "fun" argument could produce infinite values,
+    e.g., complimentary log-log plots transform 1 to -Inf.  Pointed out
+    by Eva Boj del Val.  (Add finite=TRUE to range() call).
+}}
+
+\section{Changes in version 2.37-6}{
+  \itemize{
+    \item The plot for competing risk curves could have a spurious
+    segment.  (Found within 3 hours of submitting 2.37-5 to CRAN.)
+
+    \item The lines method for survexp objects was defaulting to a
+    step function, restore the documented default of a connected
+    line.
+    \item Add a levels method for tcut objects. 14Jan2014
+  }
+}  
+\section{Changes in version 2.37-5}{
+  \itemize{
+    \item Add vignette on adjusted survival curves.
+    \item Add vignette concerning "type 3" tests.
+    
+    \item Make the tt() function invisible outside of a coxph formula.
+    There was a complaint about conflicts with another package, and
+    there is not really a good reason to have it be a global name.
+    An R-devel discussion just over 1 year ago showed how to accomplish this.
+   
+    \item The modeling routines are set in two parts, e.g., coxph sets
+    up the model and coxph.fit does the work.  Export more of the ".fit"
+    routines to make it easier for other packages to build on top of
+    this one.
+    
+    \item Updates to the model.matrix and model.frame logic for
+    coxph.  A note from F Harrell showed that I was not correctly
+    dealing with the "assign" attribute when there are strata * factor
+    interactions.  This led to cleanup in other cases that I had missed
+    but which never had proven fatal.  Also added support for tt() terms
+    to the stand alone model.matrix and model.frame functions.
+    (Residuals for tt models are still not available, but this was a
+    necessary first step to that end.) 26Dec13
+    
+    \item The Surv function now remembers attributes of the input
+    variables that were passed to it; they are saved as
+    "inputAttributes".  This allows the rms package, for instance, to
+    retain labels and units through the call.
+    
+    \item Update summary.coxph.penal to produce an object, which in turn
+    has a print method, i.e., make it a "standard" summary function.
+    
+    \item Add a logLik method for coxph and survfit objects.
+    
+    \item Allow for Inf as the end of the time interval, for interval
+    censored data in the Surv function.
+    
+    \item The predict.coxph function would fail if it had both a newdata
+    and a collapse argument.  Pointed out by Julian Bothe.  25Sep13
+    
+    \item Survexp can now produce expecteds based on a stratified Cox
+    model.  Add the 'individual.s' and 'individual.h' options to return
+    indivudual survival and cumulative hazard estimates, respectively.
+    The result of survfit now (sometimes) includes the cumulative
+    hazard.  This will be expanded. 29Jul13
+    
+2    \item Change code in the coxpenal.fit routine: the use of a vector of
+    symbols as arguments to my .C calls was confusing to a new CRAN
+    consistency check.  Both the old and new are legal R; but the old
+    was admittedly an unusual construction and it was simpler to change it.
+    
+    \item Fix a bug in survfit.coxph pointed out by Chris Andrews, whose
+    root cause was incorrect curve labels when the id option is used. 27Jun13
+    
+    \item Add rsurvreg routine.
+    
+    \item Change survfit.coxph routine so that it detects whether
+    newdata contains or does not contain strata variables, and acts
+    accordingly. If newdata does containe strata then  the output will
+    contain only those data-value and strata combinations specified by the
+    user. Retain strata levels in the coxph routine for use
+    in the survfit routine, to correctly reconstruct strata levels.
+    Warn about curves with interactions.  18Ju13
+
+    \item Add a dim method for survival curves.
+    
+    \item For competing risks curves that use the istate option, the
+    plotted curves now start with the correct (initial) prevalence of
+    each state.  22May13
+    
+    \item The survreg function failed with the "robust=T"
+    option. Pointed out by Jon Peck.  Test case added.  6May13
+    
+    \item Kazuki Yoshida pointed out that rep() had no method for Surv
+    objects.  This caused the survSplit routine to fail if the data
+    frame contained a Surv object.  3May13
+    
+    \item Per a request from Milan Bouchet-Valet fix an issue in survfit
+    that arose when the OutDec option is set to ',': it did not
+    correctly convert times back from character to numeric.
+
+    \item The plot.survfit function now obeys "cex" for the size of the
+      marks used for censored observations.
+}}
+
+\section{Changes in version 2.37-4}{
+  \itemize{
+    \item Subscripting error in predict.coxph for type=expected, se=T,
+    strata in the model, newdata, and multiple strata in the new data
+    set.  Pointed out by Chris Andrews.  The test program has been
+    tweaked to include multiple strata in newdata.
+}}
+    
+
+\section{Changes in version 2.37-3}{
+  \itemize{
+    \item Minor flaw in [.survfit.  If "fit" had multiple curves, and
+    fit$surv was a matrix, and one of those curves had only a single observation
+    time, fit[i,] would collapse columns when "i" selected that curve,
+    though it shouldn't.  
+
+    \item Changed all of the .C and .Call statements to make use of
+    "registered native routines", per R-core request. Add file src/init.c 
+
+    \item Error in plot.survfit pointed out by K Hoggart -- the "+"
+    signs for censored observations were printing one survival time to
+    the left of the proper spot.  Eik Vettorazi found another error if
+    mark.time is a vector of numerics.  These are the results of merging
+    the code for plot, lines and points due to some discrepancies between
+    them, plus not having any graphical checks in the test suite.
+    
+    \item Repair an error in using double subscripts for the survfitms
+    objects.
+    
+    \item Add the US population data set, with yearly totals by age and sex 
+    for 2000 onward.  It is named uspop2, since there is already a "uspop" 
+    data set containing decennial totals from 1790 to 1970.
+    
+    \item Not all combinations of strata Y/N and CI Y/N worked in the
+    quantile.survfit function, pointed out by Daniel Wallschlaeger
+    (missing a function argument in one if-else combination).
+    Added a new test routine that verifies all paths.
+
+    \item The first example in predict.survreg help file needed to have
+    \code{I(age^2)} instead of \code{age^2} in the model: R ignores the
+    second form. (I'm almost sure this worked at one time, perhaps in Splus).
+    It also needed different plot symbols to actually match the
+    referenced figure.  Pointed out by Evan Newell.
+
+    \item Fix a long-standing problem with cch pointed out by Ornulf Borgan
+    leading to incorrect standard errors.  A check in the underlying
+    coxph routines to deal with out of bounds exponents, added in
+    version 2.36-6, interacted badly with the -100 offset used in cch.
+    It only affected models using (start, stop) survival times. 
+}}
+
+\section{Changes in version 2.37-2}{
+  \itemize{
+    \item Two bugs were turned up by running tests for all the
+    packages that depend on survival (158 of them).
+}}
+\section{Changes in version 2.37-1}{
+  \itemize{
+    \item Add a new multi-state type to the Surv object.  Update the
+    survfit routine to work with it.  The major change is addition
+    of a proper variance for this case.
+    More functionality is planned.
+    
+    \item Remove the fr_colon.R test program.  It tests an ability that
+    has been superseded by coxme, on a numerically touchy data set, and
+    it was slow besides.  For several other tests that produce warning
+    messages and are supposed to produce said messages, add extra
+    comments to that effect so testers will know it is expected.
+    
+    \item The code has had several "if.R" clauses to accomodate Splus vs
+    R differences, which are mostly class vs oldClass.  These are now being
+    removed as I encounter them; since our institution no longer uses
+    Splus I can no longer test the clauses' validity.
+    
+    \item The fast subsets routine coxexact.fit incorrectly returned the
+    linear predictor vector in the (internal) sorted order rather than
+    data set order.  Pointed out by Tatsuki Koyama, affecting the result
+    of a clogit call.  6Nov2012
+    
+    \item Jason Law pointed out that the sample data set "rats" is from
+    the paper by Mantel et.al, but the documentation was for a data
+    set from Gail, Santner and Brown.  Added the Gail data as rats2 and
+    fixed the documentation for rats.
+    
+    \item For predict.coxph with type="terms", use "sample" as the
+    default value for the reference option.  For all others the default
+    remains "strata", the current value.  Type terms are nearly always passed
+    forward for further manipulation and per strata centering can mess
+    things up: termplot() for instance will no longer show a smooth
+    function if the results are recentered within strata.
+        
+    \item Fix bug in summary.aareg, which was unhappy (without cause) if
+    the maxtime option was used for a fit that did not include the
+    dfbeta option.  Pointed out by Asa Johannesen.
+    
+    \item The coxph fitting functions would report an error for a null model
+      (no X variables) if init was specified as numeric(0) rather than NULL.
+    
+    \item Update the description and citation files to use the new
+    "person" function described in the R Journal.  Also add the
+    ByteCompile directive per suggestion of R core.
+
+    \item Allow an ordinary vector as the left hand side of survConcordance.
+
+    \item Update anova.coxphlist to reject models with a robust variance.
+ 
+    \item The survfit function had an undocumented backwards-compatability 
+    that allows the newdata argument to be a vector with no names.  An
+    example from Damon Krstajic showed that this does not work when the
+    original model has a matrix in the formula.  Removed the feature.
+    (This is for survfit.coxph.)  Also clarified the code and its 
+    documentation about what is found where -- environments, formulas,
+    and the arguments of eval, which fixes a problem pointed out by xxx
+    where the result of a Surv call is used in the coxph formula.
+
+    \item Fix an issue in summary.survfit pointed out by Frank Harrell.  The
+    strata variable for the output always had its labels in sorted order,
+    even when a factor creating the survival curves was otherwise.  (This was
+    due to a call to factor() in the code.)  The print routine would then
+    list curves in sorted order, which might well be contrary to the user's
+    wishes.  The curves were numerically correct.
+
+    \item Add the anova.coxmelist function to the namespace so that it is
+    visible.  If someone has a list of models the first of which was
+    a coxph fit and the list includes coxme fits, then anova.coxph will
+    be the function called by R, and it will call anova.coxmelist.
+
+    \item Fix a bug pointed out by Yi Zhang and Mickael Hartweg.
+    If a coxph model used an offset, then a predicted survival curve
+    that used newdata (and the offset variable of course) would be
+    wrong, e.g. survival values > 1.
+    A simple misplaced parenthesis was the cause.
+    A recent paper by Langholz shows how to get absolute survival from
+    case-control data using an offset, which seems to have suddenly made this
+    feature popular.
+
+    \item Per further interaction with Yi Zhang, a few items were
+    missing from the S3methods in the NAMESPACE file: as.matrix.Surv,
+    model.matrix.coxph, model.matrix.survreg, model.frame.survreg.
+}}
+
+\section{Changes in version 2.36-14}{
+  \itemize{
+    \item A supposedly cosmetic change to coxph in the last release
+	caused formulas with a "." on the right hand side to fail.  Fix this
+	and add a case with "." to the test suite.
+      }
+    }
+
+\section{Changes in version 2.36-13}{
+  \itemize{
+    \item Add the anova.coxmelist function.  This is in the survival
+    package rather than in coxme since "anova(fit1, fit2)" is valid when
+    fit1 is a coxph and fit2 a coxme object, a case which will cause this
+    function to be called by way of anova.coxph.
+    
+    \item More work on "predvars" handling for the pspline function,
+    when used in predict calls.  Add a new test of this to the suite,
+    and the makepredictcall method to the namespace.
+    Fixes a bug pointed out by C Crowson.  
+
+    \item Deprecate the "robust" option of coxph.  When there are
+    multiple observations per subject it is almost surely the wrong
+    thing to do, while adding a "cluster(id)" term does the correct
+    thing. When there is only one obs per subject both methods work
+    correctly.
+
+    \item Add documentation of the output structure to the aareg help
+    file.
+
+    \item Change ratetableDate so that it still allows use of chron
+    objects, but doesn't need the chron library.  This eliminates a
+    warning messge from the package checks, but is also a reasonable
+    support strategy for a moribund package.  (Some of the local users keep
+    datasets for a long long time.)
+
+    \item Fix a bug in summary.survfit for a multiple-strata survival
+    object.  If one of the curves had no data after application of the
+    times argument, an output label was the wrong length.
+    
+    \item Fix a bug pointed out by Charles Berry: predict for a Cox
+    model which has strata, and the strata is a factor with not all its
+    levels represented in the data.  I had a mistake in the subscripting
+    logic: number of groups is not equal to max(as.integer(strata)).
+    
+    \item Changes to avoid overflow in the exponent made in 2.36-6
+    caused failure for one special usage: in case-cohort designs a dummy
+    offset of -100 could be added to some observations.  This was being
+    rounded away.  The solution is to 1: have coxsafe not truncate small
+    exponents and 2: do not recenter user provided offset values.
+
+    \item Fix bug in survfit.coxph.  Due to an indexing error I would
+    sometimes create a huge scratch vector midway through the
+    calculations (size = max value of "id"); the final result was always
+    correct however.  Data set provided by Cindy Crowson which had a
+    user id in the billions.
+
+    \item Fix bug pointed out by Nicholas Horton: predictions of
+    type expected, with newdata, from a Cox model without a strata
+    statement would fail with "x not found".  A misplaced parenthesis
+    from an earlier update caused it to not recreate the X matrix even
+    though it was needed later.  Also add some further information to
+    the predict manual page to clarify an issue with frailty terms.
+    }}
+
+\section{Changes in version 2.36-12}{
+  \itemize{
+    \item Fix a bug in the new fast subsets code.  The test suite had no
+    examples of strata + lots of tied times, so of course that's the
+    case where I had an indexing error.  Add a test case using the
+    clogit function, which exercises this.
+
+    \item Further memory tuning for survexp.
+    }}
+
+    \section{Changes in version 2.36-11}{
+  \itemize{
+    \item Make survexp more efficient.  The X matrix was being modified
+    in several places, leading to multiple copies of the data.  When the
+    data set was large this would lead to a memory shortage.
+
+    \item Cause anova.coxph to call anova.coxme when a list of models
+    has both coxph and coxme objects.
+
+    \item Add the quantile.survfit function.  This allows a user to
+    extract arbitrary quantiles from a fitted curve (and std err).
+
+    \item Fix an error in predict.coxph.  When the model had a strata
+    and the newdata and reference="sample" arguments were used, it
+    would (incorrectly) ask for a strata variable in the new data set.
+
+    \item Incorporate the fast subsets algorithm of Gail et al, when 
+    using coxph with the "exact" option.  The speed increase is profound 
+    though at the cost of some memory.    Reflect this in the
+    documentation for the clogit routine.
+    Note that the fast computation is not yet implemented for
+    (start,stop) coxph models.
+
+    \item Change the C routine used by coxph.fit from .C to .Call
+    semantics to improve memory efficiency, in particular fewer copies
+    of the X matrix.
+
+    \item Add scaling to the above routine.  This was prompted by a user
+    who had some variables with a 0-1 range and others that were
+    0 - 10^7, resulting in 0 digits of accuracy in the variance matrix.
+    (Economics data).
+
+    \item Comment out some code sections that are specific to Splus.
+    This reduced the number of "function not found" warnings from R CMD check.
+}}
+
+\section{Changes in version 2.36-10}{
+  \itemize{
+    \item 30 Sept 2011: The na.action argument was being ignored in
+    predict.coxph; pointed out by Cindy Crowson.
+
+    \item The log-likelihood for survreg was incorrect when there are
+    case weights in the model.  The error is a fixed constant for any
+    given data set, so had no impact on tests or inferences.  The error
+    and correction were pointed out by Robert Kusher.
+    
+    \item A variable name was incorrect in survpenal.fit.  This was in a
+    program path that had never been traversed until Carina Salt used
+    survreg with a psline(..., method='aic') call, leading to a
+    "variable not found" message.
+
+    \item Punctuation error in psline made it impossible for a user to
+    specify the boundary.knots argument.  Pointed out by Brandon
+    Stewart.
+
+    \item Add an "id" variable to the output of survobrien.
+
+    \item The survfitCI routine would fail for a curve with only one
+    jump point (a matrix collapsed into a vector).
+
+    \item Fix an error in survfit.coxph when the coxph model has both a
+    strata by covariate interaction and a cluster statement.  The
+    cluster term was not dropped from the Terms object as it should have
+    been, led to a spurious "variable not found" error.   Pointed out
+    by Eva Bouguen.
+
+    \item If a coxph model with penalized terms (frailty, pspline) also
+    had a redundant covariate, the linear predictor would be returned as
+    NA.  Pointed out by Pavel Krivitsky.
+}}
+
+\section{Changes in version 2.36-9}{
+  \itemize{
+    \item Due to a mistake in my script that submits to CRAN, the fix in
+    2.36-8 below was actually not propogated to the CRAN submission.
+
+    \item Fix an error in the Cauchy example found in the survreg.distributions
+    help page, pointed out by James Price.
+
+    \item Update the coxph.getdata routine to use the model.frame.coxph
+    and model.matrix.coxph methods.
+
+    \item Add the concordance statistic to the printout for penalized models.
+}}
+
+\section{Changes in version 2.36-8}{
+  \itemize{
+    \item Unitialized variable in calcuation of the variance of the
+    concordance.  Found on platform cross-checking by Brian Ripley.
+    \item Changed testci to use a fixed file of results from cmprsk
+    rather than invoking that package on-the-fly.  Suggested by the CRAN
+    maintainers.
+  }
+  }
+\section{Changes in version 2.36-7}{
+  \itemize{
+    \item Due to changes in R 2.13 default printout, the results of many of
+    the test programs change in trivial way (one more or fewer digits).
+    Update the necessary test/___.Rout.save files.  Per the core team's
+    suggestion the dependency for the package is marked as >=2.13.
+  }}
+  
+\section{Changes in version 2.36-6}{
+  \itemize{
+    \item An example from A Drummond caused iteration failure in
+    coxph: x=c(1,1,1,0,1, rep(0,35)), time=1:40, status=1.  The first
+    iteration overshoots the solution and lands on an almost perfectly
+    linear part of the loglik surface, which made the second iteration
+    go to a huge number and exp() overflows.  A sanity check routine
+    coxsafe is now invoked on all values of the linear predictor.
+    
+    \item 1 April: Fix minor bug in survfit.  For left censored data
+    where all the left censored are on the very left, it would give a
+    spurious warning message when trying to create a 0 row matrix that
+    it didn't need or use.  Pointed out by Steve Su.
+    
+    \item 31 March 2011: One of the plots in the r_sas test was wrong
+    (it's been a long time since I visually checked these).  The error
+    was in predict.survreg; it had not taken into account a change in
+    R2.7.1: the intercept attribute is reset to 1 whenever one
+    subscripts a terms object, leading to incorrect results for a model
+    with "-1" in the formula and a strata(): the intercept returned
+    when removing the strata.  I used this opportunity to move most of
+    the logic into model.frame.survreg and model.matrix.survreg
+    functions.  Small change to the model.frame.coxph and
+    model.matrix.coxph functions due to a better understanding of
+    xlevels processing.
+    
+    \item Round off error issue in survfit: it used both unique(time)
+    and table(time), and the resulting number of unique values is not
+    guarranteed to be the same for times that differ by a tiny amount.
+    Now times are coverted to a factor first.  Peter Savicky from the R
+    core team provided a nice discussion of the issue and helped me
+    clarify how best to deal with it.  The prior fix of first rounding
+    to 15 digits was good enough for almost every data set -- except the
+    one found by a local user just last week.
+    
+    \item Round off error in print.survfit pointed out by Micheal Faye.
+    If a survival value was .5 in truth, but .5- eps due to round off
+    the printed median was wrong. But it was ok for .5+eps. Simple
+    if-then logic error.
+    
+    \item Re-fix a bug in survfit.  It uses both unique and table in
+    various places, which do not round the same; I had added a
+    pre-rounding step to the code.  A data set from Fan Chun showed that
+    I didn't round quite enough. But the prior rounding did work for a
+    time of 2 vs (sqrt(2))^2: this bug is very hard to produce.  I now
+    use as.numeric(as.character(factor(x))), which induces exactly the
+    same rounding as table, since it is the same compuation path.
+
+    \item Further changes to pspline.  The new Boundary.knots argument
+    allows a user to set the boundary knots inside the range of data.
+    Code for extrapolation outside that range was needed,
+    essentially a copy of the code found in ns() for the same issue.
+    Also added a psplineinverse function, which may be useful with
+    certain tt() calls in coxph.
+    
+    \item 10 Mar 2011: Add the capablilty for time-dependent
+    transformations to coxph, along with a small vignette describing use
+    of the feature.  This code is still incompletely incorporated in
+    that the models work but other methods (residuals, predict, etc) are
+    not yet defined.
+    
+    \item 8 Mar 2011: Expand the survConcordance function.  The function
+    now correctly handles strata and  time dependent covariates, and
+    computes a standard error for the estimate.  All computation is based
+    on a balanced binary tree strucure, which leads to computation in
+    \eqn{O(n \log_2(n))}{O(n log(n))} time.
+    The \code{coxph} function now adds concordance to its output, and
+    \code{summary.coxph} displays the result.
+
+    \item 8 Mar 2011: Add the "reference" option to predict.coxph, a
+    feature and need pointed out by Stephen Bond.
+
+    \item 4 Mar 2011: Add a makepredictcall method for pspline(), which
+    in turn required addition of a Boundary.knots argument to the
+    function.
+    
+    \item 25 Feb 2011: Bug in pyears pointed out by Norm Phillips.  If a
+    subject started out with "off table" time, their age was not
+    incremented by that amount as they moved forward to the next "in
+    table" cell of the result.  This could lead to using the wrong
+    expected rate from the rate table.
+  }
+}
+
+\section{Changes in version 2.36-5}{
+  \itemize{
+    \item 20 Feb 2011: Update survConcordance to correctly handle case
+    weights, time dependent covariates, and strata.
+
+    \item 18 Feb 2011: Bug in predict.coxph found by a user (1 day after
+    36-4!).  If the coxph call had a subset and predict used newdata,
+    the subset clause was "remembered" in the newdata construction,
+    which is not appropriate.
+}}
+
+\section{Changes in version 2.36-4}{
+\itemize{
+  \item 17 Feb 2011: Fix to predict.coxph.  A small typo that only was
+  exercised if the coxph model had x=T.  Discovered via induced error in
+  the rankhazard package.  Added lines to the test suite to test for
+  this in the future.
+
+  \item Removed some files from test and src that are no longer needed.
+
+  \item Update the configure script per suggestion from Kurt H.
+  }}
+\section{Changes in version 2.36-3}{
+  \itemize{
+
+    \item 13 Feb 2011: Add the rmap argument to pyears, as was done for
+    survexp, and update the manual pages and examples. Fix one last bug
+    in predict.coxph (na.action use).  Passes all the
+    tests for inclusion on the next R release.
+
+    \item 8 Feb 2011: Change the name of the new survfit.coxph.fit routine to
+     survfitcoxph.fit; R was mistaking it for a survfit method.  Fix
+     errors in predict.coxph when there is a newdata argument, including
+     adding yet another test program.
+
+   \item 1 Feb 2011: Fix bugs in coxph and survreg pointed out by Heinz
+    Tuechler and dtdenes@cogpsyphy.hu, independently, that were the same
+    wrong line in both programs.  With interactions, a non-penalized
+    term could be marked as penalized due to a mismatched vector length,
+    leading to a spurious error message later in the code.
+  
+  \item 1 Feb 2011: Update survfit.coxph to handle the case of a strata by
+    covariate interaction.  All prior releases of the code did this
+    wrong, but it is a very rare case (found by Frank Harrell).  Added a
+    new test routine coxsurv4.  Also found a bug in [.survfit; for a
+    curve with both strata and multiple columns, as produced by
+    survfit.coxph, it could drop the n.censored item when subscripting.
+    A minor issue was fixed in coxph: when iter=0 the output coefficient
+    vector should be equal to the input even when the variance is
+    singular. 
+
+  \item 30 Jan 2011: Move the noweb files to a top level directory, out of
+    inst/.  They don't need to be copied to binary installs.
+    
+  \item 22 Jan 2011: Convert the Changelog files to the new inst/NEWS.Rd
+    format.
+  
+  \item 1 Jan 202011: The match.ratetable would fail when passed a data
+    frame with a character variable.  This was pointed out by Heinz
+    Tuechler, who also did most of the legwork to find it.  It was
+    triggered by the first few lines of tests/jasa.R (expect <- ....)
+    when options(stringsAsFactors=FALSE) is set. 
+ }
+}
+
+\section{Changes in version 2.36-2}{
+\itemize{
+  \item 20 Dec 2010: Add more test cases for survfit.coxph,
+    which led to significant updates in the code. 
+
+  \item 18 Nov 2010: Add nevent to the coxph output and printout in
+    response to a long standing user request.
+
+  \item 14 Dec 2010: Add an as.matrix method for Surv objects. 
+
+  \item 11 Nov 2010: The prior changes broke 5 packages: the dependencies form a bigger
+test suite than mine!  1. Survival curve for a coxph model with sparse
+frailty fit; fixed and added a new test case.  2. survexp could fail if 
+called from within a function due to a scoping error.  3. "Tsiatis" was once
+a valid type (alias for 'aalen')  for survfit.coxph; now removed from the 
+documentation but the code needed to be backwards compatable.  The other two
+conflicts were fixed in the packages that call survival.  There are still
+issues with the rms package which I am working out with Frank H.
+ }
+}
+
+\section{Changes in version 2.36-1}{
+ \itemize{
+  \item{27 Oct 2010: Finish corrections and test to the new code. It now passes
+the checks.  The predict.coxph routine now does strata and standard errors
+correctly, factors propogate through to predictions, and numerous small 
+errors are addressed.  Predicted survival curves for a Cox model has been
+rewritten in noweb and expanded. Change the version number to 2.36-1.}
+
+  \item{17 Oct 2010: Per a request from Frank Harrell (interaction with his library),
+survfit.coxph no longer reconstructs the model frame unless it really needs
+it: in some cases the 'x' and 'y' matrices may be sufficient, and may be
+saved in the result.  Add an argument "mf" to model.matrix.coxph for more 
+efficient interaction when a parent routine has already recovered the model 
+frame.
+  In general, we are trying to make use of model.matrix.coxph in many of the
+routines, so that the logic contained there (remove cluster() calls, pull
+out strata, how to handle intercepts) need not be replicated in multiple 
+places.}
+
+  \item{12 Oct 2010: Fix a bug in the modified lower limits for survfit (Dory & Korn).
+A logical vector was being inadvertently converted to numeric.  Pointed out
+by Andy Mugglin.  A new case was added to the test suite. }
+ }
+}
+
+\section{Changes in version 2.35}{ 
+ \itemize{
+  \item{15 July 2010: Add a coxph method for the logLik function.  This is used by
+the AIC function and was requested by a user.}
+
+  \item{29 July 2010: Fix 2 bugs in pyears.  The check for a US rate table was off
+(minor effect on calculations), and there was a call to julian which assumed
+that the origin argument could be a vector.  }
+
+  \item{21 July 2010: Fix a problem pointed out by a user: calling survfit with almost
+tied times, e.g., c(2, sqrt(2)^2), could lead to an inconsistent result.  Some
+parts of the code saw these as 2 unique values per the unique() function, some
+as a single value using the results of table().  We now pre-round the input
+times to one less decimal digit than the max from .Machine$double.digits.
+  Also added the noweb.R processing function from the coxme package, so that
+the noweb code can be extracted "on the fly" during installation using
+commands in the configure and cleanup scripts.  }
+
+  \item{11 July 2010: A rewrite of the majority of the survfit.coxph code.  The primary
+benefits are 1: finally tracked down and eliminated the bug for standard errors
+of case weights + Cox survival + Efron method; 2: the individual=TRUE and FALSE
+options now use the same underlying code for curves, before there were some
+options valid only for one or the other; 3: code was rewritten using noweb 
+with a considerable increase in documentation; 4: during the verification
+process some errors were found in the test suite and corrected, e.g., a 
+typo in my book led to failure of an all.equal test in book4.R.  Similar
+to the rewrite for survfit several years ago, the new code has far less use
+of .C to help transparency.}
+
+  \item{21 May 2010: Fix bug in summary.survfit.  For a survival curve from a Cox model
+with start,stop data, the 'times' argument would generate an error.}
+
+  \item{24 May 2010: Fix an annoyance in summary.survfit.  When the survival data 
+had an event or censor at time 0 and summary is called with a times argument,
+then my constructed call to approx() would have duplicate x values.  The answer
+was always right, but approx has begun to print a bothersome warning message.  
+A small change to the constructed argument vector avoids it.}
+
+  \item{7 April 2010: Minor bug pointed out by Fredrik Lundgren.  In survfit if the
+method was KM (default) and error = Tsiatis an error message results.  Simple
+fix: code went down the wrong branch.}
+
+  \item{24 Feb 2010: Serious bug pointed out by Kevin Buhr.  In Surv(time1, time2,stat)
+if there were i) missing values in time1 and/or time2, ii) illegal value
+sets with time1 >=time2, and iii) all the instances of ii do not preceed all
+the instances of i, then the wrong observation (not the illegal) will be 
+thrown out.  Repaired, and a new test added.
+  Minor updates to 3 test files: survreg2, testci, ratetable.}
+
+  \item{8 Feb 2010: Bug pointed out by Heinz Tuechler -- if a subscript was dropped from
+a rate table the 'type' attribute got dropped, e.g. survexp.usr[,1,,].}
+
+  \item{26 Jan 2010: At the request of Alex Bokov, added the xmax, xscale, and fun
+arguments to points.survfit.}
+
+  \item{26 Jan 2010: Fix bug pointed out by Thomas Lumley -- with case weights <1 a Cox 
+model with (start, stop) input would inappropriately decide it needed to do
+step halving to find a solution, eventually failing to converge.  It was
+treating a loglik >0 as an indication of failure, but such values arise for
+small case weights. Let L(w) be the loglik for a data set where everyone is
+given a weight of w, then L(w)= wL(1) - d log(w) where d=number of deaths in
+the data.  For small enough w positivity of L(w) is certain.}
+
+  \item{25 Jan 2010: Fix bug in summary.ratetable pointed out by Heinze Tuechler.  Added
+a call to the function to the test suite as well.}
+
+  \item{15 Dec 2009: Two users pointed out a bug that crept into survreg() with a
+cluster statement, when a t(x)%*%x was replaced with crossprod.  A trivial
+fix, but in response I added another test that more formally checks the
+dfbeta residuals and found a major oversight for the case of multiple
+strata.  }
+
+  \item{14 Dec 2009: 1.Fix bug in frailty.xxx, if there is a missing value in the levels
+it gets counted by "length(unique(x))" (frailty is called before NA
+removal.)  2.SurvfitCI had an incorrect CI with case weights, and 3. in
+survreg a call to resid instead of residuals.survreg, before the class
+was attached.}
+
+  \item{11 Nov 2009: The 'type' argument does not make sense for plot.survfit.  (If 
+type='p', should one plot the tops of the step function, the bottoms, or
+both?).  Make it explicitly disallowed in response to an R-help query,
+rather than the confusing error message that currently arose.}
+
+  \item{28 Oct 2009: The basehaz function would reorder the labels of the strata
+factor.  Not a bug really, but a "why do this?"  Unintended consequence of
+a character -> factor conversion.}
+
+  \item{1 Oct 2009: Fix a bug pointed out by Ben Domingue.  There was one if-then-else
+path into step-halving in the frailty.controldf routine that would refer to
+a non-existent variable.  A very rarely followed path, obviously, and with
+the obvious fix. The mathematics of the update was fine.}
+
+  \item{30 Sep 2009: For coxph and model.matrix.coxph, re-attach the
+attributues lost from the X matrix when the intercept is removed,
+i.e., X <- X[,1].  In particular, some downstream libraries depend on
+the assign attribute. 
+  For predict.coxph remove an earlier edit so that a single variable model
++ type='terms' returns a matrix, not a vector.  This is expected by the 
+termplot() function.  It led to a whole lot of changes in the test suite
+results, though, due to more "matrix" printouts.}
+
+  \item{4 Sep 2009: Added a model.matrix.coxph and model.frame.coxph methods.  The
+model.matrix.default function ceased to work for coxph models sometime
+between R 2.9 and 2.9.2 (best guess).  This wasn't picked up in the test
+suite but rather by failure of 3 packages that depend on survival.  Also added
+a test.  Update CRAN since this broke other's packages.}
+
+  \item{20 Aug 2009: One more fix to predict.coxph.  It needed to use 
+delete.response(Terms) rather than Terms, so as to not look for (unnecessarily)
+the response variable when the newdata argment is used.  Pointed out by Michael
+Conklin.}
+
+  \item{17 Aug 2009: Small bug in survfit.coxph.null pointed out by Frank Harrell.  The
+'n' component would be missing if the input data included strata, i.e., the
+initial model had used x=TRUE.  He also pointed out the fix.}
+
+  \item{10 June 2009: Fix an error pointed out by Nick Reich, who was the first to use
+interval censored data + user defined distribution in survreg, jointly.  There
+was no test case and creating one uncovered several errors (but only for this
+combination).  All the error cases led to catastrophic failure, highlighting
+the extreme rarity of a user requesting this combination.}
+
+  \item{2 June 2009: Surv(time1, time2, status, type='interval') would fail for an NA
+status code.  Pointed out by Achim Zeilus.}
+
+  \item{22 May 2009: Allow single subscripts to rate tables, e.g. survexp[1:10: .  
+Returns a simple vector of values.  The str() function does this to print out
+a short summary.  Problem pointed out by Heinz Tuechler.}
+
+  \item{21 May 2009: Create a test case for factor variables/newdata/predict for coxph 
+and survreg.  This led to a set of minor fixes; the code is now in line with
+the R standard for model functions.  One consequence is that model.frame.coxph
+and model.frame.survreg are no longer needed, so have been removed.}
+
+  \item{20 May 2009: The manual page for survfit was confusing, since it tries to 
+document both the standard KM (formula method) and the coxph method.  I've
+split them out so that now survfit documents only the basic method and points 
+a user the appropriate specialized page.}
+
+  \item{1 May 2009: The anova.coxph function was incorrect for models with a strata
+term.  Fixed this, and made chisquare tests the default.}
+
+  \item{22 April 2009: The coxph code had an override to iter and eps, making both of
+them more strict for a penalized model.  However, the overall default values
+have changed over time, so that these lines actually decreased accuracy - the
+opposite of their intent.  Removed the lines.  Also removed the iter.miss and
+eps.miss components (on which this check depended) from coxph.control, which
+makes that function match its documentation.}
+
+ }
+}
+
+\section{Changes in version 2.34 and earlier}{
+\subsection{Merge of the TMT source code tree with the Lumley code tree}{
+ \itemize{
+
+  \item Issues/decisions in remerging the Mayo and R code: 
+  For most of routines, it was easier to start with the Lumley code and add
+the Therneau fixes.  This is because Tom had expanded a lot of partial 
+matches, e.g., fit$coef in the TT code vs fit$coefficients.  Routines with
+substantial changes were, of course, a special case.
+  The most common change is an is.R() construct to choose class vs oldClass.
+  \item xtras.R: Move anova.coxph and anova.coxphlist to their own
+  source files.
+  The remainder of the code is R only.
+
+  \item survsum: removed from package
+
+  \item survreg.old: has been removed from the package
+
+  \item survfit.s: 
+   Depreciate the "formula with no ~1" option
+   Mayo code for [ allows for reordering curves
+   Separate out the R "basehaz" function as a separate source file
+
+  \item survfit.km.s: The major change of did not get copied into R, so lots of
+changes.  R had "new.time" and Splus 'start.time' for the same argument.  Allow
+them both as synonyms.
+   The output structure also changed: adapt the new one.  This is mostly some
+name changes in the components, removing unneeded redundancies created by
+a different programmer. 
+
+  \item survfit.coxph.s:  TMT code finally fixed the "Can't (yet) to case weights" 
+problem.  There must have been 10 years been the intent and execution. 
+
+  \item survexp.s:  Add "bareterms" function from R, which replaces a prior use of
+  terms.inner (in Splus but not R). 
+
+  \item survdiff.s: R code had the old (incorrect) expected <- sum(1-offset), since
+corrected to sum(-log(offset)) . 
+
+  \item{summary.coxph.s: This was a mess, since Tom and I had independently made the
+ addition of a print.summary.coxph function.  Below, TMT means that it was the
+ choice in the Splus code, TL means that it was the choice in R
+	1. Put the coef=T argument in the print function, not summary (TMT)
+	2. Change the output's name from coef to coefficients (suggestion of
+  Peter Dalgaard).  Also change one column name to Pr(>|z|) for R.
+	3. Remove last vestiges of a reference to the 'icc' component (TMT)
+	4. Do not include score, rscore, naive.var in the result (TL)
+	5. Do include loglik in the result (TMT)
+	6. Compute the test statistics (loglik, Wald, etc) in the summary
+   function rather than in the print.summary function (TL)
+	7. Remove the digits option from summary, it belongs in print.summary.
+   (neither)}
+
+  \item{strata.s: R code added a sep argument, this is ok
+     R changed the character string NA to as.character(NA).  Not okay
+          1. won't work with Splus, 
+          2. This is a label, designed for printing, 
+	          and so it should be a character string.  }
+
+  \item{residuals.coxph.s: R had added type='partial'.  (Which I'm not very partial to,
+  from their statistical properties.  But they are legal, and I assume that
+  someone requested them).}
+
+  \item{print.survfit.s: Rewritten as a part of the general survival rewrite.  Created
+the function 'survmean' which does most of the work, and is shared by print and
+summary, so that the values from 'print' are now available.
+   Fix the minmin function: min(NULL) gives NA in Splus, which is the right
+answer for a non-estimable median, but Inf in R.  Explicitly deal with this
+case, and add a bunch of comments.
+   R had the print.rmean option, this has been expanded to a more general
+rmean option that allows setting the cutoff point.
+   R added a print.n option with 3 choices, my code includes all 3 in the 
+output.  }
+
+  \item{lines.survfit.s: 
+    The S version has a new block of code for guessing "firstx" more
+intellegently when it is missing.  (Or, one hopes is is more intellegent!)}
+
+  \item{coxph.control.s: 
+   The R code had tighter tolerances (eps= 1e-9) than Splus (1e-4) and
+a higher iterationn count (20 vs 10). 
+   Set eps to 1e-8 and iter to 15, mostly bending to the world.  The tighter
+iteration is defensible, but I still maintain that a Cox model that takes >10 
+iterations is not going to finish if you give it 100.  The likelihood surface
+is almost perfectly quadratic near the minimum.  (Not true for survreg by the
+way).}
+
+  \item{: In Surv, the Mayo code creates NA's out of invalid status values or
+start,stop pairs, rather than a stop and error message.  This is to
+allow for example
+       coxph(Surv(time1,time2, status).... , subset=(goodlines))
+succeed, when "goodlines" is the subset with correct values.}
+}
+}
+
+\subsection{Older changes}{
+ \itemize{
+   \item{25SepO7: How embarrassing -- someone pointed out that I had Dave
+     Harrington's name spelled wrong in the options to survfit.coxph!}
+
+  \item{9Jul07: In a model with offsets, survreg mistakenly omitted the offset
+from the returned linear.predictor component.}
+
+  \item{10May07: Change summary.coxph so that it returns an object of class
+summary.coxph, and add a print method for that object.}
+
+  \item{22Jun06: Update match.ratetable, so that more liberal matches are now
+allowed.  For instance,  'F', 'f', 'female', 'fem', 'FEMA', etc are 
+now all considered matches to the dimname "female" in survexp.us.}
+
+  \item{26Apr06: Fix bug in summary.survfit, pointed out by Bob Treder.  With
+the times option, the value of n.risk would be wrong for "in between"
+times; e.g., the data had events and/or censoring at times 10,
+20,... and we asked for printout at time 15.  It should give n.risk at time
+20, it was returning the value at time 10. Interestingly, the code had
+a very careful treatment of this case, along with an example in the
+comments, and the "the right answer is" part of the comment was wrong!
+So the code correctly computed an incorrect answer.  Added another
+test case to the test suite, survtest2.}
+
+  \item{21Apr06: Fix problem in [.survfit, pointed out by Thomas Lumley.  If
+fit <- survfit(Surv(time, status) ~ ph.ecog, lung), then fit[2:1] did
+not reorder the output correctly.  I had never tested putting the 
+subscripts in non-increasing order.}
+
+  \item{7Feb06: Fix a problem in the coxph iteration (coxfit2.c, coxfit5, agfit3,
+agfit5, agexact).  It will likely never catch anyone again, even if I 
+didn't fix it.  In a particular data set, beta overshot and step halving
+was invoked.  During step halving, a loglik happened to occur that was
+within eps of the prior step's loglik --- and the routine decided, erroneously,
+that it had converged!  (A nice quadratic curve, a first guess b1 to the 
+left of  the desired max of the curve.  The next guess b2 overshot and ends 
+up with a lower loglik, on the right side of the max.  Back up to the 
+midpoint of b1 and b2, and this guess, still to the right of the max (still
+too large) has EXACTLY the same value of y as b1 did, but on the other side
+of the max from b1.  "Last two guesses give the same answer, I'm done" said
+the routine).}
+
+  \item{27Sep05: Found and fixed a nasty bug in survfit.  When method='fh2' and
+there were multiple groups I had a subscripting bug, leading to vectors
+that were supposed to be the same length, but weren't, passed into C.
+The resulting curves were obviously wrong -- survival precipitously drops 
+to zero.}
+
+  \item{5May05: Add the drop=F arg to one subscripting selection in survfit.coxph.
+	        temp <- (matrix(surv$y, ncol=3))[ntime,,drop=F] 
+If you selected only 1 time point (1 row) in the final output, the code
+would fail.  Pointed out by Cindy Crowson.}
+
+  \item{18Apr05: Bug in survfit.turnbull.  The strata variable was not being
+filled in (number of points per curve).  So if multiple curves were
+generated at once, i.e., with something on the right hand side of ~ in
+the formula, all the downstream print/plot functions would not work
+with the result.}
+
+  \item{8Feb05: Fix small typo in is.ratetable, introduced on 24Nov04: (Today
+was the first time I added to the standard library, and thus ended
+up using the non-verbose mode.)}
+
+  \item{8Feb05: Add the data.frame argument to pyears.  This causes the output
+to contain a dataframe rather than a set of arrays.  It is useful for
+further processing of the data using Poisson regression.}
+
+  \item{7Feb05: Modified print.ratetable to be more useful.  It now tells 
+about the ratetable, rather than printing all of its values.}
+
+  \item{8Dec04: Fix a small bug in survfit.turnbull. If there are people left 
+censored before the first
+time point of any other kind (interval, exact, or right censored),
+the the plotted height of the curve from "rightmost left censoring time"
+to "leftmost event time", that is the flat tail on the left, was at
+the wrong height.
+  Added another test to testreg/reliability.s for this.}
+
+  \item{24Nov04: Change is.ratetable to give longer messages}
+}
+}
+}
+\name{NEWS}
+\title{News for Package \pkg{Rcpp}}
+\newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
+\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
+
+\section{Changes in Rcpp version 1.0.1 (2019-03-17)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Subsetting is no longer limited by an integer range (William
+      Nolan in \ghpr{920} fixing \ghit{919}).
+      \item Error messages from subsetting are now more informative
+      (Qiang and Dirk).
+      \item \code{Shelter} increases count only on non-null objects
+      (Dirk in \ghpr{940} as suggested by Stepan Sindelar in \ghit{935}).
+      \item \code{AttributeProxy::set()} and a few related setters get
+      \code{Shiled<>} to ensure rchk is happy (Romain in \ghpr{947})
+      fixing \ghit{946}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item A new plugin was added for C++20 (Dirk in \ghpr{927})
+      \item Fixed an issue where 'stale' symbols could become registered in
+      RcppExports.cpp, leading to linker errors and other related issues
+      (Kevin in \ghpr{939} fixing \ghit{733} and \ghit{934}).
+      \item The wrapper macro gets an \code{UNPROTECT} to ensure rchk is
+      happy (Romain in \ghpr{949}) fixing \ghit{948}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Three small corrections were added in the 'Rcpp Quickref'
+      vignette (Zhuoer Dong in \ghpr{933} fixing \ghit{932}).
+      \item The \code{Rcpp-modules} vignette now has documentation for
+      \code{.factory} (Ralf Stubner in \ghpr{938} fixing \ghit{937}).
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Travis CI again reports to CodeCov.io (Dirk and Ralf Stubner in
+      \ghpr{942} fixing \ghit{941}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 1.0.0 (2018-11-05)}{
+  \itemize{
+    \item Happy tenth birthday to Rcpp, and hello release 1.0 !
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The empty destructor for the \code{Date} class was removed
+      to please g++-9 (prerelease) and \code{-Wdeprecated-copy} (Dirk).
+      \item The constructor for \code{NumericMatrix(not_init(n,k))} was
+      corrected (Romain in \ghpr{904}, Dirk in \ghpr{905}, and also
+      Romain in \ghpr{908} fixing \ghpr{907}).
+      \item \code{Rcpp::String} no longer silently drops embedded
+      \code{NUL} bytes in strings but throws new Rcpp exception
+      \code{embedded_nul_in_string}. (Kevin in \ghpr{917} fixing \ghit{916}).
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item The Dockerfile for Continuous Integration sets the required
+      test flag (for release versions) inside the container (Dirk).
+      \item Correct the \code{R CMD check} call to skip vignettes (Dirk).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item A new \code{[[Rcpp::init]]} attribute allows function
+      registration for running on package initialization (JJ in
+      \ghpr{903}).
+      \item Sort the files scanned for attributes in the C locale for
+      stable output across systems (JJ in \ghpr{912}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The 'Rcpp Extending' vignette was corrected and refers to
+      \code{EXPOSED} rather than \code{EXPORTED} (Ralf Stubner in
+      \ghpr{910}).
+      \item The 'Unit test' vignette is no longer included (Dirk in
+      \ghpr{914}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.19 (2018-09-20)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{no_init()} accessor for vectors and matrices is
+      now wrapped in \code{Shield<>()} to not trigger \code{rchk}
+      warnings (Kirill Mueller in \ghpr{893} addressing \ghit{892}).
+      \item \code{STRICT_R_HEADERS} will be defined twelve months from
+      now; until then we protect it via \code{RCPP_NO_STRICT_HEADERS}
+      which can then be used to avoid the definition; downstream
+      maintainers are encouraged to update their packages as needed
+      (Dirk in \ghpr{900} beginning to address \ghit{898}).
+    }
+     \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Added \code{[[Rcpp::init]]} attribute for registering C++
+      functions to run during package initialization (JJ in \ghpr{903}
+      addressing \ghit{902}).
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item Improved \code{exposeClass} functionality along with added
+      test (Martin Lysy in \ghpr{886} fixing \ghit{879}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Two typos were fixed in the Rcpp Sugar vignette (Patrick
+      Miller in \ghpr{895}).
+      \item Several vignettes now use the \code{collapse} argument to
+      show output in the corresponding code block.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item The old \code{LdFlags()} build helper was marked as
+      deprecated [but removed for release] (Dirk in \ghpr{887}).
+      \item Dockerfiles for continuous integration, standard deployment
+      and 'plus sized' deployment are provided along with builds
+      (Dirk in \ghpr{894}).
+      \item Travis CI now use the \code{rcpp/ci} container for tests
+      (Dirk in \ghpr{896}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.18 (2018-07-21)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{StringProxy::operator==} is now \code{const}
+      correct (Romain in \ghpr{855} fixing \ghit{854}).
+      \item The \code{Environment::new_child()} is now \code{const}
+      (Romain in \ghpr{858} fixing \ghit{854}).
+      \item Next \code{eval} codes now properly unwind (Lionel in the large
+      and careful \ghpr{859} fixing \ghit{807}).
+      \item In debugging mode, more type information is shown on
+      \code{abort()} (Jack Wasey in \ghpr{860} and \ghpr{882} fixing
+      \ghit{857}).
+      \item A new class was added which allow suspension of the RNG
+      synchronisation to address an issue seen in \CRANpkg{RcppDE}
+      (Kevin in \ghpr{862}).
+      \item Evaluation calls now happen in the \code{base} environment
+      (which may fix an issue seen between \CRANpkg{conflicted} and some
+      BioConductor packages) (Kevin in \ghpr{863} fixing \ghit{861}).
+      \item Call stack display on error can now be controlled more
+      finely (Romain in \ghpr{868}).
+      \item The new \code{Rcpp_fast_eval} is used instead of
+      \code{Rcpp_eval} though this still requires setting
+      \code{RCPP_USE_UNWIND_PROTECT} before including \code{Rcpp.h} (Qiang
+      Kou in \ghpr{867} closing \ghit{866}).
+      \item The \code{Rcpp::unwindProtect()} function extracts the
+      unwinding from the \code{Rcpp_fast_eval()} function and makes it
+      more generally available. (Lionel in \ghpr{873} and \ghpr{877}).
+      \item The \code{tm_gmtoff} part is skipped on AIX too
+      (\ghpr{876}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The \code{sourceCpp()} function now evaluates R code in the
+      correct local environment in which a function was compiled (Filip
+      Schouwenaars in \ghpr{852} and \ghpr{869} fixing \ghit{851}).
+      \item Filenames are now sorted in a case-insenstive way so that
+      the \code{RcppExports} files are more stable across locales (Jack
+      Wasey in \ghpr{878}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item The sugar functions \code{min} and \code{max} now recognise
+      empty vectors (Dirk in \ghpr{884} fixing \ghit{883}).
+    }
+  }
+}
+
+
+\section{Changes in Rcpp version 0.12.17 (2018-05-09)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The random number \code{Generator} class no longer inherits from
+      \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
+      \item A new class, \code{SuspendRNGSynchronizationScope}, can be created
+      and used to ensure that calls to Rcpp functions do not attempt to call
+      \code{::GetRNGstate()} or \code{::PutRNGstate()} for the duration of
+      some code block.
+      \item A spurious parenthesis was removed to please gcc8 (Dirk
+      fixing \ghit{841})
+      \item The optional \code{Timer} class header now undefines
+      \code{FALSE} which was seen to have side-effects on some platforms
+      (Romain in \ghpr{847} fixing \ghpr{846}).
+      \item Optional \code{StoragePolicy} attributes now also work for
+      string vectors (Romain in \ghpr{850} fixing \ghit{849}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item A few old typesetting conventions from the prior Rnw format
+      have been corrected (Peter Hickey in \ghpr{831}; Joris Meys; Dirk)
+      \item Two internal links to the introduction published in JSS have been
+      updated to the changed filename given the newer TAS introduction.
+      \item Some remaining backticks were replaced with straight quotes
+      (Ralf Stubner in \ghpr{845}).
+      \item A citation to the Rcpp introducion in the The American
+      Statistician has been added to the introductory and FAQ vignettes.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.16 (2018-03-08)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Rcpp now sets and puts the RNG state upon each entry to an Rcpp
+      function, ensuring that nested invocations of Rcpp functions manage the
+      RNG state as expected (Kevin in \ghpr{825} addressing \ghit{823}).
+      \item The \code{R::pythag} wrapper has been commented out; the underlying
+      function has been gone from R since 2.14.0, and \code{::hypot()} (part of
+      C99) is now used unconditionally for complex numbers (Dirk in \ghpr{826}).
+      \item The \code{long long} type can now be used on 64-bit Windows (Kevin
+      in \ghpr{811} and again in \ghpr{829} addressing \ghit{804}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Code generated with \code{cppFunction()} now uses \code{.Call()}
+      directly (Kirill Mueller in \ghpr{813} addressing \ghit{795}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The Rcpp FAQ vignette is now indexed as `Rcpp-FAQ`; a stale Gmane
+      reference was removed and entry for getting compilers under Conda was added.
+      \item The top-level README.md now has a \emph{Support} section.
+      \item The Rcpp.bib reference file was refreshed to current versions.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.15 (2018-01-16)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Calls from exception handling to \code{Rf_warning()} now correctly
+      set an initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
+      \item The 'new' Date and Datetime vectors now have \code{is_na} methods
+      too. (Dirk in \ghpr{783} fixing \ghit{781}).
+      \item Protect more temporary \code{SEXP} objects produced by \code{wrap}
+      (Kevin in \ghpr{784}).
+      \item Use public R APIs for \code{new_env} (Kevin in \ghpr{785}).
+      \item Evaluation of R code is now safer when compiled against R
+      3.5 (you also need to explicitly define \code{RCPP_USE_UNWIND_PROTECT}
+      before including \code{Rcpp.h}). Longjumps of all kinds (condition
+      catching, returns, restarts, debugger exit) are appropriately
+      detected and handled, e.g. the C++ stack unwinds correctly
+      (Lionel in \ghpr{789}). [ Committed but subsequently disabled in release
+      0.12.15 ]
+      \item The new function \code{Rcpp_fast_eval()} can be used for
+      performance-sensitive evaluation of R code. Unlike
+      \code{Rcpp_eval()}, it does not try to catch errors with
+      \code{tryEval} in order to avoid the catching overhead. While this
+      is safe thanks to the stack unwinding protection, this also means
+      that R errors are not transformed to an \code{Rcpp::exception}. If
+      you are relying on error rethrowing, you have to use the slower
+      \code{Rcpp_eval()}. On old R versions \code{Rcpp_fast_eval()}
+      falls back to \code{Rcpp_eval()} so it is safe to use against any
+      versions of R  (Lionel in \ghpr{789}). [ Committed but subsequently
+      disabled in release 0.12.15 ]
+      \item Overly-clever checks for \code{NA} have been removed (Kevin in
+      \ghpr{790}).
+      \item The included tinyformat has been updated to the current version,
+      Rcpp-specific changes are now more isolated (Kirill in \ghpr{791}).
+      \item Overly picky \emph{fall-through} warnings by gcc-7 regarding
+      \code{switch} statements are now pre-empted (Kirill in \ghpr{792}).
+      \item Permit compilation on ANDROID (Kenny Bell in \ghpr{796}).
+      \item Improve support for NVCC, the CUDA compiler (Iñaki Ucar in
+      \ghpr{798} addressing \ghit{797}).
+      \item Speed up tests for NA and NaN (Kirill and Dirk in \ghpr{799} and
+      \ghpr{800}).
+      \item Rearrange stack unwind test code, keep test disabled for now (Lionel
+      in \ghpr{801}).
+      \item Further condition away protect unwind behind #define (Dirk in
+      \ghpr{802}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Addressed a missing Rcpp namespace prefix when generating a C++
+      interface (James Balamuta in \ghpr{779}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The Rcpp FAQ now shows \code{Rcpp::Rcpp.plugin.maker()} and not the
+      outdated \code{:::} use applicable non-exported functions.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.14 (2017-11-17)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item New const iterators functions \code{cbegin()} and \code{cend()}
+      added to \code{MatrixRow} as well (Dan Dillon in \ghpr{750}).
+      \item The \code{Rostream} object now contains a \code{Buffer} rather than
+      allocating one (Kirill Müller in \ghpr{763}).
+      \item New \code{DateVector} and \code{DatetimeVector} classes are now the
+      default fully deprecating the old classes as announced one year ago.
+    }
+    \item Changes in Rcpp Package:
+    \itemize{
+      \item DESCRIPTION file now list doi information per CRAN suggestion.
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Update CITATION file with doi information and PeerJ preprint.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.13 (2017-09-24)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item New const iterators functions \code{cbegin()} and \code{cend()} have
+      been added to several vector and matrix classes (Dan Dillon and James
+      Balamuta in \ghpr{748}) starting to address \ghit{741}).
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item Misplacement of one parenthesis in macro \code{LOAD_RCPP_MODULE}
+      was corrected (Lei Yu in \ghpr{737})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Rewrote the macOS sections to depend on official documentation due
+      to large changes in the macOS toolchain. (James Balamuta in \ghpr{742}
+      addressing issue \ghit{682}).
+      \item Added a new vignette \sQuote{Rcpp-introduction} based on new PeerJ
+      preprint, renamed existing introduction to \sQuote{Rcpp-jss-2011}.
+      \item Transitioned all vignettes to the 'pinp' RMarkdown template
+      (James Balamuta and Dirk Eddelbuettel in \ghpr{755} addressing
+      issue \ghit{604}).
+      \item Added an entry on running `compileAttributes()` twice to the
+      Rcpp-FAQ (\ghit{#745}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.12 (2017-07-13)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
+      \item Fixed rare protection error that occurred when fetching stack traces
+      during the construction of an Rcpp exception (Kirill Müller in \ghpr{706}).
+      \item Compilation is now also possibly on Haiku-OS (Yo Gong in \ghpr{708}
+      addressing \ghit{707}).
+      \item Dimension attributes are explicitly cast to \code{int} (Kirill
+      Müller in \ghpr{715}).
+      \item Unused arguments are no longer declared (Kirill Müller in
+      \ghpr{716}).
+      \item Visibility of exported functions is now supported via the R macro
+      \code{atttribute_visible} (Jeroen Ooms in \ghpr{720}).
+      \item The \code{no_init()} constructor accepts \code{R_xlen_t} (Kirill
+      Müller in \ghpr{730}).
+      \item Loop unrolling used \code{R_xlen_t} (Kirill Müller in \ghpr{731}).
+      \item Two unused-variables warnings are now avoided (Jeff Pollock in
+      \ghpr{732}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Execute tools::package_native_routine_registration_skeleton
+      within package rather than current working directory (JJ in \ghpr{697}).
+      \item The R portion no longer uses \code{dir.exists} to no require R 3.2.0
+      or newer (Elias Pipping in \ghpr{698}).
+      \item Fix native registration for exports with name attribute (JJ in \ghpr{703}
+      addressing \ghit{702}).
+      \item Automatically register init functions for Rcpp Modules (JJ in \ghpr{705}
+      addressing \ghit{704}).
+      \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713}
+      addressing \ghit{712}).
+      \item Replace dot (".") with underscore ("_") in package names when generating
+      native routine registrations (JJ in \ghpr{722} addressing \ghit{721}).
+      \item Generate C++ native routines with underscore ("_") prefix to avoid
+      exporting when standard exportPattern is used in NAMESPACE (JJ in
+      \ghpr{725} addressing \ghit{723}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.11 (2017-05-20)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Rcpp::exceptions can now be constructed without a call stack (Jim
+      Hester in \ghpr{663} addressing \ghit{664}).
+      \item Somewhat spurious compiler messages under very verbose settings are
+      now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671}, \ghpr{672},
+      \ghpr{687}, \ghpr{688}, \ghpr{691}).
+      \item Refreshed the included \code{tinyformat} template library
+      (James Balamuta in \ghpr{674} addressing \ghit{673}).
+      \item Added \code{printf}-like syntax support for exception classes and
+      variadic templating for \code{Rcpp::stop} and \code{Rcpp::warning}
+      (James Balamuta in \ghpr{676}).
+      \item Exception messages have been rewritten to provide additional
+      information. (James Balamuta in \ghpr{676} and \ghpr{677} addressing
+      \ghit{184}).
+      \item One more instance of \code{Rf_mkString} is protected from garbage
+      collection (Dirk in \ghpr{686} addressing \ghit{685}).
+      \item Two exception specification that are no longer tolerated by
+      \code{g++-7.1} or later were removed (Dirk in \ghpr{690} addressing
+      \ghit{689})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Added a Known Issues section to the Rcpp FAQ vignette
+      (James Balamuta in \ghpr{661} addressing \ghit{628}, \ghit{563},
+      \ghit{552}, \ghit{460}, \ghit{419}, and \ghit{251}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added sugar function \code{trimws} (Nathan Russell in \ghpr{680}
+      addressing \ghit{679}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Automatically generate native routine registrations (JJ in \ghpr{694})
+      \item The plugins for C++11, C++14, C++17 now set the values R 3.4.0 or
+      later expects; a plugin for C++98 was added (Dirk in \ghpr{684} addressing
+      \ghit{683}).
+    }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function now creates a package
+      registration file provided R 3.4.0 or later is used (Dirk in \ghpr{692})
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.10 (2017-03-17)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Added new size attribute aliases for number of rows and columns in
+      DataFrame (James Balamuta in \ghpr{638} addressing \ghit{630}).
+      \item Fixed single-character handling in \code{Rstreambuf} (Iñaki Ucar in
+      \ghpr{649} addressing \ghit{647}).
+      \item XPtr gains a parameter \code{finalizeOnExit} to enable running the
+       finalizer when R quits (Jeroen Ooms in \ghpr{656} addressing \ghit{655}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Fixed sugar functions \code{upper_tri()} and \code{lower_tri()}
+      (Nathan Russell in \ghpr{642} addressing \ghit{641}).
+      \item The \code{algorithm.h} file now accomodates the Intel compiler
+      (Dirk in \ghpr{643} and Dan in \ghpr{645} addressing issue \ghit{640}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The C++17 standard is supported with a new plugin (used eg for
+      \code{g++-6.2}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item An overdue explanation of how C++11, C++14, and C++17 can be used
+      was added to the Rcpp FAQ.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.9 (2017-01-14)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The exception stack message is now correctly demangled on all
+      compiler versions (Jim Hester in \ghpr{598})
+      \item Date and Datetime object and vector now have format methods and
+      \code{operator<<} support (\ghpr{599}).
+      \item The \code{size} operator in \code{Matrix} is explicitly referenced
+      avoiding a g++-6 issues (\ghpr{607} fixing \ghit{605}).
+      \item The underlying date calculation code was updated (\ghpr{621},
+      \ghpr{623}).
+      \item Addressed improper diagonal fill for non-symmetric matrices
+      (James Balamuta in \ghpr{622} addressing \ghit{619})
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{sample()} (Nathan Russell in
+      \ghpr{610} and \ghpr{616}).
+      \item Added new Sugar function \code{Arg()} (James Balamuta in
+      \ghpr{626} addressing \ghit{625}).
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item Added Environment::find unit tests and an Environment::get(Symbol)
+      test (James Balamuta in \ghpr{595} addressing issue \ghit{594}).
+      \item Added diagonal matrix fill tests
+      (James Balamuta in \ghpr{622} addressing \ghit{619})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Exposed pointers macros were included in the Rcpp Extending vignette
+      (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
+      \item The file \code{Rcpp.bib} move to directory \code{bib} which is
+      guaranteed to be present (\ghpr{631}).
+    }
+    \item Changes in Rcpp build system
+    \itemize{
+      \item Travis CI now also calls \CRANpkg{covr} for coverage analysis (Jim
+      Hester in PR \ghpr{591})
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.8 (2016-11-16)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item String and vector elements now use extended \code{R_xlen_t} indices
+      (Qiang in PR \ghpr{560})
+      \item Hashing functions now return unsigned int (Qiang in PR \ghpr{561})
+      \item Added static methods \code{eye()}, \code{ones()}, and \code{zeros()}
+      for select matrix types (Nathan Russell in PR \ghpr{569})
+      \item The exception call stack is again correctly reported; print methods
+      and tests added too (Jim Hester in PR \ghpr{582} fixing \ghit{579})
+      \item Variatic macros no longer use a GNU extensions (Nathan in PR
+      \ghpr{575})
+      \item Hash index functions were standardized on returning unsigned
+      integers (Also PR \ghpr{575})
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar functions \code{rowSums()}, \code{colSums()},
+      \code{rowMeans()}, \code{colMeans()} (PR \ghpr{551} by Nathan Russell
+      fixing \ghit{549})
+      \item \code{Range} Sugar now used \code{R_xlen_t} type for start/end
+      (PR \ghpr{568} by Qiang Kou)
+      \item Defining \code{RCPP_NO_SUGAR} no longer breaks the build.
+      (PR \ghpr{585} by Daniel C. Dillon)
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item A test for expression vectors was corrected.
+      \item The constructor test for datetime vectors reflects the new classes
+      which treats Inf correctly (and still as a non-finite value)
+    }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item An 'empty' return was corrected (PR \ghpr{589} fixing issue
+      \ghit{588}, and with thanks to Duncan Murdoch for the heads-up)
+    }
+    \item Updated Date and Datetime vector classes:
+    \itemize{
+      \item The \code{DateVector} and \code{DatetimeVector} classes were renamed
+      with a prefix \code{old}; they are currently \code{typedef}'ed to the
+      existing name (\ghpr{557})
+      \item New variants \code{newDateVector} and \code{newDatetimeVector} were
+      added based on \code{NumericVector} (also \ghpr{557}, \ghpr{577},
+      \ghpr{581}, \ghpr{587})
+      \item By defining \code{RCPP_NEW_DATE_DATETIME_VECTORS} the new classes
+      can activated. We intend to make the new classes the default no sooner
+      than twelve months from this release.
+      \item The \code{capabilities()} function can also be used for presence of
+      this feature
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.7 (2016-09-04)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{NORET} macro is now defined if it was not already defined
+      by R itself (Kevin fixing issue \ghit{512}).
+      \item Environment functions get() & find() now accept a Symbol
+      (James Balamuta in \ghpr{513} addressing issue \ghit{326}).
+      \item Several uses of \code{Rf_eval} were replaced by the preferred
+      \code{Rcpp::Rcpp_eval} (Qiang in PR \ghpr{523} closing \ghit{498}).
+      \item Improved Autogeneration Warning for RcppExports
+      (James Balamuta in \ghpr{528} addressing issue \ghit{526}).
+      \item Fixed invalid C++ prefix identifiers in auto-generated code
+      (James Balamuta in \ghpr{528} and \ghpr{531} addressing issue
+      \ghit{387}; Simon Dirmeier in \ghpr{548}).
+      \item String constructors now set default UTF-8 encoding (Qiang Kou in
+      \ghpr{529} fixing \ghit{263}).
+      \item Add variadic variants of the \code{RCPP_RETURN_VECTOR} and
+      \code{RCPP_RETURN_MATRIX} macro when C++11 compiler used (Artem Klevtsov
+      in \ghpr{537} fixing \ghit{38}).
+    }
+    \item Changes in Rcpp build system
+    \itemize{
+      \item Travis CI is now driven via \code{run.sh} from our fork, and deploys
+      all packages as .deb binaries using our PPA where needed (Dirk in
+      \ghpr{540} addressing issue \ghit{517}).
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item New unit tests for random number generators the R namespace which
+      call the standalone Rmath library. (James Balamuta in \ghpr{514}
+      addressing issue \ghit{28}).
+    }
+    \item Changes in Rcpp Examples:
+    \itemize{
+      \item Examples that used cxxfunction() from the inline package have been
+      rewritten to use either sourceCpp() or cppFunction()
+      (James Balamuta in \ghpr{541}, \ghpr{535}, \ghpr{534}, and \ghpr{532}
+      addressing issue \ghit{56}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.6 (2016-07-18)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{long long} data type is used only if it is available,
+      to avoid compiler warnings (Kirill Müller in \ghpr{488}).
+      \item The compiler is made aware that \code{stop()} never returns, to
+      improve code path analysis (Kirill Müller in \ghpr{487} addressing issue
+      \ghit{486}).
+      \item String replacement was corrected (Qiang in \ghpr{479} following
+      mailing list bug report by Masaki Tsuda)
+      \item Allow for UTF-8 encoding in error messages via
+      \code{RCPP_USING_UTF8_ERROR_STRING} macro (Qin Wenfeng in \ghpr{493})
+      \item The R function \code{Rf_warningcall} is now provided as well (as
+      usual without leading \code{Rf_}) (\ghpr{497} fixing \ghit{495})
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Const-ness of \code{min} and \code{max} functions has been corrected.
+      (Dan Dillon in PR \ghpr{478} fixing issue \ghit{477}).
+      \item Ambiguities for matrix/vector and scalar operations have been fixed
+      (Dan Dillon in PR \ghpr{476} fixing issue \ghit{475}).
+      \item New \code{algorithm} header using iterator-based approach for
+      vectorized functions (Dan in PR \ghpr{481} revisiting PR \ghpr{428} and
+      addressing issue \ghit{426}, with futher work by Kirill in PR \ghpr{488}
+      and Nathan in \ghpr{503} fixing issue \ghit{502}).
+      \item The \code{na_omit()} function is now faster for vectors without
+      \code{NA} values (Artem Klevtsov in PR \ghpr{492})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Add \code{cacheDir} argument to \code{sourceCpp()} to enable caching of
+        shared libraries across R sessions (JJ in \ghpr{504}).
+      \item Code generation now deals correctly which packages containing a dot
+      in their name (Qiang in \ghpr{501} fixing \ghit{500}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item A section on default parameters was added to the Rcpp FAQ vignette
+      (James Balamuta in \ghpr{505} fixing \ghit{418}).
+      \item The Rcpp-attributes vignette is now mentioned more prominently in
+      question one of the Rcpp FAQ vignette.
+      \item The Rcpp Quick Reference vignette received a facelift with new
+      sections on Rcpp attributes and plugins begin added. (James Balamuta in
+      \ghpr{509} fixing \ghit{484}).
+      \item The bib file was updated with respect to the recent JSS publication
+      for RProtoBuf.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.5 (2016-05-14)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The checks for different C library implementations now also check for Musl
+      used by Alpine Linux (Sergio Marques in PR \ghpr{449}).
+      \item \code{Rcpp::Nullable} works better with Rcpp::String (Dan Dillon in
+      PR \ghpr{453}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR
+      \ghpr{451}).
+      \item Correct handling of dependent file paths on Windows (use winslash = "/").
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item An apparent race condition in Module loading seen with R 3.3.0 was
+      fixed (Ben Goodrich in \ghpr{461} fixing \ghit{458}).
+      \item The (older) \code{loadRcppModules()} is now deprecated in favour of
+      \code{loadModule()} introduced around R 2.15.1 and Rcpp 0.9.11 (PR \ghpr{470}).
+    }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function was again updated in
+      order to create a \code{DESCRIPTION} file which passes \code{R CMD check}
+      without notes. warnings, or error under R-release and R-devel (PR \ghpr{471}).
+      \item A new function \code{compilerCheck} can test for minimal \code{g++}
+      versions (PR \ghpr{474}).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.4 (2016-03-22)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item New accessors \code{as()} and \code{clone()} were added to the
+      \code{Nullable} class (Dan in PR \ghpr{423} closing \ghit{421})
+      \item The \code{Nullable<>::operator SEXP()} and
+      \code{Nullable<>::get()} now also work for \code{const} objects
+      (Kirill Mueller in PR \ghpr{417}).
+      \item A subsetting error was fixed (Qiang via \ghpr{432} closing
+      \ghit{431}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{median()} (Nathan in PR \ghpr{425}
+      closing \ghit{424})
+      \item Added new Sugar function \code{cbind()} (Nathan in PR \ghpr{447}
+      closing \ghit{407})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item A plugin for C++14 was added (Dan in PR \ghpr{427})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item An entry was added to the Rcpp-FAQ vignette describing the required
+      packages for vignette building (\ghit{422}).
+      \item Use on OS X was further detailed (James Balamuta in \ghpr{433} with
+      further review by Bob Rudis).
+      \item An entry was added concerning the hard-code limit of arguments to
+      some constructor and function (cf \ghit{435}).
+      \item The Rcpp-FAQ vignette now contains a table of content.
+      \item Typos and indentation were corrected in the Rcpp Sugar vignette
+      (\ghpr{445} by Colin Gillespie).
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.3 (2016-01-10)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Const iterators now \code{CharacterVector} now behave like regular
+      iterators (PR \ghpr{404} by Dan fixing \ghit{362}).
+      \item Math operators between matrix and scalars type have been added (PR
+      \ghpr{406} by Qiang fixing \ghit{365}).
+      \item A missing \code{std::hash} function interface for
+      \code{Rcpp::String} has been addded (PR \ghpr{408} by Qiang fixing
+      \ghit{84}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Avoid invalid function names when generating C++ interfaces (PR
+      \ghpr{403} by JJ fixing \ghit{402}).
+      \item Insert additional space around \code{&} in function interface (PR
+      \ghpr{400} by Kazuki Fukui fixing \ghit{278}).
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item The copy constructor now initialized the base class (PR \ghpr{411}
+      by Joshua Pritikin fixing \ghit{410})
+    }
+    \item Changes in Rcpp Repository:
+    \itemize{
+      \item Added a file \code{Contributing.md} providing some points to
+      potential contributors (PR \ghpr{414} closing issue \ghit{413})
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.2 (2015-11-14)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Correct return type in product of matrix dimensions (PR \ghpr{374}
+      by Florian)
+      \item Before creating a single String object from a \code{SEXP}, ensure
+      that it is from a vector of length one (PR \ghpr{376} by Dirk, fixing
+      \ghit{375}).
+      \item No longer use \code{STRING_ELT} as a left-hand side, thanks to a
+      heads-up by Luke Tierney (PR \ghpr{378} by Dirk, fixing \ghit{377}).
+      \item Rcpp Module objects are now checked more carefully (PR \ghpr{381}
+      by Tianqi, fixing \ghit{380})
+      \item An overflow in Matrix column indexing was corrected (PR \ghpr{390}
+      by Qiang, fixing a bug reported by Allessandro on the list)
+      \item \code{Nullable} types can now be assigned \code{R_NilValue} in
+      function signatures. (PR \ghpr{395} by Dan, fixing issue \ghit{394})
+      \item \code{operator<<()} now always shows decimal points (PR \ghpr{396}
+      by Dan)
+      \item Matrix classes now have a \code{transpose()} function (PR \ghpr{397}
+      by Dirk fixing \ghit{383})
+      \item \code{operator<<()} for complex types was added (PRs \ghpr{398} by
+      Qiang and \ghpr{399} by Dirk, fixing \ghit{187})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Enable export of C++ interface for functions that return void.
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{cummin()}, \code{cummax()},
+      \code{cumprod()} (PR \ghpr{389} by Nathan Russell fixing \ghit{388})
+      \item Enabled sugar math operations for subsets; e.g. x[y] + x[z].
+      (PR \ghpr{393} by Kevin and Qiang, implementing \ghit{392})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{NEWS} file now links to GitHub issue tickets and pull
+      requests.
+      \item The \code{Rcpp.bib} file with bibliographic references was updated.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.1 (2015-09-10)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Correct use of WIN32 instead of _WIN32 to please Windows 10
+      \item Add an assignment operator to \code{DimNameProxy} (PR \ghpr{339} by Florian)
+      \item Add vector and matrix accessors \code{.at()} with bounds checking
+      (PR \ghpr{342} by Florian)
+      \item Correct character vector conversion from single char (PR \ghpr{344} by
+      Florian fixing issue \ghit{343})
+      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR \ghpr{348} by
+      Romain)
+      \item Correct subsetting code to allow for single assignment (PR \ghpr{349} by
+      Florian)
+      \item Enable subset assignment on left and righ-hand side (PR \ghpr{353} by
+      Qiang, fixing issue \ghit{345})
+      \item Refreshed to included \code{tinyformat} template library (PR \ghpr{357} by
+      Dirk, issue \ghit{356})
+      \item Add \code{operator<<()} for vectors and matrices (PR \ghpr{361} by Dan
+      fixing issue \ghit{239})
+      \item Make \code{String} and \code{String_Proxy} objects comparable (PR
+      \ghpr{366} and PR \ghpr{372} by Dan, fixing issue \ghit{191})
+      \item Add a new class \code{Nullable} for objects which may be \code{NULL}
+      (PR \ghpr{368} by Dirk and Dan, fixing issue \ghit{363})
+      \item Correct creation and access of large matrices (PR \ghpr{370} by Florian,
+      fixing issue \ghit{369})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Correctly reset directory in case of no-rebuilding but Windows code
+      (PR \ghpr{335} by Dirk)
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item We no longer define multiple Modules objects named \code{World} in
+      the unit tests with was seen to have a bad effect with R 3.2.2 or later
+      (PR \ghpr{351} by Dirk fixing issue \ghit{350}).
+      \item Applied patch by Kurt Hornik which improves how Rcpp loads Modules
+      (PR \ghpr{353} by Dirk)
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp.bib} file with bibliographic references was updated.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.0 (2015-07-24)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item \code{Rcpp_eval()} no longer uses \code{R_ToplevelExec} when evaluating
+      R expressions; this should resolve errors where calling handlers (e.g.
+      through \code{suppressMessages()}) were not properly respected.
+      \item All internal length variables have been changed from \code{R_len_t}
+      to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via
+      PR \ghpr{303} by Qiang Kou).
+      \item The sugar function \code{sapply} now supports lambda functions
+      (addressing \ghit{213} thanks to Matt Dziubinski)
+      \item The \code{var} sugar function now uses a more robust two-pass
+      method, supports complex numbers, with new unit tests added (via PR
+      \ghpr{320} by Matt Dziubinski)
+      \item \code{String} constructors now allow encodings (via PR \ghpr{310}
+      by Qiang Kou)
+      \item \code{String} objects are preserving the underlying \code{SEXP}
+      objects better, and are more careful about initializations (via PRs
+      \ghpr{322} and \ghpr{329} by Qiang Kou)
+      \item DataFrame constructors are now a little more careful (via PR
+      \ghpr{301} by Romain Francois)
+      \item For R 3.2.0 or newer, \code{Rf_installChar()} is used instead of
+      \code{Rf_install(CHAR())} (via PR \ghpr{332}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Use more robust method of ensuring unique paths for generated shared
+      libraries.
+      \item The \code{evalCpp} function now also supports the \code{plugins}
+      argument.
+      \item Correctly handle signature termination characters ('\{' or ';') contained
+      in quotes.
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-FAQ} vignette was once again updated with respect to
+      OS X issues and Fortran libraries needed for e.g. \CRANpkg{RcppArmadillo}.
+      \item The included \code{Rcpp.bib} bibtex file (which is also used by
+      other Rcpp* packages) was updated with respect to its CRAN references.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.6 (2015-05-01)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The unwinding of exceptions was refined to protect against inadvertent
+      memory leaks.
+      \item Header files now try even harder not to let macro definitions leak.
+      \item Matrices have a new default constructor for zero-by-zero dimension
+      matrices (via a pull request by Dmitrii Meleshko).
+      \item A new \code{empty()} string constructor was added (via another pull
+      request).
+      \item Better support for Vectors with a storage policy different from the
+      default, i.e. \code{NoProtectStorage}, was added.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Rtools 3.3 is now supported.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.5 (2015-03-04)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item An error handler for tinyformat was defined to prevent the \code{assert()}
+      macro from spilling.
+      \item The \code{Rcpp::warning} function was added as a wrapper for \code{Rf_warning}.
+      \item The \code{XPtr} class was extended with new \code{checked_get}
+      and \code{release} functions as well as improved behavior (throw an
+      exception rather than crash) when a NULL external pointer is dereferenced.
+      \item R code is evaluated within an \code{R_toplevelExec} block to prevent
+      user interrupts from bypassing C++ destructors on the stack.
+      \item The \code{Rcpp::Environment} constructor can now use a supplied
+      parent environment.
+      \item The \code{Rcpp::Function} constructor can now use a supplied
+      environment or namespace.
+      \item The \code{attributes_hidden} macro from R is used to shield internal
+      functions; the \code{R_ext/Visibility.h} header is now included as well.
+      \item A \code{Rcpp::print} function was added as a wrapper around \code{Rf_PrintValue}.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
+      if it is present in either the \code{inst/include} or \code{src}.
+      \item \code{sourceCpp} was modified to allow includes of local files
+      (e.g. \code{#include "foo.hpp"}). Implementation files (*.cc; *.cpp) corresponding
+      to local includes are also automatically built if they exist.
+      \item The generated attributes code was simplified with respect to
+      \code{RNGScope} and now uses \code{RObject} and its destructor rather than \code{SEXP}
+      protect/unprotect.
+      \item Support addition of the \code{rng} parameter in \code{Rcpp::export}
+      to suppress the otherwise automatic inclusion of \code{RNGScope} in
+      generated code.
+      \item Attributes code was made more robust and can e.g. no longer recurse.
+      \item Version 3.2 of the Rtools is now correctly detected as well.
+      \item Allow 'R' to come immediately after '***' for defining embedded R
+      code chunks in sourceCpp.
+      \item The attributes vignette has been updated with documentation
+      on new features added over the past several releases.
+    }
+    \item Changes in Rcpp tests:
+    \itemize{
+      \item On Travis CI, all build dependencies are installed as binary
+      \code{.deb} packages resulting in faster tests.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.4 (2015-01-20)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{ListOf<T>} class gains the \code{.attr} and
+      \code{.names} methods common to other Rcpp vectors.
+      \item The \code{[dpq]nbinom_mu()} scalar functions are now available via
+      the \code{R::} namespace when R 3.1.2 or newer is used.
+      \item Add an additional test for AIX before attempting to include \code{execinfo.h}.
+      \item \code{Rcpp::stop} now supports improved \code{printf}-like syntax
+      using the small tinyformat header-only library (following a similar
+      implementation in Rcpp11)
+      \item Pairlist objects are now protected via an additional \code{Shield<>}
+      as suggested by Martin Morgan on the rcpp-devel list.
+      \item Sorting is now prohibited at compile time for objects of type
+      \code{List}, \code{RawVector} and \code{ExpressionVector}.
+      \item Vectors now have a \code{Vector::const\_iterator} that is 'const correct'
+      thanks to fix by Romain following a bug report in rcpp-devel by Martyn Plummer.
+      \item The \code{mean()} sugar function now uses a more robust two-pass
+      method, and new unit tests for \code{mean()} were added at the same time.
+      \item The \code{mean()} and \code{var()} functions now support all core
+      vector types.
+      \item The \code{setequal()} sugar function has been corrected via
+      suggestion by Qiang Kou following a bug report by Søren Højsgaard.
+      \item The macros \code{major}, \code{minor}, and \code{makedev} no longer leak
+      in from the (Linux) system header \code{sys/sysmacros.h}.
+      \item The \code{push_front()} string function was corrected.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Only look for plugins in the package's namespace
+      (rather than entire search path).
+      \item Also scan header files for definitions of functions to be considerd
+      by Attributes.
+      \item Correct the regular expression for source files which are scanned.
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item Added a new binary test which will load a pre-built package to
+      ensure that the Application Binary Interface (ABI) did not change; this
+      test will (mostly or) only run at Travis where we have reasonable control
+      over the platform running the test and can provide a binary.
+      \item New unit tests for sugar functions \code{mean}, \code{setequal} and
+      \code{var} were added as noted above.
+    }
+    \item Changes in Rcpp Examples:
+    \itemize{
+      \item For the (old) examples \code{ConvolveBenchmarks} and \code{OpenMP},
+      the respective \code{Makefile} was renamed to \code{GNUmakefile} to please
+      \code{R CMD check} as well as the CRAN Maintainers.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.3 (2014-09-27)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
+        release 0.10.5 last year is proceeding as planned, and the file
+        \code{macros/preprocessor_generated.h} has been removed.
+      \item \code{Timer} no longer records time between steps, but times from
+        the origin. It also gains a \code{get_timers(int)} methods that
+        creates a vector of \code{Timer} that have the same origin. This is modelled
+        on the \code{Rcpp11} implementation and is more useful for situations where
+        we use timers in several threads. \code{Timer} also gains a constructor
+        taking a \code{nanotime_t} to use as its origin, and a \code{origin} method.
+        This can be useful for situations where the number of threads is not known
+        in advance but we still want to track what goes on in each thread.
+      \item A cast to \code{bool} was removed in the vector proxy code as
+        inconsistent behaviour between clang and g++ compilations was noticed.
+      \item A missing \code{update(SEXP)} method was added thanks to pull
+        request by Omar Andres Zapata Mesa.
+      \item A proxy for \code{DimNames} was added.
+      \item A \code{no_init} option was added for Matrices and Vectors.
+      \item The \code{InternalFunction} class was updated to work with
+        \code{std::function} (provided a suitable C++11 compiler is available)
+        via a pull request by Christian Authmann.
+      \item A \code{new_env()} function was added to \code{Environment.h}
+      \item The return value of range eraser for Vectors was fixed in a pull
+        request by Yixuan Qiu.
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item In \code{ifelse()}, the returned \code{NA} type was corrected for
+      \code{operator[]}.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Include LinkingTo in DESCRIPTION fields scanned to confirm that
+      C++ dependencies are referenced by package.
+      \item Add \code{dryRun} parameter to \code{sourceCpp}.
+      \item Corrected issue with relative path and R chunk use for \code{sourceCpp}.
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
+      \item A new entry in the \code{Rcpp-FAQ} clarifies the use of licenses.
+      \item Vignettes build results no longer copied to \code{/tmp} to please CRAN.
+      \item The Description in \code{DESCRIPTION} has been shortened.
+    }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function will now use
+      \CRANpkg{pkgKitten} package, if available, to create a package which passes
+      \code{R CMD check} without warnings. A new \code{Suggests:} has been added
+      for \CRANpkg{pkgKitten}.
+      \item The \code{modules=TRUE} case for \code{Rcpp.package.skeleton()} has
+      been improved and now runs without complaints from \code{R CMD check} as well.
+    }
+    \item Changes in Rcpp unit test functions:
+    \itemize{
+      \item Functions from the \CRANpkg{RUnit} package are now prefixed with \code{RUnit::}
+      \item The \code{testRcppModule} and \code{testRcppClass} sample packages
+      now pass \code{R CMD check --as-cran} cleanly with NOTES or WARNINGS
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.2 (2014-06-06)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Implicit conversions, e.g. between \code{NumericVector} and
+      \code{IntegerVector}, will now give warnings if you use
+      \code{\#define RCPP_WARN_ON_COERCE} before including the Rcpp
+      headers.
+      \item Templated \code{List} containers, \code{ListOf<T>}, have been
+      introduced. When subsetting such containers, the return is assumed
+      to be of type T, allowing code such as
+      \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
+      \item In a number of instances, returned results are protected and/or cast
+      more carefully.
+    }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item Trailing line comments are now stripped by the attributes
+      parser. This allows the parser to handle C++ source files
+      containing comments inline with function arguments.
+      \item The \code{USE_CXX1X} environment variable is now defined by
+      the cpp11 plugin when R >= 3.1. Two additional plugins have been
+      added for use with C++0x (eg when using g++ 4.6.* as on Windows)
+      as well as C++1y for compilers beginning to support the next
+      revision of the standard; additional fallback is provided for
+      Windows.
+      \item \code{compileAttributes()} now also considers Imports: which
+      may suppress a warning when running \code{Rcpp.package.skeleton()}.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.1 (2014-03-13)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Preserve backwards compatibility with \CRANpkg{Rcpp} 0.10.* by
+      allowing \code{RObject} extraction from vectors (or lists) of Rcpp
+      objects
+      \item Add missing default constructor to Reference class that was
+      omitted in the header-only rewrite
+      \item Fixes for \code{NA} and \code{NaN} handling of the
+      \code{IndexHash} class, as well as the vector \code{.sort()}
+      method. These fixes ensure that sugar functions depending on
+      \code{IndexHash} (i.e. \code{unique()}, \code{sort_unique()},
+      \code{match()}) will now properly handle \code{NA} and \code{NaN}
+      values for numeric vectors.
+      \item \code{DataFrame::nrows} now more accurately mimics R's
+      internal behavior (checks the row.names attribute)
+      \item Numerous changes to permit compilation on the Solaris OS
+      \item Rcpp vectors gain a subsetting method -- it is now possible
+      to subset an Rcpp vector using \code{CharacterVector}s (subset
+      by name), \code{LogicalVector}s (logical subsetting), and
+      \code{IntegerVector}s (0-based index subsetting). Such subsetting
+      will also work with Rcpp sugar expressions, enabling expressions
+      such as \code{x[ x > 0]}.
+      \item Comma initialization (e.g.
+      \code{CharacterVector x = "a", "b", "c";}, has been disabled, as
+      it causes problems with the behavior of the \code{=} operator with
+      \code{Rcpp::List}s. Users who want to re-enable this functionality
+      can use \code{#define RCPP_COMMA_INITIALIZATION}, but be aware of
+      the above caveat. The more verbose
+      \code{CharacterVector x = CharacterVector::create("a", "b", "c")}
+      is preferred.
+    }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item Fix issue preventing packages with \code{Rcpp::interfaces}
+      attribute from compiling.
+      \item Fix behavior with attributes parsing of \code{::create} for default
+      arguments, and also allow constructors of a given size
+      (e.g. \code{NumericVector v = NumericVector(10))} gives a default
+      value of \code{numeric(10)} at the R level). Also make NAs preserve
+      type when exported to R (e.g. \code{NA_STRING} as a default argument
+      maps to \code{NA_character_} at the R level)
+    }
+    \item Changes in Rcpp modules
+    \itemize{
+      \item Corrected the \code{un_pointer} implementation for \code{object}
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.0 (2014-02-02)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Functions provided/used by \CRANpkg{Rcpp} are now registered
+      with R and instantiated by client package alleviating the new for
+      explicit linking against \code{libRcpp} which is therefore no
+      longer created.
+      \item Updated the \code{Rcpp.package.skeleton()} function accordingly.
+      \item New class \code{StretchyList} for pair lists with fast addition of
+      elements at the front and back. This abstracts the 3 functions
+      \code{NewList}, \code{GrowList} and \code{Insert} used in various
+      packages and in parsers in R.
+      \item The function \code{dnt}, \code{pnt}, \code{qnt} sugar
+      functions were incorrectly expanding to the no-degree-of-freedoms
+      variant.
+      \item Unit tests for \code{pnt} were added.
+      \item The sugar table function did not handle NAs and NaNs properly
+      for numeric vectors. Fixed and tests added.
+      \item The internal coercion mechanism mapping numerics to strings has
+      been updated to better match \R (specifically with \code{Inf}, \code{-Inf},
+      and \code{NaN}.)
+      \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
+      definition spotted and corrected by Kevin Ushey
+      \item New \code{checkUserInterrupt()} function that provides a C++ friendly
+      implementation of \code{R_CheckUserInterrupt}.
+    }
+    \item Changes in Rcpp attributes:
+    \itemize{
+      \item Embedded R code chunks in sourceCpp are now executed within
+      the working directory of the C++ source file.
+      \item Embedded R code chunks in sourceCpp can now be disabled.
+    }
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item The Rcpp-FAQ and Rcpp-package vignettes have been updated and expanded.
+      \item Vignettes are now typeset with grey background for code boxes.
+      \item The bibtex reference file has been update to reflexct
+      current package versions.
+    }
+    \item Changes in Rcpp unit tests:
+    \itemize{
+      \item The file \code{tests/doRUnit.R} was rewritten following the
+      pattern deployed in \CRANpkg{RProtoBuf} which is due to Murray Stokely
+      \item The function \code{test()} was rewritten; it provides an
+      easy entry point to running unit tests of the installed package
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.6 (2013-10-27)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The function \code{exposeClass} takes a description of the
+        constructors, fields and methods to be exposed from a C++
+        class, and writes C++ and R files in the package.  Inherited
+        classes can be dealt with, but require data type information.
+        This approach avoids hand-coding module files.
+      \item Two missing \code{is<>()} templates for
+        \code{CharacterVector} and \code{CharacterMatrix} have been added,
+        and some tests for \code{is_na()} and \code{is_finite()} have been
+        corrected thanks to Thomas Tse.
+    }
+    \item Changes in R code:
+    \itemize{
+      \item Export linking helper function \code{LdFlags} as well as
+        \code{RcppLdFlags}.
+      \item Function \code{Rcpp.package.skeleton()} no longer passes a
+        \code{namespace} argument on to \code{package.skeleton()}
+    }
+    \item Changes in R setup:
+    \itemize{
+      \item Raise requirement for R itself to be version 3.0.0 or later
+      as needed by the vignette processing
+    }
+    \item Changes in Rcpp attributes:
+    \itemize{
+      \item \code{sourceCpp} now correctly binds to Rtools 3.0 and 3.1
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.5 (2013-09-28)}{
+  \itemize{
+    \item Changes in R code:
+    \itemize{
+      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.
+      \item New R function \code{sizeof} to query the byte size of a type. This
+      returns an object of S3 class \code{bytes} that has a \code{print} method
+      showing bytes and bits.
+    }
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Add \code{defined(__sun)} to lists of operating systems to
+      test for when checking for lack of \code{backtrace()} needed for
+      stack traces.
+      \item \code{as<T*>}, \code{as<const T*>}, \code{as<T&>} and
+      \code{as<const T&>} are now supported, when
+      T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
+      \item \code{DoubleVector} as been added as an alias to
+      \code{NumericVector}
+      \item New template function \code{is<T>} to identify if an R object
+      can be seen as a \code{T}. For example \code{is<DataFrame>(x)}.
+      This is a building block for more expressive dispatch in various places
+      (modules and attributes functions).
+      \item \code{wrap} can now handle more types, i.e. types that iterate over
+      \code{std::pair<const KEY, VALUE>} where KEY can be converted to a
+      \code{String} and \code{VALUE} is either a primitive type (int, double)
+      or a type that wraps. Examples :
+      \itemize{
+        \item \code{std::map<int, double>} : we can make a String from an int,
+        and double is primitive
+        \item \code{boost::unordered_map<double, std::vector<double> >}: we can make
+        a String from a double and \code{std::vector<double>} can wrap itself
+      }
+      Other examples of this are included at the end of the \code{wrap} unit test
+      file (\code{runit.wrap.R} and \code{wrap.cpp}).
+      \item \code{wrap} now handles containers of classes handled by modules. e.g.
+      if you expose a class \code{Foo} via modules, then you can wrap
+      \code{vector<Foo>}, ... An example is included in the \code{wrap} unit test
+      file
+      \item \code{RcppLdFlags()}, often used in \code{Makevars} files of
+      packages using \pkg{Rcpp}, is now exported from the package namespace.
+    }
+    \item Changes in Attributes:
+    \itemize{
+      \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
+      in a file that is processed by \code{sourceCpp}) are now directly
+      available in the environment. We used to make the module object
+      available, which was less useful.
+      \item A plugin for \code{openmp} has been added to support use of OpenMP.
+      \item \code{Rcpp::export} now takes advantage of the more flexible
+      \code{as<>}, handling constness and referenceness of the input types.
+      For users, it means that for the parameters of function exported by modules,
+      we can now use references, pointers and const versions of them.
+      The file \code{Module.cpp} file has an example.
+      \item{No longer call non-exported functions from the tools package}
+      \item{No longer search the inline package as a fallback when loading
+      plugins for the the \code{Rcpp::plugins} attribute}.
+    }
+    \item Changes in Modules:
+    \itemize{
+      \item We can now expose functions and methods that take
+      \code{T&} or \code{const T&} as arguments. In these situations
+      objects are no longer copied as they used to be.
+    }
+    \item Changes in sugar:
+    \itemize{
+      \item \code{is_na} supports classes \code{DatetimeVector} and
+      \code{DateVector}
+    }
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item The vignettes have been moved from \code{inst/doc/} to the
+      \code{vignettes} directory which is now preferred.
+      \item The appearance of the vignettes has been refreshed by
+      switching to the Bistream Charter font, and microtype package.
+    }
+    \item Deprecation of \code{RCPP_FUNCTION_*}:
+    \itemize{
+      \item The macros from the \code{preprocessor_generated.h} file
+      have been deprecated. They are still available, but they print a
+      message in addition to their expected behavior.
+      \item The macros will be permanently removed in the first \pkg{Rcpp}
+      release after July 2014.
+      \item Users of these macros should start replacing them with more
+      up-to-date code, such as using 'Rcpp attributes' or 'Rcpp modules'.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.4 (2013-06-23)}{
+  \itemize{
+    \item Changes in R code: None beyond those detailed for Rcpp Attributes
+    \item Changes in Rcpp attributes:
+    \itemize{
+      \item Fixed problem whereby the interaction between the gc and the
+      RNGScope destructor could cause a crash.
+      \item Don't include package header file in generated C++ interface
+      header files.
+      \item Lookup plugins in \pkg{inline} package if they aren't found
+      within the \pkg{Rcpp} package.
+      \item Disallow compilation for files that don't have extensions
+      supported by R CMD SHLIB
+    }
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{DataFrame::create} set of functions has been reworked
+      to just use \code{List::create} and feed to the \code{DataFrame}
+      constructor
+      \item The \code{operator-()} semantics for \code{Date} and
+      \code{Datetime} are now more inline with standard C++ behaviour;
+      with thanks to Robin Girard for the report.
+      \item RNGScope counter now uses unsigned long rather than int.
+      \item \code{Vector<*>::erase(iterator, iterator)} was fixed. Now
+      it does not remove the element pointed by last (similar to what is
+      done on stl types and what was intended initially). Reported on
+      Rcpp-devel by Toni Giorgino.
+      \item Added equality operator between elements of
+      \code{CharacterVector}s.
+    }
+    \item Changes in Rcpp sugar:
+    \itemize{
+      \item New function \code{na_omit} based on the StackOverflow thread
+      \url{http://stackoverflow.com/questions/15953768/}
+      \item New function \code{is_finite} and \code{is_infinite} that
+      reproduces the behavior of R's \code{is.finite} and
+      \code{is.infinite} functions
+    }
+    \item Changes in Rcpp build tools:
+    \itemize{
+      \item Fix by Martyn Plummer for Solaris in handling of
+      \code{SingleLogicalResult}.
+      \item The \code{src/Makevars} file can now optionally override the
+      path for \code{/usr/bin/install_name_tool} which is used on OS X.
+      \item Vignettes are trying harder not to be built in parallel.
+    }
+    \item Changes in Rcpp documentation:
+    \itemize{
+      \item Updated the bibliography in \code{Rcpp.bib} (which is also
+      sourced by packages using Rcpp).
+      \item Updated the \code{THANKS} file.
+    }
+    \item Planned Deprecation of \code{RCPP_FUNCTION_*}:
+    \itemize{
+      \item The set of macros \code{RCPP_FUNCTION_} etc ... from the
+      \code{preprocessor_generated.h} file will be deprecated in the next version
+      of \pkg{Rcpp}, i.e they will still be available but will generate some
+      warning in addition to their expected behavior.
+      \item In the first release that is at least 12 months after this announcement, the
+      macros will be removed from \pkg{Rcpp}.
+      \item Users of these macros (if there are any) should start replacing them
+      with more up to date code, such as using Rcpp attributes or Rcpp
+      modules.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.3 (2013-03-23)}{
+  \itemize{
+    \item Changes in R code:
+    \itemize{
+      \item Prevent build failures on Windowsn when Rcpp is installed
+      in a library path with spaces (transform paths in the same manner
+      that R does before passing them to the build system).
+    }
+    \item Changes in Rcpp attributes:
+    \itemize{
+        \item Rcpp modules can now be used with \code{sourceCpp}
+        \item Standalone roxygen chunks (e.g. to document a class) are now
+        transposed into RcppExports.R
+        \item Added \code{Rcpp::plugins} attribute for binding
+        directly to inline plugins. Plugins can be registered using
+        the new \code{registerPlugin} function.
+        \item Added built-in \code{cpp11} plugin for specifying
+        the use of C++11 in a translation unit
+        \item Merge existing values of build related environment
+        variables for sourceCpp
+        \item Add global package include file to RcppExports.cpp
+        if it exists
+        \item Stop with an error if the file name passed to
+        \code{sourceCpp} has spaces in it
+        \item Return invisibly from void functions
+        \item Ensure that line comments invalidate block comments when
+        parsing for attributes
+        \item Eliminated spurious empty hello world function definition
+        in Rcpp.package.skeleton
+    }
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The very central use of R API R_PreserveObject and
+      R_ReleaseObject has been replaced by a new system based on the
+      functions Rcpp_PreserveObject, Rcpp_ReleaseObject and Rcpp_ReplaceObject
+      which shows better performance and is implemented using a generic vector
+      treated as a stack instead of a pairlist in the R
+      implementation. However, as this preserve / release code is still
+      a little rough at the edges, a new #define is used (in config.h)
+      to disable it for now.
+      \item Platform-dependent code in Timer.cpp now recognises a few
+      more BSD variants thanks to contributed defined() test suggestions
+      \item Support for wide character strings has been added throughout the
+      API. In particular String, CharacterVector, wrap and as are aware of
+      wide character strings
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.2 (2012-12-21)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Source and header files were reorganized and consolidated so
+      that compile time are now significantly lower
+      \item Added additional check in \code{Rstreambuf} deletetion
+      \item Added support for \code{clang++} when using \code{libc++},
+      and for anc \code{icpc} in \code{std=c++11} mode, thanks to a
+      patch by Yan Zhou
+      \item New class \code{Rcpp::String} to facilitate working with a single
+      element of a character vector
+      \item New utility class sugar::IndexHash inspired from Simon
+      Urbanek's fastmatch package
+      \item Implementation of the equality operator between two Rcomplex
+      \item \code{RNGScope} now has an internal counter that enables it
+      to be safely used multiple times in the same stack frame.
+      \item New class \code{Rcpp::Timer} for benchmarking
+    }
+    \item Changes in Rcpp sugar:
+    \itemize{
+        \item More efficient version of \code{match} based on \code{IndexHash}
+        \item More efficient version of \code{unique} base on \code{IndexHash}
+        \item More efficient version of \code{in} base on \code{IndexHash}
+        \item More efficient version of \code{duplicated} base on \code{IndexHash}
+        \item More efficient version of \code{self_match} base on \code{IndexHash}
+        \item New function \code{collapse} that implements paste(., collapse= "" )
+    }
+    \item Changes in Rcpp attributes:
+    \itemize{
+        \item Use code generation rather than modules to implement
+        \code{sourceCpp} and \code{compileAttributes} (eliminates
+        problem with exceptions not being able to cross shared library
+        boundaries on Windows)
+        \item Exported functions now automatically establish an \code{RNGScope}
+        \item Functions exported by \code{sourceCpp} now directly
+        reference the external function pointer rather than rely on
+        dynlib lookup
+        \item On Windows, Rtools is automatically added to the PATH
+        during \code{sourceCpp} compilations
+        \item Diagnostics are printed to the console if \code{sourceCpp}
+        fails and C++ development tools are not installed
+        \item A warning is printed if when \code{compileAttributes} detects
+        \code{Rcpp::depends} attributes in source files that are not
+        matched by Depends/LinkingTo entries in the package DESCRIPTION
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.10.1 (2012-11-26)}{
+    \itemize{
+        \item Changes in Rcpp sugar:
+        \itemize{
+          \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
+            \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range},
+            \code{match}, \code{table}, \code{duplicated}
+          \item New function: \code{clamp} which combines pmin and pmax, e.g.
+          clamp( a, x, b) is the same as pmax( b, pmin(x, a) )
+          \item New function: \code{self_match} which implements something
+          similar to \code{match( x, unique( x ) )}
+        }
+        \item Changes in Rcpp API:
+        \itemize{
+            \item The \code{Vector} template class (hence \code{NumericVector}
+            ...) get the \code{is_na} and the \code{get_na} static methods.
+            \item New helper class \code{no_init} that can be used to
+            create a vector without initializing its data, e.g. :
+            \code{ IntegerVector out = no_init(n) ; }
+            \item New exception constructor requiring only a message; \code{stop}
+            function to throw an exception
+            \item \code{DataFrame} gains a \code{nrows} method
+        }
+        \item Changes in Rcpp attributes:
+        \itemize{
+            \item Ability to embed R code chunks (via specially formatted
+            block comments) in C++ source files.
+            \item Allow specification of argument defaults for exported functions.
+            \item New scheme for more flexible mixing of generated and user composed
+            C++ headers.
+            \item Print warning if no export attributes are found in source file.
+            \item Updated vignette with additional documentation on exposing
+            C++ interfaces from packages and signaling errors.
+        }
+        \item Changes in Rcpp modules:
+        \itemize{
+            \item Enclose .External invocations in \code{BEGIN_RCPP}/\code{END_RCPP}
+        }
+        \item Changes in R code :
+        \itemize{
+            \item New function \code{areMacrosDefined}
+             \item Additions to \code{Rcpp.package.skeleton}:
+             \itemize{
+                \item \code{attributes} parameter to generate a version of
+            	\code{rcpp_hello_world} that uses \code{Rcpp::export}.
+            	\item \code{cpp_files} parameter to provide a list of C++
+            	files to include the in the \code{src} directory of the package.
+            }
+        }
+        \item Miscellaneous changes:
+        \itemize{
+          \item New example 'pi simulation' using R and C++ via Rcpp attributes
+	}
+    }
+}
+\section{Changes in Rcpp version 0.10.0 (2012-11-13)}{
+  \itemize{
+    \item Support for C++11 style attributes (embedded in comments) to enable
+    use of C++ within interactive sessions and to automatically generate module
+    declarations for packages:
+    \itemize{
+        \item Rcpp::export attribute to export a C++ function to R
+        \item \code{sourceCpp()} function to source exported functions from a file
+        \item \code{cppFunction()} and \code{evalCpp()} functions for inline declarations
+        and execution
+        \item \code{compileAttribtes()} function to generate Rcpp modules from
+        exported functions within a package
+        \item Rcpp::depends attribute for specifying additional build
+        dependencies for \code{sourceCpp()}
+        \item Rcpp::interfaces attribute to specify the external bindings
+        \code{compileAttributes()} should generate (defaults to R-only but a
+        C++ include file using R_GetCCallable can also be generated)
+	\item New vignette "Rcpp-attribute"
+    }
+    \item Rcpp modules feature set has been expanded:
+    \itemize{
+        \item Functions and methods can now return objects from classes that
+        are exposed through modules. This uses the make_new_object template
+        internally. This feature requires that some class traits are declared
+        to indicate Rcpp's \code{wrap}/\code{as} system that these classes are covered
+        by modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL
+        can be used to declared these type traits.
+        \item Classes exposed through modules can also be used as parameters
+        of exposed functions or methods.
+        \item Exposed classes can declare factories with ".factory". A factory
+        is a c++ function that returns a pointer to the target class. It is
+        assumed that these objects are allocated with new on the factory. On the
+        R side, factories are called just like other constructors, with the
+        "new" function. This feature allows an alternative way to construct
+        objects.
+        \item "converter" can be used to declare a way to convert an object
+        of a type to another type. This gets translated to the appropriate
+        "as" method on the R side.
+        \item Inheritance. A class can now declare that it inherits from
+        another class with the .derives<Parent>( "Parent" ) notation. As a result
+        the exposed class gains methods and properties (fields) from its
+        parent class.
+    }
+    \item New sugar functions:
+    \itemize{
+        \item \code{which_min} implements which.min. Traversing the sugar expression
+        and returning the index of the first time the minimum value is found.
+        \item \code{which_max} idem
+        \item \code{unique} uses unordered_set to find unique values. In particular,
+        the version for CharacterVector is found to be more efficient than
+        R's version
+        \item \code{sort_unique} calculates unique values and then sorts them.
+    }
+    \item Improvements to output facilities:
+    \itemize{
+      \item Implemented \code{sync()} so that flushing output streams works
+      \item Added \code{Rcerr} output stream (forwarding to
+      \code{REprintf})
+    }
+    \item Provide a namespace 'R' for the standalone Rmath library so
+    that Rcpp users can access those functions too; also added unit tests
+    \item Development releases sets variable RunAllRcppTests to yes to
+    run all tests (unless it was alredy set to 'no'); CRAN releases do
+    not and still require setting -- which helps with the desired CRAN
+    default of less testing at the CRAN server farm.
+  }
+}
+
+\section{Changes in Rcpp version 0.9.15 (2012-10-13)}{
+  \itemize{
+    \item Untangling the clang++ build issue about the location of the
+    exceptions header by directly checking for the include file -- an
+    approach provided by Martin Morgan in a kindly contributed patch
+    as unit tests for them.
+    \item The \code{Date} and \code{Datetime} types now correctly
+    handle \code{NA}, \code{NaN} and \code{Inf} representation; the
+    \code{Date} type switched to an internal representation via \code{double}
+    \item Added \code{Date} and \code{Datetime} unit tests for the new
+    features
+    \item An additional \code{PROTECT} was added for parsing exception
+    messages before returning them to R, following a report by Ben North
+  }
+}
+
+\section{Changes in Rcpp version 0.9.14 (2012-09-30)}{
+  \itemize{
+    \item Added new Rcpp sugar functions trunc(), round() and signif(), as well
+    as unit tests for them
+    \item Be more conservative about where we support clang++ and the inclusion
+    of exception_defines.h and prevent this from being attempted on OS X
+    where it failed for clang 3.1
+    \item Corrected a typo in Module.h which now again permits use of finalizers
+    \item Small correction for (unexported) bib() function (which provides a path
+    to the bibtex file that ships with Rcpp)
+    \item Converted NEWS to NEWS.Rd
+  }
+}
+\section{Changes in Rcpp version 0.9.13 (2012-06-28)}{
+  \itemize{
+    \item Truly corrected Rcpp::Environment class by having default constructor
+             use the global environment, and removing the default argument of
+             global environment from the SEXP constructor
+    \item Added tests for clang++ version to include bits/exception_defines.h
+             for versions 3.0 or higher (similar to g++ 4.6.0 or later), needed to
+      include one particular exceptions header
+    \item Made more regression tests conditional on the RunAllRcppTests to come
+             closer to the CRAN mandate of running tests in sixty seconds
+    \item Updated unit test wrapper tests/doRUnit.R as well as unitTests/runTests.R
+  }
+}
+\section{Changes in Rcpp version 0.9.12 (2012-06-23)}{
+  \itemize{
+    \item Corrected Rcpp::Environment class by removing (empty) ctor following
+             rev3592 (on May 2) where default argument for ctor was moved
+    \item Unit testing now checks for environment variable RunAllRcppTests being
+             set to "yes"; otherwise some tests are skipped. This is arguably not
+             the right thing to do, but CRAN maintainers insist on faster tests.
+    \item Unit test wrapper script runTests.R has new option --allTests to set
+             the environment variable
+    \item The cleanup script now also considers inst/unitTests/testRcppClass/src
+  }
+}
+\section{Changes in Rcpp version 0.9.11 (2012-06-22)}{
+  \itemize{
+    \item New member function for vectors (and lists etc) containsElementNamed()
+             which returns a boolean indicating if the given element name is present
+    \item Updated the Rcpp.package.skeleton() support for Rcpp modules by
+             carrying functions already present from the corresponding unit test
+      which was also slightly expanded; and added more comments to the code
+    \item Rcpp modules can now be loaded via loadRcppModules() from .onLoad(),
+             or via loadModule("moduleName") from any R file
+    \item Extended functionality to let R modify C++ clases imported via modules
+             documented in help(setRcppClass)
+    \item Support compilation in Cygwin thanks to a patch by Dario Buttari
+    \item Extensions to the Rcpp-FAQ and the Rcpp-modules vignettes
+    \item The minium version of R is now 2.15.1 which is required for some of
+             the Rcpp modules support
+  }
+}
+\section{Changes in Rcpp version 0.9.10 (2012-02-16)}{
+  \itemize{
+    \item Rearrange headers so that Rcpp::Rcout can be used by RcppArmadillo et al
+    \item New Rcpp sugar function mapply (limited to two or three input vectors)
+    \item Added custom version of the Rcpp sugar diff function for numeric vectors
+             skipping unncesserry checks for NA
+    \item Some internal code changes to reflect changes and stricter requirements
+             in R CMD check in the current R-devel versions
+    \item Corrected fixed-value initialization for IntegerVector (with thanks to
+             Gregor Kastner for spotting this)
+    \item New Rcpp-FAQ entry on simple way to set compiler option for cxxfunction
+  }
+}
+\section{Changes in Rcpp version 0.9.9 (2012-12-25)}{
+  \itemize{
+    \item Reverting the 'int64' changes from release 0.9.8 which adversely
+         	affect packages using Rcpp: We will re-apply the 'int64' changes in a
+      way which should cooperate more easily with 'long' and 'unsigned long'.
+    \item Unit test output directory fallback changed to use Rcpp.Rcheck
+    \item Conditioned two unit tests to not run on Windows where they now break
+             whereas they passed before, and continue to pass on other OSs
+  }
+}
+\section{Changes in Rcpp version 0.9.8 (2011-12-21)}{
+  \itemize{
+    \item wrap now handles 64 bit integers (int64_t, uint64_t) and containers
+             of them, and Rcpp now depends on the int64 package (also on CRAN).
+             This work has been sponsored by the Google Open Source Programs
+             Office.
+    \item Added setRcppClass() function to create extended reference classes
+             with an interface to a C++ class (typically via Rcpp Module) which
+      can have R-based fields and methods in addition to those from the C++.
+    \item Applied patch by Jelmer Ypma which adds an output stream class
+         	'Rcout' not unlike std::cout, but implemented via Rprintf to
+         	cooperate with R and its output buffering.
+    \item New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
+    \item XPtr constructor now checks for corresponding type in SEXP
+    \item Updated vignettes for use with updated highlight package
+    \item Update linking command for older fastLm() example using external
+             Armadillo
+  }
+}
+\section{Changes in Rcpp version 0.9.7 (2011-09-29)}{
+  \itemize{
+    \item Applied two patches kindly provided by Martyn Plummer which provide
+         	support for compilation on Solaris using the SunPro compiler
+    \item Minor code reorganisation in which exception specifiers are removed;
+             this effectively only implements a run-time (rather than compile-time)
+             check and is generally seen as a somewhat depreated C++ idiom. Thanks
+             to Darren Cook for alerting us to this issue.
+    \item New example 'OpenMPandInline.r' in the OpenMP/ directory, showing how
+             easily use OpenMP by modifying the RcppPlugin output
+    \item New example 'ifelseLooped.r' showing Rcpp can accelerate loops that may
+      be difficult to vectorise due to dependencies
+    \item New example directory examples/Misc/ regrouping the new example as
+             well as the fibonacci example added in Rcpp 0.9.6
+    \item New Rcpp-FAQ example warning of lossy conversion from 64-bit long
+             integer types into a 53-bit mantissa which has no clear fix yet.
+    \item New unit test for accessing a non-exported function from a namespace
+  }
+}
+\section{Changes in Rcpp version 0.9.6 (2011-07-26)}{
+  \itemize{
+    \item Added helper traits to facilitate implementation of the RcppEigen
+      package: The is_eigen_base traits identifies if a class derives from
+      EigenBase using SFINAE; and new dispatch layer was added to wrap() to
+      help RcppEigen
+    \item XPtr now accepts a second template parameter, which is a function
+             taking a pointer to the target class. This allows the developper to
+             supply his/her own finalizer. The template parameter has a default
+             value which retains the original behaviour (calling delete on the
+             pointer)
+    \item New example RcppGibbs, extending Sanjog Misra's Rcpp illustration of
+             Darren Wilkinson's comparison of MCMC Gibbs Sampler implementations;
+      also added short timing on Normal and Gaussian RNG draws between Rcpp
+      and GSL as R's rgamma() is seen to significantly slower
+    \item New example on recursively computing a Fibonacci number using Rcpp and
+             comparing this to R and byte-compiled R for a significant speed gain
+  }
+}
+\section{Changes in Rcpp version 0.9.5 (2011-07-05)}{
+  \itemize{
+    \item New Rcpp-FAQ examples on using the plugin maker for inline's
+             cxxfunction(), and on setting row and column names for matrices
+    \item New sugar functions: mean, var, sd
+    \item Minor correction and extension to STL documentation in Rcpp-quickref
+    \item wrap() is now resilient to NULL pointers passed as in const char *
+    \item loadRcppModules() gains a "direct" argument to expose the module instead
+             of exposing what is inside it
+    \item Suppress a spurious warning from R CMD check on packages created with
+             Rcpp.package.skeleton(..., module=TRUE)
+    \item Some fixes and improvements for Rcpp sugar function 'rlnorm()'
+    \item Beginnings of new example using OpenMP and recognising user interrupts
+  }
+}
+\section{Changes in Rcpp version 0.9.4 (2011-04-12)}{
+  \itemize{
+    \item New R function "loadRcppModules" to load Rcpp modules automatically
+             from a package. This function must be called from the .onLoad function
+             and works with the "RcppModules" field of the package's DESCRIPTION file
+    \item The Modules example wrapped the STL std::vector received some editing
+             to disambiguate some symbols the newer compilers did not like
+    \item Coercing of vectors of factors is now done with an explicit callback
+             to R's "as.character()" as Rf_coerceVector no longer plays along
+    \item A CITATION file for the published JSS paper has been added, and
+             references were added to Rcpp-package.Rd and the different vignettes
+  }
+}
+\section{Changes in Rcpp version 0.9.3 (2011-04-05)}{
+  \itemize{
+    \item Fixed a bug in which modules code was not behaving when compiled
+             twice as can easily happen with inline'ed version
+    \item Exceptions code includes exception_defines.h only when g++ is 4.5 or
+             younger as the file no longer exists with g++-4.6
+    \item The documentation Makefile now uses the $R_HOME environment variable
+    \item The documentation Makefile no longer calls clean in the all target
+    \item C++ conformance issue found by clang/llvm addressed by re-ordering
+             declarations in grow.h as unqualified names must be declared before
+             they are used, even when used within templates
+    \item The 'long long' typedef now depends on C++0x being enabled as this
+             was not a feature in C++98; this suppresses a new g++-4.5 warning
+    \item The Rcpp-introduction vignette was updated to the forthcoming JSS paper
+  }
+}
+\section{Changes in Rcpp version 0.9.2 (2011-02-23)}{
+  \itemize{
+    \item The unitTest runit.Module.client.package.R is now skipped on older OS
+             X releases as it triggers a bug with g++ 4.2.1 or older; OS X 10.6 is
+             fine but as it no longer support ppc we try to accomodate 10.5 too
+             Thanks to Simon Urbanek for pinning this down and Baptiste Auguie
+             and Ken Williams for additonal testing
+    \item RcppCommon.h now recognises the Intel Compiler thanks to a short
+             patch by Alexey Stukalov; this turns off Cxx0x and TR1 features too
+    \item Three more setup questions were added to the Rcpp-FAQ vignette
+    \item One question about RcppArmadillo was added to the Rcpp-FAQ vignette
+  }
+}
+\section{Changes in Rcpp version 0.9.1 (2011-02-14)}{
+  \itemize{
+    \item A number of internal changes to the memory allocation / protection of
+             temporary objects were made---with a heartfelt "Thank You!" to both
+             Doug Bates for very persistent debugging of Rcpp modules code, and to
+             Luke Tierney who added additional memory allocation debugging tools
+             to R-devel (which will be in R 2.13.0 and may also be in R 2.12.2)
+    \item Removed another GNU Make-specific variable from src/Makevars in order
+             to make the build more portable; this was noticed on FreeBSD
+    \item On *BSD, do not try to compute a stack trace but provide file and
+             line number (which is the same behaviour as implemented in Windows)
+    \item Fixed an int conversion bug reported by Daniel Sabanes Bove on r-devel,
+             added unit test as well
+    \item Added unit tests for complex-typed vectors (thanks to Christian Gunning)
+    \item Expanded the Rcpp-quickref vignette (with thanks to Christian Gunning)
+    \item Additional examples were added to the Rcpp-FAQ vignette
+  }
+}
+\section{Changes in Rcpp version 0.9.0 (2010-12-19)}{
+  \itemize{
+    \item The classic API was factored out into its own package RcppClassic which
+             is released concurrently with this version.
+    \item If an object is created but not initialized, attempting to use
+             it now gives a more sensible error message (by forwarding an
+             Rcpp::not_initialized exception to R).
+    \item SubMatrix fixed, and Matrix types now have a nested ::Sub typedef.
+    \item New unexported function SHLIB() to aid in creating a shared library on
+             the command-line or in Makefile (similar to CxxFlags() / LdFlags()).
+    \item Module gets a seven-argument ctor thanks to a patch from Tama Ma.
+    \item The (still incomplete) QuickRef vignette has grown thanks to a patch
+             by Christian Gunning.
+    \item Added a sprintf template intended for logging and error messages.
+    \item Date::getYear() corrected (where addition of 1900 was not called for);
+             corresponding change in constructor from three ints made as well.
+    \item Date() and Datetime() constructors from string received a missing
+             conversion to int and double following strptime. The default format
+             string for the Datetime() strptime call was also corrected.
+    \item A few minor fixes throughout, see ChangeLog.
+  }
+}
+\section{Changes in Rcpp version 0.8.9 (2010-11-27)}{
+  \itemize{
+    \item Many improvements were made in 'Rcpp modules':
+             - exposing multiple constructors
+             - overloaded methods
+             - self-documentation of classes, methods, constructors, fields and
+               functions.
+             - new R function "populate" to facilitate working with modules in
+               packages.
+             - formal argument specification of functions.
+             - updated support for Rcpp.package.skeleton.
+             - constructors can now take many more arguments.
+    \item The 'Rcpp-modules' vignette was updated as well and describe many
+             of the new features
+    \item New template class Rcpp::SubMatrix<RTYPE> and support syntax in Matrix
+             to extract a submatrix:
+                NumericMatrix x = ... ;
+                // extract the first three columns
+                SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ;
+                // extract the first three rows
+                SubMatrix<REALSXP> y = x( Range(0,2), _ ) ;
+                // extract the top 3x3 sub matrix
+                SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ;
+    \item Reference Classes no longer require a default constructor for
+             subclasses of C++ classes
+    \item Consistently revert to using backticks rather than shell expansion
+             to compute library file location when building packages against Rcpp
+      on the default platforms; this has been applied to internal test
+             packages as well as CRAN/BioC packages using Rcpp
+  }
+}
+\section{Changes in Rcpp version 0.8.8 (2010-11-01)}{
+  \itemize{
+    \item New syntactic shortcut to extract rows and columns of a Matrix.
+             x(i,_) extracts the i-th row and x(_,i) extracts the i-th column.
+    \item Matrix indexing is more efficient. However, faster indexing is
+             disabled if g++ 4.5.0 or later is used.
+    \item A few new Rcpp operators such as cumsum, operator=(sugar)
+    \item Variety of bug fixes:
+             - column indexing was incorrect in some cases
+             - compilation using clang/llvm (thanks to Karl Millar for the patch)
+      - instantation order of Module corrected
+             - POSIXct, POSIXt now correctly ordered for R 2.12.0
+  }
+}
+\section{Changes in Rcpp version 0.8.7 (2010-10-15)}{
+  \itemize{
+    \item As of this version, Rcpp depends on R 2.12 or greater as it interfaces
+             the new reference classes (see below) and also reflects the POSIXt
+             class reordering both of which appeared with R version 2.12.0
+    \item new Rcpp::Reference class, that allows internal manipulation of R
+             2.12.0 reference classes. The class exposes a constructor that takes
+             the name of the target reference class and a field(string) method
+             that implements the proxy pattern to get/set reference fields using
+             callbacks to the R operators "$" and "$<-" in order to preserve the
+             R-level encapsulation
+    \item the R side of the preceding item allows methods to be written in R as
+             per ?ReferenceClasses, accessing fields by name and assigning them
+             using "<<-".  Classes extracted from modules are R reference classes.
+             They can be subclassed in R, and/or R methods can be defined using
+             the $methods(...) mechanism.
+    \item internal performance improvements for Rcpp sugar as well as an added
+             'noNA()' wrapper to omit tests for NA values -- see the included
+             examples in inst/examples/convolveBenchmarks for the speedups
+    \item more internal performance gains with Functions and Environments
+  }
+}
+\section{Changes in Rcpp version 0.8.6 (2010-09-09)}{
+  \itemize{
+    \item new macro RCPP_VERSION and Rcpp_Version to allow conditional compiling
+             based on the version of Rcpp
+                #if defined(RCPP_VERSION) && RCPP_VERSION >= Rcpp_Version(0,8,6)
+                #endif
+    \item new sugar functions for statistical distributions (d-p-q-r functions)
+      with distributions : unif, norm, gamma, chisq, lnorm, weibull, logis,
+      f, pois, binom, t, beta.
+    \item new ctor for Vector taking size and function pointer so that for example
+         	   NumericVector( 10, norm_rand )
+      generates a N(0,1) vector of size 10
+    \item added binary operators for complex numbers, as well as sugar support
+    \item more sugar math functions: sqrt, log, log10, exp, sin, cos, ...
+    \item started new vignette Rcpp-quickref : quick reference guide of Rcpp API
+             (still work in progress)
+    \item various patches to comply with solaris/suncc stricter standards
+    \item minor enhancements to ConvolutionBenchmark example
+    \item simplified src/Makefile to no longer require GNU make; packages using
+             Rcpp still do for the compile-time test of library locations
+  }
+}
+\section{Changes in Rcpp version 0.8.5 (2010-07-25)}{
+  \itemize{
+    \item speed improvements. Vector::names, RObject::slot have been improved
+             to take advantage of R API functions instead of callbacks to R
+    \item Some small updates to the Rd-based documentation which now points to
+             content in the vignettes.  Also a small formatting change to suppress
+      a warning from the development version of R.
+    \item Minor changes to Date() code which may reenable SunStudio builds
+  }
+}
+\section{Changes in Rcpp version 0.8.4 (2010-07-09)}{
+  \itemize{
+    \item new sugar vector functions: rep, rep_len, rep_each, rev, head, tail,
+      diag
+    \item sugar has been extended to matrices: The Matrix class now extends the
+         	Matrix_Base template that implements CRTP. Currently sugar functions
+         	for matrices are: outer, col, row, lower_tri, upper_tri, diag
+    \item The unit tests have been reorganised into fewer files with one call
+      	each to cxxfunction() (covering multiple tests) resulting in a
+      	significant speedup
+    \item The Date class now uses the same mktime() replacement that R uses
+             (based on original code from the timezone library by Arthur Olson)
+      permitting wide date ranges on all operating systems
+    \item The FastLM example has been updated, a new benchmark based on the
+             historical Longley data set has been added
+    \item RcppStringVector now uses std::vector<std::string> internally
+    \item setting the .Data slot of S4 objects did not work properly
+  }
+}
+\section{Changes in Rcpp version 0.8.3 (2010-06-27)}{
+  \itemize{
+    \item This release adds Rcpp sugar which brings (a subset of) the R syntax
+             into C++. This supports :
+              - binary operators : <,>,<=,>=,==,!= between R vectors
+              - arithmetic operators: +,-,*,/ between compatible R vectors
+              - several functions that are similar to the R function of the same name:
+             abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax,
+             pow, sapply, seq_along, seq_len, sign
+             Simple examples :
+               // two numeric vector of the same size
+               NumericVector x ;
+               NumericVector y ;
+               NumericVector res = ifelse( x < y, x*x, -(y*y) ) ;
+               // sapply'ing a C++ function
+               double square( double x )\{ return x*x ; \}
+               NumericVector res = sapply( x, square ) ;
+             Rcpp sugar uses the technique of expression templates, pioneered by the
+             Blitz++ library and used in many libraries (Boost::uBlas, Armadillo).
+             Expression templates allow lazy evaluation of expressions, which
+             coupled with inlining generates very efficient code, very closely
+             approaching the performance of hand written loop code, and often
+             much more efficient than the equivalent (vectorized) R code.
+             Rcpp sugar is curently limited to vectors, future releases will
+             include support for matrices with sugar functions such as outer, etc ...
+             Rcpp sugar is documented in the Rcpp-sugar vignette, which contains
+             implementation details.
+    \item New helper function so that "Rcpp?something" brings up Rcpp help
+    \item Rcpp Modules can now expose public data members
+    \item New classes Date, Datetime, DateVector and DatetimeVector with proper
+             'new' API integration such as as(), wrap(), iterators, ...
+    \item The so-called classic API headers have been moved to a subdirectory
+             classic/ This should not affect client-code as only Rcpp.h was ever
+             included.
+    \item RcppDate now has a constructor from SEXP as well
+    \item RcppDateVector and RcppDatetimeVector get constructors from int
+             and both const / non-const operator(int i) functions
+    \item New API class Rcpp::InternalFunction that can expose C++ functions
+         	to R without modules. The function is exposed as an S4 object of
+         	class C++Function
+  }
+}
+\section{Changes in Rcpp version 0.8.2 (2010-06-09)}{
+  \itemize{
+    \item Bug-fix release for suncc compiler with thanks to Brian Ripley for
+             additional testing.
+  }
+}
+\section{Changes in Rcpp version 0.8.1 (2010-06-08)}{
+  \itemize{
+    \item This release adds Rcpp modules. An Rcpp module is a collection of
+             internal (C++) functions and classes that are exposed to R. This
+             functionality has been inspired by Boost.Python.
+             Modules are created internally using the RCPP_MODULE macro and
+             retrieved in the R side with the Module function. This is a preview
+             release of the module functionality, which will keep improving until
+             the Rcpp 0.9.0 release.
+             The new vignette "Rcpp-modules" documents the current feature set of
+             Rcpp modules.
+    \item The new vignette "Rcpp-package" details the steps involved in making a
+             package that uses Rcpp.
+    \item The new vignette "Rcpp-FAQ" collects a number of frequently asked
+             questions and answers about Rcpp.
+    \item The new vignette "Rcpp-extending" documents how to extend Rcpp
+             with user defined types or types from third party libraries. Based on
+             our experience with RcppArmadillo
+    \item Rcpp.package.skeleton has been improved to generate a package using
+             an Rcpp module, controlled by the "module" argument
+    \item Evaluating a call inside an environment did not work properly
+    \item cppfunction has been withdrawn since the introduction of the more
+             flexible cxxfunction in the inline package (0.3.5). Rcpp no longer
+             depends on inline since many uses of Rcpp do not require inline at
+             all. We still use inline for unit tests but this is now handled
+             locally in the unit tests loader runTests.R.
+             Users of the now-withdrawn function cppfunction can redefine it as:
+                cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
+    \item Support for std::complex was incomplete and has been enhanced.
+    \item The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated,
+             and will be removed in Rcpp 0.8.2. The methods tag() and prot() should
+             be used instead. tag() and prot() support both LHS and RHS use.
+    \item END_RCPP now returns the R Nil values; new macro VOID_END_RCPP
+             replicates prior behabiour
+  }
+}
+\section{Changes in Rcpp version 0.8.0 (2010-05-17)}{
+  \itemize{
+    \item All Rcpp headers have been moved to the inst/include directory,
+             allowing use of 'LinkingTo: Rcpp'. But the Makevars and Makevars.win
+             are still needed to link against the user library.
+    \item Automatic exception forwarding has been withdrawn because of
+             portability issues (as it did not work on the Windows platform).
+             Exception forwarding is still possible but is now based on explicit
+             code of the form:
+               try \{
+                 // user code
+               \} catch( std::exception& __ex__)\{
+                 forward_exception_to_r( __ex___ ) ;
+             Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
+             code so that it captures exceptions and forward them to R.
+               BEGIN_RCPP
+               // user code
+               END_RCPP
+    \item new __experimental__ macros
+             The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating C++
+             functions hiding some code repetition:
+               RCPP_FUNCTION_2( int, foobar, int x, int y)\{
+                return x + y ;
+             The first argument is the output type, the second argument is the
+             name of the function, and the other arguments are arguments of the
+             C++ function. Behind the scenes, the RCPP_FUNCTION_2 macro creates an
+             intermediate function compatible with the .Call interface and handles
+             exceptions
+             Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
+             can be used when the C++ function to create returns void. The generated
+             R function will return R_NilValue in this case.
+               RCPP_FUNCTION_VOID_2( foobar, std::string foo )\{
+                // do something with foo
+             The macro RCPP_XP_FIELD_GET generates a .Call compatible function that
+             can be used to access the value of a field of a class handled by an
+             external pointer. For example with a class like this:
+               class Foo\{
+                 public:
+                   int bar ;
+               RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
+             RCPP_XP_FIELD_GET will generate the .Call compatible function called
+             Foo_bar_get that can be used to retrieved the value of bar.
+             The macro RCPP_FIELD_SET generates a .Call compatible function that
+             can be used to set the value of a field. For example:
+               RCPP_XP_FIELD_SET( Foo_bar_set, Foo, bar ) ;
+             generates the .Call compatible function called "Foo_bar_set" that
+             can be used to set the value of bar
+             The macro RCPP_XP_FIELD generates both getter and setter. For example
+               RCPP_XP_FIELD( Foo_bar, Foo, bar )
+             generates the .Call compatible Foo_bar_get and Foo_bar_set using the
+             macros RCPP_XP_FIELD_GET and RCPP_XP_FIELD_SET previously described
+             The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate
+             calling a method of an object that is stored in an external pointer. For
+             example:
+               RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
+             creates the .Call compatible function called foobar that calls the
+             size method of the std::vector<int> class. This uses the Rcpp::XPtr<
+             std::vector<int> > class.
+             The macros RCPP_XP_METHOD_CAST_0, ... is similar but the result of
+             the method called is first passed to another function before being
+             wrapped to a SEXP.  For example, if one wanted the result as a double
+               RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
+             The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the
+             method is only used for its side effect.
+              RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back )
+             Assuming xp is an external pointer to a std::vector<int>, this could
+             be called like this :
+               .Call( "foobar", xp, 2L )
+    \item Rcpp now depends on inline (>= 0.3.4)
+    \item A new R function "cppfunction" was added which invokes cfunction from
+             inline with focus on Rcpp usage (enforcing .Call, adding the Rcpp
+             namespace, set up exception forwarding). cppfunction uses BEGIN_RCPP
+             and END_RCPP macros to enclose the user code
+    \item new class Rcpp::Formula to help building formulae in C++
+    \item new class Rcpp::DataFrame to help building data frames in C++
+    \item Rcpp.package.skeleton gains an argument "example_code" and can now be
+             used with an empty list, so that only the skeleton is generated. It
+             has also been reworked to show how to use LinkingTo: Rcpp
+    \item wrap now supports containers of the following types: long, long double,
+             unsigned long, short and unsigned short which are silently converted
+             to the most acceptable R type.
+    \item Revert to not double-quote protecting the path on Windows as this
+             breaks backticks expansion used n Makevars.win etc
+    \item Exceptions classes have been moved out of Rcpp classes,
+             e.g. Rcpp::RObject::not_a_matrix is now Rcpp::not_a_matrix
+  }
+}
+\section{Changes in Rcpp version 0.7.12 (2010-04-16)}{
+  \itemize{
+    \item Undo shQuote() to protect Windows path names (which may contain
+             spaces) as backticks use is still broken; use of $(shell ...) works
+  }
+}
+\section{Changes in Rcpp version 0.7.11 (2010-03-26)}{
+  \itemize{
+    \item Vector<> gains a set of templated factory methods "create" which
+             takes up to 20 arguments and can create named or unnamed vectors.
+             This greatly facilitates creating objects that are returned to R.
+    \item Matrix now has a diag() method to create diagonal matrices, and
+             a new constructor using a single int to create square matrices
+    \item Vector now has a new fill() method to propagate a single value
+    \item Named is no more a class but a templated function. Both interfaces
+             Named(.,.) and Named(.)=. are preserved, and extended to work also on
+             simple vectors (through Vector<>::create)
+    \item Applied patch by Alistair Gee to make ColDatum more robust
+    \item Fixed a bug in Vector that caused random behavior due to the lack of
+             copy constructor in the Vector template
+  }
+}
+\section{Changes in Rcpp version 0.7.10 (2010-03-15)}{
+  \itemize{
+    \item new class Rcpp::S4 whose constructor checks if the object is an S4
+             object
+    \item maximum number of templated arguments to the pairlist function, the
+             DottedPair constructor, the Language constructor and the Pairlist
+             constructor has been updated to 20 (was 5) and a script has been
+             added to the source tree should we want to change it again
+    \item use shQuote() to protect Windows path names (which may contain spaces)
+  }
+}
+\section{Changes in Rcpp version 0.7.9 (2010-03-12)}{
+  \itemize{
+    \item Another small improvement to Windows build flags
+    \item bugfix on 64 bit platforms. The traits classes (wrap_type_traits, etc)
+             used size_t when they needed to actually use unsigned int
+    \item fixed pre gcc 4.3 compatibility. The trait class that was used to
+             identify if a type is convertible to another had too many false
+             positives on pre gcc 4.3 (no tr1 or c++0x features). fixed by
+             implementing the section 2.7 of "Modern C++ Design" book.
+  }
+}
+\section{Changes in Rcpp version 0.7.8 (2010-03-09)}{
+  \itemize{
+    \item All vector classes are now generated from the same template class
+             Rcpp::Vector<int RTYPE> where RTYPE is one of LGLSXP, RAWSXP, STRSXP,
+             INTSXP, REALSXP, CPLXSXP, VECSXP and EXPRSXP. typedef are still
+             available : IntegerVector, ... All vector classes gain methods
+             inspired from the std::vector template : push_back, push_front,
+             erase, insert
+    \item New template class Rcpp::Matrix<RTYPE> deriving from
+             Rcpp::Vector<RTYPE>. These classes have the same functionality
+             as Vector but have a different set of constructors which checks
+             that the input SEXP is a matrix. Matrix<> however does/can not
+             guarantee that the object will allways be a matrix. typedef
+             are defined for convenience: Matrix<INTSXP> is IntegerMatrix, etc...
+    \item New class Rcpp::Row<int RTYPE> that represents a row of a matrix
+             of the same type. Row contains a reference to the underlying
+             Vector and exposes a nested iterator type that allows use of
+             STL algorithms on each element of a matrix row. The Vector class
+             gains a row(int) method that returns a Row instance. Usage
+             examples are available in the runit.Row.R unit test file
+    \item New class Rcpp::Column<int RTYPE> that represents a column of a
+             matrix. (similar to Rcpp::Row<int RTYPE>). Usage examples are
+             available in the runit.Column.R unit test file
+    \item The Rcpp::as template function has been reworked to be more
+             generic. It now handles more STL containers, such as deque and
+             list, and the genericity can be used to implement as for more
+             types. The package RcppArmadillo has examples of this
+    \item new template class Rcpp::fixed_call that can be used in STL algorithms
+             such as std::generate.
+    \item RcppExample et al have been moved to a new package RcppExamples;
+             src/Makevars and src/Makevars.win simplified accordingly
+    \item New class Rcpp::StringTransformer and helper function
+             Rcpp::make_string_transformer that can be used to create a function
+             that transforms a string character by character. For example
+             Rcpp::make_string_transformer(tolower) transforms each character
+             using tolower. The RcppExamples package has an example of this.
+    \item Improved src/Makevars.win thanks to Brian Ripley
+    \item New examples for 'fast lm' using compiled code:
+             - using GNU GSL and a C interface
+             - using Armadillo (http://arma.sf.net) and a C++ interface
+             Armadillo is seen as faster for lack of extra copying
+    \item A new package RcppArmadillo (to be released shortly) now serves
+             as a concrete example on how to extend Rcpp to work with a modern
+             C++ library such as the heavily-templated Armadillo library
+    \item Added a new vignette 'Rcpp-introduction' based on a just-submitted
+             overview article on Rcpp
+  }
+}
+\section{Changes in Rcpp version 0.7.7 (2010-02-14)}{
+  \itemize{
+    \item new template classes Rcpp::unary_call and Rcpp::binary_call
+             that facilitates using R language calls together
+             with STL algorithms.
+    \item fixed a bug in Language constructors taking a string as their
+             first argument. The created call was wrong.
+  }
+}
+\section{Changes in Rcpp version 0.7.6 (2010-02-12)}{
+  \itemize{
+    \item SEXP_Vector (and ExpressionVector and GenericVector, a.k.a List) now
+             have methods push_front, push_back and insert that are templated
+    \item SEXP_Vector now has int- and range-valued erase() members
+    \item Environment class has a default constructor (for RInside)
+    \item SEXP_Vector_Base factored out of SEXP_Vector (Effect. C++ #44)
+    \item SEXP_Vector_Base::iterator added as well as begin() and end()
+             so that STL algorithms can be applied to Rcpp objects
+    \item CharacterVector gains a random access iterator, begin() and end() to
+             support STL algorithms; iterator dereferences to a StringProxy
+    \item Restore Windows build; successfully tested on 32 and 64 bit;
+    \item Small fixes to inst/skeleton files for bootstrapping a package
+    \item RObject::asFoo deprecated in favour of Rcpp::as<Foo>
+  }
+}
+\section{Changes in Rcpp version 0.7.5 (2010-02-08)}{
+  \itemize{
+    \item wrap has been much improved. wrappable types now are :
+             - primitive types : int, double, Rbyte, Rcomplex, float, bool
+             - std::string
+             - STL containers which have iterators over wrappable types:
+               (e.g. std::vector<T>, std::deque<T>, std::list<T>, etc ...).
+             - STL maps keyed by std::string, e.g std::map<std::string,T>
+             - classes that have implicit conversion to SEXP
+             - classes for which the wrap template if fully or partly specialized
+             This allows composition, so for example this class is wrappable:
+             std::vector< std::map<std::string,T> > (if T is wrappable)
+    \item The range based version of wrap is now exposed at the Rcpp::
+             level with the following interface :
+             Rcpp::wrap( InputIterator first, InputIterator last )
+             This is dispatched internally to the most appropriate implementation
+             using traits
+    \item a new namespace Rcpp::traits has been added to host the various
+             type traits used by wrap
+    \item The doxygen documentation now shows the examples
+    \item A new file inst/THANKS acknowledges the kind help we got from others
+    \item The RcppSexp has been removed from the library.
+    \item The methods RObject::asFoo are deprecated and will be removed
+             in the next version. The alternative is to use as<Foo>.
+    \item The method RObject::slot can now be used to get or set the
+             associated slot. This is one more example of the proxy pattern
+    \item Rcpp::VectorBase gains a names() method that allows getting/setting
+             the names of a vector. This is yet another example of the
+             proxy pattern.
+    \item Rcpp::DottedPair gains templated operator<< and operator>> that
+             allow wrap and push_back or wrap and push_front of an object
+    \item Rcpp::DottedPair, Rcpp::Language, Rcpp::Pairlist are less
+             dependent on C++0x features. They gain constructors with up
+             to 5 templated arguments. 5 was choosed arbitrarily and might
+             be updated upon request.
+    \item function calls by the Rcpp::Function class is less dependent
+             on C++0x. It is now possible to call a function with up to
+             5 templated arguments (candidate for implicit wrap)
+    \item added support for 64-bit Windows (thanks to Brian Ripley and Uwe Ligges)
+  }
+}
+\section{Changes in Rcpp version 0.7.4 (2010-01-30)}{
+  \itemize{
+    \item matrix-like indexing using operator() for all vector
+             types : IntegerVector, NumericVector, RawVector, CharacterVector
+             LogicalVector, GenericVector and ExpressionVector.
+    \item new class Rcpp::Dimension to support creation of vectors with
+             dimensions. All vector classes gain a constructor taking a
+             Dimension reference.
+    \item an intermediate template class "SimpleVector" has been added. All
+             simple vector classes are now generated from the SimpleVector
+             template : IntegerVector, NumericVector, RawVector, CharacterVector
+             LogicalVector.
+    \item an intermediate template class "SEXP_Vector" has been added to
+             generate GenericVector and ExpressionVector.
+    \item the clone template function was introduced to explicitely
+             clone an RObject by duplicating the SEXP it encapsulates.
+    \item even smarter wrap programming using traits and template
+             meta-programming using a private header to be include only
+             RcppCommon.h
+    \item the as template is now smarter. The template now attempts to
+             build an object of the requested template parameter T by using the
+             constructor for the type taking a SEXP. This allows third party code
+             to create a class Foo with a constructor Foo(SEXP) to have
+             as<Foo> for free.
+    \item wrap becomes a template. For an object of type T, wrap<T> uses
+             implicit conversion to SEXP to first convert the object to a SEXP
+             and then uses the wrap(SEXP) function. This allows third party
+             code creating a class Bar with an operator SEXP() to have
+             wrap for free.
+    \item all specializations of wrap :  wrap<double>, wrap< vector<double> >
+             use coercion to deal with missing values (NA) appropriately.
+    \item configure has been withdrawn. C++0x features can now be activated
+             by setting the RCPP_CXX0X environment variable to "yes".
+    \item new template r_cast<int> to facilitate conversion of one SEXP
+             type to another. This is mostly intended for internal use and
+             is used on all vector classes
+    \item Environment now takes advantage of the augmented smartness
+             of as and wrap templates. If as<Foo> makes sense, one can
+             directly extract a Foo from the environment. If wrap<Bar> makes
+             sense then one can insert a Bar directly into the environment.
+               Foo foo = env["x"] ;  /* as<Foo> is used */
+               Bar bar ;
+               env["y"] = bar ;      /* wrap<Bar> is used */
+    \item Environment::assign becomes a template and also uses wrap to
+             create a suitable SEXP
+    \item Many more unit tests for the new features; also added unit tests
+             for older API
+  }
+}
+\section{Changes in Rcpp version 0.7.3 (2010-01-21)}{
+  \itemize{
+    \item New R function Rcpp.package.skeleton, modelled after
+             utils::package.skeleton to help creating a package with support
+             for Rcpp use.
+    \item indexing is now faster for simple vectors due to inlining of
+             the operator[] and caching the array pointer
+    \item The class Rcpp::VectorBase was introduced. All vector classes
+             derive from it. The class handles behaviour that is common
+             to all vector types: length, names, etc ...
+    \item exception forwarding is extended to compilers other than GCC
+             but default values are used for the exception class
+             and the exception message, because we don't know how to do it.
+    \item Improved detection of C++0x capabilities
+    \item Rcpp::Pairlist gains a default constructor
+    \item Rcpp::Environment gains a new_child method to create a new
+             environment whose parent is this
+    \item Rcpp::Environment::Binding gains a templated implicit
+             conversion operator
+    \item Rcpp::ExpressionVector gains an eval method to evaluate itself
+    \item Rcpp::ExpressionVector gains a constructor taking a std::string
+             representing some R code to parse.
+    \item Rcpp::GenericVector::Proxy gains an assignment operator to deal
+             with Environment::Proxy objects
+    \item Rcpp::LdFlags() now defaults to static linking OS X, as it already
+             did on Windows; this default can be overridden.
+  }
+}
+\section{Changes in Rcpp version 0.7.2 (2010-01-12)}{
+  \itemize{
+    \item a new benchmark was added to the examples directory
+             around the classic convolution example from
+             Writing R extensions to compare C and C++ implementations
+    \item Rcpp::CharacterVector::StringProxy gains a += operator
+    \item Rcpp::Environment gains an operator[](string) to get/set
+             objects from the environment. operator[] returns an object
+             of class Rcpp::Environment::Binding which implements the proxy
+             pattern. Inspired from Item 30 of 'More Effective C++'
+    \item Rcpp::Pairlist and Rcpp::Language gain an operator[](int)
+             also using the proxy pattern
+    \item Rcpp::RObject.attr can now be used on the rhs or the lhs, to get
+             or set an attribute. This also uses the proxy pattern
+    \item Rcpp::Pairlist and Rcpp::Language gain new methods push_back
+             replace, length, size, remove, insert
+    \item wrap now returns an object of a suitable class, not just RObject
+             anymore. For example wrap( bool ) returns a LogicalVector
+    \item Rcpp::RObject gains methods to deal with S4 objects : isS4,
+             slot and hasSlot
+    \item new class Rcpp::ComplexVector to manage complex vectors (CPLXSXP)
+    \item new class Rcpp::Promise to manage promises (PROMSXP)
+    \item new class Rcpp::ExpressionVector to manage expression vectors
+             (EXPRSXP)
+    \item new class Rcpp::GenericVector to manage generic vectors, a.k.a
+             lists (VECSXP)
+    \item new class Rcpp::IntegerVector to manage integer vectors (INTSXP)
+    \item new class Rcpp::NumericVector to manage numeric vectors (REALSXP)
+    \item new class Rcpp::RawVector to manage raw vectors (RAWSXP)
+    \item new class Rcpp::CharacterVector to manage character vectors (STRSXP)
+    \item new class Rcpp::Function to manage functions
+             (CLOSXP, SPECIALSXP, BUILTINSXP)
+    \item new class Rcpp::Pairlist to manage pair lists (LISTSXP)
+    \item new class Rcpp::Language to manage calls (LANGSXP)
+    \item new specializations of wrap to deal with std::initializer lists
+             only available with GCC >= 4.4
+    \item new R function Rcpp:::capabilities that can query if various
+             features are available : exception handling, variadic templates
+             initializer lists
+    \item new set of functions wrap(T) converting from T to RObject
+    \item new template function as<T> that can be used to convert a SEXP
+             to type T. Many specializations implemented to deal with
+             C++ builtin and stl types. Factored out of RObject
+    \item new class Rcpp::Named to deal with named with named objects
+             in a pairlist, or a call
+    \item new class Rcpp::Symbol to manage symbols (SYMSXP)
+    \item The garbage collection has been improved and is now automatic
+             and hidden. The user needs not to worry about it at all.
+    \item Rcpp::Environment(SEXP) uses the as.environment R function
+    \item Doxygen-generated documentation is no longer included as it is both
+             too large and too volatile. Zipfiles are provided on the website.
+  }
+}
+\section{Changes in Rcpp version 0.7.1 (2010-01-02)}{
+  \itemize{
+    \item Romain is now a co-author of Rcpp
+    \item New base class Rcpp::RObject replace RcppSexp (which is provided for
+             backwards compatibility)
+    \item RObject has simple wrappers for object creation and conversion to SEXP
+    \item New classes Rcpp::Evaluator and Rcpp::Environment for expression
+             evaluation and environment access, respectively
+    \item New class Rcpp::XPtr for external pointers
+    \item Enhanced exception handling allows for trapping of exceptions outside
+             of try/catch blocks
+    \item Namespace support with a new namespace 'Rcpp'
+    \item Unit tests for most of the new classes, based on the RUnit package
+    \item Inline support now provided by the update inline package, so a new
+             Depends on 'inline (>= 0.3.4)' replaces the code in that was
+             temporarily in Rcpp
+  }
+}
+\section{Changes in Rcpp version 0.7.0 (2009-12-19)}{
+  \itemize{
+    \item Inline support via a modified version of 'cfunction' from Oleg
+             Sklyar's 'inline' package: simple C++ programs can now be compiled,
+             linked and loaded automagically from the R prompt, including support
+             for external packages. Also works on Windows (with R-tools installed)
+    \item New examples for the inline support based on 'Intro to HPC' tutorials
+    \item New type RcppSexp for simple int, double, std::string scalars and vectors
+    \item Every class is now in its own header and source file
+    \item Fix to RcppParams.Rd thanks to Frank S. Thomas
+    \item RcppVersion.R removed as redundant given DESCRIPTION and read.dcf()
+    \item Switched to R_PreserveObject and R_ReleaseObject for RcppSexp with
+             thanks to Romain
+    \item Licensing changed from LGPL 2.1 (or later) to GPL 2 (or later), file
+             COPYING updated
+  }
+}
+\section{Changes in Rcpp version 0.6.8 (2009-11-19)}{
+  \itemize{
+    \item Several classes now split off into their own header and source files
+    \item New header file RcppCommon.h regrouping common defines and includes
+    \item Makevars\{,.win\} updated to reflect src/ reorg
+  }
+}
+\section{Changes in Rcpp version 0.6.7 (2009-11-08)}{
+  \itemize{
+    \item New class RcppList for simple lists and data structures of different
+             types and dimensions, useful for RProtoBuf project on R-Forge
+    \item Started to split classes into their own header and source files
+    \item Added short README file about history and status
+    \item Small documentation markup fix thanks to Kurt; updated doxygen docs
+    \item New examples directory functionCallback/ for R function passed to C++
+             and being called
+  }
+}
+\section{Changes in Rcpp version 0.6.6 (2009-08-03)}{
+  \itemize{
+    \item Updated Doxygen documentation
+    \item RcppParams class gains a new exists() member function
+  }
+}
+\section{Changes in Rcpp version 0.6.5 (2009-04-01)}{
+  \itemize{
+    \item Small OS X build correction using R_ARCH variable
+    \item Include LGPL license as file COPYING
+  }
+}
+\section{Changes in Rcpp version 0.6.4 (2009-03-01)}{
+  \itemize{
+    \item Use std:: namespace throughout instead of 'using namespace std'
+    \item Define R_NO_REMAP so that R provides Rf_length() etc in lieu of length()
+             to minimise clashes with other projects having similar functions
+    \item Include Doxygen documentation, and Doxygen configuration file
+    \item Minor Windows build fix (with thanks to Uwe and Simon)
+  }
+}
+\section{Changes in Rcpp version 0.6.3 (2009-01-09)}{
+  \itemize{
+    \item OS X build fix with thanks to Simon
+    \item Added 'view-only' classes for int and double vector and matrix clases
+             as well as string vector classses, kindly suggsted / provided by
+             David Reiss
+    \item Add two shorter helper functions Rcpp:::CxxFlags() and
+             Rcpp:::LdFlags() for compilation and linker flags
+  }
+}
+\section{Changes in Rcpp version 0.6.2 (2008-12-02)}{
+  \itemize{
+    \item Small but important fix for Linux builds in Rcpp:::RcppLdFlags()
+  }
+}
+\section{Changes in Rcpp version 0.6.1 (2008-11-30)}{
+  \itemize{
+    \item Now src/Makevars replaces src/Makefile, this brings proper OS X
+             multi-arch support with thanks to Simon
+    \item Old #ifdef statements related to QuantLib removed; Rcpp is now
+             decoupled from QuantLib headers yet be used by RQuantLib
+    \item Added RcppLdPath() to return the lib. directory patch and on Linux
+             the rpath settings
+    \item Added new RcppVectorExample()
+    \item Augmented documentation on usage in Rcpp-package.Rd
+  }
+}
+\section{Changes in Rcpp version 0.6.0 (2008-11-05)}{
+  \itemize{
+    \item New maintainer, taking over RcppTemplate (which has been without an
+             update since Nov 2006) under its initial name Rcpp
+    \item New files src/Makefile\{,.win\} including functionality from both
+             configure and RcppSrc/Makefile; we now build two libraries, one for
+             use by the package which also runs the example, and one for users to
+             link against, and removed src/Makevars.in
+    \item Files src/Rcpp.\{cpp,h\} moved in from ../RcppSrc
+    \item Added new class RcppDatetime corresponding to POSIXct in with full
+             support for microsecond time resolution between R and C++
+    \item Several new manual pages added
+    \item Removed  configure\{,.in,.win\} as src/Makefile* can handle this more
+             easily
+    \item Minor cleanup and reformatting for DESCRIPTION, Date: now uses
+             svn:keyword Date property
+    \item Renamed RcppTemplateVersion to RcppVersion, deleted RcppDemo
+    \item Directory demo/ removed as vignette("RcppAPI") is easier and more
+             reliable to show vignette documentation
+    \item RcppTemplateDemo() removed from R/zzz.R, vignette("RcppAPI") is easier;
+             man/RcppTemplateDemo.Rd removed as well
+    \item Some more code reindentation and formatting to R default arguments,
+             some renamed from RcppTemplate* to Rcpp*
+    \item Added footnote onto titlepage of inst/doc/RcppAPI.\{Rnw,pdf\} about how
+             this document has not (yet) been updated along with the channges made
+  }
+}
+\name{testRcppModule-package}
+\alias{testRcppModule-package}
+\alias{testRcppModule}
+\docType{package}
+\title{
+Dummy package part of Rcpp unit testing
+}
+\description{
+Dummy package part of Rcpp unit testing
+}
+\details{
+\tabular{ll}{
+Package: \tab testRcppModule\cr
+Type: \tab Package\cr
+Version: \tab 1.0\cr
+Date: \tab 2010-09-06\cr
+License: \tab GPL (>=2)\cr
+LazyLoad: \tab yes\cr
+}
+}
+\keyword{ package }
+
+\name{rcpp_hello_world}
+\alias{rcpp_hello_world}
+\alias{rcpp_hello_world_cpp}
+\docType{package}
+\title{
+Simple function using Rcpp
+}
+\description{
+Simple function using Rcpp
+}
+\usage{
+rcpp_hello_world()	
+}
+\examples{
+\dontrun{
+rcpp_hello_world()
+}
+}
+\name{Rcpp Modules Examples}
+\alias{RcppModuleNum}
+\alias{RcppModuleWorld}
+\alias{bar}
+\alias{bla}
+\alias{bla1}
+\alias{bla2}
+\alias{foo}
+\alias{vec}
+\alias{hello}
+\alias{Rcpp_RcppModuleNum-class}
+\alias{Rcpp_RcppModuleWorld-class}
+\alias{Rcpp_vec-class}
+\alias{C++Object-class}
+\title{
+  Functions and Objects created by Rcpp Modules Example
+}
+\description{
+  These function and objects are accessible from R via the Rcpp Modules mechanism
+  which creates them based on the declaration in the C++ file.  
+}
+\seealso{
+  The Rcpp Modules vignette.
+}\name{testRcppClass-package}
+\alias{testRcppClass-package}
+\alias{testRcppClass}
+\docType{package}
+\title{
+Dummy package part of Rcpp unit testing
+}
+\description{
+Dummy package part of Rcpp unit testing
+}
+\details{
+\tabular{ll}{
+Package: \tab testRcppClass\cr
+Type: \tab Package\cr
+Version: \tab 1.0\cr
+Date: \tab 2010-09-06\cr
+License: \tab GPL (>=2)\cr
+LazyLoad: \tab yes\cr
+}
+}
+\keyword{ package }
+
+\name{rcpp_hello_world}
+\alias{rcpp_hello_world}
+\docType{package}
+\title{
+Simple function using Rcpp
+}
+\description{
+Simple function using Rcpp
+}
+\usage{
+rcpp_hello_world()	
+}
+\examples{
+\dontrun{
+rcpp_hello_world()
+}
+}
+\name{Rcpp Modules Examples}
+\alias{Num}
+\alias{RcppClassWorld}
+\alias{bar}
+\alias{bla}
+\alias{baz}
+\alias{bla1}
+\alias{baz1}
+\alias{bla2}
+\alias{foo}
+\alias{vec}
+\alias{hello}
+\alias{genWorld}
+\alias{stdNumeric}
+\alias{Rcpp_Num-class}
+\alias{Rcpp_RcppClassWorld-class}
+\alias{Rcpp_vec-class}
+\alias{stdNumeric-class}
+\alias{RcppClassWorld-class}
+\alias{C++Object-class}
+\title{
+  Functions and Objects created by Rcpp Modules Example
+}
+\description{
+  These function and objects are accessible from R via the Rcpp Modules mechanism
+  which creates them based on the declaration in the C++ file.  
+}
+\seealso{
+  The Rcpp Modules vignette.
+}\name{testRcppPackage-package}
+\alias{testRcppPackage-package}
+\alias{testRcppPackage}
+\docType{package}
+\title{
+Dummy package part of Rcpp unit tests
+}
+\description{
+Dummy package part of Rcpp unit tests
+}
+\details{
+\tabular{ll}{
+Package: \tab testRcppPackage\cr
+Type: \tab Package\cr
+Version: \tab 0.1.0\cr
+Date: \tab 2014-11-02\cr
+License: \tab GPL (>= 2)\cr
+LazyLoad: \tab yes\cr
+}
+}
+\name{__placeholder__-package}
+\alias{__placeholder__-package}
+\alias{__placeholder__}
+\docType{package}
+\title{
+  A short title line describing what the package does
+}
+\description{
+  A more detailed description of what the package does. A length
+  of about one to five lines is recommended.
+}
+\details{
+  This section should provide a more detailed overview of how to use the
+  package, including the most important functions.
+}
+\author{
+Who wrote it, email optional.
+
+Maintainer: Who to complain to <yourfault@somewhere.net>
+}
+\references{
+  This optional section can contain literature or other references for
+  background information.
+}
+\keyword{ package }
+\seealso{
+  Optional links to other man pages
+}
+\examples{
+  \dontrun{
+     ## Optional simple examples of the most important functions
+     ## These can be in \dontrun{} and \donttest{} blocks.   
+  }
+}
+\name{rcpp_hello_world}
+\alias{rcpp_hello_world}
+\docType{package}
+\title{
+Simple function using Rcpp
+}
+\description{
+Simple function using Rcpp
+}
+\usage{
+rcpp_hello_world()	
+}
+\examples{
+\dontrun{
+rcpp_hello_world()
+}
+}
+\name{Rcpp Modules Examples}
+\alias{Num}
+\alias{World}
+\alias{bar}
+\alias{bla}
+\alias{bla1}
+\alias{bla2}
+\alias{foo}
+\alias{vec}
+\alias{hello}
+\alias{Rcpp_Num-class}
+\alias{Rcpp_World-class}
+\alias{Rcpp_vec-class}
+\alias{C++Object-class}
+\title{
+  Functions and Objects created by Rcpp Modules Example
+}
+\description{
+  These function and objects are accessible from R via the Rcpp Modules mechanism
+  which creates them based on the declaration in the C++ file.  
+}
+\seealso{
+  The Rcpp Modules vignette.
+}\name{NAME}
+\alias{NAME}
+\title{
+	Rcpp module: %% ~~ Name of the module ~~
+}
+\description{
+	Rcpp module %%  ~~ A concise description of the module ~~
+}
+\details{
+	The module contains the following items: 
+	
+	FUNCTIONS 
+	
+	CLASSES
+}
+\source{
+%% ~~ reference to a publication or URL ~~
+%% ~~ perhaps a reference to the project page of the c++ code being exposed ~~
+}
+\references{
+%% ~~ possibly secondary sources and usages ~~
+%% ~~ perhaps references to the C++ code that the module exposes ~~
+}
+\examples{
+show( NAME )
+}
+\keyword{datasets}
+% Check from R:
+%  news(db = tools:::.build_news_db_from_package_NEWS_Rd("~/R/Pkgs/cluster/inst/NEWS.Rd"))!
+\name{NEWS}
+\title{News for \R Package \pkg{cluster}}% MM: look into ../svn-log-from.all
+\encoding{UTF-8}
+\newcommand{\CRANpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+%% NB: The date (yyyy-mm-dd) is the "Packaged:" date in ../DESCRIPTION
+
+\section{Changes in version 2.0.7 (2018-03-29, svn r7509)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{clara()} gets new option \code{metric = "jaccard"},
+      contributed  by Kamil Kozlowski and Kamil Jadszko.
+      %% FIXME:  Also add for  pam() !!
+
+      \item \code{pam()} and \code{clara()} use \code{match.arg(metric)}
+      and hence \code{metric} can be abbreviated (and invalid strings
+      give an error instead of being interpreted as \code{"euclidean"}).
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item The bug fix of \code{clara(*, correct.d = TRUE)} (from
+      version 2.0.4) for the NA-data case now also applies to the
+      internal C function \code{selec()}.
+    }
+  }
+}
+
+\section{Changes in version 2.0.6 (2017-03-10, svn r7332)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{mona()} now C- instead of Fortran-based (having used
+      f2c etc) and now has a \code{trace.lev} option which allows
+      progress reporting
+      \dQuote{remembers} if the original data had missing values.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{mona(<1-column>)} no longer loops infinitely but signals
+      an error.
+    }
+  }
+}
+
+\section{Changes in version 2.0.5 (2016-10-07, svn r7278)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{clusGap()} gets a new option \code{scaleH0}, and
+      \code{scaleH0 = "original"} is an alternative to the default PCA
+      rotation.%% still see ../TODO-MM !
+
+      \item \code{clusGap()} now also stores its \code{call} and uses
+      that for \code{print()}ing and (by default in the \code{main} title)
+      for \code{plot()}ing \code{"clusGap"} objects.
+
+      \item
+      __ MOSTLY NOT IMPLEMENTED yet __ %%% TODO !!!
+
+      \code{diana()} gets new optional argument \code{stop.at.k}.
+      When a positive integer, the DIANA algorithm will stop early, as
+      much desirable for large \eqn{n}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{daisy()} gets 3+1 new options \code{warn*} which allow
+      to suppress three different kind of warnings, as these are
+      undesirable in some cases.  With thanks to Kirill Müller for the
+      convincing context.
+
+      \item \code{pam()} now signals an error when there are more than
+      65536 observational units (whereas it could segfault previously),
+      thanks to a patch from Mikko Korpela, Helsinki.
+    }
+  }
+}
+
+\section{Changes in version 2.0.4 (2016-04-16, svn r7186)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{clusGap()} gets a new option \code{d.power = 1}
+      allowing to choose the basic weight statistic as it was originally
+      proposed, namely \emph{squared} distances by setting \code{d.power = 2}.
+      %% ~/R/MM/Pkg-ex/cluster/Gonzalez-on-clusGap.R <--
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item fix small glitch in silhouette's help page.
+
+      \item Finally fixed a bug (in the original Fortran code from
+      Rousseeuw!) in clara's distance computation when there are
+      \code{NA}s in the data.  As the fix is not backward compatible,
+      a warning is produced (for the time being) if there \emph{are}
+      \code{NA}s and the user does not explicitly use \code{clara(*, correct.d = TRUE)}.
+    }
+  }
+}
+
+\section{Changes in version 2.0.3 (2015-07-20, svn r6985)}{
+  \subsection{New Features}{
+    \itemize{
+      \item This new \file{NEWS.Rd} file -- going to replace \file{ChangeLog}
+      eventually.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item import all we need (but not more) from the "base" pkgs
+      (stats, graphics, ...).
+    }
+  }
+}
+
+\section{Changes in version 2.0.2 (2015-06-18, svn r6955)}{
+  \subsection{New Features}{
+    \itemize{
+      \item using new \code{anyNA()} where appropriate.
+      \item New Korean translations, thanks to Chel Hee Lee.
+      \item \code{plotpart()}: \code{cmdscale()} tweaks.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item valgrind detected missing allocation (\code{nisol["1"]} for k=1).
+      \item typo R/daisy.q (R bug %once we require R >= 3.2.0: \PR{16430}
+      \Sexpr[results=rd]{tools:::Rd_expr_PR(16430)}).
+    }
+  }
+}
+
+\section{Changes in version 2.0.1 (2015-01-31, svn r6877)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item Fix \code{silhouette( obj )} for \code{obj <- pam(x, k = 1)}.
+    }
+  }
+}
+
+\section{Changes in version 2.0.0 (2015-01-29, svn r6874)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{pam()} now using \code{.Call()} instead of
+      \code{.C()} is potentially considerably more efficient.
+      \item \code{agnes()} has improved \code{trace} behaviour; also,
+      some invalid \code{par.method = *} settings now give an early and
+      understandable error message.
+      \item \code{lower.to.upper.tri.inds()} (etc) now returns \code{integer}.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{.C(..)} and \code{.Fortran(..)}: no longer using
+      \code{DUP=FALSE} as that has become deprecated.
+    }
+  }
+}
+
+\section{Changes in version 1.15.3 (2014-09-04, svn r6804)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{agnes()} and \code{diana()} finally get, respectively
+      work with a \code{trace.lev} option.
+      \item \code{plot.(agnes|diana)()} now deals well with long
+      \code{call}s, by using multiple title lines.
+      \item Message translations now also for C level error messages.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{agnes(*, method="flexible", par.method = c(a1, a2, b, c))},
+      i.e., \code{length(alpha) == 4}, finally works \emph{correctly}.
+    }
+  }
+}
+
+\section{Changes in version 1.15.2 (2014-03-31, svn r6724)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Rewrote parts of the R level messages so they are more
+      easily translatable, thanks to proposals by Lukasz Daniel.
+      \item French translations from Philippe Grosjean.
+    }
+  }
+}
+
+\section{Changes in version 1.15.1 (2014-03-13, svn r6676)}{
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{mona} example not working in \R < 3.0.x.
+    }
+  }
+}
+
+\section{Changes in version 1.15.0 (2014-03-11, svn r6672)}{
+  \subsection{New Features}{
+    \itemize{
+      \item \code{agnes(*, method = "gaverage")} contributed by Pierre
+      Roudier.
+      \item documentation improvements;
+      \item better translatable messages and translation updates.
+    }
+  }
+}
+
+
+%% ============================== FIXME ===========================
+%%        ~~~~~~~~~
+%% use ../ChangeLog
+%%        ~~~~~~~~~
+%% and then
+%%
+%% use ../svn-log-from.all
+%%        ~~~~~~~~~~~~~~~~
+%% and ../../cluster_Archive.lst  {~= CRAN  src/contrib/Archive/cluster/ :
+%%
+\section{Changes in version 1.14.4 (2013-03-26, svn r....)}{
+  \subsection{New Features}{
+    \itemize{
+      \item -
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item -
+    }
+  }
+}
+
+\section{Changes in version 1.14.3 (2012-10-14, svn r....)}{
+  \subsection{New Features}{
+    \itemize{
+      \item Polnish translations from Lukasz Daniel.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item -
+    }
+  }
+}
+
+
+\section{Changes in version 1.14.2 (2012-02-06, svn r....)}{
+  \subsection{New Features}{
+    \itemize{
+      \item New \code{clusGap()} to compute the \dQuote{cluster Gap}
+      goodness-of-fit statistic.
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item -
+    }
+  }
+}
+
+\section{Changes in version 1.14.1 (2011-10-16, svn r....)}{
+  \subsection{New Features}{
+    \itemize{
+      \item First translations (into German, thanks to Detlef Steuer).
+      \item better \code{citation("cluster")}
+    }
+  }
+  \subsection{Bug Fixes}{
+    \itemize{
+      \item \code{plot.silhouette(..., col = <one per cluster>)} had
+      ordering bug.
+    }
+  }
+}
+
+\section{Changes in version 1.14.0 (2011-06-07, svn r....)}{
+}
+%% -> /sfs/w/ftp/CRAN/src/contrib/Archive/cluster/
+
+%%  214765  Feb 21  2011   cluster_1.13.3.tar.gz
+%%  213663  Nov 10  2010   cluster_1.13.2.tar.gz
+%%  214083  Jun 25  2010   cluster_1.13.1.tar.gz
+%%  214677  Apr  2  2010   cluster_1.12.3.tar.gz
+%%  214577  Oct  6  2009   cluster_1.12.1.tar.gz
+%%  215041  May 13  2009   cluster_1.12.0.tar.gz
+%%  211085  Mar 31  2009   cluster_1.11.13.tar.gz
+%%  321990  Jan  7  2009   cluster_1.11.12.tar.gz
+%%  245055  Jun 16  2008   cluster_1.11.11.tar.gz
+%%  243446  Feb 29  2008   cluster_1.11.10.tar.gz
+%%  216573  Oct  2  2007   cluster_1.11.9.tar.gz
+%%  215257  Sep  4  2007   cluster_1.11.8.tar.gz
+%%  216815  Jun  5  2007   cluster_1.11.7.tar.gz
+%%  216729  Apr 27  2007   cluster_1.11.6.tar.gz
+%%  211615  Mar 31  2007   cluster_1.11.5.tar.gz
+%%  211634  Dec 12  2006   cluster_1.11.4.tar.gz
+%%  203692  Dec  2  2006   cluster_1.11.3.tar.gz
+%%  210927  Sep  7  2006   cluster_1.11.2.tar.gz
+%%  210091  Aug 25  2006   cluster_1.11.1.tar.gz
+%%  210215  May 18  2006   cluster_1.11.0.tar.gz
+%%  195962  Mar 21  2006   cluster_1.10.5.tar.gz
+%%  197577  Jan 26  2006   cluster_1.10.4.tar.gz
+%%  197853  Jan 26  2006   cluster_1.10.3.tar.gz
+%%  190839  Aug 31  2005   cluster_1.10.2.tar.gz
+%%  190975  Jul  3  2005   cluster_1.10.1.tar.gz
+%%  189042  Jun 13  2005   cluster_1.10.0.tar.gz
+%%  179723  Apr  4  2005   cluster_1.9.8.tar.gz
+%%  176832  Jan 24  2005   cluster_1.9.7.tar.gz
+%%  174742  Aug 24  2004   cluster_1.9.6.tar.gz
+%%  174218  Aug  4  2004   cluster_1.9.5.tar.gz
+%%  175565  Jun 26  2004   cluster_1.9.4.tar.gz
+%%  173097  Jun 18  2004   cluster_1.9.3.tar.gz
+%%  173251  Jun 13  2004   cluster_1.9.2.tar.gz
+%%  169773  Apr 12  2004   cluster_1.9.1.tar.gz
+%%  170071  Mar 14  2004   cluster_1.8.1.tar.gz
+%%  165322  Jan 22  2004   cluster_1.8.0.tar.gz
+%%  161548  Sep 24  2003   cluster_1.7.6.tar.gz
+%%  161359  Sep  3  2003   cluster_1.7.5.tar.gz
+%%  161257  Jul 18  2003   cluster_1.7.4.tar.gz
+%%  160252  Jun 11  2003   cluster_1.7.3.tar.gz
+%%  158265  Jun  4  2003   cluster_1.7.2.tar.gz
+%%  157386  May  1  2003   cluster_1.7.1.tar.gz
+%%  155161  Mar 26  2003   cluster_1.7.0.tar.gz
+%%  154089  Dec 31  2002   cluster_1.6-4.tar.gz
+%%  154987  Dec  5  2002   cluster_1.6-3.tar.gz
+%%  154261  Oct 23  2002   cluster_1.6-2.tar.gz
+%%  147063  Sep 10  2002   cluster_1.6-1.tar.gz
+%%  131808  Jul 30  2002   cluster_1.5-2.tar.gz
+%%  116292  Jun 19  2002   cluster_1.5-1.tar.gz
+%%  113972  Mar 31  2002   cluster_1.4-2.tar.gz
+%%  113889  Mar  7  2002   cluster_1.4-1.tar.gz
+%%  116698  Jan 24  2002   cluster_1.4-0.tar.gz
+%%  105552  Dec 19  2001   cluster_1.3-6.tar.gz
+%%  105390  Nov  7  2001   cluster_1.3-5.tar.gz
+%%  105275  Aug 24  2001   cluster_1.3-4.tar.gz
+%%  103626  Jun  8  2001   cluster_1.3-3.tar.gz
+%%   99698  Jan  4  2001   cluster_1.3-2.tar.gz
+%%   91608  Feb 18  2000   cluster_1.2-3.tar.gz
+%%   91736  Dec 29  1999   cluster_1.2-2.tar.gz
+%%   93048  Dec  5  1999   cluster_1.2-1.tar.gz
+
+%% ============================== FIXME ===========================
+
+
+
+\section{Version 1.2-1}{
+  \subsection{Versions 1.2-1, ...  1.13-3}{
+    \itemize{
+      \item 60 more CRAN releases of the package \pkg{cluster}
+      from Dec 1999 to Feb 2011.
+    }
+  }
+}
+
+% How can I add vertical space ?
+% \preformatted{} is not allowed, nor is \cr
+
+
+\section{Version 1.2-0 (1999-04-11)}{
+  \subsection{First CRAN release of the \pkg{cluster} package, by Kurt Hornik}{
+    \itemize{
+      \item Martin Maechler had its own version independently.
+      \item Both closely modeled after \code{clus} the tarball off JSS.
+  }}
+
+  \subsection{R Functions -- Fortran Files}{
+    \itemize{
+      \item \code{agnes()} -- \file{twins.f} for the \dQuote{twins} \code{agnes} and \code{diana}.
+      \item \code{clara()} -- \code{clara.f}
+      \item \code{daisy()} -- \file{daisy.f} (and \file{meet.f})
+      \item \code{diana()} -- (twins.f)
+      \item \code{fanny()} -- \file{fanny.f}
+      \item \code{mona()}  -- \file{mona.f}
+      \item \code{pam()}   -- \file{pam.f}
+    }
+  }
+  \subsection{Data Sets}{
+    \itemize{
+      \item agriculture
+      \item animals
+      \item flower
+      \item ruspini
+      \item votes.repub
+    }
+  }
+
+  \subsection{Further Features}{
+    \itemize{
+      \item all Examples in \file{man/*.Rd} hand edited to become
+      executable.
+      \item \code{summary()}, \code{print()} (and
+    \code{print.summary.**()} methods) for the six basic \R functions above.
+    }
+  }
+}
+
+
+
+\section{Version 1.1-2 (1998-06-16)}{
+  \subsection{Renamed previous \pkg{clus} to \pkg{cluster}}{
+    \itemize{ \item . }
+  }
+}
+\section{Version 1.1-1 (1998-06-15)}{
+  \subsection{New Features}{
+    \itemize{
+      \item started \file{ChangeLog}
+    }
+  }
+}
+
+% System Rd macros
+
+% These macros are automatically loaded whenever R processes an Rd file.
+
+% Packages may define their own macros, which are stored in man/macros/*.Rd in
+% the source, help/macros/*.Rd after installation.  Those will be processed after
+% this file but before every Rd file in a package.
+
+% Packages may request inclusion of macros from other packages using the 
+% LoadRdMacros line in the DESCRIPTION file, e.g.
+%  LoadRdMacros:  pkgA 
+% These are loaded after the system macros and before the current package macros.
+
+% Individual Rd files may define their own macros.
+
+
+
+% To refer to a package on CRAN
+\newcommand{\CRANpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+
+% To refer to a bug report by number
+\newcommand{\PR}{\Sexpr[results=rd]{tools:::Rd_expr_PR(#1)}}
+
+% To avoid a double space after a period in LaTeX output
+\newcommand{\sspace}{\ifelse{latex}{\out{~}}{ }}
+
+% To get the package title at build time from the DESCRIPTION file
+\newcommand{\packageTitle}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_title("#1")}}
+
+% To get the package description at build time from the DESCRIPTION file
+\newcommand{\packageDescription}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_description("#1")}}
+
+% To get the package author at build time from the DESCRIPTION file
+\newcommand{\packageAuthor}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_author("#1")}}
+
+% To get the package maintainer at build time from the DESCRIPTION file
+\newcommand{\packageMaintainer}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_maintainer("#1")}}
+
+% To get a formatted copy of the whole DESCRIPTION file
+\newcommand{\packageDESCRIPTION}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_DESCRIPTION("#1")}}
+
+% To include various indices about an installed package
+
+\newcommand{\packageIndices}{\Sexpr[results=rd,stage=build]{tools:::Rd_package_indices("#1")}}
+
+% To indicate a DOI.
+\newcommand{\doi}{\Sexpr[results=rd,stage=build]{tools:::Rd_expr_doi("#1")}}
+
+% To indicate LaTeX.
+\newcommand{\LaTeX}{\ifelse{latex}{\out{{\LaTeX}}}{LaTeX}}
+

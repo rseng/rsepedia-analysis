@@ -789,3 +789,563 @@ Contribute to the software
 > Please contribute by [forking](http://help.github.com/forking/) and sending a [pull request](https://docs.github.com/en/github/getting-started-with-github/github-glossary#pull).
 
 
+.. SAR tools documentation master file, created by
+   sphinx-quickstart on Mon Dec 28 22:30:50 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to PolSAR tools's documentation!
+=========================================
+PolSAR tools is a QGIS plugin, which generates derived SAR parameters ( vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2).
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+   files/General_Information
+   files/functions_description
+   files/References
+
+
+
+.. Indices and tables
+.. ==================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
+
+About
+=====
+The current version of PolSAR tools is v0.6.3 and is licensed under the GPL-3.0 license. 
+
+General Information
+===================
+
+This plugin generates derived SAR parameters (viz. vegetation indices, polarimetric decomposition parameters) from input polarimetric matrix (C3, T3, C2, T2). The input data needs to be in `PolSARpro`_/`ENVI`_ format (\*.bin and \*.hdr). It requires `numpy`_, `matplotlib`_ python libraries pre-installed.
+
+Installation
+-------------------
+
+.. note::
+
+    PolSAR tools requires QGIS version >=3.0.
+
+
+* The easiest way (requires internet connection) : 
+	- Open QGIS -> Plugins -> Manage and Install Plugins... --> select ``All`` tab -> search for ``PolSAR tools`` --> select and install plugin
+* Alternative way (offline installation) : 
+	- Go to `releases`_ of PolSAR tools -> select desired version -> download the ``.zip`` file.
+	- Open QGIS -> Plugins -> Manage and Install Plugins... --> ``install from ZIP`` tab --> select the downloaded zip --> install plugin (ignore warnings, if any).
+
+.. _Up and running:
+
+Up and running
+--------------------
+
+After successful installation, find the plugin by opening **QGIS** --> Plugins --> ``PolSAR tools`` --> Process. As shown in the following figure.
+
+.. figure:: figures/open_ui.png
+    :scale: 80%
+    :align: center
+    
+    Opening the plugin 
+
+.. figure:: figures/main_ui.png
+    :scale: 60%
+    :align: center
+    
+    GUI-Main window layout
+
+**Layout**:
+
+1. Data type tabs: Functions are arranged according to the data dype (full-, compact- and dual-pol).
+2. Function detials viewer: Contains list of functions for respective data tab. 
+3. Derived arameter selection, required input variables and constraints.
+4. Input data folder
+5. Logger: displays the log of procesing parameters
+6. progressbar: displays the progress of current task.
+7. Credits and quick help.
+
+
+Additional ``reset`` button to clear the envirinment, ``view data`` button to import the data into **QGIS** environment and ``Process`` button to start processing after selecting valid input data variables. 
+
+ 
+
+Available functionalities
+--------------------------
+  1. **Full-pol** 
+
+    * Model free 3-Component decomposition for full-pol data (MF3CF) 
+    * Radar Vegetation Index (RVI) 
+    * Generalized volume Radar Vegetation Index (GRVI) 
+    * Polarimetric Radar Vegetation Index (PRVI) 
+    * Degree of Polarization (DOP) 
+
+  2. **Compact-pol**
+
+    * Model free 3-Component decomposition for compact-pol data (MF3CC) 
+    * Improved S-Omega decomposition for compact-pol data (iS-Omega) 
+    * Compact-pol Radar Vegetation Index (CpRVI) 
+    * Degree of Polarization (DOP)  
+
+  3. **Dual-pol**
+
+    * Dual-pol Radar Vegetation Index (`DpRVI <functions/dual_pol/DpRVI.html>`_) 
+    * Radar Vegetation Index (`RVI <functions/dual_pol/RVI_dp.html>`_) 
+    * Degree of Polarization (`DOP <functions/dual_pol/DOP_dp.html>`_)
+    * Polarimetric Radar Vegetation Index (`PRVI <functions/dual_pol/PRVI_dp.html>`_) 
+
+Example usage
+--------------
+.. note::
+
+    All the following processing steps should be done in sequential manner. Sample data for all the polarization modes is provided in [sample_data](/sample_data/) folder.
+
+
+**STEP 1**: Open the plugin as explained in :ref:`Up and running` section.
+
+**STEP 2**: Select the polarimetric data type (Full/compact/dual).
+
+.. figure:: figures/step2.png
+    :scale: 50%
+    :align: center
+    
+    Selecting the polarimetric mode
+
+**STEP 3**: Select the parameter/descriptor from the dropdown menu.
+
+.. figure:: figures/step3.png
+    :scale: 50%
+    :align: center
+    
+    Selecting the polarimetric descriptor
+
+**STEP 4**: Provide the required input variables.
+
+.. figure:: figures/step4.png
+    :scale: 50%
+    :align: center
+    
+    Selecting the input variables
+
+**STEP 5**: Select the input matrix folder.
+
+.. figure:: figures/step5.png
+    :scale: 45%
+    :align: center
+    
+    Selecting the input folder
+
+**STEP 6**: Wait for the logger to prompt ```->> Ready to process.``` --> click process
+
+.. note::
+    Do not click process button more than once while it is processing. It may crash the QGIS and the plugin.
+    It is possible that the plugin may show not responding for larger datasets but please wait for the process to complete.
+
+.. figure:: figures/step6.png
+    :scale: 45%
+    :align: center
+    
+    Processing the data for selected descriptor
+
+**STEP 7** (optional): Click view data to import the data into QGIS for vizualisation of the generated descriptors.
+
+.. figure:: figures/step7a.png
+    :scale: 45%
+    :align: center
+    
+    Importing the data into QGIS for visualization
+
+.. figure:: figures/step7b.png
+    :scale: 45%
+    :align: center
+    
+    Imported data in QGIS
+
+Functions description
+---------------------
+
+Description and the details of all the core functions of this plugin are available here: (`Functions description <functions_description.html>`_)
+
+Contributions
+-------------
+
+1) Contribute to the software
+
+    `Contribution guidelines for this project  <https://github.com/Narayana-Rao/PolSAR-tools/blob/master/help/CONTRIBUTING.md>`_
+
+
+2) Report issues or problems with the software
+  
+  Please raise your issues here : https://github.com/Narayana-Rao/PolSAR-tools/issues
+
+3) Seek support
+
+  Please write to us: bnarayanarao@iitb.ac.in
+
+
+.. _PolSARpro: https://earth.esa.int/web/polsarpro/home
+.. _ENVI: https://www.l3harrisgeospatial.com/Software-Technology/ENVI
+.. _numpy: https://numpy.org/
+.. _matplotlib: https://matplotlib.org/
+.. _releases: https://github.com/Narayana-Rao/SAR-tools/releasesReferences
+----------
+
+References of the research work used in this plugin.
+
+
+
+Functions Description 
+======================
+
+
+**Full-pol functions**
+----------------------
+Full-pol functionalities require the SAR data in the form of covariance (C3) or coherency matrix (T3). A typical file structures of T3 and C3 matrices are as follows: 
+
++-----------------------------+-----------------------------+
+|       C3 matrix files       |       T3 matrix files       |
++==============+==============+==============+==============+
+| C11.bin      | C11.hdr      | T11.bin      | T11.hdr      |
++--------------+--------------+--------------+--------------+
+| C12_real.bin | C12_real.hdr | T12_real.bin | T12_real.hdr |
++--------------+--------------+--------------+--------------+
+| C12_imag.bin | C12_imag.hdr | T12_imag.bin | T12_imag.hdr |
++--------------+--------------+--------------+--------------+
+| C13_real.bin | C13_real.hdr | T13_real.bin | T13_real.hdr |
++--------------+--------------+--------------+--------------+
+| C13_imag.bin | C13_imag.hdr | T13_imag.bin | T13_imag.hdr |
++--------------+--------------+--------------+--------------+
+| C22.bin      | C22.hdr      | T22.bin      | T22.hdr      |
++--------------+--------------+--------------+--------------+
+| C23_real.bin | C23_real.hdr | T23_real.bin | T23_real.hdr |
++--------------+--------------+--------------+--------------+
+| C23_imag.bin | C23_imag.hdr | T23_imag.bin | T23_imag.hdr |
++--------------+--------------+--------------+--------------+
+| C33.bin      | C33.hdr      | T33.bin      | T33.hdr      |
++--------------+--------------+--------------+--------------+
+
+Following are the avaialble functions for full-pol data:
+
+.. toctree::
+    :maxdepth: 3
+
+    functions/full_pol/RVI_fp
+    functions/full_pol/GRVI
+    functions/full_pol/MF3CF
+    functions/full_pol/PRVI_fp
+    functions/full_pol/DOP_fp
+ 
+
+
+**Compact-pol functions**
+-------------------------
+Compact-pol functionalities require the SAR data in the form of 2x2 covariance matrix (C2). A typical file structures of C2 matrix is as follows:
+
++-----------------------------+
+|       C2 matrix files       |
++==============+==============+
+| C11.bin      | C11.hdr      |
++--------------+--------------+
+| C12_real.bin | C12_real.hdr |
++--------------+--------------+
+| C12_imag.bin | C12_imag.hdr |
++--------------+--------------+
+| C22.bin      | C22.hdr      |
++--------------+--------------+
+
+.. toctree::
+    :maxdepth: 3
+
+    functions/compact_pol/cprvi
+    functions/compact_pol/iS_Omega
+    functions/compact_pol/MF3CC
+    functions/compact_pol/DOP_cp
+
+
+
+**Dual-pol**
+------------
+Dual-pol functionalities require the SAR data in the form of 2x2 covariance matrix (C2). A typical file structures of C2 matrix is as follows:
+
++-----------------------------+
+|       C2 matrix files       |
++==============+==============+
+| C11.bin      | C11.hdr      |
++--------------+--------------+
+| C12_real.bin | C12_real.hdr |
++--------------+--------------+
+| C12_imag.bin | C12_imag.hdr |
++--------------+--------------+
+| C22.bin      | C22.hdr      |
++--------------+--------------+
+
+.. toctree::
+    :maxdepth: 3
+
+    functions/dual_pol/RVI_dp
+    functions/dual_pol/DpRVI
+    functions/dual_pol/PRVI_dp
+    functions/dual_pol/DOP_dp
+    
+
+``MF3CF`` (Model Free 3-Component decomposition for Full-pol data)
+=====================================================================
+This functionality computes the model free 3 component scattering power decomposition for full polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+        
+        input : input_T3/C3_folder, window_size
+        output: Ps_FP.bin, Pd_FP.bin, Pv_FP.bin, Theta_FP.bin
+
+The formulation of the scattering powers (:math:`P_s` : Surface, :math:`P_d` : Double bounce, :math:`P_v` : volume) is as follows:
+
+.. math::
+    
+    P_{d}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}{\left(1-\sin2\theta_{\text{FP}}\right)}\\P_{v}^{\text{FP}}={\text{Span}}\left(1-m_{\text{FP}}\right)\\P_{s}^{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}}{2}\left(1+\sin2\theta_{\text{FP}}\right)
+
+where :math:`m_\text{FP}` is degree of polarization, :math:`\theta_\text{FP}` scattering type parameter, Span is the sum of the diagonal elements os coherence matrix (T3).  The derivation of these parameters in-terms of coherancey matrix (T3) elements is as shown below. Further details can be obtained from [[4]](#4)
+
+.. math::
+
+    m_{\text{FP}}=\sqrt{1-\frac{27|\mathbf{T3}|}{\big(\mathrm{Trace}(\mathbf{T3})\big)^3}};\qquad{}\tan\theta_{\text{FP}}=\frac{m_{\text{FP}}{\text{Span}}\left(T_{11}-T_{22}-T_{33}\right)}{T_{11}\left(T_{22}+T_{33}\right)+m_{\text{FP}}^{2}{\text{Span}}^{2}}
+    
+    \text{Span}=T_{11}+T_{22}+T_{33}
+    
+``PRVI`` (Polarimetric Radar Vegetation Index)
+===============================================
+This functionality computes the polarimetric Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_T3/C3_folder, window_size
+        output: PRVI_FP.bin
+
+The formlation of PRVI interms of degree of polarization and cross-pol backscatter intensity can be expressed as follows: 
+
+.. math::
+
+    \text{PRVI}_{fp}=(1-\text{DOP}_{fp})\sigma^\circ_{\text{XY}}
+
+
+where, :math:`\text{DOP}_{fp}` 3D Barakt degree of polarization and can be expressed as shown below. Further details on the PRVI can be found in [[1]](#1)
+
+.. math::
+
+    \text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}}
+
+``DOP`` (Degree of Polarization)
+=================================
+This functionality computes the 3D Barakat degree of polarization for full polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+    input : input_T3/C3_folder, window_size
+    output: DOP_FP.bin
+
+.. math::
+
+    \text{DOP}_{fp}=\sqrt{1-\frac{27\times\text{det([T3])}}{\text{(Trace[T3])}^3}}
+
+Further details on the Barakat Degree of polarization can be found in [[10]](#10)
+
+``GRVI`` (Generalized volume based Radar Vegetation Index)
+==========================================================
+This functionality computes the generalized volume based radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+    input : input_T3/C3_folder, window_size
+    output : GRVI.bin
+
+    
+The formulation of GRVI is as follows:
+
+.. math::
+
+    \text{GRVI} = \left(1 - \text{GD}_{\text{GV}}\right)\Big(\frac{p}{q}\Big)^{2\,\text{GD}_{\text{GV}}}, \quad 0\le \text{GRVI} \le 1
+
+where, :math:`\text{GD}_{\text{GV}}` is the geodesic distance between Kennaugh :math:`(\mathbf{K})` matrices of the observed and the generalized volume scattering model, :math:`p,q` are minimum and maximum value of distances between :math:`\mathbf{K}` matrices of the observed and elementary targets respectively. A detailed explanation of GRVI is available in.
+
+
+
+
+``RVI`` (Radar Vegetation Index)
+=================================
+This functionality computes the Radar vegetation index for full polarimetric SAR data. The required input and the computed output are as follows:
+    
+.. code-block:: python
+
+    input : input_T3/C3_folder, window_size
+    output : RVI_FP.bin
+   
+The formulation of RVI is as follows:
+
+.. math::
+
+    \text{RVI}_{fp} = \frac{4 \times \lambda_3}{\lambda_1+\lambda_2+\lambda_3} 
+
+where, :math:`\lambda_1, \lambda_2` and :math:`\lambda_3` are the eigen values of coherency matrix (T3) in descending order (:math:`\lambda_1 > \lambda_2 > \lambda_3`). Further details can be found in [[8]](#8)``MF3CC`` (Model Free 3-Component decomposition for Compact-pol data)
+=======================================================================
+ This functionality computes the model free 3 component scattering power decomposition for compact polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+    input : input_C2_folder, window_size, tau
+    output: Ps_CP.bin, Pd_CP.bin, Pv_CP.bin, Theta_CP.bin
+
+The formulation of the scattering powers (:math:`P_s` : Surface, :math:`P_d`: Double bounce, :math:`P_v`: volume) is as follows:
+
+.. math::
+
+    P_{d}^{\text{CP}}=\frac{m_{\text{FP}}{S_0}}{2}{\left(1-\sin2\theta_{\text{CP}}\right)};\\P_{v}^{\text{CP}}={S_0}\left(1-m_{\text{CP}}\right);\\P_{s}^{\text{CP}}=\frac{m_{\text{CP}}{S_0}}{2}\left(1+\sin2\theta_{\text{CP}}\right)
+
+where :math:`m_\text{CP}` is degree of polarization; :math:`\theta_\text{CP}` : scattering type parameter; :math:`S_0, S_3`, are Stokes parameters. The derivation of these parameters in-terms of covariance matrix (C2) elements is as shown below. Further details can be obtained from [[4]](#4)
+
+.. math::
+
+    m_{\text{CP}}=\sqrt{1-\frac{4|\mathbf{C2}|}{\big(\mathrm{Trace}(\mathbf{C2})\big)^2}};\qquad{}\tan\theta_{\text{CP}}=\frac{m_{\text{CP}}{S_0}\left(\text{OC}-\text{SC}\right)}{\text{OC}\times\text{SC}+m_{\text{CP}}^{2}{S_0}^{2}}\\
+    S_0=\text{C11+C22};\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}S_1=\text{C11-C22};\\
+    S_2=\text{C12+C21};\qquad{}\qquad{}\qquad{}\qquad{}S_3=\pm\text{j(C12-C21)};\\
+    \text{SC}=\frac{S_0-S_3}{2};\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\text{OC}=\frac{S_0+S_3}{2};``iS-Omega`` (improved S-:math:`\Omega` decomposition)
+========================================================
+This functionality computes the scattering powers for compact polarimetric SAR data. This is an improved decomposition technique based on Stokes vector(S) and the polarized power fraction (:math:`\Omega`). The required input and the computed output are as follows:
+
+.. code-block:: python
+
+    input : input_C2_folder, window_size, tau, psi, chi
+    output: Ps_iSOmega.bin, Pd_iSOmega.bin,Pv_iSOmega.bin
+
+The stokes paramters can be written in terms of the covariance matrx (C2) elements as follows:
+
+.. math::
+
+    S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\
+    S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)}
+
+Then, the parameters Same-sense Circular (:math:`\text{SC}`) and Opposite-sense Circular (:math:`\text{OC}`) can be expressed as follows:
+
+.. math::
+
+    \text{SC}=\frac{S_0-S_3}{2};\qquad{}\text{OC}=\frac{S_0+S_3}{2};
+
+Now, based on the ratio of :math:`\text{SC}` and :math:`\text{OC}` the decomposition powers can be derived as given below. Further details can be found in [[7]](#7)
+
+.. math::
+
+    \text{SC/OC}<1;\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}\text{SC/OC}>1\\P_s=\Omega\left(S_{0}-\left(1-\Omega\right)\text{SC}\right);\qquad{}\qquad{}\qquad{}P_s=\Omega\left(1-\Omega\right)\text{OC}\\P_d=\Omega\left(1-\Omega\right)\text{SC};\qquad{}\qquad{}\qquad{}P_d=\Omega\left(S_{r0}-\left(1-\Omega\right)\text{OC}\right)
+    \\P_v=S_{0}\left(1-\Omega\right)\qquad{}\qquad{}\qquad{}\qquad{}\qquad{}P_v=S_{0}\left(1-\Omega\right)``CpRVI`` (Compact-pol Radar Vegetation Index)
+================================================
+This functionality computes the compact-pol radar vegetation index for compact polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_C2_folder, window_size
+        output: CpRVI.bin
+
+The formulation of the CpRVI is as follows:
+
+.. math::
+    
+    \text{CpRVI}=\left(1-\dfrac{3}{2}\text{GD}_{\text{ID}}\right)\Big(\frac{p}{q}\Big)^{2(\frac{3}{2}\text{GD}_{\text{ID}})}\\
+    p=\text{min\{SC,OC\}},q=\text{max\{SC,OC\}}\\
+    \text{SC}=\frac{S_0-S_3}{2};\qquad{}\text{OC}=\frac{S_0+S_3}{2};\\
+    S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\
+    S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)}\\
+
+
+where, :math:`\text{GD}_\text{ID}` is the geodesic distance between Kennaugh matrices (:math:`\mathbf{K}`) of the observed and the ideal depolarizer, :math:`p, q` are minimum and maximum values of :math:`\text{SC}` and :math:`\text{OC}` which are functions of stocks parameters (:math:`S_0`, :math:`S_1`, :math:`S_2`, and :math:`S_3`). A detailed explanation of CpRVI is available in [[6]](#6).``DOP`` (Degree of Polarization)
+=================================
+This functionality computes the degree of polarization for compact polarimetric SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_c2_folder, window_size, tau
+        output: DOP_CP.bin
+
+The conventional degree of polarization in terms of stokes paramters can be written as follows:
+
+.. math::
+
+    \text{DOP}_{cp}=\frac{\sqrt{S^2_1+S^2_2+S^2_3}}{S_0}
+
+where, 
+
+.. math::
+    
+    S_0=\text{C11+C22};\qquad{}S_1=\text{C11-C22};\\
+    S_2=\text{C12+C21};\qquad{}S_3=\pm\text{j(C12-C21)}
+
+
+
+``PRVI`` (Polarimetric Radar Vegetation Index)
+===============================================
+This functionality computes the polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_c2_folder, window_size
+        output: PRVI_dp.bin
+
+The formulation of PRVI is as follows: 
+
+.. math::
+
+    \text{PRVI}_{dp}=\Big(1-\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}}\Big)\sigma^\circ_{\text{XY}}
+
+where, :math:`\text{[C2]}` is co-variance matrix and :math:`\sigma^\circ_{\text{XY}}` is corss-pol backscatter intensity.
+``DOP`` (Degree of Polarization)
+=================================
+This functionality computes the 2D Barakat degree of polarization for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+    input : input_c2_folder, window_size
+    output: dop_dp.bin
+
+.. math::
+
+    \text{DOP}_{dp}=\sqrt{1-\frac{4\times\text{det([C2])}}{\text{(Trace[C2])}^2}}
+
+where, :math:`\text{[C2]}` is co-variance matrix. Further details on the Barakat Degree of polarization can be found in [[10]](#10)
+
+
+``RVI`` (Radar Vegetation Index)
+================================
+This functionality computes the radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_c2_folder, window_size
+        output: RVI_dp.bin
+
+The formulation of RVI is as follows:
+
+.. math::
+
+    \text{RVI}_{dp} = \frac{4 \times \sigma^\circ_{\text{XY}}}{\sigma^\circ_{\text{XX}}+\sigma^\circ_{\text{XY}}}  
+
+where, :math:`\sigma^\circ_{\text{XX}}` is co-pol backscatter intensity and :math:`\sigma^\circ_{\text{XY}}` is corss-pol backscatter intensity``DpRVI`` (Dual-pol Radar Vegetation Index)
+============================================
+This functionality computes the dual polarimetric radar vegetation index for dual polarimetric (HH | HV), (VV | VH) SAR data. The required input and the computed output are as follows:
+
+.. code-block:: python
+
+        input : input_C2_folder, window_size
+        output: DpRVI.bin
+
+The formulation of DpRVI is as follows:
+
+.. math::
+
+    \text{DpRVI} = 1- \text{DOP}_{dp}\Big(\frac{\lambda_1}{\lambda_1+\lambda_2}\Big)
+
+where,
+
+.. math::
+	\text{DOP}_{dp} = \sqrt{1-\frac{4\times \text{det ([C2])}}{\text{(Trace [C2])}^2}}
+
+:math:`\text{[C2]}` is co-variance matrix,  and :math:`\lambda_1, \lambda_2` are the eigen values of :math:`\langle\mathbf{[C2]}\rangle` matrix in descending order. Further details on DpRVI can be obtained from [[5]](#5)
+
+

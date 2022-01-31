@@ -6568,3 +6568,3937 @@ methods/functions, include an example if possible to do in brief form -->
 
 <!--- Did you remember to include tests? Unless you're just changing
 grammar, please include new tests for your change -->
+---
+output: github_document
+bibliography: inst/REFERENCES.bib
+link-citations: yes
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# cffr <a href='https://docs.ropensci.org/cffr/'><img src="man/figures/logo.png" align="right" height="139"/></a>
+
+<!-- badges: start -->
+
+[![CRAN-status](https://www.r-pkg.org/badges/version/cffr)](https://CRAN.R-project.org/package=cffr)
+[![CRAN-results](https://cranchecks.info/badges/worst/cffr)](https://cran.r-project.org/web/checks/check_results_cffr.html)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/cffr?color=blue)](https://cran.r-project.org/package=cffr)
+[![R-CMD-check](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/check-full.yaml)
+[![codecov](https://codecov.io/gh/ropensci/cffr/branch/main/graph/badge.svg?token=YRO3XL8RWK)](https://app.codecov.io/gh/ropensci/cffr)
+[![r-universe](https://ropensci.r-universe.dev/badges/cffr)](https://ropensci.r-universe.dev/)
+[![CITATION-cff](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml/badge.svg)](https://github.com/ropensci/cffr/actions/workflows/cff-validator.yml)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
+[![Project Status: Active - The project has reached a stable, usable state and
+is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+![GitHub code size in
+bytes](https://img.shields.io/github/languages/code-size/ropensci/cffr)
+[![peer-review](https://badges.ropensci.org/463_status.svg)](https://github.com/ropensci/software-review/issues/463)
+
+<!-- badges: end -->
+
+**cffr** provides utilities to generate, parse, modify and validate
+`CITATION.cff` files automatically for **R** packages, as well as tools and
+examples for working with .cff more generally.
+
+## What is a `CITATION.cff` file?
+
+[Citation File Format (CFF](https://citation-file-format.github.io/))
+[@druskat_citation_2021] (v1.2.0) are plain text files with human- and
+machine-readable citation information for software (and datasets). Code
+developers can include them in their repositories to let others know how to
+correctly cite their software.
+
+This format is becoming popular within the software citation ecosystem. Recently
+[GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files),
+[Zenodo](https://twitter.com/ZENODO_ORG/status/1420357001490706442) and
+[Zotero](https://twitter.com/zotero/status/1420515377390530560) have included
+full support of this citation format [@druskat_stephan_making_2021]. GitHub
+support is of special interest:
+
+```{r echo=FALSE, out.width="400", fig.align='center', fig.alt="GitHub-link"}
+knitr::include_graphics("vignettes/tweet-1.png")
+```
+
+*--- Nat Friedman (\@natfriedman) [July 27,
+2021](https://twitter.com/natfriedman/status/1420122675813441540?ref_src=twsrc%5Etfw)*
+
+See [Enhanced support for citations on
+GitHub](https://github.blog/2021-08-19-enhanced-support-citations-github/)
+[@smith2021] for more info.
+
+### Related projects
+
+[The CodeMeta Project](https://codemeta.github.io/) [@jones2017] creates a
+concept vocabulary that can be used to standardize the exchange of software
+metadata across repositories and organizations. One of the many uses of a
+`codemeta.json` file (created following the standards defined on The CodeMeta
+Project) is to provide citation metadata such as title, authors, publication
+year, and venue [@fenner2021]. The packages
+[**codemeta**](https://github.com/cboettig/codemeta)/
+[**codemetar**](https://github.com/ropensci/codemetar) allows to generate
+`codemeta.json` files from R packages metadata.
+
+## The cffr package
+
+**cffr** maximizes the data extraction by using both the `DESCRIPTION` file and
+the `CITATION` file (if present) of your package. Note that **cffr** works best
+if your package pass 
+`R CMD check/devtools::check()`.
+
+```{r count_cffr, echo=FALSE, results='asis'}
+cat("\n")
+today <- Sys.Date()
+# Try get the count of GitHub repos here
+token <- (Sys.getenv(c("GITHUB_PAT", "GITHUB_TOKEN")))
+token <- token[!token %in% c(NA, NULL, "")][1]
+ghtoken <- paste("token", token)
+tmpfile <- tempfile(fileext = ".json")
+# Get numbers of repos
+api_url <- "https://api.github.com/search/code?q=cffr+extension:cff+filename:CITATION"
+res <- tryCatch(download.file(api_url,
+  tmpfile,
+  quiet = TRUE,
+  headers = c(Authorization = ghtoken)
+),
+warning = function(e) {
+  return(TRUE)
+},
+error = function(e) {
+  return(TRUE)
+}
+)
+# If not successful
+if (isTRUE(res)) {
+  cat(paste0(
+    "\n", "See [some projects already using **cffr**]",
+    "(https://github.com/search?l=&o=desc&q=cffr+extension%3Acff+filename%3ACITATION&s=indexed&type=Code)",
+    "."
+  ))
+} else {
+  nreps <- as.integer(jsonlite::read_json(tmpfile)$total_count)
+  cat(paste0(
+    "As per ", today, " there are at least ", nreps, " repos on GitHub using **cffr**. ",
+    "[Check them out here]",
+    "(https://github.com/search?l=&o=desc&q=cffr+extension%3Acff+filename%3ACITATION&s=indexed&type=Code)."
+  ))
+}
+cat("\n")
+```
+
+### Installation
+
+Install **cffr** from [CRAN](https://CRAN.R-project.org/package=cffr):
+
+```{r, eval=FALSE}
+install.packages("cffr")
+```
+
+You can install the developing version of **cffr** with:
+
+```{r, eval=FALSE}
+devtools::install_github("ropensci/cffr")
+```
+
+Alternatively, you can install **cffr** using the
+[r-universe](https://ropensci.r-universe.dev/ui#builds):
+
+```{r, eval=FALSE}
+
+# Enable this universe
+options(repos = c(
+  ropensci = "https://ropensci.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"
+))
+
+# Install some packages
+install.packages("cffr")
+```
+
+### Example
+
+By default most often from within your package folder you'll simply run
+`cff_write()`, that creates a `cff` object, write it on a `CITATION.cff` file
+and validates it on a single command:
+
+```{r, eval=FALSE}
+
+library(cffr)
+
+# For in-development packages
+cff_write()
+#>
+#> CITATION.cff generated
+#>
+#> cff_validate results-----
+#> Congratulations! This .cff file is valid
+```
+
+However, **cffr** provides also custom print methods and mechanisms that allows
+you to customize the `CITATION.cff` and integrate them in your workflows.
+
+This is a basic example which shows you how to create a `cff` object (see `?cff`
+for more info). In this case, we are creating a `cff` object from the metadata
+of the **rmarkdown** package:
+
+```{r }
+library(cffr)
+
+# Example with an installed package
+test <- cff_create("rmarkdown")
+```
+
+<details>
+<summary><code>CITATION.cff</code> for <strong>rmarkdown</strong>
+</summary>
+
+```{r, echo=FALSE, comment=""}
+
+test
+```
+
+</details>
+
+<p>
+
+We can validate the result using `cff_validate()`:
+
+```{r }
+
+cff_validate(test)
+```
+
+Check the [docs](https://docs.ropensci.org/cffr/reference/index.html) and
+`vignette("cffr", package = "cffr")` to learn how to work with `cff` objects.
+
+### Keep your `CITATION.cff` file up-to-date
+
+#### GitHub Actions
+
+The easiest way for keeping you `CITATION.cff` file up-to-date is using GitHub
+Actions. Use `cff_gha_update()`function to install a GitHub Action that would
+update your `CITATION.cff` file on the following events:
+
+-   When you publish a new release of the package on your GitHub repo.
+-   Each time that you modify your DESCRIPTION or inst/CITATION files.
+-   The action can be run also manually.
+
+```{r, eval=FALSE}
+cff_gha_update()
+
+#> Installing update-citation-cff.yaml on './.github/workflows'
+#> Adding .github to .Rbuildignore
+```
+
+See the example workflow file
+[here](https://github.com/ropensci/cffr/blob/main/.github/workflows/update-citation-cff.yaml).
+
+#### Git pre-commit hook [![Experimental](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+You can also use a [git pre-commit
+hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks):
+
+> The `pre-commit` hook is run first, before you even type in a commit message.
+> It's used to inspect the snapshot that's about to be committed, to see if
+> you've forgotten something, to make sure tests run, or to examine whatever you
+> need to inspect in the code. Exiting non-zero from this hook aborts the
+> commit, although you can bypass it with `git commit --no-verify`.
+
+A specific pre-commit hook can be installed with `cff_git_hook_install()`. If
+you want to use a pre-commit hook, please make sure you have the **testthat**
+package installed.
+
+### Learn more
+
+Check the following articles to learn more about **cffr**:
+
+-   [cffr: Create a CITATION.cff File for your R
+    Package](https://ropensci.org/blog/2021/11/23/cffr/)
+-   [How I Test cffr on (about) 2,000 Packages using GitHub Actions and
+    R-universe](https://ropensci.org/blog/2021/11/23/how-i-test-cffr/)
+
+## Related packages
+
+-   [**citation**](https://github.com/pik-piam/citation/): The development
+    version (at the time of this writing) includes a new function `r2cff` that
+    creates a `CITATION.cff` file (v1.1.0) using the information of your
+    `DESCRIPTION` file. It also provide minimal validity checks.
+-   [**handlr**](https://github.com/ropensci/handlr): Tool for converting among
+    citation formats, including `*.cff` files. At the time of this writing only
+    CFF v1.1.0 was supported (see
+    [#24](https://github.com/ropensci/handlr/issues/24)).
+-   [**codemeta**](https://github.com/cboettig/codemeta)/
+    [**codemetar**](https://github.com/ropensci/codemetar) provides similar
+    solutions for creating `codemeta.json` file, another format for storing and
+    sharing software metadata.
+
+## Citation
+
+```{r echo=FALSE, results='asis'}
+print(citation("cffr")[1], bibtex = FALSE)
+```
+
+A BibTeX entry for LaTeX users is
+
+```{r echo=FALSE, comment=''}
+toBibtex(citation("cffr")[1])
+```
+
+You can also use the [citation provided by
+GitHub](https://github.com/ropensci/cffr), that is generated from the
+information of a `CITATION.cff` created with **cffr**. See [About CITATION
+files](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+for more info.
+
+## References
+
+::: {#refs}
+:::
+
+[![rofooter](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
+---
+title: "\\BibTeX\\ and CFF"
+subtitle: A potential crosswalk
+bibliography: REFERENCES.bib
+author: Diego Hernangómez
+abstract: >-
+  This article presents a crosswalk between \BibTeX\ and Citation File Format 
+  [@druskat_citation_2021], as it is performed by the cffr package 
+  [@hernangomez2021].
+link-citations: yes
+documentclass: article
+urlcolor: blue
+linkcolor: brown
+header-includes:
+  \usepackage{fvextra}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: true
+    includes:
+      in_header: preamble.tex
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "",
+  tidy = "styler"
+)
+
+options(width = 60)
+```
+---
+title: "BibTeX and CFF"
+subtitle: A potential crosswalk
+bibliography: REFERENCES.bib
+author: Diego Hernangómez
+description: >-
+  This article presents a crosswalk between BibTeX and Citation File Format 
+  [@druskat_citation_2021], as it is performed by the cffr package 
+  [@hernangomez2021].
+abstract: >-
+  This article presents a crosswalk between BibTeX and Citation File Format 
+  [@druskat_citation_2021], as it is performed by the cffr package 
+  [@hernangomez2021]. Several crosswalk models specific for each BibTeX entry
+  type [@patashnik1988] are proposed. The article also provide examples using real
+  BibTeX entries and tips for developers that would like to implement the crosswalk
+  on different programming languages.
+link-citations: yes
+documentclass: article
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{BibTeX and CFF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ""
+)
+
+options(width = 60)
+```
+
+## Citation
+
+Please cite this article as:
+
+```{r cit, echo=FALSE, results='asis'}
+thisart <- bibentry("article",
+  title = "{BibTeX} and {CFF}, a potential crosswalk",
+  key = "hernangomez2022",
+  author = "Diego Hernangómez",
+  journal = "The {cffr} package",
+  year = 2022,
+  volume = "Vignettes",
+)
+cat("  \n")
+thisart
+```
+
+A BibTeX entry for LaTeX users:
+
+``` bibtex
+@article{hernangomez2022,
+    title        = {{BibTeX} and {CFF}, a potential crosswalk},
+    author       = {Diego Hernangómez},
+    year         = 2022,
+    journal      = {The {cffr} package},
+    volume       = {Vignettes}
+}
+```
+
+## BibTeX and R
+
+[BibTeX](https://en.wikipedia.org/wiki/BibTeX) is a well-known format for
+storing references created by [Oren
+Patashnik](https://en.wikipedia.org/wiki/Oren_Patashnik "Oren Patashnik") and
+[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport "Leslie Lamport")
+back in 1985. BibTeX that may be reused by another software, like
+[LaTeX](https://en.wikipedia.org/wiki/LaTeX), for adding references to a work.
+An example structure of a BibTeX entry would be:
+
+``` bibtex
+@book{einstein1921,
+    title        = {Relativity: The Special and the General Theory},
+    author       = {Einstein, A.},
+    year         = 1920,
+    publisher    = {Henry Holt and Company},
+    address      = {London, United Kingdom},
+    isbn         = 9781587340925
+}
+```
+
+On this case, the entry (identified as `einstein1921`) would refer to a book.
+This entry then can be used on a document and include references to it.
+
+On **R** [@R_2021], we can replicate this structure using the `bibentry()` and
+`toBibtex()` functions:
+
+```{r bibentry, comment="#>"}
+
+entry <- bibentry("book",
+  key = "einstein1921",
+  title = "Relativity: The Special and the General Theory",
+  author = person("A.", "Einstein"),
+  year = 1920,
+  publisher = "Henry Holt and Company",
+  address = "London, United Kingdom",
+  isbn = 9781587340925,
+)
+
+toBibtex(entry)
+```
+
+The final results of the entry as a text string would be parsed as[^1]:
+
+[^1]: By default R Pandoc would generate the cite on the Chicago author-date
+    format [@rmarkdowncookbook2020]
+
+```{r echo=FALSE, results='asis'}
+
+entry
+```
+
+## BibTeX definitions
+
+@patashnik1988 provides a comprehensive explanation of the BibTeX formats. We
+can distinguish between **Entries** and **Fields**.
+
+### Entries {#entries}
+
+Each entry type defines a different type of work. The 14 entry types defined on
+BibTeX[^2] are:
+
+[^2]: Other implementations similar to BibTeX, as
+    [BibLaTeX](https://www.ctan.org/pkg/biblatex), expand the definitions of
+    entries including other types as **online**, **software** or **dataset**. On
+    BibTeX these entries should be reclassified to **misc**.
+
+-   **\@article**: An article from a journal or magazine.
+-   **\@book**: A book with an explicit publisher.
+-   **\@booklet**: A work that is printed and bound, but without a named
+    publisher or sponsoring institution.
+-   **\@conference**: The same as **\@inproceedings**, included for Scribe
+    compatibility.
+-   **\@inbook**: A part of a book, which may be a chapter (or section or
+    whatever) and/or a range of pages.
+-   **\@incollection**: A part of a book having its own title.
+-   **\@inproceedings**: An article in a conference proceedings.
+-   **\@manual**: Technical documentation.
+-   **\@mastersthesis**: A Master's thesis.
+-   **\@misc**: Use this type when nothing else fits.
+-   **\@phdthesis**: A PhD thesis.
+-   **\@proceedings**: The proceedings of a conference.
+-   **\@techreport**: A report published by a school or other institution,
+    usually numbered within a series.
+-   **\@unpublished**: A document having an author and title, but not formally
+    published.
+
+Regarding the entries, `bibentry()` **R** function does not implement
+**\@conference** . However, we can replace that key by **\@inproceedings** given
+that the definition is identical.
+
+### Fields
+
+As in the case of Entries, @patashnik1988 provides also a definition for each of
+the possible standard BibTeX fields[^3]. An entry can include other fields that
+would be ignored on the raw implementation of BibTeX:
+
+[^3]: As in the case of the entries, other implementations based on BibTeX may
+    recognize additional fields.
+
+-   **address**: Usually the address of the **publisher** or other of
+    **institution**.
+-   **annote**: An annotation. It is not used by the standard bibliography
+    styles, but may be used by others that produce an annotated bibliography.
+-   **author**: The name(s) of the author(s), in the format described in the
+    LaTeX book [@lamport86latex].
+-   **booktitle**: Title of a book, part of which is being cited. For **\@book**
+    entries, use the **title** field instead.
+-   **chapter**: A chapter (or section or whatever) number.
+-   **crossref**: The database key of the entry being cross referenced.
+-   **edition**: The edition of a **\@book** - for example, "Second". This
+    should be an ordinal, and should have the first letter capitalized, the
+    standard styles convert to lower case when necessary.
+-   **editor**: Name(s) of editor(s), typed as indicated in the LaTeX book
+    [@lamport86latex]. If there is also an **author** field, then the editor
+    field gives the editor of the book or collection in which the reference
+    appears.
+-   **howpublished**: How something strange has been published. The first word
+    should be capitalized.
+-   **institution**: The sponsoring institution of a technical report.
+-   **journal**: A journal name.
+-   **key**: Used for alphabetizing, cross referencing, and creating a label
+    when the **author** information is missing.
+-   **month**: The month in which the work was published or, for an unpublished
+    work, in which it was written. You should use the standard three-letter
+    abbreviation, as described in Appendix B.1.3 of the LaTeX book
+    [@lamport86latex] (i.e. `jan, feb, mar`).
+-   **note**: Any additional information that can help the reader. The first
+    word should be capitalized.
+-   **number**: The number of a journal, magazine, technical report, or of a
+    work in a series. An issue of a journal or magazine is usually identified by
+    its **volume**: and number; the organization that issues a technical report
+    usually gives it a number; and sometimes books are given numbers in a named
+    series.
+-   **organization**: The organization that sponsors a **\@conference** or that
+    publishes a manual.
+-   **pages**: One or more page numbers or range of numbers, such as `42--111`
+    or `7,41,73--97` or `43+`.
+-   **publisher**: The publisher's name.
+-   **school**: The name of the school where a thesis was written.
+-   **series**: The name of a series or set of books. When citing an entire
+    book, the **title** field gives its title and an optional **series** field
+    gives the name of a series or multi-volume set in which the book is
+    published.
+-   **title**: The work's title.
+-   **type**: The type of a technical report---for example, "Research Note".
+-   **volume**: The volume of a journal or multivolume book.
+-   **year**: The year of publication or, for an unpublished work, the year it
+    was written. Generally it should consist of four numerals, such as `1984`.
+
+There is a strict relation between Entries and Fields on BibTeX. Depending on
+the type of entries, some fields are required while others are optional or even
+ignored. On the following table, required field are flagged as **\*** and
+optional fields are flagged as **-**. Fields on parenthesis **()** denotes that
+there are some degree of flexibility on the requirement of the field, see
+@patashnik1988 for more information.
+
+```{r entry_fields1, echo=FALSE}
+
+bibtex_field_entry <- read.csv(system.file("extdata/bibtex_field_entry.csv",
+  package = "cffr"
+),
+sep = ","
+)
+
+t1 <- bibtex_field_entry[, c(1:7)]
+
+knitr::kable(t1,
+  col.names = gsub("\\.", ",", names(t1)),
+  align = c("l", rep("c", 6)),
+  caption = "BibTeX, required fields by entry"
+)
+```
+
+```{r entry_fields2, echo=FALSE}
+t2 <- bibtex_field_entry[, c(1, 8:13)]
+
+knitr::kable(t2,
+  col.names = gsub("\\.", ",", names(t2)),
+  align = c("l", rep("c", 6)),
+  caption = "(cont) BibTeX, required fields by entry"
+)
+```
+
+It can be observed that just a subset of fields is required in any of the
+Entries. For example, **title**, **year** and **author** are either required or
+optional on almost every entry, while **crossref**, **annote** or **key** are
+never required.
+
+## Citation File Format
+
+[Citation File Format (CFF](https://citation-file-format.github.io/))
+[@druskat_citation_2021] are plain text files with human- and machine-readable
+citation information for software (and datasets). Among the [valid keys of
+CFF](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys)
+there are two keys, `preferred-citation` and `references` of special interest
+for citing and referring to related works[^4]:
+
+[^4]: See [Guide to Citation File Format schema version
+    1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#preferred-citation).
+
+-   **`preferred-citation`**: A reference to another work that should be cited
+    instead of the software or dataset itself.
+
+-   **`references`**: Reference(s) to other creative works. Similar to a list of
+    references in a paper, references of the software or dataset may include
+    other software (dependencies), or other research products that the software
+    or dataset builds on, but not work describing the software or dataset.
+
+These two keys are expected to be
+[`definition.reference`](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreference)
+objects, therefore they may contain the following keys:
+
+```{r refkeys, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(cffr)
+
+# Fill with whites
+l <- c(cff_schema_definitions_refs(), rep("", 4))
+
+
+refkeys <- matrix(l, ncol = 5, byrow = TRUE)
+
+knitr::kable(refkeys,
+  caption = "Valid keys on CFF `definition-reference` objects"
+)
+```
+
+These keys are the equivalent to the fields of BibTeX (see [Fields]), with the
+exception of the key **type**. On CFF, this key defines the type of work[^5],
+therefore this is the equivalent to the BibTeX entries (see
+[Entries](#entries)).
+
+[^5]: See a complete list of possible values of CFF type on the [Guide to
+    Citation File Format schema version
+    1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype).
+
+## Proposed crosswalk
+
+The **cffr** package [@hernangomez2021] provides utilities from converting
+BibTeX entries (via the **R** base function `bibentry()`) to CFF files and
+vice-versa. This section describes how the conversion between both formats have
+been implemented. This crosswalk is based partially on
+@Haines_Ruby_CFF_Library_2021[^6].
+
+[^6]: Note that this software performs only the conversion from CFF to BibTeX,
+    however **cffr** can perform the conversion in both directions.
+
+On the following two section I present an overview of the proposed mapping
+between the Entries and Fields of BibTeX and the CFF keys. After this initial
+mapping, I propose further transformations to improve the compatibility between
+both systems using different [Entry Models].
+
+### Entry/Type crosswalk
+
+For converting general BibTeX entries to CFF types, the following crosswalk is
+proposed:
+
+| BibTeX Entry        | Value of CFF key: type | Notes              |
+|---------------------|------------------------|--------------------|
+| **\@article**       | article                |                    |
+| **\@book**          | book                   |                    |
+| **\@booklet**       | pamphlet               |                    |
+| **\@conference**    | conference-paper       |                    |
+| **\@inbook**        | book                   | See [Entry Models] |
+| **\@incollection**  | generic                | See [Entry Models] |
+| **\@inproceedings** | conference-paper       |                    |
+| **\@manual**        | manual                 |                    |
+| **\@mastersthesis** | thesis                 | See [Entry Models] |
+| **\@misc**          | generic                |                    |
+| **\@phdthesis**     | thesis                 | See [Entry Models] |
+| **\@proceedings**   | proceedings            |                    |
+| **\@techreport**    | report                 |                    |
+| **\@unpublished**   | unpublished            |                    |
+
+: Entry/Type crosswalk: From BibTeX to CFF
+
+Also, given that CFF provides with a [wide range of allowed
+values](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionsreferencetype)
+on type, the following conversion would be performed from CFF to BibTeX:
+
++---------------------+--------------------------+----------------------------+
+| Value of CFF key:   | BibTeX Entry             | Notes                      |
+| type                |                          |                            |
++=====================+==========================+============================+
+| book                | **\@book** **/           | See [Entry Models]         |
+|                     | \@inbook**               |                            |
++---------------------+--------------------------+----------------------------+
+| conference          | **\@inproceedings**      |                            |
++---------------------+--------------------------+----------------------------+
+| conference-paper    | **\@inproceedings**      |                            |
++---------------------+--------------------------+----------------------------+
+| magazine-article    | **\@article**            |                            |
++---------------------+--------------------------+----------------------------+
+| manual              | **\@manual**             |                            |
++---------------------+--------------------------+----------------------------+
+| newspaper-article   | **\@article**            |                            |
++---------------------+--------------------------+----------------------------+
+| pamphlet            | **\@booklet**            |                            |
++---------------------+--------------------------+----------------------------+
+| proceedings         | **\@proceedings**        |                            |
++---------------------+--------------------------+----------------------------+
+| report              | **\@techreport**         |                            |
++---------------------+--------------------------+----------------------------+
+| thesis              | **\@mastersthesis /      | See [Entry Models]         |
+|                     | \@phdthesis**            |                            |
++---------------------+--------------------------+----------------------------+
+| unpublished         | **\@unpublished**        |                            |
++---------------------+--------------------------+----------------------------+
+| generic             | **\@misc /               | Under specific conditions, |
+|                     | \@incollection**         | see [Entry Models]         |
++---------------------+--------------------------+----------------------------+
+| \<any other value>  | **\@misc**               |                            |
++---------------------+--------------------------+----------------------------+
+
+: Entry/Type crosswalk: From CFF to BibTeX
+
+### Fields/Key crosswalk
+
+There is a large degree of similarity between the definition and names of some
+BibTeX fields and CFF keys[^7]. On the following cases, the equivalence is
+almost straightforward:
+
+[^7]: To avoid errors on the interpretation, names in **bold** correspond to
+    BibTeX fields while the same number on [underscore]{.ul} would refer to CFF.
+
+| BibTeX Field     | CFF key                   |
+|------------------|---------------------------|
+| **address**      | See [Entry Models]        |
+| ***annote***     | \-                        |
+| **author**       | [authors]{.ul}            |
+| **booktitle**    | [collection-title]{.ul}   |
+| **chapter**      | [section]{.ul}            |
+| ***crossref***   | \-                        |
+| **edition**      | [edition]{.ul}            |
+| **editor**       | [editors]{.ul}            |
+| **howpublished** | [medium]{.ul}             |
+| **institution**  | See [Entry Models]        |
+| **journal**      | [journal]{.ul}            |
+| ***key***        | \-                        |
+| **month**        | [month]{.ul}              |
+| **note**         | [notes]{.ul}              |
+| **number**       | [issue]{.ul}              |
+| **organization** | See [Entry Models]        |
+| **pages**        | [start]{.ul} & [end]{.ul} |
+| **publisher**    | [publisher]{.ul}          |
+| **school**       | See [Entry Models]        |
+| **series**       | See [Entry Models]        |
+| **title**        | [title]{.ul}              |
+| ***type***       | \-                        |
+| **volume**       | [volume]{.ul}             |
+| **year**         | [year]{.ul}               |
+
+: BibTeX - CFF Field/Key crosswalk
+
+Additionally, there are other additional CFF keys that have a correspondence
+with BibLaTeX fields. We propose also to include these fields on the
+crosswalk[^8], although they are not part of the core BibTeX fields definition.
+
+[^8]: See @biblatexcheatsheet for a preview of the accepted BibLaTeX fields.
+
+| BibLaTeX Field | CFF key               |
+|----------------|-----------------------|
+| **abstract**   | [abstract]{.ul}       |
+| **date**       | [date-published]{.ul} |
+| **doi**        | [doi]{.ul}            |
+| **file**       | [filename]{.ul}       |
+| **isbn**       | [isbn]{.ul}           |
+| **issn**       | [issn]{.ul}           |
+| **issuetitle** | [issue-title]{.ul}    |
+| **pagetotal**  | [pages]{.ul}          |
+| **translator** | [translators]{.ul}    |
+| **url**        | [url]{.ul}            |
+| **urldate**    | [date-accessed]{.ul}  |
+| **version**    | [version]{.ul}        |
+
+: BibLaTeX - CFF Field/Key crosswalk
+
+## Entry Models
+
+This section presents the specific mapping proposed for each of the BibTeX
+entries, providing further information on how each field is treated. Examples
+are adapted from the [xampl.bib](https://tug.org/texmf-docs/bibtex/xampl.bib)
+file provided with the bibtex package [@patashnik].
+
+### article
+
+The crosswalk of **\@article** does not require any special treatment.
+
++------------------+----------------------+-----------------------------------+
+| BibTeX           | CFF                  | Note                              |
++==================+======================+===================================+
+| **\@article**    | [type: article]{.ul} | When converting CFF to BibTeX,    |
+|                  |                      | [type magazine-article]{.ul} and  |
+|                  |                      | [newspaper-article]{.ul} are      |
+|                  |                      | converted to **\@article**.       |
++------------------+----------------------+-----------------------------------+
+| **author\***     | [authors]{.ul}       |                                   |
++------------------+----------------------+-----------------------------------+
+| **title\***      | [title]{.ul}         |                                   |
++------------------+----------------------+-----------------------------------+
+| **journal\***    | [journal]{.ul}       |                                   |
++------------------+----------------------+-----------------------------------+
+| **year\***       | [year]{.ul}          |                                   |
++------------------+----------------------+-----------------------------------+
+| **volume**       | [volume]{.ul}        |                                   |
++------------------+----------------------+-----------------------------------+
+| **number**       | [issue]{.ul}         |                                   |
++------------------+----------------------+-----------------------------------+
+| **pages**        | [start]{.ul} and     | Separated by `--`, i.e,           |
+|                  | [end]{.ul}           |                                   |
+|                  |                      | **pages** = {3--5}                |
+|                  |                      |                                   |
+|                  |                      | would be parsed as                |
+|                  |                      |                                   |
+|                  |                      | [start]{.ul}: 3                   |
+|                  |                      |                                   |
+|                  |                      | [end]{.ul}: 5                     |
++------------------+----------------------+-----------------------------------+
+| **month**        | [month]{.ul}         | As a fallback, **month** could be |
+|                  |                      | extracted also from **date**      |
+|                  |                      | (BibLaTeX field)/                 |
+|                  |                      | [date-published]{.ul}             |
++------------------+----------------------+-----------------------------------+
+| **note**         | [notes]{.ul}         |                                   |
++------------------+----------------------+-----------------------------------+
+
+: **\@article** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@article{article-full,
+    title        = {The Gnats and Gnus Document Preparation System},
+    author       = {Leslie A. Aamport},
+    year         = 1986,
+    month        = jul,
+    journal      = {{G-Animal's} Journal},
+    volume       = 41,
+    number       = 7,
+    pages        = {73+},
+    note         = {This is a full ARTICLE entry}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE}
+
+bib <- bibentry("article",
+  title        = "The Gnats and Gnus Document Preparation System",
+  author       = "Leslie A. Aamport",
+  year         = 1986,
+  month        = "jul",
+  journal      = "{G-Animal's} Journal",
+  volume       = 41,
+  number       = 7,
+  pages        = "73+",
+  note         = "This is a full ARTICLE entry"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### book/inbook
+
+In terms of field required on BibTeX, the only difference between **\@book** and
+**\@inbook** is that the latter requires also a **chapter** or **pages**, while
+for **\@book** these fields are not even optional. So we propose here to
+identify an **\@inbook** on CFF as a [book]{.ul} with [section]{.ul} and
+[start]{.ul}-[end]{.ul} fields (CFF).
+
+Another specificity is that **series** field is mapped to
+[collection-title]{.ul} and **address** is mapped as the [address]{.ul} of the
+[publisher]{.ul} (CFF).
+
++------------------------+--------------------------+--------------------------+
+| BibTeX                 | CFF                      | Note                     |
++========================+==========================+==========================+
+| **\@book**             | [type: book]{.ul}        |                          |
++------------------------+--------------------------+--------------------------+
+| **\@inbook**           | [type: book]{.ul}        | For identifying an       |
+|                        |                          | **\@inbook** in CFF,     |
+|                        |                          | assess if [section]{.ul} |
+|                        |                          | or                       |
+|                        |                          | [start]{.ul}-[end]{.ul}  |
+|                        |                          | information is available |
++------------------------+--------------------------+--------------------------+
+| **author\***           | [authors]{.ul}           |                          |
++------------------------+--------------------------+--------------------------+
+| **editor\***           | [editors]{.ul}           |                          |
++------------------------+--------------------------+--------------------------+
+| **title\***            | [title]{.ul}             |                          |
++------------------------+--------------------------+--------------------------+
+| **publisher\***        | [publisher]{.ul}         |                          |
++------------------------+--------------------------+--------------------------+
+| **year\***             | [year]{.ul}              |                          |
++------------------------+--------------------------+--------------------------+
+| **chapter\***          | [section]{.ul}           | Only required on         |
+|                        |                          | **\@inbook**             |
++------------------------+--------------------------+--------------------------+
+| **pages\***            | [start]{.ul} and         | Only required on         |
+|                        | [end]{.ul}               | **\@inbook**             |
++------------------------+--------------------------+--------------------------+
+| **volume**             | [volume]{.ul}            |                          |
++------------------------+--------------------------+--------------------------+
+| **number**             | [issue]{.ul}             |                          |
++------------------------+--------------------------+--------------------------+
+| **series**             | [collection-title]{.ul}  |                          |
++------------------------+--------------------------+--------------------------+
+| **address**            | [address]{.ul} property  | As a fallback, the field |
+|                        | of [publisher]{.ul}      | [location]{.ul} can be   |
+|                        |                          | used                     |
++------------------------+--------------------------+--------------------------+
+| **edition**            | [edition]{.ul}           |                          |
++------------------------+--------------------------+--------------------------+
+| **month**              | [month]{.ul}             | See **Note** on          |
+|                        |                          | [article]                |
++------------------------+--------------------------+--------------------------+
+| **note**               | [notes]{.ul}             |                          |
++------------------------+--------------------------+--------------------------+
+
+: **\@book/\@inbook** Model
+
+**Examples: book**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@book{book-full,
+    title        = {Seminumerical Algorithms},
+    author       = {Donald E. Knuth},
+    year         = 1981,
+    month        = 10,
+    publisher    = {Addison-Wesley},
+    address      = {Reading, Massachusetts},
+    series       = {The Art of Computer Programming},
+    volume       = 2,
+    note         = {This is a full BOOK entry},
+    edition      = {Second}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE}
+
+bib <- bibentry("Book",
+  title = "Seminumerical Algorithms",
+  author = "Donald E. Knuth",
+  year = 1981,
+  month = 10,
+  publisher = "Addison-Wesley",
+  address = "Reading, Massachusetts",
+  series = "The Art of Computer Programming",
+  volume = 2,
+  note = "This is a full BOOK entry",
+  edition = "Second"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r,  echo=FALSE}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+**Examples: inbook**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@inbook{inbook-full,
+    title        = {Fundamental Algorithms},
+    author       = {Donald E. Knuth},
+    year         = 1973,
+    month        = 10,
+    publisher    = {Addison-Wesley},
+    address      = {Reading, Massachusetts},
+    series       = {The Art of Computer Programming},
+    volume       = 1,
+    pages        = {10--119},
+    note         = {This is a full INBOOK entry},
+    edition      = {Second},
+    type         = {Section},
+    chapter      = {1.2}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("inbook",
+  title        = "Fundamental Algorithms",
+  author       = "Donald E. Knuth",
+  year         = 1973,
+  month        = 10,
+  publisher    = "Addison-Wesley",
+  address      = "Reading, Massachusetts",
+  series       = "The Art of Computer Programming",
+  volume       = 1,
+  pages        = "10--119",
+  note         = "This is a full INBOOK entry",
+  edition      = "Second",
+  type         = "Section",
+  chapter      = "1.2"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### booklet
+
+In **\@booklet** **address** is mapped to [location]{.ul}.
+
++-----------------------------+------------------+----------------------------+
+| BibTeX                      | CFF              | Note                       |
++=============================+==================+============================+
+| **\@booklet**               | [type:           |                            |
+|                             | pamphlet]{.ul}   |                            |
++-----------------------------+------------------+----------------------------+
+| **title\***                 | [title]{.ul}     |                            |
++-----------------------------+------------------+----------------------------+
+| **author\***                | [authors]{.ul}   |                            |
++-----------------------------+------------------+----------------------------+
+| **howpublished**            | [medium]{.ul}    |                            |
++-----------------------------+------------------+----------------------------+
+| **address**                 | [location]{.ul}  |                            |
++-----------------------------+------------------+----------------------------+
+| **month**                   | [month]{.ul}     | See **Note** on [article]  |
++-----------------------------+------------------+----------------------------+
+| **year**                    | [year]{.ul}      | As a fallback, **year**    |
+|                             |                  | could be extracted also    |
+|                             |                  | from **date** (BibLaTeX    |
+|                             |                  | field)/                    |
+|                             |                  | [date-published]{.ul}      |
++-----------------------------+------------------+----------------------------+
+| **note**                    | [notes]{.ul}     |                            |
++-----------------------------+------------------+----------------------------+
+
+: **\@booklet** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@booklet{booklet-full,
+    title        = {The Programming of Computer Art},
+    author       = {Jill C. Knvth},
+    date         = {1988-03-14},
+    month        = feb,
+    address      = {Stanford, California},
+    note         = {This is a full BOOKLET entry},
+    howpublished = {Vernier Art Center}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE, }
+
+bib <- bibentry("booklet",
+  title = "The Programming of Computer Art",
+  author = "Jill C. Knvth",
+  date = "1988-03-14",
+  month = "feb",
+  address = "Stanford, California",
+  note = "This is a full BOOKLET entry",
+  howpublished = "Vernier Art Center"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE, }
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### conference/inproceedings
+
+Note that in this case, **organization** is mapped to [institution]{.ul}, as
+BibTeX does not prescribe the use of **institution** on these entries.
+
++-------------------------+---------------------------+-----------------------+
+| BibTeX                  | CFF                       | Note                  |
++=========================+===========================+=======================+
+| **\@conference /        | [type:                    | CFF entries with      |
+| \@inproceedings**       | conference-paper]{.ul}    | [type]{.ul}           |
+|                         |                           | =conference are       |
+|                         |                           | mapped back to        |
+|                         |                           | **\@inproceedings**.  |
++-------------------------+---------------------------+-----------------------+
+| **author\***            | [authors]{.ul}            |                       |
++-------------------------+---------------------------+-----------------------+
+| **title\***             | [title]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+| **booktitle\***         | [collection-title]{.ul}   |                       |
++-------------------------+---------------------------+-----------------------+
+| **year\***              | [year]{.ul}               |                       |
++-------------------------+---------------------------+-----------------------+
+| **editor**              | [editors]{.ul}            |                       |
++-------------------------+---------------------------+-----------------------+
+| **volume**              | [volume]{.ul}             |                       |
++-------------------------+---------------------------+-----------------------+
+| **number**              | [issue]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+| **series**              | [conference]{.ul}         |                       |
++-------------------------+---------------------------+-----------------------+
+| **pages**               | [start]{.ul} and          | See **Note** on       |
+|                         | [end]{.ul}                | [article]             |
++-------------------------+---------------------------+-----------------------+
+| **address**             | [location]{.ul}           | As a fallback,        |
+|                         |                           | [address]{.ul}        |
+|                         |                           | property of           |
+|                         |                           | [conference]{.ul} can |
+|                         |                           | be used               |
++-------------------------+---------------------------+-----------------------+
+| **month**               | [month]{.ul}              | See **Note** on       |
+|                         |                           | [article]             |
++-------------------------+---------------------------+-----------------------+
+| **organization**        | [institution]{.ul}        |                       |
++-------------------------+---------------------------+-----------------------+
+| **publisher**           | [publisher]{.ul}          |                       |
++-------------------------+---------------------------+-----------------------+
+| **note**                | [notes]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+
+: **\@conference/\@inproceedings** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@inproceedings{inproceedings-full,
+    title        = {On Notions of Information Transfer in {VLSI} Circuits},
+    author       = {Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis},
+    year         = 1983,
+    month        = mar,
+    booktitle    = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
+    publisher    = {Academic Press},
+    address      = {Boston},
+    series       = {All ACM Conferences},
+    number       = 17,
+    pages        = {133--139},
+    editor       = {Wizard V. Oz and Mihalis Yannakakis},
+    organization = {The OX Association for Computing Machinery}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("inproceedings",
+  title        = "On Notions of Information Transfer in {VLSI} Circuits",
+  author       = "Alfred V. Oaho and Jeffrey D. Ullman and Mihalis Yannakakis",
+  year         = 1983,
+  month        = "mar",
+  booktitle    = "Proc. Fifteenth Annual ACM Symposium on the Theory of Computing",
+  publisher    = "Academic Press",
+  address      = "Boston",
+  series       = "All ACM Conferences",
+  number       = 17,
+  pages        = "133--139",
+  editor       = "Wizard V. Oz and Mihalis Yannakakis",
+  organization = "The OX Association for Computing Machinery"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### incollection
+
+As **booktitle** is a required field, we propose to map that field to
+[collection-title]{.ul} and the [type]{.ul} to [generic]{.ul}. Therefore, an
+**\@incollection** is a [type: generic]{.ul} with a [collection-title]{.ul} key.
+
++-------------------------+-------------------------+-------------------------+
+| **BibTeX**              | CFF                     | Note                    |
++=========================+=========================+=========================+
+| **\@incollection**      | [type: generic]{.ul}    | Including a             |
+|                         |                         | [collection-title]{.ul} |
+|                         |                         | value                   |
++-------------------------+-------------------------+-------------------------+
+| **author\***            | [authors]{.ul}          |                         |
++-------------------------+-------------------------+-------------------------+
+| **title\***             | [title]{.ul}            |                         |
++-------------------------+-------------------------+-------------------------+
+| **booktitle\***         | [collection-title]{.ul} |                         |
++-------------------------+-------------------------+-------------------------+
+| **publisher\***         | [publisher]{.ul}        |                         |
++-------------------------+-------------------------+-------------------------+
+| **year\***              | [year]{.ul}             |                         |
++-------------------------+-------------------------+-------------------------+
+| **editor**              | [editors]{.ul}          |                         |
++-------------------------+-------------------------+-------------------------+
+| **volume**              | [volume]{.ul}           |                         |
++-------------------------+-------------------------+-------------------------+
+| **number**              | [issue]{.ul}            |                         |
++-------------------------+-------------------------+-------------------------+
+| **series**              | [series]{.ul}           |                         |
++-------------------------+-------------------------+-------------------------+
+| **type**                | \-                      | Ignored                 |
++-------------------------+-------------------------+-------------------------+
+| **chapter**             | [section]{.ul}          |                         |
++-------------------------+-------------------------+-------------------------+
+| **pages**               | [start]{.ul} and        | See **Note** on         |
+|                         | [end]{.ul}              | [article]               |
++-------------------------+-------------------------+-------------------------+
+| **address**             | [address]{.ul} property | See **Note** on         |
+|                         | of [publisher]{.ul}     | [book/inbook]           |
++-------------------------+-------------------------+-------------------------+
+| **edition**             | [edition]{.ul}          |                         |
++-------------------------+-------------------------+-------------------------+
+| **month**               | [month]{.ul}            | See **Note** on         |
+|                         |                         | [article]               |
++-------------------------+-------------------------+-------------------------+
+| **note**                | [notes]{.ul}            |                         |
++-------------------------+-------------------------+-------------------------+
+
+: **\@incollection** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@incollection{incollection-full,
+    title        = {Semigroups of Recurrences},
+    author       = {Daniel D. Lincoll},
+    year         = 1977,
+    month        = sep,
+    booktitle    = {High Speed Computer and Algorithm Organization},
+    publisher    = {Academic Press},
+    address      = {New York},
+    series       = {Fast Computers},
+    number       = 23,
+    pages        = {179--183},
+    note         = {This is a full INCOLLECTION entry},
+    editor       = {David J. Lipcoll and D. H. Lawrie and A. H. Sameh},
+    chapter      = 3,
+    type         = {Part},
+    edition      = {Third}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("incollection",
+  title        = "Semigroups of Recurrences",
+  author       = "Daniel D. Lincoll",
+  year         = 1977,
+  month        = "sep",
+  booktitle    = "High Speed Computer and Algorithm Organization",
+  publisher    = "Academic Press",
+  address      = "New York",
+  series       = "Fast Computers",
+  number       = 23,
+  pages        = "179--183",
+  note         = "This is a full INCOLLECTION entry",
+  editor       = "David J. Lipcoll and D. H. Lawrie and A. H. Sameh",
+  chapter      = 3,
+  type         = "Part",
+  edition      = "Third"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### manual
+
+As in the case of [conference/inproceedings], **organization** is mapped to
+[institution]{.ul}.
+
++--------------------------+-----------------------------+---------------------+
+| **BibTeX**               | CFF                         | Note                |
++==========================+=============================+=====================+
+| **\@manual**             | [type: manual]{.ul}         |                     |
++--------------------------+-----------------------------+---------------------+
+| **title\***              | [title]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **author**               | [authors]{.ul}              |                     |
++--------------------------+-----------------------------+---------------------+
+| **organization**         | [institution]{.ul}          |                     |
++--------------------------+-----------------------------+---------------------+
+| **address**              | [location]{.ul}             |                     |
++--------------------------+-----------------------------+---------------------+
+| **edition**              | [edition]{.ul}              |                     |
++--------------------------+-----------------------------+---------------------+
+| **month**                | [month]{.ul}                | See **Note** on     |
+|                          |                             | [article]           |
++--------------------------+-----------------------------+---------------------+
+| **year**                 | [year]{.ul}                 | See **Note** on     |
+|                          |                             | [booklet]           |
++--------------------------+-----------------------------+---------------------+
+| **note**                 | [notes]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+
+: **\@manual** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+Note that **month** can't be parsed to a single integer in the range `1--12` as
+required on CFF, so it is not parsed to avoid validation errors.
+
+``` bibtex
+@manual{manual-full,
+  title        = {The Definitive Computer Manual},
+    author       = {Larry Manmaker},
+    year         = 1986,
+    month        = {apr-may},
+    address      = {Silicon Valley},
+    note         = {This is a full MANUAL entry},
+    organization = {Chips-R-Us},
+    edition      = {Silver}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("Manual",
+  title        = "The Definitive Computer Manual",
+  author       = "Larry Manmaker",
+  year         = 1986,
+  month        = "apr-may",
+  address      = "Silicon Valley",
+  note         = "This is a full MANUAL entry",
+  organization = "Chips-R-Us",
+  edition      = "Silver"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### mastersthesis/phdthesis
+
+In terms of field required on BibTeX, it is identical for both
+**\@mastersthesis** and **\@phdthesis.**
+
+We propose here to identify each type of thesis using the field
+[thesis-type]{.ul} (CFF). So if [thesis-type]{.ul} contains a [regex
+pattern](https://regex101.com/r/mBWfbs/1) `(?i)(phd)` it would be recognized as
+**\@phdthesis**.
+
++---------------------------+----------------------+---------------------------+
+| BibTeX                    | CFF                  | Note                      |
++===========================+======================+===========================+
+| **\@mastersthesis**       | [type: thesis]{.ul}  | Use also                  |
+|                           |                      | [thesis-type]{.ul} for    |
+|                           |                      | identifying the thesis    |
+|                           |                      | type.                     |
++---------------------------+----------------------+---------------------------+
+| **\@phdthesis**           | [type: thesis]{.ul}  | Use also                  |
+|                           |                      | [thesis-type]{.ul} for    |
+|                           |                      | identifying the thesis    |
+|                           |                      | type.                     |
++---------------------------+----------------------+---------------------------+
+| **author\***              | [authors]{.ul}       |                           |
++---------------------------+----------------------+---------------------------+
+| **title\***               | [title]{.ul}         |                           |
++---------------------------+----------------------+---------------------------+
+| **school\***              | [institution]{.ul}   |                           |
++---------------------------+----------------------+---------------------------+
+| **year\***                | [year]{.ul}          |                           |
++---------------------------+----------------------+---------------------------+
+| **type**                  |                      |                           |
++---------------------------+----------------------+---------------------------+
+| **address**               | [address]{.ul}       | See **Note** on           |
+|                           | property of          | [book/inbook]             |
+|                           | [institution]{.ul}   |                           |
++---------------------------+----------------------+---------------------------+
+| **month**                 | [month]{.ul}         | See **Note** on [article] |
++---------------------------+----------------------+---------------------------+
+| **note**                  | [notes]{.ul}         |                           |
++---------------------------+----------------------+---------------------------+
+
+: **\@mastersthesis/phdthesis** Model
+
+**Examples: mastersthesis**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@mastersthesis{mastersthesis-full,
+    title        = {Mastering Thesis Writing},
+    author       = {Edouard Masterly},
+    year         = 1988,
+    month        = jun,
+    address      = {English Department},
+    note         = {This is a full MASTERSTHESIS entry},
+    school       = {Stanford University},
+    type         = {Master's project}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE}
+
+bib <- bibentry("mastersthesis",
+  title        = "Mastering Thesis Writing",
+  author       = "Edouard Masterly",
+  year         = 1988,
+  month        = "jun",
+  address      = "English Department",
+  note         = "This is a full MASTERSTHESIS entry",
+  school       = "Stanford University",
+  type         = "Master's project"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r,  echo=FALSE}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+**Examples: phdthesis**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@phdthesis{phdthesis-full,
+    title        = {Fighting Fire with Fire: Festooning {F}rench Phrases},
+    author       = {F. Phidias Phony-Baloney},
+    year         = 1988,
+    month        = jun,
+    address      = {Department of French},
+    note         = {This is a full PHDTHESIS entry},
+    school       = {Fanstord University},
+    type         = {{PhD} Dissertation}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("phdthesis",
+  title = "Fighting Fire with Fire: Festooning {F}rench Phrases",
+  author = "F. Phidias Phony-Baloney",
+  year = 1988,
+  month = "jun",
+  address = "Department of French",
+  note = "This is a full PHDTHESIS entry",
+  school = "Fanstord University",
+  type = "{PhD} Dissertation"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### misc
+
+The crosswalk of **\@misc** does not require any special treatment. This entry
+does not require any field.
+
+Note als that it is mapped to [type: generic]{.ul} as [incollection], but in
+this case **booktitle** is not even an option, so the proposed definition should
+cover both **\@misc** and **\@incollection** without problems.
+
++--------------------------+-----------------------------+---------------------+
+| **BibTeX**               | CFF                         | Note                |
++==========================+=============================+=====================+
+| **\@misc**               | [type: generic]{.ul}        |                     |
++--------------------------+-----------------------------+---------------------+
+| **author**               | [authors]{.ul}              |                     |
++--------------------------+-----------------------------+---------------------+
+| **title**                | [title]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **howpublished**         | [medium]{.ul}               |                     |
++--------------------------+-----------------------------+---------------------+
+| **month**                | [month]{.ul}                | See **Note** on     |
+|                          |                             | [article]           |
++--------------------------+-----------------------------+---------------------+
+| **year**                 | [year]{.ul}                 | See **Note** on     |
+|                          |                             | [booklet]           |
++--------------------------+-----------------------------+---------------------+
+| **note**                 | [notes]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+
+: **\@misc** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@misc{misc-full,
+    title        = {Handing out random pamphlets in airports},
+    author       = {Joe-Bob Missilany},
+    year         = 1984,
+    month        = oct,
+    note         = {This is a full MISC entry},
+    howpublished = {Handed out at O'Hare}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("Misc",
+  title        = "Handing out random pamphlets in airports",
+  year         = 1984,
+  month        = "oct",
+  note         = "This is a MISC entry",
+  howpublished = "Handed out at O'Hare"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### proceedings
+
+The proposed model is similar to [conference/inproceedings]. Note that
+**\@proceedings** does not prescribe a **author** field. On this cases, as
+[authors]{.ul} is required on CFF, we would use *anonymous*[^9] when converting
+to CFF and omit it on the conversion back to CFF.
+
+[^9]: As proposed on [*How to deal with unknown individual
+    authors?*](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#how-to-deal-with-unknown-individual-authors),
+    **(Guide to Citation File Format schema version 1.2.0)**
+
++-------------------------+---------------------------+-----------------------+
+| BibTeX                  | CFF                       | Note                  |
++=========================+===========================+=======================+
+| **\@proceedings**       | [type: proceedings]{.ul}  |                       |
++-------------------------+---------------------------+-----------------------+
+| **title\***             | [title]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+| **year\***              | [year]{.ul}               |                       |
++-------------------------+---------------------------+-----------------------+
+| **editor**              | [editors]{.ul}            |                       |
++-------------------------+---------------------------+-----------------------+
+| **volume**              | [volume]{.ul}             |                       |
++-------------------------+---------------------------+-----------------------+
+| **number**              | [issue]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+| **series**              | [conference]{.ul}         |                       |
++-------------------------+---------------------------+-----------------------+
+| **address**             | [location]{.ul}           | As a fallback,        |
+|                         |                           | [address]{.ul}        |
+|                         |                           | property of           |
+|                         |                           | [conference]{.ul} can |
+|                         |                           | be used               |
++-------------------------+---------------------------+-----------------------+
+| **month**               | [month]{.ul}              | See **Note** on       |
+|                         |                           | [article]             |
++-------------------------+---------------------------+-----------------------+
+| **organization**        | [institution]{.ul}        |                       |
++-------------------------+---------------------------+-----------------------+
+| **publisher**           | [publisher]{.ul}          |                       |
++-------------------------+---------------------------+-----------------------+
+| **note**                | [notes]{.ul}              |                       |
++-------------------------+---------------------------+-----------------------+
+
+: **\@conference/\@inproceedings** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@proceedings{proceedings-full,
+    title        = {Proc. Fifteenth Annual ACM Symposium on the Theory of Computing},
+    year         = 1983,
+    month        = mar,
+    publisher    = {Academic Press},
+    address      = {Boston},
+    series       = {All ACM Conferences},
+    number       = 17,
+    note         = {This is a full PROCEEDINGS entry},
+    editor       = {Wizard V. Oz and Mihalis Yannakakis},
+    organization = {The OX Association for Computing Machinery}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("proceedings",
+  title        = "Proc. Fifteenth Annual ACM Symposium on the Theory of Computing",
+  year         = 1983,
+  month        = "mar",
+  publisher    = "Academic Press",
+  address      = "Boston",
+  series       = "All ACM Conferences",
+  number       = 17,
+  note         = "This is a full PROCEEDINGS entry",
+  editor       = "Wizard V. Oz and Mihalis Yannakakis",
+  organization = "The OX Association for Computing Machinery"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### techreport
+
++--------------------------+-----------------------------+---------------------+
+| **BibTeX**               | CFF                         | Note                |
++==========================+=============================+=====================+
+| **\@techreport**         | [type: report]{.ul}         |                     |
++--------------------------+-----------------------------+---------------------+
+| **author\***             | [authors]{.ul}              |                     |
++--------------------------+-----------------------------+---------------------+
+| **title\***              | [title]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **institution\***        | [institution]{.ul}          |                     |
++--------------------------+-----------------------------+---------------------+
+| **year\***               | [year]{.ul}                 |                     |
++--------------------------+-----------------------------+---------------------+
+| **type**                 | \-                          | Ignored             |
++--------------------------+-----------------------------+---------------------+
+| **number**               | [issue]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **address**              | [address]{.ul} property of  | See **Note** on     |
+|                          | [institution]{.ul}          | [book/inbook]       |
++--------------------------+-----------------------------+---------------------+
+| **month**                | [month]{.ul}                | See **Note** on     |
+|                          |                             | [article]           |
++--------------------------+-----------------------------+---------------------+
+| **note**                 | [notes]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+
+: **\@techreport** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@techreport{techreport-full,
+    title        = {A Sorting Algorithm},
+    author       = {Tom Terrific},
+    year         = 1988,
+    month        = oct,
+    address      = {Computer Science Department, Fanstord, California},
+    number       = 7,
+    note         = {This is a full TECHREPORT entry},
+    institution  = {Fanstord University},
+    type         = {Wishful Research Result}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("techreport",
+  title = "A Sorting Algorithm",
+  author = "Tom Terrific",
+  year = 1988,
+  month = "oct",
+  address = "Computer Science Department, Fanstord, California",
+  number = 7,
+  note = "This is a full TECHREPORT entry",
+  institution = "Fanstord University",
+  type = "Wishful Research Result"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+### unpublished
+
++--------------------------+-----------------------------+---------------------+
+| **BibTeX**               | CFF                         | Note                |
++==========================+=============================+=====================+
+| **\@unpublished**        | [type: unpublished]{.ul}    |                     |
++--------------------------+-----------------------------+---------------------+
+| **author\***             | [authors]{.ul}              |                     |
++--------------------------+-----------------------------+---------------------+
+| **title\***              | [title]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **note\***               | [notes]{.ul}                |                     |
++--------------------------+-----------------------------+---------------------+
+| **month**                | [month]{.ul}                | See **Note** on     |
+|                          |                             | [article]           |
++--------------------------+-----------------------------+---------------------+
+| **year**                 | [year]{.ul}                 | See **Note** on     |
+|                          |                             | [booklet]           |
++--------------------------+-----------------------------+---------------------+
+
+: **\@unpublished** Model
+
+**Examples**
+
+[*BibTeX entry*]{.ul}
+
+``` bibtex
+@unpublished{unpublished-minimal,
+    title        = {Lower Bounds for Wishful Research Results},
+    author       = {Ulrich Underwood and Ned Net and Paul Pot},
+    note         = {Talk at Fanstord University (this is a minimal UNPUBLISHED entry)}
+}
+```
+
+[*CFF entry*]{.ul}
+
+```{r echo=FALSE,}
+
+bib <- bibentry("unpublished",
+  title        = "Lower Bounds for Wishful Research Results",
+  author       = "Ulrich Underwood and Ned Net and Paul Pot",
+  note         = "Talk at Fanstord University (this is a minimal UNPUBLISHED entry)"
+)
+
+cff_parse_citation(bib)
+```
+
+[*From CFF to BibTeX*]{.ul}
+
+```{r echo=FALSE,}
+toBibtex(cff_to_bibtex(cff_parse_citation(bib)))
+```
+
+## References
+---
+title: "cffr: Generate Citation File Format Metadata for R Packages"
+subtitle: "JOSS paper"
+description: >
+  Paper published on The Journal of Open Source Software.
+tags:
+  - R
+  - cff
+  - citation
+  - credit
+  - metadata
+author: Diego Hernangómez
+date: 09 November 2021
+output: rmarkdown::html_vignette
+bibliography: REFERENCES.bib
+link-citations: yes
+vignette: >
+  %\VignetteIndexEntry{cffr: Generate Citation File Format Metadata for R Packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03900/status.svg)](https://doi.org/10.21105/joss.03900)
+
+## Summary
+
+The Citation File Format project [@druskat_citation_2021] defines a standardized
+format for providing software or datasets citation metadata in plaintext files
+that are easy to read by both humans and machines.
+
+This metadata format is being adopted by GitHub as the primary format for its
+built-in citation support [@github_about_citation]. Other leading archives for
+scientific software, including Zenodo and Zotero [@druskat_stephan_making_2021],
+have included as well support for CITATION.cff files in their GitHub
+integration.
+
+The cffr package provides utilities to generate and validate these CITATION.cff
+files automatically for R [@R_2021] packages by parsing the DESCRIPTION file and
+the native R citation file. The package also includes utilities and examples for
+parsing components as persons and additional citations, as well as several
+vignettes which illustrate both the basic usage of the package as well as some
+more technical details about the metadata extraction process.
+
+## Statement of need
+
+Citation of research software on research project is often omitted [@salmon2021]
+. Among many reasons why software is not cited, one is the lack of a clear
+citation information from package developers.
+
+Some of the main reasons for citing software used on research are:
+
+1.  **Reproducibility**: Software and their versions are important information
+    to include in any research project. It helps peers to understand and
+    reproduce effectively the results of any work. Including versions is also
+    crucial as a way of recording the context of your manuscript when software
+    changes.
+2.  **Developer Credit:** On the context of Free and Open Source Software
+    (FOSS), many of the software developers themselves are also researches.
+    Receive credit for software development shouldn't be different from the
+    credit received on other formats, as books or articles.
+
+CITATION.cff files provides a clear citation rules for software. The format is
+easily readable by humans and also can be parsed by appropriate software. The
+adoption of GitHub of this format sends a strong message that research software
+is something worthy of citation, and therefore deserves credit.
+
+The cffr package allow R software developers to create CITATION.cff files from
+the metadata already included on the package. Additionally, the package also
+include validation tools via the jsonvalidate package [@jsonvalidate2021], that
+allow developers to assess the validity of the file created using the latest CFF
+schema.json.
+
+## Acknowledgements
+
+I would like to thank [Carl
+Boettiger](https://ropensci.org/author/carl-boettiger/), [Maëlle
+Salmon](https://ropensci.org/author/ma%C3%ABlle-salmon/) and the rest of
+contributors of the [codemetar](https://docs.ropensci.org/codemetar/) package.
+This package was the primary inspiration for developing cffr and shares a common
+goal of increasing awareness on the efforts of software developers.
+
+I would like also to thank [João Martins](https://zambujo.github.io/) and [Scott
+Chamberlain](https://ropensci.org//author/scott-chamberlain/) for thorough
+reviews, that helps improving the package and the documentation as well as
+[Emily Riederer](https://emilyriederer.netlify.app/) for handling the [review
+process](https://github.com/ropensci/software-review/issues/463).
+
+## Citation
+
+Hernangómez, D., (2021). cffr: Generate Citation File Format Metadata for R
+Packages. Journal of Open Source Software, 6(67), 3900,
+<https://doi.org/10.21105/joss.03900>
+
+``` bibtex
+@article{hernangomez2021,
+  doi = {10.21105/joss.03900},
+  url = {https://doi.org/10.21105/joss.03900},
+  year = {2021},
+  publisher = {The Open Journal},
+  volume = {6},
+  number = {67},
+  pages = {3900},
+  author = {Diego Hernangómez},
+  title = {cffr: Generate Citation File Format Metadata for R Packages},
+  journal = {Journal of Open Source Software}
+}
+```
+
+## References
+---
+title: "From R to CFF"
+subtitle: "Crosswalk"
+description: >
+  A comprehenshive description of the internal mappings performed by `cffr`.
+author: Diego Hernangómez
+bibliography: REFERENCES.bib
+link-citations: yes
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{From R to CFF}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(cffr)
+```
+
+The goal of this vignette is to provide an explicit map between the metadata
+fields used by **cffr** and each one of the valid keys of the [Citation File
+Format schema version
+1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys).
+
+## Summary {#summary}
+
+We summarize here the fields that **cffr** can parse and the original source of
+information for each one of them. The details on each key are presented on the
+next section of the document. The assessment of fields are based on the [Guide
+to Citation File Format schema version
+1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#valid-keys)
+[@druskat_citation_2021].
+
+```{r summary , echo=FALSE}
+
+keys <- cff_schema_keys(sorted = TRUE)
+origin <- vector(length = length(keys))
+origin[keys == "cff-version"] <- "parameter on function"
+origin[keys == "type"] <- "Fixed value: 'software'"
+origin[keys == "identifiers"] <- "DESCRIPTION/CITATION files"
+origin[keys == "references"] <- "DESCRIPTION/CITATION files"
+
+origin[keys %in% c(
+  "message",
+  "title",
+  "version",
+  "authors",
+  "abstract",
+  "repository",
+  "repository-code",
+  "url",
+  "date-released",
+  "contact",
+  "keywords",
+  "license"
+)] <- "DESCRIPTION file"
+
+origin[keys %in% c(
+  "doi",
+  "preferred-citation"
+)] <- "CITATION file"
+
+
+origin[origin == FALSE] <- "Not parsed by cffr"
+
+df <- data.frame(
+  key = paste0("<a href='#", keys, "'>", keys, "</a>"),
+  source = origin
+)
+
+
+knitr::kable(df, escape = FALSE)
+```
+
+## Details
+
+### abstract
+
+This key is extracted from the "Description" field of the DESCRIPTION file.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r abstract}
+
+library(cffr)
+
+# Create cffr for yaml
+
+cff_obj <- cff_create("rmarkdown")
+
+# Get DESCRIPTION of rmarkdown to check
+
+pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
+
+cat(cff_obj$abstract)
+
+cat(pkg$get("Description"))
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### authors
+
+This key is parsed from the "Authors" or "Authors\@R" field of the DESCRIPTION
+file. Only persons with the role "aut" or "cre" are considered.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r authors}
+
+cff_obj <- cff_create("rmarkdown")
+pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
+
+cff_obj$authors
+
+authors <- pkg$get_authors()
+
+authors[vapply(authors, function(x) {
+  "aut" %in% x$role || "cre" %in% x$role
+}, logical(1))]
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### cff-version
+
+This key can be set via the parameters of the `cff_create()`/`cff_write()`
+functions:
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r cffversion}
+
+cff_objv110 <- cff_create("jsonlite", cff_version = "v1.1.0")
+
+cat(cff_objv110$`cff-version`)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### commit
+
+This key is not extracted from the metadata of the package. See the description
+on the [Guide to CFF schema
+v1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#commit).
+
+> -   **description**: The commit hash or revision number of the software
+>     version.
+>
+> -   **usage**:<br><br>
+>
+>     ``` yaml
+>     commit: 1ff847d81f29c45a3a1a5ce73d38e45c2f319bba
+>
+>     commit: "Revision: 8612"
+>     ```
+
+[Back to summary](#summary).
+
+### contact
+
+This key is parsed from the "Authors" or "Authors\@R" field of the DESCRIPTION
+file. Only persons with the role "cre" (i.e, the maintainer(s)) are considered.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r contact}
+
+cff_obj <- cff_create("rmarkdown")
+pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
+
+cff_obj$contact
+
+pkg$get_author()
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### date-released
+
+This key is parsed from the "Date" field or, if not present, from the
+"Date/Publication" field that is present on packages built on CRAN.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r date-released}
+
+# From an installed package
+
+cff_obj <- cff_create("rmarkdown")
+pkg <- desc::desc(file.path(find.package("rmarkdown"), "DESCRIPTION"))
+
+
+cat(pkg$get("Date/Publication"))
+
+
+cat(cff_obj$`date-released`)
+
+
+
+# A DESCRIPTION file without a Date
+nodate <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+tmp <- tempfile("DESCRIPTION")
+
+# Create a temporary file
+file.copy(nodate, tmp)
+
+
+pkgnodate <- desc::desc(tmp)
+cffnodate <- cff_create(tmp)
+
+# Won't appear
+cat(cffnodate$`date-released`)
+
+pkgnodate
+
+# Adding a Date
+
+desc::desc_set("Date", "1999-01-01", file = tmp)
+
+cat(cff_create(tmp)$`date-released`)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### doi {#doi}
+
+This key is parsed from the "doi" field of the
+[preferred-citation](#preferred-citation) object.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r doi}
+
+cff_doi <- cff_create("cffr")
+
+cat(cff_doi$doi)
+
+cat(cff_doi$`preferred-citation`$doi)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### identifiers
+
+This key includes all the possible identifiers of the package:
+
+-   From the DESCRIPTION field, it includes all the urls not included in
+    [url](#url) or [repository-code](#repository-code).
+
+-   From the CITATION file, it includes all the dois not included in [doi](#doi)
+    and the identifiers (if any) not included in the "identifiers" key of
+    [preferred-citation](#preferred-citation).
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r identifiers}
+file <- system.file("examples/DESCRIPTION_many_urls", package = "cffr")
+
+pkg <- desc::desc(file)
+
+cat(pkg$get_urls())
+
+cat(cff_create(file)$url)
+
+cat(cff_create(file)$`repository-code`)
+
+cff_create(file)$identifiers
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### keywords
+
+This key is extracted from the DESCRIPTION file. The keywords should appear in
+the DESCRIPTION as:
+
+    ...
+    X-schema.org-keywords: keyword1, keyword2, keyword3
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r keyword}
+
+# A DESCRIPTION file without keywords
+nokeywords <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+tmp2 <- tempfile("DESCRIPTION")
+
+# Create a temporary file
+file.copy(nokeywords, tmp2)
+
+
+pkgnokeywords <- desc::desc(tmp2)
+cffnokeywords <- cff_create(tmp2)
+
+# Won't appear
+cat(cffnokeywords$keywords)
+
+pkgnokeywords
+
+# Adding Keywords
+
+desc::desc_set("X-schema.org-keywords", "keyword1, keyword2, keyword3", file = tmp2)
+
+cat(cff_create(tmp2)$keywords)
+```
+
+</details>
+
+Additionally, if the source code of the package is hosted on GitHub, **cffr**
+can retrieve the topics of your repo via the [GitHub
+API](https://docs.github.com/en/rest) and include those topics as keywords. This
+option is controlled via the `gh_keywords` parameter:
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r ghkeyword}
+
+# Get cff object from jsonvalidate
+
+jsonval <- cff_create("jsonvalidate")
+
+# Keywords are retrieved from the GitHub repo
+
+jsonval
+
+# Check keywords
+jsonval$keywords
+
+# The repo
+jsonval$`repository-code`
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### license
+
+This key is extracted from the "License" field of the DESCRIPTION file.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r license}
+
+cff_obj <- cff_create("yaml")
+
+cat(cff_obj$license)
+
+pkg <- desc::desc(file.path(find.package("yaml"), "DESCRIPTION"))
+
+cat(pkg$get("License"))
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### license-url
+
+This key is not extracted from the metadata of the package. See the description
+on the [Guide to CFF schema
+v1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#license-url).
+
+> -   **description**: The URL of the license text under which the software or
+>     dataset is licensed (only for non-standard licenses not included in the
+>     [SPDX License
+>     List](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#definitionslicense-enum)).
+> -   **usage**:<br><br>
+>     `yaml     license-url: "https://obscure-licenses.com?id=1234"`
+
+[Back to summary](#summary).
+
+### message
+
+This key is extracted from the DESCRIPTION field, specifically as:
+
+```{r eval=FALSE}
+msg <- paste0(
+  'To cite package "',
+  "NAME_OF_THE_PACKAGE",
+  '" in publications use:'
+)
+```
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r message}
+
+cat(cff_create("jsonlite")$message)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### preferred-citation {#preferred-citation}
+
+This key is extracted from the CITATION file. If several references are
+provided, it would select the first citation as the "preferred-citation" and the
+rest of them as [references](#references).
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r preferred-citation}
+
+cffobj <- cff_create("rmarkdown")
+
+cffobj$`preferred-citation`
+
+citation("rmarkdown")[1]
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### references {#references}
+
+This key is extracted from the CITATION file if several references are provided.
+The first citation is considered as the
+[preferred-citation](#preferred-citation) and the rest of them as "references".
+It also extracts the package dependencies and adds those to this fields using
+`citation(auto = TRUE)` on each dependency.
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r references}
+
+cffobj <- cff_create("rmarkdown")
+
+cffobj$references
+
+citation("rmarkdown")[-1]
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### repository
+
+This key is extracted from the "Repository" field of the DESCRIPTION file.
+Usually, this field is auto-populated when a package is hosted on a repo (like
+CRAN or the [r-universe](https://r-universe.dev/)). For packages without this
+field on the DESCRIPTION (that is the typical case for an in-development
+package), **cffr** would try to search the package on any of the default
+repositories specified on `options("repos")`.
+
+In the case of [Bioconductor](https://bioconductor.org/) packages, those are
+identified if a
+["biocViews"](http://contributions.bioconductor.org/description.html#biocviews)
+is present on the DESCRIPTION file.
+
+If **cffr** detects that the package is available on CRAN, it would return the
+canonical url form of the package (i.e.
+<https://CRAN.R-project.org/package=jsonlite>).
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r repository}
+
+# Installed package
+
+inst <- cff_create("jsonlite")
+
+cat(inst$repository)
+
+# Demo file downloaded from the r-universe
+
+runiv <- system.file("examples/DESCRIPTION_r_universe", package = "cffr")
+runiv_cff <- cff_create(runiv)
+
+cat(runiv_cff$repository)
+
+desc::desc(runiv)$get("Repository")
+
+# For in development package
+
+norepo <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+
+# No repo
+norepo_cff <- cff_create(norepo)
+
+cat(norepo_cff[["repository"]])
+
+# Change the name to a known package on CRAN: ggplot2
+
+tmp <- tempfile("DESCRIPTION")
+file.copy(norepo, tmp)
+
+
+# Change name
+desc::desc_set("Package", "ggplot2", file = tmp)
+
+cat(cff_create(tmp)[["repository"]])
+
+# Show what happens if another repo is set
+
+# Save original config
+orig_options <- options()
+getOption("repos")
+
+
+# Set new repos
+options(repos = c(
+  tidyverse = "https://tidyverse.r-universe.dev",
+  CRAN = "https://cloud.r-project.org"
+))
+
+# Load again the library
+# Repos are evaluated on load
+unloadNamespace("cffr")
+library(cffr)
+
+
+cat(cff_create(tmp)[["repository"]])
+
+# Now it is the tidyverse repo, due to our new config!
+
+# Reset original config
+options(orig_options)
+getOption("repos")
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### repository-artifact
+
+This key is not extracted from the metadata of the package. See the description
+on the [Guide to CFF schema
+v1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#repository-artifact).
+
+> -   **description**: The URL of the work in a build artifact/binary repository
+>     (when the work is software).
+>
+> -   **usage**:<br><br>
+>
+>     ``` yaml
+>     repository-artifact: "https://search.maven.org/artifact/org.corpus-tools/cff-maven-plugin/0.4.0/maven-plugin"
+>     ```
+
+[Back to summary](#summary).
+
+### repository-code {#repository-code}
+
+This key is extracted from the "BugReports" or "URL" fields on the DESCRIPTION
+file. **cffr** tries to identify the url of the source on the following
+repositories:
+
+-   [GitHub](https://github.com/).
+-   [GitLab](https://about.gitlab.com/).
+-   [R-Forge](https://r-forge.r-project.org/).
+-   [Bitbucket](https://bitbucket.org/).
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r repository-code}
+
+# Installed package on GitHub
+
+cff_create("jsonlite")$`repository-code`
+
+
+
+# GitLab
+
+gitlab <- system.file("examples/DESCRIPTION_gitlab", package = "cffr")
+
+cat(cff_create(gitlab)$`repository-code`)
+
+
+# Check
+
+desc::desc(gitlab)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### title
+
+This key is extracted from the "Description" field of the DESCRIPTION file.
+
+```{r eval=FALSE}
+title <- paste0(
+  "NAME_OF_THE_PACKAGE",
+  ": ",
+  "TITLE_OF_THE_PACKAGE"
+)
+```
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r title}
+
+# Installed package
+
+cat(cff_create("testthat")$title)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### type
+
+Fixed value equal to "software". The other possible value is "dataset". See the
+description on the [Guide to CFF schema
+v1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md#type).
+
+[Back to summary](#summary).
+
+### url {#url}
+
+This key is extracted from the "BugReports" or "URL" fields on the DESCRIPTION
+file. It corresponds to the first url that is different to
+[repository-code](#repository-code).
+
+<details>
+
+<summary>
+
+<strong>Example</strong>
+
+</summary>
+
+```{r url}
+
+# Many urls
+manyurls <- system.file("examples/DESCRIPTION_many_urls", package = "cffr")
+
+cat(cff_create(manyurls)$url)
+
+# Check
+
+desc::desc(manyurls)
+```
+
+</details>
+
+[Back to summary](#summary).
+
+### version
+
+This key is extracted from the "Version" field on the DESCRIPTION file.
+
+```{r version}
+
+# Should be (>= 3.0.0)
+cat(cff_create("testthat")$version)
+```
+
+[Back to summary](#summary).
+
+## References
+---
+title: "Manipulating Citations with cffr"
+description: >
+  Learn how to modify `cff` objects.
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+bibliography: REFERENCES.bib
+link-citations: yes
+vignette: >
+  %\VignetteIndexEntry{Manipulating Citations with cffr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = TRUE
+)
+
+library(cffr)
+```
+
+**cffr** is a tool whose target audience are **R** package developers. The main
+goal of **cffr** is to create a `CITATION.cff` file using the metadata
+information of the following files:
+
+-   Your `DESCRIPTION` file.
+-   If available, the citation information located in `inst/CITATION`.
+
+## What is a `CITATION.cff` file?
+
+[Citation File Format (CFF](https://citation-file-format.github.io/))
+[@druskat_citation_2021] (v1.2.0) are plain text files with human- and
+machine-readable citation information for software (and datasets). Code
+developers can include them in their repositories to let others know how to
+correctly cite their software.
+
+This format is becoming popular within the software citation ecosystem. Recently
+[GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files),
+[Zenodo](https://twitter.com/ZENODO_ORG/status/1420357001490706442) and
+[Zotero](https://twitter.com/zotero/status/1420515377390530560) have included
+full support of this citation format [@druskat_stephan_making_2021].
+
+GitHub support is of special interest:
+
+```{r echo=FALSE, out.width="400", fig.align='center', fig.alt="GitHub-link"}
+knitr::include_graphics("tweet-1.png")
+```
+
+*--- Nat Friedman (\@natfriedman) [July 27,
+2021](https://twitter.com/natfriedman/status/1420122675813441540?ref_src=twsrc%5Etfw)*
+
+See [Customize your repository/About CITATION
+files](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files)
+for more info.
+
+## Creating a `CITATION.cff` file for my R package
+
+With **cffr** creating a `CITATION.cff` file is quite straightforward. You just
+need to run `cff_write()`:
+
+```{r setup, eval=FALSE}
+
+library(cffr)
+
+cff_write()
+
+# You are done!
+```
+
+Under the hood, `cff_write()` performs the following tasks:
+
+-   It extracts the metadata using `cff_create()`.
+-   Writes a `CITATION.cff` file using `yaml::write_yaml()`.
+-   Validates the result using `cff_validate()`.
+
+Congratulations! Now you have a full `CITATION.cff` file for your **R** package.
+
+## Modifying your `CITATION.cff` file
+
+You can easily customize the `cff` object (a custom class of **cffr**) using the
+parsers provided in the package, as well as making use of the `keys` parameter.
+
+We would create a `cff` object using `cff()` (for example purposes only) and we
+would add or modify contents of it.
+
+### Adding new fields
+
+```{r newfields}
+
+newobject <- cff_create(cff())
+
+# For modifying your auto-generated object, run this line instead:
+# newoobject <- cff_create()
+
+newobject
+```
+
+The valid keys of the [Citation File Format schema version
+1.2.0](https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md)
+can be displayed with `cff_schema_keys()`:
+
+```{r validkeys}
+
+cff_schema_keys()
+```
+
+In this case, we are going to add `url`, `version` and `repository`. We would
+also overwrite the `title` key. We just need to create a list and pass it to the
+`keys` argument of `cff_create()`:
+
+```{r modify}
+
+newkeys <- list(
+  "url" = "https://ropensci.org/",
+  "version" = "0.0.1",
+  "repository" = "https://github.com/user/repo",
+  # If the field is already present, it would be overridden
+  title = "Modifying a 'cff' object"
+)
+
+modobject <- cff_create(newobject, keys = newkeys)
+
+modobject
+
+# Validate against the schema
+
+cff_validate(modobject)
+```
+
+### Parsing persons and citations
+
+**cffr** provides two functions that parse `person` objects and `bibentry`
+objects (See `?person` and `?bibentry`). These objects are included in the
+**utils** package and are a core part of the metadata of any **R** package.
+
+Following the previous example, we are going to add a new author first. For
+doing that, we need first to extract the current author of the package and
+append the parsed person:
+
+```{r includeauthor}
+
+# Valid person keys
+
+cff_schema_definitions_person()
+
+# Create the person
+
+chiquito <- person("Gregorio",
+  "Sánchez Fernández",
+  email = "fake@email2.com",
+  comment = c(
+    alias = "Chiquito de la Calzada",
+    city = "Malaga",
+    country = "ES",
+    ORCID = "0000-0000-0000-0001"
+  )
+)
+
+chiquito
+
+# Parse it
+chiquito_parsed <- cff_parse_person(chiquito)
+chiquito_parsed
+
+
+# Append to previous authors
+
+# Needs to be append as a list
+newauthors <- c(modobject$authors, list(chiquito_parsed))
+newauthors
+
+newauthorobject <- cff_create(modobject, keys = list(authors = newauthors))
+
+newauthorobject
+
+cff_validate(newauthorobject)
+```
+
+Now, we may want to add `references` to our data. **cffr** supports two types of
+references:
+
+-   References created with `bibentry()`
+-   References extracted from packages using `citation()`
+
+On the following example, we would add two references, one of each type:
+
+```{r parsingcits}
+# Valid reference keys
+
+cff_schema_definitions_refs()
+
+# Auto parsed from another R package
+base_r <- cff_parse_citation(citation("base"))
+
+base_r
+
+# Create with bibentry
+
+bib <- bibentry("Book",
+  title = "This is a book",
+  author = "Lisa Lee",
+  year = 1980,
+  publisher = "McGraw Hill",
+  volume = 2
+)
+bib
+
+# Now parse it
+
+bookparsed <- cff_parse_citation(bib)
+
+bookparsed
+```
+
+Now the process is similar to the example with `person`: we append both
+references (as lists) and add them to our object:
+
+```{r references}
+
+refkeys <- list(references = c(list(base_r), list(bookparsed)))
+
+refkeys
+
+finalobject <- cff_create(newauthorobject, keys = refkeys)
+
+finalobject
+
+cff_validate(finalobject)
+```
+
+### Create your modified `CITATION.cff` file
+
+The results can be written with `cff_write()`:
+
+```{r write}
+
+# For example
+tmp <- tempfile(fileext = ".cff")
+
+see_res <- cff_write(finalobject, outfile = tmp)
+
+see_res
+```
+
+And finally we can read our created `CITATION.cff` file using `cff()`:
+
+```{r read}
+
+reading <- cff(tmp)
+
+reading
+```
+
+Note that `cff_write()` also has the `keys` param, so the workflow can be
+simplified as:
+
+```{r}
+
+allkeys <- list(
+  "url" = "https://ropensci.org/",
+  "version" = "0.0.1",
+  "repository" = "https://github.com/user/repo",
+  # If the field is already present, it would be overridden
+  title = "Modifying a 'cff' object",
+  authors = newauthors,
+  references = c(list(base_r), list(bookparsed))
+)
+
+tmp2 <- tempfile(fileext = ".cff")
+
+res <- cff_write(cff(), outfile = tmp2, keys = allkeys)
+
+res
+```
+
+## References
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_extract_to_bibtex.R
+\name{cff_extract_to_bibtex}
+\alias{cff_extract_to_bibtex}
+\title{Create BibTeX entries from a package}
+\usage{
+cff_extract_to_bibtex(x, what = "preferred")
+}
+\arguments{
+\item{x}{The source that would be used for generating
+the \code{\link{cff}} object. It could be:
+\itemize{
+\item A missing value. That would retrieve the DESCRIPTION
+file on your in-development package.
+\item An existing \code{\link{cff}} object,
+\item The name of an installed package (\code{"jsonlite"}), or
+\item Path to a DESCRIPTION file (\code{"*/DESCRIPTION*"}).
+}}
+
+\item{what}{Fields to extract. The value could be:
+\itemize{
+\item \code{preferred}: This would create a single entry with the main citation
+info of the package.
+\item \code{references}: Extract all the entries on \code{references}.
+\item \code{all}: A combination of the previous two options. This would extract
+both the preferred citation info and the references.
+}}
+}
+\value{
+A \code{bibentry} object or a list of \code{bibentry} objects. This could
+be parsed to BibTeX using \code{\link[=toBibtex]{toBibtex()}}
+}
+\description{
+Extract the information of a package to BibTeX. This is done by creating a
+\code{cff} object with \code{cff_create()} and extracting the corresponding entries
+with \code{cff_to_bibtex()}.
+}
+\examples{
+\donttest{
+
+jsonvalidate <- cff_extract_to_bibtex("jsonvalidate")
+
+jsonvalidate
+
+toBibtex(jsonvalidate)
+
+lite <- cff_extract_to_bibtex("jsonlite", "references")
+
+lite
+
+toBibtex(lite)
+}
+}
+\seealso{
+Other bibtex: 
+\code{\link{cff_to_bibtex}()},
+\code{\link{encoded_utf_to_latex}()},
+\code{\link{write_bib}()}
+}
+\concept{bibtex}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/utils-bibtex.R
+\name{encoded_utf_to_latex}
+\alias{encoded_utf_to_latex}
+\title{Encode UTF-8 text to LaTeX}
+\usage{
+encoded_utf_to_latex(x)
+}
+\arguments{
+\item{x}{A string, possibly encoded in UTF-8 encoding system.}
+}
+\value{
+A string with the corresponding transformations.
+}
+\description{
+Transform a UTF-8 string to LaTeX special characters.
+}
+\details{
+This is a variation of \code{\link[tools:encoded]{tools::encoded_text_to_latex()}} performing some
+additional replacements to increase compatibility.
+}
+\examples{
+\dontshow{if (getRversion() >= "4.0.0") (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Full range of supported characters on R
+library(tools)
+
+range <- 1:511
+
+ascii_table <- data.frame(
+  dec = range,
+  utf8 = intToUtf8(range, multiple = TRUE)
+)
+
+# Add latex using base approach
+ascii_table$latex_base <- encoded_text_to_latex(ascii_table$utf8,
+  encoding = "UTF-8"
+)
+
+# With cffr
+ascii_table$latex_cffr <- encoded_utf_to_latex(ascii_table$utf8)
+
+ascii_table
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[tools:encoded]{tools::encoded_text_to_latex()}}
+
+Other bibtex: 
+\code{\link{cff_extract_to_bibtex}()},
+\code{\link{cff_to_bibtex}()},
+\code{\link{write_bib}()}
+}
+\concept{bibtex}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff.R
+\name{cff}
+\alias{cff}
+\alias{as.cff}
+\title{\code{cff} objects}
+\usage{
+cff(path, ...)
+
+as.cff(x)
+}
+\arguments{
+\item{path}{The path to a \code{CITATION.cff} file.}
+
+\item{...}{Named arguments to be used for creating a \code{\link{cff}} object. See
+\strong{Details}.}
+
+\item{x}{a character string for the \code{\link{as.cff}} default method}
+}
+\value{
+A \code{cff} object. Under the hood, a \code{cff} object is a regular \code{\link{list}}
+object with a special \code{\link[=print]{print()}} method.
+}
+\description{
+A class and utility methods for reading, creating and holding CFF
+information.
+}
+\details{
+This object can be manipulated using \code{\link[=cff_create]{cff_create()}}.
+
+\strong{Note that} this function reads \code{CITATION.cff} files. If you want to
+create \code{cff} objects from DESCRIPTION files use \code{\link[=cff_create]{cff_create()}}.
+
+If no additional \code{...} parameters are supplied (the default behavior),
+a minimal valid \code{cff} object is created. Valid parameters are those
+specified on \code{\link[=cff_schema_keys]{cff_schema_keys()}}:\tabular{l}{
+   \strong{valid cff keys} \cr
+   cff-version \cr
+   message \cr
+   type \cr
+   license \cr
+   title \cr
+   version \cr
+   doi \cr
+   abstract \cr
+   authors \cr
+   preferred-citation \cr
+   repository \cr
+   repository-artifact \cr
+   repository-code \cr
+   url \cr
+   date-released \cr
+   contact \cr
+   keywords \cr
+   references \cr
+   commit \cr
+   identifiers \cr
+   license-url \cr
+}
+}
+\examples{
+
+# Blank cff
+cff()
+
+# From file
+cff(system.file("examples/CITATION_basic.cff",
+  package = "cffr"
+))
+
+# Use custom params
+test <- cff(
+  title = "Manipulating files",
+  keywords = c("A", "new", "list", "of", "keywords"),
+  authors = list(cff_parse_person("New author"))
+)
+test
+\donttest{
+# Would fail
+cff_validate(test)
+
+
+# Modify with cff_create
+new <- cff_create(test, keys = list(
+  "cff-version" = "1.2.0",
+  message = "A blank file"
+))
+new
+
+# Would pass
+cff_validate(new)
+}
+
+
+# Convert a list to "cff" object
+cffobj <- as.cff(list(
+  "cff-version" = "1.2.0",
+  title = "Manipulating files"
+))
+
+class(cffobj)
+
+# Nice display thanks to yaml package
+cffobj
+}
+\seealso{
+Other core functions: 
+\code{\link{cff_create}()},
+\code{\link{cff_validate}()},
+\code{\link{cff_write}()}
+}
+\concept{core functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_parse_person.R
+\name{cff_parse_person}
+\alias{cff_parse_person}
+\alias{cff_parse_person_bibtex}
+\title{Parse a person to \code{cff}}
+\usage{
+cff_parse_person(person)
+
+cff_parse_person_bibtex(person)
+}
+\arguments{
+\item{person}{A \code{person} object created with \code{\link[=person]{person()}} or a character string.
+See \strong{Details}.}
+}
+\value{
+A \code{\link{cff}} object ready to be used on \code{\link[=cff_create]{cff_create()}}.
+}
+\description{
+Parse a person or string to a valid format for a \code{CITATION.cff} file. This
+is a helper function designed to help on adding or replacing the
+auto-generated authors of the package.
+}
+\details{
+The \code{person} parameter of the function could be:
+\itemize{
+\item For \code{cff_parse_person()}: A \code{person} object or a character coercible to
+\code{person}. See \code{\link[=person]{person()}} for details.
+\item For \code{cff_parse_person_bibtex()}: A string with the definition of an author
+or several authors, using the standard BibTeX notation. See Markey (2007)
+for a full explanation.
+}
+
+See \strong{Examples} for more information.
+}
+\examples{
+# Parse a person object
+
+cff_parse_person(person(
+  given = "First",
+  family = "Author",
+  role = c("aut", "cre"),
+  email = "first.last@example.com",
+  comment = c(
+    ORCID = "0000-0001-8457-4658",
+    affiliation = "An affiliation"
+  )
+))
+
+# Parse a string
+
+cff_parse_person("Julio Iglesias <fake@email.com>")
+
+# Several persons
+persons <- c(person("Clark", "Kent"), person("Lois", "Lane"))
+
+cff_parse_person(persons)
+
+# Or you can use BibTeX style if you prefer
+
+x <- "Frank Sinatra and Dean Martin and Davis, Jr., Sammy and Joey Bishop"
+
+cff_parse_person_bibtex(x)
+
+cff_parse_person_bibtex("Herbert von Karajan")
+}
+\references{
+\itemize{
+\item Patashnik, Oren. "BIBTEXTING" February 1988.
+\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\item Markey, Nicolas. "Tame the BeaST."
+\emph{The B to X of BibTeX, Version 1.4} (October 2007).
+\url{https://osl.ugr.es/CTAN/info/bibtex/tamethebeast/ttb_en.pdf}.
+}
+}
+\seealso{
+\code{\link[=cff_create]{cff_create()}}, \code{vignette("cffr", "cffr")}, \code{\link[utils:person]{utils::person()}}
+
+Other parsers: 
+\code{\link{cff_parse_citation}()}
+}
+\concept{parsers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_to_bibtex.R
+\name{cff_to_bibtex}
+\alias{cff_to_bibtex}
+\title{Create a BibTeX entry from a CITATION file or a \code{cff} object}
+\usage{
+cff_to_bibtex(x)
+}
+\arguments{
+\item{x}{The source that would be used for generating
+the \code{\link{cff}} object. It could be:
+\itemize{
+\item An existing \code{\link{cff}} object,
+\item A CITATION.cff file.
+}}
+}
+\value{
+A \code{bibentry} object that can be parsed to BibTeX format with
+\code{\link[=toBibtex]{toBibtex()}}
+}
+\description{
+Creates a \code{bibentry} object (\code{\link[=bibentry]{bibentry()}}) from a \code{cff} object
+}
+\examples{
+\donttest{
+
+# From a cff object
+package <- cff_create("rmarkdown")
+
+obj <- cff_to_bibtex(package)
+
+obj
+
+toBibtex(obj)
+}
+}
+\references{
+\itemize{
+\item Patashnik, Oren. "BIBTEXTING" February 1988.
+\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\item Haines, R., & The Ruby Citation File Format Developers. (2021).
+\emph{Ruby CFF Library (Version 0.9.0)} (Computer software).
+\doi{10.5281/zenodo.1184077}.
+}
+}
+\seealso{
+\code{\link[=cff_parse_citation]{cff_parse_citation()}}, \code{\link[=bibentry]{bibentry()}}, \code{\link[=toBibtex]{toBibtex()}}
+
+Other bibtex: 
+\code{\link{cff_extract_to_bibtex}()},
+\code{\link{encoded_utf_to_latex}()},
+\code{\link{write_bib}()}
+}
+\concept{bibtex}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_write.R
+\name{cff_write}
+\alias{cff_write}
+\title{Write a \code{CITATION.cff} file}
+\usage{
+cff_write(
+  x,
+  outfile = "CITATION.cff",
+  keys = list(),
+  cff_version = "1.2.0",
+  gh_keywords = TRUE,
+  dependencies = TRUE,
+  validate = TRUE,
+  verbose = TRUE
+)
+}
+\arguments{
+\item{x}{The source that would be used for generating
+the \code{CITATION.cff} file. It could be:
+\itemize{
+\item A missing value. That would retrieve the DESCRIPTION
+file on your in-development package.
+\item A \code{\link{cff}} object,
+\item The name of an installed package (\code{"jsonlite"}), or
+\item Path to a DESCRIPTION file (\code{"*/DESCRIPTION*"}).
+}}
+
+\item{outfile}{The name and path of the \code{CITATION.cff} to be created.}
+
+\item{keys}{List of additional keys to add to the \code{\link{cff}} object. See
+\code{\link[=cff_create]{cff_create()}} for details and examples.}
+
+\item{cff_version}{The Citation File Format schema version that the
+\code{CITATION.cff} file adheres to for providing the citation metadata.}
+
+\item{gh_keywords}{Logical \code{TRUE/FALSE}. If the package is hosted on
+GitHub, would you like to add the repo topics as keywords?}
+
+\item{dependencies}{Logical \code{TRUE/FALSE}. Would you like to add the
+of your package to the \code{reference} key?}
+
+\item{validate}{Logical \code{TRUE/FALSE}. Should the new file be validated using
+\code{\link[=cff_validate]{cff_validate()}}?}
+
+\item{verbose}{Logical \code{TRUE/FALSE}. On \code{TRUE} the function would display
+informative messages.}
+}
+\value{
+A \code{CITATION.cff} file and an (invisible) \code{\link{cff}} object.
+}
+\description{
+\strong{This is the core function of the package and likely to be the only one
+you would need when developing a package}.
+
+This function writes out a \code{CITATION.cff} file for a given package. This
+function is basically a wrapper around \code{\link[=cff_create]{cff_create()}} to both create the
+\code{\link{cff}} object and writes it out to a YAML-formatted file in one command.
+}
+\details{
+When creating and writing a \code{CITATION.cff} for the first time, the function
+adds "CITATION.cff" to ".Rbuildignore".
+}
+\examples{
+\donttest{
+tmpfile <- tempfile(fileext = ".cff")
+cff_obj <- cff_write("jsonlite", outfile = tmpfile)
+
+cff_obj
+
+# Force clean-up
+file.remove(tmpfile)
+}
+}
+\seealso{
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
+
+Other core functions: 
+\code{\link{cff_create}()},
+\code{\link{cff_validate}()},
+\code{\link{cff}()}
+}
+\concept{core functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cffr-package.R
+\docType{package}
+\name{cffr-package}
+\alias{cffr}
+\alias{cffr-package}
+\title{cffr: Generate Citation File Format ('cff') Metadata for R Packages}
+\description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
+The Citation File Format version 1.2.0 <doi:10.5281/zenodo.5171937> is a human and machine readable file format which provides citation metadata for software. This package provides core utilities to generate and validate this metadata.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/cffr/}
+  \item \url{https://github.com/ropensci/cffr}
+  \item Report bugs at \url{https://github.com/ropensci/cffr/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Diego Hernangómez \email{diego.hernangomezherrero@gmail.com} (\href{https://orcid.org/0000-0001-8457-4658}{ORCID}) [copyright holder]
+
+Other contributors:
+\itemize{
+  \item João Martins (\href{https://orcid.org/0000-0001-7961-4280}{ORCID}) [reviewer]
+  \item Scott Chamberlain (\href{https://orcid.org/0000-0003-1444-9135}{ORCID}) [reviewer]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{cran_to_spdx}
+\alias{cran_to_spdx}
+\title{Mapping between \code{License} fields and SPDX}
+\format{
+A data frame with 91 rows and 2 variables:
+\itemize{
+\item LICENSE: A valid \code{License} string on CRAN.
+\item SPDX. A valid SPDX License Identifier.
+}
+}
+\source{
+\url{https://spdx.org/licenses/}
+}
+\usage{
+cran_to_spdx
+}
+\description{
+A dataset containing the mapping between the \code{License} strings observed
+on CRAN packages and its (approximate) match on the
+\href{https://spdx.org/licenses/}{SPDX License List}.
+}
+\examples{
+
+data("cran_to_spdx")
+
+head(cran_to_spdx, 20)
+}
+\seealso{
+\emph{Writing R Extensions}, \href{https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Licensing}{Licensing section}.
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_validate.R
+\name{cff_validate}
+\alias{cff_validate}
+\title{Validate a \code{CITATION.cff} file or a \code{\link{cff}} object}
+\usage{
+cff_validate(x = "CITATION.cff", verbose = TRUE)
+}
+\arguments{
+\item{x}{This is expected to be either a \code{\link{cff}} object created
+with \code{\link[=cff_create]{cff_create()}} or the path to a \code{CITATION.cff} file to be validated.}
+
+\item{verbose}{Logical \code{TRUE/FALSE}. On \code{TRUE} the function would display
+informative messages.}
+}
+\value{
+A message indicating the result of the validation and an invisible
+value \code{TRUE/FALSE}.
+}
+\description{
+Validate a \code{CITATION.cff} file or a \code{\link{cff}} object created with
+\code{\link[=cff_create]{cff_create()}} using the corresponding validation
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema.json}{schema.json}.
+}
+\examples{
+\donttest{
+# Full .cff example
+cff_validate(system.file("examples/CITATION_complete.cff", package = "cffr"))
+
+# Validate a cffr object
+cffr <- cff_create("jsonlite")
+class(cffr)
+cff_validate(cffr)
+}
+\dontrun{
+# .cff with errors
+cff_validate(system.file("examples/CITATION_error.cff", package = "cffr"))
+# If a CITATION file (note that is not .cff) it throws an error
+cff_validate(system.file("CITATION", package = "cffr"))
+}
+}
+\seealso{
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
+
+Other core functions: 
+\code{\link{cff_create}()},
+\code{\link{cff_write}()},
+\code{\link{cff}()}
+}
+\concept{core functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_git_hook.R
+\name{cff_git_hook}
+\alias{cff_git_hook}
+\alias{cff_git_hook_install}
+\alias{cff_git_hook_remove}
+\title{Use a git pre-commit hook \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\usage{
+cff_git_hook_install()
+
+cff_git_hook_remove()
+}
+\value{
+Invisible. This function is called for its side effects.
+}
+\description{
+Install a
+\href{https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_committing_workflow_hooks}{pre-commit hook}
+that remembers you to update your \code{CITATION.cff} file.
+}
+\details{
+This function would install a pre-commit hook using
+\code{\link[usethis:use_git_hook]{usethis::use_git_hook()}}.
+
+A pre-commit hook is a script that identifies  simple issues before
+submission to code review. This pre-commit hook would warn you if any of the
+following conditions are met:
+\itemize{
+\item You included in a commit your DESCRIPTION or inst/CITATION file, you
+are not including your \code{CITATION.cff} and the \code{CITATION.cff} file is
+"older" than any of your DESCRIPTION or inst/CITATION file, or
+\item You have updated your \code{CITATION.cff} but you are not including it on
+your commit.
+}
+}
+\section{A word of caution}{
+The pre-commit hook may prevent you to commit if you are not updating your
+\code{CITATION.cff}. However, the mechanism of detection is not perfect and would
+be triggered also even if you have tried to update your \code{CITATION.cff} file.
+
+This is typically the case when you have updated your DESCRIPTION or
+inst/CITATION files but those changes doesn't make a change on your
+\code{CITATION.cff} file (i.e. you are including new dependencies).
+
+In those cases, you can override the check running \verb{git commit --no-verify}
+on the Terminal tab. If you are using
+RStudio you can run also this command from a R script by selecting that
+line and sending it to the Terminal using:
+\itemize{
+\item \code{Ctrl+Alt+Enter} (Windows & Linux), or
+\item \code{Cmd+Option+Return} (Mac).
+}
+}
+
+\section{Removing the git pre-commit hook}{
+You can remove the pre-commit hook by running \code{cff_git_hook_remove()}.
+}
+
+\examples{
+\dontrun{
+cff_git_hook_install()
+}
+
+}
+\seealso{
+\code{\link[usethis:use_git_hook]{usethis::use_git_hook()}}, \code{\link[usethis:use_git]{usethis::use_git()}}
+
+Other git: 
+\code{\link{cff_gha_update}()}
+}
+\concept{git}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/write_bib.R
+\name{write_bib}
+\alias{write_bib}
+\title{Create a .bib file}
+\usage{
+write_bib(x, file = NULL, append = FALSE, verbose = TRUE, ascii = FALSE)
+}
+\arguments{
+\item{x}{A \code{bibentry} object created with:
+\itemize{
+\item \code{\link[=cff_extract_to_bibtex]{cff_extract_to_bibtex()}}, \code{\link[=cff_to_bibtex]{cff_to_bibtex()}}
+\item \code{\link[=citation]{citation()}} or \code{\link[=bibentry]{bibentry()}}
+}}
+
+\item{file}{Name of the file. If \code{NULL} it would display the lines to be
+written.}
+
+\item{append}{Whether to append the entries to an existing file or not.}
+
+\item{verbose}{Display informative messages}
+
+\item{ascii}{Whether to write the entries using ASCII characters only or not.}
+}
+\description{
+Creates a .bib file from a \code{bibentry} object(s)
+}
+\details{
+For security reasons, if the file already exists the function would create
+a backup copy on the same directory.
+}
+\examples{
+
+bib <- bibentry("Misc",
+  title = "My title",
+  author = "Fran Pérez"
+)
+
+write_bib(bib)
+
+write_bib(bib, ascii = TRUE)
+}
+\seealso{
+\code{\link[knitr:write_bib]{knitr::write_bib()}} and the following packages:
+\itemize{
+\item \href{https://github.com/ropensci/bibtex}{bibtex} package.
+\item \href{https://github.com/ropensci/RefManageR}{RefManageR} package.
+\item \href{https://github.com/GeoBosh/rbibutils/}{rbibutils}
+}
+
+Other bibtex: 
+\code{\link{cff_extract_to_bibtex}()},
+\code{\link{cff_to_bibtex}()},
+\code{\link{encoded_utf_to_latex}()}
+}
+\concept{bibtex}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_gha_update.R
+\name{cff_gha_update}
+\alias{cff_gha_update}
+\title{Install a cffr GitHub Action}
+\usage{
+cff_gha_update(path = ".", overwrite = FALSE)
+}
+\arguments{
+\item{path}{Project directory}
+
+\item{overwrite}{If already present, do you want to overwrite your action?}
+}
+\value{
+Invisible, this function is called by its side effects.
+}
+\description{
+This function would install a GitHub Action on your repo. The action
+will update your \code{CITATION.cff} when any of these events occur:
+\itemize{
+\item You publish a new release of the package.
+\item Your DESCRIPTION or inst/CITATION are modified.
+\item The action can be run also manually.
+}
+}
+\details{
+Triggers on your action can be modified, see
+\href{https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows}{Events that trigger workflows}.
+}
+\examples{
+\dontrun{
+cff_gha_update()
+}
+}
+\seealso{
+Other git: 
+\code{\link{cff_git_hook}}
+}
+\concept{git}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_create.R
+\name{cff_create}
+\alias{cff_create}
+\title{Create \code{cff} object}
+\usage{
+cff_create(
+  x,
+  keys = list(),
+  cff_version = "1.2.0",
+  gh_keywords = TRUE,
+  dependencies = TRUE
+)
+}
+\arguments{
+\item{x}{The source that would be used for generating
+the \code{\link{cff}} object. It could be:
+\itemize{
+\item A missing value. That would retrieve the DESCRIPTION
+file on your in-development package.
+\item An existing \code{\link{cff}} object,
+\item The name of an installed package (\code{"jsonlite"}), or
+\item Path to a DESCRIPTION file (\code{"*/DESCRIPTION*"}).
+}}
+
+\item{keys}{List of additional keys to add to the \code{\link{cff}} object. See
+\strong{Details}.}
+
+\item{cff_version}{The Citation File Format schema version that the
+\code{CITATION.cff} file adheres to for providing the citation metadata.}
+
+\item{gh_keywords}{Logical \code{TRUE/FALSE}. If the package is hosted on
+GitHub, would you like to add the repo topics as keywords?}
+
+\item{dependencies}{Logical \code{TRUE/FALSE}. Would you like to add the
+of your package to the \code{reference} key?}
+}
+\value{
+A \code{\link{cff}} list object.
+}
+\description{
+Create a \code{\link{cff}} object from a given source for further manipulation.
+Similar to \code{\link[=cff_write]{cff_write()}}, but returns a object rather than writing
+directly to a file. See \strong{Examples}.
+}
+\details{
+It is possible to add additional keys not detected by \code{\link[=cff_create]{cff_create()}} using
+the \code{keys} argument. A list of valid keys can be retrieved with
+\code{\link[=cff_schema_keys]{cff_schema_keys()}}.
+
+Please refer to
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
+for additional details.
+
+If \code{x} is a path to a DESCRIPTION file or \code{inst/CITATION}, is not present on
+your package, \strong{cffr} would auto-generate a \code{preferred-citation} key using
+the information provided on that file. On
+}
+\examples{
+\donttest{
+# Installed package
+cff_create("jsonlite")
+
+# Demo file
+demo_file <- system.file("examples/DESCRIPTION_basic", package = "cffr")
+cff_create(demo_file)
+
+# Add additional keys
+
+newkeys <- list(
+  message = "This overwrites fields",
+  abstract = "New abstract",
+  keywords = c("A", "new", "list", "of", "keywords"),
+  authors = list(cff_parse_person("New author"))
+)
+
+cff_create(demo_file, keys = newkeys)
+
+# Update a field on a list - i,e: authors, contacts, etc.
+# We are adding a new contact here
+
+old <- cff_create(demo_file)
+
+new_contact <- append(
+  old$contact,
+  list(
+    cff_parse_person(person(
+      given = "I am",
+      family = "New Contact"
+    ))
+  )
+)
+
+
+cff_create(demo_file, keys = list("contact" = new_contact))
+}
+}
+\seealso{
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
+
+\code{vignette("cffr", "cffr")}
+
+Other core functions: 
+\code{\link{cff_validate}()},
+\code{\link{cff_write}()},
+\code{\link{cff}()}
+}
+\concept{core functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cff_parse_citation.R
+\name{cff_parse_citation}
+\alias{cff_parse_citation}
+\title{Parse a \code{bibentry} to \code{cff}}
+\usage{
+cff_parse_citation(bib)
+}
+\arguments{
+\item{bib}{A \code{bibentry} object, either created with \code{\link[=bibentry]{bibentry()}}
+(preferred) or \code{\link[=citEntry]{citEntry()}}.}
+}
+\value{
+A \code{\link{cff}} object ready to be used on \code{\link[=cff_create]{cff_create()}}.
+}
+\description{
+Parse a \code{bibentry} object to a valid format for a \code{CITATION.cff} file.
+}
+\details{
+This is a helper function designed to help on adding or
+replacing the auto-generated authors of the package. See \strong{Examples}.
+
+This function tries to adapt a \code{bibentry} object (generated with \code{\link[=bibentry]{bibentry()}}
+or \code{\link[=citEntry]{citEntry()}}) to the CFF standard.
+\subsection{Entry types considered}{
+\itemize{
+\item \strong{Article}, \strong{Book}, \strong{Booklet}, \strong{InBook}, \strong{InCollection},
+\strong{InProceedings}, \strong{Manual}, \strong{MastersThesis}, \strong{Misc}, \strong{PhDThesis},
+\strong{Proceedings}, \strong{TechReport}, \strong{Unpublished}. See \code{\link[=bibentry]{bibentry()}}
+for more information.
+}
+
+Note that \strong{Conference} is not implemented in
+\code{\link[=bibentry]{bibentry()}}, however is equivalent to \strong{InProceedings} (Patashnik (1988)).
+}
+
+\subsection{Fields considered}{
+\itemize{
+\item \strong{address}, \strong{author}, \strong{booktitle}, \strong{chapter}, \strong{edition},
+\strong{editor}, \strong{howpublished}, \strong{institution},  \strong{journal}, \strong{key},
+\strong{month}, \strong{note}, \strong{number}, \strong{organization}, \strong{pages},
+\strong{publisher}, \strong{school}, \strong{series}, \strong{title}, \strong{type}, \strong{year}.
+}
+
+\strong{annote} and \strong{crossref} fields are ignored.
+}
+}
+\examples{
+\donttest{
+bib <- citation("base")
+bib
+
+
+# To cff
+bib_to_cff <- cff_parse_citation(bib)
+bib_to_cff
+
+# Create the object
+new_cff <- cff()
+
+full <- cff_create(new_cff, keys = list("preferred-citation" = bib_to_cff))
+
+full
+# Validate
+cff_validate(full)
+
+# Several citations
+
+cff_parse_citation(citation("rmarkdown"))
+}
+}
+\references{
+\itemize{
+\item Patashnik, Oren. "BIBTEXTING" February 1988.
+\url{https://osl.ugr.es/CTAN/biblio/bibtex/base/btxdoc.pdf}.
+\item Haines, R., & The Ruby Citation File Format Developers. (2021).
+\emph{Ruby CFF Library (Version 0.9.0)} (Computer software).
+\doi{10.5281/zenodo.1184077}.
+}
+}
+\seealso{
+\code{\link[=cff_create]{cff_create()}}, \code{vignette("cffr", "cffr")}, \code{\link[=bibentry]{bibentry()}}
+
+Other parsers: 
+\code{\link{cff_parse_person}()}
+}
+\concept{parsers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/utils-schema.R
+\name{cff_schema}
+\alias{cff_schema}
+\alias{cff_schema_keys}
+\alias{cff_schema_keys_license}
+\alias{cff_schema_definitions_person}
+\alias{cff_schema_definitions_entity}
+\alias{cff_schema_definitions_refs}
+\title{Schema utils}
+\source{
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Guide to Citation File Format schema version 1.2.0}.
+}
+\usage{
+cff_schema_keys(sorted = FALSE)
+
+cff_schema_keys_license()
+
+cff_schema_definitions_person()
+
+cff_schema_definitions_entity()
+
+cff_schema_definitions_refs()
+}
+\arguments{
+\item{sorted}{Logical \code{TRUE/FALSE}. Should the keys be arranged
+alphabetically?}
+}
+\value{
+A vector of characters with the names of the valid keys to be used on a
+Citation File Format version 1.2.0
+}
+\description{
+Helper functions with the valid values of different fields, according to the
+\href{https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md}{Citation File Format schema version 1.2.0}.
+\itemize{
+\item \code{\link[=cff_schema_keys]{cff_schema_keys()}} provides the valid high-level keys of the Citation
+File Format.
+\item \code{\link[=cff_schema_keys_license]{cff_schema_keys_license()}} provides the valid
+\href{https://spdx.dev/ids/}{SPDX license identifier(s)} to be used on the
+\code{CITATION.cff} file.
+\item \code{\link[=cff_schema_definitions_person]{cff_schema_definitions_person()}} and \code{\link[=cff_schema_definitions_entity]{cff_schema_definitions_entity()}}
+returns the valid fields to be included when defining a
+person or entity.
+\item \code{\link[=cff_schema_definitions_refs]{cff_schema_definitions_refs()}} provides the valid
+keys to be used on the \code{preferred-citation} and \code{references} keys.
+}
+}
+\examples{
+
+cff_schema_keys(sorted = TRUE)
+
+# Valid Licenses keys
+head(cff_schema_keys_license(), 20)
+
+cff_schema_definitions_person()
+
+cff_schema_definitions_entity()
+
+cff_schema_definitions_refs()
+}
+\concept{schema}

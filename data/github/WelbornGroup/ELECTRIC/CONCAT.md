@@ -374,3 +374,505 @@ Certain details of the communication protocols implemented by the MDI Library, e
 The library-based communication protocol was developed in response to discussions with the <a href="https://gitlab.com/exaalt">EXAALT</a> team.
 The interface, error handling, data types, and numerous other elements of the MDI Library are modelled after the <a href="https://www.mpi-forum.org/">MPI Standard</a>.
 A distribution of the MDI Library for Python is provided by <a href="https://conda-forge.org/">Conda Forge</a>.
+Usage
+=====
+
+Information Flow
+----------------
+
+ELECTRIC is a post-processing tool for simulations running with the AMOEBA polarizable force field using the Tinker software package.
+
+.. image:: images/inputs_and_outputs.svg
+   :width: 600
+
+Procedure
+---------
+
+In general, running a calculation with the driver requires the following steps:
+
+1. **Run a dynamics simulation with Tinker.**  
+This simulation should be run with periodic boundary conditions (if desired), and should print snapshots of its results to a single file (i.e., :code:`coordinates.arc`).
+If each snapshot was instead written to a different file (i.e., :code:`coordinates.001`, :code:`coordinates.002`, etc.) then you may concatenate them into a single file.
+
+2. **Create a new Tinker keyfile.**   
+This keyfile should be identical to the one used in Step 1, except that it **must not** include periodic boundary conditions and **must not** use an Ewald summation. This means that in the :code:`.key` file for running the driver, you should not have an :code:`a-axis` keyword, or keywords related to Ewald.
+
+3. **Launch one (or more; see the `-nengines` option below) instance(s) of Tinker as an MDI engine, using the keyfile created in Step 2.**  
+This is done in the same way you launch a normal Tinker simulation (by launching the :code:`dynamic.x` executable) except that the :code:`-mdi` command-line option is added. However, it is **very important** that the reference coordinates you use do not have periodic boundary information. So, if when you originally ran the simulation you started it with a snapshot from a previous simulation run, make sure to create a new snapshot to launch the simulation from which does not include box information on line 2.
+
+The argument to the :code:`-mdi` command-line option details how Tinker should connect to the driver; its possible arguments are described in the `MDI documentation`_ .
+When in doubt, we recommend doing :code:`-mdi "-role ENGINE -name NO_EWALD -method TCP -port 8021 -hostname localhost"`
+When run as an engine, Tinker should be launched in the background; this is done by adding an ampersand (:code:`&`) at the end of the launch line.
+
+4. **Launch the driver**
+The driver accepts a variety of command-line options, which are described in detail below.
+One possible launch command would be:
+
+.. code-block:: bash
+
+    `python ${DRIVER_LOC} -probes "1 2 10" -snap coordinates.arc -mdi "-role DRIVER -name driver -method TCP -port 8021" --byres ke15.pdb --equil 51 --nengines 15 &`
+
+where `DRIVER_LOC` is the path to ELECTRIC.py which you set during the configuration step. See the section :ref:`electric settings` for a detailed explanation of command line arguments for ELECTRIC.
+
+The output will be written to `proj_totfield.csv`.
+
+It is useful to write a script that performs Steps 3 and 4, especially if the calculations are intended to be run on a shared cluster.
+Such a script might look like:
+
+.. _example:
+
+Example Script
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+    :linenos:
+
+    # location of required codes
+    DRIVER_LOC=$(cat ../locations/ELECTRIC)
+    TINKER_LOC=$(cat ../locations/Tinker_ELECTRIC)
+
+    # number of instances of Tinker to run as an engine
+    nengines=18
+
+    # set the number of threads used by each code
+    export OMP_NUM_THREADS=1
+
+    # launch Tinker as an engine
+    for i in $( eval echo {1..$nengines} )
+    do
+    ${TINKER_LOC} coordinates.in -k no_ewald.key -mdi "-role ENGINE -name NO_EWALD -method TCP -port 8021 -hostname localhost" 10 1.0 1.0 2 300 > no_ewald${i}.log &
+    done
+
+    # launch the driver
+    python ${DRIVER_LOC} -probes "32 33 59 60" -snap coordinates.arc -mdi "-role DRIVER -name driver -method TCP -port 8021" --byres ke15.pdb --equil 51 --nengines ${nengines} &
+
+    wait
+
+You can read more below, or you can try out the tutorial_ to run a calculation yourself.
+
+
+.. _electric settings:
+
+ELECTRIC Calculation Settings
+-----------------------------
+
+You can change the options for your electric calculation through command line arguments. 
+
+.. argparse::
+   :filename: ../ELECTRIC/util.py
+   :func: create_parser
+   :prog: python ELECTRIC.py
+
+
+Output
+------
+
+The driver will output a file called :code:`proj_totfield.csv`. This is a CSV file which contains data on the projected electric field at the point between each probe atom due to each fragment , depending on input (`--byres` for by residue, `--bymol` for by molecule, or by atom if neither argument is given.). Each column will contain a header which indicates which probe atoms the measurement is between, followed by the frame number, while the rows will be the electric field at the mean location between the probe atoms due to a particular fragment
+
+Consider the example (:code:`bench5`), which was run with the following command:
+
+.. code-block:: bash
+
+    python ${DRIVER_LOC} -probes "1 40" -snap bench5.arc -mdi "-role DRIVER -name driver -method TCP -port 8022" --bymol
+
+Here, we have set the probe atoms to be atoms 1 and 40, and we have indicated we want the the electric field between the probe atoms based on contributions by molecule. Headers will be "`i and j - frame n`. Where `i` and `j` are the atom indices of the probes, and `n` is the frame number.
+
+For the example, headers are:
+
+.. code-block:: text
+
+    "1 and 40 - frame 1"
+    "1 and 40 - frame 2"
+    "1 and 40 - frame 3"
+    "1 and 40 - frame 4"
+    "1 and 40 - frame 5"
+
+Since this calculation was run using :code:`--bymol`, there are 216 rows, one for each molecule in the system.
+
+The first entry, column :code:`1 and 40 - frame 1`, header :code:`molecule 1`, gives the projected total electric field at the midway point between :code:`atom 1` and :code:`atom 40` due to :code:`molecule 1`. The electric field has been projected along the vector which points from :code:`atom 1` to :code:`atom 40`. The projection will always be along the vector from atom 1 to atom 2. You can reverse the sign of the number if you would like the vector to point the opposite way.
+
+
+Running ELECTRIC in Parallel
+-----------------------------
+
+.. note::
+
+    You must have mpi4py installed to run ELECTRIC in parallel. You can install it from conda
+    
+    .. code-block:: bash
+
+        conda install -c anaconda mpi4py
+
+ELECTRIC is parallelized using MPI4Py. You can take advantage of this parallelization by making sure MPI4Py is installed and using more than one ELECTRIC engine using the :code:`-nengines` command. Note that if you are using the :code:`-nengines` argument with a number greater than one, you must launch the equivalent number of Tinker instances. In the :ref:`example`, this is acheived by setting a variable :code:`nengines` and using this number to launch Tinker instances in a loop (:code:`lines 12-15`) and inputting the same variable into the ELECTRIC launch on :code:`line 18`.
+
+.. warning::
+
+    Launching an unmatching number of MDI-Tinker and ELECTRIC instances will result in your calculation hanging. Make sure that you launch an equivalent number of MDI-Tinker instances to your :code:`-nengines` argument.
+
+.. _tutorial: tutorial.html
+.. _`MDI documentation`: https://molssi.github.io/MDI_Library/html/library_page.html#library_launching_sec
+Installation
+============
+
+Compiling MDI-Tinker and ELECTRIC
+----------------------------------
+
+Installation of ELECTRIC and MDI-enabled Tinker are bundled in one convenient build script. 
+
+To install ELECTRIC and MDI-enabled Tinker, you should have cmake and a fortran compiler installed. Then, you can download and build ELECTRIC and MDI-enabled Tinker using the following command in your terminal. Make sure you are in the directory where you want your ELECTRIC driver to be. You should note this location, because you will need to specify the path to some files built during this process in order to perform analysis.
+
+.. code-block:: bash
+
+    git clone --recurse-submodules https://github.com/WelbornGroup/ELECTRIC.git
+    cd ELECTRIC
+    ./build.sh
+
+This will download and build ELECTRIC and MDI-enabled Tinker. 
+
+Upon successful building, you will have the ELECTRIC driver in ELECTRIC/ELECTRIC/ELECTRIC.py, and the needed Tinker executable (dynamic.x) in ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x . The location of these files can be found in text files in ELECTRIC/test/locations/ELECTRIC and ELECTRIC/test/locations/Tinker_ELECTRIC. You will need these for using ELECTRIC.
+
+Python Dependencies
+-------------------
+
+In order to run ELECTRIC, you will need to be in a python environment which has numpy and pandas installed. If you want to run ELECTRIC with more than one engine, you should also install MPI4Py. We recommend installing these packages in a conda environment created for ELECTRIC analysis.
+
+.. code-block:: bash   
+
+    conda install -c anaconda mpi4py
+    conda install -c conda-forge numpy pandas
+
+Testing Your Installation
+--------------------------
+
+You can now run a quick test of the driver by changing directory to the `ELECTRIC/test/bench5` directory and running the `tcp.sh` script:
+
+.. code-block:: bash
+
+    ./tcp.sh
+
+This script will run a short Tinker dynamics simulation that includes periodic boundary conditions. This command is on line 20 of the provided file. This is a standard Tinker call, as you would normally run a simulation. If you are performing post processing on a simulation, you will not use this line.
+
+.. code-block:: bash
+
+    ${TINKER_LOC} bench5 -k bench5.key 10 1.0 0.001999 2 300.00 > Dynamics.log
+
+The script then launches an instance of Tinker as an MDI engine, which will request a connection to the driver and then listen for commands from the driver. This command is similar to running a simulation with Tinker, except that it uses a modified Tinker input file (more on this below), and adds an additional command line argument which passes information to MDI (`-mdi "role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost"`):
+
+.. code-block:: bash
+
+    ${TINKER_LOC} bench5 -k no_ewald.key -mdi "-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost" 10 1.0 0.001999 2 300.00 > no_ewald.log &
+
+The script will then launch an instance of the driver in the background, which will listen for connections from an MDI engine:
+
+.. code-block:: bash
+
+    python ${DRIVER_LOC} -probes "1 40" -snap bench5.arc -mdi "-role DRIVER -name driver -method TCP -port 8022" --bymol &
+
+The driver's output should match the reference output file (`proj_totfield.csv`) in the `sample_analysis` directory.
+
+
+
+
+Tutorial
+========
+
+This tutorial will walk you through using ELECTRIC to analyze the electric field in a small protein. This tutorial assumes you have ELECTRIC and MDI-enabled Tinker installed. If you don't, navigate to the installation_ instructions.
+
+.. note::
+    This tutorial will assume the following:
+        - You are able to run a molecular dynamics simulation using the Tinker software, or are familiar enough with molecular dynamics to follow along.
+        - You have installed ELECTRIC and MDI-enabled Tinker. If you have not, see the installation_ instructions.
+        - You are able to download or clone a directory from git.
+        - You are familiar with bash scripts.
+
+
+The pdb code for this protein is 1l2y_, and you can see the structure below. We have chosen a small protein for demonstrative purposes. The image below shows only the protein, but our simulation is solvated.
+
+.. moleculeView:: 
+    
+    data-pdb: 1l2y
+    data-backgroundcolor: white
+    width: 300px
+    height: 300px
+    data-style: cartoon:color=spectrum
+
+Running an ELECTRIC calculation
+###############################
+
+Preparing Files
+----------------
+To follow along with this tutorial, clone the `tutorial repository`_. Included in this repository is folder called :code:`data`. The :code:`data` directory has all of the data you will need for this tutorial.
+
+ELECTRIC is a post-processing analysis, meaning that you should first run your simulations using the AMOEBA forcefield and save the trajectory. After you have a trajectory from Tinker simulation, use ELECTRIC to perform electric field analysis on that trajectory. We will be analyzing the trajectory included in the tutorial repository, :code:`1l2y_npt.arc`. This trajectory is a text file containing coordinates for a simulation that has already been run.
+
+To get started with ELECTRIC, we will need to prepare our input files. We will need:
+    - a molecular dynamics trajectory
+    - a Tinker input file (usually called a key file) which does not have settings for periodic boundaries or Ewald summation
+    - the forcefield parameter file
+    - a bash script file 
+
+We already have the molecular dynamics trajectory, so let's look at each of these additional files.
+
+Simulation Parameter File
+^^^^^^^^^^^^^^^^^^^^^^^^^
+This file contains the force field parameters for the simulation you have run. If you are using this software for analysis, use the same force field you used to run the molecular dynamics simulation. For this tutorial, the parameter file is :code:`amoebabio18.prm`. We will need this for our Tinker input file (next section).
+
+Tinker input file
+^^^^^^^^^^^^^^^^^
+Next, we must prepare an input file which tells Tinker settings for our calculation. This input file should be a modified version of the one which you used to run your initial simulation. Consider the input file, :code:`tinker.key` used to obtain this trajectory. The parameter file in the previous step is given on :code:`line 1`.
+
+.. code-block:: text
+    :linenos:
+
+    parameters amoebabio18.prm 
+    openmp-threads 16
+
+    a-axis 50.00 
+    b-axis 50.00
+    c-axis 50.00
+
+    polar-eps 0.000010
+    polar-predict
+    polarization mutual
+
+
+    cutoff 10.0
+    ewald
+    neighbor-list
+    integrator beeman
+
+    thermostat nose-hoover
+    barostat nose-hoover
+
+    maxiter 8000
+    printout 1000
+
+
+The input file used for this simulation uses periodic boundaries and an Ewald summation for electrostatics. During a Tinker simulation using AMOEBA, electric fields are evaluated in order to calculate the induced dipoles at each step. In order to get electric field contributions from specific residues, we must calculate the electric field using the real space interactions only (no periodic boundaries or Ewald). 
+
+Remove settings related to cutoffs (:code:`cutoff` keyword), periodic boundaries (:code:`a-axis`, :code:`b-axis`,:code:`c-axis`) and Ewald summation (:code:`ewald`). You can also remove settings having to do with neighbor lists (:code:`neighbor-list`), as they are not needed and can cause an error for this calculation if included.
+
+The modifed input file for ELECTRIC is given below. This file is saved in the data directory with the name :code:`noewald.key`.
+
+.. code-block:: text
+
+    parameters amoebabio18.prm
+    openmp-threads 16
+
+    polar-eps 0.000010
+    polar-predict
+    polarization mutual
+
+    integrator beeman
+
+    thermostat nose-hoover
+    barostat nose-hoover
+
+    maxiter 8000
+    printout 100
+
+
+Bash script - run_analysis.sh
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When you run analysis uisng ELECTRIC, ELECTRIC parses your given trajectory sends snapshots to Tinker for electric field calculation. The MDI-enabled version of Tinker then calculates the electric field information for that snapshot. 
+
+You use ELECTRIC from the command line. Consider the following bash script provided for analysis, :code:`run_analysis.sh`. We will explain this script in detail.
+
+.. code-block:: bash
+    :linenos:
+
+    #location of required codes
+    DRIVER_LOC=LOCATION/TO/ELECTRIC/ELECTRIC.py
+    TINKER_LOC=LOCATION/TO/DYNAMIC/dynamic.x
+
+    #remove old files
+    if [ -d work ]; then
+    rm -r work
+    fi
+
+    #create work directory
+    cp -r data work
+    cd work
+
+    #set the number of threads
+    export OMP_NUM_THREADS=2
+
+    #launch MDI enabled Tinker
+    ${TINKER_LOC} 1l2y -k no_ewald.key -mdi "-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost"  10 1.0 0.002 2 300.00 > no_ewald.log &
+
+    #launch driver
+    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "93 94" -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 120 --stride 2 &
+
+    wait
+
+.. note:: 
+
+    For this tutorial, we use the approach of having all data needed for analysis in a directory called `data`. During analysis, we copy everything from :code:`data` into a folder :code:`work`. This part of the tutorial is stylistic. The authors prefer this method to keep files separated, and original files unaltered.
+
+In lines :code:`2` and :code:`3`, you should change the location to your installed ELECTRIC.py file and MDI-enabled :code:`dynamic.x`. Recall from the installation instructions that you can find these in the ELECTRIC directory in the files :code:`ELECTRIC/test/locations/ELECTRIC` and :code:`ELECTRIC/test/locations/Tinker_ELECTRIC`. 
+
+The next section removes the folder called :code:`work` if it exists. This bash script is written to put all analysis files into a folder called :code:`work` to keep our original files clean. 
+
+MDI-enabled Tinker is launched on :code:`line 18` with the command
+
+.. code-block:: bash
+
+    ${TINKER_LOC} 1l2y -k no_ewald.key -mdi "-role ENGINE -name NO_EWALD -method TCP -port 8022 -hostname localhost"  10 1.0 0.002 2 300.00 > no_ewald.log &
+
+The first thing on this line, :code:`${TINKER_LOC}` fills in the location for :code:`dynamic.x` which you put in line 2. Next, `1l2y` is the file name (without an extension) of the xyz file for this calculation (provided vile :code:`12ly.xyz`). You should have this from your original simulation. However, make sure that there is no box information on line two of this :code:`xyz` file, as this could cause Tinker to use periodic boundaries. Next, we give the input file (key file) we have prepared in the previous step using :code:`-k noewald.key`. Then, we give our MDI options. The given options should work for most analysis. After the MDI options are some Tinker input options. For our analysis, it will not really matter what we put here since we are running calculations on one snapshot at a time. However, you must have these present for Tinker to run. Very importantly, note the ampersand (:code:`&`) at the end of this line. This will launch Tinker in the background, where it will be waiting for commands from ELECTRIC.
+
+.. warning::
+    
+    Make sure that there is no box information on line two of the :code:`xyz` file used to launch MDI-enabled Tinker. This could cause Tinker to use periodic boundaries.
+
+In the next command (:code:`line 21`), we launch ELECTRIC.
+
+.. code-block:: bash   
+
+    python ${DRIVER_LOC} -snap 1l2y_npt.arc -probes "78 93 94"  -mdi "-role DRIVER -name driver -method TCP -port 8022" --byres 1l2y_solvated.pdb  --equil 120 --stride 2 &
+
+Here, we first give the location of our ELECTRIC driver. We indicate our trajectory file using the `-snap` argument with the filename to analyze, followed by MDI options.
+
+Probe Atoms 
+++++++++++++
+
+To run an ELECTRIC calculation, you must give the indices of your probe atoms. The probe atoms are the atoms which are used as 'probes' for the electric field. ELECTRIC reports the projected total electric field at the midpoint between all probe atom pairs. This allows you to calculate electric fields along bonds `as reported in literature <https://pubs.acs.org/doi/10.1021/jacs.9b05323>`_.
+
+You should obtain the number of the probe atoms from the :code:`xyz` file you use to launch MDI-enabled Tinker. Note that the index you use here should match the number given in the first column of your xyz file. The projection of the electric field at the midpoint of these two atoms will be reported for each analyzed frame. If you indicate more than two probes, all pairwise fields will be reported (ie, if using "78 93 94", you will get "78 and 93", "78 and 94" and "93 and 94"). You can see the atoms we have chosen as probes highlighted below:
+
+.. moleculeView:: 
+    
+    data-pdb: 1l2y
+    data-backgroundcolor: 0xffffff
+    width: 300px
+    height: 300px
+    data-style: cartoon:color=spectrum
+    data-select1: serial:78,93,94
+    data-style1: sphere
+
+The argument `--byres` gives information to ELECTRIC about how we would like the electric field reported. When we use the :code:`--byres` argument, it should be followed by a pdb which contains residue information for the system you are studying. When using this argument, electric field contributions from each residue will be reported. Other options are :code:`--byatom` top report electric field contributions from each atom, and :code:`--bymol` to report electric field contributions from each molecule. 
+
+When using :code:`--byres`, solvent should be at the end of the pdb and xyz files. Solvent (ions and water) will be grouped together into a single residue.
+
+.. warning::
+
+    When using the :code:`byres` option, you should verify that the residues in your pdb file match what you expect for your xyz file. You can do this with the utility function :code:`residue_report.py`. ELECTRIC will check that the :code:`xyz` and :code:`pdb` have the same number of atoms. However, all residue information will come from the PDB, so make sure the residue information in your provided PDB is as you expect.
+
+.. note::
+
+    The utility script :code:`residue_report.py` is provided in the same directory as :code:`ELECTRIC.py`. To use it,
+
+    .. code-block:: bash
+
+        python residue_report.py PDB_FILENAME
+
+    This will output a report which gives the residue number, the atom index on which the residue starts and the residue name. When using :code:`--byres`, you should first verify that your pdb file has residues defined as you want and matches your xyz file and trajectory. ELECTRIC only checks that the pdb and xyz file have the same number of atoms, it does not check atom identity or order. For this tutorial, our output is
+
+    .. code-block:: text
+
+        Found 12199 atoms and 21 residues.
+        Residue Number       Starting atom        Residue Name        
+                1                    1                   ASN         
+                2                    17                  LEU         
+                3                    36                  TYR         
+                4                    57                  ILE         
+                5                    76                  GLN         
+                6                    93                  TRP         
+                7                   117                  LEU         
+                8                   136                  LYS         
+                9                   158                  ASP         
+                10                  170                  GLY         
+                11                  177                  GLY         
+                12                  184                  PRO         
+                13                  198                  SER         
+                14                  209                  SER         
+                15                  220                  GLY         
+                16                  227                  ARG         
+                17                  251                  PRO         
+                18                  265                  PRO         
+                19                  279                  PRO         
+                20                  293                  SER         
+                21                  305                solvent       
+
+
+Finally, we give arguments which gives information about the frame we want to analyze. Using `--equil 120` tells ELECTRIC to skip the first 120 frames for analysis, and :code:`--stride 2` tells ELECTRIC to analyze every other frame after 120.
+
+Running the calculation
+-----------------------
+
+After you have prepared your files, you can run analysis using the command
+
+.. code-block:: bash
+
+    ./run_analysis.sh > analysis.out &
+
+This will launch ELECTRIC. Again, using the ampersand :code:`&` will run this in the background. Now, you just have to wait for your analysis to finish running.
+
+Analyzing Results from ELECTRIC
+###############################
+
+ELECTRIC will output a csv file with the electric field information :code:`proj_totfield.csv` in the :code:`work` folder. Below, we show results (numbers rounded for clarity) for probes 78 and 93 from :code:`proj_totfield.csv`. When these numbers are reported, they are the electric field in Mv/cm projected along the vector pointing from atom 1 to atom 2 due to each residue.
+
+.. datatable::
+
+    csv_file: data/proj_totfield.csv
+
+
+You are free to analyze this as you like, but we recommend using `pandas`_ to process the csv file. A script to perform averaging of probe pairs across frames is provided in :code:`ELECTRIC/sample_analysis/calculate_average.py`. For example, you can run this script
+
+.. code-block :: bash
+
+    python PATH/TO/calculate_average.py -filename work/proj_totfield.csv
+
+This will output a file with the average projected field for each residue pair. In our case, three files should be output: :code:`78 _and_93.csv`, :code:`78_and_94.csv`, and :code:`93_and_94.csv`. The output for the :code:`78_and_93.csv` is shown in the table below:
+
+.. datatable::
+
+    csv_file: data/78_and_93.csv
+
+.. _1l2y: https://www.rcsb.org/structure/1l2y
+.. _installation: installation.html
+.. _`tutorial repository`: http://www.github.com/janash/ELECTRIC_tutorial
+.. _pandas: https://pandas.pydata.org/
+.. ELECTRIC documentation master file, created by
+   sphinx-quickstart on Fri Sep 25 17:00:58 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+ELECTRIC
+====================================
+
+ELECTRIC: Electric fields Leveraged from multipole Expansion Calculations in Tinker Rapid Interface Code.
+
+ELECTRIC uses the MolSSI Driver Interface to perform electric field analysis of Tinker trajectories which use the AMOEBA forcefield. This currently works as a post-processing tool, meaning that you run simulations as normal using Tinker, then analyze the trajectories using MDI-enabled Tinker and this driver. 
+
+ELECTRIC is written by Jessica A. Nash and Taylor A. Barnes from `The Molecular Sciences Software Institute <https://molssi.org/>`_, in collaboration with `Prof. Valerie Vassier Welborn <https://www.valeriewelborn.com/>`_.
+
+Using this tool, you can calculate the electric field along a bond or between atoms due to molecules or residues in the system.
+
+This method has been reported in the following publications:
+
+- `Computational optimization of electric fields for better catalysis design <https://www.nature.com/articles/s41929-018-0109-2>`_, Nature Catalysis
+
+- `Fluctuations of Electric Fields in the Active Site of the Enzyme Ketosteroid Isomerase <https://pubs.acs.org/doi/10.1021/jacs.9b05323>`_, Journal of the American Chemical Society
+
+- `Computational Optimization of Electric Fields for Improving Catalysis of a Designed Kemp Eliminase <https://pubs.acs.org/doi/10.1021/acscatal.7b03151>`_, ACS Catalysis
+
+You can read about the underlying principles of this analysis in 
+
+- `Computational Design of Synthetic Enzymes <https://pubs.acs.org/doi/10.1021/acs.chemrev.8b00399>`_, Chemical Reviews
+
+ELECTRIC is now available as an open source software package. To get started, head to the installation_ instructions, see the usage_, or try out the tutorial_.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   installation
+   usage
+   tutorial
+
+
+.. _installation: installation.html
+.. _usage: usage.html
+.. _tutorial: tutorial.html

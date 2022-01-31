@@ -833,3 +833,158 @@ and results in
       3    43     1.91 | 55.621  2.013  51.785  60.715 | 4.312  0.17   3.794  4.798
 
 <!--- LAST LINE COMMENT AS THE FILE SHOULD NOT WITH AN INDENTATION  -->
+.. mdinclude:: ./quick_guide/quick_guide.md
+
+
+.. toctree::
+   :maxdepth: 2
+.. mdinclude:: ../../../README.md
+   :start-line: 0
+
+License
+-------
+
+.. mdinclude:: ../../../LICENSE
+pyrexMD.decoy
+=============
+
+pyrexMD.decoy.abinitio
+----------------------
+
+.. automodule:: pyrexMD.decoy.abinitio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+pyrexMD.core
+------------
+
+.. automodule:: pyrexMD.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.gmx
+-----------
+
+.. automodule:: pyrexMD.gmx
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+pyrexMD.rex
+-----------
+
+.. automodule:: pyrexMD.rex
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.topology
+----------------
+
+.. automodule:: pyrexMD.topology
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 2
+
+   pyrexMD.analysis
+   pyrexMD.decoy
+   pyrexMD.misc
+pyrexMD
+=======
+
+.. toctree::
+   :maxdepth: 3
+
+   pyrexMD
+.. pyrexMD documentation master file, created by
+   sphinx-quickstart on Sat May 15 16:27:29 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to pyrexMD's documentation!
+===================================
+
+.. toctree::
+   :maxdepth: 2
+
+   About pyrexMD <about_pyrexMD>
+   Quick Guide <quick_guide>
+   API Docs <modules>
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+pyrexMD.analysis
+================
+
+pyrexMD.analysis.analyze
+-------------------------
+
+.. automodule:: pyrexMD.analysis.analyze
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.analysis.contacts
+-------------------------
+
+.. automodule:: pyrexMD.analysis.contacts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.analysis.dihedrals
+--------------------------
+
+.. automodule:: pyrexMD.analysis.dihedrals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.analysis.gdt
+--------------------
+
+.. automodule:: pyrexMD.analysis.gdt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+pyrexMD.misc
+============
+
+pyrexMD.misc.classes
+--------------------
+
+.. automodule:: pyrexMD.misc.classes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.misc.func
+-----------------
+
+.. automodule:: pyrexMD.misc.func
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyrexMD.misc.plot
+-----------------
+
+.. automodule:: pyrexMD.misc.plot
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -525,3 +525,532 @@ __More to come...__
 
 We encourage contributions from users to develop Jupyter notebooks that extend the capabilities and features of the **LDDS** software package.
 <!-- #endregion -->
+# Two degrees of freedom quadratic normal form Hamiltonian 
+
+The two degrees of freedom quadratic normal form Hamiltonian gives a linear system with an index one saddle. 
+
+## Uncoupled system
+
+.. math::
+   \begin{equation}
+   H_2(q_1, q_2, p_1, p_2) = \underbrace{\frac{\lambda}{2} (p_1^2 - q_1^2)}_\text{$H_r$} + \underbrace{\frac{\omega_2}{2}(q_2^2 + p^2_2)}_\text{$H_b$}\quad \lambda,\omega_2 > 0 \label{eqn:ham_nf_2dof}
+   \end{equation}
+
+with the corresponding vector field given by
+
+.. math::
+   \begin{equation}
+   \begin{aligned}
+   \dot{q}_1 = & \frac{\partial H_2}{\partial p_1} &= \lambda p_1, \\
+   \dot{q}_2 = & \frac{\partial H_2}{\partial p_2} &= \omega_2 p_2,\\
+   \dot{p}_1 = & -\frac{\partial H_2}{\partial q_1} &= \lambda q_1,\\
+   \dot{p}_2 = & -\frac{\partial H_2}{\partial q_2} &= -\omega_2 q_2\\
+   \end{aligned}
+   \label{eqn:eom_nf_2dof}
+    \end{equation}
+
+## Coupled system
+
+
+========
+Examples
+========
+
+
+Some examples used in the tutorial and considered as benchmark systems in dynamical systems. At the end of each systems's equations, there are links to Ipython notebook with implementation and visualization details.
+
+
+Discrete systems
+================
+
+1. Standard map
+
+The standard map (kicked rotator) is a two-dimensional map used in dynamical systems to study a periodically 
+kicked pendulum. Its equations of motion are given by the expressions:
+
+.. math::
+   \begin{align}
+    x_{n+1} = x_{n} + y_{n} - \dfrac{K}{2\pi} \sin(2\pi x_{n)),
+    y_{n+1} = y_{n} - \dfrac{K}{2\pi} \sin(2\pi x_{n)),
+   \end{align}
+
+where :math:`K` is the parameter that controls the forcing strength of the perturbation.
+   
+The inverse map is described by:
+
+.. math::
+   \begin{align}
+    x_{n} = x_{n+1} - y_{n+1},
+    y_{n} = y_{n+1} + \dfrac{K}{2\pi} \sin(2\pi (x_{n+1} - y_{n+1})).
+   \end{align}
+
+   
+2. Hénon map
+
+The Hénon map was introduced by Michel Hénon as a simplified model of the Poincaré section 
+of the Lorenz model. The map equations are as follows:
+
+.. math::
+   \begin{align}
+    x_{n+1} = a - x_{n}^2 + b y_{n},
+    y_{n+1} = x_{n},
+   \end{align}
+   
+where :math:`a,b` are the model parameters.
+
+The inverse Hénon map is:
+
+.. math::
+   \begin{align}
+    x_{n} = y_{n+1},
+    y_{n} = \dfrac{x_{n+1} - a + y_{n+1}^2}{b}.
+   \end{align}
+
+`Ipython notebook for standard map and Hénon map <https://github.com/champsproject/ldds/blob/develop/tutorials/tutorial-8.ipynb>`_
+
+
+
+Continuous systems 
+==================
+
+One degree of freedom
+---------------------
+
+1. Hamiltonian center
+
+The Hamiltonian function:
+
+.. math::
+   H(x,p_x) = \dfrac{\omega}{2} \left( p_x^2 + x^2 \right), \label{eqn:ham_center1dof}
+
+defines the normal form of a 1 DoF system with a center equilibrium at the origin. The associated equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x} =  \omega p_x, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} = -\omega x.
+   \end{align}
+   
+
+2. `Hamiltonian saddle <https://champsproject.github.io/lagrangian_descriptors/content/chapter2_1.html#one-degree-of-freedom-hyperbolic-equilibrium-point>`_
+
+The Hamiltonian function:
+
+.. math::
+   H(x,p_x) = \dfrac{\lambda}{2} \left( p_x^2 - x^2 \right), \label{eqn:ham_saddle1dof}
+
+defines the normal form of a 1 DoF system with a saddle equilibrium at the origin. The associated equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x} = \lambda p_x, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} = \lambda x.
+   \end{align}
+
+3. Duffing oscillator 
+
+a. Unforced
+
+The Hamiltonian function:
+
+.. math::
+   H(x,p_x,t) = \dfrac{1}{2}p_x^2 - \dfrac{\alpha}{2}x^2 + \dfrac{\beta}{4}x^4, \label{eqn:ham_duff}
+
+with :math:`\alpha,\beta>0` describes the Duffing oscillator with the associated equations of motion
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x} =  p_x, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} =  \alpha x - \beta x^3.
+   \end{align}
+
+b. Forced 
+Time dependent Hamiltonian function
+
+.. math::
+   H(x,p_x,t) = \dfrac{1}{2}p_x^2 - \dfrac{\alpha}{2}x^2 + \dfrac{\beta}{4}x^4 - f(t) x, \label{eqn:ham_duff_forced}
+
+defines the Duffing oscillator with time dependent forcing :math:`f(t)`. This package offers two predefined options for the external forcing, namely :math:`f(t) = A\mathrm{sech}(t)\sin(\omega t)` and :math:`f(t) = A\sin(\omega t)`. Other versions can be added manually by the user in the forcing function of the vector_fields.py file.
+
+The corresponding equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x} =  p_x, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} =  \alpha x - \beta x^3 + f(t).
+   \end{align}
+
+
+
+c. Inverted 
+
+The inverted Duffing oscillator can be obtained from Hamiltonian ~\eqref{eqn:eqn:ham_duff}, by setting the parameters :math:`\alpha = \beta = - 1`.
+
+
+
+4. Saddle-node Hamiltonian 
+
+This system is defined by the Hamiltonian:
+
+.. math::
+    H(x,p_x) = \dfrac{1}{2}p_x^2 + \dfrac{1}{2}x^2 + \dfrac{1}{3}x^3, \label{eqn:ham_saddnode}
+
+and its associated equations of motion are:
+
+.. math::
+    \begin{align}
+    \dot{x} = \dfrac{\partial H}{\partial p_x} =  p_x, \\
+    \dot{p}_x = -\dfrac{\partial H}{\partial x} =  -x - x^2.
+    \end{align} 
+
+`Ipython notebook on saddle-node Hamiltonian and inverted Duffing oscillator <https://github.com/champsproject/ldds/blob/develop/tutorials/tutorial-3.ipynb>`_
+
+5. Non-autonomous double-gyre flow
+
+The double-gyre flow is a classical system popular in geophysical fluid dynamics. This non-autonomous two-dimensional dynamical system is defined by the equations:
+
+.. math::
+   \begin{align}
+   \dot{x} &= -\pi A \sin\left(\dfrac{\pi f(x,t)}{s}\right) \cos\left(\dfrac{\pi y}{s}\right) - \mu x, \\[.2cm]
+   \dot{y} &= \pi A \cos\left(\dfrac{\pi f(x,t)}{s}\right) \sin\left(\dfrac{\pi y}{s}\right) \dfrac{\partial f}{\partial x}\left(x,t\right) - \mu y,
+   \end{align} 
+
+where we have that :math:`f(x,t) = \varepsilon \sin(\omega t + \phi) x^2 + \left(1-2\varepsilon \sin(\omega t + \phi)\right) x`.
+
+`Ipython notebook on Hamiltonian center, saddle, and double gyre <https://github.com/champsproject/ldds/blob/develop/tutorials/tutorial-1.ipynb>`_
+
+Two degrees of freedom
+----------------------
+
+1. `Saddle-center <https://champsproject.github.io/lagrangian_descriptors/content/chapter2_1.html#two-degrees-of-freedom-and-the-hyperbolic-periodic-orbit>`_ 
+
+The Hamiltonian function:
+
+.. math::
+   H(x,y,p_x,p_y) = \dfrac{1}{2} \left( p_x^2 + p_y^2 + y^2 - x^2) \right),  \label{eqn:ham_saddle2dof}
+
+is the normal form of a 2 DoF system with a saddle-center equilibrium point at the origin. The dynamics of any 2 DoF dynamical system near a potential index-1 saddle point is conjugate to this system.
+The associated equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x}  = p_x, \\
+   \dot{y} &= \dfrac{\partial H}{\partial p_y}  = p_y, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x}  = x, \\
+   \dot{p}_y &= -\dfrac{\partial H}{\partial y}  = - y.
+   \end{align}
+
+2. Hénon-Heiles
+
+The Hamiltonian for the Hénon-Heiles system is given:
+
+.. math::
+   H(x,y,p_x,p_y) = \dfrac{1}{2} \left( p_x^2 + p_y^2 \right) + \dfrac{1}{2} \left( x^2 + y^2 \right) + yx^2 - \dfrac{1}{3} y^3, \label{eqn:ham_hh}
+
+and Hamilton's equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x}  = p_x, \\
+   \dot{y} &= \dfrac{\partial H}{\partial p_y} = p_y, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} = - x - 2xy, \\
+   \dot{p}_y &= -\dfrac{\partial H}{\partial y} = - x^2 - y + y^2.
+   \end{align}
+
+This system is a fundamental system for studying complex dynamics. Depending on the value of total energy, it can exhibit different dynamical behaviour ranging from near-integrable to completely chaotic.
+
+
+
+Three degrees of freedom
+------------------------
+
+1. `Saddle-center-center <https://champsproject.github.io/lagrangian_descriptors/content/chapter2_1.html#three-and-more-degrees-of-freedom-and-nhims>`_
+
+The Hamiltonian function:
+
+.. math::
+   H(x,y,z,p_x,p_y,p_z) = \dfrac{1}{2} \left( p_x^2 + p_y^2+ p_z^2 - x^2 + y^2 + z^2) \right),  \label{eqn:ham_saddle3dof}
+
+is the normal form of a 3 DoF system with a saddle-center-center equilibrium point at the origin (also referred to as an index-1 saddle).
+The associated equations of motion are:
+
+.. math::
+   \begin{align}
+   \dot{x} &= \dfrac{\partial H}{\partial p_x} = p_x, \\
+   \dot{y} &= \dfrac{\partial H}{\partial p_y} = p_y, \\
+   \dot{z} &= \dfrac{\partial H}{\partial p_z} = p_z, \\
+   \dot{p}_x &= -\dfrac{\partial H}{\partial x} = x, \\
+   \dot{p}_y &= -\dfrac{\partial H}{\partial y}= - y, \\
+   \dot{p}_z &= -\dfrac{\partial H}{\partial z}= - z.
+   \end{align}
+
+
+`Ipython notebook on Hénon-Heiles Hamiltonian, two and three degrees of freedom quadratic normal form with index-1 saddle <https://github.com/champsproject/ldds/blob/develop/tutorials/tutorial-5.ipynb>`_
+LDDS 
+====
+
+Submodules
+----------
+
+ldds.base module
+----------------
+
+.. automodule:: ldds.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ldds.tools module
+-----------------
+
+.. automodule:: ldds.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+ldds.vector\_fields module
+--------------------------
+
+.. automodule:: ldds.vector_fields
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: ldds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+========================
+Glossary of Common Terms
+========================
+
+This glossary gives the mathematical definition of dynamical systems concepts used in the software for computing Lagrangian descriptors. More detailed description can be found in books listed in the references; Ref. [wiggins2003]_. 
+
+
+.. glossary::
+
+Dynamical system
+----------------
+
+   A system that changes in time; usually described by differential equations (continuous time) or difference equations (sometimes called *maps*) (discrete time), or, possibly, some combination of the two.
+
+
+Vector field, map, phase space, trajectory
+------------------------------------------
+
+   The equation of the form
+
+   .. math::
+      \begin{equation}
+      \dot{x} = f(x,t; \mu)
+      \end{equation}
+
+   with :math:`x \in U \subset \mathbb{R}^n, t \in \mathbb{R}^1`, and :math:`\mu \in V \subset \mathbb{R}^p` where :math:`U, V` are open sets in :math:`\mathbb{R}^n, \mathbb{R}^p`, respectively, is an **ordinary differential equation** and :math:`f` is a **vector field**. The above form is referred to as a non-autonomous or time-dependent ODE.
+
+   The equation of the form
+
+   .. math::
+      \begin{equation}
+      x \mapsto g(x; \mu)
+      \end{equation}
+
+   as a **map or difference equation**. 
+
+   We refer to the space of dependent variables as the **phase space**. Both of these form of equations are referred to as dynamical system. Solution of the ordinary differential equations, :math:`x(t,t_0,x_0)` will be referred to as the **trajectory or phase curve** through the point :math:`x_0` at :math:`t = t_0`.
+
+   The goal of dynamical systems analysis is to understand the geometry of solution curves in phase space. 
+
+
+
+Equilibrium solutions, linear stability
+---------------------------------------
+
+   We give the definition of equilibrium solutions and their stability for an autonomous vector field of the form
+
+   .. math::
+      \begin{equation}
+      \dot{x} = f(x; \mu), \qquad x \in \mathbb{R}^n
+      \end{equation}
+
+   The **equilibrium solution** is a point :math:`\bar{x} \in \mathbb{R}^n` such that 
+   
+   .. math::
+      \begin{equation}
+      f(\bar{x}; \mu) = 0.
+      \end{equation}
+
+   This constant solution of a vector field, that is a point in phase space where the vector field is zero, is also referred to as a "fixed point", "steady state", "stationary point", "rest point".
+
+   Cautionary note: In case of non-autonomous vector fields, this definition of equilibrium solutions do not apply to the "frozen" (fixing :math:`t = \bar{t}`) vector field. Further explanation based on an example is given in the Chapter 1 of Ref. [wiggins2003]_ 
+
+   We give the definition for the type of linear stability which is most relevant for this software.
+   
+   For a linear, autonomous vector field on :math:`\mathbb{R}^n`:
+   
+   .. math::
+      \begin{equation}
+      \dot{x} = A x, \qquad x(0) = x_0, \qquad x \in \mathbb{R}^n
+      \end{equation}
+
+   If :math:`A` has no eigenvalues with zero real part, the linear stability of the origin is determined by the real part of the eigenvalues :math:`A`. 
+
+   If all of the real parts of the eigenvalues are strictly less than zero, then the origin is asymptotically **stable**. If at least one of the eigenvalues of :math:`A` has real part strictly larger than zero, then the origin is **unstable**.
+   
+   The origin of is said to be **hyperbolic** if none of the real parts of the eigenvalues of :math:`A` have zero real parts. Hyperbolic equilibria of linear, autonomous vector fields on :math:`\mathbb{R}^N` can be either sinks, sources, or saddles.
+   
+   More details on classification of stability of equilibria can be found in Ref. [wiggins2017]_.
+
+
+Periodic orbits and invariant manifolds
+---------------------------------------
+
+   A solution :math:`x` of a dynamical system passing through the point :math:`x(0)=x_0` is said to be a **periodic solution** of period :math:`T` if there exists :math:`T > 0` such that :math:`x(t) = x(t + T)` for all :math:`t \in \mathbb{R}`.
+
+   In a discrete system, an orbit of a point :math:`x_0 \in \mathbb{R}^n` is said to be a **periodic orbit** of period :math:`k` if :math:`g^k(x_0) = x_0`.
+
+   In the context of this software, it is sufficient to know that a **manifold** is a set which *locally* has the structure of Euclidean space. For the "typical" dynamical systems in applications, a manifold is a :math:`m`-dimensional surface embedded in :math:`\mathbb{R}^n`.
+
+   **Invariant manifolds** are a set of points, which is also a **manifold**, in phase space such that trajectories with initial conditions in the set remain in the set forever. In the context of this software, we are interested in invariant manifolds of hyperbolic equilibrium points or hyperbolic periodic orbits. Thus, when trajectories on an invariant manifold asymptotically approach the equilibrium point or the periodic orbit for :math:`t \rightarrow \infty` (or :math:`t \rightarrow -\infty`), the invariant manifold is called a **stable** (or **unstable**) invariant manifold. Mathematical definitions of these manifolds can be found in Chapter 3 of [wiggins2003]_ and Chapter 6 of [wiggins2017]_.
+
+   Lagrangian descriptors identify stable (or unstable) invariant manifolds when the initial conditions are integrated for the time interval :math:`[t_0, t_0 + \tau]` (or :math:`[t_0, t_0 - \tau]`), respectively. 
+
+
+References: textbooks
+^^^^^^^^^^^^^^^^^^^^^
+   
+.. [wiggins2003] Wiggins, S., (2003) Introduction to applied nonlinear dynamical systems and chaos (Vol. 2). Springer Science & Business Media.
+
+.. [wiggins2017] Wiggins, S. (2017) Ordinary Differential Equations (Ver. 2), https://figshare.com/articles/Ordinary_Differential_Equations/5311612,  Figshare.
+
+
+
+API Documentation
+=================
+
+
+.. toctree::
+   :maxdepth: 4
+
+   ldds
+.. LDDS documentation master file, created by
+   sphinx-quickstart on Fri Oct  9 15:13:24 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+.. Places global toc into the sidebar
+
+:globalsidebartoc: True
+
+============================================
+Lagrangian Descriptors for Dynamical Systems
+============================================
+
+.. Define an order for the Table of Contents
+
+.. toctree::
+   :maxdepth: 2
+   :caption: User Guide
+
+   
+   introduction
+   examples
+   glossary
+   modules
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+============
+Introduction
+============
+
+
+The purpose of this guide is to give a brief overview of the theory, illustrate the computation and visualization of Lagrangian descriptors for dynamical systems, and automatically generated API documentation. We recommend that the user is familiar with nonlinear dynamical systems concepts mentioned in the :ref:`glossary`. Then, reading the brief introduction to the method of Lagrangian descriptor below and benchmark systems in :ref:`examples`.
+
+Background and motivation
+=========================
+
+Understanding the geometry of the phase space of a dynamical system is a fundamental step in developing a complete picture of the dynamics. A trajectory diagnostic technique is a quick and practical approach to discovering the geometry of the structures that characterize phase space transport. This approach has become useful in analyzing a multitude of systems across geophysical fluid dynamics and chemical reactions. Lagrangian Descriptors for Dynamical Systems, or LDDS, is an open-source software written in Python represents a contribution in this direction using the method of Lagrangian descriptors. The basic idea behind this methodology is applicable to continuous or discrete dynamical system with or without periodic, aperiodic, stochastic forcing and with or without dissipation. The method encodes the geometry of phase space structures in the initial conditions on a two dimensional section by calculating a geometric property of the trajectories obtained from the initial conditions. 
+
+Lagrangian descriptor is a scalar functional defined on a grid of initial conditions that assigns to every point a real number obtained by accumulating the values of a non-negative function along the trajectory starting from that initial condition in forward and backward time. There are many definitions of this non-negative function for computing Lagrangian descriptors (LDs) in the literature. Examples of such functions include the arclength of the trajectory, the p-norm of the components of the vector field defining the dynamical system under study, the Maupertuis classical action, etc. There is no definition of LDs that is better than the rest, and the choice depends on the dynamical characteristics of the system addressed. In this sense, there is always a trial and error stage where one would assess the different definitions, two-dimensional sections, integration time length for a given dynamical system. The LDDS package provides the user with an interface to perform such computations in a rapid prototyping manner. 
+
+Lagrangian descriptors
+======================
+
+The Lagrangian descriptor (LD) as presented in Refs. [madrid2009]_, [mancho2013]_ is an arc-length of a trajectory calculated on a chosen initial time :math:`t_0` and measured for fixed forward and backward integration time, :math:`\tau`. For continuous time dynamical systems, Ref. [lopesino2017]_ gives an alternative definition of the LD which is useful for proving rigorous results and can be computed along with the trajectory. It provides a characterization of the notion of singular features of the LD that facilitates a proof for detecting invariant manifolds in certain model situations.  In addition, the "additive nature" of this new definition of LD provides 
+an approach for assessing the influence of each degree-of-freedom separately on the Lagrangian descriptor.  This property was used in Ref. [demian2017]_ which showed that a Lagrangian descriptor can be used to detect Lyapunov periodic orbits in the two degrees-of-freedom Hénon-Heiles Hamiltonian system. We will describe this procedure for two and three degrees-of-freedom linear autonomous Hamiltonian systems. We begin by establishing notation in the general setting of a time-dependent vector field where 
+
+.. math::
+    \begin{equation}
+    \frac{d\mathbf{x}}{dt} = \mathbf{v}(\mathbf{x},t), \quad \mathbf{x} \in \mathbb{R}^n \;,\; t \in \mathbb{R}
+    \end{equation}
+
+where :math:`\mathbf{v}(\mathbf{x},t) \in C^r (r \geq 1)` in :math:`\mathbf{x}` and continuous in time. The definition of LDs depends on the initial condition :math:`\mathbf{x}_{0} = \mathbf{x}(t_0)`, on the initial time :math:`t_0` (trivial for autonomous systems) and the integration time :math:`\tau`, and the type of norm of the trajectory's components, and takes the form,
+
+
+.. math::
+    \begin{equation}
+    M_p(\mathbf{x}_{0},t_0,\tau) = \displaystyle{\int^{t_0+\tau}_{t_0-\tau} \sum_{i=1}^{n} |\dot{x}_{i}(t;\mathbf{x}_{0})|^p \; dt} \label{eqn:M_function}
+    \end{equation}
+
+where :math:`p \in (0,1]` and :math:`\tau \in \mathbb{R}^{+}` are freely chosen parameters,  and the overdot symbol represents the derivative with respect to time. It is to be noted here that there are three formulations of the function :math:`M_p` in the literature: the arc length of a trajectory in phase space [madrid2009]_, the arc length of a trajectory projected on the configuration space [junginger2016lagrangian]_, [junginger2016transition]_, [junginger2016uncovering]_, [junginger2017chemical]_ and the sum of the :math:`p`-norm of the vector field components [lopesino2015]_, [lopesino2017]_.
+Although the latter formulation of the Lagrangian descriptor developed in Refs. [lopesino2015]_, [lopesino2017]_ does not resemble the arc length, the numerical results using either of these forms have been shown to be in agreement and promise of predictive capability in geophysical flows ([delacamara2012]_, [garciagarrido2015]_, [ramos2018]_, [mendoza2014lagrangian]_). The formulation we adopt here is motivated by the fact that this allows for proving rigorous result, which we will discuss in the next section, connecting the singular features and minimum in the LD plots with NHIM and its stable and unstable manifolds. 
+It follows from the result that 
+
+.. math:: 
+    \begin{align}
+    \mathcal{W}^s(\mathbf{x}_0, t_0) & = \text{argmin} \; \mathcal{L}^{(f)}(\mathbf{x}_0, t_0, \tau) \\
+    \mathcal{W}^u(\mathbf{x}_0, t_0) & = \text{argmin} \; \mathcal{L}^{(b)}(\mathbf{x}_0, t_0, \tau)
+    \end{align}
+
+where the stable and unstable manifolds (:math:`\mathcal{W}^s(\mathbf{x}_0, t_0)` and :math:`\mathcal{W}^u(\mathbf{x}_0, t_0)`) denote the invariant manifolds at intial time :math:`t_0` and :math:`\text{argmin} (\cdot)` denotes the argument that minimizes the function :math:`\mathcal{L}^{(\cdot)}(\mathbf{x}_0, t_0, \tau)` in forward and backward time, respectively. In addition, the coordinates of the NHIM at time :math:`t_0` is given by the intersection :math:`\mathcal{W}^s(\mathbf{x}_0, t_0)` and :math:`\mathcal{W}^u(\mathbf{x}_0, t_0)` of the stable and unstable manifolds, and thus given by
+
+.. math::
+    \begin{align}
+    \mathcal{M}(\mathbf{x}_0, t_0) & = \text{argmin} \; \left( \mathcal{L}^{(f)}(\mathbf{x}_0, t_0, \tau) + \mathcal{L}^{(b)}(\mathbf{x}_0, t_0, \tau) \right) = \text{argmin} \; \mathcal{L}(\mathbf{x}_0, t_0, \tau) \qquad \text{NHIM}
+    \end{align}
+
+
+References
+==========
+   
+   
+.. [madrid2009] Madrid, J. A. J. and Mancho, A. M. (2009) Distinguished trajectories in time dependent vector fields. Chaos, 19, 013111.
+
+.. [demian2017] Demian, A. S., and Wiggins, S. (2017). Detection of periodic orbits in Hamiltonian systems using Lagrangian descriptors. International Journal of Bifurcation and Chaos, 27(14), 1750225.
+
+.. [lopesino2017] Lopesino, C., Balibrea-Iniesta, F., García-Garrido, V. J., Wiggins, S., and Mancho, A. M. (2017). A theoretical framework for Lagrangian descriptors. International Journal of Bifurcation and Chaos, 27(01), 1730001.
+
+.. [lopesino2015] Lopesino, C., Balibrea, F., Wiggins, S., and Mancho, A. M. (2015). Lagrangian descriptors for two dimensional, area preserving, autonomous and nonautonomous maps. Communications in Nonlinear Science and Numerical Simulation, 27(1-3), 40–51.
+
+.. [junginger2016lagrangian] Junginger, A. and Hernandez, R. (2016a). Lagrangian descriptors in dissipative systems. Physical Chemistry Chemical Physics, 18(44), 30282–30287. 
+
+.. [junginger2016transition] Junginger, A., Craven, G. T., Bartsch, T., Revuelta, F., Borondo, F., Benito, R., and Hernandez, R. (2016). Transition state geometry of driven chemical reactions on time-dependent double- well potentials. Physical Chemistry Chemical Physics, 18(44), 30270–30281.
+
+.. [junginger2016uncovering] Junginger, A. and Hernandez, R. (2016b). Uncovering the Geometry of Barrierless Reactions Using Lagrangian Descriptors. The Journal of Physical Chemistry B, 120(8), 1720–1725.
+
+
+.. [junginger2017chemical] Junginger, A., Duvenbeck, L., Feldmaier, M., Main, J., Wunner, G., and Hernandez, R. (2017a). Chemical dynamics between wells across a time-dependent barrier: Self-similarity in the Lagrangian descriptor and reactive basins. The Journal of chemical physics, 147(6), 064101.
+
+
+.. [mancho2013] Mancho, A. M., Wiggins, S., Curbelo, J., and Mendoza, C. (2013). Lagrangian Descriptors: A Method for Revealing Phase Space Structures of General Time Dependent Dynamical Systems. Communications in Nonlinear Science and Numerical, 18, 3530–3557.
+
+
+.. [mendoza2014lagrangian] Mendoza, C., Mancho, A. M., and Wiggins, S. (2014). Lagrangian descriptors and the assessment of the predictive capacity of oceanic data sets. Nonlinear Processes in Geophysics, 21(3), 677–689.
+
+.. [garciagarrido2015] García-Garrido, V. J., Mancho, A. M., and Wiggins, S. (2015). A dynamical systems approach to the surface search for debris associated with the disappearance of flight MH370. Nonlin. Proc. Geophys., 22, 701–712.
+
+.. [ramos2018] Ramos, A. G., García-Garrido, V. J., Mancho, A. M., Wiggins, S., Coca, J., Glenn, S., Schofield, O., Kohut, J., Aragon, D., Kerfoot, J., Haskins, T., Miles, T., Haldeman, C., Strandskov, N., All- sup, B., Jones, C., and Shapiro., J. (2018). Lagrangian coherent structure assisted path planning for transoceanic autonomous underwater vehicle missions. Scientfic Reports, 4, 4575.
+
+.. [delacamara2012] de la Cámara, A., Mancho, A. M., Ide, K., Serrano, E., and Mechoso, C. (2012). Routes of transport across the Antarctic polar vortex in the southern spring. J. Atmos. Sci., 69(2), 753–767.
+
+
+

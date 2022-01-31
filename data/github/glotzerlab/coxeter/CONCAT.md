@@ -222,3 +222,814 @@ A description of how you would like a possible solution to look like.
 ### Additional context
 
 Any alternative solutions you might have considered or other information that might be helpful to understand this feature request.
+coxeter Developers
+------------------
+
+The following people contributed to the development of coxeter.
+
+Vyas Ramasubramani - **Creator and lead developer**
+
+* Created documentation pages.
+* Formalized contribution guidelines and contributor agreement.
+* Cleaned up damasceno module and separated out shape information into a JSON file that is read on demand.
+* Fixed code formatting to conform to PEP8 requirements.
+* Implemented Polygon class.
+* Implemented ConvexSpheropolygon class.
+* Implemented Polyhedron class.
+* Implemented ConvexPolyhedron class.
+* Implemented ConvexSpheropolyhedron class.
+* Add ability to check if points are contained in convex polyhedra.
+* Fix calculation of circumsphere to work for non-regular polyhedra.
+* Fix calculation of circumcircle to work for non-regular polygons.
+* Add ability to calculate minimum bounding sphere/circle for polyhedra/polygons.
+* Implemented ConvexPolygon class.
+* Added ReadTheDocs support.
+* Added circumsphere from center calculation for convex polyhedra.
+* Added shape getter for damasceno shapes.
+* Define proper inertia tensor calculations and transformations for polygons and polyhedra.
+* Added interoperability with the GSD shape specification.
+* Developed shape families and all associated shape repository APIs.
+* Add ability to diagonalize the inertia tensors of shapes.
+* Defined base classes for all shapes.
+* Standardize usage of Sphere/Circle classes for circum, in, and bounding sphere/circle calculations.
+* Moved form factor amplitude calculations from legacy ft module to shape classes, cleaned and added more tests.
+* Added point-in-shape checks for circles and ellipses.
+* Added generic inertia tensors for 2D shapes.
+* Added minimal bounding sphere for all shapes.
+* Added minimal centered bounding sphere calculations for all shapes except general polygons and polyhedra.
+* Enabled getting and setting the circumsphere or bounding sphere/circle radius of a polyhedron/polygon (for both types of bounding sphere/circle).
+* Added maximal bounding sphere for all shapes.
+* Added maximal centered bounded sphere calculations for all shapes except general polygons and polyhedra.
+* Enabled getting and setting the insphere or bounded sphere/circle radius of a polyhedron/polygon (for both types of bounding sphere/circle).
+* Added point in polygon checks.
+* Added point in polyhedron checks.
+* Added repr for all shapes.
+* Fixed centroid calculations for polygon and polyhedron to use integrals rather than simple averages of vertices.
+* Wrote example notebooks.
+
+Bryan VanSaders - **Original maintainer of legacy euclid package**
+
+* Created package layout.
+* Original port of classes and methods into package.
+* Added some methods to the utils module.
+* Added symmetry groups.
+
+James Proctor
+
+* Ported some damasceno code into coxeter from standalone module.
+
+Bradley Dice
+
+* Migrated ft code into coxeter from freud and added tests.
+* Added CircleCI support.
+* Add ability to check if points are contained in convex spheropolyhedra.
+* Revised and edited all documentation.
+* Updated doctests to be part of pytest suite.
+* Added automatic axis creation for plotting.
+* Added spheropolygon area and perimeter setters.
+* Added ellipse area setter and ellipsoid volume setter.
+* Added plato support.
+
+Brandon Butler
+
+* Removed old quat\_tools module and modified modules to use rowan.
+* Moved logic in FreudShape module to top-level package namespace.
+* Moved all common shape definitions into a common\_shapes module.
+
+Eric Harper
+
+* Migrated shape classes into coxeter from freud.
+
+Jens Glaser
+
+* Bug fix for convex hull finding.
+
+M. Eric Irrgang
+
+* Bugfixes to imports.
+* Implemented core shape classes.
+* Implemented the ft module.
+
+Carl Simon Adorf
+
+* Implemented the damasceno module.
+
+Matthew Spellings
+
+* Added some methods to the utils module.
+* Triangulation of core shape classes.
+
+William Zygmunt
+
+* Helped clean up utils module.
+
+Tobias Dwyer
+
+* Added getter and setter tests to some of the shape classes.
+* Added examples for the shape classes.
+
+
+Source code
+-----------
+
+**coxeter** includes the source code of the following Python packages and
+modules.
+
+.. highlight:: none
+
+The source of polytri (https://github.com/bjorkegeek/polytri) is included
+directly into the **coxeter** package. The module implementing that code is
+reproduced in its entirety along with an additional ``__init__`` file to enable
+its import as a subpackage. It is used for the triangulation of polygons and
+the surface triangulation of polyhedra. This software is made available under
+the MIT license::
+
+    The MIT License (MIT)
+
+    Copyright (c) 2016 David Björkevik
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+    DEALINGS IN THE
+
+The source of isect_segments-bentley_ottmann
+(https://github.com/ideasman42/isect_segments-bentley_ottmann) is included
+directly into the **coxeter** package. The module implementing that code is
+reproduced in its entirety along with an additional ``__init__`` file to enable
+its import as a subpackage. It is used to check whether a set of vertices
+defines a simple or a complex polygon. This software is made available under
+the MIT license::
+
+    Copyright (c) 2010 by Bart Kiers
+    Copyright (c) 2015 by Campbell Barton
+
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation
+    files (the "Software"), to deal in the Software without
+    restriction, including without limitation the rights to use,
+    copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following
+    conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+    OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+    OTHER DEALINGS IN THE SOFTWARE.
+
+The source of polyhedron (https://github.com/mdickinson/polyhedron) is included
+directly into the **coxeter** package. It is used for point in polygon/polyhedron
+checks for general polygons and polyhedra (specifically, to calculate the winding
+number). This software is made available under the BSD-3 license::
+
+    BSD 3-Clause License
+
+    Copyright (c) 2019, Mark Dickinson
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+
+    1. Redistributions of source code must retain the above copyright notice, this
+       list of conditions and the following disclaimer.
+
+    2. Redistributions in binary form must reproduce the above copyright notice,
+       this list of conditions and the following disclaimer in the documentation
+       and/or other materials provided with the distribution.
+
+    3. Neither the name of the copyright holder nor the names of its
+       contributors may be used to endorse or promote products derived from
+       this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+    AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+    SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+    CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+    OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+The format is based on `Keep a Changelog <http://keepachangelog.com/en/1.0.0/>`__.
+This project adheres to `Semantic Versioning <http://semver.org/spec/v2.0.0.html>`__.
+
+v0.6.1 - 2021-07-15
+-------------------
+
+Fixed
+~~~~~
+
+- Typos in JOSS paper.
+
+v0.6.0 - 2021-07-14
+-------------------
+
+Added
+~~~~~
+
+- Plotting and other graphical rendering of shapes using `plato <https://plato-draw.readthedocs.io/>`__.
+- Notebooks with example use-cases for the package.
+- A quickstart tutorial.
+
+v0.5.0 - 2021-02-23
+-------------------
+
+Added
+~~~~~
+
+- Ellipse area setter and Ellipsoid volume setter.
+- Point in circle checks.
+- Point in ellipse checks.
+- Inertia tensors for 2D shapes that implement moments of inertia.
+- Add minimal bounding sphere for all shapes.
+- Add minimal centered bounding sphere calculations for all shapes except general polygons, general polyhedra, spheropolygons, and spheropolyhedra.
+- Enable getting and setting the circumsphere or bounding sphere radius of a polyhedron (for both types of bounding sphere).
+- Add maximal bounded sphere for all shapes.
+- Add maximal centered bounded sphere calculations for all shapes except general polygons, general polyhedra, spheropolygons, and spheropolyhedra.
+- Enable getting and setting the insphere or bounded sphere radius of a polyhedron (for both types of bounding sphere).
+- Point in polygon checks for general (nonconvex) polygons.
+- Point in polyhedron checks for general (nonconvex) polyhedrons.
+- Minimal bounding sphere for all shapes except spheropolygons and spheropolyhedra.
+- Add minimal centered bounding sphere calculations for all shapes except general polygons, general polyhedra, spheropolygons, and spheropolyhedra.
+- Getters and setters for the circumsphere or bounding sphere radius of a polyhedron (for both types of bounding sphere).
+- A ``repr`` for all shapes.
+
+Changed
+~~~~~~~
+
+- Ensure that hypothesis-based tests don't implicitly reuse pytest fixtures.
+
+Deprecated
+~~~~~~~~~~
+
+- The circumsphere from center calculations (replaced by minimal centered bounding sphere).
+- The bounding_sphere property is deprecated in favor of minimal_bounding_sphere.
+- The insphere from center calculations (replaced by maximal centered bounded sphere).
+
+Fixed
+~~~~~
+
+- Centroid calculations for polygon and polyhedron use the full integrals rather than simple averages of vertices.
+
+v0.4.0 - 2020-10-14
+-------------------
+
+Added
+~~~~~
+
+- Circumsphere and insphere from center calculations for ConvexSpheropolyhedron.
+- Form factors amplitudes for sphere, polygons, and polyhedra.
+- Shape families associated with a DOI can be directly accessed via a dictionary.
+- Expected abstract interface for shapes (both 2D and 3D) has expanded.
+- Plotting polygons or polyhedra can automatically create matplotlib axes.
+- Perimeter calculation for polygons.
+- Area and perimeter setters for spheropolygons.
+
+Changed
+~~~~~~~
+
+- Shape family API is now entirely based on class methods rather than a call operator.
+- The parent ShapeFamily class is now part of the public API.
+- Doctests are now run as part of pytest.
+- Subpackages have been renamed: shape_classes is now shapes, and shape_families is now families.
+- The common_families submodule of shape_families is now just common.
+
+Fixed
+~~~~~
+
+- Volume calculation for ConvexSpheropolyhedron includes area of extruded faces in addition to vertices and edges.
+- Documentation has been revised and edited.
+
+Removed
+~~~~~~~
+
+- The symmetry.py module.
+- The ft.py module.
+- The symmetry.py module.
+- The get_params method of TabulatedShapeFamily.
+- The family_from_doi method (the underlying data dictionary is now directly exposed).
+
+v0.3.0 - 2020-06-18
+-------------------
+
+Added
+~~~~~
+
+- Calculation of circumsphere from center for convex polyhedra.
+- Simple name-based shape getter for damasceno SHAPES dictionary.
+- Polygons moment of inertia calculation.
+- Interoperability with the GSD shape specification.
+- Shape families and stored data for well-known families.
+- All shapes can be centered anywhere in 3D Euclidean space.
+- Extensive style checking using black, isort, and various other flake8 plugins.
+- Make Circle area settable.
+- 3D shapes can be oriented by their principal axes.
+- Make Sphere volume settable.
+
+Changed
+~~~~~~~
+
+- Inertia tensors for polyhedra and moments of inertia for polygons are calculated in global coordinates rather than the body frame.
+- Modified testing of convex hulls to generate points on ellipsoids to avoid degenerate simplices.
+- All insphere, circumsphere, and bounding sphere calculations now return the appropriate classes instead of tuples.
+
+Removed
+~~~~~~~
+
+- The common_shapes subpackage.
+
+v0.2.0 - 2020-04-09
+-------------------
+
+Added
+~~~~~
+
+- Continuous integrated testing on CircleCI.
+- New Polygon class with property-based API.
+- New ConvexSpheropolygon class with property-based API.
+- New Polyhedron class with property-based API and robust facet sorting and merging.
+- New ConvexPolyhedron class with property-based API.
+- New ConvexSpheropolyhedron class with property-based API.
+- Ability to plot Polyhedra and Polygons.
+- Can now check whether points lie inside a ConvexPolyhedron or ConvexSpheropolyhedron.
+- Added documentation.
+- New Ellipsoid class with property-based API.
+- New Sphere class with property-based API.
+- New Ellipse class with property-based API.
+- New Circle class with property-based API.
+- Added insphere from center calculation for convex polyhedra.
+- New ConvexPolygon class.
+- Documentation is hosted on ReadTheDocs.
+
+Changed
+~~~~~~~
+
+- Moved core shape classes from euclid.FreudShape into top-level package namespace.
+- Moved common shape definitions into common_shapes subpackage.
+- Shapes from Damasceno science 2012 paper are now stored in a JSON file that is loaded in the damasceno module.
+
+Fixed
+~~~~~
+
+- Formatting now properly follows PEP8.
+
+Removed
+~~~~~~~
+
+- Various unused or redundant functions in the utils module.
+- The quaternion_tools module (uses rowan for quaternion math instead).
+- The shapelib module.
+- Old polygon.py and polyhedron.py modules, which contained old implementations of various poly\* and spheropoly\* classes.
+
+v0.1.0
+------
+
+- Initial version of code base.
+coxeter
+=======
+
+.. contents::
+   :local:
+
+|JOSS|
+|ReadTheDocs|
+|CircleCI|
+|PyPI|
+|conda-forge|
+
+.. |JOSS| image:: https://joss.theoj.org/papers/10.21105/joss.03098/status.svg
+   :target: https://doi.org/10.21105/joss.03098
+.. |ReadTheDocs| image:: https://readthedocs.org/projects/coxeter/badge/?version=latest
+    :target: http://coxeter.readthedocs.io/en/latest/?badge=latest
+.. |CircleCI| image:: https://circleci.com/gh/glotzerlab/coxeter.svg?style=svg
+    :target: https://circleci.com/gh/glotzerlab/coxeter
+.. |PyPI| image:: https://img.shields.io/pypi/v/coxeter.svg
+    :target: https://pypi.org/project/coxeter/
+.. |conda-forge| image:: https://img.shields.io/conda/vn/conda-forge/coxeter.svg
+   :target: https://anaconda.org/conda-forge/coxeter
+
+Welcome to the documentation for **coxeter**!
+The **coxeter** Python library provides tools for working with common geometric objects in two and three dimensions.
+Named for the `20th century geometer <https://en.wikipedia.org/wiki/Harold_Scott_MacDonald_Coxeter>`__ best known for his work on polytopes, **coxeter** is especially focused on polygons and polyhedra, but it also support various standard curved shapes such as spheres and ellipsoids.
+
+The package emphasizes working with shapes as mutable objects whose geometric attributes may be accessed using property-based APIs.
+Since **coxeter** originally arose to support representations of anisotropic nanoparticles, many shapes support calculations of physical properties (such as form factors and inertia tensors) in addition to purely geometric ones.
+However, the package is designed with more general audiences in mind as well, and it aims to support precise calculations of a wide range of geometric quantities that are useful in a number of fields.
+
+Some core features of **coxeter** include:
+
+* Libraries of common shapes to support easy construction.
+* Mutable shape objects that can be rescaled in a variety of ways to suit a number of needs.
+* Immediate access to geometric properties of shapes via Python properties of shape objects.
+* Plotting functionality to make it easy to visualize shapes in both two and three dimensions.
+
+More detailed information on **coxeter**'s features and examples of how to use them may be found in the `documentation <https://coxeter.readthedocs.io/>`__.
+
+.. _installing:
+
+Setup
+-----
+
+The recommended methods for installing coxeter are using **pip** or **conda**.
+
+Installation via pip
+~~~~~~~~~~~~~~~~~~~~
+
+To install the package from PyPI, execute:
+
+.. code:: bash
+
+   pip install coxeter --user
+
+Installation via conda
+~~~~~~~~~~~~~~~~~~~~~~
+
+To install the package from conda, first add the **conda-forge** channel:
+
+.. code:: bash
+
+   conda config --add channels conda-forge
+
+After the **conda-forge** channel has been added, you can install coxeter by executing
+
+.. code:: bash
+
+   conda install coxeter
+
+Installation from source
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+To install from source, execute:
+
+.. code:: bash
+
+   git clone https://github.com/glotzerlab/coxeter.git
+   cd coxeter
+   python setup.py install --user
+
+Requirements
+~~~~~~~~~~~~
+
+-  Python >= 3.6
+-  NumPy >= 1.15
+-  SciPy >= 1.0.0
+-  rowan >= 1.2
+
+Testing
+-------
+
+The package is currently tested for Python >= 3.6 on Unix-like systems.
+Continuous integrated testing is performed using CircleCI on these Python versions.
+
+To run the packaged unit tests, execute the following line from the root of the repository:
+
+.. code:: bash
+
+   pytest
+
+To check test coverage, make sure the coverage module is installed:
+
+.. code:: bash
+
+   pip install coverage
+
+and then run the packaged unit tests with the coverage module:
+
+.. code:: bash
+
+   pytest --cov=coxeter
+
+Building Documentation
+----------------------
+
+Documentation for coxeter is written in `reStructuredText <http://docutils.sourceforge.net/rst.html>`__ and compiled using `Sphinx <http://www.sphinx-doc.org/en/master/>`__.
+To build the documentation, first install Sphinx:
+
+.. code:: bash
+
+   cd doc
+   pip install -r requirements.txt
+
+You can then use Sphinx to create the actual documentation in either PDF or HTML form by running the following commands in the coxeter root directory:
+
+.. code:: bash
+
+   make html # For html output
+   make latexpdf # For a LaTeX compiled PDF file
+   open build/html/index.html
+
+Support and Contribution
+========================
+
+This package is hosted on `GitHub <https://github.com/glotzerlab/coxeter>`_.
+Please report any bugs or problems that you find on the `issue tracker <https://github.com/glotzerlab/coxeter/issues>`_.
+All contributions to coxeter are welcomed via pull requests!
+.. _development:
+
+=================
+Development Guide
+=================
+
+
+All contributions to **coxeter** are welcome!
+Developers are invited to contribute to the framework by pull request to the package repository on `GitHub`_, and all users are welcome to provide contributions in the form of **user feedback** and **bug reports**.
+We recommend discussing new features in form of a proposal on the issue tracker for the appropriate project prior to development.
+
+.. _github: https://github.com/glotzerlab/coxeter
+
+General Guidelines
+==================
+
+All code contributed to **coxeter** must adhere to the following guidelines:
+
+  * Use the OneFlow_ model of development:
+    - Both new features and bug fixes should be developed in branches based on ``master``.
+    - Hotfixes (critical bugs that need to be released *fast*) should be developed in a branch based on the latest tagged release.
+  * Avoid external dependencies wherever possible, and avoid introducing **any** hard dependencies outside the standard Python scientific stack (NumPy, SciPy, etc). Soft dependencies are allowed for specific functionality, but such dependencies cannot impede the installation of **coxeter** or the use of any other features.
+  * All code should adhere to the source code conventions and satisfy the documentation and testing requirements discussed below.
+  * Preserve backwards-compatibility whenever possible. Make clear if something must change, and notify package maintainers that merging such changes will require a major release.
+
+To provide a reasonable balance between a high level of backwards compatibility and a reasonable maintenance burden, **coxeter** has adopted `NEP 29`_ to limit the Python and NumPy versions that will be supported.
+
+
+.. tip::
+
+    During continuous integration, the code is checked automatically with `flake8`_, including a number of plugins that validate parts of the style.
+    To run this locally, you can install and run flake8 locally:
+
+    .. code-block:: bash
+
+        python -m pip install flake8 flake8-black flake8-bugbear flake8-docstrings flake8-rst-docstrings pep8-naming flake8-isort
+        python -m flake8 coxeter tests
+
+    To avoid having commits fail in case you forget to run this, you can set up a git pre-commit hook using `pre-commit`_:
+
+    .. code-block:: bash
+
+        python -m pip install pre-commit
+        pre-commit install
+
+.. _OneFlow: https://www.endoflineblog.com/oneflow-a-git-branching-model-and-workflow
+.. _flake8: http://flake8.pycqa.org/en/latest/
+.. _pre-commit: https://pre-commit.com/
+.. _NEP 29: https://numpy.org/neps/nep-0029-deprecation_policy.html
+
+
+Style Guidelines
+----------------
+
+The **coxeter** package adheres to a relatively strict set of style guidelines.
+All code in **coxeter** should be formatted using `black`_.
+Imports should be formatted using `isort`_.
+For guidance on the style, see `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`_ and the `Google Python Style Guide <https://google.github.io/styleguide/pyguide.html>`_, but any ambiguities should be resolved automatically by running black.
+All code should of course also follow the principles in `PEP 20 <https://www.python.org/dev/peps/pep-0020/>`_.
+
+.. tip::
+
+    Developers should format their code using black and isort locally. Running the pre-commit hooks will take care of this:
+
+    .. code-block:: bash
+
+        pre-commit run
+
+    Alternatively, the tools can be run manually using the commands:
+
+    .. code-block:: bash
+
+        black coxeter/ tests/
+        isort coxeter/ tests/
+
+.. _black: https://black.readthedocs.io/
+.. _isort: https://timothycrosley.github.io/isort/
+
+
+Documentation
+-------------
+
+API documentation should be written as part of the docstrings of the package in the `Google style <https://google.github.io/styleguide/pyguide.html#383-functions-and-methods>`__.
+There is one notable exception to the guide: class properties should be documented in the getters functions, not as class attributes, to allow for more useful help messages and inheritance of docstrings.
+Docstrings may be validated using `pydocstyle <http://www.pydocstyle.org/>`__ (or using the flake8-docstrings plugin as documented above).
+The `official documentation <https://coxeter.readthedocs.io/>`_ is generated from the docstrings using `Sphinx <http://www.sphinx-doc.org/en/stable/index.html>`_.
+
+In addition to API documentation, inline comments are **highly encouraged**.
+Code should be written as transparently as possible, so the primary goal of documentation should be explaining the algorithms or mathematical concepts underlying the code.
+Avoid comments that simply restate the nature of lines of code.
+For example, the comment "solve the system of equations" is uninformative, since the code itself should make this obvious, *e.g*, ``np.linalg.solve``.
+On the other hand, the comment "the solution to this system of equations is the intersection of truncation planes" is instructive.
+
+
+Unit Tests
+----------
+
+All code should include a set of tests which test for correct behavior.
+All tests should be placed in the ``tests`` folder at the root of the project.
+In general, most parts of coxeter primarily require `unit tests <https://en.wikipedia.org/wiki/Unit_testing>`_, but where appropriate `integration tests <https://en.wikipedia.org/wiki/Integration_testing>`_ are also welcome.
+Tests in **coxter** use the `pytest <https://docs.pytest.org/>`__ testing framework.
+To run the tests, simply execute ``pytest`` at the root of the repository.
+
+
+Release Guide
+=============
+
+To make a new release of **coxeter**, follow the following steps:
+
+#. Make a new branch off of master based on the expected new version, *e.g.*
+   release-2.3.1.
+#. Make any final changes as desired on this branch. Push the changes and
+   ensure all tests are passing as expected on the new branch.
+#. Once the branch is completely finalized, run bumpversion with the
+   appropriate type (patch, minor, major) so that the version now matches the
+   version number in the branch name.
+#. Merge the branch back into master, then push master and push tags. The
+   tagged commit will automatically trigger generation of binaries and upload
+   to PyPI and conda-forge.
+#. Delete the release branch both locally and on the remote.
+==========
+References
+==========
+
+.. It's necessary to have a file that creates the bibliography that is
+   processed by Sphinx AFTER all of the :cite: commands have been parsed. To
+   fix this, we create this dummy file that comes as late as possible and
+   import the bibliography here.
+
+.. bibliography:: coxeter.bib
+.. _examples:
+
+Examples
+========
+
+While **coxeter**'s API is very easy to work with, it can be helpful to see some real demonstrations of how it can be used.
+Here we include some practical examples of using **coxeter**.
+
+.. toctree::
+   examples/PointInShape.ipynb
+   examples/DistanceToSurface.ipynb
+   examples/InertiaTensors.ipynb
+   examples/Spheres.ipynb
+   examples/FormFactors.ipynb
+coxeter.families package
+===============================
+
+.. rubric:: Overview
+
+.. automodule:: coxeter.families
+   :members:
+   :show-inheritance:
+coxeter.shapes package
+==============================
+
+.. rubric:: Overview
+
+.. automodule:: coxeter.shapes
+   :members:
+   :show-inheritance:
+Credits
+=======
+
+.. include:: ../../Credits.rst
+.. _quickstart:
+
+Quickstart Tutorial
+===================
+
+Once you have :ref:`installed <installing>` **coxeter**, most workflows involve creating an instance of a shape, such as a :class:`~coxeter.shapes.Polygon`:
+
+.. code-block:: python
+
+    >>> import coxeter
+    >>> square = coxeter.shapes.Polygon([[0, 0], [1, 0], [1, 1], [0, 1]])
+
+All shapes may be found in the `coxeter.shapes` subpackage and are created in a similar manner.
+For instance, making a sphere requires a radius: ``sphere = coxeter.shapes.Sphere(3)``.
+Once you have a shape, you can immediately query it for properties.
+
+.. code-block:: python
+
+    >>> square.vertices
+    array([[0., 0., 0.],
+           [1., 0., 0.],
+           [1., 1., 0.],
+           [0., 1., 0.]])
+    >>> square.area
+    1.0
+    >>> square.perimeter
+    4.0
+
+The **coxeter** library comes with a range of *shape families*, collections of shapes with standard definitions so that you don't have to parameterize them yourself.
+The regular :math:`n`-gon family is such an example, provided as :class:`coxeter.families.RegularNGonFamily`.
+
+.. code-block:: python
+
+    >>> hexagon = coxeter.families.RegularNGonFamily.get_shape(6)
+    >>> hexagon.vertices.round(2)
+    array([[ 0.62,  0.  ,  0.  ],
+           [ 0.31,  0.54,  0.  ],
+           [-0.31,  0.54,  0.  ],
+           [-0.62,  0.  ,  0.  ],
+           [-0.31, -0.54,  0.  ],
+           [ 0.31, -0.54,  0.  ]])
+
+Part of what makes **coxeter** so powerful is that all shapes are mutable.
+This means that once you have a prototype of a shape, it can be modified to fit a specific need.
+For example, the snippet below finds the area of the smallest regular pentagon that contains an equilateral triangle of unit area:
+
+.. code-block:: python
+
+    >>> triangle = coxeter.families.RegularNGonFamily.get_shape(3)
+    >>> pentagon = coxeter.families.RegularNGonFamily.get_shape(5)
+    >>> pentagon.incircle_radius = triangle.circumcircle.radius
+    >>> triangle.area
+    0.9999999999999999
+    >>> triangle.circumcircle.area
+    2.418399152312292
+    >>> pentagon.area
+    2.796463494144044
+
+This tutorial just scratches the surface of the features **coxeter** offers.
+For more complete demonstrations of the package's features, see the :ref:`examples`.
+coxeter.shape\_getters module
+=============================
+
+.. automodule:: coxeter.shape_getters
+   :members: from_gsd_type_shapes
+   :undoc-members:
+   :show-inheritance:
+Table of Contents
+=================
+
+.. include:: ../../README.rst
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   quickstart
+   coxeter
+   examples
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference:
+
+   development
+   changelog
+   credits
+   license
+   zreferences
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+API Reference
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+   package-shapes
+   package-families
+
+Submodules
+----------
+
+.. toctree::
+
+   module-shape-getters
+
+.. automodule:: coxeter
+   :autosummary:
+   :members:
+   :show-inheritance:
+Changelog
+=========
+
+.. include:: ../../ChangeLog.rst

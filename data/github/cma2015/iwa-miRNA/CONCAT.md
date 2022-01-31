@@ -344,4 +344,1661 @@ This file contains gene function annotation information, which can be uploaded t
 
 **SNPs_in_Arabidopsis.txt**
 
-This file contains part of SNPs from The 1001 Genomes Project and is used as input of the **sequenceVariation** function. It has five columns with tab-delimited format, representing chromosomes, start sites, ID, reference, and alternative alleles, respectively. This information can be downloaded from [Ensembl Plants Variations](https://plants.ensembl.org/biomart/martview).
+This file contains part of SNPs from The 1001 Genomes Project and is used as input of the **sequenceVariation** function. It has five columns with tab-delimited format, representing chromosomes, start sites, ID, reference, and alternative alleles, respectively. This information can be downloaded from [Ensembl Plants Variations](https://plants.ensembl.org/biomart/martview).---
+title: "The characteristics of annotated miRNAs"
+output:
+    flexdashboard::flex_dashboard:
+        orientation: rows
+        vertical_layout: scroll
+        social: menu
+        source_code: embed
+        theme: cosmo
+        self_contained: no
+---
+
+Results {data-icon=fa-area-chart}
+=====================================
+
+Row
+-------------------------------------
+
+```{r  include=FALSE}
+library(flexdashboard)
+library(knitr)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(patchwork)
+library(ggsci)
+
+options(stringsAsFactors = F)
+TE_inter <- read.csv("miRNA_TE.txt", sep = "\t", header = F)
+TE_inter_names <- unique(TE_inter[,4])
+non_TE_inter <- read.csv("miRNA_non_TE.txt", sep = "\t", header = F)
+non_TE_inter <- non_TE_inter[!non_TE_inter[,4]%in%TE_inter_names, ]
+non_TE_PCG_names <- non_TE_inter[!grepl("[Pp][CcEe][Gg]", non_TE_inter[,14]), 4]
+PCG_index <- grepl("[Pp][CcEe][Gg]", non_TE_inter[,14])
+non_TE_PCG_index <-  !(PCG_index&non_TE_inter[,4]%in%non_TE_PCG_names)
+non_TE_inter <- non_TE_inter[non_TE_PCG_index, ]
+
+new_table <- rbind(TE_inter, non_TE_inter)
+all_mirs <- read.csv("miRNA_list.txt", sep = "\t", header = F)
+all_mirs <- all_mirs[!all_mirs[,4]%in%new_table[,4], ]
+all_mirs[,(ncol(all_mirs)+1):ncol(new_table)] <- "."
+data <- rbind(new_table, all_mirs)
+
+location_names <- apply(data, 1, function(x){paste0(c(x[1:3], x[6]), collapse = ":")})
+uni_index <- vector()
+for(i in unique(location_names)){
+  uni_index <- c(uni_index, which(location_names%in%i)[1])
+}
+
+data <- data[uni_index,]
+colnames(data)[c(5, 7, 14, 15)] <- c("Len", "TPM", "Type", "Subtype")
+data[data[,14]==".", 14] <- "Intergenic"
+data[data[,15]==".", 15] <- "Intergenic"
+data[data[,15]=="LTR_retrotransposon",15] <- "LTR"
+data[data[,15]=="solo_LTR",15] <- "LTR"
+data[data[,15]=="terminal_inverted_repeat_element",15] <- "TIR"
+
+theme_Publication <- function(base_size=14, base_family="sans") {
+      library(grid)
+      library(ggthemes)
+      (theme_foundation(base_size=base_size, base_family=base_family)
+       + theme(plot.title = element_text(face = "bold",
+                                         size = rel(1.2), hjust = 0.5),
+               text = element_text(),
+               panel.background = element_rect(colour = NA),
+               plot.background = element_rect(colour = NA),
+               panel.border = element_rect(colour = NA),
+               axis.title = element_text(face = "bold",size = rel(1)),
+               axis.title.y = element_text(angle=90,vjust =2),
+               axis.title.x = element_text(vjust = -0.2),
+               axis.text = element_text(), 
+               axis.line.x = element_line(colour="black"),
+               axis.line.y = element_line(colour="black"),
+               axis.ticks = element_line(),
+               panel.grid.major = element_line(colour="#f0f0f0"),
+               panel.grid.minor = element_blank(),
+               legend.key = element_rect(colour = NA),
+               # legend.position = "bottom",
+               # legend.direction = "horizontal",
+               legend.key.size= unit(0.2, "cm"),
+               legend.margin = unit(0, "cm"),
+               legend.title = element_text(face="italic"),
+               # plot.margin=unit(c(10,5,5,5),"mm"),
+               strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
+               strip.text = element_text(face="bold")
+       ))
+      
+}
+```
+
+### miRNAs (miRNA precusors)
+
+```{r}
+valueBox(length(data[,4]),
+         icon = "fa-search")
+```
+
+### Genomic features
+
+```{r}
+valueBox(length(unique(data[,14])),
+         icon = 'fa-star')
+```
+
+Row
+-------------------------------------
+
+### Percentage of miRNAs with different lengths
+
+```{r}
+data$Len <- factor(data$Len, levels=sort(unique(data$Len)))
+mycolors <- c("blue", "#FFC125", "darkgreen", "darkorange")
+p1 <- data %>%
+         group_by(Len) %>%
+         summarise(count = n()) %>%
+         plot_ly(labels = ~sort(Len),
+                 values = ~count,
+                 marker = list(colors = mycolors),
+                 sort = FALSE) %>%
+         add_pie(hole = 0.5) %>%
+         layout(xaxis = list(zeroline = F,
+                             showline = F,
+                             showticklabels = F,
+                             showgrid = F),
+                yaxis = list(zeroline = F,
+                             showline = F,
+                             showticklabels=F,
+                             showgrid=F),
+                  legend = list(title = list(text="Length")))
+p1 %>%
+  config(
+    toImageButtonOptions = list(
+      filename = "Length count",
+      format = "svg",
+      width = 200,
+      height = 100
+    )
+  )
+```
+
+### Percentage of miRNA abundance with different lengths
+
+```{r}
+if(!any(data[,7]=="-")){
+  p2 <- data %>%
+           group_by(Len) %>%
+           summarise(count = sum(TPM)) %>%
+           plot_ly(labels = ~Len,
+                   values = ~count,
+                   marker = list(colors = mycolors),
+                   sort = FALSE) %>%
+           add_pie(hole = 0.5) %>%
+           layout(xaxis = list(zeroline = F,
+                               showline = F,
+                               showticklabels = F,
+                               showgrid = F),
+                  yaxis = list(zeroline = F,
+                               showline = F,
+                               showticklabels=F,
+                               showgrid=F),
+                  legend = list(title = list(text="Length")))
+  p2 %>%
+    config(
+      toImageButtonOptions = list(
+        filename = "Total TPM of different lengths",
+        format = "svg",
+        width = 200,
+        height = 100
+      )
+    )
+}
+```
+
+Row
+-------------------------------------
+
+### Percentage of the length and abundance of miRNAs {data-width=350}
+
+```{r}
+if(!any(data[,7]=="-")){
+  raw_df <- matrix(ncol = 3)
+  breaks = c(0,100,1000,10000,floor(max(data[,7])))
+  for(i in 1:length(breaks)-1){
+    index_tmp <- data[,7]>=breaks[i]&data[,7]<breaks[i+1]
+    index_tmp <- table(data[index_tmp,5])
+    for(j in names(index_tmp)){
+       raw_df <- rbind(raw_df, c(paste0(breaks[i], "-", breaks[i+1]),
+                             j, as.numeric(index_tmp[j])))
+    }
+  }
+
+  raw_df <- as.data.frame(raw_df[-1,])
+  raw_df[,3] <- as.numeric(raw_df[,3])
+  raw_df[,1] <- factor(raw_df[,1],levels=unique(raw_df[,1]))
+  colnames(raw_df) <- c("Region", "Length", "Percentage")
+
+  ggplot(raw_df, aes(Region, Percentage, fill=Length)) +
+    geom_bar(stat="identity", position="fill") +
+    theme_Publication() +
+    theme(axis.line = element_line(colour = "black", size = 0.5)) +
+    guides(fill=guide_legend(title=NULL)) + coord_flip() +
+    scale_fill_brewer(palette = "Set3")
+ }
+```
+
+### Distribution of miRNA length among different genomic features {data-width=350}
+
+```{r}
+data_count <- table(data[,c(5,14)])
+data_count <- reshape2::melt(data_count)
+colnames(data_count) <- c("Length", "Regions", "Count") 
+
+p3 <- ggplot()+geom_bar(data = data, aes(x=Type, fill=Type)) +
+  theme_Publication() + theme(axis.ticks.x = element_blank(), 
+                          axis.title.x = element_blank(),
+                          axis.line.x = element_blank(),
+                          axis.text.x = element_blank(),
+                          axis.line.y = element_line(colour = "black", size = 0.5))+
+  scale_y_continuous(breaks=seq(0, max(table(data[,14])), 20)) +
+  scale_fill_jama() + ylab("Count")
+  
+
+p4 <- ggplot() + 
+  geom_point(data = data_count, 
+             aes(x=Regions, y=Length, 
+                 size = Count), color="#4B6370") +
+  scale_size(range = c(0, 8)) +
+  theme_Publication() +
+  theme(panel.grid.major = element_line(colour = NA)) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        axis.line = element_line(colour = "black", size = 0.5))+
+  scale_y_continuous(breaks = seq(min(data_count$Length),
+                                  max(data_count$Length),
+                                  1))
+
+p5 <- ggplot()+geom_bar(data = data, aes(x=Len), width=0.5) + 
+  coord_flip() + theme_Publication() +
+  theme(axis.ticks.y = element_blank(), axis.title.y = element_blank(),
+        axis.line.y = element_blank(),axis.text.y = element_blank(),
+        axis.line.x = element_line(colour = "black", size = 0.5))  + ylab("Count")
+
+design <- "A#
+           BC"
+wrap_plots(A = p3, B = p4, C = p5, 
+           design = design, heights = c(1.5,1), guides = "collect")
+```
+
+### Distribution of miRNA length among different TEs {data-width=350}
+
+```{r}
+if("TE" %in% data$Type){
+  TE_data <- data[data$Type=="TE", ]
+if(nrow(TE_data)>0){
+  TE_data_mat <- table(TE_data[,c(5,15)])
+  TE_data_mat <- reshape2::melt(TE_data_mat)
+  colnames(TE_data_mat) <- c("Length", "Subtype", "Count") 
+  
+  p6 <- ggplot()+geom_bar(data = TE_data, aes(x=Subtype, fill=Subtype)) +
+    theme_Publication() + theme(axis.ticks.x = element_blank(), 
+                            axis.title.x = element_blank(),
+                            axis.line.x = element_blank(),
+                            axis.text.x = element_blank(),
+                            axis.line.y = element_line(colour = "black", size = 0.5))+
+    scale_y_continuous(breaks=seq(0, max(table(data[,14])), 20)) +
+    scale_fill_lancet() + ylab("Count")
+    
+  
+  p7 <- ggplot() + 
+    geom_point(data = TE_data_mat, 
+               aes(x=Subtype, y=Length, 
+                   size = Count), color="#4B6370") +
+    scale_size(range = c(0, 8)) +
+    theme_Publication() +
+    theme(panel.grid.major = element_line(colour = NA)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1),
+          axis.line = element_line(colour = "black", size = 0.5))+
+      scale_y_continuous(breaks = seq(min(TE_data_mat$Length),
+                                    max(TE_data_mat$Length),
+                                    1))
+  
+  p8 <- ggplot()+geom_bar(data = TE_data, aes(x=Len), width=0.5) + 
+    coord_flip() + theme_Publication() +
+    theme(axis.ticks.y = element_blank(), axis.title.y = element_blank(),
+          axis.line.y = element_blank(),axis.text.y = element_blank(),
+          axis.line.x = element_line(colour = "black", size = 0.5))  + ylab("Count")
+  
+  # subplot(plot_spacer(), p1, p2, p3,
+  #         nrows = 2, margin = 0.04, heights = c(0.7, 0.3))
+  
+  design <- "A#
+             BC"
+  wrap_plots(A = p6, B = p7, C = p8, 
+             design = design, heights = c(1.5,1), guides = "collect")
+
+ }
+}
+```
+---
+title: "Raw sequencing data preprocessing"
+date: '(`r format(Sys.time(), format = "%Y-%m-%d")`)'
+output:
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+    social: menu
+    source_code: embed
+    theme: cosmo
+    self_contained: no
+---
+
+```{r setup, include = FALSE}
+library(DT)
+library(ggplot2)
+library(purrr)
+library(highcharter)
+options(stringsAsFactors = F)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.align='center',fig.pos='H',
+                      fig.path = "output_plots/",
+                      dev = "svg")
+```
+
+<div id="preloader"></div>
+
+```{js, echo=FALSE}
+$(function() {
+  $(window).load(function() {
+    $('#preloader').fadeOut('slow',function(){$(this).remove();});
+  });
+});
+```
+
+```{css, echo=FALSE}
+.limitrow {
+  width: 99.4% !important;
+  flex: none !important;
+}
+
+.limitrow .chart-stage {
+  overflow-x:scroll;
+}
+
+#row-4 .chart-stage,
+#row-5 .chart-stage {
+width:1475px !important;
+overflow-x:scroll !important;
+}
+```
+
+Summary  {data-orientation=rows data-icon="fa-table"}
+=====================================
+
+### Fetch large-scale small RNA-seq data from NCBI and filter the raw data.
+Users can collect public data from NCBI (https://www.ncbi.nlm.nih.gov/). Samples with low data quality will be excluded. The remaining samples were analyzed and indicated in the following tables and figures.
+
+Row {data-width=850}
+--------------------------------------
+
+### Summary table {.limitrow}
+```{r}
+inputMat <- read.table("00Table_Summary_of_sRNA-seq_data.txt", stringsAsFactors = F, sep = "\t", row.names = 1)
+inputMat <- inputMat[order(rownames(inputMat)), ]
+adapter <- read.table("Adapter.txt", row.names = 1)
+inputMat <- cbind(adapter[rownames(inputMat),], inputMat)
+colnames(inputMat) <- c("Adapter", 'Phred', 'Barcode', "Raw reads", "Clean reads", "Ratio(%)", "Length limited", "Aligned", "Remove t/r/sn/snoRNA", "Collapsed reads","Most abundant read", "Most abundant read count")
+
+for(tmp_nn in c(4,5,7,8,9,10,12)){
+  inputMat[,tmp_nn] <- formatC(inputMat[,tmp_nn], big.mark=",", format="d")
+}
+
+datatable(data = inputMat, extensions = 'Buttons', class="compact cell-border", options = list( dom = "Blfrtip", buttons = list("copy",list(extend = "collection", buttons = c("csv", "excel", "pdf"), text = "Download") ),lengthMenu = list( c(10, 20, -1), c(10, 20, "All") ), pageLength = 10, autoWidth = TRUE), rownames = TRUE)%>%
+formatStyle(TRUE, `text-align` = 'right')
+```
+
+<p style="font-size:14px;"> This table displays read number, adaptors, and barcode information for each library. `Adapter`: The adapter sequence; `Phred`: Phred score; `Barcode`: Whether there is a barcode in each library, "-" means no; `Raw reads`: Number of reads generated by sequencing; `Clean reads`: Number of reads that are filtered by adapters and quality scores; `Ratio`: Clean reads/Raw reads; `Length-limited`: Number of reads satisfying the length criteria; `Aligned`: Number of reads in limited length and at most one mismatch during mapping (-v 1 --best --strata); `Remove t/r/sn/snoRNA`: Number of mapped reads after removing reads corresponding to tRNAs, rRNAs, snRNAs and snoRNAs; `Collapsed reads`: Number of unique reads after reads collapsing; `Most abundant read`: The sequence with the highest count; `Most abundant read count`: The highest count. </p>
+
+Row {data-width=850}
+--------------------------------------
+
+### Length distribution of all small RNAs
+
+```{r}
+Length_count <- read.table("Length_count.txt", sep = "\t")
+Length_count <- Length_count[Length_count[,1]=="All", ]
+Length_count <- Length_count[order(Length_count[,3]), ]
+ds <- map(unique(Length_count[,2]), function(x){
+    dt <- Length_count[Length_count[,2] == x, 3:4]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>% 
+    hc_add_series_list(ds)%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution of collapsed small RNAs")
+
+```
+
+> The figure displays an interactive line chart which contains the length distribution of all reads in each small RNA-seq sample. The sample information is available by hovering over the points.
+
+### Length distribution of collapsed small RNAs
+
+```{r}
+Length_count <- read.table("Length_count.txt", sep = "\t")
+Length_count <- Length_count[Length_count[,1]=="Unique", ]
+Length_count <- Length_count[order(Length_count[,3]), ]
+ds <- map(unique(Length_count[,2]), function(x){
+    dt <- Length_count[Length_count[,2] == x, 3:4]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>% 
+    hc_add_series_list(ds)%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution of collapsed small RNAs")
+
+```
+
+> The figure displays an interactive line chart which contains the length distribution of unique reads in each small RNA-seq sample. The sample information is available by hovering over the points.
+---
+title: "Aggregating already annotated miRNAs"
+date: '(`r format(Sys.time(), format = "%Y-%m-%d")`)'
+output:
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+    social: menu
+    source_code: embed
+    theme: cosmo
+    self_contained: no
+---
+
+```{css}
+.correct:before {
+  content: '\2611';
+  color: #008100;
+  font-style:normal;
+  font-weight:bold;
+  font-size: 150%;
+
+}
+.incorrect:before {
+  content: '\2612';
+  font-style:normal;    
+  color: #b20610;
+  font-size: 150%;
+}
+
+ .zoom {
+  height:400px;
+	display:block;
+  left: 50%;
+  margin: auto;
+  border: 0
+} 
+
+```
+
+```{r setup, include = FALSE}
+library(DT)
+library(dplyr)
+library(tibble)
+library(formattable)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE)
+
+options(stringsAsFactors = F)
+options(digits=3)
+premirTab <- read.table("Translate_out.txt", sep = "\t", header = T)
+premirTab <- premirTab[, -ncol(premirTab)]
+premirTab <- cbind(premirTab, Delete="<button class=\"btnDelete\">Delete</button>")
+linkname <- gsub(":", "_", premirTab[,2])
+premirTab[,1] <- paste0("<a href=\"javascript:void(0)\" onclick=\"mirnaplot('",linkname,"')\">", premirTab[,1],"</a>")
+dbsum <- sum(colnames(premirTab)%in%c("miRBase", "PmiREN", "sRNAanno", "Psgenes", "sRNA_Seq"))
+dbloc <- ncol(premirTab)-dbsum-1
+
+for(numt in (dbloc+1):(ncol(premirTab)-1)){
+  premirTab[,numt] <- factor(premirTab[,numt], levels = unique(premirTab[,numt]))
+}
+
+premirTab <- premirTab[,c(1,4,dbloc:ncol(premirTab))]
+
+
+```
+
+Results  {data-orientation=columns data-icon="fa-area-chart"}
+================================
+
+There are three sections in this HTML report. In **Overview and Summary Information**, we list the aggregated miRNAs that identified by four databases and small RNA-seq data. By clicking on the link in the table, the **RNAfold** and **CentroidFold** sections interactively show the RNA structure of RNAfold and CentroidFold prediction.
+
+Column 1 {data-width=400}
+-------------------------------------
+
+### Overview and Summary Information 
+
+```{r outdata}
+premirTab <- premirTab %>% rowid_to_column("Row") %>% mutate(Row = "")
+premirTab$Mature_arm <- factor(premirTab$Mature_arm, levels = unique(premirTab$Mature_arm))
+
+datatable(
+    premirTab,
+    elementId = "linktable",
+    class="compact cell-border",
+    filter = 'top',
+    extensions = c("Select", "Buttons", 'ColReorder'),
+    options = list(
+        autoWidth = TRUE,
+        dom = 'Bfrtip',
+        buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+        columnDefs = list(list(className = "select-checkbox",targets = 0, orderable = FALSE),
+                          list(width = '2px', targets = "_all")),
+        select = list(style = "multi", selector = "td:first-child"),
+        searchHighlight = TRUE,
+        colReorder = FALSE,
+        scrollX = TRUE,
+        fixedColumns = FALSE,
+        extensions = 'Responsive',
+        pageLength = 20),
+    escape = FALSE,
+    rownames = FALSE,
+    callback = JS("$('#linktable tbody').on('click','.btnDelete',function(){table.row( $(this).parents('tr') ).remove().draw();});"))%>%
+  formatStyle(TRUE, `text-align` = 'center')
+```
+<p style="font-size:14px;"> The table displays a collection of miRNAs from public databases and small RNA-Seq data. `Precursors`: The name of miRNA precursors; `pLen`: The length of miRNA precusors; `miRBase/PmiREN/sRNAanno/Psgenes`: Whether miRNAs are included in these databases. TRUE means being included, and NO means no; `sRNA_Seq`: Whether miRNAs are predicted in small RNA-Seq data (sRNA-Seq). </p>
+
+
+Column 2 {data-width=200}
+--------------------------------------------
+
+### RNAfold
+
+```{r RNAfold}
+library(htmltools)
+tags$img(id="content1",class="zoom", src=knitr::image_uri(paste0("png/", linkname[1], "_r.png")))
+```
+
+### CentroidFold
+
+```{r CentroidFold}
+library(htmltools)
+tags$img(id="content2",class="zoom", src=knitr::image_uri(paste0("png/", linkname[1], "_c.png")))
+```
+
+```{js}
+function mirnaplot(event)
+{
+document.getElementById("content1").src= "png/" + event + "_r.png";
+document.getElementById("content2").src= "png/" + event + "_c.png";
+}
+```
+---
+title: "Report page"
+output:
+    flexdashboard::flex_dashboard:
+        orientation: rows
+        vertical_layout: scroll
+        social: menu
+        source_code: embed
+        theme: cosmo
+        self_contained: no
+---
+
+```{r setup, include=FALSE}
+library(DT)
+library(purrr)
+library(readr)
+library(dplyr)
+library(cytoscape)
+library(kableExtra)
+library(highcharter)
+library(svgPanZoom)
+options(stringsAsFactors = F)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r import, include=FALSE}
+info_table_raw <- read.table("final_table.txt", sep = "\t", header = T)
+info_table <- info_table_raw[,c(2,5:ncol(info_table_raw))]
+info_table <- info_table[info_table$ID!="", ]
+
+mature_exp <- read.table("miRNA_in_sample.txt", sep = "\t", stringsAsFactors = F, row.names = 1, header = T)
+rownames(mature_exp) <- gsub("T", "U", rownames(mature_exp))
+
+tmp_fullname <- info_table$Extended_stem_loop_loc
+tmp_fullname <- gsub(":", "-", tmp_fullname)
+tmp_index <- which(tmp_fullname%in%"xxxxxx")
+
+tmp_name <- info_table[tmp_index, 2]
+info_vec <- info_table[tmp_index, c(1:13,20:21)]
+
+tmp_df <- data.frame("Location"=as.character(info_vec[c(2,5,7,10)]), 
+                     "Sequence"=as.character(info_vec[c(3,6,8,11)]), 
+                     "Length"=as.character(c(info_vec[4],  nchar(info_vec[6]), 
+                                             info_vec[c(9,12)])))
+rownames(tmp_df) <- c("miRNA precursors", "Stem loop", "5p", "3p")
+mature_df <- t(mature_exp[c(info_vec$Seq5p, info_vec$Seq3p), ])
+rownames(mature_df) <- colnames(mature_exp)
+mature_df[is.na(mature_df)] <- 0
+arm_ratio <- apply(mature_df, 1, function(x){
+  if(max(x[1:2])<3){
+    return(0)
+  } else{
+    if(info_vec$Mature_arm == '5p'){
+      return(round(log2((x[1]+1)/(x[2]+1)), 2))
+    } else{
+      return(round(log2((x[2]+1)/(x[1]+1)), 2))
+    }
+  }
+})
+
+```
+
+```{css}
+p.seq {
+  word-wrap:break-word;word-break:break-all;
+  font-size: 15px;
+}
+
+p.one{
+  margin-top:0.2em;
+}
+
+table{
+  table-layout:fixed;
+}
+
+table td {
+  word-wrap:break-word;
+  
+}
+```
+
+Browse {data-icon=fa-area-chart}
+=====================================
+
+Row 
+-------------------------------------
+
+### Location and sequences {data-width=250}
+
+```{r table1, results='asis'}
+eseq <- tmp_df[1,2]
+eseqms <- regexpr(tmp_df[3,2], eseq)[1]
+eseqss <- regexpr(tmp_df[4,2], eseq)[1]
+
+tmp_df[1,2] <- paste0('<p class="seq">', substr(eseq, 1, eseqms-1),'<span style="background-color: #F88017">',
+       tmp_df[3,2], "</span>", substr(eseq, eseqms+nchar(tmp_df[3,2]), eseqss-1),
+       '<span style="background-color: #168EF7">', tmp_df[4,2], "</span>", substr(eseq, eseqss+nchar(tmp_df[4,2]), nchar(eseq)), '</p>')
+
+tmp_df[2,2] <- paste0('<p class="seq"><span style="background-color: #F88017">',
+       tmp_df[3,2], "</span>", substr(eseq, eseqms+nchar(tmp_df[3,2]), eseqss-1),
+       '<span style="background-color: #168EF7">', tmp_df[4,2], "</span></p>")
+
+knitr::kable(tmp_df, escape = FALSE) %>%kable_styling("striped", full_width = FALSE)
+```
+
+## {data-height=10}
+
+<p class="one"></p>
+
+Row
+-------------------------------------
+
+### RNAfold structure {data-height=100, data-width=350}
+
+```{r pressure1, echo=FALSE, fig.cap="RNAfold", out.width = '33%'}
+svgPanZoom::svgPanZoom( read_file(paste0("../miRNASelection/data/",  gsub(":", "_", tmp_name), '_r.svg')))
+```
+
+### Information {data-width=250}
+
+```{r}
+fold_info <- t(read.table(paste0("../miRNASelection/data/", tmp_name, '_fold.txt')))
+colnames(fold_info) <- c("RNAfold", "Centriodfold")
+rownames(fold_info) <- c("miRNAs", "meet criterion", "mismatch+bugleOne", "bugleOne", "bugleTwo")
+knitr::kable(fold_info, escape = FALSE, align = "c") %>% 
+  kable_styling("striped", full_width = TRUE)
+```
+
+### Centroidfold structure {data-width=350}
+
+```{r pressure2, echo=FALSE, fig.cap="Centroidfold", out.width = '33%'}
+svgPanZoom::svgPanZoom( read_file(paste0("../miRNASelection/data/",  gsub(":", "_", tmp_name), '_c.svg')))
+```
+
+## {data-height=10}
+
+Row
+-----------------------------------
+
+### Overview of read-stacks on extended miRNA precursor  {data-height=150}
+
+<div style="height:100%;width:100%;overflow:auto">
+```{r readstacks, class="scroll-100", results='asis'}
+htmltools::includeHTML(paste0("../miRNASelection/data/", tmp_name, '_map.html'))
+```
+</div>
+
+## {data-height=10}
+
+<p class="one"></p>
+
+Row
+-------------------------------------
+
+### mature miRNA expression
+
+```{r}
+tissue_info <- read.table("sample_info.txt", sep = "\t", stringsAsFactors = F, row.names = 1)
+tissue_name <- tissue_info[rownames(mature_df),]
+exp_df <- data.frame("miRNAs"=rep(c(paste0(info_vec[1], "-5p"), paste0(info_vec[1], "-3p")), each=nrow(mature_df)), "TPM" = c(mature_df[,1], mature_df[,2]), "Tissues"= rep(tissue_name, 2), stringsAsFactors = F)
+exp_df <- exp_df[exp_df[,3]!="-", ]
+exp_df[,1] <- factor(exp_df[,1], levels = unique(exp_df[,1]))
+
+hcboxplot(x = exp_df$TPM, var = exp_df$Tissues, var2 = exp_df$miRNAs, outliers = FALSE) %>%
+  hc_chart(type = "column") %>%
+  hc_xAxis(title = list(text = "")) %>%
+  hc_yAxis(title  = list(text = "TPM")) %>%
+  hc_exporting(enabled = TRUE, filename = "mature_miRNA_expression")
+```
+
+### Arm switch events
+
+```{r}
+mature_df_out <- data.frame('5p'=mature_df[,1], 
+                            '3p'=mature_df[,2], "ratio"= arm_ratio, "grouplist"=tissue_info[rownames(mature_df),], stringsAsFactors = F)
+mature_df_out <- mature_df_out[mature_df_out[,4]!="-", ]
+mature_df_out <- mature_df_out[order(mature_df_out[["ratio"]], decreasing = T), ]
+mature_df_out <- mature_df_out[order(mature_df_out[,3], decreasing=T), ]
+mature_df_out <- mature_df_out[order(mature_df_out[,4]), ]
+
+hchart(
+  mature_df_out, 
+  "scatter",
+  hcaes(x=1:nrow(mature_df_out), y=ratio, group = grouplist, radius = 0), radius = 10
+  ) %>% 
+  hc_xAxis(title = list(text = "")) %>% 
+  hc_yAxis(title  = list(text = "Log2(miR/miR*)")) %>% 
+  hc_tooltip(
+    pointFormat = "{series.name}: <b>{point.y}</b><br/>", 
+    shared = TRUE,
+    valueSuffix = "", 
+    crosshairs = TRUE
+  ) %>% 
+  hc_add_theme(hc_theme_flat(chart = list(backgroundColor = "#FFF")))%>% 
+  hc_exporting(enabled = TRUE, filename = "Arm_switch_events")
+```
+
+## {data-height=10}
+
+<p class="one"></p>
+
+Row {.tabset}
+--------------------------------------------
+
+### Network of miRNAs-target interactions {data-width=400}
+
+```{r}
+tmp_path <- paste0("../miRNASelection/data/", tmp_name, '.mti')
+if(file.exists(tmp_path)&file.info(tmp_path)[1,1]>0){
+    inputRaw <- read.table(tmp_path, sep = "\t", header = F, stringsAsFactors = F)
+    if(nrow(inputRaw)>0){
+      inputRaw[,2] <- gsub("\\.\\d", "", inputRaw[,2])
+      if(file.exists("gene_description.txt")){
+        gene_description <- read.table("gene_description.txt", row.names = 1, stringsAsFactors = F, sep = "\t")
+        inputRaw[,4] <- gene_description[inputRaw[,2], 1]
+      }else{
+        inputRaw[,4] <- "-"
+      }
+      inputRaw[,1] <- gsub(tmp_name, info_vec$ID, inputRaw[,1])
+      inputRaw[,1] <- gsub("\\+", "", inputRaw[,1])
+      inputRaw <- inputRaw[, 1:12]
+      colnames(inputRaw) <- c("miRNA_Acc.", "Target_Acc.", "Expectation", "Target description", "miRNA_start", "miRNA_end", "Target_start", "Target_end", "miRNA_aligned_fragment", "alignment", "Target_aligned_fragment", "Inhibition")
+      inputRe <- unique(inputRaw[,1:2])
+      nodes <- data.frame(id = unique(c(inputRe[,1],inputRe[,2])))%>%
+            mutate(node_color = ifelse(id %in% inputRe[,1],
+                                   "#DE3025",
+                                   "#85C7E6"),
+                   node_shape = ifelse(id %in% inputRe[,1],
+                                   "rectangle",
+                                   "ellipse"),
+                   node_font_size = ifelse(id %in% inputRe[,1],
+                                   10,5),
+                   node_height = ifelse(id %in% inputRe[,1],
+                                   20,15))
+      edges <- data.frame(id = paste0(inputRe[,1], "_", inputRe[,2]), source = inputRe[,1], target = inputRe[,2])
+      
+      cytoscape(nodes = nodes, edges = edges, elementId="networkfig")%>% 
+        layout(name = 'cose',
+               directed = TRUE,
+               padding = 4, 
+               avoidOverlapPadding = 30) %>%
+        node_style('height' = 'data(node_height)',
+                   'width' = 'data(node_height)',
+                   'font-size' = 'data(node_font_size)',
+                   'background-fit' = 'cover',
+                   'border-color' = '#000',
+                   'border-width' = 1,
+                   'border-opacity' = 0.5,
+                   'background-color' = 'data(node_color)',
+                   'shape' = 'data(node_shape)') %>%
+        edge_style('curve-style' = 'bezier',
+                   'width' = 1,
+                   'arrow-scale' = 0.8,
+                   'target-arrow-shape' = 'triangle',
+                   'line-color' = '#88898D',
+                   'target-arrow-color' = '#88898D')%>%
+          panzoom()
+    }
+}
+
+```
+
+### Information of Network {data-width=600}
+
+```{r}
+if(file.exists(tmp_path)&file.info(tmp_path)[1,1]>0){
+  table_options <- function() {
+    list(dom = 'Bfrtip',
+      pageLength = 8,
+      buttons = list(c('copy', 'csv', 'excel', 'pdf')),
+      searchHighlight = TRUE,
+      colReorder = TRUE,
+      scrollX = TRUE,
+      fixedColumns = TRUE,
+      extensions = 'Responsive',
+      deferRender = TRUE,
+      scroller = TRUE,
+      lengthChange = FALSE
+      )
+  }
+  
+  datatable(
+    inputRaw,
+    rownames = FALSE,
+    editable = TRUE,
+    elementId = "linktable",
+    class = 'cell-border',
+    escape = FALSE,
+    options = table_options(),
+    extensions = c('Buttons', 'Select')) %>% 
+    formatStyle(columns = colnames(inputRaw), fontSize = '80%')
+}
+```
+
+## {data-height=10}
+
+<p class="one"></p>
+
+Row
+-----------------------------------
+
+### Secondary structures by strucVis {data-width=350}
+
+```{r pressure3, echo=FALSE, fig.cap="strucVis", out.width = '33%'}
+svgPanZoom::svgPanZoom( read_file(paste0("../miRNASelection/data/", tmp_name, '.svg')))
+```
+
+### The expression level of different types of isomiR {data-width=500}
+
+```{r}
+tmp_out <- paste0("../miRNASelection/data/", tmp_name, '.out')
+if(file.exists(tmp_out)&file.info(tmp_out)[1,1]>0){
+  iso_list <- read.table(tmp_out, sep = "\t", stringsAsFactors = F)
+  iso_list <- iso_list[iso_list[,10]!="-", ]
+  iso_list[,2] <- factor(iso_list[,2], levels = c("5p", "3p"))
+  iso_list[,10] <- factor(iso_list[,10], levels = c("ref", "add5", "sub5", "add3", "sub3",
+                                        "add5_add3", "add5_sub3", "sub5_add3", "sub5_sub3",
+                                        "seed_snp", "tail_snp"))
+  
+  hchart(
+    iso_list, 
+    "column",
+    hcaes(x=V10, y=V8, group = V2), color=c("#DE3025", "#257ADE")[1:length(unique(iso_list$V2))]
+    ) %>% 
+    hc_xAxis(title = list(text = "")) %>% 
+    hc_yAxis(title  = list(text = "TPM")) %>% 
+    hc_tooltip(
+      pointFormat = "{series.name}: <b>{point.y}</b><br/>", 
+      shared = TRUE,
+      valueSuffix = "", 
+      crosshairs = TRUE
+    ) %>% 
+    hc_add_theme(hc_theme_flat(chart = list(backgroundColor = "#FFF")))%>% 
+    hc_exporting(enabled = TRUE, filename = "different_types_of_isomiR")
+}
+```
+
+---
+title: "Summary page"
+date: '(`r format(Sys.time(), format = "%Y-%m-%d")`)'
+output:
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+    source_code: embed
+    theme: cosmo
+    self_contained: no
+---
+
+Quality control  {data-orientation=rows data-icon="fa-area-chart"}
+================================
+  
+Row
+-------------------------------------
+
+### Overview and Summary Information
+
+```{r setup, include = FALSE}
+library(DT)
+library(dplyr)
+library(tibble)
+library(formattable)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE,
+                      warning = FALSE)
+options(stringsAsFactors = F)
+```
+
+```{r }
+options(stringsAsFactors = F)
+info_table <- read.table("final_table_source.txt", sep = "\t", header = T)
+info_table[info_table[, "TPM5p"]=="-", "TPM5p"] <- "0"
+info_table[info_table[, "TPM3p"]=="-", "TPM3p"] <- "0"
+info_table$Mean <- round(info_table$Mean, 2)
+info_table$Max <- round(info_table$Max, 2)
+
+colname_list <- c("ID", "HTcriteria", "One_class_SVM", "Genomic_source","Source","Stem_loop_loc", "Stem_loop_len", "Stem_loop_MFE", "Stem_loop_AMFE",
+                     "Mature_arm", "Seq5p", "Len5p", "TPM5p", "The_number_of_sequences_in_pre.miRNAs", "Abundance_bias", "Strand_bias",
+                     "RNAfold", "Centroidfold", "Mean", "Max", "Samples")
+df <- info_table[, colname_list]
+
+replaceCol <- c("Mature_arm", "Seq5p", "Len5p", "TPM5p")
+for(i in 1:nrow(df)){
+  if(info_table[i, "Mature_arm"]=="5p"){
+    df[i, replaceCol] <- info_table[i, replaceCol]
+  } else if(info_table[i, "Mature_arm"]=="3p"){
+    df[i, replaceCol] <- info_table[i, c("Mature_arm", "Seq3p", "Len3p", "TPM3p")]
+  } else {
+    if(as.numeric(info_table[i, "TPM5p"])>=as.numeric(info_table[i, "TPM3p"])){
+      df[i, replaceCol] <- c('5p', info_table[i, c("Seq5p", "Len5p", "TPM5p")])
+    }else{
+      df[i, replaceCol] <- c('3p', info_table[i, c("Seq3p", "Len3p", "TPM3p")])
+    }
+  }
+}
+
+
+# df <- read.table("summary_information.txt", sep = "\t", header = T)
+#tissue_name <- colnames(info_table)[33:ncol(info_table)]
+linkname <- gsub(":", "-", info_table$Extended_stem_loop_loc)
+# for(i in 1:nrow(df)){
+#  df_out <- data.frame("name" = colnames(df),  "value" = as.character(df[i,]))
+#   writeLines(jsonlite::toJSON(df_out), paste0("data/", linkname[i], ".json"))
+# }
+df[,1] <- paste0("<a href=\"javascript:void(0)\" onclick=\"mirnaplot('",linkname,"')\">", df[,1],"</a>")
+
+# set_list <- lapply(1:3,function(cc){
+#   formatter("span", style = x ~ style(color = ifelse(x, "green", "red")),
+#             x ~ icontext(ifelse(x, "ok", "remove"), ifelse(x, "Yes", "No")))
+# })
+# names(set_list) <- colnames(df)[c(2,16,17)]
+
+df <- cbind(df, "remove" = '<input type="button" value="Delete" class="btnDelete">')
+df <- df %>% rowid_to_column("Row") %>% mutate(Row = "")
+# df <- formattable(df, set_list)
+
+th_style = "padding: 5px;
+color: #fff;
+background-color:#517FB9;
+text-align: center;
+border-right-width: 1px; 
+border-right-style: solid; 
+border-right-color: white; 
+border-bottom-width: 1px; 
+border-bottom-style: solid; 
+border-bottom-color: white;
+word-wrap: break-word;      
+overflow-wrap: break-word;"
+
+table_frame <-
+  function() {
+    htmltools::withTags(
+      table(class = 'display', style = "padding: 1px; font-size: 0.8em; 
+            font-family: sans-serif; text-align: center; word-wrap: break-word; overflow-wrap: break-word;",
+            thead(tr(
+              th(rowspan = 2, style = th_style, 'Row'),
+              th(rowspan = 2, style = th_style, 'ID'),
+              th(rowspan = 2, style = th_style, 'HT criteria'),
+              th(rowspan = 2, style = th_style, 'One class SVM'),
+              th(rowspan = 2, style = th_style, 'Genomic source'),
+              th(rowspan = 2, style = th_style, 'Source'),
+              th(class = 'dt-center', style = th_style, colspan = 4, 'Stem loop'),
+              th(class = 'dt-center', style = th_style, colspan = 4, 'Mature miRNA'),
+              th(class = 'dt-center', style = th_style, colspan = 5, 'miRNA precursor'),
+              th(class = 'dt-center', style = th_style, colspan = 3, 'Expressed samples'),
+              th(rowspan = 2, style = th_style, 'Remove'),
+              tr(lapply(c('Loc', 'Len', 'MFE', 'AMFE', 'Arm', 'Seq', 'Len', 'TPM',
+                  'Seq count', 'Abundance bias', 'Strand bias',
+                  'RNAfold', 'Centroidfold','Mean','Max','Sample(TPM>1)'), th, style = th_style)) #'Mean', 'Max','Sample (TPM>1)', tissue_name
+            )
+          )))
+  }
+
+#th(class = 'dt-center', style = th_style, colspan = 3, 'TPM in 1063 samples'), 
+#th(class = 'dt-center', style = th_style, colspan = length(tissue_name), 'TPM in tissues'), 
+
+table_options <- function() {
+  list(dom = 'Bfrtip',
+    pageLength = 20,
+    buttons = list(c('copy', 'csv', 'excel', 'pdf', 'print')),
+    columnDefs = list(list(className = "select-checkbox", targets = 0, orderable = FALSE)),
+    select = list(style = "multi", selector = "td:first-child"),
+    searchHighlight = TRUE,
+    scrollX = TRUE,
+    fixedColumns = TRUE,
+    extensions = 'Responsive',
+    deferRender = TRUE,
+    scroller = TRUE,
+    lengthChange = FALSE,
+    initComplete = JS(
+      "function(settings, json) {",
+      "$(this.api().table().header()).css({'background-color': '#517fb9', 'color': '#fff'});",
+      "}"
+    )
+      )
+}
+
+#brks <- quantile(df[,tissue_name], probs = seq(.05, .95, .05), na.rm = TRUE)
+#clrs <- round(seq(255, 40, length.out = length(brks) + 1), 0) %>%
+#{paste0("rgb(255,", ., ",", ., ")")}
+
+df$One_class_SVM <- factor(df$One_class_SVM, levels = unique(df$One_class_SVM))
+df$Source <- factor(df$Source, levels = unique(df$Source))
+df$Genomic_source <- factor(df$Genomic_source, levels = unique(df$Genomic_source))
+
+datatable(
+  df,
+  rownames = FALSE,
+  editable = FALSE,
+  elementId = "linktable",
+  class="compact cell-border",
+  filter = 'top',
+  # class = 'cell-border',
+  escape = FALSE,
+  container = table_frame(),
+  options = table_options(),
+  extensions = c('Buttons', 'Select'),
+  callback = JS("$('#linktable tbody').on('click','.btnDelete',function(){table.row( $(this).parents('tr') ).remove().draw();});")) %>% 
+  formatStyle("Genomic_source", backgroundColor = styleEqual(unique(df$Genomic_source), c("lightblue", "lightgreen", "lightpink", "lightgrey", "lightred", "lightyellow")[1:length(unique(df$Genomic_source))]))
+```
+
+> The table displays the overview information of Precursor miRNAs. Each row presents one candidate pre-miRNAs with name, location in genome, strand information, abundance, and bias.
+
+```{js}
+function mirnaplot(event){
+  window.open("miRNA_out/" + event +".html");
+}
+```
+---
+title: "The available miRNAs in several public databases"
+output:
+    flexdashboard::flex_dashboard:
+        orientation: rows
+        vertical_layout: scroll
+        social: menu
+        source_code: embed
+        theme: cosmo
+---
+
+```{r setup, include=FALSE}
+library(DT)
+library(purrr)
+library(ggplot2)
+library(dplyr)
+library(highcharter)
+options(stringsAsFactors = F)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{css, echo=FALSE}
+.limitrow {
+  width: 99.4% !important;
+  flex: none !important;
+}
+
+.limitrow .chart-stage {
+  overflow-x:scroll;
+}
+
+p.seq {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+    min-width: 0;
+    margin: 0;
+    font-size: 15px;
+}
+
+p.seq:hover {
+    overflow: none;
+    width: auto;
+}
+```
+
+miRBase {data-icon=fa-bar-chart}
+=====================================
+
+Row
+-------------------------------------
+
+### Table: Detailed information of miRNAs {.limitrow}
+
+```{r }
+sRNA_data <- read.table("miRBase.txt", sep = "	", header = T)
+sRNA_data <- sRNA_data[sRNA_data[,8]<30&sRNA_data[,11]<30, ]
+sRNA_data[,3] <- paste0("<p class=\"seq\">", sRNA_data[,3],"</p>")
+datatable(data = sRNA_data,
+          extensions = 'Buttons',
+          options = list(dom = "Blfrtip",
+                         buttons = list("copy",list(extend = "collection",
+                                                     buttons = c("csv", "excel"),
+                                                     text = "Download")),
+                         lengthMenu = list( c(10, 20, -1), c(10, 20, "All")),
+                         pageLength = 10, autoWidth = TRUE),
+          rownames = FALSE, escape = FALSE, class = 'compact nowrap stripe hover')%>%
+formatStyle(TRUE, `text-align` = 'center')
+```
+
+Row
+-------------------------------------
+
+### miRNA categories
+
+```{r}
+name_col_two <- as.data.frame(table(sRNA_data[,12]))
+name_col_two[,1] <- paste0(name_col_two[,1], " (", name_col_two[,2], ")")
+highchart() %>%
+    hc_title(text = "miRNAs" ,align = "center",verticalAlign = "middle") %>%
+    hc_tooltip(headerFormat ="", pointFormat = "{series.y} <b>{point.percentage:.1f}%</b>")%>%
+    hc_plotOptions(pie = list(dataLabels = list(enabled = TRUE,distance = -50
+                                                ,style = list(fontWeight = "bold",color = "white",
+                                                              fontSize=16, textOutline = "")),
+                              center = c('50%','50%'))) %>%
+    hc_add_series(name_col_two, type = "pie", hcaes(name = Var1, y = Freq),
+            innerSize = "50%") %>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Pie_miRNA_identification")
+
+```
+
+### miRNA family sizes and total number of family
+
+```{r}
+name_family <- gsub("\\D$", "", sRNA_data[,1])
+family_table <- table(name_family)
+name_col_pre <- table(family_table)
+name_col_num <- as.numeric(names(name_col_pre))
+tmp_name <- as.character(min(name_col_num):max(name_col_num))
+name_col_pre <- name_col_pre[tmp_name]
+names(name_col_pre) <- tmp_name
+name_col_pre[is.na(name_col_pre)] <- 0
+name_col_one <- as.data.frame(name_col_pre)
+name_col_one[,1] <- as.numeric(name_col_one[,1])
+highchart() %>%
+    hc_title(text = "miRNA family") %>%
+    hc_add_series(name="miRNA family", name_col_one, type = "column",hcaes(name = Var1, y = Freq))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 12)))%>%
+    hc_exporting(enabled = TRUE, filename = "total number of miRNA family")
+```
+
+### miRNA family sizes
+
+```{r}
+family_index <- name_family%in%names(family_table[family_table>1])
+family_show <- data.frame('mirna' = name_family[family_index])
+family_show %>%
+    count(mirna) %>%
+    hchart('treemap', hcaes(x = 'mirna', value = 'n', color = 'n'))%>%
+    hc_exporting(enabled = TRUE, filename = "miRNA family sizes")
+```
+
+Row
+-------------------------------------
+
+### Length distribution
+
+```{r}
+ds <- map(unique(sRNA_data[,12]), function(x){
+    dt <- density(sRNA_data[,4][sRNA_data[,12] == x])[1:2]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>%
+    hc_add_series_list(ds)%>%
+    hc_add_theme(hc_theme_google())
+```
+
+### Length and distribution of all miRNAs
+
+```{r}
+ter_len <- data.frame('Ter'=rep(c("5p","3p"), each = nrow(sRNA_data)),
+                      "Len" = c(sRNA_data[,8], sRNA_data[,11]))
+ter_len <- ter_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(ter_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution")
+```
+
+### Composition of the first base
+
+```{r}
+mat_char <- data.frame('Type'=rep(c("5p","3p"), each = nrow(sRNA_data)),
+                      "Letter" = c(substr(sRNA_data[,7], 1, 1), substr(sRNA_data[,10], 1, 1)))
+mat_char <- mat_char %>% group_by(Letter, Type) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal", borderColor = "",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(mat_char, type = "column", hcaes(x = Type, y = n , group = Letter))%>%
+    hc_add_theme(hc_theme_google()) %>%
+    hc_tooltip(headerFormat ="", pointFormat = "<b>{point.percentage:.1f}%</b>")%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 16)))%>%
+    hc_exporting(enabled = TRUE, filename = "Composition of the first base")
+```
+
+PmiREN {data-icon=fa-bar-chart}
+=====================================
+
+Row
+-------------------------------------
+
+### Table: Detailed information of miRNAs {.limitrow}
+
+```{r }
+sRNA_data2 <- read.table("PmiREN.txt", sep = "	", header = T)
+sRNA_data2[,3] <- paste0("<p class=\"seq\">", sRNA_data2[,3],"</p>")
+datatable(data = sRNA_data2,
+          extensions = 'Buttons',
+          options = list(dom = "Blfrtip",
+                         buttons = list("copy",list(extend = "collection",
+                                                     buttons = c("csv", "excel"),
+                                                     text = "Download")),
+                         lengthMenu = list( c(10, 20, -1), c(10, 20, "All")),
+                         pageLength = 10, autoWidth = TRUE),
+          rownames = FALSE, escape = FALSE, class = 'compact nowrap stripe hover')%>%
+formatStyle(TRUE, `text-align` = 'center')
+```
+
+Row
+-------------------------------------
+
+### miRNA family sizes and total number of family
+
+```{r}
+name_family <- gsub("\\D$", "", sRNA_data2[,1])
+family_table <- table(name_family)
+name_col_pre <- table(family_table)
+name_col_num <- as.numeric(names(name_col_pre))
+tmp_name <- as.character(min(name_col_num):max(name_col_num))
+name_col_pre <- name_col_pre[tmp_name]
+names(name_col_pre) <- tmp_name
+name_col_pre[is.na(name_col_pre)] <- 0
+name_col_one <- as.data.frame(name_col_pre)
+name_col_one[,1] <- as.numeric(name_col_one[,1])
+highchart() %>%
+    hc_title(text = "miRNA family") %>%
+    hc_add_series(name="miRNA family", name_col_one, type = "column",hcaes(name = Var1, y = Freq))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 12)))%>%
+    hc_exporting(enabled = TRUE, filename = "total number of miRNA family")
+```
+
+### miRNA family sizes
+
+```{r}
+family_index <- name_family%in%names(family_table[family_table>1])
+family_show <- data.frame('mirna' = name_family[family_index])
+family_show %>%
+    count(mirna) %>%
+    hchart('treemap', hcaes(x = 'mirna', value = 'n', color = 'n'))%>%
+    hc_exporting(enabled = TRUE, filename = "miRNA family sizes")
+```
+
+### miRNA categories
+
+```{r}
+def_col_two <- rep("Known", nrow(sRNA_data2))
+def_col_two[grepl("MIRN", sRNA_data2[,1])] <- "Novel"
+name_col_two <- as.data.frame(table(def_col_two))
+name_col_two[,1] <- paste0(name_col_two[,1], " (", name_col_two[,2], ")")
+highchart() %>%
+    hc_title(text = "miRNAs" ,align = "center",verticalAlign = "middle") %>%
+    hc_tooltip(headerFormat ="", pointFormat = "{series.y} <b>{point.percentage:.1f}%</b>")%>%
+    hc_plotOptions(pie = list(dataLabels = list(enabled = TRUE,distance = -50
+                                                ,style = list(fontWeight = "bold",color = "white",
+                                                              fontSize=16, textOutline = "")),
+                              center = c('50%','50%'))) %>%
+    hc_add_series(name_col_two, type = "pie", hcaes(name = def_col_two, y = Freq),
+            innerSize = "50%") %>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Pie_miRNA_identification")
+```
+
+Row
+-------------------------------------
+
+### Length distribution
+
+```{r}
+ds <- map(unique(def_col_two), function(x){
+    dt <- density(sRNA_data2[,4][def_col_two == x])[1:2]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>%
+    hc_add_series_list(ds)%>%
+    hc_add_theme(hc_theme_google())
+```
+
+### Length and distribution of all miRNAs
+
+```{r}
+ter_len <- data.frame('Ter'=rep(c("5p","3p"), each = nrow(sRNA_data2)),
+                      "Len" = c(sRNA_data2[,8], sRNA_data2[,11]))
+ter_len <- ter_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(ter_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution")
+```
+
+### Length and distribution of mature miRNAs
+
+```{r}
+mat_len <- data.frame('Ter'=sRNA_data2[,5],
+                      "Len" = sRNA_data2[,8])
+mat_len <- mat_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(mat_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Length and distribution of mature miRNA")
+```
+
+sRNAanno {data-icon=fa-bar-chart}
+=====================================
+
+Row
+-------------------------------------
+
+### Table: Detailed information of miRNAs {.limitrow}
+
+```{r }
+sRNA_data3 <- read.table("sRNAanno.txt", sep = "	", header = T)
+sRNA_data3[,3] <- paste0("<p class=\"seq\">", sRNA_data3[,3],"</p>")
+datatable(data = sRNA_data3,
+          extensions = 'Buttons',
+          options = list(dom = "Blfrtip",
+                         buttons = list("copy",list(extend = "collection",
+                                                     buttons = c("csv", "excel"),
+                                                     text = "Download")),
+                         lengthMenu = list( c(10, 20, -1), c(10, 20, "All")),
+                         pageLength = 10, autoWidth = TRUE),
+          rownames = FALSE, escape = FALSE, class = 'compact nowrap stripe hover')%>%
+formatStyle(TRUE, `text-align` = 'center')
+```
+
+Row
+-------------------------------------
+
+### miRNA family sizes and total number of family
+
+```{r}
+name_col <- t(do.call("cbind", strsplit(sRNA_data3[,1], "-")))
+name_col[,1] <- gsub("\\D$", "", name_col[,1] )
+colnames(name_col) <- c("mirna", 'Type')
+
+name_col_pre <- table(table(name_col[,1]))
+name_col_num <- as.numeric(names(name_col_pre))
+tmp_name <- as.character(min(name_col_num):max(name_col_num))
+name_col_pre <- name_col_pre[tmp_name]
+names(name_col_pre) <- tmp_name
+name_col_pre[is.na(name_col_pre)] <- 0
+name_col_one <- as.data.frame(name_col_pre)
+name_col_one[,1] <- as.numeric(name_col_one[,1])
+
+highchart() %>%
+    hc_title(text = "miRNA family") %>%
+    hc_add_series(name="miRNA family", name_col_one, type = "column",hcaes(name = Var1, y = Freq))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 12)))%>%
+    hc_exporting(enabled = TRUE, filename = "total number of miRNA family")
+```
+
+### miRNA family sizes
+
+```{r}
+family_index <- name_col[,1]%in%names(table(name_col[,1])[table(name_col[,1])>1])
+family_show <- as.data.frame(name_col[family_index, ])
+family_show %>%
+    count(mirna) %>%
+    hchart('treemap', hcaes(x = 'mirna', value = 'n', color = 'n'))%>%
+    hc_exporting(enabled = TRUE, filename = "miRNA family sizes")
+```
+
+### miRNA categories
+
+```{r}
+name_col_two <- as.data.frame(table(name_col[,2]))
+name_col_two[,1] <- paste0(name_col_two[,1], " (", name_col_two[,2], ")")
+highchart() %>%
+    hc_title(text = "miRNAs" ,align = "center",verticalAlign = "middle") %>%
+    hc_tooltip(headerFormat ="", pointFormat = "{series.y} <b>{point.percentage:.1f}%</b>")%>%
+    hc_plotOptions(pie = list(dataLabels = list(enabled = TRUE,distance = -50
+                                                ,style = list(fontWeight = "bold",color = "white",
+                                                              fontSize=16, textOutline = "")),
+                              center = c('50%','50%'))) %>%
+    hc_add_series(name_col_two, type = "pie", hcaes(name = Var1, y = Freq),
+            innerSize = "50%") %>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Pie_miRNA_identification")
+```
+
+Row
+-------------------------------------
+
+### Length distribution
+
+```{r}
+ds <- map(unique(name_col[,2]), function(x){
+    dt <- density(sRNA_data3[,4][name_col[,2] == x])[1:2]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>%
+    hc_add_series_list(ds)%>%
+    hc_add_theme(hc_theme_google())
+
+ter_len <- data.frame('Ter'=rep(c("5p","3p"), each = nrow(sRNA_data3)),
+                      "Len" = c(sRNA_data3[,8], sRNA_data3[,11]))
+ter_len <- ter_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(ter_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution")
+```
+
+### Length and distribution of mature miRNA
+
+```{r}
+mat_len <- data.frame('Ter'=sRNA_data3[,5],
+                      "Len" = sRNA_data3[,8])
+mat_len <- mat_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(mat_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Length and distribution of mature miRNA")
+```
+
+### Composition of the first base
+
+```{r}
+mat_char <- data.frame('Type'=name_col[,2],
+                      "Letter" = substr(sRNA_data3[,7], 1, 1))
+mat_char <- mat_char %>% group_by(Letter, Type) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal", borderColor = "",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(mat_char, type = "column", hcaes(x = Type, y = n , group = Letter))%>%
+    hc_add_theme(hc_theme_google()) %>%
+    hc_tooltip(headerFormat ="", pointFormat = "<b>{point.percentage:.1f}%</b>")%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 16)))%>%
+    hc_exporting(enabled = TRUE, filename = "Composition of the first base")
+```
+
+Plant small RNA genes {data-icon=fa-bar-chart}
+=====================================
+
+Row
+-------------------------------------
+
+### Table: Detailed information of miRNAs {.limitrow}
+
+```{r }
+sRNA_data4 <- read.table("PlantsmallRNAgenes.txt", sep = "	", header = T)
+data_index <- sRNA_data4$Mature_arm!='unmatchedRegion'&sRNA_data4$Length5p<30&sRNA_data4$Length3p<30
+sRNA_data4 <- sRNA_data4[data_index, ]
+sRNA_data4[,3] <- paste0("<p class=\"seq\">", sRNA_data4[,3],"</p>")
+datatable(data = sRNA_data4,
+          extensions = 'Buttons',
+          options = list(dom = "Blfrtip",
+                         buttons = list("copy",list(extend = "collection",
+                                                     buttons = c("csv", "excel"),
+                                                     text = "Download")),
+                         lengthMenu = list( c(10, 20, -1), c(10, 20, "All")),
+                         pageLength = 10, autoWidth = TRUE),
+          rownames = FALSE, escape = FALSE, class = 'compact nowrap stripe hover')%>%
+formatStyle(TRUE, `text-align` = 'center')
+```
+
+Row
+-------------------------------------
+
+### miRNA categories
+
+```{r}
+name_col_two <- as.data.frame(table(sRNA_data4$Source))
+name_col_two[,1] <- paste0(name_col_two[,1], " (", name_col_two[,2], ")")
+highchart() %>%
+    hc_title(text = "miRNAs" ,align = "center",verticalAlign = "middle") %>%
+    hc_tooltip(headerFormat ="", pointFormat = "{series.y} <b>{point.percentage:.1f}%</b>")%>%
+    hc_plotOptions(pie = list(dataLabels = list(enabled = TRUE,distance = -50
+                                                ,style = list(fontWeight = "bold",color = "white",
+                                                              fontSize=16, textOutline = "")),
+                              center = c('50%','50%'))) %>%
+    hc_add_series(name_col_two, type = "pie", hcaes(name = Var1, y = Freq),
+            innerSize = "50%") %>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_exporting(enabled = TRUE, filename = "Pie_miRNA_identification")
+```
+
+### miRNA family sizes and total number of family
+
+```{r}
+name_family <- gsub("\\D$", "", sRNA_data4$Precursors)
+family_table <- table(name_family)
+name_col_pre <- table(family_table)
+name_col_num <- as.numeric(names(name_col_pre))
+tmp_name <- as.character(min(name_col_num):max(name_col_num))
+name_col_pre <- name_col_pre[tmp_name]
+names(name_col_pre) <- tmp_name
+name_col_pre[is.na(name_col_pre)] <- 0
+name_col_one <- as.data.frame(name_col_pre)
+name_col_one[,1] <- as.numeric(name_col_one[,1])
+if( "Freq"%in%colnames(name_col_one) ){
+  highchart() %>%
+    hc_title(text = "miRNA family") %>%
+    hc_add_series(name="miRNA family", name_col_one, type = "column",hcaes(name = Var1, y = Freq))%>%
+    hc_add_theme(hc_theme_google())%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 12)))%>%
+    hc_exporting(enabled = TRUE, filename = "total number of miRNA family")
+}
+```
+
+### miRNA family sizes
+
+```{r}
+family_index <- name_family%in%names(family_table[family_table>1])
+family_show <- data.frame('mirna' = name_family[family_index])
+family_show %>%
+    count(mirna) %>%
+    hchart('treemap', hcaes(x = 'mirna', value = 'n', color = 'n'))%>%
+    hc_exporting(enabled = TRUE, filename = "miRNA family sizes")
+```
+
+Row
+-------------------------------------
+
+### Length distribution
+
+```{r}
+ds <- map(unique(sRNA_data4$Source), function(x){
+    dt <- density(sRNA_data4$pLength[sRNA_data4$Source == x])[1:2]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+db <- map(unique(sRNA_data4$Type), function(x){
+    dt <- density(sRNA_data4$pLength[sRNA_data4$Type == x])[1:2]
+    dt <- list_parse2(as.data.frame(dt))
+    list(data = dt, name = x)
+})
+
+highchart() %>%
+    hc_add_series_list(ds)%>%
+    hc_add_series_list(db)%>%
+    hc_add_theme(hc_theme_google())
+```
+
+### Length and distribution of all miRNAs
+
+```{r}
+ter_len <- data.frame('Ter'=rep(c("5p","3p"), each = nrow(sRNA_data4)),
+                      "Len" = c(sRNA_data4$Length5p, sRNA_data4$Length3p))
+ter_len <- ter_len %>% group_by(Len, Ter) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(ter_len, type = "column", hcaes(x = Len, y = n , group = Ter))%>%
+    hc_exporting(enabled = TRUE, filename = "Length distribution")
+```
+
+### Composition of the first base
+
+```{r}
+firstbase <- apply(sRNA_data4, 1, function(x){
+  if(x[5] == "5p"){
+  return(substr(x[8], 1, 1))
+  }else{
+  return(substr(x[11], 1, 1))
+  }
+})
+mat_char <- data.frame('Type'=rep(c(sRNA_data4$Source, sRNA_data4$Type)),
+                      "Letter" = c(firstbase, firstbase))
+mat_char <- mat_char %>% group_by(Letter, Type) %>%  summarise(n = n())
+highchart() %>%
+    hc_plotOptions(column = list(
+        dataLabels = list(enabled = FALSE),
+        stacking = "normal", borderColor = "",
+        enableMouseTracking = TRUE)
+    ) %>%
+    hc_add_series(mat_char, type = "column", hcaes(x = Type, y = n , group = Letter))%>%
+    hc_add_theme(hc_theme_google()) %>%
+    hc_tooltip(headerFormat ="", pointFormat = "<b>{point.percentage:.1f}%</b>")%>%
+    hc_xAxis(type = "category", labels = list(style = list(fontSize = 16)))%>%
+    hc_exporting(enabled = TRUE, filename = "Composition of the first base")
+```

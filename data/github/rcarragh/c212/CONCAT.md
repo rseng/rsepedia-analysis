@@ -447,3 +447,57 @@ This work was funded by the Engineering and Physical Sciences Research Council (
 Science (Scotland) Ltd.
 
 # References
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# c212: Methods for Detecting Safety Signals in Clinical Trials Using Body-Systems (System Organ Classes) 
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of c212 is to provide a self-contained set of methods, which use groupings of adverse events, to aid clinical trial safety investigators, statisticians and researchers, in the early detection of adverse events.
+
+## Installation
+
+You can install the released version of c212 from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("c212")
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("rcarragh/c212")
+```
+
+## Example
+
+This is a basic example which shows how to apply the Double False Discovery Rate to a set of multiple hypotheses:
+
+```{r example1}
+library(c212)
+data(c212.FDR.data)
+c212.err.cntrl(c212.FDR.data, method="DFDR", alpha = 0.05)
+```
+
+This is an example of how to apply the Berry and Berry model:
+
+```{r example2}
+library(c212)
+data(c212.trial.data)
+mod.BB <- c212.BB(c212.trial.data, burnin = 100, iter = 200)
+```

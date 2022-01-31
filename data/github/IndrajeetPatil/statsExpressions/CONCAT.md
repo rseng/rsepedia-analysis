@@ -3279,3 +3279,3579 @@ Brief description of the problem
 ```r
 # insert reprex here
 ```
+---
+output: 
+  github_document:
+    pandoc_args: --webtex=http://chart.apis.google.com/chart?cht=tx&chl=
+---
+
+  <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo=FALSE}
+options(
+  tibble.width      = Inf,
+  pillar.bold       = TRUE,
+  pillar.neg        = TRUE,
+  pillar.subtle_num = TRUE,
+  pillar.min_chars  = Inf
+)
+
+knitr::opts_chunk$set(
+  collapse          = TRUE,
+  dpi               = 300,
+  out.width         = "100%",
+  comment           = "#>",
+  warning           = FALSE,
+  message           = FALSE,
+  fig.path          = "man/figures/README-"
+)
+
+library(statsExpressions)
+set.seed(123)
+```
+
+# `{statsExpressions}`: Tidy dataframes and expressions with statistical details
+
+Status | Usage| Miscellaneous
+----------------- | ----------------- | ----------------- 
+[![R build status](https://github.com/IndrajeetPatil/statsExpressions/workflows/R-CMD-check/badge.svg)](https://github.com/IndrajeetPatil/statsExpressions) | [![Total downloads badge](https://cranlogs.r-pkg.org/badges/grand-total/statsExpressions?color=blue)](https://CRAN.R-project.org/package=statsExpressions) | [![Codecov](https://codecov.io/gh/IndrajeetPatil/statsExpressions/branch/master/graph/badge.svg)](https://app.codecov.io/gh/IndrajeetPatil/statsExpressions?branch=master)
+[![lints](https://github.com/IndrajeetPatil/statsExpressions/workflows/lint/badge.svg)](https://github.com/IndrajeetPatil/statsExpressions) | [![Daily downloads badge](https://cranlogs.r-pkg.org/badges/last-day/statsExpressions?color=blue)](https://CRAN.R-project.org/package=statsExpressions) | [![status](https://tinyverse.netlify.com/badge/statsExpressions)](https://CRAN.R-project.org/package=statsExpressions)
+[![pkgdown](https://github.com/IndrajeetPatil/statsExpressions/workflows/pkgdown/badge.svg)](https://github.com/IndrajeetPatil/statsExpressions/actions) | [![DOI](https://joss.theoj.org/papers/10.21105/joss.03236/status.svg)](https://doi.org/10.21105/joss.03236) | [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+ 
+# Introduction <img src="man/figures/logo.png" align="right" width="240" />
+
+The `{statsExpressions}` package has two key aims: 
+
+- to provide a consistent syntax to do statistical analysis with tidy data (in pipe-friendly manner),
+- to provide statistical expressions (pre-formatted in-text statistical
+results) for plotting functions.
+
+Statistical packages exhibit substantial diversity in terms of their syntax and
+expected input type. This can make it difficult to switch from one statistical
+approach to another. For example, some functions expect vectors as inputs, while
+others expect dataframes. Depending on whether it is a repeated measures design
+or not, different functions might expect data to be in wide or long format. Some
+functions can internally omit missing values, while other functions error in
+their presence. Furthermore, if someone wishes to utilize the objects returned
+by these packages downstream in their workflow, this is not straightforward
+either because even functions from the same package can return a list, a matrix,
+an array, a dataframe, etc., depending on the function.
+
+This is where `{statsExpressions}` comes in: It can be thought of as a unified
+portal through which most of the functionality in these underlying packages can
+be accessed, with a simpler interface and no requirement to change data format.
+
+# Installation
+
+Type | Source | Command
+---|---|---
+Release | [![CRAN Status](https://www.r-pkg.org/badges/version/statsExpressions)](https://cran.r-project.org/package=statsExpressions) | `install.packages("statsExpressions")`
+Development | [![Project Status](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/##active) | `remotes::install_github("IndrajeetPatil/statsExpressions")`
+
+# Citation
+
+The package can be cited as:
+
+```{r citation, comment=""}
+citation("statsExpressions")
+```
+
+# General Workflow
+
+```{r, echo=FALSE, out.width="80%"}
+knitr::include_graphics("man/figures/card.png")
+```
+
+# Summary of types of statistical analyses
+
+Here is a tabular summary of available tests:
+
+Test | Function | Lifecycle
+------------------ | -------- | ----- 
+one-sample *t*-test | `one_sample_test` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+two-sample *t*-test | `two_sample_test` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+one-way ANOVA | `oneway_anova` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+correlation analysis | `corr_test` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+contingency table analysis | `contingency_table` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+meta-analysis | `meta_analysis` | [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+
+The table below summarizes all the different types of analyses currently
+supported in this package-
+
+Description | Parametric | Non-parametric | Robust | Bayesian
+------------------ | ---- | ----- | ----| ----- 
+Between group/condition comparisons | ✅ | ✅ | ✅ | ✅
+Within group/condition comparisons | ✅ | ✅ | ✅ | ✅
+Distribution of a numeric variable | ✅ | ✅ | ✅ | ✅
+Correlation between two variables | ✅ | ✅ | ✅ | ✅
+Association between categorical variables | ✅ | ✅ | ❌ | ✅
+Equal proportions for categorical variable levels | ✅ | ✅ | ❌ | ✅
+Random-effects meta-analysis | ✅ | ❌ | ✅ | ✅
+
+Summary of Bayesian analysis
+
+Analysis | Hypothesis testing | Estimation
+------------------ | ---------- | ---------
+(one/two-sample) *t*-test | ✅ | ✅
+one-way ANOVA | ✅ | ✅
+correlation | ✅ | ✅
+(one/two-way) contingency table | ✅ | ✅
+random-effects meta-analysis | ✅ | ✅
+
+# Tidy dataframes from statistical analysis
+
+To illustrate the simplicity of this syntax, let's say we want to run a one-way
+ANOVA. If we first run a non-parametric ANOVA and then decide to run a robust
+ANOVA instead, the syntax remains the same and the statistical approach can be
+modified by changing a single argument:
+
+```{r df}
+library(statsExpressions)
+
+mtcars %>% oneway_anova(cyl, wt, type = "nonparametric")
+
+mtcars %>% oneway_anova(cyl, wt, type = "robust")
+```
+
+All possible output dataframes from functions are tabulated here:
+<https://indrajeetpatil.github.io/statsExpressions/articles/web_only/dataframe_outputs.html>
+
+Needless to say this will also work with the `kable` function to generate a
+table:
+
+```{r kable}
+# setup
+library(statsExpressions)
+set.seed(123)
+
+# one-sample robust t-test
+# we will leave `expression` column out; it's not needed for using only the dataframe
+mtcars %>%
+  one_sample_test(wt, test.value = 3, type = "robust") %>%
+  dplyr::select(-expression) %>%
+  knitr::kable()
+```
+
+These functions are also compatible with other popular data manipulation
+packages. 
+
+For example, let's say we want to run a one-sample *t*-test for all levels of a
+certain grouping variable. We can use `dplyr` to do so:
+
+```{r grouped_df}
+# for reproducibility
+set.seed(123)
+library(dplyr)
+
+# grouped operation
+# running one-sample test for all levels of grouping variable `cyl`
+mtcars %>%
+  group_by(cyl) %>%
+  group_modify(~ one_sample_test(.x, wt, test.value = 3), .keep = TRUE) %>%
+  ungroup()
+```
+
+# Using expressions in custom plots
+
+Note that *expression* here means **a pre-formatted in-text statistical result**.
+In addition to other details contained in the dataframe, there is also a column
+titled `expression`, which contains expression with statistical details and can
+be displayed in a plot.
+
+For **all** statistical test expressions, the default template attempt to follow
+the gold standard for statistical reporting.
+
+For example, here are results from Welch's *t*-test:
+
+<img src="man/figures/stats_reporting_format.png" align="center" />
+
+## Expressions for centrality measure
+
+```{r centrality}
+library(ggplot2)
+
+# displaying mean for each level of `cyl`
+centrality_description(mtcars, cyl, wt) |>
+  ggplot(aes(cyl, wt)) +
+  geom_point() +
+  geom_label(aes(label = expression), parse = TRUE)
+```
+
+Here are a few examples for supported analyses.
+
+## Expressions for one-way ANOVAs
+
+### Between-subjects design
+
+Let's say we want to check differences in weight of the vehicle based on number
+of cylinders in the engine and wish to carry out robust trimmed-means ANOVA:
+
+```{r anova_rob1}
+# setup
+set.seed(123)
+library(ggplot2)
+library(statsExpressions)
+library(ggridges)
+
+# create a ridgeplot
+ggplot(iris, aes(x = Sepal.Length, y = Species)) +
+  geom_density_ridges(
+    jittered_points = TRUE, quantile_lines = TRUE,
+    scale = 0.9, vline_size = 1, vline_color = "red",
+    position = position_raincloud(adjust_vlines = TRUE)
+  ) + # use the expression in the dataframe to display results in the subtitle
+  labs(
+    title = "A heteroscedastic one-way ANOVA for trimmed means",
+    subtitle = oneway_anova(iris, Species, Sepal.Length, type = "robust")$expression[[1]]
+  )
+```
+
+### Within-subjects design
+
+Let's now see an example of a repeated measures one-way ANOVA.
+
+```{r anova_parametric2}
+# setup
+set.seed(123)
+library(ggplot2)
+library(WRS2)
+library(ggbeeswarm)
+library(statsExpressions)
+
+ggplot2::ggplot(WineTasting, aes(Wine, Taste, color = Wine)) +
+  geom_quasirandom() +
+  labs(
+    title = "Friedman's rank sum test",
+    subtitle = oneway_anova(
+      WineTasting,
+      Wine,
+      Taste,
+      paired = TRUE,
+      subject.id = Taster,
+      type = "np"
+    )$expression[[1]]
+  )
+```
+
+## Expressions for two-sample tests
+
+### Between-subjects design
+
+```{r t_two}
+# setup
+set.seed(123)
+library(ggplot2)
+library(gghalves)
+library(ggbeeswarm)
+library(hrbrthemes)
+
+# create a plot
+ggplot(ToothGrowth, aes(supp, len)) +
+  geom_half_boxplot() +
+  geom_beeswarm() +
+  theme_ipsum_rc() +
+  # adding a subtitle with
+  labs(
+    title = "Two-Sample Welch's t-test",
+    subtitle = two_sample_test(ToothGrowth, supp, len)$expression[[1]]
+  )
+```
+
+### Within-subjects design
+
+We can also have a look at a repeated measures design and the related expressions.
+
+```{r t_two_paired1}
+# setup
+set.seed(123)
+library(ggplot2)
+library(tidyr)
+library(PairedData)
+data(PrisonStress)
+
+# get data in tidy format
+df <- pivot_longer(PrisonStress, starts_with("PSS"), "PSS", values_to = "stress")
+
+# plot
+paired.plotProfiles(PrisonStress, "PSSbefore", "PSSafter", subjects = "Subject") +
+  labs(
+    title = "Two-sample Wilcoxon paired test",
+    subtitle = two_sample_test(
+      data = df,
+      x = PSS,
+      y = stress,
+      paired = TRUE,
+      subject.id = Subject,
+      type = "np"
+    )$expression[[1]]
+  )
+```
+
+## Expressions for one-sample tests
+
+```{r t_one}
+# setup
+set.seed(123)
+library(ggplot2)
+
+# dataframe with results
+df_results <- one_sample_test(mtcars, wt, test.value = 3, type = "bayes",
+                              top.text = "Bayesian one-sample t-test")
+
+# creating a histogram plot
+ggplot(mtcars, aes(wt)) +
+  geom_histogram(alpha = 0.5) +
+  geom_vline(xintercept = mean(mtcars$wt), color = "red") +
+  labs(
+    subtitle = df_results$expression[[1]]
+  )
+```
+
+## Expressions for correlation analysis
+
+Let's look at another example where we want to run correlation analysis:
+
+```{r corr}
+# setup
+set.seed(123)
+library(ggplot2)
+
+# create a scatter plot
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x) +
+  labs(
+    title = "Spearman's rank correlation coefficient",
+    subtitle = corr_test(mtcars, mpg, wt, type = "nonparametric")$expression[[1]]
+  )
+```
+
+## Expressions for contingency table analysis
+
+For categorical/nominal data - one-sample:
+
+```{r gof}
+# setup
+set.seed(123)
+library(ggplot2)
+
+df_results <- contingency_table(as.data.frame(table(mpg$class)),
+  Var1,
+  counts = Freq,
+  type = "bayes",
+  top.text = "One-sample goodness-of-fit test"
+)
+
+# basic pie chart
+ggplot(as.data.frame(table(mpg$class)), aes(x = "", y = Freq, fill = factor(Var1))) +
+  geom_bar(width = 1, stat = "identity") +
+  theme(axis.line = element_blank()) +
+  # cleaning up the chart and adding results from one-sample proportion test
+  coord_polar(theta = "y", start = 0) +
+  labs(
+    fill = "Class",
+    x = NULL,
+    y = NULL,
+    title = "Pie Chart of class (type of car)",
+    caption = df_results$expression[[1]]
+  )
+```
+
+You can also use these function to get the expression in return without having
+to display them in plots:
+
+```{r expr_output}
+# setup
+set.seed(123)
+library(ggplot2)
+
+# Pearson's chi-squared test of independence
+contingency_table(mtcars, am, cyl)$expression[[1]]
+```
+
+## Expressions for meta-analysis
+
+```{r metaanalysis, fig.height=14, fig.width=12}
+# setup
+set.seed(123)
+library(metaviz)
+library(ggplot2)
+library(metaplus)
+
+# meta-analysis forest plot with results random-effects meta-analysis
+viz_forest(
+  x = mozart[, c("d", "se")],
+  study_labels = mozart[, "study_name"],
+  xlab = "Cohen's d",
+  variant = "thick",
+  type = "cumulative"
+) + # use `{statsExpressions}` to create expression containing results
+  labs(
+    title = "Meta-analysis of Pietschnig, Voracek, and Formann (2010) on the Mozart effect",
+    subtitle = meta_analysis(dplyr::rename(mozart, estimate = d, std.error = se))$expression[[1]]
+  ) +
+  theme(text = element_text(size = 12))
+```
+
+# Customizing details to your liking
+
+Sometimes you may not wish include so many details in the subtitle. In that
+case, you can extract the expression and copy-paste only the part you wish to
+include. For example, here only statistic and *p*-values are included:
+
+```{r custom_expr}
+# setup
+set.seed(123)
+library(ggplot2)
+
+# extracting detailed expression
+(res_expr <- oneway_anova(iris, Species, Sepal.Length, var.equal = TRUE)$expression[[1]])
+
+# adapting the details to your liking
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_boxplot() +
+  labs(subtitle = ggplot2::expr(paste(
+    NULL, italic("F"), "(", "2",
+    ",", "147", ") = ", "119.26", ", ",
+    italic("p"), " = ", "1.67e-31"
+  )))
+```
+
+# Summary of tests and effect sizes
+
+Here a go-to summary about statistical test carried out and the returned effect
+size for each function is provided. This should be useful if one needs to find
+out more information about how an argument is resolved in the underlying package
+or if one wishes to browse the source code. So, for example, if you want to know
+more about how one-way (between-subjects) ANOVA, you can run
+`?stats::oneway.test` in your R console.
+
+## `centrality_description`
+
+Type | Measure | Function used
+----------- | --------- | ------------------ 
+Parametric | mean | `parameters::describe_distribution`
+Non-parametric | median | `parameters::describe_distribution`
+Robust | trimmed mean | `parameters::describe_distribution`
+Bayesian | MAP (maximum *a posteriori* probability) estimate | `parameters::describe_distribution`
+
+## `two_sample_test` + `oneway_anova`
+
+No. of groups: `2` => `two_sample_test`<br>
+No. of groups: `> 2` => `oneway_anova`
+
+### between-subjects
+
+**Hypothesis testing**
+
+Type | No. of groups | Test | Function used
+----------- | --- | ------------------------- | -----
+Parametric | > 2 | Fisher's or Welch's one-way ANOVA | `stats::oneway.test`
+Non-parametric | > 2 | Kruskal–Wallis one-way ANOVA | `stats::kruskal.test`
+Robust | > 2 | Heteroscedastic one-way ANOVA for trimmed means | `WRS2::t1way`
+Bayes Factor | > 2 | Fisher's ANOVA | `BayesFactor::anovaBF`
+Parametric | 2 | Student's or Welch's *t*-test | `stats::t.test`
+Non-parametric | 2 | Mann–Whitney *U* test | `stats::wilcox.test`
+Robust | 2 |  Yuen's test for trimmed means | `WRS2::yuen`
+Bayesian | 2 | Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | No. of groups | Effect size | CI? | Function used
+----------- | --- | ------------------------- | --- | -----
+Parametric | > 2 | $\eta_{p}^2$, $\omega_{p}^2$ | ✅ | `effectsize::omega_squared`, `effectsize::eta_squared`
+Non-parametric | > 2 | $\epsilon_{ordinal}^2$ | ✅ | `effectsize::rank_epsilon_squared`
+Robust | > 2 | $\xi$ (Explanatory measure of effect size) | ✅ | `WRS2::t1way`
+Bayes Factor | > 2 | $R_{Bayesian}^2$ | ✅ | `performance::r2_bayes`
+Parametric | 2 | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | 2 | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | 2 |  $\delta_{R}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference) | ✅ | `WRS2::akp.effect`
+Bayesian | 2 | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+### within-subjects
+
+**Hypothesis testing**
+
+Type | No. of groups | Test | Function used
+----------- | --- | ------------------------- | -----
+Parametric | > 2 | One-way repeated measures ANOVA | `afex::aov_ez`
+Non-parametric | > 2 | Friedman rank sum test | `stats::friedman.test`
+Robust | > 2 | Heteroscedastic one-way repeated measures ANOVA for trimmed means | `WRS2::rmanova`
+Bayes Factor | > 2 | One-way repeated measures ANOVA | `BayesFactor::anovaBF`
+Parametric | 2 | Student's *t*-test | `stats::t.test`
+Non-parametric | 2 | Wilcoxon signed-rank test | `stats::wilcox.test`
+Robust | 2 | Yuen's test on trimmed means for dependent samples | `WRS2::yuend`
+Bayesian | 2 | Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | No. of groups | Effect size | CI? | Function used
+----------- | --- | ------------------------- | --- | -----
+Parametric | > 2 | $\eta_{p}^2$, $\omega_{p}^2$ | ✅ | `effectsize::omega_squared`, `effectsize::eta_squared`
+Non-parametric | > 2 | $W_{Kendall}$ (Kendall's coefficient of concordance) | ✅ | `effectsize::kendalls_w`
+Robust | > 2 | $\delta_{R-avg}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference average) | ✅ | `WRS2::wmcpAKP`
+Bayes Factor | > 2 | $R_{Bayesian}^2$ | ✅ | `performance::r2_bayes`
+Parametric | 2 | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | 2 | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | 2 |  $\delta_{R}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference) | ✅ | `WRS2::wmcpAKP`
+Bayesian | 2 | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+## `one_sample_test`
+
+**Hypothesis testing**
+
+Type | Test | Function used
+------------------ | ------------------------- | -----
+Parametric | One-sample Student's *t*-test | `stats::t.test`
+Non-parametric | One-sample Wilcoxon test | `stats::wilcox.test`
+Robust | Bootstrap-*t* method for one-sample test | `WRS2::trimcibt`
+Bayesian | One-sample Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | Effect size | CI? | Function used
+------------ | ----------------------- | --- | -----
+Parametric | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | trimmed mean | ✅ | `trimcibt` (custom)
+Bayes Factor | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+## `corr_test`
+
+**Hypothesis testing** and **Effect size estimation**
+
+Type | Test | CI? | Function used
+----------- | ------------------------- | --- | -----
+Parametric | Pearson's correlation coefficient | ✅ | `correlation::correlation`
+Non-parametric | Spearman's rank correlation coefficient | ✅ | `correlation::correlation`
+Robust | Winsorized Pearson correlation coefficient | ✅ | `correlation::correlation`
+Bayesian | Pearson's correlation coefficient | ✅ | `correlation::correlation`
+
+## `contingency_table`
+
+### two-way table
+
+**Hypothesis testing**
+
+Type | Design | Test | Function used
+----------- | ----- | ------------------------- | -----
+Parametric/Non-parametric | Unpaired | Pearson's $\chi^2$ test | `stats::chisq.test`
+Bayesian | Unpaired | Bayesian Pearson's $\chi^2$ test | `BayesFactor::contingencyTableBF`
+Parametric/Non-parametric | Paired  | McNemar's $\chi^2$ test | `stats::mcnemar.test`
+Bayesian | Paired  | ❌ | ❌
+
+**Effect size estimation**
+
+Type | Design | Effect size | CI? | Function used
+----------- | ----- | ------------------------- | --- | -----
+Parametric/Non-parametric | Unpaired | Cramer's $V$ | ✅ | `effectsize::cramers_v`
+Bayesian | Unpaired | Cramer's $V$ | ✅ | `effectsize::cramers_v`
+Parametric/Non-parametric | Paired | Cohen's $g$ | ✅ | `effectsize::cohens_g`
+Bayesian | Paired | ❌ | ❌ | ❌
+
+### one-way table
+
+**Hypothesis testing**
+
+Type | Test | Function used
+----------- | ------------------------- | -----
+Parametric/Non-parametric | Goodness of fit $\chi^2$ test | `stats::chisq.test`
+Bayesian | Bayesian Goodness of fit $\chi^2$ test | (custom)
+
+**Effect size estimation**
+
+Type | Effect size | CI? | Function used
+----------- | ------------------------- | --- | -----
+Parametric/Non-parametric | Pearson's $C$ | ✅ | `effectsize::pearsons_c`
+Bayesian | ❌ | ❌ | ❌
+
+## `meta_analysis`
+
+**Hypothesis testing** and **Effect size estimation**
+
+Type | Test | Effect size | CI? | Function used
+----------- | -------------------- | -------- | ---  | -----
+Parametric | Meta-analysis via random-effects models | $\beta$ | ✅ | `metafor::metafor`
+Robust | Meta-analysis via robust random-effects models | $\beta$ | ✅ | `metaplus::metaplus`
+Bayes | Meta-analysis via Bayesian random-effects models | $\beta$ | ✅ | `metaBMA::meta_random`
+
+# Usage in `ggstatsplot`
+
+Note that these functions were initially written to display results from
+statistical tests on ready-made `ggplot2` plots implemented in `ggstatsplot`.
+
+For detailed documentation, see the package website:
+<https://indrajeetpatil.github.io/ggstatsplot/>
+
+Here is an example from `ggstatsplot` of what the plots look like when the
+expressions are displayed in the subtitle-
+
+<img src="man/figures/ggstatsplot.png" align="center" />
+
+# Acknowledgments
+
+The hexsticker and the schematic illustration of general workflow were
+generously designed by Sarah Otterstetter (Max Planck Institute for Human
+Development, Berlin).
+
+# Contributing
+
+I'm happy to receive bug reports, suggestions, questions, and (most of all)
+contributions to fix problems and add features. I personally prefer using the
+`GitHub` issues system over trying to reach out to me in other ways (personal
+e-mail, Twitter, etc.). Pull Requests for contributions are encouraged.
+
+Here are some simple ways in which you can contribute (in the increasing order
+of commitment):
+
+  - Read and correct any inconsistencies in the
+    [documentation](https://indrajeetpatil.github.io/statsExpressions/)
+
+  - Raise issues about bugs or wanted features
+
+  - Review code
+
+  - Add new functionality (in the form of new plotting functions or helpers for
+    preparing subtitles)
+
+Please note that this project is released with a 
+[Contributor Code of Conduct](https://github.com/IndrajeetPatil/statsExpressions/blob/master/.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+---
+title: "Gallery of examples"
+author: "Indrajeet Patil"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 6
+    fig.align: 'center'
+    fig.asp: 0.618
+    dpi: 300
+    toc: true
+    toc_depth: 3
+    warning: FALSE
+    message: FALSE
+    eval: FALSE
+vignette: >
+  %\VignetteIndexEntry{Gallery of examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+# show me all columns
+options(
+  tibble.width = Inf,
+  pillar.bold = TRUE,
+  pillar.neg = TRUE,
+  pillar.subtle_num = TRUE,
+  pillar.min_chars = Inf
+)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 300,
+  out.width = "100%",
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE,
+  eval = FALSE
+)
+```
+
+# Introduction
+
+`statsExpressions` dataframes contain *expression*, meaning **a pre-formatted in-text statistical result**.
+
+These expressions can be used to display statistical analysis results for any
+`ggplot` plot, which means it can also be used with any of the `ggplot2`
+extension packages. This vignette provides a gallery of such examples.
+
+# Examples
+
+## `ggforce`
+
+```{r ggforce1}
+# setup
+set.seed(123)
+library(ggplot2)
+library(ggforce)
+library(statsExpressions)
+# plot with subtitle
+ggplot(iris, aes(x = Species, y = Sepal.Length)) +
+  geom_violin() +
+  geom_sina() +
+  labs(
+    title = "Fisher's one-way ANOVA",
+    subtitle = oneway_anova(iris, Species, Sepal.Length, var.equal = TRUE)$expression[[1]]
+  )
+```
+
+## `ggExtra`
+
+```{r ggExtra1}
+# setup
+set.seed(123)
+library(ggplot2)
+library(ggExtra)
+library(statsExpressions)
+# basic plot
+p <-
+  ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    title = "Pearson's correlation coefficient",
+    subtitle = corr_test(mtcars, mpg, wt, type = "parametric")$expression[[1]]
+  )
+# add
+ggMarginal(p, type = "histogram", xparams = list(binwidth = 1, fill = "orange"))
+```
+
+## `ggpubr`
+
+```{r ggpubr1}
+set.seed(123)
+library(ggpubr)
+library(ggplot2)
+
+# plot
+ggboxplot(
+  ToothGrowth,
+  x = "dose",
+  y = "len",
+  color = "dose",
+  palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+  add = "jitter",
+  shape = "dose"
+) + # adding results from stats analysis using `statsExpressions`
+  labs(
+    title = "Kruskall-Wallis test",
+    subtitle = oneway_anova(ToothGrowth, dose, len, type = "np")$expression[[1]]
+  )
+```
+
+```{r ggpubr2}
+# setup
+set.seed(123)
+library(ggplot2)
+library(ggpubr)
+library(statsExpressions)
+
+# basic plot
+gghistogram(
+  data.frame(
+    sex = factor(rep(c("F", "M"), each = 200)),
+    weight = c(rnorm(200, 55), rnorm(200, 58))
+  ),
+  x = "weight",
+  add = "mean",
+  rug = TRUE,
+  fill = "sex",
+  palette = c("#00AFBB", "#E7B800"),
+  add_density = TRUE
+) + # displaying stats results
+  labs(
+    title = "Yuen's two-sample test for trimmed means",
+    subtitle = two_sample_test(
+      data = data.frame(
+        sex = factor(rep(c("F", "M"), each = 200)),
+        weight = c(rnorm(200, 55), rnorm(200, 58))
+      ),
+      x = sex,
+      y = weight,
+      type = "robust"
+    )$expression[[1]]
+  )
+```
+
+## `ggiraphExtra`
+
+```{r ggiraphExtra1}
+# setup
+set.seed(123)
+library(ggplot2)
+library(ggiraphExtra)
+library(gcookbook)
+library(statsExpressions)
+
+# plot
+ggDot(heightweight, aes(sex, heightIn, fill = sex),
+  boxfill = "white",
+  binwidth = 0.4
+) +
+  labs(
+    title = "Mann-Whitney test",
+    subtitle = two_sample_test(heightweight, sex, heightIn, type = "nonparametric")$expression[[1]]
+  )
+```
+
+```{r ggiraphExtra2}
+# setup
+set.seed(123)
+library(moonBook)
+library(ggiraphExtra)
+library(statsExpressions)
+
+# plot
+ggSpine(
+  data = acs,
+  aes(x = Dx, fill = smoking),
+  addlabel = TRUE,
+  interactive = FALSE
+) +
+  labs(
+    x = "diagnosis",
+    title = "Pearson's chi-squared contingency table test for counts",
+    subtitle = contingency_table(acs, Dx, smoking, paired = FALSE)$expression[[1]]
+  )
+```
+
+# Suggestions
+
+If you find any bugs or have any suggestions/remarks, please file an issue on GitHub: <https://github.com/IndrajeetPatil/ggstatsplot/issues>
+---
+title: 'statsExpressions: R Package for Tidy Dataframes and Expressions with Statistical Details'
+tags:
+  - R
+  - parametric statistics
+  - nonparametric statistics
+  - robust statistics
+  - Bayesian statistics
+  - tidy
+authors:
+  - name: Indrajeet Patil
+    orcid: 0000-0003-1995-6531
+    affiliation: 1
+affiliations:
+  - name: Center for Humans and Machines, Max Planck Institute for Human Development, Berlin, Germany
+    index: 1
+date: "`r Sys.Date()`"
+bibliography: paper.bib
+output: rticles::joss_article
+csl: apa.csl
+journal: JOSS
+link-citations: yes
+header-includes:
+  - \usepackage{tabularx}
+  - \usepackage{booktabs}
+  - \usepackage{tikz}
+---
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+# to pretty-print all columns in the output tibble
+options(
+  tibble.width = Inf,
+  pillar.bold = TRUE,
+  pillar.neg = TRUE,
+  pillar.subtle_num = TRUE,
+  pillar.min_chars = Inf
+)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 300,
+  warning = FALSE,
+  message = FALSE,
+  out.width = "100%",
+  comment = "#>"
+)
+
+# needed libraries
+library(dplyr)
+library(statsExpressions)
+library(ggplot2)
+library(ggridges)
+library(palmerpenguins)
+
+# for reproducibility
+set.seed(123)
+```
+
+# Summary
+
+The `{statsExpressions}` package has two key aims: to provide a consistent syntax
+to do statistical analysis with tidy data, and to provide statistical
+expressions (i.e., pre-formatted in-text statistical results) for plotting
+functions. Currently, it supports common types of statistical approaches and
+tests: parametric, nonparametric, robust, and Bayesian *t*-test, one-way ANOVA,
+correlation analyses, contingency table analyses, and meta-analyses. The
+functions are pipe-friendly and compatible with tidy data.
+
+# Statement of need
+
+Statistical packages exhibit substantial diversity in terms of their syntax and
+expected input and output data type. For example, some functions expect vectors
+as inputs, while others expect dataframes. Depending on whether it is a repeated
+measures design or not, functions from the same package might expect data to be
+in wide or tidy format. Some functions can internally omit missing values, while
+others do not. Furthermore, the statistical test objects returned by the test
+functions might not have all required information (e.g., degrees of freedom,
+significance, Bayes factor, etc.) accessible in a consistent data type.
+Depending on the specific test object and statistic in question, details may be
+returned as a list, a matrix, an array, or a dataframe. This diversity can make
+it difficult to easily access all needed information for hypothesis testing and
+estimation, and to switch from one statistical approach to another.
+
+This is where `{statsExpressions}` comes in: It can be thought of as a unified
+portal through which most of the functionality in these underlying packages can
+be accessed, with a simpler interface and with tidy data format.
+
+# Comparison to Other Packages
+
+Unlike `broom` [@Robinson2021] or `parameters` [@Lüdecke2020parameters], the
+goal of `{statsExpressions}` is not to convert model objects into tidy dataframes,
+but to provide a consistent and easy syntax to carry out statistical tests.
+Additionally, none of these packages return statistical expressions.
+
+# Consistent Syntax for Statistical Analysis
+
+The package offers functions that allow users choose a statistical approach
+without changing the syntax (i.e., by only specifying a single argument). The
+functions always require a dataframe in tidy format [@Wickham2019], and work
+with missing data. Moreover, they always return a dataframe that can be further
+utilized downstream in the workflow (such as visualization).
+
+Function | Parametric | Non-parametric | Robust | Bayesian
+------------------ | ---- | ----- | ----| ----- 
+`one_sample_test` | \checkmark | \checkmark | \checkmark | \checkmark
+`two_sample_test` | \checkmark | \checkmark | \checkmark | \checkmark
+`oneway_anova` | \checkmark | \checkmark | \checkmark | \checkmark
+`corr_test` | \checkmark | \checkmark | \checkmark | \checkmark
+`contingency_table` | \checkmark | \checkmark | - | \checkmark
+`meta_analysis` | \checkmark | - | \checkmark | \checkmark
+
+: A summary table listing the primary functions in the package and the
+statistical approaches they support. More detailed description of the
+tests and outputs from these functions can be found on the package website: <https://indrajeetpatil.github.io/statsExpressions/articles/>.
+
+`{statsExpressions}` internally relies on `stats` package for parametric and
+non-parametric [@base2021], `WRS2` package for robust [@Mair2020], and
+`BayesFactor` package for Bayesian statistics [@Morey2020]. The random-effects
+meta-analysis is carried out using `metafor` (parametric) [@Viechtbauer2010],
+`metaplus` (robust) [@Beath2016], and `metaBMA` (Bayesian) [@Heck2019] packages.
+Additionally, it relies on `easystats` packages [@Ben-Shachar2020;
+@Lüdecke2020parameters;
+@Lüdecke2020performance; @Lüdecke2019; @Makowski2019; @Makowski2020] to compute
+appropriate effect size/posterior estimates and their confidence/credible
+intervals.
+
+# Tidy Dataframes from Statistical Analysis
+
+To illustrate the simplicity of this syntax, let's say we want to run a one-way
+ANOVA. If we first run a non-parametric ANOVA and then decide to run a robust
+ANOVA instead, the syntax remains the same and the statistical approach can be
+modified by changing a single argument:
+
+```{r df_p}
+mtcars %>% oneway_anova(cyl, wt, type = "nonparametric") 
+
+mtcars %>% oneway_anova(cyl, wt, type = "robust")
+```
+
+These functions are also compatible with other popular data manipulation
+packages (see Appendix for an example).
+
+# Expressions for Plots
+
+In addition to other details contained in the dataframe, there is also a column
+titled `expression`, which contains a pre-formatted text with statistical
+details. These expressions (Figure 1) attempt to follow the gold standard in
+statistical reporting for both Bayesian [@van2020jasp] and Frequentist
+[@american2019publication] frameworks.
+
+```{r expr_template, echo=FALSE, fig.cap="The templates used in `{statsExpressions}` to display statistical details in a plot."}
+knitr::include_graphics("stats_reporting_format.png")
+```
+
+This expression be easily displayed in a plot (Figure 2). Displaying statistical
+results in the context of a visualization is indeed a philosophy adopted by the
+`ggstatsplot` package [@Patil2021], and `{statsExpressions}` functions as its
+statistical processing backend.
+
+```{r anova_example, echo=FALSE, fig.cap="Example illustrating how `{statsExpressions}` functions can be used to display results from a statistical test in a plot. Code to create this figure is reported in Appendix."}
+# needed libraries
+library(statsExpressions)
+library(ggplot2)
+library(ggridges)
+library(palmerpenguins) # `penguins` dataset is from this package
+
+# creating a dataframe
+res <- oneway_anova(penguins, species, body_mass_g, type = "nonparametric")
+
+# create a ridgeplot using `ggridges` package
+ggplot(penguins, aes(x = body_mass_g, y = species)) +
+  geom_density_ridges(
+    jittered_points = TRUE,
+    quantile_lines = TRUE,
+    scale = 0.9,
+    vline_size = 1,
+    vline_color = "red",
+    position = position_raincloud(adjust_vlines = TRUE)
+  ) + # use 'expression' column to display results in the subtitle
+  labs(
+    x = "Penguin species",
+    y = "Body mass (in grams)",
+    title = "Kruskal-Wallis Rank Sum Test",
+    subtitle = res$expression[[1]]
+  )
+```
+
+# Licensing and Availability
+
+`{statsExpressions}` is licensed under the GNU General Public License (v3.0), with all
+source code stored at [GitHub](https://github.com/IndrajeetPatil/statsExpressions/).
+In the spirit of honest and open science, requests and suggestions for fixes,
+feature updates, as well as general questions and concerns are encouraged via
+direct interaction with contributors and developers by filing an
+[issue](https://github.com/IndrajeetPatil/statsExpressions/issues) while respecting
+[*Contribution Guidelines*](https://indrajeetpatil.github.io/statsExpressions/CONTRIBUTING.html).
+
+# Acknowledgements
+
+I would like to acknowledge the support of Mina Cikara, Fiery Cushman, and Iyad
+Rahwan during the development of this project. `{statsExpressions}` relies heavily
+on the [`easystats`](https://github.com/easystats/easystats) ecosystem, a
+collaborative project created to facilitate the usage of `R` for statistical
+analyses. Thus, I would like to thank the [members of easystats](https://github.com/orgs/easystats/people) as well as the users.
+
+# References
+
+<div id="refs"></div>
+
+# Appendix
+
+## Example with `dplyr`
+
+We can use combination of `dplyr` and `{statsExpressions}` to repeat the same
+statistical analysis across grouping variables.
+
+```{r grouped_df}
+# running one-sample proportion test for all levels of `cyl`
+mtcars %>%
+  group_by(cyl) %>%
+  group_modify(~ contingency_table(.x, am), .keep = TRUE) %>%
+  ungroup()
+```
+
+## Code to reproduce for Figure 2
+
+```{r ref.label="anova_example", echo=TRUE, eval=FALSE}
+```
+---
+title: "Test and effect size details"
+author: "Indrajeet Patil"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 6
+    fig.align: 'center'
+    fig.asp: 0.618
+    dpi: 300
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteIndexEntry{Test and effect size details}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r citation, echo=FALSE, comment = ""}
+citation("statsExpressions")
+```
+
+## Introduction
+
+Here a go-to summary about statistical test carried out and the returned effect
+size for each function is provided. This should be useful if one needs to find
+out more information about how an argument is resolved in the underlying package
+or if one wishes to browse the source code. So, for example, if you want to know
+more about how one-way (between-subjects) ANOVA, you can run
+`?stats::oneway.test` in your R console.
+
+Abbreviations used: CI = Confidence Interval
+
+## Bird's-eye view summary
+
+The table below summarizes all the different types of analyses currently
+supported in this package-
+
+Description | Parametric | Non-parametric | Robust | Bayesian
+------------------ | ---- | ----- | ----| ----- 
+Between group/condition comparisons | ✅ | ✅ | ✅ | ✅
+Within group/condition comparisons | ✅ | ✅ | ✅ | ✅
+Distribution of a numeric variable | ✅ | ✅ | ✅ | ✅
+Correlation between two variables | ✅ | ✅ | ✅ | ✅
+Association between categorical variables | ✅ | ✅ | ❌ | ✅
+Equal proportions for categorical variable levels | ✅ | ✅ | ❌ | ✅
+Random-effects meta-analysis | ✅ | ❌ | ✅ | ✅
+
+Summary of Bayesian analysis
+
+Analysis | Hypothesis testing | Estimation
+------------------ | ---------- | ---------
+(one/two-sample) *t*-test | ✅ | ✅
+one-way ANOVA | ✅ | ✅
+correlation | ✅ | ✅
+(one/two-way) contingency table | ✅ | ✅
+random-effects meta-analysis | ✅ | ✅
+
+## Summary of tests and effect sizes
+
+Here a go-to summary about statistical test carried out and the returned effect
+size for each function is provided. This should be useful if one needs to find
+out more information about how an argument is resolved in the underlying package
+or if one wishes to browse the source code. So, for example, if you want to know
+more about how one-way (between-subjects) ANOVA, you can run
+`?stats::oneway.test` in your R console.
+
+### `centrality_description`
+
+Type | Measure | Function used
+----------- | --------- | ------------------ 
+Parametric | mean | `parameters::describe_distribution`
+Non-parametric | median | `parameters::describe_distribution`
+Robust | trimmed mean | `parameters::describe_distribution`
+Bayesian | MAP (maximum *a posteriori* probability) estimate | `parameters::describe_distribution`
+
+### `two_sample_test` + `oneway_anova`
+
+No. of groups: `2` => `two_sample_test`<br>
+No. of groups: `> 2` => `oneway_anova`
+
+#### between-subjects
+
+**Hypothesis testing**
+
+Type | No. of groups | Test | Function used
+----------- | --- | ------------------------- | -----
+Parametric | > 2 | Fisher's or Welch's one-way ANOVA | `stats::oneway.test`
+Non-parametric | > 2 | Kruskal–Wallis one-way ANOVA | `stats::kruskal.test`
+Robust | > 2 | Heteroscedastic one-way ANOVA for trimmed means | `WRS2::t1way`
+Bayes Factor | > 2 | Fisher's ANOVA | `BayesFactor::anovaBF`
+Parametric | 2 | Student's or Welch's *t*-test | `stats::t.test`
+Non-parametric | 2 | Mann–Whitney *U* test | `stats::wilcox.test`
+Robust | 2 |  Yuen's test for trimmed means | `WRS2::yuen`
+Bayesian | 2 | Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | No. of groups | Effect size | CI? | Function used
+----------- | --- | ------------------------- | --- | -----
+Parametric | > 2 | $\eta_{p}^2$, $\omega_{p}^2$ | ✅ | `effectsize::omega_squared`, `effectsize::eta_squared`
+Non-parametric | > 2 | $\epsilon_{ordinal}^2$ | ✅ | `effectsize::rank_epsilon_squared`
+Robust | > 2 | $\xi$ (Explanatory measure of effect size) | ✅ | `WRS2::t1way`
+Bayes Factor | > 2 | $R_{Bayesian}^2$ | ✅ | `performance::r2_bayes`
+Parametric | 2 | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | 2 | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | 2 |  $\delta_{R}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference) | ✅ | `WRS2::akp.effect`
+Bayesian | 2 | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+#### within-subjects
+
+**Hypothesis testing**
+
+Type | No. of groups | Test | Function used
+----------- | --- | ------------------------- | -----
+Parametric | > 2 | One-way repeated measures ANOVA | `afex::aov_ez`
+Non-parametric | > 2 | Friedman rank sum test | `stats::friedman.test`
+Robust | > 2 | Heteroscedastic one-way repeated measures ANOVA for trimmed means | `WRS2::rmanova`
+Bayes Factor | > 2 | One-way repeated measures ANOVA | `BayesFactor::anovaBF`
+Parametric | 2 | Student's *t*-test | `stats::t.test`
+Non-parametric | 2 | Wilcoxon signed-rank test | `stats::wilcox.test`
+Robust | 2 | Yuen's test on trimmed means for dependent samples | `WRS2::yuend`
+Bayesian | 2 | Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | No. of groups | Effect size | CI? | Function used
+----------- | --- | ------------------------- | --- | -----
+Parametric | > 2 | $\eta_{p}^2$, $\omega_{p}^2$ | ✅ | `effectsize::omega_squared`, `effectsize::eta_squared`
+Non-parametric | > 2 | $W_{Kendall}$ (Kendall's coefficient of concordance) | ✅ | `effectsize::kendalls_w`
+Robust | > 2 | $\delta_{R-avg}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference average) | ✅ | `WRS2::wmcpAKP`
+Bayes Factor | > 2 | $R_{Bayesian}^2$ | ✅ | `performance::r2_bayes`
+Parametric | 2 | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | 2 | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | 2 |  $\delta_{R}^{AKP}$ (Algina-Keselman-Penfield robust standardized difference) | ✅ | `WRS2::wmcpAKP`
+Bayesian | 2 | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+### `one_sample_test`
+
+**Hypothesis testing**
+
+Type | Test | Function used
+------------------ | ------------------------- | -----
+Parametric | One-sample Student's *t*-test | `stats::t.test`
+Non-parametric | One-sample Wilcoxon test | `stats::wilcox.test`
+Robust | Bootstrap-*t* method for one-sample test | `WRS2::trimcibt`
+Bayesian | One-sample Student's *t*-test | `BayesFactor::ttestBF`
+
+**Effect size estimation**
+
+Type | Effect size | CI? | Function used
+------------ | ----------------------- | --- | -----
+Parametric | Cohen's *d*, Hedge's *g* | ✅ | `effectsize::cohens_d`, `effectsize::hedges_g`
+Non-parametric | *r* (rank-biserial correlation) | ✅ | `effectsize::rank_biserial`
+Robust | trimmed mean | ✅ | `trimcibt` (custom)
+Bayes Factor | $\delta_{posterior}$ | ✅ | `bayestestR::describe_posterior`
+
+### `corr_test`
+
+**Hypothesis testing** and **Effect size estimation**
+
+Type | Test | CI? | Function used
+----------- | ------------------------- | --- | -----
+Parametric | Pearson's correlation coefficient | ✅ | `correlation::correlation`
+Non-parametric | Spearman's rank correlation coefficient | ✅ | `correlation::correlation`
+Robust | Winsorized Pearson correlation coefficient | ✅ | `correlation::correlation`
+Bayesian | Pearson's correlation coefficient | ✅ | `correlation::correlation`
+
+### `contingency_table`
+
+#### two-way table
+
+**Hypothesis testing**
+
+Type | Design | Test | Function used
+----------- | ----- | ------------------------- | -----
+Parametric/Non-parametric | Unpaired | Pearson's $\chi^2$ test | `stats::chisq.test`
+Bayesian | Unpaired | Bayesian Pearson's $\chi^2$ test | `BayesFactor::contingencyTableBF`
+Parametric/Non-parametric | Paired  | McNemar's $\chi^2$ test | `stats::mcnemar.test`
+Bayesian | Paired  | ❌ | ❌
+
+**Effect size estimation**
+
+Type | Design | Effect size | CI? | Function used
+----------- | ----- | ------------------------- | --- | -----
+Parametric/Non-parametric | Unpaired | Cramer's $V$ | ✅ | `effectsize::cramers_v`
+Bayesian | Unpaired | Cramer's $V$ | ✅ | `effectsize::cramers_v`
+Parametric/Non-parametric | Paired | Cohen's $g$ | ✅ | `effectsize::cohens_g`
+Bayesian | Paired | ❌ | ❌ | ❌
+
+#### one-way table
+
+**Hypothesis testing**
+
+Type | Test | Function used
+----------- | ------------------------- | -----
+Parametric/Non-parametric | Goodness of fit $\chi^2$ test | `stats::chisq.test`
+Bayesian | Bayesian Goodness of fit $\chi^2$ test | (custom)
+
+**Effect size estimation**
+
+Type | Effect size | CI? | Function used
+----------- | ------------------------- | --- | -----
+Parametric/Non-parametric | Pearson's $C$ | ✅ | `effectsize::pearsons_c`
+Bayesian | ❌ | ❌ | ❌
+
+### `meta_analysis`
+
+**Hypothesis testing** and **Effect size estimation**
+
+Type | Test | Effect size | CI? | Function used
+----------- | -------------------- | -------- | ---  | -----
+Parametric | Meta-analysis via random-effects models | $\beta$ | ✅ | `metafor::metafor`
+Robust | Meta-analysis via robust random-effects models | $\beta$ | ✅ | `metaplus::metaplus`
+Bayes | Meta-analysis via Bayesian random-effects models | $\beta$ | ✅ | `metaBMA::meta_random`
+
+## Effect size interpretation
+
+See `effectsize`'s interpretation functions to check different rules/conventions
+to interpret effect sizes:
+
+<https://easystats.github.io/effectsize/reference/index.html#section-interpretation>
+
+## Dataframe as output
+
+Although the primary focus of this package is to get expressions containing
+statistical results, one can also use it to extract dataframes containing these
+details. 
+
+For a more detailed summary of these dataframe:
+<https://indrajeetpatil.github.io/statsExpressions//articles/web_only/dataframe_outputs.html>
+
+## References
+
+  - For parametric and non-parametric effect sizes:
+    <https://easystats.github.io/effectsize/articles/simple_htests.html>
+
+  - For robust effect sizes:
+    <https://CRAN.R-project.org/package=WRS2/vignettes/WRS2.pdf>
+
+  - For Bayesian posterior estimates:
+    <https://easystats.github.io/bayestestR/articles/bayes_factors.html>
+
+## Suggestions
+
+If you find any bugs or have any suggestions/remarks, please file an issue on GitHub: 
+<https://github.com/IndrajeetPatil/statsExpressions/issues>
+---
+title: "statsExpressions: R Package for Tidy Dataframes and Expressions with Statistical Details"
+author: "Indrajeet Patil"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 6
+    fig.align: 'center'
+    fig.asp: 0.618
+    dpi: 300
+    toc: true
+    toc_depth: 4
+bibliography: paper.bib
+csl: apa.csl
+link-citations: yes
+vignette: >
+  %\VignetteIndexEntry{statsExpressions: R Package for Tidy Dataframes and Expressions with Statistical Details}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+# to pretty-print all columns in the output tibble
+options(
+  tibble.width = Inf,
+  pillar.bold = TRUE,
+  pillar.neg = TRUE,
+  pillar.subtle_num = TRUE,
+  pillar.min_chars = Inf
+)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 300,
+  warning = FALSE,
+  message = FALSE,
+  out.width = "100%",
+  comment = "#>"
+)
+
+# needed libraries
+library(dplyr)
+library(statsExpressions)
+library(ggplot2)
+
+# for reproducibility
+set.seed(123)
+```
+
+This vignette can be cited as:
+
+```{r citation, echo=FALSE, comment = ""}
+citation("statsExpressions")
+```
+
+## Summary
+
+The `{statsExpressions}` package has two key aims: to provide a consistent syntax
+to do statistical analysis with tidy data, and to provide statistical
+expressions (i.e., pre-formatted in-text statistical results) for plotting
+functions. Currently, it supports common types of statistical approaches and
+tests: parametric, nonparametric, robust, and Bayesian *t*-test, one-way ANOVA,
+correlation analyses, contingency table analyses, and meta-analyses. The
+functions are pipe-friendly and compatible with tidy data.
+
+## Statement of Need
+
+Statistical packages exhibit substantial diversity in terms of their syntax and
+expected input and output data type. For example, some functions expect vectors
+as inputs, while others expect dataframes. Depending on whether it is a repeated
+measures design or not, functions from the same package might expect data to be
+in wide or tidy format. Some functions can internally omit missing values, while
+others do not. Furthermore, the statistical test objects returned by the test
+functions might not have all required information (e.g., degrees of freedom,
+significance, Bayes factor, etc.) accessible in a consistent data type.
+Depending on the specific test object and statistic in question, details may be
+returned as a list, a matrix, an array, or a dataframe. This diversity can make
+it difficult to easily access all needed information for hypothesis testing and
+estimation, and to switch from one statistical approach to another.
+
+This is where `{statsExpressions}` comes in: It can be thought of as a unified
+portal through which most of the functionality in these underlying packages can
+be accessed, with a simpler interface and with tidy data format.
+
+## Comparison to Other Packages
+
+Unlike `{broom}` [@Robinson2021] or `{parameters}` [@Lüdecke2020parameters], the
+goal of `{statsExpressions}` is not to convert model objects into tidy dataframes,
+but to provide a consistent and easy syntax to carry out statistical tests.
+Additionally, none of these packages return statistical expressions.
+
+## Consistent Syntax for Statistical Analysis
+
+The package offers functions that allow users choose a statistical approach
+without changing the syntax (i.e., by only specifying a single argument). The
+functions always require a dataframe in tidy format [@Wickham2019], and work
+with missing data. Moreover, they always return a dataframe that can be further
+utilized downstream in the workflow (such as visualization).
+
+Function | Parametric | Non-parametric | Robust | Bayesian
+------------------ | ---- | ----- | ----| ----- 
+`one_sample_test` | ✅ | ✅ | ✅ | ✅
+`two_sample_test` | ✅ | ✅ | ✅ | ✅
+`oneway_anova` | ✅ | ✅ | ✅ | ✅
+`corr_test` | ✅ | ✅ | ✅ | ✅
+`contingency_table` | ✅ | ✅ | - | ✅
+`meta_analysis` | ✅ | - | ✅ | ✅
+
+: A summary table listing the primary functions in the package and the
+statistical approaches they support. More detailed description of the
+tests and outputs from these functions can be found on the package website: <https://indrajeetpatil.github.io/statsExpressions/articles/>.
+
+`{statsExpressions}` internally relies on `stats` package for parametric and
+non-parametric [@base2021], `WRS2` package for robust [@Mair2020], and
+`BayesFactor` package for Bayesian statistics [@Morey2020]. The random-effects
+meta-analysis is carried out using `metafor` (parametric) [@Viechtbauer2010],
+`metaplus` (robust) [@Beath2016], and `metaBMA` (Bayesian) [@Heck2019] packages.
+Additionally, it relies on `easystats` packages [@Ben-Shachar2020;
+@Lüdecke2020parameters;
+@Lüdecke2020performance; @Lüdecke2019; @Makowski2019; @Makowski2020] to compute
+appropriate effect size/posterior estimates and their confidence/credible
+intervals.
+
+## Tidy Dataframes from Statistical Analysis
+
+To illustrate the simplicity of this syntax, let's say we want to run a one-way
+ANOVA. If we first run a non-parametric ANOVA and then decide to run a robust
+ANOVA instead, the syntax remains the same and the statistical approach can be
+modified by changing a single argument:
+
+```{r df_p}
+mtcars %>% oneway_anova(cyl, wt, type = "nonparametric") 
+
+mtcars %>% oneway_anova(cyl, wt, type = "robust")
+```
+
+These functions are also compatible with other popular data manipulation
+packages. For example, we can use combination of `dplyr` and `{statsExpressions}` to repeat the same
+statistical analysis across grouping variables.
+
+```{r grouped_df}
+# running one-sample proportion test for all levels of `cyl`
+mtcars %>%
+  group_by(cyl) %>%
+  group_modify(~ contingency_table(.x, am), .keep = TRUE) %>%
+  ungroup()
+```
+
+## Expressions for Plots
+
+In addition to other details contained in the dataframe, there is also a column
+titled `expression`, which contains a pre-formatted text with statistical
+details. These expressions (Figure 1) attempt to follow the gold standard in
+statistical reporting for both Bayesian [@van2020jasp] and Frequentist
+[@american2019publication] frameworks.
+
+```{r expr_template, echo=FALSE, fig.cap="The templates used in `{statsExpressions}` to display statistical details in a plot."}
+knitr::include_graphics("../man/figures/stats_reporting_format.png")
+```
+
+This expression be easily displayed in a plot (Figure 2). Displaying statistical
+results in the context of a visualization is indeed a philosophy adopted by the
+`{ggstatsplot}` package [@Patil2021], and `{statsExpressions}` functions as its
+statistical processing backend.
+
+```{r anova_example, fig.width=8, fig.cap="Example illustrating how `{statsExpressions}` functions can be used to display results from a statistical test in a plot."}
+# needed libraries
+library(statsExpressions)
+library(ggplot2)
+
+# creating a dataframe
+res <- oneway_anova(iris, Species, Sepal.Length, type = "nonparametric")
+
+# create a ridgeplot using `ggridges` package
+ggplot(iris, aes(x = Sepal.Length, y = Species)) +
+  geom_boxplot() + # use 'expression' column to display results in the subtitle
+  labs(
+    x = "Penguin Species",
+    y = "Body mass (in grams)",
+    title = "Kruskal-Wallis Rank Sum Test",
+    subtitle = res$expression[[1]]
+  )
+```
+
+## Licensing and Availability
+
+`{statsExpressions}` is licensed under the GNU General Public License (v3.0), with all
+source code stored at [GitHub](https://github.com/IndrajeetPatil/statsExpressions/).
+In the spirit of honest and open science, requests and suggestions for fixes,
+feature updates, as well as general questions and concerns are encouraged via
+direct interaction with contributors and developers by filing an
+[issue](https://github.com/IndrajeetPatil/statsExpressions/issues) while respecting
+[*Contribution Guidelines*](https://indrajeetpatil.github.io/statsExpressions/CONTRIBUTING.html).
+
+## Acknowledgements
+
+I would like to acknowledge the support of Mina Cikara, Fiery Cushman, and Iyad
+Rahwan during the development of this project. `{statsExpressions}` relies heavily
+on the [`easystats`](https://github.com/easystats/easystats) ecosystem, a
+collaborative project created to facilitate the usage of `R` for statistical
+analyses. Thus, I would like to thank the [members of easystats](https://github.com/orgs/easystats/people) as well as the users.
+
+## References
+
+
+---
+title: "Dataframe outputs"
+author: "Indrajeet Patil"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 6
+    fig.align: 'center'
+    fig.asp: 0.618
+    dpi: 300
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteIndexEntry{Dataframe outputs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+# show me all columns
+options(
+  tibble.width = Inf,
+  pillar.bold = TRUE,
+  pillar.neg = TRUE,
+  pillar.subtle_num = TRUE,
+  pillar.min_chars = Inf
+)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 300,
+  out.width = "100%",
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+```{r citation, echo=FALSE, comment = ""}
+citation("statsExpressions")
+```
+
+## Introduction
+
+The `{statsExpressions}` package has two key aims: to provide a consistent syntax
+to do statistical analysis with tidy data, and to provide statistical
+expressions (i.e., a pre-formatted in-text statistical result) for plotting
+functions. Currently, it supports common types of statistical approaches and
+tests: parametric, nonparametric, robust, and Bayesian *t*-test, one-way ANOVA,
+correlation analyses, contingency table analyses, and meta-analyses. The
+functions are pipe-friendly and compatible with tidy data.
+
+Statistical packages exhibit substantial diversity in terms of their syntax and
+expected input type. This can make it difficult to switch from one statistical
+approach to another. For example, some functions expect vectors as inputs, while
+others expect dataframes. Depending on whether it is a repeated measures design
+or not, different functions might expect data to be in wide or long format. Some
+functions can internally omit missing values, while other functions error in
+their presence. Furthermore, if someone wishes to utilize the objects returned
+by these packages downstream in their workflow, this is not straightforward
+either because even functions from the same package can return a list, a matrix,
+an array, a dataframe, etc., depending on the function.
+
+This is where `{statsExpressions}` comes in: It can be thought of as a unified
+portal through which most of the functionality in these underlying packages can
+be accessed, with a simpler interface and no requirement to change data format.
+
+## Dataframes
+
+The dataframe will contain the following columns (the exact columns will depend
+on the test and the statistical approach):
+
+  - `statistic`: the numeric value of a statistic.
+
+  - `df`: the numeric value of a parameter being modeled (often degrees
+    of freedom for the test).
+
+  - `df.error` and `df`: relevant only if the statistic in question has
+    two degrees of freedom (e.g., anova).
+
+  - `p.value`: the two-sided *p*-value associated with the observed statistic.
+  
+  - `method`: the details of the statistical test carried out.
+
+  - `estimate`: estimated value of the effect size.
+
+  - `conf.low`: lower bound for the effect size estimate.
+
+  - `conf.high`: upper bound for the effect size estimate.
+  
+  - `conf.level`: width of the confidence interval.
+  
+  - `effectsize`: the type of the effect size.
+
+For details about the tests and types of effect size estimates they correspond
+to, see:
+<https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html>
+
+Note that all examples are preceded by `set.seed()` calls for reproducibility.
+
+## One-sample tests
+
+```{r onesample}
+# setup
+library(statsExpressions)
+
+# ----------------------- parametric ---------------------------------------
+
+set.seed(123)
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "parametric"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "nonparametric"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "robust"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "bayes",
+  bf.prior   = 0.8
+)
+```
+
+## Two-sample tests
+
+### within-subjects design
+
+```{r twosample_w}
+# setup
+library(statsExpressions)
+
+# data
+df <- dplyr::filter(bugs_long, condition %in% c("LDLF", "LDHF"))
+
+# ----------------------- parametric ---------------------------------------
+
+set.seed(123)
+two_sample_test(
+  data       = df,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "p"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+two_sample_test(
+  data       = df,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "np"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+two_sample_test(
+  data       = df,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "r"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+two_sample_test(
+  data       = df,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "bayes"
+)
+```
+
+### between-subjects design
+
+```{r twosample_b}
+# setup
+set.seed(123)
+library(statsExpressions)
+
+# ----------------------- parametric ---------------------------------------
+
+# unequal variance
+set.seed(123)
+two_sample_test(
+  data      = ToothGrowth,
+  x         = supp,
+  y         = len,
+  type      = "p"
+)
+
+# equal variance
+set.seed(123)
+two_sample_test(
+  data      = ToothGrowth,
+  x         = supp,
+  y         = len,
+  var.equal = TRUE,
+  type      = "p"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+two_sample_test(
+  data      = ToothGrowth,
+  x         = supp,
+  y         = len,
+  type      = "np"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+two_sample_test(
+  data      = ToothGrowth,
+  x         = supp,
+  y         = len,
+  type      = "r"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+two_sample_test(
+  data      = ToothGrowth,
+  x         = supp,
+  y         = len,
+  type      = "bayes"
+)
+```
+
+## One-way ANOVAs
+
+### within-subjects design
+
+```{r anova_w}
+# setup
+library(statsExpressions)
+
+# ----------------------- parametric ---------------------------------------
+
+if (require("afex", quietly = TRUE)) {
+  set.seed(123)
+  oneway_anova(
+    data       = bugs_long,
+    x          = condition,
+    y          = desire,
+    paired     = TRUE,
+    subject.id = subject,
+    type       = "p"
+  )
+}
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+oneway_anova(
+  data       = bugs_long,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "np"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+oneway_anova(
+  data       = bugs_long,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "r"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+oneway_anova(
+  data       = bugs_long,
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "bayes"
+)
+```
+
+### between-subjects design
+
+```{r anova_b}
+## setup
+library(statsExpressions)
+
+# ----------------------- parametric ---------------------------------------
+
+# unequal variance
+set.seed(123)
+oneway_anova(
+  data      = iris,
+  x         = Species,
+  y         = Sepal.Length,
+  type      = "p"
+)
+
+# equal variance
+set.seed(123)
+oneway_anova(
+  data      = iris,
+  x         = Species,
+  y         = Sepal.Length,
+  var.equal = TRUE,
+  type      = "p"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+oneway_anova(
+  data      = iris,
+  x         = Species,
+  y         = Sepal.Length,
+  type      = "np"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+oneway_anova(
+  data      = iris,
+  x         = Species,
+  y         = Sepal.Length,
+  type      = "r"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+oneway_anova(
+  data      = iris,
+  x         = Species,
+  y         = Sepal.Length,
+  type      = "bayes"
+)
+```
+
+## Contingency table analyses
+
+### association test
+
+```{r conttabs}
+set.seed(123)
+library(statsExpressions)
+
+# ------------------------ frequentist -----------------------------
+
+# unpaired
+set.seed(123)
+contingency_table(
+  data   = mtcars,
+  x      = am,
+  y      = cyl,
+  paired = FALSE
+)
+
+# paired
+## create data structure
+paired_data <-
+  structure(
+    list(
+      response_before =
+        structure(
+          c(1L, 2L, 1L, 2L),
+          .Label = c("no", "yes"),
+          class = "factor"
+        ),
+      response_after = structure(
+        c(1L, 1L, 2L, 2L),
+        .Label = c("no", "yes"),
+        class = "factor"
+      ),
+      Freq = c(65L, 25L, 5L, 5L)
+    ),
+    class = "data.frame",
+    row.names = c(NA, -4L)
+  )
+
+
+set.seed(123)
+contingency_table(
+  data   = paired_data,
+  x      = response_before,
+  y      = response_after,
+  paired = TRUE,
+  counts = "Freq"
+)
+
+# ------------------------ Bayesian -----------------------------
+
+# unpaired
+set.seed(123)
+contingency_table(
+  data   = mtcars,
+  x      = am,
+  y      = cyl,
+  paired = FALSE,
+  type   = "bayes"
+)
+```
+
+### goodness-of-fit tests
+
+```{r gof}
+# ------------------------ frequentist -----------------------------
+
+# with counts
+set.seed(123)
+contingency_table(
+  data   = as.data.frame(HairEyeColor),
+  x      = Eye,
+  counts = Freq,
+)
+
+# ------------------------ Bayesian -----------------------------
+
+set.seed(123)
+contingency_table(
+  data   = as.data.frame(HairEyeColor),
+  x      = Eye,
+  counts = Freq,
+  ratio  = c(0.2, 0.2, 0.3, 0.3),
+  type   = "bayes"
+)
+```
+
+## Correlation analyses
+
+```{r corr}
+set.seed(123)
+library(statsExpressions)
+
+# ----------------------- parametric ---------------------------------------
+
+set.seed(123)
+corr_test(
+  data = mtcars,
+  x    = wt,
+  y    = mpg,
+  type = "parametric"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+set.seed(123)
+corr_test(
+  data = mtcars,
+  x    = wt,
+  y    = mpg,
+  type = "nonparametric"
+)
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+corr_test(
+  data = mtcars,
+  x    = wt,
+  y    = mpg,
+  type = "robust"
+)
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+corr_test(
+  data = mtcars,
+  x    = wt,
+  y    = mpg,
+  type = "bayes"
+)
+```
+
+## Meta-analysis
+
+```{r meta}
+set.seed(123)
+library(statsExpressions)
+library(metaplus)
+
+# renaming to what `{statsExpressions}` expects
+df <- dplyr::rename(mag, estimate = yi, std.error = sei)
+
+# ----------------------- parametric ---------------------------------------
+
+set.seed(123)
+meta_analysis(df, type = "parametric")
+
+# ----------------------- robust --------------------------------------------
+
+set.seed(123)
+meta_analysis(df, type = "robust")
+
+# ----------------------- Bayesian ---------------------------------------
+
+set.seed(123)
+meta_analysis(df, type = "bayes")
+```
+
+## Centrality description
+
+```{r centrality}
+# ----------------------- parametric -----------------------
+
+set.seed(123)
+centrality_description(iris, Species, Sepal.Length)
+
+# ----------------------- non-parametric -------------------
+
+set.seed(123)
+centrality_description(mtcars, am, wt, type = "n")
+
+# ----------------------- robust ---------------------------
+
+set.seed(123)
+centrality_description(ToothGrowth, supp, len, type = "r")
+
+# ----------------------- Bayesian -------------------------
+
+set.seed(123)
+centrality_description(sleep, group, extra, type = "b")
+```
+
+## Suggestions
+
+If you find any bugs or have any suggestions/remarks, please file an issue on GitHub: <https://github.com/IndrajeetPatil/statsExpressions/issues>
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/helpers_easystats.R
+\name{tidy_model_parameters}
+\alias{tidy_model_parameters}
+\title{Convert \code{parameters} package output to \code{tidyverse} conventions}
+\usage{
+tidy_model_parameters(model, ...)
+}
+\arguments{
+\item{model}{Statistical Model.}
+
+\item{...}{Arguments passed to or from other methods. Non-documented
+arguments are \code{digits}, \code{p_digits}, \code{ci_digits} and
+\code{footer_digits} to set the number of digits for the output.
+\code{group} can also be passed to the \code{print()} method. See details
+in \code{\link[parameters:print.parameters_model]{print.parameters_model()}} and 'Examples' in
+\code{\link[parameters:model_parameters.default]{model_parameters.default()}}.}
+}
+\description{
+Convert \code{parameters} package output to \code{tidyverse} conventions
+}
+\examples{
+model <- lm(mpg ~ wt + cyl, data = mtcars)
+tidy_model_parameters(model)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{bugs_long}
+\alias{bugs_long}
+\title{Tidy version of the "Bugs" dataset.}
+\format{
+A data frame with 372 rows and 6 variables
+\itemize{
+\item subject. Dummy identity number for each participant.
+\item gender. Participant's gender (Female, Male).
+\item region. Region of the world the participant was from.
+\item education. Level of education.
+\item condition. Condition of the experiment the participant gave rating
+for (\strong{LDLF}: low freighteningness and low disgustingness; \strong{LFHD}: low
+freighteningness and high disgustingness; \strong{HFHD}: high freighteningness
+and low disgustingness; \strong{HFHD}: high freighteningness and high
+disgustingness).
+\item desire. The desire to kill an arthropod was indicated on a scale from
+0 to 10.
+}
+}
+\source{
+\url{https://www.sciencedirect.com/science/article/pii/S0747563213000277}
+}
+\usage{
+bugs_long
+}
+\description{
+Tidy version of the "Bugs" dataset.
+}
+\details{
+This data set, "Bugs", provides the extent to which men and women
+want to kill arthropods that vary in freighteningness (low, high) and
+disgustingness (low, high). Each participant rates their attitudes towards
+all anthropods. Subset of the data reported by Ryan et al. (2013).
+}
+\examples{
+dim(bugs_long)
+head(bugs_long)
+dplyr::glimpse(bugs_long)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/two_sample_test.R
+\name{two_sample_test}
+\alias{two_sample_test}
+\title{Two-sample tests}
+\usage{
+two_sample_test(
+  data,
+  x,
+  y,
+  subject.id = NULL,
+  type = "parametric",
+  paired = FALSE,
+  alternative = "two.sided",
+  k = 2L,
+  conf.level = 0.95,
+  effsize.type = "g",
+  var.equal = FALSE,
+  bf.prior = 0.707,
+  tr = 0.2,
+  nboot = 100L,
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The grouping (or independent) variable from the dataframe \code{data}. In
+case of a repeated measures or within-subjects design, if \code{subject.id}
+argument is not available or not explicitly specified, the function assumes
+that the data has already been sorted by such an id by the user and creates
+an internal identifier. So if your data is \strong{not} sorted, the results
+\emph{can} be inaccurate when there are more than two levels in \code{x} and there
+are \code{NA}s present. The data is expected to be sorted by user in
+subject-1,subject-2, ..., pattern.}
+
+\item{y}{The response (or outcome or dependent) variable from the
+dataframe \code{data}.}
+
+\item{subject.id}{Relevant in case of a repeated measures or within-subjects
+design (\code{paired = TRUE}, i.e.), it specifies the subject or repeated
+measures identifier. \strong{Important}: Note that if this argument is \code{NULL}
+(which is the default), the function assumes that the data has already been
+sorted by such an id by the user and creates an internal identifier. So if
+your data is \strong{not} sorted and you leave this argument unspecified, the
+results \emph{can} be inaccurate when there are more than two levels in \code{x} and
+there are \code{NA}s present.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{paired}{Logical that decides whether the experimental design is
+repeated measures/within-subjects or between-subjects. The default is
+\code{FALSE}.}
+
+\item{alternative}{a character string specifying the alternative
+    hypothesis, must be one of \code{"two.sided"} (default),
+    \code{"greater"} or \code{"less"}.  You can specify just the initial
+    letter.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{effsize.type}{Type of effect size needed for \emph{parametric} tests. The
+argument can be \code{"d"} (for Cohen's \emph{d}) or \code{"g"} (for Hedge's \emph{g}).}
+
+\item{var.equal}{a logical variable indicating whether to treat the
+    two variances as being equal. If \code{TRUE} then the pooled
+    variance is used to estimate the variance otherwise the Welch
+    (or Satterthwaite) approximation to the degrees of freedom is used.}
+
+\item{bf.prior}{A number between \code{0.5} and \code{2} (default \code{0.707}), the prior
+width to use in calculating Bayes factors and posterior estimates. In
+addition to numeric arguments, several named values are also recognized:
+\code{"medium"}, \code{"wide"}, and \code{"ultrawide"}, corresponding to \emph{r} scale values
+of 1/2, sqrt(2)/2, and 1, respectively. In case of an ANOVA, this value
+corresponds to scale for fixed effects.}
+
+\item{tr}{Trim level for the mean when carrying out \code{robust} tests. In case
+of an error, try reducing the value of \code{tr}, which is by default set to
+\code{0.2}. Lowering the value might help.}
+
+\item{nboot}{Number of bootstrap samples for computing confidence interval
+for the effect size (Default: \code{100L}).}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Currently ignored.}
+}
+\description{
+A dataframe containing results from a two-sample test and effect size plus
+confidence intervals.
+
+To see details about functions which are internally used to carry out these
+analyses, see the following vignette-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+\examples{
+\donttest{
+# for reproducibility
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+# parametric -------------------------------------
+
+# between-subjects design
+two_sample_test(
+  data = sleep,
+  x    = group,
+  y    = extra,
+  type = "p"
+)
+
+# within-subjects design
+two_sample_test(
+  data       = dplyr::filter(bugs_long, condition \%in\% c("HDHF", "HDLF")),
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "p"
+)
+
+# non-parametric ----------------------------------
+
+# between-subjects design
+two_sample_test(
+  data = sleep,
+  x    = group,
+  y    = extra,
+  type = "np"
+)
+
+# within-subjects design
+two_sample_test(
+  data       = dplyr::filter(bugs_long, condition \%in\% c("HDHF", "HDLF")),
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "np"
+)
+
+# robust ----------------------------------
+
+# between-subjects design
+two_sample_test(
+  data = sleep,
+  x    = group,
+  y    = extra,
+  type = "r"
+)
+
+# within-subjects design
+two_sample_test(
+  data       = dplyr::filter(bugs_long, condition \%in\% c("HDHF", "HDLF")),
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "r"
+)
+
+#' # Bayesian ------------------------------
+
+# between-subjects design
+two_sample_test(
+  data = sleep,
+  x    = group,
+  y    = extra,
+  type = "bayes"
+)
+
+# within-subjects design
+two_sample_test(
+  data       = dplyr::filter(bugs_long, condition \%in\% c("HDHF", "HDLF")),
+  x          = condition,
+  y          = desire,
+  paired     = TRUE,
+  subject.id = subject,
+  type       = "bayes"
+)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/corr_test.R
+\name{corr_test}
+\alias{corr_test}
+\title{Correlation analyses}
+\usage{
+corr_test(
+  data,
+  x,
+  y,
+  type = "parametric",
+  k = 2L,
+  conf.level = 0.95,
+  tr = 0.2,
+  bf.prior = 0.707,
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The column in \code{data} containing the explanatory variable to be
+plotted on the \code{x}-axis.}
+
+\item{y}{The column in \code{data} containing the response (outcome) variable to
+be plotted on the \code{y}-axis.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{tr}{Trim level for the mean when carrying out \code{robust} tests. In case
+of an error, try reducing the value of \code{tr}, which is by default set to
+\code{0.2}. Lowering the value might help.}
+
+\item{bf.prior}{A number between \code{0.5} and \code{2} (default \code{0.707}), the prior
+width to use in calculating Bayes factors and posterior estimates. In
+addition to numeric arguments, several named values are also recognized:
+\code{"medium"}, \code{"wide"}, and \code{"ultrawide"}, corresponding to \emph{r} scale values
+of 1/2, sqrt(2)/2, and 1, respectively. In case of an ANOVA, this value
+corresponds to scale for fixed effects.}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Additional arguments (currently ignored).}
+}
+\description{
+A dataframe containing results from correlation test with confidence
+intervals for the correlation coefficient estimate.
+}
+\examples{
+\donttest{
+# for reproducibility
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+# without changing defaults
+corr_test(
+  data = ggplot2::midwest,
+  x    = area,
+  y    = percblack
+)
+
+# changing defaults
+corr_test(
+  data = ggplot2::midwest,
+  x    = area,
+  y    = percblack,
+  type = "robust"
+)
+}
+}
+\references{
+To see details about functions which are internally used to carry
+out these analyses, see the following vignette-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/one_sample_test.R
+\name{one_sample_test}
+\alias{one_sample_test}
+\title{One-sample tests}
+\usage{
+one_sample_test(
+  data,
+  x,
+  type = "parametric",
+  test.value = 0,
+  alternative = "two.sided",
+  k = 2L,
+  conf.level = 0.95,
+  tr = 0.2,
+  bf.prior = 0.707,
+  effsize.type = "g",
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{A numeric variable from the dataframe \code{data}.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{test.value}{A number indicating the true value of the mean (Default:
+\code{0}).}
+
+\item{alternative}{a character string specifying the alternative
+    hypothesis, must be one of \code{"two.sided"} (default),
+    \code{"greater"} or \code{"less"}.  You can specify just the initial
+    letter.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{tr}{Trim level for the mean when carrying out \code{robust} tests. In case
+of an error, try reducing the value of \code{tr}, which is by default set to
+\code{0.2}. Lowering the value might help.}
+
+\item{bf.prior}{A number between \code{0.5} and \code{2} (default \code{0.707}), the prior
+width to use in calculating Bayes factors and posterior estimates. In
+addition to numeric arguments, several named values are also recognized:
+\code{"medium"}, \code{"wide"}, and \code{"ultrawide"}, corresponding to \emph{r} scale values
+of 1/2, sqrt(2)/2, and 1, respectively. In case of an ANOVA, this value
+corresponds to scale for fixed effects.}
+
+\item{effsize.type}{Type of effect size needed for \emph{parametric} tests. The
+argument can be \code{"d"} (for Cohen's \emph{d}) or \code{"g"} (for Hedge's \emph{g}).}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Currently ignored.}
+}
+\description{
+A dataframe containing results from a one-sample test.
+}
+\details{
+The exact test and the effect size details contained will depend on the
+\code{type} argument.
+
+Internal function \code{.f} used to carry out statistical test:
+\itemize{
+\item \strong{parametric}: \code{stats::t.test}
+\item \strong{nonparametric}: \code{stats::wilcox.test}
+\item \strong{robust}: \code{WRS2::trimcibt}
+\item \strong{bayes}: \code{BayesFactor::ttestBF}
+}
+
+Internal function \code{.f.es} used to compute effect size:
+\itemize{
+\item \strong{parametric}: \code{effectsize::cohens_d}, \code{effectsize::hedges_g}
+\item \strong{nonparametric}: \code{effectsize::rank_biserial}
+\item \strong{robust}: \code{WRS2::trimcibt}
+\item \strong{bayes}: \code{bayestestR::describe_posterior}
+}
+
+For more, see-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+\examples{
+\donttest{
+# for reproducibility
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+# ----------------------- parametric ---------------------------------------
+
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "parametric"
+)
+
+# ----------------------- non-parametric -----------------------------------
+
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "nonparametric"
+)
+
+# ----------------------- robust --------------------------------------------
+
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "robust"
+)
+
+# ---------------------------- Bayesian -----------------------------------
+
+one_sample_test(
+  data       = ggplot2::msleep,
+  x          = brainwt,
+  test.value = 0.275,
+  type       = "bayes",
+  bf.prior   = 0.8
+)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/add_expression_col.R
+\name{add_expression_col}
+\alias{add_expression_col}
+\title{Template for expressions with statistical details}
+\usage{
+add_expression_col(
+  data,
+  paired = FALSE,
+  statistic.text = NULL,
+  effsize.text = NULL,
+  top.text = NULL,
+  prior.type = NULL,
+  n = NULL,
+  n.text = ifelse(paired, list(quote(italic("n")["pairs"])),
+    list(quote(italic("n")["obs"]))),
+  conf.method = "HDI",
+  k = 2L,
+  k.df = 0L,
+  k.df.error = k.df,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe containing details from the statistical analysis
+and should contain some or all of the the following columns:
+\itemize{
+\item \emph{statistic}: the numeric value of a statistic.
+\item \emph{df.error}: the numeric value of a parameter being modeled (often degrees
+of freedom for the test); note that if there are no degrees of freedom (e.g.,
+for non-parametric tests), this column will be irrelevant.
+\item \emph{df}: relevant only if the statistic in question has two degrees of freedom.
+\item \emph{p.value}: the two-sided \emph{p}-value associated with the observed statistic.
+\item \emph{method}: method describing the test carried out.
+\item \emph{effectsize}: name of the effect size (if not present, same as \code{method}).
+\item \emph{estimate}: estimated value of the effect size.
+\item \emph{conf.level}: width for the confidence intervals.
+\item \emph{conf.low}: lower bound for effect size estimate.
+\item \emph{conf.high}: upper bound for effect size estimate.
+\item \emph{bf10}: Bayes Factor value (if \code{bayesian = TRUE}).
+}}
+
+\item{paired}{Logical that decides whether the experimental design is
+repeated measures/within-subjects or between-subjects. The default is
+\code{FALSE}.}
+
+\item{statistic.text}{A character that specifies the relevant test statistic.
+For example, for tests with \emph{t}-statistic, \code{statistic.text = "t"}.}
+
+\item{effsize.text}{A character that specifies the relevant effect size.}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{prior.type}{The type of prior.}
+
+\item{n}{An integer specifying the sample size used for the test.}
+
+\item{n.text}{A character that specifies the design, which will determine
+what the \code{n} stands for. It defaults to \code{quote(italic("n")["pairs"])} if
+\code{paired = TRUE}, and to \code{quote(italic("n")["obs"])} if \code{paired = FALSE}. If
+you wish to customize this further, you will need to provide object of
+\code{language} type.}
+
+\item{conf.method}{The type of index used for Credible Interval. Can be
+\code{"hdi"} (default), \code{"eti"}, or \code{"si"} (see \code{si()}, \code{hdi()}, \code{eti()}
+functions from \code{bayestestR} package).}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{k.df, k.df.error}{Number of decimal places to display for the
+parameters (default: \code{0L}).}
+
+\item{...}{Currently ignored.}
+}
+\description{
+Creates an expression from a dataframe containing statistical details.
+Ideally, this dataframe would come from having run \code{tidy_model_parameters}
+function on your model object.
+
+This function is currently \strong{not} stable and should not be used outside of
+this package context.
+}
+\examples{
+set.seed(123)
+
+# creating a dataframe with stats results
+stats_df <- cbind.data.frame(
+  statistic  = 5.494,
+  df         = 29.234,
+  p.value    = 0.00001,
+  estimate   = -1.980,
+  conf.level = 0.95,
+  conf.low   = -2.873,
+  conf.high  = -1.088,
+  method     = "Student's t-test"
+)
+
+# expression for *t*-statistic with Cohen's *d* as effect size
+# note that the plotmath expressions need to be quoted
+add_expression_col(
+  data           = stats_df,
+  statistic.text = list(quote(italic("t"))),
+  effsize.text   = list(quote(italic("d"))),
+  n              = 32L,
+  n.text         = list(quote(italic("n")["no.obs"])),
+  k              = 3L,
+  k.df           = 3L
+)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/contingency_table.R
+\name{contingency_table}
+\alias{contingency_table}
+\title{Contingency table analyses}
+\usage{
+contingency_table(
+  data,
+  x,
+  y = NULL,
+  paired = FALSE,
+  type = "parametric",
+  counts = NULL,
+  ratio = NULL,
+  k = 2L,
+  conf.level = 0.95,
+  sampling.plan = "indepMulti",
+  fixed.margin = "rows",
+  prior.concentration = 1,
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The variable to use as the \strong{rows} in the contingency table.}
+
+\item{y}{The variable to use as the \strong{columns} in the contingency table.
+Default is \code{NULL}. If \code{NULL}, one-sample proportion test (a goodness of fit
+test) will be run for the \code{x} variable. Otherwise association test will be
+carried out.}
+
+\item{paired}{Logical indicating whether data came from a within-subjects or
+repeated measures design study (Default: \code{FALSE}). If \code{TRUE}, McNemar's
+test expression will be returned. If \code{FALSE}, Pearson's chi-square test will
+be returned.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{counts}{A string naming a variable in data containing counts, or \code{NULL}
+if each row represents a single observation.}
+
+\item{ratio}{A vector of proportions: the expected proportions for the
+proportion test (should sum to 1). Default is \code{NULL}, which means the null
+is equal theoretical proportions across the levels of the nominal variable.
+This means if there are two levels this will be \code{ratio = c(0.5,0.5)} or if
+there are four levels this will be \code{ratio = c(0.25,0.25,0.25,0.25)}, etc.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{sampling.plan}{Character describing the sampling plan. Possible options
+are \code{"indepMulti"} (independent multinomial; default), \code{"poisson"},
+\code{"jointMulti"} (joint multinomial), \code{"hypergeom"} (hypergeometric). For
+more, see \code{?BayesFactor::contingencyTableBF()}.}
+
+\item{fixed.margin}{For the independent multinomial sampling plan, which
+margin is fixed (\code{"rows"} or \code{"cols"}). Defaults to \code{"rows"}.}
+
+\item{prior.concentration}{Specifies the prior concentration parameter, set
+to \code{1} by default. It indexes the expected deviation from the null
+hypothesis under the alternative, and corresponds to Gunel and Dickey's
+(1974) \code{"a"} parameter.}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Additional arguments (currently ignored).}
+}
+\description{
+A dataframe containing results from for contingency table analysis or
+goodness of fit test.
+
+To see details about functions which are internally used to carry out these
+analyses, see the following vignette-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+\examples{
+\donttest{
+# for reproducibility
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+# ------------------------ non-Bayesian -----------------------------
+
+# association test
+contingency_table(
+  data   = mtcars,
+  x      = am,
+  y      = cyl,
+  paired = FALSE
+)
+
+# goodness-of-fit test
+contingency_table(
+  data   = as.data.frame(HairEyeColor),
+  x      = Eye,
+  counts = Freq,
+  ratio  = c(0.2, 0.2, 0.3, 0.3)
+)
+
+# ------------------------ Bayesian -----------------------------
+
+# association test
+contingency_table(
+  data   = mtcars,
+  x      = am,
+  y      = cyl,
+  paired = FALSE,
+  type   = "bayes"
+)
+
+# goodness-of-fit test
+contingency_table(
+  data   = as.data.frame(HairEyeColor),
+  x      = Eye,
+  counts = Freq,
+  ratio  = c(0.2, 0.2, 0.3, 0.3),
+  type   = "bayes"
+)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{movies_wide}
+\alias{movies_wide}
+\title{Movie information and user ratings from IMDB.com (wide format).}
+\format{
+A data frame with 1,579 rows and 13 variables
+\itemize{
+\item title.  Title of the movie.
+\item year.  Year of release.
+\item budget.  Total budget in millions of US dollars
+\item length.  Length in minutes.
+\item rating.  Average IMDB user rating.
+\item votes.  Number of IMDB users who rated this movie.
+\item mpaa.  MPAA rating.
+\item action, animation, comedy, drama, documentary, romance, short. Binary
+variables representing if movie was classified as belonging to that genre.
+\item NumGenre.  The number of different genres a film was classified in an
+integer between one and four.
+}
+}
+\source{
+\url{https://CRAN.R-project.org/package=ggplot2movies}
+}
+\usage{
+movies_wide
+}
+\description{
+Movie information and user ratings from IMDB.com (wide format).
+}
+\details{
+Modified dataset from \code{ggplot2movies} package.
+
+The internet movie database, \url{https://imdb.com/}, is a website devoted
+to collecting movie data supplied by studios and fans. It claims to be the
+biggest movie database on the web and is run by amazon.
+
+Movies were selected for inclusion if they had a known length and had been
+rated by at least one imdb user.  Small categories such as documentaries
+and NC-17 movies were removed.
+}
+\examples{
+dim(movies_wide)
+head(movies_wide)
+dplyr::glimpse(movies_wide)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{iris_long}
+\alias{iris_long}
+\title{Edgar Anderson's Iris Data in long format.}
+\format{
+A data frame with 600 rows and 5 variables
+\itemize{
+\item id. Dummy identity number for each flower (150 flowers in total).
+\item Species.	The species are \emph{Iris setosa}, \emph{versicolor}, and
+\emph{virginica}.
+\item condition. Factor giving a detailed description of the attribute
+(Four levels: \code{"Petal.Length"}, \code{"Petal.Width"},  \code{"Sepal.Length"},
+\code{"Sepal.Width"}).
+\item attribute.	What attribute is being measured (\code{"Sepal"} or \code{"Pepal"}).
+\item measure.	What aspect of the attribute is being measured (\code{"Length"}
+or \code{"Width"}).
+\item value.	Value of the measurement.
+}
+}
+\usage{
+iris_long
+}
+\description{
+Edgar Anderson's Iris Data in long format.
+}
+\details{
+This famous (Fisher's or Anderson's) iris data set gives the
+measurements in centimeters of the variables sepal length and width and
+petal length and width, respectively, for 50 flowers from each of 3 species
+of iris. The species are Iris setosa, versicolor, and virginica.
+
+This is a modified dataset from \code{datasets} package.
+}
+\examples{
+dim(iris_long)
+head(iris_long)
+dplyr::glimpse(iris_long)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/switch_functions.R
+\name{stats_type_switch}
+\alias{stats_type_switch}
+\title{Switch the type of statistics.}
+\usage{
+stats_type_switch(type)
+}
+\arguments{
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+}
+\description{
+Relevant mostly for \code{{ggstatsplot}} and \code{{statsExpressions}} packages, where
+different statistical approaches are supported via this argument: parametric,
+non-parametric, robust, and Bayesian. This switch function converts strings
+entered by users to a common pattern for convenience.
+}
+\examples{
+stats_type_switch("p")
+stats_type_switch("bf")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{movies_long}
+\alias{movies_long}
+\title{Movie information and user ratings from IMDB.com (long format).}
+\format{
+A data frame with 1,579 rows and 8 variables
+\itemize{
+\item title.  Title of the movie.
+\item year.  Year of release.
+\item budget.  Total budget (if known) in US dollars
+\item length.  Length in minutes.
+\item rating.  Average IMDB user rating.
+\item votes.  Number of IMDB users who rated this movie.
+\item mpaa.  MPAA rating.
+\item genre. Different genres of movies (action, animation, comedy, drama,
+documentary, romance, short).
+}
+}
+\source{
+\url{https://CRAN.R-project.org/package=ggplot2movies}
+}
+\usage{
+movies_long
+}
+\description{
+Movie information and user ratings from IMDB.com (long format).
+}
+\details{
+Modified dataset from \code{ggplot2movies} package.
+
+The internet movie database, \url{https://imdb.com/}, is a website devoted
+to collecting movie data supplied by studios and fans. It claims to be the
+biggest movie database on the web and is run by amazon.
+
+Movies were are identical to those selected for inclusion in movies_wide but this
+dataset has been constructed such that every movie appears in one and only one
+genre category.
+}
+\examples{
+dim(movies_long)
+head(movies_long)
+dplyr::glimpse(movies_long)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/statsExpressions-package.R
+\docType{package}
+\name{statsExpressions-package}
+\alias{statsExpressions-package}
+\alias{_PACKAGE}
+\alias{statsExpressions}
+\title{statsExpressions: Tidy Dataframes and Expressions with Statistical Details}
+\description{
+Statistical packages exhibit substantial diversity in terms of their syntax
+and expected input type. This can make it difficult to switch from one
+statistical approach to another. For example, some functions expect vectors
+as inputs, while others expect dataframes. Depending on whether it is a
+repeated measures design or not, different functions might expect data to be
+in wide or long format. Some functions can internally omit missing values,
+while other functions error in their presence. Furthermore, if someone wishes
+to utilize the objects returned by these packages downstream in their
+workflow, this is not straightforward either because even functions from the
+same package can return a list, a matrix, an array, a dataframe, etc.,
+depending on the function.
+
+This is where \code{{statsExpressions}} comes in: It can be thought of as a unified
+portal through which most of the functionality in these underlying packages
+can be accessed, with a simpler interface and no requirement to change data
+format.
+
+This package forms the statistical processing backend for
+\href{https://indrajeetpatil.github.io/ggstatsplot/}{\code{ggstatsplot}} package.
+
+For more documentation, see the dedicated
+\href{https://indrajeetpatil.github.io/statsExpressions/}{Website}.
+}
+\details{
+\code{statsExpressions}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://indrajeetpatil.github.io/statsExpressions/}
+  \item \url{https://github.com/IndrajeetPatil/statsExpressions}
+  \item Report bugs at \url{https://github.com/IndrajeetPatil/statsExpressions/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Indrajeet Patil \email{patilindrajeet.science@gmail.com} (\href{https://orcid.org/0000-0003-1995-6531}{ORCID}) (@patilindrajeets) [copyright holder]
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/reexports.R
+\docType{import}
+\name{reexports}
+\alias{reexports}
+\alias{\%>\%}
+\alias{\%<>\%}
+\alias{\%$\%}
+\alias{\%T>\%}
+\alias{tibble}
+\alias{enframe}
+\alias{as_tibble}
+\alias{\%||\%}
+\alias{\%|\%}
+\alias{\%<-\%}
+\alias{\%->\%}
+\alias{format_value}
+\title{Objects exported from other packages}
+\keyword{internal}
+\description{
+These objects are imported from other packages. Follow the links
+below to see their documentation.
+
+\describe{
+  \item{insight}{\code{\link[insight]{format_value}}}
+
+  \item{magrittr}{\code{\link[magrittr:exposition]{\%$\%}}, \code{\link[magrittr:compound]{\%<>\%}}, \code{\link[magrittr:pipe]{\%>\%}}, \code{\link[magrittr:tee]{\%T>\%}}}
+
+  \item{rlang}{\code{\link[rlang:op-na-default]{\%|\%}}, \code{\link[rlang:op-null-default]{\%||\%}}}
+
+  \item{tibble}{\code{\link[tibble]{as_tibble}}, \code{\link[tibble]{enframe}}, \code{\link[tibble]{tibble}}}
+
+  \item{zeallot}{\code{\link[zeallot:operator]{\%->\%}}, \code{\link[zeallot:operator]{\%<-\%}}}
+}}
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/meta_analysis.R
+\name{meta_analysis}
+\alias{meta_analysis}
+\title{Random-effects meta-analyses}
+\usage{
+meta_analysis(
+  data,
+  type = "parametric",
+  random = "mixture",
+  k = 2L,
+  conf.level = 0.95,
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe. It \strong{must} contain columns named \code{estimate} (effect
+sizes or outcomes)  and \code{std.error} (corresponding standard errors). These
+two columns will be used:
+\itemize{
+\item as \code{yi}  and \code{sei} arguments in \code{metafor::rma} (for \strong{parametric} test)
+or \code{metaplus::metaplus} (for \strong{robust} test)
+\item as \code{y} and \code{SE} arguments in \code{metaBMA::meta_random} (for \strong{Bayesian}
+test).
+}}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{random}{
+The type of random effects distribution. One of "normal", "t-dist", "mixture", for standard normal, \eqn{t}-distribution or mixture of normals respectively.
+}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Additional arguments passed to the respective meta-analysis
+function.}
+}
+\description{
+A dataframe containing results from random-effects meta-analysis.
+
+To see details about functions which are internally used to carry out these
+analyses, see the following vignette-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+\note{
+\strong{Important}: The function assumes that you have already downloaded
+the needed package (\code{metafor}, \code{metaplus}, or \code{metaBMA}) for meta-analysis.
+If they are not available, you will be asked to install them.
+}
+\examples{
+\donttest{
+# a dataframe with estimates and standard errors (`mag` dataset from `metaplus`)
+df <- structure(list(
+  study = structure(c(
+    8L, 10L, 15L, 1L, 4L, 11L, 3L, 2L, 14L, 9L, 12L, 5L, 16L, 7L, 13L, 6L
+  ), .Label = c(
+    "Abraham", "Bertschat", "Ceremuzynski", "Feldstedt", "Golf",
+    "ISIS-4", "LIMIT-2", "Morton", "Pereira", "Rasmussen", "Schechter", "Schechter 1",
+    "Schechter 2", "Singh", "Smith", "Thogersen"
+  ), class = "factor"),
+  estimate = c(
+    -0.8303483, -1.056053, -1.27834, -0.0434851, 0.2231435,
+    -2.40752, -1.280934, -1.191703, -0.695748, -2.208274, -2.03816,
+    -0.8501509, -0.7932307, -0.2993399, -1.570789, 0.0575873
+  ),
+  std.error = c(
+    1.24701799987009, 0.41407060026039, 0.808139200261935,
+    1.42950999996502, 0.489168400451215, 1.07220799987689, 1.1937340001022,
+    1.66129199992054, 0.536177600240816, 1.10964800004326, 0.780726300312728,
+    0.618448600127771, 0.625866199758383, 0.146572899950844,
+    0.574039500383031, 0.0316420922190679
+  )
+), row.names = c(NA, -16L), class = "data.frame")
+
+# setup
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+meta_analysis(df) # parametric
+# meta_analysis(df, type = "random", random = "normal") # robust
+# meta_analysis(df, type = "bayes") # Bayesian
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/oneway_anova.R
+\name{oneway_anova}
+\alias{oneway_anova}
+\title{One-way analysis of variance (ANOVA)}
+\usage{
+oneway_anova(
+  data,
+  x,
+  y,
+  subject.id = NULL,
+  type = "parametric",
+  paired = FALSE,
+  k = 2L,
+  conf.level = 0.95,
+  effsize.type = "omega",
+  var.equal = FALSE,
+  bf.prior = 0.707,
+  tr = 0.2,
+  nboot = 100L,
+  top.text = NULL,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The grouping (or independent) variable from the dataframe \code{data}. In
+case of a repeated measures or within-subjects design, if \code{subject.id}
+argument is not available or not explicitly specified, the function assumes
+that the data has already been sorted by such an id by the user and creates
+an internal identifier. So if your data is \strong{not} sorted, the results
+\emph{can} be inaccurate when there are more than two levels in \code{x} and there
+are \code{NA}s present. The data is expected to be sorted by user in
+subject-1,subject-2, ..., pattern.}
+
+\item{y}{The response (or outcome or dependent) variable from the
+dataframe \code{data}.}
+
+\item{subject.id}{Relevant in case of a repeated measures or within-subjects
+design (\code{paired = TRUE}, i.e.), it specifies the subject or repeated
+measures identifier. \strong{Important}: Note that if this argument is \code{NULL}
+(which is the default), the function assumes that the data has already been
+sorted by such an id by the user and creates an internal identifier. So if
+your data is \strong{not} sorted and you leave this argument unspecified, the
+results \emph{can} be inaccurate when there are more than two levels in \code{x} and
+there are \code{NA}s present.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{paired}{Logical that decides whether the experimental design is
+repeated measures/within-subjects or between-subjects. The default is
+\code{FALSE}.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{conf.level}{Scalar between \code{0} and \code{1}. If unspecified, the defaults
+return \verb{95\%} confidence/credible intervals (\code{0.95}).}
+
+\item{effsize.type}{Type of effect size needed for \emph{parametric} tests. The
+argument can be \code{"eta"} (partial eta-squared) or \code{"omega"} (partial
+omega-squared).}
+
+\item{var.equal}{a logical variable indicating whether to treat the
+    two variances as being equal. If \code{TRUE} then the pooled
+    variance is used to estimate the variance otherwise the Welch
+    (or Satterthwaite) approximation to the degrees of freedom is used.}
+
+\item{bf.prior}{A number between \code{0.5} and \code{2} (default \code{0.707}), the prior
+width to use in calculating Bayes factors and posterior estimates. In
+addition to numeric arguments, several named values are also recognized:
+\code{"medium"}, \code{"wide"}, and \code{"ultrawide"}, corresponding to \emph{r} scale values
+of 1/2, sqrt(2)/2, and 1, respectively. In case of an ANOVA, this value
+corresponds to scale for fixed effects.}
+
+\item{tr}{Trim level for the mean when carrying out \code{robust} tests. In case
+of an error, try reducing the value of \code{tr}, which is by default set to
+\code{0.2}. Lowering the value might help.}
+
+\item{nboot}{Number of bootstrap samples for computing confidence interval
+for the effect size (Default: \code{100L}).}
+
+\item{top.text}{Text to display on top of the Bayes Factor message. This is
+mostly relevant in the context of \code{ggstatsplot} package functions.}
+
+\item{...}{Additional arguments (currently ignored).}
+}
+\description{
+A dataframe containing results for one-way ANOVA.
+
+To see details about functions which are internally used to carry out these
+analyses, see the following vignette-
+\url{https://indrajeetpatil.github.io/statsExpressions/articles/stats_details.html}
+}
+\examples{
+\donttest{
+# for reproducibility
+set.seed(123)
+library(statsExpressions)
+options(tibble.width = Inf, pillar.bold = TRUE, pillar.neg = TRUE)
+
+# ----------------------- parametric -------------------------------------
+
+# between-subjects
+oneway_anova(
+  data = ggplot2::msleep,
+  x    = vore,
+  y    = sleep_rem
+)
+
+if (require("afex", quietly = TRUE)) {
+  # within-subjects design
+  oneway_anova(
+    data       = iris_long,
+    x          = condition,
+    y          = value,
+    subject.id = id,
+    paired     = TRUE
+  )
+}
+
+# ----------------------- non-parametric ----------------------------------
+
+# between-subjects
+oneway_anova(
+  data = ggplot2::msleep,
+  x    = vore,
+  y    = sleep_rem,
+  type = "np"
+)
+
+# within-subjects design
+oneway_anova(
+  data       = iris_long,
+  x          = condition,
+  y          = value,
+  subject.id = id,
+  paired     = TRUE,
+  type       = "np"
+)
+
+# ----------------------- robust -------------------------------------
+
+# between-subjects
+oneway_anova(
+  data = ggplot2::msleep,
+  x    = vore,
+  y    = sleep_rem,
+  type = "r"
+)
+
+# within-subjects design
+oneway_anova(
+  data       = iris_long,
+  x          = condition,
+  y          = value,
+  subject.id = id,
+  paired     = TRUE,
+  type       = "r"
+)
+
+# ----------------------- Bayesian -------------------------------------
+
+# between-subjects
+oneway_anova(
+  data = ggplot2::msleep,
+  x    = vore,
+  y    = sleep_rem,
+  type = "bayes"
+)
+
+# within-subjects design
+oneway_anova(
+  data       = iris_long,
+  x          = condition,
+  y          = value,
+  subject.id = id,
+  paired     = TRUE,
+  type       = "bayes"
+)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/long_to_wide_converter.R
+\name{long_to_wide_converter}
+\alias{long_to_wide_converter}
+\title{Converts dataframe from long/tidy to wide format with \code{NA}s removed}
+\usage{
+long_to_wide_converter(
+  data,
+  x,
+  y,
+  subject.id = NULL,
+  paired = TRUE,
+  spread = TRUE,
+  ...
+)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The grouping (or independent) variable from the dataframe \code{data}. In
+case of a repeated measures or within-subjects design, if \code{subject.id}
+argument is not available or not explicitly specified, the function assumes
+that the data has already been sorted by such an id by the user and creates
+an internal identifier. So if your data is \strong{not} sorted, the results
+\emph{can} be inaccurate when there are more than two levels in \code{x} and there
+are \code{NA}s present. The data is expected to be sorted by user in
+subject-1,subject-2, ..., pattern.}
+
+\item{y}{The response (or outcome or dependent) variable from the
+dataframe \code{data}.}
+
+\item{subject.id}{Relevant in case of a repeated measures or within-subjects
+design (\code{paired = TRUE}, i.e.), it specifies the subject or repeated
+measures identifier. \strong{Important}: Note that if this argument is \code{NULL}
+(which is the default), the function assumes that the data has already been
+sorted by such an id by the user and creates an internal identifier. So if
+your data is \strong{not} sorted and you leave this argument unspecified, the
+results \emph{can} be inaccurate when there are more than two levels in \code{x} and
+there are \code{NA}s present.}
+
+\item{paired}{Logical that decides whether the experimental design is
+repeated measures/within-subjects or between-subjects. The default is
+\code{FALSE}.}
+
+\item{spread}{Logical that decides whether the dataframe needs to be
+converted from long/tidy to wide (default: \code{TRUE}). Relevant only if
+\code{paired = TRUE}.}
+
+\item{...}{Currently ignored.}
+}
+\value{
+A dataframe with \code{NA}s removed while respecting the
+between-or-within-subjects nature of the dataset.
+}
+\description{
+This conversion is helpful mostly for repeated measures design, where
+removing \code{NA}s by participant can be a bit tedious.
+
+It does not make sense to spread the dataframe to wide format when the
+measure is not repeated, so if \code{paired = TRUE}, \code{spread} argument will be
+ignored.
+}
+\examples{
+# for reproducibility
+library(statsExpressions)
+set.seed(123)
+
+# repeated measures design
+long_to_wide_converter(
+  data       = bugs_long,
+  x          = condition,
+  y          = desire,
+  subject.id = subject,
+  paired     = TRUE
+)
+
+# independent measures design
+long_to_wide_converter(
+  data   = ggplot2::msleep,
+  x      = vore,
+  y      = brainwt,
+  paired = FALSE
+)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/centrality_description.R
+\name{centrality_description}
+\alias{centrality_description}
+\title{Dataframe and expression for distribution properties}
+\usage{
+centrality_description(data, x, y, type = "parametric", tr = 0.2, k = 2L, ...)
+}
+\arguments{
+\item{data}{A dataframe (or a tibble) from which variables specified are to
+be taken. Other data types (e.g., matrix,table, array, etc.) will \strong{not}
+be accepted.}
+
+\item{x}{The grouping (or independent) variable from the dataframe data.}
+
+\item{y}{The response (or outcome or dependent) variable from the
+dataframe \code{data}.}
+
+\item{type}{A character specifying the type of statistical approach:
+\itemize{
+\item \code{"parametric"}
+\item \code{"nonparametric"}
+\item \code{"robust"}
+\item \code{"bayes"}
+}
+
+You can specify just the initial letter.}
+
+\item{tr}{Trim level for the mean when carrying out \code{robust} tests. In case
+of an error, try reducing the value of \code{tr}, which is by default set to
+\code{0.2}. Lowering the value might help.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{...}{Currently ignored.}
+}
+\description{
+Dataframe and expression for distribution properties
+}
+\details{
+This function describes a distribution for \code{y} variable for each level of the
+grouping variable in \code{x} by a set of indices (e.g., measures of centrality,
+dispersion, range, skewness, kurtosis). It additionally returns an expression
+containing a specified centrality measure. The function internally relies on
+\code{datawizard::describe_distribution} function.
+}
+\examples{
+set.seed(123)
+
+# parametric -----------------------
+centrality_description(iris, Species, Sepal.Length)
+
+# non-parametric -------------------
+centrality_description(mtcars, am, wt, type = "n")
+
+# robust ---------------------------
+centrality_description(ToothGrowth, supp, len, type = "r")
+
+# Bayesian -------------------------
+centrality_description(sleep, group, extra, type = "b")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tidy_model_expressions.R
+\name{tidy_model_expressions}
+\alias{tidy_model_expressions}
+\title{Expressions with statistics for tidy regression dataframes}
+\usage{
+tidy_model_expressions(
+  data,
+  statistic = NULL,
+  k = 2L,
+  effsize.type = "omega",
+  ...
+)
+}
+\arguments{
+\item{data}{A tidy dataframe from regression model object.}
+
+\item{statistic}{Which statistic is to be displayed (either \code{"t"} or \code{"f"}or
+\code{"z"} or \code{"chi"}) in the label.}
+
+\item{k}{Number of digits after decimal point (should be an integer)
+(Default: \code{k = 2L}).}
+
+\item{effsize.type}{Type of effect size needed for \emph{parametric} tests. The
+argument can be \code{"eta"} (partial eta-squared) or \code{"omega"} (partial
+omega-squared).}
+
+\item{...}{Currently ignored.}
+}
+\description{
+Expressions with statistics for tidy regression dataframes
+}
+\note{
+This is an \strong{experimental} function and may change in the future.
+Please do not use it yet in your workflow.
+}
+\examples{
+set.seed(123)
+
+# tidy dataframe
+df <- tidy_model_parameters(lm(wt ~ am * cyl, mtcars))
+
+# create a column containing expressions
+tidy_model_expressions(df, statistic = "t")
+}

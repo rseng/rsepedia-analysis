@@ -11298,3 +11298,2248 @@ print 'indent 4 spaces'
 ```
 
 under_score
+Contributing
+============
+
+This file describes a path to contribute to this project. Check out our
+`CODE OF CONDUCT <./CODE_OF_CONDUCT.rst>`__.
+
+Bug Reports and Feature Requests
+--------------------------------
+
+If you have encountered a problem with QDarkStyle or have an idea for a
+new feature, please submit it to the `issue
+tracker <https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues>`__.
+
+Contributing to QDarkStyle
+--------------------------
+
+The recommended way for new contributors to submit code to QDarkStyle is
+to fork the repository on GitHub and then submit a pull request after
+committing the changes. The pull request will then need to be approved
+by one of the maintainers before it is merged into the main repository.
+
+-  Check for open issues or open a fresh issue to start a discussion
+   around a feature idea or a bug.
+
+-  Fork `the
+   repository <https://github.com/ColinDuquesnoy/QDarkStyleSheet>`__ on
+   GitHub to start making your changes to the develop branch.
+
+-  Write a test which shows that the bug was fixed or that the feature
+   works as expected if its a function, or create a screenshot if you
+   are changing the stylesheet evidencing the changes.
+
+-  Send a pull request and bug the maintainer until it gets merged and
+   published. Make sure to add yourself to `AUTHORS <./AUTHORS.rst>`__
+   and the change(s) to `CHANGES <./CHANGES.rst>`__.
+
+Getting Started
+---------------
+
+These are the basic steps needed to start developing on QDarkStyle.
+
+-  Create an account on GitHub
+
+-  Fork the main `QDarkStyle
+   repository <https://github.com/ColinDuquesnoy/QDarkStyleSheet>`__
+   using the GitHub interface.
+
+-  Clone the forked repository to your machine
+
+   .. code:: bash
+
+      git clone https://github.com/USERNAME/qdarkstyle
+      cd qdarkstyle
+
+-  Checkout the appropriate branch
+
+   .. code:: bash
+
+      git checkout develop
+
+-  Setup a virtual environment (not essential, but highly recommended).
+
+   - Using virtualenv:
+
+     .. code:: bash
+
+        virtualenv ~/.venv
+        . ~/.venv/bin/activate
+        pip install -e .[develop]
+
+   - Using conda (conda-forge):
+
+     .. code:: bash
+
+        conda create -n my-dev-env -c conda-forge python=3.8
+        conda activate my-dev-env
+        conda remove --force qdarkstyle # In case you have qdarkstyle installed
+        conda install -c conda-forge watchdog qtsass
+        pip install -e .[develop]
+
+
+-  Create a new working branch. Choose any name you like
+
+   .. code:: bash
+
+      git checkout -b feature-xyz
+
+-  Hands on
+
+   For tips on working with the code, see the Code Guide.
+
+-  Test, test, test
+
+   Testing is best done through ``tox``, which provides a number of
+   targets and allows testing against multiple different Python
+   environments:
+
+-  Add you and your changes
+
+   Please add a list item to `CHANGES <./CHANGES.rst>`__ if the fix or
+   feature is not trivial (small doc updates, typo fixes). Please add
+   you as an author to `AUTHORS <./AUTHORS.rst>`__.
+
+-  Add files to commit
+
+   Add files that are part of your changes, remember that each commit
+   must represent a small but functional change. Remember to add
+   CHANGES.rst and AUTHORS.rst too. To add all files changed do:
+
+   .. code:: bash
+
+      git add .
+
+-  Committing changes.
+
+   GitHub recognizes certain phrases that can be used to automatically
+   update the issue tracker, so you can commit like this:
+
+   .. code:: bash
+
+      git commit -m "Add useful new feature that does this, close #42"
+
+      git commit -m "Fix returning problem for get_style(), fix #78"
+
+-  Push changes in the branch to your forked repository on GitHub.
+
+   .. code:: bash
+
+      git push origin feature-xyz
+
+-  Submit a pull request (PR).
+
+   Do it from your branch to the respective branch using the `GitHub
+   PR <https://github.com/ColinDuquesnoy/QDarkStyleSheet/pulls>`__
+   interface.
+
+-  Wait for a maintainer to review your changes.
+
+Logging
+-------
+
+Inside modules we provided a logging that should be used to inform the
+user. Please, follow the levels bellow.
+
+-  debug: for debug information, high detailed one, directed to
+   programmers;
+
+-  info: something important for common user to know;
+
+-  warning: something that should not be a big problem or a decision
+   changed;
+
+-  error: some error, but not capable of stop program;
+
+-  critical: something that could stop the running program.
+
+Documentation
+-------------
+
+Documentation is the key to keep all information and necessary
+instructions to others. We use the reStructured text format (rst) for
+all docs.
+
+All new functions, classes, files, must be documented with all
+arguments, returns, exceptions. Without this it should not pass the
+tests.
+
+The better example is to see the current files to get the style. We are
+using the Google Format and Sphinx for generating the docs.
+
+Guide to QDarkStyle
+-------------------
+
+Structure of the Example
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Now you can use our example to work on the stylesheet. It has all
+possible widget provided by Qt - common ones. Feel free to add more to
+them.
+
+To simplify the structure, there are separated files in
+`qdarkstyle/example/ui <https://github.com/ColinDuquesnoy/QDarkStyleSheet/tree/master/qdarkstyle/example/ui>`__
+folder.
+
+-  ``dw_buttons.ui``: all types of buttons;
+-  ``dw_containers_no_tabs.ui``: all types of containers except for
+   tabs;
+-  ``dw_containers_tabs.ui``: all containers tabs;
+-  ``dw_displays.ui``: all types of displays;
+-  ``dw_inputs_fields.ui``: all types of inputs with fields;
+-  ``dw_inputs_no_fields.ui``: all types of inputs without fields;
+-  ``dw_views.ui``: all types of views;
+-  ``dw_widgets.ui``: all types of widgets;
+-  ``mw_menus.ui``: main window with all menus and toolbars.
+
+*Note*: ``dw`` stands for dock widget and ``mw`` for main window.
+
+The entire example is built at runtime, in
+`qdarkstyle.example <https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/qdarkstyle/example/__main__.py>`__.
+To see more information about it, see its reference.
+
+Feel free to modify UI files with Qt Designer.
+
+Modifying QSS File
+~~~~~~~~~~~~~~~~~~
+
+If you are changing the
+`stylesheet <https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/qdarkstyle/qss/_styles.scss>`__,
+you will need to recompile the QRC files using
+`qdarkstyle.utils <https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/qdarkstyle/utils/__main__.py>`__.
+
+This generates all resources files (images), ``style.qrc``,
+``_variables.scss``, ``style.qss``, and finally ``style_rc.py``
+for each palette.
+
+Making It Easy
+~~~~~~~~~~~~~~
+
+To simplify this process for the developer, if you are changing many
+things, use the script
+`run\_ui\_css\_edition.py <https://github.com/ColinDuquesnoy/QDarkStyleSheet/blob/master/script/run_ui_css_edition.py>`__:
+
+.. code:: bash
+
+   python scripts/run_ui_css_edition.py
+
+This creates a loop that restarts the application, process ui and css
+files.
+
+For more information about those scripts, see their documentation.
+
+Qt, Stylesheets, Palettes and Icons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  `Box model <http://doc.qt.io/qt-5/images/stylesheet-boxmodel.png>`__
+-  `Box model with height and
+   width <https://www.tutorialrepublic.com/lib/images/css-box-model.jpg>`__
+-  `Customizing
+   Widgets <http://doc.qt.io/qt-5/stylesheet-customizing.html>`__
+-  `Window
+   structure <http://doc.qt.io/qt-5/images/mainwindowlayout.png>`__
+-  `QMainWindow <http://doc.qt.io/qt-5/qmainwindow.html>`__
+-  `References <http://doc.qt.io/qt-5/stylesheet.html>`__
+
+Create good palettes with these tools. For example, on paletton, choose
+three colors from grayish light (foreground), grayish dark (background)
+and three more colorful colors (selection). Grayish colors have a little
+bit of the main color, so it is nice to change it if you change the main
+color.
+
+-  `Paletton.com <http://paletton.com/>`__
+-  `Coolors.co <https://coolors.co/>`__
+
+As a minimal guide to create new icons (svg) images, we list two main
+sources.
+
+-  `Material <https://material.io/design/iconography/product-icons.html#grid-keyline-shapes>`__
+-  `KDE <https://hig.kde.org/style/icon.html>`__
+
+Main characteristics of SVG images are:
+
+-  Base size: 32px X 32px;
+-  Border: 2px space, except continuous lines;
+-  Corners and line end's: rounded;
+-  Line: 2px minimum thickness. Complementary thickness using multiples
+   of 2px;
+-  Spacing: 4px when needed;
+-  Color: #ff0000, red for all images - programmatically changed;
+-  Keep only structural changes in images, not colors, e.g, states hover
+   and disabled;
+-  Lines and shapes should align with the grid centralized;
+-  Names: from basic form to specific, so they keep grouped. Ex.:
+   arrow\_left, arrow\_up.
+
+Some example are given below for the horizontal Handle, Minimize, and
+checked Checkbox.
+
+.. raw:: html
+
+   <table style="width:100%">
+
+.. raw:: html
+
+   <tr>
+
+::
+
+    <th colspan=3>Examples of icons</th>
+
+.. raw:: html
+
+   </tr>
+
+.. raw:: html
+
+   <tr>
+
+::
+
+    <td><img src="./images/icon_checkbox_indeterminated.png"/></td>
+    <td><img src="./images/icon_minimize.png"/></td>
+    <td><img src="./images/move.png"/></td>
+
+.. raw:: html
+
+   </tr>
+
+.. raw:: html
+
+   </table>
+
+Unit Testing and Fix Preview
+----------------------------
+
+It is a good practice, if you are writing functions to QDarkStyle or
+fixing something related to those functions (not style), that you
+provide a test for it.
+
+If you are fixing something about style, please, at least, provide an
+screenshot before and after the fix to comparison. This could be
+inserted in the issue tracker, as a message. Better than that, use
+modules provided in test folder to create a GUI test, creating a new
+file for it.
+
+Check `test <./test>`__ files to more details. Tests will keep our
+application stable.
+
+If You Are a Maintainer, Go Ahead to Production
+----------------------------------------------
+
+Of course, until you start these steps, make sure the package have
+passed all tests and checkers before continue. You must have accounts to
+both test and official PyPI website below along with be inserted as a
+maintainer in both.
+
+1. Install ``twine``
+
+   ``pip install twine``
+
+2. Generate a distribution (code package and wheel)
+
+   ``python setup.py sdist bdist_wheel``
+
+3. Check with ``twine``, which also tests README format for PyPI
+
+   ``twine check dist/*``
+
+4. Try upload in `PyPI test
+   page <https://test.pypi.org/project/QDarkStyle>`__ platform before
+   the oficial
+
+   ``twine upload --repository-url https://test.pypi.org/legacy/ dist/*``
+
+5. Try to install from test
+
+   ``pip install --no-deps --index-url https://test.pypi.org/simple/ qdarkstyle``
+
+6. Then, remove it
+
+   ``pip uninstall qdarkstyle -y``
+
+7. Upload to `PyPI official
+   page <https://pypi.python.org/pypi/QDarkStyle>`__
+
+   ``twine upload --repository-url https://upload.pypi.org/legacy/ dist/*``
+
+8. Try to install from oficial
+
+   ``pip install qdarkstyle``
+
+You can also use the tox environment to produce the release and upload
+the distribution.
+
+.. code:: bash
+
+   tox -e release
+Changelog
+=========
+
+- 3.0.2:
+    - Enable the use of setTabColor and add example, fixes #212
+    - Update description to inform about Python 2 and Qt4 unsupported versions
+    - Add missing examples #251
+- 3.0.1:
+    - Enhacement of state of active/non active itens in views #209
+    - Update manifest to include UI files
+- **3.0.0**:
+    - New structure to create different palettes #268, #164
+    - New light palette #240, #268
+    - Improved dark palette #252, #266, #264, #265, #248
+    - Improved tool buttons #260
+    - Improved tabs #270, #271, #267
+    - Improved combo boxes #263
+    - Improved close/float sizes os-dependent #267
+    - Fix checkbox problems #200, #259, #239
+    - Fix indicators' colors in menus and tables #242
+    - Fix dock widget tab hover #243
+    - Workaround for menus with indicators and icons #214
+    - Update to be compatible with Qt 5.[12,13,14,15]
+- 2.8.1:
+    - Fix rst file formats and links #229
+    - Add .gitattributes for generated and documentation files
+    - Add more complete tox and Travis envs with many checks
+    - Fix removing message format argument
+    - Fix QGroupBox small indicator size #218
+    - Fix QGroupBox incorrect indicator icon when unfocused #219
+    - Fix QDateTimeEdit incorrect drop-down arrow icon #220
+    - Fix documentation
+- 2.8:
+    - Fix tooltip giant rectangle #174
+    - Fix QTextEdit without borders inside frame #188
+    - Fix PyQt5 issues on dropdown #191
+    - Fix combo box with icons #169
+    - Fix QToolbBar vertical handle #210
+    - Fix pane tab label cropped on activation #199
+    - Enhance vertical/horizontal lines #184
+    - Enhance tool button size and spacing #181, #183, #202
+    - Enhance buttons and inputs with focus, blue border #194, #211
+    - Enhance QSplitter #207
+    - Removed QStatusBar vertical lines #205
+- 2.7:
+    - Remove utils from import in qdarkstyle, #170
+    - Fix border colors in tool button #176
+    - Fix scroll area and stacked with 2px padding, #159
+    - Fix background submenu color, #179
+    - Fix extra border aside header's arrow indicator, #180
+    - Fix menu right arrow indicator
+    - Fix slide bars colors, #150
+    - Fix QLabels problems, #163, #139
+    - Fix problems with example settings using PySide2 and --no\_dark #167
+    - Provide SVG files for all images, standard names, and sizes, fix images, #149
+    - Improve images and add high-resolution images, #140
+    - Improve docs
+    - Add check to scripts for generating images, #137
+    - Fix tox and Travis scripts #76
+    - Provide docs in RTD, part of #160
+    - Add helpdev dependency for reports and checks, #147
+    - Update authors and maintainers
+- 2.6.8:
+    - Fix double border in QtabWidget for pyqt5
+    - Fix widgets border in QTabWidget as QLabel #141, #123, #126
+    - Fix QTab scroller buttons background #136
+    - Update color from images, fix #127
+    - Add retina resolution @2x, fix #140
+    - Intermediate version before merge PR #142 adding scripts
+- 2.6.7:
+    - Fix combobox indicator and padding #132
+    - Fix PyQtGraph plot axes covered by padding #134
+    - Update authors
+- 2.6.6:
+    - Fix tabbed borderless frames and add more examples, #123, #126
+    - Add feedback to pressed buttons, #133
+    - Change future warning to pending deprecation for developers, #125 in v2.x
+    - Fix hover in qtabwidget, #128
+- 2.6.5:
+    - Fix borderless widgets inside QTabWidget, #123
+    - Fix palette table inside CSS file, header using the last column
+    - Tested on Python 27, 34, 36, 37
+- 2.6.4:
+    - Python 2.7 compatibility, #121
+    - Fix MANIFEST
+- 2.6.3:
+    - Palette color enhance, better contrast, contribute to #118
+    - Fixes Qslider background
+    - Better colors and format for tab and toolbox, contribute to #118
+- 2.6.2:
+    - Enhance command link button
+    - Enhance tab colors and spacing, closes #118
+    - Start using tox, helping partially #77
+    - Fix example and other scripts issues
+- 2.6.1:
+    - Fix and improve QSplitter and separators from toolbar and windows #115
+    - Fix README version screenshots and update them
+    - Add reset function into an example to reset GUI settings, after you mess up with
+- 2.6:
+    - Many other enhancements and fix #103, #111, #106
+    - Fix tab disabled, background and color
+    - Enhance tab selection
+    - Enhance spacing (padding and margin)
+    - Enhance table, list, tree and combo box selection
+    - Fix slider disabled and enhance size
+    - Fix the wrong upload of style.qss - sorry
+    - Fix almost all widgets backgrounds and other not previously covered widgets with new style
+    - New palette color, almost whole new qss file, simplify configuration, partially #112, #101, #109,
+    - Add changes made by other people in the new style - merge does not work there #93, #92, #102
+    - Update README with Qt.py and PySide 2 information #110, #107, #83
+    - Update **init** info
+    - Improve scripts for processing ui and qrc
+    - Add **main** and setup entry, to access function directly
+    - Add function to get information about bindings and abstraction layers for debugging and/or issue tracker
+    - PySide 2 support
+    - Improve menu indicator position on QPushButton, #102
+- 2.5.4
+    - Fix indicator image of checkable QGroupBox for a check/uncheck states, #93
+    - Fix wrong comma position, #95
+    - Added image for the missing QTreeView/QListView undetermined state, fix #92
+- 2.5.3
+    - Add future warning and pending deprecation for 3.0 version preparation #89
+    - Add ISSUE\_TEMPLATE to ask for default information on the issue tracker
+- 2.5.2:
+    - Modularize files from example/ui to simplify edition (developers)
+    - Add scripts to process files and run example more easily (developers)
+    - Better documentation (developers)
+    - Add CONTRIBUTE, CODE\_OF\_CONDUCT, and PRODUCTION files
+    - Lint markdown to standardize files
+    - Fix and add more information in C++ example
+- 2.5.1:
+    - Fix Travis files, needs more improvement #74
+    - Improve modules description
+    - Update setup.py, remove the license
+    - Update and improve README, CHANGES and AUTHORS
+- 2.5:
+    - Add a new complete example with new files
+    - Add new screenshots for new example
+    - Update Travis files
+    - Add support to the example of QtPy and PyQtGraph
+    - Move scripts for compiling to scrip folder
+    - Update README, CHANGES
+- 2.4:
+    - Add function to get Qt information from environment variable #69, #70, #73
+    - Add CC-BY license for images and transfer COPYING to LICENSE file #68
+    - Fix tabs style - selected tab color and shift #59, #72
+    - Restructure README creating AUTHORS, CHANGES, and LICENSE #71
+- 2.3.1:
+    - Improve checkbox color (use accent color used in other widgets) and
+    darken view hover/selected colors to play nicer with other widget colors
+    - Shift to the right the first tab
+    - Update license year
+    - Update README (fix snapshots links and formatting)
+    - Removed QLineEdit top/bottom padding which cut off a text while editing QListView items
+- 2.3.0:
+    - Add support for QDateEdit
+- 2.2.2:
+    - Add hover to the unselected item in QListView/QTreeView
+    - Fixes for vertical QToolBar, QToolBar Extend Button & QTabWidget's Pane Misalignment
+    - Fixed consistency of QTabBar depending on the position
+- 2.2.1:
+    - Remove border of status bar widgets
+- 2.2:
+    - Major update of the color scheme based on the Breeze Dark theme of KDE 5
+    - Fix issues #29, #30, #31, #32 and #35
+- 2.1:
+    - Add style for QPushButton:checked
+    - Improve QCheckBox and QRadioButton style
+    - Add style for QMenu::right-arrow
+
+- **2.0**:
+    - Improve the stylesheet to make it look a bit more modern (see pull request #25)
+- 1.16:
+    - Fix QGroupBox title padding (see issue #20)
+- 1.15:
+    - Improve tristate checkbox graphics: the undetermined state is now represented by a dash
+- 1.14:
+    - Add support for tristate checkboxes and for vertical and horizontal lines
+- 1.13:
+    - Fix issue with horizontal scrollbar arrows, left and right were inversed.
+- 1.12:
+    - Fix the minimum size of input widgets (see issue #14)
+- 1.11:
+    - Fix QDockWidget title position on Mac.
+    - Add QStatusBar support
+    - Improve QToolButton especially the MenuButtonPopup and InstantPopup modes
+- 1.10:
+    - Add PyQt5 support
+    - Fix bug #12 (dock widget title not dark on OSX. Note that this reopens issue #8 for MAC users)
+- 1.9:
+    - Improve QTabBar consistency and make selected tabs more distinctive
+- 1.8:
+    - Add support for QToolBox
+    - Fix issue with grid line in QTableView if there is only ONE row/column
+- 1.7:
+    - Fix appearance of bottom tab bars (invert gradient)
+    - Improve QTableView: add grid line and fix section borders
+    - Fix bug #7: bug when resizing QTableView
+    - Fix bug #8: text validation no working on QDockWidget
+- 1.6:
+    - Improve QToolButton style
+    - Add support for InstantPopup and MenuButtonPopup
+    - Improve QMenu style (better spacing with icons)
+    - Add \_\_version\_\_ to python package.
+- 1.5:
+    - Improve QTabBar style: now works with all tab bar positions (North, South, West and East)
+    - Fix bug #6: hide QTabBar base to avoid strange lines at the base of the tab bar.
+- 1.4:
+    - Add style.qss to qrc file, this fix issues with cx\_freeze
+- 1.3:
+    - Remove outline on button, checkbox and radio button
+    - Add support for closable tabs
+    - Better disabled buttons
+    - Fix QTextEdit background color to match the color of QPlainTextEdit
+    and QLineEdit
+    - Better hover/selected states for QTreeView and QListView
+    - Add QHeaderView support
+- 1.2:
+    - Improve QTableView support
+- 1.1:
+    - Switch to MIT license
+    - Add python 3 support
+
+- **1.0**:
+    - First public release (LGPL v2)
+Contributor Covenant Code of Conduct
+====================================
+
+Our Pledge
+----------
+
+In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our
+project and our community a harassment-free experience for everyone,
+regardless of age, body size, disability, ethnicity, gender identity and
+expression, level of experience, nationality, personal appearance, race,
+religion, or sexual identity and orientation.
+
+Our Standards
+-------------
+
+Examples of behavior that contributes to creating a positive environment
+include:
+
+-  Using welcoming and inclusive language
+-  Being respectful of differing viewpoints and experiences
+-  Gracefully accepting constructive criticism
+-  Focusing on what is best for the community
+-  Showing empathy towards other community members
+
+Examples of unacceptable behavior by participants include:
+
+-  The use of sexualized language or imagery and unwelcome sexual
+   attention or advances
+-  Trolling, insulting/derogatory comments, and personal or political
+   attacks
+-  Public or private harassment
+-  Publishing others' private information, such as a physical or
+   electronic address, without explicit permission
+-  Other conduct which could reasonably be considered inappropriate in a
+   professional setting
+
+Our Responsibilities
+--------------------
+
+Project maintainers are responsible for clarifying the standards of
+acceptable behavior and are expected to take appropriate and fair
+corrective action in response to any instances of unacceptable behavior.
+
+Project maintainers have the right and responsibility to remove, edit,
+or reject comments, commits, code, wiki edits, issues, and other
+contributions that are not aligned to this Code of Conduct, or to ban
+temporarily or permanently any contributor for other behaviors that they
+deem inappropriate, threatening, offensive, or harmful.
+
+Scope
+-----
+
+This Code of Conduct applies both within project spaces and in public
+spaces when an individual is representing the project or its community.
+Examples of representing a project or community include using an
+official project e-mail address, posting via an official social media
+account, or acting as an appointed representative at an online or
+offline event. Representation of a project may be further defined and
+clarified by project maintainers.
+
+Enforcement
+-----------
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may
+be reported by contacting the project team at daniel.pizetta@usp.br. The
+project team will review and investigate all complaints, and will
+respond in a way that it deems appropriate to the circumstances. The
+project team is obligated to maintain confidentiality with regard to the
+reporter of an incident. Further details of specific enforcement
+policies may be posted separately.
+
+Project maintainers who do not follow or enforce the Code of Conduct in
+good faith may face temporary or permanent repercussions as determined
+by other members of the project's leadership.
+
+Attribution
+-----------
+
+This Code of Conduct is adapted from the `Contributor
+Covenant <http://contributor-covenant.org>`__, version 1.4, available at
+`http://contributor-covenant.org/version/1/4 <http://contributor-covenant.org/version/1/4/>`__
+Authors
+=======
+
+Mainteiner(s)
+-------------
+
+These people were/are mainteiners of this project.
+
+-  2013-current `Colin Duquesnoy <https://github.com/ColinDuquesnoy>`__ - colin.duquesnoy@gmail.com - original author.
+
+-  2018-current `Daniel Pizetta <https://github.com/dpizetta>`__ - daniel.pizetta@usp.br - bug fixes, improvements, features.
+
+-  2019-current `Gonzalo Peña-Castellanos <https://github.com/goanpeca>`__ - bug fixes, improvements, features.
+
+-  2019-current `Carlos Cordoba <https://github.com/ccordoba12>`__
+
+
+Contributor(s)
+--------------
+
+These people contribute to bug fixes, improvements and so on. Please,
+insert your information after the last one.
+
+-  Year - Name - ``<contact>`` - contribution.
+
+-  2018 - `mowoolli <https://github.com/mowoolli>`__ - bug fixes.
+-  2018 - Xingyun Wu - ``xingyun.wu@foxmail.com`` - bug fixes.
+-  2018 - `KcHNST <https://github.com/KcHNST>`__ - bug fixes.
+-  2019 - `goanpeca <https://github.com/goanpeca>`__ - bug fixes, improvements, features.
+-  2020 - `tsilia <https://github.com/tsilia>`__ - bug fixes.
+-  2021 - `isabela-pf <https://github.com/isabela-pf>`__ - new palette design.
+-  2021 - `juanis2112 <https://github.com/juanis2112>`__ - improvements.
+-  2021 - `ccordoba12 <https://github.com/ccordoba12>`__ - mainteiner/improvements.
+
+And all people that reported bugs, thank you all!
+QDarkStyleSheet
+===============
+
+|Build Status| |Docs Status| |Latest PyPI version| |License: MIT|
+|License: CC BY 4.0| |Conduct|
+
+The most complete dark/light style sheet for Qt applications (Qt4*, Qt5,
+PySide*, PySide2, PyQt4*, PyQt5, QtPy, PyQtGraph, Qt.Py) for Python
+2*/3 and C++.
+
+`Check out the complete documentation. <https://qdarkstylesheet.readthedocs.io/en/latest/screenshots.html>`__
+
+
+What is new?
+------------
+
+
+Version 3
+~~~~~~~~~
+
+In the current version 3, `qdarkstyle` is now working as a theme framework,
+currently for dark/light themes, keeping styled widgets identical throughout
+theme colors.
+
+The palette has been redefined and improved (UI/UX) to accept more colors
+and to be able to implement new themes thanks to the
+`Spyder team <https://github.com/spyder-ide/spyder>`__ collaboration.
+
+The current stable version is using Python 3 (preferable 3.6+) and Qt5
+(PyQt5 and PySide 2).
+
+We still preparing the portability to Qt6 since we need changes in
+`QtPy <https://github.com/spyder-ide/qtpy>`__ dependency project.
+
+[*] Python 2, as well as Qt4 (PyQt4 and PySide), will not be supported anymore.
+They still there as it is, but no back-compatibility, fixes, nor features
+will be implemented.
+
+Version 2
+~~~~~~~~~
+
+We moved to QtPy to simplify your code in v2.8, thus this is a required
+dependency now. We included special patches in three main categories:
+operating system, Qt/binding version, application.
+
+Included in that, lots of widgets' styles were included/fixed. A Qt
+application example (Python only) with almost all types of widgets and
+combinations were included to serve as a portfolio and a checklist for
+new styles.
+
+We have added SCSS in v2.7, so the palette can be accessed programmatically.
+Also, many scripts were added to give freedom to developers who want to
+change the colors of our palette. All images and icons were revised, also
+creating SVG files for all of them.
+
+In version 2.6 and later, a restructure stylesheet is provided. The
+palette has only 9 colors. Most widgets are revised and their styles
+were improved. We also provide a command line (script) to get info that
+could be used when opening issues. See the image below.
+
+
+Version 1
+~~~~~~~~~
+
+First stable release of QDarkStyle.
+
+
+Installation
+------------
+
+
+Python
+~~~~~~
+
+From PyPI: Get the latest stable version of ``qdarkstyle`` package using
+*pip* (preferable):
+
+    .. code:: bash
+
+        pip install qdarkstyle
+
+
+From code: Download/clone the project, go to ``qdarkstyle`` folder then:
+
+-  You can use the *setup* script and pip install.
+
+    .. code:: bash
+
+        pip install .
+
+
+-  Or, you can use the *setup* script with Python:
+
+    .. code:: bash
+
+        python setup.py install
+
+
+C++
+~~~
+
+- Download/clone the project and copy the following files to your
+  application directory (keep the existing directory hierarchy).
+  Substitute the **theme** by the currently available (dark/light)
+  the theme you need to use.
+
+    -  **qdarkstyle/theme/style.qss**
+    -  **qdarkstyle/theme/style.qrc**
+    -  **qdarkstyle/theme/rc/** (the whole directory)
+
+
+-  Add **qdarkstyle/theme/style.qrc** to your **.pro file** as follows:
+
+    .. code:: c++
+
+        RESOURCES += qdarkstyle/theme/style.qrc
+
+
+-  Load the stylesheet:
+
+    .. code:: c++
+
+        QFile f(":qdarkstyle/theme/style.qss");
+
+        if (!f.exists())   {
+            printf("Unable to set stylesheet, file not found\n");
+        }
+        else   {
+            f.open(QFile::ReadOnly | QFile::Text);
+            QTextStream ts(&f);
+            qApp->setStyleSheet(ts.readAll());
+        }
+
+
+Note: The ":" in the file name is necessary to define that file as a
+resource library. For more information see the discussion
+`here <https://github.com/ColinDuquesnoy/QDarkStyleSheet/pull/87>`__.
+
+
+Usage in applications
+---------------------
+
+
+If your project already uses QtPy or you need to set it programmatically,
+it is far more simple
+
+.. code:: python
+
+    import sys
+    import qdarkstyle
+    import os
+
+    # set the environment variable to use a specific wrapper
+    # it can be set to pyqt, pyqt5, pyside or pyside2 (not implemented yet)
+    # you do not need to use QtPy to set this variable
+    os.environ['QT_API'] = 'pyqt5'
+
+    # import from QtPy instead of doing it directly
+    # note that QtPy always uses PyQt5 API
+    from qtpy import QtWidgets
+
+    # create the application and the main window
+    app = QtWidgets.QApplication(sys.argv)
+    window = QtWidgets.QMainWindow()
+
+    # setup stylesheet
+    # the default system in qdarkstyle uses qtpy environment variable
+    app.setStyleSheet(qdarkstyle.load_stylesheet())
+
+    # run
+    window.show()
+    app.exec_()
+
+
+If you are using PyQt5 directly, see the complete example
+
+.. code:: python
+
+    import sys
+    import qdarkstyle
+    from PyQt5 import QtWidgets
+
+    # create the application and the main window
+    app = QtWidgets.QApplication(sys.argv)
+    window = QtWidgets.QMainWindow()
+
+    # setup stylesheet
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # or in new API
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
+
+    # run
+    window.show()
+    app.exec_()
+
+
+Here is an example using PySide2
+
+.. code:: python
+
+    import sys
+    import qdarkstyle
+    from PySide2 import QtWidgets
+
+    # create the application and the main window
+    app = QtWidgets.QApplication(sys.argv)
+    window = QtWidgets.QMainWindow()
+
+    # setup stylesheet
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyside2())
+    # or in new API
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyside2'))
+
+    # run
+    window.show()
+    app.exec_()
+
+
+If you use PyQtGraph, then the code is
+
+.. code:: python
+
+    import sys
+    import qdarkstyle
+    import os
+
+    # set the environment variable to use a specific wrapper
+    # it can be set to PyQt, PyQt5, PySide or PySide2 (not implemented yet)
+    os.environ['PYQTGRAPH_QT_LIB'] = 'PyQt5'
+
+    # import from pyqtgraph instead of doing it directly
+    # note that PyQtGraph always uses PyQt4 API
+    from pyqtgraph.Qt import QtGui
+
+    # create the application and the main window
+    app = QtGui.QApplication(sys.argv)
+    window = QtGui.QMainWindow()
+
+    # setup stylesheet
+    app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api=os.environ['PYQTGRAPH_QT_LIB'])
+
+    # run
+    window.show()
+    app.exec_()
+
+If you are using Qt.py, which is different from qtpy, you should install
+qtpy then set both to the same binding.
+
+
+Usage of example/portfolio
+--------------------------
+
+
+There is an example included in the package. You only need to have PySide2 or
+PyQt5 installed on your system.
+
+.. code:: bash
+
+    # dark theme example
+    $ qdarkstyle.example --palette=dark
+
+    # light theme example
+    $ qdarkstyle.example --palette=light
+
+    # no theme/style sheet applied
+    $ qdarkstyle.example --palette=none
+
+    # check all options included
+    $ qdarkstyle.example --help
+
+
+Changelog
+---------
+
+Please, see `CHANGES <CHANGES.rst>`__ file.
+
+
+License
+-------
+
+This project is licensed under the MIT license. Images contained in this
+project is licensed under CC-BY license.
+
+For more information see `LICENSE <LICENSE.rst>`__ file.
+
+
+Authors
+-------
+
+For more information see `AUTHORS <AUTHORS.rst>`__ file.
+
+
+Contributing
+------------
+
+Most widgets have been styled. If you find a widget that has not been
+style, just open an issue on the issue tracker or, better, submit a pull
+request.
+
+If you want to contribute, see `CONTRIBUTING <CONTRIBUTING.rst>`__ file.
+
+.. |Build Status| image:: https://travis-ci.org/ColinDuquesnoy/QDarkStyleSheet.png?branch=master
+   :target: https://travis-ci.org/ColinDuquesnoy/QDarkStyleSheet
+.. |Docs Status| image:: https://readthedocs.org/projects/qdarkstylesheet/badge/?version=latest&style=flat
+   :target: https://qdarkstylesheet.readthedocs.io
+.. |Latest PyPI version| image:: https://img.shields.io/pypi/v/QDarkStyle.svg
+   :target: https://pypi.python.org/pypi/QDarkStyle
+.. |License: MIT| image:: https://img.shields.io/dub/l/vibe-d.svg?color=lightgrey
+   :target: https://opensource.org/licenses/MIT
+.. |License: CC BY 4.0| image:: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
+   :target: https://creativecommons.org/licenses/by/4.0/
+.. |Conduct| image:: https://img.shields.io/badge/code%20of%20conduct-contributor%20covenant-green.svg?style=flat&color=lightgrey
+   :target: http://contributor-covenant.org/version/1/4/
+.. include:: ../CONTRIBUTING.rst
+Known Issues
+============
+
+Dialog style
+------------
+
+Dialogs, e.g. file dialogs, could appear not styled since it inherits from OS
+theme/style as described in the issue
+`#172 <https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/172>`__.
+There are some options that can be exploited there.
+
+
+System icons
+------------
+
+Similar to the Dialogs, default icons are inherited from OS but we
+are planning to create our own set of icons to provide a more uniform UI. See
+`#192 <https://github.com/ColinDuquesnoy/QDarkStyleSheet/issues/192>`__.
+Colors
+======
+
+Color System
+------------
+
+The color system is the source of the colors that themes draw from. Each
+has a range of values from ``0`` (black ``#000000``) to ``150`` (white
+``#ffffff``). Not all colors are or should be used in every theme, but
+the scales provide a chance to see the colors in a larger context and
+makes it easy to switch out colors as desired.
+
+The number assigned to each estimates how light or dark that color is.
+For parts of an interface that are interactive, have text, or have any
+other important information, please use colors combinations that have at
+least a difference of 20 where colors overlap. Depending on the colors,
+you may need more contrast to create a theme that meets accessibility
+standards about contrast or color blindness.
+
+Gray
+~~~~
+
+=========== =========== =========
+System Name Value       Sample
+=========== =========== =========
+B0          ``#000000`` |image1|
+B10         ``#19232D`` |image2|
+B20         ``#262E38`` |image3|
+B30         ``#37414F`` |image4|
+B40         ``#455364`` |image5|
+B50         ``#54687A`` |image6|
+B60         ``#60798B`` |image7|
+B70         ``#788D9C`` |image8|
+B80         ``#9DA9B5`` |image9|
+B90         ``#CBCACA`` |image10|
+B100        ``#D9D8D8`` |image11|
+B110        ``#E1E1E1`` |image12|
+B120        ``#EEEEEE`` |image13|
+B130        ``#F5F5F5`` |image14|
+B140        ``#FAFAFA`` |image15|
+B150        ``#FFFFFF`` |image16|
+=========== =========== =========
+
+Blue
+~~~~
+
+=========== =========== =========
+System Name Value       Sample
+=========== =========== =========
+B0          ``#000000`` |image17|
+B10         ``#062647`` |image18|
+B20         ``#26486B`` |image19|
+B30         ``#375A7F`` |image20|
+B40         ``#346792`` |image21|
+B50         ``#1A72BB`` |image22|
+B60         ``#057DCE`` |image23|
+B70         ``#259AE9`` |image24|
+B80         ``#37AEFE`` |image25|
+B90         ``#73C7FF`` |image26|
+B100        ``#9FD9FF`` |image27|
+B110        ``#C2E3FA`` |image28|
+B120        ``#CEEBFF`` |image29|
+B130        ``#DAF0FF`` |image30|
+B140        ``#F5FBFF`` |image31|
+B150        ``#FFFFFF`` |image32|
+=========== =========== =========
+
+.. |image1| image:: images/color_samples/GrayB0.png
+.. |image2| image:: images/color_samples/GrayB10.png
+.. |image3| image:: images/color_samples/GrayB20.png
+.. |image4| image:: images/color_samples/GrayB30.png
+.. |image5| image:: images/color_samples/GrayB40.png
+.. |image6| image:: images/color_samples/GrayB50.png
+.. |image7| image:: images/color_samples/GrayB60.png
+.. |image8| image:: images/color_samples/GrayB70.png
+.. |image9| image:: images/color_samples/GrayB80.png
+.. |image10| image:: images/color_samples/GrayB90.png
+.. |image11| image:: images/color_samples/GrayB100.png
+.. |image12| image:: images/color_samples/GrayB110.png
+.. |image13| image:: images/color_samples/GrayB120.png
+.. |image14| image:: images/color_samples/GrayB130.png
+.. |image15| image:: images/color_samples/GrayB140.png
+.. |image16| image:: images/color_samples/GrayB150.png
+.. |image17| image:: images/color_samples/BlueB0.png
+.. |image18| image:: images/color_samples/BlueB10.png
+.. |image19| image:: images/color_samples/BlueB20.png
+.. |image20| image:: images/color_samples/BlueB30.png
+.. |image21| image:: images/color_samples/BlueB40.png
+.. |image22| image:: images/color_samples/BlueB50.png
+.. |image23| image:: images/color_samples/BlueB60.png
+.. |image24| image:: images/color_samples/BlueB70.png
+.. |image25| image:: images/color_samples/BlueB80.png
+.. |image26| image:: images/color_samples/BlueB90.png
+.. |image27| image:: images/color_samples/BlueB100.png
+.. |image28| image:: images/color_samples/BlueB110.png
+.. |image29| image:: images/color_samples/BlueB120.png
+.. |image30| image:: images/color_samples/BlueB130.png
+.. |image31| image:: images/color_samples/BlueB140.png
+.. |image32| image:: images/color_samples/BlueB150.png
+.. include::  ../CHANGES.rst
+.. include:: ../AUTHORS.rst
+.. include:: ../README.rst
+.. QDarkStyle documentation master file, created by
+   sphinx-quickstart on Tue May  8 14:23:26 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to QDarkStyle's documentation!
+======================================
+
+.. toctree::
+   :maxdepth: 2
+
+   readme.rst
+   screenshots.rst
+   known_issues.rst
+   contributing.rst
+   color_reference.rst
+   reference/modules.rst
+   scripts/modules.rst
+   changes.rst
+   authors.rst
+   license.rst
+   code_of_conduct.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+.. include:: ../CODE_OF_CONDUCT.rst
+Screenshots
+===========
+
+
+Screenshots
+-----------
+
+Here are a few snapshots comparing the use of QDarkStyle and the
+default style. Click in the image to zoom.
+
+
+Containers (no tabs) and Buttons
+--------------------------------
+
+.. image:: images/dark/containers_no_tabs_buttons.png
+
+.. image:: images/light/containers_no_tabs_buttons.png
+
+.. image:: images/none/containers_no_tabs_buttons.png
+
+
+Containers (tabs) and Displays
+------------------------------
+
+.. image:: images/dark/containers_tabs_displays.png
+
+.. image:: images/light/containers_tabs_displays.png
+
+.. image:: images/none/containers_tabs_displays.png
+
+
+Widgets and Inputs (fields)
+---------------------------
+
+.. image:: images/dark/widgets_inputs_fields.png
+
+.. image:: images/light/widgets_inputs_fields.png
+
+.. image:: images/none/widgets_inputs_fields.png
+
+
+Views and Inputs (no fields)
+----------------------------
+
+.. image:: images/dark/views_inputs_no_fields.png
+
+.. image:: images/light/views_inputs_no_fields.png
+
+.. image:: images/none/views_inputs_no_fields.png
+qdarkstyle.dark.palette module
+==============================
+
+.. automodule:: qdarkstyle.dark.palette
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle package
+==================
+
+.. automodule:: qdarkstyle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.dark
+   qdarkstyle.example
+   qdarkstyle.light
+   qdarkstyle.utils
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.__main__
+   qdarkstyle.colorsystem
+   qdarkstyle.palette
+qdarkstyle.utils package
+========================
+
+.. automodule:: qdarkstyle.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.utils.__main__
+   qdarkstyle.utils.images
+   qdarkstyle.utils.scss
+qdarkstyle.example.\_\_main\_\_ module
+======================================
+
+.. automodule:: qdarkstyle.example.__main__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.light.palette module
+===============================
+
+.. automodule:: qdarkstyle.light.palette
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.\_\_main\_\_ module
+==============================
+
+.. automodule:: qdarkstyle.__main__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.utils.images module
+==============================
+
+.. automodule:: qdarkstyle.utils.images
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.light package
+========================
+
+.. automodule:: qdarkstyle.light
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.light.palette
+   qdarkstyle.light.style_rc
+qdarkstyle.utils.scss module
+============================
+
+.. automodule:: qdarkstyle.utils.scss
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle
+qdarkstyle.example package
+==========================
+
+.. automodule:: qdarkstyle.example
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.example.__main__
+qdarkstyle.palette module
+=========================
+
+.. automodule:: qdarkstyle.palette
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.utils.\_\_main\_\_ module
+====================================
+
+.. automodule:: qdarkstyle.utils.__main__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.colorsystem module
+=============================
+
+.. automodule:: qdarkstyle.colorsystem
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.dark package
+=======================
+
+.. automodule:: qdarkstyle.dark
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   qdarkstyle.dark.palette
+   qdarkstyle.dark.style_rc
+qdarkstyle.light.style\_rc module
+=================================
+
+.. automodule:: qdarkstyle.light.style_rc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+qdarkstyle.dark.style\_rc module
+================================
+
+.. automodule:: qdarkstyle.dark.style_rc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+run\_ui\_css\_edition module
+============================
+
+.. automodule:: run_ui_css_edition
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+scripts
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   run_ui_css_edition
+IMPORTANT NOTES:
+################
+
+See __init__.py in this directory for general information about its contents.
+
+See LICENSE.txt in this directory or NOTICE.txt in the Spyder root
+for more information on each file and project added here.
+
+Make certain to keep all file headers intact if originally present!
+
+
+When adding a file:
+===================
+
+Make sure the file is not under a "copyleft" license like the GPL, MPL, etc.
+Example permissive licenses include the MIT, BSD (2 or 3 clause) and Apache.
+
+If no copyright statement is included in the file, include one following the
+form above, with the copyright line exactly as listed in the project's license,
+and the full name of the license (e.g. "GNU LGPL 2.1", "BSD 3-clause") below.
+Make sure to include the year if originally present; if not, include
+the year(s) over which the original file was modified.
+
+In the file's docstring, include the following lines at the end:
+
+..code-block:: rest
+
+  Adapted from path/to/file/in/repo.py of
+  `ExampleProject <https://github.com/ExampleOrg/ExampleProject>`_.
+
+Be sure to add all information in the template to NOTICE.txt in the repo root.
+
+All files added should be normalized to UTF-8, LF line endings, an EOF newline,
+HTTPS links (if available), no trailing spaces and ISO 8601 dates as required.
+
+If substantial modifications are made or expected, conform to PEP 8 and PEP 257
+as well at least one-line docstrings for each function, no pylint issues and
+all other project standards and conventions.
+
+
+When adding a directory (multiple files from a project):
+========================================================
+
+In addition to the above, add the project's LICENSE.txt in the directory, and
+NOTICE.txt if present, and reference it in the header of each file (like here).
+
+Add an __init__.py file and the header thereof if either not present,
+and include the following in the docstring:
+
+..code-block:: rest
+
+  Objects defined in this module were adapted from the
+  `ExampleProject <https://github.com/ExampleOrg/ExampleProject>`_.
+
+
+When modifying an external file:
+================================
+
+If not already present, add another copyright line to the header of the form:
+
+.. code-block:: none
+    Copyright (c) <CURRENT YEAR>- Spyder Project Contributors
+
+Also, note the file that were modified on the appropriate line in NOTICE.txt,
+and very briefly the nature of the modification (bug fix, improvement, etc).
+
+
+In case of any doubt, please examine the other files in this directory as
+examples, and if still unsure please contact the Spyder team to inqiure.
+
+Thanks!
+#####################################################
+Spyder: The Scientific Python Development Environment
+#####################################################
+
+*Spyder* is an Integrated Development Environment (IDE) for scientific computing, written in and for the Python programming language.
+It comes with an :guilabel:`Editor` to write code, a :guilabel:`Console` to evaluate it and view the results at any time, a :guilabel:`Variable Explorer` to examine the variables defined during evaluation, and several other facilities to help you effectively develop the programs you need as a scientist.
+
+
+This tutorial was originally authored by `Hans Fangohr <https://fangohr.github.io/>`__ from the University of Southampton (UK), and subsequently updated for Spyder 3.3.x by the development team (see `Historical note`_ for more details).
+
+
+
+=======================
+First steps with Spyder
+=======================
+
+This section is aimed at Python and Spyder beginners.
+If you find it too simple, please continue to the `next one <python-beginners-ref_>`__.
+
+
+Execute a given program
+~~~~~~~~~~~~~~~~~~~~~~~
+
+We are going to run this program as a first example:
+
+.. code-block:: python
+
+    # Demo file for Spyder Tutorial
+    # Hans Fangohr, University of Southampton, UK
+
+    def hello():
+        """Print "Hello World" and return None."""
+        print("Hello World")
+
+    # Main program starts here
+    hello()
+
+#. Please create a new file in the Spyder :guilabel:`Editor` pane (with :menuselection:`File --> New file`, or :kbd:`Ctrl-N`/ :kbd:`Command-N`).
+   Then copy and paste the code inside the box above into the file, and save it with the name :file:`hello.py`.
+
+#. To execute the program, select :menuselection:`Run --> Run` from the menu (or press :kbd:`F5`), and confirm the ``Run settings`` if required.
+
+#. If this is your first time running something, you should see an output like this:
+
+   .. code-block:: python
+
+        In [1]: runfile('/File/Path/hello.py', wdir=r'/File/Path')
+        Hello World
+
+        In [2]:
+
+If so, then you have just run your first Python program -- well done.
+
+.. note::
+
+   The particular paths shown inside ``runfile()`` will depend on where you have saved the file, but this is inserted by Spyder automatically.
+
+
+What happens when you execute a program?
+----------------------------------------
+
+#. Python reads the file line by line, ignoring comments (*i.e.* lines starting with the ``#`` symbol).
+
+#. When it comes across the ``def`` keyword, it knows that a function is DEFined in this and the next (one or more) lines.
+   All *indented* lines following ``def hello():`` belong to the function body.
+
+   Note that the function object is created at this point in the file, but the function is not yet called (*i.e.* not executed).
+
+#. When the Python interpreter encounters commands (other than ``def ...`` and a few other keywords) that are written in the left-most column, it will execute these immediately.
+
+#. In the :file:`hello.py` file this is only the line reading ``hello()`` which will actually call (*i.e.* *execute*) the function with name ``hello``.
+
+   If you comment or remove the line ``hello()`` from the program and run the whole file again (by pressing :kbd:`F5`, or selecting :menuselection:`Run --> Run`), nothing will be printed (because the function ``hello`` is defined but not called, *i.e.* not executed).
+
+Now you should know how to execute a Python program that you have in the :guilabel:`Editor` pane in Spyder using the :guilabel:`IPython Console`.
+
+If you are just starting to learn Python, this is probably a good point to return to your text book/course and look at further basic examples.
+
+The next section gives more detailed information how you can execute *parts* of your code from the :guilabel:`Editor` in the :guilabel:`IPython Console`.
+This is a more advanced technique but can be very useful.
+You may also be interested in the option to execute "cells", `chunks of code that are separated by delimiters <cell-shortcut-ref_>`__.
+
+
+Call existing functions in the Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _call-functions-console-ref:
+
+Once you have executed the :file:`hello.py` program, the function object ``hello`` is defined and known to the :guilabel:`IPython Console`.
+We can thus call the function from the :guilabel:`Console`.
+
+Type ``hello()`` in the :guilabel:`Console` (next to ``In [?]`` prompt, where ``?`` is a count of the number of times you've executed something), and press the :kbd:`Enter` key.
+
+You should find that the ``hello()`` function is executed again, *i.e.* printing ``Hello World`` a second time.
+Your function call at the :guilabel:`Console` together with the output should look like this:
+
+.. code-block:: python
+
+    In [ ]: hello()
+    Hello World
+
+Can you see how this differs from executing the whole program again?
+
+When we execute the whole program (by pressing :kbd:`F5`), Python goes through the file, creates the ``hello`` function object (overriding the previous object), reaches the ``hello()`` line and calls the function.
+
+When we call ``hello()`` in the :guilabel:`Console`, we only call the function object ``hello`` that has been defined in the :guilabel:`IPython Console` when we executed the whole :file:`hello.py` file earlier (by pressing :kbd:`F5`).
+
+This will become clearer over time, as we work with larger examples.
+You may want to return to this tutorial at a slightly later stage.
+
+
+Inspecting objects defined in the Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Python provides a function that displays all known objects in the current namespace of the :guilabel:`Console`, called ``dir``.
+Type ``dir()`` at the prompt, and ignore everything starting with an underscore (``_``) for now.
+Can you see ``hello`` in the list?
+
+.. note::
+
+   If you get a long list of defined objects, then Spyder may have done some convenience imports for you already.
+   To address this you may want to `reset the namespace <reset-namespace-ref_>`_, execute :file:`hello.py` again by pressing :kbd:`F5`, then run ``dir()`` as suggested above.
+
+Once an object is visible in the current namespace (as is ``hello`` in this example), we can use the ``help`` function as follows to learn about it.
+Typing ``help(hello)`` at the :guilabel:`Console` prompt, you should see an output like this:
+
+.. code-block:: python
+
+    In [ ]: help(hello)
+    Help on function hello in module __main__:
+
+    hello()
+        Print "Hello World" and return None.
+
+Where does Python get that information from?
+Some of it (like the number of input arguments and names of those variables; here we have none) Python can find through inspecting its objects.
+Additional information comes from the documentation string provided for the function object ``hello``.
+The documentation string, or *docstring*, is the first string immediately below the line ``def hello():``.
+By convention, and as they usually extend over multiple lines, they are enclosed by triple double quotes (``"""``).
+
+The Spyder environment also provides a :guilabel:`Help` pane which by default is located in the top right corner.
+
+While the cursor is on the name of an object, press :kbd:`Ctrl-I` (or :kbd:`Command-I` on macOS), and you should find that the same information as we obtained from ``help(hello)`` is provided automatically in the :guilabel:`Help` pane:
+
+.. image:: images/spyder-hello-docstring.png
+   :align: center
+
+This works in the :guilabel:`Console` and in the :guilabel:`Editor`.
+
+
+Updating objects
+~~~~~~~~~~~~~~~~
+
+Let's say you wanted to change how an existing function behaves -- how should you get Python to recognize your changes?
+
+
+Simple strategy: Re-execute whole program
+-----------------------------------------
+
+#. In the :guilabel:`Editor` window, change the function ``hello`` so that it prints ``Good Bye World`` rather than ``Hello World``.
+
+#. Press :kbd:`F5` (to execute the whole program)
+
+#. Check that the output of the program is now:
+
+   .. code-block:: python
+
+        Good Bye World
+
+What has happened when you pressed :kbd:`F5` is this: Python has gone through the :file:`hello.py` file and created a new function object ``hello`` (overriding the function object ``hello`` we had defined before) and then executed the function.
+
+
+Looking at the details
+----------------------
+
+We'll now investigate this behavior in a little more depth:
+
+#. We need to start with a clearly defined state.
+   To do this, please change the function ``hello()`` back so that it prints ``Hello World``, then press :kbd:`F5` to run the whole program and check that it prints ``Hello World``.
+
+#. Call the function ``hello()`` from the command prompt (as described `previously <call-functions-console-ref_>`__).
+   You should see ``Hello World`` printed.
+
+#. Now change the function definition so that it would print ``Later World``, and save the file (but do NOT execute the program, *i.e.* do NOT press :kbd:`F5` yet).
+
+#. Call the function ``hello()`` in the :guilabel:`Console` again.
+   You should find that the text printed reads ``Hello World``, like here:
+
+   .. code-block:: python
+
+        In [ ]: hello()
+        Hello World
+
+Why is this so?
+Because the ``hello`` function object in the :guilabel:`Console` is the old one which prints ``Hello World``.
+So far, we have changed the file :file:`hello.py` (and replaced ``Hello World`` in there with ``Later World``) in the :guilabel:`Editor` but this has not affected the objects that have previously been created in the :guilabel:`Console`.
+
+To update the console's namespace with modified function, we have two options:
+
+* Option 1: Execute the whole file :file:`hello.py` again by pressing :kbd:`F5`: this creates a new function object ``hello`` (and overrides the old one).
+  You should find that if you press :kbd:`F5`, and then call ``hello()`` at the prompt, the new text ``Later World`` is printed.
+
+* Option 2: Select the region you have changed (in this case the whole function ``hello``, starting from the line ``def hello():`` down to ``print("Later World")``, then click :menuselection:`Run --> Run selection or current line` or press :kbd:`F9`.
+
+  This will update the ``hello`` object in the :guilabel:`Console` without having to execute the whole :file:`hello.py` file:
+
+  .. code-block:: python
+
+        In [ ]: def hello():
+           ...:     """Print "Hello World" and return None."""
+           ...:     print("Later world")
+           ...:
+
+  If we now type ``hello()``, we see the updated response:
+
+  .. code-block:: python
+
+        In [ ]: hello()
+        Later world
+
+The ability to execute *parts of the code* to update some objects in the :guilabel:`Console` (in the example above, we updated the function object ``hello``), is of great use when developing and debugging more complex programs, and when re-creating objects/data in the :guilabel:`Console` session takes time.
+For example, by modifying only the functions (or classes/objects, etc). that we are actually developing or debugging, we can keep re-using the data and other objects created previously.
+
+
+
+============================================
+Recommended first steps for Python beginners
+============================================
+
+.. _python-beginners-ref:
+
+Before we begin, make sure to have an :guilabel:`IPython Console` open (bottom-right by default).
+This uses the `IPython <https://ipython.org>`__ interpreter, standard in the scientific community.
+To open a new :guilabel:`Console` at any time, select :menuselection:`Consoles --> Open an IPython Console`.
+
+
+Reset the namespace
+~~~~~~~~~~~~~~~~~~~
+
+.. _reset-namespace-ref:
+
+The `namespace <https://bytebaker.com/2008/07/30/python-namespaces/>`__ (*i.e.* the collection of objects defined in the :guilabel:`Console` at any given time) can be cleared in IPython using the ``%reset`` command.
+Type ``%reset`` and press :kbd:`Enter`, then confirm with ``y``:
+
+.. code-block:: none
+
+    In [1]: %reset
+
+    Once deleted, variables cannot be recovered. Proceed (y/[n])? y
+
+    In [2]:
+
+You can also accomplish the same thing by selecting ``Remove all variables`` from the "Gear" option menu in the top right of the :guilabel:`IPython Console` pane.
+We discuss this a little further, but you can skip the following if you are not interested.
+
+After issuing the ``%reset`` command or selecting ``Remove all variables``, we should only have a few objects defined in the namespace of that session.
+We can list all of them using the ``dir()`` command:
+
+.. code-block:: python
+
+    In [2]: dir()
+    Out[2]:
+    ['In',
+    'Out',
+    '__builtin__',
+    '__builtins__',
+    '__name__',
+    '_dh',
+    '_i',
+    '_i2',
+    '_ih',
+    '_ii',
+    '_iii',
+    '_oh',
+    '_sh',
+    'exit',
+    'get_ipython',
+    'quit']
+
+Finally, if you like to skip the confirmation step of the ``reset`` command, you can use ``%reset -f`` instead of ``%reset``; or, tick the ``Don't show again`` checkbox in the ``Remove all variables`` dialog.
+
+
+Strive for PEP8 Compliance
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In addition to the syntax that is enforced by the Python programming language, there are additional conventions regarding the layout of the source code, in particular the `Style Guide for Python source code <https://www.python.org/dev/peps/pep-0008/>`__ known as "PEP 8".
+By following this guide and writing code in the same style as almost all Python programmers do, it becomes easier to read, and thus easier to debug and re-use -- both for the original author and others.
+
+To have Spyder check this for you automatically, see the `next section <pep8-enable-ref_>`__.
+
+
+
+====================
+Selected preferences
+====================
+
+Where are the preferences?
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A lot of Spyder's behaviour can be configured through its Preferences.
+Where this is located in the menu depends on your operating system:
+
+* On Windows and Linux, go to :menuselection:`Tools --> Preferences`
+
+* On macOS, navigate to :menuselection:`Python/Spyder --> Preferences`
+
+
+Warn if PEP 8 code style guidelines are violated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _pep8-enable-ref:
+
+Go to :menuselection:`Tools --> Preferences --> Completion and Linting --> Cody Style` and tick the checkbox next to ``Real-time code style analysis``.
+
+
+Automatic Symbolic Python
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Through :menuselection:`Preferences --> IPython console --> Advanced Settings --> Use symbolic math` we can activate the console's SYMbolic PYthon (sympy) mode that is provided by the `SymPy <https://www.sympy.org/>`_ Python package.
+This allows nicely rendered mathematical output (LaTeX style), imports some SymPy objects automatically when the :guilabel:`IPython Console` starts, and reports what it has done.
+You'll need to have SymPy installed for it to work, and a LaTeX distribution on your system to see the formatted output (see the `Getting LaTeX <https://www.latex-project.org/get/>`__ page on the LaTeX site to acquire the latter, if you don't already have it).
+
+.. code-block:: python
+
+    These commands were executed:
+    >>> from __future__ import division
+    >>> from sympy import *
+    >>> x, y, z, t = symbols('x y z t')
+    >>> k, m, n = symbols('k m n', integer=True)
+    >>> f, g, h = symbols('f g h', cls=Function)
+
+We can now use the variables ``x`` and ``y``, for example like this:
+
+.. image:: images/spyder-sympy-example.png
+     :align: center
+
+
+
+==============================
+Shortcuts for useful functions
+==============================
+
+.. note::
+
+   The following are the default shortcuts; however, those marked with ``*`` can be customized through the Keyboard shortcuts tab in the Preferences.
+   Also, macOS users should substitute ``Command`` for ``Ctrl``, and ``Option`` for ``Alt``.
+
+* :kbd:`F5`\* executes the current file.
+
+* :kbd:`F9`\* executes the currently highlighted chunk of code; this is very useful to (say) update definitions of functions in the :guilabel:`Console` session without having to run the whole file again.
+  If nothing is selected, :kbd:`F9`\* executes the current line.
+
+* :kbd:`Tab`\* auto-completes commands, function names, variable names, and methods in the :guilabel:`Console` and the :guilabel:`Editor`.
+  This feature is very useful, and should be employed routinely.
+  Do try it now if auto-completion is new to you.
+  Assume you have defined a variable::
+
+    mylongvariablename = 42
+
+  Suppose we need to write code that computes ``mylongvariablename + 100``.
+  We can simply type ``my`` and then press the :kbd:`Tab` key.
+  The full variable name will be completed and inserted at the cursor position if the name is unique, and then we can carry on and type `` + 100``.
+  If the name is not uniquely identifiable given the letters ``my``, a list field will be displayed from which the desired variable can be chosen.
+  Choosing from the list can be done with the :kbd:`Up` and :kbd:`Down` keys with the :kbd:`Enter` key to select, or by typing more letters of the name in question (the selection will update automatically) and confirming by pressing :kbd:`Enter` when the appropriate name is identified.
+
+.. _cell-shortcut-ref:
+
+* :kbd:`Ctrl-Enter`\* executes the current cell (menu entry :menuselection:`Run --> Run cell`).
+  A cell is defined as the code between two lines which start with the characters ``#%%``, ``# %%`` or ``# <codecell>``.
+
+* :kbd:`Shift-Enter`\* executes the current cell and advances the cursor to the next cell (menu entry :menuselection:`Run --> Run cell and advance`).
+
+  Cells are useful for breaking large files or long blocks of code into more manageable chunks. Like those in an IPython notebook, each cell can be run independently.
+
+* :kbd:`Alt-Up`\* moves the current line up.
+  If multiple lines are highlighted, they are moved up together.
+  :kbd:`Alt-Down`\* works correspondingly, moving line(s) down.
+
+* :kbd:`Ctrl-LeftMouseButton` or :kbd:`Alt-G`\* on a function/method in the :guilabel:`Editor` opens a new :guilabel:`Editor` tab showing the definition of that function.
+
+* :kbd:`Shift-Ctrl-Alt-M`\* maximizes the current window (or changes the size back to normal if pressed in a maximized window).
+
+* :kbd:`Ctrl-Shift-F`\* activates the Find in Files pane, allowing ``grep``-like searches across all files in a specified scope.
+
+* :kbd:`Ctrl - =` will increase the font size in the :guilabel:`Editor` or the :guilabel:`Console`, whereas :kbd:`Ctrl - -` will decrease it.
+
+  The font face and size for other parts of the UI can be set under :menuselection:`Preferences --> General --> Appearance --> Fonts`.
+
+* :kbd:`Ctrl-S`\* *in the* :guilabel:`Editor` saves the file currently being edited.
+  This also forces various warning triangles in the left column of the :guilabel:`Editor` to be updated (otherwise they update every 2.5 seconds by default, which is also configurable).
+
+.. _save-shortcut-console-ref:
+
+* :kbd:`Ctrl-S`\* *in the* :guilabel:`Console` saves the current IPython session as an HTML file, including any figures that may be displayed inline.
+  This is useful as a quick way of recording what has been done in a session.
+
+  (It is not currently possible to load this saved record back into the session -- if you need functionality like this, look for the IPython Notebook).
+
+* :kbd:`Ctrl-I`\* when pressed while the cursor is on an object opens documentation for that object in the help pane.
+
+
+
+=================
+Run configuration
+=================
+
+These are the settings that define how the file in the :guilabel:`Editor` is executed if we select :menuselection:`Run --> Run` or press :kbd:`F5`.
+
+By default, the settings box will appear the first time we try to run a file.
+If we want to change the settings at any other time, they can be found under :menuselection:`Run --> Configure` or by pressing :kbd:`F6`.
+
+There are three choices for the :guilabel:`Console` to use, of which I'll discuss the first two.
+Let's assume we have a program :file:`hello.py` in the :guilabel:`Editor` which reads
+
+.. code-block:: python
+
+    def hello(name):
+        """Given an object 'name', print 'Hello ' and the object."""
+        print("Hello {}".format(name))
+
+
+    i = 42
+    if __name__ == "__main__":
+        hello(i)
+
+
+Execute in current console
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is the default option, and generally a good choice.
+
+
+Persistence of objects after code execution
+-------------------------------------------
+
+Choosing the ``Execute in current console`` setting under :menuselection:`Run --> Configure` means that:
+
+* When the execution of :file:`hello.py` is completed, we can interact with the :guilabel:`Console` in which the program ran.
+
+* In particular, we can inspect and interact with objects that the execution of our program created, such as ``i`` and ``hello()``.
+
+This is generally very useful for incremental coding, testing and debugging.
+For example, we can call ``hello()`` directly from the :guilabel:`Console` prompt, and don't need to execute the whole :file:`hello.py` for this (although if we change the function ``hello()``, we need to execute the file, or at least the function definition, to make the new version of ``hello()`` visible at the :guilabel:`Console`; either by re-executing the whole script or via :menuselection:`Run --> Run Selection`).
+
+
+Persistence of objects from before code execution
+-------------------------------------------------
+
+However, executing the code in the :guilabel:`Editor` in the current :guilabel:`Console` also entails a third effect:
+
+* The code that executes can see other (global) objects that were defined in the :guilabel:`Console` session.
+
+*This* persistence of objects is easily forgotten and usually not required when working on small programs (although it can be of great value occasionally).
+These objects could come from previous execution of code, from interactive work in the :guilabel:`Console`, or from convenience imports such as ``from sympy import *`` (Spyder may do some of those convenience imports automatically).
+
+This visibility of objects in the :guilabel:`Console` namespace to the code we execute may also result in coding mistakes if the code inadvertently relies on these objects.
+
+Here is an example: Imagine that:
+
+#. We run the code :file:`hello.py`.
+   Subsequently, the variable ``i`` is known in the :guilabel:`Console` as a global variable.
+
+#. We edit the :file:`hello.py` source and accidentally delete the line ``i = 42``.
+
+#. We execute the file containing :file:`hello.py` again.
+   At this point, the call of ``hello(i)`` will *not* fail because the :guilabel:`Console` has an object of name ``i`` defined, although this is not defined in the source of :file:`hello.py`.
+
+At this point, we could save :file:`hello.py` and (falsely) think it would execute correctly.
+However, running it in a new :guilabel:`IPython Console` session (or via ``python hello.py`` in a system shell, say) would result in an error, because ``i`` is not defined.
+
+The problem arises because the code makes use of an object (here ``i``) without creating it first.
+This also affects importing of modules: if we had imported ``sympy`` at the IPython prompt, then our program will see that when executed in this :guilabel:`IPython Console` session.
+
+To learn how we can double check that our code does not depend on such existing objects, see `below <check-code-independent-ref_>`_ .
+
+
+Execute in a dedicated console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Choosing ``Execute in a dedicated console`` under :menuselection:`Run --> Configure` will start *a new* :guilabel:`IPython Console` *every time* the :file:`hello.py` program is executed.
+The major advantage of this mode over `Execute in current console`_ is that we can be certain that there are no global objects defined in this :guilabel:`Console` which originate from debugging and repeated execution of our code.
+Every time we run the code in the :guilabel:`Editor`, the :guilabel:`IPython Console` in which the code runs is restarted.
+
+This is a safe option, but provides less flexibility in interactive execution.
+
+
+How to double check your code executes correctly "on its own"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _check-code-independent-ref:
+
+Assuming you have selected the `Execute in current console`_ option, you have two methods to check that your code works on its own (*i.e.* it does not depend on undefined variables, unimported modules and commands etc):
+
+* Switch from `Execute in current console`_ to `Execute in a dedicated console`_, and run the code from the :guilabel:`Editor`.
+
+  Alternatively, if you want to stay with the current :guilabel:`Console`, you can
+
+* First `reset the namespace <reset-namespace-ref_>`_ with IPython's magic ``%reset`` command or the ``Remove all variables`` menu option, which will clear all objects, such as ``i`` in the example above from the current namespace.
+  Then, execute the code from the :guilabel:`Editor`.
+
+
+Recommendation
+~~~~~~~~~~~~~~
+
+My recommendation for beginners would be to `Execute in current console`_.
+
+Once you have completed a piece of code, double check that it executes independently using one of the options explained `above <check-code-independent-ref_>`_.
+
+
+
+==================
+Other observations
+==================
+
+Multiple files
+~~~~~~~~~~~~~~
+
+When multiple files are opened in the :guilabel:`Editor`, the corresponding tabs at the top of the window area are arranged in the order they are opened, but can be easily moved around if you wish.
+
+On the left of the tabs, there is as icon that shows ``Browse tabs`` if the mouse hovers over it.
+It is useful to jump to a particular file directly, if many files are open.
+You can also summon the file switcher through tapping ``Ctrl-Tab`` or ``Ctrl-P``, which navigates your tabs in most-recently-used order.
+
+
+Environment variables
+~~~~~~~~~~~~~~~~~~~~~
+
+Environment variables can be displayed from the IPython Console window (bottom right window in default layout).
+Click on the ``Options`` menu ("Gear" icon), then select ``Show environment variables``.
+
+
+Reset all customization
+~~~~~~~~~~~~~~~~~~~~~~~
+
+All customization saved on disk can be reset by calling Spyder from the command line with the switch ``--reset``, *i.e.* running ``spyder --reset``.
+
+
+Objects in the Variable Explorer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Right-clicking on objects in the :guilabel:`Variable Explorer` displays options to plot and analyze these further.
+
+Double-clicking on simple variables allows them to be edited directly, and double-clicking on objects opens a new window that displays their contents and often allows them to be edited.
+
+Python collections (lists, dictionaries, tuples...), Numpy arrays, Pandas ``Index``, ``Series`` and ``DataFrame``, ``Pillow`` images and more can each be displayed and edited in specialized GUI viewers, and most arbitrary Python objects can be viewed, browsed and edited like their ``dict()`` representation.
+
+
+
+===============================
+Documentation string formatting
+===============================
+
+If you want to document the code you are developing (and you certainly should!), we recommend you write documentation strings (or *docstrings*) for it, using a special format called `reStructuredText (reST) <http://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__.
+In the scientific Python world, a further set of conventions called the `Numpydoc standard <https://numpydoc.readthedocs.io/en/latest/format.html>`__ is typically followed (although other systems exist).
+If you follow those guidelines, you can obtain beautifully formatted docstrings in Spyder.
+
+For example, to get an ``average()`` function look like this in the Spyder :guilabel:`Help` pane:
+
+.. image:: images/spyder-nice-docstring-rendering.png
+     :align: center
+
+you need to format the documentation string as follows:
+
+.. code-block:: python
+
+    def average(a, b):
+        """
+        Return the average value (arithmetic mean) of two numbers.
+
+        Parameters
+        ----------
+        a : numeric
+            A number to average.
+        b : numeric
+            Another number to average.
+
+        Returns
+        -------
+        result : numeric
+            The average of a and b, computed using ``0.5 * (a + b)``.
+
+        Example
+        -------
+        >>> average(5, 10)
+        7.5
+
+        """
+
+        return (a + b) * 0.5
+
+What matters here is that the word ``Parameters`` is used, and underlined.
+The line ``a : numeric`` shows us that the type of the parameter ``a`` is ``numeric``.
+In the next line, which is indented, we can write a more extended explanation of what this variable represents, what conditions the allowed types have to fulfill, etc.
+
+The same for all parameters, and also for the returned value.
+
+Often it is a good idea to include an example too, as shown.
+
+
+
+=========
+Debugging
+=========
+
+Line by line step execution of code
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Start debug execution (with the :menuselection:`Debug --> Debug` menu option or :kbd:`Ctrl-F5`) to activate the IPython debugger, ``ipdb``.
+The :guilabel:`Editor` pane will then highlight the line that is about to be executed, and the :guilabel:`Variable Explorer` will display variables in the current context of the point of program execution.
+
+After entering debug mode, you can execute the code line by line using the ``Step`` button of the :guilabel:`Debug` toolbar:
+
+.. image:: images/debug-step-over.png
+     :align: center
+
+or the shortcut :kbd:`Ctrl-F10`.
+You can also inspect how a particular function is working by stepping into it with the ``Step Into`` button
+
+.. image:: images/debug-step-in.png
+     :align: center
+
+or the shortcut :kbd:`Ctrl-F11`.
+Finally, to get out of a function and continue with the next line you need to use the ``Step Return`` button
+
+.. image:: images/debug-step-out.png
+     :align: center
+
+or the shortcut :kbd:`Ctrl-Shift-F12`.
+
+If you prefer to inspect your program at a specific point, you need to insert a
+*breakpoint* by pressing :kbd:`F12` on the line on which you want to stop, or double-clicking to the left of the line number.
+A red dot in this position indicates a breakpoint; it can be removed by repeating the same procedure.
+
+After entering the Debugger, you can press the ``Continue`` button
+
+.. image:: images/debug-continue.png
+     :align: center
+
+to stop the execution at the first breakpoint.
+
+.. note::
+
+   You can also control the debugging process by issuing these commands at the :guilabel:`Console` prompt:
+
+   * ``n`` to move to the Next statement.
+
+   * ``s`` to Step into the current statement. If this is a function call, step into that function.
+
+   * ``r`` to complete all statements in the current function and return from that function before returning control.
+
+Inside the debugger, you can also interactively execute many of the statements you can normally, including assigning and modifying variables, defining and calling functions, setting new breakpoints, and more.
+
+For example, enter the following code into a new or temporary file::
+
+   def demo(x):
+       for i in range(5):
+           print("i = {}, x = {}".format(i, x))
+           x = x + 1
+
+   demo(0)
+
+If we execute this (:menuselection:`Run --> Run`), we should see the output:
+
+.. code-block:: python
+
+	i = 0, x = 0
+	i = 1, x = 1
+	i = 2, x = 2
+	i = 3, x = 3
+	i = 4, x = 4
+
+Now run this using the debugger (:menuselection:`Debug --> Debug`), press the ``Step`` button until the highlighted line reaches the ``demo(0)`` function call, then press the ``Step into`` to inspect this function.
+Keep pressing the ``Step`` button to execute the next lines.
+Then, modify ``x`` by typing ``x = 10`` in the debugger prompt.
+You should see ``x`` changing in the :guilabel:`Variable Explorer` and when its value is printed as part of the ``demo()`` function.
+(The printed output appears between your debugger commands and responses).
+
+This debugging ability to execute code line by line, to inspect variables as they change, and to modify them manually is a powerful tool to understand what a piece of code is doing (and to correct it if desired).
+
+To terminate the debugger, you can type ``exit``, select :menuselection:`Debug --> Stop` or press :kbd:`Ctrl-Shift-F12`.
+
+
+Debugging once an exception has occurred in the Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In the :guilabel:`IPython Console`, we can call ``%debug`` straight after an exception has been raised: this will start the IPython debug mode, which allows inspection of local variables at the point where the exception occurred as described above.
+This is a lot more efficient than adding ``print`` statements to the code an running it again.
+
+If you use this, you may also want to use the commands ``up`` (*i.e.* press ``u`` at the debugger) and ``down`` (*i.e.* press ``d``) which navigate the inspection point up and down the stack.
+(Up the stack means to the functions that have called the current function; down is the opposite direction).
+You can also enable (or disable) this debugger being triggered automatically when an exception occurs by typing ``pdb`` at any time.
+
+
+
+========
+Plotting
+========
+
+You can decide whether figures created with Matplotlib will show
+
+* *Inline*, *i.e.* inside the :guilabel:`IPython Console`, or
+
+* Inside a *new window*, with an options toolbar.
+
+The first option is convenient to save a record of the interactive session (:kbd:`Ctrl-S` `in the console <save-shortcut-console-ref_>`_).
+
+The second option allows you to interactively zoom into the figure, manipulate it, set various plot and display options, and save it to different file formats via a menu.
+
+The command to get the figures to appear *inline* in the :guilabel:`IPython Console` is:
+
+.. code-block:: python
+
+    In [ ]: %matplotlib inline
+
+The command to get figures appear in their own window (rendered by the Qt backend) is:
+
+.. code-block:: python
+
+    In [ ]: %matplotlib qt
+
+The Spyder preferences can be used to customize the default behavior, under  :menuselection:`Preferences --> IPython Console --> Graphics --> Graphics Backend`.
+
+Here are two lines you can use to quickly create a plot and test this:
+
+.. code-block:: python
+
+    In [ ]: import matplotlib.pyplot as plt
+    In [ ]: plt.plot(range(10), 'o')
+
+
+
+===============
+Historical note
+===============
+
+This tutorial was originally based on `notes <https://fangohr.github.io/blog/spyder-the-python-ide-spyder-23.html>`__ by `Hans Fangohr <https://fangohr.github.io/>`__, that are used at the `University of Southampton <https://www.southampton.ac.uk/>`__ to `teach Python for computational modelling <https://fangohr.github.io/teaching/python.html>`__ to undergraduate engineers and postgraduate PhD students for the `Next Generation Computational Modelling <http://www.ngcm.soton.ac.uk/>`__ doctoral training centre.

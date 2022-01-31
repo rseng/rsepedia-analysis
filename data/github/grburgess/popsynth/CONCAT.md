@@ -2214,3 +2214,163 @@ pop.pop_synth
 ```
 
 Therefore we always know exactly how we simulated our data.
+.. popsynth documentation master file, created by
+   sphinx-quickstart on Mon Aug 19 11:40:04 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to popsynth's documentation!
+====================================
+.. image:: ../external/logo.png
+
+This framework provides an abstract way to generate survey populations from
+arbitrary luminosity functions and redshift distributions. Additionally,
+auxiliary quantities can be sampled and stored.
+
+Populations can be saved and restored via an HDF5 files for later
+use. Population synthesis routines can be created via classes or
+structured YAML files.
+
+Users can construct their own classes for spatial, luminosity,
+etc. distributions which can all be connected to arbitrarily complex
+selection functions.
+
+.. note:: This is *not* Synth Pop. If you were expecting that… I suggest you check out Depeche Mode. Though, it is possible to combine coding and good music_.
+
+
+.. image:: ../external/pop.gif
+
+.. _music: https://open.spotify.com/playlist/601WLbJ3Vj91XIugGUJNUe?si=JuXYC9roSxm2PS51aqVaJw
+
+
+
+.. toctree::
+    :maxdepth: 2
+    :hidden:
+
+    notebooks/installation.ipynb
+    notebooks/quickstart.ipynb
+    notebooks/concept.ipynb
+    notebooks/distributions.ipynb
+    notebooks/custom.ipynb
+    notebooks/selections.ipynb
+    notebooks/aux.ipynb
+    notebooks/contribute.ipynb
+    api/API
+
+.. nbgallery::
+   :caption: Examples:
+
+   notebooks/short_grbs.ipynb
+   notebooks/bl_lacs.ipynb
+   notebooks/stellar_mass.ipynb
+   notebooks/milkyway.ipynb
+{% if referencefile %}
+.. include:: {{ referencefile }}
+{% endif %}
+
+{{ objname }}
+{{ underline }}
+
+.. automodule:: {{ fullname }}
+
+   {% block functions %}
+   {% if functions %}
+   .. rubric:: Functions
+
+   .. autosummary::
+   {% for item in functions %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block classes %}
+   {% if classes %}
+   .. rubric:: Classes
+
+   .. autosummary::
+   {% for item in classes %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block exceptions %}
+   {% if exceptions %}
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   {% for item in exceptions %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+{% if referencefile %}
+.. include:: {{ referencefile }}
+{% endif %}
+
+{{ objname }}
+{{ underline }}
+
+.. currentmodule:: {{ module }}
+
+.. auto{{ objtype }}:: {{ objname }}
+{% if referencefile %}
+.. include:: {{ referencefile }}
+{% endif %}
+
+{{ objname }}
+{{ underline }}
+
+.. currentmodule:: {{ module }}
+
+.. autoclass:: {{ objname }}
+   :show-inheritance:
+
+   {% if '__init__' in methods %}
+     {% set caught_result = methods.remove('__init__') %}
+   {% endif %}
+
+   {% block attributes_summary %}
+   {% if attributes %}
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+      :toctree:
+      :template: base.rst
+   {% for item in attributes %}
+      ~{{ name }}.{{ item }}
+   {%- endfor %}
+
+   {% endif %}
+   {% endblock %}
+
+   {% block methods_summary %}
+   {% if methods %}
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+      :toctree:
+      :template: base.rst
+   {% for item in methods %}
+      ~{{ name }}.{{ item }}
+   {%- endfor %}
+
+   {% endif %}
+   {% endblock %}
+popsynth
+========
+
+.. toctree::
+   :maxdepth: 4
+
+   popsynth
+API
+===
+
+Here you can find the documentation of all classes and methods:
+
+.. include:: modules.rst

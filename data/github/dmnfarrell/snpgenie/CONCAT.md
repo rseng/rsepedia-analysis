@@ -234,3 +234,194 @@ This is likely due to the limit on the number of files that can be opened at the
 ## BTBGENIE
 
 This is software is developed as part of the **BTBGENIE** project, a DAFM funded project for development of genomic epidemiology systems for tracking and eradicating Mycobacterium bovis in Ireland.
+Introduction
+============
+
+**snpgenie** is a desktop and command line tool for microbial variant calling and phylogenetic analysis from raw read data. It is primarily written to be used with bacterial isolates of MBovis but can be applied to other species. This is in early stages of development. Anyone interested in using the software is encouraged to make sugggestions on improving or adding features.
+
+This software is written in Python and is developed with the Qt toolkit using PySide2. It was made on Ubuntu linux but is designed to also run on Windows 10 with a standalone application.
+
+Command line tool
+-----------------
+
+This tool works from the command line and via Python scripts. Unlike many other SNP calling pipelines, it is also designed to have a graphical user interface, which is in development.
+
+Current Features
+----------------
+
+* load multiple fastq files and process together
+* view fastq quality statistics
+* trim reads
+* align to reference
+* view bam alignments
+* call variants
+* filter variants
+* create SNP core multiple sequence alignment
+* create phylogenetic tree
+
+Links
+-----
+
+http://dmnfarrell.github.io/snpgenie
+
+Installation
+============
+
+Linux
+-----
+
+With pip::
+
+  pip install -e git+https://github.com/dmnfarrell/snpgenie.git#egg=snpgenie
+
+Install binary dependencies::
+
+  sudo apt install bcftools samtools bwa
+
+Windows
+-------
+
+A standalone installer will be used to deploy on windows.
+
+Mac OSX
+-------
+
+Not tested. You can try the Linux instructions possibly with bioconda for the binaries.
+Using snpgenie
+==============
+
+The program includes both a command line and graphical interface. Both will produce the same results.
+
+Command Line
+------------
+
+This will run the entire process based on a set of options given at the terminal::
+
+  -h, --help            show this help message and exit
+  -i FILE, --input FILE
+                        input folder(s)
+  -l FILE, --labels FILE
+                        sample labels file, optional
+  -r FILE, --reference FILE
+                        reference genome filename
+  -w, --overwrite       overwrite intermediate files
+  -m, --trim            trim fastq files
+  -q QUALITY, --quality QUALITY
+                        trim quality
+  -t THREADS, --threads THREADS
+                        cpu threads to use
+  -o FILE, --outdir FILE
+                        Results folder
+  -v, --version         Get version
+  -s, --test            Do test run
+
+Example::
+
+  snpgenie -r reference.fa -g reference.gff -i data_files -t 8 -o results
+
+From Python
+-----------
+
+You can run a workflow from within Python::
+
+  from sngenie import app
+  args = {'threads':8, 'outdir': 'results', 'labelsep':'-',
+          'input':['/my/folder/',
+                   '/my/other/folder'],
+          'reference': None, 'overwrite':False}
+  W = app.WorkFlow(**args)
+  st = W.setup()
+  W.run()
+
+Desktop Application
+-------------------
+
+This interactive tool is designed for those not comfortable with the command line and includes some additional features such as visualization of fastq qualities.
+snpgenie
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   snpgenie
+
+Welcome to snpgenie documentation.
+==================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   description
+   usage
+   modules
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+snpgenie package
+===================
+
+Submodules
+----------
+
+snpgenie\.gui module
+----------------------
+
+.. automodule:: snpgenie.gui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+snpgenie\.widgets module
+--------------------------
+
+.. automodule:: snpgenie.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+snpgenie\.tools module
+------------------------
+
+.. automodule:: snpgenie.tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+snpgenie\.app module
+----------------------
+
+.. automodule:: snpgenie.app
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+snpgenie\.aligners module
+---------------------------
+
+.. automodule:: snpgenie.aligners
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+snpgenie\.plotting module
+---------------------------
+
+.. automodule:: snpgenie.plotting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: snpgenie
+    :members:
+    :undoc-members:
+    :show-inheritance:

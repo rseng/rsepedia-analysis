@@ -2126,3 +2126,1107 @@ helpful feedback that improved this package, as well as JOSS editor Daniel S.
 Katz for his comments on this manuscript.
 
 # References
+---
+title: "Real life example"
+author: "Hugo Gruson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Real life example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+has_pavo <- requireNamespace("pavo", quietly = TRUE)
+```
+
+```{r}
+library(lightr)
+```
+
+This vignette has two goals:
+
+- demonstrate that `lightr` parsers produce the same output as the official
+software
+- show an example of analysis you can run once you've imported your data with
+`lightr`
+
+For this, we use spectral data of the beak of the [atlantic puffin, *Fratercula
+arctica*](https://en.wikipedia.org/wiki/Atlantic_puffin). This data was 
+collected by Dr Claire Doutrelant, using an OceanOptics spectrometer.
+
+```{r, fig.cap="Atlantic puffin close up, by user john-289283 from pexels.com", out.width='100%'}
+knitr::include_graphics("puffin-small.jpg")
+```
+
+# Comparison of outputs
+
+By default, OceanInsight spectrometers produce `.ProcSpec` files, which R 
+cannot readily import. To help with this, OceanInsight official software,
+SpectraSuite has a conversion feature, which turns `.ProcSpec` files into tab
+separated values files (`.txt`).
+
+So, let's start by comparing the `.ProcSpec` spectra imported by `lightr` and
+the `.txt` files produced by OceanOptics.
+
+```{r}
+raw_files <- lr_get_spec("data/puffin", ext = "ProcSpec")
+txt_files <- lr_get_spec("data/puffin", ext = "txt")
+```
+
+We can visually inspect these two file using the dedicated S3 function 
+`pavo::plot.rspec()`:
+
+```{r, fig.show='hold', eval=has_pavo}
+library(pavo)
+plot(raw_files, main = "Raw ProSpec files")
+plot(txt_files, main = "Exported txt files")
+```
+
+Spectra imported by `lightr` and converted by SpectraSuite look pretty similar 
+upon visual inspection and we can confirm this with
+
+```{r}
+all.equal(raw_files, txt_files, tol = 1e-4)
+```
+
+# Example of analysis
+
+One possibly biologically relevant question would be to look at the
+interspecific variability in beak colour. *I.e.*, do all puffin individuals have
+roughly the same colour or are some individuals brighter, more colourful than
+others?
+
+For this, we will look at the difference in hue and brightness on the red part 
+of the beak for two individuals, with `pavo::summary.rspec()` function (after
+smoothing with `pavo::procspec()`):
+
+```{r, eval=has_pavo}
+beak <- procspec(raw_files, opt = "smooth")
+summary(beak, subset = c("B2", "H5"))
+```
+
+Okay, these two individuals seem to differ quite a lot in terms of hue and
+brightness. Now, one might ask if these difference can be perceived in bird
+vision. We can test this with the `pavo::coldist()` function.
+
+```{r, eval=has_pavo}
+vis_beak <- vismodel(beak, visual = "avg.uv", achromatic = "ch.dc")
+tcs_beak <- colspace(vis_beak)
+coldist(tcs_beak, achromatic = TRUE)
+```
+
+The values of `dS` and `dL` are below the 1 JND ([just noticeable differences](https://en.wikipedia.org/wiki/Just-noticeable_difference))
+threshold, which means that the colour of the two individuals, in spite of
+their difference, looks the same to the birds.
+---
+title: "Batch import with `lr_get_spec()` and `lr_get_metadata()`"
+author: "Hugo Gruson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Batch import with `lr_get_spec()` and `lr_get_metadata()`}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+`lightr` provides three main functions for patch import of spectral data and
+metadata:
+
+* `lr_get_spec()`
+* `lr_get_metadata()`
+* `lr_convert_tocsv()`
+
+Those three functions contain an internal loop and can directly be used to 
+import/convert
+whole folders.
+
+They also allow for recursive search in the folder tree with the argument
+`subdir`. In this example, the `data` that contains a subdirectory named 
+`procspec_files`, which contains :
+
+```
+└──+ data
+   ├── avantes_export.ttt
+   ├── avantes_export2.trt
+   ├── avantes_export_long.ttt
+   └──+ procspec_files
+      ├── OceanOptics_badencode.ProcSpec
+      ├── OceanOptics_Linux.ProcSpec
+      ├── OceanOptics_Windows.ProcSpec
+      └── whiteref.ProcSpec
+```
+
+We first demonstrate these features on `lr_get_spec()` but they work in the same
+way for `lr_get_metadata()` and `lr_convert_tocsv()`
+
+```{r}
+library(lightr)
+```
+
+## Import spectral data: `lr_get_spec()`
+
+`lr_get_spec()` is one the core functions of `lightr`. It finds spectral data 
+files, extract the reflectance / transmittance / absorbance data and returns a
+`data.frame` where the first column (named `wl`) contains the wavelengths and
+the subsequent columns contain the spectral data, interpolated every nanometre:
+
+```{r}
+res <- lr_get_spec(where = "data", ext = "ttt", lim = c(300, 700))
+head(res)
+```
+
+`lr_get_spec()` also supports setting multiple file extensions at once by
+passing a character vector to `ext`:
+
+```{r}
+res <- lr_get_spec(where = "data", ext = c("ttt", "trt"), lim = c(300, 700))
+head(res)
+```
+
+Finally, `lr_get_spec()` can also recursively search in your folder tree with 
+the `subdir` argument:
+
+```{r}
+res <- lr_get_spec(where = "data", ext = "procspec", lim = c(300, 700), subdir = TRUE)
+head(res)
+```
+
+As you may have noticed, `lr_get_spec()` does not care about the file extension
+case by default. This can be changed by using the `ignore.case` switch:
+
+```{r}
+res <- lr_get_spec(where = "data", ext = "procspec", subdir = TRUE, ignore.case = FALSE)
+```
+
+If all your input files sample the wavelengths (this would be the case if you
+use the same spectrometer model and same recording software), you can also get
+uninterpolated data, by changing the value of the `interpolate` boolean 
+argument:
+
+```{r}
+res <- lr_get_spec(where = "data/puffin", ext = "procspec", interpolate = FALSE)
+head(res)
+```
+
+## Import spectral metadata: `lr_get_metadata()`
+
+`lr_get_metadata()` extracts metadata captured by the spectrophotometer during
+the recording. This metadata should be reported in your scientific articles to 
+ensure reproducibility of your measurements and ultimately of your findings. The
+amount of information strongly depends on the brand and model of the
+spectrometer.
+
+Similarly to `lr_get_spec()`, it can handle multiple extensions at once and 
+perform recursive searches:
+
+```{r}
+res <- lr_get_metadata(where = "data", ext = c("trt", "procspec"), subdir = TRUE)
+head(res)
+```
+
+## Convert spectral data to csv: `lr_convert_tocsv()`
+
+`lr_convert_tocsv()` is designed for users who want an open format 
+version for each individual input file, possibly allowing them to carry on with
+their analysis using another programming language or software.
+
+It works in a very similar way to `lr_get_spec()` and will create `csv` files 
+with the same file names as the input files (but a different extension).
+
+```{r eval = FALSE}
+lr_convert_tocsv(where = "data", ext = "procspec", subdir = TRUE)
+```
+---
+title: "Renormalise spectral data with a custom reference"
+author: "Hugo Gruson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: lightr.bib
+vignette: >
+  %\VignetteIndexEntry{Renormalise spectral data with a custom reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Some use cases require more flexibility than the high-level user-friendly
+functions provides by `lightr`. For this use case, `lightr` also exports the
+low-level individual parsers, which allow the user to code its own custom
+workflow.
+
+We don't recommend the use of those functions unless you absolutely have to.
+Most users should use `lr_get_spec()` and `lr_get_metadata()` instead.
+
+Here, we take the example of the method presented in 
+@Gruson2019_QuantitativeCharacterizationIridescent where reflectance spectra 
+need to be normalised in an unusual way.
+
+Raw, un-normalised spectral data depends on both the spectrometer and the lamp
+as well as the conditions during the recording (including ambient light, 
+temperature, *etc*.). To allow for comparison between studies, it is thus 
+normalised  by a white and a dark reference with the following formula:
+
+<math>
+    <mrow>
+      <mtext>Processed</mtext>
+      <mo>=</mo>
+      <mfrac>
+        <mrow><mtext>Raw</mtext><mo>-</mo><mtext>Dark</mtext></mrow>
+        <mrow><mtext>White</mtext><mo>-</mo><mtext>Dark</mtext></mrow>
+      </mfrac>
+    </mrow>
+</math>
+
+For this example here, we need to normalise the raw data by a white reference
+contained in another file. This can't be done with with `lr_get_spec()` because
+`lr_get_spec()` returns reflectance spectra that have already been normalised by
+the white reference contained in the same file.
+
+```{r}
+library(lightr)
+```
+
+## Step 1: import un-normalised data
+
+We manually import the data using the appropriate low-level parser:
+
+```{r}
+reflect_data <- lr_parse_procspec(
+  system.file("testdata", "procspec_files", "OceanOptics_Linux.ProcSpec",
+               package = "lightr")
+  )
+length(reflect_data)
+```
+
+The result contains 2 elements:
+
+  * the spectral data itself
+  * the metadata captured during the recording
+  
+```{r}
+head(reflect_data[[1]])
+```
+
+## Step 2: find the matching white reference
+
+We import that white reference in the same way:
+
+```{r}
+white_data <- lr_parse_procspec(
+  system.file("testdata", "procspec_files", "whiteref.ProcSpec",
+               package = "lightr")
+)
+```
+
+## Step 3: normalise the reflectance data
+
+We can now normalise the reflectance spectrum with the equation stated at the
+beginning of this vignette:
+
+<math>
+    <mrow>
+      <mtext>Processed</mtext>
+      <mo>=</mo>
+      <mfrac>
+        <mrow><mtext>Raw</mtext><mo>-</mo><mtext>Dark</mtext></mrow>
+        <mrow><mtext>White</mtext><mo>-</mo><mtext>Dark</mtext></mrow>
+      </mfrac>
+    </mrow>
+</math>
+
+But first, we verify that the integration times:
+
+We can now get rid of the metadata part and focus on the data only:
+
+```{r}
+reflect_data <- data.frame(reflect_data[[1]])
+white_data <- data.frame(white_data[[1]])
+```
+
+As a last step before being able to normalise the data, we also need to check
+if the reflectance spectrum and the white reference are sampled with the same
+wavelengths:
+
+```{r}
+all.equal(reflect_data$wl, white_data$wl)
+```
+
+```{r}
+res <- (reflect_data$scope - reflect_data$dark) / 
+       (white_data$white - white_data$dark)
+head(res)
+```
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_avantes_binary.R
+\name{lr_parse_trm}
+\alias{lr_parse_trm}
+\alias{lr_parse_abs}
+\alias{lr_parse_roh}
+\alias{lr_parse_rfl8}
+\alias{lr_parse_raw8}
+\title{Parse Avantes binary file}
+\usage{
+lr_parse_trm(filename)
+
+lr_parse_abs(filename)
+
+lr_parse_roh(filename)
+
+lr_parse_rfl8(filename, specnum = 1L)
+
+lr_parse_raw8(filename, specnum = 1L)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+
+\item{specnum}{Integer representing the position of the spectrum to read in
+the file. This option only makes sense for AvaSoft8 files and is ignored
+in the other cases.}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse Avantes binary file (TRM, ABS, ROH, DRK, REF, RAW8, RFL8 file
+extensions). \url{https://www.avantes.com/products/spectrometers/}
+}
+\details{
+'processed' column computed by \pkg{lightr} with the function
+\code{\link[=lr_compute_processed]{lr_compute_processed()}}.
+}
+\examples{
+res_trm <- lr_parse_trm(
+  system.file("testdata", "avantes_trans.TRM", package = "lightr")
+)
+head(res_trm$data)
+res_trm$metadata
+
+res_roh <- lr_parse_roh(
+  system.file("testdata", "avantes_reflect.ROH", package = "lightr")
+)
+head(res_roh$data)
+res_roh$metadata
+
+# This parser has a unique `specnum` argument
+res_rfl8_1 <- lr_parse_rfl8(
+  system.file("testdata", "compare", "Avantes", "feather.RFL8", package = "lightr"),
+  specnum = 1
+)
+head(res_rfl8_1$data)
+res_rfl8_1$metadata
+
+res_rfl8_2 <- lr_parse_rfl8(
+  system.file("testdata", "compare", "Avantes", "feather.RFL8", package = "lightr"),
+  specnum = 2
+)
+head(res_rfl8_2$data)
+res_rfl8_2$metadata
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/lightr-package.R
+\docType{package}
+\name{lightr-package}
+\alias{lightr}
+\alias{lightr-package}
+\title{lightr: Read Spectrometric Data and Metadata}
+\description{
+Parse various reflectance/transmittance/absorbance spectra file formats to extract spectral data and metadata, as described in Gruson, White & Maia (2019) <doi:10.21105/joss.01857>. Among other formats, it can import files from 'Avantes' <https://www.avantes.com/>, 'CRAIC' <https://www.microspectra.com/>, and 'OceanInsight' (formerly 'OceanOptics') <https://www.oceaninsight.com/> brands.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/lightr/}
+  \item \url{https://github.com/ropensci/lightr}
+  \item Report bugs at \url{https://github.com/ropensci/lightr/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Hugo Gruson \email{hugo.gruson+R@normalesup.org} (\href{https://orcid.org/0000-0002-4094-1476}{ORCID}) [copyright holder]
+
+Authors:
+\itemize{
+  \item Rafael Maia (\href{https://orcid.org/0000-0002-7563-9795}{ORCID}) [copyright holder]
+  \item Thomas White (\href{https://orcid.org/0000-0002-3976-1734}{ORCID}) [copyright holder]
+}
+
+Other contributors:
+\itemize{
+  \item Kotya Karapetyan (Author of the MATLAB script to read AvaSoft7 binary files (CC-BY)) [contributor, copyright holder]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/dispatch_parser.R
+\name{dispatch_parser}
+\alias{dispatch_parser}
+\title{Internal function to dispatch files to the correct parser}
+\usage{
+dispatch_parser(filename, decimal = ".", sep = NULL, specnum = 1L)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+
+\item{specnum}{Integer representing the position of the spectrum to read in
+the file. This option only makes sense for AvaSoft8 files and is ignored
+in the other cases.}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Internal function to dispatch files to the correct parser
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_spc.R
+\name{lr_parse_spc}
+\alias{lr_parse_spc}
+\title{Parse SPC binary file}
+\usage{
+lr_parse_spc(filename)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse SPC binary file. (Used by CRAIC \url{https://www.microspectra.com/} and
+OceanInsight \url{https://www.oceaninsight.com/})
+}
+\details{
+'processed' column computed by official software and provided as is.
+}
+\section{In development}{
+
+Metadata parsing has not yet been implemented for this file format.
+}
+
+\examples{
+res <- lr_parse_spc(system.file("testdata", "compare", "CRAIC", "CRAIC.spc",
+                                package = "lightr"))
+head(res$data)
+res$metadata
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_procspec.R
+\name{lr_parse_procspec}
+\alias{lr_parse_procspec}
+\title{Parse OceanInsight ProcSpec file}
+\usage{
+lr_parse_procspec(filename)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse OceanInsight (formerly OceanOptics) ProcSpec file.
+\url{https://www.oceaninsight.com/}
+}
+\details{
+'processed' column computed by official software and provided as is.
+}
+\examples{
+res <- lr_parse_procspec(system.file("testdata", "procspec_files",
+                                     "OceanOptics_Linux.ProcSpec",
+                                     package = "lightr"))
+head(res$data)
+res$metadata
+
+}
+\references{
+\url{https://www.oceaninsight.com/support/faqs/software/}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_metadata.R
+\name{lr_get_metadata}
+\alias{lr_get_metadata}
+\title{Extract metadata from spectra files}
+\usage{
+lr_get_metadata(
+  where = getwd(),
+  ext = "ProcSpec",
+  sep = NULL,
+  subdir = FALSE,
+  subdir.names = FALSE,
+  ignore.case = TRUE
+)
+}
+\arguments{
+\item{where}{Folder in which files are located (defaults to current working
+directory).}
+
+\item{ext}{File extension to be searched for, without the "." (defaults to
+\code{txt}). You can also use a character vector to specify multiple file
+extensions.}
+
+\item{sep}{Column delimiting characters to be considered in addition to the
+default (which are: tab, space, and ";")}
+
+\item{subdir}{Should subdirectories within the \code{where} folder be included in
+the search? (defaults to \code{FALSE}).}
+
+\item{subdir.names}{Should subdirectory path be included in the name of the
+spectra? (defaults to \code{FALSE}).}
+
+\item{ignore.case}{Should the extension search be case insensitive? (defaults
+to \code{TRUE})}
+}
+\value{
+A data.frame containing one file per row and the following columns:
+\itemize{
+\item \code{name}: File name (without the extension)
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording (ISO 8601 format)
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+\description{
+Finds and imports metadata from spectra files in a given location.
+}
+\details{
+You can customise the type of parallel processing used by this function with
+the \code{\link[future:plan]{future::plan()}} function. This works on all operating systems, as well
+as high performance computing (HPC) environment. Similarly, you can customise
+the way progress is shown with the \code{\link[progressr:handlers]{progressr::handlers()}} functions
+(progress bar, acoustic feedback, nothing, etc.)
+}
+\section{Warning}{
+
+\code{white_inttime}, \code{dark_inttime} and \code{sample_inttime} should be equal. The
+normalised data may be inaccurate otherwise.
+}
+
+\examples{
+\donttest{
+lr_get_metadata(system.file("testdata", "procspec_files",
+                            package = "lightr"),
+                ext = "ProcSpec")
+}
+}
+\references{
+White TE, Dalrymple RL, Noble DWA, O'Hanlon JC, Zurek DB,
+Umbers KDL. Reproducible research in the study of biological coloration.
+Animal Behaviour. 2015 Aug 1;106:51-7 (\doi{10.1016/j.anbehav.2015.05.007}).
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_oceanoptics_converted.R
+\name{lr_parse_jaz}
+\alias{lr_parse_jaz}
+\alias{lr_parse_jazirrad}
+\title{Parse OceanInsight converted file}
+\usage{
+lr_parse_jaz(filename)
+
+lr_parse_jazirrad(filename)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse OceanInsight (formerly OceanOptics) converted file.
+\url{https://www.oceaninsight.com/}
+}
+\details{
+'processed' column computed by official software and provided as is.
+}
+\examples{
+res_jaz <- lr_parse_jaz(system.file("testdata", "jazspec.jaz",
+                        package = "lightr"))
+head(res_jaz$data)
+res_jaz$metadata
+
+res_jazirrad <- lr_parse_jazirrad(system.file("testdata", "irrad.JazIrrad",
+                                  package = "lightr"))
+head(res_jazirrad$data)
+res_jazirrad$metadata
+
+res_usb4000 <- lr_parse_jaz(system.file("testdata", "OOusb4000.txt",
+                            package = "lightr"))
+head(res_usb4000$data)
+res_usb4000$metadata
+
+res_transmission <- lr_parse_jaz(
+  system.file("testdata", "FMNH6834.00000001.Master.Transmission",
+               package = "lightr")
+)
+head(res_transmission$data)
+res_transmission$metadata
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_jdx.R
+\name{lr_parse_jdx}
+\alias{lr_parse_jdx}
+\title{Parse OceanInsight JCAMP-DX (.jdx) file}
+\usage{
+lr_parse_jdx(filename)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse OceanInsight (formerly OceanOptics) JCAMP-DX (.jdx) file.
+\url{https://www.oceaninsight.com/}
+}
+\details{
+'processed' column computed by \pkg{lightr} with the function
+\code{\link[=lr_compute_processed]{lr_compute_processed()}}.
+}
+\examples{
+res_jdx <- lr_parse_jdx(system.file("testdata", "OceanOptics_period.jdx",
+                                    package = "lightr"))
+head(res_jdx$data)
+res_jdx$metadata
+
+}
+\references{
+McDonald RS, Wilks PA. JCAMP-DX: A Standard Form for Exchange of
+Infrared Spectra in Computer Readable Form. Applied Spectroscopy.
+1988;42(1):151-62.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/convert_tocsv.R
+\name{lr_convert_tocsv}
+\alias{lr_convert_tocsv}
+\title{Convert spectral data files to csv files}
+\usage{
+lr_convert_tocsv(
+  where = NULL,
+  ext = "txt",
+  decimal = ".",
+  sep = NULL,
+  subdir = FALSE,
+  ignore.case = TRUE,
+  overwrite = FALSE,
+  metadata = TRUE
+)
+}
+\arguments{
+\item{where}{Folder in which files are located (defaults to current working
+directory).}
+
+\item{ext}{File extension to be searched for, without the "." (defaults to
+\code{txt}). You can also use a character vector to specify multiple file
+extensions.}
+
+\item{decimal}{Character to be used to identify decimal plates
+(defaults to \code{.}).}
+
+\item{sep}{Column delimiting characters to be considered in addition to the
+default (which are: tab, space, and ";")}
+
+\item{subdir}{Should subdirectories within the \code{where} folder be included in
+the search? (defaults to \code{FALSE}).}
+
+\item{ignore.case}{Should the extension search be case insensitive? (defaults
+to \code{TRUE})}
+
+\item{overwrite}{logical. Should the function overwrite existing files with
+the same name? (defaults to \code{FALSE}).}
+
+\item{metadata}{logical (defaults to \code{TRUE}). Should metadata be exported as
+well? They will be exported in csv files will the \verb{_metadata.csv} suffix.}
+}
+\value{
+Convert input files to csv and invisibly return the list of created
+file paths
+}
+\description{
+Convert spectral data files to csv files
+}
+\details{
+You can customise the type of parallel processing used by this function with
+the \code{\link[future:plan]{future::plan()}} function. This works on all operating systems, as well
+as high performance computing (HPC) environment. Similarly, you can customise
+the way progress is shown with the \code{\link[progressr:handlers]{progressr::handlers()}} functions
+(progress bar, acoustic feedback, nothing, etc.)
+}
+\section{Warning}{
+
+
+When \code{metadata = TRUE}, if \strong{either} the data \strong{or} metadata export fails,
+nothing will be returned for this file.
+}
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/compute_processed.R
+\name{lr_compute_processed}
+\alias{lr_compute_processed}
+\title{Compute processed spectral data}
+\usage{
+lr_compute_processed(spdata)
+}
+\arguments{
+\item{spdata}{data.frame containing the spectral data with the columns
+'scope', 'dark', and 'white'}
+}
+\description{
+Compute processed spectral data, from the raw count/scope data, counts from
+a dark reference, and from a white reference.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_spec.R
+\name{lr_get_spec}
+\alias{lr_get_spec}
+\title{Extract spectral data from spectra files}
+\usage{
+lr_get_spec(
+  where = getwd(),
+  ext = "txt",
+  lim = c(300, 700),
+  decimal = ".",
+  sep = NULL,
+  subdir = FALSE,
+  subdir.names = FALSE,
+  ignore.case = TRUE,
+  interpolate = TRUE
+)
+}
+\arguments{
+\item{where}{Folder in which files are located (defaults to current working
+directory).}
+
+\item{ext}{File extension to be searched for, without the "." (defaults to
+\code{txt}). You can also use a character vector to specify multiple file
+extensions.}
+
+\item{lim}{A vector with two numbers determining the wavelength limits to be
+considered (defaults to \code{c(300, 700)}).}
+
+\item{decimal}{Character to be used to identify decimal plates
+(defaults to \code{.}).}
+
+\item{sep}{Column delimiting characters to be considered in addition to the
+default (which are: tab, space, and ";")}
+
+\item{subdir}{Should subdirectories within the \code{where} folder be included in
+the search? (defaults to \code{FALSE}).}
+
+\item{subdir.names}{Should subdirectory path be included in the name of the
+spectra? (defaults to \code{FALSE}).}
+
+\item{ignore.case}{Should the extension search be case insensitive? (defaults
+to \code{TRUE})}
+
+\item{interpolate}{Boolean indicated whether spectral data should be
+interpolated and pruned at every nanometre. Note that this option can only
+work if all input data samples the same wavelengths. Defaults to \code{TRUE}.}
+}
+\value{
+A data.frame, containing the wavelengths in the first column and
+individual imported spectral files in the subsequent columns.
+}
+\description{
+Finds and imports reflectance/transmittance/absorbance data from spectra
+files in a given location.
+}
+\details{
+You can customise the type of parallel processing used by this function with
+the \code{\link[future:plan]{future::plan()}} function. This works on all operating systems, as well
+as high performance computing (HPC) environment. Similarly, you can customise
+the way progress is shown with the \code{\link[progressr:handlers]{progressr::handlers()}} functions
+(progress bar, acoustic feedback, nothing, etc.)
+}
+\examples{
+spcs <- lr_get_spec(system.file("testdata", package = "lightr"), ext = "jdx")
+head(spcs)
+
+}
+\seealso{
+\code{\link[pavo:getspec]{pavo::getspec()}}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_avantes_converted.R
+\name{lr_parse_ttt}
+\alias{lr_parse_ttt}
+\alias{lr_parse_trt}
+\title{Parse Avantes converted file}
+\usage{
+lr_parse_ttt(filename)
+
+lr_parse_trt(filename)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Parse Avantes converted file.
+\url{https://www.avantes.com/products/spectrometers/}
+}
+\details{
+'processed' column computed by official software and provided as is.
+}
+\examples{
+res_ttt <- lr_parse_ttt(
+  system.file("testdata", "avantes_export.ttt", package = "lightr")
+)
+head(res_ttt$data)
+res_ttt$metadata
+
+res_trt <- lr_parse_trt(
+  system.file("testdata", "avantes_export2.trt", package = "lightr")
+)
+head(res_trt$data)
+res_trt$metadata
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/parse_generic.R
+\name{lr_parse_generic}
+\alias{lr_parse_generic}
+\title{Generic function to parse spectra files that don't have a specific parser}
+\usage{
+lr_parse_generic(filename, decimal = ".", sep = NULL)
+}
+\arguments{
+\item{filename}{Path of the file to parse}
+
+\item{decimal}{Character to be used to identify decimal plates
+(defaults to \code{.}).}
+
+\item{sep}{Column delimiting characters to be considered in addition to the
+default (which are: tab, space, and ";")}
+}
+\value{
+A named list of two elements:
+\itemize{
+\item \code{data}: a dataframe with columns "wl", "dark", "white", "scope" and
+"processed", in this order.
+\item \code{metadata}: a character vector with metadata including:
+\itemize{
+\item \code{user}: Name of the spectrometer operator
+\item \code{datetime}: Timestamp of the recording in format '\%Y-\%m-\%d \%H:\%M:\%S'
+and UTC timezone. If timezone is missing in source file, UTC time will
+be assumed (for reproducibility purposes across computers with different
+localtimes).
+\item \code{spec_model}: Model of the spectrometer
+\item \code{spec_ID}: Unique ID of the spectrometer
+\item \code{white_inttime}: Integration time of the white reference (in ms)
+\item \code{dark_inttime}: Integration time of the dark reference (in ms)
+\item \code{sample_inttime}: Integration time of the sample (in ms)
+\item \code{white_avgs}: Number of averaged measurements for the white reference
+\item \code{dark_avgs}: Number of averaged measurements for the dark reference
+\item \code{sample_avgs}: Number of averaged measurements for the sample
+\item \code{white_boxcar}: Boxcar width for the white reference
+\item \code{dark_boxcar}: Boxcar width for the dark reference
+\item \code{sample_boxcar}: Boxcar width for the sample reference
+}
+}
+}
+\description{
+Generic function to parse spectra files that don't have a specific parser
+}
+\details{
+'processed' column computed by official software and provided as is.
+}
+\examples{
+res_csv <- lr_parse_generic(
+  system.file("testdata", "spec.csv", package = "lightr"),
+  sep = ","
+)
+head(res_csv$data)
+# No metadata is extracted with this parser
+res_csv$metadata
+
+res_craic <- lr_parse_generic(
+  system.file("testdata", "CRAIC_export.txt", package = "lightr")
+)
+head(res_craic$data)
+# No metadata is extracted with this parser
+res_craic$metadata
+
+}

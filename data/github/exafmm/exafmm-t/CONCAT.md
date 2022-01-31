@@ -255,3 +255,240 @@ Plotting: none
 - [ ] GPU kernels
 - [ ] MPI
 - [ ] Stokes
+========
+Examples
+========
+
+C++ Examples
+------------
+
+There are three major classes in exafmm-t:
+
+- ``Body<T>``: The class for bodies (particles).
+- ``Node<T>``: The class for nodes in the octree.
+- ``Fmm``: The FMM class.
+
+The choice of template parameter ``T`` depends on the data type of the potential:
+``T`` should be set to ``real_t`` for real-valued kernels (ex. Laplace and modified Helmholtz),
+and set to ``complex_t`` for complex-valued kernels (ex. Helmholtz).
+
+exafmm-t uses double precision by default, i.e., ``real_t`` and ``complex_t`` are mapped to ``double`` and ``std::complex<double>`` respectively.
+If you want to use single precision, you should still use ``real_t`` and ``complex_t`` in your code,
+and add ``-DFLOAT`` to your compiler flags which predefines the macro ``FLOAT`` as true.
+
+All exafmm-t's types, classes and functions are in ``exafmm_t`` namespace.
+API documentation can be found in the last section.
+
+Let's solve a Laplace N-body problem as an example, we first need to create ``sources`` and ``targets``.
+Here we create 100,000 sources and targets that are randomly distributed in a cube from -1 to 1.
+Their type ``Bodies`` is a STL vector of ``Body``.
+
+.. code-block:: cpp
+   
+   using exafmm_t::real_t;
+   std::random_device rd;
+   std::mt19937 gen(rd());  // random number generator
+   std::uniform_real_distribution<> dist(-1.0, 1.0);
+   int ntargets = 100000;
+   int nsources = 100000;
+   
+   exafmm_t::Bodies<real_t> sources(nsources);
+   for (int i=0; i<nsources; i++) {
+     sources[i].ibody = i;
+     sources[i].q = dist(gen);        // charge
+     for (int d=0; d<3; d++)
+       sources[i].X[d] = dist(gen);   // location
+   }
+
+   exafmm_t::Bodies<real_t> targets(ntargets);
+   for (int i=0; i<ntargets; i++) {
+     targets[i].ibody = i;
+     for (int d=0; d<3; d++)
+       targets[i].X[d] = dist(gen);   // location
+   }
+
+Next, we need to create an FMM instance ``fmm`` for Laplace kernel, and set the order of expansion and ncrit.
+We use the former to control the accuracy and the latter to balance the workload between near-field and far-field.
+
+.. code-block:: cpp
+
+   int P = 8;         // expansion order
+   int ncrit = 400;   // max number of bodies per leaf
+   exafmm_t::LaplaceFmm fmm(P, ncrit);
+
+We can then build and balance the octree. The variable ``nodes`` represents the tree, whose type is ``Nodes``, a STL vector of ``Node``.
+To facilitate creating lists and evaluation, we also store a vector of leaf nodes - ``leafs`` and a vector of non-leaf nodes - ``nonleafs``.
+Their type ``NodePtrs`` is a STL vector of ``Node*``.
+
+.. code-block:: cpp
+
+   exafmm_t::get_bounds(sources, targets, fmm.x0, fmm.r0);
+   exafmm_t::NodePtrs<real_t> leafs, nonleafs;
+   exafmm_t::Nodes<real_t> nodes = exafmm_t::build_tree<real_t>(sources, targets, leafs, nonleafs, fmm);
+   exafmm_t::balance_tree<real_t>(nodes, sources, targets, leafs, nonleafs, fmm);
+
+Next, we can build lists and pre-compute invariant matrices.
+
+.. code-block:: cpp
+
+   exafmm_t::init_rel_coord();        // compute all possible relative positions of nodes for each FMM operator
+   exafmm_t::set_colleagues(nodes);   // find colleague nodes
+   exafmm_t::build_list(nodes, fmm);  // create list for each FMM operator
+   fmm.M2L_setup(nonleafs);           // an extra setup for M2L operator
+
+Finally, we can use FMM to evaluate potentials and gradients
+
+.. code-block:: cpp
+
+   fmm.upward_pass(nodes, leafs);
+   fmm.downward_pass(nodes, leafs);
+   
+After the downward pass, the calculated potentials and gradients are stored in the leaf nodes of the tree.
+You can compute the error in L2 norm by comparing with direct summation:
+
+.. code-block:: cpp
+
+   std::vector<real_t> error = fmm.verify(leafs);
+   std::cout << "potential error: " << error[0] << "\n"
+             << "gradient error:  " << error[1] << "\n";
+
+Other examples can be found in ``examples/cpp`` folder.
+
+Python Examples
+---------------
+
+For simplicity, the name of our Python package is just ``exafmm``.
+It has a separate module for each kernel: ``exafmm.laplace``, ``exafmm.helmholtz`` and ``exafmm.modified_helmholtz``.
+
+Compare with C++ interface, exafmm-t's Python interface only exposes high-level APIs.
+Now, the steps for tree construction, list construction and pre-computation are merged into one function called ``setup()``.
+Also, the evaluation now only requires to call one function ``evalute()``.
+Below are Python examples on Jupyter notebooks.
+
+- `Laplace <https://nbviewer.jupyter.org/github/exafmm/exafmm-t/blob/master/examples/python/laplace.ipynb>`__
+- `Helmholtz <https://nbviewer.jupyter.org/github/exafmm/exafmm-t/blob/master/examples/python/helmholtz.ipynb>`__
+- `Modified Helmholtz <https://nbviewer.jupyter.org/github/exafmm/exafmm-t/blob/master/examples/python/modified_helmholtz.ipynb>`__
+===================
+Build Documentation
+===================
+
+exafmm-t depends on **doxygen**, **sphinx** and **breathe** to generate this documentation. 
+To faciliate generating C++ API documentation, we use **exhale**, a Sphinx extension,
+to automate launching Doxygen and calling Sphinx to create documentation based on Doxygen xml output.
+
+To build this documentation locally, you need to install doxygen with your package manager, install other dependencies using
+``pip install -r docs/requirements.txt``, and then use the following commands:
+
+.. code-block:: bash
+
+   $ cd docs
+   $ make html
+
+The HTML documentation will be generated in ``docs/_build/html`` directory.
+
+We also have set up Travis CI to automatically deploy the documentation to Github Pages... exafmm-t documentation master file, created by
+   sphinx-quickstart on Mon Apr  8 18:01:17 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+.. include:: intro.rst
+
+.. toctree::
+   :caption: Contents
+   :maxdepth: 3
+
+   compile
+   examples
+   documentation
+
+.. toctree::
+   :caption: API Reference
+   :maxdepth: 2
+
+   api/library_root
+============
+Installation
+============
+
+Dependencies
+------------
+* a C++ compiler that supports OpenMP and C++11 standard (or newer).
+* GNU Make
+* BLAS
+* LAPACK
+* `FFTW3 <http://www.fftw.org/download.html>`_
+* GFortran
+
+Notes:
+
+* GNU and Intel compilers have been tested. Compilers that use LLVM, such as clang, are not supported yet.
+* We recommend to install OpenBLAS. The standard build also includes a full LAPACK library.
+* There is no Fortran code in exafmm-t, but gfortran is required in the autotools macros that help configure BLAS and LAPACK libraries.
+
+You can use the following commands to install these dependencies on Ubuntu:
+
+.. code-block:: bash
+
+   $ apt-get update
+   $ apt-get -y install libopenblas-dev libfftw3-dev gfortran
+
+Modify these commands accordingly if you are running other Linux distributions.
+
+
+Install exafmm-t
+----------------
+This section is only necessary for the users who want to use exafmm-t in C++ applications.
+Python users can skip to next section: :ref:`Install exafmm-t's Python package`.
+
+exafmm-t uses **autotools** as the build-system. Go to the root directory of exafmm-t and configure the build:
+
+.. code-block:: bash
+
+   $ cd exafmm-t
+   $ ./configure
+
+By default, the configure script will use the most advanced SIMD instruction set 
+available on the CPU and enable double precision option. Use ``./configure --help`` to see all available options.
+
+After configuration, you can compile and run exafmm-t's tests with:
+
+.. code-block:: bash
+
+   $ make check
+
+at the root directory of the repo.
+
+Optionally, you can install the headers to the configured location:
+
+.. code-block:: bash
+
+   $ make install
+
+
+Install exafmm-t's Python package
+---------------------------------
+exafmm-t relies on `pybind11 <https://github.com/pybind/pybind11>`_ to generate Python bindings.
+It requires Python 2.7 or 3.x. To install the Python package, you need first to install OpenBLAS (as the choice of BLAS library),
+in addition to the aforementioned dependencies.
+
+Then install exafmm-t to your Python environment using **pip**:
+
+.. code-block:: bash
+
+   $ pip install git+https://github.com/exafmm/exafmm-t.git========
+exafmm-t
+========
+
+exafmm-t is an open-source fast multipole method (FMM) library to simulate N-body interactions.
+It implements the kernel-independent FMM and provides both C++ and Python APIs.
+We use `pybind11 <https://github.com/pybind/pybind11>`__ to create Python bindings from the C++ source code.
+
+Exafmm-t currently is a shared-memory implementation using OpenMP.
+It aims to deliver competitive performance with a simple code design.
+It also has the following features:
+
+- offer high-level APIs in Python
+- only use C++ STL containers
+- support both single- and double-precision
+- vectorization on near-range interactions
+- cache optimization on far-range interactions

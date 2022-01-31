@@ -55,3 +55,8588 @@ In the docker, scripts are usually located in */home*.
 
 
 
+---
+title: "rCASC vignette"
+author: "Luca Alessandrì, Francesca Cordero, Marco Beccuti, Maddalena Arigoni, Martina Olivero, Greta Romano, Sergio Rabellino, Nicola Licheri, Gennaro De Libero,  Luigia Pace, and Raffaele A Calogero"
+date: "30/04/2020"
+output: rmarkdown::html_vignette
+
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Your Vignette Title}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.pos = 'h')
+```
+
+
+## **Section 1** rCASC: a single cell analysis workflow designed to provide data reproducibility
+
+ 
+Since the end of the 90's omics high-throughput technologies have generated an enormous amount of data, reaching today an exponential growth phase. Analysis of omics big data is a revolutionary means of understanding the molecular basis of disease regulation and susceptibility, and this resource is accessible to the biological/medical community via bioinformatics frameworks. However, because of the fast evolution of computation tools and omics methods, the [*reproducibility crisis*](https://en.wikipedia.org/wiki/Replication_crisis) is becoming a very important issue [[*Nature, 2018*](https://www.nature.com/collections/prbfkwmwvz)] and there is a mandatory need to guarantee robust and reliable results to the research community [[*Global Engage Blog*](http://www.global-engage.com/life-science/reproducibility-computational-biology/)].
+
+Our group is deeply involved in developing workflows that guarantee both **functional** (i.e. the information about data and the utilized tools are saved in terms of meta-data) and **computation** reproducibility (i.e. the real image of the computation environment used to generate the data is stored). For this reason, we are managing a bioinformatics community called [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) [[*Kulkarni et al.*](https://rdcu.be/9gMq)] designed to provide to the biological community a reproducible bioinformatics ecosystem  [[*Beccuti et al.*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]. 
+
+rCASC, reproducible Cluster Analysis of Single Cells, is part of the [*reproducible-bioinformatics.org*](http://www.reproducible-bioinformatics.org/) project and provides single cell analysis functionalities within the reproducible rules described by Sandve et al. [[*PLoS Comp Biol. 2013*](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003285)]. rCASC is designed to provide a workflow (Figure below) for cell-subpopulation discovery. 
+
+```{r fig.1, fig.cap="rCASC workflow", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+
+include_graphics('../inst/img/fig1.png')
+
+```
+
+
+The workflow allows the direct analysis of fastq files generated with [*10X Genomics platform*](https://www.10xgenomics.com/), [*InDrop technology*](https://1cell-bio.com/) or a count matrix having as column-names cells identifier and as row names ENSEMBL gene annotation. In the following paragraphs the functionalities of rCASC workflow are described.
+
+\pagebreak
+
+### **Section 1.1** Minimal hardware requirements to run rCASC
+
+The RAM and CPU requirements are dependent on the dataset under analysis, e.g. up to 2000 cells can be effectively analyzed using the hardware described by Beccuti [[*Bioinformatics2018*](https://academic.oup.com/bioinformatics/article/34/5/871/4562334)]: 
+
+- 32 Gb RAM 
+
+- 2.6 GHz Core i7 6700HQ with 8 threads.
+
+- 500 GB SSD
+
+The analysis time can be significantly improved increasing the number of cores.  Implementation of the workflow for computers farm, using [*swarm*](https://docs.docker.com/engine/swarm/), is under implementation. 
+
+### **Section 1.2** Installation
+
+The minimal requirements for installation are:
+
+- A workstation/server running 64 bits Linux.
+
+- Docker daemon installed on the machine, for more info see this document:
+
+    + [*https://docs.docker.com/engine/installation/*](https://docs.docker.com/engine/installation/).
+
+- A scratch folder, e.g. /data/scratch, possibly on a fast I/O SSD disk, writable by everybody:
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+chmod 777 /data/scratch
+```
+\fontsize{10}{10}\selectfont
+
+The functions in rCASC package require that user belongs to a *group* with the rights to execute docker.
+See the following document for more info:
+[*https://docs.docker.com/install/linux/linux-postinstall/*](https://docs.docker.com/install/linux/linux-postinstall/)
+
+The following commands allow the rCASC installation in [*R*](https://cran.r-project.org/) environment:
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+
+install.packages("devtools")
+library(devtools)
+install_github("kendomaniac/rCASC")
+
+# downloading the required docker containers
+library(rCASC)
+downloadContainers()
+
+
+```
+\fontsize{10}{10}\selectfont
+
+
+
+## **Section 2** Counts generation
+
+```{r fig.100, fig.cap="GUI: Counts generation Menu", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui1.png')
+```
+
+This session refers to the generation of a counts table starting from fastq files generated by inDrop and 10XGenomics platforms.
+
+\pagebreak
+
+### **Section 2.1** inDrop seq
+
+inDrop single-cell sequencing approach was originally published by Klein [[*Cell 2015*](https://www.ncbi.nlm.nih.gov/pubmed/26000487)]. Then, the authors published the detailed protocol in [[*Zilionis et al. Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which has different primer design comparing to the original paper (Figure below). 
+
+```{r fig.2, fig.cap="inDrop library structure", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/indrop_v2.jpeg')
+```
+
+
+The analysis shown below is based on the protocol in Zilionis [[*Nature Protocols 2017*](https://www.ncbi.nlm.nih.gov/pubmed/27929523)], which is the version 2 (Figure  below) of the inDrop technology, actually distributed by [*1CellBio*](https://1cell-bio.com/product/indrop-system/). 
+
+
+```{r fig.3, fig.cap="inDrop v2", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/indropv2.jpg')
+```
+
+
+#### **Section 2.1.1** inDrop data analysis
+
+There are two main functions, **indropIndex** and **indropCounts**, allowing the generation of a counts table starting from fastq files.
+
+```{r fig.101, fig.cap="GUI: inDrop related panels: A) inDrop Index generation, B) inDrop counts table generation", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui2.png')
+```
+
+    
+##### **Section 2.1.1.1** indropIndex: Creates a reference genome for inDrop V2 
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below panel A):
+    + *index.folder*: the folder where the reference genome will be created 
+
+    + *ensembl.urlgenome*:	the link to the ENSEMBL unmasked genome sequence of interest.
+
+    + *ensembl.urlgtf*: the link to the ENSEMBL GTF of the genome of interest.
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+#running indropCounts index build
+indropIndex(group="docker", index.folder=getwd(),
+ ensembl.urlgenome="ftp.ensembl.org/pub/release-97/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.primary_assembly.fa.gz",
+ ensembl.urlgtf="ftp.ensembl.org/pub/release-97/gtf/mus_musculus/Mus_musculus.GRCm38.97.gtf.gz")
+
+```
+\fontsize{10}{10}\selectfont
+
+
+##### **Section 2.1.1.2** indropCounts: Converts fastq in UMI counts using [*inDrop workflow*](https://github.com/indrops)
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below panel B):
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *fastq.folder (GUI FastQ folder)*,	a character string indicating the folder where input data are located and where output will be written
+    + *index.folder (GUI Index Folder)*,	a character string indicating the folder where transcriptome index was created with indropIndex.
+    + *split.affixes*,	the string separating SAMPLENAME from the Rz_001.fastq.gz, e.g. S0_L001.
+    + *bowtie.index.prefix*,	the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).
+    + *M*, integer. Ignore reads with more than M alignments, after filtering on distance from transcript end, suggested value 10
+    + *U*, integer. Ignore counts from UMI that should be split among more than U genes, suggested value 2
+    + *D*, integer. Maximal distance from transcript end, suggested value 400.
+    + *low.complexity.mask*, boolean, masking low complexity regions
+
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+# Example is part of an unpublished mouse blood cells 
+system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
+system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
+library(rCASC)
+indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
+        index.folder="/data/genomes/indropMm10", sample.name="testMm", split.affixes="S0_L001",
+        bowtie.index.prefix="genome", M=10, U=2, D=400, low.complexity.mask="False")
+
+```
+\fontsize{10}{10}\selectfont
+
+### **Section 2.2** 10XGenomics
+
+The rCASC function, **cellrangerCount** allows the generation of a counts table starting from fastq files. This function implements [*Cellranger*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/overview), the 10xGenomics tool allowing the conversion of the fastqs, generated with 10XGenomics platform, into a count matrix. 
+
+```{r fig.102, fig.cap="GUI: 10XGenomics counts table generation", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui3.png')
+```
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *fastq (GUI FastQ folder)*, the path to the folder, where 10XGenomics fastq.gz files are located.
+    + *transcriptome (GUI Transcriptome folder)*,	the path to the Cellranger compatible transcriptome reference
+    + *scratch.folder (GUI Scratch folder)*, a character string indicating the path of the scratch folder
+    + *expect.cells (GUI Expected cells)*, optional setting the number of recovered cells. Default: 3000 cells
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+home <- getwd()
+library(rCASC)
+downloadContainers()
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+setwd(home)
+# downloading 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
+system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
+system("tar xvf hgmm_100_fastqs.tar")
+# The cellranger analysis is run without the generation of the secondary analysis
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10",  
+                fastq.folder="/data/test_cell_ranger/fastqs",  expect.cells=100, 
+                nosecondary=TRUE, scratch.folder="/data/scratch")
+```
+\fontsize{10}{10}\selectfont
+ 
+ 
+The analysis done above took 56.4 mins on a [*SeqBox*](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 Gb RAM and 500Gb SSD.
+
+The output of the above analysis are two counts matrices **results_cellranger.cvs** and **results_cellranger.txt** and a folder called **results_cellranger**, which contains the full cellranger output, more information on cellranger output can be found at [*10XGenomics web site*](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview).
+ 
+
+Genome indexes can be retrieved from [10Xgenomics repository](https://support.10xgenomics.com/single-cell-gene-expression/software/downloads/latest)
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+setwd("/data/genomes/cellranger_hg38")
+#getting the hg38 human genome cellranger index 
+system("wget  http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz")
+setwd("/data/genomes/cellranger_hg19")
+#getting the hg19 human genome cellranger index
+system("wget  http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-3.0.0.tar.gz")
+setwd("/data/genomes/cellranger_mm10")
+#getting the mm10 mouse genome cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-mm10-3.0.0.tar.gz")
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+```
+\fontsize{10}{10}\selectfont
+
+or can be generated using the **cellrangeIndexing**
+
+```{r fig.102a, fig.cap="GUI: 10XGenomics genome indexing", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/cellrangeIndex.png')
+```
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *genomeFolder*,	path for the genome folder
+    + *gtf.url*,	url for ENSEMBL gtf download
+    + *fasta.url*, url for genome assembly fasta download
+    + *bio.type*,	 ENSEMBL biotype to select the subset of genes of interest from the ENSEMBL gtf
+
+
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+setwd("/data/genomes/hg38refcellranger")
+cellrangerIndexing(group="docker", scratch.folder="/data/scratch", 
+  gtf.url="ftp.ensembl.org/pub/release-97/gtf/homo_sapiens/Homo_sapiens.GRCh38.97.gtf.gz",
+  fasta.url=
+    "ftp.ensembl.org/pub/release-97/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.primary_assembly.fa.gz",
+  genomeFolder = getwd(), bio.type="protein_coding", nThreads = 8)
+
+```
+
+### **Section 2.3**  Spatial transcriptomics
+
+10XGenomics acquired Spatial transcriptomics and released inNovember 2019 their updated version of the spatial transcriptomics kits and software. We have implemented spatial transcritomoics from fastq to counts in the function **stpipeline**
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *data.folder*,	a character string indicating the path of the result folder
+    + *genome.folder*,	a character string indicating the path of the genome folder
+    + *fastqPathFolder*, a character string indicating the path of fastq folder
+    + *ID*,	 a character string indicating the name of the project
+    + *imgNameAndPat*, a character string indicating the path with the name of tiff image file required for analysis. Mandatory
+    + *slide*,	 Visium slide serial number, default NULL (parameter not required)
+    + *area*,	 Visium capture area identifier. Options for Visium are A1, B1, C1, D1, default NULL (parameter not required)
+
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+Dataset="wget http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+# DatasetImage
+system("wget http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif")
+# referenceGenomeHG38
+system("wget http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz")
+# referenceGenomeMM10
+system("wget http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz")
+
+stpipeline(group="docker", scratch.folder="/run/media/user/Maxtor4/scratch", 
+           data.folder="/run/media/user/Maxtor4/prova2", 
+           genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0", 
+           fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs", 
+           ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",
+           slide="V19L29-096",area="B1")
+```
+
+Results are organized as indicated by 10XGenomics, with the addition of a comma separated file of the cells counts table.
+
+There is a specific fuction for the downstream analysis of ST data: **spatialAnalysis2**. This function offers the possibility to refine the CSS score (for more information, see section 5.3). Each spot, in the spatial transcriptomics design, is sorrounded by 6 other spots. Using **spatialAnalysis2** is possible to assign a "bonus" to CSS score, if at least a certain number of sorrounding spots belong to the same cluster of the central spot. Specifically the parameter *Sp* refers to the supporting number of sorrounding cells:
+
+- 1 mean that all 6 cells, sorrounding the cell of interest, belong to the same cluster of the cell of interest. 
+
+- 0.8 mean that 5 out of 6 cell are of the same cluster of the central cell, 
+
+- 0.6 mean 4 out of 6 cells are of the same cluster of the central cell. 
+
+- We do not suggest to go below these three values.
+
+The parameter *percentageIncrease* indicate the % of increasement of the CSS score of Sp is greater of equal to the indicated theshold.
+
+```{r, echo=TRUE, eval=FALSE}
+spatialAnalysis2( group = "docker", scratch.folder="/scratch", 
+                  file= paste(getwd(),"HBC_BAS1_expr-var-ann_matrix.csv", sep="/"),
+                  nCluster=9, separator=",", 
+                  tissuePosition= paste(getwd(),"spatial/tissue_positions_list.csv", sep="/"),
+                  Sp = 0.8, percentageIncrease = 10
+)
+```
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *nCluster*,	number of clusters that are under analysis
+    
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    
+    + *tissuePosition*,	file with tissue position name with extension
+    + *Sp*,	Threshold to assign the plus score. 
+
+percentageIncrease,	percentage of the CSS score that has to be increased if the Threshold condition is satisfied.
+
+ 
+
+
+### **Section 2.4** Smart-seq full transcript sequencing.
+
+Smart-seq protocol generates a full transcript library for each cell, i.e. a fastq file for each cell. To convert fastq in counts we suggest to use **rnaseqCounts** or **wrapperSalmon** counts from [*docker4seq*](https://github.com/kendomaniac/docker4seq) package [[*Kulkarni et al.*](https://www.ncbi.nlm.nih.gov/pubmed/30367595)]. Both above-mentioned functions are compliant with minimal hardware requirements indicated for rCASC and are part, as rCASC, of the [*Reproducible Bioinformatics Project*](http://reproducible-bioinformatics.org/). **rnaseqCounts** is a wrapper executing on each fastq: 
+
+- quality evaluation of fastq with [*FastQC*](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) software, 
+
+- trimming of adapters with [*skewer*](https://www.ncbi.nlm.nih.gov/pubmed/?term=24925680), 
+
+- mapping reads on genome using [*STAR*](https://www.ncbi.nlm.nih.gov/pubmed/23104886) and counting isoforms and genes with [*RSEM*](https://www.ncbi.nlm.nih.gov/pubmed/21816040). 
+
+**wrapperSalmon** instead implements FastQC and skewer and calculates isoforms and genes counts using [*Salmon*](https://github.com/COMBINE-lab/salmon) software.
+
+
+
+
+
+## **Section 3** Counts matrix manipulation
+
+This paragraph describes a set of functions that can be used to remove low quality cells and non-informative genes from counts tables generated by any single-cell sequencing platform, Figure below}.
+
+- **Counts manipulation**:
+    + Plotting detected genes versus total number of UMIs (Unique Molecular Identifier)/reads: **mitoRiboUmi**, **genesUmi**
+    + ENSEMBL annotation and genes filtering: **scannobyGtf**
+    + Removing low quality cells: **lorenzFilter**
+    + Selecting the top X variable/expressed genes: **topx**
+    + Removing non informative genes: **filterZeros**
+    + Converting a count table in log10: **counts2log**
+    + Data normalization: **scnorm**, minimal requirements 10K counts/cell, works best with whole transcript sequencing
+    + Data normalization: **umiNorm**, global normalization methods TMM and RLE are suitable for UMI data
+    + Removing cell cycle bias: **recatPrediction**/**ccremove**
+
+```{r fig.103, fig.cap="GUI: Counts manipulation menu", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui4.png')
+```
+
+
+### **Section 3.1** Removing non informative genes
+
+The function **filterZeros** retains all genes having a user defined fraction of zeros (between 0 and 1, where 1 indicate that only genes without any 0s are retained, and 0 indicates that genes with at least a single value different from zero are retained), and plots the frequency distribution of gene counts in the dataset.
+
+```{r fig.104, fig.cap="GUI: Filter Zeros panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui5.png')
+```
+
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	a character string indicating the path of the tab delimited file of cells un-normalized expression counts
+    + *threshold (GUI Threshold)*,	a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having no expression in any cell.
+    + *sep (GUI Separator)*,	separator used in count file, e.g. '\\t', ','
+
+The output is a PDF providing zeros distributions before and after removal of genes with 0s counts. A tab delimited file with the prefix **filtered\_** in which the filtered data are saved.
+
+**IMPORTANT**: In case user would like to apply cell quality filter, e.g. **lorenzFilter**, it is convenient to remove only genes with 0 counts in all cells, i.e. threshold=0 (Figure below).
+\newline
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+# Subset of a mouse single cell experiment made to quickly test Lorenz filter.
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+tmp <- read.table("testSCumi_mm10.csv", sep=",", header=T, row.names=1)
+dim(tmp)
+#27998   806
+write.table(tmp, "testSCumi_mm10.txt", sep="\t", col.names=NA)
+filterZeros(file=paste(getwd(),"testSCumi_mm10.txt",sep="/"), threshold=0, sep="\t")
+#Out of 27998 genes 11255 are left after removing genes with no counts
+#output is filtered_testSCumi_mm10.txt
+
+```
+\fontsize{10}{10}\selectfont
+
+```{r fig.5, fig.cap="Zeros distribution in full table, orange, and filtered table, blue", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/filterZero.jpeg')
+```
+
+\pagebreak
+
+### **Section 3.2** Plotting genes numbers versus total UMIs/reads in each cell
+
+To estimate the overall number of genes detectable in each cell, the function **genesUmi** generates a plot of the number of genes present in a cell with respect to the total number of UMI in the same cell. The number of UMIs required to call a gene present in a cell is a parameter defined by the user, the suggested value is 3 UMIs. The function **mitoRiboUmi** plots **genesUmi** output and also generate the percentage of mitochondrial protein genes with respect to percentage of ribosomal protein genes for each cell. 
+
+
+```{r fig.105, fig.cap="GUI: Genes versus counts panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui6.png')
+```
+
+- *Parameters genesUmi function* (only those without default; for the full list of parameters please refer to the function help):
+    + *file (GUI Counts table)*,	a character string indicating the path of the file tab delimited of cells un-normalized expression counts.
+    + *umiXgene (UMIs X genes)*,	an integer defining how many UMIs are required to call a gene present. default: 3
+    + *sep*,	separator used in count file, e.g. '\\t', ','
+
+- *Parameters mitoRiboUmi* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	a character string indicating the path of the file tab delimited of cells un-normalized expression counts.
+    + *scratch.folder*, 	a character string indicating the path of the scratch folder
+    + *umiXgene (UMIs X genes)*,	an integer defining how many UMIs are required to call a gene present. default: 3
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *gtf.name*, name for the gtf file to be used
+    + *bio.type*, ENSEMBL biotype of interest, default "protein_coding"
+    
+The output are two pdfs named respectively **genes.umi.pdf** (Figure below panel A), where each dot represents a cell. X axis is the total number of UMIs/reads mapped on each cell in log10 format and Y axis is the number of detected genes and **Ribo_mito.pdf** (Figure below panel B), Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes. The latter plot is useful to identify stressed cells, i.e. those with high percentage of mitochondrial genes (Figure below panel B, black cells), and low informative cells, i.e. those in which genes are few and mainly ribosomal/mitochondrial (Figure below panel B, black and green cells). 
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. geneUmi and mitoRiboUmi expect as input a raw counts table having as rownames ENSEMBL IDs
+
+library(rCASC)
+system("wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+system("gzip -d Mus_musculus.GRCm38.94.gtf.gz")
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+mitoRiboUmi(group="docker", file=paste(getwd(), "testSCumi_mm10.csv", sep="/"), 
+            scratch.folder="/data/scratch", separator=",", umiXgene=3, 
+            gtf.name="Mus_musculus.GRCm38.94.gtf", bio.type="protein_coding")
+
+genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
+
+```
+\fontsize{10}{10}\selectfont
+
+In Figure below, it is shown the distribution of genes in cells for 'filtered_testSCumi_mm10.txt' counts table. 
+
+```{r fig.6, fig.cap="mitoRiboUmi output: A) Number of detected genes plotted for each cell with respect to the total number of UMI/reads in that cell. B) Percentage of mitochondrial protein genes plotted with respect to percentage of ribosomal protein genes. Cells are colored on the basis of total number detected genes", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/mitoRiboUmi.png')
+```
+
+\pagebreak
+
+#### **Section 3.2.1** Further considerations about the number of reads/UMIs to be used in a single-cell sequencing experiment.
+
+[*Ziegenhain et al.*](https://www.ncbi.nlm.nih.gov/pubmed/28212749) published a comparison between single cell sequencing protocols and they show that, in a simulated experiment, at least 250K reads/cell are required for the detection of at least 80% of differentially expressed genes between two groups (Figure below). Ziegenhain observation clearly also apply to sub-populations clustering. 
+
+```{r fig.6.1, fig.cap="Modified from Figure 6 in Ziegenhain et al. (Mol. Cell 2017). Power of scRNA-Seq methods. For more information on the experiment please see Ziegenhain paper.", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/Ziegenhain2017.jpeg')
+```
+
+Sequencing depth, which affects differential expression analysis and sub-population partitioning, influences the structure of a single-cell dataset at two levels: 
+
+- number of genes called present in the experiment,
+
+- robustness of gene expression, i.e. number of reads associated to a gene. 
+
+In particular, the number of genes called present in the experiment is the key element for the discrimination between sub-populations. In Figure below, it is shown the effect of sequencing depth on the number of detectable genes in a set of 10XGenomics sequencing experiments (25K sequenced reads/cell extracted from CD19 B-cells [[*Zheng et al 2016*](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)],  83K sequenced reads/cell extracted from  naive CD8+ T-cells [[*GSM2833284*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2833284)], and 250K sequenced reads/cell from an unpublished brain mouse experiment) and in an unpublished whole transcript human MAIT-cells  single-cell sequencing done on Fluidigm C1 (25K, 100K, and 250K sequenced reads/cell were subsampled from the original fastqs). 
+3 UMIs are used as minimal threshold to call present a gene in 10XGenomics experiments and 5 reads [[*Tarazona et al. 2011*](https://genome.cshlp.org/content/21/12/2213.long)] as minimal threshold to call a gene present in single cell whole transcriptome experiments.  
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#Raw counts for 288 cells randomly extracted from the Zheng data set downloaded from 10XGenomics.
+system("wget http://130.192.119.59/public/Zheng_cd19_288cells.txt.zip")
+unzip("Zheng_cd19_288cells.txt.zip")
+library(rCASC)
+genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
+system("mv genes.umi.pdf genes.umi_25k.pdf")
+#raw counts for 288 cells randomly extracted from the full GSM2833284 dataset. 
+#Raw counts table was generated with cellranger 2.0 starting from the h5 file deposited on GEO.
+system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+library(rCASC)
+genesUmi(file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"), umiXgene=3, sep="\t")
+system("mv genes.umi.pdf genes.umi_86k.pdf")
+#raw counts from 288 cells randomly extracted from an unpublished brain dataset.
+#Raw counts table was generated with cellranger 2.0
+system("wget http://130.192.119.59/public/brain_unpublished_288cells.txt.zip")
+unzip("brain_unpublished_288cells.txt.zip")
+library(rCASC)
+genesUmi(file=paste(getwd(),"brain_unpublished_288cells.txt",sep="/"), umiXgene=3, sep="\t")
+system("mv genes.umi.pdf genes.umi_250k.pdf")
+
+#Smart-seq experiment: Unpublished human MAIT cells. 
+#Counts table was generated using the rnaseqCounts function implemented in docker4seq package 
+#(https://github.com/kendomaniac/docker4seq)
+system("wget http://130.192.119.59/public/c1_experiment.zip")
+unzip("c1_experiment.zip")
+setwd("c1_experiment")
+library(rCASC)
+genesUmi(file=paste(getwd(),"250K_counts.txt",sep="/"), umiXgene=5, sep="\t")
+system("mv genes.umi.pdf genes.umi_250K.pdf")
+genesUmi(file=paste(getwd(),"100K_counts.txt",sep="/"), umiXgene=5, sep="\t")
+system("mv genes.umi.pdf genes.umi_100K.pdf")
+genesUmi(file=paste(getwd(),"25K_counts.txt",sep="/"), umiXgene=5, sep="\t")
+system("mv genes.umi.pdf genes.umi_25K.pdf")
+
+```
+\fontsize{10}{10}\selectfont
+
+Figure below clearly shows that the number of genes detectable by 10XGenomics sequencing (Figure below panels A-C) is far less of those detectable using a whole transcript experiment (Figure below panels D-F). In the case of 25K reads/cells in 3' end sequencing (Figure below panel A) the number of called genes goes from a dozen of genes to 350. In a whole transcript sequencing experiment where 25K reads/cells were considered (Figure below panel D), 350 genes is the lowest number of genes detectable in a cell. In 10XGenomics experiment with 250K reads/cell the range of detectable genes goes from few hundred to 2000, which is relatively similar to the number of detectable genes in a whole transcripts experiment  where the same number of reads/cells were considered. 
+The larger scattering and the overall lower number of detectable genes in 3' end sequencing experiment, with respect to whole transcript experiments, is a peculiarity of the technology [[*Ziegenhain et al. 2017*](https://www.ncbi.nlm.nih.gov/pubmed/28212749)].  
+It has also to be highlighted that cells with a very low number of genes called present will have a genes repertoire made mainly of housekeeping genes, ribosomal and mitochondrial genes, see Figure below in **Section 3.4**. Thus, the lack of cell-type specific genes makes these cells useless for the identification of functional cell sub-populations.
+
+
+However, it has to be underlined that each cell type is characterized by a peculiar transcriptional rate and therefore, the technical assessment of the reads per cell vs. genes detected between different cell types, i.e. Figure below panels A-C, might be bias by differences in the transcriptional rate of the different cells used in this specific example. Instead, the above-mentioned bias does not affect, Figure below panels D-F, because they are generated by a down sampling of a set of cells sequenced with the smart-seq protocol at a coverage of 1 million reads/cell. 
+
+```{r fig.6.2, fig.cap="Number of detected genes with respect to mapped reads. A) 25K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. B) 83K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. C) 250K reads/cell 10XGenomics platform, 3\' end sequencing v2 chemistry. D) 25K reads/cell C1 platform, whole transcript sequencing, E) 100K reads/cell C1 platform, whole transcript sequencing, F) 250K reads/cell C1 platform, whole transcript sequencing.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/seq_depth.jpeg')
+```
+
+The above observations indicate that 3' end sequencing has a much lower genes called present with respect to whole transcript sequencing.
+
+We have further investigated the following point:
+
+- Is the number of total UMIs/cell affecting the separation between sub-populations?
+
+To address the above point, we used two types of cells belonging to the T-cells [[*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231)]. The two sets of cells were sequenced with a coverage of approximately 21K reads/cell: 
+
+- T-cytotoxic (10209 cells, Figure below panel A) cells, 
+
+- T-regulatory (10263, Figure below panel B) cells. 
+
+We generated three datasets:
+
+- **d3.4**, which is made of 100 cells randomly selected within cells having, in each of the two datasets, a total UMIs/cell value greater than 2511 in each cell.
+
+- **d3**, which is made of 100 cells randomly selected within cells having, in each of the two datasets, a total UMIs/cell value comprised between 2511 and 1000 in each cell.
+
+- **d3m**, which is made of 100 cells randomly selected within cells having, in each of the two datasets, a total UMIs/cell smaller than 1000 in each cell.
+
+The separation between T-cytotoxic and T-regulatory achievable with PCA is shown in Figure below panels C-E.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/counts_effect.zip")
+unzip("counts_effect.zip")
+setwd("counts_effect")
+#dots are only accepted in the file type separator!
+system("mv df3.4.txt df3_4.txt")
+topx(group="docker", file=paste(getwd(),"df3_4.txt", sep="/"), threshold=1000, logged=FALSE, type="expression", separator = "\t")
+library(docker4seq)
+
+#N.B. if the type parameter of pca function is set to "counts", 
+#raw counts are converted in log10 counts before executing PCA analysis.
+
+pca(experiment.table="filitered_expression_df3_4.txt", type="counts",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(group="docker", file=paste(getwd(),"df3.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator = "\t")
+
+pca(experiment.table="filitered_expression_df3.txt", type="counts",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(group="docker", file=paste(getwd(),"df3m.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator = "\t")
+
+pca(experiment.table="filitered_expression_df3m.txt", type="counts",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+```
+\fontsize{10}{10}\selectfont  
+
+
+```{r fig.27, fig.cap="Detectable genes in a Zheng  data subset. A) T-cytotoxic genes versus total cell reads plot. B) T-regulatory  genes versus total cell reads plot. C) d3m set, made of cells with less than 1000 counts each, D) df3, made of cells with counts between 1000 and 2511. E) d3.4, made of cells with more than 2511 counts each. T-cytotoxic red dots, T-regulatory light blue dots", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/counts_effect1.png')
+```
+
+\pagebreak
+
+It is notable that only the dataset including cells with more than 2511 UMIs/cell (Figure below panel E) is the one where the separation between the two T-cell types improves. In the d3 and d3m (Figure below panels C,D) the amount of variance explained by the first component is much lower of that observable in d3.4 and the datasets are intersperse. 
+
+Thus, since 3' end sequencing platforms (10Xgenomics, inDrop) has the advantage to produce high number of sequenced cells, users might decide to select for clustering only the subset of cells with the highest number of genes called present. 
+
+### **Section 3.3** Identifying and removing cell low-quality outliers
+
+Lorenz statistics was implemented in rCASC **lorenzFilter** function. This function derives from the work of Diaz and coworkers [[*2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)] detecting low quality cells and this statistics correlates with live-dead staining [[*Diaz et al. 2016*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4937196/)]. 
+
+```{r fig.106, fig.cap="GUI: Lorenz Filter panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui7.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *scratch.folder (GUI Scratch folder)*,	the path of the scratch folder
+    + *file (GUI Counts table)*,	full path to the count file MUST be provided
+    + *p_value (GUI p-value)*,	 lorenz statistics threshold, suggested value 0.05 (i.e. 5% probability that a cell of low quality is selected)
+    + *separator (GUI Separator)*,	separator used in count file, e.g. '\\t', ','
+
+The output is a counts table without low quality cells and with the prefix **lorenz_filtered_**. Output will be in the same format and with the same separator of input.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE,eval=FALSE}
+#example data set provided as part of rCASC package
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+#IMPORTANT: full path to the file MUST be cell count file included!
+
+#N.B. The input file for lorenzFilter are raw counts
+
+library(rCASC)
+# the p_value indicate the probability that a low quality cell is retained in the 
+# dataset filtered on the basis of Lorenz Statistics.
+lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
+               file=paste(getwd(),"testSCumi_mm10.csv", sep="/"),
+               p_value=0.05, separator=',')
+
+tmp0 <- read.table("testSCumi_mm10.csv", sep=",", header=T, row.names=1)
+dim(tmp0)
+#806 cells
+
+tmp <- read.table("lorenz_testSCumi_mm10.csv", sep=",", header=T, row.names=1)
+dim(tmp)
+#782 cells
+
+```
+\fontsize{10}{10}\selectfont
+
+
+In the example above 24 cells were removed because of their low quality (Figure below). 
+
+```{r fig.7, fig.cap="Lorenz filtering: cells retained after filtering are labelled in red, instead cells discarded because of their low quality are labelled in blue.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/lorenz_filter.png')
+```
+
+
+### **Section 3.4** Annotation and mitochondrial/ribosomal protein genes removal
+
+The function **scannobyGtf** allows the annotation of single-cell matrix, if ENSEMBL gene ids are provided. The function requires the ENSEMBL GTF of the organism under analysis and allows the selection of specific annotation biotypes, e.g. protein_coding.
+
+```{r fig.107, fig.cap="GUI: Annotation panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui8.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	full path to the count file MUST be provided
+    + *gtf.name*,	ENSEMBL gtf file name. GTF is located in the same folder where counts file is.
+    + *biotype*,	biotype of interest. See [*www.ensembl.org/info/genome/genebuild/biotypes.html*](https://www.ensembl.org/info/genome/genebuild/biotypes.html) for more information
+    + *mt (GUI Mt)*,	a boolean to define if mitochondrial genes have to be removed, FALSE mean that mt genes are removed
+    + *ribo.proteins (GUI Ribo Proteins)*,	a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed
+    + *umiXgene (GUI UMIs X gene)*,	a integer defining how many UMIs are required to call a gene as present. default: 3
+    + *riboStart.percentage*, start range for ribosomal percentage, cells within the range are kept
+    + *riboEnd.percentage*, end range for ribosomal percentage, cells within the range are kept
+    + *mitoStart.percentage*, start range for mitochondrial percentage, cells within the range are retained
+    + *mitoEnd.percentage*, end range for mitochondrial percentage, cells within the range are retained
+    + *thresholdGenes*, parameter to filter cells according to the number og significative genes expressed
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#running annotation and removal of mito and ribo proteins genes
+system("wget ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+system("gunzip Mus_musculus.GRCm38.94.gtf.gz")
+scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE, umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output are a file with prefix **annotated_**, containing all annotated genes and a file with prefix **filtered_annotated_** which contain the filtered subset of cells. Furthermore, the **filteredStatistics.txt** indicates how many cells and genes were removed.
+
+Ribosomal RNA and ribosomal proteins represent a significant part of cell cargo. Large cells and actively proliferating cells will have respectively more ribosomes and more active ribosome synthesis [[*Montanaro et al. 2008*](https://www.ncbi.nlm.nih.gov/pubmed/18583314)]. Thus, ribosomal proteins expression might represent one of the major confounding factor in cluster formation between active and quiescent cells. Furthermore, the main function of mitochondria is to produce energy through aerobic respiration. The number of cell mitochondria depends on its metabolic demands [[*Nasrallah and Horvath 2014*](https://www.ncbi.nlm.nih.gov/pubmed/25200564)]. This might also affect clustering, favoring the separation between metabolic active and resting cells, with respect to functional differences between sub-populations.
+*scannobyGtf* allows also the removal of mitochondrial and ribosomal protein genes.
+\newline
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+library(rCASC)
+scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3,
+                    riboStart.percentage=10, riboEnd.percentage=70, mitoStart.percentage=0, 
+                    mitoEnd.percentage=5, thresholdGenes=100)
+
+```
+\fontsize{10}{10}\selectfont
+
+In figure below panel B is shown the effect of the removal of both mitochondrial and ribosomal protein genes and the removal of cells characterized by high percentage of mitochondrial protein genes (>5\%) and too litte (<10\%) or too much (>70\%) ribosomal protein genes . 
+
+```{r fig.8, fig.cap="Removing mitochondrial and ribosomal proteins genes. A) All annotated cells. B) Only cells passing the filters", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/noMT-rib.png')
+```
+
+
+### **Section 3.5** Top expressed genes
+
+For clustering purposes user might decide to use the top expressed/variable genes. The function **topx** provides two options:
+
+- the selection of the X top expressed genes given a user defined threshold, parameter type="expression"
+
+- the selection of the X top variable genes given a user defined threshold, parameter type="variance"
+
+    + gene variance is calculated using edgeR Tag-wise dispersion. The method estimates the gene-wise dispersion implementing a conditional maximum likelihood procedure. For more information please refer to edgeR Bioconductor package manual.
+
+The function also produces a pdf file gene_expression_distribution.pdf showing the changes in the UMIs/gene expression distribution upon **topx** filtering.
+
+
+```{r fig.108, fig.cap="GUI: Top X expressed genes panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui9.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	full path to the count file MUST be provided
+    + *threshold (GUI Top expressed  genes)*,	number of top expressed genes to be selected. Default 0, i.e. only genes will all cell values equal to 0 will be removed
+    + *logged (GUI Logged)*,	 boolean, if FALSE gene expression data are log10 transformed before being plotted.
+    + *type*, expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes
+    + *separator*, separator used in count file, e.g. '\\t', ','
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+ 
+library(rCASC)
+genesUmi(file=paste(getwd(), counts.matrix="testSCumi_mm10.csv", sep="/"), umiXgene=3, sep=",")
+topx(group="docker", file=paste(getwd(),file.name="testSCumi_mm10.csv", sep="/"),threshold=10000, logged=FALSE, type="expression", separator=",")
+genesUmi(file=paste(getwd(), counts.matrix="filtered_expression_testSCumi_mm10.csv", sep="/"), umiXgene=3,  sep=",")
+
+```
+\fontsize{10}{10}\selectfont
+
+**IMPORTANT**: The core clustering tool in rCASC is SIMLR, **Section 5**. SIMLR requires that the number of genes must be larger than the number of analyzed cells. 
+
+
+### **Section 3.6** Data normalization
+
+[*The best way to normalize single-cell RNA-seq data has not yet been resolved*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5549838/), especially in the case of UMI data. We inserted in our workflow two possible options:
+
+- [*SCnorm*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/), which works best with whole transcript data.
+
+- [*scone*](https://www.biorxiv.org/content/early/2017/12/16/235382), which provides different global scaling methods that can be applied to UMI single-cell data.
+
+#### **Section 3.6.1** SCnorm
+
+[*SCnorm*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5473255/) performs a quantile-regression based approach for robust normalization of single-cell RNA-seq data.  SCnorm groups genes based on their count-depth relationship then applies a quantile regression to each group in order to estimate scaling factors which will remove the effect of sequencing depth from the counts.
+
+IMPORTANT: SCnorm is not intended for datasets with more than ~80% zero counts, because of lack of algorithm convergence in these situations. 
+
+##### **Section 3.6.1.1** Check counts-depth relationship
+
+Before normalizing using **scnorm**, it is advised to check the data count-depth relationship.
+If all genes have a similar relationship then a global normalization strategy such as median-by-ratio in the DESeq package or TMM in edgeR will also be adequate. However, when the count-depth relationship varies among genes global scaling strategies leads to poor normalization. In these cases, the normalization provided by SCnorm is recommended.
+
+```{r fig.109, fig.cap="GUI: SCnorm: check counts-depth relationship panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui10.png')
+```
+
+**checkCountDepth** provides a wrapper, in rCASC, for the checkCountDepth of the [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which estimates the count-depth relationship for all genes.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	full path to the file MUST be included. Only tab delimited files are supported
+    + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.
+    + *ditherCounts (GUI UMI)*,	boolean. Setting to TRUE might improve results with UMI data.
+    + *FilterCellProportion (GUI Min non-zero cells)*, a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples
+    + *FilterExpression (GUI Med non-zero expr. threshold)*, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
+#' @param ditherCounts, Setting to TRUE might improve results with UMI data, default is FALSE
+#' @param outputName, specify the path and/or name of output file.
+    + *outputName*,	name of output file.
+    + *nCores*,	number of cores to use.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. checkCountDepth function requires as input raw counts table
+
+#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+conditions=rep(1,12)
+checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+     conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
+     ditherCounts=TRUE, outputName="example_UMI", nCores=8)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output is a PDF (Figure below), providing a view of the counts distribution, and a file selected.genes.txt, which contains the genes selected to run the analysis.
+
+```{r fig.9, fig.cap="checkCountDepth output plot provides an evaluation of count-depth relationship in un-normalized data. The effects of the normalization procedure is shown in the following figure.", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/checkCountDepth0.jpg')
+```
+
+
+
+##### **Section 3.6.1.2** scnorm
+
+The **scnorm** function executes SCnorm from [*SCnorm package*](https://github.com/rhondabacher/SCnorm), which normalizes  across  cells  to  remove  the effect  of  sequencing  depth  on  the  counts  and  returns  the  normalized expression count.
+
+```{r fig.110, fig.cap="GUI: SCnorm: counts-depth normalization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui11.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	full path to the file MUST be included. Only tab delimited files are supported
+    + *conditions*,	vector of condition labels, this should correspond to the columns of the un-normalized expression matrix.
+    + *outputName*,	specify the name of output file.
+    + *nCores*,	number of cores to use.
+    + *filtercellNum (Min non-zero cells)*,	 the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.
+    + *ditherCount (GUI UMI)*,	boolean. Setting to TRUE might improve results with UMI data.
+    + *FilterExpression (GUI Med non-zero expr. threshold)*, a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots
+    + *PropToUse (GUI Prop. to use)*,	as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1
+    + *PrintProgressPlots*,	boolean. If it is set to TRUE produces a plot as SCnorm determines the optimal number of groups
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. scnorm function requires as input raw counts table
+
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+#this specific example is an UMI counts table made of 12 cells having at least 10K UMIs/cell.
+conditions=rep(1,12)
+scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+     conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
+     ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=TRUE, FilterExpression=1)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output files are  plots of the normalization effects (Figure below), a tab delimited file containing the normalized data, with the prefix **normalized_**,  and **discarded_genes.txt**, which contains the discarded genes.
+
+```{r fig.10, fig.cap="Effect of the SCnorm on the dataset in the previous figure", echo=FALSE, eval=TRUE, out.width="40%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/scnorm.jpeg')
+```
+
+**scnorm** is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool.
+
+#### **Section 3.6.2** scone
+
+```{r fig.111, fig.cap="GUI: Normalization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui12.png')
+```
+
+
+scone package embeds:
+
+- Centered log-ratio (**CLR**) normalization 
+
+- Relative log-expression (**RLE**; DESeq) scaling normalization
+
+    + the scaling factors are calculated for each lane as median of the ratio, for each gene, of its read count of its geometric mean across all lanes. 
+
+- Full-quantile normalization
+
+    + quantile normalization is a technique for making two or more distributions identical in statistical properties. To quantile normalize two or more samples to each other, sort the samples, then set to the average (usually, arithmetic mean) of the samples. So the highest value in all cases becomes the mean of the highest values, the second highest value becomes the mean of the second highest values, and so on.
+
+- Simple deconvolution normalization 
+
+- Sum scaling normalization
+
+    + Gene counts are divided by the total number of mapped reads (or library size) associated with their lane and multiplied by the mean total count across all the samples of the dataset.
+
+- Weighted trimmed mean of M-values (**TMM**, edgeR) scaling normalization (suitable for single-cell)
+
+    + to compute the TMM factor, one lane is considered a reference sample and the others test samples, with TMM being the weighted mean of log ratios between test and reference, after excluding the most expressed genes and the genes with the largest log ratios. 
+
+- Upper-quartile (**UQ**) scaling normalization
+
+    + the total counts are replaced by the upper quartile of counts different from 0 in the computation of the normalization factors.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#Weighted trimmed mean of M-values (TMM) scaling normalization
+system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+unzip("example_UMI.txt.zip")
+umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+       outputName="example_UMI", normMethod="TMM_FN")
+
+```
+\fontsize{10}{10}\selectfont
+
+
+**IMPORTANT**: In case sub-population discovery is the analysis task, it is important to check if a specific normalization is compliant with the clustering approach in use. For example, in the case of [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool, the normalizations provided in **scone** are not compliant, because they remove some of the features required to run the SIMLR multi-kernel learning analysis. TMM is instead compliant with the rCASC implementation of [**tSne**](https://lvdmaaten.github.io/tsne/). In case [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html) clustering is used the dataset does not required any normalization since a normalization procedure is included in the algorithm.
+
+### **Section 3.7** Log conversion of a count table
+
+```{r fig.112, fig.cap="GUI: Log transformation for counts table panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui13.png')
+```
+
+
+
+The function **counts2log** can convert a count table in a log10 values saved in a comma separated or tab delimited file.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *file (GUI Counts table)*,	full path to the file MUST be included.
+    + *log.base*,	the base of the log to be used for the transformation
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+### **Section 3.8** Detecting and removing cell cycle bias
+
+Single-cell RNA-Sequencing measurement of expression often suffers from large systematic bias. A major source of this bias is cell cycle, which introduces large within-cell-type heterogeneity that can obscure the differences in expression between cell types. [*Barron and Li*](https://www.nature.com/articles/srep33892) developed in 2016 a R package called [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html) which removes cell cycle effects and preserves other biological signals of interest.
+
+However, before applying *ccRemover*, it is essential to address if the removal of cell cycle effect is required. [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z) is a modeling framework for unsynchronized single-cell transcriptome data that can reconstruct cell cycle time-series.  Thus, reCAT cell cycle prediction step can be used to check if  cell cycle effect can be detected in a dataset and therefore ccRemover normalization approach will be needed.
+
+
+#### **Section 3.8.1 ** Evaluating the presence of cell cycle effect in a dataset: [*reCAT*](https://www.nature.com/articles/s41467-017-00039-z)
+
+```{r fig.113, fig.cap="GUI: cell cycle estimation panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui14.png')
+```
+
+
+**reCAT** prediction step is implemented in rCASC in the function **recatPrediction**, which requires a data set annotated using **scannobyGtf**.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Counts table)*,	the path to the input file
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *geneNameControl (GUI gene name format)*,	0 if the matrix has gene symbol without ENSEMBL code. 1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ENSEMBL name SCannoByGtf has to be executed before recatPrediction.
+    + *seed*,	important parameter for reproduce the same result with the same input, default 111
+    + *window (GUI N. cells/point)*, number of cell plotted per point
+
+To show the differences existing between a dataset characterized by cell cycle bias and one that is not, we used two datasets:
+
+- the dataset published by [[*Buettner et al. 2015*](https://www.ncbi.nlm.nih.gov/pubmed/25599176)], containing naive-T-cells and T-helper2-cells mixed together and sorted on the basis of the cell cycle state. 
+
+- The quiescent naive T-cells dataset part of the publication of [*Pace et al.*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266), expected to be in G0. 
+
+To execute the analysis on the same number of cells, 288 cells were randomly selected from quiescent naive T-cells dataset. In Figure below panel A the presence of oscillatory behavior is evident in the predicted cells time series and the G1 and G2M trends are indicated respectively in blue and red dashed curves. On the other hand, the oscillatory behavior is totally absent (Figure below panel B) in the naive T-cells, which are expected to be quiescent in G0.
+
+```{r fig.13, fig.cap="Cell cycle assignment to the cells. A) Buettner et al. (Nat. Biotechnol. 2015) raw dataset, cells are expected to be distributed in G1, S and G2M, B) Naive T-cells, expected to be mainly in G0 (Science 2018).", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/recat1.jpeg')
+```
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#Raw from the Buettner publication
+ system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
+ unzip("buettner_G1G2MS_counts.txt.zip")
+
+#annotating the data set to obtain the gene names in the format ensemblID:symbol 
+scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+
+#running cell cycle prediction
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                file=paste(getwd(), "annotated_buettner_G1G2MS_counts.txt", sep="/"), 
+                separator="\t", geneNameControl=1, window=10, seed=111)
+
+
+#same analysis as above on 10XGenomix data of quiescent naive-T cells. 
+#Raw counts table was generated with cellranger 2.0 starting from the h5 files at GEO.
+system("wget http://130.192.119.59/public/GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+unzip("GSM2833284_Naive_WT_Rep1_288cell.txt.zip")
+scannobyGtf(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1_288cell.txt",sep="/"),
+                    gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+
+
+#N.B. recatPrediction function requires as input raw counts table previously annotated with scannobyGtf function
+
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                file=paste(getwd(), "annotated_GSM2833284_Naive_WT_Rep1_288cell.txt", sep="/"), 
+                separator="\t", geneNameControl=1, window=10, seed=111)
+
+
+```
+\fontsize{10}{10}\selectfont
+
+#### **Section 3.8.2 ** Removing cell cycle effect in a dataset: [*ccRemover*](https://cran.r-project.org/web/packages/ccRemover/index.html)
+
+```{r fig.114, fig.cap="GUI: cell cycle bias removal panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui15.png')
+```
+
+
+**ccRemover** software is implemented in rCASC in the function **ccRemove**, which also requires a data set annotated using **scannobyGtf**.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Counts table)*,	the path to the input file, including the counts table name
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *seed*,	is important to reproduce the same results with the same input, default=111
+    + *cutoff*,	p-value to use: 3 is almost equal to 0.05
+    + *species*,	human or mouse
+    + *rawCount*,	1 for unlogged and not-normalized, 0 otherwise
+
+**IMPORTANT**: The output of ccRemover does not require log transformation before clustering analysis.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. ccRemove function requires as input raw counts table previously anntoated with scannobyGtf function 
+
+#removing cell cycle effect
+ccRemove(group="docker" , scratch.folder="/data/scratch",
+        file=paste(getwd(),"annotated_buettner_G1G2MS_counts.txt", sep="/"), separator="\t",
+        seed=111, cutoff=3, species="mouse", rawCount=1)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+
+
+The analyses above were done using a [SeqBox](www.seqbox.com), equipped with an Intel i7-6770HQ (8 threads), 32 GB RAM and 500 GB SSD. They took  in total 54 and 40 mins for recatPrediction respectively on Buettner and the naive T-cells datasets. 28 mins were needed by ccRemove on Buettner data set. ccRemover analysis produces a ready-for-clustering data normalized matrix. The matrix can be identified by the prefix **LS_cc_**.
+**ccRemove** output is compliant with [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), the rCASC core clustering tool. **ccRemove** output does NOT require log transformation when applied to SIMLR.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#visualizing the dataset before and after cell cycle bias removal
+#reformat the matrix header to be suitable with docker4seq PCA plotting function
+tmp <- read.table("annotated_buettner_G1G2MS_counts.txt", sep="\t", header=T, row.names=1)
+tmp.n <- strsplit(names(tmp), "_")
+tmp.n1 <- sapply(tmp.n, function(x)x[1])
+tmp.n2 <- sapply(tmp.n, function(x)x[2])
+names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
+write.table(tmp, "annotated_buettner_G1G2MS_countsbis.txt", sep="\t", col.names=NA)
+
+library(devtools)
+install_github("kendomaniac/docker4seq", ref="master")
+library(docker4seq)
+#N/B. setting type parameter to "counts" data will be log10 transformed before PCA analysis
+pca(experiment.table="annotated_buettner_G1G2MS_countsbis.txt", type="counts", 
+      legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
+      principal.components=c(1,2), pdf = TRUE, 
+      output.folder=getwd())
+
+#reformat the matrix header to be suitable with docker4seq PCA plotting function
+tmp <- read.table("LS_cc_annotated_buettner_G1G2MS_counts.txt", sep="\t", header=T, row.names=1)
+tmp.n1 <- sapply(tmp.n, function(x)x[1])
+tmp.n2 <- sapply(tmp.n, function(x)x[2])
+names(tmp) <- paste(tmp.n2, tmp.n1, sep="_")
+write.table(tmp, "LS_cc_annotated_buettner_G1G2MS_countsbis.txt", sep="\t", col.names=NA)
+
+pca(experiment.table="LS_cc_annotated_buettner_G1G2MS_countsbis.txt", type="TPM", 
+      legend.position="topright", covariatesInNames=TRUE, samplesName=FALSE,
+      principal.components=c(1,2), pdf = TRUE, 
+      output.folder=getwd())
+
+
+```
+\fontsize{10}{10}\selectfont
+
+In Figure below are shown the results obtained using the ccRemove implementation in rCASC, using the Buettner dataset. The removal of the cell cycle effect (Figure below panel B) is clearly shown by a reduction of the variance explained by PC1 and PC2 in the PCA plot.
+
+```{r fig.14, fig.cap="rCASC implementation of the ccRemove. A) PCA analysis of Buettner et al. (Nat. Biotechnol. 2015) log10 transformed raw data, B) PCA analysis of ccRemove cell-cycle normalized dataset.", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/buettner_raw_ccremover.jpeg')
+```
+
+## **Section 4** Estimating the number of clusters to be used for cell sub-population discovery.
+
+```{r fig.115, fig.cap="GUI: Clustering panel", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui16.png')
+```
+
+
+The rCASC core clustering tool is [*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960), which requires as input the number of clusters to be used to aggregate cell sub-populations. Unfortunately, there is no definitive answer to the definition of the most probable number of clusters, in which cells will aggregate. Some of the possible ways to identify the most probable number of clusters is summarised in: [*"Determining the optimal number of clusters: 3 must known methods - Unsupervised Machine Learning"*](http://www.sthda.com/english/wiki/print.php?id=239).
+
+Another important aspect is how the number of detectable clusters might change if the number of cells changes in the dataset, e.g. upon removal of a random subset of cells. Because single-cell experiment, at least today, are rarely characterized by biological replications and frequently they represent the initial step of an analysis aimed at the identification for new cell sub-populations, it is very important to assess the stability of cells aggregations detected by clustering methods.
+
+### **Section 4.1** Estimating the number of cluster to be used for cell sub-population discovery by community detection method.
+
+In rCASC, the identification of the optimal number of clusters is addressed, in presence of cells number perturbations, with [*griph*](https://ppapasaikas.github.io/griph/). The clustering performed by griph is graph-based and uses the community detection method  [*Louvain modularity*](http://igraph.org/r/doc/cluster_louvain.html). Griph algorithm is closer to agglomerative clustering methods, since every node is initially assigned to its own community and communities are subsequently built by iterative merging. Griph is embedded **clusterNgriph** function, which evaluates the number of clusters in which a set of cells will aggregate upon a user defined leave-N\%-out cells bootstraps. In the example below the number of clusters are detected for the file 'annotated_buettner_G1G2MS_counts_10000bis.txt', used in **Section 3.8**.
+
+```{r fig.116, fig.cap="GUI: Range of numbers of clusters estimation panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui17.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Matrix counts)*,	the path to the input file, including the counts table name
+    + *nPerm*,	number of permutations to perform
+    + *permAtTime*,	number of permutations that can be computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	integer, 1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. If the input is a raw count table, before griph analysis data are log10 transformed
+
+library(rCASC)
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "annotated_buettner_G1G2MS_counts_10000bis.txt", sep="/"), nPerm=160, 
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+In Figure below it is shown the output generated by **clusterNgriph**. The output folder is called **Results** and it is located in the folder from which the analysis started. Within Results is present a folder named as the dataset used for the analysis. In this case 'annotated_buettner_G1G2MS_counts_10000bis'. In the latter folder is present a folder, in this specific example '5', named with the number of clusters that were more represented as result of the bootstrap analysis. The file indicated with the blue arrow contains all the information to generate the griph output plot, used as reference to allocate cells to a specific cluster at each bootstrap step. The file indicated with the green arrow contains the cluster position for each cell over all bootstrap steps. The file indicated with the red arrow contains the cells removed at  each bootstrap step. The file called 'hist.pdf', indicated with the black arrow, is the plot of the frequency of different number of clusters generated by griph as consequence of the bootstrap steps. In this specific case, over 160 permutations, 80 produced 5 clusters, 70 produced 4 clusters and 10 produced 6 clusters. 
+
+```{r fig.14a, fig.cap="Output of clusterNgriph", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph3.jpeg')
+```
+
+It has to be noted that in principle, since this dataset has a strong cell cycle effect, we would have expected ideally only three clusters: G1, S and G2M. This toy experiment clearly shows that perturbation of the dataset under analysis can affect the number of detectable clusters. Thus, to identify the clustering condition which guarantees the greatest cell stability in a cluster, in our opinion it is mandatory clustering cells taking in account perturbation effects. In Section 4.2 we further investigate this issue. 
+
+#### **Section 4.2** K-mean clustering: Investigating how cell sub-populations aggregation is affected by dataset perturbations.
+
+As indicated above we are interested to identify not only the optimal cluster number but also if the cluster number is affected by removal of a random subset of cells. 
+To observe the effect of datasets perturbation in clustering we built 4 datasets combining different cell types available in [*Zheng* 2016](https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231) paper (Bold cell types are those that were progressively substituted in setA):
+
+- setA 100 cells randomly selected for each cell type:
+    + (B) B-cells (25K reads/cell), (M) Monocytes  (100K reads/cell), (S) Stem cells (24.7K reads/cell), (NK) Natural Killer cells (29K reads/cell),  (N) Naive T-cells (19K reads/cell)
+
+- setB 100 cells randomly selected for each cell type:
+    + (B) B-cells, (M) Monocytes, (H) **T-helper cells** (21K reads/cell), (NK) Natural Killer, (N) Naive T-cells
+    
+- setC 100 cells randomly selected for each cell type:
+    + (C) **Cytotoxic T-cells** (28.6K reads/cell), (M) Monocytes, **T-helper cells**, (NK) Natural Killer,  (N) Naive T-cells
+    
+- setD 100 cells randomly selected for each cell type:
+    + (C) **Cytotoxic T-cells**, (NC) **Naive cytotoxic T-cells** (20K reads/cell), (H) **T-helper cells**, (NK) Natural Killer, (N) Naive T-cells
+
+Moving from SetA to setD we added progressively cells coming from T-cell populations, making the cell-type partitioning more challenging because of the similarities between T-cell sub-populations.
+    
+We used PCA (Figure below panels A-D) to visualize the dissimilarity between cells populations. PCA measures the variance between the elements of the dataset and the most important differences in variance are estimated by the PC1.
+
+
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+system("cd section4.1_examples")
+
+#visualizing the complexity of the datasets using PCA
+library(docker4seq)
+topx(group="docker",file=paste(getwd(),"bmsnkn_5x100cells.txt", sep="/"),threshold=1000, logged=FALSE, type="expression", separator="\t")
+#converting filtered data in log10
+counts2log(file=paste(getwd(), "filtered_expression_bmsnkn_5x100cells.txt", sep="/"), log.base=10)
+
+
+#N.B. if the type parameter is set to FPKM or TPM, it is assumed that data are already log10 transformed
+pca(experiment.table="filtered_expression_bmsnkn_5x100cells.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="bmHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_bmHnkn_5x100cells.txt", sep="/"), log.base=10)
+
+pca(experiment.table="filtered_expression_bmHnkn_5x100cells.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="CmHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_CmHnkn_5x100cells.txt", sep="/"), log.base=10)
+
+pca(experiment.table="filtered_expression_CmHnkn_5x100cells.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+topx(data.folder=getwd(),file.name="CNCHnkn_5x100cells.txt",threshold=1000, logged=FALSE, type="expression", separator="\t")
+counts2log(file=paste(getwd(), "filtered_expression_CNCHnkn_5x100cells.txt", sep="/"), log.base=10)
+
+pca(experiment.table="filtered_expression_CNCHnkn_5x100cells.txt", type="FPKM",
+    legend.position="topleft", covariatesInNames=TRUE, samplesName=FALSE,
+    principal.components=c(1,2), pdf = TRUE,
+    output.folder=getwd())
+
+
+
+```
+\fontsize{10}{10}\selectfont
+
+
+```{r fig.15, fig.cap="PCA is getting progressively unable to discriminate between the different cell subpopulations as the set of cells are getting functionally more similar to each other: A) PCA of setA, B) PCA of setB, C) PCA of setC, D) PCA of setD.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph1.png')
+```
+
+PC1 shows that, as the differences between cell populations become smaller, moving from setA to setD, the aggregation in homogeneous groups of cells is compromised (Figure below panels A-D).  
+
+To observe the effect of the reduced dissimilarity between populations on the stability of the number of clusters, we use the rCASC **clusterNgriph** function on the above mentioned 4 datasets using 160 permutations/each, and randomly removing in each permutation 10\% of the cells. Each analysis took approximately 60 mins on a SeqBox hardware. 
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+#downloading datasets
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+
+#setA
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, 
+              percent=10, separator="\t",logTen=0, seed=111)
+
+#setB
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "bmHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+#setC
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "CmHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+#setD
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), 
+              "CNCHnkn_5x100cells.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+
+
+```
+
+\fontsize{10}{10}\selectfont
+
+It is notable that as the differences between the cells populations is narrowing (i.e in setA cells types are quite different in overall functional activity, as in setD four out of five cell types are T-cells sub-populations) the fluctuations in the detected number of clusters increase. In setA, where PCA is able to discriminate between the five cell populations (Figure below panel A), out of 160 bootstraps only 1 gave a number of clusters different from the effective number of cell sub-populations (Figure below panel A). In all the other three subsets perturbations result in a higher number of events in which number of clusters differs from 5 (Figure below panels B-D). 
+
+```{r fig.16, fig.cap="Clusters number is dependent by the cell type similarity: A) number of clusters detectable by griph in setA, B) number of clusters detectable by griph in setB, C) number of clusters detectable by griph in setC, D) number of clusters detectable by griph in setD", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph2.png')
+```
+
+As highlighted in **Section 3.2.1**, the difficulties in detecting a stable number of clusters, upon dataset perturbations, is due to the limited number of detected genes. To further support this hypothesis, we run a comparison between the most expressed genes in the cell types used in the above example.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#downloading datasets
+#section4.1_examples.zip contains raw counts from Zheng experiment available at 10XGenomics web site
+#100 cells  were randomly extracted from from each sorted cell type dataset.
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+
+#loading the datasets used to generate PCA
+b <- read.table("cd19_b_100cell.txt", sep="\t", header=T, row.names=1)
+mono <- read.table("cd14_mono_100cell.txt", sep="\t", header=T, row.names=1)
+stem <- read.table("cd34_stem_100cell.txt", sep="\t", header=T, row.names=1)
+nk <- read.table("cd56_nk_100cell.txt", sep="\t", header=T, row.names=1)
+naiveT <- read.table("naiveT_100cell.txt", sep="\t", header=T, row.names=1)
+cyto <- read.table("cytoT_100cell.txt", sep="\t", header=T, row.names=1)
+naiveCyto <- read.table("naiveCytoT_100cell.txt", sep="\t", header=T, row.names=1)
+helper <- read.table("cd4_h_100cell.txt", sep="\t", header=T, row.names=1)
+
+#calculating the gene-level expression and ranking the genes from the most expressed to the least expressed
+b.s <- sort(apply(b,1,sum), decreasing=T)
+mono.s <- sort(apply(mono,1,sum), decreasing=T)
+stem.s <- sort(apply(stem,1,sum), decreasing=T)
+nk.s <- sort(apply(nk,1,sum), decreasing=T)
+naiveT.s <- sort(apply(naiveT,1,sum), decreasing=T)
+cyto.s <- sort(apply(cyto,1,sum), decreasing=T)
+naiveCyto.s <- sort(apply(naiveCyto,1,sum), decreasing=T)
+helper.s <- sort(apply(helper,1,sum), decreasing=T)
+
+#function that measure the identity between lists of increasing lengths
+overlap <- function(x,y){
+  overlap.v <- NULL
+  for(i in 1:length(x)){
+     overlap.v[i] <- length(intersect(x[1:i], y[1:i]))
+  }
+  return(overlap.v)
+}
+
+#calculating the level of identity between lists of increasing lengths all comparisons are run with respect to naive T-cells.
+naiveCyto.naiveT <- overlap(names(naiveT.s), names(naiveCyto.s))
+b.naiveT <- overlap(names(naiveT.s), names(b.s))
+mono.naiveT <- overlap(names(naiveT.s), names(mono.s))
+stem.naiveT <- overlap(names(naiveT.s), names(stem.s))
+nk.naiveT <- overlap(names(naiveT.s), names(nk.s))
+naiveCyto.naiveT <- overlap(names(naiveT.s), names(naiveCyto.s))
+helper.naiveT <- overlap(names(naiveT.s), names(helper.s))
+cyto.naiveT <- overlap(names(naiveT.s), names(cyto.s))
+
+#plotting the above data
+plot(seq(1, 500), seq(1, 500), type="l", col="black", lty=2)
+points(seq(1, 500), naiveCyto.naiveT[1:500], type="l", col="black")
+points(seq(1, 500), cyto.naiveT[1:500], type="l", col="blue")
+points(seq(1, 500), helper.naiveT[1:500], type="l", col="green")
+points(seq(1, 500), mono.naiveT[1:500], type="l", col="red")
+points(seq(1, 500), b.naiveT[1:500], type="l", col="brown")
+points(seq(1, 500), stem.naiveT[1:500], type="l", col="orange")
+points(seq(1, 500), nk.naiveT[1:500], type="l", col="violet")
+legend("topleft", legend=c("Naive T-cytotoxic", "T-cytotoxic", "T-helper", "Monocytes", "B-cells", "Stem cells", "NK"),
+       pch=15, col=c("black", "blue", "green", "red", "brown", "orange", "violet"))
+
+
+```
+\fontsize{10}{10}\selectfont
+
+
+Figure below  shows the number of identical genes found in common between naive T-cells and the other sub-populations in setA and setD, using lists of increasing size and ordered by expression level. The plot shows that naive T-cytotoxic, T-cytoxic and T-helper, from setD, share with naive T-cells, within the top 500 most expressed genes, more genes with respect to the other cell types present in setA. Thus, the lack of cell-type specific genes between 4 out 5 cell types in SetD dataset negatively affect the stability dataset partitioning, upon bootstraps. 
+
+```{r fig.17, fig.cap="Identity between naive T-cells and the other cell types in set A and D in gene lists of increasing length. Identity between two data sets is shown by the dashed line.", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/griph4.jpeg')
+```
+
+The results described in this section indicate that **clusterNgriph** is a valuable instrument to define a range of numbers of clusters to be further investigated with supervised clustering approaches.
+
+
+## **Section 5** K-mean clustering: detecting cell sub-populations by mean of kernel based similarity learning ([*SIMLR*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)).
+
+The number of clustering and dimension reduction methods for single cell progressively increased over the last few years. Last year [*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960) published SIMLR, a framework which learns a similarity measure from single-cell RNA-seq data in order to perform dimensions reduction. We decided to select this method as core clustering tool in rCASC, because outperformed eight methods published before 2017 [[*Wang and coworkers*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)].
+
+
+Specifically, we use SIMLR as clustering method recording the effects of data perturbation, i.e. removal of random subset of cells, on the clustering structure. Although, we think SIMLR provides important advantages with respect to other clustering methods, rCASC framework can embed also other data reduction tools. At the present time, tSne is also implemented within the rCASC data permutation framework.
+
+One of the peculiarities of rCASC is the user tunable bootstrap procedure. rCASC represents bootstrap results via a cell stability score (Figure below). In brief, a set of cells to be organized in clusters  (Figure below panel A) is analyzed with SIMLR, applying a user defined k number of clusters (Figure below panel B). A user defined \% of cells is removed from the original data set and these cells are clustered again (Figure below panel C). The clusters obtained in each bootstrap step are compared with the clusters generated on the full dataset using Jaccard index (Figure below panel D-E). If the Jaccard index is greater of a user defined threshold, e.g. 0.8, the cluster is called confirmed in the bootstrap step (Figure below panel F). Then to each cell, belonging to the confirmed cluster, *cell stability score* value is increased of 1 unit (Figure below panel G). At the end of the bootstrap procedure, cells are labeled with different symbols describing their *cell stability score* in a specific cluster (Figure below panel H).
+
+```{r fig.19, fig.cap="Cell stability score", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_2.jpeg')
+```
+
+### **Section 5.1** Cell Stability Score: mathematical description.
+\includepdf[pages={-}]{./def.pdf}
+
+SIMLR is embedded in **simlrBootstrap** function within the rCASC bootstrap framework. 
+
+```{r fig.117, fig.cap="GUI: SIMLR clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui18.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure below):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Counts table)*,	the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *range1*,	beginning of the range of clusters to be investigated
+    + *range2*,	end of the range of clusters to be investigated
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(rCASC)
+#annotating data setA
+#annotating data setA
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+#N.B. if raw counts are provide as input data will be log10 transformed before SIMLR analysis
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+
+#annotating data setB
+scannobyGtf(group="docker", file=paste(getwd(),"bmHnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output of **simlrBootstrap** function is described in Figure below. The output is localized in the *Results* folder (Figure below Folder 1), which is created in the folder where the analysis started. This folder contains the count matrices used in the analyses. In this example the count matrices are those belonging to setA and B (see Section 4.1). In the *Results* folder  are also present folders labeled with the name of the count matrix used in the analysis (Figure below Folder 2, annotated\_bmsnkn\_5x100cells, annotated\_bmHnkn\_5x100cells). In each of these folders there are a set of folders indicated with a number that refers to the analyzed range of number of clusters (Figure below Folder 3). In this specific example  the range of clusters goes from 4 to 6. In each *NameOfCountMatrix* folder there is a file called **\_Stability\_Violin\_Plot.pdf** (Figure below panel A) which represents the distribution of the cells stability scores over the bootstraps in the range of number of clusters investigated. Figure below panel A clearly show that the analysis done with k=5 is the one providing the highest stability of cells within each cluster. The other plot that is also available in the folder (Figure below Folders 4) is **NameOfCountMatrix\_vioplot.pdf**, Figure below panel B, which contains the distribution of the [*Silhouette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) values for each cluster over the bootstraps. [*Silhouette*](https://en.wikipedia.org/wiki/Silhouette_(clustering)) value is a measure of computation cluster stability, and evaluates how similar an object is to its own cluster (cohesion) compared to other clusters (separation). Clearly the information provided by Silhouette plot is much less informative for the definition of the optimal clustering number with respect to the information provided by the cells stability score (Figure below blue arrow). In each clustering folder there is a pdf named *NameOfCountMatrix_Stability_Plot.pdf*, which contains two plots (Figure below panels C-D) generated by the clustering program. These plots provide a 2D view of the clustering results from two different perspectives. In Figure below panel C plot each cell is colored on the basis of the belonging cluster and it is labeled with a symbol indicating its cell stability score (CSS). Instead, in the plot in Figure below panel D each cell is colored on the basis of its CSS: 0-25\% black, 25-50\% green, 50-75\% gold and 75-100\% red. 
+Here, we show the plots generated with k=6 to better describe the information described in the above-mentioned clusters plots, as in k=5 clusters all cells have a CSS greater than 75\%. In Figures below panel C and D it is shown that 4 out of 6 clusters cells remain in a cluster between 75 to 100\% of the bootstraps (+ symbol in Figure below panel C and red dots in Figure below panel D). The plot, Figure below panel E, shows the genes detectable in each cell in function of the total number of reads/cell. In this plot cells are colored with the same color of their belonging cluster. This plot is useful to observe if the clustering is biased by the number of genes called in each cluster. In this specific example, only the green cluster is characterized by a number of detected genes, which is larger of those detectable in the other clusters (Figure below panel E). This is expected, since blue cluster is made of Monocytes, which have been sequenced to 100K reads/cells, as all other cells in setA were sequenced between 19 to 29K reads/cell, see **Section 4.2**.
+
+```{r fig.20, fig.cap="simlrBootstrap output. A) Cell Stability violin plot for the range of investigated clusters. B) Silhouette violin plot for the range of investigated clusters. C) SIMLR analysis: cells are partitioned in 6 cluster, defined by different colors. D) Cells colored on the basis of their Stability Score. E) Genes versus UMI counts, where cells are colored on the basis of their belonging cluster", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_3.png')
+```
+
+
+
+ In Figure below are shown the effects, on cell stability, in SIMLR analysis done with 4 and 6 clusters for SetA (*annotated_bmsnkn_5x100cells.txt*) counts matrix. Using 4 as number of clusters, Figure below panel A, some of the cells in each cluster show a reduced stability (50-75\%, triangle) and arrows highlights cells characterized by a cell stability score between 25 to 50\%. The circles in Figure below panel B show the clusters where the full cluster has a cell stability between 50 to 75\%. This observation indicates that the stability score is a useful measure to identify the optimal number of partitions to be used, i.e. the highest cell stability score  was observed when five clusters were selected, corresponding to the number of cell types combined in SetA, see **Section 4.2**. 
+ 
+```{r fig.21, fig.cap="Clustering output including cell stability score. Different in stability observable between the partition of cells in 5 (A) or 6 clusters (B). Partition in 5 clusters is more stable upon perturbation than partition in 6 clusters. Circles indicates clusters in which CSS is between 50-75. All other clusters have CSS between 75 to 100. Arrows indicate the cells with CSS between 25-50.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/simlr_4.jpeg')
+```
+
+
+The effect of the perturbations induced in the clustering upon the removal of 10%, 20%, 30% and 50% of the data set was also investigated in SetA (*annotated_bmsnkn_5x100cells.txt*), Figure below.
+
+```{r, echo=TRUE, eval=FALSE}
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=20, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=30, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmHnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=50, range1=5, range2=5, 
+               separator="\t",logTen=0, seed=111)
+
+```
+
+
+```{r fig.21a, fig.cap="Cell stability score for SIMLR analysis with k=5 clusters removing progressively 10 (A), 20 (B), 30 (C) and  50 (D) percent of the cells at each permutation.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/permutations.png')
+```
+
+Increasing the fraction of cells removed at each permutation affects, in a negative way, the overall cell stability score of each cell in each cluster. However, the reduction in CSS is not identical for all clusters. In Figure above, it is clear that cluster 2, completely made of NK cells, is the most stable cluster to the perturbations induced by increasing the number of removed cells. On the other side, cluster 4, mainly made by stem cells (92 cells), together with few B-cells (2 cells) and Monocytes (7 cells) is the least stable. Sorting by increasing CSS the cells in cluster 4, Figure above panel D, all B-cells and Monocytes are found within the first 15 most unstable cells. This observation suggests that studying CSS, increasing the fraction of cells removed at each permutation, could highlight the presence of cells located at the boundaries of different clusters. In this specific example, clusters 1, which is mainly composed of B-cells and few stem cells (2 cells), and cluster 3, which is fully made of Monocytes, could represent the exchange clusters for the most unstable cells detected in cluster 4.
+
+
+```{r fig.21b, fig.cap="Investigating cell stability score relation with clusters cells heterogeneity. SIMLR analysis was performed on both datasets using 160 permutations and k=5. A) Set A, Section 4.2, SIMLR clusters structure, B)  Set C, Section 4.2, SIMLR clusters structure. C) Set A CSS plot, D)  Set C, CSS plot.", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/css.png')
+```
+
+We investigated clusters composition of two sets of cells described in section 4.2: SetA and SetC. 
+SetA is made of cell types with different biological characteristics, i.e. (B) B-cells, (M) Monocytes, (S) Stem cells, (NK) Natural Killer cells, (N) Naive T-cells. 
+SetC contains Monocytes, Natural Killer cells and with T-cells subpopulations, i.e. (C) Cytotoxic T-cells, (H) T-helper cells and Naive T-cells, Figure above. CSS provides indications on clusters cells heterogeneity. In Figure above panel A and C, clusters characterized by high cell stability score are mainly constituted by one cell type. On the other hand, as CSS decrease, Figure above panel B and D, clusters become characterized by an increasing heterogeneity in the cell types composition. E.g. In Figure above panel B and D, cluster 5 (violet) has a CSS between 75% to 100% and it is made only by monocytes, cluster 2 (light green), which has a CSS between 50% and 75%, has a 11% contamination of T-helper cells. Cluster 3 (green), which has a CSS between 25 to 50%, is contaminated by 12% Cytotoxic T-cells and 4% T-helper cells. Finally, clusters 1 and 4, characterized by CSS between 0% to 25%, are very heterogeneous incorporating 4 out of 5 cell types present in this dataset.
+
+
+### **Section 5.2** Visualizing the cell clusters relocation during bootstraps.
+
+The function **permutationMovie** allows the generation of a video showing the relocation of cells at each bootstrap. In this example we use the results shown in Figure above panel B, where circles show the clusters where all cells have a cell stability between 50 to 75\%. 
+
+```{r fig.118, fig.cap="GUI: Permutation effect  video panel. Clusters are identified by different colors", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui19.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+
+    + *scratch.folder*,	path of the scratch folder
+    + *file (GUI Matrix count)*,	path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *framePP*,	number of frames for each permutation
+    + *permutationNumber,*	number of random permutations, must be less or the same value of the total permutations dome in simlrBootstrap
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/test_permutationvideo.zip")
+unzip("test_permutationvideo.zip")
+setwd("test_permutationvideo")
+library("rCASC")
+bootstrapsVideo(group="docker", scratch.folder="/data/scratch", 
+                file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+                nCluster=6, separator="\t", framePP=200, permutationNumber=80)
+
+```
+\fontsize{10}{10}\selectfont
+
+The video was generated in 8 minutes on SeqBox hardware. The video is saved in the cluster folder used for the analysis and it has the name **outputname.mp4**. The video generated with the above script is accessible [*here*](https://youtu.be/ZBP9W-WU-WQ).
+
+In Figure below panel A is shown a screenshot of the output of **bootstrapsVideo**. The output of this function provides extra information with respect to the standard output of the **simlrBootstrap** and **tsneBootstrap**, since the video provides an overview of the area (colored circles) in which the cells of a specific cluster are localized as consequence of the bootstraps. This visualization provides a better description of the maximum size of the clusters and simplify the identification of clusters that are more near to each other, because of clusters structure, Figure below panel A. In this specific example, is notable that, even if the yellow cluster has a high cell stability score, Figure below panel B, its size is much greater of that observable for all the other clusters, because few cells with lower cell stability score (50-75\%, triangle) are located very near to the blue cluster, arrow in Figure below panel B.
+
+```{r fig.23, fig.cap="Comparing the output of bootstrapsVideo with respect to the one produced by simlrBootstrap. A) Output of bootstrapsVideo. B) simlrBootstrap output. ", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/bootstrapsVideo_2.jpeg')
+```
+
+\pagebreak
+
+### **Section 5.3** Estimating cluster stability.
+
+[*Hennig*](http://discovery.ucl.ac.uk/148823/) published an elegant paper entitled Cluster-wise assessment of cluster stability. The [*R package fpc*](https://cran.r-project.org/web/packages/fpc/index.html) is associated to the paper. In this package, Jaccard index is used to evaluate the similarity between clusters. The calculated score (cluster stability measurement, CSM) is intended to provide an overall quality score for each of the clusters in toto. In particular, the clusterboot function allows to evaluate the cluster stability using a personalized clustering function. We have implemented this function to estimate CSM of the clusters generated with SIMLR, Seurat and tSne.
+
+
+
+```{r fig.23a, fig.cap="Estimating cluster stability. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/csm0.png')
+```
+
+\pagebreak
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to perform the pValue to evaluate clustering
+    + *range1*,	first number of cluster for k means algorithm
+    + *range2*,	last number of cluster for k means algorithm
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *clustering*,	clustering method to use : "SIMLR" , "tSne", "griph"
+    + *perplexity*,	Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.
+    + *pcaDimensions*,	dimensions to use for pca reduction for Seurat
+    + *seed*,	important value to reproduce the same results with same input
+
+
+```{r, echo=TRUE, eval=FALSE}
+#SetA
+clusterStability(group="docker",scratch.folder="/data/scratch/", 
+                 file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                 nPerm=160, range1=5, range2=5, separator="\t", 
+                 logTen=0, cluster="SIMLR", pcaDimensions=3)
+#SetC
+clusterStability(group="docker",scratch.folder="/data/scratch/", 
+                 file=paste(getwd(), "CNCHnkn_5x100cells.txt", sep="/"), 
+                 nPerm=160, range1=5, range2=5, separator="\t", 
+                 logTen=0, cluster="SIMLR", pcaDimensions=3)
+
+```
+
+
+
+
+The output of **clusterStability** are two plots, Figure below.
+
+```{r fig.23b, fig.cap="Estimating cluster stability output for SetA and SetC: A) Violin plot of Jaccard similarity value for SetA clusters. B) Violin plot of Jaccard similarity value for SetC clusters. C) Jaccard frequency distributions over each of SetA clusters. D) Jaccard frequency distributions over each of SetC clusters.", echo=FALSE, eval=TRUE, out.width="110%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/csm1.png')
+```
+
+Cluster stability measurement (CSM), Figure  above, which provides an overview of the stability of the cluster in toto, are in agreement with the CSS for SetA and SetC, Figure above.   
+
+\pagebreak
+
+## **Section 6** Clustering (autonomously detecting the number of clusters required for data partitioning): [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html), [*griph*](https://github.com/ppapasaikas/griph) and [*scanpy*](https://scanpy.readthedocs.io/en/stable/) graph-based clustering.
+
+[*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html), [*griph*](https://github.com/ppapasaikas/griph) and [*scanpy*](https://scanpy.readthedocs.io/en/stable/) use similar clustering approaches. However, time required for clustering, in the rCASC framework, is quite different as the number of cell increases, see (Fig. 7 in main manuscript).
+
+### **Section 6.1**: [*Seurat*](https://satijalab.org/seurat/pbmc3k_tutorial.html)
+
+Recently [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described, in their independent comparison papers, that [*Seurat*](https://satijalab.org/seurat/) delivered the overall best performance in cells clustering. Thus, we decided to include in our workflow also this clustering tool. Seurat clusters cells based on their PCA scores, with each PC essentially representing a ‘metagene’ that combines information across a correlated gene set. 
+The bootstrap approach described in **section 5.1** is also applied to Seurat clustering to assign cell stability score to the clustered cells.
+The first step of the analysis is the identification of the how many PCs have to be to included.
+
+
+**seuratPCAEval** function allows the exploration of PCs to determine relevant sources of heterogeneity and to define the range of PCs to be used.  
+
+```{r fig.119, fig.cap="GUI: Estimating PCA range for Seurat panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui20.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Matrix count)*,	the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. seuratPCAEval requires in input raw counts or log10 transformed raw counts
+#Before clustering data are normalized as suggested from the Seurat workflow 
+#using Seurat  NormalizeData function, with LogNormalize as normalization.method 
+#and 10000 as scale.factor parameters
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+library(rCASC)
+#defining the PC threshold for clustering.
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+
+```
+
+\fontsize{10}{10}\selectfont
+
+```{r fig.32, fig.cap="Seurat clustering: A) Seurat dataset PC component. B) Clustering results. Clusters are identified by different colors and CSS is given by different symbols: square 0-25, circle 25-50, triangle 50-75, cross 75-100", echo=FALSE, eval=TRUE, out.width="50%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/seurat01.png')
+```
+
+The function generates a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells". In the latter folder is present a PCA plot (PCE_bowPlot.pdf, Figure above panel A), which allows the identification of the PCs to use, defining a cutoff where there is a clear elbow in the graph. In this example, it looks like the elbow would fall around PC 6. 
+
+**seuratBootstrap** function executes the seurat clustering (data reduction method PCA) and estimates cell stability score.  
+
+```{r fig.120, fig.cap="GUI: Seurat clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui21.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	 a character string indicating the path of the scratch folder
+    + *file (GUI Matrix count)*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *pcaDimensions*,	0 for automatic selection of PC elbow.
+    + *seed*,	important value to reproduce the same results with same input
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. seuratBootstrap requires in input raw counts or log10 transformed raw counts
+
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",
+                logTen=0, pcaDimensions=6, seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+The function generates a **Result** folder in which is present a folder with the same name of the dataset under analysis, in this specific case "bmsnkn_5x100cells.txt". In the latter folder is present a folder with the number of clusters detected by Seurat, in this specific case **5**. In **5** folder there is the file with extension  **\_Stability_Plot.pdf**, which is the clustering picture with cells labeled with their stability score, Figure above panel B). The file with the extension **\_clusterP.txt**, containing for each permutation the location of each cell in the clusters.  The file with the extension **\_killedCell.txt**, where are saved the cells removed at each permutation. The file with the extension **\_score.txt**, containing the scores assigned at each permutation to each cell. The file with extension **\_scoreSum.txt** containing the Cell stability score for each cell. The file with extension **\_clustering.output.txt**, summarizing all information required to generate the **\_Stability_Plot.pdf** plot.
+
+
+### **Section 6.2**: [*griph*](https://github.com/ppapasaikas/griph)
+
+Griph was used as tool for clustering in [Serra et al. 2019](https://www.ncbi.nlm.nih.gov/pubmed/31019299). It runs faster than Seurat as the number of cells increases.
+
+```{r fig.120a, fig.cap="GUI: Griph clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui120a.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *perplexity*,	perplexity value for tsne projection
+    + *seed*,	important value to reproduce the same results with same input
+
+
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. griphBootstrap requires in input raw counts or log10 transformed raw counts
+
+griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+                seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+
+### **Section 6.3**: [*scanpy*](https://scanpy.readthedocs.io/en/stable/)
+
+Scanpy is a scalable toolkit for analyzing large single-cell gene expression data [Wolf et al. 2019](https://www.ncbi.nlm.nih.gov/pubmed/29409532). It runs faster than Seurat and griph as the number of cells increases.
+
+```{r fig.120b, fig.cap="GUI: Griph clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui120b.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *separator*,	separator used in count file, e.g. '\t', ','
+    + *perplexity*,	perplexity value for tsne projection
+    + *pca_number*,	PCA threshold selected using seuratPCAEval function.
+    + *seed*,	important value to reproduce the same results with same input
+    + *format*,	output file format csv or txt. Mandatory because scanpy only accepts sparse matrices
+
+
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+#N.B. scanpy requires in input raw counts in sparse format
+
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "matrix.mtx", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
+                perplexity=10, pca_number=6, seed=111, format="txt")
+
+```
+\fontsize{10}{10}\selectfont
+
+
+### **Section 6.4** Comparing SIMLR, tSne, Seurat, griph and scanpy clustering.
+
+In Wang [[*2017*](https://www.ncbi.nlm.nih.gov/pubmed/28263960)] article it is demonstrated that SIMLR outperforms other data reduction methods. [*Freytag et al.*](https://f1000research.com/articles/7-1297/v1) and [*Do et al.*](https://f1000research.com/articles/7-1141/v2) described that [*Seurat*](https://satijalab.org/seurat/) delivers the overall best performance in cells clustering. 
+Here, we run a comparison between SIMLR, tSne, Seurat, griph and scanpy within the rCASC bootstrap framework to observe how cells stability score is affected by the three clustering methods.
+The bootstrap approach described in section 5.1 is also applied to tSne, Seurat, griph and scanpy clustering to assign cell stability score to the clustered cells. 
+In rCASC tSne is implemented using the [*Rtsne*](https://cran.r-project.org/web/packages/Rtsne/index.html) package. Rtsne performs a data reduction on which k-mean clustering is applied.
+tSne is embedded in **tsneBootstrap** function within the rCASC bootstrap framework. 
+
+```{r fig.121, fig.cap="GUI: tSne clustering panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center"}
+library(knitr)
+include_graphics('../inst/img/gui22.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Matrix count)*,	the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations computed in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *range1*,	beginning of the range of clusters to be investigated
+    + *range2*,	end of the range of clusters to be investigated
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input, default is 111
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
+    + *perplexity*,	number of close neighbors for each point. This parameter is specific for tSne. Default value is 10. the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data. A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50. 
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+
+system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+
+library(rCASC)
+#annotating data setA
+
+scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+                    gtf.name="genome.gtf", biotype="protein_coding", 
+                    mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
+#N.B. tsneBootstrap requires in input raw counts or log10 transformed raw counts
+#running tSne analysis using the range of clusters suggested by clusterNgriph in session 4.2
+tsneBootstrap(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",
+              logTen=0, seed=111, sp=0.8, perplexity=10)
+# required time 159 mins
+
+#running SIMLR analysis using the range of clusters suggested by clusterNgriph in session 4.2
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, 
+               separator="\t",logTen=0, seed=111)
+# required time 168 mins
+
+#running Seurat clustering: defining the PC threshold for clustering.
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+#running Seurat clustering with bootstrap: threshold was detected at PC 6, see Section 6.
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+# required time 194 mins
+
+#running griph clustering
+
+griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+                seed=111)
+
+# required time 61 mins
+
+#running scanpy clustering
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "matrix.mtx", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
+                perplexity=10, pca_number=6, seed=111, format="txt")
+
+#please note that an error like this might appear but is not affecting the overall results:
+#Error response from daemon: can not get logs from container which is dead or marked for removal
+
+
+# required time 9 mins
+
+#running SHARP clustering
+
+sharpBootstrap(group="docker",scratch.folder=getwd(), 
+               file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=10, percent=10, separator="\t",
+               logTen=0, seed=111)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+We run the analysis on the SetA described in Section 4.1. All tools but tSne+k-mean and scanpy provided very good and similar partition of the different cell types For scanpy we tested various combination of perplexity and PCs number, but we failed to find a condition detecting the 5 clusters and clusters stability was always very poor.
+From the point of view of the computation time, the above mentioned analysis took 159 mins for tSne, 168 mins for SIMLR, 194 mins for Seurat, 61 mins for griph and only 9 minus for scanpy.
+
+
+```{r fig.122, fig.cap="Comparing the clustering tools available in rCASC. : SetA clustering. All tools but scanpy detected 5 clusters. CSS for tSne+K-mean was slightly lower than for the other tools. Scanpy detected 11 totally unstable clusters, thus we could not assign the cluster composition. The cluster organization and composition is very similar between the tools but scanpy. A) tSne+K=mean, B) griph, C) SIMLR, D) Seurat, E) SHARP, F) scanpy. N.B. Colors do not define the same cluster in figure panels", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+
+library(knitr)
+include_graphics('../inst/img/5clusters.png')
+```
+
+
+\pagebreak
+
+## **Section 7** Detecting the genes playing the major role in clusters formation
+
+Nowadays there are a lot of methods for the identification of differentially expressed genes between two populations of single-cell experiments [[*Soneson et al.*](https://www.ncbi.nlm.nih.gov/pubmed/29481549)]. However, the number of tools applicable to single-cells and allowing something similar to an ANOVA  are very few. An ANOVA-like approach is described as applicable to single-cells in [*edgeR Bioconductor package*](https://www.ncbi.nlm.nih.gov/pubmed/19910308). The edgeR ANOVA-like requires a comparison with respect to a reference set of cells. SIMLR and Seurat also provide ranking score for the genes, which are affecting mostly the clusters organization. SIMLR and Seurat gene ranking do not require a reference cluster for the analysis, thus providing wider applications with respect to ANOVA-like.
+The three methods are part of the rCASC framework.
+
+```{r fig.722a, fig.cap="GUI: Feature selection panel", echo=FALSE, eval=TRUE, out.width="30%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui23a.png')
+```
+
+
+
+
+### **Section 7.1** A statistical approach to select genes affecting clusters formation: EdgeR ANOVA-like
+
+The function **anovaLike** executes edgeR ANOVA-like with the settings required for single-cells analysis, for more information please refer to the edgeR vignette.
+
+```{r fig.722, fig.cap="GUI: ANOVA-like feature selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui23.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *file (GUI Matrix count)*,	a character string indicating the counts table file with the path of the file.
+    + *sep*,	separator used in count file, e.g. '\\t', ','
+    + *cluster.file*,	a character string indicating the _clustering.output.txt file of interest, generated by bootstrapSimlar or bootStrapTsne. IMPORTANT this file must be located in the same folder where counts.table is placed
+    + *ref.cluster*,	a number indicating the cluster to be used a reference for anova-like comparison with the other clusters.
+    + *logFC.threshold*,	minimal logFC present in at least one of the comparisons with respect to reference covariate
+    + *FDR.threshold*,	minimal FDR present in at least one of the comparisons with respect to reference covariate
+    + *logCPM.threshold*,	minimal average abundance
+    + *plot*,	boolean, TRUE a plot of differentially expressed genes is generated
+
+The input file is a counts table, which is modified by **anovaLike** adding the cluster number to cell name with an underscore. It is mandatory that no other underscores are located in the table. Then, counts table is reorganized to locate at the beginning of the table the set of cells belonging to the cluster used as reference group. The differentially expressed genes statistics for all genes are saved in the file with prefix **DE\_**, followed by the counts table name. The filtered differentially expressed genes statistics, including only genes detected as differentially expressed in at least one of the clusters is saved with prefix **filtered\_DE\_** followed by the counts table name. **logFC\_filtered\_DE\_** refers to the file containing only logFC extracted from **filtered_DE_** file. The count table is also saved reordered on the basis of cluster positions and has the extension **\_reordered.txt**
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE,eval=FALSE}
+#dataset derived from the analysis shown in section 8
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+#N.B. anovaLike requires in input raw counts 
+anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5.txt",
+        file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+        logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+
+#the output of interest is logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt
+
+
+```
+\fontsize{10}{10}\selectfont
+
+
+The function **clustersFeatures** selects the genes, which are more up-regulated in a specific cluster using **anovaLike** outputs. 
+
+
+```{r fig.723, fig.cap="GUI: ANOVA like prioritization features panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui24.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *fileLogFC*,	a character string indicating the absolute path to logFC_filtered_DE_ file generated by anovaLike function
+    + *fileCounts*,	a character string indicating the absolute path to reordered counts table file generated by anovaLike function
+    + *delta*,	the minimal distance between the max value of FC for a gene in a cluster of interest and the nearest other max FC in any of the other clusters. This value defines the minimal distance with respect to the same gene in another cluster to identify it as a cluster specific gene.
+    + *sep*,	separator used in count file, e.g. '\\t', ','
+
+This function focus only on upregulated genes because the ANOVA-like procedure compares all clusters with respect to a reference cluster. Thus, up-regulated genes are genes specific of the cluster under analysis as those down-regulated are characteristics of the reference cluster. The delta parameter describes the minimal distance existing, for a specific gene average logFC in a specific cluster, with respect to all the other clusters under analysis. The outputs of the function are four tab delimited files:
+
+- the file with prefix **onlyUP\_**, followed by the counts table name, i.e. the count table only containing the selected genes,
+
+- the file with prefix**onlyUP\_**, followed by **logFC_filtered_DE_**,  the table containing logFC only for the selected genes, 
+- the file **onlyUP_clusters_specific_genes.txt**, which contains the list of specific genes associated with the corresponding cluster.
+
+- the file **onlyUP_clusters_specific_genesSYMBOLs.txt**, which contains the list of specific genes SYMBOLS from onlyUP_clusters_specific_genes.txt. This file is used by function **hfc** to generate features specific heatmap.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+#dataset derived from the exemplary analysis shown in section 8
+system("wget http://130.192.119.59/public/clusters.features.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+clustersFeatures(group="docker", data.folder=getwd(),
+         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
+         counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+
+
+#### **Section 7.1.1** Visualizing cluster specific genes by heatmap.
+
+The gene-features extracted by **clustersFeatures** cannot be used again in **simlrBootstrap**, if the overall number of genes is smaller of the cell number, for more information see SIMLR publication.  This limitation does not apply to tsneBootstrap.
+ 
+The function **hfc** allows to create a heatmap for the results generated from **simrBootstrap/tsneBootstrap** and the output of **clustersFeatures**.
+
+```{r fig.724, fig.cap="GUI: Heatmap for prioritized genes panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui25.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Matrix count)*,	the path of the file, with file name and extension included
+    + *nCluster*,	n of the clusters on which to run the analysis. The function expect the presence of Result folder generated by **simrBootstrap/tsneBootstrap**
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *lfn*,	name of the list of genes WITHOUT extension, if **clustersFeatures** function was used on anovaLike output the name of the file is "onlyUP_clusters_specific_geneSYMBOLs"
+    + *geneNameControl*,	0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. 
+    + *status*,	0 if is raw count, 1 otherwise
+    + *b1*,	the lower range of signal in the heatmap,for negative value write "/-5". To ask the function to do automatic value assignment set 0
+    + *b2*,	the upper range of signal in the heatmap,for negative value write "/-2". To ask the function to do automatic value assignment set 0
+
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/hfc.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+hfc(group="docker",scratch.folder="/data/scratch",
+       file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+       nCluster=5, separator="\t", lfn="onlyUP_clusters_specific_geneSYMBOLs", 
+       geneNameControl=1, status=0, b1="/-1", b2="1")
+
+```
+\fontsize{10}{10}\selectfont
+
+ 
+The output is made of four pdf (Figure below):
+
+- *lfn-parameter*_hfc_log10.pdf counts in log10 format, e.g. onlyUP_clusters_specific_geneSYMBOLs_hfc_log10.pdf
+
+- *lfn-parameter*_hfc_zscore.pdf Z score
+
+- *lfn-parameter*_hfc_CSS.pdf cell cluster stability score
+
+- *lfn-parameter*_hfc_all_genes.pdf
+
+
+```{r fig.728, fig.cap="Output of hfc. A) Path of location of hfc function results. The output is located in cluster folder used for the analysis, B) Log10 counts heatmap, high number of counts is indicated by bright yellow color as instead low number of counts is indicated by bright blue color. On the top of the figure clusters are represented as bars of different colors, C) Z-score heatmap, high positive Z-score is indicated by bright yellow color as instead high negative Z-core is indicated by bright blue color, D) Cell Stability Score for each cell in each cluster, for more information see Section 5, CSS is represented with different colors lines on the basis of the belonging cluster, E) SIMLR clustering output for each gene within those used to generate the heatmap. Cells are colored on the basis of the amount of CPMs for the gene under analysis, blue color refers to low CPM as instead bright yellow indicates high CPM.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/hfc1.png')
+```
+
+
+
+### **Section 7.2** A machine learning approach: SIMLR genes prioritization
+
+SIMLR gene prioritization approach relies on the output similarity and does not depend on the downstream dimension reduction or clustering. The advantage of this step is that one can identify highly fluctuating genes that are consistent with the learned similarity in the multiple-kernel space.
+
+The function **genesPrioritization** executes SIMLR gene prioritization within the rCASC bootstrap framework. 
+
+```{r fig.725, fig.cap="GUI: SIMLR genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui26.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	the path of the scratch folder
+    + *file (GUI Matrix count)*,	the path of the file, with file name and extension included
+    + *nPerm*,	number of permutations to be executed
+    + *permAtTime*,	number of permutations that can be computes in parallel
+    + *percent*,	percentage of randomly selected cells removed in each permutation
+    + *nCluster*,	the number of clusters, where to run prioritization
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input
+    + *sp*,	minimum number of percentage of cells that has to be in common between two permutation to be the same cluster, default 0.8.
+    + *clusterPermErr*,	error that can be done by each permutation in cluster number depicting, default=0.05
+    
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+#dataset derived from the exemplary analysis shown in section 8
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+#N.B. genesPrioritization requires in input raw counts or log10 transformed raw counts
+genesPrioritization(group="docker",scratch.folder="/data/scratch/",
+                    file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+                    nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", 
+                    logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output of the function are a pdf named **geneRank.pdf** (Figure below), containing the overall distribution of  -log10 expression mean with respect to the Delta confidence of a gene being important for clustering, and a tab delimited file with the extension **\_pvalList.txt** which contains, for each bootstrap, the gene importance score for clustering. 
+
+
+The function **genesSelection** allows to run a selection of the most interesting genes for clustering on the basis of two parameters: 
+
+- maxDeltaConfidence:
+    + max value for Delta confidence for genes features selection. Default is 0.01
+
+- minLogMean:
+    + min value for Log mean for genes feature selection. Default is 0.05 
+    
+The above values can be set in the **genesSelection** function on the basis of the output of geneRank.pdf (Figure below).
+
+```{r fig.726, fig.cap="GUI: SIMLR genes selection panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui27.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above}):
+    + *scratch.folder*,	path of the scratch folder
+    + *file (GUI Matrix count)*,	the path of the counts file, with file name and extension included
+    + *nCluster*,	the number of clusters, where prioritization was run. In the working folder should be present the Result folder generated by **genesPrioritization** function.
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *seed*,	important value to reproduce the same results with same input, default 111
+    + *sp*,	minimum number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8
+    + *clusterPermErr*,	probability error in depicting the number of clusters in each permutation, default = 0.05
+    + *maxDeltaConfidence*,	max value for Delta confidence for genes feature selection
+    + *minLogMean*, min value for Log mean for genes feature selection 
+
+\fontsize{8}{8}\selectfont    
+```{r, echo=TRUE, eval=FALSE}
+#dataset derived from the exemplary analysis shown in section 8
+genesSelection(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), 
+               nCluster=5, separator="\t", seed=111, sp=0.8, clusterPermErr=0.05, 
+               maxDeltaConfidence=0.01, minLogMean=20)
+
+#mv annotated_setPace_10000_noC5_clusters_specific_geneSYMBOLs.txt in the main folder  
+
+hfc(group="docker",scratch.folder="/data/scratch",
+       file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+       nCluster=5, separator="\t", 
+       lfn="annotated_setPace_10000_noC5_clusters_specific_geneSYMBOLs", 
+       geneNameControl=1, status=0, b1="/-1", b2="1")
+
+```
+\fontsize{10}{10}\selectfont
+
+```{r fig.729, fig.cap="genePrioritization and genesSelection outputs. A) Prioritization plot, from this plot the maxDeltaConfidence (x axis) and the minLogMean (y axis), required by genesSelection can be extrapolated, i.e. in this case respectively 0.01 and 20. B) log10 counts heatmap from the output of genesSelection: 577 genes, high number of counts is indicated by bright yellow color as instead low number of counts is indicated by bright blue color. On the top of the figure clusters are represented as bars of different colors. C) Z-score heatmap, high positive Z-score is indicated by bright yellow color as instead high negative Z-core is indicated by bright blue color. D) Cell stability score. E) simlrBootstrap output. F) Single gene CPM expression in SIMLR clusters, Cells are colored on the basis of the amount of CPMs for the gene under analysis, blue color refers to low CPM as instead bright yellow indicates high CPM. The expression is available for each of the genes from genesSelection output", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/geneselection.jpeg')
+```
+
+
+
+The output of **genesSelection** is a file with extension **_clusters_specific_geneSYMBOLs.txt**, which can be used as input for **hfc** function, see **Section 6.1.1**. The list of prioritized genes cannot not be associated to a specific cluster as in the case of the anovaLike, see **Section 6.1**. Thus, more information will be provided on the cluster specificity from the heatmap visualization, see **hfc** function. 
+
+
+
+
+### **Section 7.3** Seurat genes prioritization
+
+Seurat gene prioritization is performed by **seuratPrior** function.
+
+```{r fig.727, fig.cap="GUI: Seurat genes prioritization panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui28.png')
+```
+
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file (GUI Matrix count)*,	a character string indicating the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *logTen*,	1 if the count matrix is already in log10, 0 otherwise
+    + *seed*,	important value to reproduce the same results with same input
+    + *PCADim*,	dimensions of PCA for Seurat clustering
+    + *geneNumber*,	numbers of specific genes for each cluster
+    + *nCluster*,	number of cluster analysis.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+
+library(rCASC)
+
+#running Seurat PC distribution
+#N.B. Seurat functions requires in input raw counts or log10 transformed raw counts
+seuratPCAEval(group="docker",scratch.folder="/data/scratch/",
+              file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+              separator="\t", logTen = 0, seed = 111)
+
+#running Seurat clustering with bootstrap
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111)
+
+#running Seurat clustering with bootstrap: elbow was detected at PC 6, see Section 6.
+seuratPrior(group="docker", scratch.folder="/data/scratch/", 
+            file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), separator="\t", 
+            logTen=0, seed=111, PCADim=6, geneNumber=20, nCluster=5)
+
+```
+\fontsize{10}{10}\selectfont
+
+The output is a file with the prefix **Markers\_**
+
+```{r fig.733, fig.cap="Seurat gene prioritization", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/seurat02.png')
+```
+
+\pagebreak
+
+
+### **Section 7.4** Comet genes prioritization
+
+COMET is described in [*Delaney et al. 2019*](https://www.ncbi.nlm.nih.gov/pubmed/?term=31657111). COMET is a computational framework for the identification of candidate marker panels consisting of one or more genes for cell populations of interest identified with single-cell RNA-seq data.
+
+- *Parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+    + *file (GUI Matrix count)*,	a character string indicating the path of the file, with file name and extension included
+    + *separator*,	separator used in count file, e.g. '\\t', ','
+    + *threads*,	integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster
+    + *X*,	from 0 to 1 argument for XL-mHG default 0.15, for more info see [*cometsc help*](https://hgmd.readthedocs.io/en/latest/details.html)
+    + *K*,	the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big
+    + *counts*,	If set to True it will graph the log(expression+1). To be used if unlogged data are provided
+    + *skipvis*, set to True to skip visualizations
+    + *nCluster*,	number of interested cluster used for analysis
+    
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/AXLN1.tar.gz")
+system("gzip -d AXLN1.tar.gz")
+system("tar xvf AXLN1.tar")
+
+library(rCASC)
+
+cometsc(group="docker", file=paste(getwd(), "topx_veanno.csv",sep="/"), 
+           scratch.folder=getwd(),
+            threads=1, counts="True", skipvis="False", nCluster=8, separator=",") 
+
+#WARNING: the computation takes about 2h if only 1 core is used
+```
+
+Output is made of output\_pickles, outputdata, outputvis folders. Details on output structure can be found [**here**](https://hgmd.readthedocs.io/en/latest/Output.html#). In Fig. below is shown an example of a gene top ranked as the best genes able to separate cluster 4 from the others.
+
+```{r fig.741, fig.cap="COMET genes prioritization. A) Seurat clustering for a T-cell from lympho node of an healty donor. B) Top ranked singleton for cluster 4", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/comet01.png')
+```
+
+
+
+## **Section 8** Supporting tools
+
+The Conversion of a dense matrix, with 0s in sparse format, not including 0s, is performed by **csvToSparse** function and the conversion from a sparse to a dense matrix is done by **h5tocsv**
+
+```{r fig.800, fig.cap="GUI: dense to sparse and  sparse to dense matrix conversion panels", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui800.png')
+```
+
+
+- *csvToSparse parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+    
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*, separator used in count file, e.g. '\t', ','
+
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+
+
+```
+
+
+- *h5tocsv parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    +*file*,	path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided
+
+    + *type*,	h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
+
+```
+
+
+A random subset from a matrix can be extracted using **subSetCell** function. Two matrices can be merged using **mergeMatrix** function.
+
+```{r fig.801, fig.cap="GUI: Random selection a subset of cells from a matrix file panel and merge matrices panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui801.png')
+```
+
+
+- *subSetCell parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*,	separator used in count file, e.g. '\t', ','
+
+    + *cells.number*,	number of cells to be extracted
+
+
+- *mergeMatrix parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*,	separator used in count file, e.g. '\t', ','
+
+    + *cells.number*,	number of cells to be extracted
+    
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+subSetCell(group="docker", scratch.folder="/data/scratch", 
+            file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+            separator="\t", cells.number=200)
+
+mergeMatrix(group="docker", scratch.folder="/data/scratch",file1=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"),file2=paste(getwd(),"subset_200_annotated_setPace_10000_noC5.txt", sep="/"), separator1="\t",separator2="\t",name1="test1",name2="test2")
+
+
+```
+
+
+The function **dimensions** generates a file containing the size of the matrix under analysis.
+
+```{r fig.802, fig.cap="GUI: Calculating the number of rows and columns panel", echo=FALSE, eval=TRUE, out.width="70%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/gui802.png')
+```
+
+
+- *dimensions parameters* (only those without default; for the full list of parameters please refer to the function help) (Figure above):
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    +*scratch.folder*,	a character string indicating the path of the scratch folder
+
+    +*file*,	a character string indicating the path of the file, with file name and extension included
+
+    +*separator*,	separator used in count file, e.g. '\t', ','
+
+
+```{r, echo=T, eval=F}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+dimensions(group="docker", scratch.folder="/data/scratch",
+           file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), 
+           separator="\t")
+
+
+```
+
+\pagebreak
+
+## **Section 9** An example of rCASC analysis: [*GEO:GSE106264*](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106264).
+
+[Pace et al.](https://www.ncbi.nlm.nih.gov/pubmed/29326266) explored the role of histone methyltransferase Suv39h1 in murine CD8+ T cells activated after Listeria monocytogenes infection.  They showed that Suv39h1 controls the expression of a set of stem cell-related memory genes and its silencing increases long-term memory reprogramming capacity. The single-cell sequencing data from the [*Pace's Science  paper*](https://www.ncbi.nlm.nih.gov/pubmed/29326266):
+
+- naive CD8+ T lymphocytes, here named **N** 
+
+- CD8+ T cells activated after Listeria monocytogenes infection, here named **NA**
+
+- naive Suv39h1-defective CD8+ T lymphocytes, here named **Nd**
+
+- Suv39h1-defective CD8+ T cells activated after Listeria monocytogenes infection, here named **NdA**
+
+
+
+### **Section 9.1** Selecting subsets of cells with the highest number of called genes.
+
+On the basis of our observation in **Section 3.2.1**, we selected, for each of the above mentioned groups, the cells with higher number of total reads/cell. Specifically, we analyzed 600 cells, combining respectively 50 cells from **N** and **Nd** and 250 cells for **NA** and **NdA**.  The rational of the different number of cells for the naive and the activated is due to the expectation that activated cells will be organize in multiple clusters and naive are expected to be homogeneous. Cell labels in the counts table were modified adding the groups *N*, *Nd*, *NA* and *NdA*.
+
+Using this dataset, we tried to address the following questions: 
+
+1. Does Suv39h1 silence gene expression program in naive CD8+ T cells?
+
+2. Does Suv39h1 silence gene expression program in activated CD8+ T cells?
+
+3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
+
+
+With the script below we have performed the following steps:
+
+- annotating the counts table with **scannobyGtf** function, 
+
+- removing the ribosomal and mitochondrial genes with **scannobyGtf** function, 
+
+- selecting the most expressed 10K genes for the analysis with **topx** function,
+
+- detecting the range of interesting number of clusters to be used for data partitioning (6-9) with **clusterNgriph**
+
+- identifying 6 as the optimal number of clusters and evaluated the cell stability in each cluster with **simlrBootstrap**
+
+- generating the video of the bootstrap analysis with **bootstrapsVideo**
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+#Dataset constructed for demonstration purposes using raw counts from GSE106264. 
+#Raw counts were generated with cellranger 2.0 from h5 files.
+system("wget http://130.192.119.59/public/setPace.txt.zip")
+unzip("setPace.txt.zip")
+
+#annotating genes and removing ribosomal and mitochondrial proteins
+scannobyGtf(group="docker", file=paste(getwd(),"setPace.txt",sep="/"),
+                    gtf.name="genome_mm10.gtf", biotype="protein_coding", 
+                    mt=FALSE, ribo.proteins=FALSE,umiXgene=3, riboStart.percentage=0, 
+                    riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100)
+
+#selecting 10K top expressed genes
+topx(data.folder=getwd(),file.name="annotated_setPace.txt",threshold=10000, logged=FALSE)
+
+#defining the range of number of clusters to be investigated
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
+              "annotated_setPace_10000.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+#38 mins on SeqBox hardware
+
+#running the SIMLR clustering in the range 6-9 detected by clusterNgriph
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_setPace_10000.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=6, range2=9, 
+               separator="\t",logTen=0, seed=111)
+
+# visualizing cells instability
+bootstrapsVideo(group="docker", scratch.folder="/data/scratch", 
+                file=paste(getwd(), "annotated_setPace_10000.txt", sep="/"), 
+                nCluster=6, separator="\t", framePP=200, permutationNumber=80)
+
+
+```
+\fontsize{10}{10}\selectfont
+
+\pagebreak
+
+```{r fig.924, fig.cap="Analysis of a subset of cells from GSE106264 dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 6 clusters with simlrBootstrap, in parenthesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters. D) Permutation 55 extracted from the video generate with bootstrapsVideo.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/pace_1.jpeg')
+
+```
+
+
+
+In Figure above, they are summarized the results of the analysis executed on the Pace's dataset. A limitation of the clustering based on SIMLR is due to the need of providing as input the number of clusters (k) in which the data should be organized. Instead of asking to user to define arbitrarily the k number of clusters, we used [*griph*](https://github.com/ppapasaikas/griph) as tool to identify a range of k clusters to be inspected by SIMLR. Figure above panel A shows the frequency of k number of clusters, in which the Pace’s dataset can be organized using griph software, upon 160 bootstraps in which 10% of the cells is randomly removed from the initial data set. Griph analysis identify a range of clusters going from k=6 to k=9. K=7 is the most represented data organization detected by griph, followed by 8, 6 and 9 clusters.
+The range of k clusters detected using griph is then investigated with SIMLR. SIMLR is run for each k of the k-range defined with griph tool. CSS violin plot (Figure above panel B) shows that the mean stability for k=6 ($\overline{CSS}$ ~ 0.5) is higher than the others ks ($\overline{CSS}$ < 0.3). Clusters k=7 and k=8 do not represent the most stable organizations in terms of CSS (Figure above panel B), although they are the most frequent organizations observed in griph analysis (Figure above panel A). Since the best $\overline{CSS}$ is observed in k=6, we explored these clusters (Figure above panel C). In Figure above panel C clusters 1, 3 and 4 show a quite good stability, since cells stay in these clusters between 75 to 100\% of the bootstraps. 
+The inspection of Pace’s experiment groups organization (i.e. **N**= naïve WT, **Nd**= naïve Suv39h1 KO, **NA**=activated WT, **NdA**=activated Suv39h1 KO) in k=6 clusters, Figure above panel C,  show that cluster number 4 is the only one containing only NdA (33\% of the total NdA) cells. Thus, suggesting that a subpopulation of activated Suv39h1-silenced cells has a specific transcription profile, which differentiates them from all wild type activated cells. Another interesting cluster is number 6, where the amount of NA and NdA is unbalance, 35\% NA and 13.6\% of NdA, suggesting that Suv39h1 silencing does not guarantee at the same efficiency the differentiation of this cell subpopulation as in the case of wild type cells. Cluster 5 is the most heterogeneous cluster. It is composed by 6 N cells, 2 Nd cells, 34 NA cells, 21 NdA cells. Despite the presence of a limited number of naive cells, which might be explained as partially activated, cluster 5 is composed by an unbalance number of activated cells, i.e. 13.6\% NA and 8.4\% NdA of total cells. However, since cluster 5 is characterized by a very low CSS (0-25\%) it is possible that this cluster contains cells localized at the boundaries of clusters 2, 3 and 6. On the other side clusters 1, 2, 3 have nearly the same number of wild type and Suv39h1 silenced cells, suggesting that these subsets of cells are not influenced by Suv39h1 silencing: 
+
+- cluster 1 contains nearly the same amount of activated wild type, 16 NA (6.4\%), and Suv39h1 KO cells, 14 NdA (5.6\%);
+
+- cluster 2 is made of 44.8\% of NA and 39.6\% of NdA cells;
+
+- cluster 3 is made of 44 N (88\%) and 48 Nd (96\%).
+
+**NB** \% always refers to the total number of cells used in this example (50 N, 50 Nd, 250 NA, 250 NdA); [*annotated_setPace_10000_clustering.output.txt*](http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt), contains all information required to reproduce clusters shown in Figure above panel C. 
+In Figure above panel D it is shown permutation 55 of the output of **bootstrapsVideo**, which can be seen [*here*](https://youtu.be/w5Jj8QxKXRU). This permutation is representative of the majority of the observed permutations. From **bootstrapsVideo** analysis is clear that cluster 5 is strongly affecting the cell score stability of clusters 6 and 2, and for less extent that of cluster 3. 
+
+This analysis can provide some preliminary answers to the questions raised above:
+
+1. Does Suv39h1 silence gene expression programs in naive CD8+ T cells?
+
+    a. No, naive cells cluster together independently from Suv39h1 silencing.
+
+2. Does Suv39h1 silence gene expression programs in activated CD8+ T cells?
+
+    a. Yes, cluster 4 is only made of an activated Suv39h1 KO sub-population. Furthermore, although quite unstable, cluster 6 sub-population is less represented in activated Suv39h1 silenced cells, suggesting a reduction in efficiency in the differentiation of this sub-population upon Suv39h1 silencing.
+    
+3. Does Suv39h1 silencing affect the differentiation of new subsets of activated CD8+ T lymphocytes?
+
+    a.  Yes, cluster 4 represents a unique Suv39h1 subset of activated CD8+ T cells.
+    
+
+### **Section 9.2** Improving clustering results
+
+On the basis of Figure above panel D and the output of [*bootstrapsVideo*](https://youtu.be/w5Jj8QxKXRU) clearly cells in cluster 5 represent a strong interference for an efficient clustering. Thus, we investigated  if, removing cluster 5 cells (Figure above panel C), cell stability score for cluster 6 and 2 could be improved.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+system("wget http://130.192.119.59/public/annotated_setPace_10000.txt.zip")
+unzip("annotated_setPace_10000.txt.zip")
+system("wget http://130.192.119.59/public/annotated_setPace_10000_clustering.output.txt")
+
+#removing cluster 5 cells from annotated_setPace_10000.txt
+
+pace <- read.table("annotated_setPace_10000.txt", sep="\t", header=T, row.names=1)
+clusters.info <- read.table("annotated_setPace_10000_clustering.output.txt", sep="\t", header=T, row.names=1)
+
+discard <- rownames(clusters.info)[which(clusters.info$Belonging_Cluster==5)]
+
+pace <- pace[,which(!names(pace)%in%discard)]
+write.table(pace, "annotated_setPace_10000_noC5.txt", sep="\t", col.names=NA)
+
+#defining the range of number of clusters to be investigated
+clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(),
+              "annotated_setPace_10000_noC5.txt", sep="/"), nPerm=160,
+              permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+
+
+#running the SIMLR clustering in the range 5-9 detected by clusterNgriph
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "annotated_setPace_10000.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, range1=5, range2=9, 
+               separator="\t",logTen=0, seed=111)
+#execution time 276 mins in SeqBox
+
+```
+\fontsize{10}{10}\selectfont
+
+The results of the analysis done removing cells associated to cluster 5 are shown in Figure below. The range of clusters suggested by **clusterNgriph** are between 5 and 9, Figure below panel A. The best cells stability score is observable for 5 clusters, Figure below panel B. **simlrBootstrap** results show a large improvement of the overall stability of the clusters Figure below panel C with respect to the previous analysis, Figure below panel C. It is also notable that the samples organization with in clusters agrees with preliminary answers in Section 5.1.1 .
+
+```{r fig.925, fig.cap="Analysis of Pace dataset. A) Clusters detected by clusterNgriph. B) Cell stability score detected by simlrBootstrap. C) Clusterization with 5 clusters with simlrBootstrap, in parenthesis is given the overall stability score of each cluster. The components of each cluster, in terms of cells experiment groups, are also indicated for the most stable clusters.", echo=FALSE, eval=TRUE, out.width="100%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/pace_2.jpeg')
+
+```
+
+### **Section 9.3** Detecting the genes playing the major role in clusters generation: EdgeR ANOVA-like analysis
+
+We detected a total of 2742 differentially expressed genes using the naive cluster 3 as reference in an ANOVA-like analysis, see **Section 6.1**. 
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE,eval=FALSE}
+
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+anovaLike(group="docker", data.folder=getwd(), counts.table="annotated_setPace_10000_noC5.txt",
+        file.type="txt", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+        logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+
+#the output of interest is logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt
+
+
+```
+\fontsize{10}{10}\selectfont
+
+The following analysis focus only on up-regulated genes, i.e. those gene specifically more expressed in a cluster with respect to the naive cluster used as reference in the ANOVA-like.
+
+\fontsize{8}{8}\selectfont
+```{r, echo=TRUE, eval=FALSE}
+
+system("wget http://130.192.119.59/public/clusters.features.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+clustersFeatures(group="docker", data.folder=getwd(),
+         logFC.table="logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",
+         counts.table="annotated_setPace_10000_noC5_reordered.txt", delta=0.5)
+
+```
+\fontsize{10}{10}\selectfont
+
+
+We analyzed the results coming out of the **clustersFeatures** selection focusing on the two clusters that are different in cell ratio between wt and Suv39h1-defective T-cells: cluster 1, showing a 2.4:1 ratio between wt and Suv39h1-defective T-cells,  and 2, only detected in Suv39h1-defective T-cells, Figure above panel C. 31 genes were detected as specific for cluster 1. [*EnrichR*](http://amp.pharm.mssm.edu/Enrichr/) analysis indicated the over-representation of STAT3 in ENCODE and ChEA Consensus TFs from ChIP-X datasets and TNFRSF13B, CCL5, CCL4 and CXCR6 in Cytokine-cytokine receptor interaction dataset. On the basis of the above observations and on a PUBMED search ([*Ccl5*](https://www.ncbi.nlm.nih.gov/pubmed/16982880), [*STAT3*](https://www.ncbi.nlm.nih.gov/pubmed/23830147), [*Ccl9*](https://www.ncbi.nlm.nih.gov/pubmed/27883012) and [*Cxcr6*](https://www.ncbi.nlm.nih.gov/pubmed/28855310)), we suggest that cluster 1 is made of early activated precursors having some traits of memory cells. This cluster is also characterized by an unbalance ratio between activated wt T-cells and Suv39h1-defective T-cells.
+
+The cluster 2 has some traits of memory cells, on the basis of EnrichR analysis of 100 genes. Enrichment analysis shows enrichment for STAT3 transcription specific paths and GO Biological process enrichment for **response to cytokine**. Furthermore,  a PUBMED search showed the presence in this cluster of memory specific genes such as [*TCF7*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*FOXO1*](https://www.ncbi.nlm.nih.gov/pubmed/28973925), [*Bach2*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Ccr7*](https://www.ncbi.nlm.nih.gov/pubmed/18000950), [*Id3*](https://www.ncbi.nlm.nih.gov/pubmed/24335726), [*Il7r*](https://www.ncbi.nlm.nih.gov/pubmed/25567129), [*Myc*](https://www.ncbi.nlm.nih.gov/pubmed/16449532), [*Pdk1*](https://www.ncbi.nlm.nih.gov/pubmed/28137869), [*Socs3*](https://www.ncbi.nlm.nih.gov/pubmed/22118528), [*Tnfsf8*](https://www.ncbi.nlm.nih.gov/pubmed/16177108), 
+
+
+The analysis of cluster 2 was extended using Ingenuity Pathways Analysis (IPA). This sub-population of cells, only detectable within Suv39h1-defective T-cells, is enriched for immuno-related functions: Development of hematopoietic progenitor cells, Adhesion of lymphocytes, Quantity of T-lymphocytes, systemic autoimmune syndrome. A subset of cluster 2 genes can be also aggregated in a network characterized by various transcription factors (Figure below). Interestingly, in this network are present Id3, Bach2 IL7R and Myc. Combining the information that Bach2 is associated to the generation ([*Roychoudhuri et al. 2016*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/27158840)) of long-lived memory cells and Id3  to their maintenance ([*Yang et al. 2011*](https://www-ncbi-nlm-nih-gov.bibliopass.unito.it/pubmed/22057289)) together with the knowledge that IL7R/Myc expression is found to be associated to a longer persistence of mouse memory T-cell ([*Pace et al. 2018*](https://www.ncbi.nlm.nih.gov/pubmed/?term=29326266)) it could be suggested that cells belonging to this cluster are precursors of long-lived memory cells. 
+
+
+```{r fig.926, fig.cap="IPA C2 connected genes. ", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/c2_connected.png')
+```
+
+
+The paper [*Pace*](https://www.ncbi.nlm.nih.gov/pubmed/29326266) showed that Suv39h1-defective CD8+ T cells show sustained survival and increased long-term memory reprogramming capacity. Our reanalysis with rCASC extends the information provided from the single cell analysis in Pace paper, suggesting the presence of an enriched Suv39h1-defective memory subset, cluster 2 in Figure above panel C. Noteworthy, this example suggests that even few hundreds cells are sufficient to discriminate between sub-populations.
+
+
+
+## **Section 10** Mining clusters with Sparsely-Connected Autoencoders (SCAs)
+
+A module for the extraction of cluster-specific functional features was recently implemented in rCASC. This module uses Sparsely-Connected Autoencoders (SCAs) to grasp hidden functional features from the clusters detected using the rCASC clustering tools.
+SCAs encoding/decoding functions are one layer deep (Figure below, latent space) and this layer is sparse (not fully-connected like standard autoencoders), with connections based on known biological relationships [[*Gold et al. 2019*](https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection), [*Lin et al. 2017*](https://academic.oup.com/nar/article/45/17/e156/4056711)]. 
+
+```{r fig.1001, fig.cap="Sparsely-Connected Autoencoder structure", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/sca.png')
+```
+
+In SCA, each encoded node represents a known biological relationships (transcription factors (TFs) targets, miRNA targets (miRNAs), cancer-related immune-signatures (ISs), kinase specific protein targets (Ks), etc.) and only receives inputs from gene nodes associated to the biological relationships. With respect to the Gold paper [[*Gold et al. 2019*](https://www.researchgate.net/publication/331792510_Shallow_Sparsely-Connected_Autoencoders_for_Gene_Set_Projection)], which is using gene sets [[*Subramanian et al. 2005*](https://www.pnas.org/content/102/43/15545)], in our implementation the latent space is based only experimentally validated data, TRRUST [[*Han et al. 2017*](https://academic.oup.com/nar/article/46/D1/D380/4566018)], miRTarBase [[*Chou et al. 2018*](https://academic.oup.com/nar/article/46/D1/D296/4595852)], RegPhos [[*Huang et al. 2014*](https://academic.oup.com/database/article/doi/10.1093/database/bau034/2634150)], KEGG [[*Kanehisa et al. 2016*](https://academic.oup.com/nar/article/45/D1/D353/2605697)], manually curated cancer-based immune-signature (*Alessandri et al. In preparation*)
+
+The function **autoencoder** calculates the neural network. 
+
+```{r, echo=T, eval=F}
+##add example
+library(rCASC)
+autoencoder(group=c("docker"), scratch=path, file=paste(path, "Data/setA.csv", sep="/"), 
+            separator=",", nCluster=5, bias="kinasi", permutation=160, 
+            nEpochs=2000, patiencePercentage=5,
+            cl=paste(path,"/Data/Results/setA/5/setA_clustering.output.csv",sep=""), 
+            seed=1111, projectName="setAKinasi", bN="NULL")
+
+
+
+```
+
+- *autoencoder parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + *bias* ("mirna" , "TF", "CUSTOM", “kinasi”,”immunoSignature”) refers to the roles that are generating the partially connected hidden layer. If CUSTOM is selected the path to the file required to build the autoencoder structure should be assigned to the parameter bN. The hidden layer description file must have the following structure source, i.e. name of the hidden layer node, in column 1 and geneTarget, i.e. genes present in the hidden node, column 2. Headers are mandatory and row names must not be present, any extra column will be not taken in account.
+
+    + *nEpochs* is the parameter referring to the measure of the number of times all of the training vectors are used once to update the weights. At the end of this learning step the best weights for nodes will be defined. Please note that not necessarily the best weights are in the last epoch. Frequently are located in the first 1000 epochs. Thus, the ideal approach is to run 2000 epochs with 1 permutation only and check the learning rate, Figure below. The optimal epochs is selected within the flat part of the learning curve . Then, the analysis is run again with the number of permutations of your choice, 
+    
+```{r fig.1002, fig.cap="Learning rate saved in learning.jpg. In this example the maximum level of learning is obtained with 250 epochs. Thus the analysis with multiple permutations can  be done setting epoch slightly greater than 250, e.g. 500", echo=FALSE, eval=TRUE, out.width="60%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/learning.png')
+```
+
+    + *permutation* refers to the  number of times the neural network is calculated from scratch. The number of permutations depends on the level of consistency requested, usually 160 permutations provides robust results, but it might take some times to executeon a common laptop , thus lower number of permutation might be selected, e.g. 80. 
+
+    + *cl* refers to the full path to the **_clustering.output** file to be used, which was generated using rCASC clustering tools.
+
+    + *ProjectName* parameter refers to the name of the folder where **autoencoder** outputs will be saved. 
+    
+    
+The **autoencoder** function produces as output, in the folder **ProjectName**, a frequency table, with the same name of the counts table used in input with the parameter *file*. This frequency table indicates the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 means that it was not used in that specific permutation). 
+The **autoencoder** function produces as output many files with the extension **Xdensespace.format**, in the folder **ProjectName/Permutation**. The number of such files corresponds to the number of selected permutations.
+
+
+The function **autoencoderClustering** generates the numerical data required to understand if there is coherence between counts table derived clusters and those derived using autoencoders latent space. 
+
+
+```{r, echo=T, eval=F}
+##add example
+library(rCASC)
+autoencoderClustering(group=c("docker"), scratch.folder=path,
+                      file="/home/user/newModification/Data/Results/setAKinasi/setA.csv",
+                      separator=",", nCluster=5, clusterMethod="SIMLR", seed=1111, 
+                      projectName="setAKinasi",pcaDimensions=15,permAtTime=4,
+                      largeScale=TRUE)
+
+
+```
+
+
+- *autoencoderClustering parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + **IMPORTANT**: *file* parameter refers to the full path of the frequency table saved in the results output folder of the **autoencoder** function.
+
+    + *projectName* parameter is the same indicated in **autoencoder** function. 
+
+    + *clusterMethod* parameter refers to any of the clustering methods available in rCASC ("GRIPH","SIMLR","SEURAT","SHARP"), not necessary should be the same used for the raw count table clustering, actually it is useful to test more than one clustering method to see which one provides the best convergence with the clusters initially generated using the genes counts table. 
+
+    + *pcaDimensions* parameter is only required when Seurat is used as clustering tool.
+    
+The **autoencoderClustering** output is a folder where the name is given by the combination of the *projectName* and the  *clusterMethod*, e.g in the above example **setAKinasi_SIMLR**. In this folder the is the file **label.csv**, where is located the cluster assignment for each cells over each permutation.
+
+The output of **autoencoderClustering** is used by the function **autoencoderAnalysis** to genererate the QCF and QCM statistics (Figure below). QCF is an extension of CSS and it measures the ability of latent space to keep aggregated cells belonging to predefined clusters generated using the gene count table. The metrics has the range between 0 and 1, where 1 indicates a high coexistence of cells within the same cluster in the bootstrap analysis, and 0 a total lack of coexistence of cells within the same cluster. In the figure below, only clusters 1 and 2 (A) can be well explained by latent space (B). 
+QCM metric is also an extension of CSS and it measures the ability of the neural network to generate consistent data over bootstraps. In the Figure below, SCA provides consistent data only for clusters 1 and 2 (C).  Informative clusters are those characterised by high QCM and QCF scores, Figure below only clusters 1 and 2 (D) are characterized by a robust neural network able to keep the cell aggregated using hidden layer knowledge. Dashed red line (Figure below, D) indicates the defined threshold to consider the latent space information suitable to support cells’ clusters. 
+
+```{r fig.1003, fig.cap="QCM and QCF. A) five clusters were detected analysing setA with griph. Each cluster is made by more than 90% by one cell type. B) QCF violin plot. C) QCM violin plot, D) Combined view of QCM and QCF", echo=FALSE, eval=TRUE, out.width="80%", fig.align="center", fig.pos="H"}
+library(knitr)
+include_graphics('../inst/img/qcm-qcf.png')
+```
+
+Function **autoencoderAnalysis** transforms ** **autoencoderClustering** function outputs in readable results.
+
+```{r, echo=T, eval=F}
+library(rCASC)
+autoencoderAnalysis(group=c("docker"), scratch.folder=path, file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv", 
+                    separator=",", nCluster=5, seed=1111, 
+                    projectName="setAKinasi_SIMLR", Sp=0.8)
+
+```
+
+- *autoencoderAnalysis parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + file e projectName parameters refer to the outputs of **autoencoderClustering** 
+    
+    + *sp* is the similarity threshold defined for CSS (please see above). This paramenter has as default 0.8. Reduction below 0.7 of this threshold reduce the specificity of CSS, values below 0.5 are meaningless.
+    
+The outputs of **autoencoderAnalysis** are the pdfs:
+
+- **setA_stabilityPlot.pdf** (QCF, Figure above B)
+
+- **setA_stabilityPlotUNBIAS.pdf** (QCM, Figure above C)
+
+- **setA_StabilitySignificativityJittered.pdf** (QCM versus QCF, Figure above D)
+
+The **autoFeature** creates the frequency table for COMET analysis.
+
+```{r, echo=T, eval=F}
+library(rCASC)
+autoFeature(group=c("docker"), scratch.folder=path,file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/setA.csv",separator=",", nCluster=5,projectName="setAKinasi_SIMLR")
+
+```
+
+**IMPORTANT**: this function produces an output for all clusters, but only results related to clusters supported by QCM and QCF means greater than 0.5 have to be taken in account.
+
+- *autoFeature parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + file e projectName parameters refer to the outputs of **autoencoderAnalysis** 
+
+
+**cometsc2** is a modification of **cometsc** function suitable to handle **autoencoder** frequency table, i.e. **autoencoder** frequency table contains the % of permutations in which each hidden node for each cell was characterized by a weight different from 0 (if a hidden node is characterized by a weight equal to 0 it means that it was not used in that specific permutation). **autoFeature** function is used to extract functional features from autoencoders latent space frequency table output.
+
+
+```{r, echo=T, eval=F}
+library(rCASC)
+cometsc2(group=c("docker"), file="/home/user/newModification/Data/Results/setAKinasi_SIMLR/5/freqMatrix.csv",
+         scratch.folder=path, threads=1, X=0.15, K=2, 
+         counts=c("True", "False"), skipvis=c("True", "False"), nCluster=5,
+         separator=",",
+         clustering.output=paste(path,"/Data/Results/setA/5/setA_clustering.output.csv",sep=""))
+```
+
+**IMPORTANT**: this function produces an output for all clusters, but only results related to clusters supported by **QCM and QCF means greater than 0.5|** have to be taken in account.
+
+- *cometsc2 parameters* (only those without default; for the full list of parameters please refer to the function help):
+
+    + *file* is the path to the frequency matrix generated by **autoFeature** function. 
+    
+    + *clustering.output* is the path to the clustering.output generated by rCASC on the initial counts table 
+    
+    
+The function **wrapperAutoencoder** executes all the steps required for the autoencoder analysis. It should be used when it is clear the overall set of steps to be performed and a set of analyses with the same parameters are done.
+
+```{r, echo=T, eval=F}
+library(rCASC)
+wrapperAutoencoder(group="docker", scratch.folder=scratch.folder,  
+                   file="/home/lucastormreig/test/setA.csv", separator=",",
+                   nCluster=5, bias="mirna", permutation=10, nEpochs=10, 
+                   cl="/home/lucastormreig/test/setA_clustering.output.csv",
+                   projectName="mirna",clusterMethod="GRIPH")
+```
+
+- *wrapperAutoencoder parameters*:
+
+    + *group*,	a character string. Two options: sudo or docker, depending to which group the user belongs
+
+    + *scratch.folder*,	a character string indicating the path of the scratch folder
+
+    + *file*,	a character string indicating the path of the file, with file name and extension included
+
+    + *separator*,	separator used in count file, e.g. '\t', ','
+
+    + *nCluster*,	number of cluster in which the dataset is divided
+
+    + *bias*,	bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature
+
+    + *permutation*,	number of permutations to perform the pValue to evaluate clustering
+
+    + *nEpochs*,	number of Epochs for neural network training
+
+    + *patiencePercentage*,	number of Epochs percentage of not training before to stop.
+
+    + *cl*,	Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.
+
+    + *seed*,	important value to reproduce the same results with same input
+
+    + *projectName*,	might be different from the matrixname in order to perform different analysis on the same dataset
+
+    + *bN*,	name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,
+
+    + *lr*,	learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise
+
+    + *beta_1*,	look at keras optimizer parameters
+
+    + *beta_2*,	look at keras optimizer parameters
+
+    + *epsilon*,	look at keras optimizer parameters
+
+    + *decay*,	look at keras optimizer parameters
+
+    + *loss*,	loss of function to use, for other loss of function check the keras loss of functions.
+
+    + *clusterMethod*,	clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"
+
+    + *pcaDimensions*,	number of dimensions to use for Seurat Pca reduction.
+
+    + *permAtTime*,	number of permutation in parallel
+
+    + *largeScale*,	boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge
+
+    + *Sp*,	minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.
+
+    + *threads*,	integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster
+
+    + *X*,	from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.
+
+    + *K*,	the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big
+
+    + *counts*,	if set to True it will graph the log(expression+1). To be used if unlogged data are provided
+
+    + *skipvis*,	set to True to skip visualizations
+
+
+## **Section 11** Tips and tricks
+
+In this section we highlight some points that might help data analysis.
+
+
+### **Section 11.1** Data preprocessing
+
+Lorenz statistics (*lorenzeFilter* function) was designed using C1 - Fluidigm and smart-seq libraries. There are no evidences that it performes optimally on UMI based sequencing. In case of UMI, we suggest the use of  *topx* and *filterZeros* functions, which respectively allow the selection of a user defined set of genes with high dispersion/expression and the removal of genes with a user defined fraction of 0s.
+
+
+Unless there is a specific interest on mitochondrial and ribosomal protein genes, we suggest to remove them before performing clustering (*scannobyGtf*, function). Specifically ribosomal genes represent a high fraction of the UMI counts associated to a cell and might result in driving the cells partioning.
+
+The normalization for sequencing depth (*checkCountDepth* and *scnorm* functions) was designed for smart-seq single cell sequencing data. This normalization can be applied  to UMI sequencing data but it requires at least 10K UMIs/cell.
+
+Cell cycle estimation (*recatPrediction* function) and removal (*ccRemove** function) were designed for smart-seq single cell sequencing data. In our hands they are also working on UMI seqencing data althought, if the cell number exceed few thousands, cell cycle estimation became very slow. We suggest to perform cell cycle estimation on a random subset of few hundreds cells (*subSetCell* function) of the data set under analysis.
+
+
+### **Section 11.2** Clustering
+
+
+As part of the output of the clustering procedure there is a plot of the number of detected genes as function of the number of cell UMIs. In this plot, each cell is colored on the basis of the cluster it belongs. This plot helps in understanding if cell clusters simply correlate with number of genes called in each cell. Ideally, there should not be any correlation between clusters and number of genes detected in a cell, since clustering should be driven by cells' biological content and not by the number of detected genes.
+
+
+On the basis of our tests SIMLR and Seurat generated results comparable in terms of CSS and clusters homogeneity. Since griph and scanpy results correlate less with SIMLR and Seurat, we suggest to use them only if a very large set of cells has to be analysed, e.g. >20K cells.
+
+
+
+
+
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/toprnk.R
+\name{toprnk}
+\alias{toprnk}
+\title{toprnk}
+\usage{
+toprnk(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fileX,
+  fileY,
+  separatorX,
+  separatorY,
+  xCometFolder,
+  yCometFolder,
+  top.ranked = 320,
+  outputFolder
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{fileX, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
+
+\item{fileY, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
+
+\item{separatorX, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separatorY, }{separator used in count file, e.g. '\\t', ','}
+
+\item{xCometFolder, }{path of Comet results from X experiment}
+
+\item{yCometFolder, }{path of Comet results from Y experiment}
+
+\item{top.ranked, }{MAX number of top comet genes to be used for each cluster, default 320}
+
+\item{outputFolder, }{where results are placed}
+}
+\value{
+A folder called XYpb with all the results generated. The function produces an integrated output combining 7 thresholds from top.ranked (top.ranked, top.ranked/2, top.ranked/4, top.ranked/8, top.ranked/16/ top.ranked/32, top.ranked/64) over Pearsons in steps of 01 from 1 to 0.5. XYpb_topZZ.csv can be used to generate HCL. XYpb_cor_0.K_toprnk_ZZ.csv contain the associated clusters given a Pearson correlation threshold of 0.K. The files XYpb_cor_0.K_toprnk_ZZ_CSS_0.H.csv, are the subset of clusters that have a specific cell stability score, we suggest to associate only clusters with at least 0.5 CSS. If validation is TRUE it will be estimated for the chosen XYpb_cor_0.K_toprnk_ZZ.csv a p-value, which is calculated performing correlation between clusters, using randomly selected ZZ genes * cls, and repeating this procedure 1000 times.
+}
+\description{
+This function execute toprnk analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks, zscored on rows, and the cluster specific genes from comet analysis. Thus, the function clustersBulk and cometsc have to be run in the two datasets before their comparison.
+}
+\examples{
+\dontrun{
+ library(rCASC)
+ toprnk(group="docker", 
+        scratch.folder="/scratch", 
+        fileX="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv",
+        fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
+        separatorX=",",
+        separatorY=",",
+        xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
+        yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
+        top.ranked=320,
+        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
+ )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/griphBootstrap.R
+\name{griphBootstrap}
+\alias{griphBootstrap}
+\title{Executing clustering with griph.}
+\usage{
+griphBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutations using griph as clustering tool.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+griphBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+               seed=111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tsneBootstrap.R
+\name{tsneBootstrap}
+\alias{tsneBootstrap}
+\title{Executing clustering with tSne}
+\usage{
+tsneBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  range1,
+  range2,
+  separator,
+  logTen = 0,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05,
+  perplexity = 10
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{range1, }{beginning of the range of clusters to be investigated}
+
+\item{range2, }{end of the range of clusters to be investigated}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input, default is 111}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
+
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
+
+\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation using tSne as clustering tool.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+tsneBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",logTen=0, seed=111, sp=0.8, clusterPermErr=0.05, perplexity=10)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/hfc.R
+\name{hfc}
+\alias{hfc}
+\title{hfc, heatmap for clustering}
+\usage{
+hfc(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  lfn,
+  geneNameControl = 1,
+  status,
+  b1 = 0,
+  b2 = 0
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{nCluster interested for the analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{lfn, }{name of the list of genes}
+
+\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.}
+
+\item{status, }{0 if is raw count, 1 otherwise}
+
+\item{b1, }{the lower range of signal in the heatmap,for negative value write "/-5". To ask the function to do automatic value assignment set 0}
+
+\item{b2, }{the upper range of signal in the heatmap,for negative value write "/-2". To ask the function to do automatic value assignment set 0}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function generate heatmap and other plot based on clustering and on a specific gene list
+}
+\examples{
+\dontrun{
+hfc("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/spatialAnalysisPlus.R
+\name{spatialAnalysis2}
+\alias{spatialAnalysis2}
+\title{spatial Analysis Plus}
+\usage{
+spatialAnalysis2(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  tissuePosition,
+  Sp = 0.8,
+  percentageIncrease = 10
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{Last number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{tissuePosition, }{file with tissue position name with extension}
+
+\item{Sp, }{Threshold to assign the plus score. 1 mean that all 6 cells, sorrounding the central cell, belong to the same cluster of the central cell. 0.8 out mean 5 out of 6 are of the same cluster of the central cell, 0.6 mean 4 out of 6 are of the same cluster of the central cell. We do not suggest to go below these three value.}
+
+\item{percentageIncrease, }{percentage of the CSS score that has to be increased if the Threshold condition is satisfied.}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyzes the data that came up from permutationClustering script with spatial transcriptomics data. The function integrates CSS with a score, which is related to the beloging cluster identity of a cell with respect to the other 6 cell neighborhood that surround it.
+}
+\examples{
+\dontrun{
+spatialAnalysis2(group=c("sudo"), scratch.folder="/home/lucastormreig/temp/", file="/home/lucastormreig/test/spatialAnalysis/spatial/HLNrevised.csv",nCluster=5,separator=",",tissuePosition="/home/lucastormreig/test/spatialAnalysis/spatial/Results/tissue_positions_list.csv",Sp=0.8,percentageIncrease=10)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/wrapperMixModelsUmap.R
+\name{wrapperMixModelsUmap}
+\alias{wrapperMixModelsUmap}
+\title{wrapperMixModelsUmap}
+\usage{
+wrapperMixModelsUmap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  geneList,
+  separator,
+  k,
+  seed,
+  epochs,
+  finalName,
+  maxit = 10000
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{geneList, }{a character string indicating the path of the geneList matrix (no header, no row names)}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{k, }{number of soft labels to divide the density}
+
+\item{seed, }{number for reproducibility}
+
+\item{epochs, }{epochs number for umap algorithm}
+
+\item{finalName, }{name for output files}
+
+\item{maxit, }{number of max iteration for mixmodels}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs wrapperMixModelsUmap
+}
+\examples{
+\dontrun{
+dir.create("scratch")
+wrapperMixModelsUmap(group=c("docker"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),separator=",",seed=111,epochs=1000,k=3,finalName="prova",geneList=paste(getwd(),"/geneList.csv",sep=""))
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/mixmodels.R
+\name{mixmodels}
+\alias{mixmodels}
+\title{mixModels}
+\usage{
+mixmodels(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  geneList,
+  separator,
+  k,
+  maxit = 10000
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{geneList, }{a character string indicating the path of the geneList matrix (no header, no row names)}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{k, }{number of soft labels to divide the density}
+
+\item{maxit, }{number of max iteration}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs mixModels algorithm
+}
+\examples{
+\dontrun{
+dir.create("scratch")
+mixmodels("docker", scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",k=3,maxit=10)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/geneVisualization.R
+\name{geneVisualization}
+\alias{geneVisualization}
+\title{GeneVisualization}
+\usage{
+geneVisualization(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  clustering.output,
+  geneList,
+  separator,
+  finalName
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{clustering.output, }{a character string indicating the path of the clustering.output matrix}
+
+\item{geneList, }{a character string indicating the path of the geneList matrix (no header, no row names)}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{finalName, }{name used for plot.}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs geneVisualization
+}
+\examples{
+\dontrun{
+  dir.create("scratch")
+  geneVisualization(group="docker", scratch.folder=paste(getwd(),"/scratch",sep=""), 
+  file=paste(getwd(),"/setA.csv",sep=""),clustering.output=paste(getwd(),"/setA_clustering.output.csv",sep=""),
+  geneList=paste(getwd(),"/geneList.csv",sep=""),separator=",",finalName="Lista1")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/crossLabel.R
+\name{crossLabel}
+\alias{crossLabel}
+\title{Cross Label}
+\usage{
+crossLabel(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  finalName
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{number of interested cluster used for analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{finalName, }{name of the result label plot}
+}
+\value{
+Csv file with cluster component informations and dataPlot and pie chart based on true Label
+}
+\description{
+This function executes a ubuntu docker that produces informations about the true clusters
+}
+\examples{
+\dontrun{
+ crossLabel("docker","/home/lucastormreig/CASC5.0/7_crossLabel/scratch/","/home/lucastormreig/CASC5.0/7_crossLabel/Data/New_Buettner",3,",")#
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratIntegrationMulti.R
+\name{seuratIntegrationMulti}
+\alias{seuratIntegrationMulti}
+\title{Seurat Integration}
+\usage{
+seuratIntegrationMulti(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  folder,
+  separator,
+  resName,
+  format
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{folder, }{a character string indicating the path of the folder containing the counts matrices to be integrated}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{resName, }{name for result matrix}
+
+\item{format, }{format for all the matrix that has to be integrated. Format has to be all the same}
+}
+\value{
+file containing the normalized matrix with the anchors
+}
+\description{
+This function executes a ubuntu docker that performs seurat integration
+}
+\examples{
+\dontrun{
+ #to be added
+} 
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+seuratIntegrationMulti(group=c("sudo"), scratch.folder="/home/user/scratch", folder="/home/user/folderWithFiles",separator=",",resName="test",format="csv")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fastqc.R
+\name{fastqc}
+\alias{fastqc}
+\title{A function to handle a docker containier executing fastqc}
+\usage{
+fastqc(group = c("sudo", "docker"), data.folder)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+}
+\description{
+This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
+}
+\examples{
+\dontrun{
+    system("wget http://130.192.119.59/public/test_R1.fastq.gz")
+    #running fastqc
+    fastqc(group="docker", data.folder=getwd())
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/csvToSparse.R
+\name{csvToSparse}
+\alias{csvToSparse}
+\title{csv to Sparse}
+\usage{
+csvToSparse(group = c("sudo", "docker"), scratch.folder, file, separator)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+three files: matrix.mtx, barcodes.tsv and genes.tsv
+}
+\description{
+This function executes a ubuntu docker that create a sparse matrix, without 0s, from a dense one, including 0s
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", 
+            file=paste(getwd(), "annotated_setPace_10000_noC5.txt", sep="/"), 
+            separator="\t")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/harmony.R
+\name{harmony}
+\alias{harmony}
+\title{Harmony}
+\usage{
+harmony(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  meta_data,
+  usePCA
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included. The file must contain library normalized cells, log transformed counts, and scaled genes}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{meta_data, }{file with meta_data. All path included.Check example file.}
+
+\item{usePCA, }{TRUE or FALSE if Harmony has to use pca or not.}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function performs integration of single cell genomics datasets. Korsunsky et al. Nature Methods 16, 1289, 2019
+}
+\examples{
+\dontrun{
+harmony(group="sudo", scratch.folder="/home/lucastormreig/newDockers/harmony/scratch/", file="/home/lucastormreig/newDockers/harmony/scratch/example.csv",separator=",",meta_data="/home/lucastormreig/newDockers/harmony/scratch/example_metaData.csv",usePCA=FALSE)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/BCsc_wrapper.R
+\name{BCscWrapper}
+\alias{BCscWrapper}
+\title{BCscTool_wrapper}
+\usage{
+BCscWrapper(
+  group = c("sudo", "docker"),
+  setX,
+  nclustX,
+  markerX,
+  setY,
+  nclustY,
+  markerY,
+  separator = ",",
+  scratch.folder,
+  output.folder,
+  pvalueComet = 1,
+  subdivision = 10,
+  starting_genes = 500,
+  contamination = 5,
+  permutation = 50,
+  threshold = 3
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{setX, }{path to the first dataset}
+
+\item{nclustX, }{number of cluster of the first dataset.}
+
+\item{markerX, }{path to the FOLDER containing cluster-specific genes for the FIRST dataset. (after using Comet directory '.../nclustX/outputdata')}
+
+\item{setY, }{path to the second dataset}
+
+\item{nclustY, }{number of cluster of the second dataset}
+
+\item{markerY, }{path to the FOLDER containing cluster-specific genes for the SECOND dataset. (after using Comet directory '.../nclustY/outputdata')}
+
+\item{separator, }{separator used in both count file, e.g. '\\t', ','}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{output.folder, }{a character string indicating the path of the output folder to save analysis}
+
+\item{pvalueComet, }{parameter to select only marker genes  with a pvalue under a threshold value. DEFAULT = 1}
+
+\item{subdivision, }{number of progressive reductions of the starting genes list. DEFAULT = 10}
+
+\item{starting_genes, }{number of starting genes for each cluster selected from the main marker gene lists. DEFAULT = 500}
+
+\item{contamination, }{percentage of genes to be contaminated at each permutation during the Bray-Curtis calculation. DEFAULT = 5}
+
+\item{permutation, }{number of Bray-Curtis permutations. DEFAULT = 50}
+
+\item{threshold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
+}
+\value{
+
+}
+\description{
+The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. Starting from the two original sets it takes only the genes common to both and calculates the Bray Curtis Dissimilarity between the clusters of one set and those of the other. all the results will be saved in the folder called "BCsc" inside the folder where the files of the first set are located
+}
+\examples{
+		
+\dontrun{
+BCscWrapper(group="docker",
+      setX = '/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_1_clx/VandE/VandE.csv',
+      nclustX = 7,
+      markerX = '/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_1_clx/VandE/Results/VandE/7/outputdata',
+      setY = '/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_2_clx/VandE/VandE.csv',
+      nclustY = 8,
+     markerY = '/2tb/torino/piacenti/NT1_NT2/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata',
+     scratch.folder = '/2tb/torino/piacenti/user09/piacenti/Prova_Prove/Script/scratch',
+     output.folder = '/2tb/torino/piacenti/user09/piacenti/Prova_Prove/Script',
+     pvalueComet = 1,
+     subdivision = 10,
+     starting_genes = 500,
+     contamination = 5,
+     permutation = 50,
+     threshold = 3)
+}
+}
+\author{
+Gabriele Piacenti, g [dot] pia91 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/mitoriboumi.R
+\name{mitoRiboUmi}
+\alias{mitoRiboUmi}
+\title{MitoRiboUmi}
+\usage{
+mitoRiboUmi(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  gtf.name,
+  bio.type,
+  umiXgene
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{gtf.name, }{name for the gtf file tu be used.}
+
+\item{bio.type, }{ENSEMBL biotype of interest, default for single-cell protein_coding}
+
+\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+}
+\value{
+a pdf file called Ribo_mito.pdf
+}
+\description{
+This function executes a ubuntu docker showing ribosomal mitochondrial protein genes fraction in each cell
+}
+\examples{
+\dontrun{
+   system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz")
+   system("gzip -d Mus_musculus.GRCm38.94.gtf.gz")
+   system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+   unzip("testSCumi_mm10.csv.zip")
+   mitoRiboUmi(group="docker", file=paste(getwd(), "testSCumi_mm10.csv", sep="/"), 
+                scratch.folder="/data/scratch", separator=",", umiXgene=3, 
+                gtf.name="Mus_musculus.GRCm38.94.gtf", bio.type="protein_coding")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seurat_cCycle.R
+\name{seurat_ccycle}
+\alias{seurat_ccycle}
+\title{Seurat cell cycle}
+\usage{
+seurat_ccycle(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  seed
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the first matrix}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{seed, }{integer file necessary for reproducibility}
+}
+\value{
+file containing the cluster association in the datasets merged by seurat
+}
+\description{
+This function executes a ubuntu docker that performs seurat cell cycle
+}
+\examples{
+\dontrun{
+library(rCASC)
+source("seurat_cCycle.R")
+path=getwd()
+scratch=paste(path,"/scratch",sep="")
+dir.create(scratch)
+file1=paste(path,"/setA.csv",sep="")
+seurat_ccycle(group="docker", scratch.folder=scratch, file= file1, separator=",",seed=1111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clusteringWA_Wrapper.R
+\name{clusteringWA_Wrapper}
+\alias{clusteringWA_Wrapper}
+\title{wrapperAutoencoder}
+\usage{
+clusteringWA_Wrapper(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  bias = c("mirna", "TF", "CUSTOM", "kinasi", "immunoSignature", "ALL"),
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  seed = 1111,
+  projectName,
+  bN = "NULL",
+  lr = 0.01,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = 1e-08,
+  decay = 0,
+  loss = "mean_squared_error",
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
+  pcaDimensions = 5,
+  Sp = 0.8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{beta_1, }{look at keras optimizer parameters}
+
+\item{beta_2, }{look at keras optimizer parameters}
+
+\item{epsilon, }{look at keras optimizer parameters}
+
+\item{decay, }{look at keras optimizer parameters}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+
+\item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+}
+\value{
+folders the complete autoencoder analysis.
+
+
+}
+\description{
+This function executes the whole autoencoder pipeline
+}
+\examples{
+\dontrun{
+ clusteringWA_Wrapper(group=c("sudo"),scratch.folder="/home/user/autoencoderClustering/test/Scratch/",file="/home/user/autoencoderClustering/test/Data/setA.csv",separator=",",nCluster=3,bias=c("ALL"),permutation=10,nEpochs=10,patiencePercentage=5,seed=1111,projectName="TEST2",bN="NULL",lr=0.01,beta_1=0.9,beta_2=0.999,epsilon=0.00000001,decay=0.0,loss="mean_squared_error",clusterMethod=c( "GRIPH"),pcaDimensions=5,Sp=0.8)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/scanpyPermutation.R
+\name{scanpyPermutation}
+\alias{scanpyPermutation}
+\title{Scanpy Permutation}
+\usage{
+scanpyPermutation(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  perplexity,
+  pca_number,
+  seed = 1111,
+  sparse = TRUE,
+  format = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{permAtTime, }{number of permutations that can be computes in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{perplexity, }{perplexity number for tsne projection, default 10}
+
+\item{pca_number, }{0 for automatic selection of PC elbow.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format csv or txt}
+}
+\value{
+To write
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+             gtf.name="genome.gtf", biotype="protein_coding", 
+             mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+      file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
+      logTen=0, pca_number=6, seed=111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/indropCounts.R
+\name{indropCounts}
+\alias{indropCounts}
+\title{A function to handle a indrop V2 single cell data}
+\usage{
+indropCounts(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fastq.folder,
+  index.folder,
+  sample.name,
+  split.affixes,
+  bowtie.index.prefix = "genome",
+  M = 10,
+  U = 2,
+  D = 400,
+  low.complexity.mask = "False",
+  umi.threshold = 3
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{fastq.folder, }{a character string indicating the folder where input data are located and where output will be written}
+
+\item{index.folder, }{a character string indicating the folder where transcriptome index was created with indropIndex.}
+
+\item{sample.name, }{the string indicating the sample name}
+
+\item{split.affixes, }{the string separating SAMPLENAME from the Rz_001.fastq.gz}
+
+\item{bowtie.index.prefix, }{the prefix name of the bowtie index. If genome was generated with indropIndex function the bowtie index is genome (default).}
+
+\item{M, }{Ignore reads with more than M alignments, after filtering on distance from transcript end.}
+
+\item{U, }{Ignore counts from UMI that should be split among more than U genes.}
+
+\item{D, }{Maximal distance from transcript end, NOT INCLUDING THE POLYA TAIL.}
+
+\item{low.complexity.mask, }{low complexity mask False (default) or True}
+
+\item{umi.threshold, }{the minimal number of UMI to consider a gene present}
+}
+\description{
+This function executes a docker that produces as output the sinngle cell counts from V2 indrop single cell sequencing
+}
+\examples{
+\dontrun{
+system("wget 130.192.119.59/public/testMm_S0_L001_R1_001.fastq.gz")
+system("wget 130.192.119.59/public/testMm_S0_L001_R2_001.fastq.gz")
+library(rCASC)
+#running indropCounts
+indropCounts(group="docker", scratch.folder="/data/scratch", fastq.folder=getwd(),
+       index.folder="/data/genomes/mm10indrop",sample.name="testMm",
+       split.affixes="S0_L001", bowtie.index.prefix="genome",
+       M=10, U=2, D=400, low.complexity.mask="False", umi.threshold=3)
+}
+
+}
+\author{
+Raffaele Calogero and Riccardo Panero, raffaele.calogero [at] unito [dot] it, Bioinformatics and Genomics unit, University of Torino Italy
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/gsea.R
+\name{gseaXLmHG}
+\alias{gseaXLmHG}
+\title{gseaXLmHG}
+\usage{
+gseaXLmHG(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  xCometFolder,
+  yCometFolder,
+  gsea = c("c1.all", "c2.cgp", "c2.cp.biocarta", "c2.cp.kegg", "c2.cp.pid",
+    "c2.cp.reactome", "c2.cp.wikipathways", "c3.all", "c3.mir", "c3.tft.gtrd", "c3.tft",
+    "c4.cgn", "c4.cm", "c5.go.bp", "c5.go.cc", "c5.go.mf", "c5.hpo", "c6.all", "c7.all",
+    "c8.all", "h.all", "msigdb.all"),
+  X,
+  L,
+  pvalue,
+  separatorX,
+  separatorY,
+  outputFolder
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{xCometFolder, }{path of Comet results from X experiment}
+
+\item{yCometFolder, }{path of Comet results from Y experiment}
+
+\item{gsea, }{list of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes, we suggest to use this dataset for a complete analysis.}
+
+\item{X, }{X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.}
+
+\item{L, }{L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.}
+
+\item{pvalue, }{XLmHG pvalue threshold}
+
+\item{separatorX, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separatorY, }{separator used in count file, e.g. '\\t', ','}
+
+\item{outputFolder, }{the folder where GSEA folder will be created}
+}
+\value{
+A folder called GSEA with all the results generated. The function produces an integrated output, final_score.csv, of the results obtained for progressively increasing length of the cluster-specific-genes detected by COMET.
+}
+\description{
+This function execute XLmHG estimation of the presence of enriched GSEA class in cluster-specific genes detected by COMET for the clusters of two independent datasets and uses this information to search for correspondence between clusters in the two independent datasets. This function requires that the two datasets have been clustered in rCASC and COMET analysis was run.
+}
+\examples{
+\dontrun{
+ library(rCASC)
+ gseaXLmHG(group="docker",
+        scratch.folder="/scratch", 
+        xCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/Results/VandE/8/outputdata",
+        yCometFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/Results/VandE/8/outputdata",
+        gsea="c2.cp.kegg",
+        X=5,
+        L=0.15,
+        pvalue=0.05,
+        separatorX=",",
+        separatorY=",",
+        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
+ )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoencoder4clustering.R
+\name{autoencoder4clustering}
+\alias{autoencoder4clustering}
+\title{Autoencoder4clustering}
+\usage{
+autoencoder4clustering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  bias,
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  seed = 1111,
+  projectName,
+  bN = "NULL",
+  lr = 0.01,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = 1e-08,
+  decay = 0,
+  loss = "mean_squared_error",
+  regularization = 10
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided.}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{beta_1, }{look at keras optimizer parameters}
+
+\item{beta_2, }{look at keras optimizer parameters}
+
+\item{epsilon, }{look at keras optimizer parameters}
+
+\item{decay, }{look at keras optimizer parameters}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
+}
+\value{
+
+}
+\description{
+The present function compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/downloadContainers.R
+\name{downloadContainers}
+\alias{downloadContainers}
+\title{Download for the first time all containers embedded in the workflows}
+\usage{
+downloadContainers(
+  group = "docker",
+  containers.file = c("full", "mini", "nano", "sca")
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
+
+\item{containers.file, }{a character string with the name of the file which indicate which are the initial set of containers to be downloaded. options: full, mini, nano, sca The set is given by a file located in the folder containers of docker4seq package, full indicates a complete installation, mini refers to an installation including few preprocessing and all clustering tools, nano even a smaller implementation, sca the minimal subset of dockers to run an analysis with Partialy Connected Autoencoders}
+}
+\description{
+This is a functin that preapre the docker environment to be used for the first time the docker4seq is installed.
+}
+\examples{
+\dontrun{
+    #running runDocker
+     downloadContainers(group="docker", containers.file="full")
+
+}
+}
+\author{
+Raffaele Calogero
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/topX.R
+\name{topx}
+\alias{topx}
+\title{A function to selectec top X on the basis of gene/transcript expression}
+\usage{
+topx(
+  group = c("sudo", "docker"),
+  file,
+  threshold,
+  separator,
+  logged = FALSE,
+  type = c("expression", "variance")
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included}
+
+\item{threshold, }{integer used for filtering indicate the number of top expressed/vaying genes to be selected}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logged, }{boolean TRUE or FALSE, if FALSE gene expression data are log10 transformed before being plotted.}
+
+\item{type, }{expression refers to the selection of the top expressed genes, variance to the the selection of the top variable genes}
+}
+\value{
+a filtered tab delimited file and a histogram of the gene by gene total expression
+}
+\description{
+This function select the X top genes given a user defined threshold
+}
+\examples{
+\dontrun{
+
+ system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+ system("gzip -d singlecells_counts.txt.gz")
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"),
+       threshold=10000, logged=FALSE, type="expression", separator="\t")
+       
+ topx(group="docker", file=paste(getwd(), "singlecells_counts.txt", sep="/"), 
+       threshold=10000, logged=FALSE, type="variance", separator="\t")
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, UNITO
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/nClusterEvaluationSIMLR.R
+\name{nClusterEvaluationSIMLR}
+\alias{nClusterEvaluationSIMLR}
+\title{Evaluation of the numbur of optimal clusters}
+\usage{
+nClusterEvaluationSIMLR(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  range1,
+  range2,
+  separator,
+  logTen,
+  nPerm,
+  percent,
+  rangeFile
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{range1, }{First number of cluster that has to be analyzed}
+
+\item{range2, }{Last number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{0 for raw count, 1 otherwise}
+
+\item{nPerm, }{how many times number of cluster will be evaluated}
+
+\item{percent, }{number of cells that has to be removed for bootstrap}
+
+\item{rangeFile, }{name of the file that has for each row each number of cluster that has to be analyzed}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyze the data that came up from permutationClustering script.
+}
+\examples{
+\dontrun{
+permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/scnorm.R
+\name{scnorm}
+\alias{scnorm}
+\title{Running SCnorm  normalization}
+\usage{
+scnorm(
+  group = c("sudo", "docker"),
+  file,
+  conditions = NULL,
+  outputName,
+  nCores = 8,
+  filtercellNum = 10,
+  ditherCount = FALSE,
+  PropToUse = 0.1,
+  PrintProgressPlots = FALSE,
+  FilterExpression = 0
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
+
+\item{conditions, }{vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.}
+
+\item{outputName, }{specify the path and/or name of output files.}
+
+\item{nCores, }{number of cores to use, default is detectCores() - 1.}
+
+\item{filtercellNum, }{the number of non-zero expression estimate required to include the genes into the SCnorm fitting (default = 10). The initial grouping fits a quantile regression to each gene, making this value too low gives unstable fits.}
+
+\item{ditherCount, }{FALSE of TRUE. Setting to TRUE might improve results with UMI data.}
+
+\item{PropToUse, }{as default is set to 0.25, but to increase speed with large data set could be reduced, e.g. 0.1}
+
+\item{PrintProgressPlots, }{produces a  plot as SCnorm determines the optimal number of groups}
+
+\item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
+}
+\value{
+a tab delimited file containing the normalized data and a list of the discarded genes.
+}
+\description{
+This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)
+}
+\examples{
+\dontrun{
+    #downloading fastq files
+    system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+    unzip("example_UMI.txt.zip")
+    conditions=rep(1,12)
+    scnorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+    conditions=conditions,outputName="example_UMI", nCores=8, filtercellNum=10,
+    ditherCount=TRUE, PropToUse=0.1, PrintProgressPlots=FALSE, FilterExpression=1)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/demultiplexing.R
+\name{demultiplexing}
+\alias{demultiplexing}
+\title{Generating running bcl2fastq}
+\usage{
+demultiplexing(group = c("sudo", "docker"), data.folder, threads = 8)
+}
+\arguments{
+\item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
+
+\item{data.folder, }{a character string indicating the Illumina folder where the Samplesheet.csv is located, and example of Samplesheet.cvs is in inst/examples folder}
+
+\item{threads, }{a number indicating the number of cores to be used from the application}
+}
+\value{
+Fastq files
+}
+\description{
+This function executes the Illumina bcl2fastq program
+}
+\examples{
+\dontrun{
+    #running rsemstar index for human
+    demultiplexing(group="docker",
+    data.folder="/home/calogero/Documents/data/lollini/3a_run/170712_NB501050_0097_AH3FGNBGX3",
+    threads=24)
+
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/umiNormalization.R
+\name{umiNorm}
+\alias{umiNorm}
+\title{Running SCnorm  normalization}
+\usage{
+umiNorm(
+  group = c("sudo", "docker"),
+  file,
+  outputName,
+  normMethod = c("CLR_FN", "DESEQ_FN", "FQ_FN", "SCRAN_FN", "SUM_FN", "TMM_FN",
+    "UQ_FN")
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
+
+\item{outputName, }{specify the path and/or name of output files.}
+
+\item{normMethod, }{a string identifying the normalization method: CLR_FN, DESEQ_FN, FQ_FN, SCRAN_FN, SUM_FN, TMM_FN, UQ_FN, more info on the vignette.}
+}
+\value{
+a tab delimited file containing the normalized data.
+}
+\description{
+This function is a wrapper for SCnorm: robust normalization of single-cell RNA-seq data (Bacher et al. Nature Methods 2017, 14:584–586)
+}
+\examples{
+\dontrun{
+    #downloading fastq files
+    system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+    unzip("example_UMI.txt.zip")
+    umiNorm(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+    outputName="example_UMI", normMethod="TMM_FN")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permAnalysisGriph.R
+\name{permAnalysisGriph}
+\alias{permAnalysisGriph}
+\title{Permutation Analysis Griph}
+\usage{
+permAnalysisGriph(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  sp = 0.8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyze the data that came up from permutationClustering script.
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+             gtf.name="genome.gtf", biotype="protein_coding", 
+             mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+      file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
+      logTen=0, pcaDimensions=6, seed=111)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratPermutation.R
+\name{seuratPermutation}
+\alias{seuratPermutation}
+\title{Seurat Permutation}
+\usage{
+seuratPermutation(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  pcaDimensions,
+  seed = 1111,
+  sparse = FALSE,
+  format = "NULL",
+  resolution = 0.6
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{permAtTime, }{number of permutations that can be computes in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{pcaDimensions, }{0 for automatic selection of PC elbow.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format csv or txt}
+
+\item{resolution, }{resolution for Seurat Analysis}
+}
+\value{
+To write
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+             gtf.name="genome.gtf", biotype="protein_coding", 
+             mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+      file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
+      logTen=0, pcaDimensions=6, seed=111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clusterIdentification.R
+\name{clusterIdentification}
+\alias{clusterIdentification}
+\title{Cluster identification}
+\usage{
+clusterIdentification(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{which nCluster ins interesting to use for this analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+Csv file with correct cluster name
+}
+\description{
+This function executes a ubuntu docker that normalize all the permutation finding the rispective number of cluster respect the main clustering, the P0
+}
+\examples{
+\dontrun{
+ clusterIdentification(group,scratch.folder,file,nCluster,separator)#
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoFeature.R
+\name{autoFeature}
+\alias{autoFeature}
+\title{Feature selection for autoencoder}
+\usage{
+autoFeature(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  projectName
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+}
+\value{
+
+}
+\description{
+This function extract feature selection for each clusters.
+}
+\examples{
+\dontrun{
+ autoFeature(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5, projectName="testDocker")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/simlrGenesSelection.R
+\name{genesSelection}
+\alias{genesSelection}
+\title{Genes selection from genesPrioritization output}
+\usage{
+genesSelection(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05,
+  maxDeltaConfidence = 0.01,
+  minLogMean = 0.05
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{the number of clusters, where to run prioritization}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
+
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
+
+\item{maxDeltaConfidence, }{max value for Delta confidence for gene prioritization p-values.}
+
+\item{minLogMean, }{min value for Log mean gene prioritization p-value. P-value indicates the importance of a gene in defining clusterization.}
+}
+\value{
+....
+}
+\description{
+This function executes a ubuntu docker that extracts the genes playin major role in clusterin from output of genesPrioritization
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+genesSelection(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nCluster=5, separator="\t",  seed=111, sp=0.8, clusterPermErr=0.05, maxDeltaConfidence=0.01, minLogMean=0.05)
+}
+
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autocluster4clustering.R
+\name{autocluster4clustering}
+\alias{autocluster4clustering}
+\title{Autoencoder clustering}
+\usage{
+autocluster4clustering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  projectName,
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP", "KMEANS", "HCLUST", "FLOW"),
+  seed = 1111,
+  pcaDimensions = 20,
+  perplexity = 20
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP","KMEANS","HCLUST","FLOW"}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{perplexity, }{value for cluster aggregation, required for KMEANS}
+}
+\value{
+
+}
+\description{
+This function Compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+ autocluster4clustering(group=c("sudo"), scratch.folder=scratch, file=file, separator=",", nCluster=3, projectName=projectName, clusterMethod=i,seed=1111,pcaDimensions=20)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/wrapperAutoencoder.R
+\name{wrapperAutoencoder}
+\alias{wrapperAutoencoder}
+\title{wrapperAutoencoder}
+\usage{
+wrapperAutoencoder(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  bias = c("mirna", "TF", "CUSTOM", "kinasi", "immunoSignature", "ALL"),
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  cl,
+  seed = 1111,
+  projectName,
+  bN = "NULL",
+  lr = 0.01,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = 1e-08,
+  decay = 0,
+  loss = "mean_squared_error",
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
+  pcaDimensions = 5,
+  permAtTime = 3,
+  largeScale = FALSE,
+  Sp = 0.8,
+  threads = 1,
+  X = 0.15,
+  K = 2,
+  counts = c("False"),
+  skipvis = c("False"),
+  regularization = 10,
+  variational = FALSE
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{cl, }{Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong.All path needs to be provided.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol.All path needs to be provided,}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{beta_1, }{look at keras optimizer parameters}
+
+\item{beta_2, }{look at keras optimizer parameters}
+
+\item{epsilon, }{look at keras optimizer parameters}
+
+\item{decay, }{look at keras optimizer parameters}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+
+\item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{permAtTime, }{number of permutation in parallel}
+
+\item{largeScale, }{boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge}
+
+\item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{threads, }{integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster}
+
+\item{X, }{from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.}
+
+\item{K, }{the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big}
+
+\item{counts, }{if set to True it will graph the log(expression+1). To be used if unlogged data are provided}
+
+\item{skipvis, }{set to True to skip visualizations}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space}
+
+\item{variational, }{TRUE or FALSE if you want to use a variational autoencoder or the standard autoencoder}
+}
+\value{
+folders the complete autoencoder analysis.
+
+
+}
+\description{
+This function executes the whole autoencoder pipeline
+}
+\examples{
+\dontrun{
+ wrapperAutoencoder(group="sudo",scratch.folder=scratch.folder,file="/home/lucastormreig/test/setA.csv",separator=",",nCluster=5,bias="mirna",permutation=10,nEpochs=10,cl="/home/lucastormreig/test/setA_clustering.output.csv",projectName="mirna",clusterMethod="GRIPH")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/integrationPblk.R
+\name{integrationPsblk}
+\alias{integrationPsblk}
+\title{integrationPsblk}
+\usage{
+integrationPsblk(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fileX,
+  fileY,
+  separatorX,
+  separatorY,
+  max.genes = 500,
+  split.by = 100,
+  outputFolder
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{fileX, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
+
+\item{fileY, }{a character string indicating the path of the pseudobulkRow file, with file name and extension included.}
+
+\item{separatorX, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separatorY, }{separator used in count file, e.g. '\\t', ','}
+
+\item{max.genes, }{MAX number of random genes to be used for each cluster, default 500}
+
+\item{split.by, }{value indication the splitting range default 100. I.e. if max.genes= 500 with split.by set to 100 there will be 5 sets of genes selected 100, 200, 300, 400, 500}
+
+\item{outputFolder, }{where results are placed}
+}
+\value{
+A folder called XYpb with all the results generated. The final frequency table is saved in final_score.csv, which is made by the frequency of having Pearson >= 0.5 between X and Y datasets for each possible comparisons between the clusters of the X and Y experiment. Pearson correlation is calculated on 10000 random selections of genes for each threshold.
+}
+\description{
+This function execute integrationPsblk analysis which search for correspondence between clusters of two different experiments using clusters-pseudo-bulks, z-scored on rows, and a subset of randomly selected genes. Thus, the function clustersBulk has to be run on the two datasets before their comparison.
+}
+\examples{
+\dontrun{
+ library(rCASC)
+ integrationPsblk(group="docker", 
+        scratch.folder="/scratch", 
+        fileX="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_NT_2_clx/VandE/VandE_bulkRow.csv",
+        fileY="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX/CRC0327_cetux_2_clx/VandE/VandE_bulkRow.csv", 
+        separatorX=",",
+        separatorY=",",
+        max.genes=500,
+        split.by=100
+        outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT_CTX"
+ )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/deDetection.R
+\name{deDetection}
+\alias{deDetection}
+\title{A function allowing the identification of differentially expressed genes.}
+\usage{
+deDetection(
+  group = c("sudo", "docker"),
+  data.folder,
+  counts.table,
+  file.type = c("txt", "csv"),
+  logFC.threshold = 1,
+  FDR.threshold,
+  logCPM.threshold = 4,
+  plot = c(TRUE, FALSE)
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{data.folder, }{a character string indicating the folder where input data are located and where output will be written}
+
+\item{counts.table, }{a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1}
+
+\item{file.type, }{type of file: txt tab separated columns csv comma separated columns}
+
+\item{logFC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
+
+\item{FDR.threshold, }{minimal FDR present in at least one of the comparisons with respect to reference covariate}
+
+\item{logCPM.threshold, }{minimal average abundance}
+
+\item{plot, }{TRUE if differentially expressed genes are represented in a plot.}
+}
+\description{
+This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
+}
+\examples{
+\dontrun{
+    #running deDetection
+    system("wget http://130.192.119.59/public/buettner_counts_noSymb.txt.zip")
+    unzip("buettner_counts_noSymb.txt.zip")
+    lorenzFilter(group="docker", scratch.folder="/data/scratch/",
+                data.folder=getwd(), matrixName="buettner_counts_noSymb",
+                p_value=0.05, format="txt", separator='\t')
+
+    system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+    system("gzip -d Mus_musculus.GRCm38.92.gtf.gz")
+    scannobyGtf(group="docker", data.folder=getwd(),
+                 counts.table="lorenz_buettner_counts_noSymb.txt",
+                 gtf.name="Mus_musculus.GRCm38.92.gtf",
+                 biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE,
+                 file.type="txt", umiXgene=3)
+
+    deDetection(group="docker", data.folder=getwd(),
+               counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
+               file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratpcaeval.R
+\name{seuratPCAEval}
+\alias{seuratPCAEval}
+\title{Estimating the range of PC components to be used in Seurat clustering}
+\usage{
+seuratPCAEval(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen = 0,
+  seed = 1111,
+  sparse = FALSE,
+  format = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix. A sparse matrix is a format that reduces the size of the matrix, considering only positions different from 0. The format supported in rCASC is the one generated by 10XGenomics output: genes.tsv, barcodes.tsv and matrix.tbx.}
+
+\item{format, }{output file format csv or txt. Only required if sparse matrix is used}
+}
+\value{
+Plot with PCA scores is provided to detect the PCA dimensions to be used in Seurat clustering algorithm
+}
+\description{
+This function estimates the information content of the PCs of the experiment, required by Seurat clustering .
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+ gtf.name="genome.gtf", biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratPCAEval(group="docker",scratch.folder="/data/scratch/", 
+          file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+          separator="\t", logTen = 0, seed = 111, format="NULL")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/houseKeep.R
+\name{houseKeep}
+\alias{houseKeep}
+\title{houseKeep Filtering}
+\usage{
+houseKeep(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen,
+  geneNameControl = 1,
+  houseK,
+  topCell
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{0 if is raw count, 1 otherwise}
+
+\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL geneID. 1 if the gene names is formatted as: ENSMUSG00000000001:Gnai3. If the gene names is made only by ensamble name, scannoByGtf has to be run first.}
+
+\item{houseK, }{to be described ....}
+
+\item{topCell, }{to be described ...}
+}
+\value{
+return matrix filtered by the best cells that have housekeepin genes most expressed
+}
+\description{
+This function filter your matrix count on a specific gene house keepin list
+}
+\examples{
+\dontrun{
+housekeep("docker","/home/lucastormreig/scratch/","/home/lucastormreig/CASC7.2/6_1hfc/Data/random_10000_filtered_annotated_lorenz_naive_penta2_0",6,",","naive")#
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/geneVisualizationSpatial.R
+\name{geneVisualizationSpatial}
+\alias{geneVisualizationSpatial}
+\title{GeneVisualization}
+\usage{
+geneVisualizationSpatial(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  tissuePosition,
+  geneList,
+  separator,
+  finalName
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{tissuePosition, }{a character string indicating the path of the tissuePosition matrix}
+
+\item{geneList, }{a character string indicating the path of the geneList matrix (no header, no row names)}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{finalName, }{name used for plot.}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs geneVisualization
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/umap.R
+\name{umap}
+\alias{umap}
+\title{umap}
+\usage{
+umap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  seed,
+  epochs
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{seed, }{number for reproducibility}
+
+\item{epochs, }{number of epochs for umap}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs umap visualization
+}
+\examples{
+\dontrun{
+dir.create("scratch")
+umap(group=c("sudo"), scratch.folder=paste(getwd(),"/scratch",sep=""), file=paste(getwd(),"/setA.csv",sep=""),separator=",",seed=111,epochs=1000)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/mixcr.R
+\name{mixcr}
+\alias{mixcr}
+\title{mixcr}
+\usage{
+mixcr(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fastqPath,
+  resFolderCustom = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{fastqPath, }{Path of fastq folder}
+
+\item{resFolderCustom, }{optional parameter. Default will store the results in fastqPath otherwise will store the results in resFolderCustom path.}
+}
+\value{
+a formatted mixcr file
+}
+\description{
+This function creates mixcrFiles from bulk TCRseq
+}
+\examples{
+\dontrun{
+library(rCASC)
+dir.create("scratch")
+scratch.folder=paste(getwd(),"scratch",sep="/")
+fastqPath=paste(getwd(),"fastq",sep="/")
+resFolder=paste(getwd(),"resFolder",sep="/")
+dir.create(resFolder)
+mixcr(group="docker",scratch.folder=scratch.folder,fastqPath=fastqPath,resFolderCustom=resFolder)
+}
+
+
+}
+\author{
+Luca Alessandrì
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/simlrGeneProritization.R
+\name{genesPrioritization}
+\alias{genesPrioritization}
+\title{Gene prioritization with SIMLR}
+\usage{
+genesPrioritization(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  nCluster,
+  separator,
+  logTen = 0,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of random cells removed in each permutation}
+
+\item{nCluster, }{the number of clusters, where to run prioritization}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
+
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
+}
+\value{
+VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering and identify the genes that play the major role in clustering.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+genesPrioritization(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, nCluster=5, separator="\t", logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+}
+
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/slogos.R
+\name{slogosR}
+\alias{slogosR}
+\title{slogosR}
+\usage{
+slogosR(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  gibbsCoresPath,
+  resFolderCustom = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{gibbsCoresPath, }{Path to the cores folder that is generated as part of the results of gibbsR function.}
+
+\item{resFolderCustom, }{optional parameter. Default will store the results in fastqPath otherwise will store the results in resFolderCustom path.}
+}
+\value{
+an indexed genome compliant with 10XGenomics cellranger
+}
+\description{
+This function creates slogs plot on the basis of the output of gibbsR function
+}
+\examples{
+\dontrun{
+library(rCASC)
+dir.create("scratch")
+scratch.folder=paste(getwd(),"scratch",sep="/")
+gibbsCoresPath=paste(getwd(),"fastq",sep="/")
+resFolder=paste(getwd(),"resFolder",sep="/")
+dir.create(resFolder)
+newFolder=paste(results,"res",list.files(paste(results,"res",sep="/")),"cores",sep="/")
+slogosR(group="docker",scratch.folder,newFolder,resFolderCustom=newFolder)
+}
+
+
+}
+\author{
+Luca Alessandrì
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratprior.R
+\name{seuratPrior}
+\alias{seuratPrior}
+\title{seuratprior}
+\usage{
+seuratPrior(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  logTen = 0,
+  seed = 111,
+  PCADim,
+  geneNumber,
+  nCluster,
+  sparse = FALSE,
+  format = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{PCADim, }{dimensions of PCA for seurat clustering}
+
+\item{geneNumber, }{numbers of specific genes for each clusters}
+
+\item{nCluster, }{number of cluster analysis.}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format}
+}
+\value{
+....
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+ gtf.name="genome.gtf", biotype="protein_coding", mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratPrior(group="docker", scratch.folder="/data/scratch/", file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), separator="\t", logTen=0, seed=111, PCADim=6, geneNumber = 100, nCluster=5)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratBootstrap.R
+\name{seuratBootstrap}
+\alias{seuratBootstrap}
+\title{Executing clustering with Seurat}
+\usage{
+seuratBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  pcaDimensions,
+  seed = 111,
+  sparse = FALSE,
+  format = "NULL",
+  resolution = 0.6
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{pcaDimensions, }{PCs threshold selected using seuratPCAEval function.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sparse, }{boolean for sparse matrix.  A sparse matrix is a format that reduces the size of the matrix, considering only positions different from 0. The format supported in rCASC is the one generated by 10XGenomics output: genes.tsv, barcodes.tsv and matrix.tbx.}
+
+\item{format, }{output file format csv or txt. Only required if sparse matrix is used}
+
+\item{resolution, }{resolution parameter for seurat analysis default 0.8}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutations using Seurat as clustering tool.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+seuratBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, pcaDimensions=6, seed=111, sparse=FALSE,format="NULL")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/impute.R
+\name{impute}
+\alias{impute}
+\title{Imputing dropouts}
+\usage{
+impute(
+  group = c("sudo", "docker"),
+  data.folder,
+  counts.matrix,
+  drop.thre,
+  cores,
+  refining = FALSE
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{data.folder, }{a character string indicating the folder where tab separated file of cells counts is located}
+
+\item{counts.matrix, }{a character string indicating the  tab separated file of cells  counts}
+
+\item{drop.thre, }{A number between 0 and 1, specifying the threshold to determine dropout values}
+
+\item{cores, }{a integer specifying the number of cores used for parallel computation.}
+
+\item{refining, }{boolean FALSE, TRUE, if TRUE it execute again scImpute but setting a different drop.thre. Rerunning to change drop.thre hase to be done in the same folder where the first run was done.}
+}
+\value{
+A matrix file with imputed data.
+}
+\description{
+This function executes a wrapper for scImpute: Accurate And Robust Inputation For Single Cell RNA-Seq Data (Li WV Nature Communications, vol. 9, Article number: 997, 2018)
+}
+\examples{
+\dontrun{
+    #downloading fastq files
+    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+    system("gzip -d singlecells_counts.txt.gz")
+    cascImpute(group="docker", data.folder=getwd(),
+         counts.matrix="singlecells_counts.txt",
+         drop.thre=0.5, cores=8, refining=FALSE)
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ccRemove.R
+\name{ccRemove}
+\alias{ccRemove}
+\title{Cc remove}
+\usage{
+ccRemove(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  seed = 111,
+  cutoff = 3,
+  species,
+  rawCount
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{seed, }{is important to reproduce the same results with the same input}
+
+\item{cutoff, }{a cut-off equal to 3 is almost equal to 0.05 p.value}
+
+\item{species, }{human or mouse}
+
+\item{rawCount, }{1 for raw 0 otherwise}
+}
+\value{
+return a normalized matrix, whith prefix LS_cc_, in which cell cycle effect is removed
+}
+\description{
+This function executes a ubuntu docker that remove the effect of cell cycle from a single cells dataset
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/annotated_lorenz_testSCumi_mm10.csv.zip")
+unzip("annotated_lorenz_testSCumi_mm10.csv.zip")
+ccRemove(group="docker" , scratch.folder="/data/scratch",
+       file=paste(getwd(),"annotated_lorenz_testSCumi_mm10.csv", sep="/"), separator=",",
+       seed=111, cutoff=3, species="mouse", rawCount=1)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoencoderDB.R
+\name{autoencoderDB}
+\alias{autoencoderDB}
+\title{Autoencoder4clustering}
+\usage{
+autoencoderDB(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  seed = 1111,
+  projectName,
+  lr = 0.01,
+  loss = "mean_squared_error"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+}
+\value{
+
+}
+\description{
+The present function compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratIntegrationPermutation.R
+\name{seuratIntegrationPermutation}
+\alias{seuratIntegrationPermutation}
+\title{Seurat Integration Permutation}
+\usage{
+seuratIntegrationPermutation(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file1,
+  file2,
+  separator1,
+  separator2,
+  cl1,
+  cl2,
+  permutation,
+  seed,
+  outputFolder,
+  K = 0.8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file1, }{a character string indicating the path of the first matrix}
+
+\item{file2, }{a character string indicating the path of the second matrix}
+
+\item{separator1, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separator2, }{separator used in count file, e.g. '\\t', ','}
+
+\item{cl1, }{path of clustering.output for file1}
+
+\item{cl2, }{path of clustering.output for file2}
+
+\item{permutation, }{number of permutation for statistic}
+
+\item{seed, }{integer file necessary for reproducibility}
+
+\item{outputFolder, }{path to the output folder}
+
+\item{K, }{resolution for seurat analysis}
+}
+\value{
+A folder called ISC, the input data, the intermediate results and a comma separated file final_score.csv summarising the frequency by which the seuratIntegration function return a an integration cluster including at least 50% of the input clusters form X and Y datasets.
+}
+\description{
+This function executes a ubuntu docker that performs seurat integration to identify associated clusters in two independent experiment. The analysis is repeated mutiple times removing 10% of the initial cells, to investigate how stable is the partitioning done with seuratIntegration function. This function requires that cells were clustered with any of the clustering tools included in rCASC.
+}
+\examples{
+\dontrun{
+seuratIntegrationPermutation(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",cl1=, cl29,permutation=100, seed=111) 
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/integrationCircos.R
+\name{integrationCircos}
+\alias{integrationCircos}
+\title{integrationCircos}
+\usage{
+integrationCircos(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  gsea.file = NULL,
+  isc.file = NULL,
+  XYpb.file = NULL,
+  pblkae.file = NULL,
+  bcsc.file = NULL,
+  Xcls.groups = NULL,
+  Ycls.groups = NULL,
+  outputFolder
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{gsea.file, }{a character string indicating the path of the final_score.csv  generated with gseaXLmHG, file, with file name and extension included.}
+
+\item{isc.file, }{a character string indicating the path of the final_score.csv  generated with seuratIntegrationPermutation, file, with file name and extension included. included.}
+
+\item{XYpb.file, }{a character string indicating the path of the final_score.csv  generated with integrationPsblk, file, with file name and extension included.}
+
+\item{pblkae.file, }{a character string indicating the path of the final_score.csv  generated with integrationPblkae, file, with file name and extension included.}
+
+\item{bcsc.file, }{a character string indicating the path of the FINAL_score.csv  generated with BCscWrapper, file, with file name and extension included.}
+
+\item{Xcls.groups, }{a vector of strings describing the groups of more similar clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra". Format: c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5").}
+
+\item{Ycls.groups, }{a vector of strings describing the order of the clusters.  The optimal order of the clusters can be deduced by the output of integrationPblkae function with the option type="intra".  Format: c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6")}
+
+\item{outputFolder, }{where results are placed}
+}
+\value{
+A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results. The colour ramp for Xgroups is yellow-magenta as instead for the Ygroups is green-blue. Clusters sharing the same colors are those characterized by belonging to the same subgroup detected using integrationPblkae with type="intra". Picture and data used for the integration are lccated in integrated_score folder. Inter cluster edges color code: 1 red; 1-0.7 green; 0.7-0.5 blue; 0.5-0.3 violet; 0.3-0.2 grey; 0.2-0 gold.
+}
+\description{
+This function executes integrationCircos, which plots the integrated results of the analysis performed with gseaXLmHG, seuratIntegrationPermutation, integrationPsblk, integrationPblkae and BC
+}
+\examples{
+\dontrun{
+library(rCASC)
+integrationCircos(group="docker", 
+                  scratch.folder="/scratch", 
+                  gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv",
+                  isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
+                  XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
+                  pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+                  bcsc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv",
+                  Xcls.order=NULL,
+                  Ycls.order=NULL, 
+                  outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
+)
+
+integrationCircos(group="docker", 
+                  scratch.folder="/scratch", 
+                  gsea.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/GSEA/final_score.csv",
+                  isc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/ISC/final_score.csv",
+                  XYpb.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/XYpb/XYpb_final_score.csv",
+                  pblkae.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/pblkAE/final_score.csv",
+                  bcsc.file="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2/BCsc/FINAL_score.csv",
+                  Xcls.groups=c("1cl6", "1cl2-1cl3", "1cl1-1cl4-1cl5"),
+                  Ycls.groups=c("2cl1-2cl3", "2cl2-2cl4", "2cl5-2cl6"), 
+                  outputFolder="/data/reanalysis_on_AIsc/comparing_CRC0327/NT1_NT2"
+)
+
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/genesUmi.R
+\name{genesUmi}
+\alias{genesUmi}
+\title{Plotting genes to UMIs relationship.}
+\usage{
+genesUmi(file, umiXgene = 3, sep)
+}
+\arguments{
+\item{file, }{a character string indicating the path of the file tab delimited  of cells un-normalized expression counts.}
+
+\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+
+\item{sep, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+pdf with the cells counts distributions: genes.umi.pdf
+}
+\description{
+This function create a plot in which genes are plotted with respect to total counts UMI for each cell.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+unzip("testSCumi_mm10.csv.zip")
+genesUmi(file=paste(getwd(),"testSCumi_mm10.csv",sep="/"), umiXgene=3, sep=",")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/dimensions.R
+\name{dimensions}
+\alias{dimensions}
+\title{Cells count table size}
+\usage{
+dimensions(group = c("sudo", "docker"), scratch.folder, file, separator)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+a file called dimensions.txt containing the number of row and columns of a cells counts table
+}
+\description{
+This function executes a ubuntu docker that counts row and colums of a counts table.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+dimensions(group="docker", scratch.folder="/data/scratch",
+            file=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permutationClusteringSHARP.R
+\name{permutationClusteringSHARP}
+\alias{permutationClusteringSHARP}
+\title{Permutations and Clustering}
+\usage{
+permutationClusteringSHARP(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 1111,
+  perplexity = 10
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{permAtTime, }{number of permutations that can be computes in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{perplexity, }{number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.  the performance of t-SNE is fairly robust under different settings of the perplexity. The most appropriate value depends on the density of your data.  A larger/denser dataset requires a larger perplexity. Typical values for the perplexity range between 5 and 50}
+}
+\value{
+VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+ permutationClusteringSHARP(group="docker",scratch.folder="/home/lucastormreig/CASC2.0/permutationClustering/scratch/",file="/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",nPerm=4,permAtTime=2,percent=10,3,4,separator=",",logTen=0, perplexity, seed=1111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/spatialAnalysis.R
+\name{spatialAnalysis}
+\alias{spatialAnalysis}
+\title{spatial Analysis}
+\usage{
+spatialAnalysis(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  tissuePosition
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{Last number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{tissuePosition, }{file with tissue position name with extension}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyze the data that came up from permutationClustering script with spatial transcriptomics data.
+}
+\examples{
+\dontrun{
+spatialAnalysis(group="sudo", scratch.folder="/scratch", file="/home/lucastormreig/newDockers/data/matrix.csv",nCluster=13,separator=",",tissuePosition="/home/lucastormreig/newDockers/data/tissue_positions_list.csv")
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/wrapperClustersIntegration.R
+\name{wrapperClustersIntegration}
+\alias{wrapperClustersIntegration}
+\title{integrationCircos}
+\usage{
+wrapperClustersIntegration(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file.matrix1,
+  file.matrix2,
+  file.total1,
+  file.total2,
+  cl1,
+  cl2,
+  separator1,
+  separator2,
+  permutation = 100,
+  seed = 111,
+  top.ranked = 320,
+  gsea = "msigdb.all",
+  X = 5,
+  L = 0.15,
+  pvalue = 0.05,
+  outputFolder
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file.matrix1, }{a character string indicating the path of the first matrix}
+
+\item{file.matrix2, }{a character string indicating the path of the second matrix}
+
+\item{file.total1, }{a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
+
+\item{file.total2, }{a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
+
+\item{cl1, }{path of clustering.output for file.matrix1}
+
+\item{cl2, }{path of clustering.output for file.matrix2}
+
+\item{separator1, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separator2, }{separator used in count file, e.g. '\\t', ','}
+
+\item{permutation, }{number of permutation to be run}
+
+\item{seed, }{integer file necessary for reproducibility}
+
+\item{top.ranked, }{MAX number of top comet genes to be used for each cluster, default 320}
+
+\item{gsea, }{default msigdb.all, which includes all classes. List of the available GSEA classes: c1.all, c2.cgp, c2.cp.biocarta, c2.cp.kegg, c2.cp.pid, c2.cp.reactome, c2.cp.wikipathways, c3.all, c3.mir, c3.tft.gtrd, c3.tft, c4.cgn, c4.cm, c5.go.bp, c5.go.cc, c5.go.mf, c5.hpo, c6.all, c7.all, c8.all, h.all, msigdb.all. Please note that msigdb.all includes all gsea classes.}
+
+\item{X, }{X parameter for the XLmHG, default 5, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.}
+
+\item{L, }{L parameter for the XLmHG, default 0.15, for more info please see XLmHG help: https://xl-mhg.readthedocs.io/en/latest/.}
+
+\item{pvalue, }{XLmHG pvalue threshold,default 0.05}
+
+\item{outputFolder, }{where results are placed}
+}
+\value{
+A picture called integrated_score.png and a file called integrated_score.csv and all the final_scores.csv used to produce the integrated results.
+}
+\description{
+This function execute toprnk analysis which search for correspondence between clusters of two different experiments requires that the data are clustered with any of the software implemented in rCASC, cometsc, bulkClusters and autoencoder4pseudoBulk were already executed.
+}
+\examples{
+\dontrun{
+ library(rCASC)
+ wrapperClustersIntegration(group="docker", 
+        scratch.folder="/scratch", 
+        file.matrix1="/data/clusters_association_paper/setA1_set1/setA1/VandE/VandE.csv",
+        file.matrix2="/data/clusters_association_paper/setA1_set1/set1/VandE/VandE.csv",
+        cl1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/VandE/5/VandE_clustering.output.csv",
+        cl2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/VandE/4/VandE_clustering.output.csv",
+        file.total1="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
+        file.total2="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
+        separator1=",", separator2=",", 
+        permutation=100, seed=111, top.ranked=320, gsea="msigdb.all", X=5, L=0.15, pvalue=0.05,
+        outputFolder="/data/clusters_association_paper/setA1_set1"
+        )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/saver.R
+\name{saver}
+\alias{saver}
+\title{Saver}
+\usage{
+saver(group = c("sudo", "docker"), scratch.folder, file, separator, ncores)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included. The file must contain library normalized cells, log transformed counts, and scaled genes}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{ncores, }{number of cores to use}
+}
+\value{
+predicted matrix
+}
+\description{
+This function performs Data normalization and prediction with SAVER
+}
+\examples{
+\dontrun{
+saver(group=c("sudo"), scratch.folder="/home/user/saver/inDocker/scratch/", file="/home/user/saver/inDocker/data/setA.csv",separator=",",ncores=16)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/seuratIntegration.R
+\name{seuratIntegration}
+\alias{seuratIntegration}
+\title{Seurat Integration}
+\usage{
+seuratIntegration(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file1,
+  file2,
+  separator1,
+  separator2,
+  seed,
+  k = 0.5
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file1, }{a character string indicating the path of the first matrix}
+
+\item{file2, }{a character string indicating the path of the second matrix}
+
+\item{separator1, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separator2, }{separator used in count file, e.g. '\\t', ','}
+
+\item{seed, }{integer file necessary for reproducibility}
+
+\item{k, }{resolution for Seurat Analysis}
+}
+\value{
+file containing the cluster association in the datasets merged by seurat
+}
+\description{
+This function executes a ubuntu docker that performs seurat integration
+}
+\examples{
+\dontrun{
+seuratIntegration(group="docker", scratch.folder="/home/user/scratch", file1="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/set1.csv",file2="/home/user/dockerFile/Seurat_join_DAPUSHARE/function/example/setA.csv", separator1=",",separator2=",",seed=1111) 
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fasterq.dump.R
+\name{sraDownload}
+\alias{sraDownload}
+\title{A function to handle fasterq-dumper SRA to download SRA fastq files}
+\usage{
+sraDownload(
+  group = c("sudo", "docker"),
+  sra.name,
+  data.folder,
+  scratch.folder,
+  threads = 8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{sra.name, }{a character string indicating the name of the SRA object to be download}
+
+\item{data.folder, }{a character string indicating the working folder where output folder will be written}
+
+\item{scratch.folder, }{a character string indicating the temporary folder for data preprocessing}
+
+\item{threads, }{a integer indicating the number of threads to be used from fasterq-dumper}
+}
+\description{
+This function executes a ubuntu docker that produces as output FASTQCstdin_fastqc.html and stdin_fastqc.zip files
+}
+\examples{
+\dontrun{
+    #running sraDownload
+    sraDownload(group="docker", sra.name="SRR7762358", data.folder=getwd(), scratch.folder="/data/scratch", threads=8) 
+    system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/scanpyBootstrap.R
+\name{scanpyBootstrap}
+\alias{scanpyBootstrap}
+\title{Executing clustering with scanpy}
+\usage{
+scanpyBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  perplexity = 40,
+  pca_number = 50,
+  seed = 111,
+  format = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{perplexity, }{perplexity value for tsne projection}
+
+\item{pca_number, }{PCA threshold selected using seuratPCAEval function.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{format, }{output file format csv or txt.  Mandatory because scanpy only accepts sparse matrices}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation using scanpy as clustering tool.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+scanpyBootstrap(group="docker",scratch.folder="/data/scratch/",
+                file=paste(getwd(), "matrix.mtx", sep="/"), 
+                nPerm=160, permAtTime=8, percent=10, separator="\t", 
+                perplexity=10, pca_number=6, seed=111, format="txt")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/schcl.R
+\name{schcl}
+\alias{schcl}
+\title{Assigning cell types}
+\usage{
+schcl(group = c("sudo", "docker"), file, separator)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the folder where input data are located. The input file is the output of scannobyGtf.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+return a table summarizing the the cell type association for each cluster. The table is saved in the clusters folder in a file with the name including _celltypes_freq.
+}
+\description{
+This function execute scHCL to assign cell types from Han et al  Nature 2020, 581:303-309
+}
+\examples{
+\dontrun{
+example to be prepared
+
+schcl(group="docker", file=paste(getwd(),"annotated_lorenz_testSCumi_mm10.csv", sep="/"), separator=",")
+}
+}
+\author{
+Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/mergeMatrix.R
+\name{mergeMatrix}
+\alias{mergeMatrix}
+\title{Merge matrix}
+\usage{
+mergeMatrix(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file1,
+  file2,
+  separator1,
+  separator2,
+  name1 = "NULL",
+  name2 = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file1, }{a character string indicating the path of the first matrix to be merged, with file name and extension included}
+
+\item{file2, }{a character string indicating the path of the second matrix to be merged, with file name and extension included}
+
+\item{separator1, }{separator used in count file, e.g. '\\t', ','}
+
+\item{separator2, }{separator used in count file, e.g. '\\t', ','}
+
+\item{name1, }{the name that will be the prefix in the header of the matrix1 cells , null will not add any prefix}
+
+\item{name2, }{the name that will be the prefix in the header of the matrix2 cells , null will not add any prefix}
+}
+\value{
+a merged matrix
+}
+\description{
+This function executes a ubuntu docker that merge two matrix
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+subSetCell(group="docker", scratch.folder="/data/scratch", 
+           file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+           separator="\t", cells.number=200)
+mergeMatrix(group="docker", scratch.folder="/data/scratch", 
+            file1=paste(getwd(),"annotated_setPace_10000_noC5.txt", sep="/"),
+            file2=paste(getwd(),"subset_200_annotated_setPace_10000_noC5.txt", sep="/"), 
+            separator1="\t",separator2="\t",name1="test1",name2="test2")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/indropIndex.R
+\name{indropIndex}
+\alias{indropIndex}
+\title{A function to create a genome index for indrop V2 single cell data}
+\usage{
+indropIndex(
+  group = c("sudo", "docker"),
+  index.folder,
+  ensembl.urlgenome,
+  ensembl.urlgtf
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{index.folder, }{a character string indicating the folder where the index will be created. The index will have the prefix genome.}
+
+\item{ensembl.urlgenome, }{a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest}
+
+\item{ensembl.urlgtf, }{a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest}
+}
+\description{
+This function executes a docker that produces as output the genome index index for bowtie
+}
+\examples{
+\dontrun{
+library(rCASC)
+#running indropCounts index build
+indropIndex(group="docker", index.folder=getwd(),
+    ensembl.urlgenome="ftp://ftp.ensembl.org/pub/release-87/fasta/mus_musculus/dna/Mus_musculus.GRCm38.dna.toplevel.fa.gz",
+    ensembl.urlgtf="ftp://ftp.ensembl.org/pub/release-87/gtf/mus_musculus/Mus_musculus.GRCm38.87.gtf.gz")
+}
+
+}
+\author{
+Raffaele Calogero and Riccardo Panero, raffaele.calogero [at] unito [dot] it, Bioinformatics and Genomics unit, University of Torino Italy
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/recatPrediction.R
+\name{recatPrediction}
+\alias{recatPrediction}
+\title{Cell Cycle}
+\usage{
+recatPrediction(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  geneNameControl = 0,
+  window = 1,
+  seed = 111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{geneNameControl, }{0 if the matrix has gene name without ENSEMBL code. 1 if the gene names is formatted like this : ENSMUSG00000000001:Gnai3. If the gene names is only ensamble name you have to run SCannoByGtf before start using this script.}
+
+\item{window, }{number  cells  collapsed in a single point of the lot. This make less noisy the output generated by the predictor, default 10.}
+
+\item{seed, }{important parameter for reproduce the same result with the same input}
+}
+\value{
+a pdf, called cellCycleRange.pdf, with predicted cell cycle behaviour
+}
+\description{
+This function executes a ubuntu docker which associates a cell cycle state to each cell
+}
+\examples{
+\dontrun{
+#preparing the data for the analysis 
+system("wget http://130.192.119.59/public/buettner_G1G2MS_counts.txt.zip")
+unzip("buettner_G1G2MS_counts.txt.zip")
+
+#annotating the data set to obtain the gene names in the format ensemblID:symbol 
+scannobyGtf(group="docker", file=paste(getwd(),"buettner_G1G2MS_counts.txt",sep="/"),
+gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+mt=TRUE, ribo.proteins=TRUE,umiXgene=3, riboStart.percentage=0, 
+riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+#running cell cycle prediction
+recatPrediction(group="docker",scratch.folder="/data/scratch",
+                file=paste(getwd(), "annotated_buettner_G1G2MS_counts.txt", sep="/"), 
+                separator="\t", geneNameControl=1, window=10, seed=111)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cellCycle_2.R
+\name{cellCycle2}
+\alias{cellCycle2}
+\title{Cell Cycle}
+\usage{
+cellCycle2(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  G1_a,
+  G1_b,
+  S_a,
+  S_b,
+  G2M_a,
+  G2M_b,
+  seed = 111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv"}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{G1_a, }{starting point in time series for G1 phase}
+
+\item{G1_b, }{ending point in time series for G1 phase}
+
+\item{S_a, }{starting point in time series for S phase}
+
+\item{S_b, }{ending point in time series for S phase}
+
+\item{G2M_a, }{starting point in time series for G2M phase}
+
+\item{G2M_b, }{ending point in time series for G2M phase}
+
+\item{seed, }{important parameter for reproduce the same result with the same input}
+}
+\value{
+will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
+}
+\description{
+This function executes a ubuntu docker that associates to each cell a cell cycle stage
+}
+\examples{
+\dontrun{
+#getwd(link)
+#unzipFolder
+scratch.folder=paste(getwd(),"/scratch",sep="")
+file=paste(getwd(),"/data/annotated_Buettner.csv",sep="")
+ cellCycle2(group="docker",scratch.folder,file,separator=",",G1_a=22,G1_b=23,S_a=22,S_b=23,G2M_a=85,G2M_b=86,seed=111)
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permutationMovie.R
+\name{permutationMovie}
+\alias{permutationMovie}
+\title{Permutation Movie}
+\usage{
+permutationMovie(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  framePP,
+  permutationNumber
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{cluster folder generated by simlBootstrap or tsneBootstrap to be analysed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{framePP, }{Number of frame for each permutation}
+
+\item{permutationNumber, }{Number of random permutation,have to be less or the same then the total permutation}
+}
+\value{
+Csv file with correct cluster name
+}
+\description{
+This function executes a ubuntu docker that create a video showing the cluster changing of all the cells
+}
+\examples{
+\dontrun{
+ permutationMovie("docker","/home/lucastormreig/CASC5.0/5_permutationMovie/scratch/",file,7,",",200,5)#
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/BCsc_function.R
+\name{BCscTool}
+\alias{BCscTool}
+\title{BCscTool}
+\usage{
+BCscTool(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  setA,
+  setAclustering,
+  markerA,
+  setB,
+  setBclustering,
+  markerB,
+  separator,
+  contamination = 5,
+  permutation = 50,
+  threshold = 3
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{setA, }{path to the first dataset}
+
+\item{setAclustering, }{path to the clustering file for the first dataset. This file is derived from clustering.output file generated by the rCASC clustering. It contains the following columns: CellName, Belonging_Cluster}
+
+\item{markerA, }{path to the file containing cluster specific genes for the first dataset. The file requires the following column: gene, cluster}
+
+\item{setB, }{path to the second dataset}
+
+\item{setBclustering, }{path to the clustering file for the second dataset. This file is derived from clustering.output file generated by the rCASC clustering. It contains the following columns: CellName, Belonging_Cluster}
+
+\item{markerB, }{path to the file containing cluster specific genes for the second dataset. The file requires the following column: gene, cluster}
+
+\item{separator, }{separator used in both count file, e.g. ','}
+
+\item{contamination, }{fraction of genes to be contaminated at each eprmutaitone DEFAULT VALUE: 5}
+
+\item{permutation, }{number of permutations DEFAULT VALUE: 50}
+
+\item{threshold, }{minimum value to consider a gene expressed in both count sets. DEFAULT VALUE: 3}
+}
+\value{
+
+}
+\description{
+The present function associates the clusters of two different and indipendent experiments using the Bray Curtis dissimilarity. BOTH set must have same number and name of ROW (GENES)
+}
+\examples{
+		
+\dontrun{
+BCscTool(group = "docker",
+         scratch.folder = "/home/user09/piacenti/ProvaBCSC/scratch",
+         setA = paste(getwd(),"setA.csv",sep = "/"),
+         setAclustering = paste(getwd(),"setA_clustering.csv",sep = "/"),
+         markerA = paste(getwd(),"setA.markers.csv",sep = "/"),
+         setB =paste(getwd(),"set1.csv",sep = "/"),
+         setBclustering = paste(getwd(),"set1_clustering.csv",sep = "/"),
+         markerB =paste(getwd(),"set1.markersPROVA.csv",sep = "/"),
+         separator =",",
+         contamination = 10 ,
+         permutation = 10,
+         threshold = 3 )
+}
+}
+\author{
+Gabriele Piacenti, g [dot] pia91 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/filterZeros.R
+\name{filterZeros}
+\alias{filterZeros}
+\title{A function plotting the distribution of zeros in cells eliminating all genes without a certain fraction of 0 in the samples}
+\usage{
+filterZeros(file, threshold = 0, sep)
+}
+\arguments{
+\item{file, }{a character string indicating the path of the cells un-normalized expression counts table}
+
+\item{threshold, }{a number from 0 to 1 indicating the fraction of max accepted zeros in each gene. 0 is set as default and it eliminates only genes having 0 in all cells.}
+
+\item{sep, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+a PDF providing zeros distributions before removal of all genes without a certain fraction of 0 in the samples. A file with the prefix *filtered* in which the filtered data are saved.
+}
+\description{
+This function plots the zeros distributions in cells and removes genes without  a certain fraction of 0 in the samples
+}
+\examples{
+\dontrun{
+    #downloading fastq files
+    system("wget http://130.192.119.59/public/singlecells_counts.txt.gz")
+    system("gzip -d singlecells_counts.txt.gz")
+    filterZeros(file=paste(getwd(),"singlecells_counts.txt",sep="/"), threshold=0.1, sep="\t")
+}
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/gibbscluster.R
+\name{gibbsR}
+\alias{gibbsR}
+\title{gibbsR}
+\usage{
+gibbsR(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  resFolderCustom = "NULL",
+  jobName,
+  nCluster,
+  motifLength,
+  maxDelLength,
+  maxInsLength,
+  numbOfSeed,
+  penalityFactorIntCluster = 0.8,
+  backGroundAminoFreq = 2,
+  seqWeightType = 1
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{path to peptide file,}
+
+\item{resFolderCustom, }{optional parameter. Default will store the results in fastqPath otherwise will store the results in resFolderCustom path.}
+
+\item{jobName, }{identify of the sample}
+
+\item{nCluster, }{number of clusters to be generated}
+
+\item{motifLength, }{length of the motif to be searched}
+
+\item{maxDelLength, }{max length of deletions in the peptide search, expressed in number of aa}
+
+\item{maxInsLength, }{max length of insertion in the peptide search, expressed in number of aa}
+
+\item{numbOfSeed, }{number of initial configurations to be used to detect the highest KLD sum}
+
+\item{penalityFactorIntCluster, }{default 0.8,}
+
+\item{backGroundAminoFreq, }{two value 1 defined by uniprot and 2 defined by the dataset under analysis}
+
+\item{seqWeightType, }{sequence weighting type: default 1, faster but less precise, 2 slower but more precise, 3 none}
+}
+\value{
+an indexed genome compliant with 10XGenomics cellranger
+}
+\description{
+This function creates performs motif search in peptides. It was developed to use gibbscluster on TCR CDR3 peptide sequences
+}
+\examples{
+\dontrun{
+library(rCASC)
+dir.create("scratch")
+scratch.folder=paste(getwd(),"scratch",sep="/")
+fastqPath=paste(getwd(),"fastq",sep="/")
+resFolder=paste(getwd(),"resFolder",sep="/")
+dir.create(resFolder)
+
+gibbsR(group="docker",scratch.folder=scratch.folder,file=file,resFolderCustom=results,jobName="test",nCluster=8,motifLength=4,maxDelLength=4,maxInsLength=4,numbOfSeed=4,penalityFactorIntCluster=0.8,backGroundAminoFreq=2,seqWeightType=1) 
+
+newFolder=paste(results,"res",list.files(paste(results,"res",sep="/")),"cores",sep="/")
+}
+
+
+}
+\author{
+Luca Alessandrì
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/unstableFiltering.R
+\name{unstableFiltering}
+\alias{unstableFiltering}
+\title{unstableFiltering}
+\usage{
+unstableFiltering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  sThreshold
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{number of clusters}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{sThreshold, }{cell stability score threshold, a value between 0 and 1.}
+}
+\value{
+A filtered counts file
+}
+\description{
+This function executes a ubuntu docker that remove cells on the basis of their cell stability score.
+}
+\examples{
+\dontrun{
+unstableFiltering(group="docker", scratch.folder="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/scratch/", file="/media/lucastormreig/8799-82B32/PHD/CASC8.1Stable/CASC8.0STABLE/new/unstableFiltering/data/testset.txt",nCluster=5, separator="\t",sThreshold=0.75)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/counts2log.R
+\name{counts2log}
+\alias{counts2log}
+\title{A function to convert raw count in log counts}
+\usage{
+counts2log(file, log.base = c(2, 10))
+}
+\arguments{
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included.}
+
+\item{log.base, }{the base of the log to be used for the transformation}
+}
+\value{
+log transformed table
+}
+\description{
+This function convert raw counts in log format
+}
+\examples{
+\dontrun{
+    system("wget http://130.192.119.59/public/TO BE INSERTED")
+    #running skeleton
+    counts2log(file=paste(getwd(), "example_UMI.txt", sep="/"), log.base=10)
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/integrationPblkae.R
+\name{integrationPblkae}
+\alias{integrationPblkae}
+\title{integrationPblkae}
+\usage{
+integrationPblkae(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  fileX = NULL,
+  fileY = NULL,
+  outputFolder,
+  type = c("inter", "intra"),
+  stats = c("anovalike", "pairwise")
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{fileX, }{a character string indicating the path to the total.csv.for the 1st dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
+
+\item{fileY, }{a character string indicating the path to the total.csv.for the 2nd dataset to be integrated. Total.csv is generated with autoencoder4pseudoBulk. File, with file name and extension included.}
+
+\item{outputFolder, }{where results are placed}
+
+\item{type, }{two values inter, intra. Inter refers to comparison among clusters of two independent experiments. Intra comparisons among clusters of the same experiment}
+
+\item{stats, }{two values anovalike, pairwise. Anovalike refers to comparison among clusters with respect to a pseudo reference sample. pairwise comparisons among all clusters by pairwise comparison}
+}
+\value{
+a folder called psblkAE, which contains file called final_score.csv and all the intermediate files used to produce the integrated results.
+}
+\description{
+This function execute integrationPblkae analysis which search for correspondence between clusters of two different experiments using clusters-pseudobulks generated using sparsely connected autoencoders. Thus, the function autoencoder4pseudoBulk has to be run in the two datasets before their comparison.
+}
+\examples{
+\dontrun{
+ #inter
+ library(rCASC)
+ integrationPblkae(group="docker", 
+        scratch.folder="/scratch", 
+        fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
+        fileY="/data/clusters_association_paper/setA1_set1/set1/VandE/Results/set1/permutation/total.csv",
+        outputFolder="/data/clusters_association_paper/setA1_set1",
+        type="inter",
+        stats="anovalike"
+ )
+ 
+ #intra
+ library(rCASC)
+ integrationPblkae(group="docker", 
+        scratch.folder="/scratch", 
+        fileX="/data/clusters_association_paper/setA1_set1/setA1/VandE/Results/setA1/permutation/total.csv",
+        outputFolder="/data/clusters_association_paper/setA1_set1/setA1",
+        type="intra",
+        stats="pairwise"
+ )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clustersFeatures.R
+\name{clustersFeatures}
+\alias{clustersFeatures}
+\title{A function to extract priority lists of genes from ANOVAlike output}
+\usage{
+clustersFeatures(
+  group = c("sudo", "docker"),
+  fileLogFC,
+  fileCounts,
+  delta = 0.5,
+  sep
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{fileLogFC, }{a character string indicating the absolute path to logFC_filtered_DE_ file generated by anovaLike function}
+
+\item{fileCounts, }{a character string indicating the absolute path to reordered counts table file generated by anovaLike function}
+
+\item{delta, }{the minimal distance between the max value of FC for a gene in a cluster of interest and the nearest other max FC in any of the other clusters. This value define the minimal distance with respect to the same gene in an other cluster to identify it as a cluster specific gene.}
+
+\item{sep, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+Three tab delimited files with prefix onlyUP\_, followed by the counts table name, i.e. the count table only containing the selected genes. onlyUP\_, followed by logFC_filtered_DE_,  the table containing logFC only for the selected genes, onlyUP_clusters_specific_genes.txt, which contains the list of specific genes associated with the corresponding cluster.
+}
+\description{
+This function extracts clusters specific gene lists from ANOVAlike output. IMPORTANT: This analysis works only on up modulated genes, i.e. genes more expressed in the clusters under analysis with respect to the reference cluster
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/clusters.features.zip")
+unzip("clusters.features.zip")
+setwd("clusters.features")
+
+    clustersFeatures(group="docker", fileLogFC=paste(getwd(),
+       "logFC_filtered_DE_annotated_setPace_10000_noC5_reordered.txt",sep="/"),
+        fileCounts=paste(getwd(),"annotated_setPace_10000_noC5_reordered.txt",sep="/"), delta=0.5, sep="\t")
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permAnalysisSeurat.R
+\name{permAnalysisSeurat}
+\alias{permAnalysisSeurat}
+\title{Permutation Analysis Seurat}
+\usage{
+permAnalysisSeurat(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  sp = 0.8,
+  sparse = FALSE,
+  format = "NULL"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{sparse, }{boolean for sparse matrix}
+
+\item{format, }{output file format csv or txt}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyze the data that came up from permutationClustering script.
+}
+\examples{
+\dontrun{
+ system("wget http://130.192.119.59/public/section4.1_examples.zip")
+ unzip("section4.1_examples.zip")
+ setwd("section4.1_examples")
+ system("wget ftp://ftp.ensembl.org/pub/release-94/gtf/homo_sapiens/Homo_sapiens.GRCh38.94.gtf.gz")
+ system("gzip -d Homo_sapiens.GRCh38.94.gtf.gz")
+ system("mv Homo_sapiens.GRCh38.94.gtf genome.gtf")
+ scannobyGtf(group="docker", file=paste(getwd(),"bmsnkn_5x100cells.txt",sep="/"),
+             gtf.name="genome.gtf", biotype="protein_coding", 
+             mt=TRUE, ribo.proteins=TRUE,umiXgene=3)
+ 
+ seuratBootstrap(group="docker",scratch.folder="/data/scratch/",
+      file=paste(getwd(), "annotated_bmsnkn_5x100cells.txt", sep="/"), 
+      nPerm=160, permAtTime=8, percent=10, separator="\t",
+      logTen=0, pcaDimensions=6, seed=111, format="NULL")
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/h5tocsv.R
+\name{h5tocsv}
+\alias{h5tocsv}
+\title{sparse to dense}
+\usage{
+h5tocsv(
+  group = c("sudo", "docker"),
+  file,
+  type = c("h5", "10xgenomics"),
+  version = "5"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{path of the sparse matrix file. For h5 file the full path MUST be included. For mtx matrix the folder MUST contain tsv and mtx files and the FULL path to mtx matrix MUST be provided}
+
+\item{type, }{h5 refers to h5 files and 10xgenomics to the folder containing barcodes.tsv, genes.tsv and matrix.mtx}
+
+\item{version, }{cellranger version: 2, 3 or 5.}
+}
+\value{
+a dense matrix, with 0s, in csv and txt format
+}
+\description{
+This function takes h5 or mtx file from cellranger output and convert it in a csv table.
+}
+\examples{
+\dontrun{
+home <- getwd()
+library(rCASC)
+#download from https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE106268 the GSE106268_RAW.tar file
+system("tar xvf GSE106268_RAW.tar")
+h5tocsv(group="docker", file=paste(getwd(),"GSM2833284_Naive_WT_Rep1.h5",sep="/"), type="h5"))
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+csvToSparse(group="docker", scratch="/data/scratch", file=paste(getwd(), 
+            "annotated_setPace_10000_noC5.txt", sep="/"), separator="\t")
+            
+h5tocsv(group="docker", file=paste(getwd(),"matrix.mtx",sep="/"), type="10xgenomics")
+}
+
+
+}
+\author{
+Raffaele Calogero, raffaele [dot] calogero [at] unito [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clusterStability.R
+\name{clusterStability}
+\alias{clusterStability}
+\title{Permutations and Clustering}
+\usage{
+clusterStability(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  range1 = 3,
+  range2 = 3,
+  separator,
+  logTen = 0,
+  clustering,
+  perplexity = 10,
+  pcaDimensions,
+  seed = 1111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{range1, }{first number of cluster for k means algorithm}
+
+\item{range2, }{last number of cluster for k means algorithm}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{clustering, }{clustering method to use : "SIMLR" , "tSne", "griph"}
+
+\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.}
+
+\item{pcaDimensions, }{dimensions to use for pca reduction for Seurat}
+
+\item{seed, }{important value to reproduce the same results with same input}
+}
+\value{
+plot with cluster stability
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoClusters.R
+\name{autoencoderClustering}
+\alias{autoencoderClustering}
+\title{Autoencoder clustering}
+\usage{
+autoencoderClustering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  projectName,
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
+  seed = 1111,
+  pcaDimensions,
+  permAtTime = 4,
+  largeScale = FALSE
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{permAtTime, }{number of permutation in parallel}
+
+\item{largeScale, }{boolean for SIMLR analysis, TRUE if rows are less then columns or if the computational time are huge}
+}
+\value{
+
+}
+\description{
+This function Compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+ autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13, largeScale = FALSE)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoAnalysis.R
+\name{autoencoderAnalysis}
+\alias{autoencoderAnalysis}
+\title{Autoencoder Analysis}
+\usage{
+autoencoderAnalysis(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  projectName,
+  seed = 1111,
+  Sp,
+  bestPerm = 1
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{bestPerm, }{bestPermutation number, just for visualization}
+}
+\value{
+
+}
+\description{
+This function Compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+ autoencoderClustering(group="docker", scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker_2/scratch", file="/home/user/Riccardo/Riccardo/1_inDocker_2/data/Results/testDocker/setA.csv",separator=",", nCluster=5,clusterMethod=c("SEURAT"),seed=1111,projectName="testDocker",13)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/spatialPipe.R
+\name{stpipeline}
+\alias{stpipeline}
+\title{Spatial transcriptomics pipeline}
+\usage{
+stpipeline(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  data.folder,
+  genome.folder,
+  fastqPathFolder,
+  ID,
+  imgNameAndPath,
+  slide = NULL,
+  area = NULL
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{data.folder, }{a character string indicating the path of the result folder.}
+
+\item{genome.folder, }{a character string indicating the path of the genome folder.}
+
+\item{fastqPathFolder, }{a character string indicating the path of fastq folder}
+
+\item{ID, }{a character string indicating the name of the project}
+
+\item{imgNameAndPath, }{path and name of tiff image file required for analysis.}
+
+\item{slide, }{identificative number from dataset download}
+
+\item{area, }{identificative value from dataset download}
+}
+\value{
+count matrix from spatial transcriptomics
+}
+\description{
+Create count matrix from spatial transcriptomics fasta
+}
+\examples{
+\dontrun{
+Dataset="curl -O http://s3-us-west-2.amazonaws.com/10x.files/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_fastqs.tar"
+DatasetImage="curl -O http://cf.10xgenomics.com/samples/spatial-exp/1.0.0/V1_Mouse_Kidney/V1_Mouse_Kidney_image.tif"
+referenceGenomeHG38="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-GRCh38-3.0.0.tar.gz"
+referenceGenomeMM10="curl -O http://cf.10xgenomics.com/supp/spatial-exp/refdata-cellranger-mm10-3.0.0.tar.gz"
+stpipeline(group="docker", scratch.folder="/run/media/user/Maxtor4/scratch", data.folder="/run/media/user/Maxtor4/prova2", genome.folder="/home/user/spatial/refdata-cellranger-mm10-3.0.0", fastqPathFolder="/home/user/spatial/V1_Mouse_Kidney_fastqs", ID="hey",imgNameAndPath="/home/user/spatial/V1_Mouse_Kidney_image.tif",slide="V19L29-096",area="B1")
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clusterReorg.R
+\name{clusterReorg}
+\alias{clusterReorg}
+\title{Reorganize Cluster}
+\usage{
+clusterReorg(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  A,
+  B,
+  separator,
+  sp = 0.8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{number of Cluster used in Kmeans to generate the clusters that you want to merge}
+
+\item{A, }{first Cluster that has to be merged}
+
+\item{B, }{second Cluster that has to be merged}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+}
+\value{
+will change all the files generated from permAnalysis algorithm in a new folder matrixName_Cluster_merged/
+}
+\description{
+This function executes a ubuntu docker that merge two clusters
+}
+\examples{
+\dontrun{
+clusterReorg("docker","/home/lucastormreig/CASC2.0/2.1_clusterReorg/scratch/","/home/lucastormreig/CASC2.0/2.1_clusterReorg/Data/TOTAL.csv",3,1,3,",")#
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/deTwoGroups.R
+\name{deTwoGroups}
+\alias{deTwoGroups}
+\title{A function allowing the identification of differentially expressed genes.}
+\usage{
+deTwoGroups(group = c("sudo", "docker"), file)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the counts table file. IMPORTANT in the header of the file the covariate group MUST be associated to the column name using underscore, e.g. cell1_cov1}
+}
+\description{
+This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
+}
+\examples{
+\dontrun{
+    #running deDetection
+    system("wget http://130.192.119.59/public/buettner_counts_noSymb.txt.zip")
+    unzip("buettner_counts_noSymb.txt.zip")
+    lorenzFilter(group="docker", scratch.folder="/data/scratch/",
+                data.folder=getwd(), matrixName="buettner_counts_noSymb",
+                p_value=0.05, format="txt", separator='\t')
+
+    system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+    system("gzip -d Mus_musculus.GRCm38.92.gtf.gz")
+    scannobyGtf(group="docker", data.folder=getwd(),
+                 counts.table="lorenz_buettner_counts_noSymb.txt",
+                 gtf.name="Mus_musculus.GRCm38.92.gtf",
+                 biotype="protein_coding", mt=FALSE, ribo.proteins=FALSE,
+                 file.type="txt", umiXgene=3)
+
+    deDetection(group="docker", data.folder=getwd(),
+               counts.table="annotated_lorenz_buettner_counts_noSymb.txt",
+               file.type="txt", logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/lorenzFilter.R
+\name{lorenzFilter}
+\alias{lorenzFilter}
+\title{A function to handle sigle cell Lorenz Quality filter for Single-cells}
+\usage{
+lorenzFilter(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  p_value,
+  separator
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included}
+
+\item{p_value, }{lorenz statistics threshold, suggest value 0.05, i.e. 5\% probability that the cell of low quality is selected}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+The output is a filtered counts table. Output will be in the same format and with the same separator of input.
+}
+\description{
+This function executes a docker that embeds Lorenz filter from Diaz at al. Bioinformatics 2016
+}
+\examples{
+\dontrun{
+        system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+     library(casc)
+     system("unzip testSCumi_mm10.csv.zip")
+     #filtering low quality cells
+     lorenzFilter(group="docker",scratch.folder="/data/scratch/", 
+                  file=paste(getwd(),"testSCumi_mm10.csv", sep="/"),
+                  p_value=0.05, separator=',')
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/dePblkae.R
+\name{dePblkae}
+\alias{dePblkae}
+\title{dePblkae}
+\usage{
+dePblkae(group = c("sudo", "docker"), data.folder, scratch.folder)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{data.folder, }{folder where the total.csv file is located}
+
+\item{scratch.folder, }{where calculation is performed}
+}
+\value{
+a file called DE.txt, which contains for each cluster the ID of the genes detected as DE,  a file called log2_reformatedCPM.psblkAE.csv, which contains the log2 CPM of the psblkAE file and a file log2_reformatedCPM.psblkAE_mean-centered.csv, where log2 CPM are mena centered.
+}
+\description{
+This function execute dePblkae analysis which detects differentiale expressed genes among clusters using a pseudobulk generated with autoencoders: autoencoder4pseudoBulk function. It is advisible to  do the analysis on a dataset made of at least 20 permutation
+}
+\examples{
+\dontrun{
+ library(rCASC)
+ dePblkae(group="docker", 
+        data.folder="/somewhere/in/your/PC", 
+        scratch.folder="/scratch"
+ )
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/vioHTMLbyGenes.R
+\name{vioHTMLByGenes}
+\alias{vioHTMLByGenes}
+\title{vioHTMLByGenes}
+\usage{
+vioHTMLByGenes(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  cl,
+  gene,
+  logtwo
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{cl, }{Clustering.output file, which contains the output of every clustering algorithm embedded in rCASC or it can be a file having in the first column cells names and in the second column cluster to which the cell belongs. Full path is required.}
+
+\item{gene, }{gene name that wants to be inspected. Gene format depends from the rows names format of the count file.}
+
+\item{logtwo, }{1 if the matrix is already in log2, 0 otherwise}
+}
+\value{
+
+}
+\description{
+The present function plot count matrix data into a vioplot for a gene in each cluster. I requires two file the count matrics and the _clustering.output file.
+}
+\examples{
+\dontrun{
+ vioHTMLByGenes(group=c("sudo"), scratch.folder="/home/lucastormreig/genesPlot/test/scratch", file="/home/lucastormreig/genesPlot/test/data/setA.csv",separator=",", cl="/home/lucastormreig/genesPlot/test/data/setA_clustering.output.csv",gene="ARF5",logtwo=1)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/anovaLike.R
+\name{anovaLike}
+\alias{anovaLike}
+\title{A function allowing the identification of differentially expressed genes.}
+\usage{
+anovaLike(
+  group = c("sudo", "docker"),
+  file,
+  sep,
+  cluster.file,
+  ref.cluster,
+  logFC.threshold = 1,
+  FDR.threshold,
+  logCPM.threshold = 4,
+  plot = c(TRUE, FALSE)
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the counts table file with the path of the file.}
+
+\item{sep, }{separator used in count file, e.g. '\\t', ','}
+
+\item{cluster.file, }{a character string indicating the _clustering.output.txt file of interest, generated by bootstrapSimlar or bootStrapTsne. IMPORTANT this file miust be located in the same folder where counts.table is placed}
+
+\item{ref.cluster, }{a number indicating the cluster to be used a reference for anova-like comparison with the other clusters.}
+
+\item{logFC.threshold, }{minimal logFC present in at least one of the comparisons with respect to reference covariate}
+
+\item{FDR.threshold, }{minimal FDR present in at least one of the comparisons with respect to reference covariate}
+
+\item{logCPM.threshold, }{minimal average abundance}
+
+\item{plot, }{boolean, TRUE a plot of differentially expressed genes is generated}
+}
+\value{
+Three tab delimited files file with prefix DE\_, filtered\_DE\_, logFC\_filtered\_DE\_ followed by the counts table name, the count table, reordered on the basis of cluster positions, has the extension \_reordered.txt
+}
+\description{
+This function executes in a docker edgeR for the idnetification of differentially expressed genes in single-cells RNAseq
+}
+\examples{
+\dontrun{
+    #running deDetection
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5_clustering.output.txt")
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+anovaLike(group="docker", file=paste(getwd(),"annotated_setPace_10000_noC5.txt",sep="/"),
+       sep="\t", cluster.file="annotated_setPace_10000_noC5_clustering.output.txt", ref.cluster=3,
+       logFC.threshold=1, FDR.threshold=0.05, logCPM.threshold=4, plot=TRUE)
+
+}
+
+}
+\author{
+Raffaele Calogero, raffaele.calogero [at] unito [dot] it, University of Torino, Italy
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cometsc.R
+\name{cometsc}
+\alias{cometsc}
+\title{Marker genes discovery with COMETSC}
+\usage{
+cometsc(
+  group = c("sudo", "docker"),
+  file,
+  scratch.folder,
+  threads = 1,
+  X = 0.15,
+  K = 2,
+  counts = c("True", "False"),
+  skipvis = c("True", "False"),
+  nCluster,
+  separator
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{scratch.folder, }{temporary folder where calculation is made}
+
+\item{threads, }{integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster}
+
+\item{X, }{from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.}
+
+\item{K, }{the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big}
+
+\item{counts, }{if set to True it will graph the log(expression+1). To be used if unlogged data are provided}
+
+\item{skipvis, }{set to True to skip visualizations}
+
+\item{nCluster, }{number of interested cluster used for analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+}
+\value{
+folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html
+}
+\description{
+This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)
+}
+\examples{
+\dontrun{
+    #running cometsc
+    cometsc(group="docker", file="/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv", 
+           scratch.folder="/Users/raffaelecalogero/Desktop",
+           threads=1, counts="True", skipvis="False", nCluster=8, separator=",") 
+}
+
+}
+\author{
+Raffaele Calogero,raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/bulkClusters.R
+\name{bulkClusters}
+\alias{bulkClusters}
+\title{bulkClusters}
+\usage{
+bulkClusters(group = c("sudo", "docker"), scratch.folder, file, separator, cl)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{matrix separator, ',', '\\t'}
+
+\item{cl, }{name and path of the file clustering.output previously generated from clustering algorithm from rcasc}
+}
+\value{
+
+}
+\description{
+The present function create pseudo-bulk matrix from clustering.output file. The output are three files: _bulklog2, which is not normalized, _bulkColumn, which is z-scoere calculated over each column, _bulkRow, which is z-score calculated over each row
+}
+\examples{
+\dontrun{
+ bulkClusters(group="docker", scratch.folder="/home/user/scratch", 
+ file="/home/user/temp/setA.csv",separator=",",
+ cl="/home/user/temp/Results/setA/3/setA_clustering.output.csv")
+ 
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SCannoByGtf.R
+\name{scannobyGtf}
+\alias{scannobyGtf}
+\title{Annotating single cell counts table using ENSEMBL gtf and refGenome CRAN package}
+\usage{
+scannobyGtf(
+  group = c("docker", "sudo"),
+  file,
+  gtf.name,
+  biotype = NULL,
+  mt = c(TRUE, FALSE),
+  ribo.proteins = c(TRUE, FALSE),
+  umiXgene = 3,
+  riboStart.percentage = 20,
+  riboEnd.percentage = 70,
+  mitoStart.percentage = 1,
+  mitoEnd.percentage = 100,
+  thresholdGenes = 250
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the folder where input data are located and where output will be written and matrix name "/bin/users/matrix.csv". The system recognize automatically csv as comma separated files and txt as tab separated file}
+
+\item{gtf.name, }{a character string indicating the ENSEMBL gtf file}
+
+\item{biotype, }{a character string the biotypes of interest}
+
+\item{mt, }{a boolean to define if mitocondrial genes have to be removed, FALSE mean that mt genes are removed}
+
+\item{ribo.proteins, }{a boolean to define if ribosomal proteins have to be removed, FALSE mean that ribosomal proteins (gene names starting with rpl or rps) are removed}
+
+\item{umiXgene, }{a integer defining how many UMI are required to call a gene as present. default: 3}
+
+\item{riboStart.percentage, }{start range for ribosomal percentage, cells within the range are kept}
+
+\item{riboEnd.percentage, }{end range for ribosomal percentagem cells within the range are kept}
+
+\item{mitoStart.percentage, }{start range for mitochondrial percentage, cells within the range are retained}
+
+\item{mitoEnd.percentage, }{end range for mitochondrial percentage, cells within the range are retained}
+
+\item{thresholdGenes, }{parameter to filter cells according to the number og significative genes expressed}
+}
+\value{
+one file: annotated_counts table, where ensembl ids are linked to gene symbols and a PDF showing the effect of ribo and mito genes removal. Filtered_annotated annotated counts table with only cells and genes given by filtering thresholds. A pdf showing the effect of genes counts of the filtering and a filteredStatistics.txt indicating how many cell and genes were filtered out
+}
+\description{
+This function executes the docker container annotate.1, where refGenome is used to annotate a single cell counts table with ensembl gene ids on first column using ENSEMBL GTF annotation
+}
+\examples{
+\dontrun{
+        system("wget http://130.192.119.59/public/testSCumi_mm10.csv.zip")
+     library(rCASC)
+     system("unzip testSCumi_mm10.csv.zip")
+     #filtering low quality cells
+     lorenzFilter(group="docker",scratch.folder="/data/scratch/",
+                  file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                  p_value=0.05,separator=',')
+     #running annotation and removal of mit and ribo proteins genes
+     #download mouse GTF for mm10
+     system("wget ftp://ftp.ensembl.org/pub/release-92/gtf/mus_musculus/Mus_musculus.GRCm38.92.gtf.gz")
+     system("gunzip Mus_musculus.GRCm38.92.gtf.gz")
+     scannobyGtf(group="docker", file=paste(getwd(),"testSCumi_mm10.csv",sep="/"),
+                  gtf.name="Mus_musculus.GRCm38.94.gtf", biotype="protein_coding", 
+                  mt=TRUE, ribo.proteins=TRUE, umiXgene=3, riboStart.percentage=0, 
+                  riboEnd.percentage=100, mitoStart.percentage=0, mitoEnd.percentage=100, thresholdGenes=100)
+}
+
+}
+\author{
+Raffaele Calogero, Luca Alessandri
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clusterNgriph.R
+\name{clusterNgriph}
+\alias{clusterNgriph}
+\title{Defining with griph the range of  number of clusters to be used with SIMLR}
+\usage{
+clusterNgriph(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform}
+
+\item{permAtTime, }{number of permutations that can be computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters selected as optimal by griph, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells, hist.pdf describing the number of times a specific number of clusters was used during permutations
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate the range of optimal number of clusters using griph algorithm. For more info see rCASC vignette.
+}
+\examples{
+\dontrun{
+ clusterNgriph(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=16, permAtTime=8, percent=10, separator="\t",logTen=0, seed=111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/deltaFilter.R
+\name{deltaFilter}
+\alias{deltaFilter}
+\title{Filterin}
+\usage{
+deltaFilter(
+  threshold,
+  minDelta,
+  minNGene,
+  original,
+  menoRibo,
+  separator,
+  format,
+  wf
+)
+}
+\arguments{
+\item{threshold, }{value to estimate if a gene is significatively expressed}
+
+\item{minDelta, }{filtering value for the minimun difference value between genes WMT&rib and genes without MT and without RB}
+
+\item{minNGene, }{filtering value for the minimun number of gene}
+
+\item{original, }{matrix name without annotation}
+
+\item{menoRibo, }{matrix name with annotation}
+
+\item{separator, }{matrix separator value}
+
+\item{format, }{matrix format}
+
+\item{wf, }{if this parameter is setted to 0 your filtering will be minDelta and minNGene based, otherwise it will take the top wf cells with the higher number of genes significatively expressed}
+}
+\value{
+filtered matrix table
+}
+\description{
+This function filter matrix raw count
+}
+\examples{
+\dontrun{
+   TOO BE MADE
+}
+
+}
+\author{
+Luca Alessandri, alessandri.luca [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permutationClustering.R
+\name{permutationClustering}
+\alias{permutationClustering}
+\title{Permutations and Clustering}
+\usage{
+permutationClustering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  range1 = 3,
+  range2 = 3,
+  separator,
+  logTen = 0,
+  clustering,
+  perplexity = 10,
+  seed = 1111,
+  rK = 0
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{permAtTime, }{number of permutations that can be computes in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{range1, }{first number of cluster for k means algorithm}
+
+\item{range2, }{last number of cluster for k means algorithm}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{clustering, }{clustering method to use : "SIMLR" , "tSne", "griph"}
+
+\item{perplexity, }{Number of close neighbors for each point. This parameter is specific for tSne. Default value is 10.Setting this parameter when use a clustering method different by tSne will be ignored.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{rK, }{1 for rankGene algorithm 0 otherwise WARNING, very slow with this feature. This parameter is specific for SIMLR. Setting this parameter to 1 with other clustering methods will not give any different result to set the parameter to 0.}
+}
+\value{
+VioPlot of silhouette cells value for each number of cluster used,clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells.
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation to evaluate clustering.
+}
+\examples{
+\dontrun{
+ permutationClustering("docker","/home/lucastormreig/CASC2.0/permutationClustering/scratch/","/home/lucastormreig/CASC2.0/permutationClustering/Data/TOTAL.csv",4,2,10,3,4,separator=",",logTen=0,clustering="SIMLR",perplexity=0)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/bootstrapsVideo.R
+\name{bootstrapsVideo}
+\alias{bootstrapsVideo}
+\title{Bootstraps vide}
+\usage{
+bootstrapsVideo(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nCluster,
+  separator,
+  framePP = 200,
+  permutationNumber
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nCluster, }{which nCluster results to use for this analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{framePP, }{Number of frames for each bootstrap}
+
+\item{permutationNumber, }{Number of random bootstraps, should be less or equal to the total number of permutations used to generate tha clustering data}
+}
+\value{
+a video
+}
+\description{
+This function generate a video showing the relocation of cells during the bootstraps
+}
+\examples{
+\dontrun{
+ bootstrapsVideo(group,scratch.folder,file,nCluster,separator)#
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/permAnalysis.R
+\name{permAnalysis}
+\alias{permAnalysis}
+\title{Permutation Analysis}
+\usage{
+permAnalysis(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  range1,
+  range2,
+  separator,
+  sp,
+  clusterPermErr = 0.05,
+  maxDeltaConfidence = 0.01,
+  minLogMean = 0.05
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{range1, }{First number of cluster that has to be analyzed}
+
+\item{range2, }{Last number of cluster that has to be analyzed}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+
+\item{clusterPermErr, }{error that can be done by each permutation in cluster number depicting.Default = 0.05}
+
+\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection}
+
+\item{minLogMean, }{min value for Log mean for genes feature selection}
+}
+\value{
+stability plot for each nCluster,two files with score information for each cell for each permutation.
+}
+\description{
+This function analyze the data that came up from permutationClustering script.
+}
+\examples{
+\dontrun{
+permAnalysis("docker","path/to/scratch","path/to/data/TOTAL",3,4,",",0.8)#
+}
+}
+\author{
+Luca Alessandri , alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/splitClusters.R
+\name{splitClusters}
+\alias{splitClusters}
+\title{Split Matrix for each clusters}
+\usage{
+splitClusters(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{interesting number of clusters}
+}
+\value{
+one Matrix for each cluster
+}
+\description{
+This function executes a ubuntu docker that merge two matrix
+}
+\examples{
+\dontrun{
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/clustering_WADB_wrapper.R
+\name{clusteringWADB_Wrapper}
+\alias{clusteringWADB_Wrapper}
+\title{wrapperAutoencoder}
+\usage{
+clusteringWADB_Wrapper(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  seed = 1111,
+  projectName,
+  lr = 0.01,
+  loss = "mean_squared_error",
+  clusterMethod = c("GRIPH", "SIMLR", "SEURAT", "SHARP"),
+  pcaDimensions = 5,
+  Sp = 0.8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{clusterMethod, }{clustering methods: "GRIPH","SIMLR","SEURAT","SHARP"}
+
+\item{pcaDimensions, }{number of dimensions to use for Seurat Pca reduction.}
+
+\item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+}
+\value{
+folders the complete autoencoder analysis.
+
+
+}
+\description{
+This function executes the whole autoencoder pipeline
+}
+\examples{
+\dontrun{
+ clusteringWADB_Wrapper(group=c("sudo"),scratch.folder="/home/user/scratch",file="/home/user/autoencoderClustering_v4/u/setA.csv",separator=",",nCluster=5,permutation=80,nEpochs=1000,patiencePercentage=5,seed=1111,projectName="yuppy",clusterMethod=c( "SIMLR"),lr=0.001)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cellranger_count.R
+\name{cellrangerCount}
+\alias{cellrangerCount}
+\title{Cellranger count}
+\usage{
+cellrangerCount(
+  group = c("sudo", "docker"),
+  transcriptome.folder,
+  fastq.folder,
+  sample = NULL,
+  expect.cells = NULL,
+  force.cells = NULL,
+  nosecondary = TRUE,
+  chemistry = "auto",
+  r1.length = NULL,
+  r2.length = NULL,
+  lanes = NULL,
+  localcores = NULL,
+  localmem = NULL,
+  scratch.folder,
+  version = "5"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{transcriptome.folder, }{path to the Cell Ranger compatible transcriptome reference e.g. for a human and mouse mixture sample, use refdata-cellranger-hg19-and-mm10-1.2.0}
+
+\item{fastq.folder, }{path of the fastq path folder in fastq folder the  fastq must have the format SAMPLENAME_S1_L001_R1_001.fastq.gz}
+
+\item{sample, }{fastq name, if fastq name is subject1_S1_L001_R1_001.fastq.gz sample is subject1}
+
+\item{expect.cells, }{optional setting the number of recovered cells. Default: 3000 cells.}
+
+\item{force.cells, }{optional to force pipeline to use this number of cells, bypassing the cell detection algorithm. Use this if the number of cells estimated by Cell Ranger is not consistent with the barcode rank plot.}
+
+\item{nosecondary, }{optional flag, default TRUE, to skip secondary analysis of the gene-barcode matrix (dimensionality reduction, clustering and visualization). Set this if you plan to use cellranger reanalyze or your own custom analysis.}
+
+\item{chemistry, }{optional assay configuration. One of: auto for autodetection (default), threeprime for Single Cell 3end, fiveprime for Single Cell 5end, SC3Pv1 for Single Cell 3end v1, SC3Pv2 for Single Cell 3end v2, SC5P-PE for Single Cell 5end paired-end (both R1 and R2 are used for alignment), SC5P-R2 for Single Cell 5end R2-only (where only R2 is used for alignment).}
+
+\item{r1.length, }{optional hard-trim the input R1 sequence to this length. Note that the length includes the Barcode and UMI sequences so do not set this below 26 for Single Cell 3end v2 or Single Cell 5end. This and --r2-length are useful for determining the optimal read length for sequencing.}
+
+\item{r2.length, }{optional hard-trim the input R2 sequence to this length.}
+
+\item{lanes, }{optional, lanes associated with this sample}
+
+\item{localcores, }{restricts cellranger to use specified number of cores to execute pipeline stages. By default, cellranger will use all of the cores available on your system.}
+
+\item{localmem, }{restricts cellranger to use specified amount of memory, in GB, to execute pipeline stages. By default, cellranger will use 90\% of the memory available on your system. Please note that cellranger requires at least 16 GB of memory to run all pipeline stages.}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{version, }{cellranger version: 2, 3 or 5.}
+}
+\value{
+a folder called results_cellranger, more info on the structure of this folder at https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/output/overview . In /somewhewre_in_your_computer/results_cellranger/outs/filtered_gene_bc_matrices the cells counts matrices results_cellranger.cvs and results_cellranger.txt are saved for further use.
+}
+\description{
+This function takes FASTQ files from cellranger mkfastq and performs alignment, filtering, barcode counting, and UMI counting.
+}
+\examples{
+\dontrun{
+home <- getwd()
+library(rCASC)
+setwd("/data/genomes/cellranger_hg19mm10")
+#getting the human and mouse cellranger index
+system("wget http://cf.10xgenomics.com/supp/cell-exp/refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz")
+untar("refdata-cellranger-hg19-and-mm10-2.1.0.tar.gz") 
+setwd(home)
+# 100 cells 1:1 Mixture of Fresh Frozen Human (HEK293T) and Mouse (NIH3T3) Cells
+system("wget http://cf.10xgenomics.com/samples/cell-exp/2.1.0/hgmm_100/hgmm_100_fastqs.tar")
+untar("hgmm_100_fastqs.tar")
+home=paste(home,"/fastqs",sep="")
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/cellranger_hg19mm10/refdata-cellranger-hg19_and_mm10-2.1.0",  fastq.folder=getwd(),  expect.cells=100, nosecondary=TRUE, scratch.folder="/data/scratch", version="2")
+
+sraDownload(group = "docker", sra.name = "SRR7762358", data.folder = getwd(), scratch.folder = "/data/scratch", threads = 8)
+system("mv ./SRR7762358/SRR7762358.fastq.gz ./SRR7762358/SRR7762358_S1_L001_R1_001.fastq.gz")
+cellrangerCount(group="docker",  transcriptome.folder="/data/genomes/refdata-cellranger-GRCh38-3.0.0",  fastq.folder=getwd(), sample="SRR7762358",  nosecondary=TRUE, scratch.folder="/data/scratch", version="3")
+
+}
+
+
+}
+\author{
+Greta Romano, romano [dot] greta [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/geneVisualization2.R
+\name{geneVisualization2}
+\alias{geneVisualization2}
+\title{GeneVisualization2}
+\usage{
+geneVisualization2(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  clustering.output,
+  geneList,
+  separator,
+  finalName,
+  pvalueFile,
+  threshold
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the count matrix}
+
+\item{clustering.output, }{a character string indicating the path of the clustering.output matrix}
+
+\item{geneList, }{a character string indicating the path of the geneList matrix (no header, no row names)}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{finalName, }{name used for plot.}
+
+\item{pvalueFile, }{name for pvalue file.}
+
+\item{threshold, }{threshold value.}
+}
+\value{
+plot
+}
+\description{
+This function executes a ubuntu docker that performs geneVisualization
+}
+\examples{
+\dontrun{
+dir.create("scratch")
+geneVisualization2(group="docker", scratch.folder="/scratch", file="/example/log2cpm.csv",clustering.output="/example/log2cpm_fake_clustering.output.csv",geneList="/example/geneList2.csv",separator=",",finalName="yo",pvalueFile="/example/log2cpmfisher.csv",threshold=0.05)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SHARPBootstrap.R
+\name{sharpBootstrap}
+\alias{sharpBootstrap}
+\title{Executing clustering with SHARP.}
+\usage{
+sharpBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  separator,
+  logTen = 0,
+  seed = 111
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutations using SHARP as clustering tool.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+sharpBootstrap(group="docker",scratch.folder="/data/scratch/",
+               file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), 
+               nPerm=160, permAtTime=8, percent=10, separator="\t",logTen=0, 
+               seed=111)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/checkCountDepth.R
+\name{checkCountDepth}
+\alias{checkCountDepth}
+\title{Running SCnorm  checkCountDepth test.}
+\usage{
+checkCountDepth(
+  group = c("sudo", "docker"),
+  file,
+  conditions = NULL,
+  FilterCellProportion = 0.1,
+  FilterExpression = 0,
+  ditherCounts = FALSE,
+  outputName,
+  nCores = 8
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs.}
+
+\item{file, }{a character string indicating the path of the file. IMPORTANT: full path to the file MUST be included. Only tab delimited files are supported}
+
+\item{conditions, }{vector of condition labels, this should correspond to the columns of the un-normalized expression matrix. If not provided data is assumed to come from same condition/batch.}
+
+\item{FilterCellProportion, }{a value indicating the proportion of non-zero expression estimates required to include the genes into the evaluation. Default is .10, and will not go below a proportion which uses less than 10 total cells/samples}
+
+\item{FilterExpression, }{a value indicating exclude genes having median of non-zero expression below this threshold from count-depth plots}
+
+\item{ditherCounts, }{Setting to TRUE might improve results with UMI data, default is FALSE}
+
+\item{outputName, }{specify the path and/or name of output files.}
+
+\item{nCores, }{number of cores to use, default is detectCores() - 1.}
+}
+\value{
+pdf with the cells counts distributions
+}
+\description{
+This function executes a check on the data count-depth relationship used by SCnorm.
+}
+\examples{
+\dontrun{
+    #UMI 3' end analysis
+    system("wget http://130.192.119.59/public/example_UMI.txt.zip")
+    unzip("example_UMI.txt.zip")
+    conditions=rep(1,12)
+    checkCountDepth(group="docker", file=paste(getwd(), "example_UMI.txt", sep="/"),
+    conditions=conditions, FilterCellProportion=0.1, FilterExpression=0,
+    ditherCounts=TRUE, outputName="example_UMI", nCores=8)
+
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/runDocker.R
+\name{runDocker}
+\alias{runDocker}
+\title{Run docker container}
+\usage{
+runDocker(group = "docker", params = NULL, DockerSwarm = FALSE)
+}
+\arguments{
+\item{group, }{a character string. Two options: \code{"sudo"} or \code{"docker"}, depending to which group the user belongs}
+
+\item{params, }{a character string containing all parameters needed to tun the docker container}
+
+\item{DockerSwarm, }{a bolean value used to enable docker execution in swarm mode.}
+}
+\value{
+0 if success, 1 if parameters are missing, 2 if the group is neither sudo or docker, 3 if docker execution fails.
+}
+\description{
+This is an internal function executing a docker container. Not to be used by users.
+}
+\examples{
+\dontrun{
+    #running runDocker
+     runDocker(group="docker", params=NULL)
+
+}
+}
+\author{
+Raffaele Calogero
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cometSC2.R
+\name{cometsc2}
+\alias{cometsc2}
+\title{Marker genes discovery with COMETSC for autoencoder results}
+\usage{
+cometsc2(
+  group = c("sudo", "docker"),
+  file,
+  scratch.folder,
+  threads = 1,
+  X = 0.15,
+  K = 2,
+  counts = c("True", "False"),
+  skipvis = c("True", "False"),
+  nCluster,
+  separator,
+  clustering.output
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{scratch.folder, }{temporary folder where calculation is made}
+
+\item{threads, }{integer refering to the max number of process run in parallel default 1 max the number of clusters under analysis, i.e. nCluster}
+
+\item{X, }{from 0 to 1 argument for XL-mHG default 0.15, for more info see cometsc help.}
+
+\item{K, }{the number of gene combinations to be considered., possible values 2, 3, 4, default 2. WARNING increasing the number of combinations makes the matrices very big}
+
+\item{counts, }{if set to True it will graph the log(expression+1). To be used if unlogged data are provided}
+
+\item{skipvis, }{set to True to skip visualizations}
+
+\item{nCluster, }{number of interested cluster used for analysis}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{clustering.output, }{path of the clustering.output file to use}
+}
+\value{
+folders with prefix output. More info in output at https://hgmd.readthedocs.io/en/latest/Output.html
+}
+\description{
+This function executes a ubuntu docker for cometsc (https://github.com/MSingerLab/COMETSC)
+}
+\examples{
+\dontrun{
+    #running cometsc
+    cometsc(group="docker", file="/Users/raffaelecalogero/Desktop/AXLN1/data/topx_veanno.csv", 
+           scratch.folder="/Users/raffaelecalogero/Desktop",
+           threads=1, counts="True", skipvis="False", nCluster=8, separator=",") 
+}
+
+}
+\author{
+Raffaele Calogero,raffaele.calogero [at] unito [dot] it, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cellrangerIndexing.R
+\name{cellrangerIndexing}
+\alias{cellrangerIndexing}
+\title{Cellranger indexing}
+\usage{
+cellrangerIndexing(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  genomeFolder,
+  gtf.url,
+  fasta.url,
+  bio.type = c("protein_coding", "unitary_pseudogene", "unprocessed_pseudogene",
+    "processed_pseudogene", "transcribed_unprocessed_pseudogene", "processed_transcript",
+    "antisense", "transcribed_unitary_pseudogene", "polymorphic_pseudogene", "lincRNA",
+    "sense_intronic", "transcribed_processed_pseudogene", "sense_overlapping",
+    "IG_V_pseudogene", "pseudogene", "TR_V_gene", "3prime_overlapping_ncRNA",
+    "IG_V_gene", "bidirectional_promoter_lncRNA", "snRNA", "miRNA", "misc_RNA", "snoRNA",
+    "rRNA", "IG_C_gene", "IG_J_gene",      "TR_J_gene", "TR_C_gene", "TR_V_pseudogene",
+    "TR_J_pseudogene", "IG_D_gene", "ribozyme", "IG_C_pseudogene", "TR_D_gene", "TEC",
+    "IG_J_pseudogene", "scRNA", "scaRNA", "vaultRNA", "sRNA", "macro_lncRNA",
+    "non_coding", "IG_pseudogene"),
+  nThreads,
+  version = "5"
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{genomeFolder, }{path for the genome folder}
+
+\item{gtf.url, }{a character string indicating the URL from ENSEMBL ftp for the GTF for genome of interest}
+
+\item{fasta.url, }{a character string indicating the URL from ENSEMBL ftp for the unmasked genome sequence of interest}
+
+\item{bio.type, }{ENSEMBL biotype to filter the GTF}
+
+\item{nThreads, }{number of cores for parallelization}
+
+\item{version, }{cellranger version: 2, 3 or 5.}
+}
+\value{
+an indexed genome compliant with 10XGenomics cellranger
+}
+\description{
+This function creates the indexing for 10Xgenomics
+}
+\examples{
+\dontrun{
+library(rCASC)
+setwd("/data/genomes/hg38refcellranger")
+
+cellrangerIndexing(group="docker", scratch.folder="/data/scratch", 
+            gtf.url="ftp://ftp.ensembl.org/pub/release-87/gtf/homo_sapiens/Homo_sapiens.GRCh38.87.gtf.gz",
+            fasta.url="ftp://ftp.ensembl.org/pub/release-87/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.toplevel.fa.gz",
+            genomeFolder = getwd(), bio.type="protein_coding", nThreads = 8)
+}
+
+
+}
+\author{
+Luca Alessandrì
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/simlrBootstrap.R
+\name{simlrBootstrap}
+\alias{simlrBootstrap}
+\title{Clustering with SIMLR}
+\usage{
+simlrBootstrap(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  nPerm,
+  permAtTime,
+  percent,
+  range1,
+  range2,
+  separator,
+  logTen = 0,
+  seed = 111,
+  sp = 0.8,
+  clusterPermErr = 0.05,
+  maxDeltaConfidence = NULL,
+  minLogMean = NULL
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{nPerm, }{number of permutations to be executed}
+
+\item{permAtTime, }{number of permutations computed in parallel}
+
+\item{percent, }{percentage of randomly selected cells removed in each permutation}
+
+\item{range1, }{beginning of the range of clusters to be investigated}
+
+\item{range2, }{end of the range of clusters to be investigated}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{logTen, }{1 if the count matrix is already in log10, 0 otherwise}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{sp, }{minimun number of percentage of cells that has to be in common in a cluster, between two permutations, default 0.8}
+
+\item{clusterPermErr, }{probability error in depicting the number of clusters in each permutation, default = 0.05}
+
+\item{maxDeltaConfidence, }{max value for Delta confidence for genes feature selection}
+
+\item{minLogMean, }{min value for Log mean for genes feature selection}
+}
+\value{
+A folder Results containing a folder with the name of the experiment, which contains: VioPlot of silhouette cells value for each number of cluster used, a folder with the number of clusters used for SIMLR clustering, which contains: clusterP file with clustering results for each permutation, killedCell file with removed cells in each permutation, clustering.output a sommarize file with general information for each cells
+}
+\description{
+This function executes a ubuntu docker that produces a specific number of permutation with SIMLR clustering.
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/section4.1_examples.zip")
+unzip("section4.1_examples.zip")
+setwd("section4.1_examples")
+simlrBootstrap(group="docker",scratch.folder="/data/scratch/",file=paste(getwd(), "bmsnkn_5x100cells.txt", sep="/"), nPerm=160, permAtTime=8, percent=10, range1=4, range2=6, separator="\t",logTen=0, seed=111, sp=0.8, clusterPermErr=0.05)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/testDocker.R
+\name{dockerTest}
+\alias{dockerTest}
+\title{Testing if Docker is installed}
+\usage{
+dockerTest()
+}
+\value{
+a character string indicating the version of the docker installed in the system
+}
+\description{
+This function check that docker is installed
+}
+\examples{
+ dockerTest()
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoencoder4Pseudobulk.R
+\name{autoencoder4pseudoBulk}
+\alias{autoencoder4pseudoBulk}
+\title{Autoencoder for pseudoBulk}
+\usage{
+autoencoder4pseudoBulk(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  seed = 1111,
+  projectName,
+  bN,
+  lr = 0.01,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = 1e-08,
+  decay = 0,
+  loss = "mean_squared_error",
+  regularization = 10
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering. Suggested minimal number of permutations 10}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{bN, }{path to the clustering.output file}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{beta_1, }{look at keras optimizer parameters}
+
+\item{beta_2, }{look at keras optimizer parameters}
+
+\item{epsilon, }{look at keras optimizer parameters}
+
+\item{decay, }{look at keras optimizer parameters}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
+}
+\value{
+
+}
+\description{
+The present function compress data using autoencoder partially connected creating pseudoBulk matrix
+}
+\examples{
+\dontrun{
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoanalysis4Clustering.R
+\name{autoencoderAnalysis4Clustering}
+\alias{autoencoderAnalysis4Clustering}
+\title{Autoencoder Analysis}
+\usage{
+autoencoderAnalysis4Clustering(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  projectName,
+  seed = 1111,
+  Sp
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included.Has to be the one in the projectName folder.Different so from the previous one.}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{Sp, }{minimun number of percentage of cells that has to be in common between two permutation to be the same cluster.}
+}
+\value{
+
+}
+\description{
+This function Compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+ autoencoderAnalysis4Clustering(group=group, scratch.folder=scratch.folder, file=file2,separator=separator,projectName=projectName2,seed=seed,Sp=Sp)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/subSetCell.R
+\name{subSetCell}
+\alias{subSetCell}
+\title{Subset Cell}
+\usage{
+subSetCell(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  cells.number
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{cells.number, }{number of cells to be extracted}
+}
+\value{
+subsetted matrix
+}
+\description{
+This function executes a ubuntu docker that subset a matrix
+}
+\examples{
+\dontrun{
+system("wget http://130.192.119.59/public/annotated_setPace_10000_noC5.txt.zip")
+unzip("annotated_setPace_10000_noC5.txt.zip")
+
+subSetCell<- function(group="docker", scratch.folder="/data/scratch", 
+                       file=paste(getwd(), "annotated_setPace_10000_noC5.txt",sep="/"), 
+                       separator="\t", cells.number=200)
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/autoencoder.R
+\name{autoencoder}
+\alias{autoencoder}
+\title{Autoencoder}
+\usage{
+autoencoder(
+  group = c("sudo", "docker"),
+  scratch.folder,
+  file,
+  separator,
+  nCluster,
+  bias,
+  permutation,
+  nEpochs,
+  patiencePercentage = 5,
+  cl,
+  seed = 1111,
+  projectName,
+  bN = "NULL",
+  lr = 0.01,
+  beta_1 = 0.9,
+  beta_2 = 0.999,
+  epsilon = 1e-08,
+  decay = 0,
+  loss = "mean_squared_error",
+  regularization = 10,
+  variational = FALSE
+)
+}
+\arguments{
+\item{group, }{a character string. Two options: sudo or docker, depending to which group the user belongs}
+
+\item{scratch.folder, }{a character string indicating the path of the scratch folder}
+
+\item{file, }{a character string indicating the path of the file, with file name and extension included}
+
+\item{separator, }{separator used in count file, e.g. '\\t', ','}
+
+\item{nCluster, }{number of cluster in which the dataset is divided}
+
+\item{bias, }{bias method to use : "mirna" , "TF", "CUSTOM", kinasi,immunoSignature,ALL}
+
+\item{permutation, }{number of permutations to perform the pValue to evaluate clustering}
+
+\item{nEpochs, }{number of Epochs for neural network training}
+
+\item{patiencePercentage, }{number of Epochs percentage of not training before to stop.}
+
+\item{cl, }{Clustering.output file. Can be the output of every clustering algorithm from rCASC or can be customized with first column cells names, second column cluster they belong. All path needs to be provided.}
+
+\item{seed, }{important value to reproduce the same results with same input}
+
+\item{projectName, }{might be different from the matrixname in order to perform different analysis on the same dataset}
+
+\item{bN, }{name of the custom bias file. This file need header, in the first column has to be the source and in the second column the gene symbol. All path needs to be provided.}
+
+\item{lr, }{learning rate, the speed of learning. Higher value may increase the speed of convergence but may also be not very precise}
+
+\item{beta_1, }{look at keras optimizer parameters}
+
+\item{beta_2, }{look at keras optimizer parameters}
+
+\item{epsilon, }{look at keras optimizer parameters}
+
+\item{decay, }{look at keras optimizer parameters}
+
+\item{loss, }{loss of function to use, for other loss of function check the keras loss of functions.}
+
+\item{regularization, }{this parameter balances between reconstruction loss and enforcing a normal distribution in the latent space.}
+
+\item{variational, }{TRUE or FALSE if use the variational autoencoder or just the standard autoencoder.}
+}
+\value{
+
+}
+\description{
+The present function compress data using autoencoder partially connected
+}
+\examples{
+\dontrun{
+ autoencoder(group="docker",scratch.folder="/home/user/Riccardo/Riccardo/1_inDocker/scratch",file="/home/user/Riccardo/Riccardo/1_inDocker/data/setA.csv",separator=",",nCluster=5,bias="TF",permutation=10,nEpochs=10,cl="/home/user/Riccardo/Riccardo/1_inDocker/data/setA_clustering.output.csv",projectName="testDocker")
+}
+}
+\author{
+Luca Alessandri, alessandri [dot] luca1991 [at] gmail [dot] com, University of Torino
+}

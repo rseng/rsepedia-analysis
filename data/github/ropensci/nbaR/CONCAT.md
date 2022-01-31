@@ -345,3 +345,10744 @@ grammar, please include new tests for your change -->
 
 ```
 </details>
+---
+title: "Calibrating a molecular phylogeny of the sharks"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+bibliography: bibliography.bib
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    theme: sandstone
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+---
+
+# Background
+The time-calibration of molecular phylogenies is essential to many phylogenetic comparative analyses.
+Time-calibration can be accomplished with e.g. data from fossil specimen that can be assigned to a certain 
+taxonomic group. Specimen ages can be determined by
+e.g. carbon dating or stratigraphic methods. Node ages are usually assigned using Bayesian or
+maximum-likelihood methods.
+
+Some of the specimen records at Naturalis hold stratigraphic information.
+Here we will demonstrate how to extract this data using `nbaR` and
+how to create input for the popular tree-calibration function `chronos` from the phylogenetic analysis
+package `ape`.
+
+## The phylogeny
+As input, we will use a species-level molecular shark phylogeny published by
+[@VELEZZUAZO2011207].
+
+The phylogeny is a majority-rule consensus tree inferred from molecular markers using
+Bayesian inference and comprises 229 species in all eight orders of the sharks (superorder *Selachimorpha*):
+
+![](https://ars.els-cdn.com/content/image/1-s2.0-S1055790310004537-gr3.jpg)
+
+The non-ultrametric tree in the above figure is not time-calibrated, the branch lengths thus
+represent molecular distances.
+
+# Getting chronological data with nbaR
+Chronological association is associated with `Specimen` data, we thus instantiate
+a `SpecimenClient`:
+
+```{r load_nbaR}
+library(nbaR)
+sc <- SpecimenClient$new()
+```
+
+In total, there are [eight extant shark orders](https://en.wikipedia.org/wiki/Shark).
+
+```{r}
+shark_orders <- c(
+  "Carcharhiniformes",
+  "Heterodontiformes",
+  "Hexanchiformes",
+  "Lamniformes",
+  "Orectolobiformes",
+  "Pristiophoriformes",
+  "Squaliformes",
+  "Squatiniformes"
+)
+```
+
+We can then formulate a query condition for specimens that are identified in one of these orders
+using the operator `IN`:
+
+```{r qc_1}
+qc <-
+  QueryCondition$new(field = "identifications.defaultClassification.order",
+                     operator = "IN",
+                     value = shark_orders)
+
+```
+
+For many specimens, chronological information is available in the fields `gatheringEvent.chronoStratigraphy.youngChronoName`
+and `gatheringEvent.chronoStratigraphy.oldChronoName` which represent upper- and lower time bounds, respectively.
+Below, we will formulate a `QueryCondition` that requires either one of these fields to be non-empty:
+
+```{r qc_2}
+## formulate query conditions for fields to be non-empty
+qc2 <-
+  QueryCondition$new(field =
+                       "gatheringEvent.chronoStratigraphy.youngChronoName",
+                     operator = "NOT_EQUALS",
+                     value = "")
+qc3 <-
+  QueryCondition$new(field =
+                       "gatheringEvent.chronoStratigraphy.oldChronoName",
+                     operator = "NOT_EQUALS",
+                     value = "")
+
+## join qc2 and qc3 with operator OR
+qc2$or <- list(qc3)
+```
+
+Now we can do the query:
+
+```{r do_query}
+## instantiate QuerySpec, give size
+qs <- QuerySpec$new(conditions = list(qc, qc3), size = 5000)
+res <- sc$query(querySpec = qs)
+
+## how many hits?
+res$content$totalSize
+```
+
+**Note**: By default, a query returns only data for the first 10 hits. 
+Above, we set the `size` parameter to the QuerySpec constructor to allow the download of 
+up to 5000 values This number was based on the prior knowloedge that there are less
+than 5000 records for our query; We advise to always check the length of the resultSet
+against the `totalSize` of a `QueryResult` to make sure that all records are downloaded, 
+e.g.
+
+```{r check_length}
+length(res$content$resultSet) == res$content$totalSize
+```
+
+## Exploring the data
+
+Now we can explore the data:
+
+```{r explore}
+## load all specimens
+specimens <- lapply(res$content$resultSet, function(x)
+  x$item)
+
+## check the fields youngCronoName and oldChronoName
+unique(unlist(
+  lapply(specimens, function(x)
+    x$gatheringEvent$chronoStratigraphy[[1]]$youngChronoName)
+))
+unique(unlist(
+  lapply(specimens, function(x)
+    x$gatheringEvent$chronoStratigraphy[[1]]$oldChronoName)
+))
+```
+
+**Caution**: As you see above, there can be more than one chronoStratigraphy assigned with a
+specimen. Check how many we have per specimen:
+
+```{r num_chrono}
+unique(sapply(res$content$resultSet, function(x)
+  length(x$item$gatheringEvent$chronoStratigraphy)))
+```
+
+Each `gatheringEvent` in each `Specimen` has only one `chronoStratigraphy`. We thus do not miss data by taking
+the first one (`chronoStratigraphy[[1]]`).
+
+Do we have hits for all orders? Below, we make an overview of the field `identifications.defaultClassification.order`
+for all specimen.
+
+```{r plot_orders}
+## make table with counts for each order
+tab <-
+  table(unlist(
+    lapply(specimens, function(x)
+      x$identifications[[1]]$defaultClassification$order)
+  ))
+par(mar = c(5.1, 8, 4.1, 2.1))
+barplot(sort(tab),
+        horiz = TRUE,
+        las = 2,
+        xlab = "Number of specimens")
+```
+
+**Caution**: There can be multiple identifications for one specimen. Some specimens 
+in our data are for instance assigned to different genera. However, 
+the field `preferred` in an `Identification` object states if this is the most accurate and 
+recent identification. The preferred identification is usually the first in the list of a specimen's identifications.
+It can, however, occur that there are multiple identifications of which none is preferred; it is best to filter them out:
+
+```{r preferred}
+## get the specimens which have a preferred identification
+ident <-
+  sapply(specimens, function(s)
+    any(sapply(s$identifications, function(i)
+      i$preferred)))
+
+## how many do not have a preferred identification?
+sum(!ident)
+
+## filter specimens
+specimens <- specimens[ident]
+```
+
+Let's further explore the data. To see what part of the animals were preserved, we can look into
+the field `kindOfUnit`:
+
+```{r kindofunit}
+table(sapply(specimens, `[[`, "kindOfUnit"))
+```
+
+Almost all of them are teeth.
+
+## Getting absolute ages
+The type of chronostratigraphic data (as shown above) is given in divisions on the geological time scale, e.g. *Miocene*.
+These strings can refer to *eons*, *eras*, *periods*, *epochs* and *ages*. In order to
+translate this into absolute ages, we will use the API of the [Earth Life Consortium](http://earthlifeconsortium.org/).
+This is possible using the *convenience function* `geo_age`. For example
+
+```{r geo_age}
+## get the upper chrono name for the first specimen
+name <- specimens[[1]]$gatheringEvent$chronoStratigraphy[[1]]$oldChronoName
+name
+
+## get the lower and upper bounds for this division
+geo_age(name)
+```
+
+We can now make a table with all interesting data, below this is done for the
+first 50 specimen objects:
+
+```{r chrono_name}
+## Get genus, species and chrono information from specimen records
+data <-
+  as.data.frame(do.call(rbind, lapply(specimens[1:50], function(x) {
+    genus <- x$identifications[[1]]$defaultClassification$genus
+    if (is.null(genus))
+      genus <- NA
+    specificEpithet <-
+      x$identifications[[1]]$defaultClassification$specificEpithet
+    if (is.null(specificEpithet))
+      specificEpithet <- NA
+    youngChronoName <-
+      x$gatheringEvent$chronoStratigraphy[[1]]$youngChronoName
+    if (is.null(youngChronoName))
+      youngChronoName <- NA
+    oldChronoName <-
+      x$gatheringEvent$chronoStratigraphy[[1]]$oldChronoName
+    if (is.null(oldChronoName))
+      oldChronoName <- NA
+    c(
+      genus = genus,
+      specificEpithet = specificEpithet,
+      youngChronoName = youngChronoName,
+      oldChronoName = oldChronoName
+    )
+  })))
+
+## Get absolute ages from earth life consortium
+times <-
+  geo_age(unique(c(
+    as.character(data$youngChronoName),
+    as.character(data$oldChronoName)
+  )))
+
+## add upper and lower bounds to ages
+data$young_age <-
+  sapply(data$youngChronoName, function(x)
+    ifelse(is.na(x), NA, unlist(times["late_age", as.character(x)])))
+data$old_age <-
+  sapply(data$oldChronoName, function(x)
+    ifelse(is.na(x), NA, unlist(times["early_age", as.character(x)])))
+
+data
+```
+
+# Calibrating the phylogeny
+
+Depending on the data, calibration points could be chosen on different taxonomic levels.
+If there are sufficient specimens determined at species level, one could use the upper- and
+lower bounds above. It is also possible to average upper- and lower values for a higher taxonomic
+group, such as genus or family. Since this requires some data cleaning, such as dealing with duplicates,
+missing data, etc,
+`nbaR` offers the function `chronos_calib` which takes a set of specimen object, and a tree and
+averages the data for a user-defined taxonomic
+group and returns a calibration table that can be directly used as input for the function `chronos`
+from the package `ape`. The function also determines the node which will be calibrated in the phylogenetic tree.
+
+The shark phylogeny comes with the package and can be
+parsed using the package `ape`:
+
+```{r read_tree}
+library(ape)
+
+## read data
+data(shark_tree)
+
+## plot the tree
+plot(shark_tree, cex = 0.3)
+```
+
+## Genus level
+
+Now we use `chronos_calib` to get the table at the genus level. `chronos_calib`
+also selects the nodes in the tree that will be calibrated. This is done by
+selecting the most recent common ancestor (mrca) of the species for which the data are averaged.
+
+```{r chronos_calib, warning=FALSE}
+## make calibration table on genus level
+calibration_table <- chronos_calib(specimens, shark_tree, "genus")
+```
+
+**Note**: This function can produce many warnings, a warning is emitted
+whenever, for some geological division, no data can be obtained from the
+earth life consortium. This can be due to misspellings or words in foreign languages.
+
+The calibration table looks as follows:
+
+```{r table}
+calibration_table
+```
+
+
+**Note**: It is essential to thoroughly evaluate the calibration table! In this example,
+for example, the genus *Squatina* is non-monophyletic and one species is
+placed somewhere else in the tree. Calibrating the most recent common ancestor node
+for this genus can therefore result in errors using the calibration
+routine. We will therefore remove the calibration points for genus *Squatina* before calibration:
+
+
+```{r plot_calib}
+## clean up: one rogue taxon in genus "Squatina"! Skip this genus
+calibration_table <-
+  calibration_table[calibration_table$taxon != "Squatina",]
+
+## run ape's chronos
+chronogram <- chronos(shark_tree, calibration = calibration_table)
+
+## plot tree with time axis
+plot(chronogram, cex = 0.3)
+axisPhylo()
+
+## plot calibrated genera
+nodelabels(calibration_table$taxon, calibration_table$node)
+```
+
+
+## Family level
+
+We can also calibrate the tree on the family level:
+
+```{r, calib_family, eval=FALSE}
+## make calibration table on family level
+calibration_table <- chronos_calib(specimens, shark_tree, "family")
+
+## run ape's chronos
+chronogram <- chronos(shark_tree, calibration = calibration_table)
+
+## plot tree with time axis
+plot(chronogram, cex = 0.3)
+axisPhylo()
+
+## plot calibrated families
+nodelabels(calibration_table$taxon, calibration_table$node)
+```
+
+# References
+---
+title: "The oldest tomato specimen in the world"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    theme: sandstone
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+---
+
+# The 'En Tibi' tomato specimen
+
+## Using the SpecimenClient
+
+For the different data types in the NBA (Specimen, Taxon, Multimedia, Geo),
+there are respective client classes (`SpecimenClient`, `TaxonClient`,
+`MultimediaClient`, `GeoClient`). To retreive electronic specimen records,
+we instantiate a `SpecimenClient`:
+
+```{r}
+library(nbaR)
+sc <- SpecimenClient$new()
+```
+
+To get an overview of what we can do with such a client, `?SpecimenClient` will
+give us some description and list all the methods that are available for this client.
+To get an overview of what nbaR stores in a `Specimen` object, we could use the function
+`get_paths`, which lists everything that can be queried for a specimen:
+
+```{r}
+res <- sc$get_paths()
+```
+
+Note that client class methods (and other class members) are accessed with a `$`.
+The response from the taxon client is stored in `res`, an object of class `Response`.
+Have a look at `?Response` to see what this object contains. But how to get the data?
+It is in the field `content`.
+
+```{r}
+res$content
+```
+
+Suppose that we do not know the scientific name of the tomato plant,
+there are two fields that store a vernacular name for a specimen:
+
+* `identifications.vernacularNames.name`
+* `identifications.taxonomicEnrichments.vernacularNames.name`
+
+The first one is the vernacular name that is exactly equal to the one in the
+*source database*. Since often, a vernacular name is missing in the source database,
+a *taxonomic enrichment* is performed during the import of the data from the source database
+in which, using among others the *Catalogue of life*, species names are enriched with synonyms and
+vernacular names.
+
+## Simple queries
+
+Let's try the first field and query for all `Specimen` records with `identifications.vernacularNames.name` field
+matching the name `tomato`, we can use the client's `query` function:
+
+```{r}
+res <-
+  sc$query(queryParams = list(identifications.vernacularNames.name = "tomato"))
+```
+
+Note that the `queryParams` arguments takes a list, so
+we could search for more criteria. How many hits do we got?
+
+```{r}
+res$content$totalSize
+```
+
+No hits, thus no record has the vernacular name equal to `tomato`. We therefore
+search in `identifications.taxonomicEnrichments.vernacularNames.name`:
+
+```{r}
+res <-
+  sc$query(
+    queryParams =
+      list(identifications.taxonomicEnrichments.vernacularNames.name =
+             "tomato")
+  )
+# how many hits?
+res$content$totalSize
+```
+
+Again, no hits.
+
+## More complex queries
+
+Let's try partial matching. For this, we have to make a
+more complicated query, involving `QuerySpec` and `QueryCondition` objects,
+which are very powerful for constructing complex and nested queries.
+
+A `QueryCondition` can be specified as follows:
+
+```{r}
+qc <-
+  QueryCondition$new(
+    field = "identifications.taxonomicEnrichments.vernacularNames.name",
+    operator = "MATCHES",
+    value = "tomato")
+```
+
+Note that we use the operator `MATCHES` that does a partial instead of an exact match
+(which would be `EQUALS`).
+
+From one or multiple `QueryConditions`, a `QuerySpec` can be created, and used as input
+for he `query` function.
+
+```{r}
+qs <- QuerySpec$new(conditions=list(qc))
+
+# do the query with SpecimenClient
+res <- sc$query(querySpec=qs)
+
+# how many hits?
+res$content$totalSize
+```
+
+Finally, we have some hits. The content of the response of the `query` function
+is always of type `QueryResult` (see also `?QueryResult`) which has the fields
+`totalSize` (as used above) and a `resultSet`, a list which stores the actual data.
+From the `resultSet`, a single `Specimen` object can be obtained as follows:
+
+```{r}
+# retreive the first Specimen object
+sp <- res$content$resultSet[[1]]$item
+
+# check if it is really a specimen
+class(sp)
+
+# list fields and methods of the object
+sp
+```
+
+**Note:** By default, the NBA (and thus nbaR) returns the first 10 hits.
+To fetch more records, we need to specify this in the `QuerySpec` object.
+
+
+```{r}
+# specify size in QuerySpec obejct
+qs <- QuerySpec$new(conditions=list(qc), size=1000)
+
+# perform query
+res <- sc$query(querySpec=qs)
+
+# do we have all records?
+res$content$totalSize == length(res$content$resultSet)
+```
+
+## Sorting
+
+We now want to see which one is the oldest specimen. We could, of course
+do the sorting in R
+(e.g. `sort(unlist(lapply(res$content$resultSet, function(x)x$item$gatheringEvent$dateTimeBegin)))`),
+but there is also functionality to do this directly in the query.
+This can be done with objects of type `?SortField`, which can take a
+path specifying on what to sort, and whether to sort ascending or
+descending. We will sort our results by the values of the field
+`gatheringEvent.dateTimeBegin`:
+
+
+```{r}
+# specify field to sort
+sf <- SortField$new(path="gatheringEvent.dateTimeBegin", sortOrder="asc")
+
+# make querySpec using sortField
+qs <- QuerySpec$new(conditions=list(qc), size=1000, sortFields=list(sf))
+
+# do the query
+res <- sc$query(querySpec=qs)
+```
+
+Now, the first result should be the specimen with a gathering event the furthest
+in the past.
+
+```{r}
+sp <- res$content$resultSet[[1]]$item
+
+# get date
+sp$gatheringEvent$dateTimeBegin
+```
+
+## Multimedia content
+
+Many specimens have associated multimedia content, such as photos or videos.
+To retrieve e.g. the URL of the first multimedia item of our specimen:
+
+```{r}
+# get multimedia URL
+url <- sp$associatedMultiMediaUris[[1]]$accessUri
+url
+
+# display image
+library(knitr)
+include_graphics(url)
+```
+
+# Retrieving specimen records with lat/long coordinates
+
+Geo-referenced specimens are an invaluable resource for biogeographic analyses.
+The below example shows how to extract the tomato specimen (species *Solanum lycopersicum*)
+that are geo referenced. The coordinates, stored in the field *gatheringEvent.siteCoordinates*
+are then extracted and the locations are plotted on a world map.
+
+**Note:** When querying for records with non-empty values for a specific field, 
+we use the operator `NOT_EQUALS` in combination with the value `NULL`. 
+
+```{r}		
+# conditions for specimens for Solanum lycopersicum
+qc <-
+  QueryCondition$new(field =
+                       'identifications.defaultClassification.genus',
+                     operator =
+                       'EQUALS',
+                     value =
+                       'Solanum')
+qc2 <-
+  QueryCondition$new(field =
+                       'identifications.defaultClassification.specificEpithet',
+                     operator =
+                       'EQUALS',
+                     value = 'lycopersicum')
+
+# coditions for lat/long coordinates to be present
+qc3 <-
+  QueryCondition$new(field =
+                       'gatheringEvent.siteCoordinates.longitudeDecimal',
+                     operator =
+                       "NOT_EQUALS",
+                     value =
+                       NULL)
+qc4 <-
+  QueryCondition$new(field =
+                       'gatheringEvent.siteCoordinates.latitudeDecimal',
+                     operator =
+                       "NOT_EQUALS",
+                     value =
+                       NULL)
+qs <-
+  QuerySpec$new(conditions = list(qc, qc2, qc3, qc4), size = 1000)
+
+# do query
+res <- sc$query(querySpec = qs)
+
+# extract coordinates
+lat <-
+  sapply(res$content$resultSet, function(x)
+    x$item$gatheringEvent$siteCoordinates[[1]]$latitudeDecimal)
+long <-
+  sapply(res$content$resultSet, function(x)
+    x$item$gatheringEvent$siteCoordinates[[1]]$longitudeDecimal)
+
+#plot on world map
+library('maps')
+map(
+  "world",
+  fill = TRUE,
+  col = "white",
+  bg = "lightblue",
+  ylim = c(-60, 90),
+  mar = c(0, 0, 0, 0)
+)
+points(long, lat, col = 'red', pch = 16)
+ ```
+
+
+---
+title: "nbaR API client: concepts and object model"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    theme: sandstone
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+
+vignette: >
+  %\VignetteIndexEntry{nbaR API client: concepts and object model}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+# Main data types and classes
+The data served by the NBA consists of four main data types:
+
+  * Specimen
+  * Taxon
+  * Multimedia
+  * Geo
+
+Additionally, the data type *Metadata* stores miscellaneous
+information about NBA settings. Each of the data types is modelled
+as an `R6` class and therefore has its own members such as fields
+and methods. Documentation about a specific class can be retrieved
+in the standard manner, e.g. `?Specimen`
+Each class of the data model can be instantiated and has a `toJSONString` and `toList` method returning
+the object's JSON representation and the object's data as a list datatype, respectively.
+
+```{r}
+# load nbaR
+library(nbaR)
+
+# instanciate specimen object
+spec <- Specimen$new()
+```
+```r
+# represent data as JSON or list
+spec$toJSONString()
+spec$toList()
+```
+
+# API Client classes
+The interaction with the API is accomplished by the API client classes:
+
+* SpecimenClient
+* TaxonClient
+* MultimediaClient
+* GeoClient
+* MetadataClient
+
+
+```{r}
+
+# initialize client
+client <- SpecimenClient$new()
+```
+
+The client class is by default initialized to connect to the base URL http://api.biodiversitydata.nl/v2.
+For testing purposes, this can be set to a different URL, see `?SpecimenClient` for details.
+
+# Queries
+
+## Concept
+
+With the SpecimentClient created above, the `query` endpoint for specimens can now be reached via the `query` function.
+Query parameters can be specified as a list with named parameters.
+To query for instance for specimen records that have the type status holotype and a female sex,
+one can pass a named list as the `queryParams` parameter to the `query` function:
+
+
+```{r}
+# specify two query conditions
+l <- list(identifications.typeStatus="holotype", sex="female")
+
+# run query
+res <- client$query(queryParams=l)
+
+```
+
+The `query` function then returns an object of class `Response`, which, in turn, has a field `content`
+of class `QueryResult`. From the `QueryResult`, the single result items can be accessed as follows:
+
+```{r}
+# get first element of results
+spec <- res$content$resultSet[[1]]$item
+
+# object should be of type Specimen
+class(spec)
+
+```
+
+Note that by default, both conditions are connected by a logical `AND`.
+The `queryParams` passed as a list thus correspond to
+basic [*human readable* queries](http://docs.biodiversitydata.nl/en/latest/quickstart/#human-readable).
+For more advanced queries, containing different logical operators or nested sub-queries,
+the user can specify the query in a `QuerySpec` object.
+
+
+# Advanced queries
+
+## Using the QuerySpec object
+Advanced queries with different operators than `AND` or nested query conditions
+can not be accomplished by simply passing the query parameters as a list.
+Instead, a query is modeled as a `QuerySpec` object which
+captures the relationships between multiple query terms. Please also refer to the
+[NBA QuerySpec documentation](http://docs.biodiversitydata.nl/en/latest/advanced-queries/#queryspec) for more information.
+
+A `QuerySpec` object usually consists of one or more `QueryCondition` objects, specifying
+query terms. A `QueryCondition` object usually contains the fields `field`, `operator`, and `value `(see also `?QueryCondition`).
+These fields can be specified in the constructor. If, for example, we want to query for records with a unitID equal to
+*L.4304195*, a `QueryCondition` would look as follows:
+
+```{r}
+# make specimen client instance
+client <- SpecimenClient$new()
+
+# specify search in QueryCondition object
+qc <-
+  QueryCondition$new(field = "unitID",
+                     operator = "EQUALS",
+                     value = "L.4304195")
+```
+
+Now, a `QuerySpec` object can be assembled with the `QueryCondition`(s) passed as a list:
+
+```{r}
+# build QuerySpec using above conditions
+qs <- QuerySpec$new(conditions=list(qc))
+
+# do the query
+res <- client$query(querySpec=qs)
+```
+
+Below, we show an example of how to nest multiple query conditions. The query conditions below define to query for
+specimens of sex ** female* and family *Equidae* and of rank *Species*.
+
+```{r}
+# specify multiple conditions
+q1 <- QueryCondition$new(field = "sex",
+                         operator = "EQUALS",
+                         value = "female")
+q2 <-
+  QueryCondition$new(field = "identifications.defaultClassification.family",
+                     operator = "EQUALS",
+                     value = "Equidae")
+q3 <- QueryCondition$new(field = "identifications.taxonRank",
+                         operator = "EQUALS",
+                         value = "species")
+```
+
+Extending the constraint to also include specimens of rank *Subspecies*,
+we can combine the latter condition with an additional one using the method `or`:
+
+```{r}
+# logical conjunction using 'or' method
+q3$or <- list(QueryCondition$new(field = "identifications.taxonRank",
+                                 operator="EQUALS",
+                                 value="subspecies"))
+
+# build QuerySpec from QueryConditions
+qs <- QuerySpec$new(conditions=list(q1, q2, q3))
+
+# call API
+res <-client$query(querySpec=qs)
+```
+
+### Size of the query result set
+By default, the NBA returns the first 10 hits for a given query.
+In, for instance, a query without parameters has many hits
+
+```{r}
+res <- client$query()
+res$content$totalSize
+```
+
+but only the first 10 are returned in the `resultSet`:
+
+```{r}
+length(res$content$resultSet)
+```
+
+In order to increase the size of a `resultSet`, a `size` parameter can be
+passed to the constructor of a `QuerySpec` object. Below, we will get
+the first 1000 records of the query above:
+
+```{r}
+qs <- QuerySpec$new(size=1000)
+res <- client$query(querySpec=qs)
+length(res$content$resultSet)
+```
+
+## Operators 
+In the above examles we searched for fields that exactly
+match a given string using the operator `EQUALS` that is specified in
+the user-defined `QueryCondition`.  However, for most fields there are
+more operators for matching available, including e.g. partial matching
+and ignoring cases:
+
+```{r}
+## search for specimens of genus 'musa'
+qc <- QueryCondition$new(field='identifications.defaultClassification.genus', 
+                         operator='EQUALS', 
+                         value='musa')
+qs <- QuerySpec$new(conditions=list(qc))
+res <- client$query(querySpec=qs)
+
+## how many hits?
+res$content$totalSize
+
+## no hits! But: Genus names are capitalised, so
+## we will ignore the case using operator EQUALS_IC
+qc <- QueryCondition$new(field='identifications.defaultClassification.genus', 
+                         operator='EQUALS_IC', 
+                         value='musa')
+qs <- QuerySpec$new(conditions=list(qc))
+res <- client$query(querySpec=qs)
+
+## do we have more hits now?
+res$content$totalSize
+```
+
+The function `get_field_info` on a certain field for a certain
+datatype lists which operators are allowed for that field e.g. for the
+field `identifications.defaultClassification.genus`. Let's look at 
+other operators which can be used for this field:
+
+```{r}
+client$get_field_info()$
+content$identifications.defaultClassification.genus$
+allowedOperators
+```
+
+Often useful is e.g. the operator `IN`, which allowes
+matching against multiple values given as a vector:
+
+```{r}
+qc <- QueryCondition$new(field='identifications.defaultClassification.genus', 
+                         operator='IN', 
+                         value=c("Phoenix", "Trachycarpus"))
+qs <- QuerySpec$new(conditions=list(qc))
+
+## print QuerySpec JSON representation
+qs$toJSONString()
+```
+
+For numeric or date fields, common comparison operators such as `LT`
+(less than) or `GT` (greater than) or `BETWEEn` are implemented:
+
+```{r}
+## operators for gatheringEvent.dateTimeBegin
+client$get_field_info()$
+content$gatheringEvent.dateTimeBegin$
+allowedOperators
+
+## how many specimens were collected between 1600 and 1700?
+qc <- QueryCondition$new(field='gatheringEvent.dateTimeBegin', 
+                         operator='BETWEEN', 
+                         value=c("1600", "1700"))
+qs <- QuerySpec$new(conditions=list(qc))
+client$count(querySpec=qs)$content
+```
+
+For more information, please also refer to the [NBA documentation on
+operators](https://docs.biodiversitydata.nl/en/latest/advanced-queries/#comparison-operators).
+
+---
+title: "nbaR: R access to the Netherlands Biodiversity API"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    theme: sandstone
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+
+vignette: >
+  %\VignetteIndexEntry{nbaR: R access to the Netherlands Biodiversity API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Background
+  
+## The Netherlands Biodiversity API
+
+The Netherlands Biodiversity API (NBA) facilitates access to the
+Natural History Collection at Naturalis Biodiversity Center. Next to
+museum specimen records and metadata, access to taxonomic
+classification and nomenclature, to geographical information, and to
+multimedia files is provided. By using the powerful Elasticsearch
+engine, the NBA facilitates searching for collection- and biodiversity
+data in near real-time. Furthermore, by incorporating information from
+taxonomic databases, taxonomic name resolution can be accomplished
+with the NBA. Persistent Uniform Resource Identifiers (PURLs) ensure
+that each specimen accessible via the NBA is represented by a citeable
+unambiguous web reference. Access to our data is provided via a
+RESTful interface and several clients such as the
+[BioPortal](http://bioportal.naturalis.nl/), a web application for
+browsing biodiversity data that is served by the NBA.  For more
+information about the NBA, please see our
+[detailed documentation](http://docs.biodiversitydata.nl/).
+  
+## R access
+
+The R programming language is established as a common tool in
+scientific research, with growing adoption by researchers in
+biodiversity research.  Hence, to ease the access to the NBA for
+researchers, we developed this R client.
+  
+# Full client vs wrapper functions
+
+nbaR aims to be a *full* client of the NBA API, meaning that it
+implements all endpoints and the entire NBA object model.  The client
+thus facilitates all API queries possible.  Complex objects returned
+by the API, such as `Specimen` or `Taxon` objects are implemented as
+`R6` classes. This includes also objects used for querying
+(`QuerySpec` and `QueryCondition`, respectively, see also
+[here](apiclient.html)).
+
+For many queries, the full functionality of the NBA won't be
+required. The package therefore offers a **wrapper function** for each
+endpoint that does not use `R6` classes but common R data structes,
+such as `list` and `data.frame`. However, querying capabilities are
+limited for these wrappers. Below we will show how to set up some
+simple queries using the wrapper functions.
+
+# Quick start: querying the NBA using wrapper functions
+
+The data in the NBA consists of four main data types (see
+[NBA docs](http://docs.biodiversitydata.nl/)):
+  
+  * Specimen
+  * Taxon
+  * Multimedia
+  * Geo
+
+Wrapper functions start with the data type (lower-case letter) and an
+underscore (`specimen_*`, `taxon_*`) etc. There is a wrapper function
+for each endpoint (see
+[here](https://docs.biodiversitydata.nl/endpoints-reference/) for all
+endpoints); camelCase naming is replaced by snake_case. The NBA
+endpoint `getDistinctValues` for specimen data, for instance, is
+called by the function `specimen_get_distinct_values`.
+
+Specimen services provide the interface to the Naturalis collection
+and to species occurrences (see
+[here](https://docs.biodiversitydata.nl/en/latest/doc-spec-services/specimen/)),
+wheras Taxon services provide data from taxonomic checklists (see
+[here](https://docs.biodiversitydata.nl/en/latest/doc-spec-services/taxon/)).
+Multimedia services give access to photos, videos and sound data (see
+[here](https://docs.biodiversitydata.nl/en/latest/doc-spec-services/multimedia/));
+Geo services store polygon data for geographical regions and nature
+reserves (see
+[here](https://docs.biodiversitydata.nl/en/latest/doc-spec-services/geo/)).
+
+## Querying specimen records
+
+Suppose we want to look up specimens of the genus *Mola* (sunfish). 
+To find out what field of the NBA we could query, we can use the 
+function `specimen_get_paths()` (see `?specimen_get_paths` for 
+documentation).
+
+```{r}
+library('nbaR')
+
+all_paths <- specimen_get_paths()
+head(all_paths)
+```
+
+Note that paths of nested objects are seperated via a `.`.  To search
+for a specific genus, we can query the field
+`identifications.scientificName.genusOrMonomial`.  The
+`specimen_query` method lets us query for a specific field, where the
+query parameters are given as a named list (a named vector also
+works!):
+
+```{r}
+queryParams <- list("identifications.scientificName.genusOrMonomial" =
+                        "Mola")
+sp_data <- specimen_query(queryParams)
+
+## how many specimens are found?
+nrow(sp_data)
+
+## which fields are available?
+colnames(sp_data)
+```
+
+Return type can either be `list` or `data.frame` (the default).  Note
+that nested structures in the data frame are represented as list
+columns (for instance the field `associatedMultiMediaUris`). which
+lists, if given, all links to multimedia resources for the specimens:
+
+```{r}
+sp_data$associatedMultiMediaUris
+```
+
+
+## Querying taxon records
+
+Taxonomic information can be retrieved using the **taxon_** functions.
+Taxon records come from two sources, the *Dutch species register
+(Nederlands Soortregister, NSR)* and the *Catalogue of Life (COL)*.
+
+To see how many records are from each source, we can query for all
+distinct values (and counts) for a specific field (see
+`taxon_get_paths`) for all fields in the `taxon` data:
+
+```{r}
+taxon_get_distinct_values("sourceSystem.name")
+
+## alternatively, show for sourceSystem.code
+taxon_get_distinct_values('sourceSystem.code')
+```
+
+To query, for instance all the species listed in the Catalogue of life
+for the genus *Mola*, we can use the wrapper function `taxon_query`:
+
+```{r}
+## specify query parameters
+queryParams <- list("sourceSystem.code"="COL",
+                    "defaultClassification.genus"="Mola")
+
+## do the query
+tax_data <- taxon_query(queryParams)
+
+## access nested field 'accepted Name' -> 'specificEpithet'
+tax_data$acceptedName$specificEpithet
+```
+
+Let's see if we can find vernacular (common) names for the
+species **Mola ramsayi**:
+
+```{r}
+tax_data$vernacularNames[[3]]
+```
+
+## Geo queries
+
+The Geo data type in the NBA holds polygon data for countries, Dutch
+municipalities etc, and Dutch nature reserves. For more information
+please refer to the
+[API documentation](https://docs.biodiversitydata.nl/en/latest/doc-spec-services/geo/).
+To retreive e.g. a polygon, encoded in the
+[geoJSON](http://geojson.org/) format for a country, we can query as
+follows:
+
+
+```{r}
+geo_json <- geo_get_geo_json_for_locality('Nigeria')
+```
+
+## Multimedia queries
+
+Multimedia items accessible via the NBA include items captured from
+physical specimens (e.g. photos and videos) but also from human
+observations (e.g. recordings of bird sounds).
+
+As an example, we will retrieve records that represent sounds that
+were recorded in the country *Cape Verde*.  The sound data accessible
+via the NBA is stored in the
+[Xeno-Canto database](https://www.xeno-canto.org), hosted at the
+Naturalis Biodiversity Center.  The field `sourceSystem.code` for
+these records is `XC`; the country of occurrence is stored in the
+field `gatheringEvents.country`.
+
+```{r}
+queryParams <- list("sourceSystem.code"="XC",
+                    "gatheringEvents.country"="Cape Verde")
+
+mm_data <- multimedia_query(queryParams)
+
+## Access link to Xeno-Canto database for each record:
+mm_data$recordURI
+```
+
+## Limitations of wrapper functions
+
+It is important to note that querying power is limited using the
+wrapper functions. They relate to basic, human readable NBA queries
+([see here](https://docs.biodiversitydata.nl/en/latest/quickstart/)).
+
+ * **Size of result set:** As by NBA default, wrapper functions 
+   only return the first 10 hits of a query. 
+ * **Operators:** Only full matches (operator *EQUALS*) are 
+   considered in wrapper query functions. Partial matching is
+   only available in the full API client
+ * **Locical conjunctions:** If multiple query conditions are
+   given, wrapper functions only allow a simple *AND* conjunction.
+   For more complex logical query constructs including *OR* 
+   operators or negations, the full API client must be used.
+
+The wrappers are thus designed for easy access for simple queries.  In
+many situations it might be necessary to use the full API client which
+offers (almost) the entire functionality of the NBA API. Detailed
+documentation for the full client can be found [here](apiclient.html).
+
+ 
+---
+title: "nbaR services examples"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+  html_document:
+    highlight: tango
+    code_folding: show
+    theme: sandstone
+    toc: true
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+
+vignette: >
+  %\VignetteIndexEntry{nbaR services examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Services examples
+
+## Specimen occurrence services {.tabset} 
+
+Specimen records constitute the core of data served by the NBA. Museum
+specimens can represent a whole variety of different objects such as
+plants, animals or single parts thereof, DNA samples, fossils, rocks
+or meteorites. For detailed information of the data model, please
+refer to the
+[official documentation in the NBA](http://docs.biodiversitydata.nl/en/latest/doc-spec-services/specimen/).
+
+All specimen occurrence services are accessible using the methods
+within the `SpecimenClient` class.  For a list of available endpoints,
+please refer to the class documentation (`?Specimen`). Below, we will
+give details about all services, grouped by category.
+
+### Query services
+
+#### query
+
+Querying for specimens is accomplished with the `query` method in the
+class `SpecimenClient`. For simple queries, query parameters of type
+`list` can be passed via the parameter `queryParams`, for example we
+can query specimens of the Family *Ebenaceae* that were collected in
+Europe:
+
+```{r}
+library('nbaR')
+
+# instantiate specimen client
+sc <- SpecimenClient$new()
+
+# specify query params in named list
+qp <-
+  list(
+    identifications.defaultClassification.family = "Ebenaceae",
+    gatheringEvent.continent = "Europe"
+  )
+
+# query
+res <- sc$query(queryParams = qp)
+```
+
+If we now want to know all the countries that the specimens were
+collected in, we can access the `Specimen` objects in
+```res$content$resultSet``` as follows:
+
+```{r}
+sapply(res$content$resultSet, function(x)x$item$gatheringEvent$country)
+```
+
+Note that passing query parameters as a named list only allows for
+limited queries; the logical conjunction between parameters is for
+example always `AND`. More complex queries can be accomplished using
+the `QuerySpec` object:
+
+```{r}
+# get all specimens with genus name starting with 'Hydro'
+qc <-
+  QueryCondition$new(field = "identifications.defaultClassification.genus",
+                     operator = "STARTS_WITH",
+                     value = "Hydro")
+qs <- QuerySpec$new(conditions = list(qc))
+res <- sc$query(qs)
+```
+
+#### download_query
+
+The `query` function is limited to retrieve 50000 specimen at once
+(this is determined in the parameter `index.max_result_window`, the
+value is retrievable using the `getSettings` method in the metadata
+section). In order to provide access for a larger amount of data, the
+`query_download` takes the same arguments as `query`, but download the
+data as a gzip stream under the hood.  Unlike `query`,
+`query_download` returns a list of specimen objects instead of a
+`ResultSet`.  Example:
+
+```{r eval=FALSE}
+## get the first 100000 specimen objects (not possible with query method)
+res <- sc$download_query(QuerySpec$new(size=100000))
+```
+
+### Data access services
+
+Several access methods offer the convenient retrieval of specimens
+matching a certain identifier or being part of a certain
+collection. Below we give examples of how to use the currently
+implemented data access services for specimen records:
+
+#### Access to collections
+
+Some of the specimens available via the NBA are categorised
+thematically into special collections, such as the Siebold-, Dubois-
+or Jongmans collection.  The function `get_named_collection` lists all
+available special collections and the identifiers of the specimens
+within a collection can be queries with `get_ids_in_collection`
+
+```{r}
+sc$get_named_collections()$content
+sc$get_ids_in_collection("siebold")$content
+```
+
+#### count
+
+For any given query (with `QuerySpec` or not), returns the count of
+matches instead of specimen objects:
+
+```{r}
+# Example with QuerySpec:
+# how many specimens are there in the 'Botany' collection?
+qc <- QueryCondition$new(field='collectionType', operator='EQUALS', value='Botany')
+qs <- QuerySpec$new(conditions=list(qc))
+
+# get the number of specimens
+sc$count(qs)$content
+
+```
+
+Note that the count of matches for a given query is also returned by
+the `query` function. However, `count` is more lightweight as it
+returns an `integer` instead of a `ResultSet` containing `Specimen`
+objects.
+
+#### exists 
+
+Check if a record exists, based on its *unitID*:
+
+```{r}
+# use SpecimenClient instantiated above
+res <- sc$exists('ZMA.INS.1255440')                                        
+
+# content is boolean
+res$content
+```
+
+#### find 
+
+Return a single specimen given its identifier (Note: the identifier of
+a specimen is different from the unitID, see also
+[here](http://docs.biodiversitydata.nl/en/latest/doc-spec-services/specimen/#specids)):
+
+```{r}
+id <- "RMNH.MAM.17209.B@CRS"
+res <- sc$find(id)
+
+# content is single specimen object
+res$content
+```
+
+#### find_by_ids
+
+Same as `find`, but takes multiple IDs:
+
+```{r}
+ids <- "RMNH.INS.657083@CRS,L.1589244@BRAHMS"
+res <- sc$find_by_ids(ids)
+```
+
+#### find_by_unit_id
+
+Find a specimen by its `unitID`:
+```{r}
+unitID <- "RMNH.MAM.1513"
+res <- sc$find_by_unit_id(unitID)
+```
+
+### Aggregation services
+
+Aggregation services group available data according to different
+criteria.
+
+#### get_distinct_values
+
+This method takes a specific field as an argument and returns all
+possible values and the frequency for that field in the data. Below we
+get all possible values for the country in which a specimen was
+collected.
+
+```{r results='hide'}
+sc$get_distinct_values("gatheringEvent.country")
+```
+
+**Note**: By default, `get_distinct_values` lists only the first 10
+hits. The above query thus does not reflect the distinct values in the
+hole dataset.  This number can be increased with e.g. setting the
+`size` parameter in a `QuerySpec` object passed to the method.
+
+```{r results='hide'}
+sc$get_distinct_values("gatheringEvent.country",
+                       querySpec = QuerySpec$new(size = 10000))
+```	
+
+#### count_distinct_values
+
+Instead of returning all different values for a given field, this
+method does a mere count:
+
+```{r results='hide'}
+sc$count_distinct_values("gatheringEvent.country")
+```
+
+#### get_distinct_values_per_group
+
+Suppose you want to add another filter to the above query of
+retrieving all distinct values for a given field, such as splitting
+the results by their respective source system:
+
+```{r results='hide'}
+sc$get_distinct_values_per_group("sourceSystem.name", "gatheringEvent.country")
+```
+
+#### count_distinct_values_per_group
+
+If no return of the actual values is needed, a simple count per group
+is done as follows:
+
+```{r results='hide'}
+sc$count_distinct_values_per_group("sourceSystem.name",
+                                   "gatheringEvent.country")$content
+```
+
+### Metadata services
+
+Specimen Metadata services include the same standard metadata services
+as for the other data types:
+
+```{r}
+# get all paths for the Specimen datatype 
+sc$get_paths()$content
+
+# get info e.g. for field collectionType
+sc$get_field_info()$content$collectionType
+
+# get all settings
+sc$get_settings()
+
+# get specific setting
+sc$get_setting("index.max_result_window")$content
+
+# check if operator is allowed
+sc$is_operator_allowed("gatheringEvent.continent", "STARTS_WITH")$content
+```
+
+
+#### Available paths and fields
+
+All fields can be retrieved with `get_paths` and specific information
+on the fields, such as allowed operators etc. with `get_field_info`
+
+```{r results='hide'}
+sc$get_paths()$content
+sc$get_field_info()$content
+```
+
+#### Settings
+
+Multimedia-specific settings can be retrieved with `get_settings` and
+a specific setting with `get_setting`:
+
+```{r}
+sc$get_settings()$content
+sc$get_setting("index.max_result_window")$content
+```
+
+#### Operators
+
+To test if a certain operator can be used for a multimedia query:
+
+```{r}
+sc$is_operator_allowed("identifications.defaultClassification.genus",
+                       "STARTS_WITH")$content
+```
+
+### DwCA download services
+
+In addition to query services that return JSON formatted data, the NBA
+also offers the export of
+[Darwin Core Archive (DwCA)](https://en.wikipedia.org/wiki/Darwin_Core_Archive)
+files.  These files are by default zip archives, please refer to our
+[official API documentation](https://en.wikipedia.org/wiki/Darwin_Core_Archive)
+for more information.
+
+#### Static download 
+
+Static download services offer the download of predefined datasets.
+The sets that are available for download can be queried with
+`dwca_get_data_set_names`:
+
+```{r}
+sc$dwca_get_data_set_names()$content
+```
+
+A dataset can then be downloaded using `dwca_get_data_set`. A filename
+can be given as argument, if none is given, the DwCA archive is
+written to *download-YYYY-MM-DDThh:mm.zip* in the current working
+directory.
+
+```{r results='hide'}
+# download dataset 'porifera' to temporary file
+filename <- tempfile(fileext=".zip")
+sc$dwca_get_data_set('porifera', filename=filename)                                                                               
+```
+
+#### Dynamic download
+
+The dynamic download function `dwca_query` allows for download of
+arbitrary sets, defined by the user's query.  The arguments to this
+methods are similar to `query`, plus the filename:
+
+```{r results='hide'}
+# download all specimen of genus 'Hydrochoerus'
+filename <- tempfile(fileext = ".zip")
+qs <-
+  QuerySpec$new(conditions = list(
+    QueryCondition$new(
+      field = "identifications.defaultClassification.genus",
+      operator = "EQUALS",
+      value = "Hydrochoerus"
+    )
+  ))
+sc$dwca_query(querySpec = qs, filename = filename)
+```
+
+## Taxonomic data services {.tabset}
+
+### Query Services
+
+#### query
+
+Query for taxon document with given search criteria. Example:
+
+```{r results='hide'}
+# query for taxa of genus 'Sedum' that are in the Netherlands Soortenregister (NSR)
+tc <- TaxonClient$new()
+qc <-
+  QueryCondition$new(field = "acceptedName.genusOrMonomial",
+                     operator = "EQUALS",
+                     value = "Sedum")
+qc2 <-
+  QueryCondition$new(field = "sourceSystem.code",
+                     operator = "EQUALS",
+                     value = "NSR")
+qs <- QuerySpec$new(conditions = list(qc, qc2))
+tc$query(qs)
+```
+
+#### download_query
+
+The `query` function is limited to retrieve 50000 taxa at once (this
+is determined in the parameter `index.max_result_window`, the value is
+retrievable using the `getSettings` method in the metadata
+section). In order to provide access for a larger amount of data, the
+`query_download` takes the same arguments as `query`, but download the
+data as a gzip stream under the hood.  Unlike `query`,
+`query_download` returns a list of taxon objects instead of a
+`ResultSet`.
+
+### Data access services
+
+#### count
+
+For a given query, do not return `Taxon` objects but the mere
+count. Example
+
+```{r}
+# get counts for taxa of genus 'Sedum' that are in the
+#  Netherlands Soortenregister (NSR)
+qc <-
+  QueryCondition$new(field = "acceptedName.genusOrMonomial",
+                     operator = "EQUALS",
+                     value = "Sedum")
+qc2 <-
+  QueryCondition$new(field = "sourceSystem.code",
+                     operator = "EQUALS",
+                     value = "NSR")
+qs <- QuerySpec$new(conditions = list(qc, qc2))
+tc$count(qs)
+```
+
+#### find
+
+Returns a taxon object given its identifier:
+
+```{r}
+tc$find("27706109@COL")$content
+```
+
+#### find_by_ids
+
+Given a string with comma-separated identifiers, returns a list of
+taxon objects:
+
+```{r}
+ids <- "27706109@COL,27704140@COL,27706110@COL,27706111@COL,27706108@COL"
+res <- tc$find_by_ids(ids)
+```		
+
+### Aggregation services
+
+#### get_distinct_values
+
+This method takes a specific field as an argument and returns all
+possible values and the frequency for that field in the data. Example:
+get all data source systems for taxon objects:
+
+```{r}
+tc$get_distinct_values("sourceSystem.name")$content
+```
+
+### Metadata services
+
+Taxon Metadata services include the same standard metadata services as
+for the other data types:
+
+```{r}
+# get all paths for the Taxon datatype 
+tc$get_paths()$content
+
+# get info e.g. for field collectionType
+tc$get_field_info()$content$synonyms.author
+
+# get all settings
+tc$get_settings()
+
+# get specific setting
+tc$get_setting("index.max_result_window")$content
+
+# check if operator is allowed
+tc$is_operator_allowed("synonyms.author", "EQUALS")$content
+```
+
+#### Available paths and fields
+
+All fields can be retrieved with `get_paths` and specific information
+on the fields, such as allowed operators etc. with `get_field_info`
+
+```{r results='hide'}
+tc$get_paths()$content
+tc$get_field_info()$content
+```
+
+#### Settings
+
+Multimedia-specific settings can be retrieved with `get_settings` and
+a specific setting with `get_setting`:
+
+```{r}
+tc$get_settings()$content
+tc$get_setting("index.max_result_window")$content
+```
+
+#### Operators
+
+To test if a certain operator can be used for a mutimedia query:
+
+```{r}
+tc$is_operator_allowed("identifications.defaultClassification.genus",
+                       "STARTS_WITH")$content
+```
+
+### DwCA download services
+
+The taxonomic information in the NBA is also available as Darwin-Core
+archive files.
+
+#### Static download 
+
+Static download services offer the download of predefined datasets.
+The sets that are available for download can be queried with
+`dwca_get_data_set_names`:
+
+```{r}
+tc$dwca_get_data_set_names()$content
+```
+
+A dataset can then be downloaded using `dwca_get_data_set`. A filename
+can be given as argument, if none is given, the DwCA archive is
+written to *download-YYYY-MM-DDThh:mm.zip* in the current working
+directory.
+
+```{r results='hide'}
+# download dataset 'nsr' to temporary file
+filename <- tempfile(fileext=".zip")
+tc$dwca_get_data_set('nsr', filename=filename)                                                                               
+```
+
+#### Dynamic download
+
+The dynamic download function `dwca_query` allows for download of
+arbitrary sets, defined by the user's query.  The arguments to this
+methods are similar to `query`, plus the filename:
+
+```{r results='hide'}
+# download all taxa for genus 'Clematis'
+filename <- tempfile(fileext = ".zip")
+qs <-
+  QuerySpec$new(conditions = list(
+    QueryCondition$new(
+      field = "defaultClassification.genus",
+      operator = "EQUALS",
+      value = "Clematis"
+    )
+  ))
+tc$dwca_query(querySpec = qs, filename = filename)
+```
+
+## Geographic data services {.tabset}
+
+### Query Services
+
+The GeoArea query service allows for detailed search within the fields
+of a GeoArea object. As for the other data types, query parameters can
+be either given as a `list` or as a `QuerySpec` object.  Below, we
+make a simple query to get the `GeoArea` object for the Netherlands:
+
+```{r}
+# instantiate client for geo areas
+gc <- GeoClient$new()
+
+# query for GeoArea of the Netherlands
+qc <-
+  QueryCondition$new(field = "locality",
+                     operator = "EQUALS",
+                     value = "Netherlands")
+qs <- QuerySpec$new(conditions = list(qc))
+res <- gc$query(qs)
+
+# get item
+res$content$resultSet[[1]]$item
+```
+
+### Data access services
+
+#### get_geo_json_for_locality
+
+This is a convenience function to directly extract the a GeoJSON
+object for a specific
+locality. [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) is a
+popular format for storing geographical point- and polygon data.  To
+e.g. extract the GeoJSON polygon representation for the Netherlands:
+
+```{r results='hide'}
+loc <- "Netherlands"
+res <- gc$get_geo_json_for_locality(loc)
+```
+
+Results are returned as a `list` by default, but can be easily converted to 
+a JSON string, e.g.
+
+```{r results='hide'}
+jsonlite::toJSON(res$content)
+```
+
+#### count
+
+For any given query (with `QuerySpec` or not), returns the count of
+matches instead of `GeoArea` objects:
+
+```{r}
+# return count of all GeoAreas
+res <- gc$count()
+res$content
+```
+
+### Aggregation services
+
+#### get_distinct_values
+
+This function returns all values present for a certain field, and
+their counts:
+
+```{r}
+gc$get_distinct_values("areaType")$content
+```
+
+### Metadata services
+
+Geo Metadata services include the same standard metadata services as
+for the other data types:
+
+```{r}
+# get all paths for the GeoArea datatype 
+gc$get_paths()$content
+
+# get info e.g. for field 'areaType'
+gc$get_field_info()$content$areaType
+
+# get all settings
+gc$get_settings()
+
+# get specific setting
+gc$get_setting("index.max_result_window")$content
+
+# check if operator is allowed
+gc$is_operator_allowed("locality", "STARTS_WITH")$content
+```
+
+## Multimedia services {.tabset}
+
+Multimedia services are accessible with a `MultimediaClient`,
+instantiated as follows:
+
+```{r}
+mc <- MultimediaClient$new()
+```
+
+### Query Services
+
+As for the other data types, the `query` method enables simple and
+complex queries using a list or a `QuerySpec` object to specify query
+parameters.
+
+```{r}
+# example of multimedia query passing parameters as a list
+mc$query(queryParams = list(collectionType = 'Cnidaria'))$content
+
+# example of multimedia query using QuerySpec: get the first 100
+# multimedia items associated with a specimen with name starting with "Ba"
+qc <-
+  QueryCondition$new(field =
+                       "identifications.scientificName.fullScientificName",
+                     operator =
+                       "STARTS_WITH",
+                     value =
+                       "Qu")
+qs <- QuerySpec$new(conditions = list(qc), size = 100)
+res <- mc$query(qs)
+
+# check if scientific names indeed start with 'Qu'
+sapply(res$content$resultSet, function(x)
+  x$item$identifications[[1]]$scientificName$fullScientificName)
+```
+
+### Data access services
+
+#### count
+
+As for the other data types, a `count` function returns counts instead
+of the actual objects:
+
+```{r}
+# count all multimedia documents
+mc$count()$content
+```
+
+### Aggregation services
+
+#### get_distinct_values
+
+This function returns all values present for a certain field, and
+their counts. Example: retrieve all different licenses and their
+counts"
+
+```{r}
+mc$get_distinct_values("license")$content
+```
+
+### Metadata services
+
+#### Available paths and fields
+
+All fields can be retrieved with `get_paths` and specific information
+on the fields, such as allowed operators etc. with `get_field_info`
+
+```{r results='hide'}
+mc$get_paths()$content
+mc$get_field_info()$content
+```
+
+#### Settings
+
+Multimedia-specific settings can be retrieved with `get_settings` and
+a specific setting with `get_setting`:
+
+```{r}
+mc$get_settings()$content
+mc$get_setting("index.max_result_window")$content
+```
+
+#### Operators
+
+To test if a certain operator can be used for a mutimedia query:
+
+```{r}
+mc$is_operator_allowed("identifications.scientificName.fullScientificName",
+                       "STARTS_WITH")$content
+```
+
+## Metadata services {.tabset}
+
+Metadata services provide miscellaneous information about the data
+available via the NBA. Note that there is also type-specific metadata
+for each data type (e.g. `Specimen`) which can be retrieved with the
+specific client of that class. Here we show the available methods for
+the `MetadataClient` which gives general, non-type specific metadata.
+The client is instantiated in the standard way:
+
+```{r}
+mc <- MetadataClient$new()
+```
+
+
+#### Controlled vocabularies
+
+The vocabularies for some fields are controlled by dictionaries with
+allowed values. For the sex of a museum specimen, for instance, only
+the terms *male*, *female*, *mixed* and *hermaphrodite* are allowed to
+be assigned to the specimen.  The fields for which controlled lists
+are available can be retrieved as follows:
+
+```{r}
+mc$get_controlled_lists()$content
+```
+
+and for each field that has a controlled vocabulary, there is a
+separate function to retrieve the allowed values:
+
+```{r}
+mc$get_controlled_list_taxonomic_status()$content
+mc$get_controlled_list_specimen_type_status()$content
+mc$get_controlled_list_sex()$content
+mc$get_controlled_list_phase_or_stage()$content
+```
+
+#### Miscellaneous
+
+##### Dates
+
+To maintain data integrity, dates have to be coded in specific formats
+in our systems. For instance, *yyyy-MM-dd* is a valid format.  Allowed
+formats can be retrieved as follows:
+
+```{r}
+mc$get_allowed_date_formats()$content
+```
+
+##### Services list
+
+The method `get_rest_services` returns a list of all services in the
+NBA as objects of type `RestService`.
+
+```{r}
+# get the endPoint of the first rest service in the services list
+mc$get_rest_services()$content[[1]]
+```
+
+##### Settings
+
+Similar to the document-specific metadata services, we can get general
+settings with the `MetaDataClient`:
+
+```{r}
+#get all settings
+mc$get_settings()$content
+
+# get value for specific setting
+mc$get_setting("operator.contains.min_term_length")$content
+```
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_geo_json_for_locality}
+\alias{geo_get_geo_json_for_locality}
+\title{Retrieve a GeoJson object for a given locality}
+\usage{
+geo_get_geo_json_for_locality(locality = NULL, ...)
+}
+\arguments{
+\item{locality}{, type:}
+
+\item{...}{additional parameters passed to get_geo_json_for_locality from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_geo_json_for_locality }
+from class \code{ GeoClient}.
+}
+\details{
+Returns a GeoJson polygon
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/VernacularName.r
+\docType{class}
+\name{VernacularName}
+\alias{VernacularName}
+\title{VernacularName Class}
+\format{R6 class}
+\usage{
+# VernacularName$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for VernacularName objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{name}}{character}
+
+\item{\code{language}}{character}
+
+\item{\code{preferred}}{logical}
+
+\item{\code{references}}{list(Reference)}
+
+\item{\code{experts}}{list(Expert)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor VernacularName object.
+
+}
+\item{\code{$fromList(VernacularNameList)}}{
+
+  Create VernacularName object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of VernacularName.
+
+}
+\item{\code{fromJSONString(VernacularNameJson)}}{
+
+  Create VernacularName object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of VernacularName.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_count}
+\alias{multimedia_count}
+\title{Get the number of multimedia documents matching a given condition}
+\usage{
+multimedia_count(queryParams = list(), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to count from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count }
+from class \code{ MultimediaClient}.
+}
+\details{
+Conditions given as query parameters or QuerySpec JSON
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_is_operator_allowed}
+\alias{specimen_is_operator_allowed}
+\title{Checks if a given operator is allowed for a given field}
+\usage{
+specimen_is_operator_allowed(field = NULL, operator = NULL, ...)
+}
+\arguments{
+\item{field}{specimen document field, type:}
+
+\item{operator}{operator, type:}
+
+\item{...}{additional parameters passed to is_operator_allowed from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ is_operator_allowed }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/LineString.r
+\docType{class}
+\name{LineString}
+\alias{LineString}
+\title{LineString Class}
+\format{R6 class}
+\usage{
+# LineString$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for LineString objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{list(LngLatAlt)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor LineString object.
+
+}
+\item{\code{$fromList(LineStringList)}}{
+
+  Create LineString object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of LineString.
+
+}
+\item{\code{fromJSONString(LineStringJson)}}{
+
+  Create LineString object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of LineString.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_find}
+\alias{multimedia_find}
+\title{Find a multimedia document by id}
+\usage{
+multimedia_find(id = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{id}{id of multimedia document, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find from class nbaR.MultimediaClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find }
+from class \code{ MultimediaClient}.
+}
+\details{
+If found, returns a single multimedia document
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/DefaultClassification.r
+\docType{class}
+\name{DefaultClassification}
+\alias{DefaultClassification}
+\title{DefaultClassification Class}
+\format{R6 class}
+\usage{
+# DefaultClassification$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for DefaultClassification objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{kingdom}}{character}
+
+\item{\code{phylum}}{character}
+
+\item{\code{className}}{character}
+
+\item{\code{order}}{character}
+
+\item{\code{superFamily}}{character}
+
+\item{\code{family}}{character}
+
+\item{\code{genus}}{character}
+
+\item{\code{subgenus}}{character}
+
+\item{\code{specificEpithet}}{character}
+
+\item{\code{infraspecificEpithet}}{character}
+
+\item{\code{infraspecificRank}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor DefaultClassification object.
+
+}
+\item{\code{$fromList(DefaultClassificationList)}}{
+
+  Create DefaultClassification object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of DefaultClassification.
+
+}
+\item{\code{fromJSONString(DefaultClassificationJson)}}{
+
+  Create DefaultClassification object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of DefaultClassification.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_settings}
+\alias{specimen_get_settings}
+\title{List all publicly available configuration settings for the NBA}
+\usage{
+specimen_get_settings(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_settings from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_settings }
+from class \code{ SpecimenClient}.
+}
+\details{
+The value of a specific setting can be queried with metadata/getSetting/{name}
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_field_info}
+\alias{geo_get_field_info}
+\title{Returns extended information for each field of a specimen document}
+\usage{
+geo_get_field_info(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_field_info from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_field_info }
+from class \code{ GeoClient}.
+}
+\details{
+Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Organization.r
+\docType{class}
+\name{Organization}
+\alias{Organization}
+\title{Organization Class}
+\format{R6 class}
+\usage{
+# Organization$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Organization objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{agentText}}{character}
+
+\item{\code{name}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Organization object.
+
+}
+\item{\code{$fromList(OrganizationList)}}{
+
+  Create Organization object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Organization.
+
+}
+\item{\code{fromJSONString(OrganizationJson)}}{
+
+  Create Organization object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Organization.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Utils.r
+\name{chronos_calib}
+\alias{chronos_calib}
+\title{Make calibration table}
+\usage{
+chronos_calib(specimens, tree, level = "genus")
+}
+\arguments{
+\item{specimens}{list of objects of class Specimen, must have
+chronostratigraphy information}
+
+\item{tree}{object of class 'phylo'}
+
+\item{level}{character giving taxonomic level}
+}
+\description{
+Make calibration table compatible with ape's 'chronos'
+}
+\details{
+Given a list of specimen objects, and a phylogenetic tree,
+makes a calibration table that is compatible with the 'chronos'
+function from the 'ape' package. This can be done for various
+taxonomic levels
+}
+\examples{
+# get specimen with chronostratigraphic data
+sc <- SpecimenClient$new()
+sp <- sc$find_by_unit_id("RGM.156532")$content
+# load tree
+library('ape')
+data(shark_tree)
+# make calibration table
+chronos_calib(sp, shark_tree, "genus")
+}
+\seealso{
+Other utils: \code{\link{geo_age}}
+}
+\concept{utils}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_query}
+\alias{geo_query}
+\title{Query for geo areas}
+\usage{
+geo_query(queryParams = list(), returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to query from class nbaR.GeoClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ query }
+from class \code{ GeoClient}.
+}
+\details{
+Query on searchable fields to retrieve matching geo areas
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_distinct_values}
+\alias{taxon_get_distinct_values}
+\title{Get all different values that can be found for one field}
+\usage{
+taxon_get_distinct_values(field = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{name of field in a taxon object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values }
+from class \code{ TaxonClient}.
+}
+\details{
+A list of all fields for taxon documents can be retrieved with /metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_field_info}
+\alias{specimen_get_field_info}
+\title{Returns extended information for each field of a specimen document}
+\usage{
+specimen_get_field_info(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_field_info from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_field_info }
+from class \code{ SpecimenClient}.
+}
+\details{
+Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_find}
+\alias{specimen_find}
+\title{Find a specimen by id}
+\usage{
+specimen_find(id = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{id}{id of specimen, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find }
+from class \code{ SpecimenClient}.
+}
+\details{
+If found, returns a single specimen
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SourceSystem.r
+\docType{class}
+\name{SourceSystem}
+\alias{SourceSystem}
+\title{SourceSystem Class}
+\format{R6 class}
+\usage{
+# SourceSystem$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SourceSystem objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{code}}{character}
+
+\item{\code{name}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SourceSystem object.
+
+}
+\item{\code{$fromList(SourceSystemList)}}{
+
+  Create SourceSystem object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SourceSystem.
+
+}
+\item{\code{fromJSONString(SourceSystemJson)}}{
+
+  Create SourceSystem object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SourceSystem.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Crs.r
+\docType{class}
+\name{Crs}
+\alias{Crs}
+\title{Crs Class}
+\format{R6 class}
+\usage{
+# Crs$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Crs objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{type}}{character}
+
+\item{\code{properties}}{list}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Crs object.
+
+}
+\item{\code{$fromList(CrsList)}}{
+
+  Create Crs object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Crs.
+
+}
+\item{\code{fromJSONString(CrsJson)}}{
+
+  Create Crs object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Crs.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Expert.r
+\docType{class}
+\name{Expert}
+\alias{Expert}
+\title{Expert Class}
+\format{R6 class}
+\usage{
+# Expert$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Expert objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{agentText}}{character}
+
+\item{\code{fullName}}{character}
+
+\item{\code{organization}}{Organization}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Expert object.
+
+}
+\item{\code{$fromList(ExpertList)}}{
+
+  Create Expert object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Expert.
+
+}
+\item{\code{fromJSONString(ExpertJson)}}{
+
+  Create Expert object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Expert.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/QuerySpec.r
+\docType{class}
+\name{QuerySpec}
+\alias{QuerySpec}
+\title{QuerySpec Class}
+\format{R6 class}
+\usage{
+# QuerySpec$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for QuerySpec objects. A QuerySpec object enables you to specify a query for the NBA. It contains the following properties, each covering a different aspect of the query:  * conditions: The search criteria a.k.a. query conditions. Only documents that satisfy all search criteria or at least one (depending on the logicalOperator are returned.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{constantScore}}{logical
+If true, no relevance scores will be calculated for the returned documents. By default Elasticsearch not only determines whether a document matches your search criteria, but also how well it matches them, expressed as a so-called relevance score. If you are not interested in relevance scores, set constantScore to true, as there is some performance overhead associated with calculating relevance scores.}
+
+\item{\code{fields}}{list(character)
+The fields to be returned. Specimen, Taxon and MultiMediaObject documents are large documents containing lots of fields. If you are only interested in a few fields, use the fields property to specify them.}
+
+\item{\code{conditions}}{list(QueryCondition)
+List of QueryCondition objetcs}
+
+\item{\code{logicalOperator}}{character
+(AND/OR) Specifies whether a document must satisfy all search criteria or just one in order to be returned.}
+
+\item{\code{sortFields}}{list(SortField)
+Specifies the field(s) on which to sort the documents.}
+
+\item{\code{from}}{integer
+The offset in the result set from which to return the documents.}
+
+\item{\code{size}}{integer
+The number of documents to return.}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor QuerySpec object.
+
+}
+\item{\code{$fromList(QuerySpecList)}}{
+
+  Create QuerySpec object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of QuerySpec.
+
+}
+\item{\code{fromJSONString(QuerySpecJson)}}{
+
+  Create QuerySpec object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of QuerySpec.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ScientificName.r
+\docType{class}
+\name{ScientificName}
+\alias{ScientificName}
+\title{ScientificName Class}
+\format{R6 class}
+\usage{
+# ScientificName$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for ScientificName objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{fullScientificName}}{character}
+
+\item{\code{taxonomicStatus}}{character}
+
+\item{\code{genusOrMonomial}}{character}
+
+\item{\code{subgenus}}{character}
+
+\item{\code{specificEpithet}}{character}
+
+\item{\code{infraspecificEpithet}}{character}
+
+\item{\code{infraspecificMarker}}{character}
+
+\item{\code{nameAddendum}}{character}
+
+\item{\code{authorshipVerbatim}}{character}
+
+\item{\code{author}}{character}
+
+\item{\code{year}}{character}
+
+\item{\code{scientificNameGroup}}{character}
+
+\item{\code{references}}{list(Reference)}
+
+\item{\code{experts}}{list(Expert)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor ScientificName object.
+
+}
+\item{\code{$fromList(ScientificNameList)}}{
+
+  Create ScientificName object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of ScientificName.
+
+}
+\item{\code{fromJSONString(ScientificNameJson)}}{
+
+  Create ScientificName object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of ScientificName.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_setting}
+\alias{taxon_get_setting}
+\title{Get the value of an NBA setting}
+\usage{
+taxon_get_setting(name = NULL, ...)
+}
+\arguments{
+\item{name}{name of setting, type:}
+
+\item{...}{additional parameters passed to get_setting from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_setting }
+from class \code{ TaxonClient}.
+}
+\details{
+All settings can be queried with /metadata/getSettings
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{shark_tree}
+\alias{shark_tree}
+\title{A molecular phylogeny of the sharks}
+\format{An object of class \code{phylo}}
+\usage{
+shark_tree
+}
+\description{
+An (uncalibrated) phylogenetic tree with 231 species from the eight
+extant shark orders. Number of edges: 463. Branch lengths correspond
+to molecular distances. Tips are labelled as follows: Genus_species.
+Can be processed using the package \code{ape}. The data were kindly
+provided by Ximena Vélez-Zuazo.
+}
+\examples{
+data(shark_tree)
+plot(shark_tree, cex=0.1)
+}
+\references{
+Vélez-Zuazo & Agnarsson. Shark tales: A molecular species-level
+phylogeny of sharks (Selachimorpha, Chondrichthyes).
+Molecular Phylogenetics and Evolution 58:2, 207-217
+(\href{http://www.sciencedirect.com/science/article/pii/S1055790310004537}{Link})
+}
+\keyword{datasets}
+\keyword{phylogeny}
+\keyword{sharks}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GroupByScientificNameQuerySpec.r
+\docType{class}
+\name{GroupByScientificNameQuerySpec}
+\alias{GroupByScientificNameQuerySpec}
+\title{GroupByScientificNameQuerySpec Class}
+\format{R6 class}
+\usage{
+# GroupByScientificNameQuerySpec$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GroupByScientificNameQuerySpec objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{constantScore}}{logical
+If true, no relevance scores will be calculated for the returned documents. By default Elasticsearch not only determines whether a document matches your search criteria, but also how well it matches them, expressed as a so-called relevance score. If you are not interested in relevance scores, set constantScore to true, as there is some performance overhead associated with calculating relevance scores.}
+
+\item{\code{fields}}{list(character)
+The fields to be returned. Specimen, Taxon and MultiMediaObject documents are large documents containing lots of fields. If you are only interested in a few fields, use the fields property to specify them.}
+
+\item{\code{conditions}}{list(QueryCondition)
+List of QueryCondition objetcs}
+
+\item{\code{logicalOperator}}{character
+(AND/OR) Specifies whether a document must satisfy all search criteria or just one in order to be returned.}
+
+\item{\code{sortFields}}{list(SortField)
+Specifies the field(s) on which to sort the documents.}
+
+\item{\code{from}}{integer
+The offset in the result set from which to return the documents.}
+
+\item{\code{size}}{integer
+The number of documents to return.}
+
+\item{\code{groupSort}}{character}
+
+\item{\code{groupFilter}}{Filter}
+
+\item{\code{specimensFrom}}{integer}
+
+\item{\code{specimensSize}}{integer}
+
+\item{\code{specimensSortFields}}{list(SortField)}
+
+\item{\code{noTaxa}}{logical}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GroupByScientificNameQuerySpec object.
+
+}
+\item{\code{$fromList(GroupByScientificNameQuerySpecList)}}{
+
+  Create GroupByScientificNameQuerySpec object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GroupByScientificNameQuerySpec.
+
+}
+\item{\code{fromJSONString(GroupByScientificNameQuerySpecJson)}}{
+
+  Create GroupByScientificNameQuerySpec object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GroupByScientificNameQuerySpec.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_query}
+\alias{multimedia_query}
+\title{Query for multimedia documents}
+\usage{
+multimedia_query(queryParams = list(), returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to query from class nbaR.MultimediaClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ query }
+from class \code{ MultimediaClient}.
+}
+\details{
+Search for multimedia documents with query parameters or QuerySpec JSON string
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_distinct_values_per_group}
+\alias{geo_get_distinct_values_per_group}
+\title{Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by}
+\usage{
+geo_get_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the geo area object to group by, type:}
+
+\item{field}{name of field in the geo area object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values_per_group from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values_per_group }
+from class \code{ GeoClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_source_systems}
+\alias{metadata_get_source_systems}
+\title{Get the data sources from which the data was retrieved}
+\usage{
+metadata_get_source_systems(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_source_systems from class nbaR.MetadataClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ get_source_systems }
+from class \code{ MetadataClient}.
+}
+\details{
+Returns code and name of all source systems
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/AssociatedTaxon.r
+\docType{class}
+\name{AssociatedTaxon}
+\alias{AssociatedTaxon}
+\title{AssociatedTaxon Class}
+\format{R6 class}
+\usage{
+# AssociatedTaxon$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for AssociatedTaxon objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{name}}{character}
+
+\item{\code{relationType}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor AssociatedTaxon object.
+
+}
+\item{\code{$fromList(AssociatedTaxonList)}}{
+
+  Create AssociatedTaxon object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of AssociatedTaxon.
+
+}
+\item{\code{fromJSONString(AssociatedTaxonJson)}}{
+
+  Create AssociatedTaxon object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of AssociatedTaxon.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoJsonObject.r
+\docType{class}
+\name{GeoJsonObject}
+\alias{GeoJsonObject}
+\title{GeoJsonObject Class}
+\format{R6 class}
+\usage{
+# GeoJsonObject$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GeoJsonObject objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GeoJsonObject object.
+
+}
+\item{\code{$fromList(GeoJsonObjectList)}}{
+
+  Create GeoJsonObject object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GeoJsonObject.
+
+}
+\item{\code{fromJSONString(GeoJsonObjectJson)}}{
+
+  Create GeoJsonObject object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GeoJsonObject.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_exists}
+\alias{specimen_exists}
+\title{Returns whether or not a unitID for a specimen exists}
+\usage{
+specimen_exists(unitID = NULL, ...)
+}
+\arguments{
+\item{unitID}{the unitID of the specimen to query, type:}
+
+\item{...}{additional parameters passed to exists from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ exists }
+from class \code{ SpecimenClient}.
+}
+\details{
+Returns either true or false
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_count_distinct_values}
+\alias{specimen_count_distinct_values}
+\title{Count the distinct number of values that exist for a given field}
+\usage{
+specimen_count_distinct_values(field = NULL, queryParams = list(), ...)
+}
+\arguments{
+\item{field}{Name of field in the specimen object, type:}
+
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to count_distinct_values from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_find_by_ids}
+\alias{multimedia_find_by_ids}
+\title{Find multimedia document by ids}
+\usage{
+multimedia_find_by_ids(ids = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{ids}{ids of multiple multimedia documents, separated by comma, type: character}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find_by_ids from class nbaR.MultimediaClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find_by_ids }
+from class \code{ MultimediaClient}.
+}
+\details{
+Given multiple ids, returns a list of multimedia documents
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient.r
+\docType{class}
+\name{TaxonClient}
+\alias{TaxonClient}
+\title{Taxon operations}
+\format{R6 class}
+\usage{
+# client <- TaxonClient$new()
+}
+\description{
+This client connects to all Taxon-related endpoints
+of the NBA. Each endpoint is available as a class method
+(see section 'Methods' below). Optionally, a custom URL
+pointing to a NBA server and a user Agent can be specified
+by the user (see section 'Fields' below).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{Stores url path of the request, defaults to http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to nbaR/0.1.0}
+}}
+
+\section{Methods}{
+
+\describe{
+\item{\code{ count }}{
+
+  Get the number of taxa matching a given condition;
+  Conditions given as query parameters or a querySpec JSON.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values }}{
+
+  Count the distinct number of values that exist for a given field;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : name of field in the taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ count_distinct_values_per_group }}{
+
+  Count the distinct number of field values that exist per the given field to group by;
+  See also endpoint /getDistinctValuesPerGroup.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the taxon object you want to group by \item \code{ field } : name of field in the taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ download_query }}{
+
+  Dynamic download service: Query for taxa and return result as a stream ...;
+  Query with query parameters or querySpec JSON. ....
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Taxon }
+}
+\item{\code{ dwca_get_data_set }}{
+
+  Download dataset as Darwin Core Archive File;
+  Available datasets can be queried with /taxon/dwca/getDataSetNames. Response saved to &lt;datasetname&gt;-&lt;yyyymmdd&gt;.dwca.zip.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ dataset } : name of dataset
+
+        \item \code{ filename } : location to save data, defaults to \code{format(Sys.time(), "download-\%Y-\%m-\%dT\%H:\%m.zip")}
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{  }
+}
+\item{\code{ dwca_get_data_set_names }}{
+
+  Retrieve the names of all available datasets;
+  Individual datasets can then be downloaded with /dwca/getDataSet/{dataset}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ dwca_query }}{
+
+  Dynamic download service: Query for taxa and return result as Darwin Core Archive File;
+  Query with query parameters or querySpec JSON. Response saved to nba-taxa.dwca.zip.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+        \item \code{ filename } : location to save data, defaults to \code{format(Sys.time(), "download-\%Y-\%m-\%dT\%H:\%m.zip")}
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{  }
+}
+\item{\code{ find }}{
+
+  Find a taxon by id;
+  If found, returns a single taxon.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ id } : id of taxon
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Taxon }
+}
+\item{\code{ find_by_ids }}{
+
+  Find taxa by ids;
+  Given multiple ids, returns a list of taxa.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ ids } : ids of multiple taxa, separated by comma
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Taxon }
+}
+\item{\code{ get_distinct_values }}{
+
+  Get all different values that can be found for one field;
+  A list of all fields for taxon documents can be retrieved with /metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : name of field in a taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_distinct_values_per_group }}{
+
+  Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the taxon object you want to group by \item \code{ field } : name of field in the taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_field_info }}{
+
+  Returns extended information for each field of a specimen document;
+  Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_paths }}{
+
+  Returns the full path of all fields within a document;
+  See also metadata/getFieldInfo for all allowed operators per field.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_setting }}{
+
+  Get the value of an NBA setting;
+  All settings can be queried with /metadata/getSettings.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of setting
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_settings }}{
+
+  List all publicly available configuration settings for the NBA;
+  The value of a specific setting can be queried with metadata/getSetting/{name}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ group_by_scientific_name }}{
+
+  Aggregates Taxon and Specimen documents according to their scientific names;
+  Returns a list with ScientificNameGroups, which contain Taxon and Specimen documents that share a scientific name.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+\item{\code{ is_operator_allowed }}{
+
+  Checks if a given operator is allowed for a given field;
+  See also metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : specimen document field \item \code{ operator } : operator
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ query }}{
+
+  Query for taxa;
+  Search for taxa (GET) using query parameters or a querySpec JSON.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_query}
+\alias{specimen_query}
+\title{Query for specimens}
+\usage{
+specimen_query(queryParams = list(), returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to query from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ query }
+from class \code{ SpecimenClient}.
+}
+\details{
+Search for specimens (GET) using query parameters or a querySpec JSON
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ServiceAccessPoint.r
+\docType{class}
+\name{ServiceAccessPoint}
+\alias{ServiceAccessPoint}
+\title{ServiceAccessPoint Class}
+\format{R6 class}
+\usage{
+# ServiceAccessPoint$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for ServiceAccessPoint objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{accessUri}}{character}
+
+\item{\code{format}}{character}
+
+\item{\code{variant}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor ServiceAccessPoint object.
+
+}
+\item{\code{$fromList(ServiceAccessPointList)}}{
+
+  Create ServiceAccessPoint object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of ServiceAccessPoint.
+
+}
+\item{\code{fromJSONString(ServiceAccessPointJson)}}{
+
+  Create ServiceAccessPoint object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of ServiceAccessPoint.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoArea.r
+\docType{class}
+\name{GeoArea}
+\alias{GeoArea}
+\title{GeoArea Class}
+\format{R6 class}
+\usage{
+# GeoArea$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GeoArea objects. Geographical mapping of species occurrences is essential in biogeographical analyses. More than 1.2 Million of our specimen records are geo-referenced, i.e. they have latitude and longitude coordinates reported for the sita at which they were collected. The data type geo stores geographical areas to which the geo-referenced species can be mapped. This enables querying for specimens found in a specific region, to e.g. retrieve all the primate species collected on Madagascar. The areas are represented as polygons of longitude/latitude pairs. All polygons are coded in the GeoJSON format.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{sourceSystem}}{SourceSystem}
+
+\item{\code{sourceSystemId}}{character}
+
+\item{\code{recordURI}}{character}
+
+\item{\code{id}}{character}
+
+\item{\code{areaType}}{character}
+
+\item{\code{locality}}{character}
+
+\item{\code{shape}}{list}
+
+\item{\code{source}}{character}
+
+\item{\code{isoCode}}{character}
+
+\item{\code{countryNL}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GeoArea object.
+
+}
+\item{\code{$fromList(GeoAreaList)}}{
+
+  Create GeoArea object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GeoArea.
+
+}
+\item{\code{fromJSONString(GeoAreaJson)}}{
+
+  Create GeoArea object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GeoArea.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/RestService.r
+\docType{class}
+\name{RestService}
+\alias{RestService}
+\title{RestService Class}
+\format{R6 class}
+\usage{
+# RestService$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for RestService objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{endPoint}}{character}
+
+\item{\code{method}}{character}
+
+\item{\code{consumes}}{character}
+
+\item{\code{produces}}{character}
+
+\item{\code{url}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor RestService object.
+
+}
+\item{\code{$fromList(RestServiceList)}}{
+
+  Create RestService object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of RestService.
+
+}
+\item{\code{fromJSONString(RestServiceJson)}}{
+
+  Create RestService object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of RestService.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_distinct_values}
+\alias{multimedia_get_distinct_values}
+\title{Get all different values that can be found for one field}
+\usage{
+multimedia_get_distinct_values(field = NULL, returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{field}{field, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values }
+from class \code{ MultimediaClient}.
+}
+\details{
+A list of all fields for multimedia documents can be retrieved with /metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_download_query}
+\alias{specimen_download_query}
+\title{Dynamic download service: Query for specimens and return result as a stream ...}
+\usage{
+specimen_download_query(queryParams = list(),
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to download_query from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ download_query }
+from class \code{ SpecimenClient}.
+}
+\details{
+Query with query parameters or querySpec JSON. ...
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/QueryResult.r
+\docType{class}
+\name{QueryResult}
+\alias{QueryResult}
+\title{QueryResult Class}
+\format{R6 class}
+\usage{
+# QueryResult$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for QueryResult objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{totalSize}}{integer}
+
+\item{\code{resultSet}}{list(QueryResultItemObject)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor QueryResult object.
+
+}
+\item{\code{$fromList(QueryResultList)}}{
+
+  Create QueryResult object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of QueryResult.
+
+}
+\item{\code{fromJSONString(QueryResultJson)}}{
+
+  Create QueryResult object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of QueryResult.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_find}
+\alias{taxon_find}
+\title{Find a taxon by id}
+\usage{
+taxon_find(id = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{id}{id of taxon, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find from class nbaR.TaxonClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find }
+from class \code{ TaxonClient}.
+}
+\details{
+If found, returns a single taxon
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_ids_in_collection}
+\alias{specimen_get_ids_in_collection}
+\title{Retrieve all ids within a &#39;special collection&#39; of specimens}
+\usage{
+specimen_get_ids_in_collection(name = NULL, returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{name}{name of dataset, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_ids_in_collection from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_ids_in_collection }
+from class \code{ SpecimenClient}.
+}
+\details{
+Available collections can be queried with /getNamedCollections
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_settings}
+\alias{metadata_get_settings}
+\title{List all publicly available configuration settings for the NBA}
+\usage{
+metadata_get_settings(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_settings from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_settings }
+from class \code{ MetadataClient}.
+}
+\details{
+The value of a specific setting can be queried with metadata/getSetting/{name}
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient.r
+\docType{class}
+\name{MetadataClient}
+\alias{MetadataClient}
+\title{Metadata operations}
+\format{R6 class}
+\usage{
+# client <- MetadataClient$new()
+}
+\description{
+This client connects to all Metadata-related endpoints
+of the NBA. Each endpoint is available as a class method
+(see section 'Methods' below). Optionally, a custom URL
+pointing to a NBA server and a user Agent can be specified
+by the user (see section 'Fields' below).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{Stores url path of the request, defaults to http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to nbaR/0.1.0}
+}}
+
+\section{Methods}{
+
+\describe{
+\item{\code{ get_allowed_date_formats }}{
+
+  Get allowed values for dates in queries;
+  Queries with other formatted dates will result in a query error.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_controlled_list_phase_or_stage }}{
+
+  Get allowed values for the field &#39;PhaseOrStage&#39; in a specimen document;
+  See also endpoint /getControlledLists.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_controlled_list_sex }}{
+
+  Get allowed values for the field &#39;Sex&#39; in a specimen document;
+  See also endpoint /getControlledLists.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_controlled_list_specimen_type_status }}{
+
+  Get allowed values for the field &#39;SpecimenTypeStatus&#39; in a specimen document;
+  See also endpoint /getControlledLists.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_controlled_list_taxonomic_status }}{
+
+  Get allowed values for the field &#39;TaxonomicStatus&#39; in specimen and taxon documents;
+  See also endpoint /getControlledLists.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_controlled_lists }}{
+
+  Get the names of fields for which a controlled vocabulary exists;
+  Possible values for fields with controlled vocabularies can be queried with metadata/getControlledList/{field}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_rest_services }}{
+
+  List all available REST services and their parameters;
+  Lists end point name, http method, response type, and URL.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ RestService }
+}
+\item{\code{ get_setting }}{
+
+  Get the value of an NBA setting;
+  All settings can be queried with /metadata/getSettings.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of setting
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_settings }}{
+
+  List all publicly available configuration settings for the NBA;
+  The value of a specific setting can be queried with metadata/getSetting/{name}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_source_systems }}{
+
+  Get the data sources from which the data was retrieved;
+  Returns code and name of all source systems.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ SourceSystem }
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/QueryResultItemObject.r
+\docType{class}
+\name{QueryResultItemObject}
+\alias{QueryResultItemObject}
+\title{QueryResultItemObject Class}
+\format{R6 class}
+\usage{
+# QueryResultItemObject$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for QueryResultItemObject objects. Contains an object returned from a QuerySpec query. Holds an item and a relevance score.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{score}}{numeric}
+
+\item{\code{item}}{list}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor QueryResultItemObject object.
+
+}
+\item{\code{$fromList(QueryResultItemObjectList)}}{
+
+  Create QueryResultItemObject object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of QueryResultItemObject.
+
+}
+\item{\code{fromJSONString(QueryResultItemObjectJson)}}{
+
+  Create QueryResultItemObject object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of QueryResultItemObject.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_controlled_list_phase_or_stage}
+\alias{metadata_get_controlled_list_phase_or_stage}
+\title{Get allowed values for the field &#39;PhaseOrStage&#39; in a specimen document}
+\usage{
+metadata_get_controlled_list_phase_or_stage(returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_controlled_list_phase_or_stage from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_controlled_list_phase_or_stage }
+from class \code{ MetadataClient}.
+}
+\details{
+See also endpoint /getControlledLists
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_setting}
+\alias{multimedia_get_setting}
+\title{Get the value of an NBA setting}
+\usage{
+multimedia_get_setting(name = NULL, ...)
+}
+\arguments{
+\item{name}{name of setting, type:}
+
+\item{...}{additional parameters passed to get_setting from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_setting }
+from class \code{ MultimediaClient}.
+}
+\details{
+All settings can be queried with /metadata/getSettings
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_find_by_ids}
+\alias{taxon_find_by_ids}
+\title{Find taxa by ids}
+\usage{
+taxon_find_by_ids(ids = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{ids}{ids of multiple taxa, separated by comma, type: character}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find_by_ids from class nbaR.TaxonClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find_by_ids }
+from class \code{ TaxonClient}.
+}
+\details{
+Given multiple ids, returns a list of taxa
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}}, \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ChronoStratigraphy.r
+\docType{class}
+\name{ChronoStratigraphy}
+\alias{ChronoStratigraphy}
+\title{ChronoStratigraphy Class}
+\format{R6 class}
+\usage{
+# ChronoStratigraphy$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for ChronoStratigraphy objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{youngRegionalSubstage}}{character}
+
+\item{\code{youngRegionalStage}}{character}
+
+\item{\code{youngRegionalSeries}}{character}
+
+\item{\code{youngDatingQualifier}}{character}
+
+\item{\code{youngInternSystem}}{character}
+
+\item{\code{youngInternSubstage}}{character}
+
+\item{\code{youngInternStage}}{character}
+
+\item{\code{youngInternSeries}}{character}
+
+\item{\code{youngInternErathem}}{character}
+
+\item{\code{youngInternEonothem}}{character}
+
+\item{\code{youngChronoName}}{character}
+
+\item{\code{youngCertainty}}{character}
+
+\item{\code{oldDatingQualifier}}{character}
+
+\item{\code{chronoPreferredFlag}}{logical}
+
+\item{\code{oldRegionalSubstage}}{character}
+
+\item{\code{oldRegionalStage}}{character}
+
+\item{\code{oldRegionalSeries}}{character}
+
+\item{\code{oldInternSystem}}{character}
+
+\item{\code{oldInternSubstage}}{character}
+
+\item{\code{oldInternStage}}{character}
+
+\item{\code{oldInternSeries}}{character}
+
+\item{\code{oldInternErathem}}{character}
+
+\item{\code{oldInternEonothem}}{character}
+
+\item{\code{oldChronoName}}{character}
+
+\item{\code{chronoIdentifier}}{character}
+
+\item{\code{oldCertainty}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor ChronoStratigraphy object.
+
+}
+\item{\code{$fromList(ChronoStratigraphyList)}}{
+
+  Create ChronoStratigraphy object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of ChronoStratigraphy.
+
+}
+\item{\code{fromJSONString(ChronoStratigraphyJson)}}{
+
+  Create ChronoStratigraphy object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of ChronoStratigraphy.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_distinct_values}
+\alias{geo_get_distinct_values}
+\title{Get all different values that exist for a field}
+\usage{
+geo_get_distinct_values(field = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{name of field in geo area object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values }
+from class \code{ GeoClient}.
+}
+\details{
+A list of all fields for geo area documents can be retrieved with /metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_distinct_values}
+\alias{specimen_get_distinct_values}
+\title{Get all different values that exist for a field}
+\usage{
+specimen_get_distinct_values(field = NULL, queryParams = list(),
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{Name of field in specimen object, type:}
+
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values }
+from class \code{ SpecimenClient}.
+}
+\details{
+A list of all fields for specimen documents can be retrieved with /metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_controlled_list_taxonomic_status}
+\alias{metadata_get_controlled_list_taxonomic_status}
+\title{Get allowed values for the field &#39;TaxonomicStatus&#39; in specimen and taxon documents}
+\usage{
+metadata_get_controlled_list_taxonomic_status(returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_controlled_list_taxonomic_status from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_controlled_list_taxonomic_status }
+from class \code{ MetadataClient}.
+}
+\details{
+See also endpoint /getControlledLists
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_rest_services}
+\alias{metadata_get_rest_services}
+\title{List all available REST services and their parameters}
+\usage{
+metadata_get_rest_services(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_rest_services from class nbaR.MetadataClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ get_rest_services }
+from class \code{ MetadataClient}.
+}
+\details{
+Lists end point name, http method, response type, and URL
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_dwca_query}
+\alias{specimen_dwca_query}
+\title{Dynamic download service: Query for specimens and return result as Darwin Core Archive File}
+\usage{
+specimen_dwca_query(queryParams = list(), filename = format(Sys.time(),
+  "download-\%Y-\%m-\%dT\%H:\%m.zip"), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{filename}{Filename to save results to, defaults to `format(Sys.time(),"download-\%Y-\%m-\%dT\%H:\%m.zip")`}
+
+\item{...}{additional parameters passed to dwca_query from class nbaR.SpecimenClient}
+}
+\description{
+This is a wrapper for the method \code{ dwca_query }
+from class \code{ SpecimenClient}.
+}
+\details{
+Query with query parameters or querySpec JSON. Response saved to nba-specimens.dwca.zip
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiMediaObject.r
+\docType{class}
+\name{MultiMediaObject}
+\alias{MultiMediaObject}
+\title{MultiMediaObject Class}
+\format{R6 class}
+\usage{
+# MultiMediaObject$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiMediaObject objects. Naturalis stores a vast amount of multimedia in its internal document store. This can be multimedia captured from physical specimens (e.g. photos of a specimen), but also from human observations (e.g. audio recordings of bird sounds). Digitisation of Naturalis museum objects include a detailed photographic documentation. So far, there are more than 5 million photos and several houndreds of thousands of bird sounds.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{sourceSystem}}{SourceSystem}
+
+\item{\code{sourceSystemId}}{character}
+
+\item{\code{recordURI}}{character}
+
+\item{\code{id}}{character}
+
+\item{\code{sourceInstitutionID}}{character}
+
+\item{\code{sourceID}}{character}
+
+\item{\code{owner}}{character}
+
+\item{\code{licenseType}}{character}
+
+\item{\code{license}}{character}
+
+\item{\code{unitID}}{character}
+
+\item{\code{collectionType}}{character}
+
+\item{\code{title}}{character}
+
+\item{\code{caption}}{character}
+
+\item{\code{description}}{character}
+
+\item{\code{serviceAccessPoints}}{list(ServiceAccessPoint)}
+
+\item{\code{type}}{character}
+
+\item{\code{taxonCount}}{integer}
+
+\item{\code{creator}}{character}
+
+\item{\code{copyrightText}}{character}
+
+\item{\code{associatedSpecimenReference}}{character}
+
+\item{\code{associatedTaxonReference}}{character}
+
+\item{\code{multiMediaPublic}}{logical}
+
+\item{\code{subjectParts}}{list(character)}
+
+\item{\code{subjectOrientations}}{list(character)}
+
+\item{\code{phasesOrStages}}{list(character)}
+
+\item{\code{sexes}}{list(character)}
+
+\item{\code{gatheringEvents}}{list(MultiMediaGatheringEvent)}
+
+\item{\code{identifications}}{list(MultiMediaContentIdentification)}
+
+\item{\code{theme}}{list(character)}
+
+\item{\code{associatedSpecimen}}{Specimen}
+
+\item{\code{associatedTaxon}}{Taxon}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiMediaObject object.
+
+}
+\item{\code{$fromList(MultiMediaObjectList)}}{
+
+  Create MultiMediaObject object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiMediaObject.
+
+}
+\item{\code{fromJSONString(MultiMediaObjectJson)}}{
+
+  Create MultiMediaObject object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiMediaObject.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_controlled_list_specimen_type_status}
+\alias{metadata_get_controlled_list_specimen_type_status}
+\title{Get allowed values for the field &#39;SpecimenTypeStatus&#39; in a specimen document}
+\usage{
+
+  metadata_get_controlled_list_specimen_type_status(returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_controlled_list_specimen_type_status from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_controlled_list_specimen_type_status }
+from class \code{ MetadataClient}.
+}
+\details{
+See also endpoint /getControlledLists
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/BioStratigraphy.r
+\docType{class}
+\name{BioStratigraphy}
+\alias{BioStratigraphy}
+\title{BioStratigraphy Class}
+\format{R6 class}
+\usage{
+# BioStratigraphy$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for BioStratigraphy objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{youngBioDatingQualifier}}{character}
+
+\item{\code{youngBioName}}{character}
+
+\item{\code{youngFossilZone}}{character}
+
+\item{\code{youngFossilSubZone}}{character}
+
+\item{\code{youngBioCertainty}}{character}
+
+\item{\code{youngStratType}}{character}
+
+\item{\code{bioDatingQualifier}}{character}
+
+\item{\code{bioPreferredFlag}}{logical}
+
+\item{\code{rangePosition}}{character}
+
+\item{\code{oldBioName}}{character}
+
+\item{\code{bioIdentifier}}{character}
+
+\item{\code{oldFossilzone}}{character}
+
+\item{\code{oldFossilSubzone}}{character}
+
+\item{\code{oldBioCertainty}}{character}
+
+\item{\code{oldBioStratType}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor BioStratigraphy object.
+
+}
+\item{\code{$fromList(BioStratigraphyList)}}{
+
+  Create BioStratigraphy object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of BioStratigraphy.
+
+}
+\item{\code{fromJSONString(BioStratigraphyJson)}}{
+
+  Create BioStratigraphy object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of BioStratigraphy.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_distinct_values_per_group}
+\alias{multimedia_get_distinct_values_per_group}
+\title{Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by}
+\usage{
+multimedia_get_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the multimedia object you want to group by, type:}
+
+\item{field}{name of field in the multimedia object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values_per_group from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values_per_group }
+from class \code{ MultimediaClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_field_info}
+\alias{taxon_get_field_info}
+\title{Returns extended information for each field of a specimen document}
+\usage{
+taxon_get_field_info(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_field_info from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_field_info }
+from class \code{ TaxonClient}.
+}
+\details{
+Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_find_by_ids}
+\alias{specimen_find_by_ids}
+\title{Find specimens by ids}
+\usage{
+specimen_find_by_ids(ids = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{ids}{ids of multiple specimen, separated by comma, type: character}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find_by_ids from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find_by_ids }
+from class \code{ SpecimenClient}.
+}
+\details{
+Given multiple ids, returns a list of specimen
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Reference.r
+\docType{class}
+\name{Reference}
+\alias{Reference}
+\title{Reference Class}
+\format{R6 class}
+\usage{
+# Reference$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Reference objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{titleCitation}}{character}
+
+\item{\code{citationDetail}}{character}
+
+\item{\code{uri}}{character}
+
+\item{\code{author}}{Person}
+
+\item{\code{publicationDate}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Reference object.
+
+}
+\item{\code{$fromList(ReferenceList)}}{
+
+  Create Reference object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Reference.
+
+}
+\item{\code{fromJSONString(ReferenceJson)}}{
+
+  Create Reference object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Reference.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SummarySourceSystem.r
+\docType{class}
+\name{SummarySourceSystem}
+\alias{SummarySourceSystem}
+\title{SummarySourceSystem Class}
+\format{R6 class}
+\usage{
+# SummarySourceSystem$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SummarySourceSystem objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{code}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SummarySourceSystem object.
+
+}
+\item{\code{$fromList(SummarySourceSystemList)}}{
+
+  Create SummarySourceSystem object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SummarySourceSystem.
+
+}
+\item{\code{fromJSONString(SummarySourceSystemJson)}}{
+
+  Create SummarySourceSystem object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SummarySourceSystem.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Iptc4xmpExt.r
+\docType{class}
+\name{Iptc4xmpExt}
+\alias{Iptc4xmpExt}
+\title{Iptc4xmpExt Class}
+\format{R6 class}
+\usage{
+# Iptc4xmpExt$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Iptc4xmpExt objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{locationShown}}{character}
+
+\item{\code{worldRegion}}{character}
+
+\item{\code{countryCode}}{character}
+
+\item{\code{countryName}}{character}
+
+\item{\code{provinceState}}{character}
+
+\item{\code{city}}{character}
+
+\item{\code{sublocation}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Iptc4xmpExt object.
+
+}
+\item{\code{$fromList(Iptc4xmpExtList)}}{
+
+  Create Iptc4xmpExt object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Iptc4xmpExt.
+
+}
+\item{\code{fromJSONString(Iptc4xmpExtJson)}}{
+
+  Create Iptc4xmpExt object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Iptc4xmpExt.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiPoint.r
+\docType{class}
+\name{MultiPoint}
+\alias{MultiPoint}
+\title{MultiPoint Class}
+\format{R6 class}
+\usage{
+# MultiPoint$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiPoint objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{list(LngLatAlt)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiPoint object.
+
+}
+\item{\code{$fromList(MultiPointList)}}{
+
+  Create MultiPoint object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiPoint.
+
+}
+\item{\code{fromJSONString(MultiPointJson)}}{
+
+  Create MultiPoint object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiPoint.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiMediaGatheringEvent.r
+\docType{class}
+\name{MultiMediaGatheringEvent}
+\alias{MultiMediaGatheringEvent}
+\title{MultiMediaGatheringEvent Class}
+\format{R6 class}
+\usage{
+# MultiMediaGatheringEvent$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiMediaGatheringEvent objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{projectTitle}}{character}
+
+\item{\code{worldRegion}}{character}
+
+\item{\code{continent}}{character}
+
+\item{\code{country}}{character}
+
+\item{\code{iso3166Code}}{character}
+
+\item{\code{provinceState}}{character}
+
+\item{\code{island}}{character}
+
+\item{\code{locality}}{character}
+
+\item{\code{city}}{character}
+
+\item{\code{sublocality}}{character}
+
+\item{\code{localityText}}{character}
+
+\item{\code{dateTimeBegin}}{character}
+
+\item{\code{dateTimeEnd}}{character}
+
+\item{\code{method}}{character}
+
+\item{\code{altitude}}{character}
+
+\item{\code{altitudeUnifOfMeasurement}}{character}
+
+\item{\code{biotopeText}}{character}
+
+\item{\code{depth}}{character}
+
+\item{\code{depthUnitOfMeasurement}}{character}
+
+\item{\code{gatheringPersons}}{list(Person)}
+
+\item{\code{gatheringOrganizations}}{list(Organization)}
+
+\item{\code{siteCoordinates}}{list(GatheringSiteCoordinates)}
+
+\item{\code{namedAreas}}{list(NamedArea)}
+
+\item{\code{associatedTaxa}}{list(AssociatedTaxon)}
+
+\item{\code{chronoStratigraphy}}{list(ChronoStratigraphy)}
+
+\item{\code{lithoStratigraphy}}{list(LithoStratigraphy)}
+
+\item{\code{iptc}}{Iptc4xmpExt}
+
+\item{\code{bioStratigraphic}}{list(BioStratigraphy)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiMediaGatheringEvent object.
+
+}
+\item{\code{$fromList(MultiMediaGatheringEventList)}}{
+
+  Create MultiMediaGatheringEvent object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiMediaGatheringEvent.
+
+}
+\item{\code{fromJSONString(MultiMediaGatheringEventJson)}}{
+
+  Create MultiMediaGatheringEvent object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiMediaGatheringEvent.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenIdentification.r
+\docType{class}
+\name{SpecimenIdentification}
+\alias{SpecimenIdentification}
+\title{SpecimenIdentification Class}
+\format{R6 class}
+\usage{
+# SpecimenIdentification$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SpecimenIdentification objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{taxonRank}}{character}
+
+\item{\code{scientificName}}{ScientificName}
+
+\item{\code{typeStatus}}{character}
+
+\item{\code{dateIdentified}}{character}
+
+\item{\code{defaultClassification}}{DefaultClassification}
+
+\item{\code{systemClassification}}{list(Monomial)}
+
+\item{\code{vernacularNames}}{list(VernacularName)}
+
+\item{\code{identificationQualifiers}}{list(character)}
+
+\item{\code{identifiers}}{list(Agent)}
+
+\item{\code{taxonomicEnrichments}}{list(TaxonomicEnrichment)}
+
+\item{\code{preferred}}{logical}
+
+\item{\code{verificationStatus}}{character}
+
+\item{\code{rockType}}{character}
+
+\item{\code{associatedFossilAssemblage}}{character}
+
+\item{\code{rockMineralUsage}}{character}
+
+\item{\code{associatedMineralName}}{character}
+
+\item{\code{remarks}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SpecimenIdentification object.
+
+}
+\item{\code{$fromList(SpecimenIdentificationList)}}{
+
+  Create SpecimenIdentification object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SpecimenIdentification.
+
+}
+\item{\code{fromJSONString(SpecimenIdentificationJson)}}{
+
+  Create SpecimenIdentification object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SpecimenIdentification.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/nbaR-package.r
+\docType{package}
+\name{nbaR}
+\alias{nbaR}
+\alias{nbaR-package}
+\title{nbaR : R Package Client for the Netherlands Biodiversity API}
+\description{
+nbaR : R Package Client for the Netherlands Biodiversity API
+}
+\details{
+Access to the digitised Natural History collection at the Naturalis Biodiversity Center
+}
+\author{
+Hannes  \email{ hannes.hettling@naturalis.nl }
+}
+\keyword{package}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_settings}
+\alias{multimedia_get_settings}
+\title{List all publicly available configuration settings for the NBA}
+\usage{
+multimedia_get_settings(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_settings from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_settings }
+from class \code{ MultimediaClient}.
+}
+\details{
+The value of a specific setting can be queried with metadata/getSetting/{name}
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_controlled_list_sex}
+\alias{metadata_get_controlled_list_sex}
+\title{Get allowed values for the field &#39;Sex&#39; in a specimen document}
+\usage{
+metadata_get_controlled_list_sex(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_controlled_list_sex from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_controlled_list_sex }
+from class \code{ MetadataClient}.
+}
+\details{
+See also endpoint /getControlledLists
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_setting}
+\alias{metadata_get_setting}
+\title{Get the value of an NBA setting}
+\usage{
+metadata_get_setting(name = NULL, ...)
+}
+\arguments{
+\item{name}{name of setting, type:}
+
+\item{...}{additional parameters passed to get_setting from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_setting }
+from class \code{ MetadataClient}.
+}
+\details{
+All settings can be queried with /metadata/getSettings
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SortField.r
+\docType{class}
+\name{SortField}
+\alias{SortField}
+\title{SortField Class}
+\format{R6 class}
+\usage{
+# SortField$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SortField objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{path}}{character}
+
+\item{\code{sortOrder}}{character}
+
+\item{\code{ascending}}{logical}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SortField object.
+
+}
+\item{\code{$fromList(SortFieldList)}}{
+
+  Create SortField object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SortField.
+
+}
+\item{\code{fromJSONString(SortFieldJson)}}{
+
+  Create SortField object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SortField.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_download_query}
+\alias{taxon_download_query}
+\title{Dynamic download service: Query for taxa and return result as a stream ...}
+\usage{
+taxon_download_query(queryParams = list(), returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to download_query from class nbaR.TaxonClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ download_query }
+from class \code{ TaxonClient}.
+}
+\details{
+Query with query parameters or querySpec JSON. ...
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_count_distinct_values_per_group}
+\alias{multimedia_count_distinct_values_per_group}
+\title{Count the distinct number of field values that exist per the given field to group by}
+\usage{
+multimedia_count_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the multimedia object you want to group by, type:}
+
+\item{field}{name of field in the multimedia object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values_per_group from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values_per_group }
+from class \code{ MultimediaClient}.
+}
+\details{
+See also endpoint /getDistinctValuesPerGroup
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_count}
+\alias{specimen_count}
+\title{Get the number of specimens matching a given condition}
+\usage{
+specimen_count(queryParams = list(), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to count from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count }
+from class \code{ SpecimenClient}.
+}
+\details{
+Conditions given as query parameters or a querySpec JSON
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_allowed_date_formats}
+\alias{metadata_get_allowed_date_formats}
+\title{Get allowed values for dates in queries}
+\usage{
+metadata_get_allowed_date_formats(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_allowed_date_formats from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_allowed_date_formats }
+from class \code{ MetadataClient}.
+}
+\details{
+Queries with other formatted dates will result in a query error
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_controlled_lists}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Path.r
+\docType{class}
+\name{Path}
+\alias{Path}
+\title{Path Class}
+\format{R6 class}
+\usage{
+# Path$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Path objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{purePath}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Path object.
+
+}
+\item{\code{$fromList(PathList)}}{
+
+  Create Path object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Path.
+
+}
+\item{\code{fromJSONString(PathJson)}}{
+
+  Create Path object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Path.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_find}
+\alias{geo_find}
+\title{Find a GEO area by id}
+\usage{
+geo_find(id = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{id}{id of geo area, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find from class nbaR.GeoClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find }
+from class \code{ GeoClient}.
+}
+\details{
+Returns a GEO object containing a GEO json polygon
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_count_distinct_values}
+\alias{geo_count_distinct_values}
+\title{Count the distinct number of values that exist for a given field}
+\usage{
+geo_count_distinct_values(field = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{name of field in taxon object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values }
+from class \code{ GeoClient}.
+}
+\details{
+Field given as string. See also getDistinctValues
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/LithoStratigraphy.r
+\docType{class}
+\name{LithoStratigraphy}
+\alias{LithoStratigraphy}
+\title{LithoStratigraphy Class}
+\format{R6 class}
+\usage{
+# LithoStratigraphy$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for LithoStratigraphy objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{qualifier}}{character}
+
+\item{\code{preferredFlag}}{logical}
+
+\item{\code{member2}}{character}
+
+\item{\code{member}}{character}
+
+\item{\code{informalName2}}{character}
+
+\item{\code{informalName}}{character}
+
+\item{\code{importedName2}}{character}
+
+\item{\code{importedName1}}{character}
+
+\item{\code{lithoIdentifier}}{character}
+
+\item{\code{formation2}}{character}
+
+\item{\code{formationGroup2}}{character}
+
+\item{\code{formationGroup}}{character}
+
+\item{\code{formation}}{character}
+
+\item{\code{certainty2}}{character}
+
+\item{\code{certainty}}{character}
+
+\item{\code{bed2}}{character}
+
+\item{\code{bed}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor LithoStratigraphy object.
+
+}
+\item{\code{$fromList(LithoStratigraphyList)}}{
+
+  Create LithoStratigraphy object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of LithoStratigraphy.
+
+}
+\item{\code{fromJSONString(LithoStratigraphyJson)}}{
+
+  Create LithoStratigraphy object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of LithoStratigraphy.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Taxon.r
+\docType{class}
+\name{Taxon}
+\alias{Taxon}
+\title{Taxon Class}
+\format{R6 class}
+\usage{
+# Taxon$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Taxon objects. A taxon record stores the hierarchical classification of a taxon, its scientific names and synonyms, and other relevant data retrieved from the respective source system. Taxonomic information is sourced from two species checklists: The Catalogue of Life (COL) and the Dutch Species Register (NSR).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{sourceSystem}}{SourceSystem}
+
+\item{\code{sourceSystemId}}{character}
+
+\item{\code{recordURI}}{character}
+
+\item{\code{id}}{character}
+
+\item{\code{sourceSystemParentId}}{character}
+
+\item{\code{taxonRank}}{character}
+
+\item{\code{taxonRemarks}}{character}
+
+\item{\code{occurrenceStatusVerbatim}}{character}
+
+\item{\code{acceptedName}}{ScientificName}
+
+\item{\code{defaultClassification}}{DefaultClassification}
+
+\item{\code{systemClassification}}{list(Monomial)}
+
+\item{\code{synonyms}}{list(ScientificName)}
+
+\item{\code{vernacularNames}}{list(VernacularName)}
+
+\item{\code{descriptions}}{list(TaxonDescription)}
+
+\item{\code{references}}{list(Reference)}
+
+\item{\code{experts}}{list(Expert)}
+
+\item{\code{validName}}{ScientificName}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Taxon object.
+
+}
+\item{\code{$fromList(TaxonList)}}{
+
+  Create Taxon object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Taxon.
+
+}
+\item{\code{fromJSONString(TaxonJson)}}{
+
+  Create Taxon object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Taxon.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Agent.r
+\docType{class}
+\name{Agent}
+\alias{Agent}
+\title{Agent Class}
+\format{R6 class}
+\usage{
+# Agent$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Agent objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{agentText}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Agent object.
+
+}
+\item{\code{$fromList(AgentList)}}{
+
+  Create Agent object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Agent.
+
+}
+\item{\code{fromJSONString(AgentJson)}}{
+
+  Create Agent object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Agent.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiPolygon.r
+\docType{class}
+\name{MultiPolygon}
+\alias{MultiPolygon}
+\title{MultiPolygon Class}
+\format{R6 class}
+\usage{
+# MultiPolygon$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiPolygon objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{list(LngLatAlt)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiPolygon object.
+
+}
+\item{\code{$fromList(MultiPolygonList)}}{
+
+  Create MultiPolygon object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiPolygon.
+
+}
+\item{\code{fromJSONString(MultiPolygonJson)}}{
+
+  Create MultiPolygon object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiPolygon.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_paths}
+\alias{geo_get_paths}
+\title{Returns the full path of all fields within a document}
+\usage{
+geo_get_paths(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_paths from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_paths }
+from class \code{ GeoClient}.
+}
+\details{
+See also metadata/getFieldInfo for all allowed operators per field
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SummaryScientificName.r
+\docType{class}
+\name{SummaryScientificName}
+\alias{SummaryScientificName}
+\title{SummaryScientificName Class}
+\format{R6 class}
+\usage{
+# SummaryScientificName$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SummaryScientificName objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{fullScientificName}}{character}
+
+\item{\code{taxonomicStatus}}{character}
+
+\item{\code{genusOrMonomial}}{character}
+
+\item{\code{subgenus}}{character}
+
+\item{\code{specificEpithet}}{character}
+
+\item{\code{infraspecificEpithet}}{character}
+
+\item{\code{authorshipVerbatim}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SummaryScientificName object.
+
+}
+\item{\code{$fromList(SummaryScientificNameList)}}{
+
+  Create SummaryScientificName object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SummaryScientificName.
+
+}
+\item{\code{fromJSONString(SummaryScientificNameJson)}}{
+
+  Create SummaryScientificName object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SummaryScientificName.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_settings}
+\alias{geo_get_settings}
+\title{List all publicly available configuration settings for the NBA}
+\usage{
+geo_get_settings(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_settings from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_settings }
+from class \code{ GeoClient}.
+}
+\details{
+The value of a specific setting can be queried with metadata/getSetting/{name}
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/QueryResultItem.r
+\docType{class}
+\name{QueryResultItem}
+\alias{QueryResultItem}
+\title{QueryResultItem Class}
+\format{R6 class}
+\usage{
+# QueryResultItem$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for QueryResultItem objects. Contains an object returned from a QuerySpec query. Holds an item and a relevance score.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{score}}{numeric}
+
+\item{\code{item}}{list}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor QueryResultItem object.
+
+}
+\item{\code{$fromList(QueryResultItemList)}}{
+
+  Create QueryResultItem object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of QueryResultItem.
+
+}
+\item{\code{fromJSONString(QueryResultItemJson)}}{
+
+  Create QueryResultItem object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of QueryResultItem.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_query}
+\alias{taxon_query}
+\title{Query for taxa}
+\usage{
+taxon_query(queryParams = list(), returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to query from class nbaR.TaxonClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ query }
+from class \code{ TaxonClient}.
+}
+\details{
+Search for taxa (GET) using query parameters or a querySpec JSON
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_distinct_values_per_group}
+\alias{specimen_get_distinct_values_per_group}
+\title{Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by}
+\usage{
+specimen_get_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{Name of field in the specimen object you want to group by, type:}
+
+\item{field}{Name of field in the specimen object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values_per_group from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values_per_group }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeometryCollection.r
+\docType{class}
+\name{GeometryCollection}
+\alias{GeometryCollection}
+\title{GeometryCollection Class}
+\format{R6 class}
+\usage{
+# GeometryCollection$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GeometryCollection objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{geometries}}{list(list)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GeometryCollection object.
+
+}
+\item{\code{$fromList(GeometryCollectionList)}}{
+
+  Create GeometryCollection object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GeometryCollection.
+
+}
+\item{\code{fromJSONString(GeometryCollectionJson)}}{
+
+  Create GeometryCollection object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GeometryCollection.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_find_by_ids}
+\alias{geo_find_by_ids}
+\title{Find geo areas by ids}
+\usage{
+geo_find_by_ids(ids = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{ids}{ids of multiple geo areas, separated by comma, type: character}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find_by_ids from class nbaR.GeoClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find_by_ids }
+from class \code{ GeoClient}.
+}
+\details{
+Given multiple ids, returns a list of geo area objects
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_count_distinct_values_per_group}
+\alias{specimen_count_distinct_values_per_group}
+\title{Count the distinct number of field values that exist per the given field to group by}
+\usage{
+specimen_count_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{Name of field in the specimen object you want to group by, type:}
+
+\item{field}{Name of field in the specimen object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values_per_group from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values_per_group }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also endpoint /getDistinctValuesPerGroup
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ApiClient.r
+\docType{data}
+\name{ApiClient}
+\alias{ApiClient}
+\title{ApiClient class}
+\format{An object of class \code{R6ClassGenerator} of length 24.}
+\usage{
+ApiClient
+}
+\description{
+Generic class for API client calls, all nbaR client classes
+derive from this class
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{specifies the base URL of the API, defaults to
+http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to
+nbaR/0.1.0}
+}}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Monomial.r
+\docType{class}
+\name{Monomial}
+\alias{Monomial}
+\title{Monomial Class}
+\format{R6 class}
+\usage{
+# Monomial$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Monomial objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{rank}}{character}
+
+\item{\code{name}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Monomial object.
+
+}
+\item{\code{$fromList(MonomialList)}}{
+
+  Create Monomial object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Monomial.
+
+}
+\item{\code{fromJSONString(MonomialJson)}}{
+
+  Create Monomial object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Monomial.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonDescription.r
+\docType{class}
+\name{TaxonDescription}
+\alias{TaxonDescription}
+\title{TaxonDescription Class}
+\format{R6 class}
+\usage{
+# TaxonDescription$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for TaxonDescription objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{category}}{character}
+
+\item{\code{description}}{character}
+
+\item{\code{language}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor TaxonDescription object.
+
+}
+\item{\code{$fromList(TaxonDescriptionList)}}{
+
+  Create TaxonDescription object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of TaxonDescription.
+
+}
+\item{\code{fromJSONString(TaxonDescriptionJson)}}{
+
+  Create TaxonDescription object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of TaxonDescription.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_is_operator_allowed}
+\alias{geo_is_operator_allowed}
+\title{Checks if a given operator is allowed for a given field}
+\usage{
+geo_is_operator_allowed(field = NULL, operator = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{Field in geo area document, type:}
+
+\item{operator}{operator, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to is_operator_allowed from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ is_operator_allowed }
+from class \code{ GeoClient}.
+}
+\details{
+See also metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}}, \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GatheringSiteCoordinates.r
+\docType{class}
+\name{GatheringSiteCoordinates}
+\alias{GatheringSiteCoordinates}
+\title{GatheringSiteCoordinates Class}
+\format{R6 class}
+\usage{
+# GatheringSiteCoordinates$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GatheringSiteCoordinates objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{longitudeDecimal}}{numeric}
+
+\item{\code{latitudeDecimal}}{numeric}
+
+\item{\code{gridCellSystem}}{character}
+
+\item{\code{gridLatitudeDecimal}}{numeric}
+
+\item{\code{gridLongitudeDecimal}}{numeric}
+
+\item{\code{gridCellCode}}{character}
+
+\item{\code{gridQualifier}}{character}
+
+\item{\code{geoShape}}{Point}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GatheringSiteCoordinates object.
+
+}
+\item{\code{$fromList(GatheringSiteCoordinatesList)}}{
+
+  Create GatheringSiteCoordinates object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GatheringSiteCoordinates.
+
+}
+\item{\code{fromJSONString(GatheringSiteCoordinatesJson)}}{
+
+  Create GatheringSiteCoordinates object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GatheringSiteCoordinates.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_dwca_get_data_set}
+\alias{specimen_dwca_get_data_set}
+\title{Download dataset as Darwin Core Archive File}
+\usage{
+specimen_dwca_get_data_set(dataset = NULL,
+  filename = format(Sys.time(), "download-\%Y-\%m-\%dT\%H:\%m.zip"), ...)
+}
+\arguments{
+\item{dataset}{name of dataset, type:}
+
+\item{filename}{Filename to save results to, defaults to `format(Sys.time(),"download-\%Y-\%m-\%dT\%H:\%m.zip")`}
+
+\item{...}{additional parameters passed to dwca_get_data_set from class nbaR.SpecimenClient}
+}
+\description{
+This is a wrapper for the method \code{ dwca_get_data_set }
+from class \code{ SpecimenClient}.
+}
+\details{
+Available datasets can be queried with /specimen/dwca/getDataSetNames. Response saved to &lt;datasetname&gt;-&lt;yyyymmdd&gt;.dwca.zip
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_dwca_get_data_set_names}
+\alias{taxon_dwca_get_data_set_names}
+\title{Retrieve the names of all available datasets}
+\usage{
+taxon_dwca_get_data_set_names(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to dwca_get_data_set_names from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ dwca_get_data_set_names }
+from class \code{ TaxonClient}.
+}
+\details{
+Individual datasets can then be downloaded with /dwca/getDataSet/{dataset}
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_dwca_query}
+\alias{taxon_dwca_query}
+\title{Dynamic download service: Query for taxa and return result as Darwin Core Archive File}
+\usage{
+taxon_dwca_query(queryParams = list(), filename = format(Sys.time(),
+  "download-\%Y-\%m-\%dT\%H:\%m.zip"), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{filename}{Filename to save results to, defaults to `format(Sys.time(),"download-\%Y-\%m-\%dT\%H:\%m.zip")`}
+
+\item{...}{additional parameters passed to dwca_query from class nbaR.TaxonClient}
+}
+\description{
+This is a wrapper for the method \code{ dwca_query }
+from class \code{ TaxonClient}.
+}
+\details{
+Query with query parameters or querySpec JSON. Response saved to nba-taxa.dwca.zip
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/LngLatAlt.r
+\docType{class}
+\name{LngLatAlt}
+\alias{LngLatAlt}
+\title{LngLatAlt Class}
+\format{R6 class}
+\usage{
+# LngLatAlt$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for LngLatAlt objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{longitude}}{numeric}
+
+\item{\code{latitude}}{numeric}
+
+\item{\code{altitude}}{numeric}
+
+\item{\code{additionalElements}}{list(numeric)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor LngLatAlt object.
+
+}
+\item{\code{$fromList(LngLatAltList)}}{
+
+  Create LngLatAlt object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of LngLatAlt.
+
+}
+\item{\code{fromJSONString(LngLatAltJson)}}{
+
+  Create LngLatAlt object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of LngLatAlt.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_setting}
+\alias{specimen_get_setting}
+\title{Get the value of an NBA setting}
+\usage{
+specimen_get_setting(name = NULL, ...)
+}
+\arguments{
+\item{name}{name of setting, type:}
+
+\item{...}{additional parameters passed to get_setting from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_setting }
+from class \code{ SpecimenClient}.
+}
+\details{
+All settings can be queried with /metadata/getSettings
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_group_by_scientific_name}
+\alias{specimen_group_by_scientific_name}
+\title{Aggregates Taxon and Specimen documents according to their scientific names}
+\usage{
+specimen_group_by_scientific_name(queryParams = list(),
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to group_by_scientific_name from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ group_by_scientific_name }
+from class \code{ SpecimenClient}.
+}
+\details{
+Returns a list with ScientificNameGroups, which contain Taxon and Specimen documents that share a scientific name
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/FeatureCollection.r
+\docType{class}
+\name{FeatureCollection}
+\alias{FeatureCollection}
+\title{FeatureCollection Class}
+\format{R6 class}
+\usage{
+# FeatureCollection$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for FeatureCollection objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{features}}{list(Feature)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor FeatureCollection object.
+
+}
+\item{\code{$fromList(FeatureCollectionList)}}{
+
+  Create FeatureCollection object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of FeatureCollection.
+
+}
+\item{\code{fromJSONString(FeatureCollectionJson)}}{
+
+  Create FeatureCollection object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of FeatureCollection.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonomicEnrichment.r
+\docType{class}
+\name{TaxonomicEnrichment}
+\alias{TaxonomicEnrichment}
+\title{TaxonomicEnrichment Class}
+\format{R6 class}
+\usage{
+# TaxonomicEnrichment$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for TaxonomicEnrichment objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{vernacularNames}}{list(SummaryVernacularName)}
+
+\item{\code{synonyms}}{list(SummaryScientificName)}
+
+\item{\code{sourceSystem}}{SummarySourceSystem}
+
+\item{\code{taxonId}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor TaxonomicEnrichment object.
+
+}
+\item{\code{$fromList(TaxonomicEnrichmentList)}}{
+
+  Create TaxonomicEnrichment object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of TaxonomicEnrichment.
+
+}
+\item{\code{fromJSONString(TaxonomicEnrichmentJson)}}{
+
+  Create TaxonomicEnrichment object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of TaxonomicEnrichment.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Filter.r
+\docType{class}
+\name{Filter}
+\alias{Filter}
+\title{Filter Class}
+\format{R6 class}
+\usage{
+# Filter$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Filter objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{acceptRegexp}}{character}
+
+\item{\code{rejectRegexp}}{character}
+
+\item{\code{acceptValues}}{list(character)}
+
+\item{\code{rejectValues}}{list(character)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Filter object.
+
+}
+\item{\code{$fromList(FilterList)}}{
+
+  Create Filter object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Filter.
+
+}
+\item{\code{fromJSONString(FilterJson)}}{
+
+  Create Filter object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Filter.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/QueryCondition.r
+\docType{class}
+\name{QueryCondition}
+\alias{QueryCondition}
+\title{QueryCondition Class}
+\format{R6 class}
+\usage{
+# QueryCondition$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for QueryCondition objects. Class modeling a query condition. A condition consists of a field name, a ComparisonOperator and a value. For example: &#39;name&#39;, EQUALS, &#39;John&#39;. A condition can optionally have a list of sibling conditions. These are joined to the containing condition using the AND or OR operator. A condition and its siblings are strongly bound together, as though surrounded by parentheses: (condition AND sibling0 AND sibling1). Because each sibling may itself also have a list of sibling conditions, this allows you to nest logical expressions like (A AND (B OR C OR (D AND E)) AND F).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{not}}{character}
+
+\item{\code{field}}{character}
+
+\item{\code{operator}}{character}
+
+\item{\code{value}}{list}
+
+\item{\code{and}}{list(QueryCondition)}
+
+\item{\code{or}}{list(QueryCondition)}
+
+\item{\code{constantScore}}{logical}
+
+\item{\code{boost}}{numeric}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor QueryCondition object.
+
+}
+\item{\code{$fromList(QueryConditionList)}}{
+
+  Create QueryCondition object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of QueryCondition.
+
+}
+\item{\code{fromJSONString(QueryConditionJson)}}{
+
+  Create QueryCondition object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of QueryCondition.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Polygon.r
+\docType{class}
+\name{Polygon}
+\alias{Polygon}
+\title{Polygon Class}
+\format{R6 class}
+\usage{
+# Polygon$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Polygon objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{list(LngLatAlt)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Polygon object.
+
+}
+\item{\code{$fromList(PolygonList)}}{
+
+  Create Polygon object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Polygon.
+
+}
+\item{\code{fromJSONString(PolygonJson)}}{
+
+  Create Polygon object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Polygon.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiMediaContentIdentification.r
+\docType{class}
+\name{MultiMediaContentIdentification}
+\alias{MultiMediaContentIdentification}
+\title{MultiMediaContentIdentification Class}
+\format{R6 class}
+\usage{
+# MultiMediaContentIdentification$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiMediaContentIdentification objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{taxonRank}}{character}
+
+\item{\code{scientificName}}{ScientificName}
+
+\item{\code{typeStatus}}{character}
+
+\item{\code{dateIdentified}}{character}
+
+\item{\code{defaultClassification}}{DefaultClassification}
+
+\item{\code{systemClassification}}{list(Monomial)}
+
+\item{\code{vernacularNames}}{list(VernacularName)}
+
+\item{\code{identificationQualifiers}}{list(character)}
+
+\item{\code{identifiers}}{list(Agent)}
+
+\item{\code{taxonomicEnrichments}}{list(TaxonomicEnrichment)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiMediaContentIdentification object.
+
+}
+\item{\code{$fromList(MultiMediaContentIdentificationList)}}{
+
+  Create MultiMediaContentIdentification object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiMediaContentIdentification.
+
+}
+\item{\code{fromJSONString(MultiMediaContentIdentificationJson)}}{
+
+  Create MultiMediaContentIdentification object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiMediaContentIdentification.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_is_operator_allowed}
+\alias{taxon_is_operator_allowed}
+\title{Checks if a given operator is allowed for a given field}
+\usage{
+taxon_is_operator_allowed(field = NULL, operator = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{field}{specimen document field, type:}
+
+\item{operator}{operator, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to is_operator_allowed from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ is_operator_allowed }
+from class \code{ TaxonClient}.
+}
+\details{
+See also metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Feature.r
+\docType{class}
+\name{Feature}
+\alias{Feature}
+\title{Feature Class}
+\format{R6 class}
+\usage{
+# Feature$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Feature objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{properties}}{list}
+
+\item{\code{geometry}}{list}
+
+\item{\code{id}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Feature object.
+
+}
+\item{\code{$fromList(FeatureList)}}{
+
+  Create Feature object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Feature.
+
+}
+\item{\code{fromJSONString(FeatureJson)}}{
+
+  Create Feature object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Feature.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Person.r
+\docType{class}
+\name{Person}
+\alias{Person}
+\title{Person Class}
+\format{R6 class}
+\usage{
+# Person$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Person objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{agentText}}{character}
+
+\item{\code{fullName}}{character}
+
+\item{\code{organization}}{Organization}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Person object.
+
+}
+\item{\code{$fromList(PersonList)}}{
+
+  Create Person object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Person.
+
+}
+\item{\code{fromJSONString(PersonJson)}}{
+
+  Create Person object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Person.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Specimen.r
+\docType{class}
+\name{Specimen}
+\alias{Specimen}
+\title{Specimen Class}
+\format{R6 class}
+\usage{
+# Specimen$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Specimen objects. This class models a Specimen record. Specimen records constitute the core of data served by the NBA. They can be unambiguously distinguished by the field unitID. Further fields include (among others) information about finding place, identification, and multimedia content.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{sourceSystem}}{SourceSystem}
+
+\item{\code{sourceSystemId}}{character}
+
+\item{\code{recordURI}}{character}
+
+\item{\code{id}}{character}
+
+\item{\code{unitID}}{character
+The unique identifier of the specimen.}
+
+\item{\code{unitGUID}}{character}
+
+\item{\code{collectorsFieldNumber}}{character}
+
+\item{\code{assemblageID}}{character}
+
+\item{\code{sourceInstitutionID}}{character}
+
+\item{\code{sourceID}}{character}
+
+\item{\code{previousSourceID}}{list(character)}
+
+\item{\code{owner}}{character}
+
+\item{\code{licenseType}}{character}
+
+\item{\code{license}}{character}
+
+\item{\code{recordBasis}}{character}
+
+\item{\code{kindOfUnit}}{character}
+
+\item{\code{collectionType}}{character}
+
+\item{\code{sex}}{character}
+
+\item{\code{phaseOrStage}}{character}
+
+\item{\code{title}}{character}
+
+\item{\code{notes}}{character}
+
+\item{\code{preparationType}}{character}
+
+\item{\code{previousUnitsText}}{character}
+
+\item{\code{numberOfSpecimen}}{integer}
+
+\item{\code{fromCaptivity}}{logical}
+
+\item{\code{objectPublic}}{logical}
+
+\item{\code{multiMediaPublic}}{logical}
+
+\item{\code{acquiredFrom}}{Agent}
+
+\item{\code{gatheringEvent}}{GatheringEvent}
+
+\item{\code{identifications}}{list(SpecimenIdentification)}
+
+\item{\code{associatedMultiMediaUris}}{list(ServiceAccessPoint)}
+
+\item{\code{theme}}{list(character)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Specimen object.
+
+}
+\item{\code{$fromList(SpecimenList)}}{
+
+  Create Specimen object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Specimen.
+
+}
+\item{\code{fromJSONString(SpecimenJson)}}{
+
+  Create Specimen object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Specimen.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_paths}
+\alias{specimen_get_paths}
+\title{Returns the full path of all fields within a document}
+\usage{
+specimen_get_paths(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_paths from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_paths }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also metadata/getFieldInfo for all allowed operators per field
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Point.r
+\docType{class}
+\name{Point}
+\alias{Point}
+\title{Point Class}
+\format{R6 class}
+\usage{
+# Point$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for Point objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{LngLatAlt}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor Point object.
+
+}
+\item{\code{$fromList(PointList)}}{
+
+  Create Point object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of Point.
+
+}
+\item{\code{fromJSONString(PointJson)}}{
+
+  Create Point object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of Point.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Utils.r
+\name{geo_age}
+\alias{geo_age}
+\title{Geological Age}
+\usage{
+geo_age(geo_time)
+}
+\arguments{
+\item{geo_time}{character giving a Geological timespan}
+}
+\value{
+list
+}
+\description{
+Get early and late age for geological time span
+}
+\details{
+Uses the API from earthlifeconsortium.org to retrieve
+upper and lower bound for a geological age range (e.g. 'miocene').
+Unit can be can be Eon, Era, System/Period, Series/Epoch.
+Returns a list with items early_age and late_age. Gives a warning
+if age range no found or if the API call times out.
+}
+\examples{
+geo_age('lower miocene')
+# vectorised
+geo_age(c("Miocene", "Pliocene"))
+}
+\seealso{
+Other utils: \code{\link{chronos_calib}}
+}
+\concept{utils}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_settings}
+\alias{taxon_get_settings}
+\title{List all publicly available configuration settings for the NBA}
+\usage{
+taxon_get_settings(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_settings from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_settings }
+from class \code{ TaxonClient}.
+}
+\details{
+The value of a specific setting can be queried with metadata/getSetting/{name}
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_count}
+\alias{taxon_count}
+\title{Get the number of taxa matching a given condition}
+\usage{
+taxon_count(queryParams = list(), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to count from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count }
+from class \code{ TaxonClient}.
+}
+\details{
+Conditions given as query parameters or a querySpec JSON
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_count_distinct_values_per_group}
+\alias{taxon_count_distinct_values_per_group}
+\title{Count the distinct number of field values that exist per the given field to group by}
+\usage{
+taxon_count_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the taxon object you want to group by, type:}
+
+\item{field}{name of field in the taxon object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values_per_group from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values_per_group }
+from class \code{ TaxonClient}.
+}
+\details{
+See also endpoint /getDistinctValuesPerGroup
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_dwca_get_data_set_names}
+\alias{specimen_dwca_get_data_set_names}
+\title{Retrieve the names of all available datasets}
+\usage{
+specimen_dwca_get_data_set_names(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to dwca_get_data_set_names from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ dwca_get_data_set_names }
+from class \code{ SpecimenClient}.
+}
+\details{
+Individual datasets can then be downloaded with /dwca/getDataSet/{dataset}
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GatheringEvent.r
+\docType{class}
+\name{GatheringEvent}
+\alias{GatheringEvent}
+\title{GatheringEvent Class}
+\format{R6 class}
+\usage{
+# GatheringEvent$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for GatheringEvent objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{projectTitle}}{character}
+
+\item{\code{worldRegion}}{character}
+
+\item{\code{continent}}{character}
+
+\item{\code{country}}{character}
+
+\item{\code{iso3166Code}}{character}
+
+\item{\code{provinceState}}{character}
+
+\item{\code{island}}{character}
+
+\item{\code{locality}}{character}
+
+\item{\code{city}}{character}
+
+\item{\code{sublocality}}{character}
+
+\item{\code{localityText}}{character}
+
+\item{\code{dateTimeBegin}}{character}
+
+\item{\code{dateTimeEnd}}{character}
+
+\item{\code{method}}{character}
+
+\item{\code{altitude}}{character}
+
+\item{\code{altitudeUnifOfMeasurement}}{character}
+
+\item{\code{biotopeText}}{character}
+
+\item{\code{depth}}{character}
+
+\item{\code{depthUnitOfMeasurement}}{character}
+
+\item{\code{gatheringPersons}}{list(Person)}
+
+\item{\code{gatheringOrganizations}}{list(Organization)}
+
+\item{\code{siteCoordinates}}{list(GatheringSiteCoordinates)}
+
+\item{\code{namedAreas}}{list(NamedArea)}
+
+\item{\code{associatedTaxa}}{list(AssociatedTaxon)}
+
+\item{\code{chronoStratigraphy}}{list(ChronoStratigraphy)}
+
+\item{\code{lithoStratigraphy}}{list(LithoStratigraphy)}
+
+\item{\code{bioStratigraphic}}{list(BioStratigraphy)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor GatheringEvent object.
+
+}
+\item{\code{$fromList(GatheringEventList)}}{
+
+  Create GatheringEvent object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of GatheringEvent.
+
+}
+\item{\code{fromJSONString(GatheringEventJson)}}{
+
+  Create GatheringEvent object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of GatheringEvent.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient.r
+\docType{class}
+\name{SpecimenClient}
+\alias{SpecimenClient}
+\title{Specimen operations}
+\format{R6 class}
+\usage{
+# client <- SpecimenClient$new()
+}
+\description{
+This client connects to all Specimen-related endpoints
+of the NBA. Each endpoint is available as a class method
+(see section 'Methods' below). Optionally, a custom URL
+pointing to a NBA server and a user Agent can be specified
+by the user (see section 'Fields' below).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{Stores url path of the request, defaults to http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to nbaR/0.1.0}
+}}
+
+\section{Methods}{
+
+\describe{
+\item{\code{ count }}{
+
+  Get the number of specimens matching a given condition;
+  Conditions given as query parameters or a querySpec JSON.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values }}{
+
+  Count the distinct number of values that exist for a given field;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+        \item \code{ field } : Name of field in the specimen object
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values_per_group }}{
+
+  Count the distinct number of field values that exist per the given field to group by;
+  See also endpoint /getDistinctValuesPerGroup.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : Name of field in the specimen object you want to group by \item \code{ field } : Name of field in the specimen object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ download_query }}{
+
+  Dynamic download service: Query for specimens and return result as a stream ...;
+  Query with query parameters or querySpec JSON. ....
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Specimen }
+}
+\item{\code{ dwca_get_data_set }}{
+
+  Download dataset as Darwin Core Archive File;
+  Available datasets can be queried with /specimen/dwca/getDataSetNames. Response saved to &lt;datasetname&gt;-&lt;yyyymmdd&gt;.dwca.zip.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ dataset } : name of dataset
+
+        \item \code{ filename } : location to save data, defaults to \code{format(Sys.time(), "download-\%Y-\%m-\%dT\%H:\%m.zip")}
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{  }
+}
+\item{\code{ dwca_get_data_set_names }}{
+
+  Retrieve the names of all available datasets;
+  Individual datasets can then be downloaded with /dwca/getDataSet/{dataset}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ dwca_query }}{
+
+  Dynamic download service: Query for specimens and return result as Darwin Core Archive File;
+  Query with query parameters or querySpec JSON. Response saved to nba-specimens.dwca.zip.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+        \item \code{ filename } : location to save data, defaults to \code{format(Sys.time(), "download-\%Y-\%m-\%dT\%H:\%m.zip")}
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{  }
+}
+\item{\code{ exists }}{
+
+  Returns whether or not a unitID for a specimen exists;
+  Returns either true or false.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ unit_id } : the unitID of the specimen to query
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ logical }
+}
+\item{\code{ find }}{
+
+  Find a specimen by id;
+  If found, returns a single specimen.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ id } : id of specimen
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Specimen }
+}
+\item{\code{ find_by_ids }}{
+
+  Find specimens by ids;
+  Given multiple ids, returns a list of specimen.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ ids } : ids of multiple specimen, separated by comma
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Specimen }
+}
+\item{\code{ find_by_unit_id }}{
+
+  Find a specimen by unitID;
+  Get a specimen by its unitID. Returns a list of specimens since unitIDs are not strictly unique.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ unit_id } : the unitID of the specimen to query
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ Specimen }
+}
+\item{\code{ get_distinct_values }}{
+
+  Get all different values that exist for a field;
+  A list of all fields for specimen documents can be retrieved with /metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+        \item \code{ field } : Name of field in specimen object
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_distinct_values_per_group }}{
+
+  Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : Name of field in the specimen object you want to group by \item \code{ field } : Name of field in the specimen object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_field_info }}{
+
+  Returns extended information for each field of a specimen document;
+  Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_ids_in_collection }}{
+
+  Retrieve all ids within a &#39;special collection&#39; of specimens;
+  Available collections can be queried with /getNamedCollections.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of dataset
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_named_collections }}{
+
+  Retrieve the names of all &#39;special collections&#39; of specimens;
+  See also here: http://bioportal.naturalis.nl/collecties.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_paths }}{
+
+  Returns the full path of all fields within a document;
+  See also metadata/getFieldInfo for all allowed operators per field.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_setting }}{
+
+  Get the value of an NBA setting;
+  All settings can be queried with /metadata/getSettings.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of setting
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_settings }}{
+
+  List all publicly available configuration settings for the NBA;
+  The value of a specific setting can be queried with metadata/getSetting/{name}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ group_by_scientific_name }}{
+
+  Aggregates Taxon and Specimen documents according to their scientific names;
+  Returns a list with ScientificNameGroups, which contain Taxon and Specimen documents that share a scientific name.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+\item{\code{ is_operator_allowed }}{
+
+  Checks if a given operator is allowed for a given field;
+  See also metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : specimen document field \item \code{ operator } : operator
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ logical }
+}
+\item{\code{ query }}{
+
+  Query for specimens;
+  Search for specimens (GET) using query parameters or a querySpec JSON.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MetadataClient-wrapper.r
+\name{metadata_get_controlled_lists}
+\alias{metadata_get_controlled_lists}
+\title{Get the names of fields for which a controlled vocabulary exists}
+\usage{
+metadata_get_controlled_lists(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_controlled_lists from class nbaR.MetadataClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_controlled_lists }
+from class \code{ MetadataClient}.
+}
+\details{
+Possible values for fields with controlled vocabularies can be queried with metadata/getControlledList/{field}
+}
+\seealso{
+Other nbaR.MetadataClient-wrappers: \code{\link{metadata_get_allowed_date_formats}},
+  \code{\link{metadata_get_controlled_list_phase_or_stage}},
+  \code{\link{metadata_get_controlled_list_sex}},
+  \code{\link{metadata_get_controlled_list_specimen_type_status}},
+  \code{\link{metadata_get_controlled_list_taxonomic_status}},
+  \code{\link{metadata_get_rest_services}},
+  \code{\link{metadata_get_settings}},
+  \code{\link{metadata_get_setting}},
+  \code{\link{metadata_get_source_systems}}
+}
+\concept{nbaR.MetadataClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_count}
+\alias{geo_count}
+\title{Get the number of geo areas matching a given condition}
+\usage{
+geo_count(queryParams = list(), ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to count from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count }
+from class \code{ GeoClient}.
+}
+\details{
+Conditions given as query string
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_find_by_ids}}, \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_distinct_values_per_group}
+\alias{taxon_get_distinct_values_per_group}
+\title{Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by}
+\usage{
+taxon_get_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the taxon object you want to group by, type:}
+
+\item{field}{name of field in the taxon object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_distinct_values_per_group from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_distinct_values_per_group }
+from class \code{ TaxonClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_get_setting}
+\alias{geo_get_setting}
+\title{Get the value of an NBA setting}
+\usage{
+geo_get_setting(name = NULL, ...)
+}
+\arguments{
+\item{name}{name of setting, type:}
+
+\item{...}{additional parameters passed to get_setting from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_setting }
+from class \code{ GeoClient}.
+}
+\details{
+All settings can be queried with /metadata/getSettings
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values_per_group}},
+  \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_download_query}
+\alias{multimedia_download_query}
+\title{Dynamic download service: Query for multimedia objects and return result as a stream ...}
+\usage{
+multimedia_download_query(collectionType = NULL, queryParams = list(),
+  ...)
+}
+\arguments{
+\item{collectionType}{Example query param, type:}
+
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{...}{additional parameters passed to download_query from class nbaR.MultimediaClient}
+}
+\description{
+This is a wrapper for the method \code{ download_query }
+from class \code{ MultimediaClient}.
+}
+\details{
+Query with query parameters or querySpec JSON. ...
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/NamedArea.r
+\docType{class}
+\name{NamedArea}
+\alias{NamedArea}
+\title{NamedArea Class}
+\format{R6 class}
+\usage{
+# NamedArea$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for NamedArea objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{areaClass}}{character}
+
+\item{\code{areaName}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor NamedArea object.
+
+}
+\item{\code{$fromList(NamedAreaList)}}{
+
+  Create NamedArea object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of NamedArea.
+
+}
+\item{\code{fromJSONString(NamedAreaJson)}}{
+
+  Create NamedArea object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of NamedArea.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient.r
+\docType{class}
+\name{MultimediaClient}
+\alias{MultimediaClient}
+\title{Multimedia operations}
+\format{R6 class}
+\usage{
+# client <- MultimediaClient$new()
+}
+\description{
+This client connects to all Multimedia-related endpoints
+of the NBA. Each endpoint is available as a class method
+(see section 'Methods' below). Optionally, a custom URL
+pointing to a NBA server and a user Agent can be specified
+by the user (see section 'Fields' below).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{Stores url path of the request, defaults to http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to nbaR/0.1.0}
+}}
+
+\section{Methods}{
+
+\describe{
+\item{\code{ count }}{
+
+  Get the number of multimedia documents matching a given condition;
+  Conditions given as query parameters or QuerySpec JSON.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values }}{
+
+  Count the distinct number of values that exist for a given field;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : Name of field in taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values_per_group }}{
+
+  Count the distinct number of field values that exist per the given field to group by;
+  See also endpoint /getDistinctValuesPerGroup.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the multimedia object you want to group by \item \code{ field } : name of field in the multimedia object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ download_query }}{
+
+  Dynamic download service: Query for multimedia objects and return result as a stream ...;
+  Query with query parameters or querySpec JSON. ....
+
+    Parameters:
+    \itemize{
+        \item \code{ collection_type } : Example query param
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{  }
+}
+\item{\code{ find }}{
+
+  Find a multimedia document by id;
+  If found, returns a single multimedia document.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ id } : id of multimedia document
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ MultiMediaObject }
+}
+\item{\code{ find_by_ids }}{
+
+  Find multimedia document by ids;
+  Given multiple ids, returns a list of multimedia documents.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ ids } : ids of multiple multimedia documents, separated by comma
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ MultiMediaObject }
+}
+\item{\code{ get_distinct_values }}{
+
+  Get all different values that can be found for one field;
+  A list of all fields for multimedia documents can be retrieved with /metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : field
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_distinct_values_per_group }}{
+
+  Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the multimedia object you want to group by \item \code{ field } : name of field in the multimedia object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_field_info }}{
+
+  Returns extended information for each field of a multimedia document;
+  Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_paths }}{
+
+  Returns the full path of all fields within a document;
+  See also metadata/getFieldInfo for all allowed operators per field.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_setting }}{
+
+  Get the value of an NBA setting;
+  All settings can be queried with /metadata/getSettings.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of setting
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_settings }}{
+
+  List all publicly available configuration settings for the NBA;
+  The value of a specific setting can be queried with metadata/getSetting/{name}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ is_operator_allowed }}{
+
+  Checks if a given operator is allowed for a given field;
+  See also metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : multimedia document field \item \code{ operator } : operator
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ logical }
+}
+\item{\code{ query }}{
+
+  Query for multimedia documents;
+  Search for multimedia documents with query parameters or QuerySpec JSON string.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_group_by_scientific_name}
+\alias{taxon_group_by_scientific_name}
+\title{Aggregates Taxon and Specimen documents according to their scientific names}
+\usage{
+taxon_group_by_scientific_name(queryParams = list(),
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{queryParams}{Named list or vector with names being the fields to be queried and values being the values to match}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to group_by_scientific_name from class nbaR.TaxonClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ group_by_scientific_name }
+from class \code{ TaxonClient}.
+}
+\details{
+Returns a list with ScientificNameGroups, which contain Taxon and Specimen documents that share a scientific name
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_field_info}
+\alias{multimedia_get_field_info}
+\title{Returns extended information for each field of a multimedia document}
+\usage{
+multimedia_get_field_info(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_field_info from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_field_info }
+from class \code{ MultimediaClient}.
+}
+\details{
+Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/Response.r
+\docType{data}
+\name{Response}
+\alias{Response}
+\title{Response Class}
+\format{An object of class \code{R6ClassGenerator} of length 24.}
+\usage{
+Response
+}
+\description{
+The Response object is a generic object returned by any query
+function of one of the nbaR client classes.
+}
+\details{
+Response Class
+
+
+This class contains two fields (see also section 'Fields' below):
+The field \code{content} contains the query result parsed from
+the JSON response of the request. Depending on the query, this
+can be an object such as e.g. a \code{ResultSet}, or a \code{Specimen} or
+\code{Taxon} or a primitive data type. The field \code{reponse}
+is the actual response from the \code{httr} package that is used
+to perform the http request. It contains information such as the request and response headers,
+status code, URL, and the raw response.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{content}}{Parsed response of the query call}
+
+\item{\code{response}}{Response object from package \code{httr}}
+}}
+
+\seealso{
+https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html for further details.
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_get_named_collections}
+\alias{specimen_get_named_collections}
+\title{Retrieve the names of all &#39;special collections&#39; of specimens}
+\usage{
+specimen_get_named_collections(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_named_collections from class nbaR.SpecimenClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_named_collections }
+from class \code{ SpecimenClient}.
+}
+\details{
+See also here: http://bioportal.naturalis.nl/collecties
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find_by_unit_id}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_count_distinct_values}
+\alias{multimedia_count_distinct_values}
+\title{Count the distinct number of values that exist for a given field}
+\usage{
+multimedia_count_distinct_values(field = NULL, ...)
+}
+\arguments{
+\item{field}{Name of field in taxon object, type:}
+
+\item{...}{additional parameters passed to count_distinct_values from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values }
+from class \code{ MultimediaClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SpecimenClient-wrapper.r
+\name{specimen_find_by_unit_id}
+\alias{specimen_find_by_unit_id}
+\title{Find a specimen by unitID}
+\usage{
+specimen_find_by_unit_id(unitID = NULL, returnType = "data.frame", ...)
+}
+\arguments{
+\item{unitID}{the unitID of the specimen to query, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to find_by_unit_id from class nbaR.SpecimenClient}
+}
+\value{
+list or data.frame, as specified by \code{returnType}
+}
+\description{
+This is a wrapper for the method \code{ find_by_unit_id }
+from class \code{ SpecimenClient}.
+}
+\details{
+Get a specimen by its unitID. Returns a list of specimens since unitIDs are not strictly unique
+}
+\seealso{
+Other nbaR.SpecimenClient-wrappers: \code{\link{specimen_count_distinct_values_per_group}},
+  \code{\link{specimen_count_distinct_values}},
+  \code{\link{specimen_count}},
+  \code{\link{specimen_download_query}},
+  \code{\link{specimen_dwca_get_data_set_names}},
+  \code{\link{specimen_dwca_get_data_set}},
+  \code{\link{specimen_dwca_query}},
+  \code{\link{specimen_exists}},
+  \code{\link{specimen_find_by_ids}},
+  \code{\link{specimen_find}},
+  \code{\link{specimen_get_distinct_values_per_group}},
+  \code{\link{specimen_get_distinct_values}},
+  \code{\link{specimen_get_field_info}},
+  \code{\link{specimen_get_ids_in_collection}},
+  \code{\link{specimen_get_named_collections}},
+  \code{\link{specimen_get_paths}},
+  \code{\link{specimen_get_settings}},
+  \code{\link{specimen_get_setting}},
+  \code{\link{specimen_group_by_scientific_name}},
+  \code{\link{specimen_is_operator_allowed}},
+  \code{\link{specimen_query}}
+}
+\concept{nbaR.SpecimenClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient-wrapper.r
+\name{geo_count_distinct_values_per_group}
+\alias{geo_count_distinct_values_per_group}
+\title{Count the distinct number of field values that exist per the given field to group by}
+\usage{
+geo_count_distinct_values_per_group(group = NULL, field = NULL,
+  returnType = "data.frame", ...)
+}
+\arguments{
+\item{group}{name of field in the geo area object to group by, type:}
+
+\item{field}{name of field in the geo area object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values_per_group from class nbaR.GeoClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values_per_group }
+from class \code{ GeoClient}.
+}
+\details{
+See also endpoint /getDistinctValues. See also getDistinctValuesPerGroup
+}
+\seealso{
+Other nbaR.GeoClient-wrappers: \code{\link{geo_count_distinct_values}},
+  \code{\link{geo_count}}, \code{\link{geo_find_by_ids}},
+  \code{\link{geo_find}},
+  \code{\link{geo_get_distinct_values_per_group}},
+  \code{\link{geo_get_distinct_values}},
+  \code{\link{geo_get_field_info}},
+  \code{\link{geo_get_geo_json_for_locality}},
+  \code{\link{geo_get_paths}},
+  \code{\link{geo_get_settings}},
+  \code{\link{geo_get_setting}},
+  \code{\link{geo_is_operator_allowed}},
+  \code{\link{geo_query}}
+}
+\concept{nbaR.GeoClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_count_distinct_values}
+\alias{taxon_count_distinct_values}
+\title{Count the distinct number of values that exist for a given field}
+\usage{
+taxon_count_distinct_values(field = NULL, returnType = "data.frame",
+  ...)
+}
+\arguments{
+\item{field}{name of field in the taxon object, type:}
+
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to count_distinct_values from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ count_distinct_values }
+from class \code{ TaxonClient}.
+}
+\details{
+See also endpoint /getDistinctValues
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_dwca_get_data_set}
+\alias{taxon_dwca_get_data_set}
+\title{Download dataset as Darwin Core Archive File}
+\usage{
+taxon_dwca_get_data_set(dataset = NULL, filename = format(Sys.time(),
+  "download-\%Y-\%m-\%dT\%H:\%m.zip"), ...)
+}
+\arguments{
+\item{dataset}{name of dataset, type:}
+
+\item{filename}{Filename to save results to, defaults to `format(Sys.time(),"download-\%Y-\%m-\%dT\%H:\%m.zip")`}
+
+\item{...}{additional parameters passed to dwca_get_data_set from class nbaR.TaxonClient}
+}
+\description{
+This is a wrapper for the method \code{ dwca_get_data_set }
+from class \code{ TaxonClient}.
+}
+\details{
+Available datasets can be queried with /taxon/dwca/getDataSetNames. Response saved to &lt;datasetname&gt;-&lt;yyyymmdd&gt;.dwca.zip
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_paths}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_get_paths}
+\alias{multimedia_get_paths}
+\title{Returns the full path of all fields within a document}
+\usage{
+multimedia_get_paths(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_paths from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_paths }
+from class \code{ MultimediaClient}.
+}
+\details{
+See also metadata/getFieldInfo for all allowed operators per field
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_is_operator_allowed}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultimediaClient-wrapper.r
+\name{multimedia_is_operator_allowed}
+\alias{multimedia_is_operator_allowed}
+\title{Checks if a given operator is allowed for a given field}
+\usage{
+multimedia_is_operator_allowed(field = NULL, operator = NULL, ...)
+}
+\arguments{
+\item{field}{multimedia document field, type:}
+
+\item{operator}{operator, type:}
+
+\item{...}{additional parameters passed to is_operator_allowed from class nbaR.MultimediaClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ is_operator_allowed }
+from class \code{ MultimediaClient}.
+}
+\details{
+See also metadata/getFieldInfo
+}
+\seealso{
+Other nbaR.MultimediaClient-wrappers: \code{\link{multimedia_count_distinct_values_per_group}},
+  \code{\link{multimedia_count_distinct_values}},
+  \code{\link{multimedia_count}},
+  \code{\link{multimedia_download_query}},
+  \code{\link{multimedia_find_by_ids}},
+  \code{\link{multimedia_find}},
+  \code{\link{multimedia_get_distinct_values_per_group}},
+  \code{\link{multimedia_get_distinct_values}},
+  \code{\link{multimedia_get_field_info}},
+  \code{\link{multimedia_get_paths}},
+  \code{\link{multimedia_get_settings}},
+  \code{\link{multimedia_get_setting}},
+  \code{\link{multimedia_query}}
+}
+\concept{nbaR.MultimediaClient-wrappers}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GeoClient.r
+\docType{class}
+\name{GeoClient}
+\alias{GeoClient}
+\title{Geo operations}
+\format{R6 class}
+\usage{
+# client <- GeoClient$new()
+}
+\description{
+This client connects to all Geo-related endpoints
+of the NBA. Each endpoint is available as a class method
+(see section 'Methods' below). Optionally, a custom URL
+pointing to a NBA server and a user Agent can be specified
+by the user (see section 'Fields' below).
+}
+\section{Fields}{
+
+\describe{
+\item{\code{basePath}}{Stores url path of the request, defaults to http://api.biodiversitydata.nl/v2}
+
+\item{\code{userAgent}}{Set the user agent of the request, defaults to nbaR/0.1.0}
+}}
+
+\section{Methods}{
+
+\describe{
+\item{\code{ count }}{
+
+  Get the number of geo areas matching a given condition;
+  Conditions given as query string.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ integer }
+}
+\item{\code{ count_distinct_values }}{
+
+  Count the distinct number of values that exist for a given field;
+  Field given as string. See also getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : name of field in taxon object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ count_distinct_values_per_group }}{
+
+  Count the distinct number of field values that exist per the given field to group by;
+  See also endpoint /getDistinctValues. See also getDistinctValuesPerGroup.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the geo area object to group by \item \code{ field } : name of field in the geo area object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ find }}{
+
+  Find a GEO area by id;
+  Returns a GEO object containing a GEO json polygon.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ id } : id of geo area
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ GeoArea }
+}
+\item{\code{ find_by_ids }}{
+
+  Find geo areas by ids;
+  Given multiple ids, returns a list of geo area objects.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ ids } : ids of multiple geo areas, separated by comma
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ GeoArea }
+}
+\item{\code{ get_distinct_values }}{
+
+  Get all different values that exist for a field;
+  A list of all fields for geo area documents can be retrieved with /metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : name of field in geo area object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_distinct_values_per_group }}{
+
+  Get all distinct values (and their document count) for the field given divided per distinct value of the field to group by;
+  See also endpoint /getDistinctValues.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ group } : name of field in the geo area object to group by \item \code{ field } : name of field in the geo area object
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_field_info }}{
+
+  Returns extended information for each field of a specimen document;
+  Info consists of whether the fields is indexed, the ElasticSearch datatype and a list of allowed operators.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_geo_json_for_locality }}{
+
+  Retrieve a GeoJson object for a given locality;
+  Returns a GeoJson polygon.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ locality } :
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_paths }}{
+
+  Returns the full path of all fields within a document;
+  See also metadata/getFieldInfo for all allowed operators per field.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ character }
+}
+\item{\code{ get_setting }}{
+
+  Get the value of an NBA setting;
+  All settings can be queried with /metadata/getSettings.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ name } : name of setting
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ get_settings }}{
+
+  List all publicly available configuration settings for the NBA;
+  The value of a specific setting can be queried with metadata/getSetting/{name}.
+
+    Parameters:
+    \itemize{
+
+
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ is_operator_allowed }}{
+
+  Checks if a given operator is allowed for a given field;
+  See also metadata/getFieldInfo.
+
+    Parameters:
+    \itemize{
+
+        \item \code{ field } : Field in geo area document \item \code{ operator } : operator
+
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ list }
+}
+\item{\code{ query }}{
+
+  Query for geo areas;
+  Query on searchable fields to retrieve matching geo areas.
+
+    Parameters:
+    \itemize{
+        \item \code{ query_spec } : Object of type QuerySpec or its JSON representation
+
+        \item \code{ queryParams } : named list or vector with query parameters
+
+        \item \code{ ... } : additional parameters passed to httr::GET
+    }
+    Returns:
+        \code{ QueryResult }
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/SummaryVernacularName.r
+\docType{class}
+\name{SummaryVernacularName}
+\alias{SummaryVernacularName}
+\title{SummaryVernacularName Class}
+\format{R6 class}
+\usage{
+# SummaryVernacularName$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for SummaryVernacularName objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{name}}{character}
+
+\item{\code{language}}{character}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor SummaryVernacularName object.
+
+}
+\item{\code{$fromList(SummaryVernacularNameList)}}{
+
+  Create SummaryVernacularName object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of SummaryVernacularName.
+
+}
+\item{\code{fromJSONString(SummaryVernacularNameJson)}}{
+
+  Create SummaryVernacularName object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of SummaryVernacularName.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/MultiLineString.r
+\docType{class}
+\name{MultiLineString}
+\alias{MultiLineString}
+\title{MultiLineString Class}
+\format{R6 class}
+\usage{
+# MultiLineString$new()
+}
+\description{
+For more information on the NBA object model, please refer to the
+official NBA documentation at
+\href{https://docs.biodiversitydata.nl}{https://docs.biodiversitydata.nl} and
+the NBA model and endpoints reference at
+\href{https://docs.biodiversitydata.nl/endpoints-reference}{https://docs.biodiversitydata.nl/endpoints-reference}.
+}
+\details{
+Model class for MultiLineString objects.
+}
+\section{Fields}{
+
+\describe{
+\item{\code{crs}}{Crs}
+
+\item{\code{bbox}}{list(numeric)}
+
+\item{\code{coordinates}}{list(LngLatAlt)}
+}}
+
+\section{Methods}{
+
+\describe{
+
+\item{\code{$new()}}{
+
+  Constructor MultiLineString object.
+
+}
+\item{\code{$fromList(MultiLineStringList)}}{
+
+  Create MultiLineString object from list.
+
+}
+
+\item{\code{$toList()}}{
+
+  Get list representation of MultiLineString.
+
+}
+\item{\code{fromJSONString(MultiLineStringJson)}}{
+
+  Create MultiLineString object from JSON.
+
+}
+\item{\code{toJSONString(pretty=TRUE)}}{
+
+  Get JSON representation of MultiLineString.
+
+}
+}
+}
+
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/TaxonClient-wrapper.r
+\name{taxon_get_paths}
+\alias{taxon_get_paths}
+\title{Returns the full path of all fields within a document}
+\usage{
+taxon_get_paths(returnType = "data.frame", ...)
+}
+\arguments{
+\item{returnType}{Either \code{list} or \code{data.frame} (default)}
+
+\item{...}{additional parameters passed to get_paths from class nbaR.TaxonClient}
+}
+\value{
+scalar
+}
+\description{
+This is a wrapper for the method \code{ get_paths }
+from class \code{ TaxonClient}.
+}
+\details{
+See also metadata/getFieldInfo for all allowed operators per field
+}
+\seealso{
+Other nbaR.TaxonClient-wrappers: \code{\link{taxon_count_distinct_values_per_group}},
+  \code{\link{taxon_count_distinct_values}},
+  \code{\link{taxon_count}},
+  \code{\link{taxon_download_query}},
+  \code{\link{taxon_dwca_get_data_set_names}},
+  \code{\link{taxon_dwca_get_data_set}},
+  \code{\link{taxon_dwca_query}},
+  \code{\link{taxon_find_by_ids}},
+  \code{\link{taxon_find}},
+  \code{\link{taxon_get_distinct_values_per_group}},
+  \code{\link{taxon_get_distinct_values}},
+  \code{\link{taxon_get_field_info}},
+  \code{\link{taxon_get_settings}},
+  \code{\link{taxon_get_setting}},
+  \code{\link{taxon_group_by_scientific_name}},
+  \code{\link{taxon_is_operator_allowed}},
+  \code{\link{taxon_query}}
+}
+\concept{nbaR.TaxonClient-wrappers}

@@ -9479,3 +9479,355 @@ in `release_info.py`
 - tag the release
 - push the tag
 - release on github
+PySAL Release Notes
+===================
+
+This is the list of changes to PySAL for each release.
+
+- `PySAL 2.6.0 <https://github.com/pysal/pysal/releases/tag/v2.6.0>`_
+- `PySAL 2.5.0 <https://github.com/pysal/pysal/releases/tag/v2.5.0>`_
+- `PySAL 2.4.0 <https://github.com/pysal/pysal/releases/tag/v2.4.0>`_
+- `PySAL 2.3.0 <https://github.com/pysal/pysal/releases/tag/v2.3.0>`_
+- `PySAL 2.2.0 <https://github.com/pysal/pysal/releases/tag/v2.2.0>`_
+- `PySAL 2.1.0 <https://github.com/pysal/pysal/releases/tag/v2.1.0>`_
+- `PySAL 2.0.0 <https://github.com/pysal/pysal/releases/tag/v2.0.0>`_
+- `PySAL 1.14.4 <https://github.com/pysal/pysal/releases/tag/v1.14.4>`_
+- `PySAL 1.14.3 <https://github.com/pysal/pysal/releases/tag/v1.14.3>`_
+- `PySAL 1.14.2 <https://github.com/pysal/pysal/releases/tag/v1.14.2>`_
+- `PySAL 1.13.0 <https://github.com/pysal/pysal/releases/tag/v1.13.0>`_
+- `PySAL 1.12.0 <https://github.com/pysal/pysal/releases/tag/v1.12.0>`_
+- `PySAL 1.11.2 <https://github.com/pysal/pysal/releases/tag/v1.11.2>`_
+- `PySAL 1.11.1 <https://github.com/pysal/pysal/releases/tag/v1.11.1>`_
+- `PySAL 1.11.0 <https://github.com/pysal/pysal/releases/tag/v1.11.0>`_
+- `PySAL 1.10 <https://github.com/pysal/pysal/releases/tag/v1.10>`_
+.. Installation
+
+Installation
+============
+
+As of version 2.0.0, PySAL supports python `3.6`_ and `3.7`_. Please make sure that you are
+operating in a python 3 environment.
+
+Installing with conda
+---------------------
+
+To install PySAL and all its dependencies, we recommend using the `conda`_ package
+manager. This can be obtained by installing the `Anaconda Distribution`_ (a free
+Python distribution for data science), or through miniconda (minimal
+distribution only containing Python and the conda package manager). 
+
+Using conda, PySAL can be installed as follows::
+
+  conda install --channel conda-forge pysal
+
+
+Installing with pip
+-------------------
+
+PySAL is available on the `Python Package Index`_. Therefore, you can either
+install directly with `pip` from the command line::
+
+  pip install -U pysal
+
+
+or download the source distribution (.tar.gz) and decompress it to your selected
+destination. Open a command shell and navigate to the decompressed folder.
+Type::
+
+  pip install .
+
+.. warning::
+   When installing with pip, you have to ensure that the required dependencies
+   for PySAL are installed on your operating system. Details on how to install these packages can be found in :ref:`dependencies`. Using conda (above) would avoid having to install the dependencies separately. 
+
+   
+
+Installing the development version
+----------------------------------
+
+Potentially, you might want to use the newest features in the development
+version of PySAL on github - `pysal/pysal`_ while have not been incorporated
+in the Pypi released version. You can achieve that by installing `pysal/pysal`_
+by running the following from a command shell::
+
+  pip install git+https://github.com/pysal/pysal.git
+
+You can  also `fork`_ the `pysal/pysal`_ repo and create a local clone of
+your fork. By making changes
+to your local clone and submitting a pull request to `pysal/PySAL`_, you can
+contribute to the PySAL development.
+
+
+.. _dependencies:
+
+Dependencies
+------------
+
+Required
+++++++++
+- `geopandas`_
+- `seaborn`_
+- `descartes`_
+- `palettable`_
+- `scikit-learn`_
+- `rtree`_
+- `tqdm`_
+- `statsmodels`_
+- `deprecated`_
+
+
+Optional
+++++++++
+- `urbanaccess`_
+- `pandana`_
+- `numba`_
+- `numexpr`_
+- `bokeh`_
+
+
+
+
+Installing versions supporting Python 2
+---------------------------------------
+
+Users requiring Python 2 support can install the legacy version of PySAL: 1.1.14 via pip::
+
+ pip install pysal==1.14.4.post2
+
+Note that this version is only receiving bug fixes. All new enhancements (post 2019-01) to PySAL are Python 3+ only, and are not available in 1.14.4.
+
+.. _3.7: https://docs.python.org/3.7/
+.. _3.6: https://docs.python.org/3.6/
+.. _Python Package Index: https://pypi.org/project/PySAL/
+.. _pysal/PySAL: https://github.com/pysal/PySAL
+.. _conda: https://docs.conda.io/en/latest/
+.. _Anaconda Distribution: https://docs.continuum.io/anaconda/
+.. _fork: https://help.github.com/articles/fork-a-repo/
+.. _geopandas: http://geopandas.org/install.html
+.. _seaborn: https://seaborn.pydata.org/installing.html
+.. _descartes: https://pypi.org/project/descartes/
+.. _palettable: https://jiffyclub.github.io/palettable/
+.. _scikit-learn: https://scikit-learn.org/stable/install.html
+.. _rtree: http://toblerity.org/rtree/install.html
+.. _tqdm: https://pypi.org/project/tqdm/
+.. _statsmodels: https://www.statsmodels.org/stable/install.html
+.. _deprecated: https://pypi.org/project/Deprecated/
+.. _urbanaccess: https://github.com/UDST/urbanaccess
+.. _pandana: https://pypi.org/project/pandana/ 
+.. _numba: https://numba.pydata.org/numba-doc/dev/user/installing.html
+.. _numexpr: https://pypi.org/project/numexpr/
+.. _bokeh: https://bokeh.pydata.org/en/latest/docs/installation.html
+
+
+
+.. documentation master file
+
+PySAL: Python Spatial Analysis Library
+======================================
+
+
+.. raw:: html
+
+    <div class="container-fluid">
+      <div class="row equal-height">
+        <div class="col-sm-1 col-xs-hidden">
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <a href="http://nbviewer.jupyter.org/github/pysal/esda/blob/master/notebooks/Spatial%20Autocorrelation%20for%20Areal%20Unit%20Data.ipynb" class="thumbnail">
+                <img src="_static/images/prices.png" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Housing Prices Berlin</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-3 col-xs-12">
+         <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/master/notebooks/directional.ipynb" class="thumbnail">
+        <img src="_static/images/rose_conditional.png" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Rose diagram (directional LISAs)</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-3 col-xs-12">
+ <a href="http://nbviewer.jupyter.org/github/pysal/splot/blob/master/notebooks/libpysal_non_planar_joins_viz.ipynb" class="thumbnail">
+                <img src="_static/images/nonplanar.png"
+                class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Visualizing Non Planar Neighbours
+                </h6>
+                </div>
+      </a>
+        </div>
+        <div class="col-sm-2 col-xs-hidden">
+        </div>
+      </div>
+    </div>
+
+PySAL is an open source
+cross-platform library for geospatial data science with an emphasis on
+geospatial vector data written in Python. It supports the development of
+high level applications for spatial analysis, such as
+
+-   detection of spatial clusters, hot-spots, and outliers
+-   construction of graphs from spatial data
+-   spatial regression and statistical modeling on geographically
+    embedded networks
+-   spatial econometrics
+-   exploratory spatio-temporal data analysis
+
+PySAL Components
+================
+
+-   **explore** - modules to conduct exploratory analysis of spatial and spatio-temporal data, including statistical testing on points, networks, and
+    polygonal lattices.  Also includes methods for spatial inequality,  distributional dynamics, and segregation.
+-   **viz** - visualize patterns in spatial data to detect clusters,
+    outliers, and hot-spots.
+-   **model** - model spatial relationships in data with a variety of
+    linear, generalized-linear, generalized-additive, and nonlinear
+    models.
+-   **lib** - solve a wide variety of computational geometry problems:
+
+    -   graph construction from polygonal lattices, lines, and points.
+    -   construction and interactive editing of spatial weights matrices
+        & graphs
+    -   computation of alpha shapes, spatial indices, and
+        spatial-topological relationships
+    -   reading and writing of sparse graph data, as well as pure python
+        readers of spatial vector data.
+
+        
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: Contents:
+
+   Installation <installation>
+   API <api>
+   References <references>
+
+Details are available in the `PySAL api <api.html>`_.
+
+For background information see :cite:`pysal2007`.
+
+***********
+Development
+***********
+
+As of version 2.0.0, PySAL is now a collection of affiliated geographic
+data science packages. Changes to the code for any of the subpackages
+should be directed at the respective `upstream repositories <https://github.com/pysal/help>`_ and not made
+here. Infrastructural changes for the meta-package, like those for
+tooling, building the package, and code standards, will be considered.
+
+
+PySAL development is hosted on github_.
+
+.. _github : https://github.com/pysal/PySAL
+
+
+
+Discussions of development occurs on the
+`developer list <http://groups.google.com/group/pysal-dev>`_
+as well as gitter_.
+
+.. _gitter : https://gitter.im/pysal/pysal?
+
+****************
+Getting Involved
+****************
+
+If you are interested in contributing to PySAL please see our
+`development guidelines <https://github.com/pysal/pysal/wiki>`_.
+
+
+***********
+Bug reports
+***********
+
+To search for or report bugs, please see PySAL's issues_.
+
+.. _issues :  http://github.com/pysal/pysal/issues
+
+
+***************
+Citing PySAL
+***************
+
+If you use PySAL in a scientific publication, we would appreciate citations to the following paper:
+
+  `PySAL: A Python Library of Spatial Analytical Methods <http://journal.srsa.org/ojs/index.php/RRS/article/view/134/85>`_, *Rey, S.J. and L. Anselin*, Review of Regional Studies 37, 5-27 2007.
+
+  Bibtex entry::
+
+      @Article{pysal2007,
+        author={Rey, Sergio J. and Anselin, Luc},
+        title={{PySAL: A Python Library of Spatial Analytical Methods}},
+        journal={The Review of Regional Studies},
+        year=2007,
+        volume={37},
+        number={1},
+        pages={5-27},
+        keywords={Open Source; Software; Spatial}
+      }
+
+
+
+*******************
+License information
+*******************
+
+See the file "LICENSE.txt" for information on the history of this
+software, terms & conditions for usage, and a DISCLAIMER OF ALL
+WARRANTIES.
+
+
+.. _PySAL: https://github.com/pysal/pysal
+.. reference for the docs
+
+References
+==========
+
+.. bibliography:: _static/references.bib
+   :cited:
+.. _api_ref:
+
+=============
+API Reference
+=============
+
+
+:mod:`pysal.lib`: PySAL Core 
+=============================
+
+* `weights: Spatial Weights <https://pysal.org/libpysal/api.html#spatial-weights>`_
+* `cg: Computational Geometry <https://pysal.org/libpysal/api.html#cg-computational-geometry>`_
+* `io: Input-Output <https://pysal.org/libpysal/api.html#io>`_ 
+* `examples: Example datasets <https://pysal.org/libpysal/api.html#io>`_
+
+:mod:`pysal.explore`: Exploratory Spatial Data Analysis
+=======================================================
+* `esda: Spatial Autocorrelation Analysis <https://pysal.org/esda/api.html>`_
+* `giddy: Geospatial Distribution Dynamics <https://pysal.org/giddy/api.html>`_
+* `inequality: Spatial Inequality Analysis <https://inequality.readthedocs.io/en/latest/api.html>`_
+* `momepy: Urban Morphology Measuring Toolkit <http://docs.momepy.org/en/stable/api.html>`_
+* `pointpats: Planar Point Pattern Analysis <https://pointpats.readthedocs.io/en/latest/api.html>`_
+* `segregation: Segregation Analysis <https://segregation.readthedocs.io/en/latest/api.html>`_
+* `spaghetti: Spatial Analysis on Networks <https://pysal.org/spaghetti/api.html>`_
+
+
+:mod:`pysal.model`: Spatial Statistical Models
+==============================================
+* `access: Spatial Accessibility  <https://access.readthedocs.io/en/latest/api.html>`_
+* `mgwr: Multiscale Geographically Weighted Regression <https://mgwr.readthedocs.io/en/latest/api.html>`_ 
+* `spglm: Sparse Generalized Linear Models <https://spglm.readthedocs.io/en/latest/api.html>`_
+* `spint: Spatial Interaction Modeling <https://spint.readthedocs.io/en/latest/api.html>`_
+* `spopt: Spatial Optimization <https://pysal.org/spopt/api.html>`_
+* `spreg: Spatial Regression and Econometrics <https://spreg.readthedocs.io/en/latest/api.html>`_
+* `spvcm: Spatial Varying Component Models <https://github.com/pysal/spvcm>`_
+* `tobler: Areal Interpolation and Dasymetric Mapping <https://pysal.org/tobler/api.html>`_
+
+:mod:`pysal.viz`: Geovisualization
+==================================
+* `mapclassify: Choropleth Map Classification Schemes <https://pysal.org/mapclassify/api.html>`_
+* `splot: Lightweight Visualization Interface for PySAL Analytics <https://splot.readthedocs.io/en/latest/api.html#>`_
+

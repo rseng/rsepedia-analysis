@@ -150,3 +150,88 @@ The file should look similar to the example below; again, the order of the colum
 Example file:
 
 ![png](txtexample.png)
+Graphical User Interface
+=========================
+
+The GUI for the fuelcell package can be downloaded as a standalone executable file and can be used on either Mac or Windows operating systems. To use the latest version GUI, download the zip file which contains the GUI appropriate to your operating system from the `github releases page <https://github.com/samaygarg/fuelcell/releases>`_. If you are using MacOS, you will likely have to give permission for the program to run after trying to open in for the first time. This can be done by going to System Preferences -> Security & Privacy -> General and clicking "Open Anyway"
+To report any problems that arise while using the GUI, open a `new issue <https://github.com/samaygarg/fuelcell/issues>`_ on github.
+
+New in version 0.5.2
+---------------------
+* resolved deprecation issues to ensure forward compatibility
+
+Setup
+=======
+
+Installation
+--------------
+The fuelcell library can be installed using `pip <https://pypi.org/project/fuelcell/>`_
+
+.. code-block:: bash
+
+   pip install fuelcell
+
+
+Updating
+---------
+The fuelcell library is still under development, so supdates are being made and features are being added regularly. You should ensure that you are updated to the latest version. fuelcell can be updated using pip:
+
+.. code-block:: bash
+
+   pip install --upgrade fuelcell
+
+
+Graphical User Interface
+-------------------------
+The graphical user interface (GUI) can be downloaded as a standalone executable file for either Windows or Mac operating systems. The latest version can be downloaded `here <https://github.com/samaygarg/fuelcell/tree/master/gui/fuelcell_gui>`_. See the GUI page for more details.fuelcell Documentation
+=====================================
+
+Introduction
+-------------
+fuelcell is a Python library designed to streamline the process of analyzing data generated from experiments which are commonly used to test electrochemical devices.
+
+
+Contents
+---------
+
+.. toctree::
+   :maxdepth: 1
+
+   setup.rst
+   gui.rst
+   modules/modindex.rst
+   
+GUI
+======
+Download the latest version of the GUI `here <https://github.com/samaygarg/fuelcell/tree/master/gui/fuelcell_gui>`_.
+fuelcell.visuals
+==================
+
+Data visualization methods
+
+.. automodule:: fuelcell.visuals
+	:members:fuelcell.utils
+================
+
+File handling functions and miscellaneous auxilliary functions
+
+.. automodule:: fuelcell.utils
+	:members:Modules
+==========
+
+Contents:
+
+.. toctree::
+	:maxdepth: 2
+	
+	datums.rst
+	utils.rst
+	visuals.rst
+fuelcell.datums
+=================
+
+Data processing functions
+
+.. automodule:: fuelcell.datums
+   :members:
+   :undoc-members:

@@ -449,3 +449,27 @@ In this example we will use the *lastfm* data set that can be loaded in the **Ne
 The entire data set is visualized in **Network Explorer**. In the widget, we removed the coloring and set the size of the nodes to correspond to the *album count*. Then we selected some nodes from the network. We can observe the selection in **Network Explorer (1)**.
 
 ![](images/Network-Explorer-Example.png)
+Orange3 Networks Add-on
+=======================
+
+Widgets
+-------
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/networkfile
+   widgets/networkexplorer
+   widgets/networkgenerator
+   widgets/networkanalysis
+   widgets/networkclustering
+   widgets/networkofgroups
+   widgets/networkfromdistances
+   widgets/singlemode
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

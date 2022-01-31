@@ -1803,3 +1803,19 @@ The launcher will pass anything in `--snake=` verbatim, so use with care.
 
 **NOTE: Don't use hecatomb's --snake arg to pass additional config settings with Snakemake's -C/--config arg**,
 instead, follow the directions above [for changing the config of a Hecatomb run](configuration.md#changing-the-hecatomb-configuration).
+Read counts for all samples following Step 05: removal of vector contaminants (PhiX + NCBI UniVecDB).
+These are the hits for the Secondary viral NT search.
+Note: total read counts, not rep seq counts.These are the hits for the Secondary multi-kingdom AA search.
+Note: total read counts, not rep seq counts.These are the hits for the Primary viral AA search.
+Note: total read counts, not rep seq counts.Read counts for all samples following Step 09: clustering similiar sequences.
+Note: only using R1 reads.These are the hits for the Primary viral NT search.
+Note: total read counts, not rep seq counts.This is a sankey diagram visualising the breakdown of read preprocessing and taxonomic assignments.Read counts for all samples following Step 03: removal of primer-free adapter (5' and 3').
+Read counts for all samples following Step 02: removal of 3' read-through contamination.
+Read counts for all samples following Step 04: removal of adapter-free primer (5' and 3').Table summarising the read counts at all taxon levels per sample.
+Merge this table with your metadata and use for preliminary statistical analysis.
+Read counts for all samples before ANY read preprocessing.
+Read counts for all samples following Step 06: removal of low quality bases and short reads.
+Read counts for all samples following Step 01: removal of 5' primer.
+Read counts for all samples following Step 07: removal of host contamination.
+Read counts for all samples following Step 08: removal of exact duplicates.
+Note: we only use R1 reads from here.

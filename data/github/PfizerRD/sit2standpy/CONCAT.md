@@ -220,3 +220,365 @@ Sit2StandPy requires the following Python packages:
 The Digital Medicine & Translational Imaging group at Pfizer, Inc supported the development of this package.
 
 # References
+.. sit2standpy usage
+
+=======================================
+Usage examples
+=======================================
+
+Basic Use (New/v2 API)
+----------------------
+
+Basic usage of ``Sit2StandPy`` to detect transitions in the sample data, using the version 2 API
+
+.. code-block:: python
+
+    >>> import sit2standpy as s2s
+
+    >>> # transform the data into the appropriate format for H5 or dictionary
+    >>> # note that "data_transform_function" is your own function to achieve the
+    >>> # appropriate format
+    >>> # if you are looking for a quick example data loader function, you can
+    >>> # use the one at
+    >>> # https://gist.github.com/LukasAdamowicz/b8481ef32e4beeb77c80f29f34c8045e
+    >>> data = <data_transform/loader_function>(acceleration_data)
+    >>>
+    >>> sequence = s2s.v2.Sequential()
+    >>> # window the data into days using only the hours from 8:00 to 20:00
+    >>> sequence.add(s2s.v2.WindowDays(hours=[8, 20]))
+    >>> # Do the initial filtering and processing required
+    >>> sequence.add(s2s.v2.AccelerationFilter())
+    >>> # Detect the transitions using the stillness constraint
+    >>> sequence.add(s2s.v2.Detector(stillness_constraint=True))
+    >>>
+    >>> sequence.predict(data)  # predict and save the results into data
+    >>>
+    >>> # tabulate the results to a csv for easy reading
+    >>> s2s.v2.tabulate_results(data, path_to_csv_output, method='stillness')
+
+
+Basic Use (Old/v1 API)
+----------------------
+
+Basic usage of ``Sit2StandPy`` to detect transitions in sample data:
+
+.. code-block:: python
+
+    >>> import sit2standpy as s2s
+    >>> import numpy as np  # importing sample data
+    >>> from sys import version_info
+    >>> if version_info < (3, 7):
+    >>>     from pkg_resources import resource_filename
+    >>> else:
+    >>>     from importlib import resources
+    >>>
+    >>> # locate the sample data and load it (depending on python version)
+    >>> if version_info < (3, 7):
+    >>>     file_path = resource_filename('sit2standpy', 'data/sample.csv')
+    >>>     data = np.loadtxt(file_path, delimiter=',')
+    >>> else:
+    >>>     with resources.path('sit2standpy.data', 'sample.csv') as file_path:
+    >>>         data = np.loadtxt(file_path, delimiter=',')
+    >>>
+    >>> # separate the stored sample data
+    >>> time = data[:, 0]
+    >>> accel = data[:, 1:]
+    >>>
+    >>> # initialize the framework for detection
+    >>> ths = {'stand displacement': 0.125, 'transition velocity': 0.3, 'accel moving avg': 0.15,
+    >>>                    'accel moving std': 0.1, 'jerk moving avg': 2.5, 'jerk moving std': 3}
+    >>> sts = s2s.Sit2Stand(method='stillness', gravity=9.84, thresholds=ths, long_still=0.3, still_window=0.3,
+    >>>                     duration_factor=4, displacement_factor=0.6, lmin_kwargs={'height': -9.5}, power_band=[0, 0.5],
+    >>>                     power_peak_kwargs={'distance': 128}, power_stdev_height=True)
+    >>>
+    >>> # run the sit-to-stand detection
+    >>> SiSt = sts.apply(accel, time, time_units='us')
+    >>>
+    >>> # print the list of Transition objects, stored as a dictionary with the time they occurred
+    >>> print(SiSt)
+
+Advanced Examples (Old/v1 API)
+------------------------------
+
+Using :meth:`sit2standpy.Sit2Stand` automatically does all the preprocessing, filtering, and sit-to-stand transition
+detection for the user. However, this can be broken up into the constituent parts - preprocessing, filtering, and
+detection.
+
+.. code-block:: python
+
+    >>> import sit2standpy as s2s
+    >>> from packages_for_importing_data import your_import_data_function
+    >>>
+    >>> # due to the size of multi day files, no samples are provided with sit2standpy
+    >>> accel, time = your_import_data_function()
+    >>>
+    >>> # PREPROCESSING : conversion of timestamps, and windowing the data
+    >>> timestamps, dt, acc_win = s2s.process_timestamps(time, accel,
+    >>>                                                  time_units='us',  # time is in microseconds since the epoch
+    >>>                                                  window=True,  # window the data
+    >>>                                                  hours=('08:00', '20:00'))  # use data from 8am to 8pm each day
+    >>>
+    >>> # setup filter
+    >>> afilt = s2s.AccelerationFilter(power_band=[0, 0.5], power_peak_kw={'distance': 128})
+    >>> # filter the windowed data, iterating over the days
+    >>> filt_acc, rm_acc, power_peaks = {}, {}, {}
+    >>> for day in acc_win.keys():  # dictionary of data for each day, since data was windowed
+    >>>     filt_acc[day], rm_acc[day], _, power_peaks[day] = afilt.apply(acc_win[day], 1 / dt)
+    >>>
+    >>> # setup the detection of the transitions
+    >>> still_detect = s2s.detectors.Stillness()  # use the default values
+    >>>
+    >>> sist = {}
+    >>> for day in filt_acc.keys():
+    >>>     day_sist = still_detect.apply(acc_win[day], filt_acc[day], rm_acc[day], timestamps[day], dt,
+    >>>                                   power_peaks[day])
+    >>>     sist.update(day_sist)
+.. Sit2StandPy installation file
+
+Installation, Requirements, and Testing
+=======================================
+
+Installation
+------------
+
+Sit2StandPy can be installed by running any of the following in the terminal:
+
+::
+
+    pip install sit2standpy  # install checking for dependencies with pip
+    pip install sit2standpy --no-deps  # install without checking for dependencies
+    pip install git+https://github.com/PfizerRD/Sit2StandPy  # alternative to pull from the master branch
+
+
+Requirements
+------------
+These requirements will be collected if not already installed, and should require no input from the user.
+
+- Python >= 3.7
+- NumPy
+- SciPy
+- pandas
+- pywavelets
+- udatetime
+
+These are the versions developed on, and some backwards compatibility may be possible.
+
+To run the tests, additionally the following are needed:
+
+- pytest
+- h5py
+
+Testing
+-------
+
+Automated tests can be run with ``pytest`` through the terminal:
+
+::
+
+    pytest --pyargs sit2standpy.tests -v
+
+.. Sit2StandPy documentation master file, created by
+   sphinx-quickstart on Wed Jul 17 16:13:41 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Sit2StandPy: Automated Sit-to-Stand Transition Detection
+========================================================
+
+.. image :: https://joss.theoj.org/papers/10.21105/joss.02449/status.svg
+   :target: https://doi.org/10.21105/joss.02449
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3988351.svg
+   :target: https://doi.org/10.5281/zenodo.3988351
+
+``Sit2StandPy`` is an open source Python package that uses novel algorithms to first detect Sit-to-Stand transitions
+from lumbar-mounted accelerometer data, and then provide quantitative metrics assessing the performance of the
+transitions. A modular framework is employed that would allow for easy modification of parts of the algorithm to suit
+other specific requirements, while still keeping core elements of the algorithm intact. As gyroscopes impose a
+significant detriment to battery life due to power consumption, ``Sit2StandPy``'s use of acceleration only allows for
+a single sensor to collect days worth of analyzable data.
+
+
+Validation
+----------
+``Sit2StandPy`` was validated, and used to compute the results presented in [1]_. Detailed background and
+presentation of the methods can be found there as well.
+
+Capabilities
+------------
+
+- Automatic day by day windowing, with option to select a specific window of hours per day
+- Optional use of parallel processing to decrease run time
+- Quantification of detected transitions
+- Modification of functions and methods used in framework
+- Access to various parameters controlling the performance and function of the detection
+
+License
+-------
+Sit2StandPy is open source software distributed under the MIT license.
+
+Papers
+------
+.. [1] L. Adamowicz et al. "Assessment of Sit-to-Stand Transfers During Daily Life Using an Accelerometer on the Lower Back.'' IEEE Journal of Biomedical and Health Informatics. Under Review.
+.. [2] L. Adamowicz, S. Patel. "Sit2StandPy: An Open-Source Python Package for Detecting and Quantifying Sit-to-Stand Transitions Using an Accelerometer on the Lower Back." Journal of Open Source Software. 5(52), 2449. Aug 2020. https://doi.org/10.21105/joss.02449
+
+
+Contents
+--------
+.. toctree::
+   :maxdepth: 3
+
+   installation
+   usage
+   refv2/index
+   ref/index
+sit2standpy.v2.Detector
+-----------------------
+
+.. currentmodule:: sit2standpy.v2.detectors
+
+.. autoclass:: Detector
+    :members:
+sit2standpy.v2.AccelerationFilter
+---------------------------------
+
+.. currentmodule:: sit2standpy.v2.filters
+
+.. autoclass:: AccelerationFilter
+    :members:
+sit2standpy.v2.Sequential
+-------------------------
+
+.. currentmodule:: sit2standpy.v2.pipeline
+
+.. autoclass:: Sequential
+    :members:
+sit2standpy.v2.tabulate_results
+-------------------------------
+
+.. currentmodule:: sit2standpy.v2.utility
+
+.. autofunction:: tabulate_results
+sit2standpy.v2.get_stillness
+----------------------------
+
+.. currentmodule:: sit2standpy.v2.utility
+
+.. autofunction:: get_stillness
+sit2standpy.v2.WindowDays
+------------------------------------
+
+.. currentmodule:: sit2standpy.v2.day_window
+
+.. autoclass:: WindowDays
+    :members:
+.. sit2standpy api reference
+
+V2 API Reference
+================
+
+.. toctree::
+  :maxdepth: 3
+
+  pipeline.Sequential
+  day_window.WindowDays
+  detectors.Detector
+  utility.tabulate_results
+  utility.mov_stats
+  utility.get_stillness
+sit2standpy.v2.mov_stats
+------------------------
+
+.. currentmodule:: sit2standpy.v2.utility
+
+.. autofunction:: mov_stats
+.. sit2standpy detectors
+.. currentmodule:: pysit2stand
+
+
+sit2standpy.detectors
+---------------------
+
+.. toctree::
+
+    detectors.Stillness
+    detectors.Displacement
+
+
+sit2standpy.AccelerationFilter
+------------------------------
+
+.. currentmodule:: sit2standpy
+
+.. autoclass:: AccelerationFilter
+    :members:
+sit2standpy.process_timestamps
+------------------------------
+
+.. currentmodule:: sit2standpy
+
+.. autofunction:: process_timestamps
+.. Sit2StandPy core functions and classes
+.. currentmodule:: Sit2StandPy
+
+Sit2StandPy.Sit2Stand
+---------------------
+
+.. autoclass:: Sit2Stand
+  :members:sit2standpy.TransitionQuantifier
+--------------------------------
+
+.. currentmodule:: sit2standpy
+
+.. autoclass:: TransitionQuantifier
+    :members:
+sit2standpy.detectors.Stillness
+-------------------------------
+
+.. currentmodule:: sit2standpy.detectors
+
+.. autoclass:: Stillness
+    :members:
+.. Sit2StandPy core functions and classes
+.. currentmodule:: Sit2StandPy
+
+Sit2StandPy
+-----------
+
+.. toctree::
+
+    core.Sit2Stand
+    processing.AccelerationFilter
+    processing.process_timestamps
+    quantify.TransitionQuantifier
+    utility.Transition
+    utility.mov_stats
+sit2standpy.detectors.Displacement
+----------------------------------
+
+.. currentmodule:: sit2standpy.detectors
+
+.. autoclass:: Displacement
+    :members:
+.. sit2standpy api reference
+
+API Reference
+=============
+
+.. toctree::
+  :maxdepth: 3
+
+  core
+  detectors
+sit2standpy.Transition
+----------------------
+
+.. currentmodule:: sit2standpy
+
+.. autoclass:: Transition
+    :members:
+sit2standpy.mov_stats
+--------------------------------
+
+.. currentmodule:: sit2standpy
+
+.. autofunction:: mov_stats

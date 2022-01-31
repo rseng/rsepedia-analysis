@@ -392,3 +392,129 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+OCTOPUS.recon subpackage
+========================
+
+OCTOPUS.recon.imtransforms module
+---------------------------------
+
+.. automodule:: OCTOPUS.recon.imtransforms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OCTOPUS.recon.rawdata\_recon module
+-----------------------------------
+
+.. automodule:: OCTOPUS.recon.rawdata_recon
+   :members:
+   :undoc-members:
+   :show-inheritance:
+OCTOPUS package
+===============
+
+OCTOPUS.ORC module
+------------------
+
+.. automodule:: OCTOPUS.ORC
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   OCTOPUS.fieldmap
+   OCTOPUS.recon
+   OCTOPUS.utils
+
+
+OCTOPUS.utils subpackage
+========================
+
+OCTOPUS.utils.dataio module
+---------------------------
+
+.. automodule:: OCTOPUS.utils.dataio
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OCTOPUS.utils.metrics module
+----------------------------
+
+.. automodule:: OCTOPUS.utils.metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OCTOPUS.utils.plotting module
+-----------------------------
+
+.. automodule:: OCTOPUS.utils.plotting
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OCTOPUS
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   OCTOPUS.. OCTOPUS documentation master file, created by
+   sphinx-quickstart on Sat Jul 18 10:53:09 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+OCTOPUS: Off-resonance CorrecTion OPen-soUrce Software
+======================================================
+.. image:: ../../OCTOPUSLogo_Rect.png
+   :align: center
+
+`OCTOPUS <https://github.com/imr-framework/OCTOPUS>`_ is an open-source tool that provides off-resonance correction methods for Magnetic Resonance (MR) images. In particular, the implemented techniques are Conjugate Phase Reconstruction (CPR) [1]_, frequency-segmented CPR [2]_ and Multi-Frequency Interpolation (MFI) [3]_.
+
+It is targeted to MR scientists, researchers, engineers and students who work with off-resonance-prone trajectories, such as spirals.
+
+.. [1] Maeda, A., Sano, K. and Yokoyama, T. (1988), Reconstruction by weighted correlation for MRI with time-varying gradients. IEEE Transactions on Medical Imaging, 7(1): 26-31. doi: 10.1109/42.3926
+
+.. [2] Noll, D. C., Pauly, J. M., Meyer, C. H., Nishimura, D. G. and Macovskj, A. (1992), Deblurring for non‐2D fourier transform magnetic resonance imaging. Magn. Reson. Med., 25: 319-333. doi:10.1002/mrm.1910250210
+
+.. [3] Man, L., Pauly, J. M. and Macovski, A. (1997), Multifrequency interpolation for fast off‐resonance correction. Magn. Reson. Med., 37: 785-792. doi:10.1002/mrm.1910370523
+
+.. automodule:: OCTOPUS
+   :members:
+
+API documentation
+=================
+
+.. toctree::
+    :maxdepth: 7
+
+    modules
+
+Tools
+=====
+* :ref:`search`OCTOPUS.fieldmap subpackage
+===========================
+
+OCTOPUS.fieldmap.simulate module
+--------------------------------
+
+.. automodule:: OCTOPUS.fieldmap.simulate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OCTOPUS.fieldmap.unwrap module
+------------------------------
+
+.. automodule:: OCTOPUS.fieldmap.unwrap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

@@ -438,3 +438,493 @@ preliminar theoretical study of the topic, as well as SISSA mathLab for
 providing the hardware used to perform experiments on large graphs.
 
 # References
+Notation and terms
+==================
+
+In this documentation we use some notation which may not be standard. This page
+serves as a reference.
+
+Note that we **always** refer to *directed* graphs, namely graphs such that the edge relation is not symmetric in general.
+
+Graphs
+------
+
+* The symbol ":math:`G`" represents a graph. A graph is the couple of a set of nodes :math:`V` and a binary relation :math:`E` which is usually called "set of edges";
+* We use interchangeably the terms *vertex* and *node* when we refer to the members of the set :math:`V`;
+* The symbol ":math:`\langle a,b \rangle`" means "an edge from the vertex :math:`a` to the vertex :math:`b`;
+* The symbol ":math:`E(\{x\})`", :math:`x \in V`, or the *image* of the vertex :math:`x`, represents the set :math:`\{y \in V \mid \langle x,y \rangle\}`;
+* The symbol ":math:`E^{-1}(\{x\})`", :math:`x \in V`, or the *counterimage* of the vertex :math:`x`, represents the set :math:`\{y \in V \mid \langle y,x \rangle\}`;
+* A node :math:`x` is *well-founded* if it is not possible to reach a cycle following the edges from :math:`x`;
+* The symbol ":math:`\texttt{WF}(G)`" is the *well-founded* part of the graph, namely the subset of :math:`V` which is made only of *well-founded* nodes;
+* A **DFS** (acronym for *Depth-First-Search*) is one of the possible ways to visit a graph;
+* A *strongly connected component* (SCC) is a subset of :math:`V` such that each node in the component is reachable from all the others;
+* The graph of *strongly connected components* of :math:`G`, whose symbol is :math:`G^{\textit{SCC}}`, is the graph whose vertexes are the SCCs of :math:`G`.
+
+For a reference on graphs check [1]_.
+
+Paige-Tarjan's notation
+-----------------------
+
+* The symbol ":math:`Q`" usually refers to a partition of the set :math:`V` (nodes of a graph :math:`G`);
+* The symbol ":math:`X`" usually refers to a partition of the blocks of the partition ":math:`Q`" (namely ":math:`X`" contains blocks of blocks).
+
+.. _Rank definition:
+
+Dovier-Piazza-Policriti's notation
+----------------------------------
+
+The *rank* of a node is defined as follows:
+
+.. image:: _static/rank_definition.png
+
+where we used the following sets to simplify the defintion:
+
+.. image:: _static/N_rank_definition.png
+
+Saha's notation
+---------------
+
+A *causal splitter* for two blocks :math:`A,B` is a block :math:`C` such that:
+
+.. math::
+
+    (A \to C \land B \not\to C) \lor (A \not\to C \land B \to C)
+
+which means that such a block may prevent the two blocks to be merged if we
+want to obtain a **stable** partition.
+
+**Bibliography**
+
+.. [1] Cormen, Thomas H., et al. Introduction to algorithms. MIT press, 2009.
+.. _documentation:
+
+Welcome to BisPy's documentation!
+=================================
+
+`BisPy <https://github.com/fAndreuzzi/BisPy>`_ is a Python library for the computation of the maximum bisimulation of directed graphs.
+
+A brief introduction to bisimulation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Consider a graph :math:`G = (V,E)`. A *bisimulation* :math:`\mathcal{B}` is a
+binary relation on :math:`V` which satisfies the following condition:
+
+.. math::
+
+    (a,b) \in \mathcal{B} \implies \begin{cases}
+        \forall a' \mid \langle a,a' \rangle \in E, \,\, \exists b' \mid \langle b,b' \rangle \in E \land (a',b') \in \mathcal{B}\\
+        \forall b' \mid \langle b,b' \rangle \in E, \,\, \exists a' \mid \langle a,a' \rangle \in E \land (a',b') \in \mathcal{B}
+    \end{cases}
+
+The definition may be read as follows: given a pair of two nodes which are in
+relation with respect to :math:`\mathcal{B}`, each child of the first node is
+in relation with at least one child of the second node, and viceversa.
+
+The following image shows an example of a bisimulation:
+
+.. image:: _static/bisimulation_example.png
+
+In the image above an interesting property of bisimulation emerges: two
+*bisimilar* nodes (namely two nodes in relation for at least one bisimulation
+on the graph) always *behave* in a similar way, in the sense that all their
+children behave in a similar way, which is exactly the condition stated above.
+
+Another (simpler) example:
+
+.. image:: _static/bisimulation_example_2.png
+
+Again, the two nodes are almost indistinguishable: we may switch :math:`a` and
+:math:`b`, and (apart from the name) nobody would notice the difference. This
+is a consequence of the fact (which can be proved) that two bisimilar nodes
+represent the same set.
+
+It's easy to see that in general there are more than one bisimulations on a
+graph. For instance the empty relation (:math:`\mathcal{B} = \emptyset`) or any
+trivial reflexive relation :math:`(\mathcal{B} = \{(a,a), (b,b), \dots\}`) are
+all bisimulations. The *maximum bisimulation* of a graph is the bisimulation
+which results from the union of all the other bisimulations on that graph. It
+can be shown that this binary relation is still a bisimulation, and also an
+*equivalence relation*.
+
+For the reasons which we stated above, we see that the maximum bisimulation
+conveys a lot of information about the nodes of the graph and how they behave.
+Its equivalence classes contain nodes which are equivalent two by two in the
+sense of bisimulation. Therefore they all behave in the same way, and we
+remark that this means that all their children behave in the same way.
+
+The bisimulation depicted in the first image is not the maximum bisimulation,
+since even though nodes :math:`d,g` are bisimilar they are not in relation
+with respect to :math:`\mathcal{B}`. In fact, the maximum bisimulation is the
+following relation:
+
+.. math::
+
+  \mathcal{B}_m=\{(a),(b,c),(d,e,f,g)\}.
+
+**Applications**
+
+Maximum bisimulation may be used to find equivalent nodes (a task which has
+a lot of applications in **concurrency theory** and **indexing** of
+semi-structured datasets, for instance) or to minimize the graph (by collapsing
+each equivalence class into a single node) while preserving the information
+conveyed by the graph.
+
+**Equivalence with RSCP**
+
+It can be shown that finding the maximum bisimulation is equivalent to finding
+the *Relational Stable Coarsest Partition* (RSCP) of the set :math:`V` with
+respect to the relation :math:`E`. This problem consists in finding the
+coarsest (i.e. the one with fewer blocks) **stable** partition of the set
+:math:`V`, where stable means that for each couple of blocks :math:`B_1,B_2`
+the following condition holds:
+
+.. math::
+
+    B_1 \subseteq E^{-1}(B_2) \lor B_1 \cap E^{-1}(B_2) = \emptyset.
+
+This equivalence is widely exploited since the RSCP problem is easier to
+express algorithmically.
+
+**References**
+
+The interested reader may found an in-depth discussion in the following paper::
+
+    Gentilini, Raffaella, Carla Piazza, and Alberto Policriti.
+    "From bisimulation to simulation: Coarsest partition problems."
+    Journal of Automated Reasoning 31.1 (2003): 73-103.
+
+Contents
+^^^^^^^^
+
+.. toctree::
+   :maxdepth: 2
+
+   algorithms/index.rst
+   utilities/index.rst
+   notation.rst
+
+Bibliography
+^^^^^^^^^^^^
+
+The following is a non exaustive list of references which we consulted during the development of the project::
+
+   - Saha, Diptikalyan. "An incremental bisimulation algorithm."
+     International Conference on Foundations of Software Technology
+      and Theoretical Computer Science.
+     Springer, Berlin, Heidelberg, 2007.
+   - Dovier, Agostino, Carla Piazza, and Alberto Policriti.
+     "A fast bisimulation algorithm." International Conference on
+      Computer Aided Verification.
+     Springer, Berlin, Heidelberg, 2001.
+   - Gentilini, Raffaella, Carla Piazza, and Alberto Policriti.
+     "From bisimulation to simulation: Coarsest partition problems."
+     Journal of Automated Reasoning 31.1 (2003): 73-103.
+   - Paige, Robert, and Robert E. Tarjan.
+     "Three partition refinement algorithms."
+     SIAM Journal on Computing 16.6 (1987): 973-989.
+   - Hopcroft, John.
+     "An n log n algorithm for minimizing states in a finite automaton."
+     Theory of machines and computations. Academic Press, 1971. 189-196.
+   - Aczel, Peter.
+     "Non-well-founded sets." (1988).
+   - Kanellakis, Paris C., and Scott A. Smolka.
+     "CCS expressions, finite state processes, and three problems of equivalence."
+     Information and computation 86.1 (1990): 43-68.
+   - Sharir, Micha.
+     "A strong-connectivity algorithm and its applications in data flow analysis."
+     Computers & Mathematics with Applications 7.1 (1981): 67-72.
+   - Cormen, Thomas H., et al.
+     Introduction to algorithms. MIT press, 2009.
+Saha
+^^^^
+
+.. module:: bispy.saha.saha
+
+To implement the algorithm we followed the pseudocode and the analysis provided
+in the following paper::
+
+    Saha, Diptikalyan.
+    "An incremental bisimulation algorithm."
+    International Conference on Foundations of Software Technology
+        and Theoretical Computer Science.
+    Springer, Berlin, Heidelberg, 2007.
+
+Using *Saha*'s incremental algorithm we can update the RSCP/maximum
+bisimulation after the addition of a new edge. While we may do the same thing
+computing the maximum bisimulation from scratch after the modification,
+*Saha*'s algorithm may be able to take less time on average.
+
+.. warning::
+
+    *Saha*'s algorithm works only with integer graphs. You must convert your
+    graph to an isomorphic integer graph before creating the partition of
+    :class:`bispy.utilities.graph_entities._QBlock`.
+
+.. seealso:: :mod:`bispy.utilities.graph_normalization`
+
+The complexity of *Saha*'s algorithm is highly dependent on how much
+the maximum bisimulation changes as a consequence of the addition of the new
+edge:
+
+.. math::
+
+    \begin{align*}
+        T_{\text{Saha}} = O(|E_1|\log|V_1|) &+ O(|\Delta_\texttt{wf}\log|\Delta_\texttt{wf}|) + O(|E_\texttt{nwf}| + |V_\texttt{nwf}|)\\
+        &+ O(|E_2||V_2|) + O(|E_2|\log|V_2|)
+    \end{align*}
+
+Therefore without an additional hypothesis on the nature of the edges added
+we may encounter some cases for which the incremental algorithm takes much
+more than re-computing the maximum bisimulation from scratch using
+:ref:`PaigeTarjan` or :ref:`DovierPiazzaPolicriti`'s algorithm.
+
+Summary
+"""""""
+
+.. autosummary::
+    :nosignatures:
+
+    saha
+    add_edge
+    is_in_image
+    check_new_scc
+    both_blocks_go_or_dont_go_to_block
+    exists_causal_splitter
+    merge_condition
+    recursive_merge
+    merge_phase
+    preprocess_initial_partition
+    merge_split_phase
+    propagate_nwf
+    propagate_wf
+    build_well_founded_topological_list
+    filter_deteached
+
+
+
+Code documentation
+""""""""""""""""""
+
+.. autofunction:: saha
+.. autofunction:: add_edge
+.. autofunction:: is_in_image
+.. autofunction:: check_new_scc
+.. autofunction:: both_blocks_go_or_dont_go_to_block
+.. autofunction:: exists_causal_splitter
+.. autofunction:: merge_condition
+.. autofunction:: recursive_merge
+.. autofunction:: merge_phase
+.. autofunction:: preprocess_initial_partition
+.. autofunction:: merge_split_phase
+.. autofunction:: propagate_nwf
+.. autofunction:: propagate_wf
+.. autofunction:: build_well_founded_topological_list
+.. autofunction:: filter_deteached
+Saha Partition
+^^^^^^^^^^^^^^
+
+.. module:: bispy.saha.saha_partition
+
+This module provides a convenient interface to :mod:`bispy.saha.saha`.
+
+Summary
+"""""""
+
+.. autosummary::
+    :nosignatures:
+
+    SahaPartition
+    saha
+
+
+Code documentation
+""""""""""""""""""
+
+.. autoclass:: SahaPartition
+    :members:
+.. autofunction:: saha
+.. _DovierPiazzaPolicriti:
+
+Dovier-Piazza-Policriti
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. module:: bispy.dovier_piazza_policriti.dovier_piazza_policriti
+
+To implement the algorithm we followed the pseudocode and the analysis provided
+in the following paper::
+
+    Dovier, Agostino, Carla Piazza, and Alberto Policriti.
+    "A fast bisimulation algorithm."
+    International Conference on Computer Aided Verification.
+    Springer, Berlin, Heidelberg, 2001.
+
+The most significant improvement with respect to
+:mod:`bispy.paige_tarjan.paige_tarjan` is due to the usage of the notion of
+*rank*, motivated by the following observation:
+
+.. math::
+
+    a \equiv b \implies \texttt{rank}(a) = \texttt{rank}(b)
+
+.. seealso:: :ref:`Rank definition`
+
+Therefore we may be able to obtain the equivalence classes of the maximum
+bisimulation in a smaller number of steps when the relation "same rank"
+is a good approximation of the maximum bisimulation.
+
+Summary
+"""""""
+
+.. autosummary::
+    :nosignatures:
+
+    dovier_piazza_policriti
+    dovier_piazza_policriti_partition
+    collapse
+    build_block_counterimage
+    split_upper_ranks
+
+Code documentation
+""""""""""""""""""
+
+.. autofunction:: dovier_piazza_policriti
+.. autofunction:: dovier_piazza_policriti_partition
+.. autofunction:: collapse
+.. autofunction:: build_block_counterimage
+.. autofunction:: split_upper_ranks
+Algorithms
+----------
+
+.. module:: bispy
+
+**Contents**:
+
+.. toctree::
+   paige_tarjan.rst
+   dovier_piazza_policriti.rst
+   saha_partition.rst
+   saha.rst
+.. _PaigeTarjan:
+
+Paige-Tarjan
+^^^^^^^^^^^^
+
+.. module:: bispy.paige_tarjan.paige_tarjan
+
+To implement the algorithm we followed the pseudocode and the analysis provided
+in the following paper::
+
+    Paige, Robert, and Robert E. Tarjan.
+    "Three partition refinement algorithms."
+    SIAM Journal on Computing 16.6 (1987): 973-989.
+
+*Paige-Tarjan*'s algorithm provides the first efficient algorithmic solution
+to the problem of the maximum bisimulation.
+
+Summary
+"""""""
+
+.. autosummary::
+    :nosignatures:
+
+    paige_tarjan
+    paige_tarjan_qblocks
+    extract_splitter
+    build_block_counterimage
+    build_exclusive_B_counterimage
+    split
+    update_counts
+    refine
+
+Code documentation
+""""""""""""""""""
+
+.. autofunction:: paige_tarjan
+.. autofunction:: paige_tarjan_qblocks
+.. autofunction:: extract_splitter
+.. autofunction:: build_block_counterimage
+.. autofunction:: build_exclusive_B_counterimage
+.. autofunction:: split
+.. autofunction:: update_counts
+.. autofunction:: refine
+Rank computation
+^^^^^^^^^^^^^^^^
+
+.. module:: bispy.utilities.rank_computation
+
+.. autofunction:: compute_rank
+.. autofunction:: scc_finishing_time_list
+Ranked Partition
+^^^^^^^^^^^^^^^^
+
+.. module:: bispy.dovier_piazza_policriti.ranked_partition
+
+.. autoclass:: RankedPartition
+    :members:
+Graph decorator
+^^^^^^^^^^^^^^^
+
+.. module:: bispy.utilities.graph_decorator
+
+.. autofunction:: decorate_nx_graph
+.. autofunction:: decorate_bispy_graph
+.. autofunction:: to_tuple_list
+.. autofunction:: preprocess_initial_partition
+.. autofunction:: counterimage_dfs
+.. autofunction:: compute_counterimage_finishing_time_list
+.. autofunction:: as_bispy_graph
+.. autofunction:: build_vertexes_image
+Ranked Paige-Tarjan
+^^^^^^^^^^^^^^^^^^^
+
+.. module:: bispy.saha.ranked_pta
+
+.. autofunction:: ranked_split
+.. autofunction:: pta
+Graph normalization
+^^^^^^^^^^^^^^^^^^^
+
+An *integer* graph is a graph :math:`G = (V,E)` such that
+:math:`V \subseteq \mathbb{N}`, :math:`\min(V) = 0`, :math:`\max(V) = |V| - 1`,
+namely its nodes are integers starting from 0 and do not have holes.
+
+*BisPy* is able to work **only** with *integer* graphs, this is why we provide
+this class to go back and forth between the actual graph and an isomorphic
+representation.
+
+.. module:: bispy.utilities.graph_normalization
+
+.. autofunction:: convert_to_integer_graph
+.. autofunction:: check_normal_integer_graph
+.. autofunction:: back_to_original
+.. _module-docs:
+
+Utilities
+---------
+
+.. module:: bispy.utilities
+
+**Contents**:
+
+.. toctree::
+   graph_decorator.rst
+   graph_entities.rst
+   graph_normalization.rst
+   rank_computation.rst
+   ranked_partition.rst
+   ranked_paige_tarjan.rst
+Graph entities
+^^^^^^^^^^^^^^
+
+.. module:: bispy.utilities.graph_entities
+
+.. autoclass:: _Vertex
+    :members:
+.. autoclass:: _Edge
+    :members:
+.. autoclass:: _QBlock
+    :members:
+.. autoclass:: _XBlock
+    :members:
+.. autoclass:: _SCC
+    :members:

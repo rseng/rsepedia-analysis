@@ -170,3 +170,178 @@ If you want to collect articles about every member of parliament in Finland duri
 `python3 query-mp-inflections.py`
 
 `python3 fetch-mp-inflections.py -u <insert your user> -p  <insert your password>`
+finnish\_media\_scrapers.scripts package
+========================================
+
+Submodules
+----------
+
+finnish\_media\_scrapers.scripts.fetch\_hs module
+-------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.fetch_hs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.fetch\_open module
+---------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.fetch_open
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.htmltotext\_hs module
+------------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.htmltotext_hs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.htmltotext\_il module
+------------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.htmltotext_il
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.htmltotext\_is module
+------------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.htmltotext_is
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.htmltotext\_svyle module
+---------------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.htmltotext_svyle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.htmltotext\_yle module
+-------------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.htmltotext_yle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.post\_filter module
+----------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.post_filter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.query\_hs module
+-------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.query_hs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.query\_il module
+-------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.query_il
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.query\_is module
+-------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.query_is
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.scripts.query\_yle module
+--------------------------------------------------
+
+.. automodule:: finnish_media_scrapers.scripts.query_yle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: finnish_media_scrapers.scripts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+finnish-media-scrapers
+======================
+
+.. toctree::
+   :maxdepth: 4
+
+   finnish_media_scrapers
+Welcome to Finnish Media Scraper's documentation!
+=================================================
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Contents:
+
+   modules
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+finnish\_media\_scrapers package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   finnish_media_scrapers.scripts
+
+Submodules
+----------
+
+finnish\_media\_scrapers.fetch module
+-------------------------------------
+
+.. automodule:: finnish_media_scrapers.fetch
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.htmltotext module
+------------------------------------------
+
+.. automodule:: finnish_media_scrapers.htmltotext
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+finnish\_media\_scrapers.query module
+-------------------------------------
+
+.. automodule:: finnish_media_scrapers.query
+   :members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: finnish_media_scrapers
+   :members:
+   :undoc-members:
+   :show-inheritance:

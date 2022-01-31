@@ -722,3 +722,848 @@ For the final \autoref{fig:plot_prediction_grid}, we applied temporal resampling
 The package benefitted from valuable comments by Joscha Gretzinger, who also suggested the name *bleiglas* (German *Bleiglasfenster* for English *Leadlight*) inspired by the appearance of the cut surface plots.
 
 # References
+---
+output: github_document
+editor_options: 
+  chunk_output_type: console
+always_allow_html: true
+---
+
+[![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+![GitHub R package version](https://img.shields.io/github/r-package/v/nevrome/bleiglas)
+[![R-CMD-check](https://github.com/nevrome/bleiglas/actions/workflows/check-release.yaml/badge.svg)](https://github.com/nevrome/bleiglas/actions/workflows/check-release.yaml)
+[![Coverage Status](https://img.shields.io/codecov/c/github/nevrome/bleiglas/master.svg)](https://codecov.io/github/nevrome/bleiglas?branch=master)
+[![license](https://img.shields.io/github/license/nevrome/bleiglas)](https://www.r-project.org/Licenses/MIT)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03092/status.svg)](https://doi.org/10.21105/joss.03092)
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, echo = FALSE}
+library(magrittr)
+library(knitr)
+library(rgl)
+library(ggplot2)
+knit_hooks$set(webgl = hook_rgl)
+view_matrix <- structure(c(0.586383819580078, 0.356217533349991, -0.727502763271332, 
+0, -0.810031354427338, 0.257360488176346, -0.526888787746429, 
+0, -0.000456457957625389, 0.898260772228241, 0.439460128545761, 
+0, 0, 0, 0, 1), .Dim = c(4L, 4L))
+```
+
+# bleiglas
+
+bleiglas is an R package that employs [Voro++](http://math.lbl.gov/voro++/) for the calculation of three dimensional Voronoi diagrams from input point clouds. This is a special form of tessellation where each polygon is defined as the area closest to one particular seed point. Voronoi diagrams have useful applications in - among others - astronomy, material science or geography and bleiglas provides functions to make 3D tessellation more readily available as a mean for data visualisation and interpolation. It can be used for any 3D point cloud, but the output is optimized for spatiotemporal applications in archaeology.
+
+1. This README (see Quickstart guide below) describes a basic workflow with code and explains some of my thought process when writing this package.
+2. A [JOSS paper](https://doi.org/10.21105/joss.03092) gives some background, introduces the core functions from a more technical point of view and presents an example application.
+3. A (rather technical) vignette presents all the code necessary to reproduce the "real world" example application in said JOSS paper. When bleiglas is installed you can open the vignette in R with `vignette("bleiglas_case_study")`.
+
+If you have questions beyond this documentation feel free to open an [issue](https://github.com/nevrome/bleiglas/issues) here on Github. Please also see our [contributing guide](CONTRIBUTING.md).
+
+## Installation 
+
+You can install bleiglas from github
+
+```{r, eval=FALSE}
+if(!require('remotes')) install.packages('remotes')
+remotes::install_github("nevrome/bleiglas", build_vignettes = TRUE)
+```
+
+For the main function `tessellate` you also have to [install the Voro++ software](http://math.lbl.gov/voro++/download/). The package is already available in all major Linux software repositories (on Debian/Ubuntu you can simply run `sudo apt-get install voro++`.). MacOS users should be able to install it via homebrew (`brew install voro++`).
+
+## Quickstart
+
+For this quickstart, we assume you have packages `tidyverse`, `sf`, `rgeos` (which in turn requires the Unix package `geos`) and `c14bazAAR` installed. 
+
+#### Getting some data
+
+I decided to use Dirk Seidenstickers [*Archives des datations radiocarbone d'Afrique centrale*](https://github.com/dirkseidensticker/aDRAC) dataset for this purpose. It includes radiocarbon datings from Central Africa that combine spatial (x & y) and temporal (z) position with some meta information.
+
+<details><summary>Click here for the data preparation steps</summary>
+<p>
+
+I selected dates from Cameroon between 1000 and 3000 uncalibrated BP and projected them into a worldwide cylindrical reference system (epsg [4088](https://epsg.io/4088)). As Cameroon is close to the equator this projection should represent distances, angles and areas sufficiently correct for this example exercise. As a minor pre-processing step, I here also remove samples with equal position in all three dimensions for the tessellation.
+
+```{r, message=FALSE}
+# download raw data with the data access package c14bazAAR
+# c14bazAAR can be installed with
+# install.packages("c14bazAAR", repos = c(ropensci = "https://ropensci.r-universe.dev"))
+c14_cmr <- c14bazAAR::get_c14data("adrac") %>% 
+  # filter data
+  dplyr::filter(!is.na(lat) & !is.na(lon), c14age > 1000, c14age < 3000, country == "CMR") 
+
+# remove doubles
+c14_cmr_unique <- c14_cmr %>%
+  dplyr::mutate(
+    rounded_coords_lat = round(lat, 3),
+    rounded_coords_lon = round(lon, 3)
+  ) %>%
+  dplyr::group_by(rounded_coords_lat, rounded_coords_lon, c14age) %>%
+  dplyr::filter(dplyr::row_number() == 1) %>%
+  dplyr::ungroup()
+
+# transform coordinates
+coords <- data.frame(c14_cmr_unique$lon, c14_cmr_unique$lat) %>% 
+  sf::st_as_sf(coords = c(1, 2), crs = 4326) %>% 
+  sf::st_transform(crs = 4088) %>% 
+  sf::st_coordinates()
+
+# create active dataset
+c14 <- c14_cmr_unique %>% 
+  dplyr::transmute(
+    id = seq_len(nrow(.)),
+    x = coords[,1], 
+    y = coords[,2], 
+    z = c14age,
+    period = period
+)
+```
+
+</p>
+</details>
+
+<details><summary>Data: <b>c14</b></summary>
+<p>
+
+```{r}
+c14 
+```
+
+</p>
+</details>
+
+#### 3D tessellation
+
+[Tessellation](https://en.wikipedia.org/wiki/Tessellation) means filling space with polygons so that neither gaps nor overlaps occur. This is an exciting application for art (e.g. textile art or architecture) and an interesting challenge for mathematics. As a computational archaeologist I was already aware of one particular tessellation algorithm that has quite some relevance for geostatistical analysis like spatial interpolation: Voronoi tilings that are created with [Delaunay triangulation](https://en.wikipedia.org/wiki/Delaunay_triangulation). These are tessellations where each polygon covers the space closest to one of a set of sample points.
+
+<table style="width:100%">
+  <tr>
+    <th>
+      <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Ceramic_Tile_Tessellations_in_Marrakech.jpg/320px-Ceramic_Tile_Tessellations_in_Marrakech.jpg" height="150" />
+      <br>
+      <figcaption>Islamic mosaic with tile tessellations in Marrakech, Morocco. <a href="https://en.wikipedia.org/wiki/File:Ceramic_Tile_Tessellations_in_Marrakech.jpg">wiki</a></figcaption></figure>
+    </th>
+    <th>
+      <figure><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Delaunay_Voronoi.svg/441px-Delaunay_Voronoi.svg.png" height="150" />
+      <br>
+      <figcaption>Delaunay triangulation and its Voronoi diagram. <a href="https://commons.wikimedia.org/wiki/File:Delaunay_Voronoi.svg">wiki</a></figcaption></figure>
+    </th>
+    <th>
+      <figure><img src="https://aip.scitation.org/na101/home/literatum/publisher/aip/journals/content/cha/2009/cha.2009.19.issue-4/1.3215722/production/images/medium/1.3215722.figures.f4.gif" height="150" />
+      <br>
+      <figcaption>Output example of Voro++ rendered with POV-Ray. <a href="http://math.lbl.gov/voro++">math.lbl.gov</a></figcaption></figure>
+    </th>
+  <tr>
+</table>
+
+It turns out that Voronoi tessellation can be calculated not just for 2D surfaces, but also for higher dimensions. The [Voro++](http://math.lbl.gov/voro++/) software library does exactly this for 3 dimensions. This makes it useful for spatio-temporal applications.
+
+`bleiglas::tessellate()` is a minimal wrapper function that calls the Voro++ command line interface (therefore you have to install Voro++ to use it) for datasets like the one introduced above. We can apply it like this:
+
+```{r}
+raw_voro_output <- bleiglas::tessellate(
+  c14[, c("id", "x", "y", "z")],
+  x_min = min(c14$x) - 150000, x_max = max(c14$x) + 150000, 
+  y_min = min(c14$y) - 150000, y_max = max(c14$y) + 150000,
+  unit_scaling = c(0.001, 0.001, 1)
+)
+```
+
+A critical step when using tessellation for spatio-temporal data is a suitable conversion scale between time- and spatial units. Since 3D tessellation crucially depends on the concept of a 3D-distance, we need to make a decision how to combine length- and time-units. Here, for the purpose of this example, we have 1 kilometre correspond to 1 year. Since after the coordinate conversion our spatial units are given in meters, we divide all spatial distances by a factor 1000 to achieve this correspondence: `unit_scaling = c(0.001, 0.001, 1)`.
+
+I decided to increase the size of the tessellation box by 150 kilometres to each (spatial) direction to cover the area of Cameroon. Mind that the scaling factors in `unit_scaling` are also applied to the box size parameters `x_min`, `x_max`, ....
+
+The output of Voro++ is highly customizable, and structurally complex. With the `-v` flag, the voro++ CLI interface prints some config info, which is also the output of `bleiglas::tesselate`:
+
+```
+Container geometry        : [937.154:1936.57] [63.1609:1506.58] [1010:2990]
+Computational grid size   : 3 by 5 by 6 (estimated from file)
+Filename                  : /tmp/RtmpVZjBW3/file3aeb5f400f38
+Output string             : %i*%P*%t
+Total imported particles  : 392 (4.4 per grid block)
+Total V. cells computed   : 392
+Total container volume    : 2.8563e+09
+Total V. cell volume      : 2.8563e+09
+```
+
+It then produces an output file (`*.vol`) that contains all sorts of geometry information for the calculated 3D polygons. `tesselate` returns the content of this file as a character vector with the additionally attached attribute `unit_scaling` (`attributes(raw_voro_output)$unit_scaling`), which is just the scaling vector we put in above. 
+
+I focussed on the edges of the polygons and wrote a parser function `bleiglas::read_polygon_edges()` that can transform the complex Voro++ output for this specific output case to a tidy data.table with six columns: the coordinates (x, y, z) of the start (a) and end point (b) of each polygon edge. A data.table is a tabular R data structure very similar to the standard data.frame. Read more about it [here](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html).
+
+```{r}
+polygon_edges <- bleiglas::read_polygon_edges(raw_voro_output)
+```
+
+`read_polygon_edges` automatically reverses the rescaling introduced in `tesselate` with the `unit_scaling` attribute.
+
+<details><summary>Data: <b>polygon_edges</b></summary>
+<p>
+
+```{r, echo=FALSE}
+polygon_edges
+```
+
+</p>
+</details>
+
+<details><summary>We can plot these polygon edges (black) together with the input sample points (red) in 3D.</summary>
+<p>
+
+```{r, webgl=TRUE, fig.width=10, fig.align="center", eval=FALSE}
+rgl::axes3d()
+rgl::points3d(c14$x, c14$y, c14$z, color = "red")
+rgl::aspect3d(1, 1, 1)
+rgl::segments3d(
+  x = as.vector(t(polygon_edges[,c(1,4)])),
+  y = as.vector(t(polygon_edges[,c(2,5)])),
+  z = as.vector(t(polygon_edges[,c(3,6)]))
+)
+rgl::view3d(userMatrix = view_matrix, zoom = 0.9)
+```
+
+</p>
+</details>
+
+```{r, webgl=TRUE, fig.width=10, fig.align="center", echo=FALSE}
+rgl::axes3d()
+rgl::points3d(c14$x, c14$y, c14$z, color = "red")
+rgl::aspect3d(1, 1, 1)
+rgl::segments3d(
+  x = as.vector(t(polygon_edges[,c(1,4)])),
+  y = as.vector(t(polygon_edges[,c(2,5)])),
+  z = as.vector(t(polygon_edges[,c(3,6)]))
+)
+rgl::view3d(userMatrix = view_matrix, zoom = 0.9)
+```
+
+#### Cutting the polygons
+
+This 3D plot, even if rotatable using mouse input, is of rather limited value since it's very hard to read. I therefore wrote `bleiglas::cut_polygons()` that can cut the 3D polygons at different levels of the z-axis. As the function assumes that x and y represent geographic coordinates, the cuts produce sets of spatial 2D polygons for different values of z -- in our example different points in time. The parameter `cuts` takes a numeric vector of cutting points on the z axis. `bleiglas::cut_polygons()` yields a rather raw format for specifying polygons. Another function, `bleiglas::cut_polygons_to_sf()`, transforms it to `sf`. Here `crs` defines the spatial coordinate reference system of x and y to project the resulting 2D polygons correctly.
+
+```{r}
+cut_surfaces <- bleiglas::cut_polygons(
+  polygon_edges, 
+  cuts = c(2500, 2000, 1500)
+) %>%
+  bleiglas::cut_polygons_to_sf(crs = 4088)
+```
+
+<details><summary>Data: <b>cut_surfaces</b></summary>
+<p>
+
+```{r, echo=FALSE}
+cut_surfaces
+```
+
+</p>
+</details>
+
+<details><summary>With this data we can plot a matrix of maps that show the cut surfaces.</summary>
+<p>
+
+```{r, fig.width=8, fig.align="center", eval=FALSE}
+cut_surfaces %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = z), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  geom_sf_text(aes(label = id)) +
+  facet_wrap(~z) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+</p>
+</details>
+
+```{r, fig.width=8, fig.align="center", echo=FALSE}
+cut_surfaces %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = z), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  facet_wrap(~z) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+<details><summary>As all input dates come from Cameroon it makes sense to cut the polygon surfaces to the outline of this administrative unit.</summary>
+<p>
+
+```{r, warning=FALSE}
+cameroon_border <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf") %>% 
+  dplyr::filter(name == "Cameroon") %>% 
+  sf::st_transform(4088)
+
+cut_surfaces_cropped <- cut_surfaces %>% sf::st_intersection(cameroon_border)
+```
+
+```{r, fig.width=8, fig.align="center", eval=FALSE}
+cut_surfaces_cropped %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = z), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  facet_wrap(~z) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+<p>
+</details>
+
+```{r, fig.width=8, fig.align="center", echo=FALSE}
+cut_surfaces_cropped %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = z), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  facet_wrap(~z) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+
+<details><summary>Finally, we can also visualise any point-wise information in our input data as a feature of the tessellation polygons.</summary>
+<p>
+
+```{r, warning=FALSE}
+cut_surfaces_material <- cut_surfaces_cropped %>%
+  dplyr::left_join(
+    c14, by = "id"
+  )
+```
+
+```{r, fig.width=8, fig.align="center", eval=FALSE}
+cut_surfaces_material %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = period), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  facet_wrap(~z.x) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+</p>
+</details>
+
+```{r, fig.width=8, fig.align="center", echo=FALSE}
+cut_surfaces_material %>%
+  ggplot() +
+  geom_sf(
+    aes(fill = period), 
+    color = "white",
+    lwd = 0.2
+  ) +
+  facet_wrap(~z.x) +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
+  )
+```
+
+This quickstart was a simple primer on how to use this package. If you think the final use case wasn't too impressive, take a look at this analysis of Bronze Age burial types through time, as performed in our [JOSS paper](https://github.com/nevrome/bleiglas/blob/master/paper/paper.md) and the [vignette](https://github.com/nevrome/bleiglas/blob/master/vignettes/complete_example.Rmd).
+
+<!-- Add JOSS paper figure here? Just a suggestion as a further teaser. It's just beautiful --> 
+
+## Citation
+
+```{r, echo=F,comment=""}
+citation("bleiglas")
+```
+---
+title: "Bleiglas Bronze Age burial rite distribution case study"
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{Bleiglas Bronze Age burial rite distribution case study}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette contains all the code behind the example in the Journal of Open Source Software paper. This can be considered a real life application initially introduced in Schmid 2019 (https://doi.org/10.1177/1059712319860842), so it contains different files in `inst/workflow` in the package directory and does not omit any code for data preparation, manipulation or plotting. See the package README for a minimal Quickstart guide to bleiglas instead.
+
+```{r, echo = FALSE}
+code_files_full_path <- list.files(
+  system.file("workflow_example", package = "bleiglas", mustWork = T),
+  pattern = ".R$", full.names = T
+)
+code_files <- basename(code_files_full_path)
+sourcecode <- lapply(code_files_full_path, function(x) { paste(readLines(x), collapse="\n") })
+```
+
+Running the code in this vignette requires some additional packages. You can install them with
+
+``` {r eval=FALSE}
+install.packages(
+  c("Bchron", "bleiglas", "c14bazAAR", "data.table", "dplyr", 
+    "ggplot2", "magrittr", "pbapply", "purrr", "raster", 
+    "rnaturalearth", "scatterplot3d", "sf", "tibble"),
+  repos = c(
+    CRAN = "https://cloud.r-project.org", 
+    ropensci = "https://ropensci.r-universe.dev"
+  )
+)
+```
+
+## `r code_files[1]`
+
+This first script downloads and prepares a set of spatial data objects which will later be used for plotting. The research area for this example was arbitrarily defined as a rectangle covering the most dense data accumulations in the relevant subset of the Radon-B database.
+
+```{r eval=FALSE, code=sourcecode[[1]]}
+```
+
+## `r code_files[2]`
+
+This script contains the code to filter and prepare radiocarbon dates on graves from Radon-B. For the purpose of tessellation we need the dates to be transformed to a simple table with columns for the spatiotemporal position as well as for the burial type context.
+
+```{r eval=FALSE, code=sourcecode[[2]]}
+```
+
+### `dates_prepared`
+
+```{r, echo=FALSE} 
+load(file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "dates_prepared.RData"))
+data.table::as.data.table(dates_prepared)
+```
+
+## `r code_files[3]`
+
+The script for the first plot in the JOSS paper: A simple map showing the spatial distribution of the observed dates or the graves they represent.
+
+```{r eval=FALSE, code=sourcecode[[3]]}
+```
+
+```{r, echo=FALSE, out.width = '100%'}
+knitr::include_graphics(
+  file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "03_map_plot.jpeg")
+)
+```
+
+## `r code_files[4]`
+
+In this script the tessellation is finally performed. The output is a `sf` object with 2D spatial polygons for different time cuts through the 3D tessellated cube. The time slices are already cut to the boundaries of the research area and the European land outline within the latter.
+
+```{r eval=FALSE, code=sourcecode[[4]]}
+```
+
+### `vertices`
+
+```{r, echo=FALSE} 
+load(file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "tesselation_calage_center_burial_type.RData"))
+```
+
+```{r, echo=FALSE} 
+data.table::as.data.table(vertices)
+```
+
+### `polygon_edges`
+
+```{r, echo=FALSE} 
+polygon_edges
+```
+
+### `cut_surfaces[[1]][1:3]`
+
+```{r, echo=FALSE} 
+cut_surfaces[[1]][1:3]
+```
+
+## `r code_files[5]`
+
+This script illustrates one way to create a (printable) 3D plot of the 3D tessellation output -- so again a plot script behind the second figure in the JOSS article. The input radiocarbon dates are plotted as red dots surrounded by the edges of the 3D polygons voro++ constructs. The spatial research area becomes a spatiotemporal cube.
+
+```{r eval=FALSE, code=sourcecode[[5]]}
+```
+
+```{r, echo=FALSE, out.width = '100%'}
+knitr::include_graphics(
+  file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "05_3D_plot.jpeg")
+)
+```
+
+## `r code_files[6]`
+
+Yet another plot script for what we call the "bleiglas" plot (Figure 3 in the JOSS article). The 2D cut polygons are projected onto a map in a diachronic plot matrix. It allows to inspect the 3D tessellation in a easily digestible way, much more human readable than the afore produced 3D plot.
+
+```{r eval=FALSE, code=sourcecode[[6]]}
+```
+
+```{r, echo=FALSE, out.width = '100%'}
+knitr::include_graphics(
+  file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "06_bleiglas_plot.jpeg")
+)
+```
+
+## `r code_files[7]`
+
+The final script and cradle of the last JOSS figure applies the bleiglas grid prediction method to account for the temporal uncertainty of the C14 dates. The result is a plot with less aesthetic, but more scientific value, as the known input errors are indicated.
+
+```{r eval=FALSE, code=sourcecode[[7]]}
+```
+
+```{r, echo=FALSE, out.width = '100%'}
+knitr::include_graphics(
+  file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "07_prediction_grid_plot.jpeg")
+)
+```
+
+### `prediction (first 10 rows)`
+
+```{r, echo=FALSE} 
+load(file.path(system.file("workflow_example", package = "bleiglas", mustWork = T), "prediction_grid_example.RData"))
+prediction_grid_example
+```
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/bleiglas.R
+\docType{package}
+\name{bleiglas-package}
+\alias{bleiglas}
+\alias{bleiglas-package}
+\title{bleiglas: Spatiotemporal Data Interpolation and Visualisation based on 3D Tessellation}
+\description{
+Employs Voro++ for the calculation of three dimensional Voronoi diagrams from
+    input point clouds. This is a special form of tessellation where each polygon is defined 
+    as the area closest to one particular seed point. Voronoi diagrams have useful applications
+    in - among others - astronomy, material science or geography and bleiglas provides functions 
+    to make 3D tessellation more readily available as a mean for data visualisation and interpolation.
+    It can be used for any 3D point cloud, but the output is optimized for spatiotemporal applications 
+    in archaeology.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/nevrome/bleiglas}
+  \item Report bugs at \url{https://github.com/nevrome/bleiglas/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Clemens Schmid \email{clemens@nevrome.de} (\href{https://orcid.org/0000-0003-3448-5715}{ORCID}) [copyright holder]
+
+Other contributors:
+\itemize{
+  \item Stephan Schiffels (\href{https://orcid.org/0000-0002-1017-9150}{ORCID}) [contributor]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/predict_grid.R
+\name{predict_grid}
+\alias{predict_grid}
+\alias{attribute_grid_points_to_polygons}
+\title{predict_grid}
+\usage{
+predict_grid(x, prediction_grid, unit_scaling = c(1, 1, 1), ...)
+
+attribute_grid_points_to_polygons(prediction_grid, polygon_edges)
+}
+\arguments{
+\item{x}{List of data.tables/data.frames with the input points that define
+the tessellation model:
+\itemize{
+  \item id: id number that is passed to the output polygon (integer)
+  \item x: x-axis coordinate (numeric)
+  \item y: y-axis coordinate (numeric)
+  \item z: z-axis coordinate (numeric)
+  \item ...: arbitrary variables
+}}
+
+\item{prediction_grid}{data.table/data.frame with the points that should be
+predicted by the tessellation model:
+\itemize{
+  \item x: x-axis coordinate (numeric)
+  \item y: y-axis coordinate (numeric)
+  \item z: z-axis coordinate (numeric)
+}}
+
+\item{unit_scaling}{passed to \link{tessellate} - see the documentation there}
+
+\item{...}{Further variables passed to \code{pbapply::pblapply} (e.g. \code{cl})}
+
+\item{polygon_edges}{polygon points as returned by \code{bleiglas::read_polygon_edges}}
+}
+\value{
+list of data.tables with polygon attribution and predictions
+}
+\description{
+\code{predict_grid} allows to conveniently use the tessellation output as a
+model to predict values for arbitrary points. See the bleiglass JOSS paper and
+\code{vignette("complete_example", "bleiglas")} for an example application.
+\code{attribute_grid_points_to_polygons} is a helper function that does the
+important step of point-to-polygon attribution, which might be useful by
+itself.
+}
+\examples{
+x <- lapply(1:5, function(i) {
+  current_iteration <- data.table::data.table(
+    id = 1:5,
+    x = c(1, 2, 3, 2, 1) + rnorm(5, 0, 0.3),
+    y = c(3, 1, 4, 4, 3) + rnorm(5, 0, 0.3),
+    z = c(1, 3, 4, 2, 5) + rnorm(5, 0, 0.3),
+    value1 = c("Brot", "Kaese", "Wurst", "Gurke", "Brot"),
+    value2 = c(5.3, 5.1, 5.8, 1.0, 1.2)
+  )
+  data.table::setkey(current_iteration, "x", "y", "z")
+  unique(current_iteration)
+})
+
+all_iterations <- data.table::rbindlist(x)
+
+prediction_grid <- expand.grid(
+  x = seq(min(all_iterations$x), max(all_iterations$x), length.out = 10),
+  y = seq(min(all_iterations$y), max(all_iterations$y), length.out = 10),
+  z = seq(min(all_iterations$z), max(all_iterations$z), length.out = 5)
+)
+
+bleiglas::predict_grid(x, prediction_grid, cl = 1)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/read_polygon_edges.R
+\name{read_polygon_edges}
+\alias{read_polygon_edges}
+\title{read_polygon_edges}
+\usage{
+read_polygon_edges(x, rescale = TRUE)
+}
+\arguments{
+\item{x}{character vector with raw, linewise output of voro++ as produced with
+\link{tessellate} when \code{output_definition = "\%i*\%P*\%t"}}
+
+\item{rescale}{Should the output of \link{tessellate} be back-rescaled according to its 
+\code{unit_scaling} attribute? Ignored if \code{x} does not have this attribute}
+}
+\value{
+\link[data.table]{data.table} with columns for the coordinates x, y and z of the starting and
+end point of each polygon edge
+}
+\description{
+Special reader function for polygon edge output of voro++.
+}
+\examples{
+random_unique_points <- unique(data.table::data.table(
+  id = NA,
+  x = runif(10, 0, 100000),
+  y = runif(10, 0, 100000),
+  z = runif(10, 0, 100)
+))
+random_unique_points$id <- seq_len(nrow(random_unique_points))
+
+voro_output <- tessellate(random_unique_points, unit_scaling = c(0.001, 0.001, 1))
+
+polygon_points <- read_polygon_edges(voro_output)
+
+cut_surfaces <- cut_polygons(polygon_points, c(20, 40, 60))
+
+cut_surfaces_sf <- cut_polygons_to_sf(cut_surfaces, crs = 25832)
+\donttest{
+polygons_z_20 <- sf::st_geometry(cut_surfaces_sf[cut_surfaces_sf$z == 20, ])
+plot(polygons_z_20, col = sf::sf.colors(10, categorical = TRUE))
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tessellate.R
+\name{tessellate}
+\alias{tessellate}
+\title{tessellate}
+\usage{
+tessellate(
+  x,
+  x_min = NA,
+  x_max = NA,
+  y_min = NA,
+  y_max = NA,
+  z_min = NA,
+  z_max = NA,
+  unit_scaling = c(1, 1, 1),
+  output_definition = "\%i*\%P*\%t",
+  options = "-v",
+  voro_path = "voro++"
+)
+}
+\arguments{
+\item{x}{data.table/data.frame with the input points described by four variables (named columns):
+\itemize{
+  \item id: id number that is passed to the output polygon (integer)
+  \item x: x-axis coordinate (numeric)
+  \item y: y-axis coordinate (numeric)
+  \item z: z-axis coordinate (numeric)
+}}
+
+\item{x_min}{minimum x-axis coordinate of the tessellation box. Default: min(x).
+These values are automatically multiplied by the scaling factor in \code{unit_scaling}!}
+
+\item{x_max}{maximum x-axis coordinate of the tessellation box. Default: max(x)}
+
+\item{y_min}{minimum y-axis coordinate of the tessellation box. Default: min(y)}
+
+\item{y_max}{maximum y-axis coordinate of the tessellation box. Default: max(y)}
+
+\item{z_min}{minimum z-axis coordinate of the tessellation box. Default: min(z)}
+
+\item{z_max}{maximum z-axis coordinate of the tessellation box. Default: max(z)}
+
+\item{unit_scaling}{numeric vector with 3 scaling factors for x, y and z axis values.
+As a default setting (c(1,1,1)) tesselate assumes that the values given as x, y and z are comparable in units.
+If you input spatio-temporal data, make sure that you have units that determine your 3D distance
+metric the way you intend it to be. For example, if you need 1km=1year, use those units in the input. 
+Otherwise, rescale appropriately. Mind that the values of *_min and *_max are adjusted 
+as well by these factors. The unit_scaling parameter is stored as an attribute of the output
+to scale the output back automatically in \link{read_polygon_edges}.}
+
+\item{output_definition}{string that describes how the output file of voro++ should be structured.
+This is passed to the -c option of the command line interface. All possible customization options
+are documented \href{http://math.lbl.gov/voro++/doc/custom.html}{here}. Default: "\%i*\%P*\%t"}
+
+\item{options}{string with additional options passed to voro++. All options are documented
+\href{http://math.lbl.gov/voro++/doc/cmd.html}{here}. Default: "-v"}
+
+\item{voro_path}{system path to the voro++ executable. Default: "voro++"}
+}
+\value{
+raw, linewise output of voro++ in a character vector with an attribute "unit scaling" (see above)
+}
+\description{
+Command line utility wrapper for the \href{http://math.lbl.gov/voro++}{voro++} software library.
+voro++ must be installed on your system to use this function.
+}
+\examples{
+random_unique_points <- unique(data.table::data.table(
+  id = NA,
+  x = runif(10, 0, 100000),
+  y = runif(10, 0, 100000),
+  z = runif(10, 0, 100)
+))
+random_unique_points$id <- seq_len(nrow(random_unique_points))
+
+voro_output <- tessellate(random_unique_points, unit_scaling = c(0.001, 0.001, 1))
+
+polygon_points <- read_polygon_edges(voro_output)
+
+cut_surfaces <- cut_polygons(polygon_points, c(20, 40, 60))
+
+cut_surfaces_sf <- cut_polygons_to_sf(cut_surfaces, crs = 25832)
+\donttest{
+polygons_z_20 <- sf::st_geometry(cut_surfaces_sf[cut_surfaces_sf$z == 20, ])
+plot(polygons_z_20, col = sf::sf.colors(10, categorical = TRUE))
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cut_polygons.R
+\name{cut_polygons}
+\alias{cut_polygons}
+\title{cut_polygons}
+\usage{
+cut_polygons(x, cuts)
+}
+\arguments{
+\item{x}{\link[data.table]{data.table} with output of voro++ as produced with
+\link{tessellate} and then \link{read_polygon_edges}}
+
+\item{cuts}{numeric vector with z-axis coordinates where cuts should be applied}
+}
+\value{
+list of lists. One list element for each cutting surface and within these
+data.tables for each 2D polygon that resulted from the cutting operation.
+Each data.table holds the corner coordinates for one 2D polygon.
+}
+\description{
+Figuratively cut horizontal slices of a 3D, tessellated cube.
+}
+\examples{
+random_unique_points <- unique(data.table::data.table(
+  id = NA,
+  x = runif(10, 0, 100000),
+  y = runif(10, 0, 100000),
+  z = runif(10, 0, 100)
+))
+random_unique_points$id <- seq_len(nrow(random_unique_points))
+
+voro_output <- tessellate(random_unique_points, unit_scaling = c(0.001, 0.001, 1))
+
+polygon_points <- read_polygon_edges(voro_output)
+
+cut_surfaces <- cut_polygons(polygon_points, c(20, 40, 60))
+
+cut_surfaces_sf <- cut_polygons_to_sf(cut_surfaces, crs = 25832)
+\donttest{
+polygons_z_20 <- sf::st_geometry(cut_surfaces_sf[cut_surfaces_sf$z == 20, ])
+plot(polygons_z_20, col = sf::sf.colors(10, categorical = TRUE))
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cut_polygons_to_sf.R
+\name{cut_polygons_to_sf}
+\alias{cut_polygons_to_sf}
+\title{cut_polygons_to_sf}
+\usage{
+cut_polygons_to_sf(x, crs)
+}
+\arguments{
+\item{x}{list of lists of data.tables. Output of cut_polygons}
+
+\item{crs}{coordinate reference system of the resulting 2D polygons.
+Integer with the EPSG code, or character with proj4string}
+}
+\value{
+sf object with one row for each 2D polygon
+}
+\description{
+Transform the polygon cut slices to the sf format. This only makes sense
+if the x and y coordinate of your input dataset are spatial coordinates.
+}
+\examples{
+random_unique_points <- unique(data.table::data.table(
+  id = NA,
+  x = runif(10, 0, 100000),
+  y = runif(10, 0, 100000),
+  z = runif(10, 0, 100)
+))
+random_unique_points$id <- seq_len(nrow(random_unique_points))
+
+voro_output <- tessellate(random_unique_points, unit_scaling = c(0.001, 0.001, 1))
+
+polygon_points <- read_polygon_edges(voro_output)
+
+cut_surfaces <- cut_polygons(polygon_points, c(20, 40, 60))
+
+cut_surfaces_sf <- cut_polygons_to_sf(cut_surfaces, crs = 25832)
+\donttest{
+polygons_z_20 <- sf::st_geometry(cut_surfaces_sf[cut_surfaces_sf$z == 20, ])
+plot(polygons_z_20, col = sf::sf.colors(10, categorical = TRUE))
+}
+
+}

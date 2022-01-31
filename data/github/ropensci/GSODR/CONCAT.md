@@ -1422,4 +1422,1159 @@ We checked 1 reverse dependencies, comparing R CMD check results across CRAN and
 
 # Revdeps
 
-*Wow, no problems at all. :)**Wow, no problems at all. :)*
+*Wow, no problems at all. :)**Wow, no problems at all. :)*---
+title: "Fetch and Clean 'isd_history.csv' File"
+author: "Adam H. Sparks"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r color, echo = FALSE, results='asis'}
+# crayon needs to be explicitly activated in Rmd
+options(crayon.enabled = TRUE)
+# Hooks needs to be set to deal with outputs
+# thanks to fansi logic
+old_hooks <- fansi::set_knit_hooks(knitr::knit_hooks, 
+                                   which = c("output", "message", "error"))
+```
+
+# Introduction
+
+The isd_history.csv file details GSOD station metadata.
+These data include the start and stop years used by _GSODR_ to pre-check requests before querying the server for download and the country code used by _GSODR_ when sub-setting for requests by country.
+The following checks are performed on the raw data file before inclusion in _GSODR_,
+
+  * Check for valid lon and lat values;
+    
+      * isd_history where latitude or longitude are `NA` or both 0 are removed leaving only properly georeferenced stations,
+
+      * isd_history where latitude is < -90˚ or > 90˚ are removed,
+
+      * isd_history where longitude is < -180˚ or > 180˚ are removed.
+
+  * A new field, STNID, a concatenation of the USAF and WBAN fields, is added.
+
+# Data Processing
+
+## Set up workspace
+
+```{r load_libs, echo=TRUE, message=FALSE, output=FALSE, warning=FALSE}
+library("sessioninfo")
+library("skimr")
+library("countrycode")
+library("data.table")
+```
+
+## Download and clean data
+
+```{r download_NE_data, echo=TRUE, message=FALSE, warning=FALSE}
+# download data
+new_isd_history <- fread("https://www1.ncdc.noaa.gov/pub/data/noaa/isd-history.csv")
+```
+
+## Add/drop columns and save to disk
+
+```{r clean_and_reformat, echo=TRUE, cache=FALSE}
+# add STNID column
+new_isd_history[, STNID := paste(USAF, WBAN, sep = "-")]
+setcolorder(new_isd_history, "STNID")
+setnames(new_isd_history, "STATION NAME", "NAME")
+
+# drop stations not in GSOD data
+new_isd_history[, STNID_len := nchar(STNID)]
+new_isd_history <- subset(new_isd_history, STNID_len == 12)
+
+# remove stations where LAT or LON is NA
+new_isd_history <- na.omit(new_isd_history, cols = c("LAT", "LON"))
+
+# remove extra columns
+new_isd_history[, c("USAF", "WBAN", "ICAO", "ELEV(M)", "STNID_len") := NULL]
+```
+
+## Add country names based on FIPS
+
+```{r merge-country, eval=TRUE, message=FALSE}
+new_isd_history <-
+  new_isd_history[setDT(countrycode::codelist), on = c("CTRY" = "fips")]
+
+new_isd_history <- new_isd_history[, c(
+  "STNID",
+  "NAME",
+  "LAT",
+  "LON",
+  "CTRY",
+  "STATE",
+  "BEGIN",
+  "END",
+  "country.name.en",
+  "iso2c",
+  "iso3c"
+)]
+
+# clean data
+new_isd_history[new_isd_history == -999] <- NA
+new_isd_history[new_isd_history == -999.9] <- NA
+new_isd_history <-
+  new_isd_history[!is.na(new_isd_history$LAT) &
+                    !is.na(new_isd_history$LON),]
+new_isd_history <-
+  new_isd_history[new_isd_history$LAT != 0 &
+                    new_isd_history$LON != 0,]
+new_isd_history <-
+  new_isd_history[new_isd_history$LAT > -90 &
+                    new_isd_history$LAT < 90,]
+new_isd_history <-
+  new_isd_history[new_isd_history$LON > -180 &
+                    new_isd_history$LON < 180,]
+
+# set colnames to upper case
+names(new_isd_history) <- toupper(names(new_isd_history))
+setnames(new_isd_history,
+         old = "COUNTRY.NAME.EN",
+         new = "COUNTRY_NAME")
+
+# set country names to be upper case for easier internal verifications
+new_isd_history[, COUNTRY_NAME := toupper(COUNTRY_NAME)]
+
+# set key for joins when processing CSV files
+setkeyv(new_isd_history, "STNID")[]
+```
+
+## Show changes from last release
+
+```{r diff-codes}
+# ensure we aren't using a locally installed dev version
+install.packages("GSODR", repos = "https://cloud.r-project.org/")
+load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+
+# select only the cols of interest
+x <- names(isd_history)
+new_isd_history <- new_isd_history[, ..x] 
+
+(isd_diff <- diffobj::diffPrint(new_isd_history, isd_history))
+```
+
+## View and save the data
+
+```{r view-and-save}
+str(isd_history)
+
+# write rda file to disk for use with GSODR package
+save(isd_history,
+     file = "../inst/extdata/isd_history.rda",
+     compress = "bzip2")
+
+save(isd_diff,
+     file = "../inst/extdata/isd_diff.rda",
+     compress = "bzip2")
+```
+
+# Notes
+
+## NOAA policy
+
+Users of these data should take into account the following (from the
+[NCEI website](https://www7.ncdc.noaa.gov/CDO/cdoselect.cmd?datasetabbv=GSOD&countryabbv=&georegionabbv=)): 
+
+> The following data and products may have conditions placed on their international commercial use. They can be used within the U.S. or for non-commercial international activities without restriction. The non-U.S. data cannot be redistributed for commercial purposes. Re-distribution of these data by others must provide this same notification. A log of IP addresses accessing these data and products will be maintained and may be made available to data providers.  
+For details, please consult: [WMO Resolution 40. NOAA Policy](https://community.wmo.int/resolution-40)
+
+## R System Information
+
+```{r system_information, echo=FALSE}
+session_info()
+```
+---
+title: "GSODR"
+author: "Adam H. Sparks"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{GSODR}
+  %\VignetteEncoding{UTF-8}
+bibliography: references.bib
+---
+
+
+
+# Introduction
+
+The GSOD or [Global Surface Summary of the Day (GSOD)](https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516) data provided by the US National Centers for Environmental Information (NCEI) are a valuable source of weather data with global coverage.
+However, the data files are cumbersome and difficult to work with.
+_GSODR_ aims to make it easy to find, transfer and format the data you need for use in analysis and provides four main functions for facilitating this:
+
+- `get_GSOD()` - this function queries and transfers files from the NCEI's webpage, reformats them and returns a tidy data frame in R.
+
+- `reformat_GSOD()` - this function takes individual station files from the local disk and re-formats them returning a tidy data frame in R.
+
+- `nearest_stations()` - this function returns a vector of station IDs that fall within the given radius (kilometres) of a point given as latitude and longitude in order from nearest to farthest.
+
+- `update_station_list()` - this function downloads the latest station list from the NCEI's server updates the package's internal database of stations and their metadata.
+
+- `get_inventory()` - this function downloads the latest station inventory information from the NCEI's server and returns the header information about the latest version as a message in the console and a data frame of the stations' inventories for each year and month that data are reported.
+
+When reformatting data either with `get_GSOD()` or `reformat_GSOD()`, all units are converted from United States Customary System (USCS) to International System of Units (SI), _e.g._, inches to millimetres and Fahrenheit to Celsius.
+Data in the R session summarise each year by station, which also includes vapour pressure and relative humidity elements calculated from existing data in GSOD.
+
+For more information see the description of the data provided by NCEI, <https://www7.ncdc.noaa.gov/CDO/GSOD_DESC.txt>.
+
+# Using get_GSOD()
+
+## Find Stations in or near Toowoomba, Queensland, Australia
+
+_GSODR_ provides lists of weather station locations and elevation values.
+It's easy to find all stations in Australia.
+
+
+```r
+library("GSODR")
+
+load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+
+# create data.frame for Australia only
+Oz <- subset(isd_history, COUNTRY_NAME == "AUSTRALIA")
+
+Oz
+```
+
+```
+##              STNID                         NAME     LAT     LON
+##    1: 695023-99999          HORN ISLAND   (HID) -10.583 142.300
+##    2: 749430-99999           AIDELAIDE RIVER SE -13.300 131.133
+##    3: 749432-99999    BATCHELOR FIELD AUSTRALIA -13.049 131.066
+##    4: 749438-99999         IRON RANGE AUSTRALIA -12.700 143.300
+##    5: 749439-99999     MAREEBA AS/HOEVETT FIELD -17.050 145.400
+##   ---                                                          
+## 1044: 959890-99999      BICHENO (COUNCIL DEPOT) -41.867 148.300
+## 1045: 959950-99999 LORD HOWE ISLAND WINDY POINT -31.533 159.067
+## 1046: 959970-99999    HEARD ISLAND (ATLAS COVE) -53.017  73.400
+## 1047: 996600-99999          ENVIRONM BUOY 55011 -40.800 144.300
+## 1048: 999999-82101               NORTHWEST CAPE -22.333 114.050
+##       CTRY STATE    BEGIN      END COUNTRY_NAME ISO2C ISO3C
+##    1:   AS       19420804 20030816    AUSTRALIA    AU   AUS
+##    2:   AS       19430228 19440821    AUSTRALIA    AU   AUS
+##    3:   AS       19421231 19430610    AUSTRALIA    AU   AUS
+##    4:   AS       19420917 19440930    AUSTRALIA    AU   AUS
+##    5:   AS       19420630 19440630    AUSTRALIA    AU   AUS
+##   ---                                                      
+## 1044:   AS       19650101 20210115    AUSTRALIA    AU   AUS
+## 1045:   AS       20120920 20210116    AUSTRALIA    AU   AUS
+## 1046:   AS       19980301 20121220    AUSTRALIA    AU   AUS
+## 1047:   AS       19930221 19970403    AUSTRALIA    AU   AUS
+## 1048:   AS       19680305 19680430    AUSTRALIA    AU   AUS
+```
+
+```r
+# Look for a specific town in Australia
+subset(Oz, grepl("TOOWOOMBA", NAME))
+```
+
+```
+##           STNID              NAME     LAT     LON CTRY STATE
+## 1: 945510-99999         TOOWOOMBA -27.583 151.933   AS      
+## 2: 955510-99999 TOOWOOMBA AIRPORT -27.550 151.917   AS      
+##       BEGIN      END COUNTRY_NAME ISO2C ISO3C
+## 1: 19561231 20120503    AUSTRALIA    AU   AUS
+## 2: 19980301 20210116    AUSTRALIA    AU   AUS
+```
+
+## Download a Single Station and Year Using get_GSOD()
+
+Now that we've seen where the reporting stations are located, we can download weather data from the station Toowoomba, Queensland, Australia for 2010 by using the STNID in the `station` parameter of `get_GSOD()`.
+
+
+```r
+tbar <- get_GSOD(years = 2010, station = "955510-99999")
+str(tbar)
+```
+
+```
+## Classes 'data.table' and 'data.frame':	365 obs. of  47 variables:
+##  $ STNID           : chr  "955510-99999" "955510-99999" "955510-99999" "955510-99999" ...
+##  $ NAME            : chr  "TOOWOOMBA AIRPORT" "TOOWOOMBA AIRPORT" "TOOWOOMBA AIRPORT" "TOOWOOMBA AIRPORT" ...
+##  $ CTRY            : chr  "AS" "AS" "AS" "AS" ...
+##  $ COUNTRY_NAME    : chr  "AUSTRALIA" "AUSTRALIA" "AUSTRALIA" "AUSTRALIA" ...
+##  $ ISO2C           : chr  "AU" "AU" "AU" "AU" ...
+##  $ ISO3C           : chr  "AUS" "AUS" "AUS" "AUS" ...
+##  $ STATE           : chr  "" "" "" "" ...
+##  $ LATITUDE        : num  -27.6 -27.6 -27.6 -27.6 -27.6 ...
+##  $ LONGITUDE       : num  152 152 152 152 152 ...
+##  $ ELEVATION       : num  642 642 642 642 642 642 642 642 642 642 ...
+##  $ BEGIN           : int  19980301 19980301 19980301 19980301 19980301 19980301 19980301 19980301 19980301 19980301 ...
+##  $ END             : int  20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 ...
+##  $ YEARMODA        : Date, format: "2010-01-01" ...
+##  $ YEAR            : int  2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 ...
+##  $ MONTH           : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ DAY             : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ YDAY            : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TEMP            : num  21.2 23.2 21.4 18.9 20.5 21.9 21.3 20.9 21.9 22.3 ...
+##  $ TEMP_ATTRIBUTES : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ DEWP            : num  17.9 19.4 18.9 16.4 16.4 18.7 17.4 17.1 16.2 14.9 ...
+##  $ DEWP_ATTRIBUTES : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ SLP             : num  1013 1010 1012 1016 1016 ...
+##  $ SLP_ATTRIBUTES  : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ STP             : num  942 939 941 944 944 ...
+##  $ STP_ATTRIBUTES  : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ VISIB           : num  NA NA 14.3 23.3 NA NA NA NA NA NA ...
+##  $ VISIB_ATTRIBUTES: int  0 0 6 4 0 0 0 0 0 0 ...
+##  $ WDSP            : num  4.3 3.7 7.6 8.7 7.5 6.3 7.8 7.5 6.8 6.3 ...
+##  $ WDSP_ATTRIBUTES : int  8 8 8 8 8 8 8 8 8 8 ...
+##  $ MXSPD           : num  6.7 5.1 10.3 10.3 10.8 7.7 8.7 8.7 8.2 7.2 ...
+##  $ GUST            : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ MAX             : num  25.8 26.5 28.7 24.1 24.6 26.8 26.1 26.5 27.4 28.7 ...
+##  $ MAX_ATTRIBUTES  : chr  NA NA NA NA ...
+##  $ MIN             : num  17.8 19.1 19.3 16.9 16.7 17.5 19.1 18.5 17.8 17.7 ...
+##  $ MIN_ATTRIBUTES  : chr  NA NA "*" "*" ...
+##  $ PRCP            : num  1.52 0.25 19.81 1.02 0.25 ...
+##  $ PRCP_ATTRIBUTES : chr  "G" "G" "G" "G" ...
+##  $ SNDP            : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ I_FOG           : num  0 0 1 0 0 1 1 0 1 1 ...
+##  $ I_RAIN_DRIZZLE  : num  0 0 1 0 0 0 0 0 0 0 ...
+##  $ I_SNOW_ICE      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_HAIL          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_THUNDER       : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_TORNADO_FUNNEL: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ EA              : num  2 2.2 2.2 1.9 1.9 2.2 2 1.9 1.8 1.7 ...
+##  $ ES              : num  2.5 2.8 2.5 2.2 2.4 2.6 2.5 2.5 2.6 2.7 ...
+##  $ RH              : num  81.5 79.2 85.7 85.4 77.3 82.1 78.5 78.9 70.1 62.9 ...
+##  - attr(*, ".internal.selfref")=<externalptr>
+```
+
+## Using nearest_stations() to Download Multiple Stations at Once
+
+Using the `nearest_stations()` function, you can find stations closest to a given point specified by latitude and longitude in decimal degrees.
+This can be used to generate a vector to pass along to `get_GSOD()` and download the stations of interest.
+
+
+```r
+tbar_stations <- nearest_stations(LAT = -27.5598,
+                                  LON = 151.9507,
+                                  distance = 50)
+
+tbar <- get_GSOD(years = 2010, station = tbar_stations)
+str(tbar)
+```
+
+```
+## Classes 'data.table' and 'data.frame':	1095 obs. of  47 variables:
+##  $ STNID           : chr  "945520-99999" "945520-99999" "945520-99999" "945520-99999" ...
+##  $ NAME            : chr  "OAKEY" "OAKEY" "OAKEY" "OAKEY" ...
+##  $ CTRY            : chr  "AS" "AS" "AS" "AS" ...
+##  $ COUNTRY_NAME    : chr  "AUSTRALIA" "AUSTRALIA" "AUSTRALIA" "AUSTRALIA" ...
+##  $ ISO2C           : chr  "AU" "AU" "AU" "AU" ...
+##  $ ISO3C           : chr  "AUS" "AUS" "AUS" "AUS" ...
+##  $ STATE           : chr  "" "" "" "" ...
+##  $ LATITUDE        : num  -27.4 -27.4 -27.4 -27.4 -27.4 ...
+##  $ LONGITUDE       : num  152 152 152 152 152 ...
+##  $ ELEVATION       : num  407 407 407 407 407 ...
+##  $ BEGIN           : int  19730430 19730430 19730430 19730430 19730430 19730430 19730430 19730430 19730430 19730430 ...
+##  $ END             : int  20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 20210116 ...
+##  $ YEARMODA        : Date, format: "2010-01-01" ...
+##  $ YEAR            : int  2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 ...
+##  $ MONTH           : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ DAY             : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ YDAY            : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ TEMP            : num  23.4 26.2 24.5 21.6 22.6 24.7 24 23.3 24.4 25.1 ...
+##  $ TEMP_ATTRIBUTES : int  16 16 16 16 16 16 16 16 16 16 ...
+##  $ DEWP            : num  18.4 19.4 19.4 16.8 16.9 18.7 17.1 17.1 15.7 13.6 ...
+##  $ DEWP_ATTRIBUTES : int  16 16 16 16 16 16 16 16 16 16 ...
+##  $ SLP             : num  1012 1009 1011 1015 1015 ...
+##  $ SLP_ATTRIBUTES  : int  16 16 16 16 16 16 16 16 16 16 ...
+##  $ STP             : num  967 964 966 969 969 ...
+##  $ STP_ATTRIBUTES  : int  16 16 16 16 16 16 16 16 16 16 ...
+##  $ VISIB           : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ VISIB_ATTRIBUTES: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ WDSP            : num  4.3 4.1 6.1 7.5 4.4 4.3 5.8 6.2 5.6 4.5 ...
+##  $ WDSP_ATTRIBUTES : int  16 16 16 16 16 16 16 16 16 16 ...
+##  $ MXSPD           : num  7.2 6.2 8.7 9.8 7.7 6.2 8.2 9.3 7.7 7.2 ...
+##  $ GUST            : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ MAX             : num  28.5 31.2 33.6 27.1 27.8 30.4 30 30.5 31.9 33.2 ...
+##  $ MAX_ATTRIBUTES  : chr  NA NA NA NA ...
+##  $ MIN             : num  19.5 20.5 21.3 18.8 18.4 18.6 20.6 18.6 17.2 16.2 ...
+##  $ MIN_ATTRIBUTES  : chr  NA NA "*" "*" ...
+##  $ PRCP            : num  0.51 0 3.3 0 0 0 0 0.25 0 0 ...
+##  $ PRCP_ATTRIBUTES : chr  "G" "G" "G" "G" ...
+##  $ SNDP            : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ I_FOG           : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_RAIN_DRIZZLE  : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_SNOW_ICE      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_HAIL          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_THUNDER       : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ I_TORNADO_FUNNEL: num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ EA              : num  2.1 2.2 2.2 1.9 1.9 2.2 1.9 1.9 1.8 1.6 ...
+##  $ ES              : num  2.9 3.4 3.1 2.6 2.7 3.1 3 2.9 3.1 3.2 ...
+##  $ RH              : num  73.5 66.2 73.3 74.2 70.2 69.3 65.3 68.2 58.4 48.9 ...
+##  - attr(*, ".internal.selfref")=<externalptr>
+```
+
+## Plot Maximum and Minimum Temperature Values
+
+Using the first data downloaded for a single station, 955510-99999, plot the
+temperature for 2010.
+
+
+```r
+library("ggplot2")
+library("tidyr")
+
+# Create a dataframe of just the date and temperature values that we want to
+# plot
+tbar_temps <- tbar[, c("YEARMODA", "TEMP", "MAX", "MIN")]
+
+# Gather the data from wide to long
+tbar_temps <-
+  pivot_longer(tbar_temps, cols = TEMP:MIN, names_to = "Measurement")
+
+ggplot(data = tbar_temps, aes(x = YEARMODA,
+                              y = value,
+                              colour = Measurement)) +
+  geom_line() +
+  scale_color_brewer(type = "qual", na.value = "black") +
+  scale_y_continuous(name = "Temperature") +
+  scale_x_date(name = "Date") +
+  ggtitle(label = "Max, min and mean temperatures for Toowoomba, Qld, AU",
+          subtitle = "Data: U.S. NCEI GSOD") +
+  theme_classic()
+```
+
+<img src="Ex5-1.png" title="plot of chunk Ex5" alt="plot of chunk Ex5" style="display: block; margin: auto;" />
+
+# Using reformat_GSOD()
+
+You may have already downloaded GSOD data or may just wish to use your browser to download the files from the server to you local disk and not use the capabilities of `get_GSOD()`.
+In that case the `reformat_GSOD()` function is useful.
+
+There are two ways, you can either provide `reformat_GSOD()` with a list of specified station files or you can supply it with a directory containing all of the "STATION.csv" station files or "YEAR.zip" annual files that you wish to reformat.
+
+**Note** _Any_ .csv file provided to `reformat_GSOD()` will be imported, if it is not a GSOD data file, this will lead to an error.
+Make sure the directory and file lists are clean.
+
+## Reformat a List of Local Files
+
+In this example two STATION.csv files are in subdirectories of user's home directory and are listed for reformatting as a string.
+
+
+```r
+y <- c("~/GSOD/gsod_1960/20049099999.csv",
+       "~/GSOD/gsod_1961/20049099999.csv")
+x <- reformat_GSOD(file_list = y)
+```
+
+## Reformat all Local Files Found in Directory
+
+In this example all STATION.csv files in the sub-folder GSOD/gsod_1960 will be imported and reformatted.
+
+
+```r
+x <- reformat_GSOD(dsn = "~/GSOD/gsod_1960")
+```
+
+# Using update_station_list()
+
+_GSODR_ uses internal databases of station data from the NCEI to provide location and other metadata, _e.g._ elevation, station names, WMO codes, etc. to make the process of querying for weather data faster.
+This database is created and packaged with _GSODR_ for distribution and is updated with new releases.
+Users have the option of updating these databases after installing _GSODR_.
+While this option gives the users the ability to keep the database up-to-date and gives _GSODR's_ authors flexibility in maintaining it, this also means that reproducibility may be affected since the same version of _GSODR_ may have different databases on different machines.
+If reproducibility is necessary, care should be taken to ensure that the version of the databases is the same across different machines.
+
+The database file `isd_history.rda` can be located on your local system by using the following command, `paste0(.libPaths(), "/GSODR/extdata")[1]`, unless you have specified another location for library installations and installed _GSODR_ there, in which case it would still be in `GSODR/extdata`.
+
+To update _GSODR's_ internal database of station locations simply use `update_station_list()`, which will update the internal station database according to the latest data available from the NCEI.
+
+
+```r
+update_station_list()
+```
+
+# Using get_inventory()
+
+_GSODR_ provides a function, `get_inventory()` to retrieve an inventory of the number of weather observations by station-year-month for the beginning of record through to current.
+
+Following is an example of how to retrieve the inventory and check a station in Toowoomba, Queensland, Australia, which was used in an earlier example.
+
+
+```r
+inventory <- get_inventory()
+
+inventory
+```
+
+```
+##   *** FEDERAL CLIMATE COMPLEX INTEGRATED SURFACE DATA INVENTORY ***  
+##    This inventory provides the number of weather observations by  
+##    STATION-YEAR-MONTH for beginning of record through September 2021   
+##                STNID NAME LAT LON CTRY STATE BEGIN END COUNTRY_NAME
+##      1: 007018-99999 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##      2: 007018-99999 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##      3: 007026-99999 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##      4: 007026-99999 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##      5: 007026-99999 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##     ---                                                            
+## 658140:   A51256-451 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+## 658141:   A51256-451 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+## 658142:   A51256-451 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+## 658143:   A51256-451 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+## 658144:   A51256-451 <NA>  NA  NA <NA>  <NA>    NA  NA         <NA>
+##         ISO2C ISO3C YEAR  JAN  FEB  MAR  APR  MAY  JUN  JUL  AUG
+##      1:  <NA>  <NA> 2011    0    0 2104 2797 2543 2614  382    0
+##      2:  <NA>  <NA> 2013    0    0    0    0    0    0  710    0
+##      3:  <NA>  <NA> 2012    0    0    0    0    0    0  367    0
+##      4:  <NA>  <NA> 2014    0    0    0    0    0    0  180    0
+##      5:  <NA>  <NA> 2016    0    0    0    0    0  794    0    0
+##     ---                                                         
+## 658140:  <NA>  <NA> 2017 2192 1883 2204 1910 2145 2113 2218 2204
+## 658141:  <NA>  <NA> 2018 2192 1887 2194 2113 2151 2095 2202 2197
+## 658142:  <NA>  <NA> 2019 2188 2000 2143 2105 2187 2124 2184 2138
+## 658143:  <NA>  <NA> 2020 2165 1455 2144 2125 2199 2123 2112 2192
+## 658144:  <NA>  <NA> 2021 2085 1992 2217 1975 2146 2092 2227 2170
+##          SEP  OCT  NOV  DEC
+##      1:    0    0    0    0
+##      2:    0    0    0    0
+##      3:    0    0    0    7
+##      4:    4    0  552    0
+##      5:    0    0    0    0
+##     ---                    
+## 658140: 2082 2192 2103 2174
+## 658141: 1816 2195 2063 2178
+## 658142: 2077 1872 1508 2159
+## 658143: 2083 2079 2074 2187
+## 658144: 1617    0    0    0
+```
+
+```r
+subset(inventory, STNID %in% "955510-99999")
+```
+
+```
+##   *** FEDERAL CLIMATE COMPLEX INTEGRATED SURFACE DATA INVENTORY ***  
+##    This inventory provides the number of weather observations by  
+##    STATION-YEAR-MONTH for beginning of record through September 2021   
+##            STNID              NAME    LAT     LON CTRY STATE
+##  1: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  2: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  3: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  4: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  5: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  6: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  7: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  8: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##  9: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 10: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 11: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 12: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 13: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 14: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 15: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 16: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 17: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 18: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 19: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 20: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 21: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 22: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 23: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+## 24: 955510-99999 TOOWOOMBA AIRPORT -27.55 151.917   AS      
+##            STNID              NAME    LAT     LON CTRY STATE
+##        BEGIN      END COUNTRY_NAME ISO2C ISO3C YEAR JAN FEB MAR APR
+##  1: 19980301 20210116    AUSTRALIA    AU   AUS 1998   0   0 222 223
+##  2: 19980301 20210116    AUSTRALIA    AU   AUS 1999 213 201 235 224
+##  3: 19980301 20210116    AUSTRALIA    AU   AUS 2000 241 227 247 238
+##  4: 19980301 20210116    AUSTRALIA    AU   AUS 2001 245 223 246 238
+##  5: 19980301 20210116    AUSTRALIA    AU   AUS 2002 245 219 246 236
+##  6: 19980301 20210116    AUSTRALIA    AU   AUS 2003 244 217 220 232
+##  7: 19980301 20210116    AUSTRALIA    AU   AUS 2004 240 227 241 229
+##  8: 19980301 20210116    AUSTRALIA    AU   AUS 2005 241 221 242 240
+##  9: 19980301 20210116    AUSTRALIA    AU   AUS 2006 245 223 246 232
+## 10: 19980301 20210116    AUSTRALIA    AU   AUS 2007 247 222 244 240
+## 11: 19980301 20210116    AUSTRALIA    AU   AUS 2008 247 228 248 239
+## 12: 19980301 20210116    AUSTRALIA    AU   AUS 2009 245 222 246 235
+## 13: 19980301 20210116    AUSTRALIA    AU   AUS 2010 248 223 248 240
+## 14: 19980301 20210116    AUSTRALIA    AU   AUS 2011 247 224 247 240
+## 15: 19980301 20210116    AUSTRALIA    AU   AUS 2012 248 232 248 240
+## 16: 19980301 20210116    AUSTRALIA    AU   AUS 2013 236 220 247 233
+## 17: 19980301 20210116    AUSTRALIA    AU   AUS 2014 243 224 247 240
+## 18: 19980301 20210116    AUSTRALIA    AU   AUS 2015 248 222 248 239
+## 19: 19980301 20210116    AUSTRALIA    AU   AUS 2016 246 228 245 240
+## 20: 19980301 20210116    AUSTRALIA    AU   AUS 2017 247 224 248 240
+## 21: 19980301 20210116    AUSTRALIA    AU   AUS 2018 248 224 248 239
+## 22: 19980301 20210116    AUSTRALIA    AU   AUS 2019 247 224 246 240
+## 23: 19980301 20210116    AUSTRALIA    AU   AUS 2020 246 232 248 238
+## 24: 19980301 20210116    AUSTRALIA    AU   AUS 2021 485 483 742 720
+##        BEGIN      END COUNTRY_NAME ISO2C ISO3C YEAR JAN FEB MAR APR
+##     MAY JUN JUL AUG SEP OCT NOV DEC
+##  1: 221 211 226 217 222 234 215 230
+##  2: 244 229 239 247 236 246 233 243
+##  3: 246 237 245 240 236 248 239 248
+##  4: 239 236 243 240 237 236 235 246
+##  5: 243 229 243 246 227 238 233 246
+##  6: 235 233 246 242 218 239 225 245
+##  7: 233 224 235 244 235 244 235 245
+##  8: 247 239 247 247 234 242 239 246
+##  9: 241 238 247 247 239 247 240 247
+## 10: 248 240 244 244 239 247 237 246
+## 11: 248 239 248 247 239 247 238 248
+## 12: 244 237 248 248 239 248 239 248
+## 13: 244 240 242 247 240 248 240 247
+## 14: 247 240 248 247 239 248 239 248
+## 15: 248 240 248 247 240 248 240 245
+## 16: 248 239 252 247 238 248 239 246
+## 17: 246 239 246 247 240 247 240 248
+## 18: 247 240 247 248 239 247 238 247
+## 19: 246 240 248 248 238 248 239 248
+## 20: 248 239 248 247 239 248 240 248
+## 21: 248 240 247 248 239 246 240 248
+## 22: 248 240 248 248 240 248 239 248
+## 23: 248 348 493 492 480 496 475 496
+## 24: 743 716 744 737 549   0   0   0
+##     MAY JUN JUL AUG SEP OCT NOV DEC
+```
+
+# Notes
+
+## WMO Resolution 40. NOAA Policy
+
+_Users of these data should take into account the following (from the
+[NCEI website](https://www7.ncdc.noaa.gov/CDO/cdoselect.cmd?datasetabbv=GSOD&countryabbv=&georegionabbv=)): _
+
+> The following data and products may have conditions placed on their international commercial use. They can be used within the U.S. or for non-commercial international activities without restriction. The non-U.S. data cannot be redistributed for commercial purposes. Re-distribution of these data by others must provide this same notification. A log of IP addresses accessing these data and products will be maintained and may be made available to data providers.
+For details, please consult: [WMO Resolution 40. NOAA Policy](https://community.wmo.int/resolution-40)
+
+# Appendices
+
+## Appendix 1: GSODR Final Data Format, Contents and Units
+
+_GSODR_ formatted data include the following fields and units:
+
+- **STNID** - Station number (WMO/DATSAV3 number) for the location;
+
+- **NAME** - Unique text identifier;
+
+- **CTRY** - Country in which the station is located. This field is the original FIPS code that NCEI provides;
+
+- **COUNTRY_NAME** - Country in which the station is located. This field is the country name in English language;
+
+- **ISO2C** - Country in which the station is located. This field is the two letter ISO country code;
+
+- **ISO3C** - Country in which the station is located. This field is the three letter ISO country code;
+
+- **LAT** - Latitude. *Station dropped in cases where values are < -90 or > 90 degrees or Lat = 0 and Lon = 0*;
+
+- **LON** - Longitude. *Station dropped in cases where values are < -180 or > 180 degrees or Lat = 0 and Lon = 0*;
+
+- **ELEVATION** - Elevation in metres;
+
+- **YEARMODA** - Date in YYYYMMDD format;
+
+- **YEAR** - The year (YYYY);
+
+- **MONTH** - The month (mm);
+
+- **DAY** - The day (dd);
+
+- **YDAY** - Sequential day of year (not in original GSOD);
+
+- **TEMP** - Mean daily temperature converted to degrees C to tenths.
+Missing = `NA`;
+
+- **TEMP\_ATTRIBUTES** - Number of observations used in calculating mean daily temperature;
+
+- **DEWP** - Mean daily dew point converted to degrees C to tenths.
+Missing = `NA`;
+
+- **DEWP\_ATTRIBUTES** - Number of observations used in calculating mean daily dew point;
+
+- **SLP** - Mean sea level pressure in millibars to tenths.
+Missing = `NA`;
+
+- **SLP\_ATTRIBUTES** - Number of observations used in calculating mean sea level pressure;
+
+- **STP** - Mean station pressure for the day in millibars to tenths.
+Missing = `NA`;
+
+- **STP\_ATTRIBUTES** - Number of observations used in calculating mean station pressure;
+
+- **VISIB** - Mean visibility for the day converted to kilometres to tenths.
+Missing = `NA`;
+
+- **VISIB\_ATTRIBUTES** - Number of observations used in calculating mean daily visibility;
+
+- **WDSP** - Mean daily wind speed value converted to metres/second to tenths.
+Missing = `NA`;
+
+- **WDSP\_ATTRIBUTES** - Number of observations used in calculating mean daily wind speed;
+
+- **MXSPD** - Maximum sustained wind speed reported for the day converted to metres/second to tenths.
+Missing = `NA`;
+
+- **GUST** - Maximum wind gust reported for the day converted to metres/second to tenths.
+Missing = `NA`;
+
+- **MAX** - Maximum temperature reported during the day converted to Celsius to tenths--time of max temp report varies by country and region, so this will sometimes not be the max for the calendar day.
+Missing = `NA`;
+
+- **MAX\_ATTRIBUTES** - Blank indicates max temp was taken from the explicit max temp report and not from the 'hourly' data.
+An "\*" indicates max temp was derived from the hourly data (_i.e._, highest hourly or synoptic-reported temperature);
+
+- **MIN** - Minimum temperature reported during the day converted to Celsius to tenths--time of min temp report varies by country and region, so this will sometimes not be the max for the calendar day.
+Missing = `NA`;
+
+- **MIN\_ATTRIBUTES** - Blank indicates max temp was taken from the explicit min temp report and not from the 'hourly' data.
+An "\*" indicates min temp was derived from the hourly data (_i.e._, highest hourly or synoptic-reported temperature);
+
+- **PRCP** - Total precipitation (rain and/or melted snow) reported during the day converted to millimetres to hundredths; will usually not end with the midnight observation, _i.e._, may include latter part of previous day.
+A value of ".00" indicates no measurable precipitation (includes a trace).
+Missing = NA;
+*Note: Many stations do not report '0' on days with no precipitation-- therefore, `NA` will often appear on these days.
+For example, a station may only report a 6-hour amount for the period during which rain fell.*
+See `FLAGS_PRCP` column for source of data;
+
+- **PRCP\_ATTRIBUTES** -
+
+    - A = 1 report of 6-hour precipitation amount;
+
+    - B = Summation of 2 reports of 6-hour precipitation amount;
+
+    - C = Summation of 3 reports of 6-hour precipitation amount;
+
+    - D = Summation of 4 reports of 6-hour precipitation amount;
+
+    - E = 1 report of 12-hour precipitation amount;
+
+    - F = Summation of 2 reports of 12-hour precipitation amount;
+
+    - G = 1 report of 24-hour precipitation amount;
+
+    - H = Station reported '0' as the amount for the day (*e.g.* from 6-hour reports), but also reported at least one occurrence of precipitation in hourly observations--this could indicate a trace occurred, but should be considered as incomplete data for the day;
+
+    - I = Station did not report any precipitation data for the day and did not report any occurrences of precipitation in its hourly observations--it's still possible that precipitation occurred but was not reported;
+
+- **SNDP** - Snow depth in millimetres to tenths.
+Missing = `NA`;
+
+- **I\_FOG** - Indicator for fog, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **I\_RAIN\_DRIZZLE** - Indicator for rain or drizzle, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **I\_SNOW\_ICE** - Indicator for snow or ice pellets, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **I\_HAIL** - Indicator for hail, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **I\_THUNDER** - Indicator for thunder, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **I_TORNADO_FUNNEL** - Indicator for tornado or funnel cloud, (1 = yes, 0 = no/not reported) for the occurrence during the day;
+
+- **EA** - Mean daily actual vapour pressure as calculated using improved August-Roche-Magnus approximation [@Alduchov1996]. Missing = `NA`;
+
+- **ES** - Mean daily saturation vapour pressure as calculated using improved August-Roche-Magnus approximation [@Alduchov1996]. Missing = `NA`;
+
+- **RH** - Mean daily relative humidity as calculated using improved August-Roche-Magnus approximation [@Alduchov1996].
+Missing = `NA`.
+
+## Appendix 2: Map of Current GSOD Station Locations
+
+<img src="unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
+
+# References
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/reformat_GSOD.R
+\name{reformat_GSOD}
+\alias{reformat_GSOD}
+\title{Tidy and return a data.table object of GSOD weather from local storage}
+\usage{
+reformat_GSOD(dsn = NULL, file_list = NULL)
+}
+\arguments{
+\item{dsn}{User supplied full file path to location of data files on local
+disk for tidying.}
+
+\item{file_list}{User supplied list of file paths to individual files of data
+on local disk for tidying.  Ignored if \code{dsn} is set.  Use if there are
+other files in the \code{dsn} that you do not wish to reformat.}
+}
+\value{
+A data frame as a \code{\link[data.table]{data.table}} object of
+\acronym{GSOD} data.
+}
+\description{
+This function automates cleaning and reformatting of \acronym{GSOD} station
+files in\cr \dQuote{YEAR.tar.gz}, provided that they have been untarred or
+\dQuote{STATION.csv} format that have been downloaded from the United States
+National Center for Environmental Information's (\acronym{NCEI})
+download page.  Three additional useful elements: saturation vapour pressure
+(es), actual vapour pressure (ea) and relative humidity (RH) are calculated
+and returned in the final data frame using the improved August-Roche-Magnus
+approximation (Alduchov and Eskridge 1996).  All units are converted to
+International System of Units (SI), \emph{e.g.}, Fahrenheit to Celsius and
+inches to millimetres.
+}
+\details{
+If multiple stations are given, data are summarised for each year by station,
+which include vapour pressure and relative humidity elements calculated from
+existing data in \acronym{GSOD}.  Else, a single station is tidied and a data
+frame is returned.
+
+All missing values in resulting files are represented as \code{NA} regardless
+of which field they occur in.
+
+Only station files in the original \dQuote{csv} file format are supported by
+this function.  If you have downloaded the full annual (\dQuote{YYYY.tar.gz})
+file you will need to extract the individual station files from the tar file
+first to use this function.
+
+Note that \code{reformat_GSOD()} will attempt to reformat any \dQuote{.csv}
+files found in the \code{dsn} that you provide.  If there are non-
+\acronym{GSOD} files present this will lead to errors.
+
+For a complete list of the fields and description of the contents and units,
+please refer to Appendix 1 in the \CRANpkg{GSODR} vignette,
+\code{vignette("GSODR", package = "GSODR")}.
+}
+\note{
+While \CRANpkg{GSODR} does not distribute \acronym{GSOD} weather data,
+users of the data should note the conditions that the U.S. \acronym{NCEI}
+places upon the \acronym{GSOD} data.
+\dQuote{The following data and products may have conditions placed on their
+ international commercial use.  They can be used within the U.S. or for non-
+ commercial international activities without restriction.  The non-U.S. data
+ cannot be redistributed for commercial purposes. Re-distribution of these
+ data by others must provide this same notification. A log of IP addresses
+ accessing these data and products will be maintained and may be made
+ available to data providers.}
+}
+\section{References}{
+
+
+Alduchov, O.A. and Eskridge, R.E., 1996. Improved Magnus form approximation
+of saturation vapor pressure. Journal of Applied Meteorology and Climatology,
+35(4), pp.601-609. DOI:
+<10.1175%2F1520-0450%281996%29035%3C0601%3AIMFAOS%3E2.0.CO%3B2>.
+}
+
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+# Download data to 'tempdir()'
+download.file(
+  url =
+    "https://www.ncei.noaa.gov/data/global-summary-of-the-day/access/2010/95551099999.csv",
+  destfile = file.path(tempdir(), "95551099999.csv"),
+  mode = "wb"
+)
+
+# Reformat station data files in R's tempdir() directory
+tbar <- reformat_GSOD(dsn = tempdir())
+
+tbar
+
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+For automated downloading and tidying see the \code{\link{get_GSOD}}
+function which provides expanded functionality for automatically downloading
+and expanding annual \acronym{GSOD} files and cleaning station files.
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/nearest_stations.R
+\name{nearest_stations}
+\alias{nearest_stations}
+\title{Find nearest GSOD stations to a specified latitude and longitude}
+\usage{
+nearest_stations(LAT, LON, distance)
+}
+\arguments{
+\item{LAT}{Latitude expressed as decimal degrees (DD) (WGS84)}
+
+\item{LON}{Longitude expressed as decimal degrees (DD) (WGS84)}
+
+\item{distance}{Distance in kilometres from point for which stations are to
+be returned.}
+}
+\value{
+By default a class \code{\link[base]{character}}
+ \code{\link[base]{vector}} object of station identification numbers.
+ in order from nearest to farthest in increasing order.  If
+ \code{return_full} is \code{TRUE}, a \code{\link[data.table]{data.table}}
+ with full station metadata including the distance from the user specified
+ coordinates is returned.
+}
+\description{
+Given latitude and longitude values entered as decimal degrees (DD), this
+function returns a list (as an atomic vector) of station ID
+values, which can be used in \code{\link{get_GSOD}} to query for specific
+stations as an argument in the \code{station} parameter of that function.
+}
+\note{
+The \acronym{GSOD} data, which are downloaded and manipulated by
+\CRANpkg{GSODR} stipulate that the following notice should be given.
+\dQuote{The following data and products may have conditions placed on their
+international commercial use.  They can be used within the U.S. or for non-
+commercial international activities without restriction.  The non-U.S. data
+cannot be redistributed for commercial purposes.  Re-distribution of these
+data by others must provide this same notification.}
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Find stations within a 100km radius of Toowoomba, QLD, AUS
+
+n <- nearest_stations(LAT = -27.5598, LON = 151.9507, distance = 100)
+n
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/GSODR-package.R
+\docType{package}
+\name{GSODR-package}
+\alias{GSODR}
+\alias{GSODR-package}
+\title{GSODR: Global Surface Summary of the Day ('GSOD') Weather Data Client}
+\description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
+Provides automated downloading, parsing, cleaning, unit conversion and formatting of Global Surface Summary of the Day ('GSOD') weather data from the from the USA National Centers for Environmental Information ('NCEI'). Units are converted from from United States Customary System ('USCS') units to International System of Units ('SI'). Stations may be individually checked for number of missing days defined by the user, where stations with too many missing observations are omitted. Only stations with valid reported latitude and longitude values are permitted in the final data. Additional useful elements, saturation vapour pressure ('es'), actual vapour pressure ('ea') and relative humidity ('RH') are calculated from the original data using the improved August-Roche-Magnus approximation (Alduchov & Eskridge 1996) and included in the final data set. The resulting metadata include station identification information, country, state, latitude, longitude, elevation, weather observations and associated flags. For information on the 'GSOD' data from 'NCEI', please see the 'GSOD' 'readme.txt' file available from, <https://www1.ncdc.noaa.gov/pub/data/gsod/readme.txt>.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/GSODR/}
+  \item Report bugs at \url{https://github.com/ropensci/GSODR/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Adam H. Sparks \email{adamhsparks@gmail.com} (\href{https://orcid.org/0000-0002-0061-8359}{ORCID})
+
+Authors:
+\itemize{
+  \item Tomislav Hengl \email{tom.hengl@isric.org} (\href{https://orcid.org/0000-0002-9921-5129}{ORCID})
+  \item Andrew Nelson \email{dr.andy.nelson@gmail.com} (\href{https://orcid.org/0000-0002-7249-3778}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Hugh Parsonage \email{hugh.parsonage@gmail.com} (\href{https://orcid.org/0000-0003-4055-0835}{ORCID}) [copyright holder, contributor]
+  \item Taras Kaduk \email{taras.kaduk@gmail.com} (Suggestion for handling bulk station downloads more efficiently) [contributor]
+  \item Gwenael Giboire \email{gwenael.giboire@oda-groupe.com} (Several bug reports in early versions and testing feedback) [contributor]
+  \item Łukasz Pawlik \email{lukpawlik@gmail.com} (Reported bug in windspeed conversion calculation) [contributor]
+  \item Ross Darnell \email{Ross.Darnell@data61.csiro.au} (\href{https://orcid.org/0000-0002-7973-6322}{ORCID}) (Reported bug in 'Windows OS' versions causing 'GSOD' data untarring to fail) [contributor]
+  \item Tyler Widdison \email{Tyler.Widdison@usav.org} (Reported bug where `nearest_stations()` did not return stations in order of nearest to farthest) [contributor]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_inventory.R
+\name{print.GSODR.Info}
+\alias{print.GSODR.Info}
+\title{Prints GSODR.info object.}
+\usage{
+\method{print}{GSODR.Info}(x, ...)
+}
+\arguments{
+\item{x}{GSODR.Info object}
+
+\item{...}{ignored}
+}
+\description{
+Prints GSODR.info object.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_inventory.R
+\name{get_inventory}
+\alias{get_inventory}
+\title{Download and return a data.table object GSOD weather station data inventories}
+\usage{
+get_inventory()
+}
+\value{
+A \code{\link[data.table]{data.table}} object of station inventories
+}
+\description{
+The \acronym{NCEI} maintains a document,
+\url{https://www1.ncdc.noaa.gov/pub/data/noaa/isd-inventory.txt}, which lists
+the number of weather observations by station-year-month from the beginning
+of the stations' records.  This function retrieves that document and prints
+an information header displaying the last update time with a data frame of
+the inventory information for each station-year-month.
+}
+\note{
+While \CRANpkg{GSODR} does not distribute GSOD weather data, users of
+the data should note the conditions that the U.S. \acronym{NCEI} places upon
+the \acronym{GSOD} data.
+\dQuote{The following data and products may have conditions placed on their
+ international commercial use.  They can be used within the U.S. or for non-
+ commercial international activities without restriction.  The non-U.S. data
+ cannot be redistributed for commercial purposes.  Re-distribution of these
+ data by others must provide this same notification.  A log of IP addresses
+ accessing these data and products will be maintained and may be made
+ available to data providers.}
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+inventory <- get_inventory()
+inventory
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_GSOD.R
+\name{get_GSOD}
+\alias{get_GSOD}
+\title{Download and return a data.table object of GSOD weather data}
+\usage{
+get_GSOD(
+  years,
+  station = NULL,
+  country = NULL,
+  max_missing = NULL,
+  agroclimatology = FALSE
+)
+}
+\arguments{
+\item{years}{Year(s) of weather data to download.}
+
+\item{station}{Optional.  Specify a station or multiple stations for which to
+retrieve, check and clean weather data using \var{STATION}.  The
+\acronym{NCEI} reports years for which the data are available.  This function
+checks against these years.  However, not all cases are properly documented
+and in some cases files may not exist for download even though it is
+indicated that data was recorded for the station for a particular year.  If a
+station is specified that does not have an existing file on the server, this
+function will silently fail and move on to existing files for download and
+cleaning.}
+
+\item{country}{Optional.  Specify a country for which to retrieve weather
+data; full name, 2 or 3 letter \acronym{ISO} or 2 letter \acronym{FIPS} codes
+can be used.  All stations within the specified country will be returned.}
+
+\item{max_missing}{Optional.  The maximum number of days allowed to be
+missing from a station's data before it is excluded from final file output.}
+
+\item{agroclimatology}{Optional.  Logical.  Only clean data for stations
+between latitudes 60 and -60 for agroclimatology work, defaults to `FALSE`.
+Set to `TRUE` to include only stations within the confines of these
+latitudes.}
+}
+\value{
+A data frame as a \code{\link[data.table]{data.table}} object of
+\acronym{GSOD} weather data.
+}
+\description{
+This function automates downloading, cleaning, reformatting of data from
+the Global Surface Summary of the Day (\acronym{GSOD}) data provided by the
+\href{https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc:C00516}{US National Centers for Environmental Information (NCEI)},
+Three additional useful elements: saturation vapour pressure (es), actual
+vapour pressure (ea) and relative humidity (RH) are calculated and returned
+in the final data frame using the improved August-Roche-Magnus approximation
+(Alduchov and Eskridge 1996).
+}
+\details{
+All units are converted to International System of Units (SI), \emph{e.g.},
+Fahrenheit to Celsius and inches to millimetres.
+
+Data summarise each year by station, which include vapour pressure and
+relative humidity elements calculated from existing data in \acronym{GSOD}.
+
+All missing values in resulting files are represented as \code{NA}
+regardless of which field they occur in.
+
+For a complete list of the fields and description of the contents and units,
+please refer to Appendix 1 in the \CRANpkg{GSODR} vignette,
+\code{vignette("GSODR", package = "GSODR")}.
+
+For more information see the description of the data provided by
+\acronym{NCEI}, \url{https://www7.ncdc.noaa.gov/CDO/GSOD_DESC.txt}.
+}
+\note{
+\CRANpkg{GSODR} attempts to validate year and station combination
+requests, however, in certain cases the start and end date may encompass
+years where no data is available.  In these cases no data will be returned.
+It is suggested that the user check the latest data availability for the
+station(s) desired using \link{get_inventory} as this list is frequently
+updated by the \acronym{NCEI} and is not shipped with \CRANpkg{GSODR}.
+
+While \CRANpkg{GSODR} does not distribute GSOD weather data, users of
+the data should note the conditions that the U.S. \acronym{NCEI} places upon
+the \acronym{GSOD} data.
+\dQuote{The following data and products may have conditions placed on their
+ international commercial use.  They can be used within the U.S. or for non-
+ commercial international activities without restriction.  The non-U.S. data
+ cannot be redistributed for commercial purposes.  Re-distribution of these
+ data by others must provide this same notification.  A log of IP addresses
+ accessing these data and products will be maintained and may be made
+ available to data providers.}
+}
+\section{References}{
+
+
+Alduchov, O.A. and Eskridge, R.E., 1996. Improved Magnus form approximation
+of saturation vapor pressure. Journal of Applied Meteorology and Climatology,
+35(4), pp.601-609. DOI:
+<10.1175%2F1520-0450%281996%29035%3C0601%3AIMFAOS%3E2.0.CO%3B2>.
+}
+
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Download weather station data for Toowoomba, Queensland for 2010
+tbar <- get_GSOD(years = 2010, station = "955510-99999")
+
+# Download weather data for the year 1929
+w_1929 <- get_GSOD(years = 1929)
+
+# Download weather data for the year 1929 for Ireland
+ie_1929 <- get_GSOD(years = 1929, country = "Ireland")
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link{reformat_GSOD}}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/update_station_list.R
+\name{update_station_list}
+\alias{update_station_list}
+\title{Download latest station list metadata and update internal database}
+\usage{
+update_station_list()
+}
+\description{
+This function downloads the latest station list (isd-history.csv) from the
+\acronym{NCEI} server and updates the data distributed with \CRANpkg{GSODR}
+to the latest stations available.  These data provide unique identifiers,
+country, state (if in U.S.) and when weather observations begin and end.
+}
+\details{
+Care should be taken when using this function if reproducibility is necessary
+as different machines with the same version of \CRANpkg{GSODR} can end up
+with different versions of the 'isd_history.csv' file internally.
+
+There is no need to use this unless you know that a station exists in the
+isd_history.csv file that is not available in the self-contained
+database distributed with \CRANpkg{GSODR}.
+
+To directly access these data, use: \cr
+\code{load(system.file("extdata", "isd_history.rda", package = "GSODR"))}
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+update_station_list()
+\dontshow{\}) # examplesIf}
+}
+\author{
+Adam H. Sparks, \email{adamhsparks@gmail.com}
+}

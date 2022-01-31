@@ -276,3 +276,391 @@ the database and `/data` is the directory where the external backup disk has bee
 
 ### Supported OS
 Currently the recipe only works for **Ubuntu** and **Debian**
+############################
+Contributing guidelines
+############################
+
+We welcome any kind of contribution to our software, from simple comment or question to a full fledged `pull request <https://help.github.com/articles/about-pull-requests/>`_. Please read and follow our `Code of Conduct <CODE_OF_CONDUCT.rst>`_.
+
+A contribution can be one of the following cases:
+
+#. you have a question;
+#. you think you may have found a bug (including unexpected behavior);
+#. you want to make some kind of change to the code base (e.g. to fix a bug, to add a new feature, to update documentation).
+
+The sections below outline the steps in each case.
+
+You have a question
+*******************
+
+#. use the search functionality `here <https://github.com/nlesc-nano/ceiba/issues>`__ to see if someone already filed the same issue;
+#. if your issue search did not yield any relevant results, make a new issue;
+#. apply the "Question" label; apply other labels when relevant.
+
+You think you may have found a bug
+**********************************
+
+#. use the search functionality `here <https://github.com/nlesc-nano/ceiba/issues>`__ to see if someone already filed the same issue;
+#. if your issue search did not yield any relevant results, make a new issue, making sure to provide enough information to the rest of the community to understand the cause and context of the problem. Depending on the issue, you may want to include:
+    - the `SHA hashcode <https://help.github.com/articles/autolinked-references-and-urls/#commit-shas>`_ of the commit that is causing your problem;
+    - some identifying information (name and version number) for dependencies you're using;
+    - information about the operating system;
+#. apply relevant labels to the newly created issue.
+
+You want to make some kind of change to the code base
+*****************************************************
+
+#. (**important**) announce your plan to the rest of the community *before you start working*. This announcement should be in the form of a (new) issue;
+#. (**important**) wait until some kind of consensus is reached about your idea being a good idea;
+#. if needed, fork the repository to your own Github profile and create your own feature branch off of the latest main commit. While working on your feature branch, make sure to stay up to date with the main branch by pulling in changes, possibly from the 'upstream' repository (follow the instructions `here <https://help.github.com/articles/configuring-a-remote-for-a-fork/>`__ and `here <https://help.github.com/articles/syncing-a-fork/>`__);
+#. make sure the existing tests still work by running ``python setup.py test``;
+#. add your own tests (if necessary);
+#. update or expand the documentation;
+#. `push <http://rogerdudler.github.io/git-guide/>`_ your feature branch to (your fork of) the ceiba repository on GitHub;
+#. create the pull request, e.g. following the instructions `here <https://help.github.com/articles/creating-a-pull-request/>`__.
+
+In case you feel like you've made a valuable contribution, but you don't know how to write or run tests for it, or how to generate the documentation: don't let this discourage you from making the pull request; we can help you! Just go ahead and submit the pull request, but keep in mind that you might be asked to append additional commits to your pull request.
+##########
+Change Log
+##########
+
+1.0.0 [22/03/2021]
+******************
+Added
+-----
+* First stable versions
+
+Changed
+-------
+* Add Test for Python 3.9 and drop 3.7
+
+
+0.3.0 [22/02/2021]
+******************
+CHANGED
+-------
+* Generalize server by removing references to smiles and adding a metadata field (#21)
+
+0.2.0 [10/02/2021]
+******************
+
+Added
+-----
+* Add query resolver to retrieve the available collections
+* Add mutation to authenticate user (#2)
+* Add token to identify user (#6)
+* Docker container recipe (#8)
+* use `Caddy <https://caddyserver.com/>`_ to generate the certificate and the start the reverse-proxy (#12)
+* Use `docker-compose to start the app <https://github.com/nlesc-nano/ceiba/issues/13>`_
+
+CHANGED
+-------
+* Allow to mutate the jobs timestamps and user in the jobstatus resolver
+* Request a token to mutate data
+
+0.1.0 [03/11/2020]
+******************
+
+Added
+-----
+
+* Web service prototype to handle client requests to store/retrieve simulation data (#1)
+* Use `GraphQL <https://graphql.org/>`_ query languages for the API (#1)
+* Use `Tartiflette <https://github.com/tartiflette/tartiflette#tartiflette-over-http>`_ Python GraphQL server implementation (#1)
+* Use `MongoDB <https://www.mongodb.com/>`_ as database (#1)
+###############################################################################
+Contributor Covenant Code of Conduct
+###############################################################################
+
+Our Pledge
+**********
+
+In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, gender identity and expression, level of experience,
+education, socio-economic status, nationality, personal appearance, race,
+religion, or sexual identity and orientation.
+
+Our Standards
+*************
+
+Examples of behavior that contributes to creating a positive environment
+include:
+
+* Using welcoming and inclusive language
+* Being respectful of differing viewpoints and experiences
+* Gracefully accepting constructive criticism
+* Focusing on what is best for the community
+* Showing empathy towards other community members
+
+Examples of unacceptable behavior by participants include:
+
+* The use of sexualized language or imagery and unwelcome sexual attention or
+  advances
+* Trolling, insulting/derogatory comments, and personal or political attacks
+* Public or private harassment
+* Publishing others' private information, such as a physical or electronic
+  address, without explicit permission
+* Other conduct which could reasonably be considered inappropriate in a
+  professional setting
+
+Our Responsibilities
+********************
+
+Project maintainers are responsible for clarifying the standards of acceptable
+behavior and are expected to take appropriate and fair corrective action in
+response to any instances of unacceptable behavior.
+
+Project maintainers have the right and responsibility to remove, edit, or
+reject comments, commits, code, wiki edits, issues, and other contributions
+that are not aligned to this Code of Conduct, or to ban temporarily or
+permanently any contributor for other behaviors that they deem inappropriate,
+threatening, offensive, or harmful.
+
+Scope
+*****
+
+This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.
+
+Enforcement
+***********
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported by contacting the project team at f.zapata@esciencecenter.nl. All
+complaints will be reviewed and investigated and will result in a response that
+is deemed necessary and appropriate to the circumstances. The project team is
+obligated to maintain confidentiality with regard to the reporter of an incident.
+Further details of specific enforcement policies may be posted separately.
+
+Project maintainers who do not follow or enforce the Code of Conduct in good
+faith may face temporary or permanent repercussions as determined by other
+members of the project's leadership.
+
+Attribution
+***********
+
+This Code of Conduct is adapted from the `Contributor Covenant <https://www.contributor-covenant.org>`_, version 1.4,
+available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+.. image:: https://github.com/nlesc-nano/ceiba/workflows/build/badge.svg
+   :target: https://github.com/nlesc-nano/ceiba/actions
+.. image:: https://readthedocs.org/projects/ceiba/badge/?version=latest
+   :target: https://ceiba.readthedocs.io/en/latest/?badge=latest
+.. image:: https://codecov.io/gh/nlesc-nano/ceiba/branch/main/graph/badge.svg?token=MTD70XNYEA
+   :target: https://codecov.io/gh/nlesc-nano/ceiba
+.. image:: https://zenodo.org/badge/297567281.svg
+   :target: https://zenodo.org/badge/latestdoi/297567281
+
+#####
+ceiba
+#####
+🧬 🔭 🔬 Scientific simulations generate large volume of data that needs to be stored and processed
+by multidisciplinary teams across different geographical locations. Distributing computational expensive
+simulations among the available resources, avoiding duplication and keeping the data safe are challenges
+that scientists face every day.
+
+Ceiba and its command line interface `Ceiba-cli <https://github.com/nlesc-nano/ceiba-cli>`_
+solve the problem of computing, storing and securely sharing
+computationally expensive simulation results. Researchers can save significant time and resources by easily
+computing new data and reusing existing simulation data to answer their questions.
+
+See `documentation <https://ceiba.readthedocs.io/en/latest/>`_ and `blog post <https://blog.esciencecenter.nl/building-a-web-service-to-manage-scientific-simulation-data-using-graphql-a0bbf1c3f6e9>`_.
+
+
+Installation
+************
+The `provisioning folder <https://github.com/nlesc-nano/ceiba/tree/main/provisioning>`_ contains the instructions
+to deploy the web service using docker. Alternatively, you can deploy the web service locally using
+the following instructions:
+
+#. 🐳 Install `Docker <https://www.docker.com/>`_
+
+#. 🚀 Define a environment variable `MONGO_PASSWORD` with the database password. Now you can run the following
+   command to start both the server and the mongodb services:
+   ::
+
+      provisioning/start_app.sh
+
+
+Contributing
+************
+
+If you want to contribute to the development of ceiba,
+have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
+
+License
+*******
+
+Copyright (c) 2020-2021, Netherlands eScience Center
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Credits
+*******
+
+This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+Schema Queries
+##############
+
+See `the available queries schema definitions <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Query.graphql>`_.
+Schema Mutations
+################
+
+See `the available queries schema definitions <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Mutation.graphql>`_.
+Data Layout
+###########
+The data layouts specifies how is the data and its metadata store in the database.
+Since we use `Mongodb <https://www.mongodb.com/>`_  for the database, we will
+also explain the data layout using Mongobd's terminology.
+
+
+Properties collections
+**********************
+The following schema defines how the properties are stored:
+::
+
+  # Unique identifier
+  _id: Integer
+
+  # Name to which the property belongs. e.g. Theory level
+  collection_name: String
+
+  # Metadata associated with the given property
+  metadata: String
+  
+  # Properties values as JSON
+  data: Optional[String]
+
+  # Input with which the property was computed encoded as JSON
+  input: Optional[String]
+
+Notice that the previous schema mirros the
+`GraphQL definition of Property in the server <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Query.graphql>`_.
+
+
+Jobs collections
+****************
+The following schema defines how jobs are defined:
+::
+   
+  # Unique identifier
+  id: Integer
+
+  # compute Properties
+  property: Ref[Property]
+  
+  # Input to perform the computation
+  settings: String
+
+  # Job status
+  status: Status
+
+  # User who es executing the job
+  user: Optional[String]
+
+  # Timestamp = datatime.timestamp()
+  schedule_time: Optional[Float]
+
+  # Timestamp = datatime.timestamp()
+  report_time: Optional[Float]
+
+  # platform where the job was run: platform.platform()
+  platform: Optional[String]
+   
+
+Notice that the previous schema mirros the
+`GraphQL definition of Job in the server <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Query.graphql>`_.
+
+
+.. Note::
+   * `Optional[T] <https://docs.python.org/3/library/typing.html#typing.Optional>`_  is a type that could be either ``None`` or some ``T``.
+   * References ``ref`` are implemented as `Mongodb DBRefs <https://docs.python.org/3/library/typing.html#typing.Optional>`_.
+   * Jobs are stored in a collections named like ``jobs_<property_collection_name>``.
+
+Queries
+#######
+Queries are defined using the `schema definition language <https://graphql.org/learn/schema/>`_.
+You can find the mutations definition `ceiba/sdl/Query.graphql <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Query.graphql>`_
+
+Queries involved *read-only* interactions between the client and the database.
+
+
+.. automodule:: ceiba.query_resolvers
+Mutations
+#########
+Mutations are defined using the `schema definition language <https://graphql.org/learn/schema/>`_.
+You can find the mutations definition at `ceiba/sdl/Mutation.graphql <https://github.com/nlesc-nano/ceiba/blob/main/ceiba/sdl/Query.graphql>`_
+
+Mutations involved a change in the database state, requested by the client. **All the mutations required authentication**.
+
+
+.. automodule:: ceiba.mutation_resolvers
+.. ceiba documentation main file, created by
+   sphinx-quickstart on Thu Jun 21 11:07:11 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to ceiba's documentation!
+==========================================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   includereadme
+   intro
+   sdl_queries
+   sdl_mutations
+   queries
+   mutations
+   datalayout
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+.. include:: ../README.rst
+
+The Ceiba Web Service
+########################
+🧬🧪  Most of the scientific simulations are usually performed in supercomputer
+or high tech facilities. Usually the data is kept on those facilities
+stored in a raw format, 🗝  in contradiction with the
+`scientific FAIR principles for data <https://www.go-fair.org/fair-principles/>`_.
+
+This repo contains a library to create a web service to interact with a database
+containing a set of numerical properties. All the interactions with the database are
+defined by a `GraphQL API <https://graphql.org/>`_ and the service is developed using `tartiflette <https://tartiflette.io/>`_
+
+Adding user to the web service
+##############################
+In the root folder of the *ceiba* repo there is a plain text file called `users.txt`. You can add users to the
+web service by adding the Github's usernames in that file.
+
+Interactions with the database
+##############################
+Using the `GraphQL query language <https://graphql.org/>`_  the service
+define a set of rules to interact with the services: **queries** and **mutations**.
+
+The queries are just read only actions against the database, while the mutations,
+involved some change in the database state.

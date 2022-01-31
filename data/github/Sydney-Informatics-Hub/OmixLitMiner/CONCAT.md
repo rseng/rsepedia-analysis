@@ -94,3 +94,181 @@ When using OmixLitMiner please cite: Steffen P, Wu J, Hariharan S, Molloy MP, Sc
 # OmixLitMiner 0.0.0.9000
 
 * Added a `NEWS.md` file to track changes to the package.
+---
+title: "A short introduction to OmixLitMiner package"
+author: "Mark P. Molloy"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Installation
+
+You can install the released version of OmixLitMiner from [SIH-GIT](https://github.com/Sydney-Informatics-Hub/OmixLitMiner) with:
+
+Install devtools package, only if it is not installed.
+```{r eval = FALSE}
+install.packages(devtools)
+```
+
+Install OmixLitMiner package, from the GIT repository.
+```{r eval = FALSE}
+devtools::install_github("Sydney-Informatics-Hub/OmixLitMiner")
+```
+
+# About OmixLitMiner
+
+Proteomics and genomics discovery experiments generate increasingly large result tables, necessitating more researcher time to covert data into knowledge. Literature review is an important step in this process and can be tedious for large scale experiments. An informed and strategic decision about which biomolecule targets should be pursued for follow-up experiements remains a challenge. The **OmixLitMiner** package contains functions to streamline and automate the retrieval of literature from PubMed based on Uniprot identifiers and a user defined keyword search. The algorith makes use of a ranking system as detailed below - 
+
+The `omixLitMiner()` function takes as input argument a R Dataframe `df` as the query which looks like the example dataframe `potentialmarker` which comes with the package:
+
+|UniProtID |IDType    | TaxID|Keyword |KeywordInTitleOnly |
+|:---------|:---------|-----:|:-------|:------------------|
+|Q14914    |Accession |  9606|Cancer  |Yes                |
+|P0DMN0    |Accession |  9606|Cancer  |Yes                |
+|P21980    |Accession |  9606|Cancer  |Yes                |
+|Q61475    |Accession | 10090|Cancer  |Yes                |
+
+It then searches the Uniprot database for synonyms, and then searches PubMed for papers containing these synonyms along with the specified keyword ('Cancer').
+
+It returns a nested list of results from Uniprot and Pubmed.
+
+Lastly it (optionally) generates an Excel spreadsheet that has the relevant PubMed query results, and graphs in each which show 
+
+- publications by year
+- publications by MeSH category
+- a word cloud of publication titles.
+
+**Ranking system**
+The tool assigns the proteins into three main categories (1-3) and an additional Category 0. Category 1 hits are proteins/genes, which show at least one review paper where the synonyms and the selected keywords are found together in the article title, or in the abstract if that option is selected. Category 2 hits are proteins/genes where at least one publication was found, but no review article, in which the synonyms and the selected keywords are both present. Category 3 represents proteins/genes where no publication was found which mentions both the synonyms and the keywords together in the title. Category 0 is used for proteins/genes where the tool could not find any synonyms. This may happen, if the UniProt ID belongs to an isoform or to an entry that is unreviewed (i.e. TrEMBL). 
+
+The wordclouds that are produced by the algorithm is the frequency of words in the abstracts of each search query.
+
+# Examples
+Some ways of using the OmixLitMiner package is shown below.
+potentialmarker is a R dataframe that is part of the R package, for description of its contents, run the following R command
+```{r eval = FALSE}
+library(OmixLitMiner)
+?potentialmarker
+```
+
+## Ex.1. 
+Using the R data frame provided by the package, no output spreadsheet and plots specified, the object returned from omixLitMiner() is assigned to a variable.
+```{r eval = FALSE}
+library(OmixLitMiner)
+result <- omixLitMiner(potentialmarker)
+```
+The result variable has 2 list elements - 
+1. summary_results - Summarizes the query results 
+2. pubmed_results - Summarizes the PubMed results based on the UniProt Identifiers and key words specified by the user
+
+## Ex.2. 
+Using the R data frame provided by the package, with output spreadsheet specifed and no plots, the object returned from omixLitMiner() is not assigned to any variable.
+```{r eval = FALSE}
+library(OmixLitMiner)
+omixLitMiner(potentialmarker)
+```
+
+## Ex.3. 
+Using the R data frame provided by the package, with output spreadsheet specifed and no plots.
+```{r eval = FALSE}
+library(OmixLitMiner)
+omixLitMiner(potentialmarker, output.file = "potential_marker_pubmed_results.xlsx")
+```
+The output spread sheet with the PubMed output will be saved in the current working directory.
+
+## Ex.4. 
+Using the R data frame provided by the package, with output spreadsheet specifed and no plots, the object returned from omixLitMiner() is not assigned to any variable.
+```{r eval = FALSE}
+library(OmixLitMiner)
+omixLitMiner(potentialmarker, output.file = "potential_marker_pubmed_results.xlsx", plots.dir = "plots")
+```
+The output spread sheet with the PubMed output will be saved in the current working directory. If an output spread sheet existed, it would be overwritten.
+The images generated by the package will be saved in directory plots in the current working directory. If no plots directory was present, a new plots directory would be created.
+
+## Ex.5. 
+Reading from an Excel and converting it to a R dataframe. The Input_uniprot_Keywords.xlsx is assumed to be present at the current working directory.
+```{r eval = FALSE}
+library(OmixLitMiner)
+library(openxlsx)
+df <- readWorkbook("Input_uniprot_Keywords.xlsx") # how to read an excel file on your computer
+# df <- read.csv("path/to/my/input_query.csv", stringsAsFactors = F)     # how to read a csv file on your computer
+result <- omixLitMiner(df, output.file = "input_uniprot_keywords_pubmed_results.xlsx", plots.dir = "plots")
+```
+
+## Ex.6. 
+Reading an Excel, reading default Excel input that is provided by OmixLitMiner, and converting it to a R dataframe
+```{r eval = FALSE}
+library(OmixLitMiner)
+library(openxlsx)
+
+# Read in input query excel file
+df <- readWorkbook(system.file("extdata", "input_uniprot_keywords.xlsx", package="OmixLitMiner")) #read demo data from package
+
+# Query UniProt and PubMed and Return Results
+result <- omixLitMiner(df, output.file = "input_uniprot_keywords_pubmed_results.xlsx", plots.dir = "plots")
+```
+
+# Citing
+When using OmixLitMiner please cite: "Steffen P, Wu J, Hariharan S, Molloy MP, Schluter H, OmixLitMiner: A bioinformatics tool for prioritizing biological leads from omics data using literature mining."
+
+# Figures
+Thw algorithm implemented in this package to retrieve the PubMed relevant literature based on UniProt iDs and user defined keyword is depicted in the figure below.
+
+![Literature Retrieval Flow Process](LiteratureRetrievalFlow.png)
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/potentialmarker.R
+\docType{data}
+\name{potentialmarker}
+\alias{potentialmarker}
+\title{Proteomics Literature retrieval data}
+\format{A data frame with 4 rows and 5 variables:
+\describe{
+\item{UniProtID}{UniProt protein or gene identifiers.}
+\item{IDType}{Identifier used to cite UniProtKB entries.}
+\item{TaxID}{A ‘taxonomic identifier’,unique identifier assigned by the NCBI to the source organism of the protein.}
+\item{Keyword}{User defined keyword, this will be used with the UniProtID to get list of PubMed literature.}
+\item{KeywordInTitleOnly}{When set to Yes will look for the keyword in the title of the publication only.}
+}}
+\source{
+Bowel Cancer and biomarker Research, Kolling Institute, The University of Sydney, Australia.
+}
+\usage{
+potentialmarker
+}
+\description{
+Created by authors of OmixlitMiner package to illustrate a working example for the package.
+2019.
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/omixLitMiner.R
+\name{omixLitMiner}
+\alias{omixLitMiner}
+\title{Generates a list of PubMed results based on a UniProt ID and a user-defined keyword.}
+\usage{
+omixLitMiner(df, output.file = NULL, plots.dir = NULL)
+}
+\arguments{
+\item{df}{R dataframe having 5 attributes, UniProtID, IDType, TaxID, Keyword, KeywordInTitleOnly.}
+
+\item{output.file}{Path string to the location to write the output file with the summarised results of the Pubmed query. Default = NULL gives no .xls summary file written out.}
+
+\item{plots.dir}{Path to the directory where the plots generated by the package will be saved.Default = NULL gives no plots saved to disk.}
+}
+\value{
+Generates an Excel file \code{output.file} with Pubmed query results using the UniProt identifers and keyword search in \code{query.file}.
+}
+\description{
+Generates a list of PubMed results based on a UniProt ID and a user-defined keyword.
+}

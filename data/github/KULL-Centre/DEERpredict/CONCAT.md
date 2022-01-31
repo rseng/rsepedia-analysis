@@ -287,3 +287,21 @@ Test systems can be further explored through the Jupyter Notebooks in the `tests
 - `nanodisc/nanodisc.ipynb`
 - `ACBP/ACBP.ipynb`
 - `article.ipynb`
+.. DEERpredict documentation master file, created by
+   sphinx-quickstart on Wed Apr 22 11:08:18 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to DEER-PREdict!
+=======================
+
+.. toctree::
+   :maxdepth: 2
+
+   _docs/docs
+   _docs/installation
+   _docs/running
+   _docs/api
+   _docs/libraries
+   _docs/tests
+

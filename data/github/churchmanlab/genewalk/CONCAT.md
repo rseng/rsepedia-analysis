@@ -349,3 +349,88 @@ Genome Biology **22**, 55 (2021). [https://doi.org/10.1186/s13059-021-02264-8](h
 This work was supported by National Institutes of Health grant 5R01HG007173-07
 (L.S.C.), EMBO fellowship ALTF 2016-422 (R.I.), and DARPA grants W911NF-15-1-0544
 and W911NF018-1-0124 (P.K.S.).
+.. GeneWalk documentation master file, created by
+   sphinx-quickstart on Tue Feb  5 17:23:03 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+GeneWalk documentation
+======================
+
+.. toctree::
+   :maxdepth: 3
+
+   modules/index
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Process gene lists and map between ID types (:py:mod:`genewalk.gene_lists`)
+===========================================================================
+
+.. automodule:: genewalk.gene_lists
+    :members:
+    :show-inheritance:
+
+Networkx MultiGraph assembler (:py:mod:`genewalk.nx_mg_assembler`)
+==================================================================
+
+.. automodule:: genewalk.nx_mg_assembler
+    :members:
+    :show-inheritance:
+
+Run DeepWalk on a GeneWalk graph (:py:mod:`genewalk.deepwalk`)
+==============================================================
+
+.. automodule:: genewalk.deepwalk
+    :members:
+    :show-inheritance:
+
+Calculate null distributions (:py:mod:`genewalk.null_distributions`)
+====================================================================
+
+.. automodule:: genewalk.null_distributions
+    :members:
+    :show-inheritance:
+
+Get relevant INDRA Statements (:py:mod:`genewalk.get_indra_stmts`)
+==================================================================
+
+.. automodule:: genewalk.get_indra_stmts
+    :members:
+    :show-inheritance:
+
+Perform statistics and output results (:py:mod:`genewalk.perform_statistics`)
+=============================================================================
+
+.. automodule:: genewalk.perform_statistics
+    :members:
+    :show-inheritance:
+
+Plotting results (:py:mod:`genewalk.plot`)
+==========================================
+
+.. automodule:: genewalk.plot
+    :members:
+    :show-inheritance:
+
+Manage resource files (:py:mod:`genewalk.resources`)
+====================================================
+
+.. automodule:: genewalk.resources
+    :members:
+    :show-inheritance:
+.. _genewalk_modules_ref:
+
+GeneWalk modules reference
+==========================
+
+.. toctree::
+   :maxdepth: 4
+
+   genewalk

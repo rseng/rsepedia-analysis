@@ -1429,3 +1429,230 @@ Structure:
 
 To use the notebook you need a jupyter notebook with nbextension ([check](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html) for the installation instructions).
 After the installation, you need to enable the packages: [exercise](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/exercise/readme.html) and [rubberband](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/rubberband/readme.html).    
+Welcome to HARK's documentation!
+================================
+
+Heterogenous Agents Resources & toolKit (HARK) is a toolkit for the structural modeling of economic choices of optimizing and non-optimizing heterogeneous agents.
+
+HARK is software written in Python.
+This is the documentation for that software.
+It is aimed at computational researchers and other
+software developers who are building new models with HARK,
+or are contributing to the core software.
+
+If you are a student trying to learn economics concepts,
+you might want to look at the `DemARK
+<https://github.com/econ-ark/DemARK/>`_ project.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Documentation
+
+   introduction
+   quick-start
+   contributing/CONTRIBUTING.md
+   reference/index
+   CHANGELOG
+   license
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Notebooks
+
+   example_notebooks/Gentle-Intro-To-HARK.ipynb
+   example_notebooks/PerfForesightConsumerType.ipynb
+   example_notebooks/IndShockConsumerType.ipynb
+   example_notebooks/KinkedRconsumerType.ipynb
+   example_notebooks/ConsPortfolioModel.ipynb
+   example_notebooks/GenIncProcessModel.ipynb
+   example_notebooks/LifecycleModel.ipynb
+   example_notebooks/HowWeSolveIndShockConsumerType.ipynb
+   example_notebooks/Journey_1_PhD.ipynb
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+API Documentation
+==================
+
+Tools
+--------
+
+.. toctree::
+   :maxdepth: 3
+
+   tools/index
+
+Models
+--------
+
+.. toctree::
+   :maxdepth: 3
+
+   ConsumptionSaving/index
+ConsAggShockModel
+--------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsAggShockModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsMarkovModel
+--------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsMarkovModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsGenIncProcessModel
+------------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsGenIncProcessModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsRepAgentModel
+--------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsRepAgentModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsPrefShockModel
+---------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsPrefShockModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsIndShockModel
+----------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsIndShockModel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+TractableBufferStockModel
+--------------------------
+
+.. automodule:: HARK.ConsumptionSaving.TractableBufferStockModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsLaborModel
+--------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsLaborModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsPortfolioModel
+-----------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsPortfolioModel
+   :members:
+   :undoc-members:
+   :show-inheritance:ConsMedModel
+-------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsMedModel
+   :members:
+   :undoc-members:
+   :show-inheritance:Consumption Saving
+--------------------
+
+.. toctree::
+   :maxdepth: 3
+
+   ConsAggShockModel
+   ConsGenIncProcessModel
+   ConsIndShockModel
+   ConsIndShockModelFast
+   ConsMarkovModel
+   ConsMedModel
+   ConsLaborModel
+   ConsPortfolioModel
+   ConsPrefShochModel
+   ConsRepAgentModel
+   TractableBufferStockModel
+ConsIndShockModelFast
+----------------------------
+
+.. automodule:: HARK.ConsumptionSaving.ConsIndShockModelFast
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Interpolation
+-------------
+
+.. automodule:: HARK.interpolation
+   :members:
+   :undoc-members:
+   :show-inheritance:Validators
+-------------
+
+.. automodule:: HARK.validators
+   :members:
+   :undoc-members:
+   :show-inheritance:dcegm
+--------
+
+.. automodule:: HARK.dcegm
+   :members:
+   :undoc-members:
+   :show-inheritance:Utilites
+----------
+
+.. automodule:: HARK.utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:Core
+--------
+
+.. automodule:: HARK.core
+   :members:
+   :undoc-members:
+   :show-inheritance:Estimation
+-------------
+
+.. automodule:: HARK.estimation
+   :members:
+   :undoc-members:
+   :show-inheritance:Tools
+------
+
+.. toctree::
+   :maxdepth: 3
+
+   core
+   dcegm
+   distribution
+   estimation
+   helpers
+   interpolation
+   parallel
+   simulation
+   utilities
+   validators
+Parallel
+----------
+
+.. automodule:: HARK.parallel
+   :members:
+   :undoc-members:
+   :show-inheritance:Distribution
+-------------
+
+.. automodule:: HARK.distribution
+   :members:
+   :undoc-members:
+   :show-inheritance:Simulation
+------------
+
+.. automodule:: HARK.simulation
+   :members:
+   :undoc-members:
+   :show-inheritance:Helpers
+-------------
+
+.. automodule:: HARK.helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:

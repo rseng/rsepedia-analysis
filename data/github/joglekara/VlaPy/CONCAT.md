@@ -556,3 +556,497 @@ We acknowledge valuable discussions with Pierre Navarro on the implementation of
 We are grateful for the editors' and reviewers' thorough feedback that improved the software as well as manuscript.
 
 # References
+Other Higher Level Tools
+-------------------------
+
+
+File Storage
+************
+XArray enables a user-friendly interface to labeling multi-dimensional arrays along with a powerful and performant
+backend. Therefore, we use XArray :cite:`Hoyer2017` (http://xarray.pydata.org/en/stable/) for a performant Python storage library that
+leverages NetCDF and promises lazy loading and incremental writes.
+
+Simulation Management
+*********************
+We use MLFlow :cite:`Zaharia2018` (https://mlflow.org/) for simulation management. This is typically used for managing machine-learning
+lifecycles but is perfectly suited for managing numerical simulations. We believe UI capability to manage simulations
+significantly eases the physicist's workflow.
+
+There are more details about how the diagnostics for a particular type of simulation are packaged and provided to
+the run manager object. These will be described in time. One can infer these details from the code as well.
+
+
+.. bibliography:: bibs/other.bibGlossary
+------------
+
+Discretizating continuous information
+****************************************
+All quantities defined over a space, velocity, and time are understood to be described
+by their discretized equivalents (to the order of the truncation).
+
+.. math::
+    x = x_i,
+    v = v_\alpha,
+    t = t_n,
+
+where :math:`i, \alpha, n` represent an integer index of arrays corresponding to space, velocity, and time,
+respectively.
+
+Fourier Transforming in Space and Velocity Space
+*****************************************************
+VlaPy relies on representing phase space in it's Fourier domain equivalent.
+
+Given that :math:`f=f^n(x,v)` is the discretized distribution function, VlaPy uses the following definitions throughout
+this documentation
+
+.. math::
+    \mathcal{F}_x(k_x, v) = \sum_{k_x=0}^{k_x=N_x/2} \exp{(-i k_x x) f(x,v)} \\
+    \mathcal{F}_v(x, k_v) = \sum_{k_v=0}^{k_v=N_v/2} \exp{(-i k_v v) f(x,v)}
+
+
+where :math:`\mathcal{F}_x, \mathcal{F}_v` are the discrete-Fourier-transform equivalents in configuration-space,
+and velocity-space, respectively. These may also be performed simultaneously such that
+
+.. math::
+    \mathcal{F}_{x,v}(k_x, k_v) = \sum_{k_v=0}^{N_v/2} \exp{(-i k_v v)} \sum_{k_x=0}^{N_x/2} \exp{(-i k_x x)}  f(x,v).Solving for the Electric Field
+--------------------------------
+
+To calculate the electric field at each time-step due to the free charges, we solve Poisson's Equation given by
+
+.. math::
+    - \nabla^2 \Phi(x) = \rho(x), \\
+    \nabla E(x) = \rho_i(x) - \rho_e(x)
+
+where :math:`\rho_i, \rho_e` are the charge densities for ions and electrons, respectively, and :math:`\Phi` is the
+electrostatic potential. Assuming that the ion density stays uniform and constant, this can be solved in the
+pseudo-spectral domain by computing the Fourier transform of the above equation. The solution in Fourier space is
+given by
+
+.. math::
+    E(k_x) = \frac{1 - \rho_e(k_x)}{-i k_x}.
+
+.. math::
+    E(x) = \sum_{x={x_{min}}}^{x_{max}}\frac{1 - \rho_e(k_x)}{-i k_x} \exp{(i k_x x)}.
+
+This solver is tested to reproduce analytical solutions to a periodic Poisson system.
+
+The Poisson Solver is tested in `tests/test_fieldsolver.py` and the tests are illustrated in
+`notebooks/test_poisson.ipynb`. Below, we show a sample test result.
+
+.. image:: images/poisson_solver.png
+   :width: 900
+Solving the Fokker-Planck Equation
+----------------------------------------
+
+VlaPy implements the Lenard-Bernstein :cite:`Lenard1958` (LB) approximation and the Dougherty :cite:`Dougherty1964` (DG)
+approximation of the Fokker-Planck equation. The LB approximation is given by
+
+.. math::
+    \frac{\partial f}{\partial t} = \nu_{ee} \frac{\partial}{\partial v} \left(v f + v_0^2 \frac{\partial f}{\partial v} \right)
+
+where :math:`\nu_{ee}` and :math:`v_0` are the electron-electron collision frequency, and thermal velocity, respectively.
+
+The DG approximation is given by
+
+.. math::
+    \frac{\partial f}{\partial t} = \nu_{ee} \frac{\partial}{\partial v} \left((v - \underline{v}) f + v_t^2 \frac{\partial f}{\partial v} \right)
+
+where :math:`\underline{v} = \int f v dv` and :math:`v_t^2 = \int f (v - \underline{v})^2 dv` are the mean electron
+velocity, and the shifted thermal electron velocity.
+
+
+Differencing Scheme
+====================
+
+This operator is differenced backwards in time, and center differenced in velocity space, which gives
+
+.. math::
+    \frac{f^{n+1}_{\alpha} - f^{n}_{\alpha}}{\Delta t} = \nu_{ee} \left[f^{n+1}_\alpha + \bar{v}_\alpha \Delta_v(f^{n+1}_{\alpha}) + v_{rms}^2 \Delta^2_v(f^{n+1}_{\alpha})\right]
+
+where :math:`\bar{v} = v, v_{rms}^2 = \int f v^2 dv` for the LB operator and :math:`\bar{v} = v - \underline{v}, v_{rms}^2 = \int f \bar{v}^2 dv` for the DG operator.
+
+.. math::
+    \Delta_v(f^{n+1}_{\alpha})= \frac{f^{n+1}_{\alpha+1} - f^{n+1}_{\alpha-1}}{2\Delta v}
+
+and
+
+.. math::
+    \Delta^2_v(f^{n+1}_{\alpha})= \frac{-f^{n+1}_{\alpha+1} + 2f^{n+1}_{\alpha} - f^{n+1}_{\alpha-1}}{\Delta v^2} \\
+
+
+This system can be transformed into a linear system of equations in the form of
+
+.. math::
+    C_{ee} f^{n+1} = f^{n}
+
+where :math:`C_{ee}` is a matrix that corresponds to the finite difference operator stencil. In 1D, :math:`C_{ee}`
+tridiagonal matrix.  that can be solved directly.
+
+
+Tests
+======
+
+This solver is tested to
+1) return df/dt = 0 if a Maxwell-Boltzmann distribution is provided as input
+2) conserve density, energy, and depending on the operator, velocity.
+3) relax to an operator-dependent Maxwellian of the right temperature and drift velocity.
+
+These tests are illustrated in `notebooks/test_fokker_planck.ipynb` and below:
+
+.. image:: images/Maxwell_Solution.png
+   :width: 900
+
+.. image:: images/LB_conservation.png
+   :width: 900
+
+.. image:: images/LB_no_conservation.png
+   :width: 900
+
+.. image:: images/DG_conservation.png
+   :width: 900
+
+
+.. bibliography:: bibs/fokkerplanck.bibCode
+---------------
+
+.. toctree::
+   :maxdepth: 2
+
+   code/vlasov
+   code/fokker-planck
+   code/electricfield
+   code/otherDetailed Usage Notes
+---------------------
+
+Installation
+***************
+
+The dependencies can be installed into your currently active python3 environment using the command
+``python3 setup.py install``
+
+Execution
+************
+
+VlaPy can be executed using the ``start_run`` method within the ``manager`` module.
+For example, `run_vlapy.py` has the following code
+
+.. code-block:: python
+
+    k0 = np.random.uniform(0.3, 0.4, 1)[0]
+    log_nu_over_nu_ld = None
+
+    all_params_dict = initializers.make_default_params_dictionary()
+    all_params_dict = initializers.specify_epw_params_to_dict(
+        k0=k0, all_params_dict=all_params_dict
+    )
+    all_params_dict = initializers.specify_collisions_to_dict(
+        log_nu_over_nu_ld=log_nu_over_nu_ld, all_params_dict=all_params_dict
+    )
+
+    all_params_dict["vlasov-poisson"]["time"] = "leapfrog"
+    all_params_dict["vlasov-poisson"]["edfdv"] = "exponential"
+    all_params_dict["vlasov-poisson"]["vdfdx"] = "exponential"
+
+    all_params_dict["fokker-planck"]["type"] = "lb"
+
+    pulse_dictionary = {
+        "first pulse": {
+            "start_time": 0,
+            "t_L": 6,
+            "t_wL": 2.5,
+            "t_R": 20,
+            "t_wR": 2.5,
+            "w0": all_params_dict["w_epw"],
+            "a0": 1e-7,
+            "k0": k0,
+        }
+    }
+
+    mlflow_exp_name = "landau-damping"
+
+    uris = {
+        "tracking": "local",
+    }
+
+    print_to_screen.print_startup_message(
+        mlflow_exp_name, all_params_dict, pulse_dictionary
+    )
+
+    that_run = manager.start_run(
+        all_params=all_params_dict,
+        pulse_dictionary=pulse_dictionary,
+        diagnostics=landau_damping.LandauDamping(
+            vph=all_params_dict["v_ph"],
+            wepw=all_params_dict["w_epw"],
+        ),
+        uris=uris,
+        name=mlflow_exp_name,
+    )
+
+Through this interface, the user can specify the initial conditions of the domain in space and time. The user can
+also specify the settings of the wave-driver module, the collision frequency `nu`, and custom
+diagnostic routines.
+
+
+Wave Driver
+===============
+The wave driver module uses a 5th order polynomial that is given in ref. [@Joglekar2018]. The implementation
+can be found in `vlapy/manager.py`.
+
+
+Simulation Management
+**********************
+VlaPy leverages MLflow to manage data corresponding to different categories and types of simulations.
+Before starting a simulation, VlaPy enables you to provide an experiment name (in MLFlow parlance).
+Each simulation run with this experiment name will be stored here.
+
+Each simulation creates a temporary directory for the simulation files. Once completed, MLFlow will move the simulation
+folder into a centralized datastore corresponding to the specified experiment name. This datastore can be accessed
+through a web-browser based UI.
+
+To start the MLFlow UI server, type ``mlflow ui`` into the terminal and then navigate to ``localhost:5000`` in your
+web browser. If you have run the default ``run_vlapy.py`` script a few times, you will see a page like this one below
+
+.. image:: images/mlflow_screenshot.png
+   :width: 900
+
+
+Diagnostics
+************
+The diagnostics module is designed to provide flexibility to the user. The user is free to design their own diagnostics
+that are called at the end of the simulation. The current implementation relies on a :code:`diagnostics.<CUSTOMCLASS>(storage_manager)`
+call that performs all the necessary diagnostics.
+
+For example, please refer to the Landau damping diagnostics in `diagnostics/landau_damping.py` where the electric field
+damping rate and oscillation frequency are calculated, and plots are made of the time-evolution of the electric field
+to be eventually stored by the run manager object in a location of its choosing.
+
+Solving the Vlasov Equation
+------------------------------
+
+The 1-spatial-dimension, 1-velocity-dimension (1D-1V) Vlasov equation describing the conservation of phase space is given by
+
+.. math::
+    \frac{\partial f}{\partial t} + v \frac{\partial f}{\partial x} + E \frac{\partial f}{\partial v} = 0
+
+The evolution of the phase space in time can be
+calculated by evolving the phase space in configuration space (i.e. in :math:`\hat{x}`) as well as evolving the phase space
+in velocity space (i.e. :math:`\hat{v}_x`). For information on the definitions, please refer to the Glossary.
+
+We split the equation into two separate steps ala Strang :cite:`Strang1968`, or Cheng-Knorr :cite:`Cheng1976`, Splitting. This enables treating each
+component as an Ordinary Differential Equation (ODE).
+
+Time Integration
+******************
+Because the Vlasov equation models chaotic nonlinear dynamics, it is important to conserve the Hamiltonian in order to
+be able to retrieve accurate solutions over long time-scales. VlaPy contains 3 implementations of symplectic integrators
+for the Spatial and Velocity Advection operators.
+
+The first method is a simple `Verlet`, or Leapfrog, scheme given by
+
+.. math::
+    v^{n+1/2} = v^n + a^n \frac{\Delta t}{2}, \\
+    x^{n} = x^n + v^{n+1/2} \Delta t, \\
+    v^{n} = v^{n+1/2} + a^{n+1} \frac{\Delta t}{2}.
+
+This is a second order method i.e. the truncation error scales as :math:`\mathcal{O}(\Delta t^2)`
+
+The fourth order implementation is based on the `Position-Extended Forest-Ruth-Like` (PEFRL) :cite:`Omelyan2002`
+algorithm.
+
+The sixth order implementation is based on work in :cite:`Casas2017`
+
+Spatial Advection
+******************
+The spatial advection operator is
+
+.. math::
+    \frac{\partial f}{\partial t} = v \frac{\partial f}{\partial x}
+
+In VlaPy, the domain is periodic in space. This constraint enables the use of Fourier decomposition methods such that
+the operator can be integrated pseudo-spectrally in space. Computing a Fourier Transform of the above equation gives
+the following ODE
+
+.. math::
+    \frac{d F_x}{d t} = v \left[(-i k_x) F_x\right], \\
+    \frac{d F_x}{F_x} = v (-i k_x) dt.
+
+The solution is obtained by discretizing the above in time and is given by
+
+.. math::
+    F_x^{n+1} = F_x^n \exp{[v (-i k_x) \Delta t]}.
+
+Computing the inverse Fourier transform of the above, and only keeping the real part, gives the evolved distribution
+function
+
+.. math::
+    f^{n+1} = \text{Real}\left[\sum_{x_i = x_{min}}^{x_{max}} \exp{(i k_x x)} F_x^{n+1}\right]
+
+This method is inspired by conversation and notes from Pierre Navaro (https://github.com/pnavaro). It is chosen for
+it's simplicity as well as accuracy.
+
+We have also implemented and tested the Backward Semi-Lagrangian Operator :cite:`Cheng1976`.
+
+Velocity Advection
+*******************
+The velocity advection operator is
+
+.. math::
+    \frac{\partial f}{\partial t} = E \frac{\partial f}{\partial v}
+
+In VlaPy, the domain is assumed to be periodic in velocity. While this constraint is not fulfilled at the boundaries,
+i.e. the first derivative is not continuous across the boundary, the value of the distribution function, and it's
+derivatives can be very small if  :math:`(|v_{min}|, v_{max}) > 6 v_{th}`.
+
+This constraint enables the use of Fourier decomposition methods such that the operator can be integrated
+pseudo-spectrally in velocity-space. Computing a Fourier Transform of the above equation gives the following ODE
+
+.. math::
+    \frac{d F_v}{d t} = E \left[(-i k_v) F_v\right], \\
+    \frac{d F_v}{F_v} = E (-i k_v) dt.
+
+The solution is obtained by discretizing the above in time and is given by
+
+.. math::
+    F_v^{n+1} = F_v^{n} \exp{[E (-i k_v) \Delta t]}.
+
+Computing the inverse Fourier transform of the above, and only keeping the real part, gives the evolved distribution
+function
+
+.. math::
+    f^{n+1} = \text{Real}\left[\sum_{v_\alpha = v_{min}}^{v_{max}} \exp{(i k_v v)} F_v^{n+1}\right]
+
+
+
+This method is inspired by conversation and notes from Pierre Navaro (https://github.com/pnavaro). It is chosen for
+it's simplicity as well as accuracy.
+
+We have also implemented and tested the Backward Semi-Lagrangian Operator :cite:`Cheng1976` and a 2nd-order
+centered-difference Operator.
+
+Tests
+******
+
+One of the most fundamental plasma physics phenomenon is that described by Landau damping :cite:`Ryutov1999`.
+
+Plasmas can support electrostatic oscillations. The oscillation frequency is given by the electrostatic electron
+plasma wave (EPW) dispersion relation. When a wave of sufficiently small amplitude is driven at the resonant
+wave-number and frequency pairing, there is a resonant exchange of energy between the plasma and the electric field,
+and the electrons can damp the electric field.
+
+In VlaPy, we verify that the damping rate is reproduced for a few different wave numbers.
+This is shown in `notebooks/landau_damping.ipynb.`
+
+.. bibliography:: bibs/vlasov.bib
+    :style: unsrtalpha.. VlaPy documentation master file, created by
+   sphinx-quickstart on Sun Mar 29 08:24:59 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to VlaPy!
+=================================
+
+Overview
+---------
+VlaPy is a 1-spatial-dimension, 1-velocity-dimension, Vlasov-Poisson-Fokker-Planck code written in Python.
+The Vlasov-Poisson-Fokker-Planck system of equations is commonly used in plasma physics.
+
+
+Quick Usage
+-----------
+To install dependencies, run ``python3 setup.py install`` from the base directory of the repository.
+
+After this step, ``python3 run_vlapy.py`` can be executed to run a simulation of Landau damping with collisions.
+
+This will create a temporary directory for the simulation files. Once completed, MLFlow will move the simulation folder
+into a centralized datastore. This datastore can be accessed through a web-browser based UI provided by leveraging MLFlow.
+
+To start the MLFlow UI server, type ``mlflow ui`` into the terminal and then navigate to ``localhost:5000`` in your
+web browser. The page will look like the following
+
+.. image:: images/mlflow_screenshot.png
+   :width: 900
+
+
+Implementation
+------------------
+
+Details on the implementation are given in the following pages
+
+.. toctree::
+   :maxdepth: 2
+
+   usage_details
+   vlasov
+   fokker-planck
+   electricfield
+   definitions
+   other
+   code
+
+
+Contribution
+---------------
+If you would like to contribute, please raise an issue in the GitHub repository using the issue tracker. The repository
+is located at https://github.com/joglekara/vlapy.
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Other Components
+------------------
+
+Simulation Manager
+**************************
+
+.. automodule:: vlapy.manager
+   :members:
+
+
+Storage Module
+****************
+
+.. automodule:: vlapy.storage
+   :members:
+
+Outer Loop Module
+******************
+
+.. automodule:: vlapy.outer_loop
+   :members:
+
+Initializers Module
+*********************
+
+.. automodule:: vlapy.initializers
+   :members:
+Electric Field Solver
+---------------------
+
+.. automodule:: vlapy.core.field
+   :members:
+Fokker-Planck Solver
+--------------------------------
+
+.. automodule:: vlapy.core.collisions
+   :members:
+Vlasov Solver
+----------------
+
+.. automodule:: vlapy.core.vlasov
+   :members:
+Vlasov-Poisson Stepper
+---------------------------
+
+.. automodule:: vlapy.core.vlasov_poisson
+   :members:
+Inner Loop Step
+----------------
+
+.. automodule:: vlapy.core.step
+   :members:

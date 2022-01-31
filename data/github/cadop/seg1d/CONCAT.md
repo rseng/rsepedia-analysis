@@ -183,3 +183,514 @@ This work was supported in part by the Agency for Science, Technology and Resear
 Todd Pataky is supported through the Kiban B Grant 17H02151 (Japan Society for the Promotion of Science).
 
 # References
+Features Class
+==============
+
+.. currentmodule:: seg1d.processing.Features
+
+
+.. autosummary::
+	:toctree: generated/
+
+	match_len
+    center
+    shared
+    gen_weights
+    meaningful
+===============
+Getting Started
+===============
+
+In this section, a few simple examples are given to ensure the installation is working
+and you are able to segment data.  These examples call a method provided that uses
+default parameters for the algorithms within the segmentation process but allows
+user input for the data related parameters such as scaling and step size for the 
+matching process. 
+
+
+Sample Data
+===========
+
+A basic example of checking the installation using the included sample data.
+
+.. automodule:: seg1d.examples.ex_simple
+	:members:
+	
+
+Sine Wave
+=========
+
+.. automodule:: seg1d.examples.ex_sine
+	:members:
+	
+
+Gauss
+=====
+
+In this example a Gaussian pulse is used to show segmentation on the varying shape of different amplitude. 
+As the center arc is given as reference, the multiple extending arcs are found as well. Through 
+the output of the segments, the correlation values can be seen to decrease, although still
+clustered within the group. 
+
+.. automodule:: seg1d.examples.ex_gauss
+	:members:==============
+Code Reference
+==============
+
+
+Simple Interface
+================
+
+This method is shown in the getting started section of the documentation. It provides an 
+easy-to-use interface for segmenting data, although it has limited functionality in 
+fine-tuning parameters of the underlying algorithms. 
+
+.. toctree::
+    code_simple.rst
+
+
+Class
+=====
+
+The Class reference should be used for any advanced usage or when needing 
+convenience functions for adding data and tuning parameters of the segmentation process. 
+
+
+.. toctree::
+   :maxdepth: 2
+
+   segmenter.rst
+   segmenter_meth.rst   
+   processing.rst
+
+
+Methods
+=======
+
+The Methods reference explains the individual routines that are used in the segmentation process. 
+Although they are accessible directly, it is likely easier to (and recommended) to use the Class. 
+
+
+.. toctree::
+   :maxdepth: 2
+
+   routines.rst
+
+
+
+.. automodule:: seg1d
+
+.. automodule:: seg1d.segment
+
+.. automodule:: seg1d.algorithm
+
+.. automodule:: seg1d.optimized_funcs
+
+.. automodule:: seg1d.examplesSegmenter Methods
+=================
+
+These methods are used to handle data and run the segmentation process. 
+
+.. currentmodule:: seg1d.Segmenter
+
+.. autosummary::
+   :toctree: generated/
+
+    set_target
+    add_reference
+    clear_reference
+    segment
+
+
+.. rubric:: See Also
+
+:class:`seg1d.Segmenter`Simple Interface
+================
+
+.. currentmodule:: seg1d
+
+.. autofunction:: segment_data
+    :noindex:
+Algorithm Methods
+=================
+
+.. currentmodule:: seg1d.algorithm
+
+.. rubric:: General Functions
+
+.. autosummary::
+   :toctree: generated/
+
+   rolling_corr
+   combine_corr
+   uniques
+   get_peaks
+   cluster
+   resample
+
+
+.. rubric:: Optimized Functions
+
+.. currentmodule:: seg1d.optimized_funcs
+
+.. autosummary::
+   :toctree: generated/
+
+   rcor
+   vcor
+Feature Processing
+==================
+
+If there is a series of references that have different lengths, or the weighting is unknown, 
+this example can help guide users to process the data. 
+
+.. automodule:: seg1d.examples.ex_feature_processing
+	:members:Feature Inclusion
+=================
+
+There may be a case where an original dataset has multiple features, but only a subset 
+of these features are wanted to be included in the segmentation process.  
+
+.. automodule:: seg1d.examples.ex_segmenter_features
+	:members:Segmenter Class
+===============
+
+.. currentmodule:: seg1d
+
+.. autosummary::
+	:toctree: generated/
+	:nosignatures:
+
+		Segmenter
+
+
+.. autosummary::
+	:toctree: generated/
+		Segmenter.clusters
+		Segmenter.corrs
+		Segmenter.groups
+		Segmenter.combined
+		Segmenter.peaks
+		Segmenter.t_masked
+		Segmenter.t_segments====================
+Community Guidelines
+====================
+
+Issues
+------
+
+Issues and feature requests should be submitted on `github <https://github.com/cadop/seg1d/issues>`_ . 
+
+
+Contributing
+------------
+
+Please follow the "fork-and-pull" Git workflow. 
+However, it is suggested to create an issue first to confirm the contributions align with the future of the module.
+
+1. **Fork** the repo on GitHub
+2. **Clone** the project to your own machine
+3. **Commit** changes to your own branch
+4. **Push** your work back up to your fork
+5. Submit a **Pull request** so that we can review your changes
+
+Documentation is on the main branch of the repository (rather than gh-pages) and should be built as-is. 
+A redirect ``index.html`` file handles moving the github pages to the build directory and a ``.nojekyll`` file 
+preserves folder types. 
+
+Copyright and Licensing
+-----------------------
+
+Please refer to the full `LICENSE <https://github.com/cadop/seg1d/blob/master/LICENSE.txt>`_ text.====================================
+seg1d: subsequence segmentation
+====================================
+
+Contents
+========
+
+
+.. toctree::
+   :maxdepth: 2
+   
+   install.rst
+   start.rst
+   api.rst
+   code.rst
+   community.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
+Basic Use
+=========
+
+.. automodule:: seg1d.examples.ex_segmenter_sine
+	:members:Parameter Tuning
+================
+
+In some cases, the default values used in the segmentation process
+do not result in the desired results. In this case, the various parameters
+that are invovled can be manually set by the user. These parameters are 
+all defined and available through the ``seg1d.Segmenter()`` class. 
+
+
+.. automodule:: seg1d.examples.ex_sine_noise
+	:members:============
+Installation
+============
+
+Check dependencies
+------------------
+Currently tested on ``Python 3.8+``.
+
+For the package: ``numpy>=1.15``, ``scipy>=1.0.0``, ``sklearn>=0.2``, ``numba>=0.40``
+
+For building documentation: ``sphinx``, ``scipy`` html_theme, ``numpydoc``, ``matplotlib``
+
+Get seg1d
+-------------
+
+``pip install seg1d``
+
+Building Documentation
+----------------------
+
+Documentation is built using sphinx with the scipy html_theme in the `docs` folder. 
+
+To get the requirements for building documentation you can run:
+
+``pip install sphinx numpydoc matplotlib``
+
+If you have not installed ``seg1d`` you can then run the following to get the remaining requirements
+
+``pip install numpy scipy sklearn numba``
+
+Finally, the following two lines will build the documentation. 
+
+``make clean``
+
+``make html``
+
+
+Testing
+--------
+
+Docstrings examples should be compliant with ``doctest``. 
+Navigate to the `docs` folder and run:
+
+``make doctest``
+
+A summary report will be generated and should not have any failed conditions. 
+Note, this should be done after building the documentation with ``make html``.
+
+End-users can test the installation with a similar method provided through the
+examples. 
+
+After installation, start a python interactive console and import:
+
+``from seg1d.examples import test``
+
+Then run the tests with:
+
+``test.run()``
+
+A series of tests will be performed to check for intended output. 
+While ``matplotlib`` is not a required dependency, if it is not installed, some
+of the tests will fail. This will be obvious as the test will show in the 
+traceback that it failed due to ``No module named 'matplotlib'``. 
+
+Due to variations in OS, many of the doctests use ``np.around`` to ensure matching. 
+However, sorting of correlation values is dependent on a few platform variables, 
+so tests that output multiple array values that are identical may show as failed. 
+The documentation is always tested on Windows 10, Python 3.8 for ensuring compliance. 
+============
+API Examples
+============
+
+seg1d can be used through both the routines and through the ``Segmenter`` class,
+which provides various methods for constructing a segmenter by setting parameters and data. 
+
+This section contains the more advanced usage of the package by creating an instance
+of the class. The usage is explained through different sample datasets, both of real
+and generated data. Each example emphasizes a different aspect of the segmentation process. 
+
+
+.. rubric:: API Examples 
+
+.. toctree::
+	api_basic.rst
+	api_ecg.rst
+	api_feat.rst
+	api_tune.rst
+	api_processing.rst
+
+
+.. rubric:: See Also
+
+:class:`seg1d.Segmenter`
+
+ECG 
+===
+
+.. automodule:: seg1d.examples.ex_ecg
+	:members:
+seg1d.algorithm.combine\_corr
+=============================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: combine_corrseg1d.processing.Features.gen\_weights
+======================================
+
+.. currentmodule:: seg1d.processing
+
+.. automethod:: Features.gen_weightsseg1d.Segmenter.set\_target
+===========================
+
+.. currentmodule:: seg1d
+
+.. automethod:: Segmenter.set_targetseg1d.Segmenter.clusters
+========================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.clustersseg1d.Segmenter.t\_segments
+===========================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.t_segmentsseg1d.algorithm.resample
+========================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: resampleseg1d.processing.Features.center
+================================
+
+.. currentmodule:: seg1d.processing
+
+.. automethod:: Features.centerseg1d.Segmenter.clear\_reference
+================================
+
+.. currentmodule:: seg1d
+
+.. automethod:: Segmenter.clear_referenceseg1d.processing.Features.meaningful
+====================================
+
+.. currentmodule:: seg1d.processing
+
+.. automethod:: Features.meaningfulseg1d.Segmenter.peaks
+=====================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.peaksseg1d.Segmenter.combined
+========================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.combinedseg1d.Segmenter.t\_masked
+=========================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.t_maskedseg1d.Segmenter
+===============
+
+.. currentmodule:: seg1d
+
+.. autoclass:: Segmenter
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Segmenter.__init__
+      ~Segmenter.add_reference
+      ~Segmenter.clear_reference
+      ~Segmenter.segment
+      ~Segmenter.set_target
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Segmenter.clusters
+      ~Segmenter.combined
+      ~Segmenter.corrs
+      ~Segmenter.groups
+      ~Segmenter.peaks
+      ~Segmenter.t_masked
+      ~Segmenter.t_segments
+   
+   seg1d.Segmenter.segment
+=======================
+
+.. currentmodule:: seg1d
+
+.. automethod:: Segmenter.segmentseg1d.Segmenter.add\_reference
+==============================
+
+.. currentmodule:: seg1d
+
+.. automethod:: Segmenter.add_referenceseg1d.optimized\_funcs.vcor
+===========================
+
+.. currentmodule:: seg1d.optimized_funcs
+
+.. autofunction:: vcorseg1d.processing.Features.shared
+================================
+
+.. currentmodule:: seg1d.processing
+
+.. automethod:: Features.sharedseg1d.processing.Features.match\_len
+====================================
+
+.. currentmodule:: seg1d.processing
+
+.. automethod:: Features.match_lenseg1d.optimized\_funcs.rcor
+===========================
+
+.. currentmodule:: seg1d.optimized_funcs
+
+.. autofunction:: rcorseg1d.algorithm.get\_peaks
+==========================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: get_peaksseg1d.algorithm.uniques
+=======================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: uniquesseg1d.algorithm.cluster
+=======================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: clusterseg1d.Segmenter.groups
+======================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.groupsseg1d.Segmenter.corrs
+=====================
+
+.. currentmodule:: seg1d
+
+.. autoproperty:: Segmenter.corrsseg1d.algorithm.rolling\_corr
+=============================
+
+.. currentmodule:: seg1d.algorithm
+
+.. autofunction:: rolling_corr

@@ -14,17 +14,16 @@ Ultra-fast quality control and summary reports for nanopore reads
 - [Purpose](#purpose)
 - [Install](#install)
 - [Usage](#usage)
-  - [Command line](#command-line)
   - [Parameters](#parameters)
   - [Output](#output)
 - [Benchmarks](#benchmarks)
 - [Dependencies](#dependencies)
 - [Etymology](#etymology)
-- [Contributions](#Contributions)
+- [Contributions](#contributions)
 
 ## Purpose
 
-`Nanoq` implements ultra-fast read filters and summary reports. Mean read quality scores are computed for basecalls from nanopore sequencing data, as outlined in the [technical documentation](https://community.nanoporetech.com/technical_documents/data-analysis/) and this [blog post](https://gigabaseorgigabyte.wordpress.com/2017/06/26/averaging-basecall-quality-scores-the-right-way/). 
+As sequencing throughput increases, so does the time for read summaries and basic quality control. `Nanoq` implements ultra-fast read filters and summary reports.
 
 ## Citation
 
@@ -110,10 +109,10 @@ Output compression can be specified manually with `-O` and `-c`.
 nanoq -i test.fq -O g -c 9 -o reads.fq.cmp
 ```
 
-Reads can be filtered by minimum read length (`-l`), maximum read length (`-m`) or average read quality (`-q`).
+Reads can be filtered by minimum read length (`-l`), maximum read length (`-m`), minimum average read quality (`-q`) or maximum average read quality (`-w`).
 
 ```bash
-nanoq -i test.fq -l 1000 -q 10 -m 10000 > reads.fq 
+nanoq -i test.fq -l 1000 -m 10000 -q 10 -w 15 > reads.fq 
 ```
 
 Read summaries without output can be obtained by directing to `/dev/null` or using the stats flag (`-s`):
@@ -188,7 +187,7 @@ A basic read summary is output to `stderr`:
 * mean read quality 
 * median read quality
 
-Extended summaries analogous to `NanoStat` can be obtained using multiple `-v` flags, including the top (`-t`) read lengths and qualities:
+Extended summaries analogous to `NanoStat` can be obtained using multiple `-v` flags (up to `-vvv`), including the top (`-t`) read lengths and qualities:
 
 ```bash
 nanoq -i test.fq -f -s -vv

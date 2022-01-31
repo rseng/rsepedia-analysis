@@ -409,3 +409,443 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+Circuit Elements
+================
+
+.. automodule:: impedance.models.circuits.elements
+   :members:
+Circuits
+========
+
+.. automodule:: impedance.models.circuits.circuits
+   :members:
+=========================================
+Getting started with :code:`impedance.py`
+=========================================
+
+:code:`impedance.py` is a Python package for analyzing electrochemical impedance
+spectroscopy (EIS) data. The following steps will show you how to get started
+analyzing your own data using :code:`impedance.py` in a Jupyter notebook.
+
+.. hint::
+  If you get stuck or believe you have found a bug, please feel free to open an
+  `issue on GitHub <https://github.com/ECSHackWeek/impedance.py/issues>`_.
+
+Step 1: Installation
+====================
+
+If you already are familiar with managing Python packages, feel free to skip
+straight to `Installing packages`_.
+Otherwise, what follows is a quick introduction to the Python package ecosystem:
+
+Installing Miniconda
+--------------------
+One of the easiest ways to get started with Python is using Miniconda.
+Installation instructions for your OS can be found at
+https://conda.io/miniconda.html.
+
+After you have installed conda, you can run the following commands in your
+Terminal/command prompt/Git BASH to update and test your installation:
+
+1. Update conda’s listing of packages for your system: :code:`conda update conda`
+
+2. Test your installation: :code:`conda list`
+
+  For a successful installation, a list of installed packages appears.
+
+3. Test that Python 3 is your default Python: :code:`python -V`
+
+  You should see something like Python 3.x.x :: Anaconda, Inc.
+
+You can interact with Python at this point, by simply typing :code:`python`.
+
+Setting up a conda environment
+------------------------------
+*(Optional)* It is recommended that you use virtual environments to keep track
+of the packages you've installed for a particular project. Much more info on
+how conda makes this straightforward is given `here <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#viewing-a-list-of-your-environments>`_.
+
+We will start by creating an environment called :code:`impedance-analysis`
+which contains all the Python base distribution:
+
+.. code-block:: bash
+
+   conda create -n impedance-analysis python=3
+
+After conda creates this environment, we need to activate it before we can
+install anything into it by using:
+
+.. code-block:: bash
+
+   conda activate impedance-analysis
+
+We've now activated our conda environment and are ready to install
+:code:`impedance.py`!
+
+Installing packages
+-------------------
+
+The easiest way to install :code:`impedance.py` and it's dependencies
+(:code:`scipy`, :code:`numpy`, and :code:`matplotlib`) is from
+`PyPI <https://pypi.org/project/impedance/>`_ using pip:
+
+.. code-block:: bash
+
+   pip install impedance
+
+For this example we will also need Jupyter Lab which we can install with:
+
+.. code-block:: bash
+
+   conda install jupyter jupyterlab
+
+We've now got everything in place to start analyzing our EIS data!
+
+.. note::
+  The next time you want to use this same environment, all you have to do is
+  open your terminal and type :code:`conda activate impedance-analysis`.
+
+Open Jupyter Lab
+----------------
+
+*(Optional)* Create a directory in your documents folder for this example:
+
+.. code-block:: bash
+
+   mkdir ~/Documents/impedance-example
+
+   cd ~/Documents/impedance-example
+
+Next, we will launch an instance of Jupyter Lab:
+
+.. code-block:: bash
+
+  jupyter lab
+
+which should open a new tab in your browser. A tutorial on Jupyter Lab from the
+Electrochemical Society HackWeek can be found `here <https://ecshackweek.github.io/tutorial/getting-started-with-jupyter/>`_.
+
+.. tip::
+  The code below can be found in the `getting-started.ipynb <_static/getting-started.ipynb>`_ notebook
+
+Step 2: Import your data
+========================
+
+This example will assume the following dataset is located in your current working directory (feel free to replace it with your data): :download:`exampleData.csv <_static/exampleData.csv>`
+
+For this dataset, importing the data looks something like:
+
+.. code-block:: python
+
+  from impedance import preprocessing
+
+  # Load data from the example EIS result
+  frequencies, Z = preprocessing.readCSV('./exampleData.csv')
+
+  # keep only the impedance data in the first quandrant
+  frequencies, Z = preprocessing.ignoreBelowX(frequencies, Z)
+
+.. tip::
+  Functions for reading in files from a variety of vendors (ZPlot, Gamry, Parstat, Autolab, ...) can be found in the `preprocessing module <preprocessing.html>`_!
+
+Step 3: Define your impedance model
+===================================
+
+Next we want to define our impedance model. In order to enable a wide variety
+of researchers to use the tool, :code:`impedance.py` allows you to define a
+custom circuit with any combination of `circuit elements <circuit-elements.html>`_.
+
+The circuit is defined as a string (i.e. using :code:`''` in Python), where elements in
+series are separated by a dash (:code:`-`), and elements in parallel are wrapped in
+a :code:`p( , )`. Each element is defined by the function (in `circuit-elements.py <circuit-elements.html>`_) followed by a single digit identifier.
+
+For example, the circuit below:
+
+.. image:: _static/two_time_constants.png
+
+would be defined as :code:`R0-p(R1,C1)-p(R2-Wo1,C2)`.
+
+Each circuit, we want to fit also needs to have an initial guess for each
+of the parameters. These inital guesses are passed in as a list in order the
+parameters are defined in the circuit string. For example, a good guess for this
+battery data is :code:`initial_guess = [.01, .01, 100, .01, .05, 100, 1]`.
+
+We create the circuit by importing the CustomCircuit object and passing it our
+circuit string and initial guesses.
+
+.. code-block:: python
+
+  from impedance.models.circuits import CustomCircuit
+
+  circuit = 'R0-p(R1,C1)-p(R2-Wo1,C2)'
+  initial_guess = [.01, .01, 100, .01, .05, 100, 1]
+
+  circuit = CustomCircuit(circuit, initial_guess=initial_guess)
+
+Step 4: Fit the impedance model to data
+=======================================
+
+Once we've defined our circuit, fitting it to impedance data is as easy as
+calling the `.fit()` method and passing it our experimental data!
+
+.. code-block:: python
+
+  circuit.fit(frequencies, Z)
+
+We can access the fit parameters with :code:`circuit.parameters_` or by
+printing the circuit object itself, :code:`print(circuit)`.
+
+Step 5: Analyze/Visualize the results
+=====================================
+
+For this dataset, the resulting fit parameters are
+
+================ ========
+   Parameter      Value
+---------------- --------
+:math:`R_0`      1.65e-02
+:math:`R_1`      8.68e-03
+:math:`C_1`      3.32e+00
+:math:`R_2`      5.39e-03
+:math:`Wo_{1,0}` 6.31e-02
+:math:`Wo_{1,1}` 2.33e+02
+:math:`C_2`      2.20e-01
+================ ========
+
+We can get the resulting fit impedance by passing a list of frequencies to the :code:`.predict()` method.
+
+.. code-block:: python
+
+  Z_fit = circuit.predict(frequencies)
+
+To easily visualize the fit, the :code:`plot_nyquist()` function can be handy.
+
+.. code-block:: python
+
+  import matplotlib.pyplot as plt
+  from impedance.visualization import plot_nyquist
+
+  fig, ax = plt.subplots()
+  plot_nyquist(ax, Z, fmt='o')
+  plot_nyquist(ax, Z_fit, fmt='-')
+
+  plt.legend(['Data', 'Fit'])
+  plt.show()
+
+.. image:: _static/example_fit_fig.png
+
+.. important::
+  🎉 Congratulations! You're now up and running with impedance.py 🎉
+Examples
+========
+
+
+.. toctree::
+    :maxdepth: 1
+    :glob:
+
+    examples/fitting_example.ipynb
+    examples/plotting_example.ipynb
+    examples/model_io_example.ipynb
+    examples/validation_example.ipynb
+    examples/looping_files_example.ipynb
+Validation
+==========
+
+Interpreting EIS data fundamentally relies on the the system conforming to
+conditions of causality, linearity, and stability. For an example of how
+the adherence to the Kramers-Kronig relations, see the `Validation Example Jupyter Notebook
+<examples/validation_example.ipynb>`_
+
+Lin-KK method
+-------------
+
+Validating your data with the lin-KK model requires fitting an optimal number
+of RC-elements and analysis of the residual errors.
+
+.. automodule:: impedance.validation
+   :members:
+Preprocessing
+=============
+
+.. automodule:: impedance.preprocessing
+   :members:
+Fitting
+=======
+
+.. automodule:: impedance.models.circuits.fitting
+   :members:
+Frequently Asked Questions
+==========================
+
+What method does impedance.py use for fitting equivalent circuit models?
+------------------------------------------------------------------------
+By default, fitting is performed by non-linear least squares regression of
+the circuit model to impedance data via
+`curve_fit <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html>`_
+from the `scipy.optimize` package.[1]
+Real and imaginary components are fit simultaneously with uniform
+weighting, i.e. the objective function to minimize is,
+
+.. math::
+    \chi^2 = \sum_{n=0}^{N} [Z^\prime_{data}(\omega_n) - Z^\prime_{model}(\omega_n)]^2 +
+                   [Z^{\prime\prime}_{data}(\omega_n) - Z^{\prime\prime}_{model}(\omega_n)]^2
+
+where N is the number of frequencies and :math:`Z^\prime` and
+:math:`Z^{\prime\prime}` are the real and imaginary components of
+the impedance, respectively.
+The default optimization method is the
+Levenberg-Marquardt algorithm (:code:`method='lm'`) for unconstrained
+problems and the Trust Region Reflective algorithm
+(:code:`method='trf'`) if bounds are provided. See `the SciPy documentation
+<https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html>`_
+for more details and options.
+
+While the default method converges quickly and often yields acceptable fits,
+the results may be sensitive to the initial conditions.
+EIS fitting can be prone to this issue given the high dimensionality
+of typical equivalent circuit models.
+`Global optimization algorithms <https://en.wikipedia.org/wiki/Global_optimization>`_
+attempt to search the entire parameter landscape to minimize the error.
+By setting :code:`global_opt=True` in :code:`circuit_fit`, :code:`impedance.py` will use the
+`basinhopping <https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.basinhopping.html>`_
+global optimization algorithm (also from the `scipy.optimize` package[1]) instead of :code:`curve_fit`.
+Note that the computational time may increase.
+
+[1] Virtanen, P., Gommers, R., Oliphant, T.E. et al.
+SciPy 1.0: fundamental algorithms for scientific computing in Python.
+Nat Methods 17, 261–272 (2020). `doi: 10.1038/s41592-019-0686-2 <https://doi.org/10.1038/s41592-019-0686-2>`_
+
+How do I cite impedance.py?
+---------------------------
+
+.. image:: https://joss.theoj.org/papers/10.21105/joss.02349/status.svg
+    :target: https://doi.org/10.21105/joss.02349
+
+If you use impedance.py in published work, please consider citing https://joss.theoj.org/papers/10.21105/joss.02349 as
+
+.. code:: text
+
+    @article{Murbach2020,
+        doi = {10.21105/joss.02349},
+        url = {https://doi.org/10.21105/joss.02349},
+        year = {2020},
+        publisher = {The Open Journal},
+        volume = {5},
+        number = {52},
+        pages = {2349},
+        author = {Matthew D. Murbach and Brian Gerwe and Neal Dawson-Elli and Lok-kun Tsui},
+        title = {impedance.py: A Python package for electrochemical impedance analysis},
+        journal = {Journal of Open Source Software}
+    }
+
+How can I contribute to impedance.py?
+-------------------------------------
+
+First off, thank you for your interest in contributing to the
+open-source electrochemical community! We're excited to welcome all
+contributions including suggestions for new features, bug reports/fixes,
+examples/documentation, and additional impedance analysis functionality.
+
+Feature requests and bug reports
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to make a suggestion for a new feature, please `make an
+issue <https://github.com/ECSHackWeek/impedance.py/issues/new/choose>`_
+including as much detail as possible. If you're requesting a
+new circuit element or data file type, there are special issue templates
+that you can select and use.
+
+Contributing code
+~~~~~~~~~~~~~~~~~
+
+The prefered method for contributing code to impedance.py is to fork
+the repository on GitHub and submit a "pull request" (PR).
+More detailed information on how to get started developing impedance.py
+can be found in
+`CONTRBUTING.md <https://github.com/ECSHackWeek/impedance.py/blob/master/CONTRIBUTING.md>`_.
+
+Feel free to reach out via GitHub issues with any questions!
+
+.. eisfit documentation master file, created by
+   sphinx-quickstart on Wed May 16 16:54:07 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+impedance.py
+=============
+
+:code:`impedance.py` is a Python package for making 
+electrochemical impedance spectroscopy (EIS) analysis
+reproducible and easy-to-use.
+
+Aiming to create a consistent,
+`scikit-learn-like API <https://arxiv.org/abs/1309.0238>`_
+for impedance analysis, :code:`impedance.py` contains
+modules for data preprocessing, validation, model fitting,
+and visualization.
+
+
+If you have a feature request or find a bug, please 
+`file an issue <https://github.com/ECSHackWeek/impedance.py/issues>`_
+or, better yet, make the code improvements and 
+`submit a pull request <https://help.github.com/articles/creating-a-pull-request-from-a-fork/>`_!
+The goal is to build an open-source tool that the
+entire impedance community can improve and use!
+
+Installation
+------------
+
+The easiest way to install :code:`impedance.py` is
+from `PyPI <https://pypi.org/project/impedance/>`_ 
+using pip:
+
+.. code-block:: bash
+
+   pip install impedance
+
+See :doc:`./getting-started` for instructions
+on getting started from scratch.
+
+Dependencies
+~~~~~~~~~~~~
+
+impedance.py requires:
+
+-   Python (>=3.7)
+-   SciPy (>=1.0)
+-   NumPy (>=1.14)
+-   Matplotlib (>=3.0)
+-   Altair (>=3.0)
+
+Several example notebooks are provided in the examples/ directory.
+Opening these will require Jupyter notebook or Jupyter lab.
+
+Examples and Documentation
+---------------------------
+:doc:`./getting-started` contains a detailed walk
+through of how to get started from scratch. If you're already familiar with
+Jupyter/Python, several examples can be found in the :code:`examples/` directory
+(:doc:`./examples/fitting_example` is a great place to start). 
+The documentation can be found at 
+`impedancepy.readthedocs.io <https://impedancepy.readthedocs.io/en/latest/>`_.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents
+
+   getting-started
+   examples
+   preprocessing
+   validation
+   circuits
+   circuit-elements
+   fitting
+   faq
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

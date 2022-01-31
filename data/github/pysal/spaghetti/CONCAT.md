@@ -1458,3 +1458,355 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+.. tutorials
+
+
+Tutorials
+=========
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Basic functionality:
+
+    notebooks/quickstart.ipynb
+    notebooks/pointpattern-attributes.ipynb
+    notebooks/connected-components.ipynb
+    notebooks/shortest-path-visualization.ipynb
+    
+.. toctree::
+    :maxdepth: 1
+    :caption: Advanced functionality and known limitations:
+    
+    notebooks/network-segmentation.ipynb
+    notebooks/network-spatial-dependence.ipynb
+    notebooks/network-spatial-weights.ipynb
+    notebooks/spanning-trees.ipynb
+    notebooks/caveats.ipynb
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Integrations & applications:
+    
+    notebooks/network-spatial-autocorrelation.ipynb
+    notebooks/facility-location.ipynb
+    notebooks/transportation-problem.ipynb
+    notebooks/tsp.ipynb
+
+Citations:
+  * Advanced functionality:
+  
+    * Spatial Dependence:
+      :cite:`Ripley1976`, :cite:`Ripley1977`, :cite:`doi:10.1002/9780470549094.ch5`, :cite:`doi:10.1111/j.1538-4632.2001.tb00448.x`, :cite:`doi:10.1002/9781119967101.ch6`
+    
+    * Spatial Weights:
+      :cite:`pysal2007`, :cite:`AnselinRey2014`, :cite:`rey_open_2015`
+    
+    * Spanning Trees:
+      :cite:`GrahamHell_1985`, :cite:`AhujaRavindraK`, :cite:`doi:10.1002/9781119967101.ch3`
+  
+  * Integrations & applications:
+    
+    * Spatial Autocorrelation:
+      :cite:`Moran1950`, :cite:`moran:_cliff81`, :cite:`Anselin1995`, :cite:`Getis1992`, :cite:`esda:_2019`, :cite:`splot:package:_2020`, :cite:`Lumnitz2020`
+    
+    * Facility Location:
+      :cite:`Hakimi1964`, :cite:`ReVelle1970`, :cite:`Toregas1971`, :cite:`Toregas1972`, :cite:`Church1974`, :cite:`ReVelle2005`
+    
+    * The Transportation Problem:
+      :cite:`Hitchcock1941`, :cite:`Koopmans1949`, :cite:`Phillips1981a`, :cite:`Gass2005`, :cite:`Church2009`, :cite:`daskin2013`
+    
+    * The Traveling Salesperson Problem:
+      :cite:`Dantzig1954`, :cite:`Flood1956`, :cite:`Miller1960`, :cite:`Cummings2000`, :cite:`Miller2001`, :cite:`Bektas2014`
+
+
+.. Installation
+
+As of version 1.6.5, `spaghetti` supports Python 3.7_, 3.8_, 3.9_, and 3.10_. Please make sure that you are operating in a Python >= 3.7 environment.
+
+Installation
+============
+
+Installing with ``conda`` via `spaghetti-feedstock`_ (highly recommended)
+-------------------------------------------------------------------------
+
+To install `spaghetti` and all its dependencies, we recommend using the conda_ manager, specifically with the conda-forge_ channel. This can be obtained by installing the `Anaconda Distribution`_ (a free Python distribution for data science), or through miniconda_ (minimal distribution only containing Python and the ``conda`` package manager). 
+
+Using ``conda``, `spaghetti` can be installed as follows::
+
+  $ conda config --set channel_priority strict
+  $ conda install --channel conda-forge spaghetti
+
+Also, ``geopandas`` provides `a nice example`_ to create a fresh environment for working with spatial data.
+
+
+Installing with `Python Package Index`_
+---------------------------------------
+::
+
+  $ pip install spaghetti
+
+
+*or* download the source distribution (``.tar.gz``) and decompress it to your selected destination. Open a command shell and navigate to the decompressed folder. ::
+
+  $ pip install .
+
+.. role:: rubric
+
+**Warning**
+
+When installing via ``pip``, you have to ensure that the required dependencies for `spaghetti` are installed on your operating system. Details on how to install these packages are linked here_. Using ``conda`` (above) avoids having to install the dependencies separately.
+
+
+Development Version
+-------------------
+
+Install the most current development version of `spaghetti` by running::
+
+  $ pip install git+https://github.com/pysal/spaghetti
+
+You can  also fork_ the `pysal/spaghetti`_ repo and create a local clone of your fork. By making changes to your local clone and submitting a pull request to `pysal/spaghetti`_, you can contribute to the spaghetti development.
+
+|
+
+.. _3.7: https://docs.python.org/3.7/
+.. _3.8: https://docs.python.org/3.8/
+.. _3.9: https://docs.python.org/3.9/
+.. _3.10: https://docs.python.org/3.10/
+.. _spaghetti-feedstock: https://github.com/conda-forge/spaghetti-feedstock
+.. _a nice example: https://geopandas.readthedocs.io/en/latest/getting_started/install.html#creating-a-new-environment
+.. _conda: https://docs.conda.io/en/latest/
+.. _conda-forge: https://conda-forge.org
+.. _Anaconda Distribution: https://docs.continuum.io/anaconda/
+.. _miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _Python Package Index: https://pypi.org/project/spaghetti/
+.. _pysal/spaghetti: https://github.com/pysal/spaghetti
+.. _fork: https://help.github.com/articles/fork-a-repo/
+.. _here: https://github.com/pysal/spaghetti#requirements
+.. documentation master file
+
+
+.. raw:: html
+
+    <img 
+        src="_static/images/spaghetti_nav_logo.svg" 
+        class="img-responsive center-block" 
+        alt="spaghetti logo" 
+        width="470" 
+        height="200"
+    >
+
+
+`spaghetti`
+===========
+
+**SPA**\ tial **G**\ rap\ **H**\ s: n\ **ET**\ works, **T**\ opology, & **I**\ nference
+---------------------------------------------------------------------------------------
+
+`Spaghetti` is an open-source Python library for the analysis of network-based
+spatial data. Originating from the `network` module in `PySAL (Python Spatial 
+Analysis Library) <http://pysal.org>`_, it is under active development for the 
+inclusion of newly proposed methods for building graph-theoretic networks and 
+the analysis of network events. An installation guide, API reference, 
+and usage tutorials are provided here through the links above.
+
+
+.. raw:: html
+
+    <div class="container-fluid">
+      <div class="row equal-width">
+        <div class="col-sm-.5 col-xs-hidden">
+        </div>
+        <div class="col-md-6 col-xs-15">
+            <a 
+                href="https://pysal.org/spaghetti/notebooks/network-segmentation.html" 
+                class="thumbnail"
+            >
+                <img 
+                    src="_static/images/crime_counts.png" 
+                    class="img-responsive center-block"
+                >
+                <div class="caption text-center">
+                <h6>Network Representations</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-xs-15">
+            <a 
+                href="https://pysal.org/spaghetti/notebooks/network-spatial-dependence.html" 
+                class="thumbnail"
+            >
+                <img 
+                    src="_static/images/network_k.png" 
+                    class="img-responsive center-block"
+                >
+                <div class="caption text-center">
+                <h6>Network Spatial Dependence</h6>
+                </div>
+            </a>
+        </div>
+        </div>
+        <div class="col-sm-.5 col-xs-hidden">
+        </div>
+      </div>
+    </div>
+
+
+History
+-------
+
+`Spaghetti` was 
+created and has evolved in line with the Python Spatial Analysis Library ecosystem for 
+the specific purpose of utilizing the functionality of spatial weights in 
+`libpysal <https://pysal.org/libpysal/>`_ for generating network segment contiguity objects. 
+The PySAL project was started in the mid-2000s when installation was difficult to maintain. 
+Due to the non-triviality of relying on dependencies to secondary packages, a conscious 
+decision was made to limit dependencies and build native PySAL data structures in cases 
+where at all possible. Therefore, the original `pysal.network` submodule was developed to 
+address the need for integrating support for network data structures with PySAL weights 
+data structures, with the target audience being spatial data scientists and anyone 
+interested in investigating network-centric phenomena within PySAL. Owing to the 
+co-development of network functionality found within `spaghetti` and the evolution of 
+the wider PySAL ecosystem, today, the package provides specialized network functionality 
+that easily integrates with the rest of PySAL. This allows users of `spaghetti`’s network 
+functionality to access spatial analysis functionality that complements network analysis, 
+such as spatial statistical tools with `esda` and integration with core components of 
+`libpysal`: `libpysal.weights` (mentioned above), 
+`libpysal.cg` (computational geometry and data structures), 
+`libpysal.io` (input-output), and `libpysal.examples` (built-in example data).
+
+
+Development
+-----------
+
+Development of `spaghetti` is hosted on GitHub_.
+
+
+Citing `spaghetti`
+------------------
+
+If you use PySAL-spaghetti in a scientific publication, we would appreciate using the following BibTeX citations::
+
+  @article{Gaboardi2021,
+    doi         = {10.21105/joss.02826},
+    url         = {https://doi.org/10.21105/joss.02826},
+    year        = {2021},
+    publisher   = {The Open Journal},
+    volume      = {6},
+    number      = {62},
+    pages       = {2826},
+    author      = {James D. Gaboardi and Sergio Rey and Stefanie Lumnitz},
+    title       = {spaghetti: spatial network analysis in PySAL},
+    journal     = {Journal of Open Source Software}
+  }
+  
+  @misc{Gaboardi2018,
+    author      = {Gaboardi, James D. and Laura, Jay and Rey, Sergio and
+                   Wolf, Levi John and Folch, David C. and Kang, Wei and 
+                   Stephens, Philip and Schmidt, Charles},
+    month       = {oct},
+    year        = {2018},
+    title       = {pysal/spaghetti},
+    url         = {https://github.com/pysal/spaghetti},
+    doi         = {10.5281/zenodo.1343650},
+    keywords    = {graph-theory,network-analysis,python,spatial-networks,topology}
+  }
+
+
+Citing Work
+-----------
+
+* **Lovelace, R**. `Open source tools for geographic analysis in transport planning`. Journal of Geographical Systems (2021). https://doi.org/10.1007/s10109-020-00342-2.
+* **Rey, SJ et al**. `The PySAL Ecosystem: Philosophy and Implementation`. Geographical Analysis (2021). https://doi.org/10.1111/gean.12276.
+
+
+Funding
+-------
+
+This project is/was partially funded through:
+
+.. figure:: _static/images/ardc_logo.png
+    :target: https://atlantardc.wordpress.com
+    :width: 150
+    :align: left
+
+    The Atlanta Research Data Center: `A Polygon-Based Approach to Spatial Network Allocation <https://atlantardc.files.wordpress.com/2018/05/ardc-newsletter_2018_2.pdf>`_
+
+.. figure:: _static/images/nsf_logo.png
+    :target: https://www.nsf.gov/index.jsp
+    :width: 100
+    :align: left
+
+    National Science Foundation Award #1825768: `National Historical Geographic Information System <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1825768&HistoricalAwards=false>`_
+
+
+.. raw:: html
+
+    <img 
+        src="_static/images/pysal_logo.svg" 
+        class="img-responsive center-block" 
+        alt="PySAL Logo" 
+        width="400" 
+        height="400"
+    >
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: Contents:
+
+   Installation <installation>
+   Tutorials <tutorials>
+   API <api>
+   References <references>
+
+
+.. _PySAL: https://github.com/pysal/pysal
+.. _GitHub: https://github.com/pysal/spaghetti
+.. reference for the docs
+
+References
+==========
+
+.. bibliography:: _static/references.bib
+   :all:
+.. _api_ref:
+
+.. currentmodule:: spaghetti
+
+API reference
+=============
+
+.. _network_api:
+
+
+Network feature instantiation
+-----------------------------
+
+.. autosummary::
+   :toctree: generated/
+    
+    spaghetti.Network
+    spaghetti.PointPattern
+
+
+Network feature extraction and creation
+---------------------------------------
+
+.. autosummary::
+   :toctree: generated/
+    
+    spaghetti.extract_component
+    spaghetti.spanning_tree
+    spaghetti.element_as_gdf
+    spaghetti.regular_lattice
+
+
+Save and load a network
+-----------------------
+
+.. autosummary::
+   :toctree: generated/
+    
+    spaghetti.Network.savenetwork
+    spaghetti.Network.loadnetwork

@@ -121,3 +121,7339 @@ INSERT ZENODO LINK
 
 
 
+---
+title: "Venn_diagram"
+author: "Jeroen Gilis"
+date: "04/12/2020"
+output: html_document
+---
+
+This is scripts compares the DTU results between satuRn, limma diffsplice and DoubleExpSeq by means of a Venn daigram (Figure 9 from the publication). In order to run this script, three files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_satuRn.Rds (satuRn DTU results)
+2. Tasic_caseStudy_limmaDiffsplice.Rds (limma diffsplice DTU results)
+3. Tasic_caseStudy_DoubleExpSeq.Rds (DoubleExpSeq DTU results)
+
+Note that the metadata files are identical to the one supplemented by Tasic et al., Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(SummarizedExperiment)
+library(ggplot2)
+#library(tidyverse)
+library(VennDiagram)
+library(grid)
+```
+
+# Load data
+
+These are the results of the analyses of the Tasic case study with satuRn (generated in satuRn_analysis.Rmd), limma diffsplice (generated in limmaDiffsplice_analysis.Rmd) and DoubleExpSeq (generated in DoubleExpSeq_analysis.Rmd).
+
+```{r}
+satuRn_results <- readRDS(file="./Data/Tasic_caseStudy_satuRn.Rds")
+limmaRes_results <- readRDS(file="./Data/Tasic_caseStudy_limmaDiffsplice.Rds")
+DoubleExpSeq_results <- readRDS(file="./Data/Tasic_caseStudy_DoubleExpSeq.Rds")
+```
+
+# Venn diagram for top200 transcipts in contrast 6
+
+## Extract top200 transcripts in contrast 6
+
+```{r}
+# satuRn
+satuRn_results_comp6_top200 <- rowData(satuRn_results)[["fitDTUResult_C6"]]
+satuRn_results_comp6_top200 <- satuRn_results_comp6_top200[order(satuRn_results_comp6_top200$empirical_pval),][1:200,]
+satuRn_results_comp6_top200 <- rownames(satuRn_results_comp6_top200)
+
+# limma diffsplice
+limmaRes_results_comp6_top200 <- limmaRes_results[[6]]
+limmaRes_results_comp6_top200 <- limmaRes_results_comp6_top200[order(limmaRes_results_comp6_top200$empirical_pval),][1:200,]
+limmaRes_results_comp6_top200 <- rownames(limmaRes_results_comp6_top200)
+
+# DoubleExpSeq
+DoubleExpSeq_results_comp6_top200 <- as.data.frame(DoubleExpSeq_results[[6]]$All)
+DoubleExpSeq_results_comp6_top200 <- DoubleExpSeq_results_comp6_top200[order(DoubleExpSeq_results_comp6_top200$pVal),][1:200,]
+DoubleExpSeq_results_comp6_top200 <- rownames(DoubleExpSeq_results_comp6_top200)
+```
+
+## create Venn diagram
+
+Venn diagrams
+
+```{r}
+png("./Results/CaseStudy/VennDiagram.png",
+      width     = 4,
+      height    = 4,
+      units     = "in",
+      res       = 200,
+      pointsize = 8) # start export
+      
+grid::grid.newpage()
+grid::grid.draw(VennDiagram::venn.diagram(list(satuRn=satuRn_results_comp6_top200,
+                                               Limma_diffsplice=limmaRes_results_comp6_top200,
+                                               DoubleExpSeq=DoubleExpSeq_results_comp6_top200), 
+                                          filename = NULL, 
+                                          main="Top200 DTU transcripts",
+                                          main.fontface = "bold",
+                                          cex = 2,
+                                          main.cex = 2.5,
+                                          cat.cex = 2,
+                                          fill = c("black", "darkblue", "#56B4E9"),
+                                          margin = 0.1,
+                                          cat.just = list(c(1,-0.5),c(0.6,-0.5),c(1.3,0))))
+dev.off()
+```
+
+---
+title: "satuRn_analysis"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs a DTU analysis with satuRn on a subset of cells from the single-cell RNA-Seq dataset by Tasic et al. [Tasic paper](https://doi.org/10.1038/s41586-018-0654-5). In order to run this script, three files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_transcript_counts.Rds (transcript-level expression matrix)
+2. Tasic_metadata_1.xlsx
+3. Tasic_metadata_2.csv
+
+Note that the metadata files are identical to the one supplemented by Tasic et al., Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. Also note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE115746).
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+# for data import
+library(AnnotationHub)
+library(ensembldb)
+library(openxlsx)
+
+# for analysis
+library(satuRn)
+library(edgeR)
+#library(tidyverse)
+library(SummarizedExperiment)
+
+# for visualization
+library(ggplot2)
+```
+
+# Data import
+
+## Import transcript information
+
+```{r, message=FALSE}
+ah <- AnnotationHub() # Load the annotation resource.
+all <- query(ah, "EnsDb") # Query for all available EnsDb databases
+ahEdb <- all[["AH75036"]] # for Mus musculus
+txs <- transcripts(ahEdb)
+tx2gene <- as.data.frame(matrix(data = NA, nrow = length(txs), ncol = 2))
+colnames(tx2gene) <- c("TXNAME","GENEID")
+tx2gene$TXNAME <- txs$tx_id
+tx2gene$GENEID <- txs$gene_id
+```
+
+## Import counts
+
+```{r}
+Tasic_counts <- readRDS("./Data/Tasic_caseStudy_transcript_counts.Rds")
+# Already remove genes with zero counts in all cells
+Tasic_counts <- Tasic_counts[rowSums(Tasic_counts) != 0,]
+dim(Tasic_counts)
+```
+
+## Import metadata
+
+```{r}
+access <- read.csv2("./Data/Tasic_metadata_2.csv",sep = "\t")
+access <- access[match(colnames(Tasic_counts),access$SRA_Run),]
+
+metaData <- openxlsx::read.xlsx("./Data/Tasic_metadata_1.xlsx")
+metaData <- metaData[match(access$sample_name,metaData$sample_name),]
+
+colnames(Tasic_counts) <- metaData$sample_name
+metaData <- metaData[metaData$core_intermediate_call == "Core",] # only retain cell that were unambiguously assigned to a certain cell type (cluster)
+Tasic_counts <- Tasic_counts[,metaData$sample_name]
+metaData <- metaData[,c("sample_name", "brain_region","cluster")]
+```
+
+# Data wrangling
+
+```{r}
+# Remove transcripts that are the only isoform expressed of a certain gene
+txInfo <- tx2gene
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+
+rownames(Tasic_counts) <- sub("\\..*", "", rownames(Tasic_counts))
+txInfo <- txInfo[txInfo$isoform_id %in% rownames(Tasic_counts),]
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+```
+
+# Set up the experimental design
+
+```{r}
+metaData$cluster <- gsub(" ", "_", metaData$cluster)
+metaData$group <- paste(metaData$brain_region,metaData$cluster,sep=".")
+
+# Remove groups (cell types) with less than 30 cells --> removes 4 groups
+remove <- names(table(interaction(metaData$brain_region,metaData$cluster))[table(interaction(metaData$brain_region,metaData$cluster)) < 30])
+
+metaData <- metaData[-which(metaData$group %in% remove),]
+group <- as.factor(metaData$group)
+ 
+design <- model.matrix(~ 0 + group) # Factorial design
+colnames(design) <- levels(group)
+
+Tasic_counts <- Tasic_counts[,which(colnames(Tasic_counts) %in% metaData$sample_name)]
+```
+
+# Filtering
+
+```{r}
+filter_all_edgeR_stringent <- filterByExpr(Tasic_counts,
+             design = NULL,
+             group = metaData$brain_region,
+             lib.size = NULL,
+             min.count = 10,
+             min.total.count = 0,
+             large.n = 0,
+             min.prop = 0.7)
+
+table(filter_all_edgeR_stringent)
+Tasic_counts <- Tasic_counts[filter_all_edgeR_stringent,]
+```
+
+```{r}
+# Update txInfo according to the filtering procedure
+txInfo <- txInfo[which(txInfo$isoform_id %in% rownames(Tasic_counts)),]
+
+# remove transcripts that are the only isoform expressed of a certain gene (after filtering)
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+
+# satuRn require the transcripts in the rowData and the transcripts in the count matrix to be in the same order. If not, the resulting models will be matched to the wrong rowData
+txInfo <- txInfo[match(rownames(Tasic_counts),txInfo$isoform_id),]
+
+rm(list = setdiff(ls(), c("Tasic_counts", "txInfo", "design", "metaData", "tx2gene","group")))
+invisible(gc())
+```
+
+# Analysis
+
+Make a summarized experiment object
+
+```{r, message=F}
+sumExp <- SummarizedExperiment::SummarizedExperiment(assays=list(counts=Tasic_counts), colData = metaData, rowData = txInfo)
+#metadata(sumExp)$formula <- ~ 0 + group  # specify design, internally the fit function will then use design <- model.matrix(sumExp@metadata$formula, colData(sumExp))
+```
+
+## Fit quasi-binomial GLMs with satuRn
+
+```{r}
+Sys.time()
+sumExp <- satuRn::fitDTU(object = sumExp,
+                         formula = ~ 0 + group,
+                         parallel = FALSE,
+                         BPPARAM = BiocParallel::bpparam(),
+                         verbose = TRUE
+                         )
+Sys.time()
+```
+
+## Set up contrast matrix
+
+```{r}
+# We here manually construct the contrast of interest as defined by Tasic et al.
+design <- model.matrix(~0+group)
+colnames(design) <- levels(group)
+
+L <- matrix(0, ncol = 8, nrow = ncol(design))
+rownames(L) <- colnames(design)
+colnames(L) <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8")
+
+L[c("VISp.L5_IT_VISp_Batf3", "ALM.L5_IT_ALM_Cpa6_Gpr88"), 1] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col27a1", "ALM.L5_IT_ALM_Cbln4_Fezf2"), 2] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col6a1_Fezf2", "ALM.L5_IT_ALM_Cpa6_Gpr88"), 3] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col6a1_Fezf2", "ALM.L5_IT_ALM_Gkn1_Pcdh19"), 4] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Lypd1_Gpr88"), 5] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Tnc"), 6] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Tmem163_Dmrtb1"), 7] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Whrn_Tox2", "ALM.L5_IT_ALM_Tmem163_Arhgap25"), 8] <- c(1,-1)
+```
+
+## Test contrasts with satuRn
+
+```{r}
+sumExp <- satuRn::testDTU(object = sumExp, contrasts = L, plot=T, sort = F)
+```
+
+```{r}
+# now the rowdata have 8 additional slots, corresponding to the 8 different requested contrasts. This is a simple dataframe with results for each transcripts in the selected contrast.
+rowData(sumExp)[["fitDTUResult_C6"]]
+```
+
+# Visualize DTU with satuRn
+
+To create panels A, B and C of Figure 6 of our paper.
+
+```{r}
+group1 <- rownames(colData(sumExp))[colData(sumExp)$group == "VISp.L5_IT_VISp_Hsd11b1_Endou"]
+group2 <- rownames(colData(sumExp))[colData(sumExp)$group == "ALM.L5_IT_ALM_Tnc"]
+
+plots <- satuRn::plotDTU(object = sumExp, contrast = "C6", groups = list(group1,group2), coefficients = list(c(0,0,0,0,0,0,0,0,0,0,0,0,1,0),c(0,0,0,0,0,0,0,0,1,0,0,0,0,0)), summaryStat = "model", transcripts = c("ENSMUST00000081554","ENSMUST00000195963","ENSMUST00000132062"),genes = NULL,top.n = 6)
+
+# To have same layout as in our paper
+for (i in seq_along(plots)) {
+    titles <- c("Figure6A","Figure6B","Figure6C")
+    current_plot <- plots[[i]]  + 
+    scale_fill_manual(labels = c("VISp","ALM"), values=c("royalblue4", "firebrick")) +
+    scale_x_discrete(labels= c("Hsd11b1_Endou","Tnc")) +
+    theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust = 0.5, size = 9)) + 
+    theme(strip.text = element_text(size = 9, face = "bold"))
+  
+    png(paste0("./Results/CaseStudy/",titles[i],".png"),
+        width     = 5,
+        height    = 5,
+        units     = "in",
+        res       = 200,
+        pointsize = 4)
+    print(current_plot)
+    dev.off()
+}
+```
+
+# GSEA
+
+Save DTU transcripts for contrasts 5, 6 and 7 to perform a DTU analysis (import to MSigDB)
+
+```{r}
+DTU_tx <-  rownames(rowData(sumExp)[[5+3]][rowData(sumExp)[[5+3]]$empirical_FDR <= 0.05 & !is.na(rowData(sumExp)[[5+3]]$estimates),])
+DTU_gene <- tx2gene[which(tx2gene$TXNAME %in% DTU_tx), "GENEID"]
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast5_DTU_satuRn.txt")
+cat(DTU_gene, "\n")
+sink()
+
+DTU_tx <-  rownames(rowData(sumExp)[[6+3]][rowData(sumExp)[[6+3]]$empirical_FDR <= 0.05 & !is.na(rowData(sumExp)[[6+3]]$estimates),])
+DTU_gene <- tx2gene[which(tx2gene$TXNAME %in% DTU_tx), "GENEID"]
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast6_DTU_satuRn.txt")
+cat(DTU_gene, "\n")
+sink()
+
+DTU_tx <-  rownames(rowData(sumExp)[[7+3]][rowData(sumExp)[[7+3]]$empirical_FDR <= 0.05 & !is.na(rowData(sumExp)[[7+3]]$estimates),])
+DTU_gene <- tx2gene[which(tx2gene$TXNAME %in% DTU_tx), "GENEID"]
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast7_DTU_satuRn.txt")
+cat(DTU_gene, "\n")
+sink()
+```
+
+# Save final object
+
+Save resulting object for later comparison of results with limma diffsplice and DoubleExpSeq.
+
+```{r}
+saveRDS(sumExp, file = "./Data/Tasic_caseStudy_satuRn.Rds")
+```
+
+
+
+
+---
+title: "limmaDiffsplice_analysis"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs a DTU analysis with limma diffsplice on a subset of cells from the single-cell RNA-Seq dataset by Tasic et al. [Tasic paper](https://doi.org/10.1038/s41586-018-0654-5). In order to run this script, three files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_transcript_counts.Rds (transcript-level expression matrix)
+2. Tasic_metadata_1.xlsx
+3. Tasic_metadata_2.csv
+
+Note that the metadata files are identical to the one supplemented by Tasic et al., Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. Also note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE115746).
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+# for data import
+library(AnnotationHub)
+library(ensembldb)
+
+# for analysis
+library(edgeR)
+#library(tidyverse)
+
+# for visualization
+library(ggplot2)
+```
+
+# Data import
+
+## Import transcript information
+
+```{r, message=FALSE}
+ah <- AnnotationHub() # Load the annotation resource.
+all <- query(ah, "EnsDb") # Query for all available EnsDb databases
+ahEdb <- all[["AH75036"]] # for Mus musculus
+
+txs <- transcripts(ahEdb)
+tx2gene <- as.data.frame(matrix(data = NA, nrow = length(txs), ncol = 2))
+colnames(tx2gene) <- c("TXNAME","GENEID")
+tx2gene$TXNAME <- txs$tx_id
+tx2gene$GENEID <- txs$gene_id
+```
+
+## Import counts
+
+```{r}
+Tasic_counts <- readRDS("./Data/Tasic_caseStudy_transcript_counts.Rds")
+# Already remove genes with zero counts in all cells
+Tasic_counts <- Tasic_counts[rowSums(Tasic_counts) != 0,]
+dim(Tasic_counts)
+```
+
+## Import metadata
+
+```{r}
+access <- read.csv2("./Data/Tasic_metadata_2.csv",sep = "\t")
+access <- access[match(colnames(Tasic_counts),access$SRA_Run),]
+
+metaData <- openxlsx::read.xlsx("./Data/Tasic_metadata_1.xlsx")
+metaData <- metaData[match(access$sample_name,metaData$sample_name),]
+
+colnames(Tasic_counts) <- metaData$sample_name
+metaData <- metaData[metaData$core_intermediate_call == "Core",] # only retain cell that were unambiguously assigned to a certain cell type (cluster)
+Tasic_counts <- Tasic_counts[,metaData$sample_name]
+metaData <- metaData[,c("sample_name", "brain_region","cluster")]
+```
+
+# Data wrangling
+
+```{r}
+# Remove transcripts that are the only isoform expressed of a certain gene
+txInfo <- tx2gene
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+
+rownames(Tasic_counts) <- sub("\\..*", "", rownames(Tasic_counts))
+txInfo <- txInfo[txInfo$isoform_id %in% rownames(Tasic_counts),]
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+```
+
+# Set up the experimental design
+
+```{r}
+metaData$cluster <- gsub(" ", "_", metaData$cluster)
+metaData$group <- paste(metaData$brain_region,metaData$cluster,sep=".")
+
+# Remove groups (cell types) with less than 30 cells --> removes 4 groups
+remove <- names(table(interaction(metaData$brain_region,metaData$cluster))[table(interaction(metaData$brain_region,metaData$cluster)) < 30])
+
+metaData <- metaData[-which(metaData$group %in% remove),]
+group <- as.factor(metaData$group)
+ 
+design <- model.matrix(~ 0 + group) # Factorial design
+colnames(design) <- levels(group)
+
+Tasic_counts <- Tasic_counts[,which(colnames(Tasic_counts) %in% metaData$sample_name)]
+```
+
+# Filtering
+
+```{r}
+filter_all_edgeR_stringent <- filterByExpr(Tasic_counts,
+             design = NULL,
+             group = metaData$brain_region,
+             lib.size = NULL,
+             min.count = 10,
+             min.total.count = 0,
+             large.n = 0,
+             min.prop = 0.7)
+
+table(filter_all_edgeR_stringent)
+Tasic_counts <- Tasic_counts[filter_all_edgeR_stringent,]
+```
+
+```{r}
+# Update txInfo according to the filtering procedure
+txInfo <- txInfo[which(txInfo$isoform_id %in% rownames(Tasic_counts)),]
+
+# remove transcripts that are the only isoform expressed of a certain gene (after filtering)
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+
+# satuRn require the transcripts in the rowData and the transcripts in the count matrix to be in the same order. If not, the resulting models will be matched to the wrong rowData
+txInfo <- txInfo[match(rownames(Tasic_counts),txInfo$isoform_id),]
+
+rm(list = setdiff(ls(), c("Tasic_counts", "txInfo", "design", "metaData", "tx2gene","group")))
+invisible(gc())
+```
+
+# Analysis
+
+## Fit, set contrasts, test
+
+```{r}
+geneForEachTx <- txInfo$gene_id[match(rownames(Tasic_counts),txInfo$isoform_id)]
+y <- DGEList(counts = Tasic_counts, group=as.factor(metaData$group), genes = geneForEachTx)
+
+y <- calcNormFactors(y)
+
+v <- voom(y, design, plot=F)
+fit <- lmFit(v, design)
+
+contrast.matrix <- makeContrasts(VISp.L5_IT_VISp_Batf3-ALM.L5_IT_ALM_Cpa6_Gpr88, VISp.L5_IT_VISp_Col27a1-ALM.L5_IT_ALM_Cbln4_Fezf2, VISp.L5_IT_VISp_Col6a1_Fezf2-ALM.L5_IT_ALM_Cpa6_Gpr88, VISp.L5_IT_VISp_Col6a1_Fezf2-ALM.L5_IT_ALM_Gkn1_Pcdh19, VISp.L5_IT_VISp_Hsd11b1_Endou-ALM.L5_IT_ALM_Lypd1_Gpr88, VISp.L5_IT_VISp_Hsd11b1_Endou-ALM.L5_IT_ALM_Tnc, VISp.L5_IT_VISp_Hsd11b1_Endou-ALM.L5_IT_ALM_Tmem163_Dmrtb1, VISp.L5_IT_VISp_Whrn_Tox2-ALM.L5_IT_ALM_Tmem163_Arhgap25, levels=design)
+
+fit2 <- contrasts.fit(fit, contrast.matrix)
+fit2 <- eBayes(fit2)
+
+ex <- limma::diffSplice(fit2, geneid = "genes", verbose = F)
+
+for (i in seq_len(ncol(ex$coefficients))) {
+  limmaRes <- topSplice(ex, coef=i, test="t", number = Inf)
+  print(sum(limmaRes$FDR <= 0.05))
+}
+```
+
+## post-processing
+
+Without correction, we obtain a huge number of DTU transcripts with the limma analysis. Therefore, we additionally post-process the results according to the empirical FDR strategy implemented in satuRn (which is adapted from the locfdr function from the locfdr package by Efron et al.).
+
+At the same time, all panels of Figures S12 and S13 of our paper are generated.
+
+```{r}
+limmaRes_all<- list()
+for (i in seq_len(ncol(ex$coefficients))) {
+  limmaRes <- topSplice(ex, coef=i, test="t", number = Inf)
+  
+  t <- limmaRes$t
+  pval <- limmaRes$P.Value
+  FDR <- limmaRes$FDR
+  
+  # Generate Figure S12
+  png(paste("./Results/caseStudy/FigureS12_", i, ".png", sep = ""),
+          width     = 3.5,
+          height    = 2.5,
+          units     = "in",
+          res       = 300,
+          pointsize = 6) # start export
+  hist(pval, breaks=40, main = paste("contrast",i), col="white")
+  dev.off()
+  
+  # Generate Figure S13
+  zval <- qnorm(pval/2)*sign(t)
+  zval_mid <- zval[abs(zval) < 10]
+  zval_mid <- zval_mid[!is.na(zval_mid)]
+  
+  png(paste("./Results/caseStudy/FigureS13_", i, ".png", sep = ""),
+          width     = 3.5,
+          height    = 2.5,
+          units     = "in",
+          res       = 300,
+          pointsize = 6) # start export
+  plot_lfdr <- locfdr::locfdr(zval_mid,plot=T,main=paste("contrast",i))
+  dev.off()
+  
+  empirical <- qbDTU:::p.adjust_empirical(pval,t,plot=F) # empirical FDR correction as implemented in satuRn
+
+  empirical_pval <- empirical$pval
+  empirical_FDR <-  empirical$FDR
+
+  result_limma <- data.frame(t,pval,FDR,empirical_pval,empirical_FDR)
+  rownames(result_limma) <- rownames(limmaRes)
+  
+  # print number of DTU transcript after working under the empirical null
+  print(sum(result_limma$empirical_FDR <= 0.05))
+  
+  limmaRes_all[[i]] <- result_limma
+}
+```
+
+# Save final object
+
+Save resulting object for later comparison of results with satuRn and DoubleExpSeq.
+
+```{r}
+saveRDS(limmaRes_all,file = "./Data/Tasic_caseStudy_limmaDiffsplice.Rds")
+```
+
+---
+title: "Comparison_satuRn_limmaDiffsplice"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs qualitative comparison between the results of the DTU analysis with satuRn and the DTU analysis with limma diffsplice. In order to run this script, two files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_satuRn.Rds (satuRn DTU results)
+2. Tasic_caseStudy_limmaDiffsplice.Rds (limma diffsplice DTU results)
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(SummarizedExperiment)
+library(satuRn)
+library(ggplot2)
+```
+
+# Load data
+
+These are the results of the analyses of the Tasic case study with satuRn (generated in satuRn_analysis.Rmd) and with limma diffsplice (generated in limmaDiffsplice_analysis.Rmd).
+
+```{r}
+satuRn_results <- readRDS(file="./Data/Tasic_caseStudy_satuRn.Rds")
+limmaRes_results <- readRDS(file="./Data/Tasic_caseStudy_limmaDiffsplice.Rds")
+```
+
+Get ranks (in terms of significance) for each transcript in both mehtods
+
+```{r}
+txInfo <- as.data.frame(rowData(satuRn_results)[,c(1,2)])
+txInfo$rank_limma <- match(txInfo$isoform_id,rownames(limmaRes_results[[6]]))
+txInfo$rank_satuRn <- match(txInfo$isoform_id,rownames(rowData(satuRn_results)[["fitDTUResult_C6"]])[order(rowData(satuRn_results)[["fitDTUResult_C6"]]$empirical_pval)])
+
+txInfo$diffRank <- abs(txInfo$rank_limma - txInfo$rank_satuRn) # difference in ranks between both methods
+```
+
+# limmaDiffsplice more often identifies transcripts of genes with low information content
+
+When we inspected the transcripts that were highly ranked in the top DTU list of limma diffsplice but lowly ranked in our top list, we found that most of these transcripts originate from genes that are lowly expressed;
+
+## Global comparison (for contrast 6)
+
+Get gene-level counts
+
+```{r}
+Tasic_counts_current <- assay(satuRn_results)[,satuRn_results$group %in% c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Tnc")] # get only cells from contrast 6
+
+totalCount <- satuRn:::getTotalCount(Tasic_counts_current, txInfo)
+mean_tot <- rowMeans(totalCount) # summarize gene-level counts as the mean over all cells
+```
+
+Get fraction of zeros
+
+```{r}
+frac_zero <- rowSums(Tasic_counts_current == 0)/ncol(Tasic_counts_current)
+head(frac_zero)
+```
+
+Identify DTU transcripts in both methods
+
+```{r}
+satuRn_DTU <- rowData(satuRn_results)[["fitDTUResult_C6"]]$empirical_FDR # DTU in satuRn
+names(satuRn_DTU) <- rownames(rowData(satuRn_results)[["fitDTUResult_C6"]])
+
+limma_DTU <- limmaRes_results[[6]]$empirical_FDR # DTU in limma
+names(limma_DTU) <- rownames(limmaRes_results[[6]])
+limma_DTU <- limma_DTU[match(names(satuRn_DTU),names(limma_DTU))]
+
+both <- satuRn_DTU<0.05 & limma_DTU<0.05 # DTU in both
+satuRn <- satuRn_DTU<0.05 & !limma_DTU<0.05 # DTU in satuRn only
+limma <- limma_DTU<0.05 & !satuRn_DTU<0.05 # DTU in limma only
+```
+
+Get data in correct format for ggplot
+
+```{R}
+DTU_all <- limma
+DTU_all[which(DTU_all==TRUE)] <- "limmaDiffsplice"
+DTU_all[which(satuRn==TRUE)] <- "satuRn"
+DTU_all[which(both==TRUE)] <- "both"
+DTU_all[which(DTU_all==FALSE)] <- "none"
+gg_data <- as.data.frame(cbind(names(DTU_all),unname(DTU_all),mean_tot,frac_zero))
+colnames(gg_data) <- c("transcript","method","totalCount","frac_zero")
+gg_data$method <- as.factor(gg_data$method)
+gg_data$totalCount <- as.numeric(as.character(gg_data$totalCount))
+gg_data$frac_zero <- as.numeric(as.character(gg_data$frac_zero))
+
+gg_data$method <- factor(gg_data$method, levels = c("satuRn","both","limmaDiffsplice","none"))
+```
+
+
+Make plot of gene-level count of the transcripts uniquely identified as DTU by satuRn or limma diffsplice, or by both methods.
+
+```{r}
+p <- ggplot(data = gg_data[-which(gg_data$method == "none"),], aes(x=method,y=totalCount,fill=method)) +
+  geom_boxplot() +
+  theme_classic() +
+  scale_fill_manual(values=c("black","grey84","#0072B2")) +
+  ylab("gene-level count") +
+  ggtitle("Average gene-level counts of DTU transcripts") +
+  theme(plot.title = element_text(size = 10))
+
+dat <- ggplot_build(p)$data[[1]]
+
+png("./Results/caseStudy/Figure7A.png",
+  width     = 4.5,
+  height    = 3.5,
+  units     = "in",
+  res       = 400,
+  pointsize = 4)
+p + geom_segment(data=dat, 
+                 aes(x=xmin, xend=xmax, y=middle, yend=middle), 
+                 inherit.aes = F,
+                 colour=c("white","black","black"), 
+                 size=1) + 
+    scale_y_log10()
+dev.off()
+```
+
+Make plot of the fraction of non-zero counts in the transcripts uniquely identified as DTU by satuRn or limma diffsplice, or by both methods.
+
+```{r}
+gg_data$frac_non_zero <- 1-gg_data$frac_zero
+
+png("./Results/caseStudy/Figure7B.png",
+  width     = 4.5,
+  height    = 3.5,
+  units     = "in",
+  res       = 400,
+  pointsize = 4)
+ggplot(data = gg_data[-which(gg_data$method == "none"),], aes(x=method,y=frac_non_zero,fill=method)) +
+  geom_violin() +
+  geom_jitter(aes(colour=method),width = 0.1) +
+  theme_classic() +
+  scale_fill_manual(values=c("black","grey84","#0072B2")) +
+  scale_color_manual(values=c("grey60","black","black")) +
+  ylim(0,1) +
+  ggtitle("Fraction of non-zero counts in DTU transcripts") +
+  stat_summary(fun=median, geom="point", shape=18, size=5, col="green4") +
+  ylab("fraction non-zero counts")  +
+  theme(plot.title = element_text(size = 10))
+dev.off()
+```
+
+## Examples
+
+As a consequence, transcripts belonging to lowly expressed genes are correctly considered less informative in satuRn and are thus less likely to be picked up. In Figure 8A, we show that while our method estimates a mean usage of 7% in Tnc cells and 26% in Hsd11b1 Endou cells (indicated by the gold diamond), the transcript is not identified as differentially used, given the low abundance of the corresponding gene and the highly dispersed single-cell level observations.
+
+```{r}
+group1 <- rownames(colData(satuRn_results))[colData(satuRn_results)$group == "ALM.L5_IT_ALM_Tnc"]
+group2 <- rownames(colData(satuRn_results))[colData(satuRn_results)$group == "VISp.L5_IT_VISp_Hsd11b1_Endou"]
+
+plot_8A <- satuRn::plotDTU(object = satuRn_results, contrast = "C6", groups = list(group1,group2), coefficients = list(c(0,0,0,0,0,0,0,0,1,0,0,0,0,0),c(0,0,0,0,0,0,0,0,0,0,0,0,1,0)), summaryStat = c("model","mean"), transcripts = "ENSMUST00000080335",genes = NULL,top.n = 6)
+
+# get same layout for figure as in paper
+transcript <- "ENSMUST00000080335"
+padj_limma <- format(limmaRes_results[[6]][transcript,"empirical_FDR"],digits=4)
+rank_limma <- txInfo[txInfo$isoform_id == transcript,"rank_limma"]
+
+padj_satuRn <- format(rowData(satuRn_results)[["fitDTUResult_C6"]][transcript,"empirical_FDR"],digits=4)
+rank_satuRn <- txInfo[txInfo$isoform_id == transcript,"rank_satuRn"]
+
+label_facet <- function(txID, padj_limma, rank_limma, padj_satuRn, rank_satuRn) 
+{
+    lev <- levels(as.factor(txID))
+    lab <- paste0("limma empFDR = ", padj_limma, ", rank=", rank_limma, "\n", "satuRn empFDR = ", padj_satuRn, ", rank=", rank_satuRn)
+    names(lab) <- lev
+    return(lab)
+}
+
+# plot figure 8A
+png("./Results/caseStudy/Figure8A.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+plot_8A[[1]] +
+  scale_fill_manual(labels = c("ALM","VISp"), values=c("royalblue4", "firebrick")) +
+  scale_x_discrete(labels= c("Tnc","Hsd11b1_Endou")) + 
+  facet_wrap(~variable, ncol = 1, labeller = labeller(variable = label_facet(factor(transcript), padj_limma, rank_limma, padj_satuRn, rank_satuRn))) + 
+              theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust = 0.5, size = 9)) + 
+              theme(strip.text = element_text(size = 8,face = "bold"))
+
+dev.off()
+```
+
+# satuRN more often identifies small changes in transcript usage that are stable across all cells
+
+Conversely, by looking at the transcripts that were highly ranked in our DTU list but lowly ranked in the top list of limma, we observe that our model is more likely to capture small changes in transcript usage that are stable across all cells and belong to genes that are highly expressed
+
+## Example
+
+An example of such a transcript is shown in Figure 8B.
+
+```{r}
+plot_8B <- satuRn::plotDTU(object = satuRn_results, contrast = "C6", groups = list(group1,group2), coefficients = list(c(0,0,0,0,0,0,0,0,1,0,0,0,0,0),c(0,0,0,0,0,0,0,0,0,0,0,0,1,0)), summaryStat = "model", transcripts = "ENSMUST00000125287",genes = NULL,top.n = 6)
+
+# get same layout for figure as in paper
+transcript <- "ENSMUST00000125287"
+padj_limma <- format(limmaRes_results[[6]][transcript,"empirical_FDR"],digits=4)
+rank_limma <- txInfo[txInfo$isoform_id == transcript,"rank_limma"]
+
+padj_satuRn <- format(rowData(satuRn_results)[["fitDTUResult_C6"]][transcript,"empirical_FDR"],digits=4)
+rank_satuRn <- txInfo[txInfo$isoform_id == transcript,"rank_satuRn"]
+
+# plot figure 8B
+png("./Results/caseStudy/Figure8B.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+plot_8B[[1]] +
+  scale_fill_manual(labels = c("ALM","VISp"), values=c("royalblue4", "firebrick")) +
+  scale_x_discrete(labels= c("Tnc","Hsd11b1_Endou")) + 
+  facet_wrap(~variable, ncol = 1, labeller = labeller(variable = label_facet(factor(transcript), padj_limma, rank_limma, padj_satuRn, rank_satuRn))) + 
+              theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust = 0.5, size = 9)) + 
+              theme(strip.text = element_text(size = 8,face = "bold"))
+
+dev.off()
+```
+
+# limmaDiffsplice is more influenced by outlying observations that have a low gene-level abundance
+
+DTU claims by limma are driven by differences in raw mean usages of transcripts. 
+
+## Example
+
+In Figure 8C, the raw mean usage of the transcript is 77% in Tnc cells and 45% in Hsd11b1 Endou cells, as indicated by the cyan diamonds. By contrast, the mean usage estimate by satuRn, which takes into account that the Hsd11b1 Endou cells expressing the transcript at 0% usage have low gene-level count, is 83% for Tnc cells and 75% for Hsd11b1 Endou cells, as indicated by the gold diamonds.
+
+```{r}
+plot_8C <- satuRn::plotDTU(object = satuRn_results, contrast = "C6", groups = list(group1,group2), coefficients = list(c(0,0,0,0,0,0,0,0,1,0,0,0,0,0),c(0,0,0,0,0,0,0,0,0,0,0,0,1,0)), summaryStat = c("model","mean"), transcripts = "ENSMUST00000106956",genes = NULL,top.n = 6)
+
+# get same layout for figure as in paper
+transcript <- "ENSMUST00000106956"
+padj_limma <- format(limmaRes_results[[6]][transcript,"empirical_FDR"],digits=4)
+rank_limma <- txInfo[txInfo$isoform_id == transcript,"rank_limma"]
+
+padj_satuRn <- format(rowData(satuRn_results)[["fitDTUResult_C6"]][transcript,"empirical_FDR"],digits=4)
+rank_satuRn <- txInfo[txInfo$isoform_id == transcript,"rank_satuRn"]
+
+# plot figure 8C
+png("./Results/caseStudy/Figure8C.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+plot_8C[[1]] +
+  scale_fill_manual(labels = c("ALM","VISp"), values=c("royalblue4", "firebrick")) +
+  scale_x_discrete(labels= c("Tnc","Hsd11b1_Endou")) + 
+  facet_wrap(~variable, ncol = 1, labeller = labeller(variable = label_facet(factor(transcript), padj_limma, rank_limma, padj_satuRn, rank_satuRn))) + 
+              theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust = 0.5, size = 9)) + 
+              theme(strip.text = element_text(size = 8,face = "bold"))
+dev.off()
+```
+
+
+
+
+
+---
+title: "edgeR_DGE_analysis"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs a DGE analysis with edgeR on a subset of cells from the single-cell RNA-Seq dataset by Tasic et al. [Tasic paper](https://doi.org/10.1038/s41586-018-0654-5). In order to run this script, three files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_transcript_counts.Rds (transcript-level expression matrix)
+2. Tasic_metadata_1.xlsx
+3. Tasic_metadata_2.csv
+
+Note that the metadata files are identical to the one supplemented by Tasic et al., Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. Also note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE115746).
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+## for analysis
+library(edgeR)
+library(tidyverse)
+```
+
+# Data import
+
+## Import counts
+
+```{r}
+Tasic_gene_counts <- readRDS("./Data/Tasic_caseStudy_gene_counts.Rds")
+# Already remove genes with zero counts in all cells
+Tasic_gene_counts <- Tasic_gene_counts[rowSums(Tasic_gene_counts) != 0,]
+dim(Tasic_gene_counts)
+```
+
+## Import metadata
+
+```{r}
+access <- read.csv2("./Data/Tasic_metadata_2.csv",sep = "\t")
+access <- access[match(colnames(Tasic_gene_counts),access$SRA_Run),]
+
+metaData <- openxlsx::read.xlsx("./Data/Tasic_metadata_1.xlsx")
+metaData <- metaData[match(access$sample_name,metaData$sample_name),]
+colnames(Tasic_gene_counts) <- metaData$sample_name
+metaData <- metaData[metaData$core_intermediate_call == "Core",] # only retain cell that were unambiguously assigned to a certain cell type (cluster)
+Tasic_gene_counts <- Tasic_gene_counts[,metaData$sample_name]
+
+metaData <- metaData[,c("sample_name", "brain_region","cluster")]
+```
+
+# Set up the experimental design
+
+```{r}
+metaData$cluster <- gsub(" ", "_", metaData$cluster)
+metaData$group <- paste(metaData$brain_region,metaData$cluster,sep=".")
+
+# Remove groups (cell types) with less than 30 cells --> removes 4 groups
+remove <- names(table(interaction(metaData$brain_region,metaData$cluster))[table(interaction(metaData$brain_region,metaData$cluster)) < 30])
+
+metaData <- metaData[-which(metaData$group %in% remove),]
+group <- as.factor(metaData$group)
+ 
+design <- model.matrix(~ 0 + group) # Factorial design
+colnames(design) <- levels(group)
+
+Tasic_gene_counts <- Tasic_gene_counts[,which(colnames(Tasic_gene_counts) %in% metaData$sample_name)]
+```
+
+# Filtering
+
+```{r}
+filter_all_edgeR_stringent <- filterByExpr(Tasic_gene_counts,
+             design = NULL,
+             group = metaData$brain_region,
+             lib.size = NULL,
+             min.count = 10,
+             min.total.count = 0,
+             large.n = 0,
+             min.prop = 0.7)
+
+table(filter_all_edgeR_stringent)
+Tasic_gene_counts <- Tasic_gene_counts[filter_all_edgeR_stringent,]
+```
+
+# Visualization: Generate Figure 6 panel D
+
+DGE figure for the ENSMUSG00000029470 gene in contrast 6, i.e. VISp Hsd11b1-Endou cells versus ALM Tnc cells 
+
+```{r}
+# prepare for plot
+plot_data <- cbind(metaData[metaData$group %in% c("ALM.L5_IT_ALM_Tnc","VISp.L5_IT_VISp_Hsd11b1_Endou"),],Tasic_gene_counts["ENSMUSG00000029470",metaData$group %in% c("ALM.L5_IT_ALM_Tnc","VISp.L5_IT_VISp_Hsd11b1_Endou")]) ## sample order is the same for both dataframes so we can do this
+colnames(plot_data)[5] <- "counts"
+
+plot_data$group[which(plot_data$group == "VISp.L5_IT_VISp_Hsd11b1_Endou")] <- "Hsd11b1_Endou"
+plot_data$group[which(plot_data$group == "ALM.L5_IT_ALM_Tnc")] <- "Tnc"
+plot_data$group <- factor(plot_data$group, levels=c("Tnc", "Hsd11b1_Endou"))
+
+plot_data$variable <- "ENSMUSG00000029470"
+
+label_facet <- function(geneID){
+  lev <- levels(as.factor(geneID))
+  lab <- "edgeR FDR = 1"
+  names(lab) <- lev
+  return(lab)
+}
+
+# plot
+png("./Results/caseStudy/Figure6D.png",
+    width     = 5,
+    height    = 5,
+    units     = "in",
+    res       = 200,
+    pointsize = 4)
+ggplot(plot_data, mapping = aes(x=group,y=counts,fill=brain_region)) +
+    geom_violin() +
+    scale_fill_manual(values=c("royalblue4", "firebrick")) +
+    geom_point(data = plot_data, aes(x=group,y=counts),size=0.6, position = position_jitterdodge(jitter.width = 0.7,jitter.height = 0, dodge.width = 0.9)) +
+    stat_summary(fun=mean, geom="point", position = position_dodge(width = 0.9), shape=18, size=4, colour = "cyan") + 
+    stat_summary(fun=median, geom="point", position = position_dodge(width = 0.9), shape=18, size=3, colour = "green4") +
+    theme_bw() +
+    ggtitle("ENSMUSG00000029470") +
+    facet_wrap(~variable, ncol=1, labeller = labeller(variable = label_facet(plot_data$variable))) +
+    ylab("gene expression count") +
+    xlab("group") +
+    theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust=0.5, size=9)) +
+    theme(strip.text = element_text(size = 9,face="bold")) +
+    theme(plot.title = element_text(size = 9.5,face="bold"))
+dev.off()
+
+#plot_data$counts_scaled <- plot_data$counts/y$samples$norm.factors[metaData$group %in% c("ALM.L5_IT_ALM_Tnc","VISp.L5_IT_VISp_Hsd11b1_Endou")]
+```
+
+# DGE analysis with edgeR
+
+## Fit models
+
+```{r}
+y <- DGEList(counts=Tasic_gene_counts, group=group)
+y <- calcNormFactors(y)
+y <- estimateDisp(y,design = design) # takes about 4 minutes
+fit <- glmQLFit(y, design =  design) # fast
+```
+
+## Construct design matrix
+
+```{r}
+# Create same contrast matrix as for DTU analysis (same as original Tasic et al. analysis)
+L <- matrix(0, ncol = 8, nrow = ncol(design))
+rownames(L) <- colnames(design)
+colnames(L) <- c("C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8")
+
+L[c("VISp.L5_IT_VISp_Batf3", "ALM.L5_IT_ALM_Cpa6_Gpr88"), 1] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col27a1", "ALM.L5_IT_ALM_Cbln4_Fezf2"), 2] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col6a1_Fezf2", "ALM.L5_IT_ALM_Cpa6_Gpr88"), 3] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Col6a1_Fezf2", "ALM.L5_IT_ALM_Gkn1_Pcdh19"), 4] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Lypd1_Gpr88"), 5] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Tnc"), 6] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Hsd11b1_Endou", "ALM.L5_IT_ALM_Tmem163_Dmrtb1"), 7] <- c(1,-1)
+L[c("VISp.L5_IT_VISp_Whrn_Tox2", "ALM.L5_IT_ALM_Tmem163_Arhgap25"), 8] <- c(1,-1)
+```
+
+## test
+
+```{r}
+# with TREAT (~fold-change threshold)
+resultsTreat <- apply(L, 2, function(i) glmTreat(glmfit=fit, contrast=i, lfc=1))
+topTreat <- lapply(resultsTreat, topTags, n=nrow(y)) # takes about four minutes
+
+# show number of DE genes
+sigsTreat_5 <- c()
+for (i in seq_along(topTreat)) {
+  sigsTreat_5 <- c(sigsTreat_5,sum(topTreat[[i]]$table$FDR <= 0.05))
+}
+
+sigsTreat_5 # number of DE genes per contrast
+sum(sigsTreat_5)  # total number of DE genes
+```
+
+# GSEA
+
+Get significant DE genes on 5% FDR after edgeR + TREAT
+
+```{r}
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast5_edgeR_DGE.txt")
+cat(rownames(topTreat[[5]]$table[topTreat[[5]]$table$FDR <= 0.05,]), "\n")
+sink()
+
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast6_edgeR_DGE.txt")
+cat(rownames(topTreat[[6]]$table[topTreat[[6]]$table$FDR <= 0.05,]), "\n")
+sink()
+
+sink(file = "./Results/CaseStudy/GSEA/Tasic_L5IT_contrast7_edgeR_DGE.txt")
+cat(rownames(topTreat[[7]]$table[topTreat[[7]]$table$FDR <= 0.05,]), "\n")
+sink()
+# When supplying this .txt file to the GSEA engine of MSigDB, there is strong evidence for enrichment in the biological processes related to synapses, neuron projection, which are very interesting in the context of the Tasic et al. paper.
+```
+
+# Save results
+
+```{r}
+saveRDS(topTreat, file="./Data/Tasic_caseStudy_edgeR.Rds") # save to access later in comparison script
+```
+
+
+---
+title: "DoubleExpSeq_analysis"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs a DTU analysis with DoubleExpSeq on a subset of cells from the single-cell RNA-Seq dataset by Tasic et al. [Tasic paper](https://doi.org/10.1038/s41586-018-0654-5). In order to run this script, three files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_transcript_counts.Rds (transcript-level expression matrix)
+2. Tasic_metadata_1.xlsx
+3. Tasic_metadata_2.csv
+
+Note that the metadata files are identical to the one supplemented by Tasic et al., Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. Also note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE115746).
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+## for data import
+library(AnnotationHub)
+library(ensembldb)
+library(openxlsx)
+
+## for analysis
+library(edgeR)
+#library(tidyverse)
+library(DoubleExpSeq)
+library(SummarizedExperiment)
+
+## for visualization
+library(ggplot2)
+```
+
+# Data import
+
+## Import transcript information
+
+```{r, message=FALSE}
+ah <- AnnotationHub() # Load the annotation resource.
+all <- query(ah, "EnsDb") # Query for all available EnsDb databases
+ahEdb <- all[["AH75036"]] # for Mus musculus
+
+txs <- transcripts(ahEdb)
+tx2gene <- as.data.frame(matrix(data = NA, nrow = length(txs), ncol = 2))
+colnames(tx2gene) <- c("TXNAME","GENEID")
+tx2gene$TXNAME <- txs$tx_id
+tx2gene$GENEID <- txs$gene_id
+```
+
+## Import counts
+
+```{r}
+Tasic_counts <- readRDS("./Data/Tasic_caseStudy_transcript_counts.Rds")
+# Already remove genes with zero counts in all cells
+Tasic_counts <- Tasic_counts[rowSums(Tasic_counts) != 0,]
+dim(Tasic_counts)
+```
+
+## Import metadata
+
+```{r}
+access <- read.csv2("./Data/Tasic_metadata_2.csv",sep = "\t")
+access <- access[match(colnames(Tasic_counts),access$SRA_Run),]
+
+metaData <- openxlsx::read.xlsx("./Data/Tasic_metadata_1.xlsx")
+metaData <- metaData[match(access$sample_name,metaData$sample_name),]
+
+colnames(Tasic_counts) <- metaData$sample_name
+metaData <- metaData[metaData$core_intermediate_call == "Core",] # only retain cell that were unambiguously assigned to a certain cell type (cluster)
+Tasic_counts <- Tasic_counts[,metaData$sample_name]
+metaData <- metaData[,c("sample_name", "brain_region","cluster")]
+```
+
+# Data wrangling
+
+```{r}
+# Remove transcripts that are the only isoform expressed of a certain gene
+txInfo <- tx2gene
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+
+rownames(Tasic_counts) <- sub("\\..*", "", rownames(Tasic_counts))
+txInfo <- txInfo[txInfo$isoform_id %in% rownames(Tasic_counts),]
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+```
+
+# Set up the experimental design
+
+```{r}
+metaData$cluster <- gsub(" ", "_", metaData$cluster)
+metaData$group <- paste(metaData$brain_region,metaData$cluster,sep=".")
+
+# Remove groups (cell types) with less than 30 cells --> removes 4 groups
+remove <- names(table(interaction(metaData$brain_region,metaData$cluster))[table(interaction(metaData$brain_region,metaData$cluster)) < 30])
+
+metaData <- metaData[-which(metaData$group %in% remove),]
+group <- as.factor(metaData$group)
+ 
+design <- model.matrix(~ 0 + group) # Factorial design
+colnames(design) <- levels(group)
+
+Tasic_counts <- Tasic_counts[,which(colnames(Tasic_counts) %in% metaData$sample_name)]
+```
+
+# Filtering
+
+```{r}
+filter_all_edgeR_stringent <- filterByExpr(Tasic_counts,
+             design = NULL,
+             group = metaData$brain_region,
+             lib.size = NULL,
+             min.count = 10,
+             min.total.count = 0,
+             large.n = 0,
+             min.prop = 0.7)
+
+table(filter_all_edgeR_stringent)
+Tasic_counts <- Tasic_counts[filter_all_edgeR_stringent,]
+```
+
+```{r}
+# Update txInfo according to the filtering procedure
+txInfo <- txInfo[which(txInfo$isoform_id %in% rownames(Tasic_counts)),]
+
+# remove transcripts that are the only isoform expressed of a certain gene (after filtering)
+txInfo <- subset(txInfo,duplicated(gene_id) | duplicated(gene_id, fromLast=TRUE))
+
+Tasic_counts <- Tasic_counts[which(rownames(Tasic_counts) %in% txInfo$isoform_id),]
+
+# satuRn require the transcripts in the rowData and the transcripts in the count matrix to be in the same order. If not, the resulting models will be matched to the wrong rowData
+txInfo <- txInfo[match(rownames(Tasic_counts),txInfo$isoform_id),]
+
+rm(list = setdiff(ls(), c("Tasic_counts", "txInfo", "design", "metaData", "tx2gene","group")))
+invisible(gc())
+```
+
+# Analysis
+
+```{r}
+# Get tx2gene in better format
+geneForEachTx <- tx2gene$GENEID[match(rownames(Tasic_counts),tx2gene$TXNAME)]
+groupID <- as.character(geneForEachTx)
+
+## get the "total" counts
+forCycle <- split(1:nrow(Tasic_counts), as.character(groupID))
+totalCount <- lapply(forCycle, function(i) {
+    sct <- Tasic_counts[i, , drop = FALSE]
+    rs <- t(sapply(1:nrow(sct), function(r) colSums(sct[, , drop = FALSE])))
+    rownames(rs) <- rownames(sct)
+    rs
+})
+totalCount <- do.call(rbind, totalCount)
+stopifnot(all(rownames(Tasic_counts) %in% rownames(totalCount)))
+totalCount <- totalCount[rownames(Tasic_counts), ]
+```
+
+In DoubleExpSeq, we need to test all contrasts separately, i.e. fit  the model 9 times since we have 9 contrasts
+
+```{r}
+# Define all contrasts as numeric for DoubleExpSeq
+contrasts <- list(c(4,13),c(5,11),c(6,13),c(6,7),c(1,8),c(1,10),c(1,2),c(3,14))
+
+DES_results <- list()
+
+Sys.time()
+for (i in seq_along(contrasts)) {
+    mDouble <- suppressWarnings(DBGLM1(y = Tasic_counts,
+          m = totalCount,
+          groups = group,
+          shrink.method="WEB",
+          contrast = contrasts[[i]],
+          use.all.groups=TRUE))
+    DES_results[[i]] <- mDouble
+}
+Sys.time()
+```
+
+Display the number of DTU transcripts for each transcript
+
+```{r}
+for (i in seq_along(DES_results)) {
+    print(sum(DES_results[[i]]$All[,"Adj.pVal"] < 0.05,na.rm = T))
+}
+```
+
+# Save final object
+
+Save resulting object for later comparison of results with satuRn and limma diffsplice.
+
+```{r}
+saveRDS(DES_results, "./Data/Tasic_caseStudy_DoubleExpSeq.Rds")
+```
+
+---
+title: "Comparison_satuRn_DoubleExpSeq"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+This is scripts performs qualitative comparison between the results of the DTU analysis with satuRn and the DTU analysis with DoubleExpSeq. In order to run this script, two files should be downloaded from Zenodo and placed in the data folder of this GitHub repository;
+
+1. Tasic_caseStudy_satuRn.Rds (satuRn DTU results)
+2. Tasic_caseStudy_DoubleExpSeq.Rds (DoubleExpSeq DTU results)
+
+All figures generated in this script are available from our GitHub repository under ./Results/CaseStudy/
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(SummarizedExperiment)
+library(satuRn)
+library(ggplot2)
+#library(tidyverse)
+library(locfdr)
+```
+
+# Load data
+
+These are the results of the analyses of the Tasic case study with satuRn (generated in satuRn_analysis.Rmd) and DoubleExpSeq (generated in DoubleExpSeq_analysis.Rmd).
+
+```{r}
+satuRn_results <- readRDS(file="./Data/Tasic_caseStudy_satuRn.Rds")
+DoubleExpSeq_results <- readRDS(file="./Data/Tasic_caseStudy_DoubleExpSeq.Rds")
+```
+
+# DoubleExpSeq p-value distribution figure S14
+
+DoubleExpSeq displays a pathological distribution of p-values.
+
+```{r}
+for (i in seq_along(DoubleExpSeq_results)) {
+    png(paste("./Results/caseStudy/FigureS14_", i, ".png", sep = ""),
+            width     = 3.5,
+            height    = 2.5,
+            units     = "in",
+            res       = 300,
+            pointsize = 6) # start export
+    hist(DoubleExpSeq_results[[i]]$All[,"pVal"],breaks=40,main = paste("contrast", i),xlab="p-values")
+    dev.off()
+}
+```
+
+# DES finds a large number of DTU transcripts
+
+```{r}
+for (i in seq_along(DoubleExpSeq_results)) {
+    print(sum(DoubleExpSeq_results[[i]]$All[,"Adj.pVal"] < 0.05,na.rm = T))
+}
+```
+
+# Using locFDR on the results by DoubleExpSeq is problematic
+
+```{r}
+DoubleExpSeq_results_locfdr <- list()
+for (i in seq_along(DoubleExpSeq_results)) {
+  
+  direction <- ifelse(DoubleExpSeq_results[[i]]$All[,1]-DoubleExpSeq_results[[i]]$All[,2] <= 0, 1,-1)
+  pval <- DoubleExpSeq_results[[i]]$All[,"pVal"]
+  FDR <- DoubleExpSeq_results[[i]]$All[,"Adj.pVal"]
+
+  z <- qnorm(pval/2) * sign(direction)
+  z_working <- z[!is.na(z)]
+  z_working <- z_working[abs(z_working) < 10]
+  current_plot <- locfdr(z_working)
+  
+  ################# start code from locfdr
+  N <- length(z_working)
+  b <- 4.3 * exp(-0.26 * log(N, 10))
+  med <- median(z_working)
+  sc <- diff(quantile(z_working)[c(2, 4)])/(2 * qnorm(0.75))
+  mlests <- locfdr:::locmle(z_working, xlim = c(med, b * 
+      sc))
+  lo <- min(z_working)
+  up <- max(z_working)
+  bre = 120
+  breaks <- seq(lo, up, length = bre)
+  zzz <- pmax(pmin(z_working, up), lo)
+  zh <- hist(zzz, breaks = breaks, plot = F)
+  x <- (breaks[-1] + breaks[-length(breaks)])/2
+  sw <- 0
+  X <- cbind(1, poly(x, df = 7))
+  zh <- hist(zzz, breaks = breaks, plot = F)
+  y <- zh$counts
+  f <- glm(y ~ poly(x, df = 7), poisson)$fit
+  Cov.in = list(x = x, X = X, f = f, sw = sw)
+  ml.out = locfdr:::locmle(z_working, xlim = c(mlests[1], 
+        b * mlests[2]), d = mlests[1], s = mlests[2], Cov.in = Cov.in)
+  mlests = ml.out$mle
+  ################# end code from locfdr
+  
+  #mlests <- satuRn:::p.adjust_empirical(z_working,direction)
+ 
+  zval_empirical <- (z - mlests[1])/mlests[2]
+  pval_empirical <- 2 * pnorm(-abs(zval_empirical), mean = 0, sd = 1)
+  pval_empirical[zval_empirical == -Inf] <- 1
+  FDR_empirical <- p.adjust(pval_empirical, method = "BH")
+  
+  # set NAs
+  NAs <- rep(NA, length(names(pval)[-which(names(pval)%in%names(pval_empirical))]))
+  names(NAs) <- names(pval)[-which(names(pval)%in%names(pval_empirical))]
+  
+  pval_empirical <- c(pval_empirical,NAs)
+  FDR_empirical <- c(FDR_empirical,NAs)
+  
+  pval_empirical <- pval_empirical[match(names(pval),names(pval_empirical))]
+  FDR_empirical <- FDR_empirical[match(names(pval),names(FDR_empirical))]
+  
+  DES_empirical <- data.frame(pval,FDR,pval_empirical,FDR_empirical)
+  rownames(DES_empirical) <- rownames(DoubleExpSeq_results[[i]]$All)
+
+  DoubleExpSeq_results_locfdr[[i]] <- DES_empirical
+}
+```
+
+To generate Figure S15
+
+```{r}
+direction <- ifelse(DoubleExpSeq_results[[6]]$All[,1]-DoubleExpSeq_results[[6]]$All[,2] <= 0, 1,-1)
+pval <- DoubleExpSeq_results[[6]]$All[,"pVal"]
+FDR <- DoubleExpSeq_results[[6]]$All[,"Adj.pVal"]
+
+z <- qnorm(pval/2) * sign(direction)
+z_working <- z[!is.na(z)]
+z_working <- z_working[abs(z_working) < 10]
+
+png("./Results/CaseStudy/FigureS15.png",
+        width     = 4.5,
+        height    = 3,
+        units     = "in",
+        res       = 500,
+        pointsize = 8)
+current_plot <- suppressWarnings(locfdr(z_working))
+dev.off()
+```
+
+The large number of p-values that are exatly 1 in the DoubleExpSeq results jeopardize using an empirical null to control the number of false positive discoveries.
+
+
+
+
+
+
+---
+title: "scalabilityBenchmark"
+author: "Jeroen Gilis"
+date: "11/11/2020"
+output: html_document
+---
+
+Running this script requires having the folder Scalability_runtimes to be in the Data folder of this repository (unzipped). The Scalability_runtimes can either be generated by running the Unix exeuctable "runtime" or downloaded from Zenodo.  
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+Load libraries
+
+```{r, message=FALSE}
+library(ggplot2)
+library(tidyverse)
+```
+
+Read all results
+
+```{r}
+# read satuRn results
+load("./Data/Scalability_runtimes/satuRn_1.RData")
+load("./Data/Scalability_runtimes/satuRn_2.RData")
+
+# read limmaDiffsplice results
+load("./Data/Scalability_runtimes/limmaDiffsplice_1.RData")
+load("./Data/Scalability_runtimes/limmaDiffsplice_2.RData")
+
+# read edgeRDiffsplice results
+load("./Data/Scalability_runtimes/edgeRDiffsplice_1.RData")
+load("./Data/Scalability_runtimes/edgeRDiffsplice_2.RData")
+
+# read DRIMSeq results
+load("./Data/Scalability_runtimes/DRIMSeq_1.RData")
+load("./Data/Scalability_runtimes/DRIMSeq_2.RData")
+
+# read DoubleExpSeq results
+load("./Data/Scalability_runtimes/DoubleExpSeq_1.RData")
+load("./Data/Scalability_runtimes/DoubleExpSeq_2.RData")
+
+# read DEXSeq results
+load("./Data/Scalability_runtimes/DEXSeq_2.RData")
+load("./Data/Scalability_runtimes/DEXSeq_3.RData")
+load("./Data/Scalability_runtimes/DEXSeq_4.RData")
+
+# read BANDITS results
+load("./Data/Scalability_runtimes/BANDITS_5.RData")
+load("./Data/Scalability_runtimes/BANDITS_6.RData")
+```
+
+Concatenate all results
+
+```{r}
+Results_all <- c(satuRn_1,satuRn_2,limmaDiffsplice_1,limmaDiffsplice_2,edgeRDiffsplice_1,edgeRDiffsplice_2,DRIMSeq_1,DRIMSeq_2,DoubleExpSeq_1,DoubleExpSeq_2,DEXSeq_2,DEXSeq_3,DEXSeq_4,BANDITS_5,BANDITS_6)
+rm(list=setdiff(ls(), "Results_all"))
+```
+
+```{r}
+full_dataframe <-  as.data.frame(matrix(nrow = length(Results_all), ncol=10))
+colnames(full_dataframe) <- c("method", "groupSize", "TXs", "TXs_round", "user", "system", "elapsed", "DTU", "removed", "memory")
+
+full_dataframe$method <- rep(c("satuRn","limmaDiffsplice","edgeRDiffsplice","DRIMSeq","DoubleExpSeq","DEXSeq","BANDITS"),times=c(24,24,24,24,24,16,7)) # add method labels
+
+round_to <- function(x, to = 1000) round(x/to)*to
+
+# get data in dataframe format
+for (i in seq_len(nrow(full_dataframe))) {
+  full_dataframe$groupSize[i] <- Results_all[[i]]$info$size
+  full_dataframe$TXs[i] <- Results_all[[i]]$info$TXs
+  full_dataframe$TXs_round[i] <- round_to(full_dataframe$TXs[i])
+  full_dataframe$user[i] <- unname(Results_all[[i]]$timing[1])
+  full_dataframe$system[i] <- unname(Results_all[[i]]$timing[2])
+  full_dataframe$elapsed[i] <- unname(Results_all[[i]]$timing[3])
+  full_dataframe$DTU[i] <- ifelse(is.null(Results_all[[i]]$result),NA,Results_all[[i]]$result)
+  full_dataframe$removed[i] <- Results_all[[i]]$removed
+  full_dataframe$memory[i] <- Results_all[[i]]$memory[4]
+}
+```
+
+# Visualizations
+
+## Scalability w.r.t. number of cells (1)
+
+Without our method, used to generate Figure 1, panel B from our paper.
+
+```{r}
+data_30K <- full_dataframe[which(full_dataframe$TXs_round == 30000),]
+
+png("./Results/Scalability/scale_cells_intro.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_30K[-which(data_30K$method == "satuRn"),], aes(x=groupSize,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of cells per group")
+
+dev.off()
+```
+
+## Scalability w.r.t. number of transcripts (1)
+
+Without our method, used to generate Figure 1, panel C from our paper.
+
+```{r}
+data_16cells <- full_dataframe[which(full_dataframe$groupSize == 16),]
+
+png("./Results/Scalability/scale_transcripts_intro.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_16cells[-which(data_16cells$method == "satuRn"),], aes(x=TXs,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#CC79A7", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of transcripts")
+
+dev.off()
+```
+
+## Scalability w.r.t. number of cells (2)
+
+Including our method, used to generate Figure 5, panel A from our paper.
+
+```{r}
+png("./Results/Scalability/scale_cells_all.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_30K, aes(x=groupSize,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2","black")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of cells per group")
+
+dev.off()
+```
+
+```{r}
+# zoom
+png("./Results/Scalability/scale_cells_all_zoom.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_30K[-which(data_30K$method %in% c("DEXSeq","DRIMSeq")),], aes(x=groupSize,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#56B4E9", "#F0E442", "#0072B2","black")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of cells per group")
+
+dev.off()
+```
+
+## Scalability w.r.t. number of transcripts (2)
+
+Including our method, used to generate Figure 5, panel B from our paper.
+
+```{r}
+png("./Results/Scalability/scale_transcripts_all.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_16cells, aes(x=TXs,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#CC79A7", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2","black")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of transcripts")
+
+dev.off()
+```
+
+```{r}
+# zoom
+png("./Results/Scalability/scale_transcripts_all_zoom.png",
+  width     = 5,
+  height    = 5,
+  units     = "in",
+  res       = 200,
+  pointsize = 4)
+
+ggplot(data = data_16cells[-which(data_16cells$method %in% c("BANDITS", "DEXSeq","DRIMSeq")),], aes(x=TXs,y=elapsed/60,color=method)) +
+  geom_line() +
+  geom_point() +
+  scale_color_manual(values=c("#56B4E9", "#F0E442", "#0072B2","black")) +
+  theme_bw() +
+  ylab("elapsed  time (min)") + 
+  xlab("number of transcripts")
+
+dev.off()
+```
+---
+title: "2_Chen_DTU"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Chen_DTU.Rmd), the dataset Chen_benchmark_datasets_count.Rdata (or, alternatively, Chen_benchmark_datasets_count.Rdata) is required.** This file can either be generated with the 1_Chen_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for all 6 methods on all (12) Chen benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes. This code runs approximately 1.5 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq and DRIMSeq analyses.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Chen_DTU_results_count.Rdata (or, alternatively, Chen_DTU_results_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(doMC)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+if(TRUE) {
+    nrCores <- 2
+
+    if(nrCores != 1) {
+        doParallel <- TRUE
+        doProgress <- 'none'
+
+        registerDoMC(cores = nrCores)
+    } else {
+        doParallel <- FALSE
+        doProgress <- 'text'
+    }
+}
+```
+
+# Run all analyses 
+
+Run the DTU analyses for all 6 methods on all (12) Chen benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes.
+This code runs approximately 1.5 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq and DRIMSeq analyses.
+
+```{r}
+### Load benchmark data
+#load(file="./Data/Chen_benchmark_datasets_count.Rdata")
+load(file="./Data/Chen_benchmark_datasets_scaledTPM.Rdata") 
+
+### Combine
+ChenBenchmarkData <- c(ChenBenchmarkLenient,ChenBenchmarkStringent)
+
+### Run DTU analyses on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(ChenDtuBenchmark_satuRn <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+ChenDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+ChenDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+ChenDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DEXSeq")
+
+# DEXSeq 
+tStart <- Sys.time()
+ChenDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+ChenDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = ChenBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+      
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(ChenDtuBenchmark_satuRn) <- paste0('satuRn_'    , names(ChenDtuBenchmark_satuRn))
+names(ChenDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(ChenDtuBenchmark_limmaDiffsplice))
+names(ChenDtuBenchmark_DEXSeq)          <- paste0('DEXSeq_'         , names(ChenDtuBenchmark_DEXSeq))
+names(ChenDtuBenchmark_DRIMSeq)         <- paste0('DRIMSeq_'        , names(ChenDtuBenchmark_DRIMSeq))
+names(ChenDtuBenchmark_edgeRdiffsplice)   <- paste0('edgeR_diffsplice_'        , names(ChenDtuBenchmark_edgeRdiffsplice))
+names(ChenDtuBenchmark_DoubleExpSeq)   <- paste0('DoubleExpSeq_'        , names(ChenDtuBenchmark_DoubleExpSeq))
+
+### Save result
+save(
+    ChenDtuBenchmark_satuRn,
+    ChenDtuBenchmark_limmaDiffsplice,
+    ChenDtuBenchmark_DEXSeq,
+    ChenDtuBenchmark_DRIMSeq,
+    ChenDtuBenchmark_edgeRdiffsplice,
+    ChenDtuBenchmark_DoubleExpSeq,
+    file="./Data/Chen_DTU_results_count.Rdata")
+
+# save(
+#     ChenDtuBenchmark_satuRn,
+#     ChenDtuBenchmark_limmaDiffsplice,
+#     ChenDtuBenchmark_DEXSeq,
+#     ChenDtuBenchmark_DRIMSeq,
+#     ChenDtuBenchmark_edgeRdiffsplice,
+#     ChenDtuBenchmark_DoubleExpSeq,
+#     file="./Data/Chen_DTU_results_scaledTPM.Rdata")
+```
+
+
+
+---
+title: "3_Chen_visualize"
+author: "Jeroen Gilis"
+date: "08/12/2020"
+output: html_document
+---
+
+**In order to run this script (3_Chen_visualize.Rmd), the datasets Chen_benchmark_datasets_count.Rdata and Chen_DTU_results_count.Rdata (or, alternatively, Chen_benchmark_datasets_scaledTPM.Rdata and Chen_DTU_results_scaledTPM.Rdata) are required.** These files can either be generated with the 1_Chen_prepare.Rmd and 2_Chen_DTU.Rmd scripts, respectively, or downloaded from Zenodo and put in the data folder of this GitHub repository.
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Chen_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load truth file
+
+```{r}
+load(file="./Data/Chen_benchmark_datasets_count.Rdata")
+#load(file="./Data/Chen_benchmark_datasets_scaledTPM.Rdata")
+metaInfo <- c(ChenBenchmarkLenient,ChenBenchmarkStringent)
+rm(ChenBenchmarkLenient,ChenBenchmarkStringent)
+```
+
+# Load DTU performance results
+
+```{r}
+load(file="./Data/Chen_DTU_results_count.Rdata")
+#load(file="./Data/Chen_DTU_results_scaledTPM.Rdata")
+
+ChenBenchmark <- c(
+    ChenDtuBenchmark_satuRn,
+    ChenDtuBenchmark_limmaDiffsplice,
+    ChenDtuBenchmark_DEXSeq,
+    ChenDtuBenchmark_DRIMSeq,
+    ChenDtuBenchmark_edgeRdiffsplice,
+    ChenDtuBenchmark_DoubleExpSeq
+)
+
+### Remove empty entries (due to not tested - aka to many samples for reasonable runtime)
+ChenBenchmark  <- ChenBenchmark[which(
+    sapply(ChenBenchmark, function(x) ! is.null(x$dtuAnalysis)))]
+
+rm(ChenDtuBenchmark_satuRn,
+    ChenDtuBenchmark_limmaDiffsplice,
+    ChenDtuBenchmark_DEXSeq,
+    ChenDtuBenchmark_DRIMSeq,
+    ChenDtuBenchmark_edgeRdiffsplice,
+    ChenDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+  
+  get_all_txs <- function(dataset,nrep){
+  
+    all_txs <- c()
+    for (i in 1:nrep) {
+      current_txs <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+      all_txs <- c(all_txs, current_txs)
+      all_txs <- unique(all_txs)
+    }
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset,nrep)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods*nrep)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:(nmethods*nrep)) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- dataset[[i]]$dtuAnalysis$TXNAME
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  if(nmethods == 6){
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice", "DEXSeq", "DRIMSeq","edgeR_diffsplice", "DoubleExpSeq")
+  } else {
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice","edgeR_diffsplice", "DoubleExpSeq")
+  }
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,metaInfo,nFilters,nSampleSizes,nRep,nmethods,selection,selection2) {
+
+    count <- 0
+    nPlots <- nFilters * nSampleSizes
+    print(paste("This function will generate",  nPlots, "plots"))
+  
+    for (j in 1:nPlots) {
+        print(j)
+        Chen_current_outer <- dataset[grepl(selection[j], names(dataset))]
+        metaInfo_current_outer <- metaInfo[grepl(selection2[j], names(metaInfo))]
+
+        resList <- c()
+        count <- count+1
+
+        for (k in 1:length(nRep)) {
+            Chen_current_inner <- Chen_current_outer[grepl(nRep[k], names(Chen_current_outer))]
+
+            metaInfo_current_inner <- metaInfo_current_outer[grepl(nRep[k], names(metaInfo_current_outer))]
+    
+            pvalues <- get_pvalues(Chen_current_inner,nrep=1,nmethods)
+
+            truth_file <- Chen_current_inner[[1]]$dtuAnalysis
+    
+            if(count <= nSampleSizes){
+                txSwapped <- metaInfo_current_inner[1]          
+                } else {
+                txSwapped <- metaInfo_current_inner[2]
+            }
+    
+            truth_file <- truth_file[,c("TXNAME","p_value")]
+    
+            txSwapped[[1]]$metaInfo <- txSwapped[[1]]$metaInfo[match(truth_file$TXNAME,txSwapped[[1]]$metaInfo$TXNAME),]
+    
+            truth_file$gene_modified <- as.numeric(txSwapped[[1]]$metaInfo$txSwapped)
+            truth_file <- truth_file[order(truth_file$TXNAME),]
+            rownames(truth_file) <- truth_file$TXNAME
+
+            resList[[k]] <- list(pvalues,truth_file)
+        }
+        
+        rownames(resList[[1]][[1]]) <- paste0(rownames(resList[[1]][[1]]), "_1")
+        rownames(resList[[2]][[1]]) <- paste0(rownames(resList[[2]][[1]]), "_2")
+        rownames(resList[[3]][[1]]) <- paste0(rownames(resList[[3]][[1]]), "_3")
+        
+        pvalues_full <- rbind(resList[[1]][[1]],resList[[2]][[1]],resList[[3]][[1]])
+        
+        rownames(resList[[1]][[2]]) <- paste0(rownames(resList[[1]][[2]]), "_1")
+        rownames(resList[[2]][[2]]) <- paste0(rownames(resList[[2]][[2]]), "_2")
+        rownames(resList[[3]][[2]]) <- paste0(rownames(resList[[3]][[2]]), "_3")
+        
+        truth_file_full <- rbind(resList[[1]][[2]],resList[[2]][[2]],resList[[3]][[2]])
+        
+        cobra <- COBRAData(pval = pvalues_full, truth = truth_file_full)
+        cobra <- calculate_adjp(cobra)
+        cobra1perf <- calculate_performance(cobra, binary_truth = "gene_modified", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+        cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+        
+        if (nmethods == 6){
+            new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",14))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,1))
+    
+            titles <- c("20 versus 20 - edgeR filter - count","20 versus 20 - DRIMSeq filter - count")
+            #titles <- c("20 versus 20 - edgeR filter - scaledTPM","20 versus 20 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        } else {
+            new_col <- c(rep(c("#56B4E9", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",10))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,1))
+    
+            titles <- c("50 versus 50 - edgeR filter - count","50 versus 50 - DRIMSeq filter - count")
+            #titles <- c("50 versus 50 - edgeR filter - scaledTPM","50 versus 50 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        }
+
+        plot <- plot + 
+            ggtitle(current_title) +
+            theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+        
+
+      png(paste("./Results/Chen_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_count.png", sep = ""),
+            width     = 5.5,
+            height    = 4.5,
+            units     = "in",
+            res       = 200,
+            pointsize = 4) # start export
+      print(plot)
+      dev.off()
+
+      # png(paste("./Results/Chen_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_scaledTPM.png", sep = ""),
+      #       width     = 5.5,
+      #       height    = 4.5,
+      #       units     = "in",
+      #       res       = 200,
+      #       pointsize = 4) # start export
+      # print(plot)
+      # dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+
+```{r}
+selection <- c("20_rep_._filterLenient","20_rep_._filterStringent")
+selection2 <- c("20_rep","20_rep")
+
+visualize_datasets(ChenBenchmark,
+                   metaInfo,
+                   nFilters=2,
+                   nSampleSizes=1,
+                   nRep=c("rep_1","rep_2","rep_3"),
+                   nmethods=6,
+                   selection = selection,
+                   selection2=selection2)
+
+
+selection <- c("_50_rep_._filterLenient","_50_rep_._filterStringent")
+selection2 <- c("50_rep","50_rep")
+
+visualize_datasets(ChenBenchmark,
+                   metaInfo,
+                   nFilters=2,
+                   nSampleSizes=1,
+                   nRep=c("rep_1","rep_2","rep_3"),
+                   nmethods=4,
+                   selection = selection,
+                   selection2=selection2)
+```
+
+
+
+
+---
+title: "4_Chen_S9S10.Rmd"
+author: "Jeroen Gilis"
+date: "08/12/2020"
+output: html_document
+---
+
+This script (4_Chen_S9S10.Rmd) is a seperate script for reproducing figures S9 and S10 from our publication. **In order to run this script (4_Love_DTU_subset.Rmd), the dataset Love_benchmark_datasets_scaledTPM.Rdata (or, alternatively, Love_benchmark_datasets_count.Rdata) is required.** This file can either be generated with the 1_Love_prepare.Rmd script or downloaded from Zenodo.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load truth file
+
+```{r}
+load(file="./Data/Chen_benchmark_datasets_count.Rdata")
+#load(file="./Data/Chen_benchmark_datasets_scaledTPM.Rdata")
+metaInfo <- c(ChenBenchmarkLenient,ChenBenchmarkStringent)
+rm(ChenBenchmarkLenient,ChenBenchmarkStringent)
+```
+
+# Load DTU performance results
+
+```{r}
+load(file="./Data/Chen_DTU_results_count.Rdata")
+#load(file="./Data/Chen_DTU_results_scaledTPM.Rdata")
+
+ChenBenchmark <- c(
+    ChenDtuBenchmark_satuRn,
+    ChenDtuBenchmark_limmaDiffsplice,
+    ChenDtuBenchmark_DEXSeq,
+    ChenDtuBenchmark_DRIMSeq,
+    ChenDtuBenchmark_edgeRdiffsplice,
+    ChenDtuBenchmark_DoubleExpSeq
+)
+
+### Remove empty entries (due to not tested - aka to many samples for reasonable runtime)
+ChenBenchmark  <- ChenBenchmark[which(
+    sapply(ChenBenchmark, function(x) ! is.null(x$dtuAnalysis)))]
+
+rm(ChenDtuBenchmark_satuRn,
+    ChenDtuBenchmark_limmaDiffsplice,
+    ChenDtuBenchmark_DEXSeq,
+    ChenDtuBenchmark_DRIMSeq,
+    ChenDtuBenchmark_edgeRdiffsplice,
+    ChenDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+
+# Figure S9C
+
+```{r}
+tval <- ChenBenchmark[["satuRn_samples_used_50_rep_3_filterLenient"]]$dtuAnalysis$tvalue
+pval <- ChenBenchmark[["satuRn_samples_used_50_rep_3_filterLenient"]]$dtuAnalysis$p_value_raw
+
+zval <- qnorm(pval/2) * sign(tval)
+zval_mid <- zval[abs(zval) < 10]
+zval_mid <- zval_mid[!is.na(zval_mid)]
+
+png("./Results/Chen_benchmark/figS9C.png",
+    width     = 3.5,
+    height    = 2.5,
+    units     = "in",
+    res       = 300,
+    pointsize = 6) # start export
+plot <- locfdr::locfdr(zval_mid, main = "Chen dataset - 50v50 - edgeR filter - repeat 3")
+dev.off()
+```
+
+# Figure S9D
+
+```{r}
+dataset <- "satuRn_samples_used_50_rep_3_filterLenient"
+Chen_select <- ChenBenchmark[[dataset]]$dtuAnalysis
+truth <- metaInfo[[substr(dataset,8,nchar(dataset))]]$metaInfo
+
+pvalues <- as.data.frame(cbind(Chen_select$p_value_raw,Chen_select$p_value))
+colnames(pvalues) <- c("theoretical_null", "empirical_null")
+rownames(pvalues) <- rownames(Chen_select)
+
+rownames(truth) <- truth$TXNAME
+
+cobra <- COBRAData(pval = pvalues, truth = truth)
+cobra <- calculate_adjp(cobra)
+cobra1perf <- calculate_performance(cobra, binary_truth = "txSwapped", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+
+new_col <- c(rep(c("black", "grey64", "#999999"),4),rep("white",6))
+names(new_col) <- names(cobraplot@plotcolors)
+cobraplot@plotcolors <- new_col
+
+plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,1))
+
+plot <- plot + 
+    ggtitle(label="Chen dataset - 50v50 - edgeR filter - repeat 3") +
+    xlab("FDP") +
+    theme(strip.background = element_blank(),
+    strip.text.x = element_blank(),
+    plot.title = element_text(size=10),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 10),
+    axis.title.y = element_text(size = 10))
+
+png("./Results/Chen_benchmark/figS9D.png",
+    width = 5.5,
+    height = 4.5,
+    units = "in",
+    res = 200,
+    pointsize = 4) # start export
+print(plot)
+dev.off()
+```
+
+# Figure S10A
+
+```{r}
+data <- ChenBenchmark[["DoubleExpSeq_samples_used_50_rep_3_filterLenient"]]$dtuAnalysis
+
+png("./Results/Chen_benchmark/figS10A.png",
+          width     = 3.5,
+          height    = 2.5,
+          units     = "in",
+          res       = 300,
+          pointsize = 6) # start export
+hist(data$p_value,breaks=40,col="white",main = "Chen dataset - 50v50 - edgeR filter - repeat 3", xlab = "pvalues")
+```
+
+# Figure S10B
+
+```{r}
+direction <- data$sign
+pval <- data$p_value
+
+z <- qnorm(pval/2) * sign(direction)
+z_working <- z[!is.na(z)]
+z_working <- z_working[abs(z_working) < 10]
+
+png("./Results/Chen_benchmark/figS10B.png",
+        width     = 4.5,
+        height    = 3,
+        units     = "in",
+        res       = 500,
+        pointsize = 8)
+current_plot <- suppressWarnings(locfdr::locfdr(z_working, main = "Chen dataset - 50v50 - edgeR filter - repeat 3"))
+dev.off()
+```
+
+
+
+
+---
+title: "1_Chen_prepare"
+author: "Jeroen Gilis"
+date: "03/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Chen_perpare.Rmd), the corresponding expression count file Chen_counts.Rds (or, alternatively, Chen_scaledTPM.Rds) be downloaded from Zenodo. In addition, the metaData Chen_metadata.csv should also be downloaded from Zenodo. Both files must then be copied into the Data folder of this Github page**.
+
+Note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE74155)
+
+**If one does not want to run this script, its output can also be downloaded from Zenodo: Chen_benchmark_datasets_count.Rdata (or, alternatively, Chen_benchmark_datasets_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(edgeR)
+library(DRIMSeq)
+library(AnnotationHub)
+library(ensembldb)
+library(doMC)
+```
+
+# Load data and metadata
+
+```{r}
+Chen_counts <- readRDS(file = "./Data/Chen_counts.Rds")
+#Chen_counts <- readRDS(file ="./Data/Chen_scaledTPM.Rds")
+
+## remove transcripts with zero count for all cells
+Chen_counts <- Chen_counts[which(rowSums(Chen_counts)!=0),]
+
+metaData <- read.csv("./Data/Chen_metadata.csv")
+rownames(metaData) <- metaData$Run
+metaData <- metaData[colnames(Chen_counts),]
+```
+
+# Load genome annotation
+
+```{r, message=FALSE}
+## Load the annotation resource.
+ah <- AnnotationHub()
+
+## Query for all available EnsDb databases
+all <- query(ah, "EnsDb")
+ahEdb <- all[["AH75036"]] #for Mus musculus
+
+txs <- transcripts(ahEdb)
+
+### Extract gene info
+tx2gene <- as.data.frame(matrix(data = NA, nrow = length(txs), ncol = 2))
+colnames(tx2gene) <- c("TXNAME","GENEID")
+tx2gene$TXNAME <- txs$tx_id
+tx2gene$GENEID <- txs$gene_id
+
+txInfo <- tx2gene
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+
+txInfo <- txInfo[which(
+    ! grepl('^ERCC-', txInfo$isoform_id )
+),]
+
+txInfo <- txInfo[which(txInfo$isoform_id %in% sub("\\..*", "", rownames(Chen_counts))),]
+
+txInfo$isoform_id <- rownames(Chen_counts)[match(txInfo$isoform_id,sub("\\..*", "", rownames(Chen_counts)))]
+```
+
+# Subset Chen data
+
+To generate a benchmark dataset, we need to know the ground truth, i.e. which transcripts are differentially used between groups of samples. To this end, we first generate mock datasets where no DTU is expected, after which we introduce DTU between groups by the transcript-abundance-swapping strategy discussed by Van den Berge et al. [stageR paper](https://doi.org/10.1186/s13059-017-1277-0).
+
+In order to obtain a mock dataset, we need to construct a dataset where (ideally) no DTU is expected. We try to achieve this by subsampling a homogenous set of samples from the Chen dataset, based on following criteria:
+
+1. metaData$Cell_type == "Epi"
+2. metaData$sex == "female"
+
+```{r}
+## Select a homogeneous set of cells
+metaData <- metaData[which(metaData$Cell_type == "Epi" & metaData$sex == "female"),]
+Chen_counts <- Chen_counts[,as.character(metaData$Run)]
+```
+
+# Setup generation of benchmark data
+
+Set hyperparameters of the benchmark datasets (i.e. sample size, number of repeats, fraction of DTU genes and parameters for parallel processing).
+
+```{r}
+### Set parameters
+samplesPrCondition   <- c(20,50)
+nrRepsMade           <- 3
+fracGenesAffected    <- 0.15
+nrCoresToUse         <- 2
+
+### Set up parallel processing
+if(nrCoresToUse != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCoresToUse)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+
+### list for looping
+nrRepList <- split(
+    rep(
+        x = samplesPrCondition,
+        times = nrRepsMade
+    ),
+    paste0(
+        'samples_used_',
+        rep(
+            x = samplesPrCondition,
+            times = nrRepsMade
+        ),
+        '_rep_',
+        sort( rep(
+            x = 1:nrRepsMade,
+            times = length(samplesPrCondition)
+        ) )
+    )
+)
+```
+
+# Generate gtex benchmark data
+
+```{r}
+source(file="./Performance_benchmarks/getBenchmark_data.R")
+```
+
+```{r}
+ChenBenchmarkLenient <- getBenchmark_data(countData=Chen_counts, 
+                                          metaData=txInfo,
+                                          filter="edgeR",
+                                          edgeR_filter_spec = list(min.count = 1, 
+                                                                    min.total.count = 0, 
+                                                                    large.n = 0, 
+                                                                    min.prop = 0.5),
+                                          nrRepList=nrRepList, 
+                                          fracGenesAffected=0.15)
+names(ChenBenchmarkLenient) <- paste0(names(nrRepList),"_filterLenient")
+
+ChenBenchmarkStringent <- getBenchmark_data(countData=Chen_counts,
+                                                metaData=txInfo,
+                                                filter="DRIMSeq", 
+                                                nrRepList=nrRepList, 
+                                                fracGenesAffected=0.15)
+names(ChenBenchmarkStringent) <- paste0(names(nrRepList),"_filterStringent")
+```
+
+# Save Chen benchmark data
+
+```{r}
+#save(ChenBenchmarkLenient, ChenBenchmarkStringent, file="./Data/Chen_benchmark_datasets_count.Rdata")
+save(ChenBenchmarkLenient, ChenBenchmarkStringent, file="./Data/Chen_benchmark_datasets_scaledTPM.Rdata")
+```
+
+
+
+---
+title: "1_Tasic_prepare"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Tasic_perpare.Rmd), the expression count matrix Tasic_counts.Rds (or, alternatively, Tasic_scaledTPM.Rds) should be downloaded from Zenodo. In addition, two metaData files Tasic_metadata_1.xlsx, Tasic_metadata_2.csv should also be downloaded from Zenodo. All three files must then be copied into the Data folder of this Github page**. 
+
+Note that the metadata files are identical to the one supplemented in the paper by Tasic et al. [Tasic paper](https://doi.org/10.1038/s41586-018-0654-5), Supplementary_Table_10_Full_Metadata.xlsx and GSE115746_accession_table.csv, respectively. Also note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE115746)
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Tasic_benchmark_datasets_count.Rdata (or, alternatively, Tasic_benchmark_datasets_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FASLE}
+library(edgeR)
+library(DRIMSeq)
+library(openxlsx)
+library(AnnotationHub)
+library(ensembldb)
+library(doMC)
+```
+
+# Load data and metadata
+
+```{r}
+Tasic_counts <- readRDS(file = "./Data/Tasic_counts.Rds")
+#Tasic_counts <- readRDS(file = "./Data/Tasic_scaledTPM.Rds")
+
+metaData_1 <- openxlsx::read.xlsx("./Data/Tasic_metadata_1.xlsx")
+metaData_2 <- read.csv2("./Data/Tasic_metadata_2.csv",sep = "\t")
+```
+
+# Load genome annotation
+
+```{r, message=FALSE}
+## Load the annotation resource.
+ah <- AnnotationHub()
+
+## Query for all available EnsDb databases
+all <- query(ah, "EnsDb")
+
+ahEdb <- all[["AH75036"]] #for Mus musculus
+
+txs <- transcripts(ahEdb)
+
+tx2gene <- as.data.frame(matrix(data = NA, nrow = length(txs), ncol = 2))
+colnames(tx2gene) <- c("TXNAME","GENEID")
+tx2gene$TXNAME <- txs$tx_id
+tx2gene$GENEID <- txs$gene_id
+
+### Extract gene info
+txInfo <- tx2gene
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+
+txInfo <- txInfo[which(
+    ! grepl('^ERCC-', txInfo$isoform_id )
+),]
+```
+
+# Subset Tasic data
+
+To generate a benchmark dataset, we need to know the ground truth, i.e. which transcripts are differentially used between groups of samples. To this end, we first generate mock datasets where no DTU is expected, after which we introduce DTU between groups by the transcript-abundance-swapping strategy discussed by Van den Berge et al. [stageR paper](https://doi.org/10.1186/s13059-017-1277-0).
+
+In order to obtain a mock dataset, we need to construct a dataset where (ideally) no DTU is expected. Therefore, we only quantified cells that corresponded to the following criteria:
+
+1. metaData_1$subclass == "Lamp5"
+2. metaData_1$brain_region == "ALM"
+3. metaData_1$eye_condition=="Normal"
+
+In additon, we now further subsample the cells to meet the criterium
+
+4. metaData_1$cluster == "Lamp5 Lsp1"
+
+```{r}
+## remove transcripts with zero count for all cells
+Tasic_counts <- Tasic_counts[which(rowSums(Tasic_counts)!=0),]
+
+metaData_1 <- metaData_1[metaData_1$sample_name %in% metaData_2[which(metaData_2$SRA_Run %in% colnames(Tasic_counts)),"sample_name"],]
+
+metaData_1 <- metaData_1[metaData_1$cluster == "Lamp5 Lsp1",]
+metaData_2 <- metaData_2[which(metaData_2$sample_name %in% metaData_1$sample_name),]
+Tasic_counts <- Tasic_counts[,colnames(Tasic_counts)%in%metaData_2$SRA_Run]
+
+## make rownames count frame compatible with those of txInfo frame
+rownames(Tasic_counts) <- sub("\\..*", "", rownames(Tasic_counts))
+```
+
+# Setup generation of benchmark data
+
+Set hyperparameters of the benchmark datasets (i.e. sample size, number of repeats, fraction of DTU genes and parameters for parallel processing).
+
+```{r}
+### Set parameters
+samplesPrCondition   <- c(20,75,200)
+nrRepsMade           <- 3
+fracGenesAffected    <- 0.15
+nrCoresToUse         <- 2
+
+### Set up parallel processing
+if(nrCoresToUse != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+    registerDoMC(cores = nrCoresToUse)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+
+### list for looping
+nrRepList <- split(
+    rep(
+        x = samplesPrCondition,
+        times = nrRepsMade
+    ),
+    paste0(
+        'samples_used_',
+        rep(
+            x = samplesPrCondition,
+            times = nrRepsMade
+        ),
+        '_rep_',
+        sort( rep(
+            x = 1:nrRepsMade,
+            times = length(samplesPrCondition)
+        ) )
+    )
+)
+```
+
+# Generate Tasic benchmark data
+
+```{r}
+source(file="./Performance_benchmarks/getBenchmark_data.R")
+```
+
+```{r}
+TasicBenchmarkLenient <- getBenchmark_data(countData=Tasic_counts, 
+                                          metaData=txInfo,
+                                          filter="edgeR",
+                                          edgeR_filter_spec = list(min.count = 1, 
+                                                                    min.total.count = 0, 
+                                                                    large.n = 0, 
+                                                                    min.prop = 0.5),
+                                          nrRepList=nrRepList, 
+                                          fracGenesAffected=0.15)
+names(TasicBenchmarkLenient) <- paste0(names(nrRepList),"_filterLenient")
+
+TasicBenchmarkStringent <- getBenchmark_data(countData=Tasic_counts,
+                                                metaData=txInfo,
+                                                filter="DRIMSeq", 
+                                                nrRepList=nrRepList, 
+                                                fracGenesAffected=0.15)
+names(TasicBenchmarkStringent) <- paste0(names(nrRepList),"_filterStringent")
+```
+
+# Save Tasic benchmark data
+
+```{r}
+#save(TasicBenchmarkLenient, TasicBenchmarkStringent, file="./Data/Tasic_benchmark_datasets_count.Rdata")
+save(TasicBenchmarkLenient, TasicBenchmarkStringent, file="./Data/Tasic_benchmark_datasets_scaledTPM.Rdata")
+```
+
+
+---
+title: "2_Tasic_DTU"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Tasic_DTU.Rmd), the dataset Tasic_benchmark_datasets_count.Rdata (or, alternatively, Tasic_benchmark_datasets_scaledTPM.Rdata) is required.** This file can either be generated with the 1_Tasic_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for all 6 methods on all (18) Tasic benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes. This code runs approximately 2.5 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq and DRIMSeq analyses.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Tasic_DTU_results_count.Rdata (or, alternatively, Tasic_DTU_results_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(doMC)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+if(TRUE) {
+    nrCores <- 2
+
+    if(nrCores != 1) {
+        doParallel <- TRUE
+        doProgress <- 'none'
+
+        registerDoMC(cores = nrCores)
+    } else {
+        doParallel <- FALSE
+        doProgress <- 'text'
+    }
+}
+```
+
+# Run all analyses 
+
+Run the DTU analyses for all 6 methods on all (18) Chen benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes.
+This code runs approximately 3 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtimee was attributed to the DEXSeq and DRIMSeq analyses.
+
+```{r}
+### Load benchmark data
+load(file="./Data/Tasic_benchmark_datasets_count.Rdata")
+#load(file="./Data/Tasic_benchmark_datasets_scaledTPM.Rdata")
+
+TasicBenchmarkData <- c(TasicBenchmarkLenient,TasicBenchmarkStringent)
+
+### Run DTU analysis on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(TasicDtuBenchmark_satuRn <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+TasicDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes) )
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+TasicDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+TasicDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+
+print("start DEXSeq")
+
+# DEXSeq
+tStart <- Sys.time()
+TasicDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+TasicDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = TasicBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+      
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(TasicDtuBenchmark_satuRn) <- paste0('satuRn_', names(TasicDtuBenchmark_satuRn))
+names(TasicDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(TasicDtuBenchmark_limmaDiffsplice))
+names(TasicDtuBenchmark_DEXSeq) <- paste0('DEXSeq_', names(TasicDtuBenchmark_DEXSeq))
+names(TasicDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(TasicDtuBenchmark_DRIMSeq))
+names(TasicDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_'        , names(TasicDtuBenchmark_edgeRdiffsplice))
+names(TasicDtuBenchmark_DoubleExpSeq) <- paste0('DoubleExpSeq_', names(TasicDtuBenchmark_DoubleExpSeq))
+
+### Save result
+save(TasicDtuBenchmark_satuRn,
+    TasicDtuBenchmark_limmaDiffsplice,
+    TasicDtuBenchmark_DEXSeq,
+    TasicDtuBenchmark_DRIMSeq,
+    TasicDtuBenchmark_edgeRdiffsplice,
+    TasicDtuBenchmark_DoubleExpSeq,
+    file="./Data/Tasic_DTU_results_count.Rdata")
+
+# save(TasicDtuBenchmark_satuRn,
+#     TasicDtuBenchmark_limmaDiffsplice,
+#     TasicDtuBenchmark_DEXSeq,
+#     TasicDtuBenchmark_DRIMSeq,
+#     TasicDtuBenchmark_edgeRdiffsplice,
+#     TasicDtuBenchmark_DoubleExpSeq,
+#     file="./Data/Tasic_DTU_results_scaledTPM.Rdata")
+```
+
+
+
+
+
+---
+title: "3_Tasic_visualize"
+author: "Jeroen Gilis"
+date: "06/11/2020"
+output: html_document
+---
+
+**In order to run this script (3_Tasic_visualize.Rmd), the datasets Tasic_benchmark_datasets_count.Rdata and Tasic_DTU_results_count.Rdata (or, alternatively, Tasic_benchmark_datasets_scaledTPM.Rdata and Tasic_DTU_results_scaledTPM.Rdata) are required.** These files can either be generated with the 1_Tasic_prepare.Rmd and 2_Tasic_DTU.Rmd scripts, respectively, or downloaded from Zenodo  and put in the data folder of this GitHub repository.
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Tasic_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load truth file
+
+```{r}
+load(file="./Data/Tasic_benchmark_datasets_count.Rdata")
+#load(file="./Data/Tasic_benchmark_datasets_scaledTPM.Rdata")
+
+metaInfo <- c(TasicBenchmarkLenient,TasicBenchmarkStringent)
+
+rm(TasicBenchmarkLenient,TasicBenchmarkStringent)
+```
+
+# Load DTU performance data
+
+```{r}
+load(file="./Data/Tasic_DTU_results_count.Rdata")
+#load(file="./Data/Tasic_DTU_results_scaledTPM.Rdata") # to run the visualization on the scaledTPM data
+
+TasicBenchmark <- c(
+    TasicDtuBenchmark_satuRn,
+    TasicDtuBenchmark_limmaDiffsplice,
+    TasicDtuBenchmark_DEXSeq,
+    TasicDtuBenchmark_DRIMSeq,
+    TasicDtuBenchmark_edgeRdiffsplice,
+    TasicDtuBenchmark_DoubleExpSeq)
+
+### Remove empty enteries (due to not tested - aka to many samples for reasonable runtime)
+TasicBenchmark  <- TasicBenchmark[which(
+    sapply(TasicBenchmark, function(x) ! is.null(x$dtuAnalysis)))]
+
+rm(TasicDtuBenchmark_satuRn,
+    TasicDtuBenchmark_limmaDiffsplice,
+    TasicDtuBenchmark_DEXSeq,
+    TasicDtuBenchmark_DRIMSeq,
+    TasicDtuBenchmark_edgeRdiffsplice,
+    TasicDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+  
+  get_all_txs <- function(dataset,nrep){
+  
+    all_txs <- c()
+    for (i in 1:nrep) {
+      current_txs <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+      all_txs <- c(all_txs, current_txs)
+      all_txs <- unique(all_txs)
+    }
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset,nrep)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods*nrep)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:(nmethods*nrep)) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  if(nmethods == 6){
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice", "DEXSeq", "DRIMSeq","edgeR_diffsplice", "DoubleExpSeq")
+  } else {
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice","edgeR_diffsplice", "DoubleExpSeq")
+  }
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,metaInfo,nFilters,nSampleSizes,nRep,nmethods,selection,selection2) {
+
+    count <- 0
+    nPlots <- nFilters * nSampleSizes
+    print(paste("This function will generate",  nPlots, "plots"))
+  
+    for (j in 1:nPlots) {
+        print(j)
+        Tasic_current_outer <- dataset[grepl(selection[j], names(dataset))]
+        metaInfo_current_outer <- metaInfo[grepl(selection2[j], names(metaInfo))]
+
+        resList <- c()
+        count <- count+1
+
+        for (k in 1:length(nRep)) {
+            Tasic_current_inner <- Tasic_current_outer[grepl(nRep[k], names(Tasic_current_outer))]
+
+            metaInfo_current_inner <- metaInfo_current_outer[grepl(nRep[k], names(metaInfo_current_outer))]
+    
+            pvalues <- get_pvalues(Tasic_current_inner,nrep=1,nmethods)
+            #pvalues <- pvalues[,c(2,3)]
+
+            truth_file <- Tasic_current_inner[[1]]$dtuAnalysis
+    
+            if(count <= nSampleSizes){
+                txSwapped <- metaInfo_current_inner[1]          
+                } else {
+                txSwapped <- metaInfo_current_inner[2]
+            }
+    
+            truth_file <- truth_file[,c("TXNAME","p_value")]
+    
+            txSwapped[[1]]$metaInfo <- txSwapped[[1]]$metaInfo[match(truth_file$TXNAME,txSwapped[[1]]$metaInfo$TXNAME),]
+    
+            truth_file$gene_modified <- as.numeric(txSwapped[[1]]$metaInfo$txSwapped)
+            truth_file <- truth_file[order(truth_file$TXNAME),]
+            rownames(truth_file) <- truth_file$TXNAME
+
+            resList[[k]] <- list(pvalues,truth_file)
+        }
+        
+        rownames(resList[[1]][[1]]) <- paste0(rownames(resList[[1]][[1]]), "_1")
+        rownames(resList[[2]][[1]]) <- paste0(rownames(resList[[2]][[1]]), "_2")
+        rownames(resList[[3]][[1]]) <- paste0(rownames(resList[[3]][[1]]), "_3")
+        
+        pvalues_full <- rbind(resList[[1]][[1]],resList[[2]][[1]],resList[[3]][[1]])
+        
+        rownames(resList[[1]][[2]]) <- paste0(rownames(resList[[1]][[2]]), "_1")
+        rownames(resList[[2]][[2]]) <- paste0(rownames(resList[[2]][[2]]), "_2")
+        rownames(resList[[3]][[2]]) <- paste0(rownames(resList[[3]][[2]]), "_3")
+        
+        truth_file_full <- rbind(resList[[1]][[2]],resList[[2]][[2]],resList[[3]][[2]])
+        
+        cobra <- COBRAData(pval = pvalues_full, truth = truth_file_full)
+        cobra <- calculate_adjp(cobra)
+        cobra1perf <- calculate_performance(cobra, binary_truth = "gene_modified", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+        cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+        
+        if (nmethods == 6){
+            new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",14))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,0.75))
+    
+            titles <- c("20 versus 20 - edgeR filter - count ","20 versus 20 - DRIMSeq filter - count")
+            #titles <- c("20 versus 20 - edgeR filter - scaledTPM ","20 versus 20 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        } else {
+            new_col <- c(rep(c("#56B4E9", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",10))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.3), yaxisrange = c(0,1))
+    
+            titles <- c("75 versus 75 - edgeR filter - count","200 versus 200 - edgeR filter - count","75 versus 75 - DRIMSeq filter - count","200 versus 200 - DRIMSeq filter - count")
+            #titles <- c("75 versus 75 - edgeR filter - scaledTPM","200 versus 200 - edgeR filter - scaledTPM","75 versus 75 - DRIMSeq filter - scaledTPM","200 versus 200 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        }
+
+        plot <- plot + 
+            ggtitle(current_title) +
+            theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+
+      png(paste("./Results/Tasic_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_count.png", sep = ""),
+            width     = 5.5,
+            height    = 4.5,
+            units     = "in",
+            res       = 200,
+            pointsize = 4) # start export
+      print(plot)
+      dev.off()
+      
+      # png(paste("./Results/Tasic_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_scaledTPM.png", sep = ""),
+      #       width     = 5.5,
+      #       height    = 4.5,
+      #       units     = "in",
+      #       res       = 200,
+      #       pointsize = 4) # start export
+      # print(plot)
+      # dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+
+```{r}
+selection <- c("20_rep_._filterLenient","20_rep_._filterStringent")
+selection2 <- c("20_rep","20_rep")
+
+visualize_datasets(dataset=TasicBenchmark,metaInfo=metaInfo,nFilters=2,nSampleSizes=1,nRep=c("rep_1","rep_2","rep_3"),nmethods=6,selection = selection,selection2=selection2)
+
+selection <- c("_75_rep_._filterLenient","200_rep_._filterLenient","_75_rep_._filterStringent","200_rep_._filterStringent")
+selection2 <- c("75_rep","200_rep","75_rep","200_rep")
+
+visualize_datasets(TasicBenchmark,metaInfo,nFilters=2,nSampleSizes=2,nRep=c("rep_1","rep_2","rep_3"),nmethods=4,selection = selection,selection2=selection2)
+```
+
+
+---
+title: "3_Darmanis_visualize"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (3_Darmanis_visualize.Rmd), the datasets Darmanis_benchmark_datasets_count.Rdata and Darmanis_DTU_results_count.Rdata are required.** These files can either be generated with the 1_Darmanis_prepare.Rmd and 2_Darmanis_DTU.Rmd scripts, respectively, or downloaded from Zenodo  and put in the data folder of this GitHub repository.
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Darmanis_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load truth file
+
+```{r}
+load(file="./Data/Darmanis_benchmark_datasets_count.Rdata")
+#load(file="./Data/Darmanis_benchmark_datasets_scaledTPM.Rdata")
+
+metaInfo <- c(DarmanisBenchmarkLenient,DarmanisBenchmarkStringent)
+
+rm(DarmanisBenchmarkLenient,DarmanisBenchmarkStringent)
+```
+
+# Load DTU performance results
+
+```{r}
+load(file="./Data/Darmanis_DTU_results_count.Rdata")
+#load(file="./Data/Darmanis_DTU_results_scaledTPM.Rdata")  
+
+DarmanisBenchmark <- c(
+    DarmanisDtuBenchmark_satuRn,
+    DarmanisDtuBenchmark_limmaDiffsplice,
+    DarmanisDtuBenchmark_DEXSeq,
+    DarmanisDtuBenchmark_DRIMSeq,
+    DarmanisDtuBenchmark_edgeRdiffsplice,
+    DarmanisDtuBenchmark_DoubleExpSeq)
+
+### Remove empty entries (due to not tested - aka to many samples for reasonable runtime)
+DarmanisBenchmark  <- DarmanisBenchmark[which(
+    sapply(DarmanisBenchmark, function(x) ! is.null(x$dtuAnalysis)))]
+
+rm(DarmanisDtuBenchmark_satuRn,
+    DarmanisDtuBenchmark_limmaDiffsplice,
+    DarmanisDtuBenchmark_DEXSeq,
+    DarmanisDtuBenchmark_DRIMSeq,
+    DarmanisDtuBenchmark_edgeRdiffsplice,
+    DarmanisDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+  
+  get_all_txs <- function(dataset,nrep){
+  
+    all_txs <- c()
+    for (i in 1:nrep) {
+      current_txs <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+      all_txs <- c(all_txs, current_txs)
+      all_txs <- unique(all_txs)
+    }
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset,nrep)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods*nrep)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:(nmethods*nrep)) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  if(nmethods == 6){
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice", "DEXSeq", "DRIMSeq","edgeR_diffsplice", "DoubleExpSeq")
+  } else {
+    colnames(pvalues) <- c("satuRn", "limma_diffsplice","edgeR_diffsplice", "DoubleExpSeq")
+  }
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,metaInfo,nFilters,nSampleSizes,nRep,nmethods,selection,selection2) {
+
+    count <- 0
+    nPlots <- nFilters * nSampleSizes
+    print(paste("This function will generate",  nPlots, "plots"))
+  
+    for (j in 1:nPlots) {
+        print(j)
+        Tasic_current_outer <- dataset[grepl(selection[j], names(dataset))]
+        metaInfo_current_outer <- metaInfo[grepl(selection2[j], names(metaInfo))]
+
+        resList <- c()
+        count <- count+1
+
+        for (k in 1:length(nRep)) {
+            Tasic_current_inner <- Tasic_current_outer[grepl(nRep[k], names(Tasic_current_outer))]
+
+            metaInfo_current_inner <- metaInfo_current_outer[grepl(nRep[k], names(metaInfo_current_outer))]
+    
+            pvalues <- get_pvalues(Tasic_current_inner,nrep=1,nmethods)
+
+            truth_file <- Tasic_current_inner[[1]]$dtuAnalysis
+    
+            if(count <= nSampleSizes){
+                txSwapped <- metaInfo_current_inner[1]          
+                } else {
+                txSwapped <- metaInfo_current_inner[2]
+            }
+    
+            truth_file <- truth_file[,c("TXNAME","p_value")]
+    
+            txSwapped[[1]]$metaInfo <- txSwapped[[1]]$metaInfo[match(truth_file$TXNAME,txSwapped[[1]]$metaInfo$TXNAME),]
+    
+            truth_file$gene_modified <- as.numeric(txSwapped[[1]]$metaInfo$txSwapped)
+            truth_file <- truth_file[order(truth_file$TXNAME),]
+            rownames(truth_file) <- truth_file$TXNAME
+
+            resList[[k]] <- list(pvalues,truth_file)
+        }
+        
+        rownames(resList[[1]][[1]]) <- paste0(rownames(resList[[1]][[1]]), "_1")
+        rownames(resList[[2]][[1]]) <- paste0(rownames(resList[[2]][[1]]), "_2")
+        rownames(resList[[3]][[1]]) <- paste0(rownames(resList[[3]][[1]]), "_3")
+        
+        pvalues_full <- rbind(resList[[1]][[1]],resList[[2]][[1]],resList[[3]][[1]])
+        
+        rownames(resList[[1]][[2]]) <- paste0(rownames(resList[[1]][[2]]), "_1")
+        rownames(resList[[2]][[2]]) <- paste0(rownames(resList[[2]][[2]]), "_2")
+        rownames(resList[[3]][[2]]) <- paste0(rownames(resList[[3]][[2]]), "_3")
+        
+        truth_file_full <- rbind(resList[[1]][[2]],resList[[2]][[2]],resList[[3]][[2]])
+        
+        cobra <- COBRAData(pval = pvalues_full, truth = truth_file_full)
+        cobra <- calculate_adjp(cobra)
+        cobra1perf <- calculate_performance(cobra, binary_truth = "gene_modified", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+        cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+        
+        if (nmethods == 6){
+            new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",14))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,0.6))
+    
+            titles <- c("20 versus 20 - edgeR filter - count","20 versus 20 - DRIMSeq filter - count")
+            #titles <- c("20 versus 20 - edgeR filter - scaledTPM","20 versus 20 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        } else {
+            new_col <- c(rep(c("#56B4E9", "#F0E442", "#0072B2", "black", "#999999"),4),rep("white",10))
+            names(new_col) <- names(cobraplot@plotcolors)
+            cobraplot@plotcolors <- new_col
+    
+            plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.3), yaxisrange = c(0,0.8))
+    
+            titles <- c("50 versus 50 - edgeR filter - count","100 versus 100 - edgeR filter - count","50 versus 50 - DRIMSeq filter - count","100 versus 100 - DRIMSeq filter - count")
+            #titles <- c("50 versus 50 - edgeR filter - scaledTPM","100 versus 100 - edgeR filter - scaledTPM","50 versus 50 - DRIMSeq filter - scaledTPM","100 versus 100 - DRIMSeq filter - scaledTPM")
+            current_title <- titles[j]
+        }
+
+        plot <- plot + 
+            ggtitle(current_title) +
+            theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+
+      png(paste("./Results/Darmanis_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_count.png", sep = ""),
+            width     = 5.5,
+            height    = 4.5,
+            units     = "in",
+            res       = 200,
+            pointsize = 4) # start export
+      print(plot)
+      dev.off()
+        
+      # png(paste("./Results/Darmanis_benchmark/FDRTPR_", selection2[j], "_", sub("^[^f]*", "", selection[j]), "_scaledTPM.png", sep = ""),
+      #       width     = 5.5,
+      #       height    = 4.5,
+      #       units     = "in",
+      #       res       = 200,
+      #       pointsize = 4) # start export
+      # print(plot)
+      # dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+
+```{r}
+selection <- c("20_rep_._filterLenient","20_rep_._filterStringent")
+selection2 <- c("20_rep","20_rep")
+
+visualize_datasets(DarmanisBenchmark,metaInfo,nFilters=2,nSampleSizes=1,nRep=c("rep_1","rep_2","rep_3"),nmethods=6,selection = selection,selection2=selection2)
+
+selection <- c("_50_rep_._filterLenient","100_rep_._filterLenient","_50_rep_._filterStringent","100_rep_._filterStringent")
+selection2 <- c("50_rep","100_rep","50_rep","100_rep")
+
+visualize_datasets(DarmanisBenchmark,metaInfo,nFilters=2,nSampleSizes=2,nRep=c("rep_1","rep_2","rep_3"),nmethods=4,selection = selection,selection2=selection2)
+```
+
+
+
+---
+title: "2_Darmanis_DTU"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Darmanis_DTU.Rmd), the dataset Darmanis_benchmark_datasets_count.Rdata (or, alternatively, Darmanis_benchmark_datasets_scaledTPM.Rdata) is required.** This file can either be generated with the 1_Darmanis_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for all 6 methods on all (18) Darmanis benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes. This code runs approximately 45 minutes hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq analysis.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Darmanis_DTU_results_count.Rdata (or, alternatively, Darmanis_DTU_results_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+if(TRUE) {
+    nrCores <- 2
+
+    if(nrCores != 1) {
+        doParallel <- TRUE
+        doProgress <- 'none'
+
+        registerDoMC(cores = nrCores)
+    } else {
+        doParallel <- FALSE
+        doProgress <- 'text'
+    }
+}
+```
+
+# Run all analyses 
+
+Run the DTU analyses for all 6 methods on all (18) Darmanis benchmark datasets. Note that for DEXSeq and DRIMSeq we only run the datasets with 20 cells in each group, as these methods do not scale to large datasets. NBSplice was omitted as it does not converge on datasets with many zeroes.
+This code runs approximately 45 minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq analysis.
+
+```{r}
+### Load benchmark data
+load(file="./Data/Darmanis_benchmark_datasets_count.Rdata")
+#load(file="./Data/Darmanis_benchmark_datasets_scaledTPM.Rdata")
+
+DarmanisBenchmarkData <- c(DarmanisBenchmarkLenient,DarmanisBenchmarkStringent)
+
+### Run DTU analyses on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(DarmanisDtuBenchmark_satuRn <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+            )
+        )
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+DarmanisDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+            )
+        )
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+DarmanisDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+            )
+        )
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+DarmanisDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+            )
+        )
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DEXSeq")
+
+tStart <- Sys.time()
+DarmanisDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+            )
+        )
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+DarmanisDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = DarmanisBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+      
+        if(ncol(localData$data) > 40) {
+            return(NULL)
+        }
+      
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(
+            list(
+                dtuAnalysis = localRes
+           )
+       )
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(DarmanisDtuBenchmark_satuRn) <- paste0('satuRn_', names(DarmanisDtuBenchmark_satuRn))
+names(DarmanisDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(DarmanisDtuBenchmark_limmaDiffsplice))
+names(DarmanisDtuBenchmark_DEXSeq) <- paste0('DEXSeq_', names(DarmanisDtuBenchmark_DEXSeq))
+names(DarmanisDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(DarmanisDtuBenchmark_DRIMSeq))
+names(DarmanisDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(DarmanisDtuBenchmark_edgeRdiffsplice))
+names(DarmanisDtuBenchmark_DoubleExpSeq) <- paste0('DoubleExpSeq_', names(DarmanisDtuBenchmark_DoubleExpSeq))
+
+### Save result
+save(
+    DarmanisDtuBenchmark_satuRn,
+    DarmanisDtuBenchmark_limmaDiffsplice,
+    DarmanisDtuBenchmark_DEXSeq,
+    DarmanisDtuBenchmark_DRIMSeq,
+    DarmanisDtuBenchmark_edgeRdiffsplice,
+    DarmanisDtuBenchmark_DoubleExpSeq,
+    file="./Data/Darmanis_DTU_results_count.Rdata"
+)
+
+# save(
+#     DarmanisDtuBenchmark_satuRn,
+#     DarmanisDtuBenchmark_limmaDiffsplice,
+#     DarmanisDtuBenchmark_DEXSeq,
+#     DarmanisDtuBenchmark_DRIMSeq,
+#     DarmanisDtuBenchmark_edgeRdiffsplice,
+#     DarmanisDtuBenchmark_DoubleExpSeq,
+#     file="./Data/Darmanis_DTU_results_scaledTPM.Rdata"
+# )
+```
+
+
+---
+title: "1_Darmanis_prepare"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Darmanis_perpare.Rmd), the expression count matrix Darmanis_counts.rds and corresponding metadata Darmanis_metadata.Rdata should be downloaded from Zenodo and put in the Data folder of this GitHub repository.**
+
+Alternatively, the exact same quantification files can be downloaded from their original source: http://imlspenticton.uzh.ch/robinson_lab/conquer/data-mae/GSE84465.rds . Note that the raw data is available through [GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE84465)
+
+**If one does not want to run this script, its output can also be downloaded from Zenodo: Darmanis_benchmark_datasets_count.Rdata (or, alternatively, Darmanis_benchmark_datasets_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(edgeR)
+library(DRIMSeq)
+library(MultiAssayExperiment)
+library(doMC)
+```
+
+# Load data
+
+```{r, message=FALSE}
+Darmanis_data <- readRDS(file = "./Data/Darmanis_counts.rds")
+```
+
+# Extract genome annotation
+
+```{r}
+### Extract gene info
+txInfo <- Darmanis_data@ExperimentList$tx@rowRanges
+txInfo <- as.data.frame(mcols(txInfo[,c('transcript','gene')]))
+colnames(txInfo) <- c('isoform_id','gene_id')
+rownames(txInfo) <- NULL
+txInfo$isoform_id <- as.character(txInfo$isoform_id)
+txInfo$gene_id <- as.character(txInfo$gene_id)
+```
+
+# Subset Darmanis data
+
+To generate a benchmark dataset, we need to know the ground truth, i.e. which transcripts are differentially used between groups of samples. To this end, we first generate mock datasets where no DTU is expected, after which we introduce DTU between groups by the transcript-abundance-swapping strategy discussed by Van den Berge et al. [stageR paper](https://doi.org/10.1186/s13059-017-1277-0).
+
+In order to obtain a mock dataset, we need to construct a dataset where (ideally) no DTU is expected. We try to achieve this by subsampling a homogenous set of samples from the Darmanis dataset, based on following criteria:
+
+1. cell.type = Immune cell
+2. tsne.cluster = 8
+3. tissue.ch1 = Tumor
+
+The metadata of the retained cells can be retrieved from Darmanis_metadata.Rdata;
+
+```{r}
+load(file = "./Data/Darmanis_metadata.Rdata")
+### Subset expression matrix
+Darmanis_counts <- Darmanis_data@ExperimentList$tx@assays$data$count[,cellsOfInterest] # count input
+```
+
+Uncomment this chunk of code to use scaledTPM in stead  of raw counts
+
+```{r}
+# # get scaledTPM
+# Darmanis_counts_all <- Darmanis_data@ExperimentList$tx@assays$data$count[,cellsOfInterest] # count input
+# Darmanis_TPM_all <- Darmanis_data@ExperimentList$tx@assays$data$TPM[,cellsOfInterest] # TPM input
+# 
+# colsums_count <- colSums(Darmanis_counts_all)
+# colsums_TPM <- colSums(Darmanis_TPM_all)
+# scale_factors <- colsums_count/colsums_TPM
+# 
+# Darmanis_scaledTPM_all <- Darmanis_TPM_all %*% diag(scale_factors) # scaledTPM input
+# colnames(Darmanis_scaledTPM_all) <- colnames(Darmanis_counts_all)
+# Darmanis_counts <- Darmanis_scaledTPM_all[,cellsOfInterest]
+```
+
+# Setup generation of benchmark data
+
+Set hyperparameters of the benchmark datasets (i.e. sample size, number of repeats, fraction of DTU genes and parameters for parallel processing).
+
+```{r}
+### Remove ERCC
+txInfo <- txInfo[which(
+    ! grepl('^ERCC-', txInfo$isoform_id )
+),]
+
+Darmanis_counts <- Darmanis_counts[txInfo$isoform_id,]
+#Darmanis_scaledTPM <- Darmanis_scaledTPM[txInfo$isoform_id,]
+
+### Set parameters
+samplesPrCondition   <- c(20,50,100)
+nrRepsMade           <- 3
+fracGenesAffected    <- 0.15
+nrCoresToUse         <- 2
+
+### Set up parallel processing
+if(nrCoresToUse != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCoresToUse)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+
+### list for looping
+nrRepList <- split(
+    rep(
+        x = samplesPrCondition,
+        times = nrRepsMade
+    ),
+    paste0(
+        'samples_used_',
+        rep(
+            x = samplesPrCondition,
+            times = nrRepsMade
+        ),
+        '_rep_',
+        sort( rep(
+            x = 1:nrRepsMade,
+            times = length(samplesPrCondition)
+        ) )
+    )
+)
+```
+
+# Generate Darmanis benchmark data
+
+```{r}
+source(file="./Performance_benchmarks/getBenchmark_data.R")
+```
+
+```{r}
+DarmanisBenchmarkLenient <- getBenchmark_data(countData=Darmanis_counts, 
+                                          metaData=txInfo,
+                                          filter="edgeR",
+                                          edgeR_filter_spec = list(min.count = 1, 
+                                                                    min.total.count = 0, 
+                                                                    large.n = 0, 
+                                                                    min.prop = 0.5),
+                                          nrRepList=nrRepList, 
+                                          fracGenesAffected=0.15)
+names(DarmanisBenchmarkLenient) <- paste0(names(nrRepList),"_filterLenient")
+
+DarmanisBenchmarkStringent <- getBenchmark_data(countData=Darmanis_counts,
+                                                metaData=txInfo,
+                                                filter="DRIMSeq", 
+                                                nrRepList=nrRepList, 
+                                                fracGenesAffected=0.15)
+names(DarmanisBenchmarkStringent) <- paste0(names(nrRepList),"_filterStringent")
+```
+
+# Save Darmanis benchmark data
+
+```{r}
+#save(DarmanisBenchmarkLenient, DarmanisBenchmarkStringent, file="./Data/Darmanis_benchmark_datasets_count.Rdata")
+save(DarmanisBenchmarkLenient, DarmanisBenchmarkStringent, file="./Data/Darmanis_benchmark_datasets_scaledTPM.Rdata")
+```
+---
+title: "3_Gtex_visualize"
+author: "Jeroen Gilis"
+date: "02/11/2020"
+output: html_document
+---
+
+**In order to run this script (3_Gtex_visualize.Rmd), the datasets GTEx_benchmark_datasets_count.Rdata and GTEx_DTU_results_count.Rdata (or, alternatively, GTEx_benchmark_datasets_scaledTPM.Rdata and GTEx_DTU_results_scaledTPM.Rdata) are required.** These files can either be generated with the 1_Gtex_prepare.Rmd and 2_Gtex_DTU.Rmd scripts or downloaded from Zenodo. 
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Gtex_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load benchmark datasets (contains the ground truth)
+
+As generated in script 1_Gtex_prepare.Rmd
+
+```{r}
+#load(file="./Data/GTEx_benchmark_datasets_count.Rdata")
+load(file="./Data/GTEx_benchmark_datasets_scaledTPM.Rdata") # TPM equivalent
+metaInfo <- c(gtexBenchmarkDataLenient,gtexBenchmarkDataStringent)
+rm(gtexBenchmarkDataLenient,gtexBenchmarkDataStringent)
+invisible(gc())
+```
+
+# Load DTU analysis results
+
+As generated in script 2_Gtex_DTU.Rmd
+
+```{r}
+#load(file="./Data/GTEx_DTU_results_count.Rdata")
+load(file="./Data/GTEx_DTU_results_scaledTPM.Rdata") # TPM equivalent
+
+gtexBenchmark <- c(
+    gtexDtuBenchmark_DEXSeq,
+    gtexDtuBenchmark_DoubleExpSeq,
+    gtexDtuBenchmark_DRIMSeq,
+    gtexDtuBenchmark_edgeRdiffsplice,
+    gtexDtuBenchmark_limmaDiffsplice,
+    gtexDtuBenchmark_NBSplice,
+    gtexDtuBenchmark_satuRn
+)
+
+### Remove empty enteries (due to not tested due to too many samples for reasonable runtime)
+gtexBenchmark  <- gtexBenchmark[which(
+    sapply(gtexBenchmark, function(x) ! is.null(x$dtuAnalysis))
+)]
+
+rm(gtexDtuBenchmark_DEXSeq,
+    gtexDtuBenchmark_DRIMSeq,
+    gtexDtuBenchmark_DoubleExpSeq,
+    gtexDtuBenchmark_edgeRdiffsplice,
+    gtexDtuBenchmark_limmaDiffsplice,
+    gtexDtuBenchmark_NBSplice,
+    gtexDtuBenchmark_satuRn)
+invisible(gc())
+```
+
+```{r}
+gtexBenchmark$satuRn_samples_used_20_rep_1_filterLenient$dtuAnalysis
+```
+
+count and scaledTPM
+ENST00000373020.8	ENST00000373020.8	-0.491661783	6.256481e-01	
+ENST00000496771.5	ENST00000496771.5	1.857417753	7.063120e-02	
+ENST00000612152.4	ENST00000612152.4	-0.499982382	6.198294e-01	
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+  
+  get_all_txs <- function(dataset){
+  
+    all_txs <- c()
+    current_txs <- as.character(dataset[[1]]$dtuAnalysis$TXNAME)
+    all_txs <- c(all_txs, current_txs)
+    all_txs <- unique(all_txs)
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset)
+  nmethods <- length(dataset)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:nmethods) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  colnames(pvalues) <- methods
+
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,metaInfo,nFilters,nSampleSizes,methods,colors,titles,selection) {
+    nPlots <- nFilters * nSampleSizes
+    print(paste("This function will generate",  nPlots, "plots"))
+  
+    # for each of the requested benchmarks, do:
+    for (j in 1:nPlots) {
+        
+        print(j) # print progress
+        gtexBenchmark_current_outer <- dataset[grepl(selection[j], names(dataset))] # select the requested analyses
+        
+        selected_methods <- c()
+        for (i in 1:length(methods)) {
+            selected_methods <- c(selected_methods,grep(methods[i], names(gtexBenchmark_current_outer)))
+        }
+        
+        gtexBenchmark_current_outer <- gtexBenchmark_current_outer[selected_methods] # name ordered
+
+        metaInfo_current_outer <- metaInfo[grepl(selection[j], names(metaInfo))]
+
+        resList <- c() # to store results of each repeat later
+        nRep=c("rep_1_","rep_2","rep_3")
+        # for each of k repeats, do:
+        for (k in 1:length(nRep)) {
+            gtexBenchmark_current_inner <- gtexBenchmark_current_outer[grepl(nRep[k], names(gtexBenchmark_current_outer))] # get analysis data of k-th repeat
+            metaInfo_current_inner <- metaInfo_current_outer[grepl(nRep[k], names(metaInfo_current_outer))] # get truth data of k-th repeat
+
+            pvalues <- get_pvalues(gtexBenchmark_current_inner,methods)
+
+            truth_file <- gtexBenchmark_current_inner[[1]]$dtuAnalysis
+            txSwapped <- metaInfo_current_inner[1] # txSwapped is that of the first repeat but is the same for all (3) repeats
+            truth_file <- truth_file[,c("TXNAME","p_value")]
+    
+            txSwapped[[1]]$metaInfo <- txSwapped[[1]]$metaInfo[match(truth_file$TXNAME,txSwapped[[1]]$metaInfo$TXNAME),]
+    
+            truth_file$gene_modified <- as.numeric(txSwapped[[1]]$metaInfo$txSwapped)
+            truth_file <- truth_file[order(truth_file$TXNAME),]
+            rownames(truth_file) <- truth_file$TXNAME
+
+            resList[[k]] <- list(pvalues,truth_file)
+        }
+        
+        # concatenate the results of the repeated analyses into one dataframe in order to calculate average performances over repeats (required for iCobra). Avoid repeated rownames. 
+        rownames(resList[[1]][[1]]) <- paste0(rownames(resList[[1]][[1]]), "_1")
+        rownames(resList[[2]][[1]]) <- paste0(rownames(resList[[2]][[1]]), "_2")
+        rownames(resList[[3]][[1]]) <- paste0(rownames(resList[[3]][[1]]), "_3")
+
+        pvalues_full <- rbind(resList[[1]][[1]],resList[[2]][[1]],resList[[3]][[1]])
+        
+        # concatenate the metadata of the repeated analyses into one dataframe in order to calculate average performances over repeats (required for iCobra). Avoid repeated rownames. 
+        rownames(resList[[1]][[2]]) <- paste0(rownames(resList[[1]][[2]]), "_1")
+        rownames(resList[[2]][[2]]) <- paste0(rownames(resList[[2]][[2]]), "_2")
+        rownames(resList[[3]][[2]]) <- paste0(rownames(resList[[3]][[2]]), "_3")
+
+        truth_file_full <- rbind(resList[[1]][[2]],resList[[2]][[2]],resList[[3]][[2]])
+        
+        # generate plot with iCobra
+        cobra <- COBRAData(pval = pvalues_full, truth = truth_file_full)
+        cobra <- calculate_adjp(cobra)
+        cobra1perf <- calculate_performance(cobra, binary_truth = "gene_modified", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+        cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+        
+        # customize colors
+        new_col <- colors[which(names(colors)%in%methods)]
+        new_col <- c(rep(c(new_col, "#999999"),4),rep("white",2*(length(methods)+1)))
+        names(new_col) <- names(cobraplot@plotcolors)
+        cobraplot@plotcolors <- new_col
+
+        # create plot
+        plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,1))
+        plot <- plot +
+            ggtitle(titles[j]) +
+            theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+        
+        # save plot
+        png(paste0("./Results/Gtex_benchmark/FDRTPR_", gsub(" ", "_", titles[j]), ".png"),
+        width     = 5.5,
+        height    = 4.5,
+        units     = "in",
+        res       = 200,
+        pointsize = 4) # start export
+        print(plot)
+        dev.off()
+  }
+}
+```
+
+# Visualize the results
+
+```{r}
+selection <- c("5_rep_.(_|0_)filterLenient","20_rep_.(_|0_)filterLenient","5_rep_.(_|0_)filterStringent","20_rep_.(_|0_)filterStringent")
+
+colors<- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "black")
+names(colors) <- c("DEXSeq","DoubleExpSeq","DRIMSeq","edgeR_diffsplice", "limma_diffsplice" ,"NBSplice","satuRn")
+
+methods <- c("DEXSeq","DoubleExpSeq","DRIMSeq","edgeR_diffsplice", "limma_diffsplice" ,"NBSplice","satuRn")
+
+#titles <- c("5 versus 5 - edgeR filter - count","20 versus 20 - edgeR filter - count","5 versus 5 - DRIMSeq filter - count","20 versus 20 - DRIMSeq filter - count")
+titles <- c("5 versus 5 - edgeR filter - scaledTPM","20 versus 20 - edgeR filter - scaledTPM","5 versus 5 - DRIMSeq filter - scaledTPM","20 versus 20 - DRIMSeq filter - scaledTPM")
+
+visualize_datasets(dataset=gtexBenchmark,
+                   metaInfo=metaInfo,
+                   nFilters=2,
+                   nSampleSizes=2,
+                   methods=methods,
+                   colors=colors,
+                   titles=titles,
+                   selection=selection)
+
+selection <- c("50_rep_.(_|0_)filterLenient","50_rep_.(_|0_)filterStringent")
+
+colors<- c("#56B4E9", "#F0E442", "#0072B2", "black")
+names(colors) <- c("DoubleExpSeq","edgeR_diffsplice", "limma_diffsplice","satuRn")
+
+methods <- c("DoubleExpSeq","edgeR_diffsplice", "limma_diffsplice","satuRn")
+
+#titles <- c("50 versus 50 - edgeR filter - count","50 versus 50 - DRIMSeq filter - count")
+titles <- c("50 versus 50 - edgeR filter - scaledTPM","50 versus 50 - DRIMSeq filter - scaledTPM")
+
+visualize_datasets(dataset=gtexBenchmark,
+                   metaInfo=metaInfo,
+                   nFilters=2,
+                   nSampleSizes=1,
+                   methods=methods,
+                   colors=colors,
+                   titles=titles,
+                   selection=selection)
+```
+
+
+
+
+---
+title: "2_Gtex_DTU"
+author: "Jeroen Gilis"
+date: "02/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Gtex_DTU.Rmd), the dataset GTEx_benchmark_datasets_count.Rdata (or, alternatively, GTEx_benchmark_datasets_scaledTPM.Rdata) is required.** This file can either be generated with the 1_Gtex_prepare.Rmd script or downloaded from Zenodo.  
+
+Run the DTU analyses for all 7 methods on all (18) Gtex benchmark datasets. Note that for DEXSeq, DRIMSeq and NBSplice we only run the datasets with 5 samples in each group, as these methods do not scale to large datasets.
+This code runs approximately 4 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of the runtime is attributed to the DEXSeq, DRIMSeq and NBSplice analyses.
+Most of the runtime is attributed to the DEXSeq, DRIMSeq and NBSplice analyses.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: GTEx_DTU_results_count.Rdata (or, alternatively, GTEx_DTU_results_scaledTPM.Rdata) **
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(doMC)
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+#devtools::install_local("/Users/jg/Desktop/PhD/DTU_project/satuRn", force = TRUE, quiet = FALSE)
+library(satuRn)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```
+nrCores <- 2
+
+if(nrCores != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+    registerDoMC(cores = nrCores)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+```
+
+# Run all analyses 
+
+Run the DTU analyses for all 7 methods on all (18) Gtex benchmark datasets. Note that for DEXSeq, DRIMSeq and NBSplice we only run the datasets with 5 samples in each group, as these methods do not scale to large datasets.
+This code runs approximately 4 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of the runtime is attributed to the DEXSeq, DRIMSeq and NBSplice analyses.
+
+```{r}
+### Load the benchmark datasets, which are output from 1_Gtex_prepare.Rmd
+#load(file="./Data/GTEx_benchmark_datasets_count.Rdata")
+load(file="./Data/GTEx_benchmark_datasets_scaledTPM.Rdata")
+
+gtexBenchmarkData <- c(gtexBenchmarkDataLenient,gtexBenchmarkDataStringent)
+
+### Run DTU analyses on benchmark data
+    
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(gtexDtuBenchmark_satuRn <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+    
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+    
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+    
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+ 
+
+
+
+
+
+   
+print("start DEXSeq")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+            
+        if(ncol(localData$data) > 40) {
+            return(NULL) 
+        } # do not run DEXSeq for datasets with many samples - too slow
+          
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+    
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+          
+        if(ncol(localData$data) > 40) {
+            return(NULL) 
+        } # do not run DRIMSeq for datasets with many samples - too slow
+          
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+    
+     
+print("start NBSplice")
+
+tStart <- Sys.time()
+gtexDtuBenchmark_NBSplice <- plyr::llply(
+    .data = gtexBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+          
+        if(ncol(localData$data) > 40) {
+              return(NULL) 
+        } # do not run NBSPlice for datasets with many samples - too slow
+          
+        ### Perform DTU analysis
+        localRes <- NBSplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE
+        )
+
+        if(is.null(localRes)){
+            return( list(dtuAnalysis = localRes))
+        }
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(gtexDtuBenchmark_satuRn) <- paste0('satuRn_',names(gtexDtuBenchmark_satuRn))
+names(gtexDtuBenchmark_DoubleExpSeq) <- paste0('DoubleExpSeq_', names(gtexDtuBenchmark_DoubleExpSeq))
+names(gtexDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(gtexDtuBenchmark_limmaDiffsplice))
+names(gtexDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(gtexDtuBenchmark_edgeRdiffsplice))
+names(gtexDtuBenchmark_DEXSeq) <- paste0('DEXSeq_', names(gtexDtuBenchmark_DEXSeq))
+names(gtexDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(gtexDtuBenchmark_DRIMSeq))
+names(gtexDtuBenchmark_NBSplice) <- paste0('NBSplice_', names(gtexDtuBenchmark_NBSplice))
+
+### Save result
+# save(gtexDtuBenchmark_satuRn,
+#     gtexDtuBenchmark_limmaDiffsplice,
+#     gtexDtuBenchmark_edgeRdiffsplice,
+#     gtexDtuBenchmark_DoubleExpSeq,
+#     gtexDtuBenchmark_DEXSeq,
+#     gtexDtuBenchmark_DRIMSeq,
+#     gtexDtuBenchmark_NBSplice,
+#     file="./Data/GTEx_DTU_results_count.Rdata")
+
+save(gtexDtuBenchmark_satuRn,
+    gtexDtuBenchmark_limmaDiffsplice,
+    gtexDtuBenchmark_edgeRdiffsplice,
+    gtexDtuBenchmark_DoubleExpSeq,
+    gtexDtuBenchmark_DEXSeq,
+    gtexDtuBenchmark_DRIMSeq,
+    gtexDtuBenchmark_NBSplice,
+    file="./Data/GTEx_DTU_results_scaledTPM.Rdata")
+```
+
+
+
+
+
+
+
+
+
+
+---
+title: "1_Gtex_prepare"
+author: "Jeroen Gilis"
+date: "02/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Gtex_perpare.Rmd), two files should be downloaded from Zenodo and copied into the Data folder from this Github page**. Note that if you want to run the analysis on scaledTPM expression values, you must also copy a third file from Zenodo into the Data folder from this Github page
+
+1. GTEx_counts.gz 
+2. 01_GTEx_baseline_metadata.txt
+(3. GTEx_scaledTPM.gz)
+
+Note that these files are identical to the ones from the links above; we have only renamed the files.
+
+1. https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_expected_count.gct.gz
+2. https://storage.googleapis.com/gtex_analysis_v8/annotations/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
+3. https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-06-05_v8_RSEMv1.3.0_transcript_tpm.gct.gz
+
+Note that the raw data (e.g. .bam files) can also be acquired through [the GTEx data portal](https://www.gtexportal.org/home/documentationPage#staticTextPublicationPolicy)  
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: GTEx_benchmark_datasets_count.Rdata (or, alternatively, GTEx_benchmark_datasets_scaledTPM.Rdata) **
+
+Given the large datasets, this script is quite memory intensive!
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(data.table)
+library(edgeR)
+library(DRIMSeq)
+library(doMC)
+```
+
+# Load Gtex data
+
+```{r,"load data"}
+gtexCm <- fread("./Data/GTEx_counts.gz", data.table = FALSE)
+gtexSample <- fread("./Data/GTEx_metadata.txt", data.table = FALSE)
+```
+
+# Subset Gtex data
+
+The Gtex dataset originates from an observational study. To use it as a benchmark dataset, we need to know the ground truth, i.e. which transcripts are differentially used between groups of samples. To this end, we first generate mock datasets where no DTU is expected, after which we introduce DTU between groups by the transcript-abundance-swapping strategy discussed by Van den Berge et al. [stageR paper](https://doi.org/10.1186/s13059-017-1277-0).
+
+In order to obtain a mock dataset, however, we need to construct a dataset where (ideally) no DTU is expected. We try to achieve this by subsampling a homogenous set of samples from the Gtex data object, based on following criteria:
+
+- Only adrenal gland data 
+- Only RNA Extraction from Paxgene-derived Lysate Plate Based samples
+- Only samples from center B1
+- Only RNASEQ samples in GTEx Analysis Freeze (SMAFRZE)
+
+```{r}
+# Extract gene info
+txInfo <- gtexCm[,c('transcript_id','gene_id')]
+colnames(txInfo)[1] <- 'isoform_id'
+rownames(gtexCm) <- txInfo$isoform_id
+
+# Extract samples
+gtexSample <- gtexSample[
+    which(gtexSample$SMTSD == 'Adrenal Gland'),
+]
+
+# Specifically filter on extraction kit
+gtexSample <- gtexSample[
+    which(gtexSample$SMNABTCHT == 'RNA Extraction from Paxgene-derived Lysate Plate Based'),
+]
+
+# Specifically filter on SMAFRZE
+gtexSample <- gtexSample[
+    which(gtexSample$SMAFRZE == 'RNASEQ'),
+]
+
+# Specifically filter on center
+gtexSample <- gtexSample[
+    which(gtexSample$SMCENTER == 'B1'),
+]
+
+gtexCm <- gtexCm[,which(
+    colnames(gtexCm) %in% gtexSample$SAMPID
+)]
+```
+
+Uncomment this chunk of code if scaledTPM expression values need to be obained instead of raw counts
+
+```
+colsums_count <- colSums(gtexCm)
+colsums_count <- readRDS("./Data/colsums_count.Rds")
+rm("gtexCm")
+invisible(gc())
+gtexTPM <- fread('./Data/GTEx_scaledTPM.gz', data.table = FALSE)
+
+gtexTPM <- gtexTPM[,which(
+    colnames(gtexTPM) %in% gtexSample$SAMPID
+)]
+
+# Get gtexScaledTPM 
+colsums_TPM <- colSums(gtexTPM)
+scale_factors <- colsums_count/colsums_TPM
+
+gtexScaledTPM <- as.matrix(gtexTPM) %*% diag(scale_factors) # scaledTPM input
+gtexScaledTPM <- as.data.frame(gtexScaledTPM)
+colnames(gtexScaledTPM) <- colnames(gtexTPM)
+rownames(gtexScaledTPM) <- txInfo$isoform_id
+gtexCm <- gtexScaledTPM
+```
+
+# Setup generation of benchmark data
+
+Set hyperparameters of the benchmark datasets (i.e. sample size, number of repeats, fraction of DTU genes and parameters for parallel processing).
+
+```{r}
+# Set benchmark parameters
+samplesPrCondition   <- c(5,20,50) 
+nrRepsMade           <- 3
+fracGenesAffected    <- 0.15
+nrCoresToUse         <- 2
+
+# Set up parallel processing
+if(nrCoresToUse != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+    registerDoMC(cores = nrCoresToUse)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+
+# list for looping
+nrRepList <- split(
+    rep(
+        x = samplesPrCondition,
+        times = nrRepsMade
+    ),
+    paste0(
+        'samples_used_',
+        rep(
+            x = samplesPrCondition,
+            times = nrRepsMade
+        ),
+        '_rep_',
+        sort( rep(
+            x = 1:nrRepsMade,
+            times = length(samplesPrCondition)
+        ) )
+    )
+)
+```
+
+# Generate gtex benchmark data
+
+```{r}
+source(file="./Performance_benchmarks/getBenchmark_data.R")
+```
+
+```{r}
+gtexBenchmarkDataLenient <- getBenchmark_data(countData = gtexCm,
+                                              metaData = txInfo,
+                                              filter = "edgeR",
+                                              edgeR_filter_spec = list(min.count = 10, 
+                                                                       min.total.count = 15, 
+                                                                       large.n = 10, 
+                                                                       min.prop = 0.7), 
+                                              nrRepList = nrRepList, 
+                                              fracGenesAffected = 0.15)
+names(gtexBenchmarkDataLenient) <- paste0(names(nrRepList),"_filterLenient")
+
+gtexBenchmarkDataStringent <- getBenchmark_data(countData=gtexCm, metaData=txInfo,filter="DRIMSeq", nrRepList=nrRepList, fracGenesAffected=0.15)
+names(gtexBenchmarkDataStringent) <- paste0(names(nrRepList),"_filterStringent")
+```
+
+# Save gtex benchmark data
+
+```{r}
+#save(gtexBenchmarkDataLenient, gtexBenchmarkDataStringent, file="./Data/GTEx_benchmark_datasets_count.Rdata")
+save(gtexBenchmarkDataLenient, gtexBenchmarkDataStringent, file="./Data/GTEx_benchmark_datasets_scaledTPM.Rdata")
+```
+
+---
+title: "1_Dmelanogaster_prepare"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Dmelanogaster_perpare.Rmd), the folder Dmelanogaster_kallisto.zip, which contains the kallisto quantification files for this dataset, should be downloaded from Zenodo and unzipped. In addition, two metaData files Dmelanogaster_metadata_1.xlsx, Dmelanogaster_metadata_2.txt should also be downloaded from Zenodo. All three files must then be copied into the Data folder of this Github page.** 
+
+Note that the raw data is available through [ArrayExpress](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3766/)
+
+**If one does not want to run this script, its output can also be downloaded from Zenodo: Dmelanogaster_benchmark_datasets_count.Rdata (or, alternatively, Dmelanogaster_benchmark_datasets_scaledTPM.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FASLE}
+library(tximport)
+library(DRIMSeq)
+library(edgeR)
+```
+
+# Load data
+
+```{r}
+root.dir <- rprojroot::find_rstudio_root_file()
+sample_names <- c("output_01","output_02","output_03","output_04","output_05","output_06","output_07","output_08","output_09","output_10")
+quant_files <- file.path(root.dir, "Data/Dmelanogaster_kallisto/quant", sample_names, "abundance.h5")
+
+txi <- tximport(files = quant_files, type = "kallisto", countsFromAbundance = "no", txOut = TRUE)
+#txi <- tximport(files = quant_files, type = "kallisto", countsFromAbundance = "scaledTPM", txOut = TRUE)
+
+myDesign <- data.frame(sample_id = as.character(sample_names),
+                       condition = as.character(rep(c("group1","group2")),each=5))
+
+colnames(txi$counts) <- myDesign$sample_id
+Dm_counts <- txi$counts
+```
+
+# Load metadata
+
+```{r}
+truth <- read.table(file = "./Data/Dmelanogaster_metadata_1.txt", sep = "\t", header = TRUE)
+conversion <- read.table(file = "./Data/Dmelanogaster_metadata_2.txt")
+
+colnames(conversion) <- c("target_id", "transcript_id")
+conversion$target_id <- as.character(conversion$target_id)
+conversion$transcript_id <- as.character(conversion$transcript_id)
+
+txInfo <- as.data.frame(cbind(as.character(truth$gene_id), as.character(truth$transcript_id), as.character(truth$transcript_ds_status)))
+
+colnames(txInfo) <- c("gene_id", "transcript_id", "gene_modified")
+txInfo$gene_id <- as.character(txInfo$gene_id)
+txInfo$transcript_id <- as.character(txInfo$transcript_id)
+txInfo <- txInfo[,c(2,1,3)] # change order in same way as other benchmarks
+
+Dm_counts <- Dm_counts[which(rownames(Dm_counts) %in% txInfo$transcript_id),]
+dim(Dm_counts)
+```
+
+# Generate lenient filtering benchmark dataset (edgeR)
+
+```{r}
+Dm_lenient <- Dm_counts
+txInfo_lenient <- txInfo
+
+group <- as.factor(rep(c("a","b"),each=5))
+design <- model.matrix(~group)
+sampleData <- design
+sampleData[,1] <- colnames(Dm_lenient)
+colnames(sampleData) <- c("sample_id", "condition")
+
+Dm_lenient <- edgeR::DGEList(counts = Dm_lenient,group=group)
+filter <- edgeR::filterByExpr(Dm_lenient,design=design) 
+            
+Dm_lenient <- Dm_lenient$counts[filter,]
+
+## Reorder corresponding info
+txInfo_lenient <- txInfo_lenient[match(
+    rownames(Dm_lenient), txInfo_lenient$transcript_id),]
+
+## Filter out genes with one TX
+txInfo_lenient <- txInfo_lenient[txInfo_lenient$gene_id %in% names(table(txInfo_lenient$gene_id))[table(txInfo_lenient$gene_id) > 1],]
+
+Dm_lenient <- Dm_lenient[txInfo_lenient$transcript_id,]
+
+## add column with sample size for easy retrieval
+txInfo_lenient$nrSamplesPerCondition <- 5
+colnames(txInfo_lenient) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+
+sampleData <- as.data.frame(sampleData)
+sampleData$condition <- as.factor(rep(c("a","b"),each=5))
+
+DmBenchmarkLenient <- list(
+            data     = Dm_lenient,
+            design   = sampleData,
+            metaInfo = txInfo_lenient)
+
+dim(Dm_lenient)
+```
+
+# Generate stringent filtering benchmark dataset (DRIMSeq)
+
+```{r}
+Dm_stringent <- Dm_counts
+txInfo_stringent <- txInfo
+group <- as.factor(rep(c("a","b"),each=5))
+design <- model.matrix(~group)
+sampleData <- design
+sampleData[,1] <- colnames(Dm_stringent)
+colnames(sampleData) <- c("sample_id", "condition")
+
+geneForEachTx <- txInfo_stringent[match(rownames(Dm_stringent),txInfo$transcript_id),"gene_id"]
+
+Dm_stringent <- as.data.frame(Dm_stringent)
+
+Dm_stringent$gene_id <- geneForEachTx
+Dm_stringent$feature_id <- row.names(Dm_stringent)
+
+d <- DRIMSeq::dmDSdata(counts = Dm_stringent, samples = as.data.frame(sampleData))
+d <- dmFilter(d,
+              min_samps_feature_expr=5, 
+              min_feature_expr=10, 
+              min_samps_feature_prop=5, 
+              min_feature_prop=0.1,
+              min_samps_gene_expr=10, 
+              min_gene_expr=10)
+
+Dm_stringent <- Dm_counts[counts(d)$feature_id,]
+
+## Reorder corresponding info
+txInfo_stringent <- txInfo_stringent[match(
+    rownames(Dm_stringent), txInfo_stringent$transcript_id
+),]
+
+## Filter out genes with one TX
+txInfo_stringent <- txInfo_stringent[txInfo_stringent$gene_id %in% names(table(txInfo_stringent$gene_id))[table(txInfo_stringent$gene_id) > 1],]
+
+Dm_stringent <- Dm_stringent[txInfo_stringent$transcript_id,]
+
+## add truth column
+txInfo_stringent$gene_modified <- truth$transcript_ds_status[match(txInfo_stringent$transcript_id,as.character(truth$transcript_id))]
+
+## add column with sample size for easy retrieval
+txInfo_stringent$nrSamplesPerCondition <- 5
+colnames(txInfo_stringent) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+
+sampleData <- as.data.frame(sampleData)
+sampleData$condition <- as.factor(rep(c("a","b"),each=5))
+
+DmBenchmarkStringent <- list(
+            data     = Dm_stringent,
+            design   = sampleData,
+            metaInfo = txInfo_stringent
+)
+
+dim(DmBenchmarkStringent$data)
+```
+
+# Save Dmelanogaster benchmark data
+
+```{r}
+save(DmBenchmarkLenient, DmBenchmarkStringent, file="./Data/Dmelanogaster_benchmark_datasets_count.Rdata")
+#save(DmBenchmarkLenient, DmBenchmarkStringent, file="./Data/Dmelanogaster_benchmark_datasets_scaledTPM.Rdata")
+```
+
+
+---
+title: "2_Dmelanogaster_DTU"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Dmelanogaster_DTU.Rmd), the dataset Dmelanogaster_benchmark_datasets_count.Rdata (or, alternatively, Dmelanogaster_benchmark_datasets_scaledTPM.Rdata) is required.** This file can either be generated with the 1_Dmelanogaster_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for 7 DTU methods on both Dmelanogaster benchmark datasets. This code runs only a couple of minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DRIMSeq analysis.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Dmelanogaster_DTU_results_count.Rdata (or, alternatively, Dmelanogaster_DTU_results_scaledTPM.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(doMC)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+if(TRUE) {
+    nrCores <- 2
+
+    if(nrCores != 1) {
+        doParallel <- TRUE
+        doProgress <- 'none'
+
+        registerDoMC(cores = nrCores)
+    } else {
+        doParallel <- FALSE
+        doProgress <- 'text'
+    }
+}
+```
+
+# Run the analysis for all methods on both Dmelanogaster datasets
+
+Run the DTU analyses for 7 DTU methods on both Dmelanogaster benchmark datasets.
+This code runs a couple of minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime to the analysis with DRIMSeq.
+
+```{r}
+### Load benchmark data
+load(file="./Data/Dmelanogaster_benchmark_datasets_count.Rdata")
+#load(file="./Data/Dmelanogaster_benchmark_datasets_scaledTPM.Rdata")
+
+DmBenchmarkLenient <- list(DmBenchmarkLenient)
+DmBenchmarkStringent <- list(DmBenchmarkStringent)
+
+names(DmBenchmarkLenient)   <- paste0(names(DmBenchmarkLenient)  , 'filterLenient')
+names(DmBenchmarkStringent) <- paste0(names(DmBenchmarkStringent), 'filterStringent')
+
+DmBenchmarkData <- c(DmBenchmarkLenient,DmBenchmarkStringent)
+
+### Run DTU analysis on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(DmDtuBenchmark_satuRn <- plyr::llply(
+    .data = DmBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+DmDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+DmDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+DmDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DEXSeq")
+
+tStart <- Sys.time()
+DmDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+DmDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start NBSplice")
+
+tStart <- Sys.time()
+DmDtuBenchmark_NBSplice <- plyr::llply(
+    .data = DmBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- NBSplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(DmDtuBenchmark_satuRn) <- paste0('satuRn_', names(DmDtuBenchmark_satuRn))
+names(DmDtuBenchmark_DoubleExpSeq) <- paste0('DoubleExpSeq_', names(DmDtuBenchmark_DoubleExpSeq))
+names(DmDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(DmDtuBenchmark_edgeRdiffsplice))
+names(DmDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(DmDtuBenchmark_limmaDiffsplice))
+names(DmDtuBenchmark_DEXSeq) <- paste0('DEXSeq_', names(DmDtuBenchmark_DEXSeq))
+names(DmDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(DmDtuBenchmark_DRIMSeq))
+names(DmDtuBenchmark_NBSplice) <- paste0('NBSplice_', names(DmDtuBenchmark_NBSplice))
+
+### Save result
+save(DmDtuBenchmark_satuRn,
+    DmDtuBenchmark_DoubleExpSeq,
+    DmDtuBenchmark_limmaDiffsplice,
+    DmDtuBenchmark_edgeRdiffsplice,
+    DmDtuBenchmark_DEXSeq,
+    DmDtuBenchmark_DRIMSeq,
+    DmDtuBenchmark_NBSplice,
+    file="./Data/Dmelanogaster_DTU_results_count.Rdata")
+
+# save(DmDtuBenchmark_satuRn,
+#     DmDtuBenchmark_DoubleExpSeq,
+#     DmDtuBenchmark_limmaDiffsplice,
+#     DmDtuBenchmark_edgeRdiffsplice,
+#     DmDtuBenchmark_DEXSeq,
+#     DmDtuBenchmark_DRIMSeq,
+#     DmDtuBenchmark_NBSplice,
+#     file="./Data/Dmelanogaster_DTU_results_scaledTPM.Rdata")
+```
+
+
+
+
+
+---
+title: "3_Dmelanogaster_visualize"
+author: "Jeroen Gilis"
+date: "05/11/2020"
+output: html_document
+---
+
+**In order to run this script (3_Dmelanogaster_visualize.Rmd), the result file of the DTU analysis Dmelanogaster_DTU_results_count.Rdata (or, alternatively, Dmelanogaster_DTU_results_scaledTPM.Rdata) is required.** This file can either be generated by running the 2_Dmelanogaster_DTU.Rmd script or downloaded from Zenodo and put in the data folder of this GitHub repository. **In addition, the ground truth file Dmelanogaster_metadata_1.txt should also be downloaded from Zenodo and put in the data folder of this GitHub repository.**
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Dmelanogaster_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load DTU performance results and ground truth file
+
+```{r}
+truth <- read.table(file = "./Data/Dmelanogaster_metadata_1.txt", sep = "\t", header = TRUE)
+load(file="./Data/Dmelanogaster_DTU_results_count.Rdata")
+#load(file="./Data/Dmelanogaster_DTU_results_scaledTPM.Rdata")
+
+DmelanogasterBenchmark <- c(
+    DmDtuBenchmark_satuRn,
+    DmDtuBenchmark_DoubleExpSeq,
+    DmDtuBenchmark_limmaDiffsplice,
+    DmDtuBenchmark_edgeRdiffsplice,
+    DmDtuBenchmark_DEXSeq,
+    DmDtuBenchmark_DRIMSeq,
+    DmDtuBenchmark_NBSplice)
+
+### Remove empty enteries (due to not tested - aka to many samples for reasonable runtime)
+DmelanogasterBenchmark  <- DmelanogasterBenchmark[which(
+    sapply(DmelanogasterBenchmark, function(x) ! is.null(x$dtuAnalysis)))]
+
+rm(DmDtuBenchmark_satuRn,
+    DmDtuBenchmark_limmaDiffsplice,
+    DmDtuBenchmark_DEXSeq,
+    DmDtuBenchmark_DRIMSeq,
+    DmDtuBenchmark_edgeRdiffsplice,
+    DmDtuBenchmark_NBSplice,
+    DmDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nmethods) {
+  
+  pvalues <- matrix(data=NA, nrow=nrow(dataset[[1]]$dtuAnalysis), ncol=nmethods)
+  rownames(pvalues) <- as.character(dataset[[1]]$dtuAnalysis$TXNAME)
+  
+  for (i in 1:nmethods) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <-as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- as.character(dataset[[1]]$dtuAnalysis$TXNAME)
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  colnames(pvalues) <- c("satuRn", "DoubleExpSeq", "limma_diffsplice", "edgeR_diffsplice", "DEXSeq", "DRIMSeq","NBSplice")
+  
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,nFilters,nmethods) {
+  
+  print(paste("This function will generate", nFilters, "plots"))
+
+  ##  We must select the correct dataframes from the list, based on the list names
+  selection <- c("filterLenient","filterStringent")
+
+  ## Generate and store the data for the plots
+  resList <- c()
+  for (j in 1:nFilters) {
+      print(j) # print progress
+      Dmelanogaster_current <- DmelanogasterBenchmark[grepl(selection[j], names(DmelanogasterBenchmark))]
+
+      pvalues <- get_pvalues(dataset=Dmelanogaster_current,nmethods=nmethods)
+      
+      truth_file_current <- truth[truth$transcript_id %in% rownames(pvalues),]
+      truth_file_current <- truth_file_current[order(truth_file_current$transcript_id),]
+      rownames(truth_file_current) <- truth_file_current$transcript_id
+
+      cobra <- COBRAData(pval = pvalues, truth = truth_file_current)
+      cobra <- calculate_adjp(cobra)
+      cobra1perf <- calculate_performance(cobra, binary_truth = "transcript_ds_status", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+      cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+      new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00","black", "#999999"),4),rep("white",16))
+      names(new_col) <- names(cobraplot@plotcolors)
+      cobraplot@plotcolors <- new_col
+      
+      plot_full <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.35), yaxisrange = c(0,0.85))
+      
+      titles <- c("5 versus 5 - edgeR filter - count","5 versus 5 - DRIMSeq filter - count")
+      #titles <- c("5 versus 5 - edgeR filter - scaledTPM","5 versus 5 - DRIMSeq filter - scaledTPM")
+      current_title <- titles[j]
+      
+      plot_full <- plot_full + 
+      ggtitle(current_title) +
+      theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+      
+      png(paste("./Results/Dmelanogaster_benchmark/FDRTPR_counts_", j, ".png", sep = ""),
+      width     = 5.5,
+      height    = 4.5,
+      units     = "in",
+      res       = 200,
+      pointsize = 4) # start export
+      print(plot_full)
+      dev.off()
+      
+      # png(paste("./Results/Dmelanogaster_benchmark/FDRTPR_scaledTPM_", j, ".png", sep = ""),
+      # width     = 5.5,
+      # height    = 4.5,
+      # units     = "in",
+      # res       = 200,
+      # pointsize = 4) # start export
+      # print(plot_full)
+      # dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+
+```{r}
+visualize_datasets(dataset=DmelanogasterBenchmark,
+                   nFilters=2,
+                   nmethods=7)
+```
+---
+title: "5_Love_DTU_subset"
+author: "Jeroen Gilis"
+date: "07/12/2020"
+output: html_document
+---
+
+**In order to run this script (5_Love_visualize_subset.Rmd), the datasets Love_DTU_results_scaledTPM_subset.Rdata (or, alternatively, Love_DTU_results_count_subset.Rdata) and Love_metadata.rda are required.** These files can either be generated with the 1_Love_prepare.Rmd and 4_Love_DTU_subset.Rmd scripts, or downloaded from Zenodo and put in the data folder of this GitHub repository.
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Love_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load DTU performance data
+
+```{r}
+load(file="./Data/Love_DTU_results_scaledTPM_subset.Rdata")
+#load(file="./Data/Love_DTU_results_count_subset.Rdata")
+
+loveBenchmark <- c(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice,
+    loveDtuBenchmark_BANDITS
+)
+
+### Remove empty enteries (due to not tested - aka to many samples for reasonable runtime)
+loveBenchmark  <- loveBenchmark[which(
+    sapply(loveBenchmark, function(x) ! is.null(x$dtuAnalysis))
+)]
+
+rm(loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice,
+    loveDtuBenchmark_BANDITS)
+invisible(gc())
+```
+
+# Load and wrangle truth file
+
+```{r}
+# define the truth (copy from swimming downstream paper by Love et al.,F1000Research 2018, 7:952)
+load("./Data/Love_metadata.rda")
+txdf <- txdf[match(rownames(tpms), txdf$TXNAME),]
+txdf$dtu.genes <- iso.dtu | iso.dte & !iso.dte.only
+full.dtu.genes <- unique(txdf$GENEID[txdf$dtu.genes])
+
+txp.exprs <- rowSums(tpms) > 0
+dtu.dte.genes <- unique(txdf$GENEID[iso.dte & !iso.dte.only])
+txdf$full.dtu <- iso.dtu | (txdf$GENEID %in% dtu.dte.genes & txp.exprs)
+dtu.txps <- txdf$TXNAME[txdf$full.dtu]
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+
+  get_all_txs <- function(dataset,nrep){
+  
+    all_txs <- c()
+ 
+    for (i in 1:nrep) {
+      current_txs <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+      all_txs <- c(all_txs, current_txs)
+      all_txs <- unique(all_txs)
+    }
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset,nrep)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods*nrep)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:(nmethods*nrep)) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- dataset[[i]]$dtuAnalysis$TXNAME
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  colnames(pvalues) <- c("satuRn", "DoubleExpSeq", "limmaDiffsplice", "edgeRDiffsplice", "DEXSeq", "DRIMSeq", "NBSplice", "BANDITS")
+
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,nFilters,nSampleSizes,nrep,nmethods) {
+  
+  nPlots <- nFilters * nSampleSizes
+  print(paste("This function will generate",nPlots, "plots"))
+  
+  ##  We must select the correct dataframes from the list, based on the list names
+  selection <- c("3_rep_._filterLenient","6_rep_._filterLenient","10_rep_._filterLenient","3_rep_._filterStringent","6_rep_._filterStringent","10_rep_._filterStringent")
+  
+  ## Generate and store the data for the plots
+  resList <- c()
+  for (j in 1:nPlots) {
+    print(j) # print progress
+    
+    loveBenchmark_current <- loveBenchmark[grepl(selection[j], names(loveBenchmark))]
+    
+    pvalues <- list()
+    
+    for (k in seq_len(nrep)) {
+        
+        # get current repeat of current dataset
+        loveBenchmark_dataset_rep <- loveBenchmark_current[grep(paste0("rep_",k,"_fil"),names(loveBenchmark_current))]
+        pvalues_current <- get_pvalues(loveBenchmark_dataset_rep,1,nmethods)
+
+        pvalues_current[is.na(pvalues_current)] <- 1
+
+        # to allow for calculating average results over repeats, I concatenate thte results over repeats, which requires non-identical rownames
+        rownames(pvalues_current) <- paste0(rownames(pvalues_current),"_",k)
+        
+        # omit satuRn for supplementary figure
+        #pvalues_current <- pvalues_current[,c(2:8)]
+        
+        pvalues[[k]] <- pvalues_current
+    }
+
+    # concatenate to get average performance over the three datasets
+    pvalues_full <- rbind(pvalues[[1]],pvalues[[2]],pvalues[[3]])
+    
+    # generate truth file
+    truth_full <- as.data.frame(cbind(rownames(pvalues_full),rep(0,nrow(pvalues_full))))
+    colnames(truth_full) <- c("TXNAME","truth")
+    rownames(truth_full) <- truth_full$TXNAME
+    truth_full$truth <- as.numeric(as.character(truth_full$truth))
+    truth_full[which(sub("\\_.*", "", truth_full$TXNAME) %in% dtu.txps),"truth"] <- 1
+
+    cobra <- COBRAData(pval = pvalues_full, truth = truth_full)
+    cobra <- calculate_adjp(cobra)
+    cobra1perf <- calculate_performance(cobra, binary_truth = "truth", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+    
+    cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+    
+    new_col <- c(rep(c("#CC79A7","#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "black", "#999999"),4),rep("white",18))
+    names(new_col) <- names(cobraplot@plotcolors)
+    cobraplot@plotcolors <- new_col
+  
+    plot_full <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.35), yaxisrange = c(0,0.85))
+    
+    titles <- c("3 versus 3 - edgeR filter - scaledTPM","6 versus 6 - edgeR filter - scaledTPM","10 versus 10 - edgeR filter - scaledTPM","3 versus 3 - DRIMSeq filter - scaledTPM","6 versus 6 - DRIMSeq filter - scaledTPM","10 versus 10 - DRIMSeq filter - scaledTPM")
+    # titles <- c("3 versus 3 - edgeR filter - count","6 versus 6 - edgeR filter - count","10 versus 10 - edgeR filter - count","3 versus 3 - DRIMSeq filter - count","6 versus 6 - DRIMSeq filter - count","10 versus 10 - DRIMSeq filter - count")
+    current_title <- titles[j]
+
+    plot_full <- plot_full + 
+      ggtitle(current_title) +
+      theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+    
+    png(paste("./Results/Love_benchmark/FDRTPR_scaledTPM_subset_", j, ".png", sep = ""),
+          width     = 5.5,
+          height    = 4.5,
+          units     = "in",
+          res       = 200,
+          pointsize = 4) # start export
+
+    print(plot_full)
+    dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+Generate (amongst others) Figure S1
+
+```{r}
+visualize_datasets(dataset=loveBenchmark,
+                   nFilters=2,
+                   nSampleSizes=3,
+                   nrep=3,
+                   nmethods=8)
+```
+
+
+
+---
+title: "1_Love_prepare"
+author: "Jeroen Gilis"
+date: "06/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Love_prepare.Rmd), the folder Love_salmon.zip, which contains the salmon quantification files for this dataset, should be downloaded from Zenodo and unzipped. In addition, the metaData files Love_metadata.rda should also be downloaded from Zenodo. Both files must then be copied into the Data folder of this Github page.** Note that the quantification files were generated from the same reads as those from the paper by Love et al.[swimming downstream](https://doi.org/10.12688/f1000research.15398.3). See the three Zenodo links from that paper for access to the raw data. However, in our publication, we used a more recent version of salmon (salmon v1.1.0) for quantification. Our provided metadata file is an exact copy of the simulate.rda file from the Love et al. dataset (see their Zenodo link).
+
+**If you do not want to run this script, its outputs can also be downloaded from Zenodo: Love_benchmark_datasets_scaledTPM.Rdata (or, alernatively, Love_benchmark_datasets_count.Rdata) and Love_eff_len.Rds**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FASLE}
+library(tximport)
+library(DRIMSeq)
+library(edgeR)
+library(doMC)
+library(BANDITS)
+```
+
+# Load data
+
+```{r}
+root.dir <- rprojroot::find_rstudio_root_file()
+
+sample_names <- c("sample_01","sample_02","sample_03","sample_04","sample_05","sample_06","sample_07","sample_08","sample_09","sample_10","sample_11","sample_12","sample_13","sample_14","sample_15","sample_16","sample_17","sample_18","sample_19","sample_20","sample_21","sample_22","sample_23","sample_24")
+quant_files <- file.path(root.dir, "Data/Love_salmon", sample_names, "quant.sf")
+file.exists(quant_files)
+
+txi <- tximport(files = quant_files, type = "salmon", countsFromAbundance = "no", txOut = TRUE)
+#txi <- tximport(files = quant_files, type = "salmon", countsFromAbundance = "scaledTPM", txOut = TRUE)
+
+myDesign <- data.frame(sample_id = as.character(sample_names),
+                       condition = as.character(rep(c("a","b"),each=12)))
+
+colnames(txi$counts) <- myDesign$sample_id
+```
+
+# Load metadata
+
+
+```{r}
+load("./Data/Love_metadata.rda")
+
+### Make our tx info copy (to match other benchmark data)
+txInfo <- txdf[,2:1]
+colnames(txInfo) <- c('isoform_id','gene_id')
+
+txdf <- txdf[match(rownames(tpms), txdf$TXNAME),]
+txdf$dtu.genes <- iso.dtu | iso.dte & !iso.dte.only
+full.dtu.genes <- unique(txdf$GENEID[txdf$dtu.genes])
+
+txp.exprs <- rowSums(tpms) > 0
+dtu.dte.genes <- unique(txdf$GENEID[iso.dte & !iso.dte.only])
+txdf$full.dtu <- iso.dtu | (txdf$GENEID %in% dtu.dte.genes & txp.exprs)
+dtu.txps <- txdf$TXNAME[txdf$full.dtu] # Used as the truth in Love et al 2018
+
+### Assign truth to our info df
+txInfo$geneModified <- txInfo$isoform_id %in% dtu.txps
+```
+
+# Compute effective transcript lengths for BANDITS
+
+```{r}
+eff_len <- eff_len_compute(x_eff_len = txi$length)
+saveRDS(eff_len, "./Data/Love_eff_len.Rds")
+
+equiv_classes_files <- file.path(root.dir, "Data/Love_salmon", sample_names, "aux_info", "eq_classes.txt")
+all(file.exists(equiv_classes_files))
+```
+
+# Setup generation of benchmark data
+
+Set hyperparameters of the benchmark datasets (i.e. sample size, number of repeats, fraction of DTU genes and parameters for parallel processing).
+
+```{r}
+### Set parameters
+samplesPrCondition   <- c(3,6,10)
+nrRepsMade           <- 3
+nrCoresToUse         <- 2
+
+### Set up parallel processing
+if(nrCoresToUse != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCoresToUse)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+
+### list for looping
+nrRepList <- split(
+    rep(
+        x = samplesPrCondition,
+        times = nrRepsMade
+    ),
+    paste0(
+        'samples_used_',
+        rep(
+            x = samplesPrCondition,
+            times = nrRepsMade
+        ),
+        '_rep_',
+        sort( rep(
+            x = 1:nrRepsMade,
+            times = length(samplesPrCondition)
+        ) )
+    )
+)
+```
+
+# Lenient filtering
+
+Note; I do not used the getBenchmark_data.R script here to generate the benchmark datasets as the function deefined in that script still
+
+```{r}
+LoveBenchmarkLenient <- lapply(c(1:length(nrRepList)), function(x) {
+      
+    ### Step 1: Extract random sub-sample of correct size
+    set.seed(x)
+    localSampleSize <- nrRepList[[x]]
+      
+    if(TRUE) {
+          
+        samplesToUseCond1 <- sample(myDesign$sample_id[which(myDesign$condition == 'a')], localSampleSize)
+        samplesToUseCond2 <- sample(myDesign$sample_id[which(myDesign$condition == 'b')], localSampleSize)
+        
+        samplesToUseCond1 <- as.character(samplesToUseCond1)
+        samplesToUseCond2 <- as.character(samplesToUseCond2)
+
+        localDesign <- myDesign[which(
+            myDesign$sample_id %in% c(
+                samplesToUseCond1,
+                samplesToUseCond2
+            )
+        ),]
+        }
+
+        ### Step 2: Subset to expressed features using edgeR::filterByExpr
+        if(TRUE) {
+          
+            y <- edgeR::DGEList(counts = txi$counts[,localDesign$sample_id])
+            design <- model.matrix(~condition, data=localDesign)
+            
+            filter <- edgeR::filterByExpr(y,design=design) 
+            
+            localCm <- y$counts[filter,]
+            
+            ## Get only multi-isoform genes (after filtering)
+            localTx <- txInfo[which(
+                txInfo$isoform_id %in% rownames(localCm)),]
+            
+            tmp <- table(localTx$gene_id)
+            tmp <- tmp[which( tmp >= 2)]
+        
+            localTx <- localTx[which(localTx$gene_id %in% names(tmp)),]
+            localCm <- localCm[which(rownames(localCm) %in% localTx$isoform_id),]
+            
+            ## add column with sample size for easy retrieval
+            localTx$nrSamplesPerCondition <- localSampleSize
+        }
+
+        colnames(localTx) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+
+        ### Combine data
+        dataList <- list(
+            data     = localCm,
+            design   = localDesign,
+            metaInfo = localTx
+        )
+        
+        return(dataList)
+    }
+)
+
+names(LoveBenchmarkLenient) <- paste0(names(nrRepList),"_filterLenient")
+```
+
+# Stringent filtering
+
+```{r}
+LoveBenchmarkStringent <- lapply(c(1:length(nrRepList)), function(x) {
+      
+    ### Step 1: Extract random sub-sample of correct size
+    set.seed(x)
+    localSampleSize <- nrRepList[[x]]
+      
+    if(TRUE) {
+          
+        samplesToUseCond1 <- sample( myDesign$sample_id[which(myDesign$condition == 'a')], localSampleSize)
+        samplesToUseCond2 <- sample( myDesign$sample_id[which(myDesign$condition == 'b')], localSampleSize)
+        
+        samplesToUseCond1 <- as.character(samplesToUseCond1)
+        samplesToUseCond2 <- as.character(samplesToUseCond2)
+
+        localDesign <- myDesign[which(
+            myDesign$sample_id %in% c(
+                samplesToUseCond1,
+                samplesToUseCond2
+            )
+        ),]
+    }
+    
+    
+
+        ### Step 2: Subset to expressed features using DRIMSeq::dmFilter
+        if(TRUE) {
+          
+          localCm <- txi$counts[,localDesign$sample_id]
+          localCm <- as.data.frame(localCm)
+          colnames(localCm)
+
+          geneForEachTx <- txInfo[match(rownames(localCm),txInfo[,"isoform_id"]),"gene_id"]
+
+          localCm$gene_id <- geneForEachTx
+          localCm$feature_id <- row.names(localCm)
+          
+
+          d <- DRIMSeq::dmDSdata(counts = localCm, samples = localDesign)
+
+          d <- dmFilter(d,
+                min_samps_feature_expr=localSampleSize/2, min_feature_expr=10, min_samps_feature_prop=localSampleSize/2, min_feature_prop=0.1,
+                min_samps_gene_expr=localSampleSize, min_gene_expr=10)
+
+          localCm <- txi$counts[counts(d)$feature_id,localDesign$sample_id]
+
+          ## Get only multi-isoform genes (after filtering)
+          localTx <- txInfo[which(
+              txInfo$isoform_id %in% rownames(localCm)),]
+          
+          tmp <- table(localTx$gene_id)
+          tmp <- tmp[which( tmp >= 2)]
+        
+          localTx <- localTx[which(localTx$gene_id %in% names(tmp)),]
+          localCm <- localCm[which(rownames(localCm) %in% localTx$isoform_id),]
+            
+            
+          ## add column with sample size for easy retrieval
+          localTx$nrSamplesPerCondition <- localSampleSize
+        }
+
+        colnames(localTx) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+
+        ### Combine data
+        dataList <- list(
+            data     = localCm,
+            design   = localDesign,
+            metaInfo = localTx
+        )
+
+        return(dataList)
+    }
+)
+
+names(LoveBenchmarkStringent) <- paste0(names(nrRepList),"_filterStringent")
+```
+
+# Save Love benchmark data
+
+```{r}
+save(LoveBenchmarkLenient, LoveBenchmarkStringent, file="./Data/Love_benchmark_datasets_count.Rdata")
+#save(LoveBenchmarkLenient, LoveBenchmarkStringent, file="./Data/Love_benchmark_datasets_scaledTPM.Rdata")
+```
+
+
+
+
+---
+title: "4_Love_DTU_subset"
+author: "Jeroen Gilis"
+date: "07/12/2020"
+output: html_document
+---
+
+In this additional analysis, we perform a DTU analysis on the benchmark datasets from Love et al., but only on a subset of the transcripts. This allow us to additionally benchmark BANDITS, which (in default settings) seem to scale poorly with respect to the number of transcripts in the data and could thus not be included in our other benchmarks.
+
+**In order to run this script (4_Love_DTU_subset.Rmd), the dataset Love_benchmark_datasets_scaledTPM.Rdata (or, alternatively, Love_benchmark_datasets_count.Rdata) is required.** This file can either be generated with the 1_Love_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for 8 DTU methods on all (18) Love benchmark datasets with a reduced number of transcripts. This code runs approximately 4 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the BANDITS analysis. 
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Love_DTU_results_scaledTPM_subset.Rdata (or, alernatively, Love_DTU_results_count_subset.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(BANDITS)
+library(doMC)
+library(stringr)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# BANDITS
+
+```{r}
+### Functions for running BANDITS
+Bandits_DTU <- function(countData, tx2gene, sampleData) {
+      
+  ## get equivalence class counts (ECC) files
+  sample_names <- c("sample_01","sample_02","sample_03","sample_04","sample_05","sample_06","sample_07","sample_08","sample_09","sample_10","sample_11","sample_12","sample_13","sample_14","sample_15","sample_16","sample_17","sample_18","sample_19","sample_20","sample_21","sample_22","sample_23","sample_24")
+  
+  equiv_classes_files = file.path("./Data/Love_salmon/", sample_names, "aux_info", "eq_classes.txt")
+
+  equiv_classes_files <- equiv_classes_files[which(unlist(str_extract_all(equiv_classes_files, ("sample_[0-9]{2}"))) %in% colnames(countData))]
+  
+  eff_len <- readRDS("./Data/Love_eff_len.Rds") ## get median effective TX length
+  
+  colnames(tx2gene)[1:2] <- c("TXNAME", "GENEID")
+  group <- factor(sampleData$condition)
+  design <- model.matrix(~0+group)
+  
+  eff_len <- eff_len[which(names(eff_len) %in% rownames(countData))]
+  
+  tx2gene_bandits <- tx2gene[,c(2,1)]
+  
+  transcripts_to_keep = filter_transcripts(gene_to_transcript = tx2gene_bandits,
+                                      transcript_counts = countData,
+                                      min_transcript_proportion = 0,
+                                      min_transcript_counts = 0,
+                                      min_gene_counts = 0)
+  
+  input_data <- create_data(salmon_or_kallisto = "salmon",
+                     gene_to_transcript = tx2gene_bandits,
+                     salmon_path_to_eq_classes = equiv_classes_files,
+                     eff_len = eff_len, 
+                     n_cores = 1,
+                     transcripts_to_keep = transcripts_to_keep)
+  
+  precision <- prior_precision(gene_to_transcript = tx2gene_bandits,
+                        transcript_counts = countData,
+                        n_cores = 1)
+  
+  results <- BANDITS::test_DTU(BANDITS_data = input_data,
+               precision = precision$prior,
+               samples_design = sampleData,
+               group_col_name = "condition",
+               R = 10^4, 
+               burn_in = 2*10^3,
+               gene_to_transcript = tx2gene_bandits,
+               n_cores = 2)
+  
+    localRes <- results@Transcript_results[,c(2,1,3,4)]
+    rownames(localRes) <- localRes$TXNAME
+    colnames(localRes) <-  colnames(localRes) <- c("TXNAME", "GENEID", "p_value","FDR")
+    
+    return(localRes)
+}
+```  
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+nrCores <- 2
+
+if(nrCores != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCores)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+```
+
+# Run the analysis for all methods on the Love benchmark datasets
+
+Here we run the DTU analyses for 8 DTU methods on all (18) Love benchmark datasets with a reduced number of transcripts. This code runs approximately 4 hours on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the BANDITS analysis. 
+
+```{r}
+### Load benchmark data
+#load(file="./Data/Love_benchmark_datasets_scaledTPM.Rdata")
+load(file="./Data/Love_benchmark_datasets_count.Rdata") # to perform the analysis on counts
+loveBenchmarkData <- c(LoveBenchmarkLenient,LoveBenchmarkStringent)
+
+## to allow for BANDITS analysis, use less transcripts
+## loop over list,"filter" transcripts by random subsampling 1000 genes
+set.seed(5454)
+for (i in seq_along(loveBenchmarkData)) {
+    loveBenchmarkData[[i]]$metaInfo <- loveBenchmarkData[[i]]$metaInfo[which(loveBenchmarkData[[i]]$metaInfo$GENEID %in% sample(loveBenchmarkData[[i]]$metaInfo$GENEID,1000)),]# sample 1000 genes
+    loveBenchmarkData[[i]]$data <- loveBenchmarkData[[i]]$data[loveBenchmarkData[[i]]$metaInfo$TXNAME,]
+}
+
+### Run DTU analysis on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(loveDtuBenchmark_satuRn <- plyr::llply(
+    .data = loveBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+loveDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE
+        )
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+
+print("start limma diffsplice")
+
+loveDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+
+print("start edgeR_diffsplice")
+
+loveDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        t0 <- Sys.time()
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+
+print("start DEXSeq")
+
+tStart <- Sys.time()
+loveDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+loveDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start NBSplice")
+
+tStart <- Sys.time()
+loveDtuBenchmark_NBSplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- NBSplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design)
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start BANDITS")
+
+# BANDITS (runs 3.6 hours)
+tStart <- Sys.time()
+suppressWarnings(loveDtuBenchmark_BANDITS <- plyr::llply(
+    .data = loveBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- Bandits_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(loveDtuBenchmark_satuRn) <- paste0('satuRn_', names(loveDtuBenchmark_satuRn))
+names(loveDtuBenchmark_DoubleExpSeq)  <- paste0('DoubleExpSeq_', names(loveDtuBenchmark_DoubleExpSeq))
+names(loveDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(loveDtuBenchmark_edgeRdiffsplice))
+names(loveDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(loveDtuBenchmark_limmaDiffsplice))
+names(loveDtuBenchmark_DEXSeq)   <- paste0('DEXSeq_', names(loveDtuBenchmark_DEXSeq))
+names(loveDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(loveDtuBenchmark_DRIMSeq))
+names(loveDtuBenchmark_NBSplice)  <- paste0('NBSplice_', names(loveDtuBenchmark_NBSplice))
+names(loveDtuBenchmark_BANDITS) <- paste0('BANDITS_', names(loveDtuBenchmark_BANDITS))
+
+### Save result
+save(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice,
+    loveDtuBenchmark_BANDITS,
+    file="./Data/Love_DTU_results_scaledTPM_subset.Rdata"
+)
+
+save(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice,
+    loveDtuBenchmark_BANDITS,
+    file="./Data/Love_DTU_results_count_subset.Rdata"
+)
+```
+
+
+
+
+
+
+---
+title: "3_Love_visualize"
+author: "Jeroen Gilis"
+date: "05/12/2020"
+output: html_document
+---
+
+**In order to run this script (3_Love_visualize.Rmd), the datasets Love_DTU_results_scaledTPM.Rdata (or, alternatively, Love_DTU_results_count.Rdata) and Love_metadata.rda are required.** These files can either be generated with the 1_Love_prepare.Rmd and 2_Love_DTU.Rmd scripts, or downloaded from Zenodo and put in the data folder of this GitHub repository.
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Love_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load DTU performance data
+
+```{r}
+#load(file="./Data/Love_DTU_results_scaledTPM.Rdata")
+load(file="./Data/Love_DTU_results_count.Rdata") # to run the visualization on the count data
+
+loveBenchmark <- c(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice
+)
+
+### Remove empty enteries (due to not tested - aka to many samples for reasonable runtime)
+loveBenchmark  <- loveBenchmark[which(
+    sapply(loveBenchmark, function(x) ! is.null(x$dtuAnalysis))
+)]
+
+rm(loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice)
+invisible(gc())
+```
+
+# Load and wrangle truth file
+
+```{r}
+# define the truth (copy from swimming downstream paper by Love et al.,F1000Research 2018, 7:952)
+load("./Data/Love_metadata.rda")
+txdf <- txdf[match(rownames(tpms), txdf$TXNAME),]
+txdf$dtu.genes <- iso.dtu | iso.dte & !iso.dte.only
+full.dtu.genes <- unique(txdf$GENEID[txdf$dtu.genes])
+
+txp.exprs <- rowSums(tpms) > 0
+dtu.dte.genes <- unique(txdf$GENEID[iso.dte & !iso.dte.only])
+txdf$full.dtu <- iso.dtu | (txdf$GENEID %in% dtu.dte.genes & txp.exprs)
+dtu.txps <- txdf$TXNAME[txdf$full.dtu]
+```
+
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nrep,nmethods) {
+
+  get_all_txs <- function(dataset,nrep){
+  
+    all_txs <- c()
+ 
+    for (i in 1:nrep) {
+      current_txs <- as.character(dataset[[i]]$dtuAnalysis$TXNAME)
+      all_txs <- c(all_txs, current_txs)
+      all_txs <- unique(all_txs)
+    }
+    return(all_txs)
+  }
+
+  all_txs <- get_all_txs(dataset,nrep)
+  pvalues <- matrix(data=NA, nrow=length(all_txs), ncol=nmethods*nrep)
+  rownames(pvalues) <- all_txs
+  
+  for (i in 1:(nmethods*nrep)) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- dataset[[i]]$dtuAnalysis$TXNAME
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- all_txs
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  colnames(pvalues) <- c("satuRn", "DoubleExpSeq", "limmaDiffsplice", "edgeRDiffsplice", "DEXSeq", "DRIMSeq", "NBSplice")
+
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,nFilters,nSampleSizes,nrep,nmethods) {
+  
+  nDatasets <- nFilters * nSampleSizes
+  print(paste("This function will generate",nDatasets, "plots"))
+  
+  ##  We must select the correct dataframes from the list, based on the list names
+  selection <- c("3_rep_._filterLenient","6_rep_._filterLenient","10_rep_._filterLenient","3_rep_._filterStringent","6_rep_._filterStringent","10_rep_._filterStringent")
+  
+  for (j in seq_len(nDatasets)) {
+    print(j) # print progress
+
+    # get current dataset
+    loveBenchmark_dataset <- loveBenchmark[grepl(selection[j], names(loveBenchmark))]
+    
+    pvalues <- list()
+    
+    for (k in seq_len(nrep)) {
+        
+        # get current repeat of current dataset
+        loveBenchmark_dataset_rep <- loveBenchmark_dataset[grep(paste0("rep_",k,"_fil"),names(loveBenchmark_dataset))]
+        pvalues_current <- get_pvalues(loveBenchmark_dataset_rep,1,nmethods)
+
+        pvalues_current[is.na(pvalues_current)] <- 1
+
+        # to allow for calculating average results over repeats, I concatenate thte results over repeats, which requires non-identical rownames
+        rownames(pvalues_current) <- paste0(rownames(pvalues_current),"_",k)
+        
+        pvalues[[k]] <- pvalues_current
+    }
+
+    # concatenate to get average performance over the three datasets
+    pvalues_full <- rbind(pvalues[[1]],pvalues[[2]],pvalues[[3]])
+    
+    # generate truth file
+    truth_full_new <- as.data.frame(cbind(rownames(pvalues_full),rep(0,nrow(pvalues_full))))
+    colnames(truth_full_new) <- c("TXNAME","truth")
+    rownames(truth_full_new) <- truth_full_new$TXNAME
+    truth_full_new$truth <- as.numeric(as.character(truth_full_new$truth))
+    truth_full_new[which(sub("\\_.*", "", truth_full_new$TXNAME) %in% dtu.txps),"truth"] <- 1
+
+    # plot FDR-TPR with iCOBRA
+    cobra <- COBRAData(pval = pvalues_full, truth = truth_full_new)
+    cobra <- calculate_adjp(cobra)
+    cobra1perf <- calculate_performance(cobra, binary_truth = "truth", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+    
+    cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+    
+    new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "black", "#999999"),4),rep("white",16))
+    names(new_col) <- names(cobraplot@plotcolors)
+    cobraplot@plotcolors <- new_col
+  
+    plot_full <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.35), yaxisrange = c(0,0.85))
+    
+    #titles <- c("3 versus 3 - edgeR filter - scaledTPM","6 versus 6 - edgeR filter - scaledTPM","10 versus 10 - edgeR filter - scaledTPM","3 versus 3 - DRIMSeq filter - scaledTPM","6 versus 6 - DRIMSeq filter - scaledTPM","10 versus 10 - DRIMSeq filter - scaledTPM")
+    titles <- c("3 versus 3 - edgeR filter - count","6 versus 6 - edgeR filter - count","10 versus 10 - edgeR filter - count","3 versus 3 - DRIMSeq filter - count","6 versus 6 - DRIMSeq filter - count","10 versus 10 - DRIMSeq filter - count")
+    current_title <- titles[j]
+
+    plot_full <- plot_full + 
+      ggtitle(current_title) +
+      theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+    
+    png(paste("./Results/Love_benchmark/FDRTPR_scaledTPM_", j, ".png", sep = ""),
+          width     = 5.5,
+          height    = 4.5,
+          units     = "in",
+          res       = 200,
+          pointsize = 4) # start export
+    print(plot_full)
+    dev.off()
+    
+    # png(paste("./Results/Love_benchmark/FDRTPR_count_", j, ".png", sep = ""),
+    #       width     = 5.5,
+    #       height    = 4.5,
+    #       units     = "in",
+    #       res       = 200,
+    #       pointsize = 4) # start export
+    # print(plot_full)
+    # dev.off()
+  }
+}
+```
+
+# Generate FDR-TPR curves
+
+```{r}
+visualize_datasets(dataset=loveBenchmark,
+                   nFilters=2,
+                   nSampleSizes=3,
+                   nrep=3,
+                   nmethods=7)
+```
+
+
+---
+title: "2_Love_DTU"
+author: "Jeroen Gilis"
+date: "06/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Love_DTU.Rmd), the dataset Love_benchmark_datasets_scaledTPM.Rdata (or, alternatively, Love_benchmark_datasets_count.Rdata) is required.** This file can either be generated with the 1_Love_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for 7 DTU methods on all (18) Love benchmark datasets. This code runs approximately 3 hours and 30 minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DEXSeq analysis. 
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Love_DTU_results_scaledTPM.Rdata (or, alternatively, Love_DTU_results_count.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(doMC)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+nrCores <- 2
+
+if(nrCores != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCores)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+```
+
+# Run the analysis for all methods on the Love benchmark datasets
+
+Run the DTU analyses for 7 DTU methods on all (18) Love benchmark datasets.
+This code runs approximately 3 hours and 30 minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DRIMSeq analysis. 
+
+```{r}
+### Load benchmark data
+load(file="./Data/Love_benchmark_datasets_scaledTPM.Rdata")
+#load(file="./Data/Love_benchmark_datasets_count.Rdata") # to run the analysis on the count data
+
+loveBenchmarkData <- c(LoveBenchmarkLenient,LoveBenchmarkStringent)
+
+### Run DTU analysis on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(loveDtuBenchmark_satuRn <- plyr::llply(
+    .data = loveBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+loveDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+loveDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+loveDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DEXSeq")
+
+# DEXSeq
+tStart <- Sys.time()
+loveDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+loveDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start NBSplice")
+
+tStart <- Sys.time()
+loveDtuBenchmark_NBSplice <- plyr::llply(
+    .data = loveBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- NBSplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+
+names(loveDtuBenchmark_satuRn) <- paste0('satuRn_', names(loveDtuBenchmark_satuRn))
+names(loveDtuBenchmark_DoubleExpSeq)  <- paste0('DoubleExpSeq_', names(loveDtuBenchmark_DoubleExpSeq))
+names(loveDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(loveDtuBenchmark_edgeRdiffsplice))
+names(loveDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(loveDtuBenchmark_limmaDiffsplice))
+names(loveDtuBenchmark_DEXSeq)  <- paste0('DEXSeq_', names(loveDtuBenchmark_DEXSeq))
+names(loveDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(loveDtuBenchmark_DRIMSeq))
+names(loveDtuBenchmark_NBSplice) <- paste0('NBSplice_', names(loveDtuBenchmark_NBSplice))
+
+### Save result
+save(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice,
+    file="./Data/Love_DTU_results_scaledTPM.Rdata")
+
+# save(loveDtuBenchmark_satuRn,
+#     loveDtuBenchmark_DoubleExpSeq,
+#     loveDtuBenchmark_limmaDiffsplice,
+#     loveDtuBenchmark_edgeRdiffsplice,
+#     loveDtuBenchmark_DEXSeq,
+#     loveDtuBenchmark_DRIMSeq,
+#     loveDtuBenchmark_NBSplice,
+#     file="./Data/Love_DTU_results_count.Rdata") # when count data is used as input
+```
+
+
+
+---
+title: "6_Love_S9"
+author: "Jeroen Gilis"
+date: "07/12/2020"
+output: html_document
+---
+
+This script (6_Love_S9.Rmd) is a seperate script for reproducing figure S9 from our publication. **In order to run this script (4_Love_DTU_subset.Rmd), the dataset Love_benchmark_datasets_scaledTPM.Rdata (or, alternatively, Love_benchmark_datasets_count.Rdata) is required.** This file can either be generated with the 1_Love_prepare.Rmd script or downloaded from Zenodo.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load DTU performance data
+
+```{r}
+# use scaledTPM results for the datasets based on Love et al. (and counts for all other datasets)
+load(file="./Data/Love_DTU_results_scaledTPM.Rdata")
+
+loveBenchmark <- c(
+    loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice
+)
+
+### Remove empty enteries (due to not tested - aka to many samples for reasonable runtime)
+loveBenchmark  <- loveBenchmark[which(
+    sapply(loveBenchmark, function(x) ! is.null(x$dtuAnalysis))
+)]
+
+rm(loveDtuBenchmark_satuRn,
+    loveDtuBenchmark_DoubleExpSeq,
+    loveDtuBenchmark_limmaDiffsplice,
+    loveDtuBenchmark_edgeRdiffsplice,
+    loveDtuBenchmark_DEXSeq,
+    loveDtuBenchmark_DRIMSeq,
+    loveDtuBenchmark_NBSplice)
+invisible(gc())
+```
+
+# Load and wrangle truth file
+
+```{r}
+# define the truth (copy from swimming downstream paper by Love et al.,F1000Research 2018, 7:952)
+load("./Data/Love_metadata.rda")
+txdf <- txdf[match(rownames(tpms), txdf$TXNAME),]
+txdf$dtu.genes <- iso.dtu | iso.dte & !iso.dte.only
+full.dtu.genes <- unique(txdf$GENEID[txdf$dtu.genes])
+
+txp.exprs <- rowSums(tpms) > 0
+dtu.dte.genes <- unique(txdf$GENEID[iso.dte & !iso.dte.only])
+txdf$full.dtu <- iso.dtu | (txdf$GENEID %in% dtu.dte.genes & txp.exprs)
+dtu.txps <- txdf$TXNAME[txdf$full.dtu]
+```
+
+# Figure S9A
+
+```{r}
+tval <- loveBenchmark[["satuRn_samples_used_6_rep_2_filterLenient"]]$dtuAnalysis$tvalue
+pval <- loveBenchmark[["satuRn_samples_used_6_rep_2_filterLenient"]]$dtuAnalysis$p_value_raw
+  
+zval <- qnorm(pval/2) * sign(tval)
+zval_mid <- zval[abs(zval) < 10]
+zval_mid <- zval_mid[!is.na(zval_mid)]
+
+png("./Results/Love_benchmark/figS9A.png",
+    width     = 3.5,
+    height    = 2.5,
+    units     = "in",
+    res       = 300,
+    pointsize = 6) # start export
+plot <- locfdr::locfdr(zval_mid, main = "Love dataset - 6v6 - edgeR filter - repeat 2")
+dev.off()
+```
+
+# Figure S9B
+
+```{r}
+Love_select <- loveBenchmark[["satuRn_samples_used_6_rep_2_filterLenient"]]$dtuAnalysis
+    
+pvalues <- as.data.frame(cbind(Love_select$p_value_raw,Love_select$p_value))
+colnames(pvalues) <- c("theoretical_null", "empirical_null")
+rownames(pvalues) <- rownames(Love_select)
+    
+# generate truth file
+truth_full_new <- as.data.frame(cbind(rownames(pvalues),rep(0,nrow(pvalues))))
+colnames(truth_full_new) <- c("TXNAME","truth")
+rownames(truth_full_new) <- truth_full_new$TXNAME
+truth_full_new$truth <- as.numeric(as.character(truth_full_new$truth))
+truth_full_new[which(sub("\\_.*", "", truth_full_new$TXNAME) %in% dtu.txps),"truth"] <- 1
+
+cobra <- COBRAData(pval = pvalues, truth = truth_full_new)
+cobra <- calculate_adjp(cobra)
+cobra1perf <- calculate_performance(cobra, binary_truth = "truth", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+
+new_col <- c(rep(c("black", "grey64", "#999999"),4),rep("white",6))
+names(new_col) <- names(cobraplot@plotcolors)
+cobraplot@plotcolors <- new_col
+    
+plot <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.4), yaxisrange = c(0,1))
+
+plot <- plot + 
+    ggtitle(label="Love dataset - 6v6 - edgeR filter - repeat 2") +
+    xlab("FDP") +
+    theme(strip.background = element_blank(),
+    strip.text.x = element_blank(),
+    plot.title = element_text(size=10),
+    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 10),
+    axis.title.y = element_text(size = 10))
+
+png("./Results/Love_benchmark/figS9B.png",
+    width = 5.5,
+    height = 4.5,
+    units = "in",
+    res = 200,
+    pointsize = 4) # start export
+print(plot)
+dev.off()
+```
+
+---
+title: "3_Hsapiens_visualize"
+author: "Jeroen Gilis"
+date: "08/12/2020"
+output: html_document
+---
+
+**In order to run this script (3_Hsapiens_visualize.Rmd), the result file of the DTU analysis Hsapiens_DTU_results_count.Rdata (or, alternatively, Hsapiens_DTU_results_scaledTPM.Rdata) is required.** This file can either be generated by running the 2_Hsapiens_DTU.Rmd script or downloaded from Zenodo and put in the data folder of this GitHub repository. **In addition, the ground truth file Hsapiens_metadata_1.txt should also be downloaded from Zenodo and put in the data folder of this GitHub repository.**
+
+The results of this script (FDR-TPR curves) are already available from our GitHub, under the directory ./Results/Hsapiens_benchmark/.
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE}
+library(ggplot2)
+library(iCOBRA)
+```
+
+# Load DTU performance results and ground truth file
+
+```{r}
+truth <- read.table(file = "./Data/Hsapiens_metadata_1.txt", sep = "\t", header = TRUE)
+
+#load(file="./Data/Hsapiens_DTU_results_count.Rdata")
+load(file="./Data/Hsapiens_DTU_results_scaledTPM.Rdata")
+
+HsapiensBenchmark <- c(
+    HsDtuBenchmark_satuRn,
+    HsDtuBenchmark_limmaDiffsplice,
+    HsDtuBenchmark_DEXSeq,
+    HsDtuBenchmark_DRIMSeq,
+    HsDtuBenchmark_edgeRdiffsplice,
+    HsDtuBenchmark_NBSplice,
+    HsDtuBenchmark_DoubleExpSeq
+)
+
+HsapiensBenchmark  <- HsapiensBenchmark[which(
+    sapply(HsapiensBenchmark, function(x) ! is.null(x$dtuAnalysis))
+)]
+
+rm(HsDtuBenchmark_satuRn,
+    HsDtuBenchmark_limmaDiffsplice,
+    HsDtuBenchmark_DEXSeq,
+    HsDtuBenchmark_DRIMSeq,
+    HsDtuBenchmark_edgeRdiffsplice,
+    HsDtuBenchmark_NBSplice,
+    HsDtuBenchmark_DoubleExpSeq)
+invisible(gc())
+```
+    
+# Helper function 
+To get pvalues for the different methods on the different datasets
+
+```{r}
+get_pvalues <- function(dataset,nmethods) {
+  
+  pvalues <- matrix(data=NA, nrow=nrow(dataset[[1]]$dtuAnalysis), ncol=nmethods)
+  rownames(pvalues) <- dataset[[1]]$dtuAnalysis$TXNAME
+  
+  for (i in 1:nmethods) {
+    pvalues_new <- data.frame(dataset[[i]]$dtuAnalysis$p_value)
+    rownames(pvalues_new) <- dataset[[i]]$dtuAnalysis$TXNAME
+    colnames(pvalues_new) <- names(dataset)[i]
+
+    pvalues[,i] <- pvalues_new[match(rownames(pvalues),rownames(pvalues_new)),1]
+  }
+  
+  pvalues <- apply(pvalues, 2, as.numeric)
+  rownames(pvalues) <- dataset[[1]]$dtuAnalysis$TXNAME
+  pvalues <- as.data.frame(pvalues)
+  pvalues <- pvalues[order(rownames(pvalues)),]
+  
+  colnames(pvalues) <- c("satuRn", "limma_diffsplice", "DEXSeq","DRIMSeq", "edgeR_diffsplice", "NBSplice", "DoubleExpSeq")
+  
+  return(pvalues)
+}
+```
+
+# Visualization function
+
+```{r}
+visualize_datasets <- function(dataset,nFilters,nmethods) {
+  
+  print(paste("This function will generate", nFilters, "plots"))
+
+##  We must select the correct dataframes from the list, based on the list names
+selection <- c("filterLenient","filterStringent")
+
+## Generate and store the data for the plots
+  resList <- c()
+  for (j in 1:nFilters) {
+      print(j) # print progress
+  
+      Hsapiens_current <- HsapiensBenchmark[grepl(selection[j], names(HsapiensBenchmark))]
+      
+      pvalues <- get_pvalues(Hsapiens_current,nmethods)
+      
+      truth_file_current <- truth[truth$transcript_id %in% rownames(pvalues),]
+      truth_file_current <- truth_file_current[order(truth_file_current$transcript_id),]
+      rownames(truth_file_current) <- truth_file_current$transcript_id
+
+      cobra <- COBRAData(pval = pvalues, truth = truth_file_current)
+      cobra <- calculate_adjp(cobra)
+      cobra1perf <- calculate_performance(cobra, binary_truth = "transcript_ds_status", cont_truth = "none", splv = "none", aspects = c("fdrtpr", "fdrtprcurve", "overlap"))
+
+      cobraplot <- prepare_data_for_plot(cobra1perf, colorscheme = "Dark2", facetted = TRUE)
+      
+      # DRIMSeq 
+      new_col <- c(rep(c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "black", "#999999"),4),rep("white",16))
+      names(new_col) <- names(cobraplot@plotcolors)
+      cobraplot@plotcolors <- new_col
+      
+      plot_full <- plot_fdrtprcurve(cobraplot, xaxisrange = c(0, 0.35), yaxisrange = c(0,0.85))
+    
+      #titles <- c("5 versus 5 - edgeR filter - count","5 versus 5 - DRIMSeq filter - count")
+      titles <- c("5 versus 5 - edgeR filter - scaledTPM","5 versus 5 - DRIMSeq filter - scaledTPM")
+      current_title <- titles[j]
+
+      plot_full <- plot_full + 
+        ggtitle(current_title) +
+        theme(strip.background = element_blank(),
+            strip.text.x = element_blank(),
+            plot.title = element_text(size=10),
+            axis.text.x = element_text(size = 10),
+            axis.text.y = element_text(size = 10),
+            axis.title.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10))
+      
+      # png(paste("./Results/Hsapiens_benchmark/FDRTPR_counts_", j, ".png", sep = ""),
+      # width     = 5.5,
+      # height    = 4.5,
+      # units     = "in",
+      # res       = 200,
+      # pointsize = 4) # start export
+      # print(plot_full)
+      # dev.off()
+      
+      png(paste("./Results/Hsapiens_benchmark/FDRTPR_scaledTPM_", j, ".png", sep = ""),
+      width     = 5.5,
+      height    = 4.5,
+      units     = "in",
+      res       = 200,
+      pointsize = 4) # start export
+      print(plot_full)
+      dev.off()
+  }
+  
+}
+```
+
+```{r}
+visualize_datasets(dataset=HsapiensBenchmark,
+                   nFilters=2,
+                   nmethods=7)
+```
+
+
+
+
+
+
+
+
+---
+title: "2_Hsapiens_DTU"
+author: "Jeroen Gilis"
+date: "06/11/2020"
+output: html_document
+---
+
+**In order to run this script (2_Hsapiens_DTU.Rmd), the dataset Hsapiens_benchmark_datasets_count.Rdata (or, alternatively, Hsapiens_benchmark_datasets_scaledTPM.Rdata) is required.** This file can either be generated with the 1_Hsapiens_prepare.Rmd script or downloaded from Zenodo.
+
+Here we run the DTU analyses for 7 DTU methods on both Hsapiens benchmark datasets. This code runs approximately 30 minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime was attributed to the DRIMSeq analysis.
+
+**If you do not want to run this script, its output can also be downloaded from Zenodo: Hsapiens_DTU_results_count.Rdata (or, alternatively, Hsapiens_DTU_results_scaledTPM.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load DTU methods
+
+Source file that allows running all seven DTU methods that were assessed in this paper: satuRn, DoubleExpSeq, limma diffsplice, edgeRdiffsplice, DEXSeq, DRIMseq and NBSplice.
+
+```{r, message=FALSE, warning=FALSE}
+### load libraries
+library(edgeR)
+library(limma)
+library(DEXSeq)
+library(DRIMSeq)
+library(DoubleExpSeq)
+library(NBSplice)
+library(satuRn)
+library(doMC)
+
+source(file="./Performance_benchmarks/DTU_methods.R")
+```
+
+# Set up parallel execution
+
+Note that the optimal parameter setting for parallelizing the DTU analyses depends on your specific computing system.
+
+```{r}
+nrCores <- 2
+
+if(nrCores != 1) {
+    doParallel <- TRUE
+    doProgress <- 'none'
+
+    registerDoMC(cores = nrCores)
+} else {
+    doParallel <- FALSE
+    doProgress <- 'text'
+}
+```
+
+# Run the analysis for all methods on both Hsapiens datasets
+
+Run the DTU analyses for 7 DTU methods on both Hsapiens benchmark datasets.
+This code runs approximately 30 minutes on a MacBook Pro 2018, processor; 2,3 GHz Quad-Core Intel Core i5, 16GB RAM. Most of this runtime to the analysis with DRIMSeq.
+
+```{r}
+### Load benchmark data
+load(file="./Data/Hsapiens_benchmark_datasets_count.Rdata")
+#load(file="./Data/Hsapiens_benchmark_datasets_scaledTPM.Rdata")
+
+HsBenchmarkLenient <- list(HsBenchmarkLenient)
+HsBenchmarkStringent <- list(HsBenchmarkStringent)
+
+names(HsBenchmarkLenient)   <- paste0(names(HsBenchmarkLenient)  , 'filterLenient')
+names(HsBenchmarkStringent) <- paste0(names(HsBenchmarkStringent), 'filterStringent')
+
+HsBenchmarkData <- c(HsBenchmarkLenient,HsBenchmarkStringent)
+
+### Run DTU analysis on benchmark data
+
+print("start satuRn")
+
+tStart <- Sys.time()
+suppressWarnings(HsDtuBenchmark_satuRn <- plyr::llply(
+    .data = HsBenchmarkData,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- satuRn_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+))
+difftime(Sys.time(), tStart)
+
+print("start edgeR_diffsplice")
+
+tStart <- Sys.time()
+HsDtuBenchmark_edgeRdiffsplice <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- edgeR_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DoubleExpSeq")
+
+tStart <- Sys.time()
+HsDtuBenchmark_DoubleExpSeq <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DoubleExpSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design,
+            quiet=FALSE
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start NBSplice")
+
+tStart <- Sys.time()
+HsDtuBenchmark_NBSplice <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- NBSplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start limma diffsplice")
+
+tStart <- Sys.time()
+HsDtuBenchmark_limmaDiffsplice <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- limma_diffsplice_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DEXSeq")
+
+# DEXSeq
+tStart <- Sys.time()
+HsDtuBenchmark_DEXSeq <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DEXSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+        
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME)]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+print("start DRIMSeq")
+
+tStart <- Sys.time()
+HsDtuBenchmark_DRIMSeq <- plyr::llply(
+    .data = HsBenchmarkData,
+    .parallel = doParallel,
+    .progress = doProgress,
+    .inform = TRUE,
+    .fun = function(localData) {
+        ### Perform DTU analysis
+        localRes <- DRIMSeq_DTU(
+            countData  = localData$data,
+            tx2gene    = localData$metaInfo,
+            sampleData = localData$design
+        )
+
+        ### Massage
+        localRes$gene_modified <- localData$metaInfo$gene_modified[match(
+            localRes$TXNAME, localData$metaInfo$TXNAME
+        )]
+
+        ### Return result
+        return(list(dtuAnalysis = localRes))
+    }
+)
+difftime(Sys.time(), tStart)
+
+### add method name to list names for easy post-analysis
+names(HsDtuBenchmark_satuRn) <- paste0('satuRn_', names(HsDtuBenchmark_satuRn))
+names(HsDtuBenchmark_limmaDiffsplice) <- paste0('limma_diffsplice_', names(HsDtuBenchmark_limmaDiffsplice))
+names(HsDtuBenchmark_DEXSeq)  <- paste0('DEXSeq_', names(HsDtuBenchmark_DEXSeq))
+names(HsDtuBenchmark_DRIMSeq) <- paste0('DRIMSeq_', names(HsDtuBenchmark_DRIMSeq))
+names(HsDtuBenchmark_edgeRdiffsplice) <- paste0('edgeR_diffsplice_', names(HsDtuBenchmark_edgeRdiffsplice))
+names(HsDtuBenchmark_NBSplice)  <- paste0('NBSplice_', names(HsDtuBenchmark_NBSplice))
+names(HsDtuBenchmark_DoubleExpSeq)  <- paste0('DoubleExpSeq_', names(HsDtuBenchmark_DoubleExpSeq))
+
+
+### Save result
+save(
+    HsDtuBenchmark_satuRn,
+    HsDtuBenchmark_limmaDiffsplice,
+    HsDtuBenchmark_DEXSeq,
+    HsDtuBenchmark_DRIMSeq,
+    HsDtuBenchmark_edgeRdiffsplice,
+    HsDtuBenchmark_NBSplice,
+    HsDtuBenchmark_DoubleExpSeq,
+    file="./Data/Hsapiens_DTU_results_count.Rdata")
+
+# save(
+#     HsDtuBenchmark_satuRn,
+#     HsDtuBenchmark_limmaDiffsplice,
+#     HsDtuBenchmark_DEXSeq,
+#     HsDtuBenchmark_DRIMSeq,
+#     HsDtuBenchmark_edgeRdiffsplice,
+#     HsDtuBenchmark_NBSplice,
+#     HsDtuBenchmark_DoubleExpSeq,
+#     file="./Data/Hsapiens_DTU_results_scaledTPM.Rdata")
+```
+
+
+
+
+
+
+
+
+---
+title: "1_Hsapiens_prepare"
+author: "Jeroen Gilis"
+date: "06/11/2020"
+output: html_document
+---
+
+**In order to run this script (1_Hsapiens_prepare.Rmd), the folder Hsapiens_kallisto.zip, which contains the kallisto quantification files for this dataset, should be downloaded from Zenodo and unzipped. In addition, two metaData files Hsapiens_metadata_1.xlsx, Hsapiens_metadata_2.txt should also be downloaded from Zenodo. All three files must then be copied into the Data folder of this Github page.** 
+
+Note that the raw data is available through [ArrayExpress](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-3766/)
+
+**If one does not want to run this script, its output can also be downloaded from Zenodo: Hsapiens_benchmark_datasets_count.Rdata (or, alternatively, Hsapiens_benchmark_datasets_scaledTPM.Rdata)**
+
+```{r setup, include=FALSE, echo=FALSE}
+require("knitr")
+opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+# Load libraries
+
+```{r,message=FALSE,warning=FASLE}
+library(tximport)
+library(DRIMSeq)
+library(edgeR)
+```
+
+# Load data
+
+```{r}
+root.dir <- rprojroot::find_rstudio_root_file()
+sample_names <- c("output_01","output_02","output_03","output_04","output_05","output_06","output_07","output_08","output_09","output_10")
+quant_files <- file.path(root.dir, "Data/Hsapiens_kallisto", sample_names, "abundance.h5")
+
+txi <- tximport(files = quant_files, type = "kallisto", countsFromAbundance = "no", txOut = TRUE)
+#txi <- tximport(files = quant_files, type = "kallisto", countsFromAbundance = "scaledTPM", txOut = TRUE)
+
+myDesign <- data.frame(sample_id = as.character(sample_names),
+                       condition = as.character(rep(c("group1","group2")),each=5))
+
+colnames(txi$counts) <- myDesign$sample_id
+```
+
+# Load metadata
+
+```{r}
+truth <- read.table(file = "./Data/Hsapiens_metadata_1.txt", sep = "\t", header = TRUE)
+conversion <- read.table(file = "./Data/Hsapiens_metadata_2.txt")
+
+colnames(conversion) <- c("target_id", "transcript_id")
+conversion$target_id <- as.character(conversion$target_id)
+conversion$transcript_id <- as.character(conversion$transcript_id)
+
+txInfo <- as.data.frame(cbind(as.character(truth$gene_id), as.character(truth$transcript_id), as.character(truth$transcript_ds_status)))
+
+colnames(txInfo) <- c("gene_id", "transcript_id", "gene_modified")
+txInfo$gene_id <- as.character(txInfo$gene_id)
+txInfo$transcript_id <- as.character(txInfo$transcript_id)
+txInfo <- txInfo[,c(2,1,3)] # change order in same way as other benchmarks
+```
+
+# Generate lenient filtering benchmark dataset (edgeR)
+
+```{r}
+Hs_lenient <- as.data.frame(txi$counts)
+txInfo_lenient <- txInfo
+
+group <- as.factor(rep(c("a","b"),each=5))
+design <- model.matrix(~group)
+sampleData <- design
+sampleData[,1] <- colnames(Hs_lenient)
+colnames(sampleData) <- c("sample_id", "condition")
+
+Hs_lenient <- edgeR::DGEList(counts = Hs_lenient,group=group)
+filter <- edgeR::filterByExpr(Hs_lenient,design=design)
+            
+Hs_lenient <- Hs_lenient$counts[filter,]
+
+## Reorder corresponding info
+txInfo_lenient <- txInfo_lenient[match(
+    rownames(Hs_lenient), txInfo_lenient$transcript_id
+),]
+
+## Filter out genes with one TX
+txInfo_lenient <- txInfo_lenient[txInfo_lenient$gene_id %in% names(table(txInfo_lenient$gene_id))[table(txInfo_lenient$gene_id) > 1],]
+
+Hs_lenient <- Hs_lenient[txInfo_lenient$transcript_id,]
+
+## add column with sample size for easy retrieval
+txInfo_lenient$nrSamplesPerCondition <- 5
+colnames(txInfo_lenient) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+rownames(txInfo_lenient) <- txInfo_lenient$TXNAME
+
+sampleData <- as.data.frame(sampleData)
+sampleData$condition <- as.factor(rep(c("a","b"),each=5))
+
+HsBenchmarkLenient <- list(
+            data     = as.data.frame(Hs_lenient),
+            design   = sampleData,
+            metaInfo = txInfo_lenient
+)
+
+dim(HsBenchmarkLenient$data)
+```
+
+# Generate stringent filtering benchmark dataset (DRIMSeq)
+
+```{r}
+Hs_stringent <- as.data.frame(txi$counts)
+txInfo_stringent <- txInfo
+group <- as.factor(rep(c("a","b"),each=5))
+design <- model.matrix(~group)
+sampleData <- design
+sampleData[,1] <- colnames(Hs_stringent)
+colnames(sampleData) <- c("sample_id", "condition")
+
+Hs_stringent <- Hs_stringent[rownames(Hs_stringent)%in%txInfo$transcript_id,]
+
+geneForEachTx <- txInfo[match(rownames(Hs_stringent),txInfo$transcript_id),"gene_id"]
+
+Hs_stringent$gene_id <- geneForEachTx
+Hs_stringent$feature_id <- row.names(Hs_stringent)
+
+d <- DRIMSeq::dmDSdata(counts = Hs_stringent, samples = as.data.frame(sampleData))
+d <- dmFilter(d,
+              min_samps_feature_expr=5, 
+              min_feature_expr=10, 
+              min_samps_feature_prop=5, 
+              min_feature_prop=0.1,
+              min_samps_gene_expr=10, 
+              min_gene_expr=10
+              )
+
+Hs_stringent <- as.data.frame(txi$counts)[counts(d)$feature_id,]
+
+## Reorder corresponding info
+txInfo_stringent <- txInfo_stringent[match(
+    rownames(Hs_stringent), txInfo_stringent$transcript_id
+),]
+
+## Filter out genes with one TX
+txInfo_stringent <- txInfo_stringent[txInfo_stringent$gene_id %in% names(table(txInfo_stringent$gene_id))[table(txInfo_stringent$gene_id) > 1],]
+
+Hs_stringent <- Hs_stringent[txInfo_stringent$transcript_id,]
+
+## add truth column
+txInfo_stringent$gene_modified <- truth$transcript_ds_status[match(txInfo_stringent$transcript_id,as.character(truth$transcript_id))]
+
+## add column with sample size for easy retrieval
+txInfo_stringent$nrSamplesPerCondition <- 5
+colnames(txInfo_stringent) <- c('TXNAME','GENEID','gene_modified','nrSamplesPerCondition')
+rownames(txInfo_stringent) <- txInfo_stringent$TXNAME
+
+sampleData <- as.data.frame(sampleData)
+sampleData$condition <- as.factor(rep(c("a","b"),each=5))
+
+HsBenchmarkStringent <- list(
+            data     = as.data.frame(Hs_stringent),
+            design   = as.data.frame(sampleData),
+            metaInfo = txInfo_stringent
+)
+
+dim(HsBenchmarkStringent$data)
+```
+
+# Save Hsapiens benchmark data
+
+```{r}
+save(HsBenchmarkLenient, HsBenchmarkStringent, file="./Data/Hsapiens_benchmark_datasets_count.Rdata")
+#save(HsBenchmarkLenient, HsBenchmarkStringent, file="./Data/Hsapiens_benchmark_datasets_scaledTPM.Rdata")
+```
+
+
+
+
+

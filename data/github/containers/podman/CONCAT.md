@@ -46640,3 +46640,331 @@ The complete set can be found in the `validate` package, here are some examples:
     created := validate.ChoiceValue(&opts.Sort, "command", "created", "id", "image", "names", "runningfor", "size", "status")
     flags.Var(created, "sort", "Sort output by: "+created.Choices())
     ```
+.. include:: includes.rst
+
+Tutorials
+=========
+Here are a number of useful tutorials to get you up and running with Podman. If you are familiar with the Docker `Container Engine`_ the command in Podman_ should be quite familiar. If you are brand new to containers, take a look at our `Introduction`.
+
+* `Basic Setup and Use of Podman <https://github.com/containers/podman/blob/main/docs/tutorials/podman_tutorial.md>`_: Learn how to setup Podman and perform some basic commands with the utility.
+* `Basic Setup and Use of Podman in a Rootless environment <https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md>`_: The steps required to setup rootless Podman are enumerated.
+* `Podman Mac/Windows tutorial <https://github.com/containers/podman/blob/main/docs/tutorials/mac_win_client.md>`_: Special setup for running the Podman remote client on a Mac or Windows PC and connecting to Podman running on a Linux VM are documented.
+* `How to sign and distribute container images using Podman <https://github.com/containers/podman/blob/main/docs/tutorials/image_signing.md>`_: Learn how to setup and use image signing with Podman.
+* `Podman remote-client tutorial <https://github.com/containers/podman/blob/main/docs/tutorials/remote_client.md>`_: A brief how-to on using the Podman remote-client.
+* `How to use libpod for custom/derivative projects <https://github.com/containers/podman/blob/main/docs/tutorials/podman-derivative-api.md>`_: How the libpod API can be used within your own project.
+* `How to use Podman's Go RESTful bindings <https://github.com/containers/podman/tree/main/pkg/bindings>`_: An introduction to using our RESTful Golang bindings in an external application.
+* `Common network setups <https://github.com/containers/podman/blob/main/docs/tutorials/basic_networking.md>`_: A basic guide to common network setups for Podman.
+.. highlight:: bash
+.. _Podman: http://podman.io
+.. _OCI: https://www.opencontainers.org/
+.. _Container Engine: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.6yt1ex5wfo3l
+.. _Container Engines: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.6yt1ex5wfo3l
+.. _Container Runtime: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.6yt1ex5wfo55
+.. _Container: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.j2uq93kgxe0e
+.. _Containers: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.j2uq93kgxe0e
+.. _Container Image: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.dqlu6589ootw
+.. _Container Images: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.dqlu6589ootw
+.. _Container Registry: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.4cxnedx7tmvq
+.. _Container Registries: https://developers.redhat.com/blog/2018/02/22/container-terminology-practical-introduction/#h.4cxnedx7tmvq
+.. _libpod: https://github.com/containers/podman
+.. _podman search: http://docs.podman.io/en/latest/markdown/podman-search.1.html
+.. _podman pull: http://docs.podman.io/en/latest/markdown/podman-pull.1.html
+.. _podman run: http://docs.podman.io/en/latest/markdown/podman-run.1.html
+.. _podman build: http://docs.podman.io/en/latest/markdown/podman-build.1.html
+.. _podman push: http://docs.podman.io/en/latest/markdown/podman-push.1.html
+.. image:: https://raw.githubusercontent.com/containers/podman/main/logo/podman-logo.png
+.. include:: includes.rst
+
+Commands
+========
+
+:doc:`Podman <markdown/podman.1>` (Pod Manager) Global Options, Environment Variables, Exit Codes, Configuration Files, and more
+
+:doc:`attach <markdown/podman-attach.1>` Attach to a running container
+
+:doc:`auto-update <markdown/podman-auto-update.1>` Auto update containers according to their auto-update policy
+
+:doc:`build <markdown/podman-build.1>` Build an image using instructions from Containerfiles
+
+:doc:`commit <markdown/podman-commit.1>` Create new image based on the changed container
+
+:doc:`container <markdown/podman-container.1>` Manage Containers
+
+:doc:`cp <markdown/podman-cp.1>` Copy files/folders between a container and the local filesystem
+
+:doc:`create <markdown/podman-create.1>` Create but do not start a container
+
+:doc:`diff <markdown/podman-diff.1>` Inspect changes on container's file systems
+
+:doc:`events <markdown/podman-events.1>` Show podman events
+
+:doc:`exec <markdown/podman-exec.1>` Run a process in a running container
+
+:doc:`export <markdown/podman-export.1>` Export container's filesystem contents as a tar archive
+
+:doc:`generate <markdown/podman-generate.1>` Generated structured data
+
+:doc:`healthcheck <markdown/podman-healthcheck.1>` Manage Healthcheck
+
+:doc:`history <markdown/podman-history.1>` Show history of a specified image
+
+:doc:`image <markdown/podman-image.1>` Manage images
+
+:doc:`images <markdown/podman-images.1>` List images in local storage
+
+:doc:`import <markdown/podman-import.1>` Import a tarball to create a filesystem image
+
+:doc:`info <markdown/podman-info.1>` Display podman system information
+
+:doc:`init <markdown/podman-init.1>` Initialize one or more containers
+
+:doc:`inspect <markdown/podman-inspect.1>` Display the configuration of a container or image
+
+:doc:`kill <markdown/podman-kill.1>` Kill one or more running containers with a specific signal
+
+:doc:`load <markdown/podman-load.1>` Load an image from container archive
+
+:doc:`login <markdown/podman-login.1>` Login to a container registry
+
+:doc:`logout <markdown/podman-logout.1>` Logout of a container registry
+
+:doc:`logs <markdown/podman-logs.1>` Fetch the logs of a container
+
+:doc:`machine <markdown/podman-machine.1>` Manage podman's virtual machine
+
+:doc:`manifest <markdown/podman-manifest.1>` Create and manipulate manifest lists and image indexes
+
+:doc:`mount <markdown/podman-mount.1>` Mount a working container's root filesystem
+
+:doc:`network <markdown/podman-network.1>` Manage Networks
+
+:doc:`pause <markdown/podman-pause.1>` Pause all the processes in one or more containers
+
+:doc:`play <markdown/podman-play.1>` Play a pod
+
+:doc:`pod <markdown/podman-pod.1>` Manage pods
+
+:doc:`port <markdown/podman-port.1>` List port mappings or a specific mapping for the container
+
+:doc:`ps <markdown/podman-ps.1>` List containers
+
+:doc:`pull <markdown/podman-pull.1>` Pull an image from a registry
+
+:doc:`push <markdown/podman-push.1>` Push an image to a specified destination
+
+:doc:`rename <markdown/podman-rename.1>` Rename an existing container
+
+:doc:`restart <markdown/podman-restart.1>` Restart one or more containers
+
+:doc:`rm <markdown/podman-rm.1>` Remove one or more containers
+
+:doc:`rmi <markdown/podman-rmi.1>` Removes one or more images from local storage
+
+:doc:`run <markdown/podman-run.1>` Run a command in a new container
+
+:doc:`save <markdown/podman-save.1>` Save image to an archive
+
+:doc:`search <markdown/podman-search.1>` Search registry for image
+
+:doc:`secret <markdown/podman-secret.1>` Manage podman secrets
+
+:doc:`start <markdown/podman-start.1>` Start one or more containers
+
+:doc:`stats <markdown/podman-stats.1>` Display a live stream of container resource usage statistics
+
+:doc:`stop <markdown/podman-stop.1>` Stop one or more containers
+
+:doc:`system <markdown/podman-system.1>` Manage podman
+
+:doc:`tag <markdown/podman-tag.1>` Add an additional name to a local image
+
+:doc:`top <markdown/podman-top.1>` Display the running processes of a container
+
+:doc:`unmount <markdown/podman-unmount.1>` Unmounts working container's root filesystem
+
+:doc:`unpause <markdown/podman-unpause.1>` Unpause the processes in one or more containers
+
+:doc:`unshare <markdown/podman-unshare.1>` Run a command in a modified user namespace
+
+:doc:`untag <markdown/podman-untag.1>` Removes one or more names from a locally-stored image
+
+:doc:`version <markdown/podman-version.1>` Display the Podman Version Information
+
+:doc:`volume <markdown/podman-volume.1>` Manage volumes
+
+:doc:`wait <markdown/podman-wait.1>` Block on one or more containers
+.. include:: includes.rst
+
+Reference
+=========
+
+To see full screen version please visit: `API documentation <https://docs.podman.io/en/latest/_static/api.html>`_
+
+.. raw:: html
+
+    <iframe src="_static/api.html" allowfullscreen="true" height="600px" width="120%"></iframe>
+.. include:: includes.rst
+
+Search
+==================================
+
+.. raw:: html
+
+    <p>
+    From here you can search these documents. Enter your search
+    words into the box below and click "search". Note that the search
+    function will automatically search for all of the words. Pages
+    containing fewer words won't appear in the result list.
+    </p>
+    <form action="/en/latest/search.html" method="get" _lpchecked="1">
+    <input type="text" name="q" value="">
+    <input type="submit" value="search">
+    <span id="search-progress" style="padding-left: 10px"></span>
+    </form>
+Volume
+======
+:doc:`create <markdown/podman-volume-create.1>` Create a new volume
+
+:doc:`exists <markdown/podman-volume-exists.1>` Check if the given volume exists
+
+:doc:`export <markdown/podman-volume-export.1>` Exports volume to external tar
+
+:doc:`import <markdown/podman-volume-import.1>` Import tarball contents into a podman volume
+
+:doc:`inspect <markdown/podman-volume-inspect.1>` Display detailed information on one or more volumes
+
+:doc:`ls <markdown/podman-volume-ls.1>` List volumes
+
+:doc:`prune <markdown/podman-volume-prune.1>` Remove all unused volumes
+
+:doc:`rm <markdown/podman-volume-rm.1>` Remove one or more volumes
+.. include:: includes.rst
+
+Introduction
+==================================
+Containers_ simplify the production, distribution, discoverability, and usage of applications with all of their dependencies and default configuration files. Users test drive or deploy a new application with one or two commands instead of following pages of installation instructions. Here's how to find your first `Container Image`_::
+
+    podman search busybox
+
+Output::
+
+    INDEX       NAME                                DESCRIPTION                                       STARS   OFFICIAL   AUTOMATED
+    docker.io   docker.io/library/busybox           Busybox base image.                               1882    [OK]
+    docker.io   docker.io/radial/busyboxplus        Full-chain, Internet enabled, busybox made f...   30                 [OK]
+    docker.io   docker.io/yauritux/busybox-curl     Busybox with CURL                                 8
+    ...
+
+The previous command returned a list of publicly available container images on DockerHub. These container images are easy to consume, but of differing levels of quality and maintenance. Let’s use the first one listed because it seems to be well maintained.
+
+To run the busybox container image, it’s just a single command::
+
+    podman run -it docker.io/library/busybox
+
+Output::
+
+    / #
+
+You can poke around in the busybox container for a while, but you’ll quickly find that running small container with a few Linux utilities in it provides limited value, so exit out::
+
+    exit
+
+There’s an old saying that “nobody runs an operating system just to run an operating system” and the same is true with containers. It’s the workload running on top of an operating system or in a container that’s interesting and valuable.
+
+Sometimes we can find a publicly available container image for the exact workload we’re looking for and it will already be packaged exactly how we want. But, more often than not, there’s something that we want to add, remove, or customize. It could be as simple as a configuration setting for security or performance, or as complex as adding a complex workload. Either way, containers make it fairly easy to make the changes we need.
+
+Container Images aren’t actually images, they’re repositories often made up of multiple layers. These layers can easily be added, saved, and shared with others by using a Containerfile (Dockerfile). This single file often contains all the instructions needed to build a new container image and can easily be shared with others publicly using tools like GitHub.
+
+Here's an example of how to build a Nginx web server on top of a Debian base image using the Dockerfile maintained by Nginx and published in GitHub::
+
+    podman build -t nginx https://git.io/Jf8ol
+
+Once, the image build completes, it’s easy to run the new image from our local cache::
+
+    podman run -d -p 8080:80 nginx
+    curl localhost:8080
+
+Output::
+
+    ...
+    <p><em>Thank you for using nginx.</em></p>
+    ...
+
+Building new images is great, but sharing our work with others let’s them review our work, critique how we built them, and offer improved versions. Our newly built Nginx image could be published at quay.io or docker.io to share it with the world. Everything needed to run the Nginx application is provided in the container image. Others could easily pull it down and use it, or make improvements to it.
+
+Standardizing on container images and `Container Registries`_ enable a new level of collaboration through simple consumption. This simple consumption model is possible because every major Container Engine and Registry Server uses the Open Containers Initiative (OCI_) format. This allows users to find, run, build, share and deploy containers anywhere they want. Podman and other `Container Engines`_ like CRI-O, Docker, or containerd can create and consume container images from docker.io, quay.io, an on premise registry or even one provided by a cloud provider. The OCI image format facilitates this ecosystem through a single standard.
+
+For example, if we wanted to share our newly built Nginx container image on quay.io it’s easy. First log in to quay::
+
+    podman login quay.io
+Input::
+
+    Username: USERNAME
+    Password: ********
+    Login Succeeded!
+
+Next, tag the image so that we can push it into our user account::
+
+    podman tag localhost/nginx quay.io/USERNAME/nginx
+
+Finally, push the image::
+
+    podman push quay.io/USERNAME/nginx
+
+Output::
+
+    Getting image source signatures
+    Copying blob 38c40d6c2c85 done
+    Copying blob fee76a531659 done
+    Copying blob c2adabaecedb done
+    Copying config 7f3589c0b8 done
+    Writing manifest to image destination
+    Copying config 7f3589c0b8 done
+    Writing manifest to image destination
+    Storing signatures
+
+Notice that we pushed four layers to our registry and now it’s available for others to share. Take a quick look::
+
+    podman inspect quay.io/USERNAME/nginx
+
+Output::
+
+    [
+        {
+            "Id": "7f3589c0b8849a9e1ff52ceb0fcea2390e2731db9d1a7358c2f5fad216a48263",
+            "Digest": "sha256:7822b5ba4c2eaabdd0ff3812277cfafa8a25527d1e234be028ed381a43ad5498",
+            "RepoTags": [
+                "quay.io/USERNAME/nginx:latest",
+    ...
+
+To summarize, Podman makes it easy to find, run, build and share containers.
+
+* Find: whether finding a container on dockerhub.io or quay.io, an internal registry server, or directly from a vendor, a couple of `podman search`_, and `podman pull`_ commands make it easy
+* Run: it's easy to consume pre-built images with everything needed to run an entire application, or start from a Linux distribution base image with the `podman run`_ command
+* Build: creating new layers with small tweaks, or major overhauls is easy with `podman build`_
+* Share: Podman lets you push your newly built containers anywhere you want with a single `podman push`_ command
+
+For more instructions on use cases, take a look at our :doc:`Tutorials` page.
+.. include:: includes.rst
+
+What is Podman?
+==================================
+Podman_ is a daemonless, open source, Linux native tool designed to make it easy to find, run, build, share and deploy applications using Open Containers Initiative (OCI_) Containers_ and `Container Images`_. Podman provides a command line interface (CLI) familiar to anyone who has used the Docker `Container Engine`_. Most users can simply alias Docker to Podman (`alias docker=podman`) without any problems. Similar to other common `Container Engines`_ (Docker, CRI-O, containerd), Podman relies on an OCI compliant `Container Runtime`_ (runc, crun, runv, etc) to interface with the operating system and create the running containers. This makes the running containers created by Podman nearly indistinguishable from those created by any other common container engine.
+
+Containers under the control of Podman can either be run by root or by a non-privileged user. Podman manages the entire container ecosystem which includes pods, containers, container images, and container volumes using the libpod_ library. Podman specializes in all of the commands and functions that help you to maintain and modify OCI container images, such as pulling and tagging. It allows you to create, run, and maintain those containers and container images in a production environment.
+
+There is a RESTFul API to manage containers.  We also have a remote Podman client that can interact with
+the RESTFul service.  We currently support clients on Linux, Mac, and Windows.  The RESTFul service is only
+supported on Linux.
+
+If you are completely new to containers, we recommend that you check out the :doc:`Introduction`. For power users or those coming from Docker, check out our :doc:`Tutorials`. For advanced users and contributors, you can get very detailed information about the Podman CLI by looking at our :doc:`Commands` page. Finally, for Developers looking at how to interact with the Podman API, please see our API documentation :doc:`Reference`.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   Introduction
+   :doc:`<markdown/podman.1>` Simple management tool for pods, containers and images
+   Commands
+   Reference
+   Tutorials
+   Search

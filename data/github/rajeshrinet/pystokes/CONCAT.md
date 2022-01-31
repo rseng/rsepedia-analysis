@@ -403,3 +403,172 @@ pip install -U Sphinx
 pip install sphinx_rtd_theme
 make html
 ```
+Phoresis in an unbounded domain
+==================================
+
+Phoretic motion in an infinite space 
+
+Phoresis
+----------------------------------------
+.. autoclass:: pystokes.phoretic.unbounded.Phoresis
+    :members:
+
+
+Field
+--------------------------
+.. autoclass:: pystokes.phoretic.unbounded.Field
+    :members:
+
+Stokes flow in an unbounded domain
+==================================
+
+Hydrodynamic interactions of active particles in an unbounded domain. 
+
+RBM (Rigid Body Motion: Velocity and Angular Velocity)
+------------------------------------------------------
+.. autoclass:: pystokes.unbounded.Rbm
+    :members:
+
+
+Flow
+--------------------------
+.. autoclass:: pystokes.unbounded.Flow
+    :members:
+
+Utils: Miscellaneous function
+==================================
+
+.. automethod:: pystokes.utils.irreducibleTensors
+
+.. automethod:: pystokes.utils.gridXY
+
+.. automethod:: pystokes.utils.gridYZ
+
+.. automethod:: pystokes.utils.simulate
+Phoresis in a space bounded by a wall
+===============================================
+
+Phoresis in the half-space bounded by a plane no-slip wall 
+
+Phoresis
+----------------------------------------
+.. autoclass:: pystokes.phoretic.wallBounded.Phoresis
+    :members:
+
+
+Field
+--------------------------
+.. autoclass:: pystokes.phoretic.wallBounded.Field
+    :members:
+
+Stokes flow near interfaces
+==================================================
+
+Hydrodynamic interactions of active particles in the half-space bounded by a plane no-shear surface
+
+RBM (Rigid Body Motion: Velocity and Angular Velocity)
+------------------------------------------------------
+.. autoclass:: pystokes.interface.Rbm
+    :members:
+
+
+Flow
+--------------------------
+.. autoclass:: pystokes.interface.Flow
+    :members:
+
+Force fields in colloidal systems
+==================================
+
+Force fields in colloidal systems
+
+Forces 
+----------------------------------------
+.. autoclass:: pystokes.forceFields.Forces
+    :members:
+
+Torques 
+----------------------------------------
+.. autoclass:: pystokes.forceFields.Torques
+    :members:
+
+Stokes flow in a Hele-Shaw cell
+===========================================
+
+Stokesian hydrodynamic in a Hele-Shaw cell 
+
+RBM (Rigid Body Motion: Velocity and Angular Velocity)
+------------------------------------------------------
+.. autoclass:: pystokes.twoWalls.Rbm
+    :members:
+
+
+Flow
+--------------------------
+.. autoclass:: pystokes.twoWalls.Flow
+    :members:
+
+Stokes flow in a periodic domain 
+================================
+
+Hydrodynamic interactions of active particles in a periodic 3D space 
+
+RBM (Rigid Body Motion: Velocity and Angular Velocity)
+------------------------------------------------------
+.. autoclass:: pystokes.periodic.Rbm
+    :members:
+
+
+Flow
+--------------------------
+.. autoclass:: pystokes.periodic.Flow
+    :members:
+
+Stokes flow bounded by a wall 
+=================================================
+
+Hydrodynamic interactions of active particles in the half-space bounded by a plane no-slip surface
+
+RBM (Rigid Body Motion: Velocity and Angular Velocity)
+------------------------------------------------------
+.. autoclass:: pystokes.wallBounded.Rbm
+    :members:
+
+
+Flow
+--------------------------
+.. autoclass:: pystokes.wallBounded.Flow
+    :members:
+
+PyStokes API
+==================================
+.. image:: ../../examples/banner.png
+  :width: 700
+  :alt: PyRoss banner
+
+
+
+`PyStokes <https://github.com/rajeshrinet/pystokes>`_ is a numerical library for Phoresis and Stokesian hydrodynamics in Python. It uses a grid-free method, combining the integral representation of Stokes and Laplace equations, spectral expansion, and Galerkin discretization, to compute phoretic and hydrodynamic interactions between spheres with slip boundary conditions on their surfaces. The library also computes suspension scale quantities, such as rheological response, energy dissipation and fluid flow. The computational cost is quadratic in the number of particles and upto 1e5 particles have been accommodated on multicore computers. The library has been used to model suspensions of **microorganisms**,  **synthetic autophoretic particles** and **self-propelling droplets**. 
+
+
+Please see installation instructions and more details in the `README.md <https://github.com/rajeshrinet/pystokes/blob/master/README.md>`_ on GitHub. 
+
+
+
+
+API Reference
+=============
+
+.. toctree::
+   :maxdepth: 1
+
+   
+   unbounded
+   interface
+   wallBounded
+   twoWalls
+   periodic
+   phoreticUnbounded
+   phoreticWallBounded
+   forceFields
+   utils

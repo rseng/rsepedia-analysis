@@ -41769,4 +41769,177 @@ find the point to change the hash number.
 
 
 
-[Kitware Gerrit]: http://review.source.kitware.com/
+[Kitware Gerrit]: http://review.source.kitware.com/.ExternalData
+=============
+
+The ITK ``.ExternalData`` directory is an object store for the
+CMake ExternalData module that ITK uses to manage test input
+and baseline data.
+ITKBridgeNumPy
+==============
+
+This is a port from the original WrapITK PyBuffer to an ITKv4 module.
+
+Differences from the original PyBuffer:
+
+- Support for VectorImage's
+- Option to not swap the axes (only for GetArrayViewFromImage)
+- Tests
+- Based on the `Python Buffer Protocol <https://docs.python.org/3/c-api/buffer.html>`_ -- only requires NumPy at run time, not build time.
+
+This module is available in the ITK source tree as a Remote
+module.  To enable it, set::
+
+  ITK_WRAP_PYTHON:BOOL=ON
+  Module_ITKBridgeNumPy:BOOL=ON
+
+in ITK's CMake build configuration. In ITK 4.12 and later, this module is
+enabled by default when `ITK_WRAP_PYTHON` is enabled.
+
+To get a view of an ITK image in a NumPy array::
+
+  import itk
+
+  PixelType = itk.ctype('float')
+  Dimension = 3
+  ImageType = itk.Image[PixelType, Dimension]
+
+  image = ImageType.New()
+  size = itk.Size[Dimension]()
+  size.Fill(100)
+  region = itk.ImageRegion[Dimension](size)
+  image.SetRegions(region)
+  image.Allocate()
+
+  arr = itk.PyBuffer[ImageType].GetArrayViewFromImage(image)
+
+To get a view of a NumPy array in an ITK image::
+
+  import numpy as np
+  import itk
+
+  PixelType = itk.ctype('float')
+  Dimension = 3
+  ImageType = itk.Image[PixelType, Dimension]
+
+  arr = np.zeros((100, 100, 100), np.float32)
+  image = itk.PyBuffer[ImageType].GetImageViewFromArray(arr)
+
+It is also possible to get views of VNL matrices and arrays from NumPy arrays and
+back::
+
+  import numpy as np
+  import itk
+
+  ElementType = itk.ctype('float')
+  vector = itk.vnl_vector[ElementType]()
+  vector.set_size(8)
+  arr = itk.PyVnl[ElementType].GetArrayViewFromVnlVector(vector)
+
+  matrix = itk.vnl_matrix[ElementType]()
+  matrix.set_size(3, 4)
+  arr = itk.PyVnl[ElementType].GetArrayViewFromVnlMatrix(matrix)
+
+  arr = np.zeros((100,), np.float32)
+  vector = itk.PyVnl[ElementType].GetVnlVectorViewFromArray(arr)
+
+  arr = np.zeros((100, 100), np.float32)
+  matrix = itk.PyVnl[ElementType].GetVnlMatrixViewFromArray(arr)
+
+.. warning::
+
+  The conversions create `NumPy Views
+  <https://scipy-cookbook.readthedocs.io/items/ViewsVsCopies.html>`_, i.e. it
+  presents the ITK image pixel buffer in the NumPy array, and the buffer is
+  shared. This means that no copies are made (which increases speed and
+  reduces memory consumption). It also means that any changes in the NumPy
+  array change the ITK image content. Additionally, a reference to an ITK
+  image object must be available to use its NumPy array view. Using an array
+  view after its source image has been deleted can results in corrupt values
+  or a segfault.
+Contributing to KWSys
+*********************
+
+Patches
+=======
+
+KWSys is kept in its own Git repository and shared by several projects
+via copies in their source trees.  Changes to KWSys should not be made
+directly in a host project, except perhaps in maintenance branches.
+
+KWSys uses `Kitware's GitLab Instance`_ to manage development and code review.
+To contribute patches:
+
+#. Fork the upstream `KWSys Repository`_ into a personal account.
+#. Base all new work on the upstream ``master`` branch.
+#. Run ``./SetupForDevelopment.sh`` in new local work trees.
+#. Create commits making incremental, distinct, logically complete changes.
+#. Push a topic branch to a personal repository fork on GitLab.
+#. Create a GitLab Merge Request targeting the upstream ``master`` branch.
+
+Once changes are reviewed, tested, and integrated to KWSys upstream then
+copies of KWSys within dependent projects can be updated to get the changes.
+
+.. _`Kitware's GitLab Instance`: https://gitlab.kitware.com
+.. _`KWSys Repository`: https://gitlab.kitware.com/utils/kwsys
+
+Code Style
+==========
+
+We use `clang-format`_ version **6.0** to define our style for C++ code in
+the KWSys source tree.  See the `.clang-format`_ configuration file for
+our style settings.  Use the `clang-format.bash`_ script to format source
+code.  It automatically runs ``clang-format`` on the set of source files
+for which we enforce style.  The script also has options to format only
+a subset of files, such as those that are locally modified.
+
+.. _`clang-format`: http://clang.llvm.org/docs/ClangFormat.html
+.. _`.clang-format`: .clang-format
+.. _`clang-format.bash`: clang-format.bash
+
+License
+=======
+
+We do not require any formal copyright assignment or contributor license
+agreement.  Any contributions intentionally sent upstream are presumed
+to be offered under terms of the OSI-approved BSD 3-clause License.
+See `Copyright.txt`_ for details.
+
+.. _`Copyright.txt`: Copyright.txt
+KWSys
+*****
+
+Introduction
+============
+
+KWSys is the Kitware System Library.  It provides platform-independent
+APIs to many common system features that are implemented differently on
+every platform.  This library is intended to be shared among many
+projects at the source level, so it has a configurable namespace.
+Each project should configure KWSys to use a namespace unique to itself.
+See comments in `CMakeLists.txt`_ for details.
+
+.. _`CMakeLists.txt`: CMakeLists.txt
+
+License
+=======
+
+KWSys is distributed under the OSI-approved BSD 3-clause License.
+See `Copyright.txt`_ for details.
+
+.. _`Copyright.txt`: Copyright.txt
+
+Reporting Bugs
+==============
+
+KWSys has no independent issue tracker.  After encountering an issue
+(bug) please submit a patch using the instructions for `Contributing`_.
+Otherwise please report the issue to the tracker for the project that
+hosts the copy of KWSys in which the problem was found.
+
+Contributing
+============
+
+See `CONTRIBUTING.rst`_ for instructions to contribute.
+
+.. _`CONTRIBUTING.rst`: CONTRIBUTING.rst

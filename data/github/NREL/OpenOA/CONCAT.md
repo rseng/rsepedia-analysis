@@ -519,3 +519,447 @@ The example data provided in **la_haute_borne.zip** are based on data for the "L
 ENGIE - Original data downloaded from https://opendata-renewables.engie.com/explore/dataset/d543716b-368d-4c53-8fb1-55addbe8d3ad/information, updated on 9 October 2019.
 
 More information about the original data is available at https://opendata-renewables.engie.com
+.. _contributing:
+
+
+.. mdinclude:: ../contributing.md
+.. methods:
+
+Analysis Methods
+======================
+
+Analysis Methods are a collection of modules and classes to accomplish high level analysis of plant data. They integrate
+the more abstract toolkit modules with specific PlantData classes to create a reproducible process. Analysis modules may
+respect the engine parameter of PlantData objects to support multi-platform, scalable analysis.
+
+Plant Level Analysis
+--------------------
+
+.. automodule:: operational_analysis.methods.plant_analysis
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Turbine Level Analysis
+----------------------
+
+.. automodule:: operational_analysis.methods.turbine_long_term_gross_energy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Electrical Losses Analysis
+--------------------------
+
+.. automodule:: operational_analysis.methods.electrical_losses
+    :members:
+    :undoc-members:
+    :show-inheritance:
+.. types:
+
+Project Data
+==================
+
+New data imported into the operational_analysis toolkit can take advantage of the data structures in the `types` module.
+The base class is operational_analysis.types.PlantData, which represents all known pieces of data about a given wind plant.
+
+
+Schemas
+-------
+
+Operational Data
+^^^^^^^^^^^^^^^^
+
+PlantData.scada
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ id                   string
+ power_kw             float64
+ windspeed_ms         float64
+ winddirection_deg    float64
+ status_label         string
+ pitch_deg            float64
+ temp_c               float64
+==================== ====================
+
+PlantData.meter
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ power_kw             float64
+ energy_kw            float64
+==================== ====================
+
+
+PlantData.tower
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ id                   float64
+==================== ====================
+
+PlantData.curtail
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ curtailment_pct      float64
+ availability_pct     float64
+ net_energy           float64
+==================== ====================
+
+
+PlantData.status
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ id                   string
+ status_id            int64
+ status_code          int64
+ status_text          string
+==================== ====================
+
+
+PlantData.asset
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ id                   string
+ latitude             float64
+ longitude            float64
+ rated_power_kw       float64
+ type                 string
+==================== ====================
+
+
+Reanalysis Products
+^^^^^^^^^^^^^^^^^^^
+
+Reanalysis products are included as Plant Data objects and, regardless
+of data source, have a standardized set of field names and types (see below).
+That said, the data sources are obviously different, as are the methods use to
+calculate these standard fields from the raw datasets. These methods are described here.
+
+PlantData.reanalysis.product["merra2"]
+
+MERRA-2 data are based on the single-level diagnostic data available here:
+
+https://disc.gsfc.nasa.gov/datasets/M2T1NXSLV_V5.12.4/summary?keywords=%22MERRA-2%22
+
+Wind speed and direction are taken directly from the diagnostic 50-m u- and v-wind
+fields provided in this dataset. Air density at 50m is calculated using temperature
+and pressure estimations at 50m and the ideal gas law. Temperature at 50m is estimated by taking the 10-m
+temperature data provided by this dataset and assuming a constant lapse rate of -9.8
+degrees Celsius per vertical kilometer. Pressure at 50m is extrapolated from surface pressure
+data provided in this dataset using the hypsometric equation.
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ windspeed_ms         float64
+ winddirection_deg    float64
+ rho_kgm-3            float64
+==================== ====================
+
+PlantData.reanalysis.product["ncep2"]
+
+NCEP-2 data are based on the single-level diagnostic data available here:
+
+https://rda.ucar.edu/datasets/ds091.0/
+
+Wind speed and direction are taken directly from the diagnostic 10-m u- and v-wind
+fields provided in this dataset. Air density at 10m is calculated using temperature
+and pressure estimations at 10m and the ideal gas law. Temperature at 10m is estimated by taking the 2-m
+temperature data provided by this dataset and assuming a constant lapse rate of -9.8
+degrees Celsius per vertical kilometer. Pressure at 10m is extrapolated from surface pressure
+data provided in this dataset using the hypsometric equation.
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ windspeed_ms         float64
+ winddirection_deg    float64
+ rho_kgm-3            float64
+==================== ====================
+
+
+PlantData.reanalysis.product["erai"]
+
+ERA-interim data are based on the model-level data available here:
+
+https://rda.ucar.edu/datasets/ds627.0/
+
+Model levels are based on sigma coordinates (i.e. fractions of surface pressure). From this dataset, we
+extract temperature, u-wind, and v-wind at the 58th model level, which is on average about 72m above ground level
+(https://www.ecmwf.int/en/forecasts/documentation-and-support/60-model-levels). We also extract surface pressure
+data. Air density at the 58th model level is calculated using temperature data extracted at that level and an estimation
+of pressure at that level using the ideal gas law. Pressure at the 58th model level is extrapolated from surface pressure
+data provided in this dataset using the hypsometric equation.
+
+==================== ====================
+ Field Name           Data Type
+==================== ====================
+ time                 datetime64[ns]
+ windspeed_ms         float64
+ winddirection_deg    float64
+ rho_kgm-3            float64
+==================== ====================
+
+
+
+PlantData
+----------------------------------------
+
+.. automodule:: operational_analysis.types.plant
+    :members:
+    :no-undoc-members:
+    :show-inheritance:
+
+
+AssetData
+----------------------------------------
+
+.. automodule:: operational_analysis.types.asset
+    :members:
+    :no-undoc-members:
+    :show-inheritance:
+
+
+ReanalysisData
+----------------------------------------
+
+.. automodule:: operational_analysis.types.reanalysis
+    :members:
+    :no-undoc-members:
+    :show-inheritance:
+.. _credit:
+
+
+Credit
+******
+
+Alphabetically:
+Nathan Agarwal,
+Nicola Bodini,
+Anna Craig,
+Jason Fields,
+Rob Hammond,
+Travis Kemper,
+Joseph Lee,
+Monte Lunacek,
+John Meissner,
+Mike Optis,
+Jordan Perr-Sauer,
+Sebastian Pfaffel,
+Caleb Phillips,
+Charlie Plumley,
+Eliot Quon,
+Sheungwen Sheng,
+Eric Simley, and
+Lindy Williams.
+.. highlight:: rst
+
+
+OpenOA Operational Analysis Framework
+#####################################
+
+|Binder Badge| |Gitter Badge| |Journal of Open Source Software Badge|
+
+|Documentation Badge| |Tests Badge| |Code Coverage Badge|
+
+|pre-commit| |Code style: black| |Imports: isort|
+
+.. ::
+
+    # with overline, for parts
+    * with overline, for chapters
+    =, for sections
+    -, for subsections
+    ^, for subsubsections
+    ", for paragraphs
+
+This library provides a generic framework for working with large timeseries data from wind plants. Its development
+has been motivated by the WP3 Benchmarking (PRUF) project, which aims to provide a reference implementaiton for
+plant-level performance assessment.
+
+The implementation makes use of a flexible backend, so that data loading, processing, and analysis can be performed
+locally (e.g., with Pandas dataframes), in a semi-distributed manner (e.g., with Dask dataframes), or in a fully
+distributed matter (e.g., with Spark dataframes).
+
+Data processing and ETL is handled by the PlantData class and by project-specific modules which implement subclasses.
+These modules can be used to import, inspect, pre-process, and save the raw data from wind turbines, meters, met towers,
+and reanalysis products such as Merra2.
+
+Analysis routines are grouped by purpose into toolkits - which provide an abstract low level API for common
+computations, and methods - which provide higher level wind industry specific API. In addition to these provided modules,
+anyone can write their own, which is intended to provide natural growth of tools within this framework.
+
+To interact with how each of these components of OpenOA are used, please visit our examples notebooks on
+`Binder <https://mybinder.org/v2/gh/NREL/OpenOA/master?filepath=examples>`_, or view them statically on the
+`examples page <examplesout.ipynb>`_.
+
+If you use this software in your work, please cite our JOSS article with the following BibTex::
+
+    @article{Perr-Sauer2021,
+        doi = {10.21105/joss.02171},
+        url = {https://doi.org/10.21105/joss.02171},
+        year = {2021},
+        publisher = {The Open Journal},
+        volume = {6},
+        number = {58},
+        pages = {2171},
+        author = {Jordan Perr-Sauer and Mike Optis and Jason M. Fields and Nicola Bodini and Joseph C.Y. Lee and Austin Todd and Eric Simley and Robert Hammond and Caleb Phillips and Monte Lunacek and Travis Kemper and Lindy Williams and Anna Craig and Nathan Agarwal and Shawn Sheng and John Meissner},
+        title = {OpenOA: An Open-Source Codebase For Operational Analysis of Wind Farms},
+        journal = {Journal of Open Source Software}
+    }
+
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
+
+    install.rst
+    examplesout
+    toolkits.rst
+    methods.rst
+    types.rst
+    contributing.rst
+    credit.rst
+
+
+.. |Binder Badge| image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/NREL/OpenOA/main?filepath=examples
+.. |Gitter Badge| image:: https://badges.gitter.im/NREL_OpenOA/community.svg
+   :target: https://gitter.im/NREL_OpenOA/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+.. |Journal of Open Source Software Badge| image:: https://joss.theoj.org/papers/d635ef3c3784d49f6e81e07a0b35ff6b/status.svg
+   :target: https://joss.theoj.org/papers/d635ef3c3784d49f6e81e07a0b35ff6b
+.. |Documentation Badge| image:: https://readthedocs.org/projects/openoa/badge/?version=latest
+   :target: https://openoa.readthedocs.io
+.. |Tests Badge| image:: https://github.com/NREL/OpenOA/workflows/Tests/badge.svg?branch=develop
+.. |Code Coverage Badge| image:: https://codecov.io/gh/NREL/OpenOA/branch/develop/graph/badge.svg
+   :target: https://codecov.io/gh/NREL/OpenOA
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+.. |Code style: black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+.. |Imports: isort| image:: https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336
+   :target: https://pycqa.github.io/isort/
+.. toolkits:
+
+Toolkits
+=============================
+
+Toolkit modules provide abstract functions that operate on Pandas data frames and series. They can be used in isolation
+as a useful library, or can be used through a higher level Analysis method. Toolkit modules are organized by function
+and in general will only operate on data types from one particular backend. Currently, every toolkit function is
+implemented with Pandas.
+
+Filters
+---------------------
+
+.. automodule:: operational_analysis.toolkits.filters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Power Curve
+---------------------
+
+.. automodule:: operational_analysis.toolkits.power_curve
+    :undoc-members:
+
+.. automodule:: operational_analysis.toolkits.power_curve.functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Imputing
+---------------------
+
+.. automodule:: operational_analysis.toolkits.imputing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Timeseries
+---------------------
+
+.. automodule:: operational_analysis.toolkits.timeseries
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Met Data Processing
+---------------------
+
+.. automodule:: operational_analysis.toolkits.met_data_processing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Metadata Fetch
+---------------------
+
+.. automodule:: operational_analysis.toolkits.metadata_fetch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Unit Conversion
+---------------------
+
+.. automodule:: operational_analysis.toolkits.unit_conversion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Plotting
+---------------------
+
+.. automodule:: operational_analysis.toolkits.pandas_plotting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Reanalysis Downloading
+----------------------
+
+.. automodule:: operational_analysis.toolkits.reanalysis_downloading
+    :members:
+    :undoc-members:
+    :show-inheritance:
+.. _install::
+
+
+.. ::
+
+    # with overline, for parts
+    * with overline, for chapters
+    =, for sections
+    -, for subsections
+    ^, for subsubsections
+    ", for paragraphs
+
+Install
+*******
+
+.. mdinclude:: ../readme.md

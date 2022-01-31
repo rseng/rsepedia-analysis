@@ -391,3 +391,554 @@ comparison plots:
 [Currin]: https://www.sfu.ca/~ssurjano/curretal88exp.html
 [Park91a]: https://www.sfu.ca/~ssurjano/park91a.html
 [Park91b]: https://www.sfu.ca/~ssurjano/park91b.html
+.. _getting_started:
+
+Getting Started
+===============
+
+This page contains some explained examples to help get you started with using
+the ``mf2`` package.
+
+The Basics: What's in a MultiFidelityFunction?
+----------------------------------------------
+
+This package serves as a collection of functions with multiple fidelity levels.
+The number of levels is at least two, but differs by function. Each function is
+encoded as a :class:`~mf2.multiFidelityFunction.MultiFidelityFunction`
+with the following attributes:
+
+``.name``
+    The *name* is simply a standardized format of the name as an attribute to
+    help identify which function is being represented [#footnote_name]_ .
+
+``.ndim``
+    Number of dimensions. This is the dimensionality (i.e. length) of the input
+    vector X of which the objective is evaluated.
+
+``.fidelity_names``
+    This is a list of the human-readable names given to each fidelity.
+
+``.u_bound``, ``.l_bound``
+    The upper and lower bounds of the search-space for the function.
+
+``.functions``
+    A list of the actual function references. You won't typically need this
+    list though, as will be explained next in :ref:`accessing_functions`.
+
+
+
+Simple Usage
+------------
+
+.. _accessing_functions:
+
+Accessing the functions
+^^^^^^^^^^^^^^^^^^^^^^^
+
+As an example, we'll use the :mod:`~mf2.booth` function. As we can see using
+``.ndim`` and the bounds, it is two-dimensional:
+
+    >>> from mf2 import booth
+    >>> print(booth.ndim)
+    2
+    >>> print(booth.l_bound, booth.u_bound)
+    [-10. -10.] [10. 10.]
+
+Most multi-fidelity functions in ``mf2`` are *bi-fidelity* functions, but a
+function can have any number of fidelities. A bi-fidelity function has two
+fidelity levels, which are typically called ``high`` and ``low``. You can
+easily check the names of the fidelities by printing the ``fidelity_names``
+attribute of a function:
+
+    >>> print(len(booth.fidelity_names))
+    2
+    >>> print(booth.fidelity_names)
+    ['high', 'low']
+
+These are just the names of the fidelities. The functions they represent can be
+accessed as an object-style *attribute*,
+
+    >>> print(booth.high)
+    <function booth_hf at 0x...>
+
+as a dictionary-style *key*,
+
+    >>> print(booth['low'])
+    <function booth_lf at 0x...>
+
+or with a list-style *index* (which just passes through to ``.functions``).
+
+    >>> print(booth[0])
+    <function booth_hf at 0x...>
+    >>> print(booth[0] is booth.functions[0])
+    True
+
+The object-style notation ``function.fidelity()`` is recommended for explicit
+access, but the other notations are available for more dynamic usage. With the
+list-style access, the *highest* fidelity is always at index *0*.
+
+
+Calling the functions
+^^^^^^^^^^^^^^^^^^^^^
+
+All functions in the ``mf2`` package assume *row-vectors* as input. To evaluate
+the function at a  single point, it can be given as a simple Python list or 1D
+numpy array. Multiple points can be passed to the function individually, or
+combined into a 2D list/array. The output of the function will always be
+returned as a 1D numpy array:
+
+    >>> X1 = [0.0, 0.0]
+    >>> print(booth.high(X1))
+    [74.]
+    >>> X2 = [
+    ...     [ 1.0,  1.0],
+    ...     [ 1.0, -1.0],
+    ...     [-1.0,  1.0],
+    ...     [-1.0, -1.0]
+    ... ]
+    >>> print(booth.high(X2))
+    [ 20.  80.  72. 164.]
+
+
+Using the bounds
+^^^^^^^^^^^^^^^^
+
+Each function also has a given upper and lower bound, stored as a 1D numpy
+array. They will be of the same length, and exactly as long as the
+dimensionality of the function [#footnote_ndim]_ .
+
+Below is an example function to create a uniform sample within the bounds::
+
+    import numpy as np
+
+    def sample_in_bounds(func, n_samples):
+        raw_sample = np.random.random((n_samples, func.ndim))
+
+        scale = func.u_bound - func.l_bound
+        sample = (raw_sample * scale) + func.l_bound
+
+        return sample
+
+
+Kinds of functions
+------------------
+
+Fixed Functions
+^^^^^^^^^^^^^^^
+
+The majority of multi-fidelity functions in this package are 'fixed' functions.
+This means that everything about the function is fixed:
+
+* dimensionality of the input
+* number of fidelity levels
+* relation between the different fidelity levels
+
+Examples of these functions include the 2D :mod:`~mf2.booth` and 8D
+:mod:`~mf2.borehole` functions.
+
+
+Dynamic Dimensionality Functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Some functions are dynamic in the dimensionality of the input they accept. An
+example of such a function is the ``forrester`` function. The regular 1D
+function is included as ``mf2.forrester``, but a custom n-dimensional version
+can be obtained by calling the factory::
+
+    forrester_4d = mf2.Forrester(ndim=4)
+
+This ``forrester_4d`` is then a regular fixed function as seen before.
+
+
+Adjustable Functions
+^^^^^^^^^^^^^^^^^^^^
+
+Other functions have a tunable parameter that can be used to adjust the
+correlation between the different high and low fidelity levels. For these too,
+you can simply call a factory that will return a version of that function with
+the parameter fixed to your specification::
+
+    paciorek_high_corr = mf2.adjustable.paciorek(a2=0.1)
+
+The exact relationship between the input parameter and resulting correlation
+can be found in the documentation of the specific functions. See for example
+:mod:`~mf2.adjustable.paciorek`.
+
+Adding Your Own
+---------------
+
+Each function is stored as a ``MultiFidelityFunction``-object, which contains
+the dimensionality, intended upper/lower bounds, and of course all fidelity
+levels. This class can also be used to define your own multi-fidelity function.
+
+To do so, first define regular functions for each fidelity. Then create the
+``MultiFidelityFunction`` object by passing a name, the upper and lower bounds,
+and a tuple of the functions for the fidelities.
+
+The following is an example for a 1-dimensional multi-fidelity function named
+``my_mf_sphere`` with three fidelities::
+
+    import numpy as np
+    from mf2 import MultiFidelityFunction
+
+    def sphere_hf(x):
+        return x*x
+
+    def sphere_mf(x):
+        return x * np.sqrt(x) * np.sign(x)
+
+    def sphere_lf(x):
+        return np.abs(x)
+
+    my_mf_sphere = MultiFidelityFunction(
+        name='sphere',
+        u_bound=[1],
+        l_bound=[-1],
+        functions=(sphere_hf, sphere_mf, sphere_lf),
+    )
+
+These functions can be accessed using list-style *indices*, but as no names
+are given, the object-style *attributes* or dict-style *keys* won't work:
+
+    >>> print(my_mf_sphere[0])
+    <function sphere_hf at 0x...>
+    >>> print(my_mf_sphere['medium'])
+    ---------------------------------------------------------------------------
+    IndexError                                Traceback (most recent call last)
+    ...
+    IndexError: Invalid index 'medium'
+    >>> print(my_mf_sphere.low)
+    ---------------------------------------------------------------------------
+    AttributeError                            Traceback (most recent call last)
+    ...
+    AttributeError: 'MultiFidelityFunction' object has no attribute 'low'
+    >>> print(my_mf_sphere.fidelity_names)
+    None
+
+To enable access by attribute or key, a tuple containing a name for each fidelity
+is required. Let's extend the previous example by adding
+``fidelity_names=('high', 'medium', 'low')``::
+
+    my_named_mf_sphere = MultiFidelityFunction(
+        name='sphere',
+        u_bound=[1],
+        l_bound=[-1],
+        functions=(sphere_hf, sphere_mf, sphere_lf),
+        fidelity_names=('high', 'medium', 'low'),
+    )
+
+Now we the attribute and key access will work:
+
+    >>> print(my_named_mf_sphere[0])
+    <function sphere_hf at 0x...>
+    >>> print(my_named_mf_sphere['medium'])
+    <function sphere_mf at 0x...>
+    >>> print(my_named_mf_sphere.low)
+    <function sphere_lf at 0x...>
+    >>> print(my_named_mf_sphere.fidelity_names)
+    ('high', 'medium', 'low')
+
+
+
+
+.. rubric:: Footnotes
+
+.. [#footnote_name] This is as they're instances of MultiFidelityFunction instead
+                    of separate classes.
+
+.. [#footnote_ndim] In fact, ``.ndim`` is defined as ``len(self.u_bound)``
+Performance
+===========
+
+Where possible, all functions are written using `numpy <https://numpy.org/>`_
+to make use of optimized routines and vectorization. Evaluating a single
+point typically takes less than 0.0001 seconds on a modern desktop system,
+regardless of function. This page shows some more detailed information about the
+performance, even though this library should not be a bottleneck in any
+programs.
+
+The scripts for generating following performance overviews can be found in the
+`docs/scripts <https://github.com/sjvrijn/mf2/tree/master/docs/scripts>`_ folder
+of the repository. Presented running times were measured on a desktop PC with an
+Intel Core i7 5820k 6-core CPU, with Python 3.6.3 and Numpy 1.18.4.
+
+Performance Scaling
+-------------------
+
+The image below shows how the runtime scales as ``N`` points are passed to the
+functions simultaneously as a matrix of size ``(N, ndim)``. Performance for the
+high- and low-fidelity formulations are shown separately to give a fair
+comparison: many low-fidelities are defined as computations on top of the
+high-fidelity definitions. As absolute performance will vary per system, the
+runtime is divided by the time needed for ``N=1`` as a normalization. This is
+done independently for each function and fidelity level.
+
+Up to ``N=1_000``, the time required scales less than linearly thanks to
+efficient and vectorized numpy routines.
+
+.. image:: ../_static/scalability.png
+  :width: 640
+
+
+Performance Comparison
+----------------------
+
+The following image shows how the scaling for the ``mf2`` implementation of the
+**Currin**, **Park91A**, **Park91B** and **Borehole** functions compares to the
+*Matlab* implementations by `Surjanovic and Bingham
+<https://www.sfu.ca/~ssurjano/multi.html>`_, which can only evaluate one point
+at a time, so do not use any vectorization. Measurements were performed using
+*Matlab* version R2020a (9.8.0.1323502).
+
+.. image:: ../_static/scalability_comparison.png
+  :width: 640
+.. _example_usage:
+
+Example Usage
+=============
+
+This example is a reproduction of Figure 1 from http://doi.org/10.1098/rspa.2007.1900 :
+
+The original figure:
+
+.. image:: https://royalsocietypublishing.org/cms/asset/efa57e07-5384-4503-8b2b-ccbe632ffe87/3251fig1.jpg
+  :width: 640
+
+Code to reproduce the above figure as close as possible:
+
+.. literalinclude:: ../scripts/example-usage.py
+   :language: python
+   :emphasize-lines: 13,14,16,34,35
+   :linenos:
+
+Reproduced figure:
+
+.. image:: ../_static/recreating-forrester-2007.png
+  :width: 640
+.. Multi-Fidelity Functions documentation master file, created by
+   sphinx-quickstart on Thu Nov 14 00:14:31 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+MF2: Multi-Fidelity Functions
+=============================
+
+This is the documentation for the ``mf2`` package. For a short introduction with
+examples, have a look at the :ref:`getting_started` page. Otherwise, you can
+look at the available functions in the package by category.
+
+The ``mf2`` package provides consistent, efficient and tested Python
+implementations of a variety of multi-fidelity benchmark functions. The goal is
+to simplify life for numerical optimization researchers by saving time otherwise
+spent reimplementing and debugging the same common functions, and enabling
+direct comparisons with other work using the same definitions, improving
+reproducibility in general.
+
+A multi-fidelity function usually reprensents an objective which should be
+optimized. The term 'multi-fidelity' refers to the fact, that multiple versions
+of the objective function exist which differ in the accuray to describe the
+real objective. A typical real-world example would be the aerodynamic
+efficiency of an airfoil, e.g., its drag value for a given lift value. The
+different fidelity levels are given by the accuracy of the evaluation method
+used to estimate the efficiency. Lower-fidelity versions of the objective
+function refer to less accurate, but simpler approximations of the objective,
+such as computational fluid dynamic simulations on rather coarse meshes,
+whereas higher fidelity levels refer to more accurate but also much more
+demaning evaluations such as prototype tests in wind tunnels. The hope of
+multi-fildelity optimization approaches is that many of the not-so-accurate but
+simple low-fidelity evaluations can be used to achieve improved results on the
+realistic high-fidelity version of the objective where only very few
+evaluations can be performed.
+
+The only dependency of the mf2 package is the `numpy <https://numpy.org/>`_
+package.
+
+The source for this package is hosted at `github.com/sjvrijn/mf2 <https://github.com/sjvrijn/mf2>`_.
+
+Last updated: (|today|)
+
+
+Contents
+========
+
+.. toctree::
+   :maxdepth: 2
+
+   install
+   example-usage
+   performance
+   getting-started
+   mf2
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Installation
+============
+
+The recommended way to install `mf2` is with Python's `pip`::
+
+    python3 -m pip install --user mf2
+
+or alternatively using `conda`::
+
+    conda install -c conda-forge mf2
+
+
+For the latest version, you can install directly from source::
+
+    python3 -m pip install --user https://github.com/sjvrijn/mf2/archive/master.zip
+
+
+To work in your own version locally, it is best to clone the repository first::
+
+    git clone https://github.com/sjvrijn/mf2.git
+    cd mf2
+    python3 -m pip install --user -e .[dev]
+mf2 package
+===========
+
+Fixed Functions
+---------------
+.. toctree::
+
+   functions/multiFidelityFunction
+   functions/bohachevsky
+   functions/booth
+   functions/borehole
+   functions/branin
+   functions/currin
+   functions/forrester
+   functions/hartmann
+   functions/himmelblau
+   functions/park91a
+   functions/park91b
+   functions/six_hump_camelback
+
+
+Adjustable Functions
+--------------------
+.. toctree::
+
+   functions/adjustable/branin
+   functions/adjustable/paciorek
+   functions/adjustable/hartmann
+   functions/adjustable/trid
+Forrester
+=========
+
+.. automodule:: mf2.forrester
+    :members:
+    :undoc-members:
+    :show-inheritance:
+MultiFidelityFunction
+=====================
+
+.. automodule:: mf2.multiFidelityFunction
+    :members:
+    :special-members: __init__
+    :undoc-members:
+    :show-inheritance:
+Park91 B
+========
+
+.. automodule:: mf2.park91b
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Hartmann6
+=========
+
+.. automodule:: mf2.hartmann
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Six-Hump Camelback
+==================
+
+.. automodule:: mf2.six_hump_camelback
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Bohachevsky
+===========
+
+.. automodule:: mf2.bohachevsky
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Booth
+=====
+
+.. automodule:: mf2.booth
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Borehole
+========
+
+.. automodule:: mf2.borehole
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Currin
+======
+
+.. automodule:: mf2.currin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Himmelblau
+==========
+
+.. automodule:: mf2.himmelblau
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Park91 A
+========
+
+.. automodule:: mf2.park91a
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Branin
+======
+
+.. automodule:: mf2.branin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Adjustable Trid
+===============
+
+.. automodule:: mf2.adjustable.trid
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Adjustable Hartmann3
+====================
+
+.. automodule:: mf2.adjustable.hartmann
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Adjustable Paciorek
+===================
+
+.. automodule:: mf2.adjustable.paciorek
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Adjustable Branin
+=================
+
+.. automodule:: mf2.adjustable.branin
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1460,3 +1460,292 @@ gganimate
 jsonlite
 ```
 These can be installed from CRAN via ```install.packages(<package_name>)```.
+Scripts of the pyveg package
+=====================
+
+
+pyveg.scripts.analyse\_gee\_data module
+---------------------------------------
+
+.. automodule:: pyveg.scripts.analyse_gee_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.analyse\_pyveg\_summary\_data module
+--------------------------------------------------
+
+.. automodule:: pyveg.scripts.analyse_pyveg_summary_data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.calc\_euler\_characteristic module
+------------------------------------------------
+
+.. automodule:: pyveg.scripts.calc_euler_characteristic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.create\_analysis\_report module
+---------------------------------------------
+
+.. automodule:: pyveg.scripts.create_analysis_report
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.crop\_and\_convert\_images module
+-----------------------------------------------
+
+.. automodule:: pyveg.scripts.crop_and_convert_images
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.download\_from\_azure module
+------------------------------------------
+
+.. automodule:: pyveg.scripts.download_from_azure
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.generate\_config\_file module
+-------------------------------------------
+
+.. automodule:: pyveg.scripts.generate_config_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.generate\_pattern module
+--------------------------------------
+
+.. automodule:: pyveg.scripts.generate_pattern
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.plot\_feature\_vectors module
+-------------------------------------------
+
+.. automodule:: pyveg.scripts.plot_feature_vectors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.run\_pyveg\_module module
+---------------------------------------
+
+.. automodule:: pyveg.scripts.run_pyveg_module
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.run\_pyveg\_pipeline module
+-----------------------------------------
+
+.. automodule:: pyveg.scripts.run_pyveg_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.scripts.upload\_to\_zenodo module
+---------------------------------------
+
+.. automodule:: pyveg.scripts.upload_to_zenodo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: pyveg.scripts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Welcome to pyveg's documentation!
+=================================
+
+The `pyveg` package implements functionality to download and process data
+from Google Earth Engine (GEE), and analyse images from periodic vegetation patterns (PVP) in arid and semi-arid ecosystems.
+PVP images are quantified using
+network centrality metrics. The results of the analysis can be used
+to search for typical early warning signals of an ecological collapse. Google Earth Engine Editor scripts are also provided to help
+researchers discover locations of ecosystems which may be in
+decline.
+
+pyveg is being developed as part of a research project looking for evidence of early warning signals of ecosystem
+collapse using remote sensing data. pyveg allows such research to be carried out at scale, and hence can be an important
+tool in understanding changing arid and semi-arid ecosystem dynamics.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: The pyveg package
+
+   README.md
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API documentation
+
+   pyveg.scripts.rst
+   pyveg.src.rst
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Source code of the pyveg package
+=================
+
+pyveg.src.analysis\_preprocessing module
+----------------------------------------
+
+.. automodule:: pyveg.src.analysis_preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.azure\_utils module
+-----------------------------
+
+.. automodule:: pyveg.src.azure_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.batch\_utils module
+-----------------------------
+
+.. automodule:: pyveg.src.batch_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.combiner\_modules module
+----------------------------------
+
+.. automodule:: pyveg.src.combiner_modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.coordinate\_utils module
+----------------------------------
+
+.. automodule:: pyveg.src.coordinate_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.data\_analysis\_utils module
+--------------------------------------
+
+.. automodule:: pyveg.src.data_analysis_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.date\_utils module
+----------------------------
+
+.. automodule:: pyveg.src.date_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.download\_modules module
+----------------------------------
+
+.. automodule:: pyveg.src.download_modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.file\_utils module
+----------------------------
+
+.. automodule:: pyveg.src.file_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.gee\_interface module
+-------------------------------
+
+.. automodule:: pyveg.src.gee_interface
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.image\_utils module
+-----------------------------
+
+.. automodule:: pyveg.src.image_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.pattern\_generation module
+------------------------------------
+
+.. automodule:: pyveg.src.pattern_generation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.plotting module
+-------------------------
+
+.. automodule:: pyveg.src.plotting
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.processor\_modules module
+-----------------------------------
+
+.. automodule:: pyveg.src.processor_modules
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.pyveg\_pipeline module
+--------------------------------
+
+.. automodule:: pyveg.src.pyveg_pipeline
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.subgraph\_centrality module
+-------------------------------------
+
+.. automodule:: pyveg.src.subgraph_centrality
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyveg.src.zenodo\_utils module
+------------------------------
+
+.. automodule:: pyveg.src.zenodo_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: pyveg.src
+   :members:
+   :undoc-members:
+   :show-inheritance:

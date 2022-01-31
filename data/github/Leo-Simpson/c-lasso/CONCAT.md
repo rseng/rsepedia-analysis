@@ -1620,3 +1620,2150 @@ For external comparison, we use cvx and its underlying conic solver (scs). For m
 * [6] B. O’Donoghue, E. Chu, N. Parikh, and S. Boyd. [Conic optimization via operator splitting and homogeneous self-dual embedding.](https://link.springer.com/article/10.1007/s10957-016-0892-3), Journal of Optimization Theory and Applications 169, no. 3 (2016): 1042-1068.
 
 
+Structure of the code
+========================
+
+
+.. figure:: additional/classo_structure.png
+   :width: 600 px
+   :align: center
+
+Getting started
+======================
+
+
+
+
+Installation
+^^^^^^^^^^^^^^^^
+
+c-lasso is available on pip. You can install the package
+in the shell using
+
+.. code-block::
+
+     pip install c-lasso
+
+To use the c-lasso package in Python, type 
+
+.. code-block:: python
+
+     from classo import classo_problem 
+     # one can add auxiliary functions as well such as random_data or csv_to_np
+
+Dependencies
+^^^^^^^^^^^^^^
+
+The `c-lasso` package depends on the following Python packages:
+
+- ``numpy``; 
+- ``matplotlib``; 
+- ``scipy``; 
+- ``pandas``;
+- ``pytest`` (for tests)
+Miscellaneous functions
+========================
+
+
+.. automodule:: classo.misc_functions
+
+
+
+   .. rubric:: Functions
+
+   .. autosummary::
+
+      random_data
+      clr
+      theoretical_lam
+
+
+More details
+==============
+
+.. autofunction:: random_data
+.. autofunction:: clr
+.. autofunction:: theoretical_lam
+
+Mathematical description
+=============================
+
+
+The forward model is assumed to be: 
+
+.. math::
+   y = X \beta + \sigma \epsilon \qquad \textrm{subject to} \qquad C\beta=0
+
+Here, y and X are given outcome and predictor data. The vector y can be continuous (for regression) or binary (for classification). C is a general constraint matrix. The vector :math:`\beta` comprises the unknown coefficients and :math:`\sigma` an 
+unknown scale.
+
+The package handles several different estimators for inferring :math:`\beta` and :math:`\sigma`), including 
+the constrained Lasso, the constrained scaled Lasso, and sparse Huber M-estimation with linear equality constraints.
+Several different algorithmic strategies, including path and proximal splitting algorithms, are implemented to solve 
+the underlying convex optimization problems.
+
+We also include two model selection strategies for determining the sparsity of the model parameters: k-fold cross-validation and stability selection.   
+
+This package is intended to fill the gap between popular python tools such as `scikit-learn <https://scikit-learn.org/stable/>`_ which CANNOT solve sparse constrained problems and general-purpose optimization solvers that do not scale well for the considered problems.
+
+Below we show several use cases of the package, including an application of sparse *log-contrast*
+regression tasks for *compositional* microbiome data.
+
+The code builds on results from several papers which can be found in the [References](#references). We also refer to the accompanying `JOSS paper submission <https://github.com/Leo-Simpson/c-lasso/blob/master/paper/paper.md>`_, also available on `arXiv <https://arxiv.org/pdf/2011.00898.pdf>`_.
+
+
+Regression and classification problems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The c-lasso package can solve six different types of estimation problems: 
+four regression-type and two classification-type formulations.
+
+[R1] Standard constrained Lasso regression
+"""""""""""""""""""""""""""""""""""""""""""""          
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d} \left\lVert X\beta - y \right\rVert^2 + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0
+
+
+This is the standard Lasso problem with linear equality constraints on the :math:`\beta` vector. 
+The objective function combines Least-Squares for model fitting with l1 penalty for sparsity.   
+
+[R2] Constrained sparse Huber regression
+""""""""""""""""""""""""""""""""""""""""""""""""""                   
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d} h_{\rho} (X\beta - y) + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0
+
+This regression problem uses the `Huber loss <https://en.wikipedia.org/wiki/Huber_loss>`_ as objective function 
+for robust model fitting with l1 and linear equality constraints on the :math:`\beta` vector. The parameter :math:`\rho=1.345`.
+
+[R3] Constrained scaled Lasso regression
+""""""""""""""""""""""""""""""""""""""""""""""""""  
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d, \sigma \in \mathbb{R}_{0}} \frac{\left\lVert X\beta - y \right\rVert^2}{\sigma} + \frac{n}{2} \sigma + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0
+
+
+This formulation is similar to [R1] but allows for joint estimation of the (constrained) :math:`\beta` vector and the standard deviation :math:`\sigma` in a concomitant fashion [4]_, [5]_ .
+This is the default problem formulation in c-lasso.
+
+[R4] Constrained sparse Huber regression with concomitant scale estimation 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""       
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d, \sigma \in  \mathbb{R}_{0}} \left( h_{\rho} \left( \frac{X\beta - y}{\sigma} \right) + n \right) \sigma + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0
+
+This formulation combines [R2] and [R3] to allow robust joint estimation of the (constrained) :math:`\beta` vector and 
+the scale :math:`\sigma` in a concomitant fashion [4]_ , [5]_ .
+
+[C1] Constrained sparse classification with Square Hinge loss
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""  
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d} \sum_{i=1}^n l(y_i x_i^\top\beta) + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0
+
+
+where the :math:`x_i` are the rows of X and l is defined as:
+
+.. math::
+   l(r) = \begin{cases} (1-r)^2 & if \quad r \leq 1 \\ 0 &if \quad r \geq 1 \end{cases}
+
+This formulation is similar to [R1] but adapted for classification tasks using the Square Hinge loss
+with (constrained) sparse :math:`\beta` vector estimation.
+
+[C2] Constrained sparse classification with Huberized Square Hinge loss
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""  
+
+.. math::
+   \min_{\beta \in \mathbb{R}^d}  \sum_{i=1}^n  l_{\rho}(y_i x_i^\top\beta) + \lambda \left\lVert \beta\right\rVert_1 \qquad \textrm{subject to} \qquad  C\beta = 0 \,.
+
+where the :math:`x_i`  are the rows of X and :math:`l_{\rho}` is defined as:
+
+.. math::
+   l_{\rho}(r) = \begin{cases} (1-r)^2 &if \quad \rho \leq r \leq 1 \\ (1-\rho)(1+\rho-2r) & if \quad r \leq \rho \\ 0 &if \quad r \geq 1 \end{cases}
+
+This formulation is similar to [C1] but uses the Huberized Square Hinge loss for robust classification with (constrained) sparse :math:`\beta` vector estimation [7]_.
+
+
+
+Optimization schemes
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The available problem formulations [R1-C2] require different algorithmic strategies for 
+efficiently solving the underlying optimization problem. We have implemented four 
+algorithms (with provable convergence guarantees) that vary in generality and are not 
+necessarily applicable to all problems. For each problem type, c-lasso has a default algorithm 
+setting that proved to be the fastest in our numerical experiments.
+
+Path algorithms (Path-Alg) 
+""""""""""""""""""""""""""""""""""""""""""""""""""  
+This is the default algorithm for non-concomitant problems [R1,R3,C1,C2]. 
+The algorithm uses the fact that the solution path along :math:`\lambda` is piecewise-
+affine [1]_. When Least-Squares is used as objective function,
+we derive a novel efficient procedure that allows us to also derive the 
+solution for the concomitant problem [R2] along the path with little extra computational overhead.
+
+Projected primal-dual splitting method (P-PDS)
+""""""""""""""""""""""""""""""""""""""""""""""""""  
+This algorithm is derived from [2]_ and belongs to the class of 
+proximal splitting algorithms. It extends the classical Forward-Backward (FB) 
+(aka proximal gradient descent) algorithm to handle an additional linear equality constraint
+via projection. In the absence of a linear constraint, the method reduces to FB.
+This method can solve problem [R1]. For the Huber problem [R3], 
+P-PDS can solve the mean-shift formulation of the problem [6]_.
+
+Projection-free primal-dual splitting method (PF-PDS)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+This algorithm is a special case of an algorithm proposed in [3]_ (Eq.4.5) and also belongs to the class of 
+proximal splitting algorithms. The algorithm does not require projection operators 
+which may be beneficial when C has a more complex structure. In the absence of a linear constraint, 
+the method reduces to the Forward-Backward-Forward scheme. This method can solve problem [R1]. 
+For the Huber problem [R3], PF-PDS can solve the mean-shift formulation of the problem [6]_.
+
+Douglas-Rachford-type splitting method (DR)
+""""""""""""""""""""""""""""""""""""""""""""""""""  
+This algorithm is the most general algorithm and can solve all regression problems 
+[R1-R4]. It is based on Doulgas Rachford splitting in a higher-dimensional product space.
+It makes use of the proximity operators of the perspective of the LS objective (see [4]_ and [5]_)
+The Huber problem with concomitant scale [R4] is reformulated as scaled Lasso problem 
+with the mean shift [6]_ and thus solved in (n + d) dimensions. 
+
+
+
+
+References
+^^^^^^^^^^^
+
+.. [1] B. R. Gaines, J. Kim, and H. Zhou, `Algorithms for Fitting the Constrained Lasso <https://www.tandfonline.com/doi/abs/10.1080/10618600.2018.1473777?journalCode=ucgs20>`_, J. Comput. Graph. Stat., vol. 27, no. 4, pp. 861–871, 2018.
+.. [2] L. Briceno-Arias and S.L. Rivera, `A Projected Primal–Dual Method for Solving Constrained Monotone Inclusions <https://link.springer.com/article/10.1007/s10957-018-1430-2?shared-article-renderer>`_, J. Optim. Theory Appl., vol. 180, Issue 3, March 2019.
+.. [3] P. L. Combettes and J.C. Pesquet, `Primal-Dual Splitting Algorithm for Solving Inclusions with Mixtures of Composite, Lipschitzian, and Parallel-Sum Type Monotone Operators <https://arxiv.org/pdf/1107.0081.pdf>`_, Set-Valued and Variational Analysis, vol. 20, pp. 307-330, 2012.
+.. [4] P. L. Combettes and C. L. Müller, `Perspective M-estimation via proximal decomposition <https://arxiv.org/abs/1805.06098>`_, Electronic Journal of Statistics, 2020, `Journal version <https://projecteuclid.org/euclid.ejs/1578452535>`_ 
+.. [5] P. L. Combettes and C. L. Müller, `Regression models for compositional data: General log-contrast formulations, proximal optimization, and microbiome data applications <https://arxiv.org/abs/1903.01050>`_, Statistics in Bioscience, 2020.
+.. [6] A. Mishra and C. L. Müller, `Robust regression with compositional covariates <https://arxiv.org/abs/1909.04990>`_, arXiv, 2019.
+.. [7] S. Rosset and J. Zhu, `Piecewise linear regularized solution paths <https://projecteuclid.org/euclid.aos/1185303996>`_, Ann. Stat., vol. 35, no. 3, pp. 1012–1030, 2007.
+
+Contributing to c-lasso
+==========================
+
+``c-lasso`` is a package that always can be improved. Any feedback can
+help a lot to fix some bug and to add possible new functionality.
+
+One can contribute either by reporting an error, requesting a new feature or adding a new feature.
+
+Reporting errors
+^^^^^^^^^^^^^^^^^^
+
+Any errors or general problems can be reported on `GitHub's Issue tracker <https://github.com/Leo-Simpson/c-lasso/issues>`_
+
+The quickest way resolve a problem is to go through the following steps:
+
+* Have I tested this on the latest GitHub (``master``) version?
+  To see which version you use, you can run on python :
+
+     >>> import classo
+     >>> classo.__version__
+  
+
+
+* Have I provided a sample code block which reproduces the error?  Have I
+  tested the code block?
+
+While more information can help, the most important step is to report the
+problem, and any missing information can be provided over the course of the
+discussion.
+
+
+Feature requests
+^^^^^^^^^^^^^^^^^^
+
+We recommend opening an issue on `issue on GitHub <https://github.com/Leo-Simpson/c-lasso/issues>`_ to discuss potential changes.
+
+When preparing a feature request, consider providing the following information:
+
+* What problem is this feature trying to solve?
+
+* Is it solvable using Python intrinsics?  How is it currently handled in
+  similar modules?
+
+* Can you provide an example code block demonstrating the feature?
+
+* Does this feature require any new dependencies ?
+
+
+
+
+
+
+
+Adding a feature
+^^^^^^^^^^^^^^^^^^
+
+One can also contribute with a new feature or with fixing a bug.
+
+Feature should be sent as pull requests via `GitHub <https://github.com/Leo-Simpson/c-lasso>`_, specifically to the
+``master`` branch, which acts as the main development branch.
+
+Fixes and features are very welcome to ``c-lasso``, and are greatly encouraged.
+
+If you are concerned that a project may not be suitable or may conflict with
+ongoing work, then feel free to submit a feature request.
+
+When preparing a pull request, one should make sure that the code changes:
+
+* Pass existing tests, this can be done by running within the root directory:
+
+  .. code-block:: bash
+
+    $ pip install --upgrade pytest
+    $ pytest
+
+* Includes a test case.
+  See the files in ``c-lasso/tests`` for examples
+  
+* Includes some example of use cases.
+  See the files in ``c-lasso/examples`` for examples
+  
+* Depends on standard library. Any features
+  requiring an external dependency should only be enabled when the dependenc is available.
+  
+* Be properly documented. 
+  c-lasso's documentation (including docstring in code) uses ReStructuredText format,
+  see `Sphinx documentation <http://www.sphinx-doc.org/en/master/>`_ to learn more about editing them. The code
+  follows the `NumPy docstring standard <https://numpydoc.readthedocs.io/en/latest/format.html>`_.
+  To ensure that documentation is rendered correctly,
+  the best bet is to follow the existing examples for function docstrings.
+  If you want to test the documentation locally,
+  you will need to run the following command lines within the ``c-lasso/docs`` directory :
+
+  .. code-block:: bash
+
+    $ pip install --upgrade sphinx
+    $ make html
+  
+ 
+Seeking for support ?
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the above ways of interacting with ``c-lasso`` does not fit your request,
+you may `contact directly one of the autors <leo.bill.simpson@gmail.com>`_.
+ 
+Structure of problem instance
+=============================
+
+.. automodule:: classo.solver
+
+   .. rubric:: Classes
+
+   .. autosummary::
+
+      classo_problem
+      classo_problem.solve
+      Data
+      Formulation
+      Model_selection
+      PATHparameters
+      CVparameters
+      StabSelparameters
+      LAMfixedparameters
+      Solution
+      solution_PATH
+      solution_ALO
+      solution_CV
+      solution_CV.graphic
+      solution_StabSel
+      solution_LAMfixed
+
+
+Class classo_problem
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: classo_problem
+.. automethod:: classo_problem.solve
+.. autofunction:: choose_numerical_method
+
+
+Class Data
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: Data
+
+Class Formulation
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: Formulation
+
+
+Class Model_selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: Model_selection
+
+Classes used in Model_selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: PATHparameters
+.. autoclass:: ALOparameters
+.. autoclass:: CVparameters
+.. autoclass:: StabSelparameters
+.. autoclass:: LAMfixedparameters
+
+Class Solution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: Solution
+
+
+Classes used in Solution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: solution_PATH
+.. autoclass:: solution_ALO
+.. autoclass:: solution_CV
+.. automethod:: solution_CV.graphic
+.. autoclass:: solution_StabSel
+.. autoclass:: solution_LAMfixed
+
+
+
+
+
+.. classo documentation master file, created by
+   sphinx-quickstart on Wed Oct 21 00:43:44 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to classo's documentation!
+==================================
+
+.. figure:: additional/classoLogo.png
+   :height: 120px
+   :width: 200 px
+   :align: right
+
+c-lasso is a Python package that enables sparse and robust linear regression and classification with linear equality constraints on the model parameters. 
+
+The package is available on `https://github.com/Leo-Simpson/c-lasso`.
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   description
+   getting-started
+   auto_examples/index
+   problem_classo
+   misc-functions
+   structure-code
+
+   additional/license
+   CONTRIBUTING
+
+
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_CentralParkSoil.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_CentralParkSoil.py:
+
+
+pH prediction using the Central Park soil dataset 
+=========================================================
+
+
+The next microbiome example considers the [Central Park Soil dataset](./examples/CentralParkSoil) from [Ramirez et al.](https://royalsocietypublishing.org/doi/full/10.1098/rspb.2014.1988). The sample locations are shown in the Figure on the right.)
+
+The task is to predict pH concentration in the soil from microbial abundance data.
+
+This task is also done in `Tree-Aggregated Predictive Modeling of Microbiome Data <https://www.biorxiv.org/content/10.1101/2020.09.01.277632v1>`_.
+
+
+.. code-block:: default
+
+
+    from classo import classo_problem
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+
+
+
+
+
+
+
+Load data
+^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    data = np.load('CentralParkSoil/cps.npz')
+
+    x = data["x"]
+    label = data["label"]
+    y = data["y"]
+
+    A = np.load('CentralParkSoil/A.npy')
+
+
+
+
+
+
+
+
+Preprocess: taxonomy aggregation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    label_short = np.array([l.split("::")[-1] for l in label])
+
+    pseudo_count = 1
+    X = np.log(pseudo_count+x)
+    nleaves = np.sum(A,axis = 0)
+    logGeom = X.dot(A)/nleaves
+
+    n,d = logGeom.shape
+
+    tr = np.random.permutation(n)[:int(0.8*n)]
+
+
+
+
+
+
+
+
+Cross validation and Path Computation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(logGeom[tr], y[tr], label = label_short)
+
+    problem.formulation.w = 1/nleaves
+    problem.formulation.intercept     = True
+    problem.formulation.concomitant = False
+
+    problem.model_selection.StabSel   = False
+    problem.model_selection.PATH   = True
+    problem.model_selection.CV   = True
+    problem.model_selection.CVparameters.seed = 6 # one could change logscale, Nsubset, oneSE
+    print(problem)
+
+    problem.solve()
+    print(problem.solution)
+
+    selection = problem.solution.CV.selected_param[1:] # exclude the intercept
+    print(label[selection])
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_001.png
+          :alt: Coefficients across $\lambda$-path using R1
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_002.png
+          :alt:  
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_003.png
+          :alt: Refitted coefficients after CV model selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R1
+ 
+    MODEL SELECTION COMPUTED:  
+         Path
+         Cross Validation
+ 
+    PATH PARAMETERS: 
+         numerical_method : not specified
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+ 
+    CROSS VALIDATION PARAMETERS: 
+         numerical_method : not specified
+         one-SE method : True
+         Nsubset = 5
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+
+
+     PATH COMPUTATION : 
+     There is also an intercept.  
+       Running time :  4.572s
+
+     CROSS VALIDATION : 
+     Intercept : 5.914250472305105
+       Selected variables :  p__Bacteroidetes    o__Acidobacteriales    k__Bacteria    
+       Running time :  23.638s
+
+    ['Life::k__Bacteria::p__Bacteroidetes'
+     'Life::k__Bacteria::p__Acidobacteria::c__Acidobacteriia::o__Acidobacteriales'
+     'Life::k__Bacteria']
+
+
+
+
+Prediction plot
+""""""""""""""""""""
+
+
+.. code-block:: default
+
+
+    te = np.array([i for i in range(len(y)) if not i in tr])
+    alpha = problem.solution.CV.refit
+    yhat = logGeom[te].dot(alpha[1:])+alpha[0]
+
+    M1, M2 = max(y[te]), min(y[te])
+    plt.plot(yhat, y[te], 'bo', label = 'sample of the testing set')
+    plt.plot([M1, M2], [M1, M2], 'k-', label = "identity")
+    plt.xlabel('predictor yhat'), plt.ylabel('real y'), plt.legend()
+    plt.tight_layout()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_004.png
+    :alt: plot CentralParkSoil
+    :class: sphx-glr-single-img
+
+
+
+
+
+Stability selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(logGeom[tr], y[tr], label = label_short)
+
+    problem.formulation.w = 1/nleaves
+    problem.formulation.intercept     = True
+    problem.formulation.concomitant = False
+
+
+    problem.model_selection.PATH   = False
+    problem.model_selection.CV   = False
+    # can change q, B, nS, method, threshold etc in problem.model_selection.StabSelparameters
+
+    problem.solve()
+
+    print(problem, problem.solution)
+
+    selection = problem.solution.StabSel.selected_param[1:] # exclude the intercept
+    print(label[selection])
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_005.png
+          :alt: Stability selection profile of type first using R1
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_006.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R1
+ 
+    MODEL SELECTION COMPUTED:  
+         Stability selection
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : Path-Alg
+         method : first
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lamin = 0.01
+         Nlam = 50
+ 
+     STABILITY SELECTION : 
+       Selected variables :  intercept    p__Bacteroidetes    o__Acidobacteriales    c__Acidobacteria-6    k__Bacteria    
+       Running time :  55.132s
+
+    ['Life::k__Bacteria::p__Bacteroidetes'
+     'Life::k__Bacteria::p__Acidobacteria::c__Acidobacteriia::o__Acidobacteriales'
+     'Life::k__Bacteria::p__Acidobacteria::c__Acidobacteria-6'
+     'Life::k__Bacteria']
+
+
+
+
+Prediction plot
+""""""""""""""""""""
+
+
+.. code-block:: default
+
+
+    te = np.array([i for i in range(len(y)) if not i in tr])
+    alpha = problem.solution.StabSel.refit
+    yhat = logGeom[te].dot(alpha[1:])+alpha[0]
+
+    M1, M2 = max(y[te]), min(y[te])
+    plt.plot(yhat, y[te], 'bo', label = 'sample of the testing set')
+    plt.plot([M1, M2],[M1, M2], 'k-', label = "identity")
+    plt.xlabel('predictor yhat'), plt.ylabel('real y'), plt.legend()
+    plt.tight_layout()
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_CentralParkSoil_007.png
+    :alt: plot CentralParkSoil
+    :class: sphx-glr-single-img
+
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 1 minutes  25.884 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_CentralParkSoil.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_CentralParkSoil.py <plot_CentralParkSoil.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_CentralParkSoil.ipynb <plot_CentralParkSoil.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
+
+:orphan:
+
+.. _sphx_glr_auto_examples_sg_execution_times:
+
+Computation times
+=================
+**20:05.461** total execution time for **auto_examples** files:
+
++---------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_plot_Tara_example.py` (``plot_Tara_example.py``)         | 18:39.578 | 0.0 MB |
++---------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_plot_CentralParkSoil.py` (``plot_CentralParkSoil.py``)   | 01:25.884 | 0.0 MB |
++---------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_plot_advanced_example.py` (``plot_advanced_example.py``) | 00:00.000 | 0.0 MB |
++---------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_plot_basic_example.py` (``plot_basic_example.py``)       | 00:00.000 | 0.0 MB |
++---------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_plot_combo_example.py` (``plot_combo_example.py``)       | 00:00.000 | 0.0 MB |
++---------------------------------------------------------------------------------------+-----------+--------+
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_Tara_example.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_Tara_example.py:
+
+
+Ocean salinity prediction based on marin microbiome data
+=========================================================
+
+We repoduce an example of prediction of ocean salinity over ocean microbiome data
+that has been introduced in `this article <https://www.biorxiv.org/content/10.1101/2020.09.01.277632v1.full>`_,
+where the R package `trac <https://github.com/jacobbien/trac>`_ (which uses c-lasso)
+has been used. 
+
+The data come originally from `trac <https://github.com/jacobbien/trac>`_,
+then it is preprocessed in python in this `notebook <https://github.com/Leo-Simpson/c-lasso/examples/Tara/preprocess>`_.
+
+
+
+Bien, J., Yan, X., Simpson, L. and Müller, C. (2020).
+Tree-Aggregated Predictive Modeling of Microbiome Data :
+
+"Integrative marine data collection efforts such as Tara Oceans (Sunagawa et al., 2020)
+or the Simons CMAP (https://simonscmap.com)
+provide the means to investigate ocean ecosystems on a global scale.
+Using Tara’s environmental and microbial survey of ocean surface water (Sunagawa, 2015),
+we next illustrate how trac can be used to globally connect environmental covariates
+and the ocean microbiome. As an example, we learn a global predictive model of ocean salinity
+from n = 136 samples and p = 8916 miTAG OTUs (Logares et al., 2014).
+trac identifies four taxonomic aggregations,
+the kingdom bacteria and the phylum Bacteroidetes being negatively associated
+and the classes Alpha and Gammaproteobacteria being positively associated with marine salinity.
+
+
+.. code-block:: default
+
+
+    from classo import classo_problem
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+
+
+
+
+
+
+
+Load data
+^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    data = np.load('Tara/tara.npz')
+
+    x = data["x"]
+    label = data["label"]
+    y = data["y"]
+    tr = data["tr"]
+
+    A = np.load('Tara/A.npy')
+
+
+
+
+
+
+
+
+Preprocess: taxonomy aggregation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    label_short = np.array([l.split("::")[-1] for l in label])
+
+    pseudo_count = 1
+    X = np.log(pseudo_count+x)
+    nleaves = np.sum(A,axis = 0)
+    logGeom = X.dot(A)/nleaves
+
+
+
+
+
+
+
+
+
+
+Cross validation and Path Computation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(logGeom[tr], y[tr], label = label_short)
+
+    problem.formulation.w = 1/nleaves
+    problem.formulation.intercept     = True
+    problem.formulation.concomitant = False
+
+    problem.model_selection.StabSel   = False
+    problem.model_selection.PATH   = True
+    problem.model_selection.CV   = True
+    problem.model_selection.CVparameters.seed = 6 # one could change logscale, Nsubset, oneSE
+    print(problem)
+
+    problem.solve()
+    print(problem.solution)
+
+
+    selection = problem.solution.CV.selected_param[1:] # exclude the intercept
+    print(label[selection])
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_Tara_example_001.png
+          :alt: Coefficients across $\lambda$-path using R1
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_Tara_example_002.png
+          :alt:  
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_Tara_example_003.png
+          :alt: Refitted coefficients after CV model selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R1
+ 
+    MODEL SELECTION COMPUTED:  
+         Path
+         Cross Validation
+ 
+    PATH PARAMETERS: 
+         numerical_method : not specified
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+ 
+    CROSS VALIDATION PARAMETERS: 
+         numerical_method : not specified
+         one-SE method : True
+         Nsubset = 5
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+
+
+     PATH COMPUTATION : 
+     There is also an intercept.  
+       Running time :  70.788s
+
+     CROSS VALIDATION : 
+     Intercept : 34.26188897229179
+       Selected variables :  Gammaproteobacteria    Alphaproteobacteria    Bacteria    
+       Running time :  358.887s
+
+    ['Life::Bacteria::Proteobacteria::Gammaproteobacteria'
+     'Life::Bacteria::Proteobacteria::Alphaproteobacteria' 'Life::Bacteria']
+
+
+
+
+Prediction plot
+""""""""""""""""""""
+
+
+.. code-block:: default
+
+
+    te = np.array([i for i in range(len(y)) if not i in tr])
+    alpha = problem.solution.CV.refit
+    yhat = logGeom[te].dot(alpha[1:])+alpha[0]
+
+    M1, M2 = max(y[te]), min(y[te])
+    plt.plot(yhat, y[te], 'bo', label = 'sample of the testing set')
+    plt.plot([M1, M2], [M1, M2], 'k-', label = "identity")
+    plt.xlabel('predictor yhat'), plt.ylabel('real y'), plt.legend()
+    plt.tight_layout()
+
+
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_Tara_example_004.png
+    :alt: plot Tara example
+    :class: sphx-glr-single-img
+
+
+
+
+
+Stability selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(logGeom[tr], y[tr], label = label_short)
+
+    problem.formulation.w = 1/nleaves
+    problem.formulation.intercept     = True
+    problem.formulation.concomitant = False
+
+
+    problem.model_selection.PATH   = False
+    problem.model_selection.CV   = False
+    # can change q, B, nS, method, threshold etc in problem.model_selection.StabSelparameters
+
+    problem.solve()
+
+    print(problem, problem.solution)
+
+    selection = problem.solution.StabSel.selected_param[1:] # exclude the intercept
+    print(label[selection])
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_Tara_example_005.png
+          :alt: Stability selection profile of type first using R1
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_Tara_example_006.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R1
+ 
+    MODEL SELECTION COMPUTED:  
+         Stability selection
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : Path-Alg
+         method : first
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lamin = 0.01
+         Nlam = 50
+ 
+     STABILITY SELECTION : 
+       Selected variables :  intercept    Bacteroidetes    Alphaproteobacteria    Bacteria    
+       Running time :  684.891s
+
+    ['Life::Bacteria::Bacteroidetes'
+     'Life::Bacteria::Proteobacteria::Alphaproteobacteria' 'Life::Bacteria']
+
+
+
+
+Prediction plot
+""""""""""""""""""""
+
+
+.. code-block:: default
+
+
+    te = np.array([i for i in range(len(y)) if not i in tr])
+    alpha = problem.solution.StabSel.refit
+    yhat = logGeom[te].dot(alpha[1:])+alpha[0]
+
+    M1, M2 = max(y[te]), min(y[te])
+    plt.plot(yhat, y[te], 'bo', label = 'sample of the testing set')
+    plt.plot([M1, M2],[M1, M2], 'k-', label = "identity")
+    plt.xlabel('predictor yhat'), plt.ylabel('real y'), plt.legend()
+    plt.tight_layout()
+
+
+.. image:: /auto_examples/images/sphx_glr_plot_Tara_example_007.png
+    :alt: plot Tara example
+    :class: sphx-glr-single-img
+
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 18 minutes  39.578 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_Tara_example.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_Tara_example.py <plot_Tara_example.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_Tara_example.ipynb <plot_Tara_example.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_combo_example.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_combo_example.py:
+
+
+BMI prediction using the COMBO dataset 
+==========================================
+
+We first consider the `COMBO data set <https://github.com/Leo-Simpson/c-lasso/tree/master/examples/COMBO_data>`_
+and show how to predict Body Mass Index (BMI) from microbial genus abundances and two non-compositional covariates  using "filtered_data".
+
+
+.. code-block:: default
+
+
+    from classo import csv_to_np, classo_problem, clr
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+
+
+
+
+
+
+
+Load microbiome and covariate data X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    X0  = csv_to_np('COMBO_data/complete_data/GeneraCounts.csv', begin = 0).astype(float)
+    X_C = csv_to_np('COMBO_data/CaloriData.csv', begin = 0).astype(float)
+    X_F = csv_to_np('COMBO_data/FatData.csv', begin = 0).astype(float)
+
+
+
+
+
+
+
+
+Load BMI measurements y
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+    y   = csv_to_np('COMBO_data/BMI.csv', begin = 0).astype(float)[:, 0]
+    labels = csv_to_np('COMBO_data/complete_data/GeneraPhylo.csv').astype(str)[:, -1]
+
+
+
+
+
+
+
+
+
+Normalize/transform data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+    y   = y - np.mean(y) #BMI data (n = 96)
+    X_C = X_C - np.mean(X_C, axis = 0)  #Covariate data (Calorie)
+    X_F = X_F - np.mean(X_F, axis = 0)  #Covariate data (Fat)
+    X0 = clr(X0, 1 / 2).T
+
+
+
+
+
+
+
+
+Set up design matrix and zero-sum constraints for 45 genera
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    X     = np.concatenate((X0, X_C, X_F, np.ones((len(X0), 1))), axis = 1) # Joint microbiome and covariate data and offset
+    label = np.concatenate([labels, np.array(['Calorie', 'Fat', 'Bias'])])
+    C = np.ones((1, len(X[0])))
+    C[0, -1], C[0, -2], C[0, -3] = 0., 0., 0.
+
+
+
+
+
+
+
+
+
+
+
+Set up c-lassso problem
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(X, y, C, label = label) 
+
+
+
+
+
+
+
+
+Use stability selection with theoretical lambda [Combettes & Müller, 2020b]
+
+
+.. code-block:: default
+
+    problem.model_selection.StabSelparameters.method      = 'lam'
+    problem.model_selection.StabSelparameters.threshold_label = 0.5
+
+
+
+
+
+
+
+
+Use formulation R3
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+    problem.formulation.concomitant = True
+
+    problem.solve()
+    print(problem)
+    print(problem.solution)
+
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_combo_example_001.png
+          :alt: Stability selection profile of type lam using R3
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_combo_example_002.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R3
+ 
+    MODEL SELECTION COMPUTED:  
+         Stability selection
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : Path-Alg
+         method : lam
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lam = theoretical
+         theoretical_lam = 0.2824
+
+
+     STABILITY SELECTION : 
+       Selected variables :   Clostridium     Acidaminococcus    
+       Running time :  0.723s
+
+
+
+
+
+Use formulation R4
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: default
+
+    problem.formulation.huber = True
+    problem.formulation.concomitant = True
+
+    problem.solve()
+    print(problem)
+    print(problem.solution)
+
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_combo_example_003.png
+          :alt: Stability selection profile of type lam using R4
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_combo_example_004.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R4
+ 
+    MODEL SELECTION COMPUTED:  
+         Stability selection
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : Path-Alg
+         method : lam
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lam = theoretical
+         theoretical_lam = 0.2824
+
+
+     STABILITY SELECTION : 
+       Selected variables :   Clostridium     Acidaminococcus    
+       Running time :  1.1s
+
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  3.339 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_combo_example.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_combo_example.py <plot_combo_example.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_combo_example.ipynb <plot_combo_example.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
+:orphan:
+
+
+
+.. _sphx_glr_auto_examples:
+
+
+Examples Gallery
+================
+
+Below is a gallery of examples.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s present what classo does when using its default parameters on synthetic data.">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_plot_basic_example_thumb.png
+     :alt: Basic example
+
+     :ref:`sphx_glr_auto_examples_plot_basic_example.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_basic_example
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Let&#x27;s present how one can specify different aspects of the problem  formulation and model selec...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_plot_advanced_example_thumb.png
+     :alt: Advanced example
+
+     :ref:`sphx_glr_auto_examples_plot_advanced_example.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_advanced_example
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We first consider the `COMBO data set &lt;https://github.com/Leo-Simpson/c-lasso/tree/master/examp...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_plot_combo_example_thumb.png
+     :alt: BMI prediction using the COMBO dataset
+
+     :ref:`sphx_glr_auto_examples_plot_combo_example.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_combo_example
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We repoduce an example of prediction of ocean salinity over ocean microbiome data that has been...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_plot_Tara_example_thumb.png
+     :alt: Ocean salinity prediction based on marin microbiome data
+
+     :ref:`sphx_glr_auto_examples_plot_Tara_example.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_Tara_example
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" The next microbiome example considers the [Central Park Soil dataset](./examples/CentralParkSo...">
+
+.. only:: html
+
+ .. figure:: /auto_examples/images/thumb/sphx_glr_plot_CentralParkSoil_thumb.png
+     :alt: pH prediction using the Central Park soil dataset
+
+     :ref:`sphx_glr_auto_examples_plot_CentralParkSoil.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_CentralParkSoil
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-gallery
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+    :download:`Download all examples in Python source code: auto_examples_python.zip </auto_examples/auto_examples_python.zip>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+    :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip </auto_examples/auto_examples_jupyter.zip>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_basic_example.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_basic_example.py:
+
+
+Basic example
+===============
+
+Let's present what classo does when using its default parameters on synthetic data.
+
+
+.. code-block:: default
+
+
+    from classo import classo_problem, random_data
+    import numpy as np
+
+
+
+
+
+
+
+
+Generate the data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This code snippet generates a problem instance with sparse ß in dimension
+d=100 (sparsity d_nonzero=5). The design matrix X comprises n=100 samples generated from an i.i.d standard normal
+distribution. The dimension of the constraint matrix C is d x k matrix. The noise level is σ=0.5. 
+The input `zerosum=True` implies that C is the all-ones vector and Cß=0. The n-dimensional outcome vector y
+and the regression vector ß is then generated to satisfy the given constraints. 
+
+
+.. code-block:: default
+
+
+    m, d, d_nonzero, k, sigma = 100, 200, 5, 1, 0.5
+    (X, C, y), sol = random_data(m, d, d_nonzero, k, sigma, zerosum=True, seed=1)
+
+
+
+
+
+
+
+
+Remark : one can see the parameters that should be selected :
+
+
+.. code-block:: default
+
+
+    print(np.nonzero(sol))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    (array([  7,  63, 148, 164, 168]),)
+
+
+
+
+Define the classo instance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next we can define a default c-lasso problem instance with the generated data:
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(X, y, C) 
+
+
+
+
+
+
+
+
+Check parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can look at the generated problem instance by typing:
+
+
+.. code-block:: default
+
+
+    print(problem)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R3
+ 
+    MODEL SELECTION COMPUTED:  
+         Stability selection
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : not specified
+         method : first
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lamin = 0.01
+         Nlam = 50
+
+
+
+
+
+Solve optimization problems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We only use stability selection as default model selection strategy. 
+The command also allows you to inspect the computed stability profile for all variables 
+at the theoretical λ
+
+
+.. code-block:: default
+
+
+    problem.solve()
+
+
+
+
+
+
+
+
+Visualisation
+^^^^^^^^^^^^^^^
+
+After completion, the results of the optimization and model selection routines 
+can be visualized using
+
+
+.. code-block:: default
+
+
+    print(problem.solution)
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_basic_example_001.png
+          :alt: Stability selection profile of type first using R3
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_basic_example_002.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+     STABILITY SELECTION : 
+       Selected variables :  7    63    148    164    168    
+       Running time :  0.954s
+
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  1.606 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_basic_example.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_basic_example.py <plot_basic_example.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_basic_example.ipynb <plot_basic_example.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
+.. only:: html
+
+    .. note::
+        :class: sphx-glr-download-link-note
+
+        Click :ref:`here <sphx_glr_download_auto_examples_plot_advanced_example.py>`     to download the full example code
+    .. rst-class:: sphx-glr-example-title
+
+    .. _sphx_glr_auto_examples_plot_advanced_example.py:
+
+
+Advanced example
+==================
+
+Let's present how one can specify different aspects of the problem 
+formulation and model selection strategy on classo, using synthetic data.
+
+
+.. code-block:: default
+
+
+    from classo import classo_problem, random_data
+    import numpy as np
+
+
+
+
+
+
+
+
+Generate the data
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This code snippet generates a problem instance with sparse ß in dimension
+d=100 (sparsity d_nonzero=5). The design matrix X comprises n=100 samples generated from an i.i.d standard normal
+distribution. The dimension of the constraint matrix C is d x k matrix. The noise level is σ=0.5. 
+The input `zerosum=True` implies that C is the all-ones vector and Cß=0. The n-dimensional outcome vector y
+and the regression vector ß is then generated to satisfy the given constraints. 
+One can then see the parameters that should be selected.
+
+
+.. code-block:: default
+
+
+    m, d, d_nonzero, k, sigma = 100, 200, 5, 1, 0.5
+    (X, C, y), sol = random_data(m, d, d_nonzero, k, sigma, zerosum=True, seed=1)
+    print(np.nonzero(sol))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    (array([  7,  63, 148, 164, 168]),)
+
+
+
+
+Define the classo instance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Next we can define a default c-lasso problem instance with the generated data:
+
+
+.. code-block:: default
+
+
+    problem = classo_problem(X, y, C) 
+
+
+
+
+
+
+
+
+Change the parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's see some example of change in the parameters
+
+
+.. code-block:: default
+
+
+    problem.formulation.huber                   = True
+    problem.formulation.concomitant             = False
+    problem.model_selection.CV                  = True
+    problem.model_selection.LAMfixed            = True
+    problem.model_selection.PATH                = True
+    problem.model_selection.StabSelparameters.method = 'max'
+    problem.model_selection.CVparameters.seed = 1
+    problem.model_selection.LAMfixedparameters.rescaled_lam = True
+    problem.model_selection.LAMfixedparameters.lam = .1
+
+
+
+
+
+
+
+
+Check parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can look at the generated problem instance by typing:
+
+
+.. code-block:: default
+
+
+    print(problem)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+ 
+ 
+    FORMULATION: R2
+ 
+    MODEL SELECTION COMPUTED:  
+         Lambda fixed
+         Path
+         Cross Validation
+         Stability selection
+ 
+    LAMBDA FIXED PARAMETERS: 
+         numerical_method = not specified
+         rescaled lam : True
+         threshold : average of the absolute value of beta
+         lam = 0.1
+ 
+    PATH PARAMETERS: 
+         numerical_method : not specified
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+ 
+    CROSS VALIDATION PARAMETERS: 
+         numerical_method : not specified
+         one-SE method : True
+         Nsubset = 5
+         lamin = 0.001
+         Nlam = 80
+     with log-scale
+ 
+    STABILITY SELECTION PARAMETERS: 
+         numerical_method : not specified
+         method : max
+         B = 50
+         q = 10
+         percent_nS = 0.5
+         threshold = 0.7
+         lamin = 0.01
+         Nlam = 50
+
+
+
+
+
+Solve optimization problems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+ We only use stability selection as default model selection strategy. 
+The command also allows you to inspect the computed stability profile for all variables 
+at the theoretical λ
+
+
+.. code-block:: default
+
+
+    problem.solve()
+
+
+
+
+
+
+
+
+Visualisation
+^^^^^^^^^^^^^^^
+
+After completion, the results of the optimization and model selection routines 
+can be visualized using
+
+
+.. code-block:: default
+
+
+    print(problem.solution)
+
+
+.. rst-class:: sphx-glr-horizontal
+
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_001.png
+          :alt: Coefficients at $\lambda$ = 0.1
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_002.png
+          :alt: Coefficients across $\lambda$-path using R2
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_003.png
+          :alt:  
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_004.png
+          :alt: Refitted coefficients after CV model selection
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_005.png
+          :alt: Stability selection profile of type max using R2
+          :class: sphx-glr-multi-img
+
+    *
+
+      .. image:: /auto_examples/images/sphx_glr_plot_advanced_example_006.png
+          :alt: Refitted coefficients after stability selection
+          :class: sphx-glr-multi-img
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+
+     LAMBDA FIXED : 
+       Selected variables :  7    63    148    164    168    
+       Running time :  0.073s
+
+     PATH COMPUTATION : 
+       Running time :  0.417s
+
+     CROSS VALIDATION : 
+       Selected variables :  7    10    63    101    148    164    168    
+       Running time :  1.625s
+
+     STABILITY SELECTION : 
+       Selected variables :  7    63    148    164    168    
+       Running time :  4.669s
+
+
+
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  7.883 seconds)
+
+
+.. _sphx_glr_download_auto_examples_plot_advanced_example.py:
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-python
+
+     :download:`Download Python source code: plot_advanced_example.py <plot_advanced_example.py>`
+
+
+
+  .. container:: sphx-glr-download sphx-glr-download-jupyter
+
+     :download:`Download Jupyter notebook: plot_advanced_example.ipynb <plot_advanced_example.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

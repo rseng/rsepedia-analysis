@@ -215,4 +215,252 @@ Kurt Hornik writes: Can you pls add some description of 'Altmetric', and then
 
 ?
 
-Response: I have updated the description to reflect what types of data the service provides and have also included a link to the data provider.
+Response: I have updated the description to reflect what types of data the service provides and have also included a link to the data provider.---
+output: github_document
+---
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Build Status](https://travis-ci.org/ropensci/rAltmetric.svg?branch=master)](https://travis-ci.org/ropensci/rAltmetric)
+ 
+---
+ 
+[![minimal R version](https://img.shields.io/badge/R%3E%3D-3.3.2-6666ff.svg)](https://cran.r-project.org/)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rAltmetric)](https://cran.r-project.org/package=rAltmetric)
+[![packageversion](https://img.shields.io/badge/Package%20version-0.7.9000-orange.svg?style=flat-square)](commits/master)
+ 
+---
+ 
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  cache = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+![altmetric.com](https://github.com/ropensci/rAltmetric/raw/master/altmetric_logo_title.png)
+
+
+# rAltmetric
+
+![](http://cranlogs.r-pkg.org/badges/rAltmetric)  
+[![Travis-CI Build Status](https://travis-ci.org/ropensci/rAltmetric.svg?branch=master)](https://travis-ci.org/ropensci/rAltmetric)    
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/rAltmetric?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/rAltmetric)  
+[![Coverage Status](https://img.shields.io/codecov/c/github/ropensci/rAltmetric/master.svg)](https://codecov.io/github/ropensci/rAltmetric?branch=master)
+
+
+This package provides a way to programmatically retrieve altmetrics from various publication types (books, newsletters, articles, peer-reviewed papers and more) from [altmetric.com](http://altmetric.com). The package is really simple to use and only has two major functions:  
+- `altmetrics` - Pass it a doi, isbn, uri, arxiv id or other to get metrics  
+- `altmetric_data` Pass it the results from the previous call to get a tidy `data.frame`  
+
+Questions, features requests and issues should go [here](https://github.com/ropensci/rAltmetric/issues/). 
+
+# Installing the package 🛠
+
+A stable version is available from CRAN. To install
+
+```r
+install.packages('rAltmetric')
+# or the 👷 dev version
+devtools::install_github("ropensci/rAltmetric")
+```
+
+
+# Quick Tutorial
+
+## Obtaining metrics
+There was a 2010 paper by [Acuna et al](http://www.nature.com/news/2010/100616/full/465860a.html) that received a lot of attention on Twitter. What was the impact of that paper?
+
+```{r}
+library(rAltmetric)
+acuna <- altmetrics(doi = "10.1038/465860a")
+acuna
+```
+
+
+## Data
+To obtain the metrics in tabular form for further processing, run any object of class `altmetric` through `altmetric_data()` to get a `data.frame` that can easily be written to disk.
+
+```{r}
+altmetric_data(acuna)
+```
+
+You can save these data into a clean spreadsheet format:
+
+```r
+acuna_data <- altmetric_data(acuna)
+readr::write_csv(acuna_data, path = 'acuna_altmetrics.csv')
+```
+
+# Gathering metrics for many DOIs
+For a real world use-case, one might want to get metrics on multiple publications. If so, just read them from a spreadsheet and `llply` through them like the example below.
+
+```{r}
+library(rAltmetric)
+library(magrittr)
+library(purrr)
+
+
+ids <- list(c(
+  "10.1038/nature09210",
+  "10.1126/science.1187820",
+  "10.1016/j.tree.2011.01.009",
+  "10.1086/664183"
+))
+
+alm <- function(x)  altmetrics(doi = x) %>% altmetric_data()
+
+results <- pmap_df(ids, alm)
+# This results in a data.frame with one row per identifier.
+```
+
+## Further reading
+* [Metrics: Do metrics matter?](http://www.nature.com/news/2010/100616/full/465860a.html)
+* [The altmetrics manifesto](http://altmetrics.org/manifesto/)
+
+
+📚 To cite package `rAltmetric` in publications use:
+
+```r
+  Karthik Ram (2017). rAltmetric: Retrieves altmerics data for any
+  published paper from altmetrics.com. R package version 0.7.
+  http://CRAN.R-project.org/package=rAltmetric
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {rAltmetric: Retrieves altmerics data for any published paper from
+altmetrics.com},
+    author = {Karthik Ram},
+    year = {2017},
+    note = {R package version 0.7},
+    url = {http://CRAN.R-project.org/package=rAltmetric},
+  }
+```
+
+
+
+[![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+---
+title: "Introduction to Altmetric"
+author: "Karthik Ram"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Altmetric}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This is a short vignette explaning how to use `rAltmetric`. Altmetric is a private company that collects metrics that go far beyond traditional citations. It collects mentions on various social media to provide a more complete picture of the impact of a scholarly publication. 
+
+The core functionality of the package is captured in two functions:
+
+`altmetrics` - Returns data for a valid identifier such as an altmetric object id, a pubmed ID, an arxiv identifier, a doi, ISBN and so on.  
+`altmetric_data` - takes the output of the previous function and returns a tidy data.frame
+
+The package can be used to parse a whole batch of identifiers at once.
+
+e.g.
+
+```{r}
+library(rAltmetric)
+library(magrittr)
+library(purrr)
+
+
+ids <- list(
+  "10.1038/nature09210",
+  "10.1126/science.1187820",
+  "10.1016/j.tree.2011.01.009",
+  "10.1086/664183"
+)
+
+alm <- function(x)  altmetrics(doi = x) %>% altmetric_data()
+
+results <- map_df(ids, alm)
+# This results in a data.frame with one row per identifier.
+```
+
+You can now see some citation data for these papers.
+
+```{r}
+library(dplyr)
+knitr::kable(results %>% select(title, doi,  starts_with("cited")))
+```
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/metrics-methods.R
+\name{print.altmetric}
+\alias{print.altmetric}
+\title{Print a summary for an altmetric object}
+\usage{
+\method{print}{altmetric}(x, ...)
+}
+\arguments{
+\item{x}{An object of class \code{Altmetric}}
+
+\item{...}{additional arguments}
+}
+\description{
+Print a summary for an altmetric object
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/metrics.R
+\name{altmetrics}
+\alias{altmetrics}
+\title{Query data from the Altmetric.com API}
+\usage{
+altmetrics(oid = NULL, id = NULL, doi = NULL, pmid = NULL,
+  arxiv = NULL, isbn = NULL, uri = NULL,
+  apikey = getOption("altmetricKey"), foptions = list(), ...)
+}
+\arguments{
+\item{oid}{An object ID (assigned internally by Altmetric)}
+
+\item{id}{An altmetric.com id for a scholarly product}
+
+\item{doi}{A persistent identifier for a scholarly product}
+
+\item{pmid}{An is for any article indexed in Pubmed. PubMed accesses the MEDLINE database of references and abstracts on life sciences and biomedical topics}
+
+\item{arxiv}{A valid id from arxiv. The arxiv is a repository of preprints in the fields of mathematics, physics, astronomy, computer science, quantitative biology, statistics, and quantitative finance.}
+
+\item{isbn}{A International Standard Book Number (ISBN)}
+
+\item{uri}{A Uniform Resource Identifier such as webpage}
+
+\item{apikey}{Your API \code{key}. By default the package ships with a key, but mostly as a demo. If the key becomes overused, then it is likely that you will start to see API limit errors}
+
+\item{foptions}{Additional options for \code{httr}}
+
+\item{...}{additional options}
+}
+\description{
+Query data from the Altmetric.com API
+}
+\examples{
+\dontrun{
+altmetrics(doi ='10.1038/480426a')
+# For ISBNs
+ib <- altmetrics(isbn = "978-3-319-25557-6")
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/metrics.R
+\name{altmetric_data}
+\alias{altmetric_data}
+\title{Returns a data.frame from an S3 object of class altmetric}
+\usage{
+altmetric_data(alt_obj)
+}
+\arguments{
+\item{alt_obj}{An object of class altmetric}
+}
+\description{
+Returns a data.frame from an S3 object of class altmetric
+}

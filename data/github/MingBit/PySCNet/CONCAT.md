@@ -289,3 +289,231 @@ A tool for reconstructing and analyzing gene regulatory network from single-cell
 Ming Wu  
 Email: ming.wu@tum.de  
 Github: https://github.com/MingBit  
+pyscnet.Plotting
+========================
+
+pyscnet.Plotting.net_plot
+-----------------------------------
+
+.. automodule:: pyscnet.Plotting.net_plot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+pyscnet.BuildNet
+========================
+
+pyscnet.BuildNet.gne\_dockercaller
+-----------------------------------------
+
+.. automodule:: pyscnet.BuildNet.gne_dockercaller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+pyscnet.Preprocessing
+=============================
+
+pyscnet.Preprocessing.gnetdata
+-------------------------------------
+
+.. automodule:: pyscnet.Preprocessing.gnetdata
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyscnet
+===============
+
+.. toctree::
+   :maxdepth: 4
+
+   pyscnet.Preprocessing
+   pyscnet.BuildNet
+   pyscnet.NetEnrich
+   pyscnet.Plotting
+
+
+Module contents
+---------------
+
+.. automodule:: pyscnet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+pyscnet.NetEnrich
+=========================
+
+pyscnet.NetEnrich.graph\_toolkit
+---------------------------------------
+
+.. automodule:: pyscnet.NetEnrich.graph_toolkit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Installation
+===================
+
+Requirements
+--------------
+.. note::
+    As pyscnet integrates `docker`_ for gene regulatory construction, it is necessary to install docker before the installation. Check here for `docker installation`_.
+
+
+PyPI
+--------------
+install pyscnet via PyPI
+
+.. code-block::
+
+    pip install pyscnet
+
+.. warning::
+
+    It might occurs package version conflicts.
+
+To address this issue, you can create a new/clean conda environment
+
+.. code-block::
+
+    #create new environment with python3.6
+    conda create --name pyscnet_env python=3.6
+
+    #activate pyscnet_env
+    conda activate pyscnet_env
+
+    #install pyscnet
+    pip install pyscnet
+
+    #go to python
+    import pyscnet
+
+
+Github
+--------------
+install develop version pyscnet via github
+
+.. code-block::
+
+    git clone https://github.com/MingBit/PySCNet
+    mkdir dist | python setup.py sdist
+    pip install dist/pyscnet-0.0.3.tar.gz
+
+
+.. _docker: https://www.docker.com/
+.. _docker installation: https://docs.docker.com/get-docker/Introduction
+=============================================================================================================
+PySCNet: A tool for reconstructing and analyzing gene regulatory network from single-cell RNA-Seq data
+
+Modules
+----------------
+
+There are four modules:
+
+1)  **Pro-precessing**: initialize a gnetData object consisting of Expression Matrix, Cell Attributes, Gene Attributes and Network Attributes;
+2) **BuildNet**: reconstruct GRNs by various methods implemented in docker;
+3) **NetEnrich**: network analysis including consensus network detection, gene module identification and trigger path prediction as well as network fusion;
+4) **Visulization**: network illustration.
+
+.. figure:: ../../images/Overview.png
+    :width: 600
+
+Features
+----------------
+`Shinyapp`_ is available now for creating your own GRNs.
+Once the cells are grouped into several clusters and linkage tables are generated for each/all clusters, you can export the results
+as pickle object and uplaod onto Shinyapp. Cell attributes, Gene attributes and Network attributes are illustrated here.
+As shown belows, you can set your own thresholds to build each/all cluster-specific GRNs.
+
+.. figure:: ../../images/ShinyApp.gif
+    :width: 600
+
+Cite
+----------------
+- This work has been presented at `ISMB/ECCB 2019`_
+- Go to `my poster`_
+
+.. _my poster: https://f1000research.com/posters/8-1359
+.. _ISMB/ECCB 2019: https://www.iscb.org/ismbeccb2019
+.. _Shinyapp: https://github.com/MingBit/PySCNet/blob/master/ShinyApp.gifAPI
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   pyscnet
+Tutorial
+===============
+
+pyscnet with scanpy
+-------------------
+
+As `scanpy`_ provides very great toolkits for single cell transcriptomics data analysis.
+PySCNet can be considered as a downstream analysis tool especially for gene regulatory network analysis.
+Besides identifying cell population, marker genes detection and cell trajectory analysis,
+investigating the causal association among genes and transcription factors is also curial for understanding the molecular mechnisms behind.
+
+So :tutorial: `pyscnet_scanpy`_ guides you how to build cell specific gene regulatory network applying various tools, predict consensus network and gene module detection as well as dynamic network visualization.
+
+.. figure:: ../../images/scanpy_1.png
+    :scale: 60%
+    :figclass: align-left
+.. figure:: ../../images/scanpy_2.png
+    :scale: 48%
+    :figclass: align-right
+
+pyscnet with stream
+----------------------
+
+A python package - `STREAM`_ was designed for reconstructing cell trajectory for single cell transcriptomic data.
+This :tutorial: `pyscnet_stream`_ guides how to integrate STREAM with pyscnet for gene regulatory network along the cell differential trajectory.
+
+.. note::
+    you might need to create stream environment and run jupyter-notebook under stream environment
+
+.. figure:: ../../images/stream_1.png
+    :scale: 48%
+    :figclass: align-left
+.. figure:: ../../images/stream_2.png
+    :scale: 48%
+    :figclass: align-right
+.. figure:: ../../images/stream_3.pdf
+    :scale: 80%
+    :figclass: align-left
+
+
+
+.. _scanpy: https://scanpy.readthedocs.io/en/stable/index.html
+.. _pyscnet_scanpy: https://github.com/MingBit/PySCNet/blob/master/tutorial/pyscnet_scanpy.ipynb
+
+.. _STREAM: https://github.com/pinellolab/STREAM
+.. _pyscnet_stream: https://github.com/MingBit/PySCNet/blob/master/tutorial/pyscnet_stream.ipynb.. pyscnet documentation master file, created by
+   sphinx-quickstart on Tue Jul 28 19:27:12 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to pyscnet's documentation!
+===================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   Readme
+   Install
+   modules
+   Tutorial
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

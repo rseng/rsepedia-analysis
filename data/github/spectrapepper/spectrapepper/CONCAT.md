@@ -210,3 +210,184 @@ Tell us what can be achieved with this new feature and what's the expected outco
 ```
 Paste your source code here if have sample code to share.
 ```
+Contributing
+------------
+Contributions are welcome, and they are greatly appreciated! Every little bit
+helps, and credit will always be given.
+
+You can contribute in many ways:
+
+Report Bugs
+^^^^^^^^^^^
+
+Report bugs at https://github.com/spectrapepper/spectrapepper/issues.
+
+If you are reporting a bug, please include:
+
+* Your operating system name and version.
+* Any details about your local setup that might be helpful in troubleshooting.
+* Detailed steps to reproduce the bug.
+
+Fix Bugs
+^^^^^^^^
+
+Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+wanted" is open to whoever wants to implement it.
+
+Implement Features
+^^^^^^^^^^^^^^^^^^
+
+Look through the GitHub issues for features. Anything tagged with "enhancement"
+and "help wanted" is open to whoever wants to implement it.
+
+Write Documentation
+^^^^^^^^^^^^^^^^^^^
+
+spectrapepper could always use more documentation, whether as part of the
+official spectrapepper docs or in docstrings.
+
+Submit Feedback
+^^^^^^^^^^^^^^^
+
+The best way to send feedback is to file an issue at https://github.com/spectrapepper/spectrapepper/issues.
+
+If you are proposing a feature:
+
+* Explain in detail how it would work.
+* Keep the scope as narrow as possible, to make it easier to implement.
+* Remember that this is a volunteer-driven project, and that contributions
+  are welcome :)
+
+Get Started!
+^^^^^^^^^^^^
+
+Ready to contribute? Here's how to set up `spectrapepper` for local development.
+
+1. Fork the `spectrapepper` repo on GitHub.
+2. Clone your fork locally::
+
+        $ git clone git@github.com:your_name_here/spectrapepper.git
+
+3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up
+your fork for local development::
+
+        $ mkvirtualenv spectrapepper
+        $ cd spectrapepper/
+        $ python setup.py develop
+
+4. Create a branch for local development to make changes locally::
+
+        $ git checkout -b name-of-your-bugfix-or-feature
+
+5. When you're done making changes, check that your changes pass flake8 and the tests, including testing other Python
+versions with tox::
+
+        $ flake8 spectrapepper tests
+        $ pytest
+        $ tox
+
+6. Run unittest, check the test coverage, and create a coverage report in the `tests` folder::
+
+        $ coverage run -m unittest test_spectrapepper.py
+        $ coverage xml
+
+7. Commit your changes and push your branch to GitHub::
+
+        $ git add .
+        $ git commit -m "Your detailed description of your changes."
+        $ git push origin name-of-your-bugfix-or-feature
+
+8. Submit a pull request through the GitHub website.
+
+Pull Request Guidelines
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Before you submit a pull request, check that it meets these guidelines:
+
+1. The pull request should include tests. Coverage should not go below 80% with `Codecov`.
+2. Code quality should be A+ with `lgtm`.
+3. If the pull request adds functionality, the docs should be updated. Put
+   your new functionality into a function with a docstring.
+4. The pull request should work for Python 3.6, 3.7 and 3.8.
+=============
+SpectraPepper
+=============
+
+.. image:: https://img.shields.io/pypi/v/spectrapepper.svg
+        :target: https://pypi.python.org/pypi/spectrapepper
+.. image:: https://img.shields.io/conda/vn/conda-forge/spectrapepper.svg
+        :target: https://anaconda.org/conda-forge/spectrapepper
+.. image:: https://img.shields.io/badge/License-MIT-yellow.svg
+        :target: https://opensource.org/licenses/MIT
+.. image:: https://img.shields.io/lgtm/grade/python/g/spectrapepper/spectrapepper.svg?logo=lgtm&logoWidth=18
+        :target: https://lgtm.com/projects/g/spectrapepper/spectrapepper/context:python
+.. image:: https://github.com/spectrapepper/spectrapepper/workflows/docs/badge.svg
+        :target: https://spectrapepper.github.io/spectrapepper
+.. image:: https://codecov.io/gh/spectrapepper/spectrapepper/branch/main/graph/badge.svg?token=DC0QIwuYel
+        :target: https://codecov.io/gh/spectrapepper/spectrapepper
+.. image:: https://img.shields.io/conda/dn/conda-forge/spectrapepper.svg?color=blue&label=conda%20downloads
+        :target: https://pepy.tech/project/spectrapepper
+.. image:: https://static.pepy.tech/personalized-badge/spectrapepper?period=total&units=none&left_color=grey&left_text=pypi%20downloads&right_color=blue
+        :target: https://pepy.tech/project/spectrapepper
+.. image:: https://img.shields.io/badge/stackoverflow-Ask%20a%20question-brown
+        :target: https://stackoverflow.com/questions/tagged/spectrapepper
+.. image:: https://joss.theoj.org/papers/10.21105/joss.03781/status.svg
+        :target: https://doi.org/10.21105/joss.03781
+
+**A Python package to simplify and accelerate analysis of spectroscopy data.**
+
+* GitHub repo: https://github.com/spectrapepper/spectrapepper
+* Documentation: https://spectrapepper.github.io/spectrapepper
+* PyPI: https://pypi.python.org/pypi/spectrapepper
+* Conda-forge: https://anaconda.org/conda-forge/spectrapepper
+* Free software: MIT license
+
+Introduction
+============
+
+**spectrapepper** is a Python package that makes advanced analysis of spectroscopic data easy and accessible
+through straightforward, simple, and intuitive code. This library contains functions for every stage of spectroscopic
+methodologies, including data acquisition, pre-processing, processing, and analysis. In particular, advanced and high
+statistic methods are intended to facilitate, namely combinatorial analysis and machine learning, allowing also
+fast and automated traditional methods.
+
+Features
+--------
+
+The following is a short list of some of the main procedures that **SpectraPepper** package enables.
+
+- Baseline removal functions.
+- Normalization methods.
+- Noise filters, trimming tools, and despiking methods.
+- Chemometric algorithms to find peaks, fit curves, and deconvolution of spectra.
+- Combinatorial analysis tools, such as Spearman, Pearson, and n-dimensional correlation coefficients.
+- Tools for Machine Learning applications, such as data merging, randomization, and decision boundaries.
+- Sample data and examples.
+
+Quickstart
+----------
+
+1. Install this library using ``pip``::
+
+        pip install spectrapepper
+
+2. Install this library using ``conda-forge``::
+
+        conda install -c conda-forge spectrapepper
+
+3. Test it by plotting some data!::
+
+        import spectrapepper as spep
+        import matplotlib.pyplot as plt
+
+        data = spep.load_spectras()
+        for i in data[1:]:
+            plt.plot(data[0], i)
+        plt.xlabel('Raman shift ($cm^{-1}$)')
+        plt.ylabel('Intensity (a.u.)')
+        plt.show()
+
+Credits
+-------
+
+This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`__ and the `giswqs/pypackage <https://github.com/giswqs/pypackage>`__ project template.

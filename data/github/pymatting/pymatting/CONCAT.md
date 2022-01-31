@@ -355,3 +355,340 @@ https://numpydoc.readthedocs.io/en/latest/format.html
 
     """
 ```
+Examples
+========
+
+We provide different examples at different levels of abstraction.
+
+.. _example-simple:
+
+Simple Example
+---------------
+
+This simple example is intended for application-oriented users.
+All parameters were set beforehand and should work well on most images.
+The :code:`cutout()` method employs closed-form alpha matting :cite:`levin2007closed` and multi-level foreground extraction :cite:`germer2020multilevel`.
+
+.. code-block:: python
+
+    from pymatting import cutout
+
+    cutout(
+       # input image path
+       "../data/lemur/lemur.png",
+       # input trimap path
+       "../data/lemur/lemur_trimap.png",
+       # output cutout path
+       "lemur_cutout.png")
+
+
+Advanced Example
+----------------
+
+The following example demonstrates the use of the :code:`estimate_alpha_cf()` method as well as the :code:`estimate_foreground_ml()` method.
+Both methods can be easily replaced by other methods from the :code:`pymatting.alpha` and from the :code:`pymatting.foreground` module, respectively.
+Parameters can be tweaked by passing them to the corresponding function calls.
+
+.. code-block:: python
+
+    from pymatting import *
+    import numpy as np
+
+    scale = 1.0
+
+    image = load_image("../data/lemur/lemur.png", "RGB", scale, "box")
+    trimap = load_image("../data/lemur/lemur_trimap.png", "GRAY", scale, "nearest")
+
+    # estimate alpha from image and trimap
+    alpha = estimate_alpha_cf(image, trimap)
+
+    # make gray background
+    background = np.zeros(image.shape)
+    background[:, :] = [0.5, 0.5, 0.5]
+
+    # estimate foreground from image and alpha
+    foreground = estimate_foreground_ml(image, alpha)
+
+    # blend foreground with background and alpha, less color bleeding
+    new_image = blend(foreground, background, alpha)
+
+    # save results in a grid
+    images = [image, trimap, alpha, new_image]
+    grid = make_grid(images)
+    save_image("lemur_grid.png", grid)
+
+    # save cutout
+    cutout = stack_images(foreground, alpha)
+    save_image("lemur_cutout.png", cutout)
+
+    # just blending the image with alpha results in color bleeding
+    color_bleeding = blend(image, background, alpha)
+    grid = make_grid([color_bleeding, new_image])
+    save_image("lemur_color_bleeding.png", grid)
+
+
+Expert Example
+--------------
+
+The third example provides an insight how PyMatting is working under-the-hood. The matting Laplacian matrix :code:`L` and the system of linear equations :code:`A x = b` are constructed manually. The solution vector :code:`x` is the flattened alpha matte.
+The alpha matte :code:`alpha` is then calculated by solving the linear system using the :code:`cg()` method. The convergence of the :code:`cg()` method is accelerated with a preconditioner using the :code:`ichol()` method.
+This example is intended for developers and (future) contributors to demonstrate the implementation of the different alpha matting methods.
+
+.. code-block:: python
+
+    from pymatting import *
+    import numpy as np
+    import scipy.sparse
+
+    scale = 1.0
+
+    image = load_image("../data/lemur/lemur.png", "RGB", scale, "box")
+    trimap = load_image("../data/lemur/lemur_trimap.png", "GRAY", scale, "nearest")
+
+    # height and width of trimap
+    h, w = trimap.shape[:2]
+
+    # calculate laplacian matrix
+    L = cf_laplacian(image)
+
+    # decompose trimap
+    is_fg, is_bg, is_known, is_unknown = trimap_split(trimap)
+
+    # constraint weight
+    lambda_value = 100.0
+
+    # build constraint pixel selection matrix
+    c = lambda_value * is_known
+    C = scipy.sparse.diags(c)
+
+    # build constraint value vector
+    b = lambda_value * is_fg
+
+    # build linear system
+    A = L + C
+
+    # build ichol preconditioner for faster convergence
+    A = A.tocsr()
+    A.sum_duplicates()
+    M = ichol(A)
+
+    # solve linear system with conjugate gradient descent
+    x = cg(A, b, M=M)
+
+    # clip and reshape result vector
+    alpha = np.clip(x, 0.0, 1.0).reshape(h, w)
+
+    save_image("lemur_alpha.png", alpha)
+
+***************
+Getting Started
+***************
+
+Requirements
+############
+
+* numpy>=1.16.0
+* pillow>=5.2.0
+* numba>=0.44.0
+* scipy>=1.1.0
+
+Additional Requirements (for GPU support)
+#########################################
+
+* cupy-cuda90>=6.5.0 or similar
+* pyopencl>=2019.1.2
+
+Installation
+############
+To install PyMatting simply run:
+
+.. code-block::
+      
+   git clone https://github.com/pymatting/pymatting
+   cd pymatting
+   pip3 install .
+
+Testing
+#######
+Run the tests from the main directory:
+
+.. code-block::
+
+   python3 tests/download_images.py
+   pip3 install -r requirements_tests.txt
+   pytest
+
+Pytest will throw a warning if PyOpenCL or CuPy are not available.
+****************************
+Benchmarks and Visualization
+****************************
+
+
+Quality
+#######
+
+To evaluate the performance of our implementation we calculate the mean squared error on the unknown pixels of the benchmark images of :cite:`rhemann2009perceptually`. 
+
+.. _laplacians_quality_many_bars:
+.. figure:: figures/laplacian_quality_many_bars.png
+   :align: center
+	    
+   Figure 1: Mean squared error of the estimated alpha matte to the ground truth alpha matte.
+
+.. _laplacians:
+.. figure:: figures/laplacians.png
+   :align: center
+
+   Figure 2: Mean squared error across all images from the benchmark dataset.
+
+Visualization
+##############
+
+The following videos show the iterates of the different methods. Note that the videos are timewarped.
+
+   .. raw:: html
+	    
+      <table style="width:100%">
+	 <tr align="center">
+	 <td>
+	 <embed>
+	   <video width="320" height="180" loop autoplay muted playsinline>
+	   <source src="https://github.com/pymatting/videos/blob/master/cf_web.mp4?raw=true" type="video/mp4">
+	   </video>
+	 </embed>
+         </td>
+	 <td>
+	 <embed>
+	   <video width="320" height="180" loop autoplay muted playsinline>
+	   <source src="https://github.com/pymatting/videos/blob/master/knn_web.mp4?raw=true" type="video/mp4">
+	 </video>
+	 </embed>
+	 </td> 
+	 </tr>
+	 <tr align="center">
+	 <td>CF</td>
+	 <td>KNN</td> 
+	 </tr>
+	 <tr align="center">
+	 <td><embed>
+	   <video width="320" height="180" loop autoplay muted playsinline>
+	   <source src="https://github.com/pymatting/videos/blob/master/lkm_web.mp4?raw=true" type="video/mp4">
+	   </video>
+	 </embed>
+	 </td>
+	 <td>
+	 <embed>
+	   <video width="320" height="180" loop autoplay muted playsinline>
+	   <source src="https://github.com/pymatting/videos/blob/master/rw_web.mp4?raw=true" type="video/mp4">
+	   </video>
+	 </embed>
+	 </td> 
+	 </tr>
+	 <tr align="center">
+	 <td>LKM</td>
+	 <td>RW</td> 
+	 </tr>
+      </table>
+
+Performance
+###########
+
+We compare the computational runtime of our solver with other solvers: pyAMG, UMFPAC, AMGCL, MUMPS, Eigen and SuperLU. Figure 3 shows that our implemented conjugate gradients method in combination with the incomplete Cholesky decomposition preconditioner outperforms the other methods by a large margin. For the iterative solver we used an absolute tolerance of :math:`10^{-7}`, which we scaled with the number of known pixels, i.e. pixels that are either marked as foreground or background in the trimap.
+
+
+.. _time_image_size:
+.. figure:: figures/time_image_size.png
+   :align: center
+	    
+   Figure 3: Comparison of runtime for different image sizes.
+
+.. _average_running_time:
+.. figure:: figures/average_running_time.png
+   :align: center
+	    
+   Figure 4: Peak memory for each solver usage in MB.
+
+.. _average_preak_memory_usage:
+.. figure:: figures/average_peak_memory_usage.png
+   :align: center
+	    
+   Figure 5: Mean running time of each solver in seconds.
+   
+.. pymatting documentation master file, created by
+   sphinx-quickstart on Tue Dec 17 14:50:36 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to PyMatting's documentation!
+=====================================
+
+The PyMatting package implements various methods for alpha matting and foreground estimation in Python.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   intro
+   start
+   pymatting
+   examples
+   benchmark
+   references
+   
+
+.. Indices and tables
+.. ==================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
+References
+===========
+
+.. bibliography:: pymatting.bib
+
+		  
+The lemur image was taken from https://www.flickr.com/photos/mathiasappel/25419442300/ `(CC0 1.0 Universal (CC0 1.0) Public Domain License) <https://creativecommons.org/publicdomain/zero/1.0/>`_ by Mathias Appel.
+Introduction
+============
+
+Alpha Matting
+-------------
+
+For an image :math:`I` with foreground pixels :math:`F` and background :math:`B` the alpha matting problem aims to determine opacities :math:`\alpha`, such that the equality
+
+.. math::
+   I = \alpha F +(1-\alpha)B
+   
+holds. This problem is inherently ill-posed since for each pixel we have three equations with seven unknown variables. The alpha matte :math:`\alpha` determine how much a pixel contributes to the foreground and how much to the background of an image.
+
+After estimating the alpha matte :math:`\alpha` the foreground pixels and background pixels can be estimated. We refer to this process as foreground estimation.
+
+.. figure:: figures/lemur_at_the_beach.png
+   :align: center
+
+   Figure 1: Input image, input trimap, estimated alpha and extracted foreground.
+
+To estimate the alpha matte Pymatting implements the following methods:
+
+* Closed-form matting :cite:`levin2007closed`
+* KNN matting :cite:`chen2013knn`
+* Large kernel matting :cite:`he2010fast`
+* Learning-based matting :cite:`zheng2009learning`
+* Random-walk matting :cite:`grady2005random`
+
+
+Foreground Extraction
+---------------------
+
+Simply multiplying the alpha matte with the input image results in halo artifacts. This motivates the developement of foreground extraction methods.
+
+.. figure:: figures/lemur_color_bleeding.png
+   :align: center
+
+   Figure 2: Input image naively composed onto a grey background (left) and extracted foreground placed onto the same background (right).
+
+The following foreground estimation methods are implemented in PyMatting:
+
+* Closed-form foreground estimation :cite:`levin2007closed`
+* Multilevel approach :cite:`germer2020multilevel`

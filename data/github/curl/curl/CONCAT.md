@@ -1334,7 +1334,7 @@ check that it adheres to our [Source Code Style guide](CODE_STYLE.md).
 
 ## Command line options
 
-`-W[file]` skip that file and excludes it from being checked. Helpful
+`-W[file]` skip that file and exclude it from being checked. Helpful
 when, for example, one of the files is generated.
 
 `-D[dir]` directory name to prepend to file names when accessing them.
@@ -1653,7 +1653,7 @@ June: the curl website gets 13000 visits weekly. curl and libcurl is
 35000 lines of code. Reported successful compiles on more than 40 combinations
 of CPUs and operating systems.
 
-To estimate number of users of the curl tool or libcurl library is next to
+To estimate the number of users of the curl tool or libcurl library is next to
 impossible. Around 5000 downloaded packages each week from the main site gives
 a hint, but the packages are mirrored extensively, bundled with numerous OS
 distributions and otherwise retrieved as part of other software.
@@ -1983,7 +1983,7 @@ this program.
 See all details at [https://hackerone.com/curl](https://hackerone.com/curl)
 
 This bounty is relying on funds from sponsors. If you use curl professionally,
-consider help funding this! See
+consider helping fund this! See
 [https://opencollective.com/curl](https://opencollective.com/curl) for
 details.
 
@@ -2038,7 +2038,7 @@ can raise the amounts depending on the particular issue.
 # What happens if the bounty fund is drained?
 
 The bounty fund depends on sponsors. If we pay out more bounties than we add,
-the fund will eventually drain. If that end up happening, we will simply not
+the fund will eventually drain. If that ends up happening, we will simply not
 be able to pay out as high bounties as we would like and hope that we can
 convince new sponsors to help us top up the fund again.
 
@@ -2079,7 +2079,7 @@ Which CAs do you trust? You can decide to trust the same set of companies your
 operating system trusts, or the set one of the known browsers trust. That is
 basically trust via someone else you trust. You should just be aware that
 modern operating systems and browsers are setup to trust *hundreds* of
-companies and recent years several such CAs have been found untrustworthy.
+companies and in recent years several such CAs have been found untrustworthy.
 
 Certificate Verification
 ------------------------
@@ -2113,8 +2113,8 @@ server, do one of the following:
     store. The default CA certificate store can be changed at compile time with
     the following configure options:
 
-    --with-ca-bundle=FILE: use the specified file as CA certificate store. CA
-    certificates need to be concatenated in PEM format into this file.
+    --with-ca-bundle=FILE: use the specified file as the CA certificate store.
+    CA certificates need to be concatenated in PEM format into this file.
 
     --with-ca-path=PATH: use the specified path as CA certificate store. CA
     certificates need to be stored as individual PEM files in this directory.
@@ -2398,7 +2398,7 @@ the specific implementation. Either way is fine.
 We offer [guidelines](https://curl.se/dev/contribute.html) that are
 suitable to be familiar with before you decide to contribute to curl. If
 you are used to open source development, you will probably not find many
-surprises in there.
+surprises there.
 Version Numbers and Releases
 ============================
 
@@ -3017,7 +3017,7 @@ identifies related issues and giving credit to reporters and helpers.
  And to use curl to post this form with the same data filled in as before, we
  could do it like:
 
-    curl --data "birthyear=1905&press=%20OK%20" http://www.example.com/when.cgi
+    curl --data "birthyear=1905&press=%20OK%20" http://www.example.com/when/junk.cgi
 
  This kind of POST will use the Content-Type
  `application/x-www-form-urlencoded` and is the most widely used POST kind.
@@ -3083,9 +3083,9 @@ identifies related issues and giving credit to reporters and helpers.
 
 ## Figure Out What A POST Looks Like
 
- When you are about fill in a form and send to a server by using curl instead
- of a browser, you are of course interested in sending a POST exactly the way
- your browser does.
+ When you are about to fill in a form and send it to a server by using curl
+ instead of a browser, you are of course interested in sending a POST exactly
+ the way your browser does.
 
  An easy way to get to see this, is to save the HTML page with the form on
  your local disk, modify the 'method' to a GET, and press the submit button
@@ -3223,7 +3223,7 @@ identifies related issues and giving credit to reporters and helpers.
 
 ## Other redirects
 
- Browser typically support at least two other ways of redirects that curl
+ Browsers typically support at least two other ways of redirects that curl
  does not: first the html may contain a meta refresh tag that asks the browser
  to load a specific URL after a set number of seconds, or it may use
  javascript to do it.
@@ -3579,7 +3579,7 @@ subsequent request use the alternate route automatically.
   ago.
 
   There are several known reasons why a connection that involves SSL might
-  fail. This is a document that attempts to details the most common ones and
+  fail. This is a document that attempts to detail the most common ones and
   how to mitigate them.
 
 ## CA certs
@@ -3671,7 +3671,7 @@ another protocol to curl. After all, curl already supports 25 something
 protocols and it is the Internet transfer machine for the world.
 
 In the curl project we love protocols and we love supporting many protocols
-and do it well.
+and doing it well.
 
 So how do you proceed to add a new protocol and what are the requirements?
 
@@ -3953,7 +3953,7 @@ tolerated anymore.
 ## What happens on first filing
 
  When a new issue is posted in the issue tracker or on the mailing list, the
- team of developers first need to see the report. Maybe they took the day off,
+ team of developers first needs to see the report. Maybe they took the day off,
  maybe they are off in the woods hunting. Have patience. Allow at least a few
  days before expecting someone to have responded.
 
@@ -4033,7 +4033,7 @@ tolerated anymore.
 ## Closing off stalled bugs
 
  The [issue and pull request trackers](https://github.com/curl/curl) only
- holds "active" entries open (using a non-precise definition of what active
+ hold "active" entries open (using a non-precise definition of what active
  actually is, but they are at least not completely dead). Those that are
  abandoned or in other ways dormant will be closed and sometimes added to
  `TODO` and `KNOWN_BUGS` instead.
@@ -4280,7 +4280,7 @@ since it often means passing around the password in plain text and is thus a
 security risk.
 
 URLs for IMAP, POP3 and SMTP also support *login options* as part of the
-userinfo field. they are provided as a semicolon after the password and then
+userinfo field. They are provided as a semicolon after the password and then
 the options.
 
 ## Hostname
@@ -4347,7 +4347,7 @@ directory listing for the root / home directory will be returned.
 
 FTP servers typically put the user in its "home directory" after login, which
 then differs between users. To explicitly specify the root directory of an FTP
-server start the path with double slash `//` or `/%2f` (2F is the hexadecimal
+server, start the path with double slash `//` or `/%2f` (2F is the hexadecimal
 value of the ascii code for the slash).
 
 ## FILE
@@ -4678,9 +4678,9 @@ Windows vs Unix
  Inside the source code, We make an effort to avoid `#ifdef [Your OS]`. All
  conditionals that deal with features *should* instead be in the format
  `#ifdef HAVE_THAT_WEIRD_FUNCTION`. Since Windows cannot run configure scripts,
- we maintain a `curl_config-win32.h` file in lib directory that is supposed to
- look exactly like a `curl_config.h` file would have looked like on a Windows
- machine.
+ we maintain a `curl_config-win32.h` file in the lib directory that is supposed
+ to look exactly like a `curl_config.h` file would have looked like on a
+ Windows machine.
 
  Generally speaking: always remember that this will be compiled on dozens of
  operating systems. Do not walk on the edge.
@@ -4754,7 +4754,7 @@ multi_do()
    The protocol-specific functions of course deal with protocol-specific
    negotiations and setup. When they are ready to start the actual file
    transfer they call the `Curl_setup_transfer()` function (in
-   `lib/transfer.c`) to setup the transfer and returns.
+   `lib/transfer.c`) to setup the transfer and return.
 
    If this DO function fails and the connection is being re-used, libcurl will
    then close this connection, setup a new connection and re-issue the DO
@@ -5040,7 +5040,7 @@ Memory Debugging
  allocated but never freed and other kinds of errors related to resource
  management.
 
- Internally, definition of preprocessor symbol `DEBUGBUILD` restricts code
+ Internally, definition of the preprocessor symbol `DEBUGBUILD` restricts code
  which is only compiled for debug enabled builds. And symbol `CURLDEBUG` is
  used to differentiate code which is _only_ used for memory
  tracking/debugging.
@@ -5135,8 +5135,9 @@ curlx
    A macro that converts a string containing a number to a `curl_off_t` number.
    This might use the `curlx_strtoll()` function which is provided as source
    code in strtoofft.c. Note that the function is only provided if no
-   `strtoll()` (or equivalent) function exist on your platform. If `curl_off_t`
-   is only a 32-bit number on your platform, this macro uses `strtol()`.
+   `strtoll()` (or equivalent) function exists on your platform. If
+   `curl_off_t` is only a 32-bit number on your platform, this macro uses
+   `strtol()`.
 
 Future
 ------
@@ -5293,7 +5294,7 @@ Track Down Memory Leaks
   curl_dbg_memdebug("dump");
 ```
 
-  This will make the malloc debug system output a full trace of all resource
+  This will make the malloc debug system output a full trace of all resources
   using functions to the given file name. Make sure you rebuild your program
   and that you link with the same libcurl you built for this purpose as
   described above.
@@ -5410,8 +5411,8 @@ for older and later versions as things do not change drastically that often.
 
   A general idea in libcurl is to keep connections around in a connection
   "cache" after they have been used in case they will be used again and then
-  re-use an existing one instead of creating a new as it creates a significant
-  performance boost.
+  re-use an existing one instead of creating a new one as it creates a
+  significant performance boost.
 
   Each `connectdata` identifies a single physical connection to a server. If
   the connection cannot be kept alive, the connection will be closed after use
@@ -5437,7 +5438,7 @@ for older and later versions as things do not change drastically that often.
   this single struct and thus can be considered a single connection for most
   internal concerns.
 
-  The libcurl source code generally use the name `conn` for the variable that
+  The libcurl source code generally uses the name `conn` for the variable that
   points to the connectdata.
 
 <a name="Curl_multi"></a>
@@ -5458,7 +5459,7 @@ for older and later versions as things do not change drastically that often.
   list when an individual `Curl_easy`'s transfer has completed.
 
   `->hostcache` points to the name cache. It is a hash table for looking up
-  name to IP. The nodes have a limited life time in there and this cache is
+  name to IP. The nodes have a limited lifetime in there and this cache is
   meant to reduce the time for when the same name is wanted within a short
   period of time.
 
@@ -5475,7 +5476,7 @@ for older and later versions as things do not change drastically that often.
 
   `->closure_handle` is described in the `connectdata` section.
 
-  The libcurl source code generally use the name `multi` for the variable that
+  The libcurl source code generally uses the name `multi` for the variable that
   points to the `Curl_multi` struct.
 
 <a name="Curl_handler"></a>
@@ -5516,8 +5517,8 @@ for older and later versions as things do not change drastically that often.
   the DO action internally. If the DO is not enough and things need to be kept
   getting done for the entire DO sequence to complete, `->doing` is then
   usually also provided. Each protocol that needs to do multiple commands or
-  similar for do/doing need to implement their own state machines (see SCP,
-  SFTP, FTP). Some protocols (only FTP and only due to historical reasons) has
+  similar for do/doing needs to implement their own state machines (see SCP,
+  SFTP, FTP). Some protocols (only FTP and only due to historical reasons) have
   a separate piece of the DO state called `DO_MORE`.
 
   `->doing` keeps getting called while issuing the transfer request command(s)
@@ -5563,7 +5564,8 @@ for older and later versions as things do not change drastically that often.
     limit which "direction" of socket actions that the main engine will
     concern itself with.
 
-  - `PROTOPT_NONETWORK` - a protocol that does not use network (read `file:`)
+  - `PROTOPT_NONETWORK` - a protocol that does not use the network (read
+    `file:`)
 
   - `PROTOPT_NEEDSPWD` - this protocol needs a password and will use a default
     one unless one is provided
@@ -5669,7 +5671,7 @@ libcurl related documentation.
   sharing the cookies with browsers, only to see browsers move away from that
   format. Modern browsers no longer use it, while curl still does.
 
-  The netscape cookie file format stores one cookie per physical line in the
+  The Netscape cookie file format stores one cookie per physical line in the
   file with a bunch of associated meta data, each field separated with
   TAB. That file is called the cookiejar in curl terminology.
 
@@ -5745,7 +5747,7 @@ libcurl related documentation.
 
   Provide detailed information about a single cookie to add to the internal
   storage of cookies. Pass in the cookie as a HTTP header with all the details
-  set, or pass in a line from a netscape cookie file. This option can also be
+  set, or pass in a line from a Netscape cookie file. This option can also be
   used to flush the cookies etc.
 
   `CURLINFO_COOKIELIST`
@@ -6417,7 +6419,7 @@ and the request will fail.
 As of curl 7.77.0, you can also pass `SCH_USE_STRONG_CRYPTO` as a cipher name
 to [constrain the set of available ciphers as specified in the schannel
 documentation](https://docs.microsoft.com/en-us/windows/win32/secauthn/tls-cipher-suites-in-windows-server-2022).
-Note that the supported ciphers in this case follows the OS version, so if you
+Note that the supported ciphers in this case follow the OS version, so if you
 are running an outdated OS you might still be supporting weak ciphers.
 # Decision making in the curl project
 
@@ -6429,7 +6431,7 @@ This project was started by and has to some extent been pushed forward over
 the years with Daniel Stenberg as the driving force. It matches a standard
 BDFL (Benevolent Dictator For Life) style project.
 
-This setup has been used due to convenience and the fact that is has worked
+This setup has been used due to convenience and the fact that it has worked
 fine this far. It is not because someone thinks of it as a superior project
 leadership model. It will also only continue working as long as Daniel manages
 to listen in to what the project and the general user population wants and
@@ -6466,7 +6468,7 @@ non-profit organization that holds on to funds for us. This fund is then used
 for paying the curl security bug bounties, to reimburse project related
 expenses etc.
 
-Donations to the project can also come in form of server hosting, providing
+Donations to the project can also come in the form of server hosting, providing
 services and paying for people to work on curl related code etc. Usually, such
 donations are services paid for directly by the sponsors.
 
@@ -6654,7 +6656,7 @@ a maintainer. Thank you for your service!
  - maximum amount of redirects to follow
  - custom HTTP request
  - cookie get/send fully parsed
- - reads/writes the netscape cookie file format
+ - reads/writes the Netscape cookie file format
  - custom headers (replace/remove internally generated headers)
  - custom user-agent string
  - custom referrer string
@@ -7290,7 +7292,7 @@ HTTP/3 and QUIC support in curl is considered **EXPERIMENTAL** until further
 notice. It needs to be enabled at build-time.
 
 Further development and tweaking of the HTTP/3 support in curl will happen in
-in the master branch using pull-requests, just like ordinary changes.
+the master branch using pull-requests, just like ordinary changes.
 
 # ngtcp2 version
 
@@ -7422,7 +7424,7 @@ Check out the [list of known HTTP3 bugs](https://curl.se/docs/knownbugs.html#HTT
 This is not advice on how to run anything in production. This is for
 development and experimenting.
 
-## Preqreqs
+## Prereqs
 
 An existing local HTTP/1.1 server that hosts files. Preferably also a few huge
 ones.  You can easily create huge local files like `truncate -s=8G 8GB` - they
@@ -7959,7 +7961,7 @@ cookies from the 'headers' file like:
 
 While saving headers to a file is a working way to store cookies, it is
 however error-prone and not the preferred way to do this. Instead, make curl
-save the incoming cookies using the well-known netscape cookie format like
+save the incoming cookies using the well-known Netscape cookie format like
 this:
 
     curl -c cookies.txt www.example.com
@@ -7972,13 +7974,13 @@ non-existing file to trigger the cookie awareness like:
     curl -L -b empty.txt www.example.com
 
 The file to read cookies from must be formatted using plain HTTP headers OR as
-netscape's cookie file. Curl will determine what kind it is based on the file
+Netscape's cookie file. Curl will determine what kind it is based on the file
 contents. In the above command, curl will parse the header and store the
 cookies received from www.example.com. curl will send to the server the
 stored cookies which match the request as it follows the location. The file
 "empty.txt" may be a nonexistent file.
 
-To read and write cookies from a netscape cookie file, you can set both `-b`
+To read and write cookies from a Netscape cookie file, you can set both `-b`
 and `-c` to use the same file:
 
     curl -b cookies.txt -c cookies.txt www.example.com
@@ -8117,7 +8119,7 @@ header from being used:
 ## FTP and Path Names
 
 Do note that when getting files with a `ftp://` URL, the given path is
-relative the directory you enter. To get the file `README` from your home
+relative to the directory you enter. To get the file `README` from your home
 directory at your ftp site, do:
 
     curl ftp://user:passwd@my.site.com/README
@@ -8284,8 +8286,8 @@ If you have installed the OpenLDAP library, curl can take advantage of it and
 offer `ldap://` support. On Windows, curl will use WinLDAP from Platform SDK
 by default.
 
-Default protocol version used by curl is LDAPv3. LDAPv2 will be used as
-fallback mechanism in case if LDAPv3 will fail to connect.
+Default protocol version used by curl is LDAPv3. LDAPv2 will be used as a
+fallback mechanism in case LDAPv3 fails to connect.
 
 LDAP is a complex thing and writing an LDAP query is not an easy task. I do
 advise you to dig up the syntax description for that elsewhere. One such place
@@ -8305,7 +8307,7 @@ You also can use authentication when accessing LDAP catalog:
     curl -u user:passwd "ldap://ldap.frontec.se/o=frontec??sub?mail=*"
     curl "ldap://user:passwd@ldap.frontec.se/o=frontec??sub?mail=*"
 
-By default, if user and password provided, OpenLDAP/WinLDAP will use basic
+By default, if user and password are provided, OpenLDAP/WinLDAP will use basic
 authentication. On Windows you can control this behavior by providing one of
 `--basic`, `--ntlm` or `--digest` option in curl command line
 
@@ -8948,7 +8950,7 @@ when the reference is invalidated. Once referenced, a buffer cannot be
 reallocated.
 
 A data length is stored within the reference for binary data handling
-purpose; it is not used by the bufref API.
+purposes; it is not used by the bufref API.
 
 The `struct bufref` is used to hold data referencing a buffer. The members of
 that structure **MUST NOT** be accessed or modified without using the dedicated
@@ -8985,7 +8987,7 @@ void Curl_bufref_set(struct bufref *br, const void *buffer, size_t length,
 ```
 
 Releases the previously referenced buffer, then assigns the new `buffer` to
-the structure, associated with its `destructor` function. The later can be
+the structure, associated with its `destructor` function. The latter can be
 specified as `NULL`: this will be the case when the referenced buffer is
 static.
 
@@ -9178,7 +9180,7 @@ want to alter it, you can select how to deal with each individual library.
 
 ## Select TLS backend
 
-These options are provided to select TLS backend to use.
+These options are provided to select the TLS backend to use.
 
  - AmiSSL: `--with-amissl`
  - BearSSL: `--with-bearssl`
@@ -9291,9 +9293,9 @@ versions.
 ## Using BSD-style lwIP instead of Winsock TCP/IP stack in Win32 builds
 
 In order to compile libcurl and curl using BSD-style lwIP TCP/IP stack it is
-necessary to make definition of preprocessor symbol `USE_LWIPSOCK` visible to
-libcurl and curl compilation processes. To set this definition you have the
-following alternatives:
+necessary to make the definition of the preprocessor symbol `USE_LWIPSOCK`
+visible to libcurl and curl compilation processes. To set this definition you
+have the following alternatives:
 
  - Modify `lib/config-win32.h` and `src/config-win32.h`
  - Modify `winbuild/Makefile.vc`
@@ -9390,7 +9392,8 @@ make -j8
 make install
 ```
 
-In all above, the built libraries and executables can be found in `artifacts` folder.
+In all above, the built libraries and executables can be found in the
+`artifacts` folder.
 
 # Android
 
@@ -9643,7 +9646,7 @@ Vulnerability Handling
 The typical process for handling a new security vulnerability is as follows.
 
 No information should be made public about a vulnerability until it is
-formally announced at the end of this process. That means, for example that a
+formally announced at the end of this process. That means, for example, that a
 bug tracker entry must NOT be created to track the issue since that will make
 the issue public and it should not be discussed on any of the project's public
 mailing lists. Also messages associated with any commits should not make any
@@ -9692,7 +9695,7 @@ announcement.
   should ideally contain the CVE number.
 
 - The security team also decides on and delivers a monetary reward to the
-  reporter as per the bug-bounty polices.
+  reporter as per the bug-bounty policies.
 
 - No more than 10 days before release, inform
   [distros@openwall](https://oss-security.openwall.org/wiki/mailing-lists/distros)
@@ -9727,7 +9730,7 @@ might ask you to join the list or you can ask to join it. It really is not a
 formal process. We basically only require that you have a long-term presence
 in the curl project and you have shown an understanding for the project and
 its way of working. You must have been around for a good while and you should
-have no plans in vanishing in the near future.
+have no plans of vanishing in the near future.
 
 We do not make the list of participants public mostly because it tends to vary
 somewhat over time and a list somewhere will only risk getting outdated.

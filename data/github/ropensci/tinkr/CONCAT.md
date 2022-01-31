@@ -3460,3 +3460,1470 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 blabla
 
 
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#|",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# tinkr
+
+<!-- badges: start -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R build status](https://github.com/ropensci/tinkr/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/tinkr/actions)
+[![Coverage status](https://codecov.io/gh/ropensci/tinkr/branch/master/graph/badge.svg)](https://codecov.io/github/ropensci/tinkr?branch=master)
+<!-- badges: end -->
+
+```{r child='man/rmd-fragments/goal.Rmd'} 
+```  
+
+## Use Cases
+
+```{r child='man/rmd-fragments/use-cases.Rmd'} 
+```
+
+## Workflow
+
+```{r child='man/rmd-fragments/workflow.Rmd'} 
+```
+
+
+## Installation
+
+Wanna try the package and tell us what doesn't work yet? 
+
+```r 
+install.packages("tinkr", repos = "https://ropensci.r-universe.dev")
+```
+
+## Examples
+
+### Markdown
+
+```{r child='man/rmd-fragments/example-markdown-headers.Rmd'} 
+```
+
+### R Markdown
+
+```{r child='man/rmd-fragments/example-rmarkdown-chunks.Rmd'} 
+```
+
+### Inserting new Markdown elements
+
+```{r child='man/rmd-fragments/example-rmarkdown-adding-elements.Rmd'}
+```
+
+## Background / pre-requisites
+
+```{r child='man/rmd-fragments/prereqs.Rmd'}
+```
+
+
+## Loss of Markdown style
+
+### General principles and solution
+
+```{r child='man/rmd-fragments/format-list.Rmd'}
+```
+
+  
+### The special case of tables
+  
+```{r child='man/rmd-fragments/format-table.Rmd'}
+```
+
+
+### LaTeX equations
+
+```{r child='man/rmd-fragments/format-latex.Rmd'}
+```
+
+
+## Meta
+
+Please note that the 'tinkr' project is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct). By contributing to this project, you agree to abide by its terms.
+---
+title: "Untitled"
+author: "M. Salmon"
+date: "September 6, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an ~~R Markdown document~~. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see [http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com).
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r, eval=TRUE, echo=TRUE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{python, fig.cap="pretty plot", echo=-c(1, 2), eval=TRUE}
+plot(pressure)
+```
+
+```{python}
+plot(pressure)
+```
+
+Non-RMarkdown blocks are also considered
+
+```bash
+echo "this is an unevaluted bash block"
+```
+
+```
+This is an ambiguous code block
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+| scientific\_name            | common\_name         | n   | 
+| :------------------------- | :------------------ | --: |
+| Corvus corone              | Carrion Crow        | 288 | 
+| Turdus merula              | Eurasian Blackbird  | 285 | 
+| Anas platyrhynchos         | Mallard             | 273 | 
+| Fulica atra                | Eurasian Coot       | 268 | 
+| Parus major                | Great Tit           | 266 | 
+| Podiceps cristatus         | Great Crested Grebe | 254 | 
+| Ardea cinerea              | Gray Heron          | 236 | 
+| Cygnus olor                | Mute Swan           | 234 | 
+| Cyanistes caeruleus        | Eurasian Blue Tit   | 233 | 
+| Chroicocephalus ridibundus | Black-headed Gull   | 223 | 
+
+blabla
+
+
+---
+title: "Untitled"
+author: "M. Salmon"
+date: "September 6, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r cody}
+# assign a sequence of 10 to 'a'
+a <- 1:10
+```
+
+## R Markdown
+
+This is an ~~R Markdown document~~. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see [http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com).
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r, eval=TRUE, echo=TRUE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{python, fig.cap="pretty plot", echo=-c(1, 2), eval=TRUE}
+plot(pressure)
+```
+
+```{python}
+plot(pressure)
+```
+
+Non-RMarkdown blocks are also considered
+
+```bash
+echo "this is an unevaluted bash block"
+```
+
+```
+This is an ambiguous code block
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+| scientific\_name            | common\_name         | n   | 
+| :------------------------- | :------------------ | --: |
+| Corvus corone              | Carrion Crow        | 288 | 
+| Turdus merula              | Eurasian Blackbird  | 285 | 
+| Anas platyrhynchos         | Mallard             | 273 | 
+| Fulica atra                | Eurasian Coot       | 268 | 
+| Parus major                | Great Tit           | 266 | 
+| Podiceps cristatus         | Great Crested Grebe | 254 | 
+| Ardea cinerea              | Gray Heron          | 236 | 
+| Cygnus olor                | Mute Swan           | 234 | 
+| Cyanistes caeruleus        | Eurasian Blue Tit   | 233 | 
+| Chroicocephalus ridibundus | Black-headed Gull   | 223 | 
+
+blabla
+
+
+---
+title: "Untitled"
+author: "M. Salmon"
+date: "September 6, 2018"
+output: html_document
+---
+
+```{julia setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an ~~R Markdown document~~. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see [http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com).
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{julia, eval=TRUE, echo=TRUE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{julia, fig.cap="pretty plot", echo=-c(1, 2), eval=TRUE}
+plot(pressure)
+```
+
+```{julia}
+plot(pressure)
+```
+
+Non-RMarkdown blocks are also considered
+
+```{julia, info=bash}
+echo "this is an unevaluted bash block"
+```
+
+```{julia}
+This is an ambiguous code block
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+| scientific\_name            | common\_name         | n   | 
+| :------------------------- | :------------------ | --: |
+| Corvus corone              | Carrion Crow        | 288 | 
+| Turdus merula              | Eurasian Blackbird  | 285 | 
+| Anas platyrhynchos         | Mallard             | 273 | 
+| Fulica atra                | Eurasian Coot       | 268 | 
+| Parus major                | Great Tit           | 266 | 
+| Podiceps cristatus         | Great Crested Grebe | 254 | 
+| Ardea cinerea              | Gray Heron          | 236 | 
+| Cygnus olor                | Mute Swan           | 234 | 
+| Cyanistes caeruleus        | Eurasian Blue Tit   | 233 | 
+| Chroicocephalus ridibundus | Black-headed Gull   | 223 | 
+
+blabla
+
+
+---
+title: "Untitled"
+author: "M. Salmon"
+date: "September 6, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE, eval = TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an ~~R Markdown document~~. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r, eval = TRUE, echo=TRUE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{python, fig.cap = "pretty plot", echo=-c(1, 2), eval = TRUE}
+plot(pressure)
+```
+
+```{python}
+plot(pressure)
+```
+
+Non-RMarkdown blocks are also considered
+
+```bash
+echo "this is an unevaluted bash block"
+```
+
+```
+This is an ambiguous code block
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+| scientific\_name           | common\_name        |    n|
+|:---------------------------|:--------------------|----:|
+| Corvus corone              | Carrion Crow        |  288|
+| Turdus merula              | Eurasian Blackbird  |  285|
+| Anas platyrhynchos         | Mallard             |  273|
+| Fulica atra                | Eurasian Coot       |  268|
+| Parus major                | Great Tit           |  266|
+| Podiceps cristatus         | Great Crested Grebe |  254|
+| Ardea cinerea              | Gray Heron          |  236|
+| Cygnus olor                | Mute Swan           |  234|
+| Cyanistes caeruleus        | Eurasian Blue Tit   |  233|
+| Chroicocephalus ridibundus | Black-headed Gull   |  223|
+
+blabla
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see [http://rmarkdown.rstudio.com](http://rmarkdown.rstudio.com).
+
+When you click the **Knit** button a document will be generated that
+includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+```{NA}
+summary(cars)
+
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+![](media/rId23.png)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax
+for authoring HTML, PDF, and MS Word documents. For more details on
+using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that
+includes both content as well as the output of any embedded R code
+chunks within the document. You can embed an R code chunk like this:
+
+    summary(cars)
+
+    ##      speed           dist       
+    ##  Min.   : 4.0   Min.   :  2.00  
+    ##  1st Qu.:12.0   1st Qu.: 26.00  
+    ##  Median :15.0   Median : 36.00  
+    ##  Mean   :15.4   Mean   : 42.98  
+    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
+    ##  Max.   :25.0   Max.   :120.00
+
+## Including Plots
+
+You can also embed plots, for example:
+
+![](media/rId23.png)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.
+---
+title: "Untitled"
+author: "M. Salmon"
+date: "September 19, 2018"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+---
+title: "Introduction to the tinkr package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to the tinkr package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tinkr)
+```
+
+```{r child='../man/rmd-fragments/goal.Rmd'} 
+```  
+
+## Use Cases
+
+```{r child='../man/rmd-fragments/use-cases.Rmd'} 
+```
+
+## Workflow
+
+```{r child='../man/rmd-fragments/workflow.Rmd'} 
+```
+
+## Examples
+
+### Markdown
+
+```{r child='../man/rmd-fragments/example-markdown-headers.Rmd'} 
+```
+
+### R Markdown
+
+```{r child='../man/rmd-fragments/example-rmarkdown-chunks.Rmd'} 
+```
+
+### Inserting new Markdown elements
+
+```{r child='../man/rmd-fragments/example-rmarkdown-adding-elements.Rmd'}
+```
+
+## Background / pre-requisites
+
+```{r child='../man/rmd-fragments/prereqs.Rmd'}
+```
+
+
+## Loss of Markdown style
+
+### General principles and solution
+
+```{r child='../man/rmd-fragments/format-list.Rmd'}
+```
+
+  
+### The special case of tables
+  
+```{r child='../man/rmd-fragments/format-table.Rmd'}
+```
+
+
+### LaTeX equations
+
+```{r child='../man/rmd-fragments/format-latex.Rmd'}
+```
+This is a basic example. 
+We read "example1.md", change all headers 3 to headers 1, and save it back to md. 
+Because the xml2 objects are [passed by reference](https://blog.penjee.com/wp-content/uploads/2015/02/pass-by-reference-vs-pass-by-value-animation.gif), manipulating them does not require reassignment. 
+
+```{r}
+library("magrittr")
+library("tinkr")
+# From Markdown to XML
+path <- system.file("extdata", "example1.md", package = "tinkr")
+# Level 3 header example:
+cat(tail(readLines(path, 40)), sep = "\n")
+ex1  <- tinkr::yarn$new(path)
+# transform level 3 headers into level 1 headers
+ex1$body %>%
+  xml2::xml_find_all(xpath = ".//md:heading[@level='3']", ex1$ns) %>% 
+  xml2::xml_set_attr("level", 1)
+
+# Back to Markdown
+tmp <- tempfile(fileext = "md")
+ex1$write(tmp)
+# Level three headers are now Level one:
+cat(tail(readLines(tmp, 40)), sep = "\n")
+unlink(tmp)
+```
+While Markdown parsers like pandoc know what LaTeX is,
+commonmark does not, 
+and that means LaTeX equations will end up with extra markup due to commonmark's desire to escape characters.
+
+However, if you have LaTeX equations that use either `$` or `$$` to delimit them, 
+you can protect them from formatting changes with the `$protect_math()` method (for users of the `yarn` object) 
+or the `protect_math()` funciton (for those using the output of `to_xml()`). 
+Below is a demonstration using the `yarn` object:
+
+```{r protect-math}
+path <- system.file("extdata", "math-example.md", package = "tinkr")
+math <- tinkr::yarn$new(path)
+math$tail() # malformed
+math$protect_math()$tail() # success!
+```
+
+Note, however, that there are a few caveats for this:
+
+1. The dollar notation for inline math must be adjacent to the text. E.G. 
+   `$\alpha$` is valid, but `$ \alpha$` and `$\alpha $` are not valid.
+2. We do not currently have support for bracket notation
+3. If you use a postfix dollar sign in your prose (e.g. BASIC commands or a Burroughs-Wheeler Transformation demonstration),
+you must be sure to either use punctuation after the trailing dollar sign OR format the text as code.
+(i.e. `` `INKEY$` `` is good, but `INKEY$` by itself is not good and will be interepreted as LaTeX code, throwing an error:
+    ```{r, basic, error = TRUE}
+    path <- system.file("extdata", "basic-math.md", package = "tinkr")
+    math <- tinkr::yarn$new(path)
+    math$head(15) # malformed
+    math$protect_math() #error
+    ```
+Possible applications are R scripts using tinkr, and XPath via xml2 to:
+
+* change levels of headers, cf [this script](inst/scripts/roweb2_headers.R) and [this pull request to roweb2](https://github.com/ropensci/roweb2/pull/279);
+* change chunk labels and options;
+* extract all runnable code (including inline code);
+* insert arbitrary Markdown elements;
+* modify link URLs;
+* your idea, please [report use cases](https://discuss.ropensci.org/c/usecases/10)!
+
+If you are not closely following one of the examples provided, what background knowledge do you need before using tinkr?
+
+* That XPath, a language for querying XML & HTML, exists, and [some basics](https://www.w3schools.com/xml/xpath_intro.asp). 
+* Basics of how [xml2 works](https://blog.r-hub.io/2020/01/22/mutable-api/#exposing-the-c-api-in-xml2): how to find, replace, remove nodes etc.
+* How to use R6 classes... although reading the examples should help you get the gist.
+* If you are not happy with [our default stylesheet](#general-principles-and-solution), then understanding [XSLT](https://ropensci.org/blog/2017/01/10/xslt-release/) will help you create your own. Refer to this good resource on [XSLT for XML transformations](https://www.w3schools.com/xml/xsl_intro.asp).
+
+Inserting new nodes into the AST is surprisingly difficult if there is a default namespace, 
+so we have provided a method in the **yarn** object that will take plain Markdown 
+and translate it to XML nodes and insert them into the document for you. 
+For example, you can add a new code block:
+
+```{r new-block}
+path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+rmd <- tinkr::yarn$new(path)
+xml2::xml_find_first(rmd$body, ".//md:code_block", rmd$ns)
+new_code <- c(
+  "```{r xml-block, message = TRUE}",
+  "message(\"this is a new chunk from {tinkr}\")",
+  "```")
+new_table <- data.frame(
+  package = c("xml2", "xslt", "commonmark", "tinkr"),
+  cool = TRUE
+)
+# Add chunk into document after the first chunk
+rmd$add_md(new_code, where = 1L)
+# Add a table after the second chunk:
+rmd$add_md(knitr::kable(new_table), where = 2L)
+# show the first 21 lines of modified document
+rmd$head(21)
+```
+* Tables are supposed to remain/become pretty after a full loop `to_xml` + `to_md`. If you notice something amiss, e.g. too much space compared to what you were expecting, please open an issue.
+
+For R Markdown files, to ease editing of chunk label and options, `to_xml` munges the chunk info into different attributes. 
+E.g. below you see that `code_blocks` can have a `language`, `name`, `echo` attributes.
+
+```{r}
+path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+rmd <- tinkr::yarn$new(path)
+rmd$body
+```
+
+Note that all of the features in tinkr work for both Markdown and R Markdown.
+The goal of tinkr is to convert (R)Markdown files to XML and back to allow their editing with xml2 (XPath!) instead of numerous complicated regular expressions. 
+If these words mean nothing to you, see our list of [resources to get started](#background--pre-requisites).
+Only the body of the (R) Markdown file is cast to XML, using the Commonmark specification via the [`commonmark` package](https://github.com/jeroen/commonmark). 
+YAML metadata could be edited using the [`yaml` package](https://github.com/viking/r-yaml), which is not the goal of this package.
+
+We have created an [R6 class](https://r6.r-lib.org/) object called **yarn** to store the representation of both the YAML and the XML data, both of which are accessible through the `$body` and `$yaml` elements. 
+In addition, the namespace prefix is set to "md" in the `$ns` element.
+
+You can perform XPath queries using the `$body` and `$ns` elements:
+
+```{r}
+library("tinkr")
+library("xml2")
+path <- system.file("extdata", "example1.md", package = "tinkr")
+head(readLines(path))
+ex1 <- tinkr::yarn$new(path)
+# find all ropensci.org blog links
+xml_find_all(
+  x = ex1$body, 
+  xpath = ".//md:link[contains(@destination,'ropensci.org/blog')]", 
+  ns = ex1$ns
+)
+```
+The (R)md to XML to (R)md loop on which `tinkr` is based is slightly lossy because of Markdown syntax redundancy, so the loop from (R)md to R(md) via `to_xml` and `to_md` will be a bit lossy. For instance 
+
+ * lists can be created with either "+", "-" or "*". When using `tinkr`, the (R)md after editing will only use "-" for lists. 
+ 
+ * Links built like `[word][smallref]` with a bottom anchor `[smallref]: URL`
+  will have the anchor moved to the bottom of the document.
+ 
+ * Characters are escaped (e.g. "[" when not for a link).
+
+ * [x] GitHub tickboxes are preserved (only for `yarn` objects)
+ 
+ * Block quotes lines all get ">" whereas in the input only the first could have a ">" at the beginning of the first line.
+ 
+ * For tables see the next subsection.
+    
+  Such losses make your (R)md different, and the git diff a bit harder to parse, but should _not_ change the documents your (R)md is rendered to. If it does, report a bug in the issue tracker!
+  
+  A solution to not loose your Markdown style, e.g. your preferring "*" over "-" for lists is to tweak [our XSL stylesheet](inst/extdata/xml2md_gfm.xsl) and provide its filepath as `stylesheet_path` argument to `to_md`.
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/class-yarn.R
+\name{yarn}
+\alias{yarn}
+\title{R6 class containing XML representation of Markdown}
+\description{
+Wrapper around an XML representation of a Markdown document. It contains four
+publicly accessible slots: path, yaml, body, and ns.
+}
+\details{
+This class is a fancy wrapper around the results of \code{\link[=to_xml]{to_xml()}} and
+has methods that make it easier to add, analyze, remove, or write elements
+of your markdown document.
+}
+\examples{
+
+## ------------------------------------------------
+## Method `yarn$new`
+## ------------------------------------------------
+
+path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+ex1
+path2 <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex2 <- tinkr::yarn$new(path2)
+ex2
+
+## ------------------------------------------------
+## Method `yarn$reset`
+## ------------------------------------------------
+
+
+path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+# OH NO
+ex1$body
+ex1$body <- xml2::xml_missing()
+ex1$reset()
+ex1$body
+
+## ------------------------------------------------
+## Method `yarn$write`
+## ------------------------------------------------
+
+path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+ex1
+tmp <- tempfile()
+try(readLines(tmp)) # nothing in the file
+ex1$write(tmp)
+head(readLines(tmp)) # now a markdown file
+unlink(tmp)
+
+## ------------------------------------------------
+## Method `yarn$show`
+## ------------------------------------------------
+
+path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex2 <- tinkr::yarn$new(path)
+ex2$head(5)
+ex2$tail(5)
+ex2$show()
+
+## ------------------------------------------------
+## Method `yarn$add_md`
+## ------------------------------------------------
+
+path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex <- tinkr::yarn$new(path)
+# two headings, no lists
+xml2::xml_find_all(ex$body, "md:heading", ex$ns)
+xml2::xml_find_all(ex$body, "md:list", ex$ns)
+ex$add_md(
+  "# Hello\n\nThis is *new* formatted text from `{tinkr}`!",
+  where = 1L
+)$add_md(
+  " - This\n - is\n - a new list",
+  where = 2L
+)
+# three headings
+xml2::xml_find_all(ex$body, "md:heading", ex$ns)
+xml2::xml_find_all(ex$body, "md:list", ex$ns)
+tmp <- tempfile()
+ex$write(tmp)
+readLines(tmp, n = 20) 
+
+## ------------------------------------------------
+## Method `yarn$protect_math`
+## ------------------------------------------------
+
+path <- system.file("extdata", "math-example.md", package = "tinkr")
+ex <- tinkr::yarn$new(path)
+ex$tail() # math blocks are escaped :(
+ex$protect_math()$tail() # math blocks are no longer escaped :)
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{path}}{[\code{character}] path to file on disk}
+
+\item{\code{yaml}}{[\code{character}] text block at head of file}
+
+\item{\code{body}}{[\code{xml_document}] an xml document of the (R)Markdown file.}
+
+\item{\code{ns}}{[\code{xml_document}] an xml namespace object definining "md" to
+commonmark.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-new}{\code{yarn$new()}}
+\item \href{#method-reset}{\code{yarn$reset()}}
+\item \href{#method-write}{\code{yarn$write()}}
+\item \href{#method-show}{\code{yarn$show()}}
+\item \href{#method-head}{\code{yarn$head()}}
+\item \href{#method-tail}{\code{yarn$tail()}}
+\item \href{#method-add_md}{\code{yarn$add_md()}}
+\item \href{#method-protect_math}{\code{yarn$protect_math()}}
+\item \href{#method-clone}{\code{yarn$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
+\subsection{Method \code{new()}}{
+Create a new yarn document
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$new(path = NULL, encoding = "UTF-8", sourcepos = FALSE, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{[\code{character}] path to a markdown episode file on disk}
+
+\item{\code{encoding}}{[\code{character}] encoding passed to \code{\link[=readLines]{readLines()}}}
+
+\item{\code{sourcepos}}{passed to \code{\link[commonmark:commonmark]{commonmark::markdown_xml()}}. If \code{TRUE}, the
+source position of the file will be included as a "sourcepos" attribute.
+Defaults to \code{FALSE}.}
+
+\item{\code{...}}{arguments passed on to \code{\link[=to_xml]{to_xml()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A new yarn object containing an XML representation of a
+(R)Markdown file.
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+ex1
+path2 <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex2 <- tinkr::yarn$new(path2)
+ex2
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-reset}{}}}
+\subsection{Method \code{reset()}}{
+reset a yarn document from the original file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$reset()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{
+path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+# OH NO
+ex1$body
+ex1$body <- xml2::xml_missing()
+ex1$reset()
+ex1$body
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-write"></a>}}
+\if{latex}{\out{\hypertarget{method-write}{}}}
+\subsection{Method \code{write()}}{
+Write a yarn document to Markdown/R Markdown
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$write(path = NULL, stylesheet_path = stylesheet())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{path to the file you want to write}
+
+\item{\code{stylesheet_path}}{path to the xsl stylesheet to convert XML to markdown.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{path <- system.file("extdata", "example1.md", package = "tinkr")
+ex1 <- tinkr::yarn$new(path)
+ex1
+tmp <- tempfile()
+try(readLines(tmp)) # nothing in the file
+ex1$write(tmp)
+head(readLines(tmp)) # now a markdown file
+unlink(tmp)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-show"></a>}}
+\if{latex}{\out{\hypertarget{method-show}{}}}
+\subsection{Method \code{show()}}{
+show the markdown contents on the screen
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$show(stylesheet_path = stylesheet())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{stylesheet_path}}{path to the xsl stylesheet to convert XML to markdown.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a character vector with one line for each line in the output
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex2 <- tinkr::yarn$new(path)
+ex2$head(5)
+ex2$tail(5)
+ex2$show()
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-head"></a>}}
+\if{latex}{\out{\hypertarget{method-head}{}}}
+\subsection{Method \code{head()}}{
+show the head of the markdown contents on the screen
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$head(n = 6L, stylesheet_path = stylesheet())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{the number of elements to show from the top. Negative numbers}
+
+\item{\code{stylesheet_path}}{path to the xsl stylesheet to convert XML to markdown.
+exclude lines from the bottom}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a character vector with \code{n} elements
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-tail"></a>}}
+\if{latex}{\out{\hypertarget{method-tail}{}}}
+\subsection{Method \code{tail()}}{
+show the tail of the markdown contents on the screen
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$tail(n = 6L, stylesheet_path = stylesheet())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{the number of elements to show from the bottom. Negative numbers}
+
+\item{\code{stylesheet_path}}{path to the xsl stylesheet to convert XML to markdown.
+exclude lines from the top}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+a character vector with \code{n} elements
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-add_md"></a>}}
+\if{latex}{\out{\hypertarget{method-add_md}{}}}
+\subsection{Method \code{add_md()}}{
+add an arbitrary Markdown element to the document
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$add_md(md, where = 0L)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{md}}{a string of markdown formatted text.}
+
+\item{\code{where}}{the location in the document to add your markdown text.
+This is passed on to \code{\link[xml2:xml_replace]{xml2::xml_add_child()}}. Defaults to 0, which
+indicates the very top of the document.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{path <- system.file("extdata", "example2.Rmd", package = "tinkr")
+ex <- tinkr::yarn$new(path)
+# two headings, no lists
+xml2::xml_find_all(ex$body, "md:heading", ex$ns)
+xml2::xml_find_all(ex$body, "md:list", ex$ns)
+ex$add_md(
+  "# Hello\n\nThis is *new* formatted text from `{tinkr}`!",
+  where = 1L
+)$add_md(
+  " - This\n - is\n - a new list",
+  where = 2L
+)
+# three headings
+xml2::xml_find_all(ex$body, "md:heading", ex$ns)
+xml2::xml_find_all(ex$body, "md:list", ex$ns)
+tmp <- tempfile()
+ex$write(tmp)
+readLines(tmp, n = 20) 
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-protect_math"></a>}}
+\if{latex}{\out{\hypertarget{method-protect_math}{}}}
+\subsection{Method \code{protect_math()}}{
+Protect math blocks from being escaped
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$protect_math()}\if{html}{\out{</div>}}
+}
+
+\subsection{Examples}{
+\if{html}{\out{<div class="r example copy">}}
+\preformatted{path <- system.file("extdata", "math-example.md", package = "tinkr")
+ex <- tinkr::yarn$new(path)
+ex$tail() # math blocks are escaped :(
+ex$protect_math()$tail() # math blocks are no longer escaped :)
+}
+\if{html}{\out{</div>}}
+
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{yarn$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/add_md.R
+\name{md_to_xml}
+\alias{md_to_xml}
+\title{Convert markdown to XML}
+\usage{
+md_to_xml(md)
+}
+\arguments{
+\item{md}{a character vector of markdown text}
+}
+\value{
+an XML nodeset of the markdown text
+}
+\description{
+Convert markdown to XML
+}
+\examples{
+tinkr:::md_to_xml(c(
+  "## This is a new section of markdown",
+  "",
+  "Each new element",
+  "Is converted to a new line of markdown text",
+  "",
+  "```{r code-example, echo = FALSE}",
+  "cat('code blocks work well here, too')",
+  "```",
+  "",
+  "Neat, right?"
+))
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/resolve-links.R
+\name{resolve_anchor_links}
+\alias{resolve_anchor_links}
+\title{Resolve Reference-Style Links}
+\usage{
+resolve_anchor_links(body, txt, ns = md_ns())
+}
+\arguments{
+\item{body}{an XML body}
+
+\item{txt}{the text of a source file}
+
+\item{ns}{an the namespace that resolves the Markdown namespace (defaults to
+\code{\link[=md_ns]{md_ns()}})}
+}
+\description{
+\href{https://www.markdownguide.org/basic-syntax/#reference-style-links}{Reference style links and images}
+are a form of markdown syntax that reduces dupcliation and makes markdown
+more readable. They come in two parts:
+\enumerate{
+\item The inline part that uses two pairs of square brackets where the second
+pair of square brackets contains the reference for the anchor part of the
+link. Example:\preformatted{[inline text describing link][link-reference]
+}
+\item The anchor part, which can be anywhere in the document, contains a pair
+of square brackets followed by a colon and space with the link and
+optionally the link title. Example:\preformatted{[link-reference]: https://docs.ropensci.org/tinkr/ 'documentation for tinkr'
+}
+}
+
+Commonmark treats reference-style links as regular links, which can be a
+pain when converting large documents. This function resolves these
+links by reading in the source document, finding the reference-style links,
+and adding them back at the end of the document with the 'anchor' attribute
+and appending the reference to the link with the 'ref' attribute.
+}
+\details{
+\subsection{Nomenclature}{
+
+The reference-style link contains two parts, but they don't have common names
+(the \href{https://www.markdownguide.org/basic-syntax/}{markdown guide} calls
+these "first part and second part"), so in this documentation, we call the
+link pattern of \verb{[link text][link-ref]} as the "inline reference-style link"
+and the pattern of \verb{[link-ref]: <URL>} as the "anchor references-style link".
+}
+
+\subsection{Reference-style links in commonmark's XML representation}{
+
+A link or image in XML is represented by a node with the following attributes
+\itemize{
+\item destination: the URL for the link
+\item title: an optional title for the link
+}
+
+For example, this markdown link \verb{[link text](https://example.com "example  link")} is represented in XML as text inside of a link node:\if{html}{\out{<div class="sourceCode r">}}\preformatted{lnk <- "[link text](https://example.com 'example link')"
+xml <- xml2::read_xml(commonmark::markdown_xml(lnk))
+cat(as.character(xml2::xml_find_first(xml, ".//d1:link")))
+}\if{html}{\out{</div>}}\preformatted{## <link destination="https://example.com" title="example link">
+##   <text xml:space="preserve">link text</text>
+## </link>
+}
+
+However, reference-style links are rendered equivalently:\if{html}{\out{<div class="sourceCode r">}}\preformatted{lnk <- "
+[link text][link-ref]
+
+[link-ref]: https://example.com 'example link'
+"
+xml <- xml2::read_xml(commonmark::markdown_xml(lnk))
+cat(as.character(xml2::xml_find_first(xml, ".//d1:link")))
+}\if{html}{\out{</div>}}\preformatted{## <link destination="https://example.com" title="example link">
+##   <text xml:space="preserve">link text</text>
+## </link>
+}
+}
+
+\subsection{XML attributes of reference-style links}{
+
+To preserve the anchor reference-style links, we search the source document
+for the destination attribute proceded by \verb{]: }, transform that information
+into a new link node with the \code{anchor} attribute, and add it to the end of
+the document. That node looks like this:\preformatted{<link destination="https://example.com" title="example link" anchor="true">
+  <text>link-ref</text>
+</link>
+}
+
+From there, we add the anchor text to the node that is present in our
+document as the \code{ref} attribute:\preformatted{<link destination="https://example.com" title="example link" rel="link-ref">
+  <text xml:space="preserve">link text</text>
+</link>
+}
+}
+}
+\note{
+this function is internally used in the function \code{\link[=to_xml]{to_xml()}}.
+}
+\examples{
+f <- system.file("extdata", "link-test.md", package = "tinkr")
+md <- yarn$new(f, sourcepos = TRUE, anchor_links = FALSE)
+md$show()
+lnks <- tinkr:::resolve_anchor_links(md$body, readLines(md$path))
+md$body <- lnks
+md$show()
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/asis-nodes.R
+\name{protect_math}
+\alias{protect_math}
+\title{Protect math elements from commonmark's character escape}
+\usage{
+protect_math(body, ns = md_ns())
+}
+\arguments{
+\item{body}{an XML object}
+
+\item{ns}{an XML namespace object (defaults: \code{\link[=md_ns]{md_ns()}}).}
+}
+\value{
+a copy of the modified XML object
+}
+\description{
+Protect math elements from commonmark's character escape
+}
+\details{
+Commonmark does not know what LaTeX is and will LaTeX equations as
+normal text. This means that content surrounded by underscores are
+interpreted as \verb{<emph>} elements and all backslashes are escaped by default.
+This function protects inline and block math elements that use \code{$} and \verb{$$}
+for delimiters, respectively.
+}
+\note{
+this function is also a method in the \link{yarn} object.
+}
+\examples{
+m <- tinkr::to_xml(system.file("extdata", "math-example.md", package = "tinkr"))
+txt <- textConnection(tinkr::to_md(m))
+cat(tail(readLines(txt)), sep = "\n") # broken math
+close(txt)
+m$body <- protect_math(m$body)
+txt <- textConnection(tinkr::to_md(m))
+cat(tail(readLines(txt)), sep = "\n") # fixed math
+close(txt)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/md_ns.R
+\name{md_ns}
+\alias{md_ns}
+\title{Aliased namespace prefix for commonmark}
+\usage{
+md_ns()
+}
+\value{
+an \code{xml_namespace} object (see \code{\link[xml2:xml_ns]{xml2::xml_ns()}})
+}
+\description{
+The {commonmark} package is used to translate markdown to XML, but it does
+not assign a namespace prefix, which means that {xml2} will auto-assign a
+default prefix of \code{d1}.
+}
+\details{
+This function renames the default prefix to \code{md}, so that you can use XPath
+queries that are slightly more descriptive.
+}
+\examples{
+
+tink <- tinkr::to_xml(system.file("extdata", "example1.md", package = "tinkr"))
+# with default namespace
+xml2::xml_find_all(tink$body, 
+  ".//d1:link[starts-with(@destination, 'https://ropensci')]"
+)
+# with tinkr namespace
+xml2::xml_find_all(tink$body, 
+  ".//md:link[starts-with(@destination, 'https://ropensci')]",
+  tinkr::md_ns()
+)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/to_md.R
+\name{to_md}
+\alias{to_md}
+\title{Write YAML and XML back to disk as (R)Markdown}
+\usage{
+to_md(yaml_xml_list, path = NULL, stylesheet_path = stylesheet())
+}
+\arguments{
+\item{yaml_xml_list}{result from a call to \code{\link[=to_xml]{to_xml()}} and editing.}
+
+\item{path}{path of the new file. Defaults to \code{NULL}, which will not write
+any file, but will still produce the conversion and pass the output as
+a character vector.}
+
+\item{stylesheet_path}{path to the XSL stylesheet}
+}
+\value{
+the converted document, invisibly.
+}
+\description{
+Write YAML and XML back to disk as (R)Markdown
+}
+\details{
+The stylesheet you use will decide whether lists
+are built using "*" or "-" for instance. If you're keen to
+keep your own Markdown style when using \code{\link[=to_md]{to_md()}} after
+\code{\link[=to_xml]{to_xml()}}, you can tweak the XSL stylesheet a bit and provide
+the path to your XSL stylesheet as argument.
+}
+\examples{
+path <- system.file("extdata", "example1.md", package = "tinkr")
+yaml_xml_list <- to_xml(path)
+names(yaml_xml_list)
+library("magrittr")
+# transform level 3 headers into level 1 headers
+body <- yaml_xml_list$body
+body \%>\%
+  xml2::xml_find_all(xpath = './/d1:heading',
+                     xml2::xml_ns(.)) \%>\%
+  .[xml2::xml_attr(., "level") == "3"] -> headers3
+xml2::xml_set_attr(headers3, "level", 1)
+yaml_xml_list$body <- body
+# save back and have a look
+newmd <- tempfile("newmd", fileext = ".md")
+to_md(yaml_xml_list, newmd)
+# file.edit("newmd.md")
+file.remove(newmd)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/asis-nodes.R
+\name{protect_inline_math}
+\alias{protect_inline_math}
+\title{Find and protect all inline math elements}
+\usage{
+protect_inline_math(body, ns)
+}
+\arguments{
+\item{body}{an XML document}
+
+\item{ns}{an XML namespace}
+}
+\value{
+a modified \emph{copy} of the original XML document
+}
+\description{
+Find and protect all inline math elements
+}
+\examples{
+txt <- commonmark::markdown_xml(
+  r"{This sentence contains $I_A$ $\frac{\pi}{2}$ inline $\LaTeX$ math.}"
+)
+txt <- xml2::read_xml(txt)
+cat(to_md(list(body = txt, yaml = "")), sep = "\n")
+ns  <- tinkr::md_ns()
+protxt <- tinkr:::protect_inline_math(txt, ns)
+cat(to_md(list(body = protxt, yaml = "")), sep = "\n")
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/stylesheet.R
+\name{stylesheet}
+\alias{stylesheet}
+\title{The {tinkr} stylesheet}
+\usage{
+stylesheet()
+}
+\value{
+a single element character vector representing the path to the
+stylesheet used by {tinkr}.
+}
+\description{
+This function returns the path to the {tinkr} stylesheet
+}
+\examples{
+tinkr::stylesheet()
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/add_md.R
+\name{add_md}
+\alias{add_md}
+\title{Add markdown content to an XML object}
+\usage{
+add_md(body, md, where = 0L)
+}
+\arguments{
+\item{body}{an XML object generated via {tinkr}}
+
+\item{md}{a string of new markdown to insert}
+
+\item{where}{the position in the markdown document to insert the new markdown}
+}
+\value{
+a copy of the XML object with the markdown inserted.
+}
+\description{
+Add markdown content to an XML object
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/find_between.R
+\name{find_between}
+\alias{find_between}
+\title{Find between a pattern}
+\usage{
+find_between(
+  body,
+  ns,
+  pattern = "md:paragraph[md:text[starts-with(text(), ':::')]]",
+  include = FALSE
+)
+}
+\arguments{
+\item{body}{and XML document}
+
+\item{ns}{the namespace of the document}
+
+\item{pattern}{an XPath expression that defines characteristics of nodes
+between which you want to extract everything.}
+
+\item{include}{if \code{TRUE}, the tags matching \code{pattern} will be included in
+the output, defaults to \code{FALSE}, which only gives you the nodes in between
+\code{pattern}.}
+}
+\value{
+a nodeset
+}
+\description{
+Helper function to find all nodes between a standard pattern. This is useful
+if you want to find unnested pandoc tags.
+}
+\examples{
+md <- glue::glue("
+ h1
+ ====
+
+ ::: section
+
+ h2
+ ----
+
+ section *text* with [a link](https://ropensci.org/)
+ 
+ :::
+")
+x <- xml2::read_xml(commonmark::markdown_xml(md))
+ns <- xml2::xml_ns_rename(xml2::xml_ns(x), d1 = "md")
+res <- find_between(x, ns)
+res
+xml2::xml_text(res)
+xml2::xml_find_all(res, ".//descendant-or-self::md:*", ns = ns)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/to_xml.R
+\name{to_xml}
+\alias{to_xml}
+\title{Transform file to XML}
+\usage{
+to_xml(path, encoding = "UTF-8", sourcepos = FALSE, anchor_links = TRUE)
+}
+\arguments{
+\item{path}{Path to the file.}
+
+\item{encoding}{Encoding to be used by readLines.}
+
+\item{sourcepos}{passed to \code{\link[commonmark:commonmark]{commonmark::markdown_xml()}}. If \code{TRUE}, the
+source position of the file will be included as a "sourcepos" attribute.
+Defaults to \code{FALSE}.}
+
+\item{anchor_links}{if \code{TRUE} (default), reference-style links with anchors
+(in the style of \verb{[key]: https://example.com/link "title"}) will be
+preserved as best as possible. If this is \code{FASLE}, the anchors disappear
+and the links will appear as normal links. See \code{\link[=resolve_anchor_links]{resolve_anchor_links()}} for
+details.}
+}
+\value{
+A list containing the YAML of the file (yaml)
+and its body (body) as XML.
+}
+\description{
+Transform file to XML
+}
+\details{
+This function will take a (R)markdown file, split the yaml header
+from the body, and read in the body through \code{\link[commonmark:commonmark]{commonmark::markdown_xml()}}.
+Any RMarkdown code fences will be parsed to expose the chunk options in
+XML and tickboxes (aka checkboxes) in GitHub-flavored markdown will be
+preserved (both modifications from the commonmark standard).
+
+Math elements
+}
+\examples{
+path <- system.file("extdata", "example1.md", package = "tinkr")
+post_list <- to_xml(path)
+names(post_list)
+path2 <- system.file("extdata", "example2.Rmd", package = "tinkr")
+post_list2 <- to_xml(path2)
+post_list2
+}

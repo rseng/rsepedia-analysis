@@ -747,3 +747,549 @@ For a quick demonstration of `py_grama`, see the following demo notebooks:
 
 - The [model building demo](https://github.com/zdelrosario/py_grama/blob/master/examples/demo/builder_demo.ipynb) shows how to build a *grama* model in a scientifically-reproducible way.
 - The [model analysis demo](https://github.com/zdelrosario/py_grama/blob/master/examples/demo/analysis_demo.ipynb) shows how *grama* can be used to analyze an existing model, using compact syntax to probe how both functions and randomness affect model outputs.
+.. py_grama documentation master file, created by
+   sphinx-quickstart on Mon Dec 23 22:03:55 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to py_grama's documentation!
+====================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   source/overview
+   source/language
+   source/rv_modeling
+   source/modules
+
+.. autosummary::
+   :toctree: stubs
+
+.. automodule:: grama
+   :members:
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+grama.models package
+====================
+
+Submodules
+----------
+
+grama.models.cantilever\_beam module
+------------------------------------
+
+.. automodule:: grama.models.cantilever_beam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.circuit\_RLC module
+--------------------------------
+
+.. automodule:: grama.models.circuit_RLC
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.ishigami module
+----------------------------
+
+.. automodule:: grama.models.ishigami
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.linear\_normal module
+----------------------------------
+
+.. automodule:: grama.models.linear_normal
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.plane\_laminate module
+-----------------------------------
+
+.. automodule:: grama.models.plane_laminate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.plate\_buckling module
+-----------------------------------
+
+.. automodule:: grama.models.plate_buckling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.poly module
+------------------------
+
+.. automodule:: grama.models.poly
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.test module
+------------------------
+
+.. automodule:: grama.models.test
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.time\_cantilever module
+------------------------------------
+
+.. automodule:: grama.models.time_cantilever
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.models.trajectory\_linear\_drag module
+--------------------------------------------
+
+.. automodule:: grama.models.trajectory_linear_drag
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama.dfply package
+===================
+
+Submodules
+----------
+
+grama.dfply.base module
+-----------------------
+
+.. automodule:: grama.dfply.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.group module
+------------------------
+
+.. automodule:: grama.dfply.group
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.join module
+-----------------------
+
+.. automodule:: grama.dfply.join
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.mask\_helpers module
+--------------------------------
+
+.. automodule:: grama.dfply.mask_helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.reshape module
+--------------------------
+
+.. automodule:: grama.dfply.reshape
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.select module
+-------------------------
+
+.. automodule:: grama.dfply.select
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.set\_ops module
+---------------------------
+
+.. automodule:: grama.dfply.set_ops
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.string\_helpers module
+----------------------------------
+
+.. automodule:: grama.dfply.string_helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.subset module
+-------------------------
+
+.. automodule:: grama.dfply.subset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.summarize module
+----------------------------
+
+.. automodule:: grama.dfply.summarize
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.summary\_functions module
+-------------------------------------
+
+.. automodule:: grama.dfply.summary_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.transform module
+----------------------------
+
+.. automodule:: grama.dfply.transform
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.vector module
+-------------------------
+
+.. automodule:: grama.dfply.vector
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.dfply.window\_functions module
+------------------------------------
+
+.. automodule:: grama.dfply.window_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.dfply
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama.fit package
+=================
+
+Submodules
+----------
+
+grama.fit.fit\_lolo module
+--------------------------
+
+.. automodule:: grama.fit.fit_lolo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.fit.fit\_scikitlearn module
+---------------------------------
+
+.. automodule:: grama.fit.fit_scikitlearn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.fit.fit\_statsmodels module
+---------------------------------
+
+.. automodule:: grama.fit.fit_statsmodels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.fit
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama.data package
+==================
+
+Submodules
+----------
+
+grama.data.datasets module
+--------------------------
+
+.. automodule:: grama.data.datasets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+
+   grama.data
+   grama.dfply
+   grama.eval
+   grama.fit
+   grama.models
+   grama.tran
+
+Submodules
+----------
+
+grama.comp\_building module
+---------------------------
+
+.. automodule:: grama.comp_building
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.comp\_metamodels module
+-----------------------------
+
+.. automodule:: grama.comp_metamodels
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.core module
+-----------------
+
+.. automodule:: grama.core
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.eval\_defaults module
+---------------------------
+
+.. automodule:: grama.eval_defaults
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.eval\_opt module
+----------------------
+
+.. automodule:: grama.eval_opt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.eval\_random module
+-------------------------
+
+.. automodule:: grama.eval_random
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.eval\_tail module
+-----------------------
+
+.. automodule:: grama.eval_tail
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.fit\_synonyms module
+--------------------------
+
+.. automodule:: grama.fit_synonyms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.marginals module
+----------------------
+
+.. automodule:: grama.marginals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.mutate\_helpers module
+----------------------------
+
+.. automodule:: grama.mutate_helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.plot\_auto module
+-----------------------
+
+.. automodule:: grama.plot_auto
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.string\_helpers module
+----------------------------
+
+.. automodule:: grama.string_helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.support module
+--------------------
+
+.. automodule:: grama.support
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tools module
+------------------
+
+.. automodule:: grama.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran\_pivot module
+------------------------
+
+.. automodule:: grama.tran_pivot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran\_shapley module
+--------------------------
+
+.. automodule:: grama.tran_shapley
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran\_summaries module
+----------------------------
+
+.. automodule:: grama.tran_summaries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran\_tools module
+------------------------
+
+.. automodule:: grama.tran_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama
+=====
+
+.. toctree::
+   :maxdepth: 4
+
+   grama
+grama.eval package
+==================
+
+Submodules
+----------
+
+grama.eval.eval\_pyDOE module
+-----------------------------
+
+.. automodule:: grama.eval.eval_pyDOE
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.eval
+   :members:
+   :undoc-members:
+   :show-inheritance:
+grama.tran package
+==================
+
+Submodules
+----------
+
+grama.tran.tran\_matminer module
+--------------------------------
+
+.. automodule:: grama.tran.tran_matminer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran.tran\_scikitlearn module
+-----------------------------------
+
+.. automodule:: grama.tran.tran_scikitlearn
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+grama.tran.tran\_umap module
+----------------------------
+
+.. automodule:: grama.tran.tran_umap
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: grama.tran
+   :members:
+   :undoc-members:
+   :show-inheritance:

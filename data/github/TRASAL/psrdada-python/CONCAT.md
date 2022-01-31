@@ -92,3 +92,106 @@ Contributing
 To contribute to PSRDada Python please contact Jisk Attema <j.attema@esciencecenter.nl>
 
 
+Index
+=====
+
+`genindex`
+.. psrdada-python documentation master file, created by
+   sphinx-quickstart on Wed Jun  5 16:04:58 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+
+Api documentation
+=================
+
+.. automodule:: psrdada
+
+
+Ringbuffer
+----------
+
+.. py:class:: Ringbuffer
+
+   .. py:attribute:: isConnected
+
+      Boolean; indicates if the Ringbuffer instance is connected to a
+      running dada_db.
+
+   .. py:attribute:: isHoldingPage
+
+      Boolean; indicates if the Ringbuffer instance is currently holding a page;
+      ie. has exclusive write access to it for Writers, or is preventing it from 
+      being rewritten for Readers.
+
+   .. py:attribute:: isEndOfData
+
+      Boolean; indicates if the EOD flag has been set on the Ringbuffer. Used
+      to implement iterators for the Reader and Writer classes.
+
+   .. py:attribute:: header
+
+      dict; contains a copy of the last read header. For Readers, the original
+      un-parsed header is available under the __RAW_HEADER__ key.
+
+Reader
+------
+
+.. autoclass:: Reader
+   :show-inheritance:
+   :members:
+
+Writer
+------
+
+.. autoclass:: Writer
+   :show-inheritance:
+   :members:
+
+Viewer
+------
+
+.. autoclass:: Viewer
+   :show-inheritance:
+   :members:
+.. psrdada-python documentation master file, created by
+   sphinx-quickstart on Wed Jun  5 16:04:58 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to psrdada-python's documentation
+=========================================
+
+.. automodule:: psrdada
+   :noindex:
+
+.. toctree::
+
+   basic
+   apidoc
+   genindex
+Basic example
+-------------
+
+Using iterators
+~~~~~~~~~~~~~~~
+
+Connect to and read from a PSRDada ringbuffer in a pythonic way, using
+the Iterator interface:
+
+.. literalinclude:: ../examples/sum_with_iterator.py
+
+Explicit ringbuffer control 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For usecases that require a more finegrained flow control, there is a
+more C-like API:
+
+.. literalinclude:: ../examples/sum_no_iterator.py
+
+More examples
+~~~~~~~~~~~~~
+
+For more examples, see the *examples* and *tests* directories in the repo.
+Examples cover writing to the ringbuffer, reading and writing header data, and dealing with EndOfData.
+EndOfData is used by *dada_dbevent* to send independent datasets through a ringbuffer, instead of a single continuous stream.

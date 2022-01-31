@@ -1204,4 +1204,489 @@ myhtml:
 ```
 
 Notice that we can automate steps 1-3 (and make sure we get a clean build) above by simply running `make myhtml`
-This is a Simple Test File for test_notebooks.py
+This is a Simple Test File for test_notebooks.pyGame theory
+===========
+
+.. toctree::
+   :maxdepth: 2
+
+   game_theory/lemke_howson
+   game_theory/mclennan_tourky
+   game_theory/normal_form_game
+   game_theory/pure_nash
+   game_theory/random
+   game_theory/repeated_game
+   game_theory/support_enumeration
+   game_theory/utilities
+   game_theory/vertex_enumeration
+   game_theory/game_generators/bimatrix_generators
+Utilities
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   util/array
+   util/combinatorics
+   util/common_messages
+   util/notebooks
+   util/numba
+   util/random
+   util/timing
+Random
+======
+
+.. toctree::
+   :maxdepth: 2
+
+   random/utilities
+Tools
+=====
+
+.. toctree::
+   :maxdepth: 2
+
+   tools/arma
+   tools/ce_util
+   tools/compute_fp
+   tools/discrete_rv
+   tools/distributions
+   tools/dle
+   tools/ecdf
+   tools/estspec
+   tools/filter
+   tools/graph_tools
+   tools/gridtools
+   tools/inequality
+   tools/ivp
+   tools/kalman
+   tools/lae
+   tools/lqcontrol
+   tools/lqnash
+   tools/lss
+   tools/matrix_eqn
+   tools/quad
+   tools/quadsums
+   tools/rank_nullspace
+   tools/robustlq
+Markov
+======
+
+.. toctree::
+   :maxdepth: 2
+
+   markov/approximation
+   markov/core
+   markov/ddp
+   markov/gth_solve
+   markov/random
+   markov/utilities
+=======================
+QuantEcon documentation
+=======================
+
+The `quantecon` python library consists of a number of modules which
+includes game theory (game_theory), markov chains (markov), random
+generation utilities (random), a collection of tools (tools),
+and other utilities (util) which are
+mainly used by developers internal to the package.
+
+.. toctree::
+   :maxdepth: 2
+
+   game_theory
+   markov
+   optimize
+   random
+   tools
+   util
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Optimize
+========
+
+.. toctree::
+   :maxdepth: 2
+
+   optimize/linprog_simplex
+   optimize/minmax
+   optimize/nelder_mead
+   optimize/pivoting
+   optimize/root_finding
+   optimize/scalar_maximization
+combinatorics
+=============
+
+.. automodule:: quantecon.util.combinatorics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+common_messages
+===============
+
+.. automodule:: quantecon.util.common_messages
+    :members:
+    :undoc-members:
+    :show-inheritance:
+random
+======
+
+.. automodule:: quantecon.util.random
+    :members:
+    :undoc-members:
+    :show-inheritance:
+timing
+======
+
+.. automodule:: quantecon.util.timing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+notebooks
+=========
+
+.. automodule:: quantecon.util.notebooks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+array
+=====
+
+.. automodule:: quantecon.util.array
+    :members:
+    :undoc-members:
+    :show-inheritance:
+numba
+=====
+
+.. automodule:: quantecon.util.numba
+    :members:
+    :undoc-members:
+    :show-inheritance:
+root_finding
+============
+
+.. automodule:: quantecon.optimize.root_finding
+    :members:
+    :undoc-members:
+    :show-inheritance:
+nelder_mead
+===========
+
+.. automodule:: quantecon.optimize.nelder_mead
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scalar_maximization
+===================
+
+.. automodule:: quantecon.optimize.scalar_maximization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+minmax
+======
+
+.. automodule:: quantecon.optimize.minmax
+    :members:
+    :undoc-members:
+    :show-inheritance:
+linprog_simplex
+===============
+
+.. automodule:: quantecon.optimize.linprog_simplex
+    :members:
+    :undoc-members:
+    :show-inheritance:
+pivoting
+========
+
+.. automodule:: quantecon.optimize.pivoting
+    :members:
+    :undoc-members:
+    :show-inheritance:
+lemke_howson
+============
+
+.. automodule:: quantecon.game_theory.lemke_howson
+    :members:
+    :undoc-members:
+    :show-inheritance:
+random
+======
+
+.. automodule:: quantecon.game_theory.random
+    :members:
+    :undoc-members:
+    :show-inheritance:
+utilities
+=========
+
+.. automodule:: quantecon.game_theory.utilities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+vertex_enumeration
+==================
+
+.. automodule:: quantecon.game_theory.vertex_enumeration
+    :members:
+    :undoc-members:
+    :show-inheritance:
+support_enumeration
+===================
+
+.. automodule:: quantecon.game_theory.support_enumeration
+    :members:
+    :undoc-members:
+    :show-inheritance:
+pure_nash
+=========
+
+.. automodule:: quantecon.game_theory.pure_nash
+    :members:
+    :undoc-members:
+    :show-inheritance:
+normal_form_game
+================
+
+.. automodule:: quantecon.game_theory.normal_form_game
+    :members:
+    :undoc-members:
+    :show-inheritance:
+mclennan_tourky
+===============
+
+.. automodule:: quantecon.game_theory.mclennan_tourky
+    :members:
+    :undoc-members:
+    :show-inheritance:
+repeated_game
+=============
+
+.. automodule:: quantecon.game_theory.repeated_game
+    :members:
+    :undoc-members:
+    :show-inheritance:
+bimatrix_generators
+===================
+
+.. automodule:: quantecon.game_theory.game_generators.bimatrix_generators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+utilities
+=========
+
+.. automodule:: quantecon.random.utilities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+rank_nullspace
+==============
+
+.. automodule:: quantecon.rank_nullspace
+    :members:
+    :undoc-members:
+    :show-inheritance:
+lqcontrol
+=========
+
+.. automodule:: quantecon.lqcontrol
+    :members:
+    :undoc-members:
+    :show-inheritance:
+distributions
+=============
+
+.. automodule:: quantecon.distributions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+graph_tools
+===========
+
+.. automodule:: quantecon.graph_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+filter
+======
+
+.. automodule:: quantecon.filter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+kalman
+======
+
+.. automodule:: quantecon.kalman
+    :members:
+    :undoc-members:
+    :show-inheritance:
+ecdf
+====
+
+.. automodule:: quantecon.ecdf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+estspec
+=======
+
+.. automodule:: quantecon.estspec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+discrete_rv
+===========
+
+.. automodule:: quantecon.discrete_rv
+    :members:
+    :undoc-members:
+    :show-inheritance:
+inequality
+==========
+
+.. automodule:: quantecon.inequality
+    :members:
+    :undoc-members:
+    :show-inheritance:
+lss
+===
+
+.. automodule:: quantecon.lss
+    :members:
+    :undoc-members:
+    :show-inheritance:
+lqnash
+======
+
+.. automodule:: quantecon.lqnash
+    :members:
+    :undoc-members:
+    :show-inheritance:
+robustlq
+========
+
+.. automodule:: quantecon.robustlq
+    :members:
+    :undoc-members:
+    :show-inheritance:
+compute_fp
+==========
+
+.. automodule:: quantecon.compute_fp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+ivp
+===
+
+.. automodule:: quantecon.ivp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+dle
+===
+
+.. automodule:: quantecon.dle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+arma
+====
+
+.. automodule:: quantecon.arma
+    :members:
+    :undoc-members:
+    :show-inheritance:
+quadsums
+========
+
+.. automodule:: quantecon.quadsums
+    :members:
+    :undoc-members:
+    :show-inheritance:
+lae
+===
+
+.. automodule:: quantecon.lae
+    :members:
+    :undoc-members:
+    :show-inheritance:
+ce_util
+=======
+
+.. automodule:: quantecon.ce_util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+quad
+====
+
+.. automodule:: quantecon.quad
+    :members:
+    :undoc-members:
+    :show-inheritance:
+gridtools
+=========
+
+.. automodule:: quantecon.gridtools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+matrix_eqn
+==========
+
+.. automodule:: quantecon.matrix_eqn
+    :members:
+    :undoc-members:
+    :show-inheritance:
+approximation
+=============
+
+.. automodule:: quantecon.markov.approximation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+gth_solve
+=========
+
+.. automodule:: quantecon.markov.gth_solve
+    :members:
+    :undoc-members:
+    :show-inheritance:
+ddp
+===
+
+.. automodule:: quantecon.markov.ddp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+random
+======
+
+.. automodule:: quantecon.markov.random
+    :members:
+    :undoc-members:
+    :show-inheritance:
+utilities
+=========
+
+.. automodule:: quantecon.markov.utilities
+    :members:
+    :undoc-members:
+    :show-inheritance:
+core
+====
+
+.. automodule:: quantecon.markov.core
+    :members:
+    :undoc-members:
+    :show-inheritance:

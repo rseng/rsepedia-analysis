@@ -2668,3 +2668,1881 @@ This creates an article with the essential metadata information.  In the next tu
 
 
 
+---
+title: rfigshare tutorial
+author: Carl Boettiger
+---
+
+
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{An Introduction to the rfigshare package}
+-->
+
+[![Build Status](https://api.travis-ci.org/ropensci/rfigshare.png)](https://travis-ci.org/ropensci/rfigshare)
+
+
+
+
+rfigshare
+==========
+
+*An R interface to [FigShare](http://figshare.com)*
+
+* Maintainer: Carl Boettiger, [cboettig](https://github.com/cboettig)
+* License: [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Contact: Report bugs, questions, or feature requests on the [Issues Tracker](https://github.com/ropensci/rfigshare/issues), or get in touch with us at [info@ropensci.org](mailto:info@ropensci.org)
+
+
+Getting Started
+---------------
+Figshare is an online digital repository where researchers can preserve and share their research outputs, including figures, datasets, images, and videos. It is free to upload content and free to access, in adherence to the principle of open data.
+
+Key Features:
+- Showcase your institution's research with a customizable portal of all public research outputs using the reporting and statistics feature.
+- Have full control of your institution's research outputs with private storage, public storage and collaborative spaces with the data management feature.
+- Filter your institution's research by department, category or file type, and rank content by most viewed, downloaded or shared with the data dissemination feauture. 
+- Manage the curation of files to be made public, control quotas, and administer rights with the user group administration feature. 
+
+
+
+
+
+# Using rfigshare
+
+
+```{r}
+library("rfigshare")
+```
+
+
+```{r include = FALSE}
+# This loads the rOpenSci figshare sandbox credentials, so that the example 
+# can run automatically during check and install.  Unlike normal figshare accounts,
+# data loaded to this testing sandbox is periodically purged.  
+fs_auth(token = "xdBjcKOiunwjiovwkfTF2QjGhROeLMw0y0nSCSgvg3YQxdBjcKOiunwjiovwkfTF2Q", token_secret = "4mdM3pfekNGO16X4hsvZdg")
+```
+
+The first time you use an `rfigshare` function, it will ask you to authenticate online. Just log in and click okay to authenticate rfigshare.  R will allow you to cache your login credentials so that you won't be asked to authenticate again (even between R sessions), as long as you are using the same working directory in future.  
+
+Try a search for an author:
+
+
+```{r}
+fs_author_search("Boettiger")
+```
+
+
+
+Try creating your own content:
+
+
+```{r}
+id <- fs_create("Test title", "description of test")
+```
+
+
+This creates an article with the essential metadata information. We can now upload the dataset to this newly created figshare object using `fs_upload`.  For the purposes of this example, we'll just upload one of R's built-in datasets:
+
+
+```{r}
+data(mtcars)
+write.csv(mtcars, "mtcars.csv")
+fs_upload(id, "mtcars.csv")
+```
+
+
+Note that we must pass the id number of our the newly created figshare object as the first argument.  Similar functions let us add additional authors, tags, categories, and links, e.g.
+
+
+```{r}
+fs_add_tags(id, "demo")
+```
+
+
+
+Minimal metadata includes title, description, type, and at least one tag and one category.  We can add categories using either the category id or the name of the category, but it must be one of the preset categories available.  We can ask the API for a list of all the categories:
+
+
+```{r}
+fs_category_list()
+```
+
+
+And we can add the category or categories we like,
+
+
+```{r}
+fs_add_categories(id, c("Education", "Software Engineering"))
+```
+
+
+
+The file we have created remains saved as a draft until we publish it, either publicly or privately.  Note that once a file is declared public, it cannot be made private or deleted.  Let's release this dataset privately:
+
+
+```{r}
+fs_make_private(id)
+```
+
+
+We can now share the dataset with collaborators by way of the private url.  
+
+### The quick and easy way
+
+The `rfigshare` package will let you create a new figshare article with additional authors, tags, categories, etc in a single command usnig the `fs_new_article` function.  The essential metadata `title`, `description` and `type` are required, but any other information we omit at this stage can be added later.  If we set `visibility` to private or public, the article is published on figshare immediately.  
+
+
+```{r}
+data(mtcars)
+write.csv(mtcars,"mtcars.csv")
+id <- fs_new_article(title="A Test of rfigshare", 
+                     description="This is a test", 
+                     type="dataset", 
+                     authors=c("Karthik Ram", "Scott Chamberlain"), 
+                     tags=c("ecology", "openscience"), 
+                     categories="Ecology", 
+                     links="http://ropensci.org", 
+                     files="mtcars.csv",
+                     visibility="private")
+unlink("mtcars.csv") # clean up
+```
+
+
+# Examining Data on Figshare
+
+We can view all available metadata of a figshare object. 
+
+
+```{r}
+fs_details(id)
+```
+
+You can see all of the files you have (Currently only up to 10):
+
+
+```{r}
+mine <- fs_browse()
+mine[1:2]
+```
+
+Note that we can easily grab the ids with the wrapper function `fs_ids`:
+
+
+
+```{r}
+fs_ids(mine)
+```
+
+
+We can delete unwanted files that are not public with `fs_delete`:  
+
+
+```{r}
+fs_delete(id)
+```
+
+To cite package `rfigshare` in publications use:
+
+
+```{r}
+citation("rfigshare")
+```
+
+
+[![ropensci.org logo](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)\
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{A Markdown Vignette with knitr}
+-->
+
+
+# rfigshare - Share and explore figures, data, and publications on FigShare using R
+
+
+![](http://farm9.staticflickr.com/8180/7950489358_ea902bdaae_o.png)
+
+
+```{r include=FALSE}
+opts_chunk$set(comment=NA, tidy=FALSE, warning=FALSE)
+```
+
+
+
+# Obtaining your API keys
+
+There is a nice video introduction to creating applications for the API on the [figshare blog](http://figshare.com/blog/figshare_API_available_to_all/48).  The following tutorial provides a simple walkthrough of how to go about getting your figshare API keys set up so that you can use the `rfigshare` package.  
+
+
+Create a user account on [FigShare](http://figshare.com) and log in.  From your homepage, select "Applications" from the drop-down menu,
+
+![](http://farm9.staticflickr.com/8171/7950489558_5172515057_o.png)
+
+Create a new application:
+
+![](http://farm9.staticflickr.com/8038/7950490158_7feaf680bd_o.png)
+
+
+Enter in the following information: 
+
+![](http://farm9.staticflickr.com/8305/7950490562_02846cea92_o.png)
+
+Then navigate over to the permissions tab.  To get the most out of `rfigshare` you'll want to enable all permissions:
+
+![](http://farm9.staticflickr.com/8448/7950491064_c3820e62bd_o.png)
+
+Save the new settings, and then open the application again (View/Edit menu) and click on the "Access Codes" tab.
+
+![](http://farm9.staticflickr.com/8308/7950491470_621da9c5d1_o.png)
+
+Record each if the keys into R as follows.  You might want to put this bit of R code into your `.Rprofile` to avoid entering it each time in the future:
+
+```r
+options(FigshareKey = "qMDabXXXXXXXXXXXXXXXXX")
+options(FigsharePrivateKey = "zQXXXXXXXXXXXXXXXXXXXX")
+options(FigshareToken = "SrpxabQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+options(FigsharePrivateToken = "yqXXXXXXXXXXXXXXXXXXXX")
+```
+
+
+## Installing the R package
+
+Now that we have the API credentials in place, actually using `rfigshare` is pretty easy.  Install the latest version of package directly from Github using: 
+
+```r
+require(devtools)
+install_github("rfigshare", "ropensci")
+```
+
+# Using rfigshare
+
+
+Try authenticating with your credentials:
+
+``` {r }
+require(rfigshare)
+fs_auth()
+````
+
+
+Try a search for an author:
+
+``` {r }
+fs_author_search("Boettiger")
+````
+
+Try creating your own content:
+
+``` {r }
+id <- fs_create("Test title", "description of test", "dataset")
+````
+
+This creates an article with the essential metadata information. We can now upload the dataset to this newly created figshare object using `fs_upload`.  For the purposes of this example, we'll just upload one of R's built-in datasets:
+
+``` {r }
+data(mtcars)
+write.csv(mtcars, "mtcars.csv")
+
+fs_upload(id, "mtcars.csv")
+```
+
+Not that we must pass the id number of our the newly created figshare object as the first argument.  Similar functions let us add additional authors, tags, categories, and links, e.g.
+
+``` {r }
+fs_add_tags(id, "demo")
+```
+
+
+Minimal metadata includes title, description, type, and at least one tag and one category.  We can add categories using either the category id or the name of the category, but it must be one of the preset categories available.  We can ask the API for a list of all the categories:
+
+``` {r results="hide"}
+fs_category_list()
+```
+
+``` {r results="asis", echo=FALSE}
+print(xtable::xtable(fs_category_list()), type="html")
+```
+
+And we can add the category or categories we like,
+
+``` {r }
+fs_add_categories(id, c("Education", "Software Engineering"))
+```
+
+
+The file we have created remains saved as a draft until we publish it, either publicly or privately.  Note that once a file is declared public, it cannot be made private or deleted.  Let's release this dataset privately:
+
+``` {r }
+fs_make_private(id)
+```
+
+We can now share the dataset with collaborators by way of the private url.  
+
+### The quick and easy way
+
+The `rfigshare` package will let you create a new figshare article with additional authors, tags, categories, etc in a single command usnig the `fs_new_article` function.  The essential metadata `title`, `description` and `type` are required, but any other information we omit at this stage can be added later.  If we set `visibility` to private or public, the article is published on figshare immediately.  
+
+``` {r tidy=FALSE}
+id <- fs_new_article(title="A Test of rfigshare", 
+                     description="This is a test", 
+                     type="figure", 
+                     authors=c("Karthik Ram", "Scott Chamberlain"), 
+                     tags=c("ecology", "openscience"), 
+                     categories="Ecology", 
+                     links="http://ropensci.org", 
+                     files="figure/rfigshare.png",
+                     visibility="private")
+```
+
+# Examining Data on Figshare
+
+We can view all available metadata of a figshare object.  If the object is not public (e.g. draft or private), we have to add the `mine=TRUE` option
+
+``` {r }
+fs_details(id, mine=TRUE)
+```
+
+You can see all of the files you have:
+
+``` {r } 
+fs_browse(mine=TRUE)
+```
+
+Note that we can easily grab the ids with the wrapper function `fs_ids`:
+
+
+``` {r }
+fs_ids(all_mine)
+```
+
+
+
+We can delete unwanted files that are not public with `fs_delete`:  
+
+``` {r }
+fs_delete(id)
+```
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{A Markdown Vignette with knitr}
+-->
+
+
+rOpenSci, Figshare and knitr.
+========================================================
+
+This is a tutorial of how you can create reproducible documents using [knitr]( http://yihui.name/knitr/) and pandoc, and seamlessly upload them to [figshare](http;//www.figshare.com) attaching a citable DOI to them. This document will walk you through the process of creating a document in knitr and uploading a compiled PDF to Figshare.  I make the following assumptions about your knowledge:
+
+* You have set-up an account at [Figshare.com](http://www.figshare.com)
+
+* You have installed [rfigshare](http://cran.r-project.org/web/packages/rfigshare/index.html), the [knitr](http://yihui.name/knitr/) package and are familiar with the concepts of knitr or sweave, as well as [pandoc](http://johnmacfarlane.net/pandoc/), for conversion to pdf (although this is only necessary if you want to convert your document to a pdf)
+
+* You have successfully set-up the your credentials for rfigshare.  If not go to our [tutorial](http://github.com/ropensci/rfigshare/blob/master/inst/doc/tutorial.md) and make sure your credentials are properly set.
+
+
+The goal of this document is to demonstrate how one could carry out a project using tools from [rOpenSci](http://www.ropensci.org/), knitr, and share the results on figshare in one continuous workflow.  To do this I'll be using a tutorial from one of our packages, [treebase](http://cran.r-project.org/web/packages/treebase/), which allows you to download trees from [TreebaseWEB](http://treebase.org/treebase-web/home.html;jsessionid=A258F89FBF584F44E0CDB740B8ECF3A8)
+
+
+First I'll turn the cache on.
+```{r headerchunk }
+opts_chunk$set(cache=TRUE, autodep=TRUE)
+dep_auto()
+
+```
+Then you'll want to download some data, and maybe make a plot, and say some things about how great your plot is.
+```{r messages=FALSE,warning=FALSE,message=FALSE,fig.cap="My amazing tree!",fig.width=7,fig.height=4}
+library(treebase)
+tree <- search_treebase("Derryberry", "author")[[1]] 
+#plotting only part of the tree because it's so large
+plot.phylo(tree,y.lim=c(0,20))
+
+```
+
+Once you've made all your plots, and said all you want to say it's time to convert your document, and then create a new article using `fs_new_article()`
+
+
+```{r eval = FALSE}
+library(knitr)
+library(rfigshare)
+options(FigshareKey = "XXXXXXXX")
+options(FigsharePrivateKey = "XXXXXXXX")
+options(FigshareToken = "XXXXXXXX")
+options(FigsharePrivateToken = "XXXXXXXX")
+
+#knit document to pandoc markdown
+knit("rfigtutorial.Rmd")
+#convert to pdf
+system("pandoc -S rfigtutorial.md -o rfigtutorial.pdf")
+
+id <- fs_new_article(title="An rfigshare tutorial", 
+                      description="How to create a document in knitr and 
+                      upload it to figshare.com", 
+                     
+                      type="paper", 
+                      authors=c("Edmund Hart"), 
+                      tags=c("ecology", "openscience"), 
+                      categories="Ecology", 
+                      links="http://emhart.github.com", 
+                      files="rfigtutorial.pdf",
+                      visibility="draft")
+```
+
+The main advantage of this approach is that manuscripts can be worked on from within the R environment and then seemlessly uploaded to figshare. Also it's best practice to store your key values in your `.Rprofile` so I would reccomend file Be sure to run `fs_make_public(id)` when you're ready to make your article public.  
+
+
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{A Markdown Vignette with knitr}
+-->
+
+
+`ro warning=FALSE, comment=NA or`
+
+# Publishing On Figshare from R
+
+Before you can use `rfigshare` effectively, you will need to set up your authentication credentials by obtaining a set of API keys from [FigShare.org](http://fishshare.org).  See our [Getting Started with rfigshare](https://github.com/ropensci/rfigshare/blob/master/inst/doc/getting_started.md) tutorial for a step by step guide.  
+
+
+Now that you have created your credentials, we are ready to start posting content to FigShare using R.  
+
+### Step 1: Create a new article
+
+``` {r }
+require(rfigshare)
+```
+
+
+An article on FigShare can be a figure, poster, dataset, paper, or other media, and can contain an arbitrary number of files or attachements.  Each article has a unique ID number which we will use to interact with it.  All articles have the essential scientific metadata including a title, at least one author, and a description or abstract.  Categories can be selected from a fixed list, while articles can be assigned any tags.  This can be done step by step using dedicated functions, or simultaneously using the special function `fs_new_article`.  For example, the command
+
+``` {r }
+id <- fs_new_article(title="A Test of rfigshare", 
+                     description="This is a test of the fs_new_aricle function and related methods", 
+                     type="figure", 
+                     authors=c("Karthik Ram", "Scott Chamberlain"), 
+                     tags=c("ecology", "openscience"), 
+                     categories="Ecology", 
+                     links="http://ropensci.org", 
+                     files="figure/rfigshare.png")
+```
+
+Creates a new article with the metadata given and returns the article id number, so we can make future modifications quickly.  
+
+## Step 2: Examine and modify article
+
+We can check out the details of our new article to confirm the successful creation:
+
+``` {r }
+fs_details(id)
+
+```
+Note that the submitter is automatically added as an author, though it will not hurt to specify them in the author list if you want anyway.  Note also the extra metadata we get, such as filesize and article views. (And hopefully we'll format that output to a pretty-printing version soon). 
+
+If there is something we need to change, we can edit our article accordingly.  The `fs_update` function to modifies the title, description, and type, while `fs_add_tags`, `fs_add_categories`, `fs_add_authors` etc, can add missing data.  If we upload a new figure, it will overwrite this one.
+
+```{r }
+fs_update(id, title="An awesome test of rfigshare")
+```
+
+# Step 3: Sharing or deleting your article
+
+Once we are ready to share this, we can release the article privately or publicly.  We actually could have done this during our `fs_new_article` step by setting `visibility="private"`.  
+
+``` {r }
+fs_make_private(id)
+```
+
+If we need to remove this example file we can delete it
+
+``` {r }
+fs_delete(id)
+```
+
+Note that articles declared "public" cannot be deleted, and changes will appear as new versions of the same article.  `fs_details` can help you view particular versions of public articles.  
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{A Markdown Vignette with knitr}
+-->
+
+
+# Getting Started with rfigshare
+
+![](http://farm9.staticflickr.com/8180/7950489358_ea902bdaae_o.png)
+
+
+## Obtaining your API keys
+
+Note that there is a nice video introduction to creating applications for the API on the [figshare blog](http://figshare.com/blog/figshare_API_available_to_all/48).  The following tutorial provides a simple walkthrough of how to go about getting your figshare API keys set up so that you can use the `rfigshare` package.  
+
+
+Create a user account on [FigShare](http://figshare.com) and log in.  From your homepage, select "Applications" from the drop-down menu,
+
+![](http://farm9.staticflickr.com/8171/7950489558_5172515057_o.png)
+
+Create a new application:
+
+![](http://farm9.staticflickr.com/8038/7950490158_7feaf680bd_o.png)
+
+
+Enter in the following information: 
+
+![](http://farm9.staticflickr.com/8305/7950490562_02846cea92_o.png)
+
+Then navigate over to the permissions tab.  To get the most out of `rfigshare` you'll want to enable all permissions:
+
+![](http://farm9.staticflickr.com/8448/7950491064_c3820e62bd_o.png)
+
+Save the new settings, and then open the application again (View/Edit menu) and click on the "Access Codes" tab.
+
+![](http://farm9.staticflickr.com/8308/7950491470_621da9c5d1_o.png)
+
+Record each if the keys into R as follows.  You might want to put this bit of R code into your `.Rprofile` to avoid entering it each time in the future:
+
+```r
+options(FigshareKey = "qMDabXXXXXXXXXXXXXXXXX")
+options(FigsharePrivateKey = "zQXXXXXXXXXXXXXXXXXXXX")
+options(FigshareToken = "SrpxabQXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+options(FigsharePrivateToken = "yqXXXXXXXXXXXXXXXXXXXX")
+```
+
+That's it! You are now ready to start using figshare.  Recall you can install the package directly from Github using: 
+
+```r
+require(devtools)
+install_github("rfigshare", "ropensci")
+```
+
+Try authenticating with your credentials:
+
+``` {r }
+require(rfigshare)
+fs_auth()
+````
+
+
+Try a search for an author, or get the details on a paper:
+
+``` {r }
+fs_author_search("Boettiger")
+fs_details("138")
+````
+
+Try creating your own content:
+
+``` {r }
+fs_create("Test title", "description of test", "dataset")
+````
+
+This creates an article with the essential metadata information.  In the next tutorial, [Publishing on FigShare from R](https://github.com/ropensci/rfigshare/blob/master/inst/doc/publishing_on_figshare.md) we will describe how to add files, tags, categories, authors, and links to your draft, and then publish it either privately or publicly.   
+
+
+
+
+
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{An Introduction to the rfigshare package}
+-->
+
+[![Build Status](https://api.travis-ci.org/ropensci/rfigshare.png)](https://travis-ci.org/ropensci/rfigshare)
+
+
+
+
+rfigshare
+==========
+
+*An R interface to [FigShare](http://figshare.com)*
+
+* Maintainer: Carl Boettiger, [cboettig](https://github.com/cboettig)
+* License: [CC0](http://creativecommons.org/publicdomain/zero/1.0/)
+* Contact: Report bugs, questions, or feature requests on the [Issues Tracker](https://github.com/ropensci/rfigshare/issues), or get in touch with us at [info@ropensci.org](mailto:info@ropensci.org)
+
+Installation
+------------
+
+
+```{r eval=FALSE}
+require(devtools)
+install_github("rfigshare", "ropensci")
+```
+
+Getting Started
+---------------
+
+
+
+# Using rfigshare
+
+
+```{r}
+require(rfigshare)
+```
+
+
+```{r include = FALSE}
+# This loads the rOpenSci figshare sandbox credentials, so that the example 
+# can run automatically during check and install.  Unlike normal figshare accounts,
+# data loaded to this testing sandbox is periodically purged.  
+fs_auth(token = "xdBjcKOiunwjiovwkfTF2QjGhROeLMw0y0nSCSgvg3YQxdBjcKOiunwjiovwkfTF2Q", token_secret = "4mdM3pfekNGO16X4hsvZdg")
+```
+
+The first time you use an `rfigshare` function, it will ask you to authenticate online. Just log in and click okay to authenticate rfigshare.  R will allow you to cache your login credentials so that you won't be asked to authenticate again (even between R sessions), as long as you are using the same working directory in future.  
+
+Try a search for an author:
+
+
+```{r}
+fs_author_search("Boettiger")
+```
+
+
+
+Try creating your own content:
+
+
+```{r}
+id <- fs_create("Test title", "description of test")
+```
+
+
+This creates an article with the essential metadata information. We can now upload the dataset to this newly created figshare object using `fs_upload`.  For the purposes of this example, we'll just upload one of R's built-in datasets:
+
+
+```{r}
+data(mtcars)
+write.csv(mtcars, "mtcars.csv")
+fs_upload(id, "mtcars.csv")
+```
+
+
+Not that we must pass the id number of our the newly created figshare object as the first argument.  Similar functions let us add additional authors, tags, categories, and links, e.g.
+
+
+```{r}
+fs_add_tags(id, "demo")
+```
+
+
+
+Minimal metadata includes title, description, type, and at least one tag and one category.  We can add categories using either the category id or the name of the category, but it must be one of the preset categories available.  We can ask the API for a list of all the categories:
+
+
+```{r}
+fs_category_list()
+```
+
+
+And we can add the category or categories we like,
+
+
+```{r}
+fs_add_categories(id, c("Education", "Software Engineering"))
+```
+
+
+
+The file we have created remains saved as a draft until we publish it, either publicly or privately.  Note that once a file is declared public, it cannot be made private or deleted.  Let's release this dataset privately:
+
+
+```{r}
+fs_make_private(id)
+```
+
+
+We can now share the dataset with collaborators by way of the private url.  
+
+### The quick and easy way
+
+The `rfigshare` package will let you create a new figshare article with additional authors, tags, categories, etc in a single command usnig the `fs_new_article` function.  The essential metadata `title`, `description` and `type` are required, but any other information we omit at this stage can be added later.  If we set `visibility` to private or public, the article is published on figshare immediately.  
+
+
+```{r}
+data(mtcars)
+write.csv(mtcars,"mtcars.csv")
+id <- fs_new_article(title="A Test of rfigshare", 
+                     description="This is a test", 
+                     type="dataset", 
+                     authors=c("Karthik Ram", "Scott Chamberlain"), 
+                     tags=c("ecology", "openscience"), 
+                     categories="Ecology", 
+                     links="http://ropensci.org", 
+                     files="mtcars.csv",
+                     visibility="private")
+unlink("mtcars.csv") # clean up
+```
+
+
+# Examining Data on Figshare
+
+We can view all available metadata of a figshare object. 
+
+
+```{r}
+fs_details(id)
+```
+
+You can see all of the files you have (Currently only up to 10):
+
+
+```{r}
+mine <- fs_browse()
+mine[1:2]
+```
+
+Note that we can easily grab the ids with the wrapper function `fs_ids`:
+
+
+
+```{r}
+fs_ids(mine)
+```
+
+```
+ [1] 105136 105135  97653  97500  97279  97218  96919  96916  95839    138
+```
+
+
+
+
+We can delete unwanted files that are not public with `fs_delete`:  
+
+
+```{r}
+fs_delete(id)
+```
+
+To cite package `rfigshare` in publications use:
+
+
+```{r}
+citation("rfigshare")
+```
+
+
+[![](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+---
+title: "Updating public repositories"
+author: "Martin John Hadley, @martinjhnhadley"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The process for updating an existing public repository with new versions of existing files requires multiple steps:
+
+1. Delete existing copies of files
+2. Upload new copies of the files
+3. Make your changes public
+
+Note that the example below is for a specific repository, as you are not the author of the article you will not be able to run the code without errors.
+
+## Delete existing copies of files
+
+Obtain the article_id of the deposit, this is the numeric component of the DOI after figshare e.g. https://doi.org/10.6084/m9.figshare.3761562
+
+```{r, eval=FALSE, echo=TRUE}
+library(rfigshare)
+article_id <- 3761562
+deposit_details <- fs_details(article_id)
+deposit_details$title
+```
+
+Several files in this deposit are updated nightly, for instance:
+
+```{r, eval=FALSE, echo=TRUE}
+"OLIdata_YYYY-MM-DD.txt"
+```
+
+To delete this file, the file_id must be found. It is simplest to convert the lists to a `data_frame` such that they may be operated on with `dplyr`.
+
+```{r, eval=FALSE, echo=TRUE}
+library(dplyr)
+deposit_files <- unlist(deposit_details$files)
+deposit_files <- data.frame(split(deposit_files, names(deposit_files)),stringsAsFactors = F)
+file_id <- deposit_files %>%
+  filter(grepl("^OLIdata_", name)) %>%
+  select(id) %>%
+  .[[1]]
+```
+
+Prepare the article for the new version of the file, by deleting the existant version with `fs_delete`
+
+```{r, eval=FALSE, echo=TRUE}
+fs_delete(article_id, file_id)
+```
+
+## Upload new version of the file
+
+The new file can be downloaded as follows:
+
+```{r, eval=FALSE, echo=TRUE}
+# This file does not exist in these training materials.
+fs_upload(article_id, paste0("OLIdata_", as.Date(Sys.time())))
+```
+
+## Make changes public
+
+The actions you have performed have been saved as draft changes, you must use `fs_make_public` to update the article and create a new version:
+
+```{r, eval=FALSE, echo=TRUE}
+fs_make_public(article_id)
+```
+
+
+
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_upload.R
+\name{fs_upload_one}
+\alias{fs_upload_one}
+\title{Upload file to an article}
+\usage{
+fs_upload_one(article_id, file, session = fs_get_auth())
+}
+\arguments{
+\item{article_id}{number}
+
+\item{file}{path to file to upload}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}} (optional)}
+}
+\description{
+Upload file to an article
+}
+\details{
+Article must be a draft, i.e. created by \code{\link{fs_create}} and not yet made public or private. Only articles of type "fileset" can have multiple files uploaded.
+}
+\examples{
+\dontrun{
+id <- fs_create("Title", "description", "figure")
+fs_upload(id, "file.png")
+} 
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_create_author.R
+\name{fs_create_author}
+\alias{fs_create_author}
+\title{Creates a figshare author}
+\usage{
+fs_create_author(full_name, session = fs_get_auth(), debug = FALSE)
+}
+\arguments{
+\item{full_name}{full name of the author to create}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{debug}{return PUT request visibly?}
+}
+\value{
+author ID numbers
+}
+\description{
+Creates a figshare author
+}
+\examples{
+\dontrun{
+fs_create_author("Benjamin Franklin") 
+} 
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_make_public.R
+\name{fs_make_public}
+\alias{fs_make_public}
+\title{Make an article public (for private or draft articles)}
+\usage{
+fs_make_public(article_id, session = fs_get_auth())
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}.}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Make an article public (for private or draft articles)
+}
+\details{
+This function will make a draft or private article public, assigning it a DOI and making it permanently available through Figshare. If you use \code{\link{fs_upload}} to add new files to an existing public deposit, you must then use \code{fs_make_public} for those changes to be made in the public version of the repository.
+}
+\note{
+NOTE: Public articles are assigned DOIs and cannot be deleted or made private once declared public! Public articles do not count against your quota space.
+}
+\examples{
+\dontrun{
+fs_make_public(123)
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_ids.R
+\name{fs_ids}
+\alias{fs_ids}
+\title{Get a list of article id numbers from a search return}
+\usage{
+fs_ids(object)
+}
+\arguments{
+\item{object}{the output of a search}
+}
+\value{
+a list of article id numbers
+}
+\description{
+Get a list of article id numbers from a search return
+}
+\examples{
+\dontrun{
+figshare_category() 
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_search.R
+\name{fs_search}
+\alias{fs_search}
+\title{Advanced Search.}
+\usage{
+fs_search(query, author = NA, title = NA, description = NA,
+  tag = NA, category = NA, from_date = NA, to_date = NA,
+  mine = FALSE, public_only = FALSE, private_only = FALSE,
+  drafts_only = FALSE, session = fs_get_auth(),
+  base = "http://api.figshare.com/v1", debug = FALSE)
+}
+\arguments{
+\item{query}{the search query}
+
+\item{author}{Show only results by this author}
+
+\item{title}{Show only results matching or partially matching this title}
+
+\item{description}{Show only results matching or partially matching this description}
+
+\item{tag}{Show only results matching this tag}
+
+\item{category}{Show only results matching this category}
+
+\item{from_date}{Start time window for search. Date format is YYYY-MM-DD}
+
+\item{to_date}{Ending time window for search. Date format is YYYY-MM-DD}
+
+\item{mine}{Browse only articles owned by user. default is FALSE. Not functional. Use \code{\link{fs_browse}} instead.}
+
+\item{public_only}{(for use with mine=TRUE only) browse only my public articles. default is FALSE}
+
+\item{private_only}{(for use with mine=TRUE only) browse only my private articles. default is FALSE}
+
+\item{drafts_only}{(for use with mine=TRUE only) browse only my draft articles. default is FALSE}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{base}{the API access url}
+
+\item{debug}{logical, enable debugging mode}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Search function that will filter on matching timestamp, author, title, description, tag, category, and date range.  Query searches against matches in any metadata field.  Full-text searches coming soon.
+}
+\examples{
+\dontrun{
+fs_search("Boettiger") 
+fs_search("Boettiger", author = "Carl")
+fs_search("Boettiger", author = "Carl", from="2014-01-01")
+fs_search("Boettiger", author = "Carl", from="2014-01-01",
+          category = "Evolutionary Biology")
+
+} 
+}
+\references{
+\url{http://api.figshare.com/docs/howto.html#q-search}
+}
+\seealso{
+\\code{\link{fs_auth}} \code{\link{fs_browse}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_auth.R
+\name{fs_auth}
+\alias{fs_auth}
+\title{Figshare authentication via OAuth1.0 using httr}
+\usage{
+fs_auth(cKey = getOption("FigshareKey", NULL),
+  cSecret = getOption("FigsharePrivateKey", NULL),
+  token = getOption("FigshareToken", NULL),
+  token_secret = getOption("FigsharePrivateToken", NULL))
+}
+\arguments{
+\item{cKey}{optional argument for the consumer key.  See details.}
+
+\item{cSecret}{optional argument for the consumer secret key. See details.}
+
+\item{token}{optional argument for the user-specific token.  See details.}
+
+\item{token_secret}{Optional argument to provide a secret token assigned
+to the user, rather than let fs_auth() automatically handle authentication. 
+See details.}
+}
+\value{
+OAuth credential (invisibly).  The credential is also written to the enivronment "FigshareAuthCache", which is created when the package is loaded.  All functions needing authentication can then access the credential without it being explicitly passed in the function call. If authentication fails, returns the failing GET response for debugging.
+}
+\description{
+Figshare authentication via OAuth1.0 using httr
+}
+\details{
+Explicit calls to fs_auth() are usually not needed,
+as the function is called automatically by all other functions that
+need authentication.  As of version 0.3, no arguments are needed as
+authentication is done online, and fs_auth() will not attempt to load
+keys stored in options.  
+
+By default, the function will use the application's consumer key and
+consumer secret key, rather than expecting the user to create their own
+application.  The user-specific tokens will then be generated and locally
+cached for use between sessions, if indicated by the interactive options. 
+For details, see httr oauth1.0_token documentation.  
+
+If for some reason a user would rather provide there token and secret token
+as before this is still supported using the same arguments.  Users wanting to
+have their own app can provide cKey and cSecret arguments too, but this
+is provided primarily for backwards compatibility with older versions.  It
+is expected that most users will leave the keys as NULL.
+}
+\examples{
+\dontrun{
+fs_auth()
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_embed.R
+\name{fs_embed}
+\alias{fs_embed}
+\title{Upload a figure to figshare and return the url}
+\usage{
+fs_embed(file)
+}
+\arguments{
+\item{file}{path to an image file}
+}
+\value{
+a url to the image file
+}
+\description{
+Upload a figure to figshare and return the url
+}
+\details{
+use with opts_knit$set(upload.fn = fs_embed)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/summary_fs_details.R
+\name{summary_fs_details}
+\alias{summary_fs_details}
+\title{Collect metadata from details call}
+\usage{
+summary_fs_details(fs_details_obj)
+}
+\arguments{
+\item{fs_details_obj}{object}
+}
+\description{
+Collect metadata from details call
+}
+\examples{
+\dontrun{
+fs_auth()
+my_article <- fs_details("138")
+summary_fs_details(my_article)
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\author{
+Edmund Hart \email{edmund.m.hart@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_upload.R
+\name{fs_upload}
+\alias{fs_upload}
+\title{Upload file to an article}
+\usage{
+fs_upload(article_id, file, session = fs_get_auth())
+}
+\arguments{
+\item{article_id}{an article id number or a character string (or list) of numbers}
+
+\item{file}{path to file to upload, or character string (or list) of files (paths)}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}} (optional)}
+}
+\description{
+Upload file to an article
+}
+\details{
+Articles may be draft, private or public but all uploads are saved as draft changes - the canonical public version of the deposit is not updated. To update the public version of the repository, use \code{\link{fs_make_public}}. Only articles of type "fileset" can have multiple files uploaded.
+
+If only a single id number is given but a character string of files is given,
+then be sure that the id corresponds to an object of type "fileset".  If article_id list
+has more than one id, then there must be a corresponding file path for each id.
+}
+\examples{
+\dontrun{
+id <- fs_create("Title", "description", "figure")
+fs_upload(id, "file.png")
+} 
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_categories.R
+\name{fs_add_categories}
+\alias{fs_add_categories}
+\title{Add a category to article}
+\usage{
+fs_add_categories(article_id, category_id, session = fs_get_auth(),
+  debug = FALSE)
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{category_id}{is a vector of integers corresponding to categories or a vector of category names}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{debug}{return PUT results visibly?}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Add a category to article
+}
+\examples{
+\dontrun{
+fs_add_categories(138, "Ecology")
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Edmund Hart \email{edmund.m.hart@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_delete.R
+\name{fs_delete}
+\alias{fs_delete}
+\title{Delete article (private or drafts only) or attached file}
+\usage{
+fs_delete(article_id, file_id = NULL, session = fs_get_auth(),
+  debug = FALSE)
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{file_id}{the id number of the file, if removing an attached file from a fileset.
+file_id defaults to NULL, removing the entire draft or private article.}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{debug}{display return value of request?}
+}
+\value{
+output of DELETE request (invisibly)
+}
+\description{
+Delete article (private or drafts only) or attached file
+}
+\examples{
+\dontrun{
+fs_delete(123)
+
+## Delete all attachments in the second-most-recent entry in my library
+my_lib <- fs_browse(mine=TRUE)
+article_id <- my_lib[[2]]$article_id
+file_ids <- sapply(my_lib[[2]]$files, `[[`, "id")
+sapply(file_ids, function(id) fs_delete(article_id, id))
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_update.R
+\name{fs_update}
+\alias{fs_update}
+\title{Update article title, description, or type}
+\usage{
+fs_update(article_id, title = NA, description = NA, type = NA,
+  mine = TRUE, session = fs_get_auth(), debug = FALSE)
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{title}{for the article (to replace original title)}
+
+\item{description}{of the article (replaces original designation)}
+
+\item{type}{one of: dataset, figure, media, poster, or paper (replaces original designation)}
+
+\item{mine}{Set to \code{TRUE} if it refers to an item on your own account}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}.}
+
+\item{debug}{return httr PUT request visibly?}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Updates the article title, description or type. If any is not specified, it will remain unchanged.
+}
+\details{
+Updates the title, description, and type of an article.
+}
+\examples{
+\dontrun{
+fs_update(138, title = "New title") 
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}, \code{\link{fs_add_tags}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_authors.R
+\name{fs_author_ids}
+\alias{fs_author_ids}
+\title{Get Author IDs from names}
+\usage{
+fs_author_ids(authors, session = fs_get_auth(), graphics = FALSE)
+}
+\arguments{
+\item{authors}{a list/vector of authors (not a character string)}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache.}
+
+\item{graphics}{logical (default False) use graphic input to disambiguate?}
+}
+\value{
+a list of author id numbers, or NULLS where ids cannot be found.
+}
+\description{
+Take an author list, search for each author and return their FigShare ID.  
+If no author is found, call fs_create_author and return the ID.
+If multiple matches are found, allow user to choose interactively
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_details.R
+\name{fs_details}
+\alias{fs_details}
+\title{Get details for an article}
+\usage{
+fs_details(article_id, mine = is_mine(article_id),
+  session = fs_get_auth(), show_versions = FALSE, version = NULL,
+  debug = FALSE)
+}
+\arguments{
+\item{article_id}{number}
+
+\item{mine}{logical (default FALSE). Set to true to see article details for your own non-public articles}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}}}
+
+\item{show_versions}{logical, show what versions are available}
+
+\item{version}{show a given version number}
+
+\item{debug}{logical, enable debugging mode?}
+}
+\description{
+Get details for an article
+}
+\examples{
+\dontrun{
+fs_details(138)
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_browse.R
+\name{fs_browse}
+\alias{fs_browse}
+\title{Browse articles}
+\usage{
+fs_browse(mine = TRUE, public_only = FALSE, private_only = FALSE,
+  drafts_only = FALSE, session = fs_get_auth(),
+  base = "http://api.figshare.com/v1", query = NA, debug = FALSE)
+}
+\arguments{
+\item{mine}{Logical, show only my (authenticated user's) articles. Defaults to TRUE.}
+
+\item{public_only}{(for use with mine=TRUE only) browse only my public articles. default is FALSE}
+
+\item{private_only}{(for use with mine=TRUE only) browse only my private articles. default is FALSE}
+
+\item{drafts_only}{(for use with mine=TRUE only) browse only my draft articles. default is FALSE}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{base}{the API access url}
+
+\item{query}{a search query term (equivalent to calling fs_search)}
+
+\item{debug}{enable debugging mode}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Browse can be set to all public articles, the users own articles, 
+Browse can filter on matching timestamp, author, title, description, tag, category, and date range.
+}
+\examples{
+\dontrun{
+fs_browse() 
+}
+}
+\references{
+\url{http://api.figshare.com/docs/howto.html#q-search}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_category_list.R
+\name{fs_category_list}
+\alias{fs_category_list}
+\title{List all categories}
+\usage{
+fs_category_list(debug = FALSE)
+}
+\arguments{
+\item{debug}{enable debugging}
+}
+\value{
+a table of all the categories
+}
+\description{
+List all categories
+}
+\examples{
+\dontrun{
+fs_categories_list()
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_download.R
+\name{fs_download}
+\alias{fs_download}
+\title{Get details for an article}
+\usage{
+fs_download(article_id, urls_only = TRUE, mine = is_mine(article_id),
+  session = fs_get_auth(), show_versions = FALSE, version = NULL,
+  ...)
+}
+\arguments{
+\item{article_id}{number}
+
+\item{urls_only}{logical (default TRUE) to only return the URLs to the 
+downloadable objects but do not call download.file.  If FALSE, will download files}
+
+\item{mine}{logical (default FALSE). Set to true to see article details for your own non-public articles}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}}}
+
+\item{show_versions}{logical, show what versions are available}
+
+\item{version}{show a given version number}
+
+\item{...}{additional arguments to \code{\link{download.file}}}
+}
+\description{
+Get details for an article
+}
+\examples{
+\dontrun{
+url <- fs_download(90818)
+data <- read.csv(url)
+articles <- fs_search("SciFund")
+ids <- fs_ids(articles)
+fs_download(ids, urls_only=FALSE)
+}
+}
+\references{
+\url{http://api.figshare.com} \url{https://github.com/ropensci/rfigshare}
+}
+\seealso{
+\code{\link{fs_auth}} \code{\link{download.file}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_new_article.R
+\name{fs_new_article}
+\alias{fs_new_article}
+\title{Create a FigShare article.}
+\usage{
+fs_new_article(title, description, type = c("dataset", "figure", "media",
+  "poster", "paper", "fileset"), authors = NA, categories = NA,
+  tags = NA, links = NA, files = NA, visibility = c("draft",
+  "private", "public"), session = fs_get_auth())
+}
+\arguments{
+\item{title}{for the article, see \code{\link{fs_create}} for details.}
+
+\item{description}{of the article, see \code{\link{fs_create}} for details.}
+
+\item{type}{one of: dataset, figure, media, poster, or paper, see \code{\link{fs_create}} for details.}
+
+\item{authors}{Orded list of authors for the article, see \code{\link{fs_add_authors}} for details}
+
+\item{categories}{list of categories or category id numbers, see \code{\link{fs_add_categories}} for details.}
+
+\item{tags}{list of tags, see \code{\link{fs_add_tags}} for details.}
+
+\item{links}{list of links to add, see \code{\link{fs_add_links}} for details}
+
+\item{files}{path to the files to add, see \code{\link{fs_upload}} for details}
+
+\item{visibility}{one of "draft", "private" or "public".  A draft document can still be edited and modified.
+A public document is visible to everyone and cannot be deleted (though additional authors to the work can still "claim" their authorship).}
+
+\item{session}{(optional) credentials, see \code{link{fs_auth}}}
+}
+\value{
+article id
+}
+\description{
+fs_new_article is a wrapper around many other rfigshare commands to provide convenient posting.
+}
+\examples{
+\dontrun{
+write.csv(mtcars, "mtcars.csv")
+id <- fs_new_article(title="A Test of rfigshare", 
+                    description="This is a test of the fs_new_article function and related 
+                    methods", 
+                    type="dataset", 
+                    authors=c("Karthik Ram", "Scott Chamberlain"), 
+                    tags=c("ecology", "openscience"), 
+                    categories="Ecology", 
+                    links="http://ropensci.org", 
+                    files="mtcars.csv",
+                    visibility="private")
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}, \code{\link{fs_add_categories}}, \code{\link{fs_add_authors}}, \code{\link{fs_add_tags}}, \code{\link{fs_add_links}}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_make_private.R
+\name{fs_make_private}
+\alias{fs_make_private}
+\title{Make an article private (draft only?)}
+\usage{
+fs_make_private(article_id, session = fs_get_auth())
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as \code{\link{fs_auth}} has been run.}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Make an article private (draft only?)
+}
+\examples{
+\dontrun{
+fs_make_private(123)
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_create.R
+\name{fs_create}
+\alias{fs_create}
+\title{Create a FigShare article (draft)}
+\usage{
+fs_create(title, description, type = c("dataset", "figure", "media",
+  "poster", "paper", "fileset"), session = fs_get_auth(),
+  debug = FALSE)
+}
+\arguments{
+\item{title}{for the article}
+
+\item{description}{of the article}
+
+\item{type}{one of: dataset, figure, media, poster, paper or fileset. (Only filesets can have multiple uploaded files attached).}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}}}
+
+\item{debug}{print full post call return}
+}
+\value{
+article id
+}
+\description{
+Articles must be created with \code{\link{fs_create}}
+with essential metadata.  Then you can add files with
+\code{\link{fs_upload}}, add categories, tags or authors
+with \code{\link{fs_add_categories}} or \code{\link{fs_add_tags}}
+\code{\link{fs_add_authors}}.  Authors not registered with a FigShare
+id can be created with \code{\link{fs_create_author}}.  You can
+edit the original metadata with \code{\link{fs_update}}.
+Finally, release the article as either private or public with
+\code{\link{fs_make_private}} or \code{\link{fs_make_public}}.
+Before creating the article, you must authenticate using
+\code{\link{fs_auth}}.
+}
+\examples{
+\dontrun{
+fs_create("My Title", "A description of the object", "dataset")
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}, \code{\link{fs_upload}}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_links.R
+\name{fs_add_links}
+\alias{fs_add_links}
+\title{Add link to article}
+\usage{
+fs_add_links(article_id, link, session = fs_get_auth(), debug = FALSE)
+}
+\arguments{
+\item{article_id}{the id number of the article}
+
+\item{link}{the url you wish to add (can be list of urls)}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as authentication has been run.}
+
+\item{debug}{logical, should function return details of PUT request?}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Adds url links to the metadata of an article
+}
+\examples{
+\dontrun{
+fs_add_links(138, list("http://carlboettiger.info", "http://ropensci.org")) 
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/plot_to_filename.R
+\name{plot_to_filename}
+\alias{plot_to_filename}
+\title{Convienence function to save a ggplot2 plot, and return its filename.}
+\usage{
+plot_to_filename(plotobj, filename, path = ".")
+}
+\arguments{
+\item{plotobj}{ggplot2 plot object (should add support for base plots too)}
+
+\item{filename}{Filename, don't include the file type extension.}
+
+\item{path}{Path where you want to save the file.}
+}
+\value{
+A file name, to use in fs_upload
+}
+\description{
+Convienence function to save a ggplot2 plot, and return its filename.
+}
+\examples{
+\dontrun{ 
+# include in your fs_upload call
+library(ggplot2)
+p <- qplot(mpg, wt, data=mtcars)
+plott <- fs_create(title="my title", description="some description", type="figure")
+fs_add_categories(plott, "Ecology")
+fs_upload(plott, plot_to_filename(p, "myfilename", "~"))
+}
+}
+\seealso{
+\code{\link{fs_upload}}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_author_search.R
+\name{fs_author_search}
+\alias{fs_author_search}
+\title{Search for an author}
+\usage{
+fs_author_search(author, session = fs_get_auth(), debug = FALSE)
+}
+\arguments{
+\item{author}{a string to search for (name, can include spaces)}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{debug}{toggle debugging mode}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Function to search for authors
+}
+\examples{
+\dontrun{
+fs_author_search("Boettiger") 
+} 
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_tags.R
+\name{fs_add_tags}
+\alias{fs_add_tags}
+\title{Add a tag to an article}
+\usage{
+fs_add_tags(article_id, tag, session = fs_get_auth(), debug = FALSE)
+}
+\arguments{
+\item{article_id}{the id number of the article to create}
+
+\item{tag}{name of the tag to add (or list of tags)}
+
+\item{session}{the authentication credentials from \code{\link{fs_auth}}}
+}
+\value{
+output of PUT request (invisibly)
+}
+\description{
+Add a tag to an article
+}
+\examples{
+\dontrun{
+ fs_add_tag(138, "phylogenetics") 
+}
+}
+\references{
+\url{http://api.figshare.com}
+}
+\seealso{
+\code{\link{fs_auth}}
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_categories.R
+\name{fs_cat_to_id}
+\alias{fs_cat_to_id}
+\title{Helper function that matches string categories to id's}
+\usage{
+fs_cat_to_id(category_id)
+}
+\arguments{
+\item{category_id}{Must be a valid category string, regardless of case}
+}
+\value{
+a vector of integers corresponding to valid figshare categories
+}
+\description{
+Helper function that matches string categories to id's
+}
+\references{
+\url{http://api.figshare.com}
+}
+\author{
+Edmund Hart \email{edmund.m.hart@gmail.com}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_embed.R
+\name{fs_image_url}
+\alias{fs_image_url}
+\title{get image url}
+\usage{
+fs_image_url(id, debug = FALSE)
+}
+\arguments{
+\item{id}{a (public) figshare figure id number}
+
+\item{debug}{logical, enable debugging mode?}
+}
+\value{
+a url to the image file
+}
+\description{
+get image url
+}
+\details{
+this is currently an unstable hack of html parsing
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_authors.R
+\name{fs_add_author}
+\alias{fs_add_author}
+\title{Add an author to an article by ID number}
+\usage{
+fs_add_author(article_id, author_id, session = fs_get_auth())
+}
+\arguments{
+\item{article_id}{id number of an article on figshare}
+
+\item{author_id}{the id number of a registered figshare user (see \code{\link{fs_author_search}})}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. If not provided, will attempt to load from cache.}
+}
+\description{
+Add an author to an article by ID number
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/fs_add_authors.R
+\name{fs_add_authors}
+\alias{fs_add_authors}
+\title{Add author to an article}
+\usage{
+fs_add_authors(article_id, authors, session = fs_get_auth(),
+  create_missing = TRUE, debug = FALSE)
+}
+\arguments{
+\item{article_id}{id number of an article on figshare}
+
+\item{authors}{a list or character string of authors or author id numbers (or mixed).}
+
+\item{session}{(optional) the authentication credentials from \code{\link{fs_auth}}. 
+If not provided, will attempt to load from cache as long as figshare_auth has been run.}
+
+\item{create_missing}{(logical) Attempt to create authors not already registered on FigShare?}
+
+\item{debug}{return the httr result visibly?}
+}
+\value{
+adds the requested authors to the given article
+}
+\description{
+Add author to an article
+}
+\examples{
+\dontrun{
+ fs_add_authors("138", list("Scott Chamberlain", "Karthik Ram"))
+ fs_add_authors("138", c("Scott Chamberlain", "Karthik Ram"))
+ fs_add_authors("138", list("Scott Chamberlain", "97306"))
+ fs_add_authors("138", list("Scott Chamberlain", 97306))
+ fs_add_authors(138, 97306)
+} 
+}
+\author{
+Carl Boettiger \email{cboettig@gmail.com}
+}

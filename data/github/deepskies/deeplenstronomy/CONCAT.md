@@ -1020,3 +1020,306 @@ This code likely needs to be proofed and made more efficient.
 
 
 
+============
+Contributing
+============
+
+Contributions are welcome, and they are greatly appreciated! Every
+little bit helps, and credit will always be given. 
+
+You can contribute in many ways:
+
+Types of Contributions
+----------------------
+
+Report Bugs
+~~~~~~~~~~~
+
+Report bugs at https://github.com/deepskies/deeplenstronomy/issues.
+
+If you are reporting a bug, please include:
+
+* Your operating system name and version.
+* Any details about your local setup that might be helpful in troubleshooting.
+* Detailed steps to reproduce the bug.
+* Your main configuration file
+
+Fix Bugs
+~~~~~~~~
+
+Look through the GitHub issues for bugs. Anything tagged with "bug"
+is open to whoever wants to implement it.
+
+Implement Features
+~~~~~~~~~~~~~~~~~~
+
+Look through the GitHub issues for features. Anything tagged with "feature"
+is open to whoever wants to implement it.
+
+Write Documentation
+~~~~~~~~~~~~~~~~~~~
+
+deeplenstronomy could always use more documentation, whether as part of the 
+official deeplenstronomy docs, in docstrings, or even on the web in blog posts,
+articles, and such.
+
+Submit Feedback
+~~~~~~~~~~~~~~~
+
+The best way to send feedback is to file an issue at https://github.com/deepskies/deeplenstronomy/issues.
+
+If you are proposing a feature:
+
+* Explain in detail how it would work.
+* Keep the scope as narrow as possible, to make it easier to implement.
+* Remember that this is a volunteer-driven project, and that contributions
+  are welcome :)
+
+Get Started!
+------------
+
+Ready to contribute? Here's how to set up `deeplenstronomy` for
+local development.
+
+1. Fork_ the `deeplenstronomy` repo on GitHub.
+2. Clone your fork locally::
+
+    $ git clone git@github.com:your_name_here/deeplenstronomy.git
+
+3. Create a branch for local development::
+
+    $ git checkout -b name-of-your-bugfix-or-feature
+
+Now you can make your changes locally.
+
+4. When you're done making changes, make sure to also add a test.
+
+See the test directory for examples
+
+5. Commit your changes and push your branch to GitHub::
+
+    $ git add .
+    $ git commit -m "Your detailed description of your changes."
+    $ git push origin name-of-your-bugfix-or-feature
+
+6. Submit a pull request through the GitHub website.
+
+.. _Fork: https://github.com/deepskies/deeplenstronomy/fork
+
+Pull Request Guidelines
+-----------------------
+
+Before you submit a pull request, check that it meets these guidelines:
+
+1. The pull request should include tests.
+2. If the pull request adds functionality, the docs should be updated. Put
+   your new functionality into a function with a docstring, and add an
+   example demonstrating your feature.
+3. The pull request should work for Python >= 3.7, and for PyPy.
+
+Tips
+----
+
+To run a subset of tests::
+
+	 $ cd test && pytest
+=======
+Credits
+=======
+
+Development Lead
+----------------
+
+* Rob Morgan <robert.morgan@wisc.edu>
+
+Contributors
+------------
+
+* Brian Nord <nord@fnal.gov>
+* Simon Birrer <sibirrer@gmail.com>
+* Jason Poh <jasonpoh@uchicago.edu>
+* Joshua Yao-Yu Lin <joshualin24@gmail.com>
+
+.. :changelog:
+
+History
+-------
+
+0.0.2.3 (2021-12-20)
++++++++++++++++++++++
+* Bug fixes for ITERATE option in image BACKGROUNDS
+
+0.0.2.2 (2021-12-13)
++++++++++++++++++++++
+* Bug fixes for ITERATE option in image BACKGROUNDS
+* Bug fix for time delay calculations (very minor)
+* New PARAMS option to specify USERDIST columns
+
+0.0.2.1 (2021-11-15)
++++++++++++++++++++++
+* ITERATE option for image BACKGROUNDS
+* Drop any systems with unphysical redshifts from simulations
+
+0.0.2.0 (2021-05-07)
++++++++++++++++++++++
+* Verified stability of all new time series features
+
+0.0.1.9 (became version 0.0.2.0)
++++++++++++++++++++++
+* Fix bug in number of lensed point sources
+
+* Remove a couple CC SNe SEDs that led to erroneous magnitudes
+
+0.0.1.8 (2021-04-26)
++++++++++++++++++++++
+* Fix bug in extrapolating nites outside of SEDs for time series
+
+* Require each galaxy to have at least one mass profile
+
+* Require each configuration to have at least two planes
+
+0.0.1.7 (2021-04-01)
++++++++++++++++++++++
+* Write simulation input dicts to disk to limit memory usage
+
+* Improve accuracy of calculated magnitudes from SEDs (SNe, KN)
+
+* Track cosmographic time delays in the metadata
+
+* Make image backgrounds compatible with time series
+
+0.0.1.6 (2021-03-16)
++++++++++++++++++++++
+* Fix bug in calculation of K-Correction
+
+* Add DES deep field distributiions
+  
+0.0.1.5 (2021-03-10)
++++++++++++++++++++++
+* Fix bug in the number of times a USERDIST gets sampled
+
+* Fix bug in lsst survey mode
+
+* Fix bug in the redshifting calculations for supernovae to prevent NaNs
+
+0.0.1.4 (2021-03-03)
++++++++++++++++++++++
+* Fix bug in checking configuration file geometry section
+
+* Speed improvements for timeseries functionalities
+
+* Corner plot functionality for metadata visualization
+
+0.0.1.3 (2021-02-02)
++++++++++++++++++++++
+
+* Introducing the static model for timeseries
+
+* Introducing the peakshift parameter for timeseries
+
+* More accurate treatment of noise for timeseries
+
+0.0.1.2 (2021-01-29)
++++++++++++++++++++++
+
+* Fix bug in saving both sigma_v and theta_E 
+
+* Full API documentation
+
+0.0.1.0 (2020-11-09)
++++++++++++++++++++++
+
+* First official public release
+
+0.0.0.14 (2020-11-09)
++++++++++++++++++++++
+
+* Bug fixes in distributions
+
+* Unit tests
+
+0.0.0.11 (2020-10-27)
++++++++++++++++++++++
+
+* Bug fixes in image backgrounds
+
+* Random seeds
+
+* Search for dataset parameter names
+
+0.0.0.10 (2020-09-30)
++++++++++++++++++++++
+
+* Beta Release
+
+0.0.0.9 (2020-09-30)
+++++++++++++++++++++
+
+* Image Backgrounds
+
+* User Distributions
+
+0.0.0.6 (2020-08-17)
+++++++++++++++++++++
+
+* Implement time-series functinalities
+
+0.0.0.1 (2020-01-24)
+++++++++++++++++++++
+
+* Rebrand to yaml-style configuration file
+
+0.1.0 (2019-01-03)
+++++++++++++++++++
+
+* First release on PyPI.
+.. include:: ../CONTRIBUTING.rst
+.. include:: ../HISTORY.rst
+========
+Usage
+========
+
+To use deeplenstronomy in a project::
+
+	import deeplenstronomy
+.. include:: ../AUTHORS.rst
+============
+Installation
+============
+
+At the command line either via easy_install or pip::
+
+    $ easy_install deeplenstronomy
+    $ pip install deeplenstronomy
+
+Or, if you have virtualenvwrapper installed::
+
+    $ mkvirtualenv deeplenstronomy
+    $ pip install deeplenstronomy
+.. complexity documentation master file, created by
+   sphinx-quickstart on Tue Jul  9 22:26:36 2013.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+.. include:: ../README.rst
+
+Contents:
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   usage
+   contributing
+   authors
+   history
+
+Feedback
+========
+
+If you have any suggestions or questions about **deeplenstronomy** feel free to email me
+at nord@fnal.gov.
+
+If you encounter any errors or problems with **deeplenstronomy**, please let me know!
+Open an Issue at the GitHub http://github.com/bnord/deeplenstronomy main repository.

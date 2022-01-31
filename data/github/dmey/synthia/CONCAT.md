@@ -401,3 +401,148 @@ This allows us to represent the high-dimensional vector $X$  by only a few numbe
 PCA can be used to generate synthetic data for the high-dimensional vector $X$. For every instance $X_i$ in the data set, we compute the principal component scores $a_{i, 1}, \dots, a_{i, K}$. The scores are uncorrelated by construction and we treat them as independent. We then fit a model $F_k$ for the marginal distribution of each score $a_k$. From these models, we can generate synthetic scores $\tilde a_k$ and transform them into a synthetic sample of $X$ via 
 
 $$\tilde X = \mu + \sum_{k = 1}^K \tilde a_k v_{k}.$$
+Examples
+========
+
+
+Generation
+**********
+.. toctree::
+    :maxdepth: 1
+
+    examples/univariate
+    examples/multivariate-independent
+    examples/multivariate-gaussian
+    examples/multivariate-vine
+    examples/fpca
+    examples/discrete-and-categorical
+
+Enhancement
+***********
+.. toctree::
+    :maxdepth: 1
+
+    examples/enhancement
+Getting Started
+---------------
+
+* :doc:`overview`
+* :doc:`features`
+* :doc:`installation`
+* :doc:`quickstart`
+* :doc:`examples`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Getting Started
+
+   overview
+   features
+   installation
+   quickstart.ipynb
+   examples
+
+Background
+---------------------
+
+* :doc:`copula`
+* :doc:`fpca`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Background
+
+   copula
+   fpca
+
+
+Help & Reference
+----------------
+
+* :doc:`api`
+* :doc:`citing`
+* :doc:`contributing`
+* :doc:`develop`
+* :doc:`license`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Help & reference
+
+   api
+   citing
+   contributing
+   develop
+   license.. currentmodule:: synthia
+
+#############
+API reference
+#############
+
+This page provides an auto-generated summary of synthia's API. For more details
+and examples, refer to the relevant chapters in the main part of the
+documentation.
+
+
+Data generators
+===============
+
+.. autoclass:: synthia.CopulaDataGenerator
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.FPCADataGenerator
+   :members:
+   :undoc-members:
+
+
+Copulas
+=======
+
+.. autoclass:: synthia.GaussianCopula
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.VineCopula
+   :members:
+   :undoc-members:
+
+Parameterizers
+==============
+
+.. autoclass:: synthia.ConstParameterizer
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.QuantileParameterizer
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.DistributionParameterizer
+   :members:
+   :undoc-members:
+
+Transformers
+============
+
+.. autoclass:: synthia.ArcTanhTransformer
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.BoxCoxTransformer
+   :members:
+   :undoc-members:
+
+.. autoclass:: synthia.CombinedTransformer
+   :members:
+   :undoc-members:
+
+Utilities
+=========
+
+.. automodule:: synthia.util
+   :members: load_dataset
+   :undoc-members:

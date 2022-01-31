@@ -2173,3 +2173,139 @@ future these operations might be updated to return 0d tensors instead.
     EIGEN_STATIC_ASSERT(packetSize > 1, YOU_MADE_A_PROGRAMMING_MISTAKE)
 
 
+Examples
+========
+
+Below is a collection of examples and tutorials on how to use
+``starry_process``. We're still working on adding more of these,
+so check back soon for more! As always, feel free to suggest or request
+an example or tutorial by
+`raising an issue on GitHub <https://github.com/rodluger/starry_process/issues>`_.
+
+
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   Quick start  <notebooks/Quickstart.ipynb>
+   Inferring spot latitudes <notebooks/Latitude.ipynb>
+   Modeling time variability <notebooks/TimeVariability.ipynb>
+   Using a starry process as a prior  <notebooks/Prior.ipynb>
+   Ensemble analyses <notebooks/Ensemble.ipynb>
+   Inference on time-variable stars <notebooks/TimeVariabilityInference.ipynb>
+.. raw:: html
+
+   <div align="center">
+   <img src="https://github.com/rodluger/starry_process/blob/master/starry_process.gif?raw=true" width="450px">
+   </img>
+   <br/>
+   </div>
+   <br/><br/>
+
+Documentation
+=============
+
+Welcome to the :py:mod:`starry_process` documentation.
+The :py:mod:`starry_process` code is an implementation of an
+**interpretable Gaussian process (GP) for stellar light curves.**
+This means that the hyperparameters of the GP are actual
+physical properties of the stellar surface, such as the size,
+position, contrast, and number of star spots. The primary application
+of :py:mod:`starry_process` is to model stellar light curves
+with the goal of inferring their spot parameters.
+For more information, check out the
+`JOSS paper <https://ui.adsabs.harvard.edu/abs/2021arXiv210201774L>`_, the
+Mapping Stellar Surfaces paper series
+(`Paper I <https://ui.adsabs.harvard.edu/abs/2021arXiv210200007L>`_,
+`Paper II <https://ui.adsabs.harvard.edu/abs/2021arXiv210201697L>`_),
+as well as this `interactive live demo <http://starry-process.flatironinstitute.org>`_.
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+
+    Installation <install>
+    Examples <examples>
+    API <api>
+    Live demo <http://starry-process.flatironinstitute.org>
+    GitHub <https://github.com/rodluger/starry_process>
+    Submit an issue <https://github.com/rodluger/starry_process/issues>
+    Read the JOSS paper <https://ui.adsabs.harvard.edu/abs/2021arXiv210201774L>
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Installation
+============
+
+Stable version
+--------------
+
+Install the most recent stable version using :py:obj:`pip`:
+
+.. code-block:: bash
+
+    pip install starry-process
+
+To ensure you have the dependencies to run the :py:obj:`starry-process`
+web app locally, do
+
+.. code-block:: bash
+
+    pip install starry-process[app]
+
+To run the web app, just execute :py:obj:`starry-process` on the command line.
+
+.. note ::
+
+   The ``starry_process`` package requires Python 3.6 or later.
+
+Additional requirements (installed if not present) are:
+
+- ``numpy>=1.19.2``
+- ``scipy>=1.5.0``
+- ``matplotlib``
+- ``pymc3``
+- ``pymc3-ext``
+- ``aesara-theano-fallback``
+- ``tqdm``
+
+
+Development version
+-------------------
+
+You can install the latest development version of :py:obj:`starry_process` directly
+from `GitHub <https://github.com/rodluger/starry_process>`_:
+
+.. code-block:: bash
+
+    git clone https://github.com/rodluger/starry_process.git
+    cd starry_process
+    pip install .
+
+To ensure you have all dependencies to run unit tests, perform
+calibration runs, build the docs, and/or to reproduce the results in the paper:
+
+.. code-block:: bash
+
+    git clone https://github.com/rodluger/starry_process.git
+    cd starry_process
+    pip install -e ".[tests,docs]"
+API
+===
+
+.. autoclass:: starry_process.StarryProcess
+    :members:
+    :inherited-members:
+
+.. autoclass:: starry_process.MCMCInterface
+    :members:
+    :inherited-members:
+
+.. autofunction:: starry_process.beta2gauss
+
+.. autofunction:: starry_process.gauss2beta

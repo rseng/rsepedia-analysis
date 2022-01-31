@@ -1489,4 +1489,283 @@ This folder contains specifications for each version of a singularity-compose.ym
   - [2.0](spec/spec-2.0.md) is version 2 of the specification with added network, start, exec, and run options. See [the file here](https://github.com/singularityhub/singularity-compose/tree/master/docs/spec/spec-2.0.md). You should use version 0.1.0 or later for this spec.
  - [1.0](spec/spec-1.0.md) is version 1 (current) of the under development specification. See [the file here](https://github.com/singularityhub/singularity-compose/tree/master/docs/spec/spec-1.0.md). You should use a version less than 0.1.0 for this version.
 
-../CHANGELOG.md
+../CHANGELOG.mdWelcome to Singularity Compose API's documentation!
+===================================================
+
+Singularity Compose is an orchestration tool for Singularity instances.
+
+Contents:
+
+.. toctree::
+   :maxdepth: 3
+
+   source/scompose.rst
+   changelog.md
+
+
+Indices and tables
+------------------
+
+* :ref:`modindex`
+scompose.utils package
+======================
+
+Module contents
+---------------
+
+.. automodule:: scompose.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose.templates package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: scompose.templates
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose.client package
+=======================
+
+Submodules
+----------
+
+scompose.client.build module
+----------------------------
+
+.. automodule:: scompose.client.build
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.config module
+-----------------------------
+
+.. automodule:: scompose.client.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.create module
+-----------------------------
+
+.. automodule:: scompose.client.create
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.down module
+---------------------------
+
+.. automodule:: scompose.client.down
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.exec module
+---------------------------
+
+.. automodule:: scompose.client.exec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.logs module
+---------------------------
+
+.. automodule:: scompose.client.logs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.ps module
+-------------------------
+
+.. automodule:: scompose.client.ps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.restart module
+------------------------------
+
+.. automodule:: scompose.client.restart
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.shell module
+----------------------------
+
+.. automodule:: scompose.client.shell
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.client.up module
+-------------------------
+
+.. automodule:: scompose.client.up
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scompose.client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose.project package
+========================
+
+Submodules
+----------
+
+scompose.project.instance module
+--------------------------------
+
+.. automodule:: scompose.project.instance
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.project.project module
+-------------------------------
+
+.. automodule:: scompose.project.project
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scompose.project
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose.tests package
+======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    scompose.tests.testdata
+
+Submodules
+----------
+
+scompose.tests.test\_client module
+----------------------------------
+
+.. automodule:: scompose.tests.test_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.tests.test\_utils module
+---------------------------------
+
+.. automodule:: scompose.tests.test_utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scompose.tests
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose.tests.testdata package
+===============================
+
+Module contents
+---------------
+
+.. automodule:: scompose.tests.testdata
+    :members:
+    :undoc-members:
+    :show-inheritance:
+singularity-compose
+===================
+
+.. toctree::
+   :maxdepth: 4
+
+   scompose
+scompose.logger package
+=======================
+
+Submodules
+----------
+
+scompose.logger.message module
+------------------------------
+
+.. automodule:: scompose.logger.message
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+scompose.logger.progress module
+-------------------------------
+
+.. automodule:: scompose.logger.progress
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scompose.logger
+    :members:
+    :undoc-members:
+    :show-inheritance:
+scompose package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    scompose.client
+    scompose.logger
+    scompose.project
+    scompose.templates
+    scompose.tests
+    scompose.utils
+
+Submodules
+----------
+
+scompose.version module
+-----------------------
+
+.. automodule:: scompose.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: scompose
+    :members:
+    :undoc-members:
+    :show-inheritance:

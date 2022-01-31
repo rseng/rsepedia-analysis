@@ -103,3 +103,143 @@ DOI: 10.1109/AICCSA.2016.7945643
 ##Salient Region Detectors software.
 
 The prototype software is in Software/MATLAB/AffineRegions/Detectors
+tests package
+=============
+
+Submodules
+----------
+
+tests.context module
+--------------------
+
+.. automodule:: tests.context
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test_binarizers module
+----------------------------
+
+.. automodule:: tests.test_binarizers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test_binary_detector module
+---------------------------------
+
+.. automodule:: tests.test_binary_detector
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test_detectors module
+---------------------------
+
+.. automodule:: tests.test_detectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tests.test_helpers module
+-------------------------
+
+.. automodule:: tests.test_helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tests
+    :members:
+    :undoc-members:
+    :show-inheritance:
+setup module
+============
+
+.. automodule:: setup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+salientregions package
+======================
+
+Submodules
+----------
+
+salientregions.binarization module
+----------------------------------
+
+.. automodule:: salientregions.binarization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+salientregions.binarydetector module
+------------------------------------
+
+.. automodule:: salientregions.binarydetector
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+salientregions.detectors module
+-------------------------------
+
+.. automodule:: salientregions.detectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+salientregions.helpers module
+-----------------------------
+
+.. automodule:: salientregions.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: salientregions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Python
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   salientregions
+   setup
+   tests
+.. Salient Region Detectors documentation master file, created by
+   sphinx-quickstart on Fri Apr  8 14:38:59 2016.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Salient Region Detectors's documentation!
+See the `project homepage`_ for more information about the package.
+
+.. _`project homepage`: http://nlesc.github.io/SalientDetector-python/
+====================================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

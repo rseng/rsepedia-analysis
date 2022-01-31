@@ -1617,3 +1617,17670 @@ assignees: ''
 This folder contains tests that must be run directly in the GitHub Actions container environment.
 
 This is usually because they require an active daemon or have other specific environment requirements.
+sphinx-aiida broken demo
+========================
+
+Test configuration for the broken AiiDA workchain.
+
+.. aiida-workchain:: BrokenDemoWorkChain
+    :module: broken_demo_workchain
+sphinx-aiida demo
+=================
+
+This is a demo documentation to show off the features of the ``sphinx-aiida`` extension.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+.. aiida-workchain:: DemoWorkChain
+    :module: demo_workchain
+
+
+If you want to hide the inputs that are not stored as nodes in the database, use the ``:hide-unstored-inputs:`` option.
+
+.. aiida-workchain:: DemoWorkChain
+    :module: demo_workchain
+    :hide-nondb-inputs:
+
+
+The namespaces can be set to expand by default, using the ``:expand-namespaces:`` option.
+
+.. aiida-workchain:: DemoWorkChain
+    :module: demo_workchain
+    :expand-namespaces:
+
+The following workchain checks that the directive works also when no outline is specified:
+
+.. aiida-workchain:: EmptyOutlineWorkChain
+    :module: demo_workchain
+
+The command is also hooked into ``sphinx.ext.autodoc``, so AiiDA processes will be properly documented using ``.. automodule::`` as well.
+
+.. automodule:: demo_workchain
+    :members:
+:orphan:
+
+===============
+ Oh, oh -- 404!
+===============
+
+We could not find this page 🤔
+
+Please, try using the links from the sidebar to find what you are looking for.
+
+If you believe that the documentation page should be at this link, or should redirect to a suitable page, we would be grateful if you could inform the AiiDA developers by opening an issue on GitHub:
+
+`Click here to open an issue <https://github.com/aiidateam/aiida-core/issues/new?assignees=&labels=topic%2Fdocumentation&template=doc-improvements.md&title=Docs%3A+404>`__
+
+.. image:: images/logo_aiida_docs.png
+   :align: center
+   :width: 250px
+:orphan:
+
+External Links
+==============
+
+You have been redirected here from a page that no longer exists in the documentation.
+See the list below for potential links that you may have been searching for.
+
+- GIT cheat sheet: this has been moved to https://github.com/aiidateam/aiida-core/wiki/GIT-cheatsheet.
+- Sphinx cheat sheet: the original documentation can be found in the `v1.2.0 documentation <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.0/developer_guide/tools/sphinx_cheatsheet.html>`_,
+  or see the official `Sphinx documentation <http://www.sphinx-doc.org/en/master/>`_.
+
+- Quantum Espresso examples have now moved to: https://aiida-quantumespresso.readthedocs.io.
+#################################
+Welcome to AiiDA's documentation!
+#################################
+
+**aiida-core version:** |release|
+
+`AiiDA`_ is an open-source Python infrastructure to help researchers with automating, managing, persisting, sharing and reproducing the complex workflows associated with modern computational science and all associated data (see :ref:`features<intro:about>`).
+
+.. panels::
+   :body: bg-light text-center
+   :footer: bg-light border-0
+
+
+   :fa:`rocket,mr-1` **Getting Started**
+
+   AiiDA installation, configuration and troubleshooting.
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: intro/get_started
+      :type: ref
+      :text: To the installation guides
+      :classes: btn-outline-primary btn-block stretched-link
+
+   ----------------------------------------------
+
+   :fa:`info-circle,mr-1` **Tutorial**
+
+   First time users: Get your feet wet with AiiDA basics!
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: intro/tutorial
+      :type: ref
+      :text: To the tutorials
+      :classes: btn-outline-primary btn-block stretched-link
+
+   ----------------------------------------------
+
+   :fa:`question-circle,mr-1` **How-To Guides**
+
+   Learn how to use AiiDA to power your own work.
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: howto/index
+      :type: ref
+      :text: To the how-to guides
+      :classes: btn-outline-primary btn-block stretched-link
+
+   ----------------------------------------------
+
+   :fa:`bookmark,mr-1` **Topics**
+
+   Background information on AiiDA's underlying concepts.
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: topics/index
+      :type: ref
+      :text: To the topics
+      :classes: btn-outline-primary btn-block stretched-link
+
+   ----------------------------------------------
+
+   :fa:`cogs,mr-1` **API Reference**
+
+   Comprehensive documentation of AiiDA components: command-line interface, Python interface, and RESTful API.
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: reference/index
+      :type: ref
+      :text: To the reference guide
+      :classes: btn-outline-primary btn-block stretched-link
+
+   ----------------------------------------------
+
+   :fa:`sitemap,mr-1` **Internal Architecture**
+
+   Notes on AiiDA's design and architecture aimed at core developers.
+
+   +++++++++++++++++++++++++++++++++++++++++++++
+
+   .. link-button:: internals/index
+      :type: ref
+      :text: To the architecture guide
+      :classes: btn-outline-primary btn-block stretched-link
+
+.. admonition:: Development Contributions
+   :class: title-icon-code-fork
+
+   Saw a typo in the documentation? Want to improve the code?
+   Help is always welcome, get started with the `contributing guidelines <https://github.com/aiidateam/aiida-core/wiki>`__.
+
+
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+
+   intro/index
+   howto/index
+   topics/index
+   reference/index
+   internals/index
+
+***********
+How to cite
+***********
+
+If you use AiiDA for your research, please cite the following work:
+
+.. highlights:: **AiiDA >= 1.0:** Sebastiaan. P. Huber, Spyros Zoupanos, Martin Uhrin, Leopold Talirz, Leonid Kahle, Rico Häuselmann, Dominik Gresch, Tiziano Müller, Aliaksandr V. Yakutovich, Casper W. Andersen, Francisco F. Ramirez, Carl S. Adorf, Fernando Gargiulo, Snehal Kumbhar, Elsa Passaro, Conrad Johnston, Andrius Merkys, Andrea Cepellotti, Nicolas Mounet, Nicola Marzari, Boris Kozinsky, and Giovanni Pizzi, *AiiDA 1.0, a scalable computational infrastructure for automated reproducible workflows and data provenance*, Scientific Data **7**, 300 (2020); DOI: `10.1038/s41597-020-00638-4 <https://doi.org/10.1038/s41597-020-00638-4>`_
+
+.. highlights:: **AiiDA >= 1.0:** Martin Uhrin, Sebastiaan. P. Huber, Jusong Yu, Nicola Marzari, and Giovanni Pizzi, *Workflows in AiiDA: Engineering a high-throughput, event-based engine for robust and modular computational workflows*, Computational Materials Science **187**, 110086 (2021); DOI: `10.1016/j.commatsci.2020.110086 <https://doi.org/10.1016/j.commatsci.2020.110086>`_
+
+.. highlights:: **AiiDA < 1.0:** Giovanni Pizzi, Andrea Cepellotti, Riccardo Sabatini, Nicola Marzari, and Boris Kozinsky, *AiiDA: automated interactive infrastructure and database for computational science*, Computational Materials Science **111**, 218-230 (2016); DOI: `10.1016/j.commatsci.2015.09.013 <https://doi.org/10.1016/j.commatsci.2015.09.013>`_
+
+
+****************
+Acknowledgements
+****************
+
+AiiDA is supported by the `MARVEL National Centre of Competence in Research`_, the `MaX European Centre of Excellence`_ and by a number of other supporting projects, partners and institutions, whose complete list is available on the `AiiDA website acknowledgements page`_.
+
+AiiDA is a NumFOCUS Affiliated Project. Visit `numfocus.org`_ for more information.
+
+
+.. _AiiDA: http://www.aiida.net
+.. _MARVEL National Centre of Competence in Research: http://www.marvel-nccr.ch
+.. _MaX European Centre of Excellence: http://www.max-centre.eu
+.. _AiiDA website acknowledgements page: http://www.aiida.net/acknowledgements/
+.. _numfocus.org: https://www.numfocus.org
+******************
+Plugin development
+******************
+
+
+.. toctree::
+   :maxdepth: 1
+
+   plugins/basics
+   plugins/quickstart
+   plugins/entry_points
+   plugins/documenting
+   plugins/plugin_tests
+   plugins/publish
+****************
+Core development
+****************
+
+.. toctree::
+    :maxdepth: 1
+
+    core/internals
+    core/transport
+    core/extend_restapi
+    core/caching
+    core/plugin_system
+    design/changes
+###############
+AiiDA internals
+###############
+
+Node
+++++
+
+All nodes in an AiiDA provenance graph inherit from the :py:class:`~aiida.orm.nodes.node.Node` class.
+Among those are the :py:class:`~aiida.orm.nodes.data.data.Data` class, the :py:class:`~aiida.orm.nodes.process.process.ProcessNode` class representing computations that transform data, and the :py:class:`~aiida.orm.nodes.data.code.Code` class representing executables (and file collections that are used by calculations).
+
+
+Immutability concept
+********************
+A node can store information in attributes.
+Since AiiDA guarantees a certain level of provenance, these attributes become immutable as soon as the node is stored.
+This means that as soon as a node is stored, any attempt to alter its attributes, changing its value or deleting it altogether, shall be met with a raised exception.
+Certain subclasses of nodes need to adapt this behavior however, as for example in the case of the :py:class:`~aiida.orm.nodes.process.process.ProcessNode` class (see `calculation updatable attributes`_), but since the immutability of stored nodes is a core concept of AiiDA, this behavior is nonetheless enforced on the node level.
+This guarantees that any subclasses of the Node class will respect this behavior unless it is explicitly overriden.
+
+Entity methods
+******************
+- :py:meth:`~aiida.orm.implementation.utils.clean_value` takes a value and returns an object which can be serialized for storage in the database.
+  Such an object must be able to be subsequently deserialized without changing value.
+  If a simple datatype is passed (integer, float, etc.), a check is performed to see if it has a value of ``nan`` or ``inf``, as these cannot be stored.
+  Otherwise, if a list, tuple, dictionary, etc., is  passed, this check is performed for each value it contains.
+  This is done recursively, automatically handling the case of nested objects.
+  It is important to note that iterable type objects are converted to lists during this process, and mappings are converted to normal dictionaries.
+  For efficiency reasons, the cleaning of attribute values is delayed to the last moment possible.
+  This means that for an unstored entity, new attributes are not cleaned but simply set in the cache of the underlying database model.
+  When the entity is then stored, all attributes are cleaned in one fell swoop and if successful the values are flushed to the database.
+  Once an entity is stored, there no longer is such a cache and so the attribute values are cleaned straight away for each call.
+  The same mechanism holds for the cleaning of the values of extras.
+
+
+Node methods & properties
+*************************
+In the following sections, the most important methods and properties of the :py:class:`~aiida.orm.nodes.node.Node` class will be described.
+
+Node subclasses organization
+============================
+The :py:class:`~aiida.orm.nodes.node.Node` class has two important attributes:
+
+* :py:attr:`~aiida.orm.nodes.node.Node._plugin_type_string` characterizes the class of the object.
+
+* :py:attr:`~aiida.orm.nodes.node.Node._query_type_string` characterizes the class and all its subclasses (by pointing to the package or Python file that contain the class).
+
+The convention for all the :py:class:`~aiida.orm.nodes.node.Node` subclasses is that if a ``class B`` is inherited by a ``class A`` then there should be a package ``A`` under ``aiida/orm`` that has a file ``__init__.py`` and a ``B.py`` in that directory (or a ``B`` package with the corresponding ``__init__.py``)
+
+An example of this is the :py:class:`~aiida.orm.nodes.data.array.ArrayData` and the :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`.
+:py:class:`~aiida.orm.nodes.data.array.ArrayData` is placed in ``aiida/orm/data/array/__init__.py`` and :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` which inherits from :py:class:`~aiida.orm.nodes.data.array.ArrayData` is placed in ``aiida/orm/data/array/kpoints.py``
+
+This is an implicit & quick way to check the inheritance of the :py:class:`~aiida.orm.nodes.node.Node` subclasses.
+
+General purpose methods
+=======================
+- :py:meth:`~aiida.orm.nodes.node.Node.__init__`: Will construct a new unstored ``Node``.
+  Note that this cannot be used to load an existing node from the database.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.ctime` and :py:meth:`~aiida.orm.nodes.node.Node.mtime` provide the creation and the modification time of the node.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.computer` returns the computer associated to this node.
+
+- :py:meth:`~aiida.orm.nodes.node.Node._validate` does a validation check for the node.
+  This is important for :py:class:`~aiida.orm.nodes.node.Node` subclasses where various attributes should be checked for consistency before storing.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.user` returns the user that created the node.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.uuid` returns the universally unique identifier (UUID) of the node.
+
+
+Annotation methods
+==================
+The :py:class:`~aiida.orm.nodes.node.Node` can be annotated with labels, description and comments.
+The following methods can be used for the management of these properties.
+
+*Label management:*
+
+- :py:attr:`~aiida.orm.nodes.node.Node.label` returns the label of the node.
+  It can also be used to *change* the label, e.g. ``mynode.label = "new label"``.
+
+*Description management:*
+
+- :py:attr:`~aiida.orm.nodes.node.Node.description`: returns the description of the node (more detailed than the label).
+  It can also be used to *change* the description, e.g. ``mynode.description = "new description"``.
+
+*Comment management:*
+
+- :py:meth:`~aiida.orm.nodes.node.Node.add_comment` adds a comment.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.get_comments` returns a sorted list of the comments.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.update_comment` updates the node comment.
+  It can also be accessed through the CLI: ``verdi comment update``.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.remove_comment` removes the node comment.
+  It can also be accessed through the CLI: ``verdi comment remove``.
+
+
+
+Link management methods
+=======================
+:py:class:`~aiida.orm.nodes.node.Node` objects and objects of its subclasses can have ancestors and descendants.
+These are connected with links.
+The following methods exist for the management of these links.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.has_cached_links` shows if there are cached links to other nodes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.add_incoming` adds a link to the current node from the 'src' node with the given link label and link type.
+  Depending on whether the nodes are stored or not, the link is written to the database or to the cache.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.get_incoming` returns the iterator of input nodes
+
+*Methods to get the output data*
+
+- :py:meth:`~aiida.orm.nodes.node.Node.get_outgoing` returns the iterator of output nodes.
+
+*Listing links example*
+
+Assume that the user wants to see the available links of a node in order to understand the structure of the graph and maybe traverse it.
+In the following example, we load a specific node and we list its incoming and outgoing links::
+
+  In [1]: c = load_node(139168)  # Let's load a node with a specific pk
+
+  In [2]: c.get_incoming().all()
+  Out[2]:
+  [
+    LinkTriple(link_type='inputlink', label='code', node=<Code: Remote code 'cp-5.1' on daint, pk: 75709, uuid: 3c9cdb7f-0cda-402e-b898-4dd0d06aa5a4>),
+    LinkTriple(link_type='inputlink', label='parameters', node=<Dict: uuid: 94efe64f-7f7e-46ea-922a-fe64a7fba8a5 (pk: 139166)>)
+    LinkTriple(link_type='inputlink', label='parent_calc_folder', node=<RemoteData: uuid: becb4894-c50c-4779-b84f-713772eaceff (pk: 139118)>)
+    LinkTriple(link_type='inputlink', label='pseudo_Ba', node=<UpfData: uuid: 5e53b22d-5757-4d50-bbe0-51f3b9ac8b7c (pk: 1905)>)
+    LinkTriple(link_type='inputlink', label='pseudo_O', node=<UpfData: uuid: 5cccd0d9-7944-4c67-b3c7-a39a1f467906 (pk: 1658)>)
+    LinkTriple(link_type='inputlink', label='pseudo_Ti', node=<UpfData: uuid: e5744077-8615-4927-9f97-c5f7b36ba421 (pk: 1660)>)
+    LinkTriple(link_type='inputlink', label='settings', node=<Dict: uuid: a5a828b8-fdd8-4d75-b674-2e2d62792de0 (pk: 139167)>)
+    LinkTriple(link_type='inputlink', label='structure', node=<StructureData: uuid: 3096f83c-6385-48c4-8cb2-24a427ce11b1 (pk: 139001)>)
+  ]
+
+  In [3]: c.get_outgoing().all()
+  Out[3]:
+  [
+    LinkTriple(link_type='createlink', label='output_parameters', node=<Dict: uuid: f7a3ca96-4594-497f-a128-9843a1f12f7f (pk: 139257)>),
+    LinkTriple(link_type='createlink', label='output_parameters_139257', node=<Dict: uuid: f7a3ca96-4594-497f-a128-9843a1f12f7f (pk: 139257)>),
+    LinkTriple(link_type='createlink', label='output_trajectory', node=<TrajectoryData: uuid: 7c5b65bc-22bb-4b87-ac92-e8a78cf145c3 (pk: 139256)>),
+    LinkTriple(link_type='createlink', label='output_trajectory_139256', node=<TrajectoryData: uuid: 7c5b65bc-22bb-4b87-ac92-e8a78cf145c3 (pk: 139256)>),
+    LinkTriple(link_type='createlink', label='remote_folder', node=<RemoteData: uuid: 17642a1c-8cac-4e7f-8bd0-1dcebe974aa4 (pk: 139169)>),
+    LinkTriple(link_type='createlink', label='remote_folder_139169', node=<RemoteData: uuid: 17642a1c-8cac-4e7f-8bd0-1dcebe974aa4 (pk: 139169)>),
+    LinkTriple(link_type='createlink', label='retrieved', node=<FolderData: uuid: a9037dc0-3d84-494d-9616-42b8df77083f (pk: 139255)>),
+    LinkTriple(link_type='createlink', label='retrieved_139255', node=<FolderData: uuid: a9037dc0-3d84-494d-9616-42b8df77083f (pk: 139255)>)
+  ]
+
+The :py:meth:`~aiida.orm.nodes.node.Node.get_incoming` and :py:meth:`~aiida.orm.nodes.node.Node.get_outgoing` methods return a manager object that contains a collection of the incoming and outgoing links from the target node.
+The collection consists of all the neighboring nodes matched in the query.
+Each neighbor is defined by the node, the link label and link type.
+This set of three properties is referred to as a `link triple` and is implemented by the :py:class:`~aiida.orm.utils.links.LinkTriple` named tuple.
+Through various methods on the link manager, these link triples can be returned.
+
+
+Attributes related methods
+==========================
+Each :py:meth:`~aiida.orm.nodes.node.Node` object can have attributes which are properties that characterize the node.
+Such properties can be the energy, the atom symbols or the lattice vectors.
+The following methods can be used for the management of the attributes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.set_attribute` and :py:meth:`~aiida.orm.nodes.node.Node.set_attribute_many` adds one or many new attributes to the node.
+  The key of the attribute is the property name (e.g. ``energy``, ``lattice_vectors`` etc) and the value of the attribute is the value of that property.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.reset_attributes` will replace all existing attributes with a new set of attributes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.attributes` is a property that returns all attributes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.get_attribute` and :py:meth:`~aiida.orm.nodes.node.Node.get_attribute_many` can be used to return a single or many specific attributes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.delete_attribute` & :py:meth:`~aiida.orm.nodes.node.Node.delete_attribute_many` delete one or multiple specific attributes.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.clear_attributes` will delete all existing attributes.
+
+
+Extras related methods
+======================
+`Extras` are additional information that can be added to a node.
+In contrast to repository files and attributes, extras are information added by the user and are not immutable, even when the node is stored.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.set_extra` and :py:meth:`~aiida.orm.nodes.node.Node.set_extra_many` adds one or many new extras to the node.
+  The key of the extra is the property name (e.g. ``energy``, ``lattice_vectors`` etc) and the value of the extra is the value of that property.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.reset_extras` will replace all existing extras with a new set of extras.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.extras` is a property that returns all extras.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.get_extra` and :py:meth:`~aiida.orm.nodes.node.Node.get_extra_many` can be used to return a single or many specific extras.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.delete_extra` & :py:meth:`~aiida.orm.nodes.node.Node.delete_extra_many` delete one or multiple specific extras.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.clear_extras` will delete all existing extras.
+
+
+Folder management
+=================
+``Folder`` objects represent directories on the disk (virtual or not) where extra information for the node are stored.
+These folders can be temporary or permanent.
+
+
+Store & deletion
+================
+- :py:meth:`~aiida.orm.nodes.node.Node.store_all` stores all the input ``nodes``, then it stores the current ``node`` and in the end, it stores the cached input links.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.verify_are_parents_stored` checks that the parents are stored.
+
+- :py:meth:`~aiida.orm.nodes.node.Node.store` method checks that the ``node`` data is valid, then check if ``node``'s parents are stored, then moves the contents of the temporary folder to the repository folder and in the end, it stores in the database the information that are in the cache. The latter happens with a database transaction. In case this transaction fails, then the data transfered to the repository folder are moved back to the temporary folder.
+
+
+
+Folders
++++++++
+AiiDA uses :py:class:`~aiida.common.folders.Folder` and its subclasses to add an abstraction layer between the functions and methods working directly on the file-system and AiiDA.
+This is particularly useful when we want to easily change between different folder options (temporary, permanent etc) and storage options (plain local directories, compressed files, remote files & directories etc).
+
+:py:class:`~aiida.common.folders.Folder`
+****************************************
+This is the main class of the available ``Folder`` classes.
+Apart from the abstraction provided to the OS operations needed by AiiDA, one of its main features is that it can restrict all the available operations within a given folder limit.
+The available methods are:
+
+- :py:meth:`~aiida.common.folders.Folder.mode_dir` and :py:meth:`~aiida.common.folders.Folder.mode_file` return the mode with which folders and files should be writable.
+
+- :py:meth:`~aiida.common.folders.Folder.get_subfolder` returns the subfolder matching the given name
+
+- :py:meth:`~aiida.common.folders.Folder.get_content_list` returns the contents matching a pattern.
+
+- :py:meth:`~aiida.common.folders.Folder.insert_path` adds a file/folder to a specific location and :py:meth:`~aiida.common.folders.Folder.remove_path` removes a file/folder
+
+- :py:meth:`~aiida.common.folders.Folder.get_abs_path` returns the absolute path of a file/folder under a given folder and :py:meth:`~aiida.common.folders.Folder.abspath` returns the absolute path of the folder.
+
+- :py:meth:`~aiida.common.folders.Folder.create_symlink` creates a symlink pointing the given location inside the ``folder``.
+
+- :py:meth:`~aiida.common.folders.Folder.create_file_from_filelike` creates a file from the given contents.
+
+- :py:meth:`~aiida.common.folders.Folder.open` opens a file in the ``folder``.
+
+- :py:meth:`~aiida.common.folders.Folder.folder_limit` returns the limit under which the creation of files/folders is restrained.
+
+- :py:meth:`~aiida.common.folders.Folder.exists` returns true or false depending whether a folder exists or not.
+
+- :py:meth:`~aiida.common.folders.Folder.isfile` and py:meth:`~aiida.common.folders.Folder.isdir` return true or false depending on the existence of the given file/folder.
+
+- :py:meth:`~aiida.common.folders.Folder.create` creates the ``folder``, :py:meth:`~aiida.common.folders.Folder.erase` deletes the ``folder`` and :py:meth:`~aiida.common.folders.Folder.replace_with_folder` copies/moves a given folder.
+
+
+:py:class:`~aiida.common.folders.SandboxFolder`
+***********************************************
+:py:class:`~aiida.common.folders.SandboxFolder` objects correspond to temporary ("sandbox") folders.
+The main methods are:
+
+- :py:meth:`~aiida.common.folders.SandboxFolder.__init__` creates a new temporary folder
+
+- :py:meth:`~aiida.common.folders.SandboxFolder.__exit__` destroys the folder on exit.
+
+
+Data
+++++
+
+Navigating inputs and outputs
+*****************************
+- :py:meth:`~aiida.orm.nodes.data.Data.creator` returns either the :py:class:`~aiida.orm.nodes.process.calculation.CalculationNode` that created it or ``None`` if it was not created by a calculation.
+
+
+ProcessNode
++++++++++++
+
+Navigating inputs and outputs
+*****************************
+- :py:meth:`~aiida.orm.nodes.process.ProcessNode.caller` returns either the caller :py:class:`~aiida.orm.nodes.process.workflow.WorkflowNode` or ``None`` if it was not called by any process.
+
+CalculationNode
++++++++++++++++
+
+Navigating inputs and outputs
+*****************************
+- :py:meth:`~aiida.orm.nodes.process.calculation.CalculationNode.inputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's incoming ``INPUT_CALC`` links.
+
+  The ``NodeLinksManager`` can be used to quickly go from a node to a neighboring node.
+  For example::
+
+    In [1]: # Let's load a node with a specific pk
+
+    In [2]: c = load_node(139168)
+
+    In [3]: c
+    Out[3]: <CpCalculation: uuid: 49084dcf-c708-4422-8bcf-808e4c3382c2 (pk: 139168)>
+
+    In [4]: # Let's traverse the inputs of this node.
+
+    In [5]: # By typing c.inputs.<TAB> we get all the input links
+
+    In [6]: c.inputs.
+    c.inputs.code                c.inputs.parent_calc_folder  c.inputs.pseudo_O            c.inputs.settings
+    c.inputs.parameters          c.inputs.pseudo_Ba           c.inputs.pseudo_Ti           c.inputs.structure
+
+    In [7]: # We may follow any of these links to access other nodes. For example, let's follow the parent_calc_folder
+
+    In [8]: c.inputs.parent_calc_folder
+    Out[8]: <RemoteData: uuid: becb4894-c50c-4779-b84f-713772eaceff (pk: 139118)>
+
+    In [9]: # Let's assign to r the node reached by the parent_calc_folder link
+
+    In [10]: r = c.inputs.parent_calc_folder
+
+    In [11]: r.inputs.__dir__()
+    Out[11]:
+    ['__class__',
+    '__delattr__',
+    '__dict__',
+    '__dir__',
+    '__doc__',
+    '__format__',
+    '__getattr__',
+    '__getattribute__',
+    '__getitem__',
+    '__hash__',
+    '__init__',
+    '__iter__',
+    '__module__',
+    '__new__',
+    '__reduce__',
+    '__reduce_ex__',
+    '__repr__',
+    '__setattr__',
+    '__sizeof__',
+    '__str__',
+    '__subclasshook__',
+    '__weakref__',
+    'remote_folder']
+
+  The ``.inputs`` manager for ``WorkflowNode`` and the ``.outputs`` manager both for ``CalculationNode`` and ``WorkflowNode`` work in the same way (see below).
+
+- :py:meth:`~aiida.orm.nodes.process.calculation.CalculationNode.outputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's outgoing ``CREATE`` links.
+
+
+.. _calculation updatable attributes:
+
+Updatable attributes
+********************
+The :py:class:`~aiida.orm.nodes.process.ProcessNode` class is a subclass of the :py:class:`~aiida.orm.nodes.node.Node` class, which means that its attributes become immutable once stored.
+However, for a ``Calculation`` to be runnable it needs to be stored, but that would mean that its state, which is stored in an attribute can no longer be updated.
+To solve this issue the :py:class:`~aiida.orm.utils.mixins.Sealable` mixin is introduced.
+This mixin can be used for subclasses of ``Node`` that need to have updatable attributes even after the node has been stored in the database.
+The mixin defines the ``_updatable_attributes`` tuple, which defines the attributes that are considered to be mutable even when the node is stored.
+It also allows the node to be *sealed*, after which even the updatable attributes become immutable.
+
+WorkflowNode
+++++++++++++
+
+Navigating inputs and outputs
+*****************************
+- :py:meth:`~aiida.orm.nodes.process.workflow.WorkflowNode.inputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's incoming ``INPUT_WORK`` links.
+
+- :py:meth:`~aiida.orm.nodes.process.workflow.WorkflowNode.outputs` returns a :py:meth:`~aiida.orm.utils.managers.NodeLinksManager` object that can be used to access the node's outgoing ``RETURN`` links.
+
+
+Deprecated features, renaming, and adding new methods
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+In case a method is renamed or removed, this is the procedure to follow:
+
+1. (If you want to rename) move the code to the new function name.
+   Then, in the docstring, add something like::
+
+     .. versionadded:: 0.7
+        Renamed from OLDMETHODNAME
+
+2. Don't remove directly the old function, but just change the code to use
+   the new function, and add in the docstring::
+
+     .. deprecated:: 0.7
+        Use :meth:`NEWMETHODNAME` instead.
+
+   Moreover, at the beginning of the function, add something like::
+
+     import warnings
+
+     # If we call this DeprecationWarning, pycharm will properly strike out the function
+     from aiida.common.warnings import AiidaDeprecationWarning as DeprecationWarning  # pylint: disable=redefined-builtin
+     warnings.warn("<Deprecation warning here - MAKE IT SPECIFIC TO THIS DEPRECATION, as it will be shown only once per different message>", DeprecationWarning)
+
+     # <REST OF THE FUNCTION HERE>
+
+   (of course replace the parts between ``< >`` symbols with the correct strings).
+
+   The advantage of the method above is:
+
+   - pycharm will still show the method crossed out
+   - Our ``AiidaDeprecationWarning`` does not inherit from ``DeprecationWarning``, so it will not be "hidden" by python
+   - User can disable our warnings (and only those) by using AiiDA properties with::
+
+       verdi config set warnings.showdeprecations False
+
+Changing the config.json structure
+++++++++++++++++++++++++++++++++++
+
+In general, changes to ``config.json`` should be avoided if possible.
+However, if there is a need to modify it, the following procedure should be used to create a migration:
+
+1. Determine whether the change will be backwards-compatible.
+   This means that an older version of AiiDA will still be able to run with the new ``config.json`` structure.
+   It goes without saying that it's preferable to change ``config.json`` in a backwards-compatible way.
+
+2. In ``aiida/manage/configuration/migrations/migrations.py``, increase the ``CURRENT_CONFIG_VERSION`` by one.
+   If the change is **not** backwards-compatible, set ``OLDEST_COMPATIBLE_CONFIG_VERSION`` to the same value.
+
+3. Write a function which transforms the old config dict into the new version.
+   It is possible that you need user input for the migration, in which case this should also be handled in that function.
+
+4. Add an entry in ``_MIGRATION_LOOKUP`` where the key is the version **before** the migration, and the value is a ``ConfigMigration`` object.
+   The ``ConfigMigration`` is constructed from your migration function, and the **hard-coded** values of ``CURRENT_CONFIG_VERSION`` and ``OLDEST_COMPATIBLE_CONFIG_VERSION``.
+   If these values are not hard-coded, the migration will break as soon as the values are changed again.
+
+5. Add tests for the migration, in ``aiida/backends/tests/manage/configuration/migrations/test_migrations.py``.
+   You can add two types of tests:
+
+    * Tests that run the entire migration, using the ``check_and_migrate_config`` function.
+      Make sure to run it with ``store=False``, otherwise it will overwrite your ``config.json`` file.
+      For these tests, you will have to update the reference files.
+    * Tests that run a single step in the migration, using the ``ConfigMigration.apply`` method.
+      This can be used if you need to test different edge cases of the migration.
+
+  There are examples for both types of tests.
+
+Daemon and signal handling
+++++++++++++++++++++++++++
+
+While the AiiDA daemon is running, interrupt signals (``SIGINT`` and ``SIGTERM``) are captured so that the daemon can shut down gracefully.
+This is implemented using Python's ``signal`` module, as shown in the following dummy example:
+
+.. code:: python
+
+    import signal
+
+    def print_foo(*args):
+        print('foo')
+
+    signal.signal(signal.SIGINT, print_foo)
+
+You should be aware of this while developing code which runs in the daemon.
+In particular, it's important when creating subprocesses.
+When a signal is sent, the whole process group receives that signal.
+As a result, the subprocess can be killed even though the Python main process captures the signal.
+This can be avoided by creating a new process group for the subprocess, meaning that it will not receive the signal.
+To do this, you need to pass ``start_new_session=True`` to the ``subprocess`` function:
+
+.. code:: python
+
+    import os
+    import subprocess
+
+    print(subprocess.check_output('sleep 3; echo bar', start_new_session=True))
+Design evolution
+================
+
+This document records the evolution of the design and architecture of AiiDA, including the underlying reasoning.
+
+Version 1.0.0
++++++++++++++
+
+
+.. _design_changes_1_0_0_provenance_redesign:
+
+The provenance redesign
+-----------------------
+
+In the early stages of AiiDA, the concept of its provenance graph was simple.
+Data is used as input for calculations, that in turn create new data as output.
+The data and calculations, produced and ran by AiiDA, were stored as nodes in a graph.
+Due to the causality principle, the resulting graph was naturally acyclic, as no piece of data could possibly also have been an input to its own creation.
+The directed acyclic graph that stored the data provenance in AiiDA was well defined and all was good.
+
+However, as AiiDA matured, its use cases became more complex and soon there was a need to be able to define and run workflows.
+Workflows allow the user to define a sequence of calculations, that ultimately produce a result.
+In order to be able to retrieve the final result directly from the workflow, it needed to be able to return the data created by the calculations that it ran.
+"Easy peasy: we simply add a ``return`` link from the workflow node in the graph to the created data node".
+But what seemed like an easy solution brought a host of unforeseen problems with it.
+By introducing the concept of a ``return`` link, the acyclicity of the graph was broken, and with it, much of AiiDA's graph traversal API that assumed this property.
+
+After more than a year of discussion, AiiDA developers and users concluded that the concept of the ``return`` link was absolutely crucial.
+Without it, the results of complicated and heavily nested workflows will be buried deep within their call stack and difficult to retrieve.
+The alternative was to redesign the provenance graph architecture such that acyclicity would be returned to part of the provenance graph, while keeping the utility of the ``return`` link.
+The AiiDA development team, in close collaboration with advanced users, spent a year and a half, redesigning the provenance architecture and implementing the changes into AiiDA's API.
+As always, we have tried our best to allow early adopters of AiiDA to migrate their existing databases to newer versions as easy as possible, by providing automatic migration.
+This time around is no different, except for the fact that the migration was a lot more complicated and unfortunately this time some backwards-incompatible changes had to be introduced in the API.
+
+A more detailed explanation of the new provenance design and the motivation can be found :ref:`here <topics:provenance>`.
+
+
+.. _design_changes_1_0_0_calcjob_redesign:
+
+The calculation job redesign
+----------------------------
+
+The calculation job has been one of the most used and important components of AiiDA as it represents a calculation that is submitted to a scheduler, often on a remote cluster.
+From its earliest conception, the class that implemented this feature, the ``JobCalculation``, fulfilled two major but very distinct tasks.
+On one side, it provided the means to the user to specify what inputs the calculation required, how the actual input files should be constructed, and what files should be retrieved after completion.
+In addition to that, since it was a sub class of the ``Node`` class, it also functioned as a record in the provenance graph of an actual calculation that was executed.
+This double role was leading to problems with the ``Node`` class becoming too complicated as well as inconsistent.
+For example, an instance representing an already completed calculation would also still have the methods on how to run it again.
+
+This problem was solved with the introduction of the ``WorkChain`` in ``aiida-core`` version ``0.7.0``.
+Like the ``JobCalculation``, the ``WorkChain`` was a process that takes certain inputs and then performs operations on those in order to produce outputs.
+However, unlike the ``JobCalculation``, the ``WorkChain`` class was only concerned with knowledge of *how* the process should be run.
+To represent the execution of the ``WorkChain`` in the provenance graph, a different class was used, namely the ``WorkChainNode``.
+This separation of responsibilities leads to two entities with a clearer interface and behavior.
+
+For quite a few versions, the old and new way of defining and running processes were kept functional alongside one another, but slowly the old way was adapted to use the new mechanism.
+In ``aiida-core`` version ``1.0.0`` we fully deprecate the old way and all calculations now use the process/node duality.
+As a result the ``JobCalculation`` class has disappeared.
+Now, instead, a ``CalcJobNode`` is created in the provenance graph to represent the execution of a calculation through a scheduler.
+Moreover, to implement the plugin for a calculation job, one now subclasses the ``Process`` subclass ``CalcJob``, whose interface is the same as that of the ``WorkChain``.
+
+Inputs, outputs and potentially exit codes are simply implemented in the ``define`` class method, just as you would for the ``WorkChain``.
+Unlike the ``WorkChain``, however, the ``CalcJob`` does not have an outline, but instead just has a single method that should be implemented, namely ``prepare_for_submission``.
+This method takes a single argument ``folder`` which will point to a temporary folder to which the required input files for the calculation can be written.
+From a plugin developer standpoint, the rest works exactly as before, and the ``prepare_for_submission`` method should return a ``CalcInfo`` object, containing information for the engine on what files to copy over and to retrieve.
+
+A more detailed explanation about the new ``CalcJob`` and best practices for writing ``Parser`` implementations can be found :ref:`here <topics:calculations:usage:calcjobs>`.
+
+
+.. _design_changes_1_0_0_module_hierarchy:
+
+The module hierarchy and importing
+----------------------------------
+
+AiiDA has been developed and used since 2013 and in the past six years we have tried, as much as possible, to reduce the changes to the python API over time to a minimum.
+At the same time, a lot of new functionality has been added to the code, with a potentially complex submodule structure for the AiiDA python package, that had started to become too complex even just to remember where to find a given function or class.
+
+With ``aiida-core`` version ``1.0.0``, we have decided to restructure the package module hierarchy, moving functions and classes to more intuitive locations, and exposing functionality that is commonly used by users at higher levels (e.g. now one can do ``from aiida.orm import CalcJobNode`` in addition to ``from aiida.orm.nodes.process.calculation.calcjob import CalcJobNode``).
+
+Albeit this change was essential to increase usability, we want to guarantee a high-degree of stability for users for the components that are intended to be public.
+To facilitiate this, we explain here first the module hierarchy of ``aiida-core``, what parts of its API are intended to be public and how those should be preferentially imported.
+
+The first level of the package hierarchy is the ``aiida`` module.
+It contains many other packages within it, such as ``orm`` and ``engine``, which we will refer to as second-level packages, each of which can have a much deeper hierarchy within it.
+Since this internal structure is mostly to simplify development and for organizational purposes, the components of the ``aiida`` package that should be usable are exposed on the second-level packages at most.
+Practically this means that anything that is intended to be used should be importable from a second-level package, for example::
+
+    from aiida.engine import WorkChain, calcfunction
+    from aiida.orm import load_node, CalcJobNode
+
+With the definition of public components of the ``aiida-core`` package in place, from ``1.0.0`` we will maintain a standard deprecation policy to minimize the amount of breaking changes for plugins and users.
+In particular we will strive to:
+
+ - not change the API of public components as much as possible
+ - if we are forced to change it anyway, deprecate a signifcant amount of time in advance
+ - for backwards incompatible changes, increase the major version
+
+For better clarity, we are :ref:`curating a list of classes and functions<reference:api:public>` (exposed at the second level) that are intended to be public and for which the above policy will be enforced
+
+Version 0.9.0
++++++++++++++
+
+The plugin system
+-----------------
+
+The plugin system was designed with the following goals in mind.
+
+* **Sharing of calculations, workflows and data types**: plugins are bundled in a python package, distributed as a zip source archive, python ``egg`` or PyPI package. There is extensive documentation available for how to distribute python packages `here <https://packaging.python.org/en/latest/>`_.
+
+* **Ease of use**: plugins are listed on the `AiiDA plugin registry <registry>`_ and can be installed with one simple command. This process is familiar to every regular python user.
+
+* **Decouple development and update cycles of AiiDA and plugins**: since plugins are separate python packages, they can be developed in a separate code repository and updated when the developer sees fit without a need to update AiiDA. Similarly, if AiiDA is updated, plugins may not need to release a new version.
+
+* **Promote modular design in AiiDA development**: separating plugins into their own python packages ensures that plugins can not (easily) access parts of the AiiDA code which are not part of the public API, enabling AiiDA development to stay agile. The same applies to plugins relying on other plugins.
+
+* **Low overhead for developers**: plugin developers can write their extensions the same way they would write any python code meant for distribution.
+
+* **Automatic AiiDA setup and testing of plugins**: installation of complete python environments consisting of many packages can be automated, provided all packages use ``setuptools`` as a distribution tool. This enables use of AiiDA in a service-based way using, e.g., docker images. At the same it becomes possible to create automated tests for any combination of plugins, as long as the plugins provide test entry points.
+
+
+The chosen approach to plugins has some limitations:
+
+* the interface for entry point objects is enforced implicitly by the way the object is used. It is the responsibility of the plugin developer to test for compliance, especially if the object is not derived from the recommended base classes provided by AiiDA. This is to be clearly communicated in the documentation for plugin developers;
+* The freedom of the plugin developer to name and rename classes ends where the information in question is stored in the database as, e.g., node attributes.
+* The system is designed with the possibility of plugin versioning in mind, however this is not implemented yet.
+* In principle, two different plugins can give the same name to an entry point, creating ambiguity when trying to load the associated objects. Plugin development guidelines in the documentation will advise on how to avoid this problem, and this is addressed via the use of a centralized registry of known AiiDA plugins.
+* Plugins can potentially contain malicious or otherwise dangerous code. In the registry of AiiDA plugins, we try to flag plugins that we know are safe to be used.
+.. _intro:get_started:system-wide-install:
+
+************************
+System-wide installation
+************************
+
+The system-wide installation will install the prerequisite services (PostgreSQL and RabbitMQ) via standard package managers such that their startup and shut-down is largely managed by the operating system.
+The AiiDA (core) Python package is then installed either with Conda or pip.
+
+This is the *recommended* installation method to setup AiiDA on a personal laptop or workstation for the majority of users.
+
+.. panels::
+   :container: container-lg pb-3
+   :column: col-lg-12 p-2
+
+   **Install prerequisite services**
+
+      AiiDA is designed to run on `Unix <https://en.wikipedia.org/wiki/Unix>`_ operating systems and requires a `bash <https://en.wikipedia.org/wiki/Bash_(Unix_shell)>`_ or `zsh <https://en.wikipedia.org/wiki/Z_shell>`_ shell, and Python >= 3.7.
+
+   .. tabbed:: Ubuntu
+
+      *AiiDA is tested on Ubuntu versions 16.04, 18.04, and 20.04.*
+
+      Open a terminal and execute:
+
+      .. code-block:: console
+
+         $ sudo apt install git python3-dev python3-pip postgresql postgresql-server-dev-all postgresql-client rabbitmq-server
+
+   .. tabbed:: MacOS X (Homebrew)
+
+      The recommended installation method for Mac OS X is to use `Homebrew <https://brew.sh>`__.
+
+      #. Follow `this guide <https://docs.brew.sh/Installation>`__ to install Homebrew on your system if not installed yet.
+
+      #. Open a terminal and execute:
+
+         .. code-block:: console
+
+            $ brew install postgresql rabbitmq git python
+            $ brew services start postgresql
+            $ brew services start rabbitmq
+
+   .. tabbed:: Windows Subsystem for Linux
+
+      *The following instructions are for setting up AiiDA on WSL 1/2 in combination with Ubuntu.*
+
+      #. Installing RabbitMQ:
+
+         * (WSL 1) Install and start the `Windows native RabbitMQ <https://www.rabbitmq.com/install-windows.html>`_.
+
+         * (WSL 2) Install RabbitMQ inside the the WSL:
+
+            .. code-block:: console
+
+               $ sudo apt install rabbitmq-server
+
+            then start the ``rabbitmq`` server:
+
+            .. code-block:: console
+
+               $ sudo service rabbitmq-server start
+
+      #. Install Python and PostgreSQL:
+
+         .. code-block:: console
+
+            $ sudo apt install postgresql postgresql-server-dev-all postgresql-client git python3-dev python-pip
+
+         then start the PostgreSQL server:
+
+         .. code-block:: console
+
+            $ sudo service postgresql start
+
+      .. dropdown:: How to setup WSL to automatically start services after system boot.
+
+         Create a file ``start_aiida_services.sh`` containing the following lines:
+
+         .. code-block:: console
+
+            $ service postgresql start
+            $ service rabbitmq-server start # Only for WSL 2!
+
+         and store it in your preferred location, e.g., the home directory.
+         Then make the file executable, and editable only by root users with:
+
+         .. code-block:: console
+
+            $ chmod a+x,go-w /path/to/start_aiida_services.sh
+            $ sudo chown root:root /path/to/start_aiida_services.sh
+
+         Next, run
+
+         .. code-block:: console
+
+            $ sudo visudo
+
+         and add the line
+
+         .. code-block:: sh
+
+            <username> ALL=(root) NOPASSWD: /path/to/start_aiida_services.sh
+
+         replacing ``<username>`` with your Ubuntu username.
+         This will allow you to run *only* this specific ``.sh`` file with ``root`` access (without password), without lowering security on the rest of your system.
+
+         Now you can use the Windows Task Scheduler to automatically execute this file on startup:
+
+         #. Open Task Scheduler.
+
+         #. In the "Actions" menu, click "Create Task".
+
+         #. In "General/Security options", select "Run whether user is logged on or not".
+
+         #. In the "Triggers" tab, click "New...".
+
+            #. In the "Begin the task:" dropdown, select "At startup".
+
+            #. Click "OK" to confirm.
+
+         #. In the "Actions" tab, click "New...".
+
+            #. In the "Action" dropdown, select "Start a program".
+
+            #. In the "Program/script" text field, add ``C:\Windows\System32\bash.exe``.
+
+            #. In the "Add arguments (optional)" text field, add ``-c "sudo /path/to/start_aiida_services.sh"``.
+
+            #. Click "OK" to confirm.
+
+         #. Click "OK" to confirm the task.
+
+         You can tweak other details of this task to fit your needs.
+
+   .. tabbed:: Other
+
+      #. Install RabbitMQ following the `instructions applicable to your system <https://www.rabbitmq.com/download.html>`__.
+      #. Install PostgreSQL following the `instructions applicable to your system <https://www.postgresql.org/download/>`__.
+
+      .. tip::
+
+         Alternatively use the :ref:`pure conda installation method <intro:get_started:conda-install>`.
+
+   ---
+
+   **Install AiiDA (core)**
+
+   .. tabbed:: pip + venv
+
+      *Install the aiida-core package from PyPI into a virtual environment.*
+
+      Open a terminal and execute:
+
+      .. code-block:: console
+
+         $ python -m venv ~/envs/aiida
+         $ source ~/envs/aiida/bin/activate
+         (aiida) $ pip install aiida-core
+
+      .. important::
+
+         Make sure the ``python`` executable is for a Python version that is supported by AiiDA.
+         You can see the version using:
+
+         .. code-block:: console
+
+            $ python --version
+
+         You can find the supported Python versions for the latest version of AiiDA `on the PyPI page <https://pypi.org/project/aiida-core/>`__.
+
+      .. tip::
+
+         See the `venv documentation <https://docs.python.org/3/library/venv.html>`__ if the activation command fails.
+         The exact command for activating a virtual environment differs slightly based on the used shell.
+
+      .. dropdown:: :fa:`plus-circle` Installation extras
+
+         There are additional optional packages that you may want to install, which are grouped in the following categories:
+
+         * ``atomic_tools``: packages that allow importing and manipulating crystal structure from various formats
+         * ``ssh_kerberos``: adds support for ssh transport authentication through Kerberos
+         * ``REST``: allows a REST server to be ran locally to serve AiiDA data
+         * ``docs``: tools to build the documentation
+         * ``notebook``: jupyter notebook - to allow it to import AiiDA modules
+         * ``tests``: python modules required to run the automatic unit tests
+         * ``pre-commit``: pre-commit tools required for developers to enable automatic code linting and formatting
+
+         In order to install any of these package groups, simply append them as a comma separated list in the ``pip`` install command, for example:
+
+         .. code-block:: console
+
+            (aiida) $ pip install aiida-core[atomic_tools,docs]
+
+         .. dropdown:: :fa:`wrench` Kerberos on Ubuntu
+
+            If you are installing the optional ``ssh_kerberos`` and you are on Ubuntu you might encounter an error related to the ``gss`` package.
+            To fix this you need to install the ``libffi-dev`` and ``libkrb5-dev`` packages:
+
+            .. code-block:: console
+
+               $ sudo apt-get install libffi-dev libkrb5-dev
+
+   .. tabbed:: Conda
+
+      *Install the aiida-core package in a Conda environment.*
+
+      #. Make sure that conda is installed, e.g., by following `the instructions on installing Miniconda <https://docs.conda.io/en/latest/miniconda.html>`__.
+
+      #. Open a terminal and execute:
+
+         .. code-block:: console
+
+            $ conda create -yn aiida -c conda-forge aiida-core
+            $ conda activate aiida
+
+   .. tabbed:: From source
+
+      *Install the aiida-core package directly from the cloned repository.*
+
+      Open a terminal and execute:
+
+      .. code-block:: console
+
+         $ git clone https://github.com/aiidateam/aiida-core.git
+         $ cd aiida-core/
+         $ python -m venv ~/envs/aiida
+         $ source ~/envs/aiida/bin/activate
+         (aiida) $ pip install .
+
+   ---
+
+   **Setup profile**
+
+   Next, set up an AiiDA configuration profile and related data storage, with the ``verdi quicksetup`` command.
+
+   .. code-block:: console
+
+      (aiida) $ verdi quicksetup
+      Info: enter "?" for help
+      Info: enter "!" to ignore the default and set no value
+      Profile name: me
+      Email Address (for sharing data): me@user.com
+      First name: my
+      Last name: name
+      Institution: where-i-work
+
+   .. admonition:: Is AiiDA unable to auto-detect the PostgreSQL setup?
+      :class: attention title-icon-troubleshoot
+
+      If you get an error saying that AiiDA has trouble autodetecting the PostgreSQL setup, you will need to do the manual setup explained in the :ref:`troubleshooting section<intro:troubleshooting:installation:postgresql-autodetect-issues>`.
+
+   ---
+
+   **Start verdi daemons**
+
+   Start the verdi daemon(s) that are used to run AiiDA workflows.
+
+   .. code-block:: console
+
+      (aiida) $ verdi daemon start 2
+
+   .. important::
+
+      The verdi daemon(s) must be restarted after a system reboot.
+
+   .. tip::
+
+      Do not start more daemons then there are physical processors on your system.
+
+   ---
+
+   **Check setup**
+
+   To check that everything is set up correctly, execute:
+
+   .. code-block:: console
+
+      (aiida) $ verdi status
+      ✓ config dir:  /home/ubuntu/.aiida
+      ✓ profile:     On profile me
+      ✓ repository:  /home/ubuntu/.aiida/repository/me
+      ✓ postgres:    Connected as aiida_qs_ubuntu_c6a4f69d255fbe9cdb7385dcdcf3c050@localhost:5432
+      ✓ rabbitmq:    Connected as amqp://127.0.0.1?heartbeat=600
+      ✓ daemon:      Daemon is running as PID 16430 since 2020-04-29 12:17:31
+
+   At this point you should now have a working AiiDA environment, from which you can add and retrieve data.
+
+   .. admonition:: Missing a checkmark or encountered some other issue?
+      :class: attention title-icon-troubleshoot
+
+      :ref:`See the troubleshooting section <intro:troubleshooting>`.
+
+   .. link-button:: intro:get_started:next
+      :type: ref
+      :text: What's next?
+      :classes: btn-outline-primary btn-block font-weight-bold
+.. _intro:get_started:
+
+****************
+Getting started
+****************
+
+An AiiDA installation consists of three core components (plus any external codes you wish to run):
+
+* aiida-core: The main Python package and the associated ``verdi`` command line interface
+* |PostgreSQL|: The service that manages the database that AiiDA uses to store data.
+* |RabbitMQ|: The message broker used for communication within AiiDA.
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   install_system
+   install_conda
+   run_docker
+
+.. _intro:install:setup:
+.. _intro:get_started:setup:
+
+Setup
+=====
+
+There are multiple routes to setting up a working AiiDA environment.
+Which of those is optimal depends on your environment and use case.
+If you are unsure, use the :ref:`system-wide installation <intro:get_started:system-wide-install>` method.
+
+.. panels::
+   :body: bg-light
+   :footer: bg-light border-0
+
+   :fa:`desktop,mr-1` **System-wide installation**
+
+   .. link-button:: intro:get_started:system-wide-install
+      :type: ref
+      :text: Install all software directly on your workstation or laptop.
+      :classes: stretched-link btn-link
+
+   Install the prerequisite services using standard package managers (apt, homebrew, etc.) with administrative privileges.
+
+   ---------------
+
+   :fa:`folder,mr-1` **Installation into Conda environment**
+
+   .. link-button:: intro:get_started:conda-install
+      :type: ref
+      :text: Install all software into an isolated conda environment.
+      :classes: stretched-link btn-link
+
+   This method does not require administrative privileges, but involves manual management of start-up and shut-down of services.
+
+   ---------------
+
+   :fa:`cube,mr-1` **Run via docker container**
+
+   .. link-button:: intro:get_started:docker
+      :type: ref
+      :text: Run AiiDA and prerequisite services as a single docker container.
+      :classes: stretched-link btn-link
+
+   Does not require the separate installation of prerequisite services.
+   Especially well-suited to get directly started on the **tutorials**.
+
+   ---------------
+
+   :fa:`cloud,mr-1` **Run via virtual machine**
+
+   .. link-button:: https://quantum-mobile.readthedocs.io/
+      :text: Use a virtual machine with all the required software pre-installed.
+      :classes: stretched-link btn-link
+
+   `Materials Cloud <https://www.materialscloud.org>`__ provides both downloadable and web based VMs,
+   also incorporating pre-installed Materials Science codes.
+
+.. _intro:get_started:next:
+
+What's next?
+============
+
+After successfully completing one of the above outlined setup routes, if you are new to AiiDA, we recommed you go through the :ref:`Basic Tutorial <tutorial:basic>`,
+or see our :ref:`Next steps guide <tutorial:next-steps>`.
+
+If however, you encountered some issues, proceed to the :ref:`troubleshooting section <intro:troubleshooting>`.
+
+.. admonition:: In-depth instructions
+    :class: seealso title-icon-read-more
+
+    For more detailed instructions on configuring AiiDA, :ref:`see the configuration how-to <how-to:installation:configure>`.
+
+.. |PostgreSQL| replace:: `PostgreSQL <https://www.postgresql.org>`__
+.. |RabbitMQ| replace:: `RabbitMQ <https://www.rabbitmq.com>`__
+.. |Homebrew| replace:: `Homebrew <https://brew.sh>`__
+.. _intro:get_started:docker:
+.. _intro:install:docker:
+
+****************************
+Run AiiDA via a Docker image
+****************************
+
+The AiiDA team maintains a `Docker <https://www.docker.com/>`__ image on `Docker Hub <https://hub.docker.com/r/aiidateam/aiida-core>`__.
+This image contains a fully pre-configured AiiDA environment which makes it particularly useful for learning and testing purposes.
+
+.. caution::
+
+    All data stored in a container will persist only over the lifetime of that particular container unless you use volumes (see instructions below).
+
+.. panels::
+   :container: container-lg pb-3
+   :column: col-lg-12 p-2
+
+   **Start container**
+
+   First, pull the image:
+
+   .. parsed-literal::
+
+      $ docker pull aiidateam/aiida-core:\ |release|\
+
+   Then start the container with:
+
+   .. parsed-literal::
+
+      $ docker run -d --name aiida-container aiidateam/aiida-core:\ |release|\
+
+   You can use the following command to block until all services have started up:
+
+   .. code-block:: console
+
+      $ docker exec -t aiida-container wait-for-services
+
+   ---
+
+   **Check setup**
+
+   The default profile is created under the ``aiida`` user, so to execute commands you must add the ``--user aiida`` option.
+
+   For example, to check the verdi status, execute:
+
+   .. code-block:: console
+
+      $ docker exec -t --user aiida aiida-container /bin/bash -l -c 'verdi status'
+      ✓ config dir:  /home/aiida/.aiida
+      ✓ profile:     On profile default
+      ✓ repository:  /home/aiida/.aiida/repository/default
+      ✓ postgres:    Connected as aiida_qs_aiida_477d3dfc78a2042156110cb00ae3618f@localhost:5432
+      ✓ rabbitmq:    Connected as amqp://127.0.0.1?heartbeat=600
+      ✓ daemon:      Daemon is running as PID 1795 since 2020-05-20 02:54:00
+
+   ---
+
+   **Use container interactively**
+
+   To "enter" the container and run commands directly in the shell, use:
+
+   .. code-block:: console
+
+      $ docker exec -it --user aiida aiida-container /bin/bash
+
+   This will drop you into the shell within the container as the user "aiida".
+
+   ---
+
+   **Persist data across different containers**
+
+   If you stop the container and start it again, any data you created will persist.
+
+   .. code-block:: console
+
+      $ docker stop aiida-container
+      $ docker start aiida-container
+
+   However, if you remove the container, **all data will be removed as well**.
+
+   .. code-block:: console
+
+      $ docker stop aiida-container
+      $ docker rm aiida-container
+
+   The preferred way to persistently store data is to `create a volume <https://docs.docker.com/storage/volumes/>`__.
+   To create a simple volume, run:
+
+   .. code-block:: console
+
+      $ docker volume create my-data
+
+   Then make sure to mount that volume when running the aiida container:
+
+   .. parsed-literal::
+
+      $ docker run -d --name aiida-container --mount source=my-data,target=/tmp/my_data aiidateam/aiida-core:\ |release|\
+
+   Starting the container with the above command, ensures that any data stored in the ``/tmp/my_data`` path within the container is stored in the ``my-data`` volume and therefore persists even if the container is removed.
+
+   .. link-button:: intro:get_started:next
+       :type: ref
+       :text: What's next?
+       :classes: btn-outline-primary btn-block font-weight-bold
+.. _intro:troubleshooting:
+
+***************
+Troubleshooting
+***************
+
+If you experience any problems, first check that all services are up and running:
+
+.. code-block:: console
+
+   $ verdi status
+
+   ✓ profile:     On profile django
+   ✓ repository:  /repo/aiida_dev/django
+   ✓ postgres:    Connected as aiida@localhost:5432
+   ✓ rabbitmq:    Connected as amqp://127.0.0.1?heartbeat=600
+   ✓ daemon:      Daemon is running as PID 2809 since 2019-03-15 16:27:52
+
+In the example output, all service have a green check mark and so should be running as expected.
+If all services are up and running and you are still experiencing problems or if you have trouble with the installation of aiida-core and related services, consider the commonly encountered problems below.
+
+.. _intro:troubleshooting:installation:
+
+Installation issues
+-------------------
+
+numpy dependency
+.................
+
+On a clean Ubuntu 16.04 install the pip install command ``pip install -e aiida-core`` may fail due to a problem with dependencies on the ``numpy`` package.
+In this case you may be presented with a message like the following:
+
+.. code-block:: python
+
+   from numpy.distutils.misc_util import get_numpy_include_dirs
+   ImportError: No module named numpy.distutils.misc_util
+
+To fix this, simply install ``numpy`` individually through pip in your virtual env, i.e.:
+
+.. code-block:: console
+
+   $ pip install numpy
+
+followed by executing the original install command once more:
+
+.. code-block:: console
+
+   $ pip install -e aiida-core
+
+This should fix the dependency error.
+
+Database installation and location
+..................................
+
+If the installation fails while installing the packages related to the database, you may have not installed or set up the database libraries.
+
+In particular, on Mac OS X, if you installed the binary package of PostgreSQL, it is possible that the PATH environment variable is not set correctly, and you get a "Error: pg_config executable not found." error.
+In this case, discover where the binary is located, then add a line to your ``~/.bashrc`` file similar to the following:
+
+.. code-block:: bash
+
+   export PATH=/the/path/to/the/pg_config/file:${PATH}
+
+and then open a new bash shell.
+Some possible paths can be found at this `Stackoverflow link`_ and a non-exhaustive list of possible paths is the following (version number may change):
+
+* ``/Applications/Postgres93.app/Contents/MacOS/bin``
+* ``/Applications/Postgres.app/Contents/Versions/9.3/bin``
+* ``/Library/PostgreSQL/9.3/bin/pg_config``
+
+Similarly, if the package installs but then errors occur during the first of AiiDA (with ``Symbol not found`` errors or similar), you may need to point to the path where the dynamical libraries are.
+A way to do it is to add a line similar to the following to the ``~/.bashrc`` and then open a new shell:
+
+.. code-block:: bash
+
+   export DYLD_FALLBACK_LIBRARY_PATH=/Library/PostgreSQL/9.3/lib:$DYLD_FALLBACK_LIBRARY_PATH
+
+(you should of course adapt the path to the PostgreSQL libraries).
+
+.. _Stackoverflow link: http://stackoverflow.com/questions/21079820/how-to-find-pg-config-pathlink
+
+
+.. _intro:troubleshooting:installation:postgresql-autodetect-issues:
+
+Autodetection of the PostgreSQL setup
+.....................................
+
+Sometimes AiiDA fails to autodetect the local configuration of PostgreSQL when running ``verdi quicksetup``.
+In that case try to:
+
+    1. Create the database manually in PostgreSQL (see :ref:`here<intro:install:database>`).
+    2. Then run the full ``verdi setup`` command (see :ref:`here<intro:install:verdi_setup>`).
+
+
+RabbitMQ Installation (Unix)
+.............................
+
+If in ``verdi status`` RabbitMQ is not connected, first check that RabbitMQ is actually running:
+
+.. code-block:: console
+
+   $ sudo rabbitmqctl status
+   Status of node rabbit@ph-tsm15-025 ...
+   [{pid,86960},
+   ...
+   {listeners,[{clustering,25672,"::"},{amqp,5672,"::"},{http,15672,"::"}]},
+
+By default, AiiDA profiles are configured to connect to RabbitMQ *via* ``amqp://guest:guest@127.0.0.1:5672``, hence this port should be open for connections.
+In Linux / Mac OSX you can also check which ports a PID has open using:
+
+.. code-block:: console
+
+   $ sudo lsof -Pan -p 86960 -i
+   COMMAND    PID  USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+   beam.smp 98979 user1   75u  IPv4 0x9d838dc03d5a2485      0t0  TCP *:25672 (LISTEN)
+   beam.smp 98979 user1   76u  IPv4 0x9d838dc047588625      0t0  TCP 127.0.0.1:58316->127.0.0.1:4369 (ESTABLISHED)
+   beam.smp 98979 user1   86u  IPv6 0x9d838dc034033ea5      0t0  TCP *:5672 (LISTEN)
+   beam.smp 98979 user1   87u  IPv4 0x9d838dc018071a15      0t0  TCP *:15672 (LISTEN)
+
+If a connection cannot be found, try starting ``rabbitmq-server`` in non-detached mode.
+If you encounter an output similar to that below, it may be that your versions of RabbitMQ and erlang (the programming language which RabbitMQ is written in) are incompatible.
+
+.. code-block:: console
+
+   $ rabbitmq-server
+   BOOT FAILED
+
+   ===========
+
+
+   Error description:
+
+      noproc
+
+
+   Stack trace:
+
+      []
+
+   Error description:
+
+      noproc
+
+   {"init terminating in do_boot",noproc}
+
+   init terminating in do_boot (noproc)
+
+
+   Crash dump is being written to: erl_crash.dump...done
+
+You can check your version of erlang using:
+
+.. code-block:: console
+
+   $ erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), "releases", erlang:system_info(otp_release), "OTP_VERSION"])), io:fwrite(Version), halt().' -noshell
+   21.3
+
+and your version of rabbitmq-server with:
+
+.. code-block:: console
+
+   $ rabbitmqctl --version
+   3.7.16
+
+Then see `RabbitMQ Erlang Version Requirements <https://www.rabbitmq.com/which-erlang.html>`__, to check if these are compatible, and reinstall as appropriate.
+
+See also the `RabbitMQ Troubleshooting <https://www.rabbitmq.com/troubleshooting.html>`__ for further information.
+
+Ensuring a UTF-8 locale
+.......................
+
+For some reasons, on some machines (notably often on Mac OS X) there is no default locale defined, and when you run ``verdi setup`` for the first time it fails (see also `this issue`_ of django).
+Run in your terminal (or maybe even better, add to your ``.bashrc``, but then remember to open a new shell window!):
+
+.. code-block:: bash
+
+   export LANG="en_US.UTF-8"
+   export LC_ALL="en_US.UTF-8"
+
+and then run ``verdi setup`` again.
+
+.. _this issue: https://code.djangoproject.com/ticket/16017
+
+Possible Ubuntu dependencies
+.............................
+
+Several users reported the need to install also ``libpq-dev`` (header files for libpq5 - PostgreSQL library):
+
+.. code-block:: console
+
+   $ apt-get install libpq-dev
+
+But under Ubuntu 12.04 this is not needed.
+
+verdi not in PATH
+-----------------
+
+Installing the ``aiida-core`` python package *should* add the ``verdi`` CLI to your ``PATH`` automatically.
+
+If the ``verdi`` executable is not available in your terminal, the folder where ``pip`` places binaries may not be added to your ``PATH``
+
+For Linux systems, this folder is usually something like ``~/.local/bin``:
+
+.. code-block:: bash
+
+   export PATH=~/.local/bin:${PATH}
+
+For Mac OS X systems, the path to add is usually ``~/Library/Python/2.7/bin``:
+
+.. code-block:: bash
+
+   export PATH=~/Library/Python/2.7/bin:${PATH}
+
+After updating your ``PATH``, the ``verdi`` command should be available.
+
+.. note::
+
+   A preprequisite for ``verdi`` to work is that the ``aiida`` python package is importable.
+   Test this by opening a ``python`` or ``ipython`` shell and typing:
+
+   .. code-block:: python
+
+      import aiida
+
+   If you get an ``ImportError`` (and you are in the environment where AiiDA was installed), you can add it to the ``PYTHONPATH`` manually:
+
+   .. code-block:: bash
+
+      export PYTHONPATH="${PYTHONPATH}:<AiiDA_folder>"
+
+
+Configuring remote SSH computers
+--------------------------------
+
+ssh_kerberos installation
+.........................
+
+When installing the ``ssh_kerberos`` *optional* requirement through Anaconda you may encounter the following error on Ubuntu machines:
+
+.. code-block:: console
+
+   version 'GFORTRAN_1.4' not found (required by /usr/lib/libblas.so.3)
+
+This is related to an open issue in anaconda `ContinuumIO/anaconda-issues#686`_.
+A potential solution is to run the following command:
+
+.. code-block:: console
+
+   $ export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libgfortran.so.3
+
+.. _ContinuumIO/anaconda-issues#686: https://github.com/ContinuumIO/anaconda-issues/issues/686
+
+Output from .bashrc and/or .bash_profile on remote computers
+............................................................
+
+.. note::
+
+   This also applies to computers configured via ``local`` transport.
+
+When connecting to remote computers, AiiDA (like other codes as ``sftp``) can get confused if you have code in your ``.bashrc`` or ``.bash_profile`` that produces output or e.g. runs commands like ``clean`` that require a terminal.
+
+For instance, if you add a ``echo "a"`` in your ``.bashrc`` and then try to SFTP a file from it, you will get an error like ``Received message too long 1091174400``.
+
+If you still want to have code that needs an interactive shell (``echo``, ``clean``, ...), but you want to disable it for non-interactive shells, put at the top of your file a guard like this:
+
+.. code-block:: bash
+
+   if [[ $- != *i* ]] ; then
+   # Shell is non-interactive.  Be done now!
+   return
+   fi
+
+Everything below this will not be executed in a non-interactive shell.
+
+.. note::
+
+   Still, you might want to have some code on top, like e.g. setting the PATH or similar, if this needs to be run also in the case of non-interactive shells.
+
+To test if a the computer does not produce spurious output, run (after configuring):
+
+.. code-block:: console
+
+   $ verdi computer test <COMPUTERNAME>
+
+which checks and, in case of problems, suggests how to solve the problem.
+
+.. note::
+
+    If the methods explained above do not work, you can configure AiiDA to not use a login shell when connecting to your computer, which may prevent the spurious output from being printed:
+    During ``verdi computer configure``, set ``-no-use-login-shell`` or when asked to use a login shell, set it to ``False``.
+    Note, however, that this may result in a slightly different environment, since `certain startup files are only sourced for login shells <https://unix.stackexchange.com/a/46856/155909>`_.
+
+
+.. _StackExchange thread: https://apple.stackexchange.com/questions/51036/what-is-the-difference-between-bash-profile-and-bashrc
+
+
+Improvements for dependencies
+-----------------------------
+
+Activating the ASE visualizer
+..............................
+
+Within a virtual environment, attempt to visualize a structure with ``ase`` (either from the shell, or using the command ``verdi data structure show --format=ase <PK>``), might end up with the following error message::
+
+   ImportError: No module named pygtk
+
+The issue is that ``pygtk`` is currently not pip-installable. One has to install it separately and create the appropriate bindings manually in the virtual environment.
+You can follow the following procedure to get around this issue:
+
+Install the ``python-gtk2`` package. Under Ubuntu, do:
+
+.. code-block:: console
+
+   $ sudo apt-get install python-gtk2
+
+Create the ``lib/python2.7/dist-packages`` folder within your virtual environment:
+
+.. code-block:: console
+
+   $ mkdir <AIIDA_VENV_FOLDER>/lib/python2.7/dist-packages
+   $ chmod 755 <AIIDA_VENV_FOLDER>/lib/python2.7/dist-packages
+
+where ``<AIIDA_VENV_FOLDER>`` is the virtual environment folder you have created
+during the installation process.
+
+Create several symbolic links from this folder, pointing to a number of files in ``/usr/lib/python2.7/dist-packages/``:
+
+.. code-block:: console
+
+   $ cd <AIIDA_VENV_FOLDER>/lib/python2.7/dist-packages
+   $ ln -s /usr/lib/python2.7/dist-packages/glib glib
+   $ ln -s /usr/lib/python2.7/dist-packages/gobject gobject
+   $ ln -s /usr/lib/python2.7/dist-packages/gtk-2.0 gtk-2.0
+   $ ln -s /usr/lib/python2.7/dist-packages/pygtk.pth pygtk.pth
+   $ ln -s /usr/lib/python2.7/dist-packages/pygtk.py pygtk.py
+   $ ln -s /usr/lib/python2.7/dist-packages/cairo cairo
+
+After that, ``verdi data structure show --format=ase <PK>`` should work.
+
+Use in ipython/jupyter
+----------------------
+
+In order to use the AiiDA objects and functions in Jupyter, this latter has to be instructed to use the iPython kernel installed in the AiiDA virtual environment.
+This happens by default if you install AiiDA with ``pip`` including the ``notebook`` option, and run Jupyter from the AiiDA virtual environment.
+
+If for any reason, you do not want to install Jupyter in the virtual environment, you might consider to install it out of the virtual environment, if not already done:
+
+.. code-block:: console
+
+   $ pip install jupyter
+
+Then, activate the AiiDA virtual environment:
+
+.. code-block:: console
+
+   $ source ~/<aiida.virtualenv>/bin/activate
+
+and setup the AiiDA iPython kernel:
+
+.. code-block:: console
+
+   $ pip install ipykernel
+   $ python -m ipykernel install --user --name=<aiida.kernel.name>
+
+where you have chosen a meaningful name for the new kernel.
+
+Finally, start a Jupyter server:
+
+.. code-block:: console
+
+   $ jupyter notebook
+
+and from the newly opened browser tab select ``New -> <aiida.kernel.name>``
+
+.. _intro:increase-logging-verbosity:
+
+Increasing the logging verbosity
+--------------------------------
+
+By default, the logging level of AiiDA is minimal to avoid too much noise in the logfiles.
+Only warnings and errors are logged to the daemon log files, while info and debug messages are discarded.
+
+If you are experiencing a problem, you can increase the default minimum logging level of AiiDA messages, with:
+
+.. code-block:: console
+
+    $ verdi config logging.aiida_loglevel DEBUG
+
+You might also be interested in reviewing the circus log messages (the ``circus`` library is the daemonizer that manages the daemon runners),
+
+.. code-block:: console
+
+    $ verdi config logging.circus_loglevel DEBUG
+
+however those messages are usually only relevant to debug AiiDA internals.
+
+For each profile that runs a daemon, there are two unique logfiles, one for AiiDA log messages (named ``aiida-<profile_name>.log``) and one for the circus logs (named ``circus-<profile_name>.log``).
+Those files can be found in the ``~/.aiida/daemon/log`` folder.
+
+After restarting the daemon (``verdi daemon restart``), the number of messages logged will increase significantly and may help in determining the source of the problem.
+
+.. note::
+
+    Besides ``DEBUG``, you can also use the levels defined in the `standard Python logging module <https://docs.python.org/3/library/logging.html#logging-levels>`_.
+    In addition to those, AiiDA defines the custom ``REPORT`` level, which, with a value of ``23``, is more verbose than the ``WARNING`` level, but less verbose than ``INFO``.
+    The ``REPORT`` level is AiiDA's default logging level.
+
+When the problem is solved, we suggest to reset the default logging level, with:
+
+.. code-block:: console
+
+    $ verdi config logging.circus_loglevel --unset
+    $ verdi config logging.aiida_loglevel --unset
+
+to avoid too much noise in the logfiles.
+
+The config options set for the current profile can be viewed using
+
+.. code-block:: console
+
+    $ verdi profile show
+
+in the ``options`` row.
+.. _intro:get_started:conda-install:
+
+***********************************
+Installation into Conda environment
+***********************************
+
+This installation route installs all necessary software -- including the prerequisite services PostgreSQL and RabbitMQ -- into a Conda environment.
+This is the recommended method for users on shared systems and systems where the user has no administrative privileges.
+If you want to install AiiDA onto you own personal workstation/laptop, it is recommanded to use the :ref:`system-wide installation <intro:get_started:system-wide-install>`.
+
+.. important::
+
+   This installation method installs **all** software into a conda environment, including PostgreSQL and RabbitMQ.
+   See the :ref:`system-wide installation <intro:get_started:system-wide-install>` to use Conda only to install the AiiDA (core) Python package.
+
+.. panels::
+   :container: container-lg pb-3
+   :column: col-lg-12 p-2
+
+   **Install prerequisite services + AiiDA (core)**
+
+   .. code-block:: console
+
+       $ conda create -n aiida -c conda-forge aiida-core aiida-core.services
+       $ conda activate aiida
+
+   ---
+
+   **Start-up services and initialize data storage**
+
+   Before working with AiiDA, you must first initialize a database storage area on disk.
+
+   .. code-block:: console
+
+       (aiida) $ initdb -D mylocal_db
+
+   This *database cluster* (located inside a folder named ``mylocal_db``) may contain a collection of databases (one per profile) that is managed by a single running server process.
+   We start this process with:
+
+   .. code-block:: console
+
+       (aiida) $ pg_ctl -D mylocal_db -l logfile start
+
+   .. admonition:: Further Reading
+       :class: seealso title-icon-read-more
+
+       - `Creating a Database Cluster <https://www.postgresql.org/docs/12/creating-cluster.html>`__.
+       - `Starting the Database Server <https://www.postgresql.org/docs/12/server-start.html>`__.
+
+
+
+   Then, start the RabbitMQ server:
+
+   .. code-block:: console
+
+       (aiida) $ rabbitmq-server -detached
+
+   .. important::
+
+        The services started this way will use the default ports on the machine.
+        Conflicts may happen if there are more than one user running AiiDA this way on the same machine, or you already have the server running in a system-wide installation.
+        To get around this issue, you can explicitly define the ports to be used.
+
+   ---
+
+   **Setup profile**
+
+   Next, set up an AiiDA configuration profile and related data storage, with the ``verdi quicksetup`` command.
+
+   .. code-block:: console
+
+       (aiida) $ verdi quicksetup
+       Info: enter "?" for help
+       Info: enter "!" to ignore the default and set no value
+       Profile name: me
+       Email Address (for sharing data): me@user.com
+       First name: my
+       Last name: name
+       Institution: where-i-work
+
+   .. tip::
+
+        In case of non-default ports are used for the *database cluster* and the RabbitMQ server, you can pass them using ``--db-port`` and ``--broker-port`` options respectively.
+
+
+   .. admonition:: Is AiiDA unable to auto-detect the PostgreSQL setup?
+       :class: attention title-icon-troubleshoot
+
+       If you get an error saying that AiiDA has trouble autodetecting the PostgreSQL setup, you will need to do the manual setup explained in the :ref:`troubleshooting section<intro:troubleshooting:installation:postgresql-autodetect-issues>`.
+
+   Once the profile is up and running, you can start the AiiDA daemon(s):
+
+   .. code-block:: console
+
+       (aiida) $ verdi daemon start 2
+
+   .. important::
+
+        The verdi daemon(s) must be restarted after a system reboot.
+
+   .. tip::
+
+       Do not start more daemons then there are physical processors on your system.
+
+   ---
+
+   **Check setup**
+
+   To check that everything is set up correctly, execute:
+
+   .. code-block:: console
+
+       (aiida) $ verdi status
+       ✓ config dir:  /home/ubuntu/.aiida
+       ✓ profile:     On profile me
+       ✓ repository:  /home/ubuntu/.aiida/repository/me
+       ✓ postgres:    Connected as aiida_qs_ubuntu_c6a4f69d255fbe9cdb7385dcdcf3c050@localhost:5432
+       ✓ rabbitmq:    Connected as amqp://127.0.0.1?heartbeat=600
+       ✓ daemon:      Daemon is running as PID 16430 since 2020-04-29 12:17:31
+
+   At this point you now have a working AiiDA environment, from which you can add and retrieve data.
+
+   .. admonition:: Missing a checkmark or ecountered some other issue?
+       :class: attention title-icon-troubleshoot
+
+       :ref:`See the troubleshooting section <intro:troubleshooting>`.
+
+   .. link-button:: intro:get_started:next
+       :type: ref
+       :text: What's next?
+       :classes: btn-outline-primary btn-block font-weight-bold
+
+
+   ---
+
+   **Shut-down services**
+
+   After finishing with your aiida session, particularly if switching between profiles, you may wish to power down the daemon and the services:
+
+   .. code-block:: console
+
+       (aiida) $ verdi daemon stop
+       (aiida) $ pg_ctl -D mylocal_db stop
+       (aiida) $ rabbitmqctl stop
+
+
+   ---
+
+   **Restart the services**
+
+   If you want to restart the services and the daemon:
+
+   .. code-block:: console
+
+       (aiida) $ pg_ctl -D mylocal_db start
+       (aiida) $ rabbitmq-server -detached
+       (aiida) $ verdi daemon start
+
+   .. tip::
+
+       If different ports are used, you have to pass them here as well.
+.. _intro:install:
+.. _intro:advanced-config:
+
+**********************
+Advanced configuration
+**********************
+
+This chapter covers topics that go beyond the :ref:`standard setup of AiiDA <intro:get_started:setup>`.
+If you are new to AiiDA, we recommend you first go through the :ref:`Basic Tutorial <tutorial:basic>`,
+or see our :ref:`Next steps guide <tutorial:next-steps>`.
+
+.. _intro:install:database:
+
+Creating the database
+---------------------
+
+AiiDA uses a database to store the nodes, node attributes and other information, allowing the end user to perform fast queries of the results.
+Currently, the highly performant `PostgreSQL`_ database is supported as a database backend.
+
+.. _PostgreSQL: https://www.postgresql.org/downloads
+
+.. admonition:: Find out more about the database
+   :class: seealso title-icon-read-more
+
+   - `Creating a Database Cluster <https://www.postgresql.org/docs/12/creating-cluster.html>`__.
+   - `Starting the Database Server <https://www.postgresql.org/docs/12/server-start.html>`__.
+   - :ref:`The database topic <topics:database>`.
+
+To manually create the database for AiiDA, you need to run the program ``psql`` to interact with postgres.
+On most operating systems, you need to do so as the ``postgres`` user that was created upon installing the software.
+To assume the role of ``postgres`` run as root:
+
+.. code-block:: console
+
+   $ su - postgres
+
+(or, equivalently, type ``sudo su - postgres``, depending on your distribution) and launch the postgres program:
+
+.. code-block:: console
+
+   $ psql
+
+Create a new database user account for AiiDA by running:
+
+.. code-block:: sql
+
+   CREATE USER aiida WITH PASSWORD '<password>';
+
+replacing ``<password>`` with a password of your choice.
+
+You will need to provide the password again when you configure AiiDA to use this database through ``verdi setup``.
+If you want to change the password you just created use the command:
+
+.. code-block:: sql
+
+   ALTER USER aiida PASSWORD '<password>';
+
+Next, we create the database itself. We enforce the UTF-8 encoding and specific locales:
+
+.. code-block:: sql
+
+   CREATE DATABASE aiidadb OWNER aiida ENCODING 'UTF8' LC_COLLATE='en_US.UTF-8' LC_CTYPE='en_US.UTF-8' TEMPLATE=template0;
+
+and grant all privileges on this DB to the previously-created ``aiida`` user:
+
+.. code-block:: sql
+
+   GRANT ALL PRIVILEGES ON DATABASE aiidadb to aiida;
+
+You have now created a database for AiiDA and you can close the postgres shell by typing ``\q``.
+To test if the database was created successfully, you can run the following command as a regular user in a bash terminal:
+
+.. code-block:: console
+
+   $ psql -h localhost -d aiidadb -U aiida -W
+
+and type the password you inserted before, when prompted.
+If everything worked well, you should get no error and see the prompt of the ``psql`` shell.
+
+If you use the same names as in the example commands above, then during the ``verdi setup`` phase the following parameters will apply to the newly created database:
+
+.. code-block:: console
+
+   $ Database engine: postgresql_psycopg2
+   $ Database host: localhost
+   $ Database port: 5432
+   $ AiiDA Database name: aiidadb
+   $ AiiDA Database user: aiida
+   $ AiiDA Database password: <password>
+
+.. admonition:: Don't forget to backup your database!
+   :class: tip title-icon-tip
+
+   See the :ref:`Database backup how-to <how-to:installation:backup:postgresql>`), and :ref:`how to move your database <how-to:installation:performance>`.
+
+Database setup using 'peer' authentication
+------------------------------------------
+
+On Ubuntu Linux, the default PostgreSQL setup is configured to use ``peer`` authentication, which allows password-less login via local Unix sockets.
+In this mode, PostgreSQL compares the Unix user connecting to the socket with its own database of users and allows a connection if a matching user exists.
+
+.. note::
+
+    This is an alternative route to set up your database - the standard approach will work on Ubuntu just as well.
+
+Below we are going to take advantage of the command-line utilities shipped on Ubuntu to simplify creating users and databases compared to issuing the SQL commands directly.
+
+Assume the role of ``postgres``:
+
+.. code-block:: console
+
+   $ sudo su postgres
+
+Create a database user with the **same name** as the UNIX user who will be running AiiDA (usually your login name):
+
+.. code-block:: console
+
+   $ createuser <username>
+
+replacing ``<username>`` with your username.
+
+Next, create the database itself with your user as the owner:
+
+.. code-block:: console
+
+   $ createdb -O <username> aiidadb
+
+Exit the shell to go back to your login user.
+To test if the database was created successfully, try:
+
+.. code-block:: console
+
+   $ psql aiidadb
+
+During the ``verdi setup`` phase, use ``!`` to leave host empty and specify your Unix user name as the *AiiDA Database user*.:
+
+.. code-block:: console
+
+   $ Database engine: postgresql_psycopg2
+   $ Database host: !
+   $ Database port: 5432
+   $ AiiDA Database name: aiidadb
+   $ AiiDA Database user: <username>
+   $ AiiDA Database password: ""
+
+
+RabbitMQ configuration
+----------------------
+
+In most normal setups, RabbitMQ will be installed and run as a service on the same machine that hosts AiiDA itself.
+In that case, using the default configuration proposed during a profile setup will work just fine.
+However, when the installation of RabbitMQ is not standard, for example it runs on a different port, or even runs on a completely different machine, all relevant connection details can be configured with ``verdi setup``.
+
+The following parameters can be configured:
+
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Parameter    | Option                    | Default       | Explanation                                                                                                             |
++==============+===========================+===============+=========================================================================================================================+
+| Protocol     | ``--broker-protocol``     | ``amqp``      | The protocol to use, can be either ``amqp`` or ``amqps`` for SSL enabled connections.                                   |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Username     | ``--broker-username``     | ``guest``     | The username with which to connect. The ``guest`` account is available and usable with a default RabbitMQ installation. |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Password     | ``--broker-password``     | ``guest``     | The password with which to connect. The ``guest`` account is available and usable with a default RabbitMQ installation. |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Host         | ``--broker-host``         | ``127.0.0.1`` | The hostname of the RabbitMQ server.                                                                                    |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Port         | ``--broker-port``         | ``5672``      | The port to which the server listens.                                                                                   |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Virtual host | ``--broker-virtual-host`` | ``''``        | Optional virtual host. Should not contain the leading forward slash, this will be added automatically by AiiDA.         |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+| Parameters   | not available             |  n.a.         | These are additional broker parameters that are typically encoded as URL parameters, for example, to specify SSL        |
+|              |                           |               | parameters such as the filepath to the certificate that is to be used. The parameters are currently not definable       |
+|              |                           |               | through the CLI but have to be added manually in the ``config.json``. A key ``broker_parameters`` should be added that  |
+|              |                           |               | is a dictionary, which can contain fields: ``cafile``, ``capath``, ``cadata``, ``certfile``, ``keyfile`` and            |
+|              |                           |               | ``no_verify_ssl``.                                                                                                      |
++--------------+---------------------------+---------------+-------------------------------------------------------------------------------------------------------------------------+
+
+
+.. _intro:install:verdi_setup:
+
+verdi setup
+-----------
+
+After the database has been created, do:
+
+.. code-block:: console
+
+    $ verdi setup --profile <profile_name>
+
+where `<profile_name>` is a profile name of your choosing.
+The ``verdi setup`` command will guide you through the setup process through a series of prompts.
+
+The first information asked is your email, which will be used to associate the calculations to you.
+In AiiDA, the email is your username, and acts as a unique identifier when importing/exporting data from AiiDA.
+
+.. note::
+
+   The password, in the current version of AiiDA, is not used (it will be used only in the REST API and in the web interface).
+   If you leave the field empty, no password will be set and no access will be granted to the user via the REST API and the web interface.
+
+Then, the following prompts will help you configure the database. Typical settings are:
+
+.. code-block:: console
+
+   $ Default user email: richard.wagner@leipzig.de
+   $ Database engine: postgresql_psycopg2
+   $ PostgreSQL host: localhost
+   $ PostgreSQL port: 5432
+   $ AiiDA Database name: aiida_dev
+   $ AiiDA Database user: aiida
+   $ AiiDA Database password: <password>
+   $ AiiDA repository directory: /home/wagner/.aiida/repository/
+   [...]
+   Configuring a new user with email 'richard.wagner@leipzig.de'
+   $ First name: Richard
+   $ Last name: Wagner
+   $ Institution: BRUHL, LEIPZIG
+   $ The user has no password, do you want to set one? [y/N] y
+   $ Insert the new password:
+   $ Insert the new password (again):
+
+.. admonition:: Don't forget to backup your data!
+   :class: tip title-icon-tip
+
+   See the :ref:`installation backup how-to <how-to:installation:backup>`.
+
+.. _intro:install:start_daemon:
+
+Managing the daemon
+-------------------
+
+The AiiDA daemon process runs in the background and takes care of processing your submitted calculations and workflows, checking their status, retrieving their results once they are finished and storing them in the AiiDA database.
+
+The AiiDA daemon is controlled using three simple commands:
+
+ * ``verdi daemon start``: start the daemon
+ * ``verdi daemon status``: check the status of the daemon
+ * ``verdi daemon stop``: stop the daemon
+
+.. note::
+
+    While operational, the daemon logs its activity to a file in ``~/.aiida/daemon/log/`` (or, more generally, ``$AIIDA_PATH/.aiida/daemon/log``).
+    Get the latest log messages via ``verdi daemon logshow``.
+
+.. _intro:install:jupyter:
+
+Using AiiDA in Jupyter
+----------------------
+
+  1. Install the AiiDA ``notebook`` extra **inside** the AiiDA python environment, e.g. by running ``pip install aiida-core[notebook]``.
+
+  2. (optional) Register the ``%aiida`` IPython magic for loading the same environment as in the ``verdi shell``:
+
+     Copy the following code snippet into ``<home_folder>/.ipython/profile_default/startup/aiida_magic_register.py``
+
+     .. literalinclude:: ../../../aiida/tools/ipython/aiida_magic_register.py
+         :start-after: # DOCUMENTATION MARKER
+
+     .. note:: Use ``ipython locate profile`` if you're unsure about the location of your ipython profile folder.
+
+
+With this setup, you're ready to use AiiDA in Jupyter notebeooks.
+
+Start a Jupyter notebook server:
+
+.. code-block:: console
+
+    $ jupyter notebook
+
+This will open a tab in your browser. Click on ``New -> Python``.
+
+If you registered the ``%aiida`` IPython magic, simply run:
+
+.. code-block:: ipython
+
+   %aiida
+
+After executing the cell by ``Shift-Enter``, you should receive the message "Loaded AiiDA DB environment."
+Otherwise, you can load the profile manually as you would in a Python script:
+
+.. code-block:: python
+
+   from aiida import load_profile, orm
+   load_profile()
+   qb = orm.QueryBuilder()
+   # ...
+.. _tutorial:
+
+.. _tutorial:basic:
+
+.. For reference:
+
+.. * The `tutorial guidelines <https://github.com/aiidateam/aiida-core/wiki/Writing-documentation#tutorial>`_.
+.. * See `issue #3981 <https://github.com/aiidateam/aiida-core/issues/3981>`_.
+
+**************
+Basic tutorial
+**************
+
+Welcome to the AiiDA tutorial!
+The goal of this tutorial is to give you a basic idea of how AiiDA helps you in executing data-driven workflows.
+At the end of this tutorial, you will know how to:
+
+* Store data in the database and subsequently retrieve it.
+* Decorate a Python function such that its inputs and outputs are automatically tracked.
+* Run and monitor the status of processes.
+* Explore and visualize the provenance graph.
+
+.. important::
+
+    If you are working on your own machine, note that the tutorial assumes that you have a working AiiDA installation and have set up your AiiDA profile in the current Python environment.
+    If this is not the case, consult the :ref:`getting started page<intro:get_started>`.
+
+Provenance
+==========
+
+Before we dive in, we need to briefly introduce one of the most important concepts for AiiDA: *provenance*.
+An AiiDA database does not only contain the results of your calculations, but also their inputs and each step that was executed to obtain them.
+All of this information is stored in the form of a *directed acyclic graph* (DAG).
+As an example, :numref:`fig_intro_workchain_graph` shows the provenance of the calculations of this tutorial.
+
+.. _fig_intro_workchain_graph:
+.. figure:: include/workchain_graph.png
+    :scale: 30
+    :align: center
+
+    Provenance Graph of a basic AiiDA WorkChain.
+
+In the provenance graph, you can see different types of *nodes* represented by different shapes.
+The green ellipses are ``Data`` nodes, the blue ellipse is a ``Code`` node, and the rectangles represent *processes*, i.e. the calculations performed in your *workflow*.
+
+The provenance graph allows us to not only see what data we have, but also how it was produced.
+During this tutorial, we will be using AiiDA to generate the provenance graph in :numref:`fig_intro_workchain_graph` step by step.
+
+Data nodes
+==========
+
+Before running any calculations, let's create and store a *data node*.
+AiiDA ships with an interactive IPython shell that has many basic AiiDA classes pre-loaded.
+To start the IPython shell, simply type in the terminal:
+
+.. code-block:: console
+
+    $ verdi shell
+
+AiiDA implements data node types for the most common types of data (int, float, str, etc.), which you can extend with your own (composite) data node types if needed.
+For this tutorial, we'll keep it very simple, and start by initializing an ``Int`` node and assigning it to the `node` variable:
+
+.. code-block:: ipython
+
+    In [1]: node = Int(2)
+
+We can check the contents of the ``node`` variable like this:
+
+.. code-block:: ipython
+
+    In [2]: node
+    Out[2]: <Int: uuid: eac48d2b-ae20-438b-aeab-2d02b69eb6a8 (unstored) value: 2>
+
+Quite a bit of information on our freshly created node is returned:
+
+* The data node is of the type ``Int``
+* The node has the *universally unique identifier* (**UUID**) ``eac48d2b-ae20-438b-aeab-2d02b69eb6a8``
+* The node is currently not stored in the database ``(unstored)``
+* The integer value of the node is ``2``
+
+Let's store the node in the database:
+
+.. code-block:: ipython
+
+    In [3]: node.store()
+    Out[3]: <Int: uuid: eac48d2b-ae20-438b-aeab-2d02b69eb6a8 (pk: 1) value: 2>
+
+As you can see, the data node has now been assigned a *primary key* (**PK**), a number that identifies the node in your database ``(pk: 1)``.
+The PK and UUID both reference the node with the only difference that the PK is unique *for your local database only*, whereas the UUID is a globally unique identifier and can therefore be used between *different* databases.
+Use the PK only if you are working within a single database, i.e. in an interactive session and the UUID in all other cases.
+
+.. important::
+
+    The PK numbers shown throughout this tutorial assume that you start from a completely empty database.
+    It is possible that the nodes' PKs will be different for your database!
+
+    The UUIDs are generated randomly and are, therefore, **guaranteed** to be different.
+
+Next, let's leave the IPython shell by typing ``exit()`` and then enter.
+Back in the terminal, use the ``verdi`` command line interface (CLI) to check the data node we have just created:
+
+.. code:: console
+
+    $ verdi node show 1
+
+This prints something like the following:
+
+.. code-block:: bash
+
+    Property     Value
+    -----------  ------------------------------------
+    type         Int
+    pk           1
+    uuid         eac48d2b-ae20-438b-aeab-2d02b69eb6a8
+    label
+    description
+    ctime        2020-05-13 08:58:15.193421+00:00
+    mtime        2020-05-13 08:58:40.976821+00:00
+
+Once again, we can see that the node is of type ``Int``, has PK = 1, and UUID = ``eac48d2b-ae20-438b-aeab-2d02b69eb6a8``.
+Besides this information, the ``verdi node show`` command also shows the (empty) ``label`` and ``description``, as well as the time the node was created (``ctime``) and last modified (``mtime``).
+
+.. note:: AiiDA already provides many standard data types, but you can also :ref:`create your own<topics:data_types:plugin>`.
+
+Calculation functions
+=====================
+
+Once your data is stored in the database, it is ready to be used for some computational task.
+For example, let's say you want to multiply two ``Int`` data nodes.
+The following Python function:
+
+.. code-block:: python
+
+    def multiply(x, y):
+        return x * y
+
+will give the desired result when applied to two ``Int`` nodes, but the calculation will not be stored in the provenance graph.
+However, we can use a `Python decorator <https://docs.python.org/3/glossary.html#term-decorator>`_ provided by AiiDA to automatically make it part of the provenance graph.
+Start up the AiiDA IPython shell again using ``verdi shell`` and execute the following code snippet:
+
+.. code-block:: ipython
+
+    In [1]: from aiida.engine import calcfunction
+       ...:
+       ...: @calcfunction
+       ...: def multiply(x, y):
+       ...:     return x * y
+
+This converts the ``multiply`` function into an AiIDA *calculation function*, the most basic execution unit in AiiDA.
+Next, load the ``Int`` node you have created in the previous section using the ``load_node`` function and the PK of the data node:
+
+.. code-block:: ipython
+
+    In [2]: x = load_node(pk=1)
+
+Of course, we need another integer to multiply with the first one.
+Let's create a new ``Int`` data node and assign it to the variable ``y``:
+
+.. code-block:: ipython
+
+    In [3]: y = Int(3)
+
+Now it's time to multiply the two numbers!
+
+.. code-block:: ipython
+
+    In [4]: multiply(x, y)
+    Out[4]: <Int: uuid: 42541d38-1fb3-4f60-8122-ab8b3e723c2e (pk: 4) value: 6>
+
+Success!
+The ``calcfunction``-decorated ``multiply`` function has multiplied the two ``Int`` data nodes and returned a new ``Int`` data node whose value is the product of the two input nodes.
+Note that by executing the ``multiply`` function, all input and output nodes are automatically stored in the database:
+
+.. code-block:: ipython
+
+    In [5]: y
+    Out[5]: <Int: uuid: 7865c8ff-f243-4443-9233-dd303a9be3c5 (pk: 2) value: 3>
+
+We had not yet stored the data node assigned to the ``y`` variable, but by providing it as an input argument to the ``multiply`` function, it was automatically stored with PK = 2.
+Similarly, the returned ``Int`` node with value 6 has been stored with PK = 4.
+
+Let's once again leave the IPython shell with ``exit()`` and look for the process we have just run using the ``verdi`` CLI:
+
+.. code:: console
+
+    $ verdi process list
+
+The returned list will be empty, but don't worry!
+By default, ``verdi process list`` only returns the *active* processes.
+If you want to see *all* processes (i.e. also the processes that are *terminated*), simply add the ``-a`` option:
+
+.. code:: console
+
+    $ verdi process list -a
+
+You should now see something like the following output:
+
+.. code-block:: bash
+
+      PK  Created    Process label    Process State    Process status
+    ----  ---------  ---------------  ---------------  ----------------
+       3  1m ago     multiply         ⏹ Finished [0]
+
+    Total results: 1
+
+    Info: last time an entry changed state: 1m ago (at 09:01:05 on 2020-05-13)
+
+We can see that our ``multiply`` calcfunction was created 1 minute ago, assigned the PK 3, and has ``Finished``.
+
+As a final step, let's have a look at the provenance of this simple calculation.
+The provenance graph can be automatically generated using the verdi CLI.
+Let's generate the provenance graph for the ``multiply`` calculation function we have just run with PK = 3:
+
+.. code-block:: console
+
+  $ verdi node graph generate 3
+
+The command will write the provenance graph to a ``.pdf`` file.
+Use your favorite PDF viewer to have a look.
+It should look something like the graph shown in :numref:`fig_calcfun_graph`.
+
+.. _fig_calcfun_graph:
+.. figure:: include/calcfun_graph.png
+    :scale: 50
+    :align: center
+
+    Provenance graph of the ``multiply`` calculation function.
+
+.. note:: Remember that the PK of the ``CalcJob`` can be different for your database.
+
+.. _tutorial:basic:calcjob:
+
+CalcJobs
+========
+
+When running calculations that require an external code or run on a remote machine, a simple calculation function is no longer sufficient.
+For this purpose, AiiDA provides the ``CalcJob`` process class.
+
+To run a ``CalcJob``, you need to set up two things: a ``code`` that is going to implement the desired calculation and a ``computer`` for the calculation to run on.
+
+If you're running this tutorial in the Quantum Mobile VM or on Binder, these have been pre-configured for you. If you're running on your own machine, you can follow the instructions in the panel below.
+
+.. seealso::
+
+   More details for how to :ref:`run external codes <how-to:run-codes>`.
+
+.. dropdown:: Install localhost computer and code
+
+    Let's begin by setting up the computer using the ``verdi computer`` subcommand:
+
+    .. code-block:: console
+
+        $ verdi computer setup -L tutor -H localhost -T core.local -S core.direct -w `echo $PWD/work` -n
+        $ verdi computer configure core.local tutor --safe-interval 5 -n
+
+    The first commands sets up the computer with the following options:
+
+    * *label* (``-L``): tutor
+    * *hostname* (``-H``): localhost
+    * *transport* (``-T``): local
+    * *scheduler* (``-S``): direct
+    * *work-dir* (``-w``): The ``work`` subdirectory of the current directory
+
+    The second command *configures* the computer with a minimum interval between connections (``--safe-interval``) of 5 seconds.
+    For both commands, the *non-interactive* option (``-n``) is added to not prompt for extra input.
+
+    Next, let's set up the code we're going to use for the tutorial:
+
+    .. code-block:: console
+
+        $ verdi code setup -L add --on-computer --computer=tutor -P core.arithmetic.add --remote-abs-path=/bin/bash -n
+
+    This command sets up a code with *label* ``add`` on the *computer* ``tutor``, using the *plugin* ``core.arithmetic.add``.
+
+A typical real-world example of a computer is a remote supercomputing facility.
+Codes can be anything from a Python script to powerful *ab initio* codes such as Quantum Espresso or machine learning tools like Tensorflow.
+Let's have a look at the codes that are available to us:
+
+.. code:: console
+
+    $ verdi code list
+    # List of configured codes:
+    # (use 'verdi code show CODEID' to see the details)
+    * pk 5 - add@tutor
+
+You can see a single code ``add@tutor``, with PK = 5, in the printed list.
+This code allows us to add two integers together.
+The ``add@tutor`` identifier indicates that the code with label ``add`` is run on the computer with label ``tutor``.
+To see more details about the computer, you can use the following ``verdi`` command:
+
+.. code:: console
+
+    $ verdi computer show tutor
+    Computer name:     tutor
+     * PK:             1
+     * UUID:           b9ecb07c-d084-41d7-b862-a2b1f02722c5
+     * Description:
+     * Hostname:       localhost
+     * Transport type: local
+     * Scheduler type: direct
+     * Work directory: /Users/mbercx/epfl/tutorials/my_tutor/work
+     * Shebang:        #!/bin/bash
+     * mpirun command: mpirun -np {tot_num_mpiprocs}
+     * prepend text:
+     # No prepend text.
+     * append text:
+     # No append text.
+
+We can see that the *Work directory* has been set up as the ``work`` subdirectory of the current directory.
+This is the directory in which the calculations running on the ``tutor`` computer will be executed.
+
+.. note::
+
+    You may have noticed that the PK of the ``tutor`` computer is 1, same as the ``Int`` node we created at the start of this tutorial.
+    This is because different entities, such as nodes, computers and groups, are stored in different tables of the database.
+    So, the PKs for each entity type are unique for each database, but entities of different types can have the same PK within one database.
+
+Let's now start up the ``verdi shell`` again and load the ``add@tutor`` code using its label:
+
+.. code-block:: ipython
+
+    In [1]: code = load_code(label='add')
+
+Every code has a convenient tool for setting up the required input, called the *builder*.
+It can be obtained by using the ``get_builder`` method:
+
+.. code-block:: ipython
+
+    In [2]: builder = code.get_builder()
+
+Using the builder, you can easily set up the calculation by directly providing the input arguments.
+Let's use the ``Int`` node that was created by our previous ``calcfunction`` as one of the inputs and a new node as the second input:
+
+.. code-block:: ipython
+
+    In [3]: builder.x = load_node(pk=4)
+       ...: builder.y = Int(5)
+
+In case that your nodes' PKs are different and you don't remember the PK of the output node from the previous calculation, check the provenance graph you generated earlier and use the UUID of the output node instead:
+
+.. code-block:: ipython
+
+    In [3]: builder.x = load_node(uuid='42541d38')
+       ...: builder.y = Int(5)
+
+Note that you don't have to provide the entire UUID to load the node.
+As long as the first part of the UUID is unique within your database, AiiDA will find the node you are looking for.
+
+.. note::
+
+    One nifty feature of the builder is the ability to use tab completion for the inputs.
+    Try it out by typing ``builder.`` + ``<TAB>`` in the verdi shell.
+
+To execute the ``CalcJob``, we use the ``run`` function provided by the AiiDA engine:
+
+.. code-block:: ipython
+
+    In [4]: from aiida.engine import run
+       ...: run(builder)
+
+Wait for the process to complete.
+Once it is done, it will return a dictionary with the output nodes:
+
+.. code-block:: ipython
+
+    Out[4]:
+    {'sum': <Int: uuid: 7d5d781e-8f17-498a-b3d5-dbbd3488b935 (pk: 8) value: 11>,
+    'remote_folder': <RemoteData: uuid: 888d654a-65fb-4da0-b3bc-d63f0374f274 (pk: 9)>,
+    'retrieved': <FolderData: uuid: 4733aa78-2e2f-4aeb-8e09-c5cfb58553db (pk: 10s)>}
+
+Besides the sum of the two ``Int`` nodes, the calculation function also returns two other outputs: one of type ``RemoteData`` and one of type ``FolderData``.
+See the :ref:`topics section on calculation jobs <topics:calculations:usage:calcfunctions>` for more details.
+Now, exit the IPython shell and once more check for *all* processes:
+
+.. code-block:: console
+
+    $ verdi process list -a
+
+You should now see two processes in the list.
+One is the ``multiply`` calcfunction you ran earlier, the second is the ``ArithmeticAddCalculation`` CalcJob that you have just run.
+Grab the PK of the ``ArithmeticAddCalculation``, and generate the provenance graph.
+The result should look like the graph shown in :numref:`fig_calcjob_graph`.
+
+.. code-block:: console
+
+    $ verdi node graph generate 7
+
+.. _fig_calcjob_graph:
+.. figure:: include/calcjob_graph.png
+    :scale: 35
+    :align: center
+
+    Provenance graph of the ``ArithmeticAddCalculation`` CalcJob, with one input provided by the output of the ``multiply`` calculation function.
+
+You can see more details on any process, including its inputs and outputs, using the verdi shell:
+
+.. code:: console
+
+    $ verdi process show 7
+
+Submitting to the daemon
+========================
+
+When we used the ``run`` command in the previous section, the IPython shell was blocked while it was waiting for the ``CalcJob`` to finish.
+This is not a problem when we're simply adding two number together, but if we want to run multiple calculations that take hours or days, this is no longer practical.
+Instead, we are going to *submit* the ``CalcJob`` to the AiiDA *daemon*.
+The daemon is a program that runs in the background and manages submitted calculations until they are *terminated*.
+Let's first check the status of the daemon using the ``verdi`` CLI:
+
+.. code-block:: console
+
+    $ verdi daemon status
+
+If the daemon is running, the output will be something like the following:
+
+.. code-block:: bash
+
+    Profile: tutorial
+    Daemon is running as PID 96447 since 2020-05-22 18:04:39
+    Active workers [1]:
+      PID    MEM %    CPU %  started
+    -----  -------  -------  -------------------
+    96448    0.507        0  2020-05-22 18:04:39
+    Use verdi daemon [incr | decr] [num] to increase / decrease the amount of workers
+
+In this case, let's stop it for now:
+
+.. code-block:: console
+
+    $ verdi daemon stop
+
+Next, let's *submit* the ``CalcJob`` we ran previously.
+Start the ``verdi shell`` and execute the Python code snippet below.
+This follows all the steps we did previously, but now uses the ``submit`` function instead of ``run``:
+
+.. code-block:: ipython
+
+    In [1]: from aiida.engine import submit
+       ...:
+       ...: code = load_code(label='add')
+       ...: builder = code.get_builder()
+       ...: builder.x = load_node(pk=4)
+       ...: builder.y = Int(5)
+       ...:
+       ...: submit(builder)
+
+When using ``submit`` the calculation job is not run in the local interpreter but is sent off to the daemon and you get back control instantly.
+Instead of the *result* of the calculation, it returns the node of the ``CalcJob`` that was just submitted:
+
+.. code-block:: ipython
+
+    Out[1]: <CalcJobNode: uuid: e221cf69-5027-4bb4-a3c9-e649b435393b (pk: 12) (aiida.calculations:core.arithmetic.add)>
+
+Let's exit the IPython shell and have a look at the process list:
+
+.. code-block:: console
+
+    $ verdi process list
+
+You should see the ``CalcJob`` you have just submitted, with the state ``Created``:
+
+.. code-block:: bash
+
+      PK  Created    Process label             Process State    Process status
+    ----  ---------  ------------------------  ---------------  ----------------
+      12  13s ago    ArithmeticAddCalculation  ⏹ Created
+
+    Total results: 1
+
+    Info: last time an entry changed state: 13s ago (at 09:06:57 on 2020-05-13)
+
+The ``CalcJob`` process is now waiting to be picked up by a daemon runner, but the daemon is currently disabled.
+Let's start it up (again):
+
+.. code-block:: console
+
+    $ verdi daemon start
+
+Now you can either use ``verdi process list`` to follow the execution of the ``CalcJob``, or ``watch`` its progress:
+
+.. code-block:: console
+
+    $ verdi process watch 12
+
+Let's wait for the ``CalcJob`` to complete and then use ``verdi process list -a`` to see all processes we have run so far:
+
+.. code-block:: bash
+
+      PK  Created    Process label             Process State    Process status
+    ----  ---------  ------------------------  ---------------  ----------------
+       3  6m ago     multiply                  ⏹ Finished [0]
+       7  2m ago     ArithmeticAddCalculation  ⏹ Finished [0]
+      12  1m ago     ArithmeticAddCalculation  ⏹ Finished [0]
+
+    Total results: 3
+
+    Info: last time an entry changed state: 14s ago (at 09:07:45 on 2020-05-13)
+
+Workflows
+=========
+
+So far we have executed each process manually.
+AiiDA allows us to automate these steps by linking them together in a *workflow*, whose provenance is stored to ensure reproducibility.
+For this tutorial we have prepared a basic ``WorkChain`` that is already implemented in ``aiida-core``.
+You can see the code below:
+
+.. dropdown:: MultiplyAddWorkChain code
+
+    .. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+        :language: python
+        :start-after: start-marker
+
+    First, we recognize the ``multiply`` function we have used earlier, decorated as a ``calcfunction``.
+    The ``define`` class method specifies the ``input`` and ``output`` of the ``WorkChain``, as well as the ``outline``, which are the steps of the workflow.
+    These steps are provided as methods of the ``MultiplyAddWorkChain`` class.
+
+.. note::
+
+    Besides WorkChain's, workflows can also be implemented as *work functions*.
+    These are ideal for workflows that are not very computationally intensive and can be easily implemented in a Python function.
+
+Let's run the ``WorkChain`` above!
+Start up the ``verdi shell`` and load the ``MultiplyAddWorkChain`` using the ``WorkflowFactory``:
+
+.. code-block:: ipython
+
+    In [1]: MultiplyAddWorkChain = WorkflowFactory('core.arithmetic.multiply_add')
+
+The ``WorkflowFactory`` is a useful and robust tool for loading workflows based on their *entry point*, e.g. ``'core.arithmetic.multiply_add'`` in this case.
+Similar to a ``CalcJob``, the ``WorkChain`` input can be set up using a builder:
+
+.. code-block:: ipython
+
+    In [2]: builder = MultiplyAddWorkChain.get_builder()
+       ...: builder.code = load_code(label='add')
+       ...: builder.x = Int(2)
+       ...: builder.y = Int(3)
+       ...: builder.z = Int(5)
+
+Once the ``WorkChain`` input has been set up, we submit it to the daemon using the ``submit`` function from the AiiDA engine:
+
+.. code-block:: ipython
+
+    In [3]: from aiida.engine import submit
+       ...: submit(builder)
+
+Now quickly leave the IPython shell and check the process list:
+
+.. code-block:: console
+
+    $ verdi process list -a
+
+Depending on which step the workflow is running, you should get something like the following:
+
+.. code-block:: bash
+
+      PK  Created    Process label             Process State    Process status
+    ----  ---------  ------------------------  ---------------  ------------------------------------
+       3  7m ago     multiply                  ⏹ Finished [0]
+       7  3m ago     ArithmeticAddCalculation  ⏹ Finished [0]
+      12  2m ago     ArithmeticAddCalculation  ⏹ Finished [0]
+      19  16s ago    MultiplyAddWorkChain      ⏵ Waiting        Waiting for child processes: 22
+      20  16s ago    multiply                  ⏹ Finished [0]
+      22  15s ago    ArithmeticAddCalculation  ⏵ Waiting        Waiting for transport task: retrieve
+
+    Total results: 6
+
+    Info: last time an entry changed state: 0s ago (at 09:08:59 on 2020-05-13)
+
+We can see that the ``MultiplyAddWorkChain`` is currently waiting for its *child process*, the ``ArithmeticAddCalculation``, to finish.
+Check the process list again for *all* processes (You should know how by now!).
+After about half a minute, all the processes should be in the ``Finished`` state.
+The ``verdi process status`` command prints a *hierarchical* overview of the processes called by the work chain:
+
+.. code-block:: console
+
+    $ verdi process status 19
+    MultiplyAddWorkChain<19> Finished [0] [3:result]
+        ├── multiply<20> Finished [0]
+        └── ArithmeticAddCalculation<22> Finished [0]
+
+The bracket ``[3:result]`` indicates the current step in the outline of the :py:class:`~aiida.workflows.arithmetic.multiply_add.MultiplyAddWorkChain` (step 3, with name ``result``).
+The ``process status`` is particularly useful for debugging complex work chains, since it helps pinpoint where a problem occurred.
+
+We can now generate the full provenance graph for the ``WorkChain`` with:
+
+.. code-block:: console
+
+    $ verdi node graph generate 19
+
+Look familiar?
+The provenance graph should be similar to the one we showed at the start of this tutorial (:numref:`fig_workchain_graph`).
+
+.. _fig_workchain_graph:
+.. figure:: include/workchain_graph.png
+    :scale: 30
+    :align: center
+
+    Final provenance Graph of the basic AiiDA tutorial.
+
+.. _tutorial:next-steps:
+
+**********
+Next Steps
+**********
+
+Congratulations! You have completed the first step to becoming an AiiDA expert.
+
+We have compiled how-to guides that are especially relevant for the following use cases:
+
+.. div:: dropdown-group
+
+    .. dropdown:: Run pure Python lightweight computations
+        :container:
+
+        Designing a workflow
+            After reading the :ref:`Basic Tutorial <tutorial:basic>`, you may want to learn about how to encode the logic of a typical scientific workflow in the :ref:`writing workflows how-to <how-to:write-workflows>`.
+
+        Reusable data types
+            If you have a certain input or output data type, which you use often, then you may wish to turn it into its own :ref:`data plugin <topics:data_types:plugin>`.
+
+        Finding and querying for your data
+            Once you have run multiple computations, the :ref:`find and query data how-to <how-to:query>` can show you how to efficiently explore your data. The data lineage can also be visualised as a :ref:`provenance graph <how-to:data:visualise-provenance>`.
+
+        Sharing your data
+            You can export all or part of your data to file with the :ref:`export/import functionality<how-to:share:archives>` or you can even serve your data over HTTP(S) using the :ref:`AiiDA REST API <how-to:share:serve>`.
+
+        Sharing your workflows
+            Once you have a working computation workflow, you may also wish to :ref:`package it into a python module <how-to:plugins-develop>` for others to use.
+
+    .. dropdown:: Run compute-intensive codes
+        :container:
+
+        Working with external codes
+            Existing calculation plugins, for interfacing with external codes, are available on the `aiida plugin registry <https://aiidateam.github.io/aiida-registry/>`_.
+            If none meet your needs, then the :ref:`external codes how-to <how-to:plugin-codes>` can show you how to create your own calculation plugin.
+
+        Tuning performance
+            To optimise the performance of AiiDA for running many concurrent computations see the :ref:`tuning performance how-to <how-to:installation:performance>`.
+
+        Saving computational resources
+            AiiDA can cache and reuse the outputs of identical computations, as described in the :ref:`caching how-to <how-to:run-codes:caching>`.
+
+    .. dropdown:: Run computations on High Performance Computers
+
+        Connecting to supercomputers
+            To setup up a computer which can communicate with a high-performance computer over SSH, see the :ref:`how-to for running external codes <how-to:run-codes>`, or add a :ref:`custom transport <how-to:plugin-codes:transport>`.
+            AiiDA has pre-written scheduler plugins to work with LSF, PBSPro, SGE, Slurm and Torque.
+
+        Working with external codes
+            Existing calculation plugins, for interfacing with external codes, are available on the `aiida plugin registry <https://aiidateam.github.io/aiida-registry/>`_.
+            If none meet your needs, then the :ref:`external codes how-to <how-to:plugin-codes>` can show you how to create your own calculation plugin.
+
+        Exploring your data
+            Once you have run multiple computations, the :ref:`find and query data how-to <how-to:query>` can show you how to efficiently explore your data. The data lineage can also be visualised as a :ref:`provenance graph <how-to:data:visualise-provenance>`.
+
+        Sharing your data
+            You can export all or part of your data to file with the :ref:`export/import functionality<how-to:share:archives>` or you can even serve your data over HTTP(S) using the :ref:`AiiDA REST API <how-to:share:serve>`.
+
+        Sharing your calculation plugin
+            Once you have a working plugin, you may also wish to :ref:`package it into a python module <how-to:plugins-develop>` for others to use.
+
+.. You can do more with AiiDA than basic arithmetic! Check out some cool real-world examples of AiiDA in action on the `demo page <LINK HERE>
+
+.. todo::
+
+    Add to "Connecting to supercomputers": , or you can add a :ref:`custom scheduler <how-to:plugin-codes:scheduler>`.
+============
+Introduction
+============
+
+.. toctree::
+   :maxdepth: 1
+
+   about
+   get_started
+   installation
+   tutorial
+   troubleshooting
+.. _intro:about:
+
+*************
+What is AiiDA
+*************
+
+AiiDA is an open-source Python infrastructure to help researchers with automating, managing, persisting, sharing and reproducing the complex workflows associated with modern computational science and all associated data.
+
+AiiDA is built to support and streamline the four core pillars of the ADES model: Automation, Data, Environment, and Sharing (described `here <https://arxiv.org/abs/1504.01163>`__). Some of the key features of AiiDA include:
+
+*  **Workflows:** AiiDA allows to build and execute complex, auto-documenting workflows linked to multiple codes on local and remote computers.
+*  **High-throughput:** AiiDA's event-based workflow engine supports tens of thousands of processes per hour with full check-pointing.
+*  **Data provenance:** AiiDA automatically tracks and records inputs, outputs and metadata of all calculations and workflows in extensive provenance graphs that preserve the full lineage of all data.
+*  **Advanced queries:** AiiDA's query language enables fast graph queries on millions of nodes.
+*  **Plugin interface:** AiiDA can support via plugins any computational code and data analytics tool, data type, scheduler, connection mode, etc. (see `public plugin repository <https://aiidateam.github.io/aiida-registry/>`__).
+*  **HPC interface:** AiiDA can seamlessly deal with heterogeneous and remote computing resources; it works with many schedulers out of the box (`SLURM <https://slurm.schedmd.com>`__, `PBS Pro <https://www.pbspro.org/>`__, `torque <http://www.adaptivecomputing.com/products/torque/>`__, `SGE <http://gridscheduler.sourceforge.net/>`__ or `LSF <https://www.ibm.com/docs/en/spectrum-lsf>`__).
+*  **Open science:** AiiDA allows to export both full databases and selected subsets, to be shared with collaborators or made available and browsable online on the `Archive <https://archive.materialscloud.org/>`__ and `Explore <https://www.materialscloud.org/explore>`__ sections of `Materials Cloud <https://www.materialscloud.org>`__.
+*  **Open source:** AiiDA is released under the `MIT open-source license <https://github.com/aiidateam/aiida-core/blob/develop/LICENSE.txt>`__.
+
+See also the `list of AiiDA-powered scientific publications <http://www.aiida.net/science/>`__ and `testimonials from AiiDA users <http://www.aiida.net/testimonials/>`__.
+.. _topics:database:
+
+********
+Database
+********
+
+.. todo::
+
+    .. _#4019: https://github.com/aiidateam/aiida-core/issues/4019
+
+.. _topics:database:advancedquery:
+
+=================
+Advanced querying
+=================
+
+The basics on using the :class:`~aiida.orm.querybuilder.QueryBuilder` to find the data you are interested in is explained in the :ref:`finding and querying how-to<how-to:query>`.
+This section explains some more advanced methods for querying your database and the :ref:`QueryBuilder dictionary<topics:database:advancedquery>`.
+
+.. _topics:database:advancedquery:edges:
+
+Working with edges
+------------------
+
+Filters and projections can be applied to both the vertices of the query path and the edges that connect them.
+Applying a filter or projection to an edge works the same way as for vertices, but the relevant keyword is now preceded by ``edge_``.
+Using the ``ArithmeticAddCalculation`` calculation job as an example, let's say we want to query for the first input of the addition, i.e. the ``Int`` nodes which have been provided as the input with label ``x``:
+
+.. code-block:: python
+
+    from aiida.orm import QueryBuilder
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_outgoing='calcjob', edge_filters={'label': 'x'})
+
+By using the ``edge_filters`` keyword argument, we can query for only the inputs that have the label ``x``.
+Note that any operator that can be used to filter vertices can also be applied to edges.
+Say we want to find all input ``Int`` nodes that are **not** connected to the ``CalcJobNode``'s via an edge with label ``x``:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_outgoing='calcjob', edge_filters={'label': {'!==': 'x'}})
+
+Here, the equality operator ``==`` is negated by prepending an exclamation mark ``!``.
+See the :ref:`reference table below<topics:database:advancedquery:tables:operators>` for a table with all operators.
+Similar to filters, we can *project* information of the edge using the ``edge_project`` keyword argument:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_outgoing='calcjob', edge_project='label')
+
+In the example above, we are querying for the edge labels of the incoming ``Int`` nodes of all ``CalcJobNode``'s.
+
+.. _topics:database:advancedquery:ordering:
+
+Ordering and limiting results
+-----------------------------
+
+You can order the results of your query by the properties of the entity.
+Say you want to return the list of ``Int`` outputs from all ``CalcJobNode``'s, sorted by the time they were created in *descending* order, i.e. the most recent first:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob')
+    qb.order_by({Int: {'ctime': 'desc'}})
+
+This can also be used to order your results based on values in a (nested) dictionary, such as the ``attributes`` column.
+However, as the :class:`~aiida.orm.querybuilder.QueryBuilder` cannot infer the type of the value in this case, you have to *cast* the type:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob')
+    qb.order_by({Int: {'attributes.value': {'order': 'asc', 'cast': 'i'}}})
+
+The query above will return all ``Int`` nodes that are output of all ``CalcJobNode``'s, in *ascending* order of their value, i.e. from small to big.
+Note that in this case you have to specify the order operation with a dictionary, where the ``order`` key details how you want to order the query results and the ``cast`` key informs the ``QueryBuilder`` of the attribute type.
+A list of the available cast types and their aliases can be found in the table below:
+
+.. _topics:database:advancedquery:tables:casttypes:
+
++-------------------+-----------+---------------------+
+| **Python type**   | **Alias** | **SQLAlchemy type** |
++===================+===========+=====================+
+| int               | i         | Integer             |
++-------------------+-----------+---------------------+
+| float             | f         | Float               |
++-------------------+-----------+---------------------+
+| bool              | b         | Boolean             |
++-------------------+-----------+---------------------+
+| str               | t         | String              |
++-------------------+-----------+---------------------+
+| dict              | j         | JSONB               |
++-------------------+-----------+---------------------+
+| datetime.datetime | d         | DateTime            |
++-------------------+-----------+---------------------+
+
+You can also order using multiple properties by providing a list of dictionaries that each specify one sorting operation:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob')
+    qb.order_by({Int: [{'attributes.value': {'order': 'asc', 'cast': 'f'}}, {'ctime': 'desc'}]})
+
+Here the ``Int`` nodes will first be sorted by their value in ascending order.
+Nodes for which the value is equal are subsequently sorted by their modification time in descending order.
+
+Finally, you can also limit the number of query results returned with the ``limit()`` method.
+Suppose you only want the first three results from our query:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode)
+    qb.limit(3)
+
+This can be easily combined with the ``order_by`` method in order to get the last three ``CalcJobNode``'s that were created in the database:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode)
+    qb.limit(3)
+    qb.order_by({CalcJobNode: {'ctime': 'desc'}})
+
+.. _topics:database:advancedquery:tables:
+
+Reference tables
+----------------
+
+.. _topics:database:advancedquery:tables:operators:
+
+List of all operators:
+
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+|**Operator**  |**Datatype** |  **Example**                                          | Explanation                                                                  |
++==============+=============+=======================================================+==============================================================================+
+|   ``==``     |      all    | ``'id': {'==': 123}``                                 | Filter for equality                                                          |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+|   ``in``     |      all    | ``'name': {'in': ['foo', 'bar']}``                    | Filter for values that are in the given list.                                |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``>,<,<=,>=``| float,      | ``'ctime': {'<': datetime(2016, 03, 03)}``            | Filter for values that are greater or smaller than a certain value           |
+|              | integer,    |                                                       |                                                                              |
+|              | date        |                                                       |                                                                              |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``like``     | string      | ``'name': {'like': 'label%'}``                        | Filter for matching substrings where ``%`` and ``_`` are wildcards.          |
+|              |             |                                                       | To match a literal ``%`` or ``_`` escape it by prefixing it with ``\\``.     |
+|              |             |                                                       |                                                                              |
+|              |             |                                                       |                                                                              |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``ilike``    | string      | ``'name': {'ilike': 'lAbEl%'}``                       | Case insensitive version of ``like``.                                        |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``or``       | list of     | ``'id': {'or': [{'<': 12}, {'==': 199}]}``            | A list of expressions where at least one should be matched.                  |
+|              | expressions |                                                       |                                                                              |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``and``      | list of     | ``'id': {'and': [{'<': 12}, {'>': 1}]}``              | A list of expressions where all should be matched.                           |
+|              | expressions |                                                       |                                                                              |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``has_key``  | dict        | ``'attributes': {'has_key': 'some_key'}``             | Filter for dictionaries that contain a certain key.                          |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``of_type``  |    any      | ``'attributes.some_key': {'of_type': 'bool'}``        | Filter for values of a certain type.                                         |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``of_length``|    lists    | ``'attributes.some_list': {'of_length': 4}``          | Filter for lists of a certain length.                                        |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``shorter``  |    lists    | ``'attributes.some_list': {'shorter': 4}``            | Filter for lists that are shorter than a certain length.                     |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``longer``   |    lists    | ``'attributes.some_list': {'longer': 4}``             | Filter for lists that are longer than a certain length.                      |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+| ``contains`` |    lists    | ``'attributes.some_key': {'contains': ['a', 'b']}``   | Filter for lists that should contain certain values.                         |
++--------------+-------------+-------------------------------------------------------+------------------------------------------------------------------------------+
+
+.. _topics:database:advancedquery:tables:relationships:
+
+List of all relationships:
+
++------------------+---------------+--------------------+-------------------------------------------------+
+| **Entity from**  | **Entity to** | **Relationship**   | **Explanation**                                 |
++==================+===============+====================+=================================================+
+| Node             | Node          | *with_outgoing*    | One node as input of another node               |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Node          | *with_incoming*    | One node as output of another node              |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Node          | *with_descendants* | One node as the ancestor of another node (Path) |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Node          | *with_ancestors*   | One node as descendant of another node (Path)   |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Group         | *with_node*        | The group of a node                             |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Group            | Node          | *with_group*       | The node is a member of a group                 |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Computer      | *with_node*        | The computer of a node                          |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Computer         | Node          | *with_computer*    | The node of a computer                          |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | User          | *with_node*        | The creator of a node is a user                 |
++------------------+---------------+--------------------+-------------------------------------------------+
+| User             | Node          | *with_user*        | The node was created by a user                  |
++------------------+---------------+--------------------+-------------------------------------------------+
+| User             | Group         | *with_user*        | The node was created by a user                  |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Group            | User          | *with_group*       | The node was created by a user                  |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Node             | Log           | *with_node*        | The log of a node                               |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Log              | Node          | *with_log*         | The node has a log                              |
+| Node             | Comment       | *with_node*        | The comment of a node                           |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Comment          | Node          | *with_comment*     | The node has a comment                          |
++------------------+---------------+--------------------+-------------------------------------------------+
+| User             | Comment       | *with_user*        | The comment was created by a user               |
++------------------+---------------+--------------------+-------------------------------------------------+
+| Comment          | User          | *with_comment*     | The creator of a comment is a user              |
++------------------+---------------+--------------------+-------------------------------------------------+
+
+.. _topics:database:advancedquery:queryhelp:
+.. _topics:database:advancedquery:querydict:
+
+Converting the QueryBuilder to/from a dictionary
+------------------------------------------------
+
+.. important::
+
+    In aiida-core version 1, this dictionary was accessed with ``QueryBuilder.queryhelp``, which is now deprecated.
+
+The :class:`~aiida.orm.querybuilder.QueryBuilder` class can be converted to a dictionary and also loaded from a dictionary, for easy serialisation and storage.
+Once you have built your query using the appender method explained in the :ref:`finding and querying for data how-to<how-to:query>` and the advanced sections above, you can easily store your query by saving the ``QueryBuilder.as_dict()`` dictionary as a JSON file for later use:
+
+.. code-block:: python
+
+    import json
+    from aiida.orm import QueryBuilder
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode)
+
+    with open("querydict.json", "w") as file:
+        file.write(json.dumps(qb.as_dict(), indent=4))
+
+To use this dictionary to instantiate the :class:`~aiida.orm.querybuilder.QueryBuilder`, you can use the ``from_dict`` class method:
+
+.. code-block:: python
+
+    with open("querydict.json", "r") as file:
+        query_dict = json.load(file)
+
+    qb = QueryBuilder.from_dict(query_dict)
+
+Alternatively, you can also use a dictionary to set up your query by specifying the path, filters and projections and constructing the dictionary by hand.
+To do this, you have to specify:
+
+*   the ``path``:
+    Here, the user specifies the path along which to join tables as a list of dictionaries, where each list item identifies a vertex in your path.
+    You define the vertex class with the ``cls`` key::
+
+        query_dict = {
+            'path':[
+                {'cls': Data}
+            ]
+        }
+
+    Each entity in the query has to have a unique tag.
+    If the tag is not provided, it is set to the name of the class.
+    However, this will not work if you choose the same class twice in the query.
+    In this case you have to provide the tag using the ``tag`` key::
+
+        query_dict = {
+            'path':[
+                {
+                    'cls':Node,
+                    'tag':'node_1'
+                },
+                {
+                    'cls':Node,
+                    'tag':'node_2'
+                }
+            ]
+        }
+
+    You also have to detail some information on the vertex edges, in order to connect them correctly.
+    There are several redundant ways this can be done:
+
+    *   You can specify that this node is an input or output of another node preceding the current one in the list.
+        That other node can be specified by an integer or the class or type.
+        The following examples are all valid joining instructions, assuming there is a structure defined at index 2 of the path with tag "struc1"::
+
+            edge_specification = query_dict['path'][3]
+            edge_specification['with_incoming'] = 2
+            edge_specification['with_incoming'] = StructureData
+            edge_specification['with_incoming'] = 'struc1'
+            edge_specification['with_outgoing']  = 2
+            edge_specification['with_outgoing']  = StructureData
+            edge_specification['with_outgoing']  = 'struc1'
+
+    *   ``query_dict['path'][<i>]['direction'] = integer``
+
+        If any of the above specs ("with_outgoing", "with_incoming") were not specified, the key "direction" is looked for.
+        Directions are defined as distances in the tree.
+        1 is defined as one step down the tree along a link.
+        This means that 1 joins the node specified in this dictionary to the node specified on list-item before **as an output**.
+        Direction defaults to 1, which is why, if nothing is specified, this node is joined to the previous one as an output by default.
+        A negative number reverse the direction of the link.
+        The absolute value of the direction defines the table to join to with respect to your own position in the list.
+        An absolute value of 1 joins one table above, a value of 2 to the table defined 2 indices above.
+        The two following dictionaries yield the same query::
+
+            from aiida.orm import TrajectoryData
+            from aiida_quantumespresso.calculations.pw import PwCalculation
+            from aiida.orm import Dict
+            query_dict_1 = {
+                'path': [
+                    {
+                        'cls':PwCalculation
+                    },
+                    {
+                        'cls':TrajectoryData
+                    },
+                    {
+                        'cls':Dict,
+                        'direction':-2
+                    }
+                ]
+            }
+
+            # returns same query as:
+
+            query_dict_2 = {
+                'path':[
+                    {
+                        'cls':PwCalculation
+                    },
+                    {
+                        'cls':TrajectoryData
+                    },
+                    {
+                        'cls':Dict,
+                        'with_outgoing':PwCalculation
+                    }
+                ]
+            }
+
+            # Shorter version:
+
+            query_dict_3 = {
+                'path':[
+                    Dict,
+                    PwCalculation,
+                    TrajectoryData,
+                ]
+            }
+
+*   what to ``project``: Determining which columns the query will return::
+
+        query_dict = {
+            'path':[PwCalculation],
+            'project':{
+                PwCalculation:['user_id', 'id'],
+            }
+        }
+
+    If you are using JSONB columns, you can also project a value stored inside the json::
+
+        query_dict = {
+            'path':[
+                PwCalculation,
+                StructureData,
+            ],
+            'project':{
+                PwCalculation:['state', 'id'],
+            }
+        }
+
+    Returns the state and the id of all instances of ``PwCalculation`` where a structures is linked as output of a relax-calculation.
+    The strings that you pass have to be name of the columns.
+    If you pass an asterisk ('*'), the query will return the instance of the AiidaClass.
+
+*   the ``filters``:
+    Filters enable you to further specify the query.
+    This is an example for a query for structures that were added after a certain time (say last 4 days) and have an id larger than 50::
+
+        from aiida.common import timezone
+        from datetime import timedelta
+
+        query_dict = {
+            'path':[
+                {'cls':PwCalculation}, # PwCalculation with structure as output
+                {'cls':StructureData}
+            ],
+            'filters':{
+                StructureData:{
+                    'ctime':{'>':  timezone.now() - timedelta(days=4)},
+                    'id':{'>': 50}
+                }
+            }
+        }
+
+If you want to include filters and projections on links between nodes, you will have to add these to filters and projections in the query dictionary.
+Let's take an example from before and add a few filters on the link::
+
+    query_dict = {
+        'path':[
+            {'cls':PwCalculation, 'tag':'relax'}, # PwCalculation with structure as output
+            {'cls':StructureData, 'tag':'structure'}
+        ],
+        'filters':{
+            'structure':{
+                'id':{'>': 50}
+            },
+            'relax--structure':{
+                'label':{'like':'output_%'},
+            }
+        },
+        'project':{
+            'relax--structure':['label'],
+            'structure':['label'],
+            'relax':['label', 'uuid'],
+        }
+    }
+
+Notice that the tag for the link, by default, is the tag of the two connecting nodes delimited by two dashes '--' and the order DOES matter.
+
+Alternatively, you can choose the tag for the edge in the path when defining the entity to join using ``edge_tag``::
+
+    query_dict = {
+        'path':[
+            {'cls':PwCalculation, 'tag':'relax'},         # Relaxation with structure as output
+            {
+                'cls':StructureData,
+                'tag':'structure',
+                'edge_tag':'ThisIsMyLinkTag'     # Definining the link tag
+            }
+        ],
+        'filters':{
+            'structure':{
+                'id':{'>': 50}
+            },
+            'ThisIsMyLinkTag':{                  # Using this link tag
+                'label':{'like':'output_%'},
+            }
+        },
+        'project':{
+            'ThisIsMyLinkTag':['label'],
+            'structure':['label'],
+            'relax':['label', 'uuid'],
+        }
+    }
+
+Limits and offset can be set directly like this::
+
+    query_dict = {
+        'path':[Node],
+        'limit':10,
+        'offset':20
+    }
+
+That ``query_dict`` would tell the QueryBuilder to return 10 rows after the first 20 have been skipped.
+.. _topics:repository:
+
+**********
+Repository
+**********
+
+In addition to the :ref:`database <topics:database>`, AiiDA also stores information in the *repository* in the form of files.
+The repository is optimized to store large amounts of files, which allows AiiDA to scale to high-throughput loads.
+As a result, the files cannot be accessed directly using file system tools, despite the fact that they are stored somewhere on the local file system.
+Instead, you should interact with the repository through the API.
+
+Since each node can have its own *virtual* file hierarchy, the repository contents of a node are accessed through the :class:`~aiida.orm.nodes.node.Node` class.
+The hierarchy is virtual because the files may not actually be written to disk with the same hierarchy.
+For more technical information on the implementation, please refer to the :ref:`repository internals section <internal-architecture:repository>`.
+
+
+.. _topics:repository:writing:
+
+Writing to the repository
+=========================
+
+To write files to a node, you can use one of the following three methods:
+
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_file`
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_filelike`
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_tree`
+
+Let's assume that you have a file on your local file system called `/some/path/file.txt` that you want to copy to a node.
+The most straightforward solution is the following:
+
+.. code:: python
+
+    node = Node()
+    node.put_object_from_file('/some/path/file.txt', 'file.txt')
+
+Note that the first argument should be an absolute filepath.
+The second argument is the filename with which the file will be written to the repository of the node.
+It can be any valid filename as long as it is relative.
+The target filename can contain nested subdirectories, for example `some/relative/path/file.txt`.
+The nested directories do not have to exist.
+
+Alternatively, it is also possible to write a file to a node from a stream or filelike-object.
+This is useful when the content of the file is already in memory and prevents having to write it to the local filesystem first.
+For example, one can do the following:
+
+.. code:: python
+
+    with open('/some/path/file.txt') as handle:
+        node = Node()
+        node.put_object_from_filelike(handle, 'file.txt')
+
+which is the same as the previous example, except the file is opened first in a context manager and then the filelike-object is passed in.
+The :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_filelike` method should work with any filelike-object, for example also byte- and textstreams:
+
+.. code:: python
+
+    import io
+    node = Node()
+    node.put_object_from_filelike(io.BytesIO(b'some content'), 'file.txt')
+
+Finally, instead of writing one file at a time, you can write the contents of an entire directory to the node's repository:
+
+.. code:: python
+
+    node = Node()
+    node.put_object_from_tree('/some/directory')
+
+The contents of the entire directory will be recursively written to the node's repository.
+Optionally, you can write the content to a subdirectory in the repository:
+
+.. code:: python
+
+    node = Node()
+    node.put_object_from_tree('/some/directory', 'some/sub/path')
+
+As with :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_file`, the sub directories do not have to be explicitly created first.
+
+
+.. _topics:repository:listing:
+
+Listing repository content
+==========================
+
+To determine the contents of a node's repository, you can use the following methods:
+
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.list_object_names`
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.list_objects`
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.walk`
+
+The first method will return a list of file objects contained within the node's repository, where an object can be either a directory or a file:
+
+.. code:: ipython
+
+    In [1]: node.list_object_names()
+    Out[1]: ['sub', 'file.txt']
+
+To determine the contents of a subdirectory, simply pass the path as an argument:
+
+.. code:: ipython
+
+    In [1]: node.list_object_names('sub/directory')
+    Out[1]: ['nested.txt']
+
+Note that the elements in the returned list are simple strings and so one cannot tell if they correspond to a directory or a file.
+If this information is needed, use :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.list_objects` instead.
+This method returns a list of :class:`~aiida.repository.common.File` objects.
+These objects have a :meth:`~aiida.repository.common.File.file_type` and :meth:`~aiida.repository.common.File.name` property which returns the type and name of the file object, respectively.
+An example usage would be the following:
+
+.. code:: python
+
+    from aiida.repository.common import FileType
+
+    for obj in node.list_objects():
+        if obj.file_type == FileType.DIRECTORY:
+            print(f'{obj.name} is a directory.)
+        elif obj.file_type == FileType.FILE:
+            print(f'{obj.name} is a file.)
+
+To retrieve a specific file object with a particular relative path, use :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.get_object`:
+
+.. code:: ipython
+
+    In [1]: node.get_object('sub/directory/nested.txt')
+    Out[1]: File(file_type=FileType.FILE, name='nested.txt')
+
+Finally, if you want to recursively iterate over the contents of a node's repository, you can use the :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.walk` method.
+It operates exactly as the |os.walk|_:
+
+.. code:: ipython
+
+    In [1]: for root, dirnames, filenames in node.walk():
+                print(root, dirnames, filenames)
+    Out[1]: '.', ['sub'], ['file.txt']
+            'sub', ['directory'], []
+            'sub/directory', [], ['nested.txt']
+
+
+.. _topics:repository:reading:
+
+Reading from the repository
+===========================
+
+To retrieve the content of files stored in a node's repository, you can use the following methods:
+
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.open`
+ * :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.get_object_content`
+
+The first method functions exactly as Python's ``open`` built-in function:
+
+.. code:: python
+
+    with node.open('some/file.txt', 'r') as handle:
+        content = handle.read()
+
+The :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.get_object_content` method provides a short-cut for this operation in case you want to directly read the content into memory:
+
+.. code:: python
+
+    content node.get_object_content('some/file.txt', 'r')
+
+Both methods accept a second argument to determine whether the file should be opened in text- or binary-mode.
+The valid values are ``'r'`` and ``'rb'``, respectively.
+Note that these methods can only be used to read content from the repository and so any other read modes, such as ``'wb'``, will result in an exception.
+To write files to the repository, use the methods that are described in the section on :ref:`writing to the repository <topics:repository:writing>`.
+
+
+.. _topics:repository:copying:
+
+Copying from the repository
+===========================
+
+If you want to copy specific files from a node's repository, the section on :ref:`reading from the repository<topics:repository:reading>` shows how to read their content which can then be written elsewhere.
+However, sometimes you want to copy the entire contents of the node's repository, or a subdirectory of it.
+The :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.copy_tree` method makes this easy and can be used as follows:
+
+.. code:: python
+
+    node.copy_tree('/some/target/directory')
+
+which will write the entire repository content of ``node`` to the directory ``/some/target/directory`` on the local file system.
+If you only want to copy a particular subdirectory of the repository, you can pass this as the second ``path`` argument:
+
+.. code:: python
+
+    node.copy_tree('/some/target/directory', path='sub/directory')
+
+This method, combined with :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.put_object_from_tree`, makes it easy to copy the entire repository content (or a subdirectory) from one node to another:
+
+.. code:: python
+
+    import tempfile
+    node_source = load_node(<PK>)
+    node_target = Node()
+
+    with tempfile.TemporaryDirectory() as dirpath:
+        node_source.copy_tree(dirpath)
+        node_target.put_object_from_tree(dirpath)
+
+Note that this method is not the most efficient as the files are first written from ``node_a`` to a temporary directory on disk, before they are read in memory again and written to the repository of ``node_b``.
+There is a more efficient method which requires a bit more code and that directly uses the :meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.walk` method explained in the section on :ref:`listing repository content <topics:repository:listing>`.
+
+.. code:: python
+
+    node_source = load_node(<PK>)
+    node_target = Node()
+
+    for root, dirnames, filenames in node_source.walk():
+        for filename in filenames:
+            filepath = root / filename
+            with node_source.open(filepath) as handle:
+                node_target.put_object_from_filelike(handle, filepath)
+
+.. note:: In the example above, only the files are explicitly copied over.
+    Any intermediate nested directories will be automatically created in the virtual hierarchy.
+    However, currently it is not possible to create a directory explicitly.
+    Empty directories are not yet supported.
+
+
+.. |os.walk| replace:: ``os.walk`` method of the Python standard library
+.. _os.walk: https://docs.python.org/3/library/os.html#os.walk
+.. _topics:cli:
+
+**********************
+Command line interface
+**********************
+
+The command line interface utility for AiiDA is called ``verdi``.
+This section explains the basic concepts that apply to all ``verdi`` commands.
+
+
+.. _topics:cli:parameters:
+
+Parameters
+==========
+Parameters to ``verdi`` commands come in two flavors:
+
+  * Arguments: positional parameters, e.g. ``123`` in ``verdi process kill 123``
+  * Options: announced by a flag (e.g. ``-f`` or ``--flag``), potentially followed by a value. E.g. ``verdi process list --limit 10`` or ``verdi process -h``.
+
+.. _topics:cli:multi_value_options:
+
+Multi-value options
+-------------------
+
+Some ``verdi`` commands provide *options* that can take multiple values.
+This allows to avoid repetition and e.g. write::
+
+    verdi archive create -N 10 11 12 -- archive.aiida
+
+instead of the more lengthy::
+
+    verdi archive create -N 10 -N 11 -N 12 archive.aiida
+
+Note the use of the so-called 'endopts' marker ``--`` that is necessary to mark the end of the ``-N`` option and distinguish it from the ``archive.aiida`` argument.
+
+
+.. _topics:cli:help_strings:
+
+Help strings
+============
+Append the ``--help`` option to any verdi (sub-)command to get help on how to use it.
+For example, ``verdi process kill --help`` shows::
+
+    Usage: verdi process kill [OPTIONS] [PROCESSES]...
+
+        Kill running processes.
+
+    Options:
+        -t, --timeout FLOAT  Time in seconds to wait for a response before timing
+                             out.  [default: 5.0]
+        --wait / --no-wait   Wait for the action to be completed otherwise return as
+                             soon as it's scheduled.
+        -h, --help           Show this message and exit.
+
+All help strings consist of three parts:
+
+  * A ``Usage:`` line describing how to invoke the command
+  * A description of the command's functionality
+  * A list of the available options
+
+The ``Usage:`` line encodes information on the command's parameters, e.g.:
+
+ * ``[OPTIONS]``: this command takes one (or more) options
+ * ``PROCESSES``: this command *requires* a process as a positional argument
+ * ``[PROCESSES]``: this command takes a process as an *optional* positional argument
+ * ``[PROCESSES]...``: this command takes one or more processes as *optional* positional arguments
+
+Multi-value options are followed by ``...`` in the help string and the ``Usage:`` line of the corresponding command will contain the 'endopts' marker.
+For example::
+
+    Usage: verdi archive create [OPTIONS] [--] OUTPUT_FILE
+
+        Export various entities, such as Codes, Computers, Groups and Nodes, to an
+        archive file for backup or sharing purposes.
+
+    Options:
+        -X, --codes CODE...             one or multiple codes identified by their
+                                        ID, UUID or label
+        -Y, --computers COMPUTER...     one or multiple computers identified by
+                                        their ID, UUID or label
+        -G, --groups GROUP...           one or multiple groups identified by their
+                                        ID, UUID or name
+        -N, --nodes NODE...             one or multiple nodes identified by their ID
+                                        or UUID
+        ...
+
+
+.. _topics:cli:profile:
+
+Profile
+=======
+AiiDA supports multiple profiles per installation, one of which is marked as the default and used unless another profile is requested.
+Show the current default profile using::
+
+    verdi profile list
+
+In order to use a different profile, pass the ``-p/--profile`` option to any ``verdi`` command, for example::
+
+    verdi -p <profile> process list
+
+Note that the specified profile will be used for this and *only* this command.
+Use ``verdi profile setdefault`` in order to permanently change the default profile.
+
+
+.. _topics:cli:verbosity:
+
+Verbosity
+=========
+All ``verdi`` commands have the ``-v/--verbosity`` option, which allows to control the verbosity of the output that is printed by the command.
+The option takes a value that is known as the log level and all messages that are emitted with an inferior log level will be suppressed.
+The valid values in order of increasing log level are: `NOTSET`, `DEBUG`, `INFO`, `REPORT`, `WARNING`, `ERROR` and `CRITICAL`.
+For example, if the log level is set to ``ERROR``, only messages with the ``ERROR`` and ``CRITICAL`` level will be shown.
+The choice for these log level values comes directly from `Python's built-in logging module <https://docs.python.org/3/library/logging.html>`_.
+The ``REPORT`` level is a log level that is defined and added by AiiDA that sits between the ``INFO`` and ``WARNING`` level, and is the default log level.
+
+The verbosity option is case-insensitive, i.e., ``--verbosity debug`` and ``--verbosity DEBUG`` are identical.
+The option can be passed at any subcommand level, for example:
+
+.. code:: console
+
+    verdi process list --verbosity debug
+
+is identical to
+
+.. code:: console
+
+    verdi --verbosity debug process list
+
+When the option is specified multiple times, only the last value will be considered.
+
+
+.. _topics:cli:identifiers:
+
+Identifiers
+===========
+
+When working with AiiDA entities, you need a way to *refer* to them on the command line.
+Any entity in AiiDA can be addressed via three identifiers:
+
+ * "Primary Key" (PK): An integer, e.g. ``723``, identifying your entity within your database (automatically assigned)
+ * `Universally Unique Identifier <https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)>`_ (UUID): A string, e.g. ``ce81c420-7751-48f6-af8e-eb7c6a30cec3`` identifying your entity globally (automatically assigned)
+ * Label: A human-readable string, e.g. ``test_calculation`` (manually assigned)
+
+.. note::
+
+    PKs are easy to type and work as long as you stay within your database.
+    **When sharing data with others, however, always use UUIDs.**
+
+Any ``verdi`` command that expects an identifier as a paramter will accept PKs, UUIDs and labels.
+
+In almost all cases, this will work out of the box.
+Since command line parameters are passed as strings, AiiDA needs to deduce the type of identifier from its content, which can fail in edge cases (see :ref:`topics:cli:identifier_resolution` for details).
+You can take the following precautions in order to avoid such edge cases:
+
+  * PK: no precautions needed
+  * UUID: no precautions needed for full UUIDs. Partial UUIDs should include at least one non-numeric character or dash
+  * Label: add an exclamation mark ``!`` at the end of the identifier in order to force interpretation as a label
+
+
+.. _topics:cli:identifier_resolution:
+
+Implementation of identifier resolution
+---------------------------------------
+
+The logic for deducing the identifier type is as follows:
+
+ 1. Try interpreting the identifier as a PK (integer)
+ 2. If this fails, try interpreting the identifier as a UUID (full or partial)
+ 3. If this fails, interpret the identifier as a label
+
+The following example illustrates edge cases that can arise in this logic:
+
+===  =====================================  ========
+PK   UUID                                   LABEL
+===  =====================================  ========
+10   12dfb104-7b2b-4bca-adc0-1e4fd4ffcc88   group
+11   deadbeef-62ba-444f-976d-31d925dac557   10
+12   3df34a1e-5215-4e1a-b626-7f75b9586ef5   deadbeef
+===  =====================================  ========
+
+ * trying to identify the first entity by its partial UUID ``12`` would match the third entity by its PK instead
+ * trying to identify the second entity by its label ``10`` would match the first entity by its PK instead
+ * trying to identify the third entity by its label ``deadbeef`` would match the second entity on its partial UUID ``deadbeef`` instead
+
+The ambiguity between a partial UUID and a PK can always be resolved by including a longer substring of the UUID, eventually rendering the identifier no longer a valid PK.
+
+The case of a label being also a valid PK or (partial) UUID requires a different solution.
+For this case, ``verdi`` reserves a special character, the exclamation mark ``!``, that can be appended to the identifier.
+Before any type guessing is done, AiiDA checks for the presence of this marker and, if found, will interpret the identifier as a label.
+I.e. to solve ambiguity examples mentioned above, one would pass ``10!`` and ``deadbeef!``.
+.. _topics:schedulers:
+
+====================
+Batch Job Schedulers
+====================
+
+Batch job schedulers manage the job queues and execution on a compute resource.
+AiiDA ships with plugins for a range of schedulers, and this section describes the interface of these plugins.
+
+Follow :ref:`these instructions <topics:schedulers:develop_plugin>` to add support for a custom scheduler.
+
+PBSPro
+------
+
+The `PBSPro`_ scheduler is supported (tested: version 12.1).
+
+All the main features are supported with this scheduler.
+
+Use the :ref:`topics:schedulers:job_resources:node` when setting job resources.
+
+.. _PBSPro: http://www.pbsworks.com/Product.aspx?id=1
+
+SLURM
+-----
+
+The `SLURM`_ scheduler is supported (tested: version 2.5.4).
+
+All the main features are supported with this scheduler.
+
+Use the :ref:`topics:schedulers:job_resources:node` when setting job resources.
+
+.. _SLURM: https://slurm.schedmd.com/
+
+SGE
+---
+
+The `SGE`_ scheduler (Sun Grid Engine, now called Oracle Grid Engine) and some of its main variants/forks are supported (tested: version GE 6.2u3).
+
+All the main features are supported with this scheduler.
+
+Use the :ref:`topics:schedulers:job_resources:par` when setting job resources.
+
+.. _SGE: https://en.wikipedia.org/wiki/Oracle_Grid_Engine
+
+LSF
+---
+
+The IBM `LSF`_ scheduler is supported (tested: version 9.1.3 on the CERN `lxplus` cluster).
+
+.. _LSF: https://www-01.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_welcome.html
+
+Torque
+------
+
+`Torque`_ (based on OpenPBS) is supported (tested: version 2.4.16 from Ubuntu).
+
+All the main features are supported with this scheduler.
+
+Use the :ref:`topics:schedulers:job_resources:node` when setting job resources.
+
+.. _Torque: http://www.adaptivecomputing.com/products/open-source/torque/
+
+
+
+Direct execution (bypassing schedulers)
+---------------------------------------
+
+The ``direct`` scheduler plugin simply executes the command in a new bash shell, puts it in the background and checks for its process ID (PID) to determine when the execution is completed.
+
+Its main purpose is debugging on the local machine.
+Use a proper batch scheduler for any production calculations.
+
+.. warning::
+
+    Compared to a proper batch scheduler, direct execution mode is fragile.
+    In particular:
+
+    * There is no queueing, i.e. all calculations run in parallel.
+    * PID numeration is reset during reboots.
+
+.. warning::
+
+    Do *not* use the direct scheduler for running on a supercomputer.
+    The job will end up running on the login node (which is typically forbidden), and if your centre has multiple login nodes, AiiDA may get confused if subsequent SSH connections end up at a different login node (causing AiiDA to infer that the job has completed).
+
+All the main features are supported with this scheduler.
+
+Use the :ref:`topics:schedulers:job_resources:node` when setting job resources.
+
+
+.. _topics:schedulers:job_resources:
+
+Job resources
+-------------
+
+Unsurprisingly, different schedulers have different ways of specifying the resources for a job (such as the number of required nodes or the numbers of MPI processes per node).
+
+In AiiDA, these differences are accounted for by subclasses of the |JobResource|  class.
+The previous section lists which subclass to use with a given scheduler.
+
+All subclasses define at least the :py:meth:`~aiida.schedulers.datastructures.JobResource.get_tot_num_mpiprocs` method that returns the total number of MPI processes requested but otherwise have slightly different interfaces described in the following.
+
+.. note::
+
+    You can manually load a `specific` |JobResource| subclass by directly importing it, e.g.
+
+    .. code-block:: python
+
+        from aiida.schedulers.datastructures import NodeNumberJobResource
+
+    In practice, however, the appropriate class will be inferred from scheduler configured for the relevant AiiDA computer, and you can simply set the relevant fields in the ``metadata.options`` input dictionary of the |CalcJob|.
+
+    For a scheduler with job resources of type |NodeNumberJobResource|, this could be:
+
+    .. code-block:: python
+
+        from aiida.orm import load_code
+
+        inputs = {
+            'code': load_code('somecode@localhost'),  # The configured code to be used, which also defines the computer
+            'metadata': {
+                'options': {
+                    'resources', {'num_machines': 4, 'num_mpiprocs_per_machine': 16}
+                }
+            }
+        }
+
+
+.. _topics:schedulers:job_resources:node:
+
+NodeNumberJobResource (PBS-like)
+................................
+
+The |NodeNumberJobResource| class is used for specifying job resources in PBS and SLURM.
+
+The class has the following attributes:
+
+* ``res.num_machines``: the number of machines (also called nodes) on which the code should run
+* ``res.num_mpiprocs_per_machine``: number of MPI processes to use on each machine
+* ``res.tot_num_mpiprocs``: the total number of MPI processes that this job requests
+* ``res.num_cores_per_machine``: the number of cores to use on each machine
+* ``res.num_cores_per_mpiproc``: the number of cores to run each MPI process on
+
+You need to specify only two among the first three fields above, but they have to be defined upon construction.
+We suggest using the first two, for instance:
+
+.. code-block:: python
+
+    res = NodeNumberJobResource(num_machines=4, num_mpiprocs_per_machine=16)
+
+asks the scheduler to allocate 4 machines, with 16 MPI processes on each machine.
+This will automatically ask for a total of ``4*16=64`` total number of MPI processes.
+
+.. note::
+
+    When creating a new computer, you will be asked for a ``default_mpiprocs_per_machine``.
+    If specified, it will automatically be used as the default value for ``num_mpiprocs_per_machine`` whenever creating the resources for that computer.
+
+.. note::
+
+    If you prefer using ``res.tot_num_mpiprocs`` instead, make sure it is a multiple of ``res.num_machines`` and/or ``res.num_mpiprocs_per_machine``.
+
+    The first three fields are related by the equation:
+
+    .. code-block:: python
+
+        res.num_machines * res.num_mpiprocs_per_machine = res.tot_num_mpiprocs
+
+
+The ``num_cores_per_machine`` and ``num_cores_per_mpiproc`` fields are optional and must satisfy the equation:
+
+.. code-block:: python
+
+    res.num_cores_per_mpiproc * res.num_mpiprocs_per_machine = res.num_cores_per_machine
+
+
+.. note::
+
+    In PBSPro, the ``num_mpiprocs_per_machine`` and ``num_cores_per_machine`` fields are used for mpiprocs and ppn respectively.
+
+    In Torque, the ``num_mpiprocs_per_machine`` field is used for ppn unless the ``num_mpiprocs_per_machine`` is specified.
+
+.. _topics:schedulers:job_resources:par:
+
+ParEnvJobResource (SGE-like)
+............................
+
+The :py:class:`~aiida.schedulers.datastructures.ParEnvJobResource` class is used for specifying the resources of SGE and similar schedulers, which require specifying a *parallel environment* and the *total number of CPUs* requested.
+
+The class has the following attributes:
+
+* ``res.parallel_env``: the parallel environment in which you want to run your job (a string)
+* ``res.tot_num_mpiprocs``: the total number of MPI processes that this job requests
+
+Both attributes are required.
+No checks are done on the consistency between the specified parallel environment and the total number of MPI processes requested (for instance, some parallel environments may have been configured by your cluster administrator to run on a single machine).
+It is your responsibility to make sure that the information is valid, otherwise the submission will fail.
+
+Setting the fields directly in the class constructor:
+
+.. code-block:: python
+
+    res = ParEnvJobResource(parallel_env='mpi', tot_num_mpiprocs=64)
+
+And setting the fields using the ``metadata.options`` input dictionary of the |CalcJob|:
+
+.. code-block:: python
+
+    inputs = {
+        'metadata': {
+            'options': {
+                resources', {'parallel_env': 'mpi', 'tot_num_mpiprocs': 64}
+            }
+        }
+    }
+
+.. _topics:schedulers:develop_plugin:
+
+Developing a plugin
+-------------------
+
+A scheduler plugin allows AiiDA to communicate with a specific type of scheduler.
+The plugin should subclass the :class:`~aiida.schedulers.scheduler.Scheduler` class and implement a number of methods, that will instruct how certain key commands are to be executed, such as submitting a new job or requesting the current active jobs.
+To get you started, you can download :download:`this template <include/scheduler_template.py>` and implement the following methods:
+
+    1) ``_get_joblist_command``: returns the command to report a full information on existing jobs.
+    2) ``_get_detailed_job_info_command``: returns the command to get the detailed information on  a job, even after the job has finished.
+    3) ``_get_submit_script_header``: return the submit script header.
+    4) ``_get_submit_command``: return the string to submit a given script.
+    5) ``_parse_joblist_output``: parse the queue output string, as returned by executing the command returned by `_get_joblist_command`.
+    6) ``_parse_submit_output``: parse the output of the submit command, as returned by executing the command returned by `_get_submit_command`.
+    7) ``_get_kill_command``: return the command to kill the job with specified jobid.
+    8) ``_parse_kill_output``: parse the output of the kill command.
+    9) ``parse_output``: parse the output of the scheduler.
+
+All these methods *have* to be implemented, except for ``_get_detailed_job_info_command`` and ``parse_output``, which are optional.
+In addition to these methods, the ``_job_resource_class`` class attribute needs to be set to a subclass :class:`~aiida.schedulers.datastructures.JobResource`.
+For schedulers that work like SLURM, Torque and PBS, one can most likely simply reuse the :class:`~aiida.schedulers.datastructures.NodeNumberJobResource` class, that ships with ``aiida-core``.
+Schedulers that work like LSF and SGE, may be able to reuse :class:`~aiida.schedulers.datastructures.ParEnvJobResource` instead.
+If neither of these work, one can implement a custom subclass, a template for which, the class called ``TemplateJobResource``, is already included in the template file.
+
+
+.. note::
+
+    To inform AiiDA about your new scheduler plugin you must register an entry point in the ``aiida.schedulers`` entry point group.
+    Refer to :ref:`the section on how to register plugins <how-to:plugins-develop:entrypoints>` for instructions.
+
+
+.. |NodeNumberJobResource| replace:: :py:class:`~aiida.schedulers.datastructures.NodeNumberJobResource`
+.. |JobResource| replace:: :py:class:`~aiida.schedulers.datastructures.JobResource`
+.. |CalcJob| replace:: :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`
+.. _topics:plugins:
+
+*******
+Plugins
+*******
+
+.. _topics:plugins:may:
+
+What a plugin can do
+====================
+
+* Add a new class to AiiDA's :ref:`entry point groups <topics:plugins:entrypointgroups>`, including:: calculations, parsers, workflows, data types, verdi commands, schedulers, transports and importers/exporters from external databases.
+  This typically involves subclassing the respective base class AiiDA provides for that purpose.
+* Install new commandline and/or GUI executables
+* Depend on, and build on top of any number of other plugins (as long as their requirements do not clash)
+
+
+.. _topics:plugins:maynot:
+
+What a plugin should not do
+===========================
+
+An AiiDA plugin should not:
+
+* Change the database schema AiiDA uses
+* Use protected functions, methods or classes of AiiDA (those starting with an underscore ``_``)
+* Monkey patch anything within the ``aiida`` namespace (or the namespace itself)
+
+Failure to comply will likely prevent your plugin from being listed on the official `AiiDA plugin registry <registry_>`_.
+
+If you find yourself in a situation where you feel like you need to do any of the above, please open an issue on the `AiiDA repository <core_>`_ and we can try to advise on how to proceed.
+
+
+.. _core: https://github.com/aiidateam/aiida-core
+.. _registry: https://github.com/aiidateam/aiida-registry
+
+.. _topics:plugins:guidelines:
+
+Guidelines for plugin design
+============================
+
+CalcJob & Parser plugins
+------------------------
+
+The following guidelines are useful to keep in mind when wrapping external codes:
+
+ * | **Start simple.**
+   | Make use of existing classes like :py:class:`~aiida.orm.nodes.data.dict.Dict`, :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData`, ...
+     Write only what is necessary to pass information from and to AiiDA.
+ * | **Don't break data provenance.**
+   | Store *at least* what is needed for full reproducibility.
+ * | **Expose the full functionality.**
+   | Standardization is good but don't artificially limit the power of a code you are wrapping - or your users will get frustrated.
+     If the code can do it, there should be *some* way to do it with your plugin.
+ * | **Don't rely on AiiDA internals.**
+     Functionality at deeper nesting levels is not considered part of the public API and may change between minor AiiDA releases, breaking your plugin.
+ * | **Parse what you want to query for.**
+   | Make a list of which information to:
+
+     #. parse into the database for querying (:py:class:`~aiida.orm.nodes.data.dict.Dict`, ...)
+     #. store in the file repository for safe-keeping (:py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData`, ...)
+     #. leave on the computer where the calculation ran (:py:class:`~aiida.orm.nodes.data.remote.RemoteData`, ...)
+
+
+.. _topics:plugins:entrypoints:
+
+What is an entry point?
+=======================
+
+
+The ``setuptools`` package (used by ``pip``) has a feature called `entry points`_, which allows to associate a string (the entry point *identifier*) with any python object defined inside a python package.
+Entry points are defined in the ``setup.py`` file, for example::
+
+      ...
+      entry_points={
+         "aiida.data": [
+             # entry point = path.to.python.object
+             "mycode.mydata = aiida_mycode.data.mydata:MyData",
+         ]
+      }
+      ...
+
+Here, we add a new entry point ``mycode.mydata`` to the entry point *group* ``aiida.data``.
+The entry point identifier points to the ``MyData`` class inside the file ``mydata.py``, which is part of the ``aiida_mycode`` package.
+
+When installing a python package that defines entry points, the entry point specifications are written to a file inside the distribution's ``.egg-info`` folder.
+``setuptools`` provides a package ``pkg_resources`` for querying these entry point specifications by distribution, by entry point group and/or by name of the entry point and load the data structure to which it points.
+
+Why entry points?
+=================
+
+AiiDA defines a set of entry point groups (see :ref:`topics:plugins:entrypointgroups` below).
+By inspecting the entry points added to these groups by AiiDA plugins, AiiDA can offer uniform interfaces to interact with them.
+For example:
+
+ *  ``verdi plugin list aiida.workflows`` provides an overview of all workflows installed by AiiDA plugins.
+    Users can inspect the inputs/outputs of each workflow using the same command without having to study the documentation of the plugin.
+ *  The ``DataFactory``, ``CalculationFactory`` and ``WorkflowFactory`` methods allow instantiating new classes through a simple short string (e.g. ``quantumespresso.pw``).
+    Users don't need to remember exactly where in the plugin package the class resides, and plugins can be refactored without users having to re-learn the plugin's API.
+
+
+.. _topics:plugins:entrypointgroups:
+
+AiiDA entry point groups
+========================
+
+Below, we list the entry point groups defined and searched by AiiDA.
+You can get the same list as the output of ``verdi plugin list``.
+
+``aiida.calculations``
+----------------------
+
+Entry points in this group are expected to be subclasses of :py:class:`aiida.orm.JobCalculation <aiida.orm.nodes.process.calculation.calcjob.CalcJobNode>`. This replaces the previous method of placing a python module with the class in question inside the ``aiida/orm/calculation/job`` subpackage.
+
+Example entry point specification::
+
+   entry_points={
+      "aiida.calculations": [
+         "mycode.mycode = aiida_mycode.calcs.mycode:MycodeCalculation"
+      ]
+   }
+
+``aiida_mycode/calcs/mycode.py``::
+
+   from aiida.orm import JobCalculation
+   class MycodeCalculation(JobCalculation):
+      ...
+
+Will lead to usage::
+
+   from aiida.plugins import CalculationFactory
+   calc = CalculationFactory('mycode.mycode')
+
+``aiida.parsers``
+-----------------
+
+AiiDA expects a subclass of ``Parser``. Replaces the previous approach consisting in placing a parser module under ``aiida/parsers/plugins``.
+
+Example spec::
+
+   entry_points={
+      "aiida.calculations": [
+         "mycode.mycode = aiida_mycode.parsers.mycode:MycodeParser"
+      ]
+   }
+
+``aida_mycode/parsers/myparser.py``::
+
+   from aiida.parsers import Parser
+   class MycodeParser(Parser)
+      ...
+
+Usage::
+
+   from aiida.plugins import ParserFactory
+   parser = ParserFactory('mycode.mycode')
+
+``aiida.data``
+--------------
+
+Group for :py:class:`~aiida.orm.nodes.data.data.Data` subclasses. Previously located in a subpackage of ``aiida/orm/data``.
+
+Spec::
+
+   entry_points={
+      "aiida.data": [
+         "mycode.mydata = aiida_mycode.data.mydat:MyData"
+      ]
+   }
+
+``aiida_mycode/data/mydat.py``::
+
+   from aiida.orm import Data
+   class MyData(Data):
+      ...
+
+Usage::
+
+   from aiida.plugins import DataFactory
+   params = DataFactory('mycode.mydata')
+
+``aiida.workflows``
+-------------------
+
+Package AiiDA workflows as follows:
+
+Spec::
+
+   entry_points={
+      "aiida.workflows": [
+         "mycode.mywf = aiida_mycode.workflows.mywf:MyWorkflow"
+      ]
+   }
+
+``aiida_mycode/workflows/mywf.py``::
+
+   from aiida.engine.workchain import WorkChain
+   class MyWorkflow(WorkChain):
+      ...
+
+Usage::
+
+   from aiida.plugins import WorkflowFactory
+   wf = WorkflowFactory('mycode.mywf')
+
+.. note:: For old-style workflows the entry point mechanism of the plugin system is not supported.
+   Therefore one cannot load these workflows with the ``WorkflowFactory``.
+   The only way to run these, is to store their source code in the ``aiida/workflows/user`` directory and use normal python imports to load the classes.
+
+
+``aiida.cmdline``
+-----------------
+
+``verdi`` uses the `click_` framework, which makes it possible to add new subcommands to existing verdi commands, such as ``verdi data mydata``.
+AiiDA expects each entry point to be either a ``click.Command`` or ``click.CommandGroup``. At present extra commands can be injected at the following levels:
+
+  * As a :ref:`direct subcommand of verdi data<spec-verdi-data>`
+  * As a :ref:`subcommand of verdi data structure import<spec-verdi-data-structure-import>`
+
+
+.. _spec-verdi-data:
+
+Spec for ``verdi data``::
+
+   entry_points={
+      "aiida.cmdline.data": [
+         "mydata = aiida_mycode.commands.mydata:mydata"
+      ]
+   }
+
+``aiida_mycode/commands/mydata.py``::
+
+   import click
+   @click.group()
+   mydata():
+      """commandline help for mydata command"""
+
+   @mydata.command('animate')
+   @click.option('--format')
+   @click.argument('pk')
+   create_fancy_animation(format, pk):
+      """help"""
+      ...
+
+Usage:
+
+.. code-block:: bash
+
+   verdi data mydata animate --format=Format PK
+
+.. _spec-verdi-data-structure-import:
+
+Spec for ``verdi data structure import``::
+
+   entry_points={
+      "aiida.cmdline.data.structure.import": [
+         "myformat = aiida_mycode.commands.myformat:myformat"
+      ]
+   }
+
+``aiida_mycode/commands/myformat.py``::
+
+   import click
+   @click.group()
+   @click.argument('filename', type=click.File('r'))
+   myformat(filename):
+      """commandline help for myformat import command"""
+      ...
+
+Usage:
+
+.. code-block:: bash
+
+   verdi data structure import myformat a_file.myfmt
+
+
+``aiida.tools.dbexporters``
+---------------------------
+
+If your plugin package adds support for exporting to an external database, use this entry point to have aiida find the module where you define the necessary functions.
+
+.. Not sure how dbexporters work
+.. .. Spec::
+..
+..    entry_points={
+..       "aiida.tools.dbexporters": [
+..          "mymatdb = aiida_mymatdb.mymatdb
+..       ]
+..    }
+
+``aiida.tools.dbimporters``
+---------------------------
+
+If your plugin package adds support for importing from an external database, use this entry point to have aiida find the module where you define the necessary functions.
+
+.. .. Spec::
+..
+..    entry_points={
+..        "aiida.tools.dbimporters": [
+..          "mymatdb = aiida_mymatdb.mymatdb
+..        ]
+..    }
+
+
+
+``aiida.schedulers``
+--------------------
+
+We recommend naming the plugin package after the scheduler (e.g. ``aiida-myscheduler``), so that the entry point name can simply equal the name of the scheduler:
+
+Spec::
+
+   entry_points={
+      "aiida.schedulers": [
+         "myscheduler = aiida_myscheduler.myscheduler:MyScheduler"
+      ]
+   }
+
+``aiida_myscheduler/myscheduler.py``::
+
+   from aiida.schedulers import Scheduler
+   class MyScheduler(Scheduler):
+      ...
+
+Usage: The scheduler is used in the familiar way by entering 'myscheduler' as the scheduler option when setting up a computer.
+
+``aiida.transports``
+--------------------
+
+``aiida-core`` ships with two modes of transporting files and folders to remote computers: ``core.ssh`` and ``core.local`` (stub for when the remote computer is actually the same).
+We recommend naming the plugin package after the mode of transport (e.g. ``aiida-mytransport``), so that the entry point name can simply equal the name of the transport:
+
+Spec::
+
+   entry_points={
+      "aiida.transports": [
+         "mytransport = aiida_mytransport.mytransport:MyTransport"
+      ]
+   }
+
+``aiida_mytransport/mytransport.py``::
+
+   from aiida.transports import Transport
+   class MyTransport(Transport):
+      ...
+
+Usage::
+
+   from aiida.plugins import TransportFactory
+   transport = TransportFactory('mytransport')
+
+When setting up a new computer, specify ``mytransport`` as the transport mode.
+
+
+
+.. _topics:plugins:testfixtures:
+
+Plugin test fixtures
+====================
+
+One concern when running tests for AiiDA plugins is to separate the test environment from your production environment.
+Typically tests should be run against an empty AiiDA database.
+
+AiiDA ships with tools that take care of this for you. They will:
+
+ * start a temporary postgres server
+ * create a new database
+ * create a temporary ``.aiida`` folder
+ * create a test profile
+ * (optional) reset the AiiDA database before every individual test
+
+thus letting you focus on testing the functionality of your plugin without having to worry about this separation.
+
+.. note::
+   The overhead for setting up the temporary environment is of the order of a few seconds and occurs only once per test session.
+   You can control the database backend for the temporary profile by setting the ``AIIDA_TEST_BACKEND`` environment variable, e.g. ``export AIIDA_TEST_BACKEND=sqlalchemy``.
+
+
+If you prefer to run tests on an existing profile, say ``test_profile``, simply set the following environment variable before running your tests::
+
+  export AIIDA_TEST_PROFILE=test_profile
+
+
+.. note::
+   In order to prevent accidental data loss, AiiDA only allows to run tests on profiles whose name starts with ``test_``.
+
+AiiDA ships with a number of fixtures in :py:mod:`aiida.manage.tests.pytest_fixtures` for you to use.
+
+In particular:
+
+  * The :py:func:`~aiida.manage.tests.pytest_fixtures.aiida_profile` fixture initializes the :py:class:`~aiida.manage.tests.TestManager` and yields it to the test function.
+    Its parameters ``scope='session', autouse=True`` cause this fixture to automatically run once per test session, even if you don't explicitly require it.
+  * The :py:func:`~aiida.manage.tests.pytest_fixtures.clear_database` fixture depends on the :py:func:`~aiida.manage.tests.pytest_fixtures.aiida_profile` fixture and tells the received :py:class:`~aiida.manage.tests.TestManager` instance to reset the database.
+    This fixture lets each test start in a fresh AiiDA environment.
+  * The :py:func:`~aiida.manage.tests.pytest_fixtures.temp_dir` fixture returns a temporary directory for file operations and deletes it after the test is finished.
+  * ... you may want to add your own fixtures tailored for your plugins to set up specific ``Data`` nodes & more.
+
+.. _pytest: https://pytest.org
+.. _unittest: https://docs.python.org/library/unittest.html
+.. _fixture: https://docs.pytest.org/en/latest/fixture.html
+.. _click: https://click.palletsprojects.com/
+.. _Entry points: https://packaging.python.org/en/latest/guides/creating-and-discovering-plugins/
+.. _topics:data_types:
+
+**********
+Data types
+**********
+
+AiiDA already ships with a number of useful data types.
+This section details the most common, and some handy features/functionalities to work with them.
+
+The different data types can be accessed through the :py:func:`~aiida.plugins.factories.DataFactory` function (also exposed from :py:mod:`aiida.plugins`) by passing the corresponding entry point as an argument, for example when working in the ``verdi shell``:
+
+.. code-block:: ipython
+
+  In [1]: ArrayData = DataFactory('core.array')
+
+.. important::
+
+  Many of the examples in this section will assume you are working inside the ``verdi shell``.
+  If this is not the case, you will have to first load e.g. the :py:func:`~aiida.plugins.factories.DataFactory()` function:
+
+  .. code-block:: python
+
+    from aiida.plugins import DataFactory
+
+    ArrayData = DataFactory('core.array')
+
+A list of all the data entry points can be obtain running the command ``verdi plugin list aiida.data``.
+
+For all data types, you can follow the link to the corresponding data class in the API reference to read more about the class and its methods. We also detail what is stored in the database (mostly as attributes, so the information can be easily queried e.g. with the :ref:`QueryBuilder <how-to:query>`) and what is stored as a raw file in the AiiDA file repository (providing access to the file contents, but not efficiently queryable: this is useful for e.g. big data files that don't need to be queried for).
+
+If you need to work with some specific type of data, first check the list of data types/plugins below, and if you don't find what you need, give a look to :ref:`Adding support for custom data types <topics:data_types:plugin>`.
+
+.. _topics:data_types:core:
+
+Core data types
+===============
+
+Below is a list of the core data types already provided with AiiDA, along with their entry point and where the data is stored once the node is stored in the AiiDA database.
+
+.. table::
+  :widths: 20 20 45 45
+
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | **Class**                                                 | **Entry point**   | **Stored in database**                            | **Stored in repository**          |
+  +===========================================================+===================+===================================================+===================================+
+  | :ref:`Int <topics:data_types:core:base>`                  | ``int``           | The integer value                                 | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`Float <topics:data_types:core:base>`                | ``float``         | The float value                                   | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`Str <topics:data_types:core:base>`                  | ``str``           | The string                                        | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`Bool <topics:data_types:core:base>`                 | ``bool``          | The boolean value                                 | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`List <topics:data_types:core:base:iterable>`        | ``list``          | The complete list                                 | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`Dict <topics:data_types:core:base:iterable>`        | ``dict``          | The complete dictionary                           | \\-                               |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`ArrayData <topics:data_types:core:array>`           | ``array``         | The array names and corresponding shapes          | The array data in ``.npy`` format |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`XyData <topics:data_types:core:array:xy>`           | ``array.xy``      | The array names and corresponding shapes          | The array data in ``.npy`` format |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`SinglefileData <topics:data_types:core:singlefile>` | ``singlefile``    | The filename                                      | The file                          |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`FolderData <topics:data_types:core:folder>`         | ``folder``        | \\-                                               | All files and folders             |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+  | :ref:`RemoteData <topics:data_types:core:remote>`         | ``remote``        | The computer and the absolute path to the folder  | All files and folders             |
+  +-----------------------------------------------------------+-------------------+---------------------------------------------------+-----------------------------------+
+
+.. _topics:data_types:core:base:
+
+Base types
+----------
+
+There are a number of useful classes that wrap base Python data types (:py:class:`~aiida.orm.nodes.data.int.Int`, :py:class:`~aiida.orm.nodes.data.float.Float`, :py:class:`~aiida.orm.nodes.data.str.Str`, :py:class:`~aiida.orm.nodes.data.bool.Bool`) so they can be stored in the provenance.
+These are automatically loaded with the ``verdi shell``, and also directly exposed from :py:mod:`aiida.orm`.
+They are particularly useful when you need to provide a single parameter to e.g. a :py:class:`~aiida.engine.processes.functions.workfunction`.
+
+Each of these classes can most often be used in a similar way as their corresponding base type:
+
+.. code-block:: ipython
+
+  In [1]: total = Int(2) + Int(3)
+
+If you need to access the bare value and not the whole AiiDA class, use the ``.value`` property:
+
+.. code-block:: ipython
+
+  In [2]: total.value
+  Out[2]: 5
+
+.. warning::
+
+  While this is convenient if you need to do simple manipulations like multiplying two numbers, be very careful not to pass such nodes instead of the corresponding Python values to libraries that perform heavy computations with them.
+  In fact, any operation on the value would be replaced with an operation creating new AiiDA nodes, that however can be orders of magnitude slower (see `this discussion <https://github.com/aiidateam/aiida-core/issues/3320>`_ on GitHub).
+  In this case, remember to pass the node.value to the mathematical function instead.
+
+.. _topics:data_types:core:base:iterable:
+
+AiiDA has also implemented data classes for two basic Python iterables: :py:class:`~aiida.orm.nodes.data.list.List` and :py:class:`~aiida.orm.nodes.data.dict.Dict`. They can store any list or dictionary where elements can be a base python type (strings, floats, integers, booleans, None type):
+
+.. code-block:: ipython
+
+  In [1]: l = List(list=[1, 'a', False])
+
+Note the use of the keyword argument ``list``, this is required for the constructor of the :py:class:`~aiida.orm.nodes.data.list.List` class.
+You can also store lists or dictionaries within the iterable, at any depth level.
+For example, you can create a dictionary where a value is a list of dictionaries:
+
+.. code-block:: ipython
+
+  In [2]: d = Dict(dict={'k': 0.1, 'l': [{'m': 0.2}, {'n': 0.3}]})
+
+To obtain the Python ``list`` or ``dictionary`` from a :py:class:`~aiida.orm.nodes.data.list.List` or :py:class:`~aiida.orm.nodes.data.dict.Dict` instance, you have to use the :py:meth:`~aiida.orm.nodes.data.list.List.get_list()` or :py:meth:`~aiida.orm.nodes.data.dict.Dict.get_dict()` methods:
+
+.. code-block:: ipython
+
+  In [3]: l.get_list()
+  Out[3]: [1, 'a', False]
+
+  In [4]: d.get_dict()
+  Out[4]: {'k': 0.1, 'l': [{'m': 0.2}, {'n': 0.3}]}
+
+However, you can also use the list index or dictionary key to extract specific values:
+
+.. code-block:: ipython
+
+  In [5]: l[1]
+  Out[5]: 'a'
+
+  In [6]: d['k']
+  Out[6]: 0.1
+
+You can also use many methods of the corresponding Python base type, for example:
+
+.. code-block:: ipython
+
+  In [7]: l.append({'b': True})
+
+  In [8]: l.get_list()
+  Out[8]: [1, 'a', False, {'b': True}]
+
+For all of the base data types, their value is stored in the database in the attributes column once you store the node using the :py:meth:`~aiida.orm.nodes.node.Node.store()` method.
+
+.. warning::
+
+  The :py:class:`~aiida.orm.nodes.data.list.List` and :py:class:`~aiida.orm.nodes.data.dict.Dict` only store the Python base types, not the corresponding AiiDA data type.
+  These will be converted to their corresponding Python base type when storing the :py:class:`~aiida.orm.nodes.data.list.List` or :py:class:`~aiida.orm.nodes.data.dict.Dict` node in the database.
+
+.. _topics:data_types:core:array:
+
+ArrayData
+---------
+
+The :py:class:`~aiida.orm.nodes.data.array.ArrayData` class can be used to represent `numpy <https://numpy.org/>`_ arrays in the provenance.
+Each array is assigned to a name specified by the user using the :py:meth:`~aiida.orm.nodes.data.array.ArrayData.set_array()` method:
+
+.. code-block:: ipython
+
+  In [1]: ArrayData = DataFactory('core.array'); import numpy as np
+
+  In [2]: array = ArrayData()
+
+  In [3]: array.set_array('matrix', np.array([[1, 2], [3, 4]]))
+
+Note that one :py:class:`~aiida.orm.nodes.data.array.ArrayData` instance can store multiple arrays under different names:
+
+.. code-block:: ipython
+
+  In [4]: array.set_array('vector', np.array([[1, 2, 3, 4]]))
+
+To see the list of array names stored in the :py:class:`~aiida.orm.nodes.data.array.ArrayData` instance, you can use the :py:meth:`~aiida.orm.nodes.data.array.ArrayData.get_arraynames()` method:
+
+.. code-block:: ipython
+
+  In [5]: array.get_arraynames()
+  Out[5]: ['matrix', 'vector']
+
+If you want the array corresponding to a certain name, simply supply the name to the :py:meth:`~aiida.orm.nodes.data.array.ArrayData.get_array()` method:
+
+.. code-block:: ipython
+
+  In [6]: array.get_array('matrix')
+  Out[6]:
+  array([[1, 2],
+        [3, 4]])
+
+As with all nodes, you can store the :py:class:`~aiida.orm.nodes.data.array.ArrayData` node using the :py:meth:`~aiida.orm.nodes.node.Node.store()` method. However, only the names and shapes of the arrays are stored to the database, the content of the arrays is stored to the repository in the `numpy format <https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format>`_ (``.npy``).
+
+.. _topics:data_types:core:array:xy:
+
+XyData
+------
+
+In case you are working with arrays that have a relationship with each other, i.e. ``y`` as a function of ``x``, you can use the :py:class:`~aiida.orm.nodes.data.array.XyData` class:
+
+.. code-block:: ipython
+
+  In [1]: XyData = DataFactory('core.array.xy'); import numpy as np
+
+  In [2]: xy = XyData()
+
+This class is equipped with setter and getter methods for the ``x`` and ``y`` values specifically, and takes care of some validation (e.g. check that they have the same shape).
+The user also has to specify the units for both ``x`` and ``y``:
+
+.. code-block:: ipython
+
+  In [3]: xy.set_x(np.array([10, 20, 30, 40]), 'Temperate', 'Celsius')
+
+  In [4]: xy.set_y(np.array([1, 2, 3, 4]), 'Volume Expansion', '%')
+
+Note that you can set multiple ``y`` values that correspond to the ``x`` grid.
+Same as for the :py:class:`~aiida.orm.nodes.data.array.ArrayData`, the names and shapes of the arrays are stored to the database, the content of the arrays is stored to the repository in the `numpy format <https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format>`_ (``.npy``).
+
+.. _topics:data_types:core:singlefile:
+
+SinglefileData
+--------------
+
+In order to include a single file in the provenance, you can use the :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` class.
+This class can be initialized via the **absolute** path to the file you want to store:
+
+.. code-block:: ipython
+
+  In [1]: SinglefileData = DataFactory('core.singlefile')
+
+  In [2]: single_file = SinglefileData('/absolute/path/to/file')
+
+The contents of the file in string format can be obtained using the :py:meth:`~aiida.orm.nodes.data.singlefile.SinglefileData.get_content()` method:
+
+.. code-block:: ipython
+
+  In [3]: single_file.get_content()
+  Out[3]: 'The file content'
+
+When storing the node, the filename is stored in the database and the file itself is copied to the repository.
+
+.. _topics:data_types:core:folder:
+
+FolderData
+----------
+
+The :py:class:`~aiida.orm.nodes.data.folder.FolderData` class stores sets of files and folders (including its subfolders).
+To store a complete directory, simply use the ``tree`` keyword:
+
+.. code-block:: ipython
+
+  In [1]: FolderData = DataFactory('core.folder')
+
+  In [2]: folder = FolderData(tree='/absolute/path/to/directory')
+
+Alternatively, you can construct the node first and then use the various repository methods to add objects from directory and file paths:
+
+.. code-block:: ipython
+
+  In [1]: folder = FolderData()
+
+  In [2]: folder.put_object_from_tree('/absolute/path/to/directory')
+
+  In [3]: folder.put_object_from_file('/absolute/path/to/file1.txt', path='file1.txt')
+
+or from `file-like objects <https://docs.python.org/3/glossary.html#term-file-like-object>`_:
+
+.. code-block:: ipython
+
+  In [4]: folder.put_object_from_filelike(filelike_object, path='file2.txt')
+
+Inversely, the content of the files stored in the :py:class:`~aiida.orm.nodes.data.folder.FolderData` node can be accessed using the :py:meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.get_object_content()` method:
+
+.. code-block:: ipython
+
+  In [5]: folder.get_object_content('file1.txt')
+  Out[5]: 'File 1 content\n'
+
+To see the files that are stored in the :py:class:`~aiida.orm.nodes.data.folder.FolderData`, you can use the :py:meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.list_object_names()` method:
+
+.. code-block:: ipython
+
+  In [6]: folder.list_object_names()
+  Out[6]: ['subdir', 'file1.txt', 'file2.txt']
+
+In this example, ``subdir`` was a sub directory of ``/absolute/path/to/directory``, whose contents where added above.
+to list the contents of the ``subdir`` directory, you can pass its path to the :py:meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.list_object_names()` method:
+
+.. code-block:: ipython
+
+  In [7]: folder.list_object_names('subdir')
+  Out[7]: ['file3.txt', 'module.py']
+
+The content can once again be shown using the :py:meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.get_object_content()` method by passing the correct path:
+
+.. code-block:: ipython
+
+ In [8]: folder.get_object_content('subdir/file3.txt')
+ Out[8]: 'File 3 content\n'
+
+Since the :py:class:`~aiida.orm.nodes.data.folder.FolderData` node is simply a collection of files, it simply stores these files in the repository.
+
+.. _topics:data_types:core:remote:
+
+RemoteData
+----------
+
+The :py:class:`~aiida.orm.nodes.data.remote.RemoteData` node represents a "symbolic link" to a specific folder on a remote computer.
+Its main use is to allow users to persist the provenance when e.g. a calculation produces data in a raw/scratch folder, and the whole folder needs to be provided to restart/continue.
+To create a :py:class:`~aiida.orm.nodes.data.remote.RemoteData` instance, simply pass the remote path to the folder and the computer on which it is stored:
+
+.. code-block:: ipython
+
+  In [1]: RemoteData = DataFactory('core.remote')
+
+  In [2]: computer = load_computer(label='computer_label')
+
+  In [3]: remote = RemoteData(remote_path='/absolute/path/to/remote/directory' computer=local)
+
+You can see the contents of the remote folder by using the :py:meth:`~aiida.orm.nodes.data.remote.RemoteData.listdir()` method:
+
+.. code-block:: ipython
+
+  In [4]: remote.listdir()
+  Out[4]: ['file2.txt', 'file1.txt', 'subdir']
+
+To see the contents of a subdirectory, pass the relative path to the :py:meth:`~aiida.orm.nodes.data.remote.RemoteData.listdir()` method:
+
+.. code-block:: ipython
+
+  In [5]: remote.listdir('subdir')
+  Out[5]: ['file3.txt', 'module.py']
+
+.. warning::
+
+  Using the :py:meth:`~aiida.orm.nodes.data.remote.RemoteData.listdir()` method, or any method that retrieves information from the remote computer, opens a connection to the remote computer using its transport type.
+  Their use is strongly discouraged when writing scripts and/or workflows.
+
+.. todo::
+
+  .. _topics:data_types:core:code:
+
+  title: Code
+
+.. _topics:data_types:materials:
+
+Materials science data types
+============================
+
+Since AiiDA was first developed within the computational materials science community, `aiida-core` still contains several data types specific to this field.
+This sections lists these data types and provides some important examples of their usage.
+
+.. table::
+  :widths: 20 20 55 35
+
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+  | **Class**                                                         | **Entry point**      | **Stored in database**                                                          | **Stored in repository**          |
+  +===================================================================+======================+=================================================================================+===================================+
+  | :ref:`StructureData <topics:data_types:materials:structure>`      | ``structure``        | The cell, periodic boundary conditions, atomic positions, species and kinds.    |  \\-                              |
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+  | :ref:`TrajectoryData <topics:data_types:materials:trajectory>`    | ``array.trajectory`` | The structure species and the shape of the cell, step and position arrays.      | The array data in numpy format.   |
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+  | :ref:`UpfData <topics:data_types:materials:upf>`                  | ``upf``              | The MD5 of the UPF and the element of the pseudopotential.                      | The pseudopotential file.         |
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+  | :ref:`KpointsData <topics:data_types:materials:kpoints>`          | ``array.kpoints``    | (as mesh) The mesh and offset.                                                  | \\-                               |
+  |                                                                   |                      |                                                                                 |                                   |
+  |                                                                   |                      | (as list) The "kpoints" array shape, labels and their indices.                  | The array data in numpy format.   |
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+  | :ref:`BandsData <topics:data_types:materials:bands>`              | ``array.bands``      | The units, labels and their numbers, and shape of the bands and kpoints arrays. | The array data in numpy format.   |
+  +-------------------------------------------------------------------+----------------------+---------------------------------------------------------------------------------+-----------------------------------+
+
+.. _topics:data_types:materials:structure:
+
+StructureData
+-------------
+
+The :py:class:`~aiida.orm.nodes.data.structure.StructureData` data type represents a structure, i.e. a collection of sites defined in a cell.
+The boundary conditions are periodic by default, but can be set to non-periodic in any direction.
+
+As an example, say you want to create a :py:class:`~aiida.orm.nodes.data.structure.StructureData` instance for bcc Li.
+Let's begin with creating the instance by defining its unit cell:
+
+.. code-block:: ipython
+
+  In [1]: StructureData = DataFactory('core.structure')
+
+  In [2]: unit_cell = [[3.0, 0.0, 0.0], [0.0, 3.0, 0.0], [0.0, 0.0, 3.0]]
+
+  In [3]: structure = StructureData(cell=unit_cell)
+
+.. note::
+
+    Default units for crystal structure cell and atomic coordinates in AiiDA are Å (Ångström).
+
+Next, you can add the Li atoms to the structure using the :py:class:`~aiida.orm.nodes.data.structure.StructureData.append_atom()` method:
+
+.. code-block:: ipython
+
+  In [4]: structure.append_atom(position=(0.0, 0.0, 0.0), symbols="Li")
+
+  In [5]: structure.append_atom(position=(1.5, 1.5, 1.5), symbols="Li")
+
+You can check if the cell and sites have been set up properly by checking the ``cell`` and ``sites`` properties:
+
+.. code-block:: ipython
+
+  In [6]: structure.cell
+  Out[6]: [[3.5, 0.0, 0.0], [0.0, 3.5, 0.0], [0.0, 0.0, 3.5]]
+
+  In [7]: structure.sites
+  Out[7]: [<Site: kind name 'Li' @ 0.0,0.0,0.0>, <Site: kind name 'Li' @ 1.5,1.5,1.5>]
+
+From the :py:class:`~aiida.orm.nodes.data.structure.StructureData` node you can also obtain the formats of well-known materials science Python libraries such as `the Atomic Simulation Environment <https://wiki.fysik.dtu.dk/ase/index.html>`_ (ASE) and `pymatgen <https://pymatgen.org/index.html>`_:
+
+.. code-block:: ipython
+
+  In [8]: structure.get_ase()
+  Out[8]: Atoms(symbols='Li2', pbc=True, cell=[3.5, 3.5, 3.5], masses=...)
+
+  In [9]: structure.get_pymatgen()
+  Out[9]:
+  Structure Summary
+  Lattice
+      abc : 3.5 3.5 3.5
+  angles : 90.0 90.0 90.0
+  volume : 42.875
+        A : 3.5 0.0 0.0
+        B : 0.0 3.5 0.0
+        C : 0.0 0.0 3.5
+  PeriodicSite: Li (0.0000, 0.0000, 0.0000) [0.0000, 0.0000, 0.0000]
+  PeriodicSite: Li (1.5000, 1.5000, 1.5000) [0.4286, 0.4286, 0.4286]
+
+Exporting
+^^^^^^^^^
+
+The following export formats are available for :py:class:`~aiida.orm.nodes.data.structure.StructureData`:
+
+* ``xsf`` (format supported by e.g. XCrySDen and other visualization software; supports periodic cells)
+* ``xyz`` (classical xyz format, does not typically support periodic cells (even if the cell is indicated in the comment line)
+* ``cif`` (export to CIF format, without symmetry reduction, i.e. always storing the structure as P1 symmetry)
+
+The node can be exported using the verdi CLI, for example:
+
+.. code-block:: console
+
+    $ verdi data structure export --format xsf <IDENTIFIER> > Li.xsf
+
+Where ``<IDENTIFIER>`` is one of the possible identifiers of the node, e.g. its PK or UUID.
+This outputs the structure in ``xsf`` format and writes it to a file.
+
+.. _topics:data_types:materials:trajectory:
+
+TrajectoryData
+--------------
+
+The :py:class:`~aiida.orm.nodes.data.array.trajectory.TrajectoryData` data type represents a sequences of StructureData objects, where the number of atomic kinds and sites does not change over time.
+Beside the coordinates, it can also optionally store velocities.
+If you have a list of :py:class:`~aiida.orm.nodes.data.structure.StructureData` instances called ``structure_list`` that represent the trajectory of your system, you can create a :py:class:`~aiida.orm.nodes.data.array.trajectory.TrajectoryData` instance from this list:
+
+.. code-block:: ipython
+
+  In [1]: TrajectoryData = DataFactory('core.array.trajectory')
+
+  In [2]: trajectory = TrajectoryData(structure_list)
+
+Note that contrary with the :py:class:`~aiida.orm.nodes.data.structure.StructureData` data type, the cell and atomic positions are stored a ``numpy`` array in the repository and not in the database.
+
+Exporting
+^^^^^^^^^
+
+You can export the py:class:`~aiida.orm.nodes.data.array.trajectory.TrajectoryData` node with ``verdi data trajectory export``, which accepts a number of formats including ``xsf`` and  ``cif``, and additional parameters like ``--step NUM`` (to choose to export only a given trajectory step).
+
+The following export formats are available:
+
+* ``xsf`` (format supported by e.g. XCrySDen and other visualization software;
+  supports periodic cells)
+* ``cif`` (export to CIF format, without symmetry reduction, i.e. always storing the
+  structures as P1 symmetry)
+
+.. todo::
+
+  Think of more example use cases, see `#4529`_.
+
+.. _#4529: https://github.com/aiidateam/aiida-core/issues/4529
+
+.. _topics:data_types:materials:upf:
+
+UpfData
+-------
+
+The :py:class:`~aiida.orm.nodes.data.upf.UpfData` data type represents a pseudopotential in the .UPF format (e.g. used by `Quantum ESPRESSO`_ - see also the `AiiDA Quantum ESPRESSO plugin`_).
+Usually these will be installed as part of a pseudopotential family, for example via the `aiida-pseudo <https://github.com/aiidateam/aiida-pseudo>`_ package.
+
+To see the pseudopotential families that have been installed in your AiiDA profile, you can use the verdi CLI:
+
+.. code-block:: console
+
+  $ verdi data upf listfamilies
+  Success: * SSSP_v1.1_precision_PBE [85 pseudos]
+  Success: * SSSP_v1.1_efficiency_PBE [85 pseudos]
+
+.. _Quantum ESPRESSO: http://www.quantum-espresso.org
+.. _AiiDA Quantum ESPRESSO plugin: http://aiida-quantumespresso.readthedocs.io/en/latest/
+
+.. _topics:data_types:materials:kpoints:
+
+KpointsData
+-----------
+
+The :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` data type represents either a grid of k-points (in reciprocal space, for crystal structures), or explicit list of k-points (optionally with a weight associated to each one).
+
+To create a :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` instance that describes a regular (2 x 2 x 2) mesh of k-points, execute the following set of commands in the ``verdi shell``:
+
+.. code-block:: ipython
+
+  In [1]: KpointsData = DataFactory('core.array.kpoints')
+     ...: kpoints_mesh = KpointsData()
+     ...: kpoints_mesh.set_kpoints_mesh([2, 2, 2])
+
+This will create a (2 x 2 x 2) mesh centered at the Gamma point (i.e. without offset).
+
+Alternatively, you can also define a :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData` node from a list of k-points using the :py:meth:`~aiida.orm.nodes.data.array.kpoints.KpointsData.set_kpoints()` method:
+
+.. code-block:: ipython
+
+  In [2]: kpoints_list = KpointsData()
+     ...: kpoints_list.set_kpoints([[0, 0, 0], [0.5, 0.5, 0.5]])
+
+In this case, you can also associate labels to (some of the) points, which is very useful for generating plots of the band structure (and storing them in a :py:class:`~aiida.orm.nodes.data.array.bands.BandsData` instance):
+
+.. code-block:: ipython
+
+  In [3]: kpoints_list.labels = [[0, "G"]]
+
+  In [4]: kpoints_list.labels
+  Out[4]: [(0, 'G')]
+
+.. _topics:data_types:materials:kpoints:automatic:
+
+Automatic computation of k-point paths
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+AiiDA provides a number of tools and wrappers to automatically compute k-point paths given a cell or a crystal structure.
+
+The main interface is provided by the two methods :py:func:`aiida.tools.data.array.kpoints.get_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.get_explicit_kpoints_path`.
+
+These methods are also conveniently exported directly as, e.g., ``aiida.tools.get_kpoints_path``.
+
+The difference between the two methods is the following:
+
+- :py:func:`~aiida.tools.data.array.kpoints.get_kpoints_path` returns a dictionary of k-point coordinates (e.g. ``{'GAMMA': [0. ,0. ,0. ], 'X': [0.5, 0., 0.], 'L': [0.5, 0.5, 0.5]}``, and then a list of tuples of endpoints of each segment, e.g. ``[('GAMMA', 'X'), ('X', 'L'), ('L', 'GAMMA')]`` for the :math:`\Gamma-X-L-\Gamma` path.
+- :py:func:`~aiida.tools.data.array.kpoints.get_explicit_kpoints_path`, instead, returns a list of kpoints that follow that path, with some predefined (but user-customizable) distance between points, e.g. something like ``[[0., 0., 0.], [0.05, 0., 0.], [0.1, 0., 0.], ...]``.
+
+Depending on how the underlying code works, one method might be preferred on the other.
+
+The docstrings of the methods describe the expected parameters.
+The general interface requires always a ``StructureData`` as the first parameter ``structure``, as well as a string for the method to use (by default this is `seekpath <https://github.com/giovannipizzi/seekpath/>`_, but also the ``legacy`` method implemented in earlier versions of AiiDA is available; see description below).
+
+Additional parameters are passed as ``kwargs`` to the underlying implementation, that often accepts a different number of parameters.
+
+.. _topics:data_types:materials:kpoints:seekpath:
+
+Seekpath implementation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+When specifying ``method='seekpath'``, the `seekpath <https://github.com/giovannipizzi/seekpath/>`_ library is used to generate the path.
+Note that this requires  ``seekpath`` to be installed (this is not available by default, in order to reduce the dependencies of AiiDA core, but can be easily installed using ``pip install seekpath``).
+
+For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.seekpath.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.seekpath.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_.
+
+If you use this implementation, please cite the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_::
+
+  Y. Hinuma, G. Pizzi, Y. Kumagai, F. Oba, I. Tanaka,
+  Band structure diagram paths based on crystallography,
+  Comp. Mat. Sci. 128, 140 (2017)
+  DOI: 10.1016/j.commatsci.2016.10.015
+
+.. dropdown:: Legacy implementation
+
+  This refers to the implementation that has been available since the early versions of AiiDA.
+
+  .. note:: In the 3D case (all three directions have periodic boundary conditions), this implementation expects that the structure is already standardized according to the Setyawan paper (see journal reference below).
+    If this is not the case, the kpoints and band structure returned will be incorrect.
+    The only case that is dealt correctly by the library is the case when axes are swapped, where the library correctly takes this swapping/rotation into account to assign kpoint labels and coordinates.
+
+    We therefore suggest that you use the seekpath implementation, that is able to automatically correctly identify the standardized crystal structure (primitive and conventional) as described in the `Hinuma paper <https://doi.org/10.1016/j.commatsci.2016.10.015>`_.
+
+  For a full description of the accepted parameters, we refer to the docstring of the underlying methods :py:func:`aiida.tools.data.array.kpoints.legacy.get_explicit_kpoints_path` and :py:func:`aiida.tools.data.array.kpoints.legacy.get_kpoints_path`, and for more general information to the `seekpath documentation <https://seekpath.readthedocs.io/>`_.
+
+  If you use this implementation, please cite the correct reference from the following ones:
+
+  - The 3D implementation is based on the `Setyawan paper <https://doi.org/10.1016/j.commatsci.2010.05.010>`_::
+
+      W. Setyawan, S. Curtarolo,
+      High-throughput electronic band structure calculations: Challenges and tools,
+      Comp. Mat. Sci. 49, 299 (2010)
+      DOI: 10.1016/j.commatsci.2010.05.010
+
+  - The 2D implementation is based on the `Ramirez paper <https://doi.org/10.1002/qua.560300306>`_::
+
+      R. Ramirez and M. C. Bohm,
+      Simple geometric generation of special points in brillouin-zone integrations. Two-dimensional bravais lattices
+      Int. J. Quant. Chem., XXX, 391-411 (1986)
+      DOI: 10.1002/qua.560300306
+
+.. _topics:data_types:materials:bands:
+
+BandsData
+---------
+
+The :py:class:`~aiida.orm.nodes.data.array.bands.BandsData` data type is dedicated to store band structures of different types (electronic bands, phonons, or any other band-structure-like quantity that is a function of the k-points in the Brillouin zone).
+In this section we describe the usage of the ``BandsData`` to store the  electronic band structure of silicon and some logic behind its methods.
+The dropdown panels below explain some expanded use cases on how to create a :py:class:`~aiida.orm.nodes.data.array.bands.BandsData` node and plot the band structure.
+
+.. dropdown:: Creating a ``BandsData`` instance manually
+
+  To start working with the :py:class:`~aiida.orm.nodes.data.array.bands.BandsData` data type we should import it using the ``DataFactory`` and create an object of type ``BandsData``:
+
+  .. code-block:: python
+
+    from aiida.plugins import DataFactory
+    BandsData = DataFactory('core.array.bands')
+    bands_data = BandsData()
+
+  To import the bands we need to make sure to have two arrays: one containing kpoints and another containing bands.
+  The shape of the kpoints object should be ``nkpoints * 3``, while the shape of the bands should be ``nkpoints * nstates``.
+  Let's assume the number of kpoints is 12, and the number of states is 5.
+  So the kpoints and the bands array will look as follows:
+
+  .. code-block:: python
+
+    import numpy as np
+    kpoints = np.array(
+          [[0.    , 0.    , 0.    ], # array shape is 12 * 3
+          [0.1   , 0.    , 0.1   ],
+          [0.2   , 0.    , 0.2   ],
+          [0.3   , 0.    , 0.3   ],
+          [0.4   , 0.    , 0.4   ],
+          [0.5   , 0.    , 0.5   ],
+          [0.5   , 0.    , 0.5   ],
+          [0.525 , 0.05  , 0.525 ],
+          [0.55  , 0.1   , 0.55  ],
+          [0.575 , 0.15  , 0.575 ],
+          [0.6   , 0.2   , 0.6   ],
+          [0.625 , 0.25  , 0.625 ]])
+
+    bands = np.array(
+      [[-5.64024889,  6.66929678,  6.66929678,  6.66929678,  8.91047649], # array shape is 12 * 5, where 12 is the size of the kpoints mesh
+      [-5.46976726,  5.76113772,  5.97844699,  5.97844699,  8.48186734],  # and 5 is the numbe of states
+      [-4.93870761,  4.06179965,  4.97235487,  4.97235488,  7.68276008],
+      [-4.05318686,  2.21579935,  4.18048674,  4.18048675,  7.04145185],
+      [-2.83974972,  0.37738276,  3.69024464,  3.69024465,  6.75053465],
+      [-1.34041116, -1.34041115,  3.52500177,  3.52500178,  6.92381041],
+      [-1.34041116, -1.34041115,  3.52500177,  3.52500178,  6.92381041],
+      [-1.34599146, -1.31663872,  3.34867603,  3.54390139,  6.93928289],
+      [-1.36769345, -1.24523403,  2.94149041,  3.6004033 ,  6.98809593],
+      [-1.42050683, -1.12604118,  2.48497007,  3.69389815,  7.07537154],
+      [-1.52788845, -0.95900776,  2.09104321,  3.82330632,  7.20537566],
+      [-1.71354964, -0.74425095,  1.82242466,  3.98697455,  7.37979746]])
+
+  To insert kpoints and bands in the ``bands_data`` object we should employ ``set_kpoints()`` and ``set_bands()`` methods:
+
+  .. code-block:: python
+
+    bands_data.set_kpoints(kpoints)
+    bands_data.set_bands(bands, units='eV')
+
+.. dropdown:: Plotting the band structure
+
+  Next we want to visualize the band structure.
+  Before doing so, one thing that we may want to add is the array of kpoint labels:
+
+  .. code-block:: python
+
+    labels = [(0, 'GAMMA'),
+              (5, 'X'),
+              (6, 'X'),
+              (11, 'U')]
+
+    bands_data.labels = labels
+    bands_data.show_mpl() # to visualize the bands
+
+  The resulting band structure will look as follows
+
+  .. figure:: include/bands.png
+
+  .. warning::
+
+    As with any AiiDA node, once the ``bands_data`` object is stored (``bands_data.store()``) it won't accept any modifications.
+
+  You may notice that depending on how you assign the kpoints labels the output of the ``show_mpl()`` method looks different.
+  Please compare:
+
+  .. code-block:: python
+
+      bands_data.labels = [(0, 'GAMMA'),
+                (5, 'X'),
+                (6, 'Y'),
+                (11, 'U')]
+      bands_data.show_mpl()
+
+      bands_data.labels = [(0, 'GAMMA'),
+                (5, 'X'),
+                (7, 'Y'),
+                (11, 'U')]
+      bands_data.show_mpl()
+
+  In the first case two neighboring kpoints with ``X`` and ``Y`` labels will look like ``X|Y``, while in the second case they will be separated by a certain distance.
+  The logic behind such a difference is the following.
+  In the first case the plotting method discovers the two neighboring kpoints and assumes them to be a discontinuity point in the band structure (e.g. Gamma-X|Y-U).
+  In the second case the kpoints labelled ``X`` and ``Y`` are not neighbors anymore, so they are plotted with a certain distance between them.
+  The intervals between the kpoints on the X axis are proportional to the cartesian distance between them.
+
+.. dropdown:: Dealing with spins
+
+  The ``BandsData`` object can also deal with the results of spin-polarized calculations.
+  Two provide different bands for two different spins you should just merge them in one array and import them again using the ``set_bands()`` method:
+
+  .. code-block:: python
+
+      bands_spins = [bands, bands-0.3] # to distinguish the bands of different spins we subtract 0.3 from the second band structure
+      bands_data.set_bands(bands_spins, units='eV')
+      bands_data.show_mpl()
+
+  Now the shape of the bands array becomes ``nspins * nkpoints * nstates``
+
+.. dropdown:: Exporting
+
+  The :py:class:`~aiida.orm.nodes.data.array.bands.BandsData` data type can be exported with ``verdi data bands export``, which accepts a number of formats including (see also below) and additional parameters like ``--prettify-format FORMATNAME``, see valid formats below, or ``--y-min-lim``, ``--y-max-lim`` to specify the ``y``-axis limits.
+
+  The following export formats are available:
+
+  * ``agr``: export a Xmgrace .agr file with the band plot
+  * ``agr_batch``: export a Xmgrace batch file together with an independent .dat file
+  * ``dat_blocks``: export a .dat file, where each line has a data point (xy) and bands are separated in blocks with empty lines.
+  * ``dat_multicolumn``: export a .dat file, where each line has all the values for a given x coordinate: ``x y1 y2 y3 y4 ...`` (``x`` being a linear coordinate along the band path and ``yN`` being the band energies).
+  * ``gnuplot``: export a gnuplot file, together with a .dat file.
+  * ``json``: export a json file with the bands divided into segments.
+  * ``mpl_singlefile``: export a python file that when executed shows a plot using the ``matplotlib`` module.
+    All data is included in the same python file as a multiline string containing the data in json format.
+  * ``mpl_withjson``: As above, but the json data is stored separately in a different file.
+  * ``mpl_pdf``: As above, but after creating the .py file it runs it to export the band structure in a PDF file (vectorial).
+    **NOTE**: it requires that you have the python ``matplotlib`` module installed.
+    If ``use_latex`` is true, it requires that you have LaTeX installed on your system to typeset the labels, as well as the ``dvipng`` binary.
+  * ``mpl_png``: As above, but after creating the .py file it runs it to export the band structure in a PDF file (vectorial).
+    **NOTE**: this format has the same dependencies as the ``mpl_pdf`` format above.
+
+  AiiDA provides a number of functions to "prettify" the labels of band structures (if labels are present in the data node), i.e., replace ``GAMMA`` with :math:`\Gamma` or ``K_1`` with :math:`K_{1}` for instance.
+  This makes sense for some output formats (e.g. Xmgrace, Gnuplot, matplotlib).
+
+  The prettifier functions are defined as methods of the :py:class:`~aiida.common.utils.Prettifier` class and can be obtained calling :py:meth:`Prettifier.get_prettifiers()<aiida.common.utils.Prettifier.get_prettifiers>`.
+
+  The prettifiers should be chosen depending on two aspects:
+
+  1. How the raw labels are stored in the database.
+     Two types exist currently: ``seekpath``, as used in the ``seekpath`` module, where Greek letters are written explicitly (e.g. ``GAMMA``) and underscores are used to indicate a subscript (``K_1``); and the "old" ``simple`` format, where :math:`\Gamma` is indicated with ``G`` and there is no underscore symbol).
+
+  2. Depending on the output format: xmgrace has a specific syntax for Greek letters and subscripts, matplotlib uses LaTeX syntax, etc.
+
+  Most export formats already decide which prettifier is best to use, but if you need
+  to change it, you can do it passing the ``prettify_format`` parameter to the
+  :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method.
+  Valid prettifiers include:
+
+  * ``agr_seekpath``: format for Xmgrace, using ``seekpath`` raw label syntax.
+  * ``agr_simple``: format for Xmgrace, using ``simple`` raw label syntax.
+  * ``latex_simple``: format for LaTeX (including dollar signs), using ``seekpath`` raw label syntax.
+  * ``latex_seekpath``: format for LaTeX (including dollar signs), using ``simple`` raw label syntax.
+  * ``gnuplot_simple``: format for GNUPlot (Unicode for Greek letters, LaTeX syntax `without` dollar signs for underscores), using ``seekpath`` raw label syntax.
+  * ``gnuplot_seekpath``: format for GNUPlot (Unicode for Greek letters, LaTeX syntax `without` dollar signs for underscores), using ``simple`` raw label syntax.
+  * ``pass``: no-op prettifier: leaves all strings unchanged to their raw value.
+
+.. todo::
+
+  .. _topics:data_types:materials:cif:
+
+  title: CifData
+
+  .. _topics:data_types:materials:orbital:
+
+  title: OrbitalData
+
+  .. _topics:data_types:materials:projection:
+
+  title: ProjectionData
+
+.. _topics:data_types:export:
+
+Exporting data nodes
+====================
+
+Next to the CLI commands described above, each data node has a :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method that allows to export the given data node to file in a variety of available formats, e.g. to pass it to a visualization software.
+
+The :py:meth:`~aiida.orm.nodes.data.data.Data.export()` method asks for a filename, and it will write to file the result.
+It is possible that more than one file is written (for example, if you produce a gnuplot script, the data will typically be in a different .dat file).
+The return value of the function is a list of files that have been created.
+
+The list of export formats depends on the specific Data plugin.
+The export format is typically inferred from the file extension, but if this is not possible (or you want to specify a given format), you can pass an additional ``fileformat`` parameter to :py:meth:`~aiida.orm.nodes.data.data.Data.export()`.
+The list of all valid export formats can be obtained calling ``Data.get_export_formats()`` method, that returns a list of strings with all valid formats.
+
+If you don't want to export directly to a file, but want to get simply the content of the file as a string, then you can call the :py:meth:`~aiida.orm.nodes.data.data.Data._exportcontent()` method, passing also a ``fileformat`` parameter.
+The return value is a tuple of length 2: the first element is a string with the content of the "main" file, while the second is a dictionary (possibly empty) with a list of additional files that should be created/needed: the keys are filenames, and the values are the files content.
+
+.. _topics:data_types:plugin:
+
+Adding support for custom data types
+====================================
+
+The nodes in the :ref:`provenance graph<topics:provenance>` that are the inputs and outputs of processes are referred to as `data` and are represented by :class:`~aiida.orm.nodes.data.data.Data` nodes.
+Since data can come in all shapes and forms, the :class:`~aiida.orm.nodes.data.data.Data` class can be sub classed.
+AiiDA ships with some basic data types such as the :class:`~aiida.orm.nodes.data.int.Int` which represents a simple integer and the :class:`~aiida.orm.nodes.data.dict.Dict`, representing a dictionary of key-value pairs.
+There are also more complex data types such as the :class:`~aiida.orm.nodes.data.array.array.ArrayData` which can store multidimensional arrays of numbers.
+These basic data types serve most needs for the majority of applications, but more specific solutions may be useful or even necessary.
+In the next sections, we will explain :ref:`how a new data type can be created<topics:data_types:plugin:create>` and what :ref:`guidelines<topics:data_types:plugin:design-guidelines>` should ideally be observed during the design process.
+
+.. _topics:data_types:plugin:create:
+
+Creating a data plugin
+----------------------
+
+Creating a new data type is as simple as creating a new sub class of the base :class:`~aiida.orm.nodes.data.data.Data` class.
+
+.. code-block:: python
+
+    from aiida.orm import Data
+
+    class NewData(Data):
+        """A new data type that wraps a single value."""
+
+At this point, our new data type does nothing special.
+Typically, one creates a new data type to represent a specific type of data.
+For the purposes of this example, let's assume that the goal of our ``NewData`` type is to store a single numerical value.
+To allow one to construct a new ``NewData`` data node with the desired ``value``, for example:
+
+.. code-block:: python
+
+    node = NewData(value=5)
+
+we need to allow passing that value to the constructor of the node class.
+Therefore, we have to override the constructor :meth:`~aiida.orm.nodes.node.Node.__init__`:
+
+.. code-block:: python
+
+    from aiida.orm import Data
+
+    class NewData(Data):
+        """A new data type that wraps a single value."""
+
+        def __init__(self, **kwargs):
+            value = kwargs.pop('value')
+            super().__init__(**kwargs)
+            self.set_attribute('value', value)
+
+.. warning::
+
+    For the class to function properly, the signature of the constructor **cannot be changed** and the constructor of the parent class **has to be called**.
+
+Before calling the constructor of the base class, we have to remove the ``value`` keyword from the keyword arguments ``kwargs``, because the base class will not expect it and will raise an exception if left in the keyword arguments.
+The final step is to actually *store* the value that is passed by the caller of the constructor.
+A new node has two locations to permanently store any of its properties:
+
+    * the database
+    * the file repository
+
+The section on :ref:`design guidelines<topics:data_types:plugin:design-guidelines>` will go into more detail what the advantages and disadvantages of each option are and when to use which.
+For now, since we are storing only a single value, the easiest and best option is to use the database.
+Each node has *attributes* that can store any key-value pair, as long as the value is JSON serializable.
+By adding the value to the node's attributes, they will be queryable in the database once an instance of the ``NewData`` node is stored.
+
+.. code-block:: python
+
+    node = NewData(value=5)   # Creating new node instance in memory
+    node.set_attribute('value', 6)  # While in memory, node attributes can be changed
+    node.store()  # Storing node instance in the database
+
+After storing the node instance in the database, its attributes are frozen, and ``node.set_attribute('value', 7)`` will fail.
+By storing the ``value`` in the attributes of the node instance, we ensure that that ``value`` can be retrieved even when the node is reloaded at a later point in time.
+
+Besides making sure that the content of a data node is stored in the database or file repository, the data type class can also provide useful methods for users to retrieve that data.
+For example, with the current state of the ``NewData`` class, in order to retrieve the ``value`` of a stored ``NewData`` node, one needs to do:
+
+.. code-block:: python
+
+    node = load_node(<IDENTIFIER>)
+    node.get_attribute('value')
+
+In other words, the user of the ``NewData`` class needs to know that the ``value`` is stored as an attribute with the name 'value'.
+This is not easy to remember and therefore not very user-friendly.
+Since the ``NewData`` type is a class, we can give it useful methods.
+Let's introduce one that will return the value that was stored for it:
+
+.. code-block:: python
+
+    from aiida.orm import Data
+
+    class NewData(Data):
+        """A new data type that wraps a single value."""
+
+        ...
+
+        @property
+        def value(self):
+            """Return the value stored for this instance."""
+            return self.get_attribute('value')
+
+The addition of the instance property ``value`` makes retrieving the value of a ``NewData`` node a lot easier:
+
+.. code-block:: python
+
+    node = load_node(<IDENTIFIER)
+    value = node.value
+
+As said before, in addition to their attributes, data types can also store their properties in the file repository.
+Here is an example for a custom data type that needs to wrap a single text file:
+
+.. code-block:: python
+
+    import os
+    from aiida.orm import Data
+
+
+    class TextFileData(Data):
+        """Data class that can be used to wrap a single text file by storing it in its file repository."""
+
+        def __init__(self, filepath, **kwargs):
+            """Construct a new instance and set the contents to that of the file.
+
+            :param file: an absolute filepath of the file to wrap
+            """
+            super().__init__(**kwargs)
+
+            filename = os.path.basename(filepath)  # Get the filename from the absolute path
+            self.put_object_from_file(filepath, filename)  # Store the file in the repository under the given filename
+            self.set_attribute('filename', filename)  # Store in the attributes what the filename is
+
+        def get_content(self):
+            """Return the content of the single file stored for this data node.
+
+            :return: the content of the file as a string
+            """
+            filename = self.get_attribute('filename')
+            return self.get_object_content(filename)
+
+To create a new instance of this data type and get its content:
+
+.. code-block:: python
+
+    node = TextFileData(filepath='/some/absolute/path/to/file.txt')
+    node.get_content()  # This will return the content of the file
+
+This example is a simplified version of the :class:`~aiida.orm.nodes.data.singlefile.SinglefileData` data class that ships with ``aiida-core``.
+If this happens to be your use case (or very close to it), it is of course better to use that class, or you can sub class it and adapt it where needed.
+
+The just presented examples for new data types are of course trivial, but the concept is always the same and can easily be extended to more complex custom data types.
+The following section will provide useful guidelines on how to optimally design new data types.
+
+.. _topics:data_types:plugin:design-guidelines:
+
+Database or repository?
+-----------------------
+
+When deciding where to store a property of a data type, one has the option to choose between the database and the file repository.
+All node properties that are stored in the database (such as the attributes), are directly searchable as part of a database query, whereas data stored in the file repository cannot be queried for.
+What this means is that, for example, it is possible to search for all nodes where a particular database-stored integer attribute falls into a certain value range, but the same value stored in a file within the file repository would not be directly searchable in this way.
+However, storing large amounts of data within the database comes at the cost of slowing down database queries.
+Therefore, big data (think large files), whose content does not necessarily need to be queried for, is better stored in the file repository.
+A data type may safely use both the database and file repository in parallel for individual properties.
+Properties stored in the database are stored as *attributes* of the node.
+The node class has various methods to set these attributes, such as :py:meth:`~aiida.orm.entities.EntityAttributesMixin.set_attribute` and :py:meth:`~aiida.orm.entities.EntityAttributesMixin.set_attribute_many`.
+.. _topics:transport:
+
+*****************
+Transport plugins
+*****************
+
+The term `transport` in AiiDA refers to a class that the engine uses to perform operations on local or remote machines where its :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` are submitted.
+The base class :py:class:`~aiida.transports.transport.Transport` defines an interface for these operations, such as copying files and executing commands.
+A `transport plugin` is a class that implements this base class for a specific connection method.
+The ``aiida-core`` package ships with two transport plugins: the :py:class:`~aiida.transports.plugins.local.LocalTransport` and :py:class:`~aiida.transports.plugins.ssh.SshTransport` classes.
+The ``local`` transport can be used to connect with the `localhost` and makes use only of some standard python modules like ``os`` and ``shutil``.
+The ``ssh`` transport, which can be used for machines that can be connected to over ssh, is simply a wrapper around the library `paramiko <https://www.paramiko.org/>`_ that is installed as a required dependency of ``aiida-core``.
+
+
+Developing a plugin
+-------------------
+
+The transport class is actually almost never used directly by the user.
+It is mostly utilized by the engine that uses the transport plugin to connect to the machine where the calculation job, that it is managing, is running.
+The engine has to be able to use always the same methods regardless of which kind of transport is required to connect to the computer in question.
+
+The generic transport class contains a set of minimal methods that an implementation must support in order to be fully compatible with the other plugins.
+If not, a ``NotImplementedError`` will be raised, interrupting the managing of the calculation or whatever is using the transport plugin.
+
+As for the general functioning of the plugin, the :py:meth:`~aiida.transports.transport.Transport.__init__` method is used only to initialize the class instance, without actually opening the transport channel.
+The connection must be opened only by the :py:meth:`~aiida.transports.transport.Transport.__enter__` method, (and closed by :py:meth:`~aiida.transports.transport.Transport.__exit__`).
+The :py:meth:`~aiida.transports.transport.Transport.__enter__` method lets you use the transport class using the ``with`` statement (see `python docs <https://docs.python.org/3/reference/compound_stmts.html#with>`_), in a way similar to the following:
+
+.. code-block:: python
+
+    with TransportPlugin() as transport:
+        transport.some_method()
+
+To ensure this, for example, the local plugin uses a hidden boolean variable ``_is_open`` that is set when the :py:meth:`~aiida.transports.transport.Transport.__enter__` and :py:meth:`~aiida.transports.transport.Transport.__exit__` methods are called.
+The ``ssh`` logic is instead given by the property sftp.
+
+The other functions that require some care are the copying functions, called using the following terminology:
+
+    1) ``put``: from local source to remote destination
+    2) ``get``: from remote source to local destination
+    3) ``copy``: copying files from remote source to remote destination
+
+Note that these functions must accept both files and folders and internally they will fallback to functions like ``putfile`` or ``puttree``.
+
+The last function requiring care is :py:meth:`~aiida.transports.transport.Transport.exec_command_wait`, which is an analogue to the `subprocess <http://docs.python.org/3/library/subprocess.html>`_ python module.
+The function gives the freedom to execute a string as a remote command, thus it could produce nasty effects if not written with care.
+
+.. warning::
+
+    Be sure to escape any strings for bash!
+
+Download :download:`this template <transport_template.py>` as a starting point to implementing a new transport plugin.
+It contains the interface with all the methods that need to be implemented, including docstrings that will work with Sphinx documentation.
+
+.. note::
+
+    To inform AiiDA about your new transport plugin you must register an entry point in the ``aiida.transports`` entry point group.
+    Please visit the `AiiDA registry <https://aiidateam.github.io/aiida-registry/>`_ to see an example of how this can be done.
+======
+Topics
+======
+
+.. toctree::
+   :maxdepth: 1
+
+   cli
+   processes/index
+   calculations/index
+   workflows/index
+   provenance/index
+   data_types
+   database
+   repository
+   plugins
+   schedulers
+   transport
+
+.. todo::
+
+    daemon  // after provenance
+.. todo::
+
+    .. _topics:daemon:
+
+    ******
+    Daemon
+    ******
+
+    `#4016`_
+
+
+.. _#4016: https://github.com/aiidateam/aiida-core/issues/4016
+.. _topics:provenance:concepts:
+
+========
+Concepts
+========
+
+Nodes and links
+===============
+
+Two of the most important concepts in AiiDA are **data** and **processes**.
+The former are pieces of data, such as a simple integer or float, all the way to more complex data concepts such as a dictionary of parameters, a folder of files or a crystal structure.
+Processes operate on this data in order to produce new data.
+
+Processes come in two different forms:
+
+* **Calculations** are processes that are able to **create** new data. This is the case, for instance, for externals simulation codes, that generate new data
+* **Workflows** are processes that **orchestrate** other workflows and calculations, i.e. they manage the logical flow, being able to **call** other processes. Workflows have data inputs, but cannot generate new data. They can only return data that is already in the database (one typical case is to return data created by a calculation they called).
+
+Data and processes are represented in the AiiDA provenance graph as the **nodes** of that graph.
+The graph edges are referred to as **links** and come in different forms:
+
+* **input** links: connect data nodes to the process nodes that used them as input, both calculations and workflows
+* **create** links: connect calculation nodes to the data nodes that they created
+* **return** links: connect workflow nodes to the data nodes that they returned
+* **call** links: connecting workflow nodes to the process nodes that they directly called, be it calculations or workflows
+
+Note that the **create** and **return** links are often collectively referred to as **output** links.
+
+
+Data provenance and logical provenance
+======================================
+
+AiiDA automatically stores entities in its database and links them forming a **directed graph**.
+This directed graph automatically tracks the **provenance** of all data produced by calculations or returned by workflows.
+By tracking the provenance in this way, one can always fully retrace how a particular piece of data came into existence, thus ensuring its reproducibility.
+
+In particular, we define two types of provenance:
+
+* The **data provenance**, consisting of the part of the graph that *only* consists of data and calculations (i.e. without considering workflows), and only the **input** and **create** links that connect them. The data provenance records the full history of how data has been generated. Due to the causality principle, the data provenance part of the graph is a **directed acyclic graph** (DAG), i.e. its nodes are connected by directed edges and it does not contain any cycles.
+* The **logical provenance** which consists of workflow and data nodes, together with the **input**, **return** and **call** links that connect them. The logical provenance is *not* acyclic, e.g. a workflow that acts as a filter can return one of its own inputs, directly introducing a cycle.
+
+The data provenance is essentially a log of which calculation generated what data using certain inputs.
+The data provenance alone already guarantees reproducibility (one could run again one by one the calculations with the provided input and would obtain the same outputs).
+The logical provenance gives additional information on why a specific calculation was run.
+Imagine the case in which you start from 100 structures, you have a filter operation that picks one, and then you run a simulation on it.
+The data provenance only shows the simulation you run on the structure that was picked, while the logical provenance can also show that the specific structure was not picked at random but via a specific workflow logic.
+
+Other entities
+==============
+
+Beside nodes (data and processes), AiiDA defines a few more entities, like a :py:class:`~aiida.orm.computers.Computer` (representing a computer, supercomputer or computer cluster where calculations are run or data is stored), a :py:class:`~aiida.orm.groups.Group` (that group nodes together for organizational purposes) and the :py:class:`~aiida.orm.users.User` (to keep track of the user who first generated a given node, computer or group).
+
+In the following section we describe in more detail how the general provenance concepts above are actually implemented in AiiDA, with specific reference to the python classes that implement them and the class-inheritance relationships.
+.. _topics:provenance:implementation:
+
+==============
+Implementation
+==============
+
+Graph nodes
+===========
+
+The **nodes** of the AiiDA provenance graph can be grouped into two main **types**: **process nodes** (``ProcessNode``), that represent the execution of calculations or workflows, and **data nodes** (``Data``), that represent pieces of data.
+
+In particular, **process nodes** are divided into two sub categories:
+
+    - **calculation nodes** (``CalculationNode``): Represent code execution that creates new data. These are further subdivided in two subclasses:
+
+        - :py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`: Represents the execution of a calculation external to AiiDA, typically via a job batch scheduler (see the concept of :ref:`calculation jobs<topics:calculations:concepts:calcjobs>`).
+        - :py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`: Represents the execution of a python function (see the concept of :ref:`calculation functions<topics:calculations:concepts:calcfunctions>`).
+
+    - **workflow nodes** (``WorkflowNode``): Represent python code that orchestrates the execution of other workflows and calculations, that optionally return the data created by the processes they called. These are further subdivided in two subclasses:
+
+        - :py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`: Represents the execution of a python class instance with built-in checkpoints, such that the process may be paused/stopped/resumed (see the concept of :ref:`work chains<topics:workflows:concepts:workchains>`).
+        - :py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`: Represents the execution of a python function calling other processes (see the concept of :ref:`work functions<topics:workflows:concepts:workfunctions>`).
+
+The class hierarchy of the process nodes is shown in the figure below.
+
+.. _fig_provenance_class_hierarchy:
+.. figure:: include/images/class_hierarchy.png
+
+    The hierarchy of the ORM classes for the process nodes. Only instances of the lowest level of classes will actually enter into the provenance graph. The two upper levels have a mostly taxonomical purpose as they allow us to refer to multiple classes at once when reasoning about the graph as well as a place to define common functionality (see section on :ref:`processes <topics:processes:concepts>`).
+
+
+For what concerns data nodes, the base class (``Data``) is subclassed to provide functionalities specific to the data type and python methods to operate on it.
+Often, the name of the subclass contains the word “Data” appended to it, but this is not a requirement. A few examples:
+
+* :py:class:`~aiida.orm.nodes.data.float.Float`, :py:class:`~aiida.orm.nodes.data.int.Int`, :py:class:`~aiida.orm.nodes.data.bool.Bool`, :py:class:`~aiida.orm.nodes.data.str.Str`, :py:class:`~aiida.orm.nodes.data.list.List`, ...
+* :py:class:`~aiida.orm.nodes.data.dict.Dict`: represents a dictionary of key-value pairs - these are parameters of a general nature that do not need to belong to more specific data sub-classes
+* :py:class:`~aiida.orm.nodes.data.structure.StructureData`: represents crystal structure data (containing chemical symbols, atomic positions of the atoms, periodic cell for periodic structures, …)
+* :py:class:`~aiida.orm.nodes.data.array.array.ArrayData`: represents generic numerical arrays of data (python numpy arrays)
+* :py:class:`~aiida.orm.nodes.data.array.kpoints.KpointsData`: represents a numerical array of k-points data, is a sub-class of ``ArrayData``
+
+For more detailed information see :ref:`AiiDA data types <DataTypes>`.
+
+In the next section we introduce the links between nodes, creating the AiiDA graph, and then we show some examples to clarify what we introduced up to now.
+
+Graph links
+===========
+
+Process nodes are connected to their input and output data nodes through directed links.
+Calculation processes can *create* data, while workflow processes can *call* calculations and *return* their outputs.
+Consider the following graph example, where we represent **data nodes** with circles, **calculation nodes** with squares and **workflow nodes** with diamond shapes.
+
+.. _fig_provenance_simple_workflow:
+.. figure:: include/images/schematic_provenance_01_simple_workflow.png
+
+    Simple provenance graph for a workflow (W\ :sub:`1`) *calling* a calculation (C\ :sub:`1`). The workflow takes a single **data node** (D\ :sub:`1`\) as input, and passes it to the calculation when *calling* it. The calculation *creates* a new **data node** (D\ :sub:`2`\) that is also *returned* by the **workflow node**.
+
+Notice that the different style and names for the two links coming into D\ :sub:`2` is intentional, because it was the calculation that *created* the new data, whereas the workflow merely *returned* it.
+This subtle distinction has big consequences.
+By allowing workflow processes to *return* data, it can also *return* data that was among its inputs.
+
+.. _fig_provenance_cycle:
+.. figure:: include/images/schematic_provenance_02_cycle.png
+
+    Provenance graph example of a **workflow node** that receives three **data nodes** as input and *returns* one of those inputs. The input link from D\ :sub:`3` to W\ :sub:`1` and the return link from W\ :sub:`1` to D\ :sub:`3` introduce a cycle in the graph.
+
+A scenario like this, represented in :numref:`fig_provenance_cycle`, would create a cycle in the provenance graph, breaking the “acyclicity” of the DAG.
+To restore the directed acyclic graph, we separate the entire provenance graph into two planes as described above: the **data provenance** and the **logical provenance**.
+With this division, the acyclicity of the graph is restored in the data provenance plane.
+
+An additional benefit of thinking of the provenance graph in these two planes, is that it allows you to inspect it with different layers of granularity.
+Imagine a high level workflow that calls a large number of calculations and sub-workflows, that each may also call more sub-processes, to finally produce and return one or more data nodes as its result.
+
+
+Graph examples
+==============
+
+With these basic definitions of AiiDA’s provenance graph in place, let’s take a look at some examples.
+Consider the sequence of computations that adds two numbers `x` and `y`, and then multiplies the result with a third number `z`.
+This sequence as represented in the provenance graph would look something like what is shown in :numref:`fig_provenance_add_multiply_data`.
+
+.. _fig_provenance_add_multiply_data:
+.. figure:: include/images/add_multiply_calcfunction_data.png
+
+    The DAG for computing `(x+y)*z`. We have two simple calculations: C\ :sub:`1` represents the addition and C\ :sub:`2` the multiplication.
+    The two data nodes D\ :sub:`1` and D\ :sub:`2` are the inputs of C\ :sub:`1`, which *creates* the data node D\ :sub:`4`\.
+    Together with D\ :sub:`3`, D\ :sub:`4` then forms the input of C\ :sub:`2`, which multiplies their values that *creates* the product, represented by D\ :sub:`5`.
+
+In this simple example, there was no external process that controlled the exact sequence of these operations.
+This may be imagined however, by adding a workflow that calls the two calculations in succession, as shown in :numref:`fig_provenance_add_multiply_full`.
+
+.. _fig_provenance_add_multiply_full:
+.. figure:: include/images/add_multiply_calcfunction_full.png
+
+    The same calculation `(x+y)*z` is performed using a workflow. Here the data nodes D\ :sub:`1`, D\ :sub:`2`, and D\ :sub:`3` are the inputs of the workflow W\ :sub:`1`, which *calls* calculation C\ :sub:`1` with inputs D\ :sub:`1` and D\ :sub:`2`.
+    It then *calls* calculation C\ :sub:`2`, using as inputs D\ :sub:`3` and D\ :sub:`4` (which was *created* by C\ :sub:`2`\).
+    Calculation C\ :sub:`2` *creates* data node D\ :sub:`5`, which is finally *returned* by workflow W\ :sub:`1`\.
+
+Notice that if we were to omit the workflow nodes and all its links from the provenance graph in :numref:`fig_provenance_add_multiply_full`, one would end up with the exact same graph as shown in :numref:`fig_provenance_add_multiply_data` (the **data provenance** graph).
+.. _topics:provenance:consistency:
+
+===========
+Consistency
+===========
+
+Because of the very nature of scientific research, it becomes indispensable to be able to both delete parts of a database (e.g., if errors are made, inputs are misspelled, or useless calculations are performed) or export it (for collaboration or publication purposes).
+Both these features, which are provided by AiiDA, have one aspect in common: they can easily lead to a provenance graph with incomplete information.
+To better understand why, let's take a look at the following basic provenance graph:
+
+.. _delexp_example01a:
+.. figure:: include/images/delexp_example01a.png
+
+Even in this simple case, if we were to export only the calculation node and the output data node (or, equivalently, delete just the input data node), then we would have lost part of the critical information needed to run the calculation (the |D_1| node), thus losing the reproducibility of the calculation |C_1|.
+In this simple case, therefore, in order to have a consistent provenance, whenever you export a calculation node you must also import *all* of its input nodes (or, symmetrically, whenever you delete a data node you must also delete all calculations that used it as an input).
+
+This is just one of the many rules that must be considered when trying to manually edit a provenance database.
+The key message to remember is that AiiDA will not only delete or export the nodes explicitly targeted by the user, but will also include any other nodes that are needed for keeping a consistent provenance in the resulting database.
+
+It is also worth noting that if you do successive exports of partial information, AiiDA will be able to reconstruct links that might have been broken when dividing the data for export.
+So if you first where to export the previous graph, and then you exported the next section of your full database:
+
+.. _delexp_example01b:
+.. figure:: include/images/delexp_example01b.png
+
+Then AiiDA will be able to automatically identify the shared node |D_2| and connect both sections back together during the import process.
+For this kind of recognition it doesn't matter which sub-graph was exported first.
+
+In the following section we will explain in more detail the criteria for including other nodes and the corresponding traversal rules.
+
+.. _topics:provenance:consistency:traversal-rules:
+
+Traversal Rules
+===============
+
+When you run ``verdi node delete [NODE_IDS]`` or ``verdi archive create -N [NODE_IDS]``, AiiDA will look at the links incoming or outgoing from the nodes that you specified and decide if there are other nodes that are critical to keep.
+
+For this decision, it is not only important to consider the type of link, but also if we are following it along its direction (we will call this ``forward`` direction) or in the reversed direction (``backward`` direction).
+To clarify this, in the example above, when deleting data node |D_1|, AiiDA will follow the ``input_calc`` link in the ``forward`` direction (in this case, it will decide that the linked node (|C_1|) must then also be deleted).
+If the initial target node was, instead, |C_1| the ``input_calc`` link would be followed in the ``backward`` direction (and in this case the node |D_1| will not be deleted, as we will explain below).
+
+This process will be repeated recursively for every node that has just been included for deletion or export, until no more nodes need to be added.
+The rules defining whether a linked node should be added or not to the delete/export list (based on the kind and direction of the link) are called *traversal rules*.
+In the following section we will describe these rules both for the export and delete procedures.
+
+The tables below are grouped according to the type of nodes and links involved.
+We also provide illustrations of the cases considered, where the encircled node is the one being targeted, and the other node (to which the red arrow is pointing) is the one that is being considered for addition into the delete/export list.
+
+Data and Calculation Nodes
+--------------------------
+
+The first example above already discusses the case of deleting an input node: in this case, it is necessary to also delete any calculation that uses it as an input.
+
+In AiiDA, we apply the same criterion also when deleting an output: in this case, we follow the ``create`` link in the ``backward`` direction and we mark for deletion also the calculation that created it.
+The reason for this is that a calculation with missing outputs could be misleading. For instance, some calculations produce optional outputs depending on the combination of input flags that are used.
+A missing output might be interpreted as if that piece of information was not computed by the calculation.
+In the case of export, the rules are typically the reverse of those used for deletion.
+Therefore, in this case, the following rule applies: when exporting a calculation node, all its input data nodes and created output nodes must be exported as well.
+
+On the other hand, when exporting a data node, users typically do not need to also export all the calculations that used it as an input.
+These may represent further work that, by default, does not need to be exported as well (unless explicitly specified by the user in the list of nodes).
+Equivalently, when deleting a calculation, one typically wants to keep its inputs, as they might be used by other unrelated calculations.
+
+What should happen instead for the outputs of a calculation to be deleted?
+Often, one might want to delete (recursively) all the outputs generated by it.
+However, we leave the option to users to just delete the calculation, keeping its outputs in the database.
+While we emphasize that this operation removes all provenance information for the output nodes, there are cases in which this is useful or even needed (removal of inputs that are protected by copyright, or creating a smaller archive file to transfer to collaborators who want to work with the output data).
+
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| Illustrative diagram (explicitly targeted                | Name of Rule            | Behavior when exporting target node                 | Behavior when deleting target node                 |
+| node is encircled)                                       |                         |                                                     |                                                    |
++==========================================================+=========================+=====================================================+====================================================+
+| .. image:: include/images/delexp_caseDC1.png             | ``input_calc_forward``  | - Default Value: ``False``                          | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **won't** be exported **by default**. | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseDC2.png             | ``input_calc_backward`` | - Fixed Value: ``True``                             | - Fixed Value: ``False`` [#f01]_                   |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will never** be deleted.           |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseCD1.png             | ``create_forward``      | - Fixed Value: ``True``                             | - Default Value: ``True``                          |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will** be deleted **by default**.  |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseCD2.png             | ``create_backward``     | - Default Value: ``True``.                          | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **will** be exported **by default**.  | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+
+.. [#f01]
+   Although we provide the option to automatically export all calculations that use as input any targeted data node (by specifying ``input_calc_forward=True``) we *currently* do not provide the reciprocal option to delete all the data node inputs when targeting calculation nodes.
+   This is mainly for the potential danger that would imply automatically enabling upwards traversal of the data provenance when deleting, which would make it extremely hard to predict or control the nodes that will be ultimately affected.
+
+
+Data and Workflow Nodes
+-----------------------
+
+The behavior when considering ``input_work`` links is exactly the same as when considering ``input_calc`` links for the same reasons.
+The case for ``return`` links is partially similar to the one for ``create`` one.
+Indeed, it isn't desirable to have a resulting database with missing outputs, so when exporting a workflow the returned data nodes will also be included (and when deleting a data node, the returning workflow will also be removed).
+However, when exporting a returned node, the default behavior is *not* to traverse backwards through the ``return`` links, since a data node might be returned by several unrelated workflows (representing selection procedures for other studies, for example) that are unrelated to its creation.
+The workflow responsible for coordinating its creation will be included in the export, not directly, but through the chain effect of including the creating calculation (through ``create_backward``) and then including its calling workflows (through ``call_calc_backward`` and ``call_work_backward``, see next sections).
+
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| Illustrative diagram (explicitly targeted                | Name of Rule            | Behavior when exporting target node                 | Behavior when deleting target node                 |
+| node is encircled)                                       |                         |                                                     |                                                    |
++==========================================================+=========================+=====================================================+====================================================+
+| .. image:: include/images/delexp_caseDW1.png             | ``input_work_forward``  | - Default Value: ``False``                          | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **won't** be exported **by default**. | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseDW2.png             | ``input_work_backward`` | - Fixed Value: ``True``                             | - Fixed Value: ``False``                           |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will never** be deleted.           |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseWD1.png             | ``return_forward``      | - Fixed Value: ``True``                             | - Fixed Value: ``False`` [#f02]_                   |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will never** be deleted.           |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseWD2.png             | ``return_backward``     | - Default Value: ``False``.                         | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **won't** be exported **by default**. | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+
+.. [#f02]
+   The reason to prevent the deletion of returned data nodes is that, since the logical provenance can be cyclical, this might end up deleting inputs and thus propagating the deletion process to other unrelated parts of the database.
+   In most cases where you will want to delete a returned data node, you will be able to do so by setting ``call_calc_forward=True`` (see below) and ``create_forward=True`` (which is the default value).
+
+
+
+Workflows and Calculation Nodes
+-------------------------------
+
+Finally, we will consider the possible (call) links between processes.
+The results of a parent workflow depend critically on the sub-workflows or calculations launched by it.
+When exporting a workflow node, we therefore always traverse its ``call`` links (both ``call_calc`` and ``call_work``) in the ``forward`` direction to include all children processes (i.e. processes directly called by it).
+Since the traversal rules are applied recursively, this means that also the children processes of any workflow that was a child of the targeted one will be exported as well, and so on.
+Analogously, when deleting a process the same applies but in the opposite direction (``backward``), including the parent workflow of the targeted node (if there is one), and the parent of that parent, etc.
+
+Since ``call`` links are followed backward by default, targeting one process for either export or deletion results in selecting not only all of its child processes but also all children of any of its parent processes.
+As a result of all ``call`` links being traversed in both directions, targeting any of the process nodes in a workflow will mean the inclusion of the other processes of that workflow as well.
+Users can disable the traversal of ``call`` links in one of the directions (``forward`` for deletion, ``backward`` for export) for fine-grained control (see examples below).
+
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| Illustrative diagram (explicitly targeted                | Name of Rule            | Behavior when exporting target node                 | Behavior when deleting target node                 |
+| node is encircled)                                       |                         |                                                     |                                                    |
++==========================================================+=========================+=====================================================+====================================================+
+| .. image:: include/images/delexp_caseWC1.png             | ``call_calc_forward``   | - Fixed Value: ``True``                             | - Default Value: ``True``                          |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will** be deleted **by default**.  |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseWC2.png             | ``call_calc_backward``  | - Default Value: ``True``                           | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **will** be exported **by default**.  | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseWW1.png             | ``call_work_forward``   | - Fixed Value: ``True``                             | - Default Value: ``True``                          |
+|    :scale: 60%                                           |                         | - Linked node **will always** be exported.          | - Linked node **will** be deleted **by default**.  |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+| .. image:: include/images/delexp_caseWW2.png             | ``call_work_backward``  | - Default Value: ``True``.                          | - Fixed Value: ``True``                            |
+|    :scale: 60%                                           |                         | - Linked node **will** be exported **by default**.  | - Linked node **will always** be deleted.          |
++----------------------------------------------------------+-------------------------+-----------------------------------------------------+----------------------------------------------------+
+
+
+Cascading rules: an example
+===========================
+
+In the previous sections we have described the basic rules used by AiiDA to decide which nodes should also be included from an initial list of nodes to delete or export.
+These rules are applied recursively: as new nodes are included in the deletion (or export)list, the rules are applied to them as well until no new nodes are included.
+Therefore, the consequence of using these features on a given set of nodes may not always be straightforward, and the final set might include more nodes than naively expected.
+
+Let us first focus on the data provenance only (i.e., only ``input_calc`` and ``create`` links). The following two rules apply when going in the ``forward`` direction:
+
+* If you delete a data node, any calculation that uses it as input will *always* be deleted as well (``input_calc_forward=True``).
+* If you delete a calculation node, any output data node will be deleted *by default* (``create_forward=True``).
+
+The consequence of these two together is a "chain reaction" in which every node that can be traced back through the data provenance to any of the initial targeted nodes will end up being deleted as well.
+The reciprocal is true for the export: the default behavior is that every ancestor will also be exported by default (because ``create_backward`` is ``True`` by default and ``input_calc_backward`` is always ``True``).
+
+In regards to the connection between data provenance and logical provenance, the most important thing to understand is how the default behavior of the program treats the highest-level workflows as the units to be handled.
+The logic behind this is the assumption that the typical user of the program will be dealing with it mostly in an interactive way, running pre-defined workflows through the verdi command line without needing a detailed knowledge of their internal procedures.
+The default behavior then was designed to reproduce the most intuitive outcomes for this type of usage.
+
+This behavior is basically the result of the settings of ``call_calc_forward=True`` and ``call_work_forward=True``, which makes that the inclusion of a process node will also imply the inclusion of any child or parent process node as well.
+Following these rules in a recursive way leads to the command affecting all the processes within any given workflow: in this way, nodes that are sub-processes of a given highest-level workflow will end up grouped together, in the sense that (by default) they will all be affected in the same way when deleting or exporting.
+
+More freedom to further customize the selection of sections to export or delete is available through the specific switchable flags for each functionality (although the final sections must always comply with the non-switchable rules, see above).
+However, this usually requires a deeper understanding of the traversal rules and may imply a more thorough analysis of the particular graph.
+To better illustrate this, we will now consider the application of the deletion procedure to the following graph:
+
+.. _delexp_example02:
+.. image:: include/images/delexp_example02.png
+   :scale: 80%
+
+As you can see, |W_1| and |W_2| describe two similar but independent procedures that were launched by a single parent workflow |W_0|.
+A typical user would have obtained this by directly running this workflow |W_0| to obtain the results |D_3| and |D_4| from the inputs |D_1| and |D_2|, and may even be unaware of the internal division of |W_0| into two sub-Workflows |W_1| and |W_2|.
+Hence, if the user considers the workflow (meaning, the whole set of nodes produced by it) no longer necessary, the intuitive thing to do in order to remove it from its database would be by targeting the workflow node |W_0| for deletion.
+Indeed, this would produce the desired result:
+
+.. _delexp_example02-a01:
+.. image:: include/images/delexp_example02-a01.png
+   :scale: 80%
+
+The nodes |W_1| and |W_2| would be included because |W_0| is being targeted (``call_work_forward=True``), then the nodes |C_1| and |C_2| would also be included (``call_calc_forward=True``), and finally the nodes |D_3| and |D_4| would end up being included as well (``create_forward=True``).
+In the end, only the inputs |D_1| and |D_2| remain (since ``input_work_backward=False`` always and ``input_calc_backward=False`` by default).
+
+The same result would occur if the user were to target the output nodes instead (intending to delete everything associated with the obtention of those results).
+It is important to notice that even if the user deletes only one of the outputs, the whole set of nodes generated by the workflow would be deleted, and not just the ones associated to the targeted data node.
+As the results |D_3| and |D_4| where obtained from the same high-level process |W_0|, then the default behavior has the underlying assumption that they are interconnected and not independent from one another (as if they were two different outputs of a single calculation).
+
+.. _delexp_example02-a03:
+.. image:: include/images/delexp_example02-a03.png
+   :scale: 80%
+
+In this case, the node |C_1| would first be included because the data node |D_3| is being targeted (``create_reverse=True``), and this in turn would include the node |W_1| (``call_calc_reverse=True``) and then its parent workflow |W_0| (``call_work_reverse=True``).
+Then nodes |W_2|, |C_2| and |D_4| will be included because |W_0| was included, for the same reasons that were explained in the paragraphs above.
+
+
+Customizing the graph traversal (for deletion or export)
+--------------------------------------------------------
+
+This dependency between nodes becomes particularly relevant when, for example, a user with more knowledge of the internal procedures of the parent workflow |W_0| wants to only delete the calculations and results associated to workflow |W_1|.
+The intuitive action of targeting |W_1| does not produce the desired outcome:
+
+.. _delexp_example02-b01:
+.. image:: include/images/delexp_example02-b01.png
+   :scale: 80%
+
+Indeed |C_1| and |D_4| will be deleted (through ``call_calc_forward`` from |W_1| to |C_1| and ``create_forward`` from |C_1| to |D_3|), but so will |W_0| (through ``call_work_reverse`` from |W_1|), |W_2| (``call_work_forward`` from |W_0|), |C_2| (``call_calc_forward`` from |W_2|) and |D_4| (``create_forward`` from |C_2|).
+The way to achieve the desired outcome is not trivial, although in some situations like this, one could propose case-specific solutions such as targeting |W_1| with the switchable flag ``call_work_forward=False`` (preventing the traversal from |W_0| to |W_2|):
+
+.. _delexp_example02-b02:
+.. image:: include/images/delexp_example02-b02.png
+   :scale: 80%
+
+However, this approach is not generally applicable, and wouldn't work if |W_1| had sub-workflows that needed to be deleted as well.
+A more general approach is to first sever the connection to |W_2| by deleting node |W_0| with all switchable traversal rules turned off.
+Then, once the independence of |W_1| and |W_2| is explicitly reflected in the graph, node |W_1| can be deleted with the default settings.
+
+.. _delexp_example02-b03:
+.. image:: include/images/delexp_example02-b03.png
+   :scale: 80%
+
+It is worth noting that if the workflow |W_0| was itself part of a higher-level workflow, all that higher-level logic would be deleted due to the non-switchable rule ``call_work_reverse=True``.
+This is an inevitable outcome of deleting part of a workflow, since due to the loss of that information it has become incomplete and it makes no sense to keep it.
+
+.. |W_0| replace:: W\ :sub:`0`
+.. |W_1| replace:: W\ :sub:`1`
+.. |W_2| replace:: W\ :sub:`2`
+.. |C_1| replace:: C\ :sub:`1`
+.. |C_2| replace:: C\ :sub:`2`
+.. |D_1| replace:: D\ :sub:`1`
+.. |D_2| replace:: D\ :sub:`2`
+.. |D_3| replace:: D\ :sub:`3`
+.. |D_4| replace:: D\ :sub:`4`
+.. _topics:provenance:caching:
+
+===================
+Caching and hashing
+===================
+
+This section covers the more general considerations of the hashing/caching mechanism.
+For a more practical guide on how to enable and disable this feature, please visit the corresponding :ref:`how-to section <how-to:run-codes:caching>`.
+If you want to know more about how the internal design of the mechanism is implemented, you can check the :ref:`internals section <internal_architecture:engine:caching>` instead.
+
+
+.. _topics:provenance:caching:hashing:
+
+How are nodes hashed
+--------------------
+
+*Hashing* is turned on by default, i.e., all nodes in AiiDA are hashed.
+This means that even when you enable caching once you have already completed a number of calculations, those calculations can still be used retro-actively by the caching mechanism since their hashes have been computed.
+
+The hash of a ``Data`` node is computed from:
+
+* all attributes of the node, except the ``_updatable_attributes`` and ``_hash_ignored_attributes``
+* the ``__version__`` of the package which defined the node class
+* the content of the repository folder of the node
+* the UUID of the computer, if the node is associated with one
+
+The hash of a :class:`~aiida.orm.ProcessNode` includes, on top of this, the hashes of all of its input ``Data`` nodes.
+
+Once a node is stored in the database, its hash is stored in the ``_aiida_hash`` extra, and this extra is used to find matching nodes.
+If a node of the same class with the same hash already exists in the database, this is considered a cache match.
+You can use the :meth:`~aiida.orm.nodes.Node.get_hash` method to check the hash of any node.
+In order to figure out why a calculation is *not* being reused, the :meth:`~aiida.orm.nodes.Node._get_objects_to_hash` method may be useful:
+
+.. code-block:: ipython
+
+    In [5]: node = load_node(1234)
+
+    In [6]: node.get_hash()
+    Out[6]: '62eca804967c9428bdbc11c692b7b27a59bde258d9971668e19ccf13a5685eb8'
+
+    In [7]: node._get_objects_to_hash()
+    Out[7]:
+    [
+        '1.0.0',
+        {
+            'resources': {'num_machines': 2, 'default_mpiprocs_per_machine': 28},
+            'parser_name': 'cp2k',
+            'linkname_retrieved': 'retrieved'
+        },
+        <aiida.common.folders.Folder at 0x1171b9a20>,
+        '6850dc88-0949-482e-bba6-8b11205aec11',
+        {
+            'code': 'f6bd65b9ca3a5f0cf7d299d9cfc3f403d32e361aa9bb8aaa5822472790eae432',
+            'parameters': '2c20fdc49672c3505cebabacfb9b1258e71e7baae5940a80d25837bee0032b59',
+            'structure': 'c0f1c1d1bbcfc7746dcf7d0d675904c62a5b1759d37db77b564948fa5a788769',
+            'parent_calc_folder': 'e375178ceeffcde086546d3ddbce513e0527b5fa99993091b2837201ad96569c'
+        }
+    ]
+
+
+.. _topics:provenance:caching:control-hashing:
+
+Controlling hashing
+-------------------
+
+Data nodes
+..........
+
+The hashing of *Data nodes* can be customized both when implementing a new data node class and during runtime.
+
+In the :py:class:`~aiida.orm.nodes.Node` subclass:
+
+* Use the ``_hash_ignored_attributes`` to exclude a list of node attributes ``['attr1', 'attr2']`` from computing the hash.
+* Include extra information in computing the hash by overriding the :meth:`~aiida.orm.nodes.Node._get_objects_to_hash` method.
+  Use the ``super()`` method, and then append to the list of objects to hash.
+
+You can also modify hashing behavior during runtime by passing a keyword argument to :meth:`~aiida.orm.nodes.Node.get_hash`, which are forwarded to :meth:`~aiida.common.hashing.make_hash`.
+
+Process nodes
+.............
+
+The hashing of *Process nodes* is fixed and can only be influenced indirectly via the hashes of their inputs.
+For implementation details of the hashing mechanism for process nodes, see :ref:`here <internal_architecture:engine:caching>`.
+
+.. _topics:provenance:caching:control-caching:
+
+Controlling Caching
+-------------------
+
+In the caching mechanism, there are two different types of roles played by the nodes: the node that is currently being stored is called the `target`, and the nodes already stored in the database that are considered to be equivalent are referred to as a `source`.
+
+Targets
+.......
+
+Controlling what nodes will look in the database for existing equivalents when being stored is done on the class level.
+Section :ref:`how-to:run-codes:caching:configure` explains how this can be controlled globally through the profile configuration, or locally through context managers.
+
+Sources
+.......
+
+When a node is being stored (the `target`) and caching is enabled for its node class (see section above), a valid cache `source` is obtained through the method :meth:`~aiida.orm.nodes.node.Node._get_same_node`.
+This method calls the iterator :meth:`~aiida.orm.nodes.node.Node._iter_all_same_nodes` and takes the first one it returns if there are any.
+To find the list of `source` nodes that are equivalent to the `target` that is being stored, :meth:`~aiida.orm.nodes.node.Node._iter_all_same_nodes` performs the following steps:
+
+ 1. It queries the database for all nodes that have the same hash as the `target` node.
+ 2. From the result, only those nodes are returned where the property :meth:`~aiida.orm.nodes.node.Node.is_valid_cache` returns ``True``.
+
+The property :meth:`~aiida.orm.nodes.node.Node.is_valid_cache` therefore allows to control whether a stored node can be used as a `source` in the caching mechanism.
+By default, for all nodes, the property returns ``True``.
+However, this can be changed on a per-node basis, by setting it to ``False``
+
+.. code-block:: python
+
+    node = load_node(<IDENTIFIER>)
+    node.is_valid_cache = False
+
+Setting the property to ``False``, will cause an extra to be stored on the node in the database, such that even when it is loaded at a later point in time, ``is_valid_cache`` returns ``False``.
+
+.. code-block:: python
+
+    node = load_node(<IDENTIFIER>)
+    assert node.is_valid_cache is False
+
+Through this method, it is possible to guarantee that individual nodes are never used as a `source` for caching.
+
+The :class:`~aiida.engine.processes.process.Process` class overrides the :meth:`~aiida.orm.nodes.node.Node.is_valid_cache` property to give more fine-grained control on process nodes as caching sources.
+If either :meth:`~aiida.orm.nodes.node.Node.is_valid_cache` of the base class or :meth:`~aiida.orm.nodes.process.process.ProcessNode.is_finished` returns ``False``, the process node is not a valid source.
+Likewise, if the process class cannot be loaded from the node, through the :meth:`~aiida.orm.nodes.process.process.ProcessNode.process_class`, the node is not a valid caching source.
+Finally, if the associated process class implements the :meth:`~aiida.engine.processes.process.Process.is_valid_cache` method, it is called, passing the node as an argument.
+If that returns ``True``, the node is considered to be a valid caching source.
+
+The :meth:`~aiida.engine.processes.process.Process.is_valid_cache` is implemented on the :class:`~aiida.engine.processes.process.Process` class.
+It will check whether the exit code that is set on the node, if any, has the keyword argument ``invalidates_cache`` set to ``True``, in which case the property will return ``False`` indicating the node is not a valid caching source.
+Whether an exit code invalidates the cache, is controlled with the ``invalidates_cache`` argument when it is defined on the process spec through the :meth:`spec.exit_code <aiida.engine.processes.process_spec.ProcessSpec.exit_code>` method.
+
+.. warning::
+
+    Process plugins can override the :meth:`~aiida.engine.processes.process.Process.is_valid_cache` method, to further control how nodes are considered valid caching sources.
+    When doing so, make sure to call :meth:`super().is_valid_cache(node) <aiida.engine.processes.process.Process.is_valid_cache>` and respect its output: if it is `False`, your implementation should also return `False`.
+    If you do not comply with this, the ``invalidates_cache`` keyword on exit codes will no longer work.
+
+
+.. _topics:provenance:caching:limitations:
+
+Limitations and Guidelines
+--------------------------
+
+#. Workflow nodes are not cached.
+   In the current design this follows from the requirement that the provenance graph be independent of whether caching is enabled or not:
+
+   * **Calculation nodes:** Calculation nodes can have data inputs and create new data nodes as outputs.
+     In order to make it look as if a cloned calculation produced its own outputs, the output nodes are copied and linked as well.
+   * **Workflow nodes:** Workflows differ from calculations in that they can *return* an input node or an output node created by a calculation.
+     Since caching does not care about the *identity* of input nodes but only their *content*, it is not straightforward to figure out which node to return in a cached workflow.
+
+   This limitation has typically no significant impact since the runtime of AiiDA work chains is commonly dominated by expensive calculations.
+
+#. The caching mechanism for calculations *should* trigger only when the inputs and the calculation to be performed are exactly the same.
+   While AiiDA's hashes include the version of the Python package containing the calculation/data classes, it cannot detect cases where the underlying Python code was changed without increasing the version number.
+   Another scenario that can lead to an erroneous cache hit is if the parser and calculation are not implemented as part of the same Python package, because the calculation nodes store only the name, but not the version of the used parser.
+
+#. Note that while caching saves unnecessary computations, it does not save disk space: the output nodes of the cached calculation are full copies of the original outputs.
+
+#. Finally, When modifying the hashing/caching behaviour of your classes, keep in mind that cache matches can go wrong in two ways:
+
+   * False negatives, where two nodes *should* have the same hash but do not
+   * False positives, where two different nodes get the same hash by mistake
+
+   False negatives are **highly preferrable** because they only increase the runtime of your calculations, while false positives can lead to wrong results.
+.. _topics:provenance:
+
+**********
+Provenance
+**********
+
+In this topic section, the concept of the provenance graph and its implementation will be explained.
+The :ref:`consistency<topics:provenance:consistency>` section details the rules that are imposed on the consistency of the provenance graph when nodes are exported or deleted.
+
+.. toctree::
+   :maxdepth: 2
+
+   concepts
+   implementation
+   consistency
+   caching
+.. _topics:workflows:concepts:
+
+========
+Concepts
+========
+
+A workflow in AiiDA is a process (see the :ref:`process section<topics:processes:concepts>` for details) that calls other workflows and calculations and optionally *returns* data and as such can encode the logic of a typical scientific workflow.
+Currently, there are two ways of implementing a workflow process:
+
+ * :ref:`work functions<topics:workflows:concepts:workfunctions>`
+ * :ref:`work chains<topics:workflows:concepts:workchains>`
+
+The first one is the simplest of the two and is basically a python function that is magically transformed into a process.
+This is ideal for workflows that are not very computationally intensive and can be easily implemented in a python function.
+For more complex workflows, the work chain is a better alternative.
+By chaining work chains and work functions together, that each can run other sub processes, we can define a workflow.
+For simplicity, from here on out, we will use the terms, workflows, work chains, and work functions interchangeably, as a *pars pro toto* and *totum pro parte*.
+
+In the following sections, both concepts will be explained but without going too much into detail on how to implement or run them.
+For a more detailed exposé, please refer to the respective advanced sections on :ref:`work functions<topics:workflows:usage:workfunctions>` and :ref:`work chains<topics:workflows:usage:workchains>`.
+
+
+.. _topics:workflows:concepts:workfunctions:
+
+Work functions
+==============
+
+A work function is implemented just as a :ref:`calculation function<topics:calculations:concepts:calcfunctions>`, however, they have very distinct use cases.
+Since the work function is a 'workflow-like' process, it can only *return* existing data, whereas the calculation function creates a 'calculation-like' process which can only *create* new data.
+This difference is addressed in greater detail in the :ref:`process<topics:processes:concepts:types>` section and it is very important that one understands this distinction.
+
+To explain the use of the ``@workfunction``, we will continue with the example of the :ref:`calculation functions<topics:calculations:concepts:calcfunctions>`, so before continuing, read that section first.
+The example showed how the ``@calcfunction`` decorator can be used to create two functions that, for three given integers, computes the sum of the first two, which is then multiplied with the third, all the while keeping the provenance.
+Even though the calculation functions ensured that the provenance of the data was kept, the logic of *who* called these functions was not explicitly kept.
+From the provenance graph generated by the calculation functions, it is impossible to deduce whether the functions were called straight after another in a single script, or whether first the ``add`` function was called and a long time later, the output was used as an input for the ``multiply`` function.
+Capturing this logical provenance of the *sequence of calls* of processes is exactly what workflow-like processes, such as the ``workfunction`` are designed for.
+
+Consider the following example, where we implement a function called ``add_and_multiply`` that we decorate with the ``@workfunction`` decorator.
+
+.. include:: include/snippets/workfunctions/add_multiply_workfunction_orchestrate.py
+    :code: python
+
+Instead of calling the calculation functions directly in the script, we call the work function, which then consecutively calls the calculation functions, passing the intermediate result from the first to the second.
+If we look at the provenance graph generated by this example, we would see something like the following:
+
+.. _fig_work_functions_provenance_add_multiply_full:
+.. figure:: include/images/add_multiply_calcfunction_full.png
+
+    The full provenance generated by the work function example
+
+It is clear that this provenance graph contains a lot more information than the one for the calculation function example.
+Whether this information is actually necessary or useful depends on the situation and is entirely up to the user, but there is a big advantage.
+The strict separation between calculation-like and workflow-like processes and the different allowed links between them, as codified in the :ref:`provenance graph implementation<topics:provenance:implementation>`, may seem a bit excessive at a first glance and to new users.
+However, the addition of this parallel yet distinct workflow layer that represents the logical provenance, allows one to ignore all the details of the computation.
+This is demonstrated by the provenance graph below, which is the exact same as the one before, except only data and workflow nodes are shown:
+
+.. _fig_work_functions_provenance_add_multiply_logical:
+.. figure:: include/images/add_multiply_calcfunction_logical.png
+
+    The 'logical' provenance generated by the work function example, where only the workflow and data nodes, with their links, are shown
+
+With this reduced representation, the big picture of how the original inputs led to the final result becomes immediately clear.
+Conversely, none of the actual data provenance is lost.
+In the figure below, all the workflow nodes are omitted and what we end up with is the exact same provenance graph as in :numref:`fig_calculation_functions_provenance_add_multiply` of the :ref:`original example<topics:calculations:concepts:calcfunctions>` that only used calculation functions.
+
+.. _fig_work_functions_provenance_add_multiply_data:
+.. figure:: include/images/add_multiply_calcfunction_data.png
+
+    The 'data' provenance generated by the work function example, where only the calculation and data nodes, with their links, are shown
+
+In this simple example, the power of being able to select what part of the provenance graph one is interested in is obviously limited.
+But workflows can quickly become complex and deeply nested, at which point the ability to group parts of the provenance graph together under a single node and effectively 'hide' its internal parts in a transparent way, becomes invaluable.
+
+In addition to the orchestration role that the work function can fullfill, it can also be used as a filter or selection function.
+Imagine that you want to write a process function that takes a set of input integer nodes and returns the one with the highest value.
+We cannot employ the ``calcfunction`` for this, because it would have to return one of its input nodes, which is explicitly forbidden.
+However, for the ``workfunction``, returning existing nodes, even one of its inputs, is perfectly fine.
+An example implementation might look like the following:
+
+.. include:: include/snippets/workfunctions/add_multiply_workfunction_select.py
+    :code: python
+
+The work function above will return the input node ``x`` as one of its outputs as it has the highest value.
+The provenance of the execution of this select work function will look like the following:
+
+.. _fig_work_functions_provenance_select:
+.. figure:: include/images/select_workfunction.png
+
+    The provenance generated by the work function that selects one of its input nodes
+
+.. warning::
+    It is important to realize once again that in the work function examples given above, all the nodes returned by the work functions are *already stored*.
+    That is to say, they were either created by a calculation function called by the work function or were passed in as one of the inputs.
+    This is no accident, as the work function **can** only return stored nodes.
+    Trying to return a node that was created by the work function itself, will raise an exception.
+    You can find a more detailed explanation for the reasoning behind this design choice in the documentation on the various :ref:`process types<topics:processes:concepts:types>` present in AiiDA and the :ref:`implementation of the provenance graph<topics:provenance:implementation>`.
+
+
+.. _topics:workflows:concepts:workchains:
+
+Work chains
+===========
+
+Why?
+----
+
+Now that we have demonstrated how easily ``workfunctions`` can be used to write your workflow that automatically keeps the provenance, it is time to confess that work functions are not perfect and have their shortcomings.
+In the simple example of adding and multiplying numbers, the time to execute the functions is very short, but imagine that you are performing a more costly calculation, e.g. you want to run an actual ``CalcJob`` that will be submitted to the scheduler and may run for a long time.
+If anywhere during the chain, the workflow is interrupted, for whatever reason, all progress is lost.
+There are no 'checkpoints', so to speak, by simply chaining work functions together.
+
+But fret not!
+To tackle this problem, AiiDA defines the concept of the work chain.
+As the name suggests, this construct is a way to chain multiple logical steps of a workflow together in a way that allows to save the progress between those steps as soon as they are successfully completed.
+The work chain is therefore the preferred solution for parts of the workflow that involve more expensive and complex calculations.
+To define a work chain, AiiDA provides the :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class.
+
+Implementation
+--------------
+
+If we were to reimplement our work function solution of the simple example problem of the previous section, but this time using a work chain, it would look something like the following:
+
+.. include:: include/snippets/workchains/add_multiply_workchain_external_computation.py
+    :code: python
+
+Don't be intimidated by all the code in this snippet.
+The point of this example is not to explain the exact syntax, which will be done in greater detail in the :ref:`advanced workflows<topics:workflows:usage:workchains>` section, but to merely introduce the concept of the work chain.
+The core attributes of a work chain are defined by its :ref:`process specification<topics:processes:usage:spec>` which is setup in the :py:meth:`~aiida.engine.processes.process.Process.define` method.
+The only thing you need to notice here, is that it defines the *inputs* that the work chain takes, its logical *outline* and the *outputs* that it will produce.
+The steps of the outline are implemented as class methods of the work chain.
+The ``add`` step will add the first two integers by calling the ``add`` calculation function, and store the sum temporarily in the :ref:`context<topics:workflows:usage:workchains:context>`.
+The next step in the outline, ``multiply``, will take the sum stored in the context that was computed in the first outline step and call the ``multiply`` calculation function with the third input integer.
+Finally, the ``result`` step will take the product produced by the previous step and record it as an output of the work chain.
+The resulting provenance when we run this work chain looks like the following:
+
+.. _fig_work_chains_provenance_add_multiply_workchain_full:
+.. figure:: include/images/add_multiply_workchain_full.png
+
+    The provenance generated by the work chain example calling calculation functions to perform the addition and multiplication.
+
+As you can see, the produced provenance graph is identical to that of :numref:`fig_work_functions_provenance_add_multiply_full` that was produced by the work function solution, except that the workflow node is a work chain instead of a work function node.
+Full data provenance is kept as the calculation of the sum and the product through the work chain are represented explicitly by the calculation nodes of the ``add`` and ``multiply`` calculation functions that are called.
+
+.. warning::
+
+    The usage of calculation functions for the computation of the sum and the product is not an accident, but a concious design choice.
+    Since work chains are workflow-like processes and as such cannot *create* data, performing the calculations directly in the work chain outline steps itself, would result in a loss in the data provenance.
+
+To illustrate what it means for worklow processes not being able to *create* new data and how doing so causes a loss of data provenance, let's change the previous implementation to perform the sum and product in the work chain outline steps itself, instead of calling the calculation functions.
+
+.. include:: include/snippets/workchains/add_multiply_workchain_outline_computation.py
+    :code: python
+
+The resulting provenance would look like the following:
+
+.. _fig_work_chains_provenance_add_multiply_workchain_logical:
+.. figure:: include/images/add_multiply_workchain_logical.png
+
+    The provenance generated by the work chain example that computes the sum and product directly in its outline steps, instead of delegating it to calculation functions
+
+Note how, in contrast with the provenance of the previous correct solution from :numref:`fig_work_chains_provenance_add_multiply_workchain_full`, there are no explicit calculation nodes representing the computation of the sum and the product.
+Instead, all that computation is abstracted and represented by the single workflow node that represents the execution of the work chain.
+The logic inside of those outline steps is then 'hidden' or 'encapsulated' in the provenance graph by a single workflow node.
+Additionally, the output node representing the final product, only has a ``return`` link, even though it was *created* by the work chain.
+This is because :ref:`workflow processes do not have the capacity to create new nodes<topics:workflows:usage:workfunctions:returning_data>`, and therefore in this example, the data provenance is lost.
+
+An important thing to remember is that *any computation* that happens in the body of outline steps of a work chain, will not be explicitly represented, but will be encapsulated by a single node in the graph that represents that work chain execution.
+Whether that loss of data provenance is relevant depends on the use case and is left to the developer of the workflow to determine.
+These two examples demonstrate that AiiDA does not force any particular method, but allows the user to choose exactly what level of granularity they would like to maintain in the provenance.
+However, the rule of thumb is that if you want to reduce the loss, or 'hiding' of provenance to a minimum, one should keep real computation within the body of work functions and work chains to a minimum and delegate that to calculations.
+For any real computational work that is relevant to the data provenance, it is better to implement it in explicit calculation processes, usually a separate calculation function.
+
+Advantages
+----------
+The work chain solution to the add-multiply problem requires significantly more code, compared to the work function solution presented in the beginning of this section.
+Why should one then bother using the work chain?
+The advantages for this trivial example may be difficult to see, but imagine the logic of the workflow becomes more complicated and the calculations become more intensive.
+The process specification of the work chain provides a central way of defining the inputs and outputs, making it easy to see at a glance how the work chain operates.
+In addition, the ``outline`` can give a succinct summary of the logical steps that the work chain will perform, all of which a work function does not have.
+The outline in this example was trivially simple, but the :ref:`advanced work chain development section<topics:workflows:usage:workchains>` will show how complex logic can be implemented directly in the process specification.
+The process specification also makes it easy to 'wrap' existing work chains into more complex work chains through the :ref:`expose functionality<topics:workflows:usage:workchains:expose_inputs_outputs>`.
+
+Finally, as mentioned before, the work chain provides the possibility of checkpoints, i.e. to save progress at certain points from which the computation can be continued after it had been interrupted.
+The state of the work chain is saved after each outline step.
+If expensive calculation jobs are performed in an individual outline step, they will be saved as soon as they finish.
+This is impossible for work functions, and if it were to be interrupted before *all* the computations had been completed, all intermediate progress would be lost.
+The rule of thumb therefore is, as soon as the worfklow becomes only slightly complex or computationally intensive, preference should be given to :ref:`work chains<topics:workflows:concepts:workchains>` and :ref:`calculation jobs<topics:calculations:concepts:calcjobs>`.
+
+This was a very quick overview of the intended use of work chains and how they work, but of course they have a lot more features.
+To learn how to write work chains for real life problems, continue reading at the :ref:`work chain development<topics:workflows:usage:workchains>` section, but before you do, read the following part on when to use a work function and when it is better to use a work chain.
+
+
+When to use which
+=================
+Now that we know how the two workflow components, work functions and work chains, work in AiiDA, you might wonder: when should I use which one?
+For simple operations that do not take long, the simplicity of the work function may be all you need, so by all means use it.
+However, a good rule of thumb is that as soon as the code is expected to take longer, for example when you want to launch a :ref:`calculation job<topics:calculations:concepts:calcjobs>` or another complex workflow, it is always best to go for the work chain.
+The automatic checkpointing, which guarantees that work between steps is saved, becomes very important.
+But the work chain offers a lot more features than just checkpointing that may make it more preferable over the work function, which you can read about in the advanced :ref:`work chain development <topics:workflows:usage:workchains>` section.
+.. _topics:workflows:usage:
+
+=====
+Usage
+=====
+
+.. note:: This chapter assumes knowledge of the :ref:`basic concept<topics:workflows:concepts>` and difference between work functions and work chains is known and when one should use on or the other.
+
+A workflow in AiiDA is a process (see the :ref:`process section<topics:processes:concepts>` for details) that calls other workflows and calculations and optionally *returns* data and as such can encode the logic of a typical scientific workflow.
+Currently, there are two ways of implementing a workflow process:
+
+ * :ref:`work function<topics:workflows:usage:workfunctions>`
+ * :ref:`work chain<topics:workflows:usage:workchains>`
+
+This section will provide detailed information and best practices on how to implement these two workflow types.
+
+
+.. _topics:workflows:usage:workfunctions:
+
+Work functions
+==============
+
+The concept of work functions and the basic rules of implementation are documented in detail elsewhere:
+
+  * :ref:`concept of work functions<topics:workflows:concepts:workfunctions>`
+  * :ref:`implementation of process functions<topics:processes:functions>`
+
+Since work functions are a sub type of process functions, just like calculation functions, their implementation rules are as good as identical.
+However, their intended aim and heuristics are very different.
+Where :ref:`calculation functions<topics:calculations:usage:calcfunctions>` are 'calculation'-like processes that *create* new data, work functions behave like 'workflow'-like processes and can only *return* data.
+What this entails in terms of intended usage and limitations for work functions is the scope of this section.
+
+.. _topics:workflows:usage:workfunctions:returning_data:
+
+Returning data
+--------------
+It has been said many times before: work functions, like all 'workflow'-like processes, `return` data, but what does `return` mean exactly?
+In this context, the term 'return' is not intended to refer to a piece of python code returning a value.
+Instead it refers to a workflow process recording a data node as one of its outputs, that *it itself did not create*, but which rather was created by some other process, that was called by the workflow.
+The calculation process was responsable for *creating* the data node and the workflow is merely *returning* it as one of its outputs.
+
+This is then exactly what the workfunction function does.
+It takes one or more data nodes as inputs, calls other processes to which it passes those inputs and optionally returns some or all of the outputs created by the calculation processes it called.
+As explained in the :ref:`technical section<topics:processes:functions>`, outputs are recorded as 'returned' nodes simply by returning the nodes from the function.
+The engine will inspect the return value from the function and attach the output nodes to the node that represents the work function.
+To verify that the output nodes are in fact not 'created', the engine will check that the nodes are stored.
+Therefore, it is very important that you **do not store the nodes you create yourself**, or the engine will raise an exception, as shown in the following example:
+
+.. include:: include/snippets/workfunctions/workfunction_store.py
+    :code: python
+
+Because the returned node is a newly created node and not stored, the engine will raise the following exception:
+
+.. code:: bash
+
+    ValueError: Workflow<illegal_workfunction> tried returning an unstored `Data` node.
+    This likely means new `Data` is being created inside the workflow.
+    In order to preserve data provenance, use a `calcfunction` to create this node and return its output from the workflow
+
+Note that you could of course circumvent this check by calling ``store`` yourself on the node, but that misses the point.
+The problem with using a ``workfunction`` to 'create' new data, is that the provenance is lost.
+To illustrate this problem, let's go back to the simple problem of implementing a workflow to add two integer and multiply the result with a third.
+The :ref:`correct implementation<topics:workflows:concepts:workfunctions>` has a resulting provenance graph that clearly captures the addition and the multiplication as separate calculation nodes, as shown in :numref:`fig_work_functions_provenance_add_multiply_full`.
+To illustrate what would happen if one does does not call calculation functions to perform the computations, but instead directly perform them in the work function itself and return the result, consider the following example:
+
+.. include:: include/snippets/workfunctions/workfunction_add_multiply_internal.py
+    :code: python
+
+.. warning:: For the documentation skimmers: this is an explicit example on **how not to use** work functions. The :ref:`correct implementation<topics:workflows:concepts:workfunctions>` calls calculation functions to perform the computation
+
+Note that in this example implementation we explicitly had to call ``store`` on the result before returning it to avoid the exception thrown by the engine.
+The resulting provenance would look like the following:
+
+.. _fig_work_functions_provenance_add_multiply_internal:
+.. figure:: include/images/add_multiply_workfunction_internal.png
+
+    The provenance generated by the incorrect work function implementation. Note how the addition and multiplication are not explicitly represented, but are implicitly hidden inside the workflow node. Moreover, the result node does not have a 'create' link, because a work function cannot create new data.
+
+However, looking at the generated provenance shows exactly why we shouldn't.
+This faulty implementation loses provenance as it has no explicit representations of the addition and the multiplication and the `result` node does not have a `create` link, which means that if only the data provenance is followed, it is as if it appears out of thin air!
+Compare this to the provenance graph of :numref:`fig_work_functions_provenance_add_multiply_full`, which was generated by a solution that correctly uses calculation functions to perform the computations.
+In this trivial example, one may think that this loss of information is not so important, because it is implicitly captured by the workflow node.
+But a halfway solution may make the problem more apparent, as demonstrated by the following snippet where the addition is properly done by calling a calculation function, but the final product is still performed by the work function itself:
+
+.. include:: include/snippets/workfunctions/workfunction_add_multiply_halfway.py
+    :code: python
+
+.. warning:: For the documentation skimmers: this is an explicit example on **how not to use** work functions. The :ref:`correct implementation<topics:workflows:concepts:workfunctions>` calls calculation functions to perform the computation
+
+This time around the addition is correctly performed by a calculation function as it should, however, its result is multiplied by the work function itself and returned.
+Note that once again ``store`` had to be called explicitly on ``product`` to avoid the engine throwing a ``ValueError``, which is only for the purpose of this example **and should not be done in practice**.
+The resulting provenance would look like the following:
+
+.. _fig_work_functions_provenance_add_multiply_halfway:
+.. figure:: include/images/add_multiply_workfunction_halfway.png
+
+    The provenance generated by the incorrect work function implementation that uses only a calculation function for the addition but performs the multiplication itself.
+    The red cross is there to indicate that there is no actual connection between the intermediate sum `D4` and the final result `D5`, even though the latter in reality derives from the former.
+
+The generated provenance shows, that although the addition is explicitly represented because the work function called the calculation function, there is no connection between the sum and the final result.
+That is to say, there is no direct link between the sum `D4` and the final result `D5`, as indicated by the red cross, even though we know that the final answer was based on the intermediate sum.
+This is a direct cause of the work function 'creating' new data and illustrates how, in doing so, the provenance of data creation is lost.
+
+
+.. _topics:workflows:usage:workfunctions:exit_codes:
+
+Exit codes
+----------
+
+To terminate the execution of a work function and mark it as failed, one simply has to return an :ref:`exit code<topics:processes:usage:exit_codes>`.
+The :py:class:`~aiida.engine.processes.exit_code.ExitCode` class is constructed with an integer, to denote the desired exit status and an optional message
+When such as exit code is returned, the engine will mark the node of the work function as ``Finished`` and set the exit status and message to the value of the exit code.
+Consider the following example:
+
+.. code:: python
+
+    @workfunction
+    def exiting_workfunction():
+        from aiida.engine import ExitCode
+        return ExitCode(418, 'I am a teapot')
+
+The execution of the work function will be immediately terminated as soon as the exit code is returned, and the exit status and message will be set to ``418`` and ``I am a teapot``, respectively.
+Since no output nodes are returned, the ``WorkFunctionNode`` node will have no outputs and the value returned from the function call will be an empty dictionary.
+
+
+.. _topics:workflows:usage:workchains:
+
+Work chains
+===========
+
+The :ref:`basic concept of the work chain<topics:workflows:concepts:workchains>` has been explained elsewhere.
+This section will provide details on how a work chain can and should be implemented.
+A work chain is implemented by the :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class.
+Since it is a sub class of the :py:class:`~aiida.engine.processes.process.Process` class, it shares all its properties.
+It will be very valuable to have read the section on working with :ref:`generic processes<topics:processes:usage>` before continuing, because all the concepts explained there will apply also to work chains.
+
+Let's continue with the example presented in the section on the :ref:`concept of workchains<topics:workflows:concepts:workchains>`, where we sum two integers and multiply the result with a third.
+We provided a very simple implementation in a code snippet, whose generated provenance graph, when executed, is shown in :numref:`fig_work_chains_provenance_add_multiply_workchain_full`.
+For convenience we copy the snippet here once more:
+
+.. include:: include/snippets/workchains/add_multiply_workchain_external_computation.py
+    :code: python
+
+We will now got through the implementation step-by-step and go into more detail on the interface and best practices.
+
+
+.. _topics:workflows:usage:workchains:define:
+
+Define
+------
+To implement a new work chain, simply create a new class that sub classes :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`.
+You can give the new class any valid python class name, but the convention is to have it end in ``WorkChain`` so that it is always immediately clear what it references.
+After having created a new work chain class, the first and most important method to implement is the :py:meth:`~aiida.engine.processes.process.Process.define` method.
+This is a class method that allows the developer to define the characteristics of the work chain, such as what inputs it takes, what outputs it can generate, what potential exit codes it can return and the logical outline through which it will accomplish all this.
+
+To implement the ``define`` method, you have to start with the following three lines:
+
+.. code:: python
+
+    @classmethod
+    def define(cls, spec):
+        super().define(spec)
+
+where you replace ``AddAndMultiplyWorkChain`` with the actual name of your work chain.
+The ``@classmethod`` decorator indicates that this method is a class method  [#f1]_ and not an instance method.
+The second line is the method signature and specified that it will receive the class itself ``cls`` and ``spec`` which will be an instance of the :py:class:`~aiida.engine.processes.process_spec.ProcessSpec`.
+This is the object that we will use to define our inputs, outputs and other relevant properties of the work chain.
+The third and final line is extremely important, as it will call the ``define`` method of the parent class, in this case the :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` class.
+
+.. warning::
+
+    If you forget to call ``super`` in the ``define`` method, your work chain will fail miserably!
+
+
+.. _topics:workflows:usage:workchains:define_inputs_outputs:
+
+Inputs and outputs
+------------------
+With those formalities out of the way, you can start defining the interesting properties of the work chain through the ``spec``.
+In the example you can see how the method :py:meth:`~plumpy.ProcessSpec.input` is used to define multiple input ports, which document exactly which inputs the work chain expects.
+Similarly, :py:meth:`~plumpy.ProcessSpec.output` is called to instruct that the work chain will produce an output with the label ``result``.
+These two port creation methods support a lot more functionality, such as adding help string, validation and more, all of which is documented in detail in the section on :ref:`ports and port namespace<topics:processes:usage:ports_portnamespaces>`.
+
+
+.. _topics:workflows:usage:workchains:define_outline:
+
+Outline
+-------
+The outline is what sets the work chain apart from other processes.
+It is a way of defining the higher-level logic that encodes the workflow that the work chain takes.
+The outline is defined in the ``define`` method through the :py:meth:`~plumpy.WorkChainSpec.outline`.
+It takes a sequence of instructions that the work chain will execute, each of which is implemented as a method of the work chain class.
+In the simple example above, the outline consists of three simple instructions: ``add``, ``multiply``, ``results``.
+Since these are implemented as instance methods, they are prefixed with ``cls.`` to indicate that they are in fact methods of the work chain class.
+For that same reason, their implementation should take ``self`` as its one and only argument, as demonstrated in the example snippet.
+
+The outline in this simple example is not particular interesting as it consists of three simple instructions that will be executed sequentially.
+However, the outline also supports various logical constructs, such as while-loops, conditionals and return statements.
+As usual, the best way to illustrate these constructs is by example.
+The currently available logical constructs for the work chain outline are:
+
+    * ``if``, ``elif``, ``else``
+    * ``while``
+    * ``return``
+
+To distinguish these constructs from the python builtins, they are suffixed with an underscore, like so ``while_``.
+To use these in your work chain design, you will have to import them:
+
+.. code:: python
+
+    from aiida.engine import if_, while_, return_
+
+The following example shows how to use these logical constructs to define the outline of a work chain:
+
+.. code:: python
+
+    spec.outline(
+        cls.intialize_to_zero,
+        while_(cls.n_is_less_than_hundred)(
+            if_(cls.n_is_multitple_of_three)(
+                cls.report_fizz,
+            ).elif_(cls.n_is_multiple_of_five)(
+                cls.report_buzz,
+            ).elif_(cls.n_is_multiple_of_three_and_five)(
+                cls.report_fizz_buzz,
+            ).else_(
+                cls.report_n,
+            )
+        ),
+        cls.increment_n_by_one,
+    )
+
+This is an implementation (and an extremely contrived one at that) of the well known FizzBuzz [#f2]_ problem.
+The idea is that the program is supposed to print in sequence the numbers from zero to some limit, except when the number is a multiple of three ``Fizz`` is printed, for a multiple of five ``Buzz`` and when it is a multiple of both, the program should print ``FizzBuzz``.
+Note how the syntax looks very much like that of normal python syntax.
+The methods that are used in the conditionals (between the parentheses of the ``while_`` and ``if_`` constructs) for example should return a boolean; ``True`` when the condition holds and ``False`` otherwise.
+The actual implementation of the outline steps themselves is now trivial:
+
+.. code:: python
+
+    def initialize_to_zero(self):
+        self.ctx.n = 0
+
+    def n_is_less_than_hundred(self):
+        return self.ctx.n < 100
+
+    def n_is_multiple_of_three(self):
+        return self.ctx.n % 3 == 0
+
+    def n_is_multiple_of_five(self):
+        return self.ctx.n % 5 == 0
+
+    def n_is_multiple_of_three_and_five(self):
+        return self.ctx.n % 3 == 0 and self.ctx.n % 5 == 0
+
+    def increment_n_by_one(self):
+        self.ctx.n += 1
+
+The intention of this example is to show that with a well designed outline, a user only has to look at the outline to have a good idea *what* the work chain does and *how* it does it.
+One should not have to look at the implementation of the outline steps as all the important information is captured by the outline itself.
+Since the goal of a work chain should be to execute a very well defined task, it is the goal of the outline to capture the required logic to achieve that goal, in a clear and short yet not overly succint manner.
+The outline supports various logical flow constructs, such as conditionals and while loops, so where possible this logic should be expressed in the outline and not in the body of the outline functions.
+However, one can also go overboard and put too finely grained logical blocks into the outline, causing it to become bulky and difficult to understand.
+
+A good rule of thumb in designing the outline is the following: before you start designing a work chain, define very clearly the task that it should carry out.
+Once the goal is clear, draw a schematic block diagram of the necessary steps and logical decisions that connect them, in order to accomplish that goal.
+Converting the resulting flow diagram in a one-to-one fashion into an outline, often results in very reasonable outline designs.
+
+
+.. _topics:workflows:usage:workchains:define_exit_codes:
+
+Exit codes
+----------
+There is one more property of a work chain that is specified through its process specification, in addition to its inputs, outputs and outline.
+Any work chain may have one to multiple failure modes, which are modelled by :ref:`exit codes<topics:processes:usage:exit_codes>`.
+A work chain can be stopped at any time, simply by returning an exit code from an outline method.
+To retrieve an exit code that is defined on the spec, one can use the :py:meth:`~aiida.engine.processes.process.Process.exit_codes` property.
+This returns an attribute dictionary where the exit code labels map to their corresponding exit code.
+For example, with the following process spec:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.exit_code(418, 'ERROR_I_AM_A_TEAPOT', 'the process had an identity crisis')
+
+To see how exit codes can be used to terminate the execution of work chains gracefully, refer to the section :ref:`topics:workflows:usage:workchains:aborting_and_exit_codes`.
+
+
+.. _topics:workflows:usage:workchains:launching_workchains:
+
+Launching work chains
+---------------------
+
+The rules for launching work chains are the same as those for any other process, which are detailed in :ref:`this section<topics:processes:usage:launching>`.
+On top of those basic rules, there is one peculiarity in the case of work chains when submitting to the daemon.
+When you submit a ``WorkChain`` over the daemon, or any other process for that matter, you need to make sure that the daemon can find the class when it needs to load it.
+Registering your class through the plugin system with a designated entry point is one way to make sure that the daemon will be able to find it.
+If, however, you simply have a test class and do not want to go through the effort of creating an entry point for it, you should make sure that the module where you define the class is in the python path.
+Additionally, make sure that the definition of the work chain **is not in the same file from which you submit it**, or the engine won't be able to load it.
+
+
+.. _topics:workflows:usage:workchains:context:
+
+Context
+-------
+In the simplest work chain example presented in the introductory section, we already saw how the context can be used to persist information during the execution of a work chain and pass it between outline steps.
+The context is essentially a data container, very similar to a dictionary that can hold all sorts of data.
+The engine will ensure that its contents are saved and persisted in between steps and when the daemon shuts down or restarts.
+A trivial example of this would be the following:
+
+.. code:: python
+
+    def step_one(self):
+        self.ctx.some_variable = 'store me in the context'
+
+    def step_two(self):
+        assert self.ctx.some_variable == 'store me in the context'
+
+In the ``step_one`` outline step we store the string ``'store me in the context'`` in the context, which can be addressed as ``self.ctx``, under the key ``some_variable``.
+Note that for the key you can use anything that would be a valid key for a normal python dictionary.
+In the second outline step ``step_two``, we can verify that the string was successfully persisted, by checking the value stored in the context ``self.ctx.some_variable``.
+
+.. warning::
+
+    Any data that is stored in the context **has** to be serializable.
+
+This was just a simple example to introduce the concept of the context, however, it really is one of the more important parts of the work chain.
+The context really becomes crucial when you want to submit a calculation or another work chain from within the work chain.
+How this is accomplished, we will show in the next section.
+
+.. _topics:workflows:usage:workchains:submitting_sub_processes:
+
+Submitting sub processes
+------------------------
+One of the main tasks of a ``WorkChain`` will be to launch other processes, such as a ``CalcJob`` or another ``WorkChain``.
+How to submit processes was explained in :ref:`another section<topics:processes:usage:launch>` and is accomplished by using the :py:func:`~aiida.engine.launch.submit` launch function.
+However, when submitting a sub process from within a work chain, **this should not be used**.
+Instead, the :py:class:`~aiida.engine.processes.process.Process` class provides its own :py:meth:`~aiida.engine.processes.process.Process.submit` method.
+If you do, you will be greeted with the exception:
+
+.. code:: python
+
+    InvalidOperation: 'Cannot use top-level `submit` from within another process, use `self.submit` instead'
+
+The only change you have to make is to replace the top-level ``submit`` method with the built-in method of the process class:
+
+.. code:: python
+
+    def submit_sub_process(self)
+        node = self.submit(SomeProcess, **inputs)  # Here we use `self.submit` and not `submit` from `aiida.engine`
+        return ToContext(sub_process=node)
+
+The ``self.submit`` method has the exact same interface as the global ``aiida.engine.launch.submit`` launcher.
+When the ``submit`` method is called, the process is created and submitted to the daemon, but at that point it is not yet done.
+So the value that is returned by the ``submit`` call is not the result of the submitted process, but rather it is the process node that represents the execution of the process in the provenance graph and acts as a *future*.
+We somehow need to tell the work chain that it should wait for the sub process to be finished, and the future to resolve, before it continues.
+To do so, however, control has to be returned to the engine, which can then, when the process is completed, call the next step in the outline, where we can analyse the results.
+The snippet above already revealed that this is accomplished by returning an instance of the ``ToContext`` class.
+
+To context
+^^^^^^^^^^
+In order to store the future of the submitted process, we can store it in the context with a special construct that will tell the engine that it should wait for that process to finish before continuing the work chain.
+To illustrate how this works, consider the following minimal example:
+
+.. include:: include/snippets/workchains/run_workchain_submit_complete.py
+    :code: python
+
+As explained in the previous section, calling ``self.submit`` for a given process that you want to submit, will return a future.
+To add this future to the context, we can not access the context directly as explained in the :ref:`context section<topics:workflows:usage:workchains:context>`, but rather we need to use the class :py:class:`~aiida.engine.processes.workchains.context.ToContext`.
+This class has to be imported from the ``aiida.engine`` module.
+To add the future to the context, simply construct an instance of ``ToContext``, passing the future as a keyword argument, and returning it from the outline step.
+The keyword used, ``workchain`` in this example, will be the key used under which to store the node in the context once its execution has terminated.
+Returning an instance of ``ToContext`` signals to the engine that it has to wait for the futures contained within it to finish execution, store their nodes in the context under the specified keys and then continue to the next step in the outline.
+In this example, that is the ``inspect_workchain`` method.
+At this point we are sure that the process, a work chain in this case, has terminated its execution, although not necessarily successful, and we can continue the logic of the work chain.
+
+.. warning::
+
+    Using the ``ToContext`` construct alone is not enough to tell the engine that it should wait for the sub process to finish.
+    There **needs** to be at least another step in the outline to follow the step that added the awaitables.
+    If there is no more step to follow, according to the outline, the engine interprets this as the work chain being done and so it will not wait for the sub process to finish.
+    Think about it like this: if there is not even a single step to follow, there is also nothing the work chain could do with the results of the sub process, so there is no point in waiting.
+
+Sometimes one wants to launch not just one, but multiple processes at the same time that can run in parallel.
+With the mechanism described above, this will not be possible since after submitting a single process and returning the ``ToContext`` instance, the work chain has to wait for the process to be finished before it can continue.
+To solve this problem, there is another way to add futures to the context:
+
+.. include:: include/snippets/workchains/run_workchain_submit_parallel.py
+    :code: python
+
+Here we submit three work chains in a for loop in a single outline step, but instead of returning an instance of ``ToContext``, we call the :meth:`~aiida.engine.processes.workchains.workchain.WorkChain.to_context` method.
+This method has exactly the same syntax as the ``ToContext`` class, except it is not necessary to return its value, so we can call it multiple times in one outline step.
+Under the hood the functionality is also the same as the ``ToContext`` class.
+At the end of the ``submit_workchains`` outline step, the engine will find the futures that were added by calling ``to_context`` and will wait for all of them to be finished.
+The good thing here is that these three sub work chains can be run in parallel and once all of them are done, the parent work chain will go to the next step, which is ``inspect_workchains``.
+There we can find the nodes of the work chains in the context under the key that was used as the keyword argument in the ``to_context`` call in the previous step.
+
+Since we do not want the subsequent calls of ``to_context`` to override the previous future, we had to create unique keys to store them under.
+In this example, we chose to use the index of the for-loop.
+The name carries no meaning and is just required to guarantee unique key names.
+This pattern will occur often where you will want to launch multiple work chains or calculations in parallel and will have to come up with unique names.
+In essence, however, you are really just creating a list and it would be better to be able to create a list in the context and simply append the future to that list as you submit them.
+How this can be achieved is explained in the next section.
+
+Appending
+^^^^^^^^^
+When you want to add a future of a submitted sub process to the context, but append it to a list rather than assign it to a key, you can use the :func:`~aiida.engine.processes.workchains.context.append_` function.
+Consider the example from the previous section, but now we will use the ``append_`` function instead:
+
+.. include:: include/snippets/workchains/run_workchain_submit_append.py
+    :code: python
+
+Notice that in the ``submit_workchains`` step we no longer have to generate a unique key based on the index but we simply wrap the future in the ``append_`` function and assign it to the generic key ``workchains``.
+The engine will see the ``append_`` function and instead of assigning the node corresponding to the future to the key ``workchains``, it will append it to the list stored under that key.
+If the list did not yet exist, it will automatically be created.
+The ``self.ctx.workchains`` now contains a list with the nodes of the completed work chains, with the same order as they had been inserted, and so in the ``inspect_workchains`` step we can simply iterate over it to access all of them.
+Note that the use of ``append_`` is not just limited to the ``to_context`` method.
+You can also use it in exactly the same way with ``ToContext`` to append a process to a list in the context in multiple outline steps.
+
+Nested context keys
+^^^^^^^^^^^^^^^^^^^
+
+To simplify the organization of the context, the keys may contain dots ``.``, transparently creating namespaces in the process.
+As an example compare the following to the parallel submission example above:
+
+.. include:: include/snippets/workchains/run_workchain_submit_append.py
+    :code: python
+
+This allows to create intuitively grouped and easily accessible structures of child calculations or workchains.
+
+.. _topics:workflows:usage:workchains:reporting:
+
+Reporting
+---------
+During the execution of a ``WorkChain``, we may want to keep the user abreast of its progress and what is happening.
+For this purpose, the ``WorkChain`` implements the :py:meth:`~aiida.engine.processes.process.Process.report` method, which functions as a logger of sorts.
+It takes a single argument, a string, that is the message that needs to be reported:
+
+.. code:: python
+
+    def submit_calculation(self):
+        self.report('here we will submit a calculation')
+
+This will send that message to the internal logger of python, which will cause it to be picked up by the default AiiDA logger, but it will also trigger the database log handler, which will store the message in the database and link it to the node of the work chain.
+This allows the ``verdi process report`` command to retrieve all those messages that were fired using the ``report`` method for a specific process.
+Note that the report method, in addition to the pk of the work chain, will also automatically record the name of the work chain and the name of the outline step in which the report message was fired.
+This information will show up in the output of ``verdi process report``, so you never have to explicitly reference the work chain name, outline step name or date and time in the message itself.
+
+It is important to note that the report system is a form of logging and as such has been designed to be read by humans only.
+That is to say, the report system is not designed to pass information programmatically by parsing the log messages.
+
+.. _topics:workflows:usage:workchains:aborting_and_exit_codes:
+
+Aborting and exit codes
+-----------------------
+At the end of every outline step, the return value will be inspected by the engine.
+If a non-zero integer value is detected, the engine will interpret this as an exit code and will stop the execution of the work chain, while setting its process state to ``Finished``.
+In addition, the integer return value will be set as the ``exit_status`` of the work chain, which combined with the ``Finished`` process state will denote that the worchain is considered to be ``Failed``, as explained in the section on the :ref:`process state <topics:processes:concepts:state>`.
+This is useful because it allows a workflow designer to easily exit from a work chain and use the return value to communicate programmatically the reason for the work chain stopping.
+
+We assume that you have read the :ref:`section on how to define exit codes <topics:workflows:usage:workchains:define_exit_codes>` through the process specification of the work chain.
+Consider the following example work chain that defines such an exit code:
+
+.. code:: python
+
+    spec.exit_code(400, 'ERROR_CALCULATION_FAILED', 'the child calculation did not finish successfully')
+
+Now imagine that in the outline, we launch a calculation and in the next step check whether it finished successfully.
+In the event that the calculation did not finish successfully, the following snippet shows how you can retrieve the corresponding exit code and abort the ``WorkChain`` by returning it:
+
+.. code:: python
+
+    def submit_calculation(self):
+        inputs = {'code': code}
+        future = self.submit(SomeCalcJob, **inputs)
+        return ToContext(calculation=future)
+
+    def inspect_calculation(self):
+        if not self.ctx.calculation.is_finished_ok:
+            self.report('the calculation did not finish successfully, there is nothing we can do')
+            return self.exit_codes.ERROR_CALCULATION_FAILED
+
+        self.report('the calculation finished successfully')
+
+In the ``inspect_calculation`` outline, we retrieve the calculation that was submitted and added to the context in the previous step and check if it finished successfully through the property ``is_finished_ok``.
+If this returns ``False``, in this example we simply fire a report message and return the exit code corresponding to the label ``ERROR_CALCULATION_FAILED``.
+Note that the specific exit code can be retrieved through the ``WorkChain`` property ``exit_codes``.
+This will return a collection of exit codes that have been defined for that ``WorkChain`` and any specific exit code can then be retrieved by accessing it as an attribute.
+Returning this exit code, which will be an instance of the :py:class:`~aiida.engine.processes.exit_code.ExitCode` class, will cause the work chain to be aborted and the ``exit_status`` and ``exit_message`` to be set on the node, which were defined in the spec.
+
+.. note::
+
+    The notation ``self.exit_codes.ERROR_CALCULATION_FAILED`` is just syntactic sugar to retrieve the ``ExitCode`` instance that was defined in the spec with that error label.
+    Constructing your own ``ExitCode`` directly and returning that from the outline step will have exactly the same effect in terms of aborting the work chain execution and setting the exit status and message.
+    However, it is strongly advised to define the exit code through the spec and retrieve it through the ``self.exit_codes`` collection, as that makes it easily retrievable through the spec by the caller of the work chain.
+
+The ``message`` attribute of an ``ExitCode`` can also be a string that contains placeholders.
+This is useful when the exit code's message is generic enough to a host of situations, but one would just like to parameterize the exit message.
+To concretize the template message of an exit code, simply call the :meth:`~aiida.engine.processes.exit_code.ExitCode.format` method and pass the parameters as keyword arguments:
+
+.. code:: python
+
+    exit_code_template = ExitCode(450, 'the parameter {parameter} is invalid.')
+    exit_code_concrete = exit_code_template.format(parameter='some_specific_key')
+
+This concept can also be applied within the scope of a process.
+In the process spec, we can declare a generic exit code whose exact message should depend on one or multiple parameters:
+
+.. code:: python
+
+    spec.exit_code(450, 'ERROR_INVALID_PARAMETER, 'the parameter {parameter} is invalid.')
+
+Through the ``self.exit_codes`` collection of a ``WorkChain``, this generic can be easily customized as follows:
+
+.. code:: python
+
+    def inspect_calculation(self):
+        return self.exit_codes.ERROR_INVALID_PARAMETER.format(parameter='some_specific_key')
+
+This is no different than the example before, because ``self.exit_codes.ERROR_INVALID_PARAMETER`` simply returns an instance of ``ExitCode``, which we then call ``format`` on with the substitution parameters.
+
+In conclusion, the best part about using exit codes to abort a work chain's execution, is that the exit status can now be used programmatically, by for example a parent work chain.
+Imagine that a parent work chain submitted this work chain.
+After it has terminated its execution, the parent work chain will want to know what happened to the child work chain.
+As already noted in the :ref:`report<topics:workflows:usage:workchains:reporting>` section, the report messages of the work chain should not be used.
+The exit status, however, is a perfect way.
+The parent work chain can easily request the exit status of the child work chain through the ``exit_status`` property, and based on its value determine how to proceed.
+
+
+Modular workflow design
+-----------------------
+When creating complex workflows, it is a good idea to split them up into smaller, modular parts.
+At the lowest level, each workflow should perform exactly one task.
+These workflows can then be wrapped together by a "parent" workflow to create a larger logical unit.
+
+In order to make this approach manageable, it needs to be as simple as possible to glue together multiple workflows in a larger parent workflow.
+One of the tools that AiiDA provides to simplify this is the ability to *expose* the ports of another work chain.
+
+.. _topics:workflows:usage:workchains:expose_inputs_outputs:
+
+Exposing inputs and outputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Consider the following example work chain, which simply takes a few inputs and returns them again as outputs:
+
+.. include:: include/snippets/expose_inputs/child.py
+    :code: python
+
+As a first example, we will implement a thin wrapper workflow, which simply forwards its inputs to ``ChildWorkChain``, and forwards the outputs of the child to its outputs:
+
+.. include:: include/snippets/expose_inputs/simple_parent.py
+    :code: python
+
+In the ``define`` method of this simple parent work chain, we use the :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` and :meth:`~plumpy.process_spec.ProcessSpec.expose_outputs`.
+This creates the corresponding input and output ports in the parent work chain.
+Additionally, AiiDA remembers which inputs and outputs were exposed from that particular work chain class.
+This is used when calling the child in the ``run_child`` method.
+The :meth:`~aiida.engine.processes.process.Process.exposed_inputs` method returns a dictionary of inputs that the parent received which were exposed from the child, and so it can be used to pass these on to the child.
+Finally, in the ``finalize`` method, we use :meth:`~aiida.engine.processes.process.Process.exposed_outputs` to retrieve the outputs of the child which were exposed to the parent.
+Using :meth:`~aiida.engine.processes.process.Process.out_many`, these outputs are added to the outputs of the parent work chain.
+This work chain can now be run in exactly the same way as the child itself:
+
+.. include:: include/snippets/expose_inputs/run_simple.py
+    :code: python
+
+Next, we will see how a more complex parent work chain can be created by using the additional features of the expose functionality.
+The following work chain launches two children.
+These children share the input ``a``, but have different ``b`` and ``c``.
+The output ``e`` will be taken only from the first child, whereas ``d`` and ``f`` are taken from both children.
+In order to avoid name conflicts, we need to create a *namespace* for each of the two children, where the inputs and outputs which are not shared are stored.
+Our goal is that the workflow can be called as follows:
+
+.. include:: include/snippets/expose_inputs/run_complex.py
+    :code: python
+
+This is achieved by the following workflow.
+In the next section, we will explain each of the steps.
+
+.. include:: include/snippets/expose_inputs/complex_parent.py
+    :code: python
+
+First of all, we want to expose the ``a`` input and the ``e`` output at the top-level.
+For this, we again use :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs` and :meth:`~plumpy.process_spec.ProcessSpec.expose_outputs`, but with the optional keyword ``include``.
+This specifies a list of keys, and only inputs or outputs which are in that list will be exposed.
+So by passing ``include=['a']`` to :meth:`~plumpy.process_spec.ProcessSpec.expose_inputs`, only the input ``a`` is exposed.
+
+Additionally, we want to expose the inputs ``b`` and ``c`` (outputs ``d`` and ``f``), but in a namespace specific for each of the two children.
+For this purpose, we pass the ``namespace`` parameter to the expose functions.
+However, since we now shouldn't expose ``a`` (``e``) again, we use the ``exclude`` keyword, which specifies a list of keys that will not be exposed.
+
+When calling the children, we again use the :meth:`~aiida.engine.processes.process.Process.exposed_inputs` method to forward the exposed inputs.
+Since the inputs ``b`` and ``c`` are now in a specific namespace, we need to pass this namespace as an additional parameter.
+By default, :meth:`~aiida.engine.processes.process.Process.exposed_inputs` will search through all the parent namespaces of the given namespace to search for input, as shown in the call for ``child_1``.
+If the same input key exists in multiple namespaces, the input in the lowest namespace takes precedence.
+It's also possible to disable this behavior, and instead search only in the explicit namespace that was passed.
+This is done by setting ``agglomerate=False``, as shown in the call to ``child_2``.
+Of course, we then need to explicitly pass the input ``a``.
+
+Finally, we use :meth:`~aiida.engine.processes.process.Process.exposed_outputs` and :meth:`~aiida.engine.processes.process.Process.out_many` to forward the outputs of the children to the outputs of the parent.
+Again, the ``namespace`` and ``agglomerate`` options can be used to select which outputs are returned by the :meth:`~aiida.engine.processes.process.Process.exposed_outputs` method.
+
+.. seealso::
+
+    For further practical examples of creating workflows, see the :ref:`how to write workflows<how-to:write-workflows>` and :ref:`how to write error resistant workflows <how-to:restart-workchain>` sections.
+
+
+.. rubric:: Footnotes
+
+.. [#f1] https://docs.python.org/3.5/library/functions.html#classmethod
+.. [#f2] https://en.wikipedia.org/wiki/Fizz_buzz
+.. _topics:workflows:
+
+*********
+Workflows
+*********
+
+This topic section provides detailed information on the concept of workflows in AiiDA and an extensive guide on how to work with them.
+An introductory guide to working with workflows can be found in :ref:`"How to run multi-step workflows"<how-to:run-workflows>`.
+
+.. toctree::
+   :maxdepth: 2
+
+   concepts
+   usage
+.. _topics:calculations:concepts:
+
+========
+Concepts
+========
+
+A calculation is a process (see the :ref:`process section<topics:processes:concepts>` for details) that *creates* new data.
+Currently, there are two ways of implementing a calculation process:
+
+ * :ref:`calculation function<topics:calculations:concepts:calcfunctions>`
+ * :ref:`calculation job<topics:calculations:concepts:calcjobs>`
+
+The first one is the simplest of the two and is basically a python function that is magically transformed into a process.
+This is ideal for calculations that are not very computationally intensive and can be easily implemented in a python function.
+For more taxing calculations, typically performed by external codes that are optionally run on remote computing clusters, the calculation job is the better alternative.
+
+In the following sections, both concepts will be explained but without going too much into detail on how to implement or run them.
+For a more detailed exposé, please refer to the respective advanced sections on :ref:`calculation functions<topics:calculations:usage:calcfunctions>` and :ref:`calculation jobs<topics:calculations:usage:calcjobs>`.
+
+
+.. _topics:calculations:concepts:calcfunctions:
+
+Calculation functions
+=====================
+
+Consider the following computational task at hand:
+
+.. highlights::
+    Given three integers, add the first two and then multiply the sum by the third.
+
+In plain python code, the solution would look something like the following:
+
+.. include:: include/snippets/calcfunctions/add_multiply_plain_python.py
+    :code: python
+
+This simple code snippet will achieve the goal of getting the desired result, however, the provenance is lost.
+There is no connection between the output of the functions and their inputs.
+The remedy to this problem is the :py:func:`~aiida.engine.processes.functions.calcfunction`.
+The ``calcfunction`` in AiiDA is a `function decorator <https://docs.python.org/3/glossary.html#term-decorator>`_ that transforms a regular python function in a calculation process, which automatically stores the provenance of its output in the :ref:`provenance graph<topics:provenance>` when executed.
+Updating the previous snippet with ``calcfunction`` decorators yields:
+
+.. include:: include/snippets/calcfunctions/add_multiply_calcfunction_decorator.py
+    :code: python
+
+The only thing we had to do to decorate the two functions was to add the line ``@calcfunction`` just before the function definition.
+Adding the decorator tells AiiDA that the provenance for this function should be stored in the provenance graph when it is executed.
+This means linking up the inputs and the outputs for a calculation node, which represents the function that was executed.
+The final change that has to be performed to make this possible, is to make the inputs and the outputs storable.
+In the previous snippet, the inputs are plain python integer types, which cannot be automatically stored in the provenance graph as nodes.
+To solve this, one only has to wrap them in the :py:class:`~aiida.orm.nodes.data.int.Int` node sub class, which makes them storable in the database:
+
+.. include:: include/snippets/calcfunctions/add_multiply_calcfunction_data_types.py
+    :code: python
+
+The only difference with the previous snippet is that all inputs have been wrapped in the :py:class:`~aiida.orm.nodes.data.int.Int` class.
+The result that is returned by the function, is now also an :py:class:`~aiida.orm.nodes.data.int.Int` node that can be stored in the provenance graph, and contains the result of the computation.
+
+.. note::
+
+    Since ``x`` and ``y`` inside the ``add`` and ``multiply`` functions are already :py:class:`~aiida.orm.nodes.data.int.Int` instances the sum will also be one.
+    This is true because all arithmetic operators also work on the base AiiDA classes (``Int``, ``Float``, etc.) as they would on the equivalent python types.
+    It is important to realize though that only :py:class:`~aiida.orm.nodes.node.Node` instances, or sub classes thereof can be stored.
+    For more information on how to return results from process functions, refer to the :ref:`advanced section<topics:calculations:usage:calcfunctions>`.
+
+With these trivial changes, the full provenance of the result produced by running the function is maintained and looks like the following:
+
+.. _fig_calculation_functions_provenance_add_multiply:
+.. figure:: /topics/workflows/include/images/add_multiply_calcfunction_data.png
+
+    The provenance generated by the calcfunction example
+
+The example above already shows how a calcfunction can be run: simply by calling it.
+The value that is returned is the result returned by the definition of the function.
+However, sometimes one would also like to have a reference to the calculation node that represents the execution of the function in the provenance graph.
+The following example shows two additional launch functions that will return a tuple, which in addition to the results, also return the ``pk`` or the node associated with the process
+
+.. include:: include/snippets/calcfunctions/add_multiply_calcfunction_run.py
+    :code: python
+
+This was a very short and limited description of calculation functions.
+For a more detailed description of launching them, please refer to the section on :ref:`launching processes<topics:processes:usage:launching>`.
+If you want more details on implementing calculation functions and best practices, refer to the section on :ref:`working with calculation functions<topics:calculations:usage:calcfunctions>`.
+
+
+.. _topics:calculations:concepts:calcjobs:
+
+Calculation jobs
+================
+
+In the previous section on :ref:`calculation functions<topics:calculations:concepts:calcfunctions>`, we showed how a simple python function can be transformed into a process, such that when it is launched, its execution is recorded automatically in the provenance graph.
+However, not all computations are well suited to be implemented as a python function, but rather are implemented as a separate code, external to AiiDA.
+To interface an external code with the engine of AiiDA, the :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` process class was introduced.
+A detailed explanation of how to implement it, the interface and best practices, can be found in a :ref:`later section<topics:calculations:usage:calcjobs>`.
+Here, instead, we will focus on the big picture and explain in broad lines how a calculation job models the execution of an external code and what tasks it performs when launched.
+
+To illustrate how a calculation job operates, we need an external code.
+Let's imagine an external code that consists of a bash script that reads an input file containing two integers, sums them and prints the result in the standard output using ``echo``, for example:
+
+.. code:: bash
+
+    #!/bin/bash
+    # Read two integers from file 'aiida.in' and echo their sum
+    x=$(cat aiida.in | awk '{print $1}')
+    y=$(cat aiida.in | awk '{print $2}')
+    echo $(( $x + $y ))
+
+When run, this script reads the contents of a file called ``aiida.in`` and expects that it contains two integers.
+It will parse these into the variables ``x`` and ``y`` and then print their sum.
+When you want to run this 'code' through AiiDA, you need to tell *how* AiiDA should run it.
+The :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` is a calculation job implementation that forms an interface to accomplish exactly that for the example bash script.
+A ``CalcJob`` implementation for a specific code, often referred to as a calculation plugin, essentially instructs the engine how it should be run.
+This includes how the necessary input files should be created based on the inputs that it receives, how the code executable should be called and what files should be retrieved when the calculation is complete.
+Note the files should be 'retrieved' because calculation jobs can be run not just on the localhost, but on any :ref:`computer that is configured in AiiDA<how-to:run-codes:computer>`, including remote machines accessible over for example SSH.
+
+Since a ``CalcJob`` is a process just like the :ref:`calculation functions<topics:calculations:concepts:calcfunctions>` described before, they can be run in an identical way.
+
+.. include:: include/snippets/calcjobs/arithmetic_add_run.py
+    :code: python
+
+the provenance generated by running the calculation job will look something like this:
+
+.. _fig_calculation_jobs_provenance_arithmetic_add:
+.. figure:: include/images/arithmetic_add.png
+
+    The provenance generated by the calculation job example
+
+The execution of the calculation job is represented in the provenance graph by a process node, i.e. the pink square labeled `C\ :sub:`1`` in :numref:`fig_calculation_jobs_provenance_arithmetic_add`.
+The integer data nodes ``x`` and ``y`` that were passed as inputs are linked to the calculation job as such, as well as the third input ``code``.
+This input is required for *all* calculation jobs as it represents the external code that is actually executed.
+These code nodes are instances of the :py:class:`~aiida.orm.nodes.data.code.Code` class, which is a sub-class of :py:class:`~aiida.orm.nodes.data.data.Data`.
+This means that code instances are a sort of data node.
+Its function is to record the path to the executable and some other code related attributes defined during the code setup.
+
+The calculation job produced two outputs, an integer node, containing the sum of ``x`` and ``y`` and a :py:class:`~aiida.orm.nodes.data.folder.FolderData` node, containing the output files that were retrieved.
+Note that all outputs of calculation jobs (except for the ``retrieved`` node) are technically not created by the calculation job itself, but rather by an implementation of the :py:class:`~aiida.parsers.parser.Parser` class.
+In principle, this step is optional, and so a calculation job is therefore not required to produce any outputs, except for the ``retrieved`` folder data node, which will always be there.
+How the parser fits into the concept of calculation jobs will be addressed in :ref:`this section<topics:calculations:concepts:calcjobs_parsers>`.
+
+.. _topics:calculations:concepts:calcjobs_transport_tasks:
+
+Transport tasks
+---------------
+
+To arrive at the provenance graph shown above in :numref:`fig_calculation_jobs_provenance_arithmetic_add`, the engine performed quite some tasks.
+When a calculation job is launched, the engine will take it roughly through the following steps:
+
+ * **Upload**: the calculation job implementation is used to transform the input nodes into the required input files, which are uploaded to a 'working' directory on the target machine
+ * **Submit**: to execute the calculation, a job is submitted to the scheduler of the computer on which the input `code` is configured.
+ * **Update**: the engine will query the scheduler to check for the status of the calculation job
+ * **Retrieve**: once the job has finished, the engine will retrieve the output files, specified by the calculation plugin and store them in a node attached as an output node to the calculation
+
+All of these tasks require the engine to interact with the computer, or machine, that will actually run the external code.
+Since the :py:class:`~aiida.orm.nodes.data.code.Code` that is used as an input for the calculation job, which is configured for a specific :py:class:`~aiida.orm.computers.Computer`, the engine knows exactly how to execute all these tasks.
+The ``CalcJob`` implementation itself then is completely independent of the machine the code will be run on.
+To run the calculation job on a different machine, all you have to do is change the ``code`` input to one that is configured for that machine.
+If the machine is *not* the localhost, the engine will need a way to connect to the remote machine in order to perform each of the four tasks listed above.
+The mechanism that allows the engine to connect to the remote machine is called a *transport* and therefore the tasks it performs using this transport are called *transport tasks*.
+
+
+.. _topics:calculations:concepts:calcjobs_exponential_backoff:
+
+Exponential backoff mechanism
+-----------------------------
+
+In the case of calculation jobs being executed on a remote machine, the engine will have to connect to the machine for each of the transport tasks.
+In connecting to the remote, a whole host of potential problems may occur that would cause the calculation job to fail.
+For example, the remote machine may be down and as a result unreachable, or the engine itself may lose its internet connection.
+However, these problems are often temporary.
+To prevent the calculation job from excepting and it being lost forever, an *exponential backoff mechanism* has been implemented.
+Whenever the engine performs a transport task but encounters an exception, instead of letting the calculation job fail, it will reschedule the same task to be executed again at a later time.
+The task will be automatically rescheduled until it finishes successfully, where the interval between tries increases exponentially.
+If after 5 consecutive tries, the task still fails, instead of rescheduling it, the engine will simply pause the calculation job.
+The output of ``verdi process list`` will give more information on why the task failed:
+
+.. code-block:: bash
+
+      PK  Created     State           Process label                 Process status
+    ----  ----------  ------------    --------------------------    ---------------------------------------------------------------------------------------
+     151  1h ago      ⏸ Waiting       ArithmeticAddCalculation      Pausing after failed transport task: retrieve_calculation failed 5 times consecutively
+
+
+    Total results: 1
+
+When there are calculation jobs that have been paused because the transport tasks have failed multiple times, the user has the time to investigate the problem.
+If the problem is determined to be temporary and it has been resolved, one can use ``verdi process play`` to resume the paused processes.
+The engine will then automatically reschedule the task that failed last and the calculation job will continue where it left off.
+
+This exponential backoff mechanism makes the engine very robust with respect to calculation jobs, reducing the loss of computational resources due to temporary problems to an absolute minimum.
+
+.. note::
+
+    The parameters, such as the delays between retries and the maximum number of retries, are currently not configurable, but they might be in the future.
+
+.. _topics:calculations:concepts:calcjobs_parsers:
+
+Parsers
+-------
+The previous section explained how the ``CalcJob`` class functions as an interface between AiiDA's engine and an external piece of code.
+The calculation job plugin will instruct the engine how the :ref:`transport tasks<topics:calculations:concepts:calcjobs_transport_tasks>` should be accomplished.
+However, as mentioned before, those tasks stop after the output files have been retrieved, which the engine will attach as a :py:class:`~aiida.orm.nodes.data.folder.FolderData` node with the label ``'retrieved'`` to the calculation job node.
+As far as the calculation job goes that is all that is absolutely required.
+However, often one wants to parse those output files into some specific outputs that should be represented as individual nodes in the provenance graph.
+This can be accomplished by implementing the :py:class:`~aiida.parsers.parser.Parser` class and specifying it in the inputs of the calculation job.
+In that case, the engine will call the parser after the output files created by the job have been successfully retrieved.
+In the parser implementation, the retrieved files can then be parsed and converted into output nodes.
+For technical details on how to implement a parser for a calculation job and how to specify it in the inputs, please refer to the :ref:`detailed parser section<topics:calculations:usage:calcjobs:parsers>`,
+.. _topics:calculations:usage:
+
+=====
+Usage
+=====
+
+.. note:: This chapter assumes knowledge of the :ref:`basic concept<topics:calculations:concepts>` and difference between calculation functions and calculation jobs is known and when one should use on or the other.
+
+A calculation is a process (see the :ref:`process section<topics:processes:concepts>` for details) that *creates* new data.
+Currently, there are two ways of implementing a calculation process:
+
+ * :ref:`calculation function<topics:calculations:usage:calcfunctions>`
+ * :ref:`calculation job<topics:calculations:usage:calcjobs>`
+
+This section will provide detailed information and best practices on how to implement these two calculation types.
+
+.. _topics:calculations:usage:calcfunctions:
+
+Calculation functions
+=====================
+
+The section on the :ref:`concept of calculation functions<topics:calculations:concepts:calcfunctions>` already addressed their aim: automatic recording of their execution with their inputs and outputs in the provenance graph.
+The :ref:`section on process functions<topics:processes:functions>` subsequently detailed the rules that apply when implementing them, all of which to calculation functions, which are a sub type, just like work functions.
+However, there are some differences given that calculation functions are 'calculation'-like processes and work function behave like 'workflow'-like processes.
+What this entails in terms of intended usage and limitations for calculation functions is the scope of this section.
+
+Creating data
+-------------
+It has been said many times before: calculation functions, like all 'calculation'-like processes, `create` data, but what does `create` mean exactly?
+In this context, the term 'create' is not intended to refer to the simple creation of a new data node in the graph, in an interactive shell or a script for example.
+But rather it indicates the creation of a new piece of data from some other data through a computation implemented by a process.
+This is then exactly what the calculation function does.
+It takes one or more data nodes as inputs and returns one or more data nodes as outputs, whose content is based on those inputs.
+As explained in the :ref:`technical section<topics:processes:functions>`, outputs are created simply by returning the nodes from the function.
+The engine will inspect the return value from the function and attach the output nodes to the calculation node that represents the calculation function.
+To verify that the output nodes are in fact 'created', the engine will check that the nodes are not stored.
+Therefore, it is very important that you **do not store the nodes you create yourself**, or the engine will raise an exception, as shown in the following example:
+
+.. include:: include/snippets/calcfunctions/add_calcfunction_store.py
+    :code: python
+
+Because the returned node is already stored, the engine will raise the following exception:
+
+.. code:: bash
+
+    ValueError: trying to return an already stored Data node from a @calcfunction, however, @calcfunctions cannot return data.
+    If you stored the node yourself, simply do not call `store()` yourself.
+    If you want to return an input node, use a @workfunction instead.
+
+The reason for this strictness is that a node that was stored after being created in the function body, is indistinguishable from a node that was already stored and had simply been loaded in the function body and returned, e.g.:
+
+.. include:: include/snippets/calcfunctions/add_calcfunction_load_node.py
+    :code: python
+
+The loaded node would also have gotten a `create` link from the calculation function, even though it was not really created by it at all.
+It is exactly to prevent this ambiguity that calculation functions require all returned output nodes to be *unstored*.
+
+Note that work functions have exactly the opposite required and all the outputs that it returns **have to be stored**, because as a 'workflow'-like process, it *cannot* create new data.
+For more details refer to the :ref:`work function section<topics:workflows:usage:workfunctions>`.
+
+.. _topics:calculations:usage:calcjobs:
+
+Calculation jobs
+================
+
+To explain how a calculation job can be implemented, we will continue with the example presented in the section on the :ref:`concept of the calculation job<topics:calculations:concepts:calcjobs>`.
+There we described a code that adds two integers, implemented as a simple bash script, and how the :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` class can be used to run this code through AiiDA.
+Since it is a sub class of the :py:class:`~aiida.engine.processes.process.Process` class, it shares all its properties.
+It will be very valuable to have read the section on working with :ref:`generic processes<topics:processes:usage>` before continuing, because all the concepts explained there will apply also to calculation jobs.
+
+
+.. _topics:calculations:usage:calcjobs:define:
+
+Define
+------
+To implement a calculation job, one simply sub classes the :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` process class and implements the :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define` method.
+You can pick any name that is a valid python class name.
+The most important method of the ``CalcJob`` class, is the ``define`` class method.
+Here you define, what inputs it takes and what outputs it will generate.
+
+.. include:: include/snippets/calcjobs/arithmetic_add_spec_inputs.py
+    :code: python
+
+As the snippet above demonstrates, the class method takes two arguments:
+
+ * ``cls`` this is the reference of the class itself and is mandatory for any class method
+ * ``spec`` which is the 'specification'
+
+.. warning::
+    Do not forget to add the line ``super().define(spec)`` as the first line of the ``define`` method, where you replace the class name with the name of your calculation job.
+    This will call the ``define`` method of the parent class, which is necessary for the calculation job to work properly
+
+As the name suggests, the ``spec`` can be used to specify the properties of the calculation job.
+For example, it can be used to define inputs that the calculation job takes.
+In our example, we need to be able to pass two integers as input, so we define those in the spec by calling ``spec.input()``.
+The first argument is the name of the input.
+This name should be used later to specify the inputs when launching the calculation job and it will also be used as the label for link to connect the data node and the calculation node in the provenance graph.
+Additionally, as we have done here, you can specify which types are valid for that particular input.
+Since we expect integers, we specify that the valid type is the database storable :py:class:`~aiida.orm.nodes.data.int.Int` class.
+
+.. note::
+
+    Since we sub class from ``CalcJob`` and call its ``define`` method, it will inherit the ports that it declares as well.
+    If you look at the implementation, you will find that the base class ``CalcJob`` already defines an input ``code`` that takes a ``Code`` instance.
+    This will reference the code that the user wants to run when he launches the ``CalcJob``.
+    For this reason, you **do not** again have to declare this input.
+
+Next we should define what outputs we expect the calculation to produce:
+
+.. include:: include/snippets/calcjobs/arithmetic_add_spec_outputs.py
+    :code: python
+
+Just as for the inputs, one can specify what node type each output should have.
+By default a defined output will be 'required', which means that if the calculation job terminates and the output has not been attached, the process will be marked as failed.
+To indicate that an output is optional, one can use ``required=False`` in the ``spec.output`` call.
+Note that the process spec, and its :py:meth:`~plumpy.ProcessSpec.input` and :py:meth:`~plumpy.ProcessSpec.output` methods provide a lot more functionality.
+Fore more details, please refer to the section on :ref:`process specifications<topics:processes:usage:spec>`.
+
+
+.. _topics:calculations:usage:calcjobs:prepare:
+
+Prepare
+-------
+We have now defined through the process specification, what inputs the calculation job expects and what outputs it will create.
+The final remaining task is to instruct the engine how the calculation job should actually be run.
+To understand what the engine would have to do to accomplish this, let's consider what one typically does when manually preparing to run a computing job through a scheduler:
+
+    * Prepare a working directory in some scratch space on the machine where the job will run
+    * Create the raw input files required by the executable
+    * Create a launch script containing scheduler directives, loading of environment variables and finally calling the executable with certain command line parameters.
+
+So all we need to do now is instruct the engine how to accomplish these things for a specific calculation job.
+Since these instructions will be calculation dependent, we will implement this with the :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` method.
+The implementation of the ``ArithmeticAddCalculation`` that we are considering in the example looks like the following:
+
+.. include:: include/snippets/calcjobs/arithmetic_add_spec_prepare_for_submission.py
+    :code: python
+
+Before we go into the code line-by-line, let's describe the big picture of what is happening here.
+The goal of this method is to help the engine accomplish the three steps required for preparing the submission a calculation job, as described above.
+The raw input files that are required can be written to a sandbox folder that is passed in as the ``folder`` argument.
+
+.. note::
+
+    The ``folder`` argument points to a temporary sandbox folder on the local file system that can be used to write the input files to.
+    After the ``prepare_for_submission`` method returns, the engine will take those contents and copy them to the working directory where the calculation will be run.
+    On top of that, these files will also be written to the file repository of the node that represents the calculation as an additional measure of provenance.
+    Even though the information written there should be a derivation of the contents of the nodes that were passed as input nodes, since it is a derived form we store this explicitly nonetheless.
+    Sometimes, this behavior is undesirable, for example for efficiency or data privacy reasons, so it can be controlled with various lists such as :ref:`local_copy_list <topics:calculations:usage:calcjobs:file_lists_local_copy>` and :ref:`provenance_exclude_list <topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`.
+
+All the other required information, such as the directives of which files to copy and what command line options to use are defined through the :py:class:`~aiida.common.datastructures.CalcInfo` datastructure, which should be returned from the method as the only value.
+In principle, this is what one **should do** in the ``prepare_for_submission`` method:
+
+    * Writing raw inputs files required for the calculation to run to the ``folder`` sandbox folder.
+    * Use a ``CalcInfo`` to instruct the engine which files to copy to the working directory
+    * Use a ``CalcInfo`` to tell which codes should run, using which command line parameters, such as standard input and output redirection.
+
+.. note::
+
+    The ``prepare_for_submission`` does not have to write the submission script itself.
+    The engine will know how to do this, because the codes that are to be used have been configured on a specific computer, which defines what scheduler is to be used.
+    This gives the engine all the necessary information on how to write the launch script such as what scheduler directives to write.
+
+Now that we know what the ``prepare_for_submission`` is expected to do, let's see how the implementation of the ``ArithmeticAddCalculation`` accomplishes it line-by-line.
+The input file required for this example calculation will consist of the two integers that are passed as inputs.
+The ``self.inputs`` attribute returns an attribute dictionary with the parsed and validated inputs, according to the process specification defined in the ``define`` method.
+This means that you do not have to validate the inputs yourself.
+That is to say, if an input is marked as required and of a certain type, by the time we get to the ``prepare_for_submission`` it is guaranteed that the dictionary returned by ``self.inputs`` will contain that input and of the correct type.
+
+From the two inputs ``x`` and ``y`` that will have been passed when the calculation job was launched, we should now generate the input file, that is simply a text file with these two numbers on a single line, separated by a space.
+We accomplish this by opening a filehandle to the input file in the sandbox folder and write the values of the two ``Int`` nodes to the file.
+
+.. note::
+
+    The format of this input file just so happens to be the format that the :ref:`bash script<topics:calculations:concepts:calcjobs>` expects that we are using in this example.
+    The exact number of input files and their content will of course depend on the code for which the calculation job is being written.
+
+With the input file written, we now have to create an instance of :py:class:`~aiida.common.datastructures.CalcInfo` that should be returned from the method.
+This data structure will instruct the engine exactly what needs to be done to execute the code, such as what files should be copied to the remote computer where the code will be executed.
+In this simple example, we define four simple attributes:
+
+    * ``codes_info``: a list of :py:class:`~aiida.common.datastructures.CodeInfo` datastructures, that tell which codes to run consecutively during the job
+    * ``local_copy_list``: a list of tuples that instruct what files to copy to the working directory from the local machine
+    * ``remote_copy_list``: a list of tuples that instruct what files to copy to the working directory from the machine on which the job will run
+    * ``retrieve_list``: a list of tuples instructing which files should be retrieved from the working directory and stored in the local repository after the job has finished
+
+In this example we only need to run a single code, so the ``codes_info`` list has a single ``CodeInfo`` datastructure.
+This datastructure needs to define which code it needs to run, which is one of the inputs passed to the ``CalcJob``, and does so by means of its UUID.
+Through the ``stdout_name`` attribute, we tell the engine where the output of the executable should be redirected to.
+In this example this is set to the value of the  ``output_filename`` option.
+What options are available in calculation jobs, what they do and how they can be set will be explained in the :ref:`section on options<topics:calculations:usage:calcjobs:options>`.
+Finally, the ``cmdline_params`` attribute takes a list with command line parameters that will be placed *after* the executable in the launch script.
+Here we use it to explicitly instruct the executable to read its input from the filename stored in the option ``input_filename``.
+
+.. note::
+
+    Since we instruct the executable should read the input from ``self.options.input_filename``, this is also the filename we used when writing that very input file in the sandbox folder.
+
+Finally, we have to define the various "file lists" that tell what files to copy from where to where and what files to retrieve.
+Here we will briefly describe their intended goals.
+The implementation details will be described in full in the :ref:`file lists section<topics:calculations:usage:calcjobs:file_lists>`.
+
+The local copy list is useful to instruct the engine to copy over files that you might already have stored in your database, such as instances of :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` nodes, that you can define and pass as inputs of the ``CalcJob``.
+You could have of course many copied their content to the ``folder`` sandbox folder, which will also have caused them to be written to the working directory.
+The disadvantage of that method, however, is that all the contents written to the sandbox folder will also be stored in the repository of the ``CalcJobNode`` that will represent the execution of the ``CalcJob`` in the provenance graph.
+This will cause duplication of the data contained within these data nodes.
+By not writing them explicitly to the sandbox folder, you avoid this duplication, without losing provenance, because the data node itself will of course be recorded in the provenance graph.
+
+The remote copy list is useful to avoid unnecessary file transfers between the machine where the engine runs and where the calculation jobs are executed.
+For example, imagine you have already completed a calculation job on a remote cluster and now want to launch a second one, that requires some of the output files of the first run as its inputs.
+The remote copy list allows you to specify exactly what output files to copy to the remote working directory, without them having to be retrieved to the engine's machine in between.
+
+The retrieve list, finally, allows you to instruct the engine what files should be retrieved from the working directory after the job has terminated.
+These files will be downloaded to the local machine, stored in a :py:class:`~aiida.orm.nodes.data.folder.FolderData` data node and attached as an output to the ``CalcJobNode`` with the link label ``retrieved``.
+
+.. note::
+
+    We didn't explicitly define the ``retrieved`` folder data node as an output in the example ``ArithmeticAddCalculation`` implementation shown above.
+    This is because this is already defined by the ``CalcJob`` base class.
+    Just as the ``code`` input, the ``retrieved`` output is common for all calculation job implementations.
+
+
+.. _topics:calculations:usage:calcjobs:file_lists:
+
+File lists
+----------
+
+.. _topics:calculations:usage:calcjobs:file_lists_local_copy:
+
+Local copy list
+~~~~~~~~~~~~~~~
+The local copy list takes tuples of length three, each of which represents a file or directory to be copied, defined through the following items:
+
+    * `node uuid`: the node whose repository contains the file, typically a ``SinglefileData`` or ``FolderData`` node
+    * `source relative path`: the relative path of the file or directory within the node repository
+    * `target relative path`: the relative path within the working directory to which to copy the file or directory contents
+
+As an example, consider a ``CalcJob`` implementation that receives a ``SinglefileData`` node as input with the name ``pseudopotential``, to copy its contents one can specify:
+
+.. code:: python
+
+    calc_info.local_copy_list = [(self.inputs.pseudopotential.uuid, self.inputs.pseudopotential.filename, 'pseudopotential.dat')]
+
+The ``SinglefileData`` node only contains a single file by definition, the relative path of which is returned by the ``filename`` attribute.
+If instead, you need to transfer a specific file from a ``FolderData``, you can specify the explicit key of the file, like so:
+
+.. code:: python
+
+    calc_info.local_copy_list = [(self.inputs.folder.uuid, 'internal/relative/path/file.txt', 'relative/target/file.txt')]
+
+Note that the filenames in the relative source and target path need not be the same.
+This depends fully on how the files are stored in the node's repository and what files need to be written to the working directory.
+
+To copy the contents of a directory of the source node, simply define it as the `source relative path`.
+For example, imagine we have a `FolderData` node that is passed as the `folder` input, which has the following repository virtual hierarchy:
+
+.. code:: bash
+
+    ├─ sub
+    │  └─ file_b.txt
+    └─ file_a.txt
+
+If the entire content needs to be copied over, specify the `local_copy_list` as follows:
+
+.. code:: python
+
+    calc_info.local_copy_list = [(self.inputs.folder.uuid, '.', None)]
+
+The ``'.'`` here indicates that the entire contents need to be copied over.
+Alternatively, one can specify a sub directory, e.g.:
+
+.. code:: python
+
+    calc_info.local_copy_list = [(self.inputs.folder.uuid, 'sub', None)]
+
+Finally, the `target relative path` can be used to write the contents of the source repository to a particular sub directory in the working directory.
+For example, the following statement:
+
+.. code:: python
+
+    calc_info.local_copy_list = [(self.inputs.folder.uuid, 'sub', 'relative/target')]
+
+will result in the following file hierarchy in the working directory of the calculation:
+
+.. code:: bash
+
+    └─ relative
+       └─ target
+           └─ file_b.txt
+
+One might think what the purpose of the list is, when one could just as easily use normal the normal API to write the file to the ``folder`` sandbox folder.
+It is true, that in this way the file will be copied to the working directory, however, then it will *also* be copied into the repository of the calculation node.
+Since in this case it is merely a direct one-to-one copy of the file that is already part of one of the input nodes (in an unaltered form), this duplication is unnecessary and adds useless weight to the file repository.
+Using the ``local_copy_list`` prevents this unnecessary duplication of file content.
+It can also be used if the content of a particular input node is privacy sensitive and cannot be duplicated in the repository.
+
+.. _topics:calculations:usage:calcjobs:file_lists_provenance_exclude:
+
+Provenance exclude list
+~~~~~~~~~~~~~~~~~~~~~~~
+The :ref:`local_copy_list <topics:calculations:usage:calcjobs:file_lists_local_copy>`  allows one to instruct the engine to write files from the input files to the working directory, without them *also* being copied to the file repository of the calculation node.
+As discussed in the corresponding section, this is useful in order to avoid duplication or in case where the data of the nodes is proprietary or privacy sensitive and cannot be duplicated arbitrarily everywhere in the file repository.
+However, the limitation of the ``local_copy_list`` is that the it can only target single files in its entirety and cannot be used for arbitrary files that are written to the ``folder`` sandbox folder.
+To provide full control over what files from the ``folder`` are stored permanently in the calculation node file repository, the ``provenance_exclude_list`` is introduced.
+This :py:class:`~aiida.common.datastructures.CalcInfo` attribute is a list of filepaths, relative to the base path of the ``folder`` sandbox folder, which *are not stored* in the file repository.
+
+Consider the following file structure as written by an implementation of ``prepare_for_submission`` to the ``folder`` sandbox:
+
+.. code:: bash
+
+    ├─ sub
+    │  ├─ file_b.txt
+    │  └─ personal.dat
+    ├─ file_a.txt
+    └─ secret.key
+
+Clearly, we do not want the ``personal.dat`` and ``secret.key`` files to end up permanently in the file repository.
+This can be achieved by defining:
+
+.. code:: python
+
+    calc_info.provenance_exclude_list = ['sub/personal.dat', 'secret.key']
+
+With this specification, the final contents of the repository of the calculation node will contain:
+
+.. code:: bash
+
+    ├─ sub
+    │  └─ file_b.txt
+    └─ file_a.txt
+
+.. _topics:calculations:usage:calcjobs:file_lists_remote_copy:
+
+Remote copy list
+~~~~~~~~~~~~~~~~
+The remote copy list takes tuples of length three, each of which represents a file to be copied on the remote machine where the calculation will run, defined through the following items:
+
+    * `computer uuid`: this is the UUID of the ``Computer`` on which the source file resides. For now the remote copy list can only copy files on the same machine where the job will run.
+    * `source absolute path`: the absolute path of the source file on the remote machine
+    * `target relative path`: the relative path within the working directory to which to copy the file
+
+.. code:: python
+
+    calc_info.remote_copy_list[(self.inputs.parent_folder.computer.uuid, 'output_folder', 'restart_folder')]
+
+Note that the source path can point to a directory, in which case its contents will be recursively copied in its entirety.
+
+.. _topics:calculations:usage:calcjobs:file_lists_retrieve:
+
+Retrieve list
+~~~~~~~~~~~~~
+The retrieve list is a list of instructions of what files and folders should be retrieved by the engine once a calculation job has terminated.
+Each instruction should have one of two formats:
+
+    * a string representing a relative filepath in the remote working directory
+    * a tuple of length three that allows to control the name of the retrieved file or folder in the retrieved folder
+
+The retrieve list can contain any number of instructions and can use both formats at the same time.
+The first format is obviously the simplest, however, this requires one knows the exact name of the file or folder to be retrieved and in addition any subdirectories will be ignored when it is retrieved.
+If the exact filename is not known and `glob patterns <https://en.wikipedia.org/wiki/Glob_%28programming%29>`_ should be used, or if the original folder structure should be (partially) kept, one should use the tuple format, which has the following format:
+
+    * `source relative path`: the relative path, with respect to the working directory on the remote, of the file or directory to retrieve.
+    * `target relative path`: the relative path of the directory in the retrieved folder in to which the content of the source will be copied. The string ``'.'`` indicates the top level in the retrieved folder.
+    * `depth`: the number of levels of nesting in the source path to maintain when copying, starting from the deepest file.
+
+To illustrate the various possibilities, consider the following example file hierarchy in the remote working directory:
+
+.. code:: bash
+
+    ├─ path
+    |  ├── sub
+    │  │   ├─ file_c.txt
+    │  │   └─ file_d.txt
+    |  └─ file_b.txt
+    └─ file_a.txt
+
+Below, you will find examples for various use cases of files and folders to be retrieved.
+Each example starts with the format of the ``retrieve_list``, followed by a schematic depiction of the final file hierarchy that would be created in the retrieved folder.
+
+Explicit file or folder
+.......................
+
+Retrieving a single toplevel file or folder (with all its contents) where the final folder structure is not important.
+
+.. code:: bash
+
+    retrieve_list = ['file_a.txt']
+
+    └─ file_a.txt
+
+.. code:: bash
+
+    retrieve_list = ['path']
+
+    ├── sub
+    │   ├─ file_c.txt
+    │   └─ file_d.txt
+    └─ file_b.txt
+
+
+Explicit nested file or folder
+..............................
+
+Retrieving a single file or folder (with all its contents) that is located in a subdirectory in the remote working directory, where the final folder structure is not important.
+
+.. code:: bash
+
+    retrieve_list = ['path/file_b.txt']
+
+    └─ file_b.txt
+
+.. code:: bash
+
+    retrieve_list = ['path/sub']
+
+    ├─ file_c.txt
+    └─ file_d.txt
+
+
+Explicit nested file or folder keeping (partial) hierarchy
+..........................................................
+
+The following examples show how the file hierarchy of the retrieved files can be controlled.
+By changing the ``depth`` parameter of the tuple, one can control what part of the remote folder hierarchy is kept.
+In the given example, the maximum depth of the remote folder hierarchy is ``3``.
+The following example shows that by specifying ``3``, the exact folder structure is kept:
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/file_c.txt', '.', 3)]
+
+    └─ path
+        └─ sub
+           └─ file_c.txt
+
+For ``depth=2``, only two levels of nesting are kept (including the file itself) and so the ``path`` folder is discarded.
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/file_c.txt', '.', 2)]
+
+    └─ sub
+       └─ file_c.txt
+
+The same applies for directories.
+By specifying a directory for the first element, all its contents will be retrieved.
+With ``depth=1``, only the first level ``sub`` is kept of the folder hierarchy.
+
+.. code:: bash
+
+    retrieve_list = [('path/sub', '.', 1)]
+
+    └── sub
+        ├─ file_c.txt
+        └─ file_d.txt
+
+
+Pattern matching
+................
+
+If the exact file or folder name is not known beforehand, glob patterns can be used.
+In the following examples, all files that match ``*c.txt`` in the directory ``path/sub`` will be retrieved.
+Since ``depth=0`` the files will be copied without the ``path/sub`` subdirectory.
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/*c.txt', '.', 0)]
+
+    └─ file_c.txt
+
+To keep the subdirectory structure, one can set the depth parameter, just as in the previous examples.
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/*c.txt', '.', 2)]
+
+    └── sub
+        └─ file_c.txt
+
+
+Specific target directory
+.........................
+
+The final folder hierarchy of the retrieved files in the retrieved folder is not only determined by the hierarchy of the remote working directory, but can also be controlled through the second and third elements of the instructions tuples.
+The final ``depth`` element controls what level of hierarchy of the source is maintained, where the second element specifies the base path in the retrieved folder into which the remote files should be retrieved.
+For example, to retrieve a nested file, maintaining the remote hierarchy and storing it locally in the ``target`` directory, one can do the following:
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/file_c.txt', 'target', 3)]
+
+    └─ target
+        └─ path
+            └─ sub
+               └─ file_c.txt
+
+The same applies for folders that are to be retrieved:
+
+.. code:: bash
+
+    retrieve_list = [('path/sub', 'target', 1)]
+
+    └─ target
+        └── sub
+            ├─ file_c.txt
+            └─ file_d.txt
+
+Note that `target` here is not used to rename the retrieved file or folder, but indicates the path of the directory into which the source is copied.
+The target relative path is also compatible with glob patterns in the source relative paths:
+
+.. code:: bash
+
+    retrieve_list = [('path/sub/*c.txt', 'target', 0)]
+
+    └─ target
+        └─ file_c.txt
+
+
+Retrieve temporary list
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Recall that, as explained in the :ref:`'prepare' section<topics:calculations:usage:calcjobs:prepare>`, all the files that are retrieved by the engine following the 'retrieve list', are stored in the ``retrieved`` folder data node.
+This means that any file you retrieve for a completed calculation job will be stored in your repository.
+If you are retrieving big files, this can cause your repository to grow significantly.
+Often, however, you might only need a part of the information contained in these retrieved files.
+To solve this common issue, there is the concept of the 'retrieve temporary list'.
+The specification of the retrieve temporary list is identical to that of the normal :ref:`retrieve list<topics:calculations:usage:calcjobs:file_lists_retrieve>`, but it is added to the ``calc_info`` under the ``retrieve_temporary_list`` attribute:
+
+.. code-block:: python
+
+    calcinfo = CalcInfo()
+    calcinfo.retrieve_temporary_list = ['relative/path/to/file.txt']
+
+The only difference is that, unlike the files of the retrieve list which will be permanently stored in the retrieved :py:class:`~aiida.orm.nodes.data.folder.FolderData` node, the files of the retrieve temporary list will be stored in a temporary sandbox folder.
+This folder is then passed under the ``retrieved_temporary_folder`` keyword argument to the ``parse`` method of the :ref:`parser<topics:calculations:usage:calcjobs:parsers>`, if one was specified for the calculation job:
+
+.. code-block:: python
+
+    def parse(self, **kwargs):
+        """Parse the retrieved files of the calculation job."""
+
+        retrieved_temporary_folder = kwargs['retrieved_temporary_folder']
+
+The parser implementation can then parse these files and store the relevant information as output nodes.
+
+.. important::
+
+    The type of ``kwargs['retrieved_temporary_folder']`` is a simple ``str`` that represents the `absolute` filepath to the temporary folder.
+    You can access its contents with the ``os`` standard library module or convert it into a ``pathlib.Path``.
+
+After the parser terminates, the engine will automatically clean up the sandbox folder with the temporarily retrieved files.
+The concept of the ``retrieve_temporary_list`` is essentially that the files will be available during parsing and will be destroyed immediately afterwards.
+
+.. _topics:calculations:usage:calcjobs:stashing:
+
+Stashing on the remote
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. versionadded:: 1.6.0
+
+The ``stash`` option namespace allows a user to specify certain files and/or folders that are created by the calculation job to be stashed somewhere on the remote where the job is run.
+This can be useful if these need to be stored for a longer time on a machine where the scratch space is cleaned regularly, but they need to be kept on the remote machine and not retrieved.
+Examples are files that are necessary to restart a calculation but are too big to be retrieved and stored permanently in the local file repository.
+
+The files/folder that need to be stashed are specified through their relative filepaths within the working directory in the ``stash.source_list`` option.
+Using the ``COPY`` mode, the target path defines another location (on the same filesystem as the calculation) to copy the files to, and is set through the ``stash.target_base`` option, for example:
+
+.. code-block:: python
+
+   from aiida.common.datastructures import StashMode
+
+   inputs = {
+       'code': ....,
+       ...
+       'metadata': {
+           'options': {
+               'stash': {
+                   'source_list': ['aiida.out', 'output.txt'],
+                   'target_base': '/storage/project/stash_folder',
+                   'stash_mode': StashMode.COPY.value,
+               }
+           }
+       }
+   }
+
+.. note::
+
+   In the future, other methods for stashing may be implemented, such as placing all files in a (compressed) tarball or even stash files on tape.
+
+.. important::
+
+   If the ``stash`` option namespace is defined for a calculation job, the daemon will perform the stashing operations before the files are retrieved.
+   This means that the stashing happens before the parsing of the output files (which occurs after the retrieving step), such that that the files will be stashed independent of the final exit status that the parser will assign to the calculation job.
+   This may cause files to be stashed for calculations that will later be considered to have failed.
+
+The stashed files and folders are represented by an output node that is attached to the calculation node through the label ``remote_stash``, as a ``RemoteStashFolderData`` node.
+Just like the ``remote_folder`` node, this represents a location or files on a remote machine and so is equivalent to a "symbolic link".
+
+.. important::
+
+   AiiDA does not actually control the files in the remote stash, and so the contents may disappear at some point.
+
+.. _topics:calculations:usage:calcjobs:options:
+
+Options
+-------
+In addition to the common metadata inputs, such as ``label`` and ``description``, that all processes have, the :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` has an additonal input called ``options``.
+These options allow to subtly change the behavior of the calculation job, for example which parser should be used once it is finished and special scheduler directives.
+The full list of available options are documented below as part of the ``CalcJob`` interface:
+
+.. aiida-calcjob:: CalcJob
+    :module: aiida.engine.processes.calcjobs
+    :expand-namespaces:
+
+
+The ``rerunnable`` option enables the scheduler to re-launch the calculation if it has failed, for example due to node failure or a failure to launch the job. It corresponds to the ``--requeue`` option in SLURM, and the ``-r`` option in SGE, LSF, and PBS. The following two conditions must be met in order for this to work well with AiiDA:
+
+- the scheduler assigns the same job-id to the restarted job
+- the code produces the same results if it has already partially run before (not every scheduler may produce this situation)
+
+Because this depends on the scheduler, its configuration, and the code used, we cannot say conclusively when it will work -- do your own testing! It has been tested on a cluster using SLURM, but that does not guarantee other SLURM clusters behave in the same way.
+
+.. _topics:calculations:usage:calcjobs:launch:
+
+Launch
+------
+
+Launching a calculation job is no different from launching any other process class, so please refer to the section on :ref:`launching processes<topics:processes:usage:launch>`.
+The only caveat that we should place is that calculation jobs typically tend to take quite a bit of time.
+The trivial example we used above of course will run very fast, but a typical calculation job that will be submitted to a scheduler will most likely take longer than just a few seconds.
+For that reason it is highly advisable to **submit** calculation jobs instead of running them.
+By submitting them to the daemon, you free up your interpreter straight away and the process will be checkpointed between the various :ref:`transport tasks<topics:calculations:concepts:calcjobs_transport_tasks>` that will have to be performed.
+The exception is of course when you want to run a calculation job locally for testing or demonstration purposes.
+
+
+.. _topics:calculations:usage:calcjobs:dry_run:
+
+Dry run
+-------
+The calculation job has one additional feature over all other processes when it comes to launching them.
+Since an incorrectly configured calculation job can potentially waste computational resources, one might want to inspect the input files that will be written by the plugin, before actually submitting the job.
+A so-called dry-run is possible by simply specifying it in the metadata of the inputs.
+If you are using the process builder, it is as simple as:
+
+.. code:: python
+
+    builder.metadata.dry_run = True
+
+When you now launch the process builder, the engine will perform the entire process of a normal calculation job run, except that it will not actually upload and submit the job to the remote computer.
+However, the ``prepare_for_submission`` method will be called.
+The inputs that it writes to the input folder will be stored in temporary folder called ``submit_test`` that will be created in the current working directory.
+Each time you perform a dry-run, a new sub folder will be created in the ``submit_test`` folder, which you allows you to perform multiple dry-runs without overwriting the previous results.
+
+Moreover, the following applies:
+
+- when calling :py:func:`~aiida.engine.launch.run` for a calculation with the
+  ``dry_run`` flag set, you will get back its results, being always an empty dictionary ``{}``;
+
+- if you call :py:func:`~aiida.engine.launch.run_get_node`, you will get back as a node
+  an unstored ``CalcJobNode``. In this case, the unstored ``CalcJobNode`` (let's call it
+  ``node``) will have an additional property ``node.dry_run_info``. This is a dictionary
+  that contains additional information on the dry-run output. In particular, it will have
+  the following keys:
+
+  - ``folder``: the absolute path to the folder within the ``submit_test`` folder
+    where the files have been created, e.g.: ``/home/user/submit_test/20190726-00019``
+
+  - ``script_filename``: the filename of the submission script that AiiDA generated
+    in the folder, e.g.: ``_aiidasubmit.sh``
+
+- if you send a dry-run to the :py:func:`~aiida.engine.launch.submit` function,
+  this will be just forwarded to run and you will get back the unstored node
+  (with the same properties as above).
+
+
+.. warning::
+
+    By default the storing of provenance is enabled and this goes also for a dry run.
+    If you do not want any nodes to be created during a dry run, simply set the metadata input ``store_provenance`` to ``False``.
+
+
+.. _topics:calculations:usage:calcjobs:parsers:
+
+Parsing
+-------
+The previous sections explained in detail how the execution of an external executable is wrapped by the ``CalcJob`` class to make it runnable by AiiDA's engine.
+From the first steps of preparing the input files on the remote machine, to retrieving the relevant files and storing them in a :py:class:`~aiida.orm.nodes.data.folder.FolderData` node, that is attached as the ``retrieved`` output.
+This is the last *required* step for a ``CalcJob`` to terminate, but often we would *like* to parse the raw output and attach them as queryable output nodes to the calculation job node.
+To automatically trigger the parsing of a calculation job after its output has been retrieved, is to specify the :ref:`parser name option<topics:calculations:usage:calcjobs:options>`.
+If the engine find this option specified, it will load the corresponding parser class, which should be a sub class of :py:class:`~aiida.parsers.parser.Parser` and calls its :py:meth:`~aiida.parsers.parser.Parser.parse` method.
+
+To explain the interface of the ``Parser`` class and the ``parse`` method, let's take the :py:class:`~aiida.parsers.plugins.arithmetic.add.ArithmeticAddParser` as an example.
+This parser is designed to parse the output produced by the simple bash script that is wrapped by the ``ArithmeticAddCalculation`` discussed in the previous sections.
+
+.. literalinclude:: include/snippets/calcjobs/arithmetic_add_parser.py
+    :language: python
+    :linenos:
+
+To create a new parser implementation, simply create a new class that sub classes the :py:class:`~aiida.parsers.parser.Parser` class.
+As usual, any valid python class name will work, but the convention is to always use the ``Parser`` suffix and to use the same name as the calculation job for which the parser is designed.
+For example, here we are implementing a parser for the ``ArithmeticAddCalculation``, so therefore we name it ``ArithmeticAddParser``, just replacing the ``Calculation`` suffix for ``Parser``.
+The only method that needs to be implemented is the :py:meth:`~aiida.parsers.parser.Parser.parse` method.
+Its signature should include ``**kwargs``, the reason for which will become clear later.
+The goal of the ``parse`` method is very simple:
+
+    * Open and load the content of the output files generated by the calculation job and have been retrieved by the engine
+    * Create data nodes out of this raw data that are attached as output nodes
+    * Log human-readable warning messages in the case of worrying output
+    * Optionally return an :ref:`exit code<topics:processes:concepts:exit_codes>` to indicate that the results of the calculation was not successful
+
+The advantage of adding the raw output data in different form as output nodes, is that in that form the content becomes queryable.
+This allows one to query for calculations that produced specific outputs with a certain value, which becomes a very powerful approach for post-processing and analyses of big databases.
+
+The ``retrieved`` attribute of the parser will return the ``FolderData`` node that should have been attached by the engine containing all the retrieved files, as specified using the :ref:`retrieve list<topics:calculations:usage:calcjobs:file_lists_retrieve>` in the :ref:`preparation step of the calculation job<topics:calculations:usage:calcjobs:prepare>`.
+This retrieved folder can be used to open and read the contents of the files it contains.
+In this example, there should be a single output file that was written by redirecting the standard output of the bash script that added the two integers.
+The parser opens this file, reads its content and tries to parse the sum from it:
+
+.. literalinclude:: include/snippets/calcjobs/arithmetic_add_parser.py
+    :language: python
+    :lines: 12-16
+    :linenos:
+    :lineno-start: 12
+
+Note that this parsing action is wrapped in a try-except block to catch the exceptions that would be thrown if the output file could not be read.
+If the exception would not be caught, the engine will catch the exception instead and set the process state of the corresponding calculation to ``Excepted``.
+Note that this will happen for any uncaught exception that is thrown during parsing.
+Instead, we catch these exceptions and return an exit code that is retrieved by referencing it by its label, such as ``ERROR_READING_OUTPUT_FILE`` in this example, through the ``self.exit_codes`` property.
+This call will retrieve the corresponding exit code defined on the ``CalcJob`` that we are currently parsing.
+Returning this exit code from the parser will stop the parsing immediately and will instruct the engine to set its exit status and exit message on the node of this calculation job.
+
+The ``parse_stdout`` method is just a small utility function to separate the actual parsing of the data from the main parser code.
+In this case, the parsing is so simple that we might have as well kept it in the main method, but this is just to illustrate that you are completely free to organize the code within the ``parse`` method for clarity.
+If we manage to parse the sum, produced by the calculation, we wrap it in the appropriate :py:class:`~aiida.orm.nodes.data.int.Int` data node class, and register it as an output through the ``out`` method:
+
+.. literalinclude:: include/snippets/calcjobs/arithmetic_add_parser.py
+    :language: python
+    :lines: 21-21
+    :linenos:
+    :lineno-start: 21
+
+Note that if we encountered no problems, we do not have to return anything.
+The engine will interpret this as the calculation having finished successfully.
+You might now pose the question: "what part of the raw data should I parse and in what types of data nodes should I store it?".
+This not an easy question to answer in the general, because it will heavily depend on the type of raw output that is produced by the calculation and what parts you would like to be queryable.
+However, we can give you some guidelines:
+
+    *   Store data that you might want to query for, in the lightweight data nodes, such as :py:class:`~aiida.orm.nodes.data.dict.Dict`, :py:class:`~aiida.orm.nodes.data.list.List` and :py:class:`~aiida.orm.nodes.data.structure.StructureData`.
+        The contents of these nodes are stored as attributes in the database, which makes sure that they can be queried for.
+    *   Bigger data sets, such as large (multi-dimnensional) arrays, are better stored in an :py:class:`~aiida.orm.nodes.data.array.array.ArrayData` or one of its sub classes.
+        If you were to store all this data in the database, it would become unnecessarily bloated, because the chances you would have to query for this data are unlikely.
+        Instead these array type data nodes store the bulk of their content in the repository.
+        This way you still keep the data and therewith the provenance of your calculations, while keeping your database lean and fast!
+
+
+.. _topics:calculations:usage:calcjobs:scheduler-errors:
+
+Scheduler errors
+----------------
+
+Besides the output parsers, the scheduler plugins can also provide parsing of the output generated by the job scheduler, by implementing the :meth:`~aiida.schedulers.scheduler.Scheduler.parse_output` method.
+If the scheduler plugin has implemented this method, the output generated by the scheduler, written to the stdout and stderr file descriptors as well as the output of the detailed job info command, is parsed.
+If the parser detects a known problem, such as an out-of-memory (OOM) or out-of-walltime (OOW) error, the corresponding exit code will already be set on the calculation job node.
+The output parser, if defined in the inputs, can inspect the exit status on the node and decide to keep it or override it with a different, potentially more useful, exit code.
+
+.. code:: python
+
+    class SomeParser(Parser):
+
+        def parse(self, **kwargs):
+            """Parse the contents of the output files retrieved in the `FolderData`."""
+
+            # It is probably best to check for explicit exit codes.
+            if self.node.exit_status == self.exit_codes.ERROR_SCHEDULER_OUT_OF_WALLTIME.status:
+                # The scheduler parser detected an OOW error.
+                # By returning `None`, the same exit code will be kept.
+                return None
+
+            # It is also possible to just check for any exit status to be set as a fallback.
+            if self.node.exit_status is not None:
+                # You can still try to parse files before exiting the parsing.
+                return None
+
+Note that in the example given above, the parser returns immediately if it detects that the scheduler detected a problem.
+Since it returns `None`, the exit code of the scheduler will be kept and will be the final exit code of the calculation job.
+However, the parser does not have to immediately return.
+It can still try to parse some of the retrieved output, if there is any.
+If it finds a more specific problem than the generic scheduler error, it can always return an exit code of itself to override it.
+The parser can even return ``ExitCode(0)`` to have the calculation marked as successfully finished, despite the scheduler having determined that there was a problem.
+The following table summarizes the possible scenarios of the scheduler parser and output parser returning an exit code and what the final resulting exit code will be that is set on the node:
+
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+| **Scenario**                                                                       | **Scheduler result**  | **Retrieved result**  | **Final result**      |
++====================================================================================+=======================+=======================+=======================+
+| Neither parser found any problem.                                                  | ``None``              | ``None``              | ``ExitCode(0)``       |
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+| Scheduler parser found an issue,                                                   | ``ExitCode(100)``     | ``None``              | ``ExitCode(100)``     |
+| but output parser does not override.                                               |                       |                       |                       |
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+| Only output parser found a problem.                                                | ``None``              | ``ExitCode(400)``     | ``ExitCode(400)``     |
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+| Scheduler parser found an issue, but the output parser overrides with a more       | ``ExitCode(100)``     | ``ExitCode(400)``     | ``ExitCode(400)``     |
+| specific error code.                                                               |                       |                       |                       |
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+| Scheduler found issue but output parser overrides saying that despite that the     | ``ExitCode(100)``     | ``ExitCode(0)``       | ``ExitCode(0)``       |
+| calculation should be considered finished successfully.                            |                       |                       |                       |
++------------------------------------------------------------------------------------+-----------------------+-----------------------+-----------------------+
+.. _topics:calculations:
+
+************
+Calculations
+************
+
+This topic section provides detailed information on the concept of calculations in AiiDA and an extensive guide on how to work with them.
+An introductory guide to working with calculations can be found in :ref:`"How to run external codes"<how-to:plugin-codes>`.
+
+.. toctree::
+   :maxdepth: 2
+
+   concepts
+   usage
+.. _topics:processes:concepts:
+
+========
+Concepts
+========
+
+Anything that runs in AiiDA is an instance of the :py:class:`~aiida.engine.processes.process.Process` class.
+The ``Process`` class contains all the information and logic to tell, whoever is handling it, how to run it to completion.
+Typically the one responsible for running the processes is an instance of a :py:class:`~aiida.engine.runners.Runner`.
+This can be a local runner or one of the daemon runners in case of the daemon running the process.
+
+In addition to those run instructions, any ``Process`` that has been executed needs some sort of record in the database to store what happened during its execution.
+For example it needs to record what its exact inputs were, the log messages that were reported and what the final outputs were.
+For this purpose, every process will utilize an instance of a sub class of the :py:class:`~aiida.orm.nodes.process.ProcessNode` class.
+This ``ProcessNode`` class is a sub class of :py:class:`~aiida.orm.nodes.Node` and serves as the record of the process' execution in the database and by extension the provenance graph.
+
+It is very important to understand this division of labor.
+A ``Process`` describes how something should be run, and the ``ProcessNode`` serves as a mere record in the database of what actually happened during execution.
+A good thing to remember is that while it is running, we are dealing with the ``Process`` and when it is finished we interact with the ``ProcessNode``.
+
+.. _topics:processes:concepts:types:
+
+Process types
+=============
+
+Processes in AiiDA come in two flavors:
+
+ * Calculation-like
+ * Workflow-like
+
+The calculation-like processes have the capability to *create* data, whereas the workflow-like processes orchestrate other processes and have the ability to *return* data produced by calculations.
+Again, this is a distinction that plays a big role in AiiDA and is crucial to understand.
+For this reason, these different types of processes also get a different sub class of the ``ProcessNode`` class.
+The hierarchy of these node classes and the link types that are allowed between them and ``Data`` nodes, is explained in detail in the :ref:`provenance implementation<topics:provenance:implementation>` documentation.
+
+Currently, there are four types of processes in ``aiida-core`` and the following table shows with which node class it is represented in the provenance graph and what the process is used for.
+
+===================================================================   ==============================================================================  ===============================================================
+Process class                                                         Node class                                                                      Used for
+===================================================================   ==============================================================================  ===============================================================
+:py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`          :py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`            Calculations performed by external codes
+:py:class:`~aiida.engine.processes.workchains.workchain.WorkChain`    :py:class:`~aiida.orm.nodes.process.workflow.workchain.WorkChainNode`           Workflows that run multiple calculations
+:py:class:`~aiida.engine.processes.functions.FunctionProcess`         :py:class:`~aiida.orm.nodes.process.calculation.calcfunction.CalcFunctionNode`  Python functions decorated with the ``@calcfunction`` decorator
+:py:class:`~aiida.engine.processes.functions.FunctionProcess`         :py:class:`~aiida.orm.nodes.process.workflow.workfunction.WorkFunctionNode`     Python functions decorated with the ``@workfunction`` decorator
+===================================================================   ==============================================================================  ===============================================================
+
+For basic information on the concept of a ``CalcJob`` or ``calcfunction``, refer to the :ref:`calculations concept<topics:calculations:concepts>`
+The ``WorkChain`` and ``workfunction`` are described in the :ref:`workflows concept<topics:workflows:concepts>`.
+After having read and understood the basic concept of calculation and workflow processes, detailed information on how to implement and use them can be found in the dedicated developing sections for :ref:`calculations<topics:calculations:usage>` and :ref:`workflows<topics:workflows:usage>`, respectively.
+
+.. note:: A ``FunctionProcess`` is never explicitly implemented but will be generated dynamically by the engine when a python function decorated with a :py:func:`~aiida.engine.processes.functions.calcfunction` or :py:func:`~aiida.engine.processes.functions.workfunction` is run.
+
+
+.. _topics:processes:concepts:state:
+
+Process state
+=============
+Each instance of a ``Process`` class that is being executed has a process state.
+This property tells you about the current status of the process.
+It is stored in the instance of the ``Process`` itself and the workflow engine, the ``plumpy`` library, operates only on that value.
+However, the ``Process`` instance 'dies' as soon as it is terminated, therefore the process state is also written to the calculation node that the process uses as its database record, under the ``process_state`` attribute.
+The process can be in one of six states:
+
+========  ============
+*Active*  *Terminated*
+========  ============
+Created   Killed
+Running   Excepted
+Waiting   Finished
+========  ============
+
+The three states in the left column are 'active' states, whereas the right column displays the three 'terminal' states.
+Once a process reaches a terminal state, it will never leave it; its execution is permanently terminated.
+When a process is first created, it is put in the ``Created`` state.
+As soon as it is picked up by a runner and it is active, it will be in the ``Running`` state.
+If the process is waiting for another process, that it called, to be finished, it will be in the ``Waiting`` state.
+If a process is in the ``Killed`` state, it means the user issued a command to kill it, or its parent process was killed.
+The ``Excepted`` state indicates that during execution an exception occurred that was not caught and the process was unexpectedly terminated.
+The final option is the ``Finished`` state, which means that the process was successfully executed, and the execution was nominal.
+Note that this does not automatically mean that the result of the process can also be considered to be successful, it was just executed without any problems.
+
+To distinguish between a successful and a failed execution, there is the :ref:`exit status<topics:processes:concepts:exit_codes>`.
+This is another attribute that is stored in the node of the process and is an integer that can be set by the process.
+A ``0`` (zero) means that the result of the process was successful, and a non-zero value indicates a failure.
+All the process nodes used by the various processes are sub-classes of :py:class:`~aiida.orm.nodes.process.ProcessNode`, which defines handy properties to query the process state and exit status.
+
+===================   ============================================================================================
+Property              Meaning
+===================   ============================================================================================
+``process_state``     Returns the current process state
+``exit_status``       Returns the exit status, or None if not set
+``exit_message``      Returns the exit message, or None if not set
+``is_terminated``     Returns ``True`` if the process was either ``Killed``, ``Excepted``, or ``Finished``
+``is_killed``         Returns ``True`` if the process is ``Killed``
+``is_excepted``       Returns ``True`` if the process is ``Excepted``
+``is_finished``       Returns ``True`` if the process is ``Finished``
+``is_finished_ok``    Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is equal to zero
+``is_failed``         Returns ``True`` if the process is ``Finished`` and the ``exit_status`` is non-zero
+===================   ============================================================================================
+
+When you load a calculation node from the database, you can use these property methods to inquire about its state and exit status.
+
+
+.. _topics:processes:concepts:exit_codes:
+
+Process exit codes
+==================
+
+The previous section about the process state showed that a process that is ``Finished`` does not say anything about whether the result is 'successful' or 'failed'.
+The ``Finished`` state means nothing more than that the engine succeeded in running the process to the end of execution, without it encountering exceptions or being killed.
+To distinguish between a 'successful' and 'failed' process, an 'exit status' can be defined.
+The `exit status is a common concept in programming <https://en.wikipedia.org/wiki/Exit_status>`_ and is a small integer, where zero means that the result of the process was successful, and a non-zero value indicates a failure.
+By default a process that terminates nominally will get a ``0`` (zero) exit status.
+To mark a process as failed, one can return an instance of the :py:class:`~aiida.engine.processes.exit_code.ExitCode` named tuple, which allows to set an integer ``exit_status`` and a string message as ``exit_message``.
+When the engine receives such an ``ExitCode`` as the return value from a process, it will set the exit status and message on the corresponding attributes of the process node representing the process in the provenance graph.
+
+.. seealso::
+
+    For how exit codes can be defined and returned see the :ref:`exit code usage section <topics:processes:usage:exit_codes>`.
+
+.. _topics:processes:concepts:lifetime:
+
+Process lifetime
+================
+
+The lifetime of a process is defined as the time from the moment it is launched until it reaches a :ref:`terminal state<topics:processes:concepts:state>`.
+
+.. _topics:processes:concepts:node_distinction:
+
+Process and node distinction
+----------------------------
+As explained in the :ref:`introduction of this section<topics:processes:concepts>`, there is a clear and important distinction between the 'process' and the 'node' that represents its execution in the provenance graph.
+When a process is launched, an instance of the ``Process`` class is created in memory which will be propagated to completion by the responsible runner.
+This 'process' instance only exists in the memory of the python interpreter that it is running in, for example that of a daemon runner, and so we cannot directly inspect its state.
+That is why the process will write any of its state changes to the corresponding node representing it in the provenance graph.
+In this way, the node acts as a 'proxy' or a mirror image that reflects the state of the process in memory.
+This means that the output of many of the ``verdi`` commands, such as ``verdi process list``, do not actually show the state of the process instances, but rather the state of the node to which they have last written their state.
+
+Process tasks
+-------------
+The previous section explained how launching a process means creating an instance of the ``Process`` class in memory.
+When the process is being 'run' (see the section on :ref:`launching processes<topics:processes:usage:launch>` for more details) that is to say in a local interpreter, the particular process instance will die as soon as the interpreter dies.
+This is what often makes 'submitting' the preferred method of launching a process.
+When a process is 'submitted', an instance of the ``Process`` is created, along with the node that represents it in the database, and its state is then persisted (stored) in the database.
+This is called a 'process checkpoint', more information on which :ref:`will follow later<topics:processes:concepts:checkpoints>`.
+Subsequently, the process instance is shut down and a 'continuation task' is sent to the process queue of RabbitMQ.
+This task is simply a small message that just contains an identifier for the process.
+In order to reconstruct the process from a `checkpoint`, the process needs to be importable in the daemon environment by a) giving it an :ref:`associated entry point<how-to:plugin-codes:entry-points>` or b) :ref:`including its module path<how-to:faq:process-not-importable-daemon>` in the ``PYTHONPATH`` that the daemon workers will have.
+
+All the daemon runners, when they are launched, subscribe to the process queue and RabbitMQ will distribute the continuation tasks to them as they come in, making sure that each task is only sent to one runner at a time.
+The receiving daemon runner can restore the process instance in memory from the checkpoint that was stored in the database and continue the execution.
+As soon as the process reaches a terminal state, the daemon runner will acknowledge to RabbitMQ that the task has been completed.
+Until the runner has confirmed that a task is completed, RabbitMQ will consider the task as incomplete.
+If a daemon runner is shut down or dies before it got the chance to finish running a process, the task will automatically be requeued by RabbitMQ and sent to another daemon runner.
+Together with the fact that all the tasks in the process queue are persisted to disk by RabbitMQ, guarantees that once a continuation task has been sent to RabbitMQ, it will at some point be finished, while allowing the machine to be shut down.
+
+Each daemon runner has a maximum number of tasks that it can run concurrently, which means that if there are more active tasks than available slots, some of the tasks will remain queued.
+Processes, whose task is in the queue and not with any runner, though technically 'active' as they are not terminated, are not actually being run at the moment.
+While a process is not actually being run, i.e. it is not in memory with a runner, one cannot interact with it.
+Similarly, as soon as the task disappears, either because the process was intentionally terminated (or unintentionally), the process will never continue running again.
+
+.. figure:: include/images/submit_sysml.png
+
+    A systems modelling representation of submitting a process.
+
+
+.. _topics:processes:concepts:checkpoints:
+
+Process checkpoints
+-------------------
+A process checkpoint is a complete representation of a ``Process`` instance in memory that can be stored in the database.
+Since it is a complete representation, the ``Process`` instance can also be fully reconstructed from such a checkpoint.
+At any state transition of a process, a checkpoint will be created, by serializing the process instance and storing it as an attribute on the corresponding process node.
+This mechanism is the final cog in the machine, together with the persisted process queue of RabbitMQ as explained in the previous section, that allows processes to continue after the machine they were running on, has been shut down and restarted.
+
+
+.. _topics:processes:concepts:sealing:
+
+Process sealing
+===============
+One of the cardinal rules of AiiDA is that once a node is *stored*, it is immutable, which means that its attributes can no longer be changed.
+This rule is a problem for processes, however, since in order to be able to start running it, its corresponding process node first has to be stored.
+However, at that point its attributes, such as the process state or other mutable attributes, can no longer be changed by the engine throughout the lifetime of the corresponding process.
+To overcome this limitation, the concept of *updatable* attributes is introduced.
+These are special attributes that are allowed to be changed *even* when the process node is already stored *and* the corresponding process is still active.
+To mark the point where a process is terminated and even the updatable attributes on the process node are to be considered immutable, the node is *sealed*.
+A sealed process node behaves exactly like a normal stored node, as in *all* of its attributes are immutable.
+In addition, once a process node is sealed, no more incoming or outgoing links can be attached to it.
+Unsealed process nodes can also not be exported, because they belong to processes that are still active.
+Note that the sealing concept does not apply to data nodes and they are exportable as soon as they are stored.
+To determine whether a process node is sealed, one can use the property :py:attr:`~aiida.orm.utils.mixins.Sealable.is_sealed`.
+.. _topics:processes:usage:
+
+=====
+Usage
+=====
+
+.. note:: This chapter assumes knowledge of the previous section on the :ref:`basic concept of processes<topics:workflows:concepts>`.
+
+This section will explain the aspects of working with processes that apply to all processes.
+Details that only pertain to a specific sub type of process, will be documented in their respective sections:
+
+    * :ref:`calculation functions<topics:calculations:usage:calcfunctions>`
+    * :ref:`calculation jobs<topics:calculations:usage:calcjobs>`
+    * :ref:`work functions<topics:workflows:usage:workfunctions>`
+    * :ref:`work chains<topics:workflows:usage:workchains>`
+
+
+.. _topics:processes:usage:defining:
+
+Defining processes
+==================
+
+.. _topics:processes:usage:spec:
+
+Process specification
+---------------------
+How a process defines the inputs that it requires or can optionally take, depends on the process type.
+The inputs of :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` and :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` are given by the :py:class:`~aiida.engine.processes.process_spec.ProcessSpec` class, which is defined though  the :py:meth:`~aiida.engine.processes.process.Process.define` method.
+For process functions, the :py:class:`~aiida.engine.processes.process_spec.ProcessSpec` is dynamically generated by the engine from the signature of the decorated function.
+Therefore, to determine what inputs a process takes, one simply has to look at the process specification in the ``define`` method or the function signature.
+For the :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` and :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` there is also the concept of the :ref:`process builder<topics:processes:usage:builder>`, which will allow one to inspect the inputs with tab-completion and help strings in the shell.
+
+The three most important attributes of the :py:class:`~aiida.engine.processes.process_spec.ProcessSpec` are:
+
+    * ``inputs``
+    * ``outputs``
+    * ``exit_codes``
+
+Through these attributes, one can define what inputs a process takes, what outputs it will produce and what potential exit codes it can return in case of errors.
+Just by looking at a process specification then, one will know exactly *what* will happen, just not *how* it will happen.
+The ``inputs`` and ``outputs`` attributes are *namespaces* that contain so called *ports*, each one of which represents a specific input or output.
+The namespaces can be arbitrarily nested with ports and so are called *port namespaces*.
+The port and port namespace are implemented by the :py:class:`~plumpy.Port` and :py:class:`~aiida.engine.processes.ports.PortNamespace` class, respectively.
+
+
+.. _topics:processes:usage:ports_portnamespaces:
+
+Ports and Port namespaces
+^^^^^^^^^^^^^^^^^^^^^^^^^
+To define an input for a process specification, we only need to add a port to the ``inputs`` port namespace, as follows:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.input('parameters')
+
+The ``input`` method, will create an instance of :py:class:`~aiida.engine.processes.ports.InputPort`, a sub class of the base :py:class:`~plumpy.Port`, and will add it to the ``inputs`` port namespace of the spec.
+Creating an output is just as easy, but one should use the :py:meth:`~plumpy.ProcessSpec.output` method instead:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.output('result')
+
+This will cause an instance of :py:class:`~aiida.engine.processes.ports.OutputPort`, also a sub class of the base :py:class:`~plumpy.Port`, to be created and to be added to the ``outputs`` specifcation attribute.
+Recall, that the ``inputs`` and ``output`` are instances of a :py:class:`~aiida.engine.processes.ports.PortNamespace`, which means that they can contain any port.
+But the :py:class:`~aiida.engine.processes.ports.PortNamespace` itself is also a port itself, so it can be added to another port namespace, allowing one to create nested port namespaces.
+Creating a new namespace in for example the inputs namespace is as simple as:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.input_namespace('namespace')
+
+This will create a new ``PortNamespace`` named ``namespace`` in the ``inputs`` namespace of the spec.
+You can create arbitrarily nested namespaces in one statement, by separating them with a ``.`` as shown here:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.input_namespace('nested.namespace')
+
+This command will result in the ``PortNamespace`` name ``namespace`` to be nested inside another ``PortNamespace`` called ``nested``.
+
+.. note::
+
+    Because the period is reserved to denote different nested namespaces, it cannot be used in the name of terminal input and output ports as that could be misinterpreted later as a port nested in a namespace.
+
+Graphically, this can be visualized as a nested dictionary and will look like the following:
+
+.. code:: python
+
+    'inputs': {
+        'nested': {
+            'namespace': {}
+        }
+    }
+
+The ``outputs`` attribute of the ``ProcessSpec`` is also a ``PortNamespace`` just as the ``inputs``, with the only different that it will create ``OutputPort`` instead of ``InputPort`` instances.
+Therefore the same concept of nesting through ``PortNamespaces`` applies to the outputs of a ``ProcessSpec``.
+
+
+.. _topics:processes:usage:validation_defaults:
+
+Validation and defaults
+^^^^^^^^^^^^^^^^^^^^^^^
+In the previous section, we saw that the ``ProcessSpec`` uses the ``PortNamespace``, ``InputPort`` and ``OutputPort`` to define the inputs and outputs structure of the ``Process``.
+The underlying concept that allows this nesting of ports is that the ``PortNamespace``, ``InputPort`` and ``OutputPort``, are all a subclass of :py:class:`~plumpy.ports.Port`.
+And as different subclasses of the same class, they have more properties and attributes in common, for example related to the concept of validation and default values.
+All three have the following attributes (with the exception of the ``OutputPort`` not having a ``default`` attribute):
+
+    * ``default``
+    * ``required``
+    * ``valid_type``
+    * ``validator``
+
+These attributes can all be set upon construction of the port or after the fact, as long as the spec has not been sealed, which means that they can be altered without limit as long as it is within the ``define`` method of the corresponding ``Process``.
+An example input port that explicitly sets all these attributes is the following:
+
+.. code:: python
+
+    spec.input('positive_number', required=False, default=lambda: Int(1), valid_type=(Int, Float), validator=is_number_positive)
+
+Here we define an input named ``positive_number`` that should be of type ``Int`` or ``Float`` and should pass the test of the ``is_number_positive`` validator.
+If no value is passed, the default will be used.
+
+.. warning::
+
+    In python, it is good practice to avoid mutable defaults for function arguments, `since they are instantiated at function definition and reused for each invocation <https://docs.python.org/3/reference/compound_stmts.html#function-definitions>`_.
+    This can lead to unexpected results when the default value is changed between function calls.
+    In the context of AiiDA, nodes (both stored and unstored) are considered *mutable* and should therefore *not* be used as default values for process ports.
+    However, it is possible to use a lambda that returns a node instance as done in the example above.
+    This will return a new instance of the node with the given value, each time the process is instantiated.
+
+Note that the validator is nothing more than a free function which takes a single argument, being the value that is to be validated.
+If nothing is returned, the value is considered to be valid.
+To signal that the value is invalid and to have a validation error raised, simply return a string with the validation error message, for example:
+
+.. code:: python
+
+    def is_number_positive(number):
+        if number < 0:
+            return 'The number has to be greater or equal to zero'
+
+The ``valid_type`` can define a single type, or a tuple of valid types.
+
+.. note::
+
+    Note that by default all ports are required, but specifying a default value implies that the input is not required and as such specifying ``required=False`` is not necessary in that case.
+    It was added to the example above simply for clarity.
+
+The validation of input or output values with respect to the specification of the corresponding port, happens at the instantiation of the process and when it is finalized, respectively.
+If the inputs are invalid, a corresponding exception will be thrown and the process instantiation will fail.
+When the outputs fail to be validated, likewise an exception will be thrown and the process state will be set to ``Excepted``.
+
+
+.. _topics:processes:usage:dynamic_namespaces:
+
+Dynamic namespaces
+^^^^^^^^^^^^^^^^^^
+In the previous section we described the various attributes related to validation and claimed that all the port variants share those attributes, yet we only discussed the ``InputPort`` and ``OutputPort`` explicitly.
+The statement, however, is still correct and the ``PortNamespace`` has the same attributes.
+You might then wonder what the meaning is of a ``valid_type`` or ``default`` for a ``PortNamespace`` if all it does is contain ``InputPorts``, ``OutputPorts`` or other ``PortNamespaces``.
+The answer to this question lies in the ``PortNamespace`` attribute ``dynamic``.
+
+Often when designing the specification of a ``Process``, we cannot know exactly which inputs we want to be able to pass to the process.
+However, with the concept of the ``InputPort`` and ``OutputPort`` one *does* need to know exactly, how many values one expects at least, as they do have to be defined.
+This is where the ``dynamic`` attribute of the ``PortNamespace`` comes in.
+By default this is set to ``False``, but by setting it to ``True``, one indicates that that namespace can take a number of values that is unknown at the time of definition of the specification.
+This now explains the meaning of the ``valid_type``, ``validator`` and ``default`` attributes in the context of the ``PortNamespace``.
+If you do mark a namespace as dynamic, you may still want to limit the set of values that are acceptable, which you can do by specifying the valid type and or validator.
+The values that will eventually be passed to the port namespace will then be validated according to these rules exactly as a value for a regular input port would be.
+
+
+.. _topics:processes:usage:non_db:
+
+Non storable inputs
+^^^^^^^^^^^^^^^^^^^
+In principle, the only valid types for inputs and outputs should be instances of a :py:class:`~aiida.orm.nodes.data.data.Data` node, or one of its sub classes, as that is the only data type that can be recorded in the provenance graph as an input or output of a process.
+However, there are cases where you might want to pass an input to a process, whose provenance you do not care about and therefore would want to pass a non-database storable type anyway.
+
+.. note::
+
+    AiiDA allows you to break the provenance as to be not too restrictive, but always tries to urge you and guide you in a direction to keep the provenance.
+    There are legitimate reasons to break it regardless, but make sure you think about the implications and whether you are really willing to lose the information.
+
+For this situation, the ``InputPort`` has the attribute ``non_db``.
+By default this is set to ``False``, but by setting it to ``True`` we can indicate that the values that are passed to the port should not be stored as a node in the provenance graph and linked to the process node.
+This allows one to pass any normal value that one would also be able to pass to a normal function.
+
+
+.. _topics:processes:usage:serialize_inputs:
+
+Automatic input serialization
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Quite often, inputs which are given as python data types need to be cast to the corresponding AiiDA type before passing them to a process.
+Doing this manually can be cumbersome, so you can define a function when defining the process specification, which does the conversion automatically.
+This function, passed as ``serializer`` parameter to ``spec.input``, is invoked if the given input is *not* already an AiiDA type.
+
+For inputs which are stored in the database (``non_db=False``), the serialization function should return an AiiDA data type.
+For ``non_db`` inputs, the function must be idempotent because it might be applied more than once.
+
+The following example work chain takes three inputs ``a``, ``b``, ``c``, and simply returns the given inputs.
+The :func:`~aiida.orm.nodes.data.base.to_aiida_type` function is used as serialization function.
+
+.. include:: include/snippets/serialize/workchain_serialize.py
+    :code: python
+
+This work chain can now be called with native Python types, which will automatically be converted to AiiDA types by the :func:`~aiida.orm.nodes.data.base.to_aiida_type` function.
+Note that the module which defines the corresponding AiiDA type must be loaded for it to be recognized by :func:`~aiida.orm.nodes.data.base.to_aiida_type`.
+
+.. include:: include/snippets/serialize/run_workchain_serialize.py
+    :code: python
+
+Of course, you can also use the serialization feature to perform a more complex serialization of the inputs.
+
+
+.. _topics:processes:usage:exit_codes:
+
+Exit codes
+^^^^^^^^^^
+Any ``Process`` most likely will have one or multiple expected failure modes.
+To clearly communicate to the caller what went wrong, the ``Process`` supports setting its ``exit_status``.
+This ``exit_status``, a positive integer, is an attribute of the process node and by convention, when it is zero means the process was successful, whereas any other value indicates failure.
+This concept of an exit code, with a positive integer as the exit status, `is a common concept in programming <https://en.wikipedia.org/wiki/Exit_status>`_ and a standard way for programs to communicate the result of their execution.
+
+Potential exit codes for the ``Process`` can be defined through the ``ProcessSpec``, just like inputs and outputs.
+Any exit code consists of a positive non-zero integer, a string label to reference it and a more detailed description of the problem that triggers the exit code.
+Consider the following example:
+
+.. code:: python
+
+    spec = ProcessSpec()
+    spec.exit_code(418, 'ERROR_I_AM_A_TEAPOT', 'the process had an identity crisis')
+
+This defines an exit code for the ``Process`` with exit status ``418`` and exit message ``the work chain had an identity crisis``.
+The string ``ERROR_I_AM_A_TEAPOT`` is a label that the developer can use to reference this particular exit code somewhere in the ``Process`` code itself.
+
+Whenever a ``Process`` exits through a particular error code, the caller will be able to introspect it through the ``exit_status`` and ``exit_message`` attributes of the node.
+Assume for example that we ran a ``Process`` that threw the exit code described above, the caller would be able to do the following:
+
+.. code:: python
+
+    in[1] node = load_node(<pk>)
+    in[2] node.exit_status
+    out[2] 418
+    in[2] node.exit_message
+    out[2] 'the process had an identity crisis'
+
+This is useful, because the caller can now programmatically, based on the ``exit_status``, decide how to proceed.
+This is an infinitely more robust way of communicating specific errors to a non-human than parsing text-based logs or reports.
+Additionally, the exit codes make it very easy to query for failed processes with specific error codes.
+
+.. seealso::
+
+    Additional documentation, specific to certain process types, can be found in the following sections:
+
+    - :ref:`Process functions<topics:processes:functions:exit_codes>`
+    - :ref:`Work functions<topics:workflows:usage:workfunctions:exit_codes>`
+    - :ref:`CalcJob parsers<topics:calculations:usage:calcjobs:parsers>`
+    - :ref:`Workchain exit code specification<topics:workflows:usage:workchains:define_exit_codes>`
+    - :ref:`External code plugins<how-to:plugin-codes:parsing:errors>`
+    - :ref:`Restart workchains<how-to:restart-workchain>`
+
+.. _topics:processes:usage:exit_code_conventions:
+
+Exit code conventions
+.....................
+In principle, the only restriction on the exit status of an exit code is that it should be a positive integer or zero.
+However, to make effective use of exit codes, there are some guidelines and conventions as to decide what integers to use.
+Note that since the following rules are *guidelines* you can choose to ignore them and currently the engine will not complain, but this might change in the future.
+Regardless, we advise you to follow the guidelines since it will improve the interoperability of your code with other existing plugins.
+The following integer ranges are reserved or suggested:
+
+    *   0 -  99: Reserved for internal use by `aiida-core`
+    * 100 - 199: Reserved for errors parsed from scheduler output of calculation jobs (note: this is not yet implemented)
+    * 200 - 299: Suggested to be used for process input validation errors
+    * 300 - 399: Suggested for critical process errors
+
+For any other exit codes, one can use the integers from 400 and up.
+
+
+.. _topics:processes:usage:metadata:
+
+Process metadata
+----------------
+
+Each process, in addition to the normal inputs defined through its process specification, can take optional 'metadata'.
+These metadata differ from inputs in the sense that they are not nodes that will show up as inputs in the provenance graph of the executed process.
+Rather, these are inputs that slightly modify the behavior of the process or allow to set attributes on the process node that represents its execution.
+The following metadata inputs are available for *all* process classes:
+
+    * ``label``: will set the label on the ``ProcessNode``
+    * ``description``: will set the description on the ``ProcessNode``
+    * ``store_provenance``: boolean flag, by default ``True``, that when set to ``False``, will ensure that the execution of the process **is not** stored in the provenance graph
+
+Sub classes of the :py:class:`~aiida.engine.processes.process.Process` class can specify further metadata inputs, refer to their specific documentation for details.
+To pass any of these metadata options to a process, simply pass them in a dictionary under the key ``metadata`` in the inputs when launching the process.
+How a process can be launched is explained the following section.
+
+
+.. _topics:processes:usage:launching:
+
+Launching processes
+===================
+Any process can be launched by 'running' or 'submitting' it.
+Running means to run the process in the current python interpreter in a blocking way, whereas submitting means to send it to a daemon worker over RabbitMQ.
+For long running processes, such as calculation jobs or complex workflows, it is best advised to submit to the daemon.
+This has the added benefit that it will directly return control to your interpreter and allow the daemon to save intermediate progress during checkpoints and reload the process from those if it has to restart.
+Running processes can be useful for trivial computational tasks, such as simple calcfunctions or workfunctions, or for debugging and testing purposes.
+
+
+.. _topics:processes:usage:launch:
+
+Process launch
+--------------
+
+To launch a process, one can use the free functions that can be imported from the :py:mod:`aiida.engine` module.
+There are four different functions:
+
+    * :py:func:`~aiida.engine.launch.run`
+    * :py:func:`~aiida.engine.launch.run_get_node`
+    * :py:func:`~aiida.engine.launch.run_get_pk`
+    * :py:func:`~aiida.engine.launch.submit`
+
+As the name suggest, the first three will 'run' the process and the latter will 'submit' it to the daemon.
+Running means that the process will be executed in the same interpreter in which it is launched, blocking the interpreter, until the process is terminated.
+Submitting to the daemon, in contrast, means that the process will be sent to the daemon for execution, and the interpreter is released straight away.
+
+All functions have the exact same interface ``launch(process, **inputs)`` where:
+
+    * ``process`` is the process class or process function to launch
+    * ``inputs`` are the inputs as keyword arguments to pass to the process.
+
+What inputs can be passed depends on the exact process class that is to be launched.
+For example, when we want to run an instance of the :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` process, which takes two :py:class:`~aiida.orm.nodes.data.int.Int` nodes as inputs under the name ``x`` and ``y`` [#f1]_, we would do the following:
+
+.. include:: include/snippets/launch/launch_submit.py
+    :code: python
+
+The function will submit the calculation to the daemon and immediately return control to the interpreter, returning the node that is used to represent the process in the provenance graph.
+
+.. warning::
+    For a process to be submittable, the class or function needs to be importable in the daemon environment by a) giving it an :ref:`associated entry point<how-to:plugin-codes:entry-points>` or b) :ref:`including its module path<how-to:faq:process-not-importable-daemon>` in the ``PYTHONPATH`` that the daemon workers will have.
+
+The ``run`` function is called identically:
+
+.. include:: include/snippets/launch/launch_run.py
+    :code: python
+
+except that it does not submit the process to the daemon, but executes it in the current interpreter, blocking it until the process is terminated.
+The return value of the ``run`` function is also **not** the node that represents the executed process, but the results returned by the process, which is a dictionary of the nodes that were produced as outputs.
+If you would still like to have the process node or the pk of the process node you can use one of the following variants:
+
+.. include:: include/snippets/launch/launch_run_alternative.py
+    :code: python
+
+Finally, the :py:func:`~aiida.engine.launch.run` launcher has two attributes ``get_node`` and ``get_pk`` that are simple proxies to the :py:func:`~aiida.engine.launch.run_get_node` and :py:func:`~aiida.engine.launch.run_get_pk` methods.
+This is a handy shortcut, as now you can choose to use any of the three variants with just a single import:
+
+.. include:: include/snippets/launch/launch_run_shortcut.py
+    :code: python
+
+If you want to launch a process class that takes a lot more inputs, often it is useful to define them in a dictionary and use the python syntax ``**`` that automatically expands it into keyword argument and value pairs.
+The examples used above would look like the following:
+
+.. include:: include/snippets/launch/launch_submit_dictionary.py
+    :code: python
+
+Process functions, i.e. :ref:`calculation functions<topics:calculations:concepts:calcfunctions>` and :ref:`work functions<topics:workflows:concepts:workfunctions>`, can be launched like any other process as explained above.
+Process functions have two additional methods of being launched:
+
+ * Simply *calling* the function
+ * Using the internal run method attributes
+
+Using a calculation function to add two numbers as an example, these two methods look like the following:
+
+.. include:: include/snippets/launch/launch_process_function.py
+    :code: python
+
+
+.. _topics:processes:usage:builder:
+
+Process builder
+---------------
+As explained in a :ref:`previous section<topics:processes:usage:spec>`, the inputs for a :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` and :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` are defined in the :py:meth:`~aiida.engine.processes.process.Process.define` method.
+To know what inputs they take, one would have to read the implementation, which can be annoying if you are not a developer.
+To simplify this process, these two process classes provide a utility called the 'process builder'.
+The process builder is essentially a tool that helps you build the inputs for the specific process class that you want to run.
+To get a *builder* for a particular ``CalcJob`` or a ``WorkChain`` implementation, all you need is the class itself, which can be loaded through the :py:class:`~aiida.plugins.factories.CalculationFactory` and :py:class:`~aiida.plugins.factories.WorkflowFactory`, respectively.
+Let's take the :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` as an example::
+
+    ArithmeticAddCalculation = CalculationFactory('core.arithmetic.add')
+    builder = ArithmeticAddCalculation.get_builder()
+
+The string ``core.arithmetic.add`` is the entry point of the ``ArithmeticAddCalculation`` and passing it to the ``CalculationFactory`` will return the corresponding class.
+Calling the ``get_builder`` method on that class will return an instance of the :py:class:`~aiida.engine.processes.builder.ProcessBuilder` class that is tailored for the ``ArithmeticAddCalculation``.
+The builder will help you in defining the inputs that the ``ArithmeticAddCalculation`` requires and has a few handy tools to simplify this process.
+
+To find out which inputs the builder exposes, you can simply use tab completion.
+In an interactive python shell, by simply typing ``builder.`` and hitting the tab key, a complete list of all the available inputs will be shown.
+Each input of the builder can also show additional information about what sort of input it expects.
+In an interactive shell, you can get this information to display as follows::
+
+    builder.code?
+    Type:        property
+    String form: <property object at 0x7f04c8ce1c00>
+    Docstring:
+        "name": "code",
+        "required": "True"
+        "non_db": "False"
+        "valid_type": "<class 'aiida.orm.nodes.data.code.Code'>"
+        "help": "The Code to use for this job.",
+
+In the ``Docstring`` you will see a ``help`` string that contains more detailed information about the input port.
+Additionally, it will display a ``valid_type``, which when defined shows which data types are expected.
+If a default value has been defined, that will also be displayed.
+The ``non_db`` attribute defines whether that particular input will be stored as a proper input node in the database, if the process is submitted.
+
+Defining an input through the builder is as simple as assigning a value to the attribute.
+The following example shows how to set the ``parameters`` input, as well as the ``description`` and ``label`` metadata inputs::
+
+    builder.metadata.label = 'This is my calculation label'
+    builder.metadata.description = 'An example calculation to demonstrate the process builder'
+    builder.x = Int(1)
+    builder.y = Int(2)
+
+If you evaluate the ``builder`` instance, simply by typing the variable name and hitting enter, the current values of the builder's inputs will be displayed::
+
+    builder
+    {
+        'metadata': {
+            'description': 'An example calculation to demonstrate the process builder',
+            'label': 'This is my calculation label',
+            'options': {},
+        },
+        'x': Int<uuid='a1798492-bbc9-4b92-a630-5f54bb2e865c' unstored>,
+        'y': Int<uuid='39384da4-6203-41dc-9b07-60e6df24e621' unstored>
+    }
+
+In this example, you can see the value that we just set for the ``description`` and the ``label``.
+In addition, it will also show any namespaces, as the inputs of processes support nested namespaces, such as the ``metadata.options`` namespace in this example.
+Note that nested namespaces are also all autocompleted, and you can traverse them recursively with tab-completion.
+
+All that remains is to fill in all the required inputs and we are ready to launch the process builder.
+When all the inputs have been defined for the builder, it can be used to actually launch the ``Process``.
+The process can be launched by passing the builder to any of the free functions :py:mod:`~aiida.engine.launch` module, just as you would do a normal process as :ref:`described above<topics:processes:usage:launching>`, i.e.:
+
+.. include:: include/snippets/launch/launch_builder.py
+    :code: python
+
+Note that the process builder is in principle designed to be used in an interactive shell, as there is where the tab-completion and automatic input documentation really shines.
+However, it is perfectly possible to use the same builder in scripts where you simply use it as an input container, instead of a plain python dictionary.
+
+
+.. _topics:processes:usage:monitoring:
+
+Monitoring processes
+====================
+When you have launched a process, you may want to investigate its status, progression and the results.
+The :ref:`verdi<reference:command-line>` command line tool provides various commands to do just this.
+
+
+.. _topics:processes:usage:monitoring_list:
+
+verdi process list
+------------------
+Your first point of entry will be the ``verdi`` command ``verdi process list``.
+This command will print a list of all active processes through the ``ProcessNode`` stored in the database that it uses to represent its execution.
+A typical example may look something like the following:
+
+.. code-block:: bash
+
+      PK  Created     State           Process label                 Process status
+    ----  ----------  ------------    --------------------------    ----------------------
+     151  3h ago      ⏵ Running       ArithmeticAddCalculation
+     156  1s ago      ⏹ Created       ArithmeticAddCalculation
+
+
+    Total results: 2
+
+The 'State' column is a concatenation of the ``process_state`` and the ``exit_status`` of the ``ProcessNode``.
+By default, the command will only show active items, i.e. ``ProcessNodes`` that have not yet reached a terminal state.
+If you want to also show the nodes in a terminal states, you can use the ``-a`` flag and call ``verdi process list -a``:
+
+.. code-block:: bash
+
+      PK  Created     State              Process label                  Process status
+    ----  ----------  ---------------    --------------------------     ----------------------
+     143  3h ago      ⏹ Finished [0]     add
+     146  3h ago      ⏹ Finished [0]     multiply
+     151  3h ago      ⏵ Running          ArithmeticAddCalculation
+     156  1s ago      ⏹ Created          ArithmeticAddCalculation
+
+
+    Total results: 4
+
+For more information on the meaning of the 'state' column, please refer to the documentation of the :ref:`process state <topics:processes:concepts:state>`.
+The ``-S`` flag let's you query for specific process states, i.e. issuing ``verdi process list -S created`` will return:
+
+.. code-block:: bash
+
+      PK  Created     State           Process label                  Process status
+    ----  ----------  ------------    --------------------------     ----------------------
+     156  1s ago      ⏹ Created       ArithmeticAddCalculation
+
+
+    Total results: 1
+
+To query for a specific exit status, one can use ``verdi process list -E 0``:
+
+.. code-block:: bash
+
+      PK  Created     State             Process label                 Process status
+    ----  ----------  ------------      --------------------------    ----------------------
+     143  3h ago      ⏹ Finished [0]    add
+     146  3h ago      ⏹ Finished [0]    multiply
+
+
+    Total results: 2
+
+This simple tool should give you a good idea of the current status of running processes and the status of terminated ones.
+For a complete list of all the available options, please refer to the documentation of :ref:`verdi process<reference:command-line:verdi-process>`.
+
+If you are looking for information about a specific process node, the following three commands are at your disposal:
+
+ * ``verdi process report`` gives a list of the log messages attached to the process
+ * ``verdi process status`` print the call hierarchy of the process and status of all its nodes
+ * ``verdi process show`` print details about the status, inputs, outputs, callers and callees of the process
+
+In the following sections, we will explain briefly how the commands work.
+For the purpose of example, we will show the output of the commands for a completed ``PwBaseWorkChain`` from the ``aiida-quantumespresso`` plugin, which simply calls a ``PwCalculation``.
+
+
+.. _topics:processes:usage:monitoring_report:
+
+verdi process report
+--------------------
+The developer of a process can attach log messages to the node of a process through the :py:meth:`~aiida.engine.processes.process.Process.report` method.
+The ``verdi process report`` command will display all the log messages in chronological order:
+
+.. code-block:: bash
+
+    2018-04-08 21:18:51 [164 | REPORT]: [164|PwBaseWorkChain|run_calculation]: launching PwCalculation<167> iteration #1
+    2018-04-08 21:18:55 [164 | REPORT]: [164|PwBaseWorkChain|inspect_calculation]: PwCalculation<167> completed successfully
+    2018-04-08 21:18:56 [164 | REPORT]: [164|PwBaseWorkChain|results]: work chain completed after 1 iterations
+    2018-04-08 21:18:56 [164 | REPORT]: [164|PwBaseWorkChain|on_terminated]: remote folders will not be cleaned
+
+The log message will include a timestamp followed by the level of the log, which is always ``REPORT``.
+The second block has the format ``pk|class name|function name`` detailing information about, in this case, the work chain itself and the step in which the message was fired.
+Finally, the message itself is displayed.
+Of course how many messages are logged and how useful they are is up to the process developer.
+In general they can be very useful for a user to understand what has happened during the execution of the process, however, one has to realize that each entry is stored in the database, so overuse can unnecessarily bloat the database.
+
+
+.. _topics:processes:usage:monitoring_status:
+
+verdi process status
+--------------------
+This command is most useful for ``WorkChain`` instances, but also works for ``CalcJobs``.
+One of the more powerful aspects of work chains, is that they can call ``CalcJobs`` and other ``WorkChains`` to create a nested call hierarchy.
+If you want to inspect the status of a work chain and all the children that it called, ``verdi process status`` is the go-to tool.
+An example output is the following:
+
+.. code-block:: bash
+
+    PwBaseWorkChain <pk=164> [ProcessState.FINISHED] [4:results]
+        └── PwCalculation <pk=167> [FINISHED]
+
+The command prints a tree representation of the hierarchical call structure, that recurses all the way down.
+In this example, there is just a single ``PwBaseWorkChain`` which called a ``PwCalculation``, which is indicated by it being indented one level.
+In addition to the call tree, each node also shows its current process state and for work chains at which step in the outline it is.
+This tool can be very useful to inspect while a work chain is running at which step in the outline it currently is, as well as the status of all the children calculations it called.
+
+
+.. _topics:processes:usage:monitoring_show:
+
+verdi process show
+------------------
+Finally, there is a command that displays detailed information about the ``ProcessNode``, such as its inputs, outputs and the optional other processes it called and or was called by.
+An example output for a ``PwBaseWorkChain`` would look like the following:
+
+.. code-block:: bash
+
+    Property       Value
+    -------------  ------------------------------------
+    type           WorkChainNode
+    pk             164
+    uuid           08bc5a3c-da7d-44e0-a91c-dda9ddcb638b
+    label
+    description
+    ctime          2018-04-08 21:18:50.850361+02:00
+    mtime          2018-04-08 21:18:50.850372+02:00
+    process state  ProcessState.FINISHED
+    exit status    0
+    code           pw-v6.1
+
+    Inputs            PK  Type
+    --------------  ----  -------------
+    parameters       158  Dict
+    structure        140  StructureData
+    kpoints          159  KpointsData
+    pseudo_family    161  Str
+    max_iterations   163  Int
+    clean_workdir    160  Bool
+    options          162  Dict
+
+    Outputs              PK  Type
+    -----------------  ----  -------------
+    output_band         170  BandsData
+    remote_folder       168  RemoteData
+    output_parameters   171  Dict
+    output_array        172  ArrayData
+
+    Called      PK  Type
+    --------  ----  -------------
+    CALL       167  PwCalculation
+
+    Log messages
+    ---------------------------------------------
+    There are 4 log messages for this calculation
+    Run 'verdi process report 164' to see them
+
+This overview should give you all the information if you want to inspect a process' inputs and outputs in closer detail as it provides you their pk's.
+
+
+.. _topics:processes:usage:manipulating:
+
+Manipulating processes
+======================
+To understand how one can manipulate running processes, one has to understand the principles of the :ref:`process/node distinction<topics:processes:concepts:node_distinction>` and a :ref:`process' lifetime<topics:processes:concepts:lifetime>` first, so be sure to have read those sections first.
+
+
+.. _topics:processes:usage:manipulating_pause_play_kill:
+
+verdi process pause/play/kill
+-----------------------------
+The ``verdi`` command line interface provides three commands to interact with 'live' processes.
+
+    * ``verdi process pause``
+    * ``verdi process play``
+    * ``verdi process kill``
+
+The first pauses a process temporarily, the second resumes any paused processes and the third one permanently kills them.
+The sub command names might seem to tell you this already and it might look like that is all there is to know, but the functionality underneath is quite complicated and deserves additional explanation nonetheless.
+
+As the section on :ref:`the distinction between the process and the node<topics:processes:concepts:node_distinction>` explained, manipulating a process means interacting with the live process instance that lives in the memory of the runner that is running it.
+By definition, these runners will always run in a different system process than the one from which you want to interact, because otherwise, you would *be* the runner, given that there can only be a single runner in an interpreter and if it is running, the interpreter would be blocked from performing any other operations.
+This means that in order to interact with the live process, one has to interact with another interpreter running in a different system process.
+This is once again facilitated by the RabbitMQ message broker.
+When a runner starts to run a process, it will also add listeners for incoming messages that are being sent for that specific process over RabbitMQ.
+
+.. note::
+
+    This does not just apply to daemon runners, but also normal runners.
+    That is to say that if you were to launch a process in a local runner, that interpreter will be blocked, but it will still setup the listeners for that process on RabbitMQ.
+    This means that you can manipulate the process from another terminal, just as if you would do with a process that is being run by a daemon runner.
+
+In the case of 'pause', 'play' and 'kill', one is sending what is called a Remote Procedure Call (RPC) over RabbitMQ.
+The RPC will include the process identifier for which the action is intended and RabbitMQ will send it to whoever registered itself to be listening for that specific process, in this case the runner that is running the process.
+This immediately reveals a potential problem: the RPC will fall on deaf ears if there is no one listening, which can have multiple causes.
+For example, as explained in the section on a :ref:`process' lifetime<topics:processes:concepts:lifetime>`, this can be the case for a submitted process, where the corresponding task is still queued, as all available process slots are occupied.
+But even if the task *were* to be with a runner, it might be too busy to respond to the RPC and the process appears to be unreachable.
+Whenever a process is unreachable for an RPC, the command will return an error:
+
+.. code:: bash
+
+    Error: Process<100> is unreachable
+
+Depending on the cause of the process being unreachable, the problem may resolve itself automatically over time and one can try again at a later time, as for example in the case of the runner being too busy to respond.
+However, to prevent this from happening, the runner has been designed to have the communication happen over a separate thread and to schedule callbacks for any necessary actions on the main thread, which performs all the heavy lifting.
+This should make occurrences of the runner being too busy to respond very rare.
+However, there is unfortunately no way of telling what the actual problem is for the process not being reachable.
+The problem will manifest itself identically if the runner just could not respond in time or if the task has accidentally been lost forever due to a bug, even though these are two completely separate situations.
+
+This brings us to another potential unintuitive aspect of interacting with processes.
+The previous paragraph already mentioned it in passing, but when a remote procedure call is sent, it first needs to be answered by the responsible runner, if applicable, but it will not *directly execute* the call.
+This is because the call will be incoming on the communcation thread who is not allowed to have direct access to the process instance, but instead it will schedule a callback on the main thread who can perform the action.
+The callback will however not necessarily be executed directly, as there may be other actions waiting to be performed.
+So when you pause, play or kill a process, you are not doing so directly, but rather you are *scheduling* a request to do so.
+If the runner has successfully received the request and scheduled the callback, the command will therefore show something like the following:
+
+.. code:: bash
+
+    Success: scheduled killing Process<100>
+
+The 'scheduled' indicates that the actual killing might not necessarily have happened just yet.
+This means that even after having called ``verdi process kill`` and getting the success message, the corresponding process may still be listed as active in the output of ``verdi process list``.
+
+By default, the ``pause``, ``play`` and ``kill`` commands will only ask for the confirmation of the runner that the request has been scheduled and not actually wait for the command to have been executed.
+This is because, as explained, the actual action being performed might not be instantaneous as the runner may be busy working with other processes, which would mean that the command would block for a long time.
+If you want to send multiple requests to a lot of processes in one go, this would be ineffective, as each one would have to wait for the previous one to be completed.
+To change the default and actually wait for the action to be completed and await its response, you can use the ``--wait`` flag.
+If you know that your daemon runners may be experiencing a heavy load, you can also increase the time that the command waits before timing out, with the ``-t/--timeout`` flag.
+
+
+.. rubric:: Footnotes
+
+.. [#f1] Note that the :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation` process class also takes a ``code`` as input, but that has been omitted for the purposes of the example.
+.. _topics:processes:functions:
+
+=================
+Process functions
+=================
+
+A process function is a process (see the :ref:`concepts<topics:processes:concepts>` for a definition and explanation) that is implemented as a decorated python function.
+Currently, there are two types of process functions:
+
+ * :ref:`calculation function<topics:calculations:concepts:calcfunctions>`
+ * :ref:`work function<topics:workflows:concepts:workfunctions>`
+
+The former can *create* new data, whereas the latter can orchestrate other processes and *return* their results.
+This section will provide detailed information and best practices on how to implement these two process types.
+Since the calculation function and work function are both process functions and have the same implementation, all the rules explained below apply to both process types.
+
+The simple example in the :ref:`introductory section on calculation functions<topics:calculations:concepts:calcfunctions>` showed how a simple python function can be turned into a calculation function simply by adorning it with the :py:func:`~aiida.engine.processes.functions.calcfunction` decorator.
+When the function is run, AiiDA will dynamically generate a :py:class:`~aiida.engine.processes.functions.FunctionProcess` and build its :ref:`process specification<topics:processes:usage:spec>` based on the function signature.
+Here we will explain how this is accomplished and what features of the python function signature standard are supported.
+
+Function signatures
+===================
+To explain what features of python function definitions and calls are supported we first need to be clear about some terminology.
+When dealing with functions, there are two distinct parts:
+
+ * `function definitions <https://docs.python.org/3/reference/compound_stmts.html#function-definitions>`_
+ * `function calls <https://docs.python.org/3/reference/expressions.html#calls>`_
+
+Consider the following code snippet that defines a simple python function:
+
+.. include:: include/snippets/functions/signature_plain_python_definition.py
+    :code: python
+
+The function takes three 'parameters', named ``x``, ``y`` and ``z``.
+In addition, the function ``plain_function`` is said to have default values, because one or more parameters (``z`` in this case) have the form `parameter = expression`.
+When *calling* a function, the terminology changes slightly and values for parameters can be passed as either 'positional' or 'keyword'.
+In the example below, the function is called with 'positional' arguments:
+
+.. include:: include/snippets/functions/signature_plain_python_call_positional.py
+    :code: python
+
+They are called positional, because the arguments are not explicitly named and so will be matched to the corresponding parameter solely based on their position in the function call.
+In this example, ``x``, ``y`` and ``z`` will have the values ``1``, ``2`` and ``3``, respectively.
+Since we specified three values, the default for the third parameter ``z`` was not actually used.
+However, we are allowed to only specify two arguments, in which case the default *will* be used as can be seen below:
+
+.. include:: include/snippets/functions/signature_plain_python_call_default.py
+    :code: python
+
+By not specifying the third argument, the default will be used, so in this case ``z`` will equal ``1``.
+Additionally, one can employ 'named' arguments to specifically target a parameter based on its name, instead of having to rely on its position:
+
+.. include:: include/snippets/functions/signature_plain_python_call_keyword.py
+    :code: python
+
+Notice how the order in which we pass the arguments is irrelevant because we specify the name of each argument explicitly when assigning the value.
+Now that we know the difference between positional and named arguments, it is important to realize a python requirement that **positional arguments have to come before named arguments**.
+What this means is that *both* the function definition and function call below are illegal, because there are named arguments before positional ones:
+
+.. include:: include/snippets/functions/signature_plain_python_call_illegal.py
+    :code: python
+
+Finally, python knows the concept of ``*args`` and ``**kwargs``, also referred to as variable arguments and keyword arguments, which allow one to define a function which accepts an undetermined number of positional and keyword arguments.
+
+.. include:: include/snippets/functions/signature_plain_python_args_kwargs.py
+    :code: python
+
+The variable arguments ``*args`` will receive the positionally passed arguments as a tuple and the keyword arguments ``**kwargs`` will receive the named arguments as a dictionary.
+With the formal definitions out of the way, let's now see which of these concepts are supported by process functions.
+
+Default arguments
+=================
+Default arguments are supported by calculation functions just as normal python functions as long as it is a :py:class:`~aiida.orm.nodes.node.Node` instance, just like the inputs or ``None``.
+However, just as with python functions, one should only use immutable objects as function defaults because mutable objects can give unexpected results as they will be kept between function calls.
+Therefore, in order to use a default value for process functions, simply use ``None`` as the default value and check for its presence in the function body settings the default value if it is ``None``.
+This pattern looks like the following:
+
+.. include:: include/snippets/functions/signature_calcfunction_default.py
+    :code: python
+
+Both function calls in the example above will have the exact same result.
+
+Variable and keyword arguments
+==============================
+Variable arguments are *not* supported by process functions.
+The reasoning behind this is that the process specification for the :py:class:`~aiida.engine.processes.functions.FunctionProcess` is built dynamically based on the function signature and so the names of the inputs are based on the parameter name from the function definition, or the named argument when the function is called.
+Since for variable arguments, neither at function definition nor at function call, explicit parameter names are used, the engine can impossibly determine what names, and by extensions link label, to use for the inputs.
+
+In contrast, keyword arguments for that reason *are* supported and it is the keyword used when the function is called that determines the names of the parameters and the labels of the input links.
+The following snippet is therefore perfectly legal and will return the sum of all the nodes that are passed:
+
+.. include:: include/snippets/functions/signature_calcfunction_kwargs.py
+    :code: python
+
+The provenance generated by this example looks like the following:
+
+.. _fig_calculation_functions_kwargs:
+.. figure:: include/images/add_calcfunction_kwargs.png
+
+    The link labels of the inputs are determined based on the naming of the parameters when the function is called.
+
+Note that the inputs **have to be passed as keyword arguments** because they are used for the link labels.
+If the inputs would simply have been passed as positional arguments, the engine could have impossibly determined what label to use for the links that connect the input nodes with the calculation function node.
+For this reason, invoking a 'dynamic' function, i.e. one that supports ``**kwargs`` in its signature, with more positional arguments that explicitly named in the signature, will raise a ``TypeError``.
+
+Return values
+=============
+In :numref:`fig_calculation_functions_kwargs` you can see that the engine used the label ``result`` for the link connecting the calculation function node with its output node.
+This is the default link label if only a single result is returned from the calculation function.
+If you want to specify a label yourself, you can return the result in the form of a dictionary, where the key will be used as the link label.
+By using a dictionary you can also record multiple nodes as output.
+Consider the following snippet:
+
+.. include:: include/snippets/functions/calcfunction_multiple_outputs.py
+    :code: python
+
+The provenance generated by running this calculation function will look like:
+
+.. _fig_calculation_functions_multiple_outputs:
+.. figure:: include/images/add_calcfunction_multiple_outputs.png
+
+    If a dictionary is returned, the keys will be used as the labels for the links that connect the output nodes with the calculation node.
+
+As always, all the values returned by a calculation function have to be storable, which means they have to be instances of the :py:class:`~aiida.orm.nodes.node.Node` class.
+
+.. warning::
+    It is very important that you **do not call** :py:meth:`~aiida.orm.nodes.node.Node.store` **yourself** on the nodes before returning them from a ``calcfunction``.
+    Because of the calculation/workflow duality in AiiDA, a ``calcfunction``, which is a calculation-like process, can only *create* and not *return* data nodes.
+    This means that if a node is returned from a ``calcfunction`` that *is already stored*, the engine will throw an exception.
+
+.. _topics:processes:functions:exit_codes:
+
+Exit codes
+==========
+So far we have only seen examples of calculation functions where everything works out just fine.
+However, the real world is different, and often we will encounter situations where problems arise.
+A calculation function may receive incorrect or incoherent inputs, or the code it executes may throw an exception.
+Of course we could throw an input validation exception or not even catch the exceptions that the code we call throws, but that will lead the function process to be put in the ``Excepted`` terminal state.
+As explained in the :ref:`process state<topics:processes:concepts:state>` section, this state is indeed reserved for processes that incurred an exception during execution.
+Consider the following calculation function definition and call:
+
+.. include:: include/snippets/functions/calcfunction_exception.py
+    :code: python
+
+Because the value for ``y`` that is being passed is zero, the engine will encounter a ``ZeroDivisionError`` exception when the calculation function is run.
+The output of ``verdi process list`` will confirm that the process has excepted:
+
+.. code-block:: bash
+
+      PK  Created    State             Process label    Process status
+    ----  ---------  ----------------  ---------------  ----------------
+      10  2m ago     ⨯ Excepted        divide
+
+    Total results: 1
+
+Exceptions that occur during the execution of a process are recorded as a log message on the corresponding process node.
+To show these log messages, one can use ``verdi process report``.
+In the case of the example above, it would look something like the following:
+
+.. code-block:: bash
+
+    2019-03-21 15:12:25 [19]: [10|divide|on_except]: Traceback (most recent call last):
+      File "/home/sphuber/code/aiida/env/dev/plumpy/plumpy/process_states.py", line 220, in execute
+        result = self.run_fn(*self.args, **self.kwargs)
+      File "/home/sphuber/code/aiida/env/dev/aiida-core/aiida/engine/processes/functions.py", line 319, in run
+        result = self._func(*args, **kwargs)
+      File "docs/source/working/include/snippets/functions/calcfunction_exception.py", line 6, in divide
+        return x / y
+      File "/home/sphuber/code/aiida/env/dev/aiida-core/aiida/orm/nodes/data/numeric.py", line 30, in inner
+        return to_aiida_type(func(left, right))
+      File "/home/sphuber/code/aiida/env/dev/aiida-core/aiida/orm/nodes/data/numeric.py", line 75, in __div__
+        return self / other
+    ZeroDivisionError: division by zero
+
+However, in this particular example the exception is not so much an unexpected error, but one we could have considered and have seen coming, so it might be more applicable to simply mark the process as failed.
+To accomplish this, there is the concept of an :ref:`exit status<topics:processes:concepts:exit_codes>` that can be set on the process, which is an integer that, when non-zero, marks a process in the ``Finished`` state as 'failed'.
+Since the exit status is set as an attribute on the process node, it also makes it very easy to query for failed processes.
+To set a non-zero exit status on a calculation function to indicate it as failed, simply return an instance of the :py:class:`~aiida.engine.processes.exit_code.ExitCode` class.
+Time for a demonstration:
+
+.. include:: include/snippets/functions/calcfunction_exit_code.py
+    :code: python
+
+When we run the calculation function now, with the same inputs, instead of excepting, the process will successfully terminate and its exit status will be set to the value stored in the ``ExitCode``.
+The exit status is also displayed by ``verdi process list``:
+
+.. code-block:: bash
+
+      PK  Created    State             Process label    Process status
+    ----  ---------  ----------------  ---------------  ----------------
+      10  2m ago     ⨯ Excepted        divide
+     773  21s ago    ⏹ Finished [100]  divide
+
+    Total results: 2
+
+Both approaches are valid and which one to use depends on your use case.
+The question you should ask yourself is whether a potential problem merits throwing the process on the pile of 'excepted' processes.
+Or maybe, as in the example above, the problem is easily foreseeable and classifiable with a well defined exit status, in which case it might make more sense to return the exit code.
+At the end one should think which solution makes it easier for a workflow calling the function to respond based on the result and what makes it easier to query for these specific failure modes.
+
+
+Provenance
+==========
+In addition to the basic attributes that are stored for all processes such as the process state and label, the process functions automatically store additional information that relates to the source code of the function they represent:
+
+ * Function name
+ * Function namespace
+ * Function starting line number
+ * Function source file
+
+The first three are retrieved by inspecting the python source code as soon as the process function is executed and are stored as attributes on the process node.
+They can be accessed through the corresponding properties on the process node as follows:
+
+.. include:: include/snippets/functions/process_function_attributes.py
+    :code: python
+
+The source code of the file in which the function is defined is also stored, but since it can be quite big, it is stored as a raw file in the repository of the process node.
+It can be retrieved through the :py:meth:`~aiida.orm.utils.mixins.FunctionCalculationMixin.get_function_source_code` method.
+
+The attributes give some querability to the process functions stored in the provenance graph and by storing the source code of the function that was executed, there will be some reference in the future to track how the function created its output nodes.
+Note, however, that just storing the source file of the function does not guarantee that one can reproduce the exact result.
+For example, one can 'leak' data into the function by reading a file or loading an existing node from the database that was not explicitly passed as an input.
+Alternatively, external code can be imported and called, the source code of which will not be recorded.
+
+Reproducibility guidelines
+--------------------------
+Due to the nature of the way process functions are implemented, it is impossible to guarantee 100% reproducibility, but by following the following guidelines, one can come as close as possible.
+
+ * Do not leak data into functions
+ * Limit importing of external code
+ * Keep functions self-consistent and in separate files
+
+Leaking data into functions is accomplished for example by reading a file on the local file system in the function body and using its contents for the creation of the outputs.
+Even if you store the source code, if you don't possess the file that was read, it is impossible to reproduce the results.
+Likewise, you should not load any existing data from the database through the API, but rather they should be direct inputs of the process function.
+
+A similar problem occurs when importing other python code.
+Practically, it is almost impossible to never import code into process functions, as this would force massive code duplication.
+However, there is still a difference between importing code from the ``aiida-core`` library or the repository in which the process function is hosted, and the importing of a local python file.
+Even though for both cases there can no be guarantee of reproducibility, the former stands a better chance by far, as the version number of the plugin package should be recorded.
+The rule of thumb then is to keep the importing of code to a minimum, but if you have to, make sure to make it part of a plugin package with a well-defined version number.
+
+Finally, as mentioned in the introduction, the source file of a process function is stored as a file in the repository for *each execution*.
+Currently there is no automatic deduplication for identical files by the engine, so these files may occupy quite a bit of space.
+For this reason it is advisable to keep each process function in its own separate file.
+This not only improves readability, but it also minimizes the impact on the size of the file repository.
+.. _topics:processes:
+
+*********
+Processes
+*********
+
+This topic section provides extensive and detailed information on the concept of processes in AiiDA and how to work with them.
+Since the concepts explained here apply to processes in general, they also apply to its subtypes: calculations and workflows.
+Information specific to each subtype can be found in the topic sections on :ref:`calculations <topics:calculations>` and :ref:`workflows <topics:workflows>`, respectively.
+
+
+.. toctree::
+   :maxdepth: 2
+
+   concepts
+   usage
+   functions
+.. _how-to:plugin-codes:
+
+******************************************
+How to write a plugin for an external code
+******************************************
+
+.. tip::
+
+    Before starting to write a new plugin, check the `aiida plugin registry <https://aiidateam.github.io/aiida-registry/>`_.
+    If a plugin for your code is already available, you can skip straight to :ref:`how-to:run-codes`.
+
+.. tip::
+
+    This how to walks you through all logical steps of how AiiDA interacts with an external code.
+    If you already know the basics and would like to get started with a new plugin package quickly, check out :ref:`how-to:plugins-develop`.
+
+To run an external code with AiiDA, you need a corresponding *calculation* plugin, which tells AiiDA how to:
+
+1. Prepare the required input files.
+2. Run the code with the correct command line parameters.
+
+Finally, you will probably want a *parser* plugin, which tells AiiDA how to:
+
+3. Parse the output of the code.
+
+This how-to takes you through the process of :ref:`creating a calculation plugin<how-to:plugin-codes:interfacing>`, using it to :ref:`run the code<how-to:plugin-codes:run>`, and :ref:`writing a parser <how-to:plugin-codes:parsing>` for its outputs.
+
+In this example, our |Code| will be the ``diff`` executable that "computes" the difference between two "input files" and prints the difference to standard output:
+
+.. code-block:: console
+
+   $ cat file1.txt
+   file with content
+   content1
+
+   $ cat file2.txt
+   file with content
+   content2
+
+   $ diff file1.txt file2.txt
+   2c2
+   < content1
+   ---
+   > content2
+
+We are using ``diff`` here since it is available on almost every UNIX system by default, and it takes both command line *arguments* (the two files) and command line *options* (e.g. ``-i`` for case-insensitive matching).
+This is similar to how the executables of many scientific simulation codes work, making it easy to adapt this example to your use case.
+
+We will run ``diff`` as:
+
+.. code-block:: bash
+
+   $ diff file1.txt file2.txt > diff.patch
+
+thus writing difference between `file1.txt` and `file2.txt` to `diff.patch`.
+
+
+
+.. _how-to:plugin-codes:interfacing:
+
+
+Interfacing external codes
+==========================
+
+Start by creating a file ``calculations.py`` and subclass the |CalcJob| class:
+
+.. code-block:: python
+
+    from aiida.common import datastructures
+    from aiida.engine import CalcJob
+    from aiida.orm import SinglefileData
+
+    class DiffCalculation(CalcJob):
+        """AiiDA calculation plugin wrapping the diff executable."""
+
+
+In the following, we will tell AiiDA how to run our code by implementing two key methods:
+
+ #. :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.define`
+ #. :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission`
+
+Defining the spec
+-----------------
+
+The |define| method tells AiiDA which inputs the |CalcJob| expects and which outputs it produces (exit codes will be :ref:`discussed later<how-to:plugin-codes:parsing:errors>`).
+This is done through an instance of the :py:class:`~aiida.engine.processes.process_spec.CalcJobProcessSpec` class, which is passed as the |spec| argument to the |define| method.
+For example:
+
+.. literalinclude:: ../../../aiida/calculations/diff_tutorial/calculations.py
+    :language: python
+    :pyobject: DiffCalculation.define
+
+
+The first line of the method calls the |define| method of the |CalcJob| parent class.
+This necessary step defines the `inputs` and `outputs` that are common to all |CalcJob|'s.
+
+Next, we use the :py:meth:`~plumpy.process_spec.ProcessSpec.input` method in order to define our two input files ``file1`` and ``file2`` of type |SinglefileData|.
+
+.. admonition:: Further reading
+
+    When using |SinglefileData|, AiiDA keeps track of the inputs as *files*.
+    This is very flexible but has the downside of making it difficult to query for information contained in those files and ensuring that the inputs are valid.
+    :ref:`how-to:plugin-codes:cli-options` shows how to use the |Dict| class to represent the ``diff`` command line options as a python dictionary.
+    The `aiida-diff`_ demo plugin goes further and adds automatic validation.
+
+We then use :py:meth:`~plumpy.process_spec.ProcessSpec.output` to define the only output of the calculation with the label ``diff``.
+AiiDA will attach the outputs defined here to a (successfully) finished calculation using the link label provided.
+
+..  I think the following is not really needed here at this point
+    .. note::
+        By default, AiiDA expects all outputs defined in the spec.
+        Use ``required=False`` in order to mark an output as optional.
+
+
+Finally, we set a few default ``options``, such as the name of the parser (which we will implement later), the name of input and output files, and the computational resources to use for such a calculation.
+These ``options`` have already been defined on the |spec| by the ``super().define(spec)`` call, and they can be accessed through the :py:attr:`~plumpy.process_spec.ProcessSpec.inputs` attribute, which behaves like a dictionary.
+
+There is no ``return`` statement in ``define``: the ``define`` method directly modifies the |spec| object it receives.
+
+.. note::
+
+        One more input required by any |CalcJob| is which external executable to use.
+
+        External executables are represented by |Code|  instances that contain information about the computer they reside on, their path in the file system and more.
+        They are passed to a |CalcJob| via the ``code`` input, which is defined in the |CalcJob| base class, so you don't have to:
+
+        .. code-block:: python
+
+            spec.input('code', valid_type=orm.Code, help='The `Code` to use for this job.')
+
+.. admonition:: Further reading
+
+    For more details on setting up your `inputs` and `outputs` (covering validation, dynamic number of inputs, etc.) see the :ref:`Defining Processes <topics:processes:usage:defining>` topic.
+
+Preparing for submission
+------------------------
+
+
+The :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` method has two jobs:
+Creating the input files in the format the external code expects and returning a :py:class:`~aiida.common.datastructures.CalcInfo` object that contains instructions for the AiiDA engine on how the code should be run.
+For example:
+
+.. literalinclude:: ../../../aiida/calculations/diff_tutorial/calculations.py
+    :language: python
+    :pyobject: DiffCalculation.prepare_for_submission
+
+All inputs provided to the calculation are validated against the ``spec`` *before* |prepare_for_submission| is called.
+Therefore, when accessing the :py:attr:`~plumpy.processes.Process.inputs` attribute, you can safely assume that all required inputs have been set and that all inputs have a valid type.
+
+We start by creating a |CodeInfo| object that lets AiiDA know how to run the code, i.e. here:
+
+.. code-block:: bash
+
+   $ diff file1.txt file2.txt > diff.patch
+
+This includes the command line parameters (here: the names of the files that we would like to ``diff``) and the UUID of the |Code| to run.
+Since ``diff`` writes directly to standard output, we redirect standard output to the specified output filename.
+
+Next, we create a |CalcInfo| object that lets AiiDA know which files to copy back and forth.
+In our example, the two input files are already stored in the AiiDA file repository and we can use the ``local_copy_list`` to pass them along.
+
+.. note::
+
+  In other use cases you may need to *create* new files on the fly.
+  This is what the ``folder`` argument of :py:meth:`~aiida.engine.processes.calcjobs.calcjob.CalcJob.prepare_for_submission` is for:
+
+  .. code:: python
+
+    with folder.open("filename", 'w') as handle:
+        handle.write("file content")
+
+
+  Any files and directories created in this sandbox folder will automatically be transferred to the compute resource where the actual calculation takes place.
+
+
+.. This is too detailed for a tutorial
+    .. note::
+
+        By default, the contents of the sandbox ``folder`` are also stored permanently in the file repository of the calculation node for additional provenance guarantees.
+        There are cases (e.g. license issues, file size) where you may want to change this behavior and :ref:`exclude files from being stored<topics:calculations:usage:calcjobs:file_lists_provenance_exclude>`.
+
+
+The ``retrieve_list`` on the other hand tells the engine which files to retrieve from the directory where the job ran after it has finished.
+All files listed here will be store in a |FolderData| node that is attached as an output node to the calculation with the label ``retrieved``.
+
+Finally, we pass the |CodeInfo| to a |CalcInfo| object.
+One calculation job can involve more than one executable, so ``codes_info`` is a list.
+If you have more than one executable in your ``codes_info``, you can set ``codes_run_mode`` to specify the mode with which these will be executed (`CodeRunMode.SERIAL` by default).
+We define the ``retrieve_list`` of filenames that the engine should retrieve from the directory where the job ran after it has finished.
+The engine will store these files in a |FolderData| node that will be attached as an output node to the calculation with the label ``retrieved``.
+
+.. admonition:: Further reading
+
+    There are :ref:`other file lists available<topics:calculations:usage:calcjobs:file_lists>` that allow you to easily customize how to move files to and from the remote working directory in order to prevent the creation of unnecessary copies.
+    For more details on the |CalcJob| class, refer to the Topics section on :ref:`defining calculations <topics:calculations:usage>`.
+
+
+.. _how-to:plugin-codes:parsing:
+
+Parsing the outputs
+===================
+
+Parsing the output files produced by a code into AiiDA nodes is optional, but it can make your data queryable and therefore easier to access and analyze.
+
+To create a parser plugin, subclass the |Parser| class in a file called ``parsers.py``.
+
+.. literalinclude::  ../../../aiida/parsers/plugins/diff_tutorial/parsers.py
+    :language: python
+    :start-after: # START PARSER HEAD
+    :end-before: # END PARSER HEAD
+
+Before the ``parse()`` method is called, two important attributes are set on the |Parser|  instance:
+
+  1. ``self.retrieved``: An instance of |FolderData|, which points to the folder containing all output files that the |CalcJob| instructed to retrieve, and provides the means to :py:meth:`~aiida.orm.nodes.repository.NodeRepositoryMixin.open` any file it contains.
+
+  2. ``self.node``: The :py:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` representing the finished calculation, which, among other things, provides access to all of its inputs (``self.node.inputs``).
+
+Now implement its :py:meth:`~aiida.parsers.parser.Parser.parse` method as
+
+.. literalinclude:: ../../../aiida/parsers/plugins/diff_tutorial/parsers.py
+    :language: python
+    :pyobject: DiffParserSimple.parse
+
+The :py:meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.get_option` convenience method is used to get the filename of the output file.
+
+Finally, the :py:meth:`~aiida.parsers.parser.Parser.out` method is used return the output file as the ``diff`` output of the calculation:
+The first argument is the name to be used as the label for the link that connects the calculation and data node.
+The second argument is the node that should be recorded as an output.
+
+.. note::
+
+    The outputs and their types need to match those from the process specification of the corresponding |CalcJob| (or an exception will be raised).
+
+In this minimalist example, there isn't actually much parsing going on -- we are simply passing along the output file as a |SinglefileData| node.
+If your code produces output in a structured format, instead of just returning the file you may want to parse it e.g. to a python dictionary (|Dict| node) to make the results easily searchable.
+
+.. admonition:: Exercise
+
+    Consider the different output files produced by your favorite simulation code.
+    Which information would you want to:
+
+     1. parse into the database for querying (e.g. as |Dict|, |StructureData|, ...)?
+     2. store in the AiiDA file repository for safe-keeping (e.g. as |SinglefileData|, ...)?
+     3. leave on the computer where the calculation ran (e.g. recording their remote location using |RemoteData| or simply ignoring them)?
+
+    Once you know the answers to these questions, you are ready to start writing a parser for your code.
+
+In order to request automatic parsing of a |CalcJob| (once it has finished), users can set the ``metadata.options.parser_name`` input when launching the job.
+If a particular parser should be used by default, the |CalcJob| ``define`` method can set a default value for the parser name as was done in the :ref:`previous section <how-to:plugin-codes:interfacing>`:
+
+.. code-block:: python
+
+    @classmethod
+    def define(cls, spec):
+        ...
+        spec.inputs['metadata']['options']['parser_name'].default = 'diff-tutorial'
+
+Note that the default is not set to the |Parser| class itself, but to the *entry point string* under which the parser class is registered.
+We will register the entry point for the parser in a bit.
+
+
+.. _how-to:plugin-codes:parsing:errors:
+
+Handling parsing errors
+-----------------------
+
+So far, we have not spent much attention on dealing with potential errors that can arise when running external codes.
+However, there are lots of ways in which codes can fail to execute nominally.
+A |Parser| can play an important role in detecting and communicating such errors, where :ref:`workflows <how-to:run-workflows>` can then decide how to proceed, e.g., by modifying input parameters and resubmitting the calculation.
+
+Parsers communicate errors through :ref:`exit codes<topics:processes:concepts:exit_codes>`, which are defined in the |spec| of the |CalcJob| they parse.
+The ``DiffCalculation`` example, defines the following exit code:
+
+.. code-block:: python
+
+    spec.exit_code(300, 'ERROR_MISSING_OUTPUT_FILES', message='Calculation did not produce all expected output files.')
+
+An ``exit_code`` defines:
+
+ * an exit status (a positive integer, following the :ref:`topics:processes:usage:exit_code_conventions`),
+ * a label that can be used to reference the code in the |parse| method (through the ``self.exit_codes`` property, as shown below), and
+ * a message that provides a more detailed description of the problem.
+
+In order to inform AiiDA about a failed calculation, simply return from the ``parse`` method the exit code that corresponds to the detected issue.
+Here is a more complete version of the example |Parser| presented in the previous section:
+
+.. literalinclude:: ../../../aiida/parsers/plugins/diff_tutorial/parsers.py
+    :language: python
+    :pyobject: DiffParser.parse
+
+This simple check makes sure that the expected output file ``diff.patch`` is among the files retrieved from the computer where the calculation was run.
+Production plugins will often scan further aspects of the output (e.g. the standard error, the output file, etc.) for any issues that may indicate a problem with the calculation and return a corresponding exit code.
+
+AiiDA stores the exit code returned by the |parse| method on the calculation node that is being parsed, from where it can then be inspected further down the line (see the :ref:`defining processes <topics:processes:usage:defining>` topic for more details).
+Note that some scheduler plugins can detect issues at the scheduler level (by parsing the job scheduler output) and set an exit code.
+The Topics section on :ref:`scheduler exit codes <topics:calculations:usage:calcjobs:scheduler-errors>` explains how these can be inspected inside a parser and how they can optionally be overridden.
+
+
+.. _how-to:plugin-codes:entry-points:
+
+Registering entry points
+========================
+
+:ref:`Entry points <how-to:plugins-develop:entrypoints>` are the preferred method of registering new calculation, parser and other plugins with AiiDA.
+
+With your ``calculations.py`` and ``parsers.py`` files at hand, let's register entry points for the plugins they contain:
+
+ * Move your two scripts into a subfolder ``aiida_diff_tutorial``:
+
+   .. code-block:: console
+
+      $ mkdir aiida_diff_tutorial
+      $ mv calculations.py parsers.py aiida_diff_tutorial/
+
+   You have just created an ``aiida_diff_tutorial`` Python *package*!
+
+ * Write a minimalistic ``setup.py`` script for your new package:
+
+    .. code-block:: python
+
+        from setuptools import setup
+
+        setup(
+            name='aiida-diff-tutorial',
+            packages=['aiida_diff_tutorial'],
+            entry_points={
+                'aiida.calculations': ["diff-tutorial = aiida_diff_tutorial.calculations:DiffCalculation"],
+                'aiida.parsers': ["diff-tutorial = aiida_diff_tutorial.parsers:DiffParser"],
+            }
+        )
+
+    .. note::
+        Strictly speaking, ``aiida-diff-tutorial`` is the name of the *distribution*, while ``aiida_diff_tutorial`` is the name of the *package*.
+        The aiida-core documentation uses the term *package* a bit more loosely.
+
+
+ * Install your new ``aiida-diff-tutorial`` plugin package.
+
+   .. code-block:: console
+
+       $ pip install -e .  # install package in "editable mode"
+
+   See the :ref:`how-to:plugins-install` section for details.
+
+After this, you should see your plugins listed:
+
+   .. code-block:: console
+
+      $ verdi plugin list aiida.calculations
+      $ verdi plugin list aiida.calculations diff-tutorial
+      $ verdi plugin list aiida.parsers
+
+
+.. _how-to:plugin-codes:run:
+
+Running a calculation
+=====================
+
+With the entry points set up, you are ready to launch your first calculation with the new plugin:
+
+
+ * If you haven't already done so, :ref:`set up your computer<how-to:run-codes:computer>`.
+   In the following we assume it to be the localhost:
+
+    .. code-block:: console
+
+        $ verdi computer setup -L localhost -H localhost -T core.local -S core.direct -w `echo $PWD/work` -n
+        $ verdi computer configure core.local localhost --safe-interval 5 -n
+
+ *  Create the input files for our calculation
+
+    .. code-block:: console
+
+        $ echo -e "File with content\ncontent1" > file1.txt
+        $ echo -e "File with content\ncontent2" > file2.txt
+        $ mkdir input_files
+        $ mv file1.txt file2.txt input_files
+
+ * Write a ``launch.py`` script:
+
+    .. literalinclude:: ./include/snippets/plugins/launch.py
+      :language: python
+
+    .. note::
+
+        The ``launch.py`` script sets up an AiiDA |Code| instance that associates the ``/usr/bin/diff`` executable with the ``DiffCalculation`` class (through its entry point ``diff``).
+
+        This code is automatically set on the ``code`` input port of the builder and passed as an input to the calculation plugin.
+
+ * Launch the calculation:
+
+    .. code-block:: console
+
+        $ verdi run launch.py
+
+
+    If everything goes well, this should print the results of your calculation, something like:
+
+    .. code-block:: console
+
+        $ verdi run launch.py
+        Computed diff between files:
+        2c2
+        < content1
+        ---
+        > content2
+
+.. tip::
+
+    If you encountered a parsing error, it can be helpful to make a :ref:`topics:calculations:usage:calcjobs:dry_run`, which allows you to inspect the input folder generated by AiiDA before any calculation is launched.
+
+
+
+Finally instead of running your calculation in the current shell, you can submit your calculation to the AiiDA daemon:
+
+ * (Re)start the daemon to update its Python environment:
+
+    .. code-block:: console
+
+        $ verdi daemon restart --reset
+
+ * Update your launch script to use:
+
+    .. code-block:: python
+
+        # Submit calculation to the aiida daemon
+        node = engine.submit(builder)
+        print("Submitted calculation {}".format(node))
+
+
+    .. note::
+
+        ``node`` is the |CalcJobNode| representing the state of the underlying calculation process (which may not be finished yet).
+
+
+ * Launch the calculation:
+
+    .. code-block:: console
+
+        $ verdi run launch.py
+
+    This should print the UUID and the PK of the submitted calculation.
+
+You can use the verdi command line interface to :ref:`monitor<topics:processes:usage:monitoring>` this processes:
+
+.. code-block:: bash
+
+    $ verdi process list -a -p1
+
+This should show the processes of both calculations you just ran.
+Use ``verdi calcjob outputcat <pk>`` to check the output of the calculation you submitted to the daemon.
+
+Congratulations - you can now write plugins for external simulation codes and use them to submit calculations!
+
+If you still have time left, consider going through the optional exercise below.
+
+.. _how-to:plugin-codes:cli-options:
+
+Exercise - Support command-line options
+=======================================
+
+As discussed before, ``diff`` knows a couple of command-line options:
+
+.. code-block:: bash
+
+   $ diff --help
+   Usage: diff [OPTION]... FILES
+   Compare files line by line.
+   ...
+   -i, --ignore-case               ignore case differences in file contents
+   -E, --ignore-tab-expansion      ignore changes due to tab expansion
+   -b, --ignore-space-change       ignore changes in the amount of white space
+   -w, --ignore-all-space          ignore all white space
+   -B, --ignore-blank-lines        ignore changes where lines are all blank
+   -I, --ignore-matching-lines=RE  ignore changes where all lines match RE
+   ...
+
+For simplicity let's focus on the excerpt of options shown above and allow the user of our plugin to pass these along.
+
+Notice that one of the options (``--ignore-matching-lines``) requires the user to pass a regular expression string, while the other options don't require any value.
+
+One way to represent a set of command line options like
+
+.. code:: bash
+
+   diff --ignore-case --ignore-matching-lines='.*ABC.*'
+
+would be using a python dictionary:
+
+.. code:: python
+
+   parameters = {
+     'ignore-case': True,
+     'ignore-space-change': False,
+     'ignore-matching-lines': '.*ABC.*'
+    }
+
+Here is a simple code snippet for translating the dictionary to a list of command line options:
+
+.. code:: python
+
+   def cli_options(parameters):
+        """Return command line options for parameters dictionary.
+
+        :param dict parameters: dictionary with command line parameters
+        """
+        options = []
+        for key, value in parameters.items():
+            # Could validate: is key a known command-line option?
+            if isinstance(value, bool) and value:
+                options.append(f'--{key}')
+            elif isinstance(value, str):
+                # Could validate: is value a valid regular expression?
+                options.append(f'--{key}')
+                options.append(value)
+
+        return options
+
+.. note::
+
+   When passing parameters along to your simulation code, try *validating* them.
+   This detects errors directly at *submission* of the calculation and thus prevents calculations with malformed inputs from ever entering the queue of your HPC system.
+
+   For the sake of brevity we are *not* performing validation here but there are numerous python libraries, such as `voluptuous`_ (used by `aiida-diff`_, see `example <https://github.com/aiidateam/aiida-diff/blob/92c61bdcc2db201d69da4d8b83a2b3f5dd529bf1/aiida_diff/data/__init__.py#L14-L20>`_), `marshmallow`_ or `pydantic`_, that help you define a schema to validate input against.
+
+
+Let's open our previous ``calculations.py`` file and start modifying the ``DiffCalculation`` class:
+
+ 1. In the ``define`` method, add a new ``input`` to the ``spec`` with label ``'parameters'`` and type |Dict|  (``from aiida.orm import Dict``)
+ 2. | In the ``prepare_for_submission`` method run the ``cli_options`` function from above on ``self.inputs.parameters.get_dict()`` to get the list of command-line options.
+    | Add them to the ``codeinfo.cmdline_params``.
+
+.. dropdown:: Solution
+
+   For 1. add the following line to the ``define`` method:
+
+   .. code-block:: python
+
+        spec.input('parameters', valid_type=Dict, help='diff command-line parameters')
+
+   For 2. copy the ``cli_options`` snippet at the end of ``calculations.py`` and set the ``cmdline_params`` to:
+
+   .. code:: python
+
+        codeinfo.cmdline_params = cli_options(self.inputs.parameters.get_dict()) + [ self.inputs.file1.filename, self.inputs.file2.filename]
+
+
+That's it. Let's now open the ``launch.py`` script and pass along our command line parameters:
+
+.. code:: python
+
+   ...
+   builder.parameters = orm.Dict(dict={'ignore-case': True})
+   ...
+
+Change the capitalization of one of the characters in the first line of ``file1.txt``.
+Then, restart the daemon and submit the new calculation:
+
+.. code:: bash
+
+   $ verdi daemon restart
+   $ verdi run launch.py
+
+If everything worked as intended, the capitalization difference in the first line should be ignored (and thus not show up in the output).
+
+This marks the end of this how-to.
+
+The |CalcJob| and |Parser| plugins are still rather basic and the ``aiida-diff-tutorial`` plugin package is missing a number of useful features, such as package metadata, documentation, tests, CI, etc.
+Continue with :ref:`how-to:plugins-develop` in order to learn how to quickly create a feature-rich new plugin package from scratch.
+
+
+.. todo::
+
+    .. _how-to:plugin-codes:scheduler:
+
+    title: Adding support for a custom scheduler
+
+    `#3989`_
+
+
+    .. _how-to:plugin-codes:transport:
+
+    title: Adding support for a custom transport
+
+    `#3990`_
+
+.. |Int| replace:: :py:class:`~aiida.orm.nodes.data.int.Int`
+.. |SinglefileData| replace:: :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData`
+.. |StructureData| replace:: :py:class:`~aiida.orm.nodes.data.structure.StructureData`
+.. |RemoteData| replace:: :py:class:`~aiida.orm.nodes.data.remote.RemoteData`
+.. |Dict| replace:: :py:class:`~aiida.orm.nodes.data.dict.Dict`
+.. |Code| replace:: :py:class:`~aiida.orm.nodes.data.Code`
+.. |Parser| replace:: :py:class:`~aiida.parsers.parser.Parser`
+.. |parse| replace:: :py:class:`~aiida.parsers.parser.Parser.parse`
+.. |folder| replace:: :py:class:`~aiida.common.folders.Folder`
+.. |folder.open| replace:: :py:class:`~aiida.common.folders.Folder.open`
+.. |CalcJob| replace:: :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`
+.. |CalcJobNode| replace:: :py:class:`~aiida.orm.CalcJobNode`
+.. |CalcInfo| replace:: :py:class:`~aiida.common.CalcInfo`
+.. |CodeInfo| replace:: :py:class:`~aiida.common.CodeInfo`
+.. |FolderData| replace:: :py:class:`~aiida.orm.nodes.data.folder.FolderData`
+.. |spec| replace:: ``spec``
+.. |define| replace:: :py:class:`~aiida.engine.processes.calcjobs.CalcJob.define`
+.. |prepare_for_submission| replace:: :py:meth:`~aiida.engine.processes.calcjobs.CalcJob.prepare_for_submission`
+.. _aiida-diff: https://github.com/aiidateam/aiida-diff
+.. _voluptuous: https://github.com/alecthomas/voluptuous
+.. _pydantic: https://github.com/samuelcolvin/pydantic/
+.. _marshmallow: https://github.com/marshmallow-code/marshmallow
+.. _#3989: https://github.com/aiidateam/aiida-core/issues/3989
+.. _#3990: https://github.com/aiidateam/aiida-core/issues/3990
+.. _how-to:share:
+
+*****************
+How to share data
+*****************
+
+AiiDA offers two avenues for sharing data with others: archive files and the REST API.
+
+
+.. _how-to:share:archives:
+
+Sharing AiiDA archives
+======================
+
+You have performed your calculations with AiiDA and you would like to share your AiiDA provenance graph, for example to make your scientific study reproducible.
+
+Since AiiDA keeps track of the provenance of every computed result, this step is easy:
+Tell AiiDA the **final results** you would like to be reproducible, and AiiDA will automatically include their entire provenance using the :ref:`topics:provenance:consistency:traversal-rules`.
+
+Exporting individual nodes
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's say the key results of your study are contained in three AiiDA nodes with PKs ``12``, ``123``, ``1234``.
+Exporting those results together with their provenance is as easy as:
+
+.. code-block:: console
+
+    $ verdi archive create my-calculations.aiida --nodes 12 123 1234
+
+As usual, you can use any identifier (label, PK or UUID) to specify the nodes to be exported.
+
+The resulting archive file ``my-calculations.aiida`` contains all information pertaining to the exported nodes.
+The default traversal rules make sure to include the complete provenance of any node specified and should be sufficient for most cases.
+See ``verdi archive create --help`` for ways to modify the traversal rules.
+
+.. tip::
+
+    To see what would be exported, before exporting, you can use the ``--test-run`` option:
+
+    .. code-block:: console
+
+        $ verdi archive create --test-run my-calculations.aiida
+
+Please remember to use **UUIDs** when pointing your colleagues to data *inside* an AiiDA archive, since UUIDs are guaranteed to be universally unique (while PKs aren't).
+
+Exporting large numbers of nodes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the number of results to be exported is large, for example in a high-throughput study, use the ``QueryBuilder`` to add the corresponding nodes to a group ``my-results`` (see :ref:`how-to:data:organize:group`).
+Then export the group:
+
+.. code-block:: console
+
+    $ verdi archive create my-calculations.aiida --groups my-results
+
+Alternatively, export your entire profile with:
+
+.. code-block:: console
+
+    $ verdi archive create my-calculations.aiida --all
+
+Publishing AiiDA archive files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+AiiDA archive files can be published on any research data repository, for example the `Materials Cloud Archive`_, `Zenodo`_, or the `Open Science Framework`_.
+When publishing AiiDA archives on the `Materials Cloud Archive`_, you also get an interactive *EXPLORE* section, which allows peers to browse the AiiDA provenance graph directly in the browser.
+
+.. _Zenodo: https://zenodo.org
+.. _Open Science Framework: https://osf.io
+.. _Materials Cloud Archive: https://archive.materialscloud.org
+
+Inspecting an archive
+^^^^^^^^^^^^^^^^^^^^^
+
+In order to get a quick overview of an archive file *without* importing it into your AiiDA profile, use ``verdi archive inspect``:
+
+.. code-block:: console
+
+    $ verdi archive inspect sssp-efficiency.aiida
+    ---------------  -------
+    Version archive  1.0
+    Version aiida    2.0.0
+    Compression      6
+    ---------------  -------
+
+    Database statistics
+    -------------------
+    Users:
+        count: 7
+        emails:
+        - a@b.com
+    Computers:
+        count: 1
+        labels:
+        - bellatrix
+    Nodes:
+        count: 109547
+        node_types:
+        - data.array.kpoints.KpointsData.
+        - data.core.array.ArrayData.
+        - data.core.array.bands.BandsData.
+        - data.core.array.trajectory.TrajectoryData.
+        - data.core.cif.CifData.
+        - data.core.code.Code.
+        - data.core.dict.Dict.
+        - data.core.folder.FolderData.
+        - data.core.remote.RemoteData.
+        - process.calculation.calcfunction.CalcFunctionNode.
+        - process.calculation.calcjob.CalcJobNode.
+        process_types:
+        - aiida.calculations:codtools.ciffilter
+        - aiida.calculations:quantumespresso.matdyn
+        - aiida.calculations:quantumespresso.ph
+        - aiida.calculations:quantumespresso.pw
+        - aiida.calculations:quantumespresso.q2r
+    Groups:
+        count: 1
+        type_strings:
+        - core.import
+    Comments:
+        count: 0
+    Logs:
+        count: 0
+    Links:
+        count: 159905
+    Repo Files:
+        count: 199565
+
+You can also use the Python API to inspect an archive file, using the :py:class:`~aiida.orm.querybuilder.QueryBuilder` to query the database:
+
+.. code-block:: python
+
+    from aiida import orm
+    from aiida.tools.archive import get_format
+    archive_format = get_format()
+    with archive_format.open('', mode='r') as reader:
+        qb = reader.querybuilder()
+        print(qb.append(orm.Node).count())
+
+Importing an archive
+^^^^^^^^^^^^^^^^^^^^
+
+Use ``verdi archive import`` to import AiiDA archives into your current AiiDA profile.
+``verdi archive import`` accepts URLs, e.g.:
+
+.. code-block:: console
+
+    $ verdi archive import "https://archive.materialscloud.org/record/file?file_id=2a59c9e7-9752-47a8-8f0e-79bcdb06842c&filename=SSSP_1.1_PBE_efficiency.aiida&record_id=23"
+
+During import, AiiDA will avoid identifier collisions and node duplication based on UUIDs (and email comparisons for :py:class:`~aiida.orm.users.User` entries).
+By default, existing entities will be updated with the most recent changes.
+Node extras and comments have special modes for determining how to import them - for more details, see ``verdi archive import --help``.
+
+To see what would be imported, before importing, you can use the ``--test-run`` option:
+
+.. code-block:: console
+
+    $ verdi archive import --test-run my-calculations.aiida
+
+.. tip:: The AiiDA archive format has evolved over time, but you can still import archives created with previous AiiDA versions.
+    If an outdated archive version is detected during import, the archive file will be automatically migrated to the newest version (within a temporary folder) and the import retried.
+
+    You can also use ``verdi archive migrate`` to create updated archive files from existing archive files (or update them in place).
+
+.. _how-to:share:serve:
+
+Serving data through the REST API
+=================================
+
+The AiiDA REST API allows to query your AiiDA database over HTTP(S) and returns results in :ref:`JSON format <reference:rest-api:endpoints-responses>`.
+
+.. note::
+
+    As of October 2020, the AiiDA REST API only supports ``GET`` methods (reading); in particular, it does *not* yet support workflow management.
+    This feature is, however, part of the `AiiDA roadmap <https://github.com/aiidateam/aiida-core/wiki/AiiDA-release-roadmap>`_.
+
+.. _how-to:share:serve:launch:
+
+Launching the REST API
+^^^^^^^^^^^^^^^^^^^^^^
+
+Start serving data from your default AiiDA profile via the REST API:
+
+.. code-block:: console
+
+    $ verdi restapi
+     * REST API running on http://127.0.0.1:5000/api/v4
+     * Serving Flask app "aiida.restapi.run_api" (lazy loading)
+     * Environment: production
+       WARNING: This is a development server. Do not use it in a production deployment.
+       Use a production WSGI server instead.
+     * Debug mode: off
+     * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
+The REST API is now running on port ``5000`` of your local computer.
+
+Like all ``verdi`` commands, you can select a different AiiDA profile via the ``-p PROFILE`` option:
+
+.. code-block:: bash
+
+    verdi -p <another_profile> restapi
+
+.. note::
+
+    REST API version history:
+
+
+Version history
+---------------
+
+     * ``aiida-core`` >= 1.0.0b6: ``v4``. Simplified endpoints; only ``/nodes``, ``/processes``, ``/calcjobs``, ``/groups``, ``/computers`` and ``/servers`` remain.
+     * ``aiida-core`` >= 1.0.0b3, <1.0.0b6: ``v3``. Development version, never shipped with a stable release.
+     * ``aiida-core`` <1.0.0b3: ``v2``. First API version, with new endpoints added step by step.
+
+
+.. _how-to:share:serve:query:
+
+Querying the REST API
+^^^^^^^^^^^^^^^^^^^^^
+
+A URL to query the REST API consists of:
+
+1. The *base URL*, by default:
+
+    http://127.0.0.1:5000/api/v4
+
+   Querying the base URL returns a list of all available endpoints.
+
+2. The *path* defining the requested *resource*, optionally followed by a more specific *endpoint*.
+   For example::
+
+        /nodes
+        /nodes/page/2
+        /nodes/projectable_properties
+        /nodes/<uuid>
+        /nodes/<uuid>/links/outgoing
+
+   If no endpoint is appended, the API returns a list of objects of that resource.
+   In order to request a specific object of a resource, append its *UUID*.
+
+   .. note::
+
+       As usual, you can use partial UUIDs as long as they are unique.
+
+       In order to query by *PK* you need to use the ``id`` filter (see below).
+       This also applies to :py:class:`~aiida.orm.users.User` s, which don't have UUIDs (but instead uses email).
+
+3. (Optional) The *query string* for filtering, ordering and pagination of results.
+   For example::
+
+    ?limit=20&offset=35
+    ?id=200
+    ?node_type=like="data%"
+
+Here are some examples to try::
+
+  http://127.0.0.1:5000/api/v4/users/
+  http://127.0.0.1:5000/api/v4/computers?scheduler_type="slurm"
+  http://127.0.0.1:5000/api/v4/nodes/?id>45&node_type=like="data%"
+
+.. tip::
+
+    The interactive `EXPLORE sections on Materials Cloud <https://www.materialscloud.org/explore/menu>`_ are all powered by the AiiDA REST API and you can query the underlying API, either using your web browser or using a tool like ``curl``:
+
+    .. code-block:: console
+
+       $ curl https://aiida-dev.materialscloud.org/2dstructures/api/v4/users
+
+For an extensive user documentation of the endpoints, the query string as well as the format of the responses, see the :ref:`AiiDA REST API reference <reference:rest-api>`.
+
+.. _how-to:share:serve:deploy:
+
+Deploying a REST API server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``verdi restapi`` command runs the REST API through the ``werkzeug`` python-based HTTP server.
+In order to deploy production instances of the REST API for serving your data to others, we recommend using a fully fledged web server, such as `Apache <https://httpd.apache.org/>`_ or `NGINX <https://www.nginx.com/>`_, which then runs the REST API python application through the `web server gateway interface (WSGI) <https://wsgi.readthedocs.io/>`_.
+
+.. note::
+    One Apache/NGINX server can host multiple instances of the REST APIs, e.g. serving data from different AiiDA profiles.
+
+A ``myprofile-rest.wsgi`` script for an AiiDA profile ``myprofile`` would look like this:
+
+.. literalinclude:: include/snippets/myprofile-rest.wsgi
+
+.. note:: See the documentation of :py:func:`~aiida.restapi.run_api.configure_api` for all available configuration options.
+
+In the following, we explain how to run this wsgi application using Apache on Ubuntu.
+
+    #. Install and enable the ``mod_wsgi`` `WSGI module <https://modwsgi.readthedocs.io/>`_ module:
+
+    .. code-block:: console
+
+           $ sudo apt install libapache2-mod-wsgi-py3
+           $ sudo a2enmod wsgi
+
+    #. Place the WSGI script in a folder on your server, for example ``/home/ubuntu/wsgi/myprofile-rest.wsgi``.
+
+    #. Configure apache to run the WSGI application using a virtual host configuration similar to:
+
+       .. literalinclude:: include/snippets/aiida-rest.conf
+
+       Place this ``aiida-rest.conf`` file in ``/etc/apache2/sites-enabled``
+
+    #. Restart apache: ``sudo service apache2 restart``.
+
+You should now be able to reach your REST API at ``localhost/myprofile/api/v4`` (Port 80).
+.. _how-to:cookbook:
+
+========
+Cookbook
+========
+
+This how-to page collects useful short scripts and code snippets that may be useful in the everyday usage of AiiDA.
+
+
+Checking the queued jobs on a scheduler
+=======================================
+
+If you want to know if which jobs are currently on the scheduler (e.g. to dynamically decide on which computer to submit, or to delay submission, etc.) you can use the following script as an example:
+
+.. code-block:: python
+
+    def get_scheduler_jobs(computer_label='localhost', only_current_user=True):
+        """Return a list of all current jobs in the scheduler.
+
+        .. note:: an SSH connection is open and closed at every launch of this function.
+
+        :param computer_label: the label of the computer.
+        :param only_current_user: if True, only retrieve jobs of the current default user.
+            (if this feature is supported by the scheduler plugin). Otherwise show all jobs.
+        """
+        from aiida import orm
+
+        computer = Computer.objects.get(label=computer_label)
+        transport = computer.get_transport()
+        scheduler = computer.get_scheduler()
+        scheduler.set_transport(transport)
+
+        # This opens the SSH connection, for SSH transports
+        with transport:
+            if only_current_user:
+                remote_username = transport.whoami()
+                all_jobs = scheduler.get_jobs(user=remote_username, as_dict=True)
+            else:
+                all_jobs = scheduler.get_jobs(as_dict=True)
+
+        return all_jobs
+
+    if __name__ == '__main__':
+        all_jobs = get_scheduler_jobs(only_current_user=False)
+        user_jobs = get_scheduler_jobs(only_current_user=True)
+
+        print(f'Current user has {len(user_jobs)} jobs out of {len(all_jobs)} in the scheduler'
+        print('Detailed job view:')
+
+        for job_id, job_info in user_jobs.items():
+            print(f'Job ID: {job_id}')
+            for k, v in job_info.items():
+                if k == 'raw_data':
+                    continue
+                print(f'  {k}: {v}')
+            print('')
+
+Use ``verdi run`` to execute it:
+
+.. code-block:: console
+
+    verdi run file_with_script.py
+
+.. important::
+
+    Every time you call the function, two SSH connections are opened!
+    So be careful and run this function sparsely, or your supercomputer center might block your account.
+    A possible work around to this limitation is to pass the transport as a parameter, and pass it in so that it can be reused.
+
+An example output would be::
+
+    Current user has 5 jobs out of 1425 in the scheduler
+    Detailed job view:
+    Job ID: 1658497
+        job_id: 1658497
+        wallclock_time_seconds: 38052
+        title: aiida-2324985
+        num_machines: 4
+        job_state: RUNNING
+        queue_name: parallel
+        num_mpiprocs: 64
+        allocated_machines_raw: r02-node[17-18,53-54]
+        submission_time: 2018-03-28 09:21:35
+        job_owner: some_remote_username
+        dispatch_time: 2018-03-28 09:21:35
+        annotation: None
+        requested_wallclock_time_seconds: 82800
+
+    (...)
+
+
+Getting an ``AuthInfo`` knowing the computer and the user
+=========================================================
+
+To open a transport to a computer, you need the corresponding :class:`~aiida.orm.authinfos.AuthInfo` object, which contains the required information for a specific user.
+Once you have the relevant :class:`~aiida.orm.computers.Computer` and :class:`~aiida.orm.users.User` objects, you can obtain as follows:
+
+.. code-block:: python
+
+    computer.get_authinfo(user)
+
+Here is, as an example, a useful utility function:
+
+.. code-block:: python
+
+    def get_authinfo_from_computer_label(computer_label):
+        from aiida.orm import load_computer, User
+        computer = load_computer(computer_label)
+        user = User.objects.get_default()
+        return computer.get_authinfo(user)
+
+that you can then use, for instance, as follows:
+
+.. code-block:: python
+
+    authinfo = get_authinfo_from_computer_label('localhost')
+    with authinfo.get_transport() as transport:
+        print(transport.listdir())
+.. _how-to:data:
+
+*********************
+How to work with data
+*********************
+
+
+.. _how-to:data:import:
+
+Importing data
+==============
+
+AiiDA allows users to export data from their database into an export archive file, which can be imported into any other AiiDA database.
+If you have an AiiDA export archive that you would like to import, you can use the ``verdi archive import`` command (see :ref:`the reference section<reference:command-line:verdi-archive>` for details).
+
+.. note:: For information on exporting and importing data via AiiDA archives, see :ref:`"How to share data"<how-to:share:archives>`.
+
+If, instead, you have existing data that are not yet part of an AiiDA export archive, such as files, folders, tabular data, arrays or any other kind of data, this how-to guide will show you how to import them into AiiDA.
+
+To store any piece of data in AiiDA, it needs to be wrapped in a :py:class:`~aiida.orm.nodes.data.Data` node, such that it can be represented in the :ref:`provenance graph <topics:provenance>`.
+There are different varieties, or subclasses, of this ``Data`` class that are suited for different types of data.
+AiiDA ships with a number of built-in data types.
+You can list these using the :ref:`verdi plugin<reference:command-line:verdi-plugin>` command.
+Executing ``verdi plugin list aiida.data`` should display something like::
+
+    Registered entry points for aiida.data:
+    * array
+    * bool
+    * code
+    * dict
+    * float
+    * folder
+    * list
+    * singlefile
+
+    Info: Pass the entry point as an argument to display detailed information
+
+As the output suggests, you can get more information about each type by appending the name to the command, for example, ``verdi plugin list aiida.data singlefile``::
+
+    Description:
+
+    The ``singlefile`` data type is designed to store a single file in its entirety.
+    A ``singlefile`` node can be created from an existing file on the local filesystem in two ways.
+    By passing the absolute path of the file:
+
+        singlefile = SinglefileData(file='/absolute/path/to/file.txt')
+
+    or by passing a filelike object:
+
+        with open('/absolute/path/to/file.txt', 'rb') as handle:
+            singlefile = SinglefileData(file=handle)
+
+    The filename of the resulting file in the database will be based on the filename passed in the ``file`` argument.
+    This default can be overridden by passing an explicit name for the ``filename`` argument to the constructor.
+
+As you can see, the ``singlefile`` type corresponds to the :py:class:`~aiida.orm.nodes.data.singlefile.SinglefileData` class and is designed to wrap a single file that is stored on your local filesystem.
+If you have such a file that you would like to store in AiiDA, you can use the ``verdi shell`` to create it:
+
+.. code-block:: python
+
+    SinglefileData = DataFactory('core.singlefile')
+    singlefile = SinglefileData(file='/absolute/path/to/file.txt')
+    singlefile.store()
+
+The first step is to load the class that corresponds to the data type, which you do by passing the name (listed by ``verdi plugin list aiida.data``) to the :py:class:`~aiida.plugins.factories.DataFactory`.
+Then we just construct an instance of that class, passing the file of interest as an argument.
+
+.. note:: The exact manner of constructing an instance of any particular data type is type dependent.
+    Use the ``verdi plugin list aiida.data <ENTRY_POINT>`` command to get more information for any specific type.
+
+Note that after construction, you will get an *unstored* node.
+This means that at this point your data is not yet stored in the database and you can first inspect it and optionally modify it.
+If you are happy with the results, you can store the new data permanently by calling the :py:meth:`~aiida.orm.nodes.node.Node.store` method.
+Every node is assigned a Universal Unique Identifier (UUID) upon creation and once stored it is also assigned a primary key (PK), which can be retrieved through the ``node.uuid`` and ``node.pk`` properties, respectively.
+You can use these identifiers to reference and or retrieve a node.
+Ways to find and retrieve data that have previously been imported are described in section :ref:`"How to find data"<how-to:query>`.
+
+If none of the currently available data types, as listed by ``verdi plugin list``, seem to fit your needs, you can also create your own custom type.
+For details refer to the next section :ref:`"How to add support for custom data types"<topics:data_types:plugin>`.
+
+
+.. _how-to:data:import:provenance:
+
+Provenance
+----------
+
+While AiiDA will automatically keep the provenance of data that is created by it through calculations and workflows, this is clearly not the case when creating data nodes manually, as described in the previous section.
+Typically, the manual creation of data happens at the beginning of a project when data from external databases is imported as a starting point for further calculations.
+To still keep some form of provenance, the :class:`~aiida.orm.nodes.data.Data` base class allows to record the _source_ of the data it contains.
+When constructing a new data node, of any type, you can pass a dictionary with information of the source under the ``source`` keyword argument:
+
+.. code-block:: python
+
+    data = Data(source={'uri': 'http://some.domain.org/files?id=12345', 'id': '12345'})
+
+Once stored, this data can always be retrieved through the ``source`` property:
+
+.. code-block:: python
+
+    data.source   # Will return the ``source`` dictionary that was passed in the constructor, if any
+
+The following list shows all the keys that are allowed to be set in the ``source`` dictionary:
+
+    * 'db_name': The name of the external database.
+    * 'db_uri': The base URI of the external database.
+    * 'uri': The exact URI of where the data can be retrieved. Ideally this is a persistent URI.
+    * 'id': The external ID with which the data is identified in the external database.
+    * 'version': The version of the data, if any.
+    * 'extras': Optional dictionary with other fields for source description.
+    * 'source_md5': MD5 checksum of the data.
+    * 'description': Human-readable free form description of the data's source.
+    * 'license': A string with the type of license that applies to the data, if any.
+
+If any other keys are defined, an exception will be raised by the constructor.
+
+
+.. _how-to:data:organize:
+
+Organizing data
+===============
+
+.. _how-to:data:organize:group:
+
+How to group nodes
+------------------
+
+AiiDA's database is great for automatically storing all your data, but sometimes it can be tricky to navigate this flat data store.
+To create some order in this mass of data, you can *group* sets of nodes together, just as you would with files in folders on your filesystem.
+A folder, in this analogy, is represented by the :py:class:`~aiida.orm.groups.Group` class.
+Each group instance can hold any amount of nodes and any node can be contained in any number of groups.
+A typical use case is to store all nodes that share a common property in a single group.
+
+Below we show how to perform a typical set of operations one may want to perform with groups.
+
+Create a new group
+^^^^^^^^^^^^^^^^^^
+
+From the command line interface:
+
+.. code-block:: console
+
+    $ verdi group create test_group
+
+From the Python interface:
+
+.. code-block:: ipython
+
+    In [1]: group = Group(label='test_group')
+
+    In [2]: group.store()
+    Out[2]: <Group: "test_group" [type core], of user xxx@xx.com>
+
+
+List available groups
+^^^^^^^^^^^^^^^^^^^^^
+
+Example:
+
+.. code-block:: console
+
+    $ verdi group list
+
+Groups come in different types, indicated by their type string.
+By default ``verdi group list`` only shows groups of the type *core*.
+In case you want to show groups of another type use ``-T/--type-string`` option.
+If you want to show groups of all types, use the ``-a/--all-types`` option.
+
+For example, to list groups of type ``core.auto``, use:
+
+.. code-block:: console
+
+    $ verdi group list -T core.auto
+
+Similarly, we can use the ``type_string`` key to filter groups with the ``QueryBuilder``:
+
+.. code-block:: ipython
+
+    In [1]: QueryBuilder().append(Group, filters={'type_string': 'core'}).all(flat=True)
+    Out[1]:
+    [<Group: "another_group" [type core], of user xxx@xx.com>,
+    <Group: "old_group" [type core], of user xxx@xx.com>,
+    <Group: "new_group" [type core], of user xxx@xx.com>]
+
+Add nodes to a group
+^^^^^^^^^^^^^^^^^^^^
+Once the ``test_group`` has been created, we can add nodes to it.
+For example, to add a node with ``pk=1`` to the group we could either use the command line interface:
+
+.. code-block:: console
+
+    $ verdi group add-nodes -G test_group 1
+    Do you really want to add 1 nodes to Group<test_group>? [y/N]: y
+
+Or the Python interface:
+
+.. code-block:: ipython
+
+    In [1]: group.add_nodes(load_node(pk=1))
+
+Show information about a group
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+From the command line interface:
+
+.. code-block:: console
+
+    $ verdi group show test_group
+
+    -----------------  ----------------
+    Group label        test_group
+    Group type_string  user
+    Group description  <no description>
+    -----------------  ----------------
+    # Nodes:
+    PK    Type    Created
+    ----  ------  ---------------
+     1    Code    26D:21h:45m ago
+
+Remove nodes from a group
+^^^^^^^^^^^^^^^^^^^^^^^^^
+From the command line interface:
+
+.. code-block:: console
+
+    $ verdi group remove-nodes -G test_group 1
+    Do you really want to remove 1 nodes from Group<test_group>? [y/N]: y
+
+From the Python interface:
+
+.. code-block:: ipython
+
+    In [1]: group = load_group(label='test_group')
+
+    In [2]: group.remove_nodes([load_node(1)])
+
+Alternatively, you might want to remove *all* nodes from the group.
+In the command line you just need to add ``-c/--clear`` option to ``verdi group remove-nodes ..``
+
+.. code-block:: console
+
+    $ verdi group remove-nodes -c -G test_group
+    Do you really want to remove ALL the nodes from Group<test_group>? [y/N]:
+
+In the Python interface you can use ``.clear()`` method to achieve the same goal:
+
+.. code-block:: ipython
+
+    In [1]: group = load_group(label='test_group')
+
+    In [2]: group.clear()
+
+
+Rename a group
+^^^^^^^^^^^^^^
+From the command line interface:
+
+.. code-block:: console
+
+      $ verdi group relabel test_group old_group
+      Success: Label changed to old_group
+
+From the Python interface:
+
+.. code-block:: ipython
+
+    In [1]: group = load_group(label='old_group')
+
+    In [2]: group.label = 'another_group'
+
+
+Delete a group
+^^^^^^^^^^^^^^
+From the command line interface:
+
+.. code-block:: console
+
+      $ verdi group delete another_group
+      Are you sure to delete Group<another_group>? [y/N]: y
+      Success: Group<another_group> deleted.
+
+Any deletion operation related to groups, by default, will not affect the nodes themselves.
+For example if you delete a group, the nodes that belonged to the group will remain in the database.
+The same happens if you remove nodes from the group -- they will remain in the database but won't belong to the group anymore.
+
+If you also wish to delete the nodes, when deleting the group, use the ``--delete-nodes`` option:
+
+.. code-block:: console
+
+      $ verdi group delete another_group --delete-nodes
+
+Copy one group into another
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This operation will copy the nodes of the source group into the destination group.
+If the destination group does not yet exist, it will be created automatically.
+
+From the command line interface:
+
+.. code-block:: console
+
+    $ verdi group copy source_group dest_group
+    Success: Nodes copied from group<source_group> to group<dest_group>
+
+From the Python interface:
+
+.. code-block:: ipython
+
+    In [1]: src_group = Group.objects.get(label='source_group')
+
+    In [2]: dest_group = Group(label='destination_group').store()
+
+    In [3]: dest_group.add_nodes(list(src_group.nodes))
+
+
+Examples for using groups
+-------------------------
+
+In this section, we will provide some practical examples of how one can use Groups to structure and organize the nodes in the database.
+
+.. _how-to:data:group-similar:
+
+Group structures with a similar property
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Suppose, we wanted to group all structures for which the computed bandgap is higher than ``1.0 eV`` in a group named ``promising_structures``, one could use the following approach:
+
+.. code-block:: python
+
+    # Finding the structures with the bandgap > 1.0.
+    qb = QueryBuilder()
+    qb.append(StructureData,  tag='structure', project='*') # Here we are projecting the entire structure object
+    qb.append(CalcJobNode, with_incoming='structure', tag='calculation')
+    qb.append(Dict, with_incoming='calculation', filters={'attributes.bandgap': {'>': 1.0}})
+
+    # Adding the structures in 'promising_structures' group.
+    group = load_group(label='promising_structures')
+    group.add_nodes(q.all(flat=True))
+
+.. note::
+
+    Any node can be included in a group only once and if it is added again, it is simply ignored.
+    This means that add_nodes can be safely called multiple times, and only nodes that weren't already part of the group, will be added.
+
+
+Use grouped data for further processing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here we demonstrate how to submit calculations for structures that all belong to a group named ``promising_structures``:
+
+.. code-block:: python
+
+    # Querying the structures that belong to the 'promising_structures' group.
+    qb = QueryBuilder()
+    qb.append(Group, filters={'label': 'promising_structures'}, tag='group')
+    qb.append(StructureData, with_group='group')
+
+    # Submitting the simulations.
+    for structure in qb.all(flat=True):
+        builder = SomeWorkChain.get_builder()
+        builder.structure = structure
+        ...
+        submit(builder)
+
+Note, however, that one can also use ``group.nodes`` to access the nodes of the group.
+To achieve the same result as above one would need to do something as follows:
+
+.. code-block:: python
+
+    group = load_group(label='promising_structures')
+
+    # Here make sure to include only structures, as group can contain any nodes.
+    structures = [node for node in group.nodes if isinstance(node, StructureData)]
+    for structure in structures:
+        builder = SomeWorkChain.get_builder()
+        builder.structure = structure
+        ...
+        submit(builder)
+
+
+To find all structures that have a property ``property_a`` with a value lower than ``1`` and also belong to the ``promising_structures`` group, one could build a query as follows:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(Group, filters={'label': 'promising_structures'}, tag='group')
+    qb.append(StructureData, with_group='group', tag='structure', project='*')
+    qb.append(SomeWorkChain, with_incoming='structure', tag='calculation')
+    qb.append(Dict, with_incoming='calculation', filters={'attributes.property_a': {'<': 1}})
+
+The return value of ``qb.all(flat=True)`` would contain all the structures matching the above mentioned criteria.
+
+.. _how-to:data:organize:grouppath:
+
+Organise groups in hierarchies
+------------------------------
+
+.. meta::
+   :keywords: grouppath
+
+Groups in AiiDA are inherently "flat", in that groups may only contain nodes and not other groups.
+However it is possible to construct *virtual* group hierarchies based on delimited group labels, using the :py:class:`~aiida.tools.groups.paths.GroupPath` utility.
+
+:py:class:`~aiida.tools.groups.paths.GroupPath` is designed to work in much the same way as Python's :py:class:`pathlib.Path`, whereby paths are denoted by forward slash characters '/' in group labels.
+
+For example say we have the groups:
+
+.. code-block:: console
+
+    $ verdi group list
+
+    PK    Label                    Type string    User
+    ----  -----------------        -------------  --------------
+    1     base1/sub_group1         core           user@email.com
+    2     base1/sub_group2         core           user@email.com
+    3     base2/other/sub_group3   core           user@email.com
+
+We can also access them from the command-line as:
+
+.. code-block:: console
+
+    $ verdi group path ls -l
+    Path         Sub-Groups
+    ---------  ------------
+    base1                 2
+    base2                 1
+    $ verdi group path ls base1
+    base1/sub_group1
+    base1/sub_group2
+
+Or from the python interface:
+
+.. code-block:: ipython
+
+    In [1]: from aiida.tools.groups import GroupPath
+    In [2]: path = GroupPath("base1")
+    In [3]: print(list(path.children))
+    Out[3]: [GroupPath('base1/sub_group2', cls='<class 'aiida.orm.groups.Group'>'),
+             GroupPath('base1/sub_group1', cls='<class 'aiida.orm.groups.Group'>')]
+
+The ``GroupPath`` can be constructed using indexing or "divisors":
+
+.. code-block:: ipython
+
+    In [4]: path = GroupPath()
+    In [5]: path["base1"] == path / "base1"
+    Out[5]: True
+
+Using the :py:func:`~aiida.tools.groups.paths.GroupPath.browse` attribute, you can also construct the paths as preceding attributes.
+This is useful in interactive environments, whereby available paths will be shown in the tab-completion:
+
+.. code-block:: ipython
+
+    In [6]: path.browse.base1.sub_group2()
+    Out[6]: GroupPath('base1/sub_group2', cls='<class 'aiida.orm.groups.Group'>')
+
+To check the existence of a path element:
+
+.. code-block:: ipython
+
+    In [7]: "base1" in path
+    Out[7]: True
+
+A group may be "virtual", in which case its label does not directly relate to a group, or the group can be retrieved with the :py:func:`~aiida.tools.groups.paths.GroupPath.get_group` method:
+
+.. code-block:: ipython
+
+    In [8]: path.is_virtual
+    Out[8]: True
+    In [9]: path.get_group() is None
+    Out[9]: True
+    In [10]: path["base1/sub_group1"].is_virtual
+    Out[10]: False
+    In [11]: path["base1/sub_group1"].get_group()
+    Out[11]: <Group: "base1/sub_group1" [type core], of user user@email.com>
+
+Groups can be created and destroyed:
+
+.. code-block:: ipython
+
+    In [12]: path["base1/sub_group1"].delete_group()
+    In [13]: path["base1/sub_group1"].is_virtual
+    Out[13]: True
+    In [14]: path["base1/sub_group1"].get_or_create_group()
+    Out[14]: (<Group: "base1/sub_group1" [type core], of user user@email.com>, True)
+    In [15]: path["base1/sub_group1"].is_virtual
+    Out[15]: False
+
+To traverse paths, use the :py:func:`~aiida.tools.groups.paths.GroupPath.children` attribute - for recursive traversal, use :py:func:`~aiida.tools.groups.paths.GroupPath.walk`:
+
+.. code-block:: ipython
+
+    In [16]: for subpath in path.walk(return_virtual=False):
+        ...:     print(subpath)
+        ...:
+    GroupPath('base1/sub_group1', cls='<class 'aiida.orm.groups.Group'>')
+    GroupPath('base1/sub_group2', cls='<class 'aiida.orm.groups.Group'>')
+    GroupPath('base2/other/sub_group3', cls='<class 'aiida.orm.groups.Group'>')
+
+You can also traverse directly through the nodes of a path, optionally filtering by node class and any other filters allowed by the :ref:`QueryBuilder <how-to:query>`:
+
+.. code-block:: ipython
+
+    In [17]: from aiida.orm import Data
+    In [18]: data = Data()
+    In [19]: data.set_extra("key", "value")
+    In [20]: data.store()
+    Out[20]: <Data: uuid: 0adb5224-585d-4fd4-99ae-20a071972ddd (pk: 1)>
+    In [21]: path["base1/sub_group1"].get_group().add_nodes(data)
+    In [21]: next(path.walk_nodes(node_class=Data, filters={"extras.key": "value"}))
+    Out[21]: WalkNodeResult(group_path=GroupPath('base1/sub_group1', cls='<class 'aiida.orm.groups.Group'>'),
+    node=<Data: uuid: 0adb5224-585d-4fd4-99ae-20a071972ddd (pk: 1)>)
+
+Finally, you can also specify the ``Group`` subclasses (as discussed above):
+
+.. code-block:: ipython
+
+    In [22]: from aiida.orm import UpfFamily
+    In [23]: path2 = GroupPath(cls=UpfFamily)
+    In [24]: path2["base1"].get_or_create_group()
+    Out[24]: (<UpfFamily: "base1" [type core.upf], of user user@email.com>, True)
+
+.. important::
+
+    A :py:class:`~aiida.tools.groups.paths.GroupPath` instance will only recognise groups of the instantiated ``cls`` type.
+    The default ``cls`` is ``aiida.orm.Group``:
+
+    .. code-block:: ipython
+
+        In [25]: orm.UpfFamily(label="a").store()
+        Out[25]: <UpfFamily: "a" [type core.upf], of user user@email.com>
+        In [26]: GroupPath("a").is_virtual
+        Out[26]: True
+        In [27]: GroupPath("a", cls=orm.UpfFamily).is_virtual
+        Out[27]: False
+
+
+.. _how-to:data:delete:
+
+Deleting data
+=============
+
+By default, every time you run or submit a new calculation, AiiDA will create for you new nodes in the database, and will never replace or delete data.
+There are cases, however, when it might be useful to delete nodes that are not useful anymore, for instance test runs or incorrect/wrong data and calculations.
+For this case, AiiDA provides the ``verdi node delete`` command and the :py:func:`~aiida.tools.graph.deletions.delete_nodes` function, to remove the nodes from the provenance graph.
+
+.. caution::
+   Once the data is deleted, there is no way to recover it (unless you made a backup).
+
+Critically, note that even if you ask to delete only one node, ``verdi node delete`` will typically delete a number of additional linked nodes, in order to preserve a consistent state of the provenance graph.
+For instance, if you delete an input of a calculation, AiiDA will delete also the calculation itself (as otherwise you would be effectively changing the inputs to that calculation in the provenance graph).
+The full set of consistency rules are explained in detail :ref:`here <topics:provenance:consistency>`.
+
+Therefore: always check the output of ``verdi node delete`` to make sure that it is not deleting more than you expect.
+You can also use the ``--dry-run`` flag of ``verdi node delete`` to see what the command would do without performing any actual operation.
+
+In addition, there are a number of additional rules that are not mandatory to ensure consistency, but can be toggled by the user.
+For instance, you can set ``--create-forward`` if, when deleting a calculation, you want to delete also the data it produced (using instead ``--no-create-forward`` will delete the calculation only, keeping the output data: note that this effectively strips out the provenance information of the output data).
+The full list of these flags is available from the help command ``verdi node delete -h``.
+
+.. code-block:: python
+
+    from aiida.tools import delete_nodes
+    pks_to_be_deleted = delete_nodes(
+        [1, 2, 3], dry_run=True, create_forward=True, call_calc_forward=True, call_work_forward=True
+    )
+
+Deleting computers
+------------------
+To delete a computer, you can use ``verdi computer delete``.
+This command is mostly useful if, right after creating a computer, you realise that there was an error and you want to remove it.
+In particular, note that ``verdi computer delete`` will prevent execution if the computer has been already used by at least one node. In this case, you will need to use ``verdi node delete`` to delete first the corresponding nodes.
+
+Deleting mutable data
+---------------------
+A subset of data in AiiDA is mutable also after storing a node, and is used as a convenience for the user to tag/group/comment on data.
+This data can be safely deleted at any time.
+This includes, notably:
+
+* *Node extras*: These can be deleted using :py:meth:`~aiida.orm.entities.EntityExtrasMixin.delete_extra` and :py:meth:`~aiida.orm.entities.EntityExtrasMixin.delete_extra_many` methods.
+* *Node comments*: These can be removed using :py:meth:`~aiida.orm.nodes.node.Node.remove_comment`.
+* *Groups*: These can be deleted using :py:meth:`Group.objects.delete() <aiida.orm.groups.GroupCollection.delete>`.
+  This command will only delete the group, not the nodes contained in the group.
+
+Completely deleting an AiiDA profile
+------------------------------------
+If you don't want to selectively delete some nodes, but instead want to delete a whole AiiDA profile altogether, use the ``verdi profile delete`` command.
+This command will delete both the file repository and the database.
+
+.. danger::
+
+  It is not possible to restore a deleted profile unless it was previously backed up!
+
+.. _how-to:data:transfer:
+
+Transferring data
+=================
+
+.. versionadded:: 1.6.0
+
+.. danger::
+
+    This feature is still in beta version and its API might change in the near future.
+    It is therefore not recommended that you rely on it for your public/production workflows.
+
+    Moreover, feedback on its implementation is much appreciated (at https://github.com/aiidateam/aiida-core/issues/4811).
+
+When a calculation job is launched, AiiDA will create a :py:class:`~aiida.orm.nodes.data.remote.RemoteData` node that is attached as an output node to the calculation node with the label ``remote_folder``.
+The input files generated by the ``CalcJob`` plugin are copied to this remote folder and, since the job is executed there as well, the code will produce its output files in that same remote folder also.
+Since the :py:class:`~aiida.orm.nodes.data.remote.RemoteData` node only explicitly stores the filepath on the remote computer, and not its actual contents, it functions more or less like a symbolic link.
+That means that if the remote folder gets deleted, there will be no way to retrieve its contents.
+The ``CalcJob`` plugin can for that reason specify some files that should be :ref:`retrieved<topics:calculations:usage:calcjobs:file_lists_retrieve>` and stored locally in a :py:class:`~aiida.orm.nodes.data.folder.FolderData` node for safekeeing, which is attached to the calculation node as an output with the label ``retrieved_folder``.
+
+Although the :ref:`retrieve_list<topics:calculations:usage:calcjobs:file_lists_retrieve>` allows to specify what output files are to be retrieved locally, this has to be done *before* the calculation is submitted.
+In order to provide more flexibility in deciding what files of completed calculation jobs are to be stored locally, even after it has terminated, AiiDA ships with a the :py:class:`~aiida.calculations.transfer.TransferCalculation` plugin.
+This calculation plugin enables to retrieve files from a remote machine and save them in a local :py:class:`~aiida.orm.nodes.data.folder.FolderData`.
+The specifications of what to copy are provided through an input of type
+
+.. code-block:: ipython
+
+    In [1]: instructions_cont = {}
+        ... instructions_cont['retrieve_files'] = True
+        ... instructions_cont['symlink_files'] = [
+        ...     ('node_keyname', 'source/path/filename', 'target/path/filename'),
+        ... ]
+        ... instructions_node = orm.Dict(dict=instructions_cont)
+
+The ``'source/path/filename'`` and ``'target/path/filename'`` are both relative paths (to their respective folders).
+The ``node_keyname`` is a string that will be used when providing the source :py:class:`~aiida.orm.nodes.data.remote.RemoteData` node to the calculation.
+You also need to provide the computer between which the transfer will occur:
+
+.. code-block:: ipython
+
+    In [2]: transfer_builder = CalculationFactory('core.transfer').get_builder()
+        ... transfer_builder.instructions = instructions_node
+        ... transfer_builder.source_nodes = {'node_keyname': source_node}
+        ... transfer_builder.metadata.computer = source_node.computer
+
+The variable ``source_node`` here corresponds to the ``RemoteData`` node whose contents need to be retrieved.
+Finally, you just run or submit the calculation as you would do with any other:
+
+.. code-block:: ipython
+
+    In [2]: from aiida.engine import submit
+        ... submit(transfer_builder)
+
+You can also use this to copy local files into a new :py:class:`~aiida.orm.nodes.data.remote.RemoteData` folder.
+For this you first have to adapt the instructions to set ``'retrieve_files'`` to ``False`` and use a ``'local_files'`` list instead of the ``'symlink_files'``:
+
+.. code-block:: ipython
+
+    In [1]: instructions_cont = {}
+        ... instructions_cont['retrieve_files'] = False
+        ... instructions_cont['local_files'] = [
+        ...     ('node_keyname', 'source/path/filename', 'target/path/filename'),
+        ... ]
+        ... instructions_node = orm.Dict(dict=instructions_cont)
+
+It is also relevant to note that, in this case, the ``source_node`` will be of type :py:class:`~aiida.orm.nodes.data.folder.FolderData` so you will have to manually select the computer to where you want to copy the files.
+You can do this by looking at your available computers running ``verdi computer list`` and using the label shown to load it with :py:func:`~aiida.orm.utils.load_computer`:
+
+.. code-block:: ipython
+
+    In [2]: transfer_builder.metadata.computer = load_computer('some-computer-label')
+
+Both when uploading or retrieving, you can copy multiple files by appending them to the list of the ``local_files`` or ``symlink_files`` keys in the instructions input, respectively.
+It is also possible to copy files from any number of nodes by providing several ``source_node`` s, each with a different ``'node_keyname'``.
+The target node will always be one (so you can *"gather"* files in a single call, but not *"distribute"* them).
+.. _how-to:interact:
+
+**************************
+How to interact with AiiDA
+**************************
+
+There are a variety of manners to interact with AiiDA:
+
+ * :ref:`Through the command line interface <how-to:interact-cli>`
+ * :ref:`Through scripts <how-to:interact-scripts>`
+ * :ref:`Through interactive shells <how-to:interact-shell>`
+ * :ref:`Through interactive notebooks <how-to:interact-notebook>`
+ * :ref:`Through the REST API <how-to:interact-restapi>`
+
+
+.. _how-to:interact-cli:
+
+Command line interface
+======================
+
+AiiDA comes with a command line interface called ``verdi``.
+The :ref:`reference:command-line` section gives an overview of all available commands.
+For more detailed information, refer to the topic section :ref:`topics:cli`.
+
+
+.. _how-to:interact-scripts:
+
+Scripts
+=======
+
+AiiDA's Python API can be used in Python scripts mixed with any other Python code.
+The only requirement is that before the API is used an AiiDA profile is loaded.
+The recommended way of accomplishing this is to run the script through the command line interface:
+
+.. code-block:: console
+
+    verdi run script.py
+
+The ``verdi`` CLI will automatically load the default profile, before calling the actual script, passing any command line arguments that may have been specified.
+
+.. note::
+
+    A :ref:`different profile can be selected <topics:cli:profile>` using the ``--profile`` option, just as for all other ``verdi`` commands.
+
+Alternatively, one can also add AiiDA's specific `shebang <https://en.wikipedia.org/wiki/Shebang_(Unix)>`_ to the top of the file.
+
+.. code-block:: bash
+
+    #!/usr/bin/env runaiida
+
+When a script starts with this shebang, when it is executed, it is automatically passed to ``verdi run`` just as if it would have been called through ``verdi run`` directly.
+This has the advantage that one no longer has to explicitly type ``verdi run`` when running the script, but can simply make it executable and execute it directly.
+The downside is that it does not allow to specify a particular profile, but it always loads the default profile.
+
+If, for whatever reason, ``verdi run`` nor the special shebang can be used, a profile can also be loaded directly through the API within the Python script itself:
+
+.. code-block:: python
+
+    from aiida import load_profile
+    load_profile()
+
+One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded.
+
+
+.. _how-to:interact-shell:
+
+Interactive shells
+==================
+
+AiiDA provides a Python API that can be used from an interactive shell, such as `IPython <https://ipython.org/>`_.
+The recommended way of starting an interactive shell session to work with AiiDA, is through the command line interface:
+
+.. code-block:: console
+
+    $ verdi shell
+
+This command will open a normal IPython shell but automatically loads the default AiiDA profile, which is required to use the Python API.
+
+.. note::
+
+    A :ref:`different profile can be selected <topics:cli:profile>` using the ``--profile`` option, just as for all other ``verdi`` commands.
+
+In addition to automatically loading an AiiDA profile, certain modules from AiiDA's API that are used very often are automatically imported.
+The modules that are pre-loaded can be configured using the :ref:`reference:command-line:verdi-config` command.
+
+If, for whatever reason, you cannot use ``verdi shell``, a profile can also be loaded directly through the API within the shell itself:
+
+.. code-block:: ipython
+
+    In [1]: from aiida import load_profile
+
+    In [2]: load_profile()
+    Out[2]: <aiida.manage.configuration.profile.Profile at 0x7fccfd6c50a0>
+
+One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded.
+
+
+.. _how-to:interact-notebook:
+
+Interactive notebooks
+=====================
+
+Similar to :ref:`interactive shells <how-to:interact-shell>`, AiiDA is also directly compatbile with interactive Python notebooks, such as `Jupyter <https://jupyter.org/>`_.
+To use AiiDA's Python API in a notebook, first a profile has to be loaded:
+
+.. code-block:: ipython
+
+    In [1]: from aiida import load_profile
+
+    In [2]: load_profile()
+    Out[2]: <aiida.manage.configuration.profile.Profile at 0x7fccfd6c50a0>
+
+One can pass a particular profile name to :meth:`~aiida.manage.configuration.load_profile`, otherwise the default profile is loaded.
+The same can be accomplished using the following magic statement:
+
+.. code-block:: ipython
+
+    %aiida
+
+This magic line will replicate the same environment as :ref:`the interactive shell <how-to:interact-shell>` provided by ``verdi shell``.
+However, it does require some one-time installation, as detailed in the section on how to :ref:`intro:install:jupyter`.
+
+
+.. _how-to:interact-restapi:
+
+REST API
+========
+
+AiiDA ships with a built in REST API, that allows you to query the data of a particular profile.
+Refer to section :ref:`how-to:share:serve:launch` to learn how to start the REST API.
+The section :ref:`how-to:share:serve:query` provides information on how to interact with a running REST API.
+.. _how-to:ssh:
+
+****************************
+How to setup SSH connections
+****************************
+
+AiiDA communicates with remote computers via the SSH protocol.
+There are two ways of setting up an SSH connection for AiiDA:
+
+ 1. Using a passwordless SSH key (easier, less safe)
+ 2. Using a password-protected SSH key through ``ssh-agent`` (one more step, safer)
+
+.. _how-to:ssh:passwordless:
+
+Using a passwordless SSH key
+============================
+
+
+There are numerous tutorials on the web, see e.g. `here <https://www.redhat.com/sysadmin/passwordless-ssh>`_.
+Very briefly, first create a new private/public keypair (``aiida``/``aiida.pub``), leaving passphrase emtpy:
+
+.. code-block:: console
+
+   $ ssh-keygen -t rsa -b 4096 -f ~/.ssh/aiida
+
+Copy the public key to the remote machine, normally this will add the public key to the remote machine's ``~/.ssh/authorized_keys``:
+
+.. code-block:: console
+
+   $ ssh-copy-id -i ~/.ssh/aiida YOURUSERNAME@YOURCLUSTERADDRESS
+
+Add the following lines to your ``~/.ssh/config`` file (or create it, if it does not exist):
+
+.. code-block:: bash
+
+   Host YOURCLUSTERADDRESS
+         User YOURUSERNAME
+         IdentityFile ~/.ssh/aiida
+
+.. note::
+
+  If your cluster needs you to connect to another computer *PROXY* first, you can use the ``ProxyJump`` or ``ProxyCommand`` feature of SSH, see :ref:`how-to:ssh:proxy`.
+
+You should now be able to access the remote computer (without the need to type a password) *via*:
+
+.. code-block:: console
+
+   $ ssh YOURCLUSTERADDRESS
+   # this connection is used to copy files
+   $ sftp YOURCLUSTERADDRESS
+
+.. admonition:: Connection closed failures
+   :class: attention title-icon-troubleshoot
+
+
+   If the ``ssh`` command works, but the ``sftp`` command prints ``Connection closed``, there may be a line in the ``~/.bashrc`` file **on the cluster** that either produces text output or an error.
+   Remove/comment lines from this file until no output or error is produced: this should make ``sftp`` work again.
+
+Finally, if you are planning to use a batch scheduler on the remote computer, try also:
+
+.. code-block:: console
+
+   $ ssh YOURCLUSTERADDRESS QUEUE_VISUALIZATION_COMMAND
+
+replacing ``QUEUE_VISUALIZATION_COMMAND`` by ``squeue`` (SLURM), ``qstat`` (PBSpro) or the equivalent command of your scheduler and check that it prints a list of the job queue without errors.
+
+.. admonition:: Scheduler errors?
+    :class: attention title-icon-troubleshoot
+
+    If the previous command errors with ``command not found``, while the same ``QUEUE_VISUALIZATION_COMMAND`` works fine after you've logged in via SSH, it may be that a guard in the ``.bashrc`` file on the cluster prevents necessary modules from being loaded.
+
+    Look for lines like:
+
+    .. code-block:: bash
+
+        [ -z "$PS1" ] && return
+
+    or:
+
+    .. code-block:: bash
+
+        case $- in
+            *i*) ;;
+            *) return;;
+        esac
+
+    which will prevent any instructions that follow from being executed.
+
+    You can either move relevant instructions before these lines or delete the guards entirely.
+    If you are wondering whether the ``PATH`` environment variable is set correctly, you can check its value using:
+
+    .. code-block:: bash
+
+        $ ssh YOURCLUSTERADDRESS 'echo $PATH'
+
+.. _how-to:ssh:passphrase:
+
+Using passphrase-protected keys *via* an ssh-agent
+==================================================
+
+
+Tools like ``ssh-agent`` (available on most Linux distros and MacOS) allow you to enter the passphrase of a protected key *once* and provide access to the decrypted key for as long as the agent is running.
+This allows you to use a passphrase-protected key (required by some HPC centres), while making the decrypted key available to AiiDA for automatic SSH operations.
+
+Creating the key
+^^^^^^^^^^^^^^^^
+
+Start by following the instructions above for :ref:`how-to:ssh:passwordless`, the only difference being that you enter a passphrase when creating the key (and when logging in to the remote computer).
+
+Adding the key to the agent
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now provide the passphrase for your private key to the agent:
+
+.. code:: bash
+
+    ssh-add ~/.ssh/aiida
+
+The private key and the relative passphrase are now recorded in an instance of the agent.
+
+.. note::
+
+   The passphase is stored in the agent only until the next reboot.
+   If you shut down or restart the AiiDA machine, before starting the AiiDA deamon remember to run the ``ssh-add`` command again.
+
+Starting the ssh-agent
+^^^^^^^^^^^^^^^^^^^^^^
+
+On most modern Linux installations, the ``ssh-agent`` starts automatically at login (e.g. Ubuntu 16.04 and later or MacOS 10.5 and later).
+If you received an error ``Could not open a connection to your authentication agent``, you will need to start the agent manually instead.
+
+Check whether you can start an ``ssh-agent`` **in your current shell**:
+
+.. code:: bash
+
+   eval `ssh-agent`
+
+In order to reuse the same agent instance everywhere (including the AiiDA daemon), the environment variables of ``ssh-agent`` need to be reused by *all* shells.
+Download the script :download:`load-singlesshagent.sh <include/load-singlesshagent.sh>` and place it e.g. in ``~/bin``.
+Then add the following lines to your ``~/.bashrc`` file:
+
+.. code:: bash
+
+   if [ -f ~/bin/load-singlesshagent.sh ]; then
+      . ~/bin/load-singlesshagent.sh
+   fi
+
+To check that it works:
+
+* Open a new shell (``~/.bashrc`` file is sourced).
+* Run ``ssh-add``.
+* Close the shell.
+* Open a new shell and try logging in to the remote computer.
+
+Try logging in to the remote computer; it should no longer require a passphrase.
+
+The key and its corresponding passphrase are now stored by the agent until it is stopped.
+After a reboot, remember to run ``ssh-add ~/.ssh/aiida`` again before starting the AiiDA daemon.
+
+Integrating the ssh-agent with keychain on OSX
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On OSX Sierra and later, the native ``ssh-add`` client allows passphrases to be stored persistently in the `OSX keychain <https://support.apple.com/en-gb/guide/keychain-access/kyca1083/mac>`__.
+Store the passphrase in the keychain using the OSX-specific ``-k`` argument:
+
+.. code:: bash
+
+    ssh-add -k ~/.ssh/aiida
+
+To instruct ssh to look in the OSX keychain for key passphrases, add the following lines to ``~/.ssh/config``:
+
+.. code:: bash
+
+   Host *
+      UseKeychain yes
+
+AiiDA configuration
+^^^^^^^^^^^^^^^^^^^
+
+When :ref:`configuring the computer in AiiDA <how-to:run-codes:computer:configuration>`, simply make sure that ``Allow ssh agent`` is set to ``true`` (default).
+
+.. _how-to:ssh:proxy:
+
+Connecting to a remote computer *via* a proxy server
+====================================================
+
+Some compute clusters require you to connect to an intermediate server *PROXY*, from which you can then connect to the cluster *TARGET* on which you run your calculations.
+This section explains how to use the ``ProxyJump`` or ``ProxyCommand`` feature of ``ssh`` in order to make this jump automatically.
+
+.. tip::
+
+  This method can also be used to avoid having to start a virtual private network (VPN) client if you have an SSH account on a proxy/jumphost server which is accessible from your current network **and** from which you can access the *TARGET* machine directly.
+
+
+SSH configuration
+^^^^^^^^^^^^^^^^^
+
+To decide whether to use the ``ProxyJump`` (recommended) or the ``ProxyCommand`` directive, please check the version of your SSH client first with ``ssh -V``.
+The ``ProxyJump`` directive has been added in version 7.3 of OpenSSH, hence if you are using an older version of SSH (on your machine or the *PROXY*) you have to use the older ``ProxyCommand``.
+
+To setup the proxy configuration with ``ProxyJump``, edit the ``~/.ssh/config`` file on the computer on which you installed AiiDA (or create it if missing)
+and add the following lines::
+
+  Host SHORTNAME_TARGET
+      Hostname FULLHOSTNAME_TARGET
+      User USER_TARGET
+      IdentityFile ~/.ssh/aiida
+      ProxyJump USER_PROXY@FULLHOSTNAME_PROXY
+
+  Host FULLHOSTNAME_PROXY
+      IdentityFile ~/.ssh/aiida
+
+Replace the ``..._TARGET`` and ``..._PROXY`` variables with the host/user names of the respective servers.
+
+.. dropdown:: :fa:`plus-circle` Alternative setup with ``ProxyCommand``
+
+   To setup the proxy configuration with ``ProxyCommand`` **instead**, edit the ``~/.ssh/config`` file on the computer on which you installed AiiDA (or create it if missing)
+   and add the following lines::
+
+    Host SHORTNAME_TARGET
+        Hostname FULLHOSTNAME_TARGET
+        User USER_TARGET
+        IdentityFile ~/.ssh/aiida
+        ProxyCommand ssh -W %h:%p USER_PROXY@FULLHOSTNAME_PROXY
+
+    Host FULLHOSTNAME_PROXY
+        IdentityFile ~/.ssh/aiida
+
+  Replace the ``..._TARGET`` and ``..._PROXY`` variables with the host/user names of the respective servers.
+
+In both cases, this should allow you to directly connect to the *TARGET* server using
+
+.. code-block:: console
+
+   $ ssh SHORTNAME_TARGET
+
+
+
+.. note ::
+
+   If the user directory is not shared between the *PROXY* and the *TARGET* (in most supercomputing facilities your user directory is shared between the machines), you need to follow the :ref:`instructions for a passwordless connection <how-to:ssh:passwordless>` *twice*: once for the connection from your computer to the *PROXY* server, and once for the connection from the *PROXY* server to the *TARGET* server (e.g. the public key must be listed in the ``~/.ssh/authorized_keys`` file of both the *PROXY* and the *TARGET* server).
+
+
+AiiDA configuration
+^^^^^^^^^^^^^^^^^^^
+
+When :ref:`configuring the computer in AiiDA <how-to:run-codes:computer:configuration>`, AiiDA will automatically parse most of required information from your ``~/.ssh/config`` file. A notable exception to this is the ``proxy_jump`` directive, which **must** be specified manually.
+
+Simply copy & paste the same instructions as you have used for ``ProxyJump`` in your ``~/.ssh/config`` to the input for ``proxy_jump``:
+
+.. code-block:: console
+
+   $ verdi computer configure core.ssh SHORTNAME_TARGET
+   ...
+   Allow ssh agent [True]:
+   SSH proxy jump []: USER_PROXY@FULLHOSTNAME_PROXY
+
+.. note:: A chain of proxies can be specified as a comma-separated list. If you need to specify a different username, you can so with ``USER_PROXY@...``. If no username is specified for the proxy the same username as for the *TARGET* is used.
+
+.. important:: Specifying the ``proxy_command`` manually
+
+    When specifying or updating the ``proxy_command`` option via ``verdi computer configure ssh``, please **do not use placeholders** ``%h`` and ``%p`` but provide the *actual* hostname and port.
+    AiiDA replaces them only when parsing from the ``~/.ssh/config`` file.
+
+
+Using kerberos tokens
+=====================
+
+If the remote machine requires authentication through a Kerberos token (that you need to obtain before using ssh), you typically need to
+
+ * install ``libffi`` (``sudo apt-get install libffi-dev`` under Ubuntu)
+ * install the ``ssh_kerberos`` extra during the installation of aiida-core (see :ref:`intro:install:setup`).
+
+If you provide all necessary ``GSSAPI`` options in your ``~/.ssh/config`` file, ``verdi computer configure`` should already pick up the appropriate values for all the gss-related options.
+.. _how-to:run-workflows:
+
+*******************************
+How to run multi-step workflows
+*******************************
+
+Launching a predefined workflow
+===============================
+
+The first step to launching a predefined workflow is loading the work function or work chain class that defines the workflow you want to run.
+The recommended method for loading a workflow is using the ``WorkflowFactory``, for example:
+
+.. code-block:: python
+
+    from aiida.plugins import WorkflowFactory
+    add_and_multiply = WorkflowFactory('core.arithmetic.add_multiply')
+    MultiplyAddWorkChain = WorkflowFactory('core.arithmetic.multiply_add')
+
+This is essentially the same as importing the workflow from its respective module, but using the ``WorkflowFactory`` has the advantage that the so called *entry point* (e.g. ``'core.arithmetic.multiply_add'``) will not change when the packages or plugins are reorganised.
+This means your code is less likely to break when updating AiiDA or the plugin that supplies the workflow.
+
+The list of installed plugins can be easily accessed via the verdi CLI:
+
+.. code-block:: console
+
+    $ verdi plugin list
+
+To see the list of workflow entry points, simply use:
+
+.. code-block:: console
+
+    $ verdi plugin list aiida.workflows
+
+By further specifying the entry point of the workflow, you can see its description, inputs, outputs and exit codes:
+
+.. code-block:: console
+
+    $ verdi plugin list aiida.workflows core.arithmetic.multiply_add
+
+Work functions
+--------------
+
+Running a work function is as simple as calling a typical Python function: simply call it with the required input arguments:
+
+.. code-block:: python
+
+    from aiida.plugins import WorkflowFactory, DataFactory
+    add_and_multiply = WorkflowFactory('core.arithmetic.add_multiply')
+    Int = DataFactory('core.int')
+
+    result = add_and_multiply(Int(2), Int(3), Int(5))
+
+Here, the ``add_and_multiply`` work function returns the output ``Int`` node and we assign it to the variable ``result``.
+Note that the input arguments of a work function must be an instance of ``Data`` node, or any of its subclasses.
+Just calling the ``add_and_multiply`` function with regular integers will result in a ``ValueError``, as these cannot be stored in the provenance graph.
+
+.. note::
+
+    Although the example above shows the most straightforward way to run the ``add_and_multiply`` work function, there are several other ways of running processes that can return more than just the result.
+    For example, the ``run_get_node`` function from the AiiDA engine returns both the result of the workflow and the work function node.
+    See the :ref:`corresponding topics section for more details <topics:processes:usage:launching>`.
+
+Work chains
+-----------
+
+To launch a work chain, you can either use the ``run`` or ``submit`` functions.
+For either function, you need to provide the class of the work chain as the first argument, followed by the inputs as keyword arguments.
+When "running the work chain" (using the ``run`` function), it will be executed in the same system process as the interpreter in which it is launched:
+
+.. code-block:: python
+
+    from aiida.engine import run
+    from aiida.plugins import WorkflowFactory, DataFactory
+    Int = DataFactory('core.int')
+    MultiplyAddWorkChain = WorkflowFactory('core.arithmetic.multiply_add')
+
+    add_code = load_code(label='add')
+
+    results = run(MultiplyAddWorkChain, x=Int(2), y=Int(3), z=Int(5), code=add_code)
+
+Alternatively, you can first construct a dictionary of the inputs, and pass it to the ``run`` function by taking advantage of `Python's automatic keyword expansion <https://docs.python.org/3/tutorial/controlflow.html#unpacking-argument-lists>`_:
+
+.. code-block:: python
+
+    inputs = {'x': Int(1), 'y': Int(2), 'z': Int(3), 'code': add_code}
+    results = run(MultiplyAddWorkChain, **inputs)
+
+This is particularly useful in case you have a workflow with a lot of inputs.
+In both cases, running the ``MultiplyAddWorkChain`` workflow returns the **results** of the workflow, i.e. a dictionary of the nodes that are produced as outputs, where the keys of the dictionary correspond to the labels of each respective output.
+
+.. note::
+
+    Similar to other processes, there are multiple functions for launching a work chain.
+    See the section on :ref:`launching processes for more details<topics:processes:usage:launching>`.
+
+Since *running* a workflow will block the interpreter, you will have to wait until the workflow is finished before you get back control.
+Moreover, you won't be able to turn your computer or even your terminal off until the workflow has fully terminated, and it is difficult to run multiple workflows in parallel.
+So, it is advisable to *submit* more complex or longer work chains to the daemon:
+
+.. code-block:: python
+
+    from aiida.engine import submit
+    from aiida.plugins import WorkflowFactory, DataFactory
+    Int = DataFactory('core.int')
+    MultiplyAddWorkChain = WorkflowFactory('core.arithmetic.multiply_add')
+
+    add_code = load_code(label='add')
+    inputs = {'x': Int(1), 'y': Int(2), 'z': Int(3), 'code': add_code}
+
+    workchain_node = submit(MultiplyAddWorkChain, **inputs)
+
+Note that when using ``submit`` the work chain is not run in the local interpreter but is sent off to the daemon and you get back control instantly.
+This allows you to submit multiple work chains at the same time and the daemon will start working on them in parallel.
+Once the ``submit`` call returns, you will not get the result as with ``run``, but you will get the **node** that represents the work chain.
+Submitting a work chain instead of directly running it not only makes it easier to execute multiple work chains in parallel, but also ensures that the progress of a workchain is not lost when you restart your computer.
+
+.. note::
+
+    As of AiiDA v1.5.0, it is possible to submit both work *chains* and work *functions* to the daemon. Older versions only allow the submission of work *chains*, whereas work *functions* cannot be submitted to the daemon, and hence can only be *run*.
+
+If you are unfamiliar with the inputs of a particular ``WorkChain``, a convenient tool for setting up the work chain is the :ref:`process builder<topics:processes:usage:builder>`.
+This can be obtained by using the ``get_builder()`` method, which is implemented for every ``CalcJob`` and ``WorkChain``:
+
+.. code-block:: ipython
+
+    In [1]: from aiida.plugins import WorkflowFactory, DataFactory
+       ...: Int = DataFactory('core.int')
+       ...: MultiplyAddWorkChain = WorkflowFactory('core.arithmetic.multiply_add')
+       ...: builder = MultiplyAddWorkChain.get_builder()
+
+To explore the inputs of the work chain, you can use tab autocompletion by typing ``builder.`` and then hitting ``TAB``.
+If you want to get more details on a specific input, you can simply add a ``?`` and press enter:
+
+.. code-block:: ipython
+
+    In [2]: builder.x?
+    Type:        property
+    String form: <property object at 0x119ad2dd0>
+    Docstring:   {"name": "x", "required": "True", "valid_type": "<class 'aiida.orm.nodes.data.int.Int'>", "non_db": "False"}
+
+Here you can see that the ``x`` input is required, needs to be of the ``Int`` type and is stored in the database (``"non_db": "False"``).
+
+Using the builder, the inputs of the ``WorkChain`` can be provided one by one:
+
+.. code-block:: ipython
+
+    In [3]: builder.code = load_code(label='add')
+       ...: builder.x = Int(2)
+       ...: builder.y = Int(3)
+       ...: builder.z = Int(5)
+
+Once the *required* inputs of the workflow have been provided to the builder, you can either run the work chain or submit it to the daemon:
+
+.. code-block:: ipython
+
+    In [4]: from aiida.engine import submit
+       ...: workchain_node = submit(builder)
+
+.. note::
+
+    For more detail on the process builder, see the :ref:`corresponding topics section<topics:processes:usage:builder>`.
+
+Now that you know how to run a pre-defined workflow, you may want to start :ref:`writing your own<how-to:write-workflows>`.
+.. _how-to:query:
+
+*******************************
+How to find and query for data
+*******************************
+
+An AiiDA database stores a graph of connected entities, which can be *queried* with the :class:`~aiida.orm.querybuilder.QueryBuilder` class.
+
+Before starting to write a query, it helps to:
+
+*   | Know what you want to query for.
+    | In the language of databases, you need to tell the backend what *entity* you are looking for and optionally which of its properties you want to *project*.
+    | For example, you might be interested in the label of a calculation and the PKs of all its outputs.
+*   | Know the relationships between entities you are interested in.
+    | Nodes of an AiiDA graph (vertices) are connected with links (edges).
+    | A node can for example be either the input or output of another node, but also an ancestor or a descendant.
+*   | Know how you want to filter the results of your query.
+
+Once you are clear about what you want and how you can get it, the :class:`~aiida.orm.querybuilder.QueryBuilder` will build an SQL-query for you.
+
+There are two ways of using the :class:`~aiida.orm.querybuilder.QueryBuilder`:
+
+#.  In the *appender* method, you construct your query step by step using the ``QueryBuilder.append()`` method.
+#.  In the *dictionary* approach, you construct a dictionary that defines your query and pass it to the :class:`~aiida.orm.querybuilder.QueryBuilder`.
+
+Both APIs provide the same functionality - the appender method may be more suitable for interactive use, e.g., in the ``verdi shell``, whereas the dictionary method can be useful in scripting.
+In this section we will focus on the basics of the appender method.
+For more advanced queries or more details on the query dictionary, see the :ref:`topics section on advanced querying <topics:database:advancedquery>`.
+
+.. _how-to:query:select:
+
+Selecting entities
+==================
+
+Using the ``append()`` method of the :class:`~aiida.orm.querybuilder.QueryBuilder`, you can query for the entities you are interested in.
+Suppose you want to query for calculation job nodes in your database:
+
+.. code-block:: python
+
+    from aiida.orm import QueryBuilder
+    qb = QueryBuilder()       # Instantiating instance. One instance -> one query
+    qb.append(CalcJobNode)    # Setting first vertex of path
+
+If you are interested in instances of different classes, you can also pass an iterable of classes.
+However, they have to be of the same ORM-type (e.g. all have to be subclasses of :class:`~aiida.orm.nodes.node.Node`):
+
+.. code-block:: python
+
+    qb = QueryBuilder()       # Instantiating instance. One instance -> one query
+    qb.append([CalcJobNode, WorkChainNode]) # Setting first vertices of path, either WorkChainNode or Job.
+
+.. note::
+
+    Processes have both a run-time :class:`~aiida.engine.processes.process.Process` that executes them and a :class:`~aiida.orm.nodes.node.Node` that stores their data in the database (see the :ref:`corresponding topics section<topics:processes:concepts:types>` for a detailed explanation).
+    The :class:`~aiida.orm.querybuilder.QueryBuilder` allows you to pass either the :class:`~aiida.orm.nodes.node.Node` class (e.g. :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`) or the :class:`~aiida.engine.processes.process.Process` class (e.g. :class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`), which will automatically select the right entity for the query.
+    Using either :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` or :class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` will produce the same query results.
+
+.. _how-to:query:results:
+
+Retrieving results
+==================
+
+Once you have *appended* the entity you want to query for to the :class:`~aiida.orm.querybuilder.QueryBuilder`, the next question is how to get the results.
+There are several ways to obtain data from a query:
+
+.. code-block:: python
+
+    qb = QueryBuilder()                 # Instantiating instance
+    qb.append(CalcJobNode)              # Setting first vertices of path
+
+    first_row = qb.first()              # Returns a list (!) of the results of the first row
+
+    all_results_d = qb.dict()           # Returns all results as a list of dictionaries
+
+    all_results_l = qb.all()            # Returns a list of lists
+
+In case you are working with a large dataset, you can also return your query as a generator:
+
+.. code-block:: python
+
+    all_res_d_gen = qb.iterdict()       # Return a generator of dictionaries
+                                        # of all results
+    all_res_l_gen = qb.iterall()        # Returns a generator of lists
+
+This will retrieve the data in batches, and you can start working with the data before the query has completely finished.
+For example, you can iterate over the results of your query in a for loop:
+
+.. code-block:: python
+
+    for entry in qb.iterall():
+        # do something with a single entry in the query result
+
+.. _how-to:query:filters:
+
+Filters
+=======
+
+Usually you do not want to query for *all* entities of a certain class, but rather *filter* the results based on certain properties.
+Suppose you do not want all :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` data, but only those that are ``finished``:
+
+.. code-block:: python
+
+    qb = QueryBuilder()                 # Initialize a QueryBuilder instance
+    qb.append(
+        CalcJobNode,                    # Append a CalcJobNode
+        filters={                       # Specify the filters:
+            'attributes.process_state': 'finished',  # the process is finished
+        },
+    )
+
+You can apply multiple filters to one entity in a query.
+Say you are interested in all calculation jobs in your database that are ``finished`` **and** have ``exit_status == 0``:
+
+.. code-block:: python
+
+    qb = QueryBuilder()                 # Initialize a QueryBuilder instance
+    qb.append(
+        CalcJobNode,                    # Append a CalcJobNode
+        filters={                       # Specify the filters:
+            'attributes.process_state': 'finished',     # the process is finished AND
+            'attributes.exit_status': 0                 # has exit_status == 0
+        },
+    )
+
+In case you want to query for calculation jobs that satisfy one of these conditions, you can use the ``or`` operator:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(
+        CalcJobNode,
+        filters={
+            'or':[
+                {'attributes.process_state': 'finished'},
+                {'attributes.exit_status': 0}
+            ]
+        },
+    )
+
+If we had written ``and`` instead of ``or`` in the example above, we would have performed the exact same query as the previous one, because ``and`` is the default behavior if you provide several filters as key-value pairs in a dictionary to the ``filters`` argument.
+In case you want all calculation jobs with state ``finished`` or ``excepted``, you can also use the ``in`` operator:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(
+        CalcJobNode,
+        filters={
+            'attributes.process_state': {'in': ['finished', 'excepted']}
+        },
+    )
+
+You can negate a filter by adding an exclamation mark in front of the operator.
+So, to query for all calculation jobs that are not a ``finished`` or ``excepted`` state:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(
+        CalcJobNode,
+        filters={
+            'attributes.process_state': {'!in': ['finished', 'excepted']}
+        },
+    )
+
+.. note::
+
+    The above rule applies to all operators.
+    For example, you can check non-equality with ``!==``, since this is the equality operator (``==``) with a negation prepended.
+
+A complete list of all available operators can be found in the :ref:`advanced querying section<topics:database:advancedquery:tables:operators>`.
+
+.. _how-to:query:relationships:
+
+Relationships
+=============
+
+It is possible to query for data based on its relationship to another entity in the database.
+Imagine you are not interested in the calculation jobs themselves, but in one of the outputs they create.
+You can build upon your initial query for all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database using the relationship of the output to the first step in the query:
+
+.. code-block::
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob')
+
+In the first ``append`` call, we query for all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database, and *tag* this step with the *unique* identifier ``'calcjob'``.
+Next, we look for all ``Int`` nodes that are an output of the  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s found in the first step, using the ``with_incoming`` relationship argument.
+The ``Int`` node was created by the  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` and as such has an *incoming* create link.
+
+In the context of our query, we are building a *path* consisting of *vertices* (i.e. the entities we query for) connected by *edges* defined by the relationships between them.
+The complete set of all possible relationships you can use query for, as well as the entities that they connect to, can be found in the :ref:`advanced querying section<topics:database:advancedquery:tables:relationships>`.
+
+.. note::
+
+    The ``tag`` identifier can be any alphanumeric string, it is simply a label used to refer to a previous vertex along the query path when defining a relationship.
+
+.. _how-to:query:projections:
+
+Projections
+===========
+
+By default, the :class:`~aiida.orm.querybuilder.QueryBuilder` returns the instances of the entities corresponding to the final append to the query path.
+For example:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob')
+
+The above code snippet will return all ``Int`` nodes that are outputs of any  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`.
+However, you can also *project* other entities in the path by adding ``project='*'`` to the corresponding ``append()`` call:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob', project='*')
+    qb.append(Int, with_incoming='calcjob')
+
+This will return all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s that have an ``Int`` output node.
+
+However, in many cases we are not interested in the entities themselves, but rather their PK, UUID, *attributes* or some other piece of information stored by the entity.
+This can be achieved by providing the corresponding *column* to the ``project`` keyword argument:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob', project='id')
+
+In the above example, executing the query returns all *PK's* of the ``Int`` nodes which are outputs of all  :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s in the database.
+Moreover, you can project more than one piece of information for one vertex by providing a list:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob')
+    qb.append(Int, with_incoming='calcjob', project=['id', 'attributes.value'])
+
+For the query above, ``qb.all()`` will return a list of lists, for which each element corresponds to one entity and contains two items: the PK of the ``Int`` node and its value.
+Finally, you can project information for multiple vertices along the query path:
+
+.. code-block:: python
+
+    qb = QueryBuilder()
+    qb.append(CalcJobNode, tag='calcjob', project='*')
+    qb.append(Int, with_incoming='calcjob', project=['id', 'attributes.value'])
+
+All projections must start with one of the *columns* of the entities in the database, or project the instances themselves using ``'*'``.
+Examples of columns we have encountered so far are ``id``, ``uuid`` and ``attributes``.
+If the column is a dictionary, you can expand the dictionary values using a dot notation, as we have done in the previous example to obtain the ``attributes.value``.
+This can be used to project the values of nested dictionaries as well.
+
+.. note::
+
+    Be aware that for consistency, ``QueryBuilder.all()`` / ``iterall()`` always returns a list of lists, even if you only project one property of a single entity.
+    Use ``QueryBuilder.all(flat=True)`` to return the query result as a flat list in this case.
+
+As mentioned in the beginning, this section provides only a brief introduction to the :class:`~aiida.orm.querybuilder.QueryBuilder`'s basic functionality.
+To learn about more advanced queries, please see :ref:`the corresponding topics section<topics:database:advancedquery>`.
+
+
+
+.. _how-to:query:shortcuts:
+
+Shortcuts
+=========
+
+The :class:`~aiida.orm.querybuilder.QueryBuilder` is the generic way of querying for data in AiiDA.
+For certain common queries, shortcuts have been added to the AiiDA python API to save you a couple of lines of code.
+
+.. _how-to:query:shortcuts:incoming-outgoing:
+
+Incoming and outgoing links
+----------------------------
+
+The provenance graph in AiiDA is a :ref:`directed graph <topics:provenance:concepts>`.
+The vertices of the graph are the *nodes*, and the edges that connect them are called *links*.
+Since the graph is directed, any node can have *incoming* and *outgoing* links that connect it to neighboring nodes.
+
+To discover the neighbors of a given node, you can use the methods :meth:`~aiida.orm.nodes.node.Node.get_incoming` and :meth:`~aiida.orm.nodes.node.Node.get_outgoing`.
+They have the exact same interface but will return the neighbors connected to the current node with a link coming into it or with links going out of it, respectively.
+For example, for a given ``node``, to inspect all the neighboring nodes from which a link is incoming to the ``node``:
+
+.. code-block:: python
+
+    node.get_incoming()
+
+This will return an instance of the :class:`~aiida.orm.utils.links.LinkManager`.
+From that manager, you can request the results in a specific format.
+If you are only interested in the neighboring nodes themselves, you can call the :class:`~aiida.orm.utils.links.LinkManager.all_nodes` method:
+
+.. code-block:: python
+
+    node.get_incoming().all_nodes()
+
+This will return a list of :class:`~aiida.orm.nodes.node.Node` instances that correspond to the nodes that are neighbors of ``node``, where the link is going towards ``node``.
+Calling the :meth:`~aiida.orm.utils.links.LinkManager.all` method of the manager instead will return a list of :class:`~aiida.orm.utils.links.LinkTriple` named tuples.
+These tuples contain, in addition to the neighboring node, also the link label and the link type with which they are connected to the origin ``node``.
+For example, to list all the neighbors of a node from which a link is incoming:
+
+.. code-block:: python
+
+    for link_triple in node.get_incoming().all():
+        print(link_triple.node, link_triple.link_type, link_triple.link_label)
+
+Note that the :class:`~aiida.orm.utils.links.LinkManager` provides many convenience methods to get information from the neigboring nodes, such as :meth:`~aiida.orm.utils.links.LinkManager.all_link_labels` if you only need the list of link labels.
+
+The :meth:`~aiida.orm.nodes.node.Node.get_incoming` and :meth:`~aiida.orm.nodes.node.Node.get_outgoing` methods accept various arguments that allow one to filter what neighboring nodes should be matched:
+
+ * ``node_class``: accepts a subclass of :class:`~aiida.orm.nodes.node.Node`, only neighboring nodes with a class that matches this will be returned
+ * ``link_type``: accepts a value of :class:`~aiida.common.links.LinkType`, only neighboring nodes that are linked with this link type will be returned
+ * ``link_label_filter``: accepts a string  expression (with optional wildcards using the syntax of SQL ``LIKE`` patterns, see below), only neighboring nodes that are linked with a link label that matches the pattern will be returned
+
+As an example:
+
+.. code-block:: python
+
+    node.get_incoming(node_class=Data, link_type=LinkType.INPUT_CALC, link_label_filter='output%node_').all_nodes()
+
+will return only neighboring data nodes that are linked to the ``node`` with a link of type ``LinkType.INPUT_CALC`` and where the link label matches the pattern ``'output%node_'``.
+Reminder on the syntax of SQL `LIKE` patterns: the ``%`` character matches any string of zero or more characters, while the ``_`` character matches exactly one character.
+These two special characters can be escaped by prepending them with a backslash (note that when putting a backslash in a Python string you have to escape the backslash itself, so you will need two backslashes: e.g., to match exactly a link label ``a_b`` you need to pass ``link_label_filter='a\\_b'``).
+
+
+.. _how-to:query:shortcuts:inputs-outputs:
+
+Inputs and outputs of processes
+-------------------------------
+
+The :meth:`~aiida.orm.nodes.node.Node.get_incoming` and :meth:`~aiida.orm.nodes.node.Node.get_outgoing` methods, described in the :ref:`previous section <how-to:query:shortcuts:incoming-outgoing>`, can be used to access all neighbors from a certain node and provide advanced filtering options.
+However, often one doesn't need this expressivity and simply wants to retrieve all neighboring nodes with a syntax that is as succint as possible.
+A prime example is to retrieve the *inputs* or *outputs* of :ref:`a process <topics:processes:concepts>`.
+Instead of using :meth:`~aiida.orm.nodes.node.Node.get_incoming` and :meth:`~aiida.orm.nodes.node.Node.get_outgoing`, to get the inputs and outputs of a ``process_node`` one can do:
+
+.. code-block:: python
+
+    inputs = process_node.inputs
+    outputs = process_node.outputs
+
+These properties do not return the actual inputs and outputs directly, but instead return an instance of :class:`~aiida.orm.utils.managers.NodeLinksManager`.
+The reason is because through the manager, the inputs or outputs are accessible through their link label (that, for inputs and outputs of processes, is unique) and can be tab-completed.
+For example, if the ``process_node`` has an output with the label ``result``, it can be retrieved as:
+
+.. code-block:: python
+
+    process_node.outputs.result
+
+The inputs or outputs can also be accessed through key dereferencing:
+
+.. code-block:: python
+
+    process_node.outputs['result']
+
+If there is no neighboring output with the given link label, a :class:`~aiida.common.exceptions.NotExistentAttributeError` or :class:`~aiida.common.exceptions.NotExistentKeyError` will be raised, respectively.
+
+.. note::
+
+    The ``inputs`` and ``outputs`` properties are only defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s.
+    This means that you cannot *chain* these calls, because an input or output of a process node is guaranteed to be a :class:`~aiida.orm.nodes.data.Data` node, which does not have inputs or outputs.
+
+
+.. _how-to:query:shortcuts:creator-caller-called:
+
+Creator, caller and called
+--------------------------
+
+Similar to the ``inputs`` and ``outputs`` properties of process nodes, there are some more properties that make exploring the provenance graph easier:
+
+    * :meth:`~aiida.orm.nodes.process.process.ProcessNode.called`: defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s and returns the list of process nodes called by this node.
+      If this process node did not call any other processes, this property returns an empty list.
+    * :meth:`~aiida.orm.nodes.process.process.ProcessNode.caller`: defined for :class:`~aiida.orm.nodes.process.process.ProcessNode`'s and returns the process node that called this node.
+      If this node was not called by a process, this property returns ``None``.
+    * :meth:`~aiida.orm.nodes.data.Data.creator`: defined for :class:`~aiida.orm.nodes.data.Data` nodes and returns the process node that created it.
+      If the node was not created by a process, this property returns ``None``.
+
+.. note::
+
+    Using the ``creator`` and ``inputs`` properties, one can easily move *up* the provenance graph.
+    For example, starting from some data node that represents the result of a long workflow, one can move up the provenance graph to find an initial input node of interest: ``result.creator.inputs.some_input.creator.inputs.initial_input``.
+
+.. _how-to:query:shortcuts:calcjob-results:
+
+Calculation job results
+-----------------------
+
+:class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode`'s provide the :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property, that can give easy access to the results of the calculation job.
+The requirement is that the :class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` class that produced the node, defines a *default output node* in its spec.
+This node should be a :class:`~aiida.orm.nodes.data.dict.Dict` output that will always be created.
+An example is the :class:`~aiida.calculations.templatereplacer.TemplatereplacerCalculation` plugin, that has the ``output_parameters`` output that is specified as its default output node.
+
+The :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property will give direct easy access to all the keys within this dictionary output.
+For example, the following:
+
+.. code-block:: python
+
+    list(node.res)
+
+will return a list of all the keys in the output node.
+Individual keys can then be accessed through attribute dereferencing:
+
+.. code-block:: python
+
+    node.res.some_key
+
+In an interactive shell, the available keys are also tab-completed.
+If you type ``node.res.`` followed by the tab key twice, a list of the available keys is printed.
+
+.. note::
+
+    The :meth:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode.res` property is really just a shortcut to quickly and easily access an attribute of the default output node of a calculation job.
+    For example, if the default output node link label is ``output_parameters``, then ``node.res.some_key`` is exactly equivalent to ``node.outputs.output_parameters.dict.some_key``.
+    That is to say, when using ``res``, one is accessing attributes of one of the output nodes, and not of the calculation job node itself.
+.. _how-to:plugins-develop:
+
+**********************
+How to package plugins
+**********************
+
+This section focuses on how to *package* AiiDA extensions (plugins) so that they can be tested, published and eventually reused by others.
+For guides on writing specific extensions, see :ref:`how-to:plugin-codes:interfacing` and :ref:`topics:data_types:plugin`.
+
+.. todo::
+
+    For guides on writing specific extensions, see :ref:`how-to:plugin-codes:interfacing`, :ref:'how-to:plugin-codes:scheduler', :ref:'how-to:plugin-codes:transport' or :ref:`topics:data_types:plugin`.
+
+
+.. _how-to:plugins-develop:bundle:
+
+Creating a plugin package
+=========================
+
+
+AiiDA plugins can be bundled and distributed in a `Python package <packages_>`_ that provides a set of extensions to AiiDA.
+
+.. note::
+
+  The Python community uses the term 'package' rather loosely.
+  Depending on context, it may refer simply to a folder containing individual Python modules or it may include the files necessary for building and installing a package to be distributed via the `Python Package Index (PyPI) <pypi_>`_.
+
+.. _packages: https://docs.python.org/3/tutorial/modules.html#packages
+
+
+Quickstart
+----------
+
+The fastest way to jumpstart an AiiDA plugin package is to use the `AiiDA plugin cutter <plugin-cutter_>`_ in order to template the basic folder structure, already customized according to the desired name of your plugin, following AiiDA conventions.
+
+Simply go to the `AiiDA plugin cutter <plugin-cutter_>`_ and follow the usage instructions.
+See also the `aiida-diff`_ demo plugin package for an in-depth explanation of the files & folders produced by the plugin cutter.
+
+In the following, we explain some of the conventions implemented by the AiiDA plugin cutter.
+
+
+Choosing a name
+----------------
+
+The naming convention for AiiDA plugin packages is ``aiida-mycode`` for the plugin distribution on `PyPI`_ and ``aiida_mycode`` for the corresponding python package, leading to the following folder structure::
+
+   aiida-mycode/
+      aiida_mycode/
+         __init__.py
+
+.. note::
+
+   Python package names cannot contain dashes, thus the underscore.
+
+If you intend to eventually publish your plugin package, please go to the `AiiDA plugin registry <registry_>`_  and choose a name that is not already taken.
+You are also encouraged to pre-register your package (instructions provided on the registry), both to reserve your plugin name and to inform others of your ongoing development.
+
+
+.. _how-to:plugins-develop:bundle:folderstructure:
+
+Folder structure
+----------------
+
+The overall folder structure of your plugin is up to you, but it is useful to follow a set of basic conventions.
+Here is an example of a folder structure for an AiiDA plugin, illustrating different levels of nesting (see also the `aiida-diff demo plugin <aiida-diff_>`_)::
+
+   aiida-mycode/           - distribution folder
+      aiida_mycode/        - top-level package (from aiida_mycode import ..)
+         __init__.py
+         calculations/
+            __init__.py
+            mycode.py      - contains MycodeCalculation
+         parsers/
+            __init__.py
+            basic.py       - contains BasicMycodeParser
+            full.py        - contains FullMycodeParser
+         data/
+            __init__.py    - contains code-specific MyData data format
+         commands.py       - contains verdi subcommand for visualizing MyData
+         workflows/
+            __init__.py
+            basic.py       - contains a basic workflow using mycode
+         ...
+      LICENSE              - license of your plugin
+      MANIFEST.in          - lists non-python files to be installed, such as LICENSE
+      README.md            - project description for github and PyPI
+      pyproject.toml       - plugin metadata: installation requirements, author, entry points, etc.
+      ...
+
+A minimal plugin package instead might look like::
+
+   aiida-minimal/
+      aiida_minimal/
+         __init__.py
+      pyproject.toml
+
+.. _how-to:plugins-develop:entrypoints:
+
+Registering plugins through entry points
+========================================
+
+An AiiDA plugin is an extension of AiiDA that announces itself by means of a new *entry point* (for details, see :ref:`topics:plugins:entrypoints`).
+Adding a new entry point consists of the following steps:
+
+ #. Deciding a name.
+    We *strongly* suggest to start the name of each entry point with the name of the plugin package (omitting the 'aiida-' prefix).
+    For a package ``aiida-mycode``, this will usually mean ``"mycode.<something>"``
+
+ #. Finding the right entry point group. You can list the entry point groups defined by AiiDA via ``verdi plugin list``.
+    For a documentation of the groups, see :ref:`topics:plugins:entrypointgroups`.
+
+ #. Adding the entry point to the ``entry_points`` field in the ``pyproject.toml`` file::
+
+     ...
+     [project.entry-points."aiida.calculations"]
+     "mycode.<something>" = "aiida_mycode.calcs.some:MysomethingCalculation"
+     ...
+
+Your new entry point should now show up in ``verdi plugin list aiida.calculations``.
+
+.. note::
+
+    Taking a package with the name ``aiida-diff`` as example, what does ``pip install aiida-diff`` do?
+
+    * It resolves and installs the dependencies on other python packages
+    * It creates a folder ``aiida_diff.egg-info/`` with metadata about the package
+    * If the ``-e`` option is given, a symbolic link from the python package search path to the ``aiida-diff`` directory is created and the ``.egg-info`` folder is put there instead.
+      Changes to the **source code** will be picked up by python without reinstalling (when restarting the interpreter),  but changes to the **metadata** will not.
+
+    For further details, see the Python `packaging user guide <packaging_>`_.
+
+
+
+.. _how-to:plugins-develop:test:
+
+Testing a plugin package
+=========================
+
+Writing tests for your AiiDA plugins and running continuous integration tests using free platforms like `GitHub Actions <ghactions_>`_ is the best way to ensure that your plugin works and keeps working as it is being developed.
+We recommend using the `pytest`_ framework for testing AiiDA plugins.
+
+For an example of how to write tests and how to set up continuous integration, see the `aiida-diff`_ demo plugin package.
+
+
+Folder structure
+----------------
+
+We suggest the following folder structure for including tests in AiiDA plugin packages::
+
+   aiida-mycode/           - distribution folder
+      aiida_mycode/        - plugin package
+      tests/               - tests directory (possibly with subdirectories)
+
+.. note::
+    Keeping the tests outside the plugin package keeps the distribution of your plugin package light.
+
+AiiDA's fixtures
+----------------
+
+Many tests require a full AiiDA environment to be set up before the test starts, e.g. some AiiDA data nodes.
+The pytest library has the concept of `fixtures`_ for encapsulating code you would like to run before a test starts.
+AiiDA ships with a number of fixtures in :py:mod:`aiida.manage.tests.pytest_fixtures` that take care of setting up the test environment for you (for more details, see :ref:`topics:plugins:testfixtures`).
+
+In order to make these fixtures available to your tests, create a ``conftest.py`` (see also `pytest docs <conftest_>`_) at the root level of your plugin package as follows::
+
+   import pytest
+   pytest_plugins = ['aiida.manage.tests.pytest_fixtures']  # make AiiDA's fixtures available
+   # tip: look inside aiida.manage.tests.pytest_fixtures to see which fixtures are provided
+
+   @pytest.fixture(scope='function')  # a fixture that will run once per test function that requests it
+   def integer_input():
+       """Integer input for test run."""
+       from aiida.orm import Int
+       input_value = Int(5)
+       return input_value
+
+   @pytest.fixture(scope='function', autouse=True)  # a fixture that automatically runs once per test function
+   def clear_database_auto(clear_database):  # request AiiDA's "clear_database" fixture
+       """Automatically clear database in between tests."""
+       pass
+
+You can now start writing tests e.g. in a ``tests/test_calculations.py`` file::
+
+      # No need to import fixtures here - they are added by pytest "automagically"
+
+      def test_qe_calculation(aiida_local_code_factory, integer_input):  # requesting "aiida_local_code_factory" and "integer_input" fixtures
+          """Test running a calculation using a CalcJob plugin."""
+          from aiida.engine import run
+          from aiida.plugins import CalculationFactory
+
+          # search for 'pw.x' executable in PATH, set up an AiiDA code for it and return it
+          code = aiida_local_code_factory(entry_point='quantumespresso.pw', executable='pw.x')
+          # ...
+          inputs = { 'code': code, 'int_input': integer_input, ... }  # use "integer_input" fixture
+
+          # run a calculation using this code ...
+          result = run(CalculationFactory('quantumespresso.pw'), **inputs)
+
+          # check outputs of calculation
+          assert result['...'] == ...
+
+In order to run your tests, simply type ``pytest`` at the root level or your package.
+pytest automatically discovers and executes files, classes and function names starting with the word ``test``.
+
+.. _conftest: https://docs.pytest.org/en/latest/how-to/fixtures.html#scope-sharing-fixtures-across-classes-modules-packages-or-session
+.. _fixtures: https://docs.pytest.org/en/latest/how-to/fixtures.html
+
+
+.. _how-to:plugins-develop:document:
+
+Documenting a plugin package
+============================
+
+AiiDA plugin packages are python packages, and general `best practises for writing python documentation <https://docs.python-guide.org/writing/documentation/>`_ apply.
+
+In the following, we mention a few hints that apply specifically to AiiDA plugins.
+
+Repository-level documentation
+------------------------------
+
+Since the source code of most AiiDA plugins is hosted on GitHub, the first contact of a new user with your plugin package is likely the landing page of your GitHub repository.
+
+ * Make sure to have a useful ``README.md``, describing what your plugin does and how to install it.
+ * Leaving a contact email and adding a license is also a good idea.
+ * Make sure the information in the ``pyproject.toml`` file is correct and up to date (in particular the version number), since this information is used to advertise your package on the AiiDA plugin registry.
+
+Source-code-level documentation
+-------------------------------
+
+Source-code level documentations matters both for users of your plugin's python API and, particularly, for attracting contributions from others.
+
+When adding new types of calculations or workflows, make sure to use `docstrings <https://www.python.org/dev/peps/pep-0257/#what-is-a-docstring>`_, and use the ``help`` argument to document input ports and output ports.
+Users of your plugin can then inspect which inputs the calculations/workflows expect and which outputs they produce directly through the ``verdi`` cli.
+For example, try::
+
+    verdi plugin list aiida.calculations core.arithmetic.add
+
+Documentation website
+---------------------
+
+For simple plugins, a well-written ``README.md`` can be a good start.
+Once the README grows out of proportion, you may want to consider creating a dedicated documentation website.
+
+The `Sphinx <http://www.sphinx-doc.org/en/master/>`_ tool makes it very easy to create documentation websites for python packages, and the `ReadTheDocs <http://readthedocs.org/>`_ service will host your sphinx documentation online for free.
+The `aiida-diff demo plugin <aiida-diff_>`_ comes with a full template for a sphinx-based documentation, including a mix of manually written pages and an automatically generated documentation of your plugin's python API.
+See the `developer guide of aiida-diff <https://aiida-diff.readthedocs.io/en/latest/developer_guide/index.html>`_ for instructions on how to build it.
+
+AiiDA provides a sphinx extension for inserting automatically generated documentations of ``Process`` classes (calculations and workflows) into your sphinx documentation (analogous to the information displayed by ``verdi plugin list``).
+Enable the extension by adding ``aiida.sphinxext`` to the list of ``extensions`` in your ``docs/conf.py`` file.
+You can now use the ``aiida-process``, ``aiida-calcjob`` or ``aiida-workchain`` directives in your ReST files like so::
+
+    .. aiida-workchain:: MyWorkChain
+        :module: my_plugin
+        :hide-nondb-inputs:
+
+Here,
+
+ * ``MyWorkChain`` is the name of the workchain to be documented.
+ * ``:module:`` is the python module from which the workchain can be imported.
+ * ``:hide-unstored-inputs:`` hides workchain inputs that are not stored in the database (shown by default).
+
+.. note::
+
+    The ``aiida-workchain`` directive is hooked into ``sphinx.ext.autodoc``, i.e. it is used automatically by the generic ``automodule``, ``autoclass`` directives when applied to workchain classes.
+
+
+
+.. _how-to:plugins-develop:publish:
+
+Publishing a plugin package
+===========================
+
+AiiDA plugin packages are published on the `AiiDA plugin registry <registry_>`_ and the `python package index (PyPI) <pypi_>`_.
+
+Before publishing your plugin, make sure your plugin comes with:
+
+ * a ``pyproject.toml`` file with the plugin metadata and for installing your plugin via ``pip``
+ * a license
+
+For examples of these files, see the `aiida-diff demo plugin <aiida-diff_>`_.
+
+.. _how-to:plugins-develop:publish:plugin-registry:
+
+Publishing on the plugin registry
+---------------------------------
+
+The `AiiDA plugin registry <registry_>`_ aims to be the home for all publicly available AiiDA plugins.
+It collects information on the type of plugins provided by your package, which AiiDA versions it is compatible with, etc.
+
+In order to register your plugin package, simply go to the `plugin registry <registry_>`_ and follow the instructions in the README.
+
+.. note::
+
+  The plugin registry reads the metadata of your plugin from the ``pyproject.toml`` file in your plugin repository.
+
+
+We encourage you to **get your plugin package listed as soon as possible**, both in order to reserve the plugin name and to inform others of the ongoing development.
+
+Publishing on PyPI
+------------------
+
+For distributing AiiDA plugin packages, we recommend to follow the `guidelines for packaging python projects <packaging_>`_, which include making the plugin available on the `python package index <PyPI_>`_.
+This makes it possible for users to simply ``pip install aiida-myplugin``.
+
+.. _plugin-cutter: https://github.com/aiidateam/aiida-plugin-cutter
+.. _aiida-diff: https://github.com/aiidateam/aiida-diff
+.. _pytest: https://pytest.org
+.. _ghactions: https://github.com/features/actions
+.. _registry: https://github.com/aiidateam/aiida-registry
+.. _pypi: https://pypi.python.org
+.. _packaging: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+.. _how-to:installation:
+
+*******************************
+How to manage your installation
+*******************************
+
+
+.. _how-to:installation:profile:
+
+Managing profiles
+=================
+
+Creating profiles
+-----------------
+Each AiiDA installation can have multiple profiles, each of which can have its own individual database and file repository to store the contents of the :ref:`provenance graph<topics:provenance:concepts>`.
+Profiles allow you to run multiple projects completely independently from one another with just a single AiiDA installation and at least one profile is required to run AiiDA.
+A new profile can be created using :ref:`verdi quicksetup<reference:command-line:verdi-quicksetup>` or :ref:`verdi setup<reference:command-line:verdi-setup>`, which works similar to the former but gives more control to the user.
+
+Listing profiles
+----------------
+The :ref:`verdi profile<reference:command-line:verdi-profile>` command line interface provides various commands to manage the profiles of an AiiDA installation.
+To list the currently configured profiles, use ``verdi profile list``:
+
+.. code:: bash
+
+    Info: configuration folder: /home/user/.virtualenvs/aiida/.aiida
+    * project-one
+      project-two
+
+In this particular example, there are two configured profiles, ``project-one`` and ``project-two``.
+The first one is highlighted and marked with a ``*`` symbol, meaning it is the default profile.
+A profile being the default means simply that any ``verdi`` command will always be executed for that profile.
+You can :ref:`change the profile on a per-call basis<topics:cli:profile>` with the ``--p/--profile`` option.
+To change the default profile use ``verdi profile setdefault PROFILE``.
+
+Showing profiles
+----------------
+Each profile defines various parameters, such as the location of the file repository on the file system and the connection parameters for the database.
+To display these parameters, use ``verdi profile show``:
+
+.. code:: bash
+
+    Info: Profile: project-one
+    ----------------------  ------------------------------------------------
+    aiidadb_backend         django
+    aiidadb_engine          postgresql_psycopg2
+    aiidadb_host            localhost
+    aiidadb_name            aiida_project_one
+    aiidadb_pass            correcthorsebatterystaple
+    aiidadb_port            5432
+    aiidadb_repository_uri  file:///home/user/.virtualenvs/aiida/repository/
+    aiidadb_user            aiida
+    default_user_email      user@email.com
+    options                 {'daemon_default_workers': 3}
+    profile_uuid            4c272a87d7f543b08da9fe738d88bb13
+    ----------------------  ------------------------------------------------
+
+By default, the parameters of the default profile are shown, but one can pass the profile name of another, e.g., ``verdi profile show project-two`` to change that.
+
+Deleting profiles
+-----------------
+A profile can be deleted using the ``verdi profile delete`` command.
+By default, deleting a profile will also delete its file repository and the database.
+This behavior can be changed using the ``--skip-repository`` and ``--skip-db`` options.
+
+.. note::
+
+    In order to delete the database, the system user needs to have the required rights, which is not always guaranteed depending on the system.
+    In such cases, the database deletion may fail and the user will have to perform the deletion manually through PostgreSQL.
+
+
+.. _how-to:installation:configure:
+
+Configuring your installation
+=============================
+
+.. _how-to:installation:configure:tab-completion:
+
+Activating tab-completion
+-------------------------
+The ``verdi`` command line interface has many commands and parameters, which can be tab-completed to simplify its use.
+To enable tab-completion, the following shell command should be executed (depending on the shell you use):
+
+.. panels::
+    :container: container-lg pb-3
+    :column: col-lg-12 p-2
+
+    Enable tab-completion for ``verdi`` one of the following supported shells
+
+    .. tabbed:: bash
+
+        .. code-block:: console
+
+            eval "$(_VERDI_COMPLETE=bash_source verdi)"
+
+    .. tabbed:: zsh
+
+        .. code-block:: console
+
+            eval "$(_VERDI_COMPLETE=zsh_source verdi)"
+
+    .. tabbed:: fish
+
+        .. code-block:: console
+
+            eval (env _FOO_BAR_COMPLETE=fish_source foo-bar)
+
+
+Place this command in your shell or virtual environment activation script to automatically enable tab completion when opening a new shell or activating an environment.
+This file is shell specific, but likely one of the following:
+
+    * the startup file of your shell (``.bashrc``, ``.zsh``, ...), if aiida is installed system-wide
+    * the `activators <https://virtualenv.pypa.io/en/latest/user_guide.html#activators>`_ of your virtual environment
+    * a `startup file <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#saving-environment-variables>`_ for your conda environment
+
+
+.. important::
+
+    After you have added the line to the start up script, make sure to restart the terminal or source the script for the changes to take effect.
+
+
+.. _how-to:installation:configure:options:
+
+Configuring profile options
+---------------------------
+
+AiiDA provides various configurational options for profiles, which can be controlled with the :ref:`verdi config<reference:command-line:verdi-config>` command.
+
+To view all configuration options set for the current profile:
+
+.. code:: console
+
+    $ verdi config list
+    name                                   source    value
+    -------------------------------------  --------  ------------
+    autofill.user.email                    global    abc@test.com
+    autofill.user.first_name               global    chris
+    autofill.user.institution              global    epfl
+    autofill.user.last_name                global    sewell
+    caching.default_enabled                default   False
+    caching.disabled_for                   default
+    caching.enabled_for                    default
+    daemon.default_workers                 default   1
+    daemon.timeout                         profile   20
+    daemon.worker_process_slots            default   200
+    db.batch_size                          default   100000
+    logging.aiida_loglevel                 default   REPORT
+    logging.alembic_loglevel               default   WARNING
+    logging.circus_loglevel                default   INFO
+    logging.db_loglevel                    default   REPORT
+    logging.kiwipy_loglevel                default   WARNING
+    logging.paramiko_loglevel              default   WARNING
+    logging.plumpy_loglevel                default   WARNING
+    logging.sqlalchemy_loglevel            default   WARNING
+    rmq.task_timeout                       default   10
+    runner.poll.interval                   profile   50
+    transport.task_maximum_attempts        global    6
+    transport.task_retry_initial_interval  default   20
+    verdi.shell.auto_import                default
+    warnings.showdeprecations              default   True
+
+Configuration option values are taken, in order of priority, from either the profile specific setting, the global setting (applies to all profiles), or the default value.
+
+You can also filter by a prefix:
+
+.. code:: console
+
+    $ verdi config list transport
+    name                                   source    value
+    -------------------------------------  --------  ------------
+    transport.task_maximum_attempts        global    6
+    transport.task_retry_initial_interval  default   20
+
+To show the full information for a configuration option or get its current value:
+
+.. code:: console
+
+    $ verdi config show transport.task_maximum_attempts
+    schema:
+        default: 5
+        description: Maximum number of transport task attempts before a Process is Paused.
+        minimum: 1
+        type: integer
+    values:
+        default: 5
+        global: 6
+        profile: <NOTSET>
+    $ verdi config get transport.task_maximum_attempts
+    6
+
+You can also retrieve the value *via* the API:
+
+.. code-block:: ipython
+
+    In [1]: from aiida import get_config_option
+    In [2]: get_config_option('transport.task_maximum_attempts')
+    Out[2]: 6
+
+To set a value, at the profile or global level:
+
+.. code-block:: console
+
+    $ verdi config set transport.task_maximum_attempts 10
+    Success: 'transport.task_maximum_attempts' set to 10 for 'quicksetup' profile
+    $ verdi config set --global transport.task_maximum_attempts 20
+    Success: 'transport.task_maximum_attempts' set to 20 globally
+    $ verdi config show transport.task_maximum_attempts
+    schema:
+        type: integer
+        default: 5
+        minimum: 1
+        description: Maximum number of transport task attempts before a Process is Paused.
+    values:
+        default: 5
+        global: 20
+        profile: 10
+    $ verdi config get transport.task_maximum_attempts
+    10
+
+.. tip::
+
+    By default any option set through ``verdi config`` will be applied to the current default profile.
+    To change the profile you can use the :ref:`profile option<topics:cli:profile>`.
+
+Similarly to unset a value:
+
+.. code-block:: console
+
+    $ verdi config unset transport.task_maximum_attempts
+    Success: 'transport.task_maximum_attempts' unset for 'quicksetup' profile
+    $ verdi config unset --global transport.task_maximum_attempts
+    Success: 'transport.task_maximum_attempts' unset globally
+    $ verdi config show transport.task_maximum_attempts
+    schema:
+        type: integer
+        default: 5
+        minimum: 1
+        description: Maximum number of transport task attempts before a Process is Paused.
+    values:
+        default: 5
+        global: <NOTSET>
+        profile: <NOTSET>
+    $ verdi config get transport.task_maximum_attempts
+    5
+
+.. important::
+
+    Changes that affect the daemon (e.g. ``logging.aiida_loglevel``) will only take affect after restarting the daemon.
+
+.. seealso:: :ref:`How-to configure caching <how-to:run-codes:caching>`
+
+
+.. _how-to:installation:configure:instance-isolation:
+
+Isolating multiple instances
+----------------------------
+An AiiDA instance is defined as the installed source code plus the configuration folder that stores the configuration files with all the configured profiles.
+It is possible to run multiple AiiDA instances on a single machine, simply by isolating the code and configuration in a virtual environment.
+
+To isolate the code, make sure to install AiiDA into a virtual environment, e.g., with conda or venv, as described :ref:`here <intro:get_started:setup>`.
+Whenever you activate this particular environment, you will be running the particular version of AiiDA (and all the plugins) that you installed specifically for it.
+
+This is separate from the configuration of AiiDA, which is stored in the configuration directory which is always named ``.aiida`` and by default is stored in the home directory.
+Therefore, the default path of the configuration directory is ``~/.aiida``.
+By default, each AiiDA instance (each installation) will store associated profiles in this folder.
+A best practice is to always separate the profiles together with the code to which they belong.
+The typical approach is to place the configuration folder in the virtual environment itself and have it automatically selected whenever the environment is activated.
+
+The location of the AiiDA configuration folder can be controlled with the ``AIIDA_PATH`` environment variable.
+This allows us to change the configuration folder automatically, by adding the following lines to the activation script of a virtual environment.
+For example, if the path of your virtual environment is ``/home/user/.virtualenvs/aiida``, add the following line:
+
+.. code:: bash
+
+    $ export AIIDA_PATH='/home/user/.virtualenvs/aiida'
+
+Make sure to reactivate the virtual environment, if it was already active, for the changes to take effect.
+
+.. note::
+
+   For ``conda``, create a directory structure ``etc/conda/activate.d`` in the root folder of your conda environment (e.g. ``/home/user/miniconda/envs/aiida``), and place a file ``aiida-init.sh`` in that folder which exports the ``AIIDA_PATH``.
+
+You can test that everything works by first echoing the environment variable with ``echo $AIIDA_PATH`` to confirm it prints the correct path.
+Finally, you can check that AiiDA know also properly realizes the new location for the configuration folder by calling ``verdi profile list``.
+This should display the current location of the configuration directory:
+
+.. code:: bash
+
+    Info: configuration folder: /home/user/.virtualenvs/aiida/.aiida
+    Critical: configuration file /home/user/.virtualenvs/aiida/.aiida/config.json does not exist
+
+The second line you will only see if you haven't yet setup a profile for this AiiDA instance.
+For information on setting up a profile, refer to :ref:`creating profiles<how-to:installation:profile>`.
+
+Besides a single path, the value of ``AIIDA_PATH`` can also be a colon-separated list of paths.
+AiiDA will go through each of the paths and check whether they contain a configuration directory, i.e., a folder with the name ``.aiida``.
+The first configuration directory that is encountered will be used as the configuration directory.
+If no configuration directory is found, one will be created in the last path that was considered.
+For example, the directory structure in your home folder ``~/`` might look like this::
+
+    .
+    ├── .aiida
+    └── project_a
+        ├── .aiida
+        └── subfolder
+
+If you leave the ``AIIDA_PATH`` variable unset, the default location ``~/.aiida`` will be used.
+However, if you set:
+
+.. code:: bash
+
+    $ export AIIDA_PATH='~/project_a:'
+
+the configuration directory ``~/project_a/.aiida`` will be used.
+
+.. warning::
+
+    If there was no ``.aiida`` directory in ``~/project_a``, AiiDA would have created it for you, so make sure to set the ``AIIDA_PATH`` correctly.
+
+
+.. _how-to:installation:configure:daemon-as-service:
+
+Daemon as a service
+===================
+
+The daemon can be set up as a system service, such that it automatically starts at system startup.
+How to do this, is operating system specific.
+For Ubuntu, here is `a template for the service file <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/templates/aiida-daemon%40.service>`_ and `ansible instructions to install the service <https://github.com/marvel-nccr/ansible-role-aiida/blob/c709088dff74d1e1ae4d8379e740aba35fb2ef97/tasks/aiida-daemon.yml>`_.
+
+
+.. _how-to:installation:performance:
+
+Tuning performance
+==================
+
+AiiDA supports running hundreds of thousands of calculations and graphs with millions of nodes.
+However, optimal performance at that scale might require some tweaks to the AiiDA configuration to balance the CPU and disk load.
+
+Here are a few tips for tuning AiiDA performance:
+
+
+    .. dropdown:: Increase the number of daemon workers
+
+        By default, the AiiDA daemon only uses a single worker, i.e. a single operating system process.
+        If ``verdi daemon status`` shows the daemon worker constantly at high CPU usage, you can use ``verdi daemon incr X`` to add ``X`` parallel daemon workers.
+
+        Keep in mind that other processes need to run on your computer (e.g. rabbitmq, the PostgreSQL database, ...), i.e. it's a good idea to stop increasing the number of workers before you reach the number of cores of your CPU.
+
+        To make the change permanent, set
+        ::
+
+            verdi config set daemon.default_workers 5
+
+    .. dropdown:: Increase the number of daemon worker slots
+
+
+        Each daemon worker accepts only a limited number of tasks at a time.
+        If ``verdi daemon status`` constantly warns about a high percentage of the available daemon worker slots being used, you can increase the number of tasks handled by each daemon worker (thus increasing the workload per worker).
+        Increasing it to 1000 should typically work.
+
+        Set the corresponding config variable and restart the daemon
+        ::
+
+            verdi config set daemon.worker_process_slots 1000
+
+
+
+    .. dropdown:: Prevent your operating system from indexing the file repository.
+
+        Many Linux distributions include the ``locate`` command to quickly find files and folders, and run a daily cron job ``updatedb.mlocate`` to create the corresponding index.
+        A large file repository can take a long time to index, up to the point where the hard drive is constantly indexing.
+
+        In order to exclude the repository folder from indexing, add its path to the ``PRUNEPATH`` variable in the ``/etc/updatedb.conf`` configuration file (use ``sudo``).
+
+    .. dropdown:: Move the Postgresql database to a fast disk (SSD), ideally on a large partition.
+
+        1. Stop the AiiDA daemon and :ref:`back up your database <how-to:installation:backup:postgresql>`.
+
+        2. Find the data directory of your postgres installation (something like ``/var/lib/postgresql/9.6/main``, ``/scratch/postgres/9.6/main``, ...).
+
+            The best way is to become the postgres UNIX user and enter the postgres shell::
+
+                psql
+                SHOW data_directory;
+                \q
+
+            If you are unable to enter the postgres shell, try looking for the ``data_directory`` variable in a file ``/etc/postgresql/9.6/main/postgresql.conf`` or similar.
+
+        3. Stop the postgres database service::
+
+            service postgresql stop
+
+        4. Copy all files and folders from the postgres ``data_directory`` to the new location::
+
+            cp -a SOURCE_DIRECTORY DESTINATION_DIRECTORY
+
+            .. note:: Flag ``-a`` will create a directory within ``DESTINATION_DIRECTORY``, e.g.::
+
+            cp -a OLD_DIR/main/ NEW_DIR/
+
+            creates ``NEW_DIR/main``.
+            It will also keep the file permissions (necessary).
+
+            The file permissions of the new and old directory need to be identical (including subdirectories).
+            In particular, the owner and group should be both ``postgres`` (except for symbolic links in ``server.crt`` and ``server.key`` that may or may not be present).
+
+            .. note::
+
+                If the permissions of these links need to be changed, use the ``-h`` option of ``chown`` to avoid changing the permissions of the destination of the links.
+                In case you have changed the permission of the links destination by mistake, they should typically be (beware that this might depend on your actual distribution!)::
+
+                -rw-r--r-- 1 root root 989 Mar  1  2012 /etc/ssl/certs/ssl-cert-snakeoil.pem
+                -rw-r----- 1 root ssl-cert 1704 Mar  1  2012 /etc/ssl/private/ssl-cert-snakeoil.key
+
+        5. Point the ``data_directory`` variable in your postgres configuration file (e.g. ``/etc/postgresql/9.6/main/postgresql.conf``) to the new directory.
+
+        6. Restart the database daemon::
+
+            service postgresql start
+
+        Finally, check that the data directory has indeed changed::
+
+            psql
+            SHOW data_directory;
+            \q
+
+        and try a simple AiiDA query with the new database.
+        If everything went fine, you can delete the old database location.
+
+If you're still encountering performance issues, the following tips can help with pinpointing performance bottlenecks.
+
+    .. dropdown:: Analyze the RabbitMQ message rate
+
+        If you're observing slow performance of the AiiDA engine, the `RabbitMQ management plugin <https://www.rabbitmq.com/management.html>`_ provides an intuitive dashboard that lets you monitor the message rate and check on what the AiiDA engine is up to.
+
+        Enable the management plugin via something like::
+
+            sudo rabbitmq-plugins enable rabbitmq_management
+
+        Then, navigate to http://localhost:15672/ and log in with ``guest``/``guest``.
+
+
+.. _how-to:installation:update:
+
+Updating your installation
+==========================
+
+Whenever updating your AiiDA installation, make sure you follow these instructions **very carefully**, even when merely upgrading the patch version!
+Failing to do so, may leave your installation in a broken state, or worse may even damage your data, potentially irreparably.
+
+    1. Activate the Python environment where AiiDA is installed.
+    2. Finish all running processes.
+       All finished processes will be automatically migrated, but it is not possible to resume unfinished processes.
+    3. Stop the daemon using ``verdi daemon stop``.
+    4. :ref:`Create a backup of your database and repository<how-to:installation:backup>`.
+
+       .. warning::
+
+          Once you have migrated your database, you can no longer go back to an older version of ``aiida-core`` (unless you restore your database and repository from a backup).
+
+    5. Update your ``aiida-core`` installation.
+
+        * If you have installed AiiDA through ``conda`` simply run: ``conda update aiida-core``.
+        * If you have installed AiiDA through ``pip`` simply run: ``pip install --upgrade aiida-core``.
+        * If you have installed from the git repository using ``pip install -e .``, first delete all the ``.pyc`` files (``find . -name "*.pyc" -delete``) before updating your branch with ``git pull``.
+
+    6. Migrate your database with ``verdi -p <profile_name> storage migrate``.
+       Depending on the size of your database and the number of migrations to perform, data migration can take time, so please be patient.
+
+After the database migration finishes, you will be able to continue working with your existing data.
+
+.. note::
+    If the update involved a change in the major version number of ``aiida-core``, expect backwards incompatible changes and check whether you also need to update installed plugin packages.
+
+Updating from 0.x.* to 1.*
+--------------------------
+- `Additional instructions on how to migrate from 0.12.x versions <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#updating-from-0-12-to-1>`_.
+- `Additional instructions on how to migrate from versions 0.4 -- 0.11 <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#older-versions>`_.
+- For a list of breaking changes between the 0.x and the 1.x series of AiiDA, `see here <https://aiida.readthedocs.io/projects/aiida-core/en/v1.2.1/install/updating_installation.html#breaking-changes-from-0-12-to-1>`_.
+
+
+.. _how-to:installation:backup:
+
+.. _how-to:installation:backup:software:
+
+Backing up your installation
+============================
+
+A full backup of an AiiDA instance and AiiDA managed data requires a backup of:
+
+* the AiiDA configuration folder, which is typically named ``.aiida`` and located in the home folder (see also :ref:`intro:install:setup`).
+  This folder contains, among other things, the ``config.json`` configuration file and log files.
+
+* files associated with nodes in the repository folder (one per profile). Typically located in the ``.aiida`` folder.
+
+* queryable metadata in the PostgreSQL database (one per profile).
+
+
+.. todo::
+
+    .. _how-to:installation:backup:repository:
+
+    title: Repository backup
+
+
+.. _how-to:installation:backup:postgresql:
+
+Database backup
+---------------
+
+PostgreSQL typically spreads database information over multiple files that, if backed up directly, are not guaranteed to restore the database.
+We therefore strongly recommend to periodically dump the database contents to a file (which you can then back up using your method of choice).
+
+A few useful pointers:
+
+* In order to avoid having to enter your database password each time you use the script, you can create a file ``.pgpass`` in your home directory containing your database credentials, as described `in the PostgreSQL documentation <https://www.postgresql.org/docs/12/libpq-pgpass.html>`_.
+
+* In order to dump your database, use the `pg_dump utility from PostgreSQL <https://www.postgresql.org/docs/12/app-pgdump.html>`_. You can use as a starting example a bash script similar to :download:`this file <include/backup_postgresql.sh>`.
+
+* You can setup the backup script to run daily using cron (see notes in the :ref:`previous section <how-to:installation:backup:repository>`).
+
+.. _how-to:installation:backup:restore:
+
+Restore backup
+--------------
+
+In order to restore a backup, you will need to:
+
+ 1. Restore the repository folder that you backed up earlier in the same location as it used to be (you can check the location in the ``config.json`` file inside your ``.aiida`` folder, or simply using ``verdi profile show``).
+
+ 2. Create an empty database following the instructions described in :ref:`database <intro:install:database>` skipping the ``verdi setup`` phase.
+    The database should have the same name and database username as the original one (i.e. if you are restoring on the original postgresql cluster, you may have to either rename or delete the original database).
+
+ 3. Change directory to the folder containing the database dump created with ``pg_dump``, and load it using the ``psql`` command.
+
+    .. dropdown:: Example commands on Linux Ubuntu
+
+       This is an example command, assuming that your dump is named ``aiidadb-backup.psql``:
+
+        .. code-block:: bash
+
+          psql -h localhost -U aiida -d aiidadb -f aiidadb-backup.psql
+
+       After supplying your database password, the database should be restored.
+       Note that, if you installed the database on Ubuntu as a system service, you need to type ``sudo su - postgres`` to become the ``postgres`` UNIX user.
+
+.. _how-to:installation:multi-user:
+
+Managing multiple users
+=======================
+AiiDA currently does not support multiple users running concurrently on the same AiiDA profile.
+While AiiDA will tag any node with the :py:class:`~aiida.orm.users.User` who created it (the default user is specified in the profile), this information is currently not used internally.
+In particular, there is currently no permission system in place to limit the operations that can be performed by a given user.
+
+The typical setup involves each user individually installing AiiDA on their operating system account.
+Data can be shared between private AiiDA profiles through :ref:`AiiDA's export and import functionality <how-to:share:archives>`.
+
+Note that while the configuration file of an AiiDA instance contains access credentials (e.g. for the postgresql database or the rabbitmq service), AiiDA does not store sensitive data in the database or file repository, and AiiDA export archives never contain such data.
+
+.. _#4122: https://github.com/aiidateam/aiida-core/issues/4122
+.. |Computer| replace:: :py:class:`~aiida.orm.Computer`
+.. _how-to:faq:
+
+==========================
+Frequently Asked Questions
+==========================
+
+If the problem you are facing is not addressed below, you can send an email to the `mailing list <http://www.aiida.net/mailing-list/>`_, or `open an issue on Github <https://github.com/aiidateam/aiida-core/issues/new/choose>`_ if you think it concerns a bug.
+
+
+I have updated the version of AiiDA and now it is no longer working. What should I do?
+======================================================================================
+First, make sure that your daemon is not running.
+You can check this with ``verdi daemon status``.
+If you find that your daemon was actually still running, that is likely the problem, so stop it first using ``verdi daemon stop``.
+It is very important that each time you want to :ref:`update your AiiDA installation<how-to:installation:update>`, you should *always* first finish all running processes and stop the daemon before doing so.
+Restart the daemon with ``verdi daemon start``.
+
+
+I get a :py:class:`~aiida.common.exceptions.MissingEntryPointError` or :py:class:`~aiida.common.exceptions.MultipleEntryPointError` exception, saying that a particular entry point cannot be found. How can I fix this?
+========================================================================================================================================================================================================================
+Often this is caused by an outdated entry point cache.
+This can happen for example when you have updated your AiiDA installation or installed a new plugin using ``pip install``.
+Make sure to also restart all daemons, to ensure that the changes are picked up by the daemons as well.
+
+
+I have updated the code of a :py:class:`~aiida.engine.processes.workchains.WorkChain`, :py:class:`~aiida.engine.processes.calcjobs.CalcJob` or whatever other Python code, but the daemon does not seem to pick up the changes?
+===============================================================================================================================================================================================================================
+Each time that you change your code, you should restart the daemon for the changes to take effect.
+Each daemon worker actually is its own system process with its own Python interpreter instance, and since we don't support automated hot==swapping, the daemon workers will not automatically detect the changes in the code.
+Simply calling ``verdi daemon restart`` will do the trick.
+
+
+I have updated the code of a :py:class:`~aiida.engine.processes.workchains.WorkChain`, :py:class:`~aiida.engine.processes.calcjobs.CalcJob` or whatever other Python code, but my Python shell instance does not seem to pick up the changes?
+=============================================================================================================================================================================================================================================
+The ``verdi shell`` is its own Python interpreter and does not automatically detect code changes.
+Simply reloading your shell will solve the problem.
+
+
+Why are calculation jobs taking very long to run on remote machines even though the actual computation time should be fast?
+===========================================================================================================================
+First, make sure that the calculation is not actually waiting in the queue of the scheduler, but it is actually running or has already completed.
+If it then still takes seemingly a lot of time for AiiDA to update your calculations, there are a couple of explanations.
+First, if you are running many processes, your daemon workers may simply be busy managing other calculations and workflows.
+If that is not the case, you may be witnessing the effects of the built-in throttling mechanisms of AiiDA's engine.
+To ensure that the AiiDA daemon does not overload remote computers or their schedulers, there are built-in limits to how often the daemon workers are allowed to open an SSH connection, or poll the scheduler.
+To determine the minimum transport and job polling interval, use ``verdi computer configure show <COMPUTER>`` and ``computer.get_minimum_job_poll_interval()``, respectively.
+You can lower these values using:
+
+.. code-block:: console
+
+    $ verdi computer configure <TRANSPORT_TYPE> <COMPUTER> --safe-interval=<NUMBER_OF_SECONDS>
+
+and
+
+.. code-block:: ipython
+
+    In [1]: computer.set_minimum_job_poll_interval(NUMBER_OF_SECONDS)
+
+respectively.
+However, be careful, if you make these intervals too short, the daemon workers may spam the remote machine and/or scheduler, which could have adverse effects on the machine itself or can get your account banned, depending on the policy of the remote machine.
+An additional note of importance is that each interval is guaranteed to be respected per daemon worker individually, but not as a collective.
+That is to say, if the safe interval is set to 60 seconds, any single worker is guaranteed to open a connection to that machine at most once every minute, however, if you have multiple active daemon workers, the machine may be accessed more than once per minute.
+
+.. _how-to:faq:process-not-importable-daemon:
+
+Why would a process that runs fine locally raise an exception when submitted to the daemon?
+===========================================================================================
+This is almost always caused by an import issue.
+To determine exactly what might be going wrong, first :ref:`set the loglevel <intro:increase-logging-verbosity>` to ``DEBUG`` by executing the command:
+
+.. code-block:: console
+
+    $ verdi config set logging.aiida_loglevel DEBUG
+
+Then restart the daemon with ``verdi daemon restart`` for the changes to take effect.
+Run the command ``verdi daemon logshow`` in a separate terminal to see the logging output of the daemon and then submit the problematic calculation or workflow again.
+
+If the root cause is indeed due to an import problem, it will probably appear as an ``ImportError`` exception in the daemon log.
+To solve these issues, make sure that all the Python code that is being run is properly importable, which means that it is part of the `PYTHONPATH <https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH>`_.
+Make sure that the PYTHONPATH is correctly defined automatically when starting your shell, so for example if you are using bash, add it to your ``.bashrc`` and completely reset daemon.
+For example, go to the directory that contains the file where you defined the process and run:
+
+.. code-block:: console
+
+    $ echo "export PYTHONPATH=\$PYTHONPATH:$PWD" >> $HOME/.bashrc
+    $ source $HOME/.bashrc
+    $ verdi daemon restart --reset
+
+.. _how-to:faq:caching-not-enabled:
+
+Why is caching not enabled by default?
+======================================
+
+Caching is designed to work in an unobtrusive way and simply save time and valuable computational resources.
+However, this design is a double-egded sword, in that a user that might not be aware of this functionality, can be caught off guard by the results of their calculations.
+
+The caching mechanism comes with some limitations and caveats that are important to understand.
+Refer to the :ref:`topics:provenance:caching:limitations` section for more details.
+.. _how-to:plugins-install:
+
+**********************
+How to install plugins
+**********************
+
+The functionality of AiiDA can be extended through plugins.
+There are various types of functionality that can be extended, such as new :ref:`data types<topics:data_types:plugin>`, :ref:`calculation plugins<how-to:plugin-codes>` and much more.
+Multiple plugins can be bundled together and distributed in a :ref:`plugin package<how-to:plugins-develop>`.
+The `AiiDA plugin registry <https://aiidateam.github.io/aiida-registry>`_ gives an overview of public plugin packages.
+
+Installing an AiiDA plugin package is done with `pip <https://pypi.org/project/pip/>`_.
+If the package is distributed via the `Python Package Index (PyPI) <https://pypi.org/search/?q=aiida>`_ you can install it as follows:
+
+.. code-block:: console
+
+    $ pip install aiida-plugin-name
+
+A package can also be installed from the source code.
+For example, if the code is available through a Git repository:
+
+.. code-block:: console
+
+    $ git clone https://github.com/aiidateam/aiida-diff
+    $ cd aiida-diff
+    $ pip install .
+
+.. warning::
+
+    If your daemon was running when installing or updating a plugin package, make sure to restart it with the ``--reset`` flag for changes to take effect:
+
+    .. code-block:: console
+
+        $ verdi daemon restart --reset
+
+To verify which plugins are currently installed, use the command:
+
+.. code-block:: console
+
+    $ verdi plugin list
+
+It will list the various categories of functionality that can be extended through plugins.
+To see which plugins are installed for any of these categories, pass the category name as an argument, e.g.:
+
+.. code-block:: console
+
+    $ verdi plugin list aiida.data
+.. _how-to:restart-workchain:
+
+**************************************
+How to write error-resistant workflows
+**************************************
+
+.. admonition:: Overview
+
+    This how-to introduces the :py:class:`~aiida.engine.processes.workchains.restart.BaseRestartWorkChain`, and how it can be sub-classed to handle known failure modes of processes and calculations.
+
+In the :ref:`how-to on writing workflows <how-to:write-workflows>` we discussed how to write a simple multi-step workflow using work chains.
+However, there is one thing that we did not consider there:
+
+    What if a calculation step fails?
+
+For example with the :py:class:`~aiida.workflows.arithmetic.multiply_add.MultiplyAddWorkChain`; it launches a :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation`.
+If that were to fail, the work chain would except because the line ``self.ctx.addition.outputs.sum`` will raise an ``AttributeError``.
+In this case, where the work chain just runs a single calculation, that is not such a big deal but for real-life work chains that run a number of calculations in sequence, having the work chain except will cause all the work up to that point to be lost.
+Take as an example a workflow that computes the phonons of a crystal structure using Quantum ESPRESSO:
+
+.. figure:: include/images/workflow_error_handling_basic_success.png
+
+    Schematic diagram of a workflow that computes the phonons of a crystal structure using Quantum ESPRESSO.
+    The workflow consists of four consecutive calculations using the ``pw.x``, ``ph.x``, ``q2r.x`` and ``matdyn.x`` code, respectively.
+
+If all calculations run without problems, the workflow itself will of course also run fine and produce the desired final result.
+But, now imagine the third calculation actually fails.
+If the workflow does not explicitly check for this failure, but instead blindly assumes that the calculation have produced the required results, it will fail itself, losing the progress it made with the first two calculations.
+
+.. figure:: include/images/workflow_error_handling_basic_failed.png
+
+    Example execution of the Quantum ESPRESSO phonon workflow where the third step, the ``q2r.x`` code, failed, and because the workflow blindly assumed it would have finished without errors also fails.
+
+The solution seems simple then.
+After each calculation, we simply add a check to verify that it finished successfully and produced the required outputs before continuing with the next calculation.
+What do we do, though, when the calculation failed?
+Depending on the cause of the failure, we might actually be able to fix the problem, and re-run the calculation, potentially with corrected inputs.
+A common example is that the calculation ran out of wall time (requested time from the job scheduler) and was cancelled by the job scheduler.
+In this case, simply restarting the calculation (if the code supports restarts), and optionally giving the job more wall time or resources, may fix the problem.
+
+You might be tempted to add this error handling directly into the workflow.
+However, this requires implementing the same error-handling code many times in other workflows that just happen to run the same codes.
+For example, we could add the error handling for the ``pw.x`` code directly in our phonon workflow, but a structure optimization workflow will also have to run ``pw.x`` and will have to implement the same error-handling logic.
+Is there a way that we can implement this once and easily reuse it in various workflows?
+
+Yes! Instead of directly running a calculation in a workflow, one should rather run a work chain that is explicitly designed to run the calculation to completion.
+This *base* work chain knows about the various failure modes of the calculation and can try to fix the problem and restart the calculation whenever it fails, until it finishes successfully.
+This logic of such a base work chain is very generic and can be applied to any calculation, and actually any process:
+
+.. figure:: include/images/workflow_error_handling_flow_base.png
+    :align: center
+    :height: 500px
+
+    Schematic flow diagram of the logic of a *base* work chain, whose job it is to run a subprocess repeatedly, fixing any potential errors, until it finishes successfully.
+
+The work chain runs the subprocess.
+Once it has finished, it then inspects the status.
+If the subprocess finished successfully, the work chain returns the results and its job is done.
+If, instead, the subprocess failed, the work chain should inspect the cause of failure, and attempt to fix the problem and restart the subprocess.
+This cycle is repeated until the subprocess finishes successfully.
+Of course this runs the risk of entering into an infinite loop if the work chain never manages to fix the problem, so we want to build in a limit to the maximum number of calculations that can be re-run:
+
+.. _workflow-error-handling-flow-loop:
+.. figure:: include/images/workflow_error_handling_flow_loop.png
+    :align: center
+    :height: 500px
+
+    An improved flow diagram for the base work chain that limits the maximum number of iterations that the work chain can try and get the calculation to finish successfully.
+
+Since this is such a common logical flow for a base work chain that is to wrap another :py:class:`~aiida.engine.processes.process.Process` and restart it until it is finished successfully, we have implemented it as an abstract base class in ``aiida-core``.
+The :py:class:`~aiida.engine.processes.workchains.restart.BaseRestartWorkChain` implements the logic of the flow diagram shown above.
+Although the ``BaseRestartWorkChain`` is a subclass of :py:class:`~aiida.engine.processes.workchains.workchain.WorkChain` itself, you cannot launch it.
+The reason is that it is completely general and so does not know which :py:class:`~aiida.engine.processes.process.Process` class it should run.
+Instead, to make use of the base restart work chain, you should subclass it for the process class that you want to wrap.
+
+
+Writing a base restart work chain
+=================================
+
+In this how-to, we will show how to implement the ``BaseRestartWorkChain`` for the :py:class:`~aiida.calculations.arithmetic.add.ArithmeticAddCalculation`.
+We start by importing the relevant base classes and create a subclass:
+
+.. code-block:: python
+
+    from aiida.engine import BaseRestartWorkChain
+    from aiida.plugins import CalculationFactory
+
+    ArithmeticAddCalculation = CalculationFactory('core.arithmetic.add')
+
+    class ArithmeticAddBaseWorkChain(BaseRestartWorkChain):
+
+        _process_class = ArithmeticAddCalculation
+
+
+As you can see, all we had to do is create a subclass of the ``BaseRestartWorkChain`` class, which we called ``ArithmeticAddBaseWorkChain``, and set the ``_process_class`` class attribute to ``ArithmeticAddCalculation``.
+The latter instructs the work chain what type of process it should launch.
+Next, as with all work chains, we should *define* its process specification:
+
+.. code-block:: python
+
+    from aiida import orm
+    from aiida.engine import while_
+
+    @classmethod
+    def define(cls, spec):
+        """Define the process specification."""
+        super().define(spec)
+        spec.input('x', valid_type=(orm.Int, orm.Float), help='The left operand.')
+        spec.input('y', valid_type=(orm.Int, orm.Float), help='The right operand.')
+        spec.input('code', valid_type=orm.Code, help='The code to use to perform the summation.')
+        spec.output('sum', valid_type=(orm.Int, orm.Float), help='The sum of the left and right operand.')
+        spec.outline(
+            cls.setup,
+            while_(cls.should_run_process)(
+                cls.run_process,
+                cls.inspect_process,
+            ),
+            cls.results,
+        )
+
+The inputs and output that we define are essentially determined by the sub process that the work chain will be running.
+Since the ``ArithmeticAddCalculation`` requires the inputs ``x`` and ``y``, and produces the ``sum`` as output, we `mirror` those in the specification of the work chain, otherwise we wouldn't be able to pass the necessary inputs.
+Finally, we define the logical outline, which if you look closely, resembles the logical flow chart presented in :numref:`workflow-error-handling-flow-loop` a lot.
+We start by *setting up* the work chain and then enter a loop: *while* the subprocess has not yet finished successfully *and* we haven't exceeded the maximum number of iterations, we *run* another instance of the process and then *inspect* the results.
+The while conditions are implemented in the ``should_run_process`` outline step.
+When the process finishes successfully or we have to abandon, we report the *results*.
+Now unlike with normal work chain implementations, we *do not* have to implement these outline steps ourselves.
+They have already been implemented by the ``BaseRestartWorkChain`` so that we don't have to.
+This is why the base restart work chain is so useful, as it saves us from writing and repeating a lot of `boilerplate code <https://en.wikipedia.org/wiki/Boilerplate_code>`__.
+
+.. warning::
+
+    This minimal outline definition is required for the work chain to work properly.
+    If you change the logic, the names of the steps or omit some steps, the work chain will not run.
+    Adding extra outline steps to add custom functionality, however, is fine and actually encouraged if it makes sense.
+
+The last part of the puzzle is to define in the setup what inputs the work chain should pass to the subprocess.
+You might wonder why this is necessary, because we already define the inputs in the specification, but those are not the only inputs that will be passed.
+The ``BaseRestartWorkChain`` also defines some inputs of its own, such as ``max_iterations`` as you can see in its :py:meth:`~aiida.engine.processes.workchains.restart.BaseRestartWorkChain.define` method.
+To make it absolutely clear what inputs are intended for the subprocess, we define them as a dictionary in the context under the key ``inputs``.
+One way of doing this is to reuse the :py:meth:`~aiida.engine.processes.workchains.restart.BaseRestartWorkChain.setup` method:
+
+.. code-block:: python
+
+    def setup(self):
+        """Call the `setup` of the `BaseRestartWorkChain` and then create the inputs dictionary in `self.ctx.inputs`.
+
+        This `self.ctx.inputs` dictionary will be used by the `BaseRestartWorkChain` to submit the process in the
+        internal loop.
+        """
+        super().setup()
+        self.ctx.inputs = {'x': self.inputs.x, 'y': self.inputs.y, 'code': self.inputs.code}
+
+Note that, as explained before, the ``setup`` step forms a crucial part of the logical outline of any base restart work chain.
+Omitting it from the outline will break the work chain, but so will overriding it completely, except as long as we call the ``super``.
+
+This is all the code we have to write to have a functional work chain.
+We can now launch it like any other work chain and the ``BaseRestartWorkChain`` will work its magic:
+
+.. code-block:: python
+
+    submit(ArithmeticAddBaseWorkChain, x=Int(3), y=Int(4), code=load_code('add@tutor'))
+
+Once the work chain finished, we can inspect what has happened with, for example, ``verdi process status``:
+
+.. code-block:: console
+
+    $ verdi process status 1909
+    ArithmeticAddBaseWorkChain<1909> Finished [0] [2:results]
+        └── ArithmeticAddCalculation<1910> Finished [0]
+
+As you can see the work chain launched a single instance of the ``ArithmeticAddCalculation`` which finished successfully, so the job of the work chain was done as well.
+
+.. note::
+
+    If the work chain excepted, make sure the directory containing the WorkChain definition is in the ``PYTHONPATH``.
+
+    You can add the folder in which you have your Python file defining the WorkChain to the ``PYTHONPATH`` through:
+
+    .. code-block:: bash
+
+        $ export PYTHONPATH=/path/to/workchain/directory/:$PYTHONPATH
+
+    After this, it is **very important** to restart the daemon:
+
+    .. code-block:: bash
+
+        $ verdi daemon restart --reset
+
+    Indeed, when updating an existing work chain file or adding a new one, it is **necessary** to restart the daemon **every time** after all changes have taken place.
+
+Exposing inputs and outputs
+===========================
+
+Any base restart work chain *needs* to *expose* the inputs of the subprocess it wraps, and most likely *wants* to do the same for the outputs it produces, although the latter is not necessary.
+For the simple example presented in the previous section, simply copy-pasting the input and output port definitions of the subprocess ``ArithmeticAddCalculation`` was not too troublesome.
+However, this quickly becomes tedious, and more importantly, error-prone once you start to wrap processes with quite a few more inputs.
+To prevent the copy-pasting of input and output specifications, the :class:`~aiida.engine.processes.process_spec.ProcessSpec` class provides the :meth:`~plumpy.ProcessSpec.expose_inputs` and :meth:`~plumpy.ProcessSpec.expose_outputs` methods:
+
+.. code-block:: python
+
+    @classmethod
+    def define(cls, spec):
+        """Define the process specification."""
+        super().define(spec)
+        spec.expose_inputs(ArithmeticAddCalculation, namespace='add')
+        spec.expose_outputs(ArithmeticAddCalculation)
+        ...
+
+.. seealso::
+
+    For more detail on exposing inputs and outputs, see the basic :ref:`Workchain usage section <topics:workflows:usage:workchains:expose_inputs_outputs>`.
+
+That takes care of exposing the port specification of the wrapped process class in a very efficient way.
+To efficiently retrieve the inputs that have been passed to the process, one can use the :meth:`~aiida.engine.processes.process.Process.exposed_inputs` method.
+Note the past tense of the method name.
+The method takes a process class and an optional namespace as arguments, and will return the inputs that have been passed into that namespace when it was launched.
+This utility now allows us to simplify the ``setup`` outline step that we have shown before:
+
+.. code-block:: python
+
+    def setup(self):
+        """Call the `setup` of the `BaseRestartWorkChain` and then create the inputs dictionary in `self.ctx.inputs`.
+
+        This `self.ctx.inputs` dictionary will be used by the `BaseRestartWorkChain` to submit the process in the
+        internal loop.
+        """
+        super().setup()
+        self.ctx.inputs = self.exposed_inputs(ArithmeticAddCalculation, 'add')
+
+This way we don't have to manually fish out all the individual inputs from the ``self.inputs`` but have to just call this single method, saving a lot of time and lines of code.
+
+When submitting or running the work chain using namespaced inputs (``add`` in the example above), it is important to use the namespace:
+
+.. code-block:: python
+
+    inputs = {
+        'add': {
+            'x': Int(3),
+            'y': Int(4),
+            'code': load_code('add@tutor')
+        }
+    }
+    submit(ArithmeticAddBaseWorkChain, **inputs)
+
+.. important::
+
+    Every time you make changes to the ``ArithmeticAddBaseWorkChain``, don't forget to restart the daemon with:
+
+    .. code-block:: bash
+
+        $ verdi daemon restart --reset
+
+Error handling
+==============
+
+So far you have seen how easy it is to get a work chain up and running that will run a subprocess using the ``BaseRestartWorkChain``.
+However, the whole point of this exercise, as described in the introduction, was for the work chain to be able to deal with *failing* processes, yet in the previous example it finished without any problems.
+
+    What would have happened if the subprocess had failed?
+
+If the computed sum of the inputs ``x`` and ``y`` is negative, the ``ArithmeticAddCalculation`` fails with exit code ``410`` which corresponds to ``ERROR_NEGATIVE_NUMBER``.
+
+.. seealso::
+
+    The :ref:`exit code usage section<topics:processes:usage:exit_codes>`, for a more detailed explanation of exit codes.
+
+Let's launch the work chain with inputs that will cause the calculation to fail, e.g. by making one of the operands negative, and see what happens:
+
+.. code-block:: python
+
+    submit(ArithmeticAddBaseWorkChain, add={'x': Int(3), 'y': Int(-4), 'code': load_code('add@tutor')})
+
+This time we will see that the work chain takes quite a different path:
+
+.. code-block:: console
+
+    $ verdi process status 1930
+    ArithmeticAddBaseWorkChain<1930> Finished [402] [1:while_(should_run_process)(1:inspect_process)]
+        ├── ArithmeticAddCalculation<1931> Finished [410]
+        └── ArithmeticAddCalculation<1934> Finished [410]
+
+As expected, the ``ArithmeticAddCalculation`` failed this time with a ``410``.
+The work chain noticed the failure when inspecting the result of the subprocess in ``inspect_process``, and in keeping with its name and design, restarted the calculation.
+However, since the inputs were not changed, the calculation inevitably and wholly expectedly failed once more with the exact same error code.
+Unlike after the first iteration, however, the work chain did not restart again, but gave up and returned the exit code ``402`` itself, which stands for ``ERROR_SECOND_CONSECUTIVE_UNHANDLED_FAILURE``.
+As the name suggests, the work chain tried to run the subprocess but it failed twice in a row without the problem being *handled*.
+The obvious question now of course is: "How exactly can we instruct the base work chain to handle certain problems?"
+
+Since the problems are necessarily dependent on the subprocess that the work chain will run, it cannot be implemented by the ``BaseRestartWorkChain`` class itself, but rather will have to be implemented by the subclass.
+If the subprocess fails, the ``BaseRestartWorkChain`` calls a set of *process handlers* in the ``inspect_process`` step.
+Each process handler gets passed the node of the subprocess that was just run, such that it can inspect the results and potentially fix any problems that it finds.
+To "register" a process handler for a base restart work chain implementation, you simply define a method that takes a node as its single argument and decorate it with the :func:`~aiida.engine.processes.workchains.utils.process_handler` decorator:
+
+.. code-block:: python
+
+    from aiida.engine import process_handler, ProcessHandlerReport
+
+    class ArithmeticAddBaseWorkChain(BaseRestartWorkChain):
+
+        _process_class = ArithmeticAddCalculation
+
+        ...
+
+        @process_handler
+        def handle_negative_sum(self, node):
+            """Check if the calculation failed with `ERROR_NEGATIVE_NUMBER`.
+
+            If this is the case, simply make the inputs positive by taking the absolute value.
+
+            :param node: the node of the subprocess that was ran in the current iteration.
+            :return: optional :class:`~aiida.engine.processes.workchains.utils.ProcessHandlerReport` instance to signal
+                that a problem was detected and potentially handled.
+            """
+            if node.exit_status == ArithmeticAddCalculation.exit_codes.ERROR_NEGATIVE_NUMBER.status:
+                self.ctx.inputs['x'] = orm.Int(abs(node.inputs.x.value))
+                self.ctx.inputs['y'] = orm.Int(abs(node.inputs.y.value))
+                return ProcessHandlerReport()
+
+The method name can be anything as long as it is a valid Python method name and does not overlap with one of the base work chain's methods.
+For better readability, it is, however, recommended to have the method name start with ``handle_``.
+In this example, we want to specifically check for a particular failure mode of the ``ArithmeticAddCalculation``, so we compare the :meth:`~aiida.orm.nodes.process.process.ProcessNode.exit_status` of the node with that of the spec of the process.
+If the exit code matches, we know that the problem was due to the sum being negative.
+Fixing this fictitious problem for this example is as simple as making sure that the inputs are all positive, which we can do by taking the absolute value of them.
+We assign the new values to the ``self.ctx.inputs`` just as where we defined the original inputs in the ``setup`` step.
+Finally, to indicate that we have handled the problem, we return an instance of :class:`~aiida.engine.processes.workchains.utils.ProcessHandlerReport`.
+This will instruct the work chain to restart the subprocess, taking the updated inputs from the context.
+With this simple addition, we can now launch the work chain again:
+
+.. code-block:: console
+
+    $ verdi process status 1941
+    ArithmeticAddBaseWorkChain<1941> Finished [0] [2:results]
+        ├── ArithmeticAddCalculation<1942> Finished [410]
+        └── ArithmeticAddCalculation<1947> Finished [0]
+
+This time around, although the first subprocess fails again with a ``410``, the new process handler is called.
+It "fixes" the inputs, and when the work chain restarts the subprocess with the new inputs it finishes successfully.
+With this simple process you can add as many process handlers as you would like to deal with any potential problem that might occur for the specific subprocess type of the work chain implementation.
+To make the code even more readable, the :func:`~aiida.engine.processes.workchains.utils.process_handler` decorator comes with various syntactic sugar.
+Instead of having a conditional at the start of each handler to compare the exit status of the node to a particular exit code of the subprocess, you can define it through the ``exit_codes`` keyword argument of the decorator:
+
+.. code-block:: python
+
+    @process_handler(exit_codes=ArithmeticAddCalculation.exit_codes.ERROR_NEGATIVE_NUMBER)
+    def handle_negative_sum(self, node):
+        """Handle the `ERROR_NEGATIVE_NUMBER` failure mode of the `ArithmeticAddCalculation`."""
+        self.ctx.inputs['x'] = orm.Int(abs(node.inputs.x.value))
+        self.ctx.inputs['y'] = orm.Int(abs(node.inputs.y.value))
+        return ProcessHandlerReport()
+
+If the ``exit_codes`` keyword is defined, which can be either a single instance of :class:`~aiida.engine.processes.exit_code.ExitCode` or a list thereof, the process handler will only be called if the exit status of the node corresponds to one of those exit codes, otherwise it will simply be skipped.
+
+Multiple process handlers
+=========================
+
+Since typically a base restart work chain implementation will have more than one process handler, one might want to control the order in which they are called.
+This can be done through the ``priority`` keyword:
+
+.. code-block:: python
+
+    @process_handler(priority=400, exit_codes=ArithmeticAddCalculation.exit_codes.ERROR_NEGATIVE_NUMBER)
+    def handle_negative_sum(self, node):
+        """Handle the `ERROR_NEGATIVE_NUMBER` failure mode of the `ArithmeticAddCalculation`."""
+        self.ctx.inputs['x'] = orm.Int(abs(node.inputs.x.value))
+        self.ctx.inputs['y'] = orm.Int(abs(node.inputs.y.value))
+        return ProcessHandlerReport()
+
+The process handlers with a higher priority will be called first.
+In this scenario, in addition to controlling the order with which the handlers are called, you may also want to stop the process handling once you have determined the problem.
+This can be achieved by setting the ``do_break`` argument of the ``ProcessHandler`` to ``True``:
+
+.. code-block:: python
+
+    @process_handler(priority=400, exit_codes=ArithmeticAddCalculation.exit_codes.ERROR_NEGATIVE_NUMBER)
+    def handle_negative_sum(self, node):
+        """Handle the `ERROR_NEGATIVE_NUMBER` failure mode of the `ArithmeticAddCalculation`."""
+        self.ctx.inputs['x'] = orm.Int(abs(node.inputs.x.value))
+        self.ctx.inputs['y'] = orm.Int(abs(node.inputs.y.value))
+        return ProcessHandlerReport(do_break=True)
+
+Finally, sometimes one detects a problem that simply cannot or should not be corrected by the work chain.
+In this case, the handler can signal that the work chain should abort by setting an :class:`~aiida.engine.processes.exit_code.ExitCode` instance on the ``exit_code`` argument of the ``ProcessHandler``:
+
+.. code-block:: python
+
+    from aiida.engine import ExitCode
+
+    @process_handler(priority=400, exit_codes=ArithmeticAddCalculation.exit_codes.ERROR_NEGATIVE_NUMBER)
+    def handle_negative_sum(self, node):
+        """Handle the `ERROR_NEGATIVE_NUMBER` failure mode of the `ArithmeticAddCalculation`."""
+        return ProcessHandlerReport(exit_code=ExitCode(450, 'Inputs lead to a negative sum but I will not correct them'))
+
+The base restart work chain will detect this exit code and abort the work chain, setting the corresponding status and message on the node as usual:
+
+.. code-block:: console
+
+    $ verdi process status 1951
+    ArithmeticAddBaseWorkChain<1951> Finished [450] [1:while_(should_run_process)(1:inspect_process)]
+    └── ArithmeticAddCalculation<1952> Finished [410]
+
+With these basic tools, a broad range of use-cases can be addressed while preventing a lot of boilerplate code.
+=============
+How-To Guides
+=============
+
+.. toctree::
+   :maxdepth: 1
+
+   interact
+   plugins_install
+   run_codes
+   run_workflows
+   ssh
+   plugin_codes
+   write_workflows
+   workchains_restart
+   data
+   query
+   share_data
+   visualising_graphs/visualising_graphs
+   installation
+   plugins_develop
+   cookbook
+   faq
+.. _how-to:write-workflows:
+
+*********************************
+How to write and extend workflows
+*********************************
+
+Writing workflows
+=================
+
+A workflow in AiiDA is a :ref:`process <topics:processes:concepts>` that calls other workflows and calculations and optionally *returns* data and as such can encode the logic of a typical scientific workflow.
+Currently, there are two ways of implementing a workflow process:
+
+ * :ref:`work functions<topics:workflows:concepts:workfunctions>`
+ * :ref:`work chains<topics:workflows:concepts:workchains>`
+
+Here we present a brief introduction on how to write both workflow types.
+
+.. note::
+
+    For more details on the concept of a workflow, and the difference between a work function and a work chain, please see the corresponding :ref:`topics section<topics:workflows:concepts>`.
+
+.. note::
+
+   Developing workflows may involve running several lengthy calculations. Consider :ref:`enabling caching <how-to:run-codes:caching>` to help avoid repeating long workflow steps.
+
+Work function
+-------------
+
+A *work function* is a process function that calls one or more calculation functions and *returns* data that has been *created* by the calculation functions it has called.
+Moreover, work functions can also call other work functions, allowing you to write nested workflows.
+Writing a work function, whose provenance is automatically stored, is as simple as writing a Python function and decorating it with the :class:`~aiida.engine.processes.functions.workfunction` decorator:
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/add_multiply.py
+    :language: python
+    :start-after: start-marker
+
+It is important to reiterate here that the :class:`~aiida.engine.processes.functions.workfunction`-decorated ``add_multiply()`` function does not *create* any new data nodes.
+The ``add()`` and ``multiply()`` calculation functions create the ``Int`` data nodes, all the work function does is *return* the results of the ``multiply()`` calculation function.
+Moreover, both calculation and workflow functions can only accept and return data nodes, i.e. instances of classes that subclass the :class:`~aiida.orm.nodes.data.data.Data` class.
+
+Work chain
+----------
+
+When the workflow you want to run is more complex and takes longer to finish, it is better to write a *work chain*.
+Writing a work chain in AiiDA requires creating a class that inherits from the :class:`~aiida.engine.processes.workchains.workchain.WorkChain` class.
+Below is an example of a work chain that takes three integers as inputs, multiplies the first two and then adds the third to obtain the final result:
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :start-after: start-marker
+
+You can give the work chain any valid Python class name, but the convention is to have it end in :class:`~aiida.engine.processes.workchains.workchain.WorkChain` so that it is always immediately clear what it references.
+Let's go over the methods of the ``MultiplyAddWorkChain`` one by one:
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :pyobject: MultiplyAddWorkChain.define
+    :dedent: 4
+
+The most important method to implement for every work chain is the ``define()`` method.
+This class method must always start by calling the ``define()`` method of its parent class.
+Next, the ``define()`` method should be used to define the specifications of the work chain, which are contained in the work chain ``spec``:
+
+* the **inputs**, specified using the ``spec.input()`` method.
+  The first argument of the ``input()`` method is a string that specifies the label of the input, e.g. ``'x'``.
+  The ``valid_type`` keyword argument allows you to specify the required node type of the input.
+  Other keyword arguments allow the developer to set a default for the input, or indicate that an input should not be stored in the database, see :ref:`the process topics section <topics:processes:usage:spec>` for more details.
+* the **outline** or logic of the workflow, specified using the ``spec.outline()`` method.
+  The outline of the workflow is constructed from the methods of the :class:`~aiida.engine.processes.workchains.workchain.WorkChain` class.
+  For the ``MultiplyAddWorkChain``, the outline is a simple linear sequence of steps, but it's possible to include actual logic, directly in the outline, in order to define more complex workflows as well.
+  See the :ref:`work chain outline section <topics:workflows:usage:workchains:define_outline>` for more details.
+* the **outputs**, specified using the ``spec.output()`` method.
+  This method is very similar in its usage to the ``input()`` method.
+* the **exit codes** of the work chain, specified using the ``spec.exit_code()`` method.
+  Exit codes are used to clearly communicate known failure modes of the work chain to the user.
+  The first and second arguments define the ``exit_status`` of the work chain in case of failure (``400``) and the string that the developer can use to reference the exit code (``ERROR_NEGATIVE_NUMBER``).
+  A descriptive exit message can be provided using the ``message`` keyword argument.
+  For the ``MultiplyAddWorkChain``, we demand that the final result is not a negative number, which is checked in the ``validate_result`` step of the outline.
+
+.. note::
+
+    For more information on the ``define()`` method and the process spec, see the :ref:`corresponding section in the topics <topics:processes:usage:defining>`.
+
+The ``multiply`` method is the first step in the outline of the ``MultiplyAddWorkChain`` work chain.
+
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :pyobject: MultiplyAddWorkChain.multiply
+    :dedent: 4
+
+This step simply involves running the calculation function ``multiply()``, on the ``x`` and ``y`` **inputs** of the work chain.
+To store the result of this function and use it in the next step of the outline, it is added to the *context* of the work chain using ``self.ctx``.
+
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :pyobject: MultiplyAddWorkChain.add
+    :dedent: 4
+
+The ``add()`` method is the second step in the outline of the work chain.
+As this step uses the ``ArithmeticAddCalculation`` calculation job, we start by setting up the inputs for this :class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob` in a dictionary.
+Next, when submitting this calculation job to the daemon, it is important to use the submit method from the work chain instance via ``self.submit()``.
+Since the result of the addition is only available once the calculation job is finished, the ``submit()`` method returns the :class:`~aiida.orm.nodes.process.calculation.calcjob.CalcJobNode` of the *future* ``ArithmeticAddCalculation`` process.
+To tell the work chain to wait for this process to finish before continuing the workflow, we return the ``ToContext`` class, where we have passed a dictionary to specify that the future calculation job node should be assigned to the ``'addition'`` context key.
+
+.. warning::
+
+    Never use the global ``submit()`` function to submit calculations to the daemon within a :class:`~aiida.engine.processes.workchains.workchain.WorkChain`.
+    Doing so will raise an exception during runtime.
+    See the :ref:`topics section on work chains<topics:workflows:usage:workchains:submitting_sub_processes>` for more details.
+
+.. note::
+    Instead of passing a dictionary, you can also initialize a ``ToContext`` instance by passing the future process as a keyword argument, e.g. ``ToContext(addition=calcjob_node)``.
+    More information on the ``ToContext`` class can be found in :ref:`the topics section on submitting sub processes<topics:workflows:usage:workchains:submitting_sub_processes>`.
+
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :pyobject: MultiplyAddWorkChain.validate_result
+    :dedent: 4
+
+Once the ``ArithmeticAddCalculation`` calculation job is finished, the next step in the work chain is to validate the result, i.e. verify that the result is not a negative number.
+After the ``addition`` node has been extracted from the context, we take the ``sum`` node from the ``ArithmeticAddCalculation`` outputs and store it in the ``result`` variable.
+In case the value of this ``Int`` node is negative, the ``ERROR_NEGATIVE_NUMBER`` exit code - defined in the ``define()`` method - is returned.
+Note that once an exit code is returned during any step in the outline, the work chain will be terminated and no further steps will be executed.
+
+
+.. literalinclude:: ../../../aiida/workflows/arithmetic/multiply_add.py
+    :language: python
+    :pyobject: MultiplyAddWorkChain.result
+    :dedent: 4
+
+The final step in the outline is to pass the result to the outputs of the work chain using the ``self.out()`` method.
+The first argument (``'result'``) specifies the label of the output, which corresponds to the label provided to the spec in the ``define()`` method.
+The second argument is the result of the work chain, extracted from the ``Int`` node stored in the context under the ``'addition'`` key.
+
+For a more complete discussion on workflows and their usage, please read :ref:`the corresponding topics section<topics:workflows:usage>`.
+
+.. _how-to:write-workflows:extend:
+
+Extending workflows
+===================
+
+When designing workflows, there are many cases where you want to reuse an existing process.
+This section explains how to extend workflows by wrapping them around other processes or linking them together.
+
+As an example, let's say you want to extend the ``MultiplyAddWorkChain`` by adding another step of analysis that checks whether the result is an even number or not.
+This final step can be written as a simple ``calcfunction``:
+
+.. literalinclude:: include/snippets/extend_workflows.py
+    :language: python
+    :pyobject: is_even
+
+We could simply write a new workflow based off ``MultiplyAddWorkChain`` that includes an extra step in the outline which runs the ``is_even`` calculation function.
+However, this would lead to a lot of code duplication, and longer workflows consisting of multiple work chains would become very cumbersome to deal with (see the dropdown panel below).
+
+.. dropdown:: ``BadMultiplyAddIsEvenWorkChain``
+
+    .. literalinclude:: include/snippets/extend_workflows.py
+        :language: python
+        :pyobject: BadMultiplyAddIsEvenWorkChain
+
+    .. note::
+
+        We've removed the ``result`` step from the outline, as well as the ``result`` output.
+        For this work chain, we're assuming that for now we are only interested in whether or not the result is even.
+
+We can avoid some code duplication by simply submitting the ``MultiplyAddWorkChain`` within one of the steps of a new work chain which would then call ``is_even`` in a second step:
+
+.. literalinclude:: include/snippets/extend_workflows.py
+    :language: python
+    :pyobject: BetterMultiplyAddIsEvenWorkChain
+
+This already simplifies the extended work chain, and avoids duplicating the steps of the ``MultiplyAddWorkChain`` in the outline.
+However, we still had to copy all of the input definitions of the ``MultiplyAddWorkChain``, and manually extract them from the inputs before passing them to the ``self.submit`` method.
+Fortunately, there is a better way of *exposing* the inputs and outputs of subprocesses of the work chain.
+
+Exposing inputs and outputs
+---------------------------
+
+In many cases it is convenient for work chains to expose the inputs of the subprocesses it wraps so users can specify these inputs directly, as well as exposing some of the outputs produced as one of the results of the parent work chain.
+For the simple example presented in the previous section, simply copy-pasting the input and output port definitions of the subprocess ``MultiplyAddWorkChain`` was not too troublesome.
+However, this quickly becomes tedious and error-prone once you start to wrap processes with quite a few more inputs.
+
+To prevent the copy-pasting of input and output specifications, the :class:`~aiida.engine.processes.process_spec.ProcessSpec` class provides the :meth:`~plumpy.ProcessSpec.expose_inputs` and :meth:`~plumpy.ProcessSpec.expose_outputs` methods.
+Calling :meth:`~plumpy.ProcessSpec.expose_inputs` for a particular ``Process`` class, will automatically copy the inputs of the class into the inputs namespace of the process specification:
+
+.. code-block:: python
+
+    @classmethod
+    def define(cls, spec):
+        """Specify inputs and outputs."""
+        super().define(spec)
+        spec.expose_inputs(MultiplyAddWorkChain)  # Expose the inputs instead of copying their definition
+        spec.outline(
+            cls.multiply_add,
+            cls.is_even,
+        )
+        spec.output('is_even', valid_type=Bool)
+
+Be aware that any inputs that already exist in the namespace will be overridden.
+To prevent this, the method accepts the ``namespace`` argument, which will cause the inputs to be copied into that namespace instead of the top-level namespace.
+This is especially useful for exposing inputs since *all* processes have the ``metadata`` input.
+If you expose the inputs without a namespace, the ``metadata`` input port of the exposed class will override the one of the host, which is often not desirable.
+Let's copy the inputs of the ``MultiplyAddWorkChain`` into the ``multiply_add`` namespace:
+
+.. literalinclude:: include/snippets/extend_workflows.py
+    :language: python
+    :pyobject: MultiplyAddIsEvenWorkChain.define
+    :dedent: 4
+
+That takes care of exposing the port specification of the wrapped process class in a very efficient way.
+To easily retrieve the inputs that have been passed to the process, one can use the :meth:`~aiida.engine.processes.process.Process.exposed_inputs` method.
+Note the past tense of the method name.
+The method takes a process class and an optional namespace as arguments, and will return the inputs that have been passed into that namespace when it was launched.
+This utility now allows us to simplify the ``multiply_add`` step in the outline:
+
+.. literalinclude:: include/snippets/extend_workflows.py
+    :language: python
+    :pyobject: MultiplyAddIsEvenWorkChain.multiply_add
+    :dedent: 4
+
+This way we don't have to manually fish out all the individual inputs from the ``self.inputs`` but have to just call this single method, saving time and lines of code.
+The final ``MultiplyAddIsEvenWorkChain`` can be found in the dropdown panel below.
+
+.. dropdown:: ``MultiplyAddIsEvenWorkChain``
+
+    .. literalinclude:: include/snippets/extend_workflows.py
+        :language: python
+        :pyobject: MultiplyAddIsEvenWorkChain
+
+When submitting or running the work chain using namespaced inputs (``multiply_add`` in the example above), it is important to use the namespace when providing the inputs:
+
+.. code-block:: python
+
+    add_code = load_code(label='add')
+    inputs = {
+        'multiply_add': {'x': Int(1), 'y': Int(2), 'z': Int(3), 'code': add_code}
+    }
+
+    workchain_node = submit(MultiplyAddWorkChain, **inputs)
+
+After running the ``MultiplyAddIsEvenWorkChain``, you can see a hierarchical overview of the processes called by the work chain using the ``verdi process status`` command:
+
+.. code-block:: console
+
+    $ verdi process status 164
+    MultiplyAddIsEvenWorkChain<164> Finished [0] [1:is_even]
+        ├── MultiplyAddWorkChain<165> Finished [0] [3:result]
+        │   ├── multiply<166> Finished [0]
+        │   └── ArithmeticAddCalculation<168> Finished [0]
+        └── is_even<172> Finished [0]
+
+Note that this command also recursively shows the processes called by the subprocesses of the ``MultiplyAddIsEvenWorkChain`` work chain.
+
+As mentioned earlier, you can also expose the outputs of the ``MultiplyAddWorkChain`` using the :meth:`~plumpy.ProcessSpec.expose_outputs` method.
+Say we want to add the ``result`` of the ``MultiplyAddWorkChain`` as one of the outputs of the extended work chain:
+
+.. code-block:: python
+
+    @classmethod
+    def define(cls, spec):
+        """Specify inputs and outputs."""
+        super().define(spec)
+        spec.expose_inputs(MultiplyAddWorkChain, namespace='multiply_add')
+        spec.outline(
+            cls.multiply_add,
+            cls.is_even,
+        )
+        spec.expose_outputs(MultiplyAddWorkChain)
+        spec.output('is_even', valid_type=Bool)
+
+Since there is not one output port that is shared by all process classes, it is less critical to use the ``namespace`` argument when exposing outputs.
+However, take care not to override the outputs of the parent work chain in case they do have outputs with the same port name.
+We still need to pass the ``result`` of the ``MultiplyAddWorkChain`` to the outputs of the parent work chain.
+For example, we could do this in the ``is_even`` step by using the :meth:`~aiida.engine.processes.process.Process.out` method:
+
+.. code-block:: python
+
+    def is_even(self):
+        """Check if the result is even."""
+        result = self.ctx.multi_addition.outputs.result
+        result_is_even = is_even(result)
+
+        self.out('result', result)
+        self.out('is_even', result_is_even)
+
+This works fine if we want to pass a single output to the parent work chain, but once again becomes tedious and error-prone when passing multiple outputs.
+Instead we can use the :meth:`~aiida.engine.processes.process.Process.exposed_outputs` method in combination with the :meth:`~aiida.engine.processes.process.Process.out_many` method:
+
+.. code-block:: python
+
+    def is_even(self):
+        """Check if the result is even."""
+        result_is_even = is_even(self.ctx.multi_addition.outputs.result)
+
+        self.out_many(self.exposed_outputs(self.ctx.multi_addition, MultiplyAddWorkChain))
+        self.out('is_even', result_is_even)
+
+The :meth:`~aiida.engine.processes.process.Process.exposed_outputs` method returns a dictionary of the exposed outputs of the ``MultiplyAddWorkChain``, extracted from the workchain node stored in the ``multi_addition`` key of the context.
+The :meth:`~aiida.engine.processes.process.Process.out_many` method takes this dictionary and assigns its values to the output ports with names equal to the corresponding keys.
+
+.. important::
+
+    Besides avoiding code duplication and errors, using the methods for exposing inputs and outputs also has the advantage that our parent work chain doesn't have to be adjusted in case the inputs or outputs of the child work chain change.
+    This makes the code much easier to maintain.
+.. _how-to:run-codes:
+
+*************************
+How to run external codes
+*************************
+
+This how-to walks you through the steps of setting up a (possibly remote) compute resource, setting up a code on that computer, and submitting a calculation through AiiDA (similar to the :ref:`introductory tutorial <tutorial:basic:calcjob>`, but in more detail).
+
+To run an external code with AiiDA, you need an appropriate :ref:`calculation plugin <topics:plugins>`.
+In the following, we assume that a plugin for your code is already available from the `aiida plugin registry <https://aiidateam.github.io/aiida-registry/>`_ and installed on your machine.
+Refer to the :ref:`how-to:plugins-install` section for details on how to install an existing plugin.
+If a plugin for your code is not yet available, see :ref:`how-to:plugin-codes`.
+
+Throughout the process, you will be prompted for information on the computer and code.
+In these prompts:
+
+ * Type ``?`` followed by ``<enter>`` to get help on what is being asked at any prompt.
+ * Press ``<CTRL>+C`` at any moment to abort the setup process.
+   Your AiiDA database will remain unmodified.
+
+.. note::
+
+    The ``verdi`` commands use ``readline`` extensions to provide default answers, which require an advanced terminal.
+    Use a standard terminal -- terminals embedded in some text editors (such as ``emacs``) have been known to cause problems.
+
+.. _how-to:run-codes:computer:
+
+How to set up a computer
+========================
+
+A |Computer| in AiiDA denotes a computational resource on which you will run your calculations.
+It can either be:
+
+ 1. the machine where AiiDA is installed or
+ 2. any machine that is accessible via `SSH <https://en.wikipedia.org/wiki/Secure_Shell>`_ from the machine where AiiDA is installed (possibly :ref:`via a proxy server<how-to:ssh:proxy>`).
+
+The second option allows managing multiple remote compute resources (including HPC clusters and cloud services) from the same AiiDA installation and moving computational jobs between them.
+
+.. note::
+
+    The second option requires access through an SSH keypair.
+    If your compute resource demands two-factor authentication, you may need to install AiiDA directly on the compute resource instead.
+
+
+Computer requirements
+---------------------
+
+Each computer must satisfy the following requirements:
+
+* It runs a Unix-like operating system (Linux distros and MacOS should work fine)
+* It has ``bash`` installed
+* (optional) It has batch scheduler installed (see the :ref:`list of supported schedulers <topics:schedulers>`)
+
+If you are configuring a remote computer, start by :ref:`configuring password-less SSH access <how-to:ssh>` to it.
+
+.. note::
+
+    AiiDA will use ``bash`` on the remote computer, regardless of the default shell.
+    Please ensure that your remote ``bash`` configuration does not load a different shell.
+
+
+.. _how-to:run-codes:computer:setup:
+
+Computer setup
+--------------
+
+The configuration of computers happens in two steps: setting up the public metadata associated with the |Computer| in AiiDA provenance graphs, and configuring private connection details.
+
+Start by creating a new computer instance in the database:
+
+.. code-block:: console
+
+    $ verdi computer setup
+
+At the end, the command will open your default editor on a file containing a summary of the configuration up to this point.
+You can add ``bash`` commands that will be executed
+
+ * *before* the actual execution of the job (under 'Pre-execution script'), and
+ * *after* the script submission (under 'Post execution script').
+
+Use these additional lines to perform any further set up of the environment on the computer, for example loading modules or exporting environment variables:
+
+.. code-block:: bash
+
+    export NEWVAR=1
+    source some/file
+
+.. note::
+
+    Don't specify settings here that are specific to a code or calculation: you can set further pre-execution commands at the ``Code`` and even ``CalcJob`` level.
+
+When you are done editing, save and quit.
+The computer has now been created in the database but you still need to *configure* access to it using your credentials.
+
+.. tip::
+    In order to avoid having to retype the setup information the next time around, you can provide some (or all) of the information via a configuration file:
+
+    .. code-block:: console
+
+       $ verdi computer setup --config computer.yml
+
+    where ``computer.yml`` is a configuration file in the `YAML format <https://en.wikipedia.org/wiki/YAML#Syntax>`__.
+    This file contains the information in a series of key-value pairs:
+
+    .. code-block:: yaml
+
+       ---
+       label: "localhost"
+       hostname: "localhost"
+       transport: local
+       scheduler: "direct"
+       work_dir: "/home/max/.aiida_run"
+       mpirun_command: "mpirun -np {tot_num_mpiprocs}"
+       mpiprocs_per_machine: "2"
+       prepend_text: |
+          module load mymodule
+          export NEWVAR=1
+
+   The list of the keys for the ``yaml`` file is given by the options of the ``computer setup`` command:
+
+   .. code-block:: console
+
+      $ verdi computer setup --help
+
+    Note: remove the ``--`` prefix and replace ``-`` within the keys with an underscore ``_``.
+
+.. _how-to:run-codes:computer:configuration:
+
+Computer connection configuration
+---------------------------------
+
+The second step configures private connection details using:
+
+.. code-block:: console
+
+    $ verdi computer configure TRANSPORTTYPE COMPUTERLABEL
+
+Replace ``COMPUTERLABEL`` with the computer label chosen during the setup and replace ``TRANSPORTTYPE`` with the name of chosen transport type, i.e., ``local`` for the localhost computer and ``ssh`` for any remote computer.
+
+After the setup and configuration have been completed, let's check that everything is working properly:
+
+.. code-block:: console
+
+    $ verdi computer test COMPUTERNAME
+
+This command will perform various tests to make sure that AiiDA can connect to the computer, create new files in the scratch directory, retrieve files and query the job scheduler.
+
+.. _how-to:run-codes:computer:connection:
+
+Mitigating connection overloads
+----------------------------------
+
+Some compute resources, particularly large supercomputing centers, may not tolerate submitting too many jobs at once, executing scheduler commands too frequently, or opening too many SSH connections.
+
+  * Limit the number of jobs in the queue.
+
+    Set a limit for the maximum number of workflows to submit, and only submit new ones once previous workflows start to complete.
+    The supported number of jobs depends on the supercomputer configuration which may be documented as part of the center's user documentation.
+    The supercomputer administrators may also find the information found on `this page <https://github.com/aiidateam/aiida-core/wiki/Optimising-the-SLURM-scheduler-configuration-(for-cluster-administrators)>`_ useful.
+
+  * Increase the time interval between polling the job queue.
+
+    The time interval (in seconds) can be set through the Python API by loading the corresponding |Computer| node, e.g. in the ``verdi shell``:
+
+    .. code-block:: python
+
+        load_computer('fidis').set_minimum_job_poll_interval(30.0)
+
+  * Increase the connection cooldown time.
+
+    This is the minimum time (in seconds) to wait between opening a new connection.
+    Modify it for an existing computer using:
+
+    .. code-block:: bash
+
+      verdi computer configure core.ssh --non-interactive --safe-interval <SECONDS> <COMPUTER_NAME>
+
+.. important::
+
+    The two intervals apply *per daemon worker*, i.e. doubling the number of workers may end up putting twice the load on the remote computer.
+
+Managing your computers
+-----------------------
+
+Fully configured computers can be listed with:
+
+.. code-block:: console
+
+    $ verdi computer list
+
+To get detailed information on the specific computer named ``COMPUTERLABEL``:
+
+.. code-block:: console
+
+    $ verdi computer show COMPUTERLABEL
+
+To rename a computer or remove it from the database:
+
+.. code-block:: console
+
+    $ verdi computer rename OLDCOMPUTERLABEL NEWCOMPUTERLABEL
+    $ verdi computer delete COMPUTERLABEL
+
+.. note::
+
+    Before deleting a |Computer|, you will need to delete *all* nodes linked to it (e.g. any ``CalcJob`` and ``RemoteData`` nodes).
+    Otherwise, AiiDA will prevent you from doing so in order to preserve provenance.
+
+If a remote machine is under maintenance (or no longer operational), you may want to **disable** the corresponding |Computer|.
+Doing so will prevent AiiDA from connecting to the given computer to check the state of calculations or to submit new calculations.
+
+.. code-block:: console
+
+    $ verdi computer disable COMPUTERLABEL
+    $ verdi computer enable COMPUTERLABEL
+
+.. _how-to:run-codes:code:
+
+How to setup a code
+===================
+
+Once your computer is configured, you can set up codes on it.
+
+AiiDA stores a set of metadata for each code, which is attached automatically to each calculation using it.
+Besides being important for reproducibility, this also makes it easy to query for all calculations that were run with a given code (for instance, if a specific version is found to contain a bug).
+
+.. _how-to:run-codes:code:setup:
+
+Setting up a code
+-----------------
+
+The ``verdi code`` CLI is the access point for managing codes in AiiDA.
+To setup a new code, execute:
+
+.. code-block:: console
+
+    $ verdi code setup
+
+and you will be guided through a process to setup your code.
+
+.. admonition:: On remote and local codes
+    :class: tip title-icon-lightbulb
+
+    In most cases, it is advisable to install the executables to be used by AiiDA on the target machine *before* submitting calculations using them in order to take advantage of the compilers and libraries present on the target machine.
+    This setup is referred to as *remote* codes (``Installed on target computer?: True``).
+
+    Occasionally, you may need to run small, reasonably machine-independent scripts (e.g. Python or bash), and copying them manually to a number of different target computers can be tedious.
+    For this use case, AiiDA provides *local* codes (``Installed on target computer?: False``).
+    Local codes are stored in the AiiDA file repository and copied to the target computer for every execution.
+
+    Do *not* use local codes as a way of encapsulating the environment of complex executables.
+    Containers are a much better solution to this problem, and we are working on adding native support for containers in AiiDA.
+
+
+At the end of these steps, you will be prompted to edit a script, where you can include ``bash`` commands that will be executed
+
+ * *before* running the submission script (after the 'Pre execution script' lines), and
+ * *after* running the submission script (after the 'Post execution script' separator).
+
+Use this, for instance, to load modules or set variables that are needed by the code, such as:
+
+.. code-block:: bash
+
+    module load intelmpi
+
+At the end, you receive a confirmation, with the *PK* and the *UUID* of your new code.
+
+.. tip::
+
+    The ``verdi code setup`` command performs minimal checks in order to keep it performant and not rely on an internet connection.
+    If you want additional checks to verify the code is properly configured and usable, run the `verdi code test` command.
+    For remote codes for example, this will check whether the associated computer can be connected to and whether the specified executable exists.
+    Look at the command help to see what other checks may be run.
+
+.. admonition:: Using configuration files
+    :class: tip title-icon-lightbulb
+
+    Analogous to a :ref:`computer setup <how-to:run-codes:computer>`, some (or all) the information described above can be provided via a configuration file:
+
+    .. code-block:: console
+
+        $ verdi code setup --config code.yml
+
+    where ``code.yml`` is a configuration file in the `YAML format <https://en.wikipedia.org/wiki/YAML#Syntax>`_.
+
+    This file contains the information in a series of key:value pairs:
+
+    .. code-block:: yaml
+
+        ---
+        label: "qe-6.3-pw"
+        description: "quantum_espresso v6.3"
+        input_plugin: "quantumespresso.pw"
+        on_computer: true
+        remote_abs_path: "/path/to/code/pw.x"
+        computer: "localhost"
+        prepend_text: |
+           module load module1
+           module load module2
+        append_text: " "
+
+    The list of the keys for the ``yaml`` file is given by the available options of the ``code setup`` command:
+
+        .. code-block:: console
+
+            $ verdi code setup --help
+
+    Note: remove the ``--`` prefix and replace ``-`` within the keys with an underscore ``_``.
+
+Managing codes
+--------------
+
+You can change the label of a code by using the following command:
+
+.. code-block:: console
+
+    $ verdi code relabel <IDENTIFIER> "new-label"
+
+where <IDENTIFIER> can be the numeric *PK*, the *UUID* or the label of the code (either ``label`` or ``label@computername``) if the label is unique.
+
+You can also list all available codes and their identifiers with:
+
+.. code-block:: console
+
+    $ verdi code list
+
+which also accepts flags to filter only codes on a given computer, or only codes using a specific plugin, etc. (use the ``-h`` option).
+
+You can get the information of a specific code with:
+
+.. code-block:: console
+
+    $ verdi code show <IDENTIFIER>
+
+Finally, to delete a code use:
+
+.. code-block:: console
+
+    $ verdi code delete <IDENTIFIER>
+
+(only if it wasn't used by any calculation, otherwise an exception is raised).
+
+.. note::
+
+    Codes are a subclass of :py:class:`Node <aiida.orm.nodes.Node>` and, as such, you can attach ``extras`` to a code, for example:
+
+    .. code-block:: python
+
+        load_code('<IDENTIFIER>').set_extra('version', '6.1')
+        load_code('<IDENTIFIER>').set_extra('family', 'cp2k')
+
+    These can be useful for querying, for instance in order to find all runs done with the CP2K code of version 6.1 or later.
+
+.. _how-to:run-codes:submit:
+
+How to submit a calculation
+===========================
+
+After :ref:`setting up your computer <how-to:run-codes:computer>` and :ref:`setting up your code <how-to:run-codes:code:setup>`, you are ready to launch your calculations!
+
+ * Make sure the daemon is running:
+
+    .. code-block:: bash
+
+        verdi daemon status
+
+ * Figure out which inputs your |CalcJob|  plugin needs, e.g. using:
+
+    .. code-block:: bash
+
+        verdi plugin list aiida.calculations core.arithmetic.add
+
+ * Write a ``submit.py`` script:
+
+    .. code-block:: python
+
+        from aiida.engine import submit
+
+        code = load_code('add@localhost')
+        builder = code.get_builder()
+        builder.x = Int(4)
+        builder.y = Int(5)
+        builder.metadata.options.withmpi = False
+        builder.metadata.options.resources = {
+            'num_machines': 1,
+            'num_mpiprocs_per_machine': 1,
+
+        }
+        builder.metadata.description = "My first calculation."
+
+        print(submit(builder))
+
+    Of course, the code label and builder inputs need to be adapted to your code and calculation.
+
+ * Submit your calculation to the AiiDA daemon:
+
+    .. code-block:: bash
+
+        verdi run submit.py
+
+After this, use ``verdi process list`` to monitor the status of the calculations.
+
+See :ref:`topics:processes:usage:launching` and :ref:`topics:processes:usage:monitoring` for more details.
+
+
+
+.. _how-to:run-codes:caching:
+
+How to save compute time with caching
+=====================================
+
+Over the course of a project, you may end up re-running the same calculations multiple times - be it because two workflows include the same calculation or because one needs to restart a workflow that failed due to some infrastructure problem.
+
+Since AiiDA stores the full provenance of each calculation, it can detect whether a calculation has been run before and, instead of running it again, simply reuse its outputs, thereby saving valuable computational resources.
+This is what we mean by **caching** in AiiDA.
+
+With caching enabled, AiiDA searches the database for a calculation of the same :ref:`hash<topics:provenance:caching:hashing>`.
+If found, AiiDA creates a copy of the calculation node and its results, thus ensuring that the resulting provenance graph is independent of whether caching is enabled or not (see :numref:`fig_caching`).
+
+.. _fig_caching:
+.. figure:: include/images/caching.png
+    :align: center
+    :height: 350px
+
+    When reusing the results of a calculation **C** for a new calculation **C'**, AiiDA simply makes a copy of the result nodes and links them up as usual.
+    This diagram depicts the same input node **D1** being used for both calculations, but an input node **D1'** with the same *hash* as **D1** would trigger the cache as well.
+
+Caching happens on the *calculation* level (no caching at the workflow level, see :ref:`topics:provenance:caching:limitations`).
+By default, both successful and failed calculations enter the cache (more details in :ref:`topics:provenance:caching:control-caching`).
+
+.. _how-to:run-codes:caching:enable:
+
+How to enable caching
+---------------------
+
+.. important:: Caching is **not** enabled by default, see :ref:`the faq <how-to:faq:caching-not-enabled>`.
+
+Caching is controlled on a per-profile level via the :ref:`verdi config cli <how-to:installation:configure:options>`.
+
+View your current caching configuration:
+
+.. code-block:: console
+
+    $ verdi config list caching
+    name                     source    value
+    -----------------------  --------  -------
+    caching.default_enabled  default   False
+    caching.disabled_for     default
+    caching.enabled_for      default
+
+Enable caching for your current profile or globally (for all profiles):
+
+.. code-block:: console
+
+    $ verdi config set caching.default_enabled True
+    Success: 'caching.default_enabled' set to True for 'quicksetup' profile
+
+    $ verdi config set -g caching.default_enabled True
+    Success: 'caching.default_enabled' set to True globally
+
+    $ verdi config list caching
+    name                     source    value
+    -----------------------  --------  -------
+    caching.default_enabled  profile   True
+    caching.disabled_for     default
+    caching.enabled_for      default
+
+.. versionchanged:: 1.6.0
+
+    Configuring caching via the ``cache_config.yml`` is deprecated as of AiiDA 1.6.0.
+    Existing ``cache_config.yml`` files will be migrated to the central ``config.json`` file automatically.
+
+
+From this point onwards, when you launch a new calculation, AiiDA will compare its hash (a fixed size string, unique for a calulation's type and inputs, see :ref:`topics:provenance:caching:hashing`) against other calculations already present in your database.
+If another calculation with the same hash is found, AiiDA will reuse its results without repeating the actual calculation.
+
+.. note::
+
+    In contrast to caching, hashing **is** enabled by default, i.e. hashes for all your calculations will already have been computed.
+
+.. _how-to:run-codes:caching:configure:
+
+How to configure caching
+------------------------
+
+The caching mechanism can be configured on a process class level, meaning the rules will automatically be applied to all instances of the given class, or on a per-instance level, meaning it can be controlled for individual process instances when they are launch.
+
+Class level
+...........
+
+Besides the on/off switch set by ``caching.default_enabled``, caching can be controlled at the level of specific calculations using their corresponding entry point strings (see the output of ``verdi plugin list aiida.calculations``):
+
+.. code-block:: console
+
+    $ verdi config set caching.disabled_for aiida.calculations:core.templatereplacer
+    Success: 'caching.disabled_for' set to ['aiida.calculations:core.templatereplacer'] for 'quicksetup' profile
+    $ verdi config set caching.enabled_for aiida.calculations:quantumespresso.pw
+    Success: 'caching.enabled_for' set to ['aiida.calculations:quantumespresso.pw'] for 'quicksetup' profile
+    $ verdi config set --append caching.enabled_for aiida.calculations:other
+    Success: 'caching.enabled_for' set to ['aiida.calculations:quantumespresso.pw', 'aiida.calculations:other'] for 'quicksetup' profile
+    $ verdi config list caching
+    name                     source    value
+    -----------------------  --------  -------------------------------------
+    caching.default_enabled  profile   True
+    caching.disabled_for     profile   aiida.calculations:core.templatereplacer
+    caching.enabled_for      profile   aiida.calculations:quantumespresso.pw
+                                       aiida.calculations:other
+
+In this example, caching is enabled by default, but explicitly disabled for calculations of the ``TemplatereplacerCalculation`` class, identified by its corresponding ``aiida.calculations:core.templatereplacer`` entry point string.
+It also shows how to enable caching for particular calculations (which has no effect here due to the profile-wide default).
+
+.. tip:: To set multiple entry-points at once, use a ``,`` delimiter.
+
+For the available entry-points in your environment, you can list which are enabled/disabled using:
+
+.. code-block:: console
+
+    $ verdi config caching
+    aiida.calculations:core.arithmetic.add
+    aiida.calculations:core.transfer
+    aiida.workflows:core.arithmetic.add_multiply
+    aiida.workflows:core.arithmetic.multiply_add
+    $ verdi config caching --disabled
+    aiida.calculations:core.templatereplacer
+
+For calculations which do not have an entry point, you need to specify the fully qualified Python name instead.
+For example, the ``seekpath_structure_analysis`` calcfunction defined in ``aiida_quantumespresso.workflows.functions.seekpath_structure_analysis`` is labelled as ``aiida_quantumespresso.workflows.functions.seekpath_structure_analysis.seekpath_structure_analysis``.
+From an existing :class:`~aiida.orm.nodes.process.calculation.CalculationNode`, you can get the identifier string through the ``process_type`` attribute.
+
+The caching configuration also accepts ``*`` wildcards.
+For example, the following configuration disables caching for all calculation entry points.
+
+.. code-block:: console
+
+    $ verdi config set caching.disabled_for 'aiida.calculations:*'
+    Success: 'caching.disabled_for' set to ['aiida.calculations:*'] for 'quicksetup' profile
+    $ verdi config caching
+    aiida.workflows:core.arithmetic.add_multiply
+    aiida.workflows:core.arithmetic.multiply_add
+    $ verdi config caching --disabled
+    aiida.calculations:core.arithmetic.add
+    aiida.calculations:core.transfer
+    aiida.calculations:core.templatereplacer
+
+Any entry with a wildcard is overridden by a more specific entry.
+The following configuration disables caching for all ``aiida.calculation`` entry points, except those of ``arithmetic``:
+
+.. code-block:: console
+
+    $ verdi config set caching.enabled_for 'aiida.calculations:core.arithmetic.*'
+    Success: 'caching.enabled_for' set to ['aiida.calculations:core.arithmetic.*'] for 'quicksetup' profile
+    $ verdi config list caching
+    name                     source    value
+    -----------------------  --------  -------------------------------
+    caching.default_enabled  profile   True
+    caching.disabled_for     profile   aiida.calculations:*
+    caching.enabled_for      profile   aiida.calculations:core.arithmetic.*
+    $ verdi config caching
+    aiida.calculations:core.arithmetic.add
+    aiida.workflows:core.arithmetic.add_multiply
+    aiida.workflows:core.arithmetic.multiply_add
+    $ verdi config caching --disabled
+    aiida.calculations:core.transfer
+    aiida.calculations:core.templatereplacer
+
+Instance level
+..............
+
+Caching can be enabled or disabled on a case-by-case basis by using the :class:`~aiida.manage.caching.enable_caching` or :class:`~aiida.manage.caching.disable_caching` context manager, respectively, regardless of the profile settings:
+
+.. code-block:: python
+
+    from aiida.engine import run
+    from aiida.manage.caching import enable_caching
+    with enable_caching(identifier='aiida.calculations:core.templatereplacer'):
+        run(...)
+
+.. warning::
+
+    This affects only the current Python interpreter and won't change the behavior of the daemon workers.
+    This means that this technique is only useful when using :py:class:`~aiida.engine.run`, and **not** with :py:class:`~aiida.engine.submit`.
+
+
+Besides controlling which process classes are cached, it may be useful or necessary to control what already _stored_ nodes are used as caching _sources_.
+Section :ref:`topics:provenance:caching:control-caching` provides details how AiiDA decides which stored nodes are equivalent to the node being stored and which are considered valid caching sources.
+
+.. |Computer| replace:: :py:class:`~aiida.orm.Computer`
+.. |CalcJob| replace:: :py:class:`~aiida.engine.processes.calcjobs.calcjob.CalcJob`
+
+.. this document was created by ipypublish -f sphinx_ipypublish_all
+
+.. _how-to:data:visualise-provenance:
+
+***************************
+How to visualize provenance
+***************************
+
+.. meta::
+   :keywords: graph,graphviz
+
+.. note::
+
+    This tutorial can be downloaded and run as a Jupyter Notebook:
+    :download:`visualising_graphs.ipynb`
+
+The provenance graph of a database can be visually inspected, *via*
+`graphviz <https://www.graphviz.org/>`__, using both the python API and
+command-line interface.
+
+.. seealso::
+
+    ``verdi graph generate -h``
+
+We first load the database and required modules:
+
+.. code:: python
+
+    from aiida import load_profile
+    profile = load_profile()
+
+    from aiida.common import LinkType
+    from aiida.orm.utils.links import LinkPair
+    from aiida.tools.visualization import Graph, pstate_node_styles
+    from tests.utils.archives import get_archive_file
+
+The example provenance graph, used in this tutorial, can be downloaded :download:`from this link <graph1.aiida>` :fa:`download`
+
+It can then be imported into the database:
+
+.. code:: ipython
+
+    !verdi archive import -n graph1.aiida
+
+.. code:: python
+
+    dict1_uuid = '0ea79a16-501f-408a-8c84-a2704a778e4b'
+    calc1_uuid = 'b23e692e-4e01-48dd-b515-4c63877d73a4'
+
+The :py:class:`~aiida.tools.visualization.graph.Graph` class is used to
+store visual representations of the nodes and edges, which can be added
+separately or cumulatively by one of the graph traversal methods. The
+:py:attr:`~aiida.tools.visualization.graph.Graph.graphviz` attribute
+returns a
+`graphviz.Digraph <https://graphviz.readthedocs.io/en/stable/>`__
+instance, which will auto-magically render the graph in the notebook, or
+can be used to save the graph to file.
+
+.. code:: python
+
+    graph = Graph()
+    graph.add_node(dict1_uuid)
+    graph.add_node(calc1_uuid)
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_9_0.svg
+    :alt: output_9_0
+    :align: center
+
+.. code:: python
+
+    graph.add_edge(
+        dict1_uuid, calc1_uuid,
+        link_pair=LinkPair(LinkType.INPUT_CALC, "input1"))
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_10_0.svg
+    :alt: output_10_0
+    :align: center
+
+.. code:: python
+
+    graph.add_incoming(calc1_uuid)
+    graph.add_outgoing(calc1_uuid)
+    graph.graphviz
+
+
+.. figure:: visualising_graphs_files/output_11_0.svg
+    :alt: output_11_0
+    :align: center
+
+
+The :py:class:`~aiida.tools.visualization.graph.Graph` can also be
+initialized with global style attributes, as outlined in the `graphviz
+attributes table <https://www.graphviz.org/doc/info/attrs.html>`__.
+
+.. code:: python
+
+    graph = Graph(node_id_type="uuid",
+                  global_node_style={"penwidth": 1},
+                  global_edge_style={"color": "blue"},
+                  graph_attr={"size": "6,6!", "rankdir": "LR"})
+    graph.add_incoming(calc1_uuid)
+    graph.add_outgoing(calc1_uuid)
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_13_0.svg
+    :alt: output_13_0
+    :align: center
+
+Additionally functions can be parsed to the
+:py:class:`~aiida.tools.visualization.graph.Graph` initializer, to specify
+exactly how each node will be represented. For example, the
+:py:func:`~aiida.tools.visualization.graph.pstate_node_styles` function
+colors process nodes by their process state.
+
+.. code:: python
+
+    def link_style(link_pair, **kwargs):
+        return {"color": "blue"}
+
+    graph = Graph(node_style_fn=pstate_node_styles,
+                  link_style_fn=link_style,
+                  graph_attr={"size": "6,6!", "rankdir": "LR"})
+    graph.add_incoming(calc1_uuid)
+    graph.add_outgoing(calc1_uuid)
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_15_0.svg
+    :alt: output_15_0
+    :align: center
+
+
+Edges can be annotated by one or both of their edge label and link type.
+
+.. code:: python
+
+    graph = Graph(graph_attr={"size": "6,6!", "rankdir": "LR"})
+    graph.add_incoming(calc1_uuid,
+                       annotate_links="both")
+    graph.add_outgoing(calc1_uuid,
+                       annotate_links="both")
+    graph.graphviz
+
+
+.. figure:: visualising_graphs_files/output_17_0.svg
+    :alt: output_17_0
+    :align: center
+
+
+The :meth:`~aiida.tools.visualization.graph.Graph.recurse_descendants`
+and :meth:`~aiida.tools.visualization.graph.Graph.recurse_ancestors`
+methods can be used to construct a full provenance graph.
+
+.. code:: python
+
+    graph = Graph(graph_attr={"size": "8,8!", "rankdir": "LR"})
+    graph.recurse_descendants(
+        dict1_uuid,
+        origin_style=None,
+        include_process_inputs=True,
+        annotate_links="both"
+    )
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_19_0.svg
+    :alt: output_19_0
+    :align: center
+
+The link types can also be filtered, to view only the ‘data’ or
+‘logical’ provenance.
+
+.. code:: python
+
+    graph = Graph(graph_attr={"size": "8,8!", "rankdir": "LR"})
+    graph.recurse_descendants(
+        dict1_uuid,
+        origin_style=None,
+        include_process_inputs=True,
+        annotate_links="both",
+        link_types=("input_calc", "create")
+    )
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_21_0.svg
+    :alt: output_21_0
+    :align: center
+
+.. code:: python
+
+    graph = Graph(graph_attr={"size": "8,8!", "rankdir": "LR"})
+    graph.recurse_descendants(
+        dict1_uuid,
+        origin_style=None,
+        include_process_inputs=True,
+        annotate_links="both",
+        link_types=("input_work", "return")
+    )
+    graph.graphviz
+
+.. figure:: visualising_graphs_files/output_22_0.svg
+    :alt: output_22_0
+    :align: center
+
+If you wish to highlight specific node classes, then the ``highlight_classes`` option can be used to only color specified nodes:
+
+.. code:: python
+
+   graph = Graph(graph_attr={"size": "20,20", "rankdir": "LR"})
+   graph.recurse_descendants(
+       dict1_uuid,
+       highlight_classes=['Dict']
+   )
+   graph.graphviz
+
+.. figure:: visualising_graphs_files/output_23_0.svg
+    :alt: output_23_0
+    :align: center
+.. _reference:command-line:
+
+******************
+AiiDA Command Line
+******************
+
+.. _reference:command-line:verdi:
+
+Commands
+========
+Below is a list with all available subcommands.
+
+.. _reference:command-line:verdi-archive:
+
+``verdi archive``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Create, inspect and import AiiDA archives.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      create   Write subsets of the provenance graph to a single file.
+      import   Import data from an AiiDA archive file.
+      inspect  Inspect contents of an archive without importing it.
+      migrate  Migrate an export archive to a more recent format version.
+
+
+.. _reference:command-line:verdi-calcjob:
+
+``verdi calcjob``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage calcjobs.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      cleanworkdir  Clean all content of all output remote folders of calcjobs.
+      gotocomputer  Open a shell in the remote folder on the calcjob.
+      inputcat      Show the contents of one of the calcjob input files.
+      inputls       Show the list of the generated calcjob input files.
+      outputcat     Show the contents of one of the calcjob retrieved outputs.
+      outputls      Show the list of the retrieved calcjob output files.
+      res           Print data from the result output Dict node of a calcjob.
+
+
+.. _reference:command-line:verdi-code:
+
+``verdi code``
+--------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Setup and manage codes.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      delete     Delete a code.
+      duplicate  Duplicate a code allowing to change some parameters.
+      hide       Hide one or more codes from `verdi code list`.
+      list       List the available codes.
+      relabel    Relabel a code.
+      reveal     Reveal one or more hidden codes in `verdi code list`.
+      setup      Setup a new code.
+      show       Display detailed information for a code.
+      test       Run tests for the given code to check whether it is usable.
+
+
+.. _reference:command-line:verdi-computer:
+
+``verdi computer``
+------------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Setup and manage computers.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      configure  Configure the Authinfo details for a computer (and user).
+      delete     Delete a computer.
+      disable    Disable the computer for the given user.
+      duplicate  Duplicate a computer allowing to change some parameters.
+      enable     Enable the computer for the given user.
+      list       List all available computers.
+      relabel    Relabel a computer.
+      setup      Create a new computer.
+      show       Show detailed information for a computer.
+      test       Test the connection to a computer.
+
+
+.. _reference:command-line:verdi-config:
+
+``verdi config``
+----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Manage the AiiDA configuration.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      caching    List caching-enabled process types for the current profile.
+      downgrade  Print a configuration, downgraded to a specific version.
+      get        Get the value of an AiiDA option for the current profile.
+      list       List AiiDA options for the current profile.
+      set        Set an AiiDA option.
+      show       Show details of an AiiDA option for the current profile.
+      unset      Unset an AiiDA option.
+
+
+.. _reference:command-line:verdi-daemon:
+
+``verdi daemon``
+----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage the daemon.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      decr     Remove NUMBER [default=1] workers from the running daemon.
+      incr     Add NUMBER [default=1] workers to the running daemon.
+      logshow  Show the log of the daemon, press CTRL+C to quit.
+      restart  Restart the daemon.
+      start    Start the daemon with NUMBER workers.
+      status   Print the status of the current daemon or all daemons.
+      stop     Stop the daemon.
+
+
+.. _reference:command-line:verdi-data:
+
+``verdi data``
+--------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect, create and manage data nodes.
+
+    Options:
+      -v, --verbosity [notset|debug|info|report|warning|error|critical]
+                                      Set the verbosity of the output.
+      --help                          Show this message and exit.
+
+
+.. _reference:command-line:verdi-database:
+
+``verdi database``
+------------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage the database.
+
+      .. deprecated:: v2.0.0
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      integrity  Check the integrity of the database and fix potential issues.
+      migrate    Migrate the database to the latest schema version.
+      summary    Summarise the entities in the database.
+      version    Show the version of the database.
+
+
+.. _reference:command-line:verdi-devel:
+
+``verdi devel``
+---------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Commands for developers.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      check-load-time          Check for common indicators that slowdown `verdi`.
+      check-undesired-imports  Check that verdi does not import python modules it shouldn't.
+      run-sql                  Run a raw SQL command on the database.
+      run_daemon               Run a daemon instance in the current interpreter.
+      validate-plugins         Validate all plugins by checking they can be loaded.
+
+
+.. _reference:command-line:verdi-group:
+
+``verdi group``
+---------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Create, inspect and manage groups of nodes.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      add-nodes     Add nodes to a group.
+      copy          Duplicate a group.
+      create        Create an empty group with a given label.
+      delete        Delete a group and (optionally) the nodes it contains.
+      description   Change the description of a group.
+      list          Show a list of existing groups.
+      move-nodes    Move the specified NODES from one group to another.
+      path          Inspect groups of nodes, with delimited label paths.
+      relabel       Change the label of a group.
+      remove-nodes  Remove nodes from a group.
+      show          Show information for a given group.
+
+
+.. _reference:command-line:verdi-help:
+
+``verdi help``
+--------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] [COMMAND]
+
+      Show help for given command.
+
+    Options:
+      --help  Show this message and exit.
+
+
+.. _reference:command-line:verdi-node:
+
+``verdi node``
+--------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect, create and manage nodes.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      attributes   Show the attributes of one or more nodes.
+      comment      Inspect, create and manage node comments.
+      delete       Delete nodes from the provenance graph.
+      description  View or set the description of one or more nodes.
+      extras       Show the extras of one or more nodes.
+      graph        Create visual representations of the provenance graph.
+      label        View or set the label of one or more nodes.
+      rehash       Recompute the hash for nodes in the database.
+      repo         Inspect the content of a node repository folder.
+      show         Show generic information on one or more nodes.
+
+
+.. _reference:command-line:verdi-plugin:
+
+``verdi plugin``
+----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect AiiDA plugins.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      list  Display a list of all available plugins.
+
+
+.. _reference:command-line:verdi-process:
+
+``verdi process``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage processes.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      call-root  Show root process of the call stack for the given processes.
+      kill       Kill running processes.
+      list       Show a list of running or terminated processes.
+      pause      Pause running processes.
+      play       Play (unpause) paused processes.
+      report     Show the log report for one or multiple processes.
+      show       Show details for one or multiple processes.
+      status     Print the status of one or multiple processes.
+      watch      Watch the state transitions for a process.
+
+
+.. _reference:command-line:verdi-profile:
+
+``verdi profile``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage the configured profiles.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      delete      Delete one or more profiles.
+      list        Display a list of all available profiles.
+      setdefault  Set a profile as the default one.
+      show        Show details for a profile.
+
+
+.. _reference:command-line:verdi-quicksetup:
+
+``verdi quicksetup``
+--------------------
+
+.. code:: console
+
+    Usage:  [OPTIONS]
+
+      Setup a new profile in a fully automated fashion.
+
+    Options:
+      -n, --non-interactive           In non-interactive mode, the CLI never prompts but
+                                      simply uses default values for options that define one.
+      --profile PROFILE               The name of the new profile.  [required]
+      --email EMAIL                   Email address associated with the data you generate. The
+                                      email address is exported along with the data, when
+                                      sharing it.  [required]
+      --first-name NONEMPTYSTRING     First name of the user.  [required]
+      --last-name NONEMPTYSTRING      Last name of the user.  [required]
+      --institution NONEMPTYSTRING    Institution of the user.  [required]
+      --db-engine [postgresql_psycopg2]
+                                      Engine to use to connect to the database.
+      --db-backend [django|sqlalchemy]
+                                      Database backend to use.
+      --db-host HOSTNAME              Database server host. Leave empty for "peer"
+                                      authentication.
+      --db-port INTEGER               Database server port.
+      --db-name NONEMPTYSTRING        Name of the database to create.
+      --db-username NONEMPTYSTRING    Name of the database user to create.
+      --db-password TEXT              Password of the database user.
+      --su-db-name TEXT               Name of the template database to connect to as the
+                                      database superuser.
+      --su-db-username TEXT           User name of the database super user.
+      --su-db-password TEXT           Password to connect as the database superuser.
+      --broker-protocol [amqp|amqps]  Protocol to use for the message broker.  [default: amqp]
+      --broker-username NONEMPTYSTRING
+                                      Username to use for authentication with the message
+                                      broker.  [default: guest]
+      --broker-password NONEMPTYSTRING
+                                      Password to use for authentication with the message
+                                      broker.  [default: guest]
+      --broker-host HOSTNAME          Hostname for the message broker.  [default: 127.0.0.1]
+      --broker-port INTEGER           Port for the message broker.  [default: 5672]
+      --broker-virtual-host TEXT      Name of the virtual host for the message broker without
+                                      leading forward slash.
+      --repository DIRECTORY          Absolute path to the file repository.
+      --config FILEORURL              Load option values from configuration file in yaml
+                                      format (local path or URL).
+      --help                          Show this message and exit.
+
+
+.. _reference:command-line:verdi-restapi:
+
+``verdi restapi``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS]
+
+      Run the AiiDA REST API server.
+
+      Example Usage:
+
+          verdi -p <profile_name> restapi --hostname 127.0.0.5 --port 6789
+
+    Options:
+      -H, --hostname HOSTNAME  Hostname.
+      -P, --port INTEGER       Port number.
+      -c, --config-dir PATH    Path to the configuration directory
+      --wsgi-profile           Whether to enable WSGI profiler middleware for finding
+                               bottlenecks
+      --help                   Show this message and exit.
+
+
+.. _reference:command-line:verdi-run:
+
+``verdi run``
+-------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] [--] SCRIPTNAME [VARARGS]...
+
+      Execute scripts with preloaded AiiDA environment.
+
+    Options:
+      --auto-group                    Enables the autogrouping
+      -l, --auto-group-label-prefix TEXT
+                                      Specify the prefix of the label of the auto group
+                                      (numbers might be automatically appended to generate
+                                      unique names per run).
+      -e, --exclude STR...            Exclude these classes from auto grouping (use full
+                                      entrypoint strings).
+      -i, --include STR...            Include these classes from auto grouping (use full
+                                      entrypoint strings or "all").
+      --help                          Show this message and exit.
+
+
+.. _reference:command-line:verdi-setup:
+
+``verdi setup``
+---------------
+
+.. code:: console
+
+    Usage:  [OPTIONS]
+
+      Setup a new profile.
+
+    Options:
+      -n, --non-interactive           In non-interactive mode, the CLI never prompts but
+                                      simply uses default values for options that define one.
+      --profile PROFILE               The name of the new profile.  [required]
+      --email EMAIL                   Email address associated with the data you generate. The
+                                      email address is exported along with the data, when
+                                      sharing it.  [required]
+      --first-name NONEMPTYSTRING     First name of the user.  [required]
+      --last-name NONEMPTYSTRING      Last name of the user.  [required]
+      --institution NONEMPTYSTRING    Institution of the user.  [required]
+      --db-engine [postgresql_psycopg2]
+                                      Engine to use to connect to the database.
+      --db-backend [django|sqlalchemy]
+                                      Database backend to use.
+      --db-host HOSTNAME              Database server host. Leave empty for "peer"
+                                      authentication.
+      --db-port INTEGER               Database server port.
+      --db-name NONEMPTYSTRING        Name of the database to create.  [required]
+      --db-username NONEMPTYSTRING    Name of the database user to create.  [required]
+      --db-password TEXT              Password of the database user.  [required]
+      --broker-protocol [amqp|amqps]  Protocol to use for the message broker.  [required]
+      --broker-username NONEMPTYSTRING
+                                      Username to use for authentication with the message
+                                      broker.  [required]
+      --broker-password NONEMPTYSTRING
+                                      Password to use for authentication with the message
+                                      broker.  [required]
+      --broker-host HOSTNAME          Hostname for the message broker.  [required]
+      --broker-port INTEGER           Port for the message broker.  [required]
+      --broker-virtual-host TEXT      Name of the virtual host for the message broker without
+                                      leading forward slash.  [required]
+      --repository DIRECTORY          Absolute path to the file repository.
+      --config FILEORURL              Load option values from configuration file in yaml
+                                      format (local path or URL).
+      --help                          Show this message and exit.
+
+
+.. _reference:command-line:verdi-shell:
+
+``verdi shell``
+---------------
+
+.. code:: console
+
+    Usage:  [OPTIONS]
+
+      Start a python shell with preloaded AiiDA environment.
+
+    Options:
+      --plain                         Use a plain Python shell.
+      --no-startup                    When using plain Python, ignore the PYTHONSTARTUP
+                                      environment variable and ~/.pythonrc.py script.
+      -i, --interface [ipython|bpython]
+                                      Specify an interactive interpreter interface.
+      --help                          Show this message and exit.
+
+
+.. _reference:command-line:verdi-status:
+
+``verdi status``
+----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS]
+
+      Print status of AiiDA services.
+
+    Options:
+      -t, --print-traceback  Print the full traceback in case an exception is raised.
+      --no-rmq               Do not check RabbitMQ status
+      --help                 Show this message and exit.
+
+
+.. _reference:command-line:verdi-storage:
+
+``verdi storage``
+-----------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage stored data for a profile.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      info       Summarise the contents of the storage.
+      integrity  Checks for the integrity of the data storage.
+      maintain   Performs maintenance tasks on the repository.
+      migrate    Migrate the storage to the latest schema version.
+
+
+.. _reference:command-line:verdi-user:
+
+``verdi user``
+--------------
+
+.. code:: console
+
+    Usage:  [OPTIONS] COMMAND [ARGS]...
+
+      Inspect and manage users.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      configure    Configure a new or existing user.
+      list         Show a list of all users.
+      set-default  Set a user as the default user for the profile.
+
+
+
+.. END_OF_VERDI_COMMANDS_MARKER
+=========
+Reference
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   command_line
+   api/index
+   rest_api
+.. _reference:rest-api:
+
+**************
+AiiDA REST API
+**************
+
+AiiDA's `RESTful <https://en.wikipedia.org/wiki/Representational_state_transfer>`_ `API <https://en.wikipedia.org/wiki/Application_programming_interface>`_ is implemented using the `Flask RESTful framework <https://flask-restful.readthedocs.io/en/latest/>`_ and returns responses in `JSON <https://www.json.org/json-en.html>`_ format.
+
+To use AiiDA's REST API, you must install this component during the AiiDA installation:
+
+.. code-block:: console
+
+  $ pip install aiida-core[rest]
+
+Then, the REST service can be started with:
+
+.. code-block:: console
+
+  $ verdi restapi
+
+See :ref:`here <reference:command-line:verdi-restapi>` for more details.
+
+.. _reference:rest-api:endpoints-responses:
+
+Available endpoints and responses
+=================================
+
+In order to obtain a list of all available endpoints, query the API base URL or the `/server/endpoints` endpoint::
+
+           http://localhost:5000/api/v4
+           http://localhost:5000/api/v4/server/endpoints
+
+The HTTP response of the REST API consists of a status code, a header, and a JSON object.
+
+Possible status codes are:
+
+    #. 200 for successful requests.
+    #. 400 for bad requests.
+       The JSON object contains an error message describing the issue with the request.
+    #. 500 for a generic internal server error.
+       The JSON object contains a generic error message.
+    #. 404 for invalid URL.
+       The request does not match any resource, and no JSON is returned.
+
+The header is a standard HTTP response header with the additional custom fields
+
+ * ``X-Total-Counts`` and
+ * ``Link`` (only if paginated results are required, see the Pagination section).
+
+The ``data`` field of the JSON object contains the main payload returned by the API.
+The JSON object further contains information on the request in the ``method``, ``url``, ``url_root``, ``path``, ``query_string``, and ``resource_type`` fields.
+
+.. _restapi_apache:
+
+Nodes
+-----
+
+#.  Get a list of |Node| objects.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes?limit=2&offset=8&orderby=-id
+
+    Description:
+
+        Returns the list of two |Node| objects (``limit=2``) starting from 9th row (``offset=8``) of the database table and the list will be ordered by ``id`` in descending order.
+
+    Response::
+
+        {
+          "data": {
+            "nodes  ": [
+              {
+                "ctime": "Sun, 21 Jul 2019 11:45:52 GMT",
+                "full_type": "data.core.dict.Dict.|",
+                "id": 102618,
+                "label": "",
+                "mtime": "Sun, 21 Jul 2019 11:45:52 GMT",
+                "node_type": "data.core.dict.Dict.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "a43596fe-3d95-4d9b-b34a-acabc21d7a1e"
+              },
+              {
+                "ctime": "Sun, 21 Jul 2019 18:18:26 GMT",
+                "full_type": "data.core.remote.RemoteData.|",
+                "id": 102617,
+                "label": "",
+                "mtime": "Sun, 21 Jul 2019 18:18:26 GMT",
+                "node_type": "data.core.remote.RemoteData.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "12f95e1c-69df-4a4b-9b06-8e69072e6108"
+              }
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/nodes",
+          "query_string": "limit=2&offset=8&orderby=-id",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes?limit=2&offset=8&orderby=-id",
+          "url_root": "http://localhost:5000/"
+        }
+
+#.  Get a list of all nodes with attribute called ``pbc1``:
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes?attributes=true&attributes_filter=pbc1
+
+    Description:
+
+        Returns the list of |Node| objects.
+        Every node object contains value of attribute called ``pbc1`` if present otherwise ``null``.
+
+    Response::
+
+        {
+          "data": {
+            "nodes  ": [
+              {
+                "attributes.pbc1": true,
+                "ctime": "Sun, 21 Jul 2019 15:36:30 GMT",
+                "full_type": "data.core.structure.StructureData.|",
+                "id": 51310,
+                "label": "",
+                "mtime": "Sun, 21 Jul 2019 15:36:30 GMT",
+                "node_type": "data.core.structure.StructureData.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "98de8d6d-f533-4f97-a8ad-7720cc5ca8f6"
+              },
+              {
+                "attributes.pbc1": null,
+                "ctime": "Sun, 21 Jul 2019 15:44:14 GMT",
+                "full_type": "data.core.dict.Dict.|",
+                "id": 51311,
+                "label": "",
+                "mtime": "Sun, 21 Jul 2019 15:44:14 GMT",
+                "node_type": "data.core.dict.Dict.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "321795fa-338e-4852-ae72-2eb30e33386e"
+              }
+              ...
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/nodes",
+          "query_string": "limit=2&offset=8&orderby=-id",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes?limit=2&offset=8&orderby=-id",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Get a list of all available |Node| types from the database.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/full_types
+
+    Description:
+
+        Returns the list of full_types from database.
+
+    Response::
+
+        {
+            "data": {
+                "full_type": "node.%|%",
+                "label": node,
+                "namespace": "node",
+                "path": "node",
+                "subspaces": [...]
+            },
+            "id": null,
+            "method": "GET",
+            "path": "/api/v4/nodes/full_types",
+            "query_string": "",
+            "resource_type": "nodes",
+            "url": "http://localhost:5000/api/v4/nodes/full_types",
+            "url_root": "http://localhost:5000/"
+        }
+
+#. Get a list of all available download formats.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/download_formats
+
+    Description:
+
+        Returns the list of available download formats.
+
+    Response::
+
+        {
+            "data": {
+                "data.core.array.bands.BandsData.|": [
+                    "agr",
+                    "agr_batch",
+                    "dat_blocks",
+                    "dat_multicolumn",
+                    "gnuplot",
+                    "json",
+                    "mpl_pdf",
+                    "mpl_png",
+                    "mpl_singlefile",
+                    "mpl_withjson"
+                ],
+                "data.core.array.trajectory.TrajectoryData.|": [
+                    "cif",
+                    "xsf"
+                ],
+                "data.core.cif.CifData.|": [
+                    "cif"
+                ],
+                "data.core.structure.StructureData.|": [
+                    "chemdoodle",
+                    "cif",
+                    "xsf",
+                    "xyz"
+                ],
+                "data.core.upf.UpfData.|": [
+                    "upf"
+                ]
+            },
+            "id": null,
+            "method": "GET",
+            "path": "/api/v4/nodes/download_formats",
+            "query_string": "",
+            "resource_type": "nodes",
+            "url": "http://localhost:5000/api/v4/nodes/download_formats",
+            "url_root": "http://localhost:5000/"
+        }
+
+#. Get the details of a single |Node| object.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/12f95e1c
+
+    Description:
+
+        Returns the details of the |Node| object with ``uuid="12f95e1c..."``.
+
+    Response::
+
+        {
+          "data": {
+            "nodes  ": [
+              {
+                "ctime": "Sun, 21 Jul 2019 18:18:26 GMT",
+                "full_type": "data.core.remote.RemoteData.|",
+                "id": 102617,
+                "label": "",
+                "mtime": "Sun, 21 Jul 2019 18:18:26 GMT",
+                "node_type": "data.core.remote.RemoteData.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "12f95e1c-69df-4a4b-9b06-8e69072e6108"
+              }
+            ]
+          },
+          "id": "12f95e1c",
+          "method": "GET",
+          "path": "/api/v4/nodes/12f95e1c",
+          "query_string": "",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/12f95e1c",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Get the list of incoming of a specific |Node|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/de83b1/links/incoming?limit=2
+
+    Description:
+
+        Returns the list of the first two input nodes (``limit=2``) of the |Node| object with ``uuid="de83b#..."``.
+
+    Response::
+
+        {
+          "data": {
+            "incoming": [
+              {
+                "ctime": "Sun, 21 Jul 2019 08:02:23 GMT",
+                "full_type": "data.core.dict.Dict.|",
+                "id": 53770,
+                "label": "",
+                "link_label": "settings",
+                "link_type": "input_calc",
+                "mtime": "Sun, 21 Jul 2019 08:02:23 GMT",
+                "node_type": "data.core.dict.Dict.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "31993382-c1ab-4822-a116-bd88697f2796"
+              },
+              {
+                "ctime": "Fri, 28 Jun 2019 10:54:25 GMT",
+                "full_type": "data.core.upf.UpfData.|",
+                "id": 54502,
+                "label": "",
+                "link_label": "pseudos__N",
+                "link_type": "input_calc",
+                "mtime": "Fri, 28 Jun 2019 10:54:28 GMT",
+                "node_type": "data.core.upf.UpfData.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "2e2df55d-27a5-4b34-bf7f-911b16da95f0"
+              }
+            ]
+          },
+          "id": "de83b1",
+          "method": "GET",
+          "path": "/api/v4/nodes/de83b1/links/incoming",
+          "query_string": "limit=2",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/de83b1/links/incoming?limit=2",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Filter the incoming/outgoing of a |Node| by their full type.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/de83b1/links/incoming?full_type="data.core.dict.Dict.|"
+
+    Description:
+
+        Returns the list of the *dict* incoming nodes of the |Node| object with ``uuid="de83b1..."``.
+
+    Response::
+
+        {
+          "data": {
+            "incoming": [
+              {
+                "ctime": "Sun, 21 Jul 2019 08:02:23 GMT",
+                "full_type": "data.core.dict.Dict.|",
+                "id": 53770,
+                "label": "",
+                "link_label": "settings",
+                "link_type": "input_calc",
+                "mtime": "Sun, 21 Jul 2019 08:02:23 GMT",
+                "node_type": "data.core.dict.Dict.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "31993382-c1ab-4822-a116-bd88697f2796"
+              }
+            ]
+          },
+          "id": "de83b1",
+          "method": "GET",
+          "path": "/api/v4/nodes/de83b1/links/incoming",
+          "query_string": "full_type=%22data.core.dict.Dict.|%22",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/de83b1/links/incoming?full_type=\"data.core.dict.Dict.|\"",
+          "url_root": "http://localhost:5000/"
+        }
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/de83b1/links/outgoing?full_type="data.core.dict.Dict.|"
+
+    Description:
+
+        Returns the list of the *dict* outgoing nodes of the |Node| object with ``uuid="de83b1..."``.
+
+    Response::
+
+        {
+          "data": {
+            "outgoing": [
+              {
+                "ctime": "Sun, 21 Jul 2019 09:08:05 GMT",
+                "full_type": "data.core.dict.Dict.|",
+                "id": 67440,
+                "label": "",
+                "link_label": "output_parameters",
+                "link_type": "create",
+                "mtime": "Sun, 21 Jul 2019 09:08:05 GMT",
+                "node_type": "data.core.dict.Dict.",
+                "process_type": null,
+                "user_id": 4,
+                "uuid": "861e1108-33a1-4495-807b-8c5189ad74e3"
+              }
+            ]
+          },
+          "id": "de83b1",
+          "method": "GET",
+          "path": "/api/v4/nodes/de83b1/links/outgoing",
+          "query_string": "full_type=%22data.core.dict.Dict.|%22",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/de83b1/links/outgoing?full_type=\"data.core.dict.Dict.|\"",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Getting the list of the attributes/extras of a specific |Node|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/contents/attributes
+
+    Description:
+
+        Returns the list of all attributes of the |Node| object with ``uuid="ffe11..."``.
+
+    Response::
+
+        {
+          "data": {
+            "attributes": {
+              "append_text": "",
+              "input_plugin": "quantumespresso.pw",
+              "is_local": false,
+              "prepend_text": "",
+              "remote_exec_path": "/project/espresso-5.1-intel/bin/pw.x"
+            }
+          },
+          "id": "ffe11",
+          "method": "GET",
+          "path": "/api/v4/nodes/ffe11/contents/attributes",
+          "query_string": "",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/ffe11/contents/attributes",
+          "url_root": "http://localhost:5000/"
+        }
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/contents/extras
+
+    Description:
+
+        Returns the list of all the extras of the |Node| object with ``uuid="ffe11..."``.
+
+    Response::
+
+        {
+          "data": {
+            "extras": {
+              "trialBool": true,
+              "trialFloat": 3.0,
+              "trialInt": 34,
+              "trialStr": "trial"
+            }
+          },
+          "id": "ffe11",
+          "method": "GET",
+          "path": "/api/v4/nodes/ffe11/contents/extras",
+          "query_string": "",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/ffe11/contents/extras",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Getting a user-defined list of attributes/extras of a specific |Node|.
+
+    REST URL::
+
+         http://localhost:5000/api/v4/nodes/ffe11/contents/attributes?attributes_filter=append_text,is_local
+
+    Description:
+
+        Returns a list of the attributes ``append_text`` and ``is_local`` of the |Node| object with ``uuid="ffe11..."``.
+
+    Response::
+
+        {
+          "data": {
+            "attributes": {
+              "append_text": "",
+              "is_local": false
+            }
+          },
+          "id": "ffe11",
+          "method": "GET",
+          "path": "/api/v4/nodes/ffe11/contents/attributes",
+          "query_string": "attributes_filter=append_text,is_local",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/ffe11/contents/attributes?attributes_filter=append_text,is_local",
+          "url_root": "http://localhost:5000/"
+        }
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/contents/extras?extras_filter=trialBool,trialInt
+
+    Description:
+
+        Returns a list of the extras ``trialBool`` and ``trialInt`` of the |Node| object with ``uuid="ffe11..."``.
+
+    Response::
+
+        {
+          "data": {
+            "extras": {
+              "trialBool": true,
+              "trialInt": 34
+            }
+          },
+          "id": "ffe11",
+          "method": "GET",
+          "path": "/api/v4/nodes/ffe11/contents/extras",
+          "query_string": "extras_filter=trialBool,trialInt",
+          "resource_type": "nodes",
+          "url": "http://localhost:5000/api/v4/nodes/ffe11/contents/extras?extras_filter=trialBool,trialInt",
+          "url_root": "http://localhost:5000/"
+        }
+
+#. Get comments of specific |Node|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/contents/comments
+
+    Description:
+
+        Returns comments of the given |Node|.
+
+    Response::
+
+        {
+            "data": {
+                "comments": ["This is test comment.", "Add another comment."]
+            },
+            "id": "ffe11",
+            "method": "GET",
+            "path": "/api/v4/nodes/ffe11/contents/comments/",
+            "query_string": "",
+            "resource_type": "nodes",
+            "url": "http://localhost:5000/api/v4/nodes/ffe11/contents/comments/",
+            "url_root": "http://localhost:5000/"
+        }
+
+#. Get list of all the files/directories from the repository of a specific |Node|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/repo/list
+
+    Description:
+
+        Returns a list of all the files/directories from node repository
+
+    Response::
+
+        {
+            "data": {
+                "repo_list": [
+                    {
+                        "name": ".aiida",
+                        "type": "DIRECTORY"
+                    },
+                    {
+                        "name": "_aiidasubmit.sh",
+                        "type": "FILE"
+                    },
+                    {
+                        "name": "aiida.in",
+                        "type": "FILE"
+                    },
+                    {
+                        "name": "out",
+                        "type": "DIRECTORY"
+                    },
+                    {
+                        "name": "pseudo",
+                        "type": "DIRECTORY"
+                    }
+                ]
+            },
+            "id": "ffe11",
+            "method": "GET",
+            "path": "/api/v4/nodes/ffe11/repo/list/",
+            "query_string": "",
+            "resource_type": "nodes",
+            "url": "http://localhost:5000/api/v4/nodes/ffe11/repo/list/",
+            "url_root": "http://localhost:5000/"
+        }
+
+#. Download a file from the repository of a |Node|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/ffe11/repo/contents?filename="aiida.in"
+
+    Description:
+
+        Downloads the file ``aiida.in`` from node repository
+
+    Response::
+
+        It downloads the file.
+
+#. There are specific download formats (check ``nodes/download_formats`` endpoint) available to download different types of nodes.
+    This endpoint is used to download file in given format.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/nodes/fafdsf/download?download_format=xsf
+
+    Description:
+
+        Downloads structure node of uuid=fafdsf in ``xsf`` format
+
+    Response::
+
+        It downloads the file.
+
+Processes
+---------
+
+1.  Get the report of a |ProcessNode|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/processes/8b95cd85/report
+
+    Description:
+
+        Returns report of process of ``uuid="8b95cd85-...."``
+
+    Response::
+
+        {
+            "data": {
+                "logs": []
+            },
+            "id": "8b95cd85",
+            "method": "GET",
+            "path": "/api/v4/processes/8b95cd85/report",
+            "query_string": "",
+            "resource_type": "processes",
+            "url": "http://localhost:5000/api/v4/processes/8b95cd85/report",
+            "url_root": "http://localhost:5000/"
+        }
+
+CalcJobs
+--------
+
+1.  Get a list of input or output files of given |CalcJobNode|.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/calcjobs/sffs241j/input_files
+
+    Description:
+
+        Returns a list of all input files of given |CalcJobNode| of ``uuid="sffs241j-...."``
+
+    Response::
+
+        {
+            "data": [
+                {
+                    "name": ".aiida",
+                    "type": "DIRECTORY"
+                },
+                {
+                    "name": "_aiidasubmit.sh",
+                    "type": "FILE"
+                },
+                {
+                    "name": "aiida.in",
+                    "type": "FILE"
+                },
+                {
+                    "name": "out",
+                    "type": "DIRECTORY"
+                },
+                ...
+            ],
+            "id": "sffs241j",
+            "method": "GET",
+            "path": "/api/v4/calcjobs/sffs241j/input_files",
+            "query_string": "",
+            "resource_type": "calcjobs",
+            "url": "http://localhost:5000/api/v4/calcjobs/sffs241j/input_files",
+            "url_root": "http://localhost:5000/"
+        }
+
+Computers
+---------
+
+1. Get a list of |Computer| objects.
+
+    REST URL::
+
+        http://localhost:5000/api/v4/computers?limit=3&offset=2&orderby=id
+
+    Description:
+
+        Returns the list of three |Computer| objects (``limit=3``) starting from the 3rd row (``offset=2``) of the database table.
+        The list will be ordered by ascending values of ``id``.
+
+    Response::
+
+        {
+          "data": {
+            "computers": [
+              {
+                "description": "Alpha Computer",
+                "hostname": "alpha.aiida.net",
+                "id": 3,
+                "name": "Alpha",
+                "scheduler_type": "core.slurm",
+                "transport_type": "core.ssh",
+                "uuid": "9b5c84bb-4575-4fbe-b18c-b23fc30ec55e"
+              },
+              {
+                "description": "Beta Computer",
+                "hostname": "beta.aiida.net",
+                "id": 4,
+                "name": "Beta",
+                "scheduler_type": "core.slurm",
+                "transport_type": "core.ssh",
+                "uuid": "5d490d77-638d-4d4b-8288-722f930783c8"
+              },
+              {
+                "description": "Gamma Computer",
+                "hostname": "gamma.aiida.net",
+                "id": 5,
+                "name": "Gamma",
+                "scheduler_type": "core.slurm",
+                "transport_type": "core.ssh",
+                "uuid": "7a0c3ff9-1caf-405c-8e89-2369cf91b634"
+              }
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/computers",
+          "query_string": "limit=3&offset=2&orderby=id",
+          "resource_type": "computers",
+          "url": "http://localhost:5000/api/v4/computers?limit=3&offset=2&orderby=id",
+          "url_root": "http://localhost:5000/"
+        }
+
+2. Get details of a single |Computer| object:
+
+    REST URL::
+
+        http://localhost:5000/api/v4/computers/5d490d77
+
+    Description:
+
+        Returns the details of the |Computer| object ``uuid="5d490d77-638d..."``.
+
+    Response::
+
+        {
+          "data": {
+            "computers": [
+              {
+                "description": "Beta Computer",
+                "hostname": "beta.aiida.net",
+                "id": 4,
+                "name": "Beta",
+                "scheduler_type": "core.slurm",
+                "transport_type": "core.ssh",
+                "uuid": "5d490d77-638d-4d4b-8288-722f930783c8"
+              }
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/computers/5d490d77",
+          "query_string": "",
+          "resource_type": "computers",
+          "url": "http://localhost:5000/api/v4/computers/5d490d77",
+          "url_root": "http://localhost:5000/"
+        }
+
+
+Users
+-----
+
+1. Getting a list of the |User| s
+
+    REST URL::
+
+        http://localhost:5000/api/v4/users/
+
+    Description:
+
+        Returns a list of all the |User| objects.
+
+    Response::
+
+        {
+          "data": {
+            "users": [
+              {
+                "first_name": "AiiDA",
+                "id": 1,
+                "institution": "",
+                "last_name": "Daemon"
+              },
+              {
+                "first_name": "Gengis",
+                "id": 2,
+                "institution": "",
+                "last_name": "Khan"
+              }
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/users/",
+          "query_string": "",
+          "resource_type": "users",
+          "url": "http://localhost:5000/api/v4/users/",
+          "url_root": "http://localhost:5000/"
+        }
+
+2. Getting a list of |User| s whose first name starts with a given string
+
+    REST URL::
+
+        http://localhost:5000/api/v4/users/?first_name=ilike="aii%"
+
+    Description:
+
+        Returns a lists of the |User| objects whose first name starts with ``"aii"``, regardless the case of the characters.
+
+    Response::
+
+        {
+          "data": {
+            "users": [
+              {
+                "first_name": "AiiDA",
+                "id": 1,
+                "institution": "",
+                "last_name": "Daemon"
+              }
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/users/",
+          "query_string": "first_name=ilike=%22aii%%22",
+          "resource_type": "users",
+          "url": "http://localhost:5000/api/v4/users/?first_name=ilike=\"aii%\"",
+          "url_root": "http://localhost:5000/"
+        }
+
+Groups
+------
+
+1. Getting a list of |Group| s
+
+    REST URL::
+
+        http://localhost:5000/api/v4/groups/?limit=10&orderby=-user_id
+
+    Description:
+
+        Returns the list of ten |Group| objects (``limit=10``) starting from the 1st row of the database table (``offset=0``) and the list will be ordered by ``user_id`` in descending order.
+
+    Response::
+
+        {
+          "data": {
+            "groups": [
+              {
+                "description": "",
+                "id": 104,
+                "label": "SSSP_new_phonons_0p002",
+                "type_string": "",
+                "user_id": 2,
+                "uuid": "7c0e0744-8549-4eea-b1b8-e7207c18de32"
+              },
+              {
+                "description": "",
+                "id": 102,
+                "label": "SSSP_cubic_old_phonons_0p025",
+                "type_string": "",
+                "user_id": 1,
+                "uuid": "c4e22134-495d-4779-9259-6192fcaec510"
+              },
+              ...
+
+            ]
+          },
+          "id": null,
+          "method": "GET",
+          "path": "/api/v4/groups/",
+          "query_string": "limit=10&orderby=-user_id",
+          "resource_type": "groups",
+          "url": "http://localhost:5000/api/v4/groups/?limit=10&orderby=-user_id",
+          "url_root": "http://localhost:5000/"
+        }
+
+2. Getting the details of a specific group
+
+    REST URL::
+
+        http://localhost:5000/api/v4/groups/a6e5b
+
+    Description:
+
+        Returns the details of the |Group| object with ``uuid="a6e5b..."``.
+
+    Response::
+
+        {
+          "data": {
+            "groups": [
+              {
+                "description": "GBRV US pseudos, version 1.2",
+                "id": 23,
+                "label": "GBRV_1.2",
+                "type_string": "data.core.upf.family",
+                "user_email": "aiida@theossrv5.epfl.ch",
+                "user_id": 2,
+                "uuid": "a6e5b6c6-9d47-445b-bfea-024cf8333c55"
+              }
+            ]
+          },
+          "id": "a6e5b,
+          "method": "GET",
+          "path": "/api/v4/groups/a6e5b",
+          "query_string": "",
+          "resource_type": "groups",
+          "url": "http://localhost:5000/api/v4/groups/a6e5b",
+          "url_root": "http://localhost:5000/"
+        }
+
+Querybuilder
+------------
+
+    REST URL::
+
+        http://localhost:5000/api/v4/querybuilder
+
+    Description:
+
+        Posts a query to the database. The content of the query is passed in a attached JSON file.
+
+To use this endpoint, you need a http operator that allows to pass attachments.
+We will demonstrate two options, the `HTTPie <https://httpie.io/>`_ (to use in the terminal) and the python library `Requests <https://docs.python-requests.org/en/latest/#>`_ (to use in python).
+
+Option 1: HTTPie
+
+  Install `HTTPie <https://httpie.io/>`_ by typing in the terminal:
+
+  .. code-block:: console
+
+    $ pip install httpie
+
+  Then execute the REST API call with
+
+  .. code-block:: console
+
+    $ http localhost:5000/api/v4/querybuilder < my_query.json
+
+  where ``my_query.json`` is the file containing the query dictionary of in the json format.
+
+  Response:
+
+  .. dropdown::
+
+    .. code-block:: python
+
+      {
+          "data": {
+              "Code_1": [
+                  {
+                      "attributes": {
+                          "append_text": " ",
+                          "input_plugin": "quantumespresso.ph",
+                          "is_local": false,
+                          "prepend_text": "ulimit -s unlimited",
+                          "remote_exec_path": "/home/ubuntu/codes/q-e/bin/ph.x"
+                      },
+                      "ctime": "Wed, 16 Dec 2020 11:50:03 GMT",
+                      "dbcomputer_id": 1,
+                      "description": "phonon quantum_espresso v6.6",
+                      "extras": {
+                          "_aiida_hash": "045368af9cfeafa6fe3b0c6707e71b85cbef4fec55514ad0068c3ff19193e11f",
+                          "hidden": false
+                      },
+                      "full_type": "data.code.Code.|",
+                      "id": 3428,
+                      "label": "q-e_6.6_ph",
+                      "mtime": "Wed, 16 Dec 2020 11:50:03 GMT",
+                      "node_type": "data.code.Code.",
+                      "process_type": null,
+                      "user_id": 1,
+                      "uuid": "7565cf2a-8219-4c2b-bbae-9c6cd3d95aa2"
+                  },
+                  {
+                      "attributes": {
+                          "append_text": " ",
+                          "input_plugin": "quantumespresso.pp",
+                          "is_local": false,
+                          "prepend_text": "ulimit -s unlimited",
+                          "remote_exec_path": "/home/ubuntu/codes/q-e/bin/pp.x"
+                      },
+                      "ctime": "Mon, 14 Dec 2020 16:44:20 GMT",
+                      "dbcomputer_id": 1,
+                      "description": "postproc quantum_espresso v6.6",
+                      "extras": {
+                          "_aiida_hash": "1dca299bb587e002ac7aa745b5fd0b8893105dc0a16acefdfbc6188637dad05f",
+                          "hidden": false
+                      },
+                      "full_type": "data.code.Code.|",
+                      "id": 1822,
+                      "label": "q-e_6.6_pp",
+                      "mtime": "Mon, 14 Dec 2020 16:44:20 GMT",
+                      "node_type": "data.code.Code.",
+                      "process_type": null,
+                      "user_id": 1,
+                      "uuid": "a1b0530d-1a8d-413c-a4bd-af79868926c8"
+                  },
+                  {
+                      "attributes": {
+                          "append_text": " ",
+                          "input_plugin": "quantumespresso.pw",
+                          "is_local": false,
+                          "prepend_text": "ulimit -s unlimited",
+                          "remote_exec_path": "/home/ubuntu/codes/q-e/bin/pw.x"
+                      },
+                      "ctime": "Thu, 19 Nov 2020 14:38:42 GMT",
+                      "dbcomputer_id": 1,
+                      "description": "quantum_espresso v6.6",
+                      "extras": {
+                          "_aiida_hash": "e714b9e79656a0cf1c24d19a92f3553c3052d103b4f5b25bd2ae89581cb4886e",
+                          "hidden": false
+                      },
+                      "full_type": "data.code.Code.|",
+                      "id": 1,
+                      "label": "q-e_6.6_pw",
+                      "mtime": "Thu, 19 Nov 2020 14:38:42 GMT",
+                      "node_type": "data.code.Code.",
+                      "process_type": null,
+                      "user_id": 1,
+                      "uuid": "e48ec85b-3034-435b-ac96-d5ba37df393e"
+                  }
+              ]
+          },
+          "method": "POST",
+          "path": "/api/v4/querybuilder",
+          "query_string": "",
+          "resource_type": "QueryBuilder",
+          "url": "http://localhost:5000/api/v4/querybuilder",
+          "url_root": "http://localhost:5000/"
+      }
+
+  The easiest way to construct the query json file is by using the :ref:`QueryBuilder <topics:database:advancedquery>` from AiiDA as we will demonstrate next.
+  Open a ``verdi shell`` section:
+
+  .. code-block:: console
+
+    $ verdi shell
+
+  Build your query and save it in a file:
+
+  .. code-block:: ipython
+
+    In [1]: qb = QueryBuilder()
+
+    In [2]: qb.append(Code)
+    Out[2]: <aiida.orm.querybuilder.QueryBuilder at 0x7f2bbeedd700>
+
+    In [3]: qb_dict = qb.queryhelp
+
+    In [4]: import json
+
+    In [5]: with open('my_query.json', 'w') as file:
+      ...:     json.dump(qb_dict, file)
+
+  Check the content of the ``my_query.json``:
+
+  .. code-block:: python
+
+    {
+      "path": [
+        {
+          "entity_type": "data.code.Code.",
+          "tag": "Code_1",
+          "joining_keyword": null,
+          "joining_value": null,
+          "outerjoin": false,
+          "edge_tag": null
+        }
+      ],
+      "filters": {
+        "Code_1": {
+          "node_type": {
+            "like": "data.code.%"
+          }
+        }
+      },
+      "project": {
+        "Code_1": []
+      },
+      "order_by": {},
+      "limit": null,
+      "offset": null
+    }
+
+Option 2: Resquests library (all python approach)
+
+  Here is a short example on how to do it in python:
+
+  .. code-block:: python
+
+    from aiida.orm import QueryBuilder, Code
+    from aiida import load_profile
+    import requests
+
+    load_profile('my_profile')
+
+    qb = QueryBuilder()
+    qb.append(Code)
+
+    qb_dict = qb.queryhelp
+
+    response = requests.post('http://localhost:5000/api/v4/querybuilder/', json=qb_dict)
+
+    response.json()
+
+  One should then have the same response as before.
+
+
+.. _reference:rest-api:pagination:
+
+Pagination
+==========
+
+Pages of 20 results each are accessed by appending ``/page/2`` (2nd page) to the URL path.
+The page limit can be controlled via the ``perpage=(PERPAGE)`` query string (maximum page limit is 400).
+Examples::
+
+    http://localhost:5000/api/v4/computers/page/1?
+    http://localhost:5000/api/v4/computers/page/1?perpage=5
+    http://localhost:5000/api/v4/computers/page
+
+If no page number is specified, the system redirects the request to page 1.
+When pagination is used, the **header** of the response contains two more non-empty fields:
+
+    - ``X-Total-Counts`` (custom field): the total number of results returned by the query, i.e. the sum of the results of all pages.
+    - ``Links``: links to the first, previous, next, and last page. Suppose that you send a request whose results fill 8 pages.
+      Then the value of the ``Links`` field would look like::
+
+            <\http://localhost:5000/.../page/1?... >; rel=first,
+            <\http://localhost:5000/.../page/3?... >; rel=prev,
+            <\http://localhost:5000/.../page/5?... >; rel=next,
+            <\http://localhost:5000/.../page/8?... >; rel=last
+
+Besides pagination, the number of results can also be controlled using the ``limit`` and ``offset`` filters, see :ref:`below <reference:rest-api:filtering:unique>`.
+
+
+.. _reference:rest-api:filtering:
+
+Filtering results
+=================
+
+The filter query string is formed by one or more **fields**, separated by the special character ``&``.
+
+Each field has the form (``key``)(``operator``)(``value``).
+
+.. note:: Fields can only contain alphanumeric characters plus ``_``, and the first character cannot be a number (similar to Python variable names).
+.. note:: In the following *id* is a synonym for the *PK* used in other sections of the documentation.
+
+.. _reference:rest-api:filtering:unique:
+
+Filter keys
+-----------
+
+Unique filters can be specified only once in a query string.
+All of them must be followed by the operator ``=``.
+
+.. list-table:: Unique filters
+    :header-rows: 1
+
+    * - Filter key
+      - Description
+
+    * - ``limit``
+      - Number of results (integer).
+
+    * - ``offset``
+      - Skips the first ``offset`` results (integer).
+
+    * - ``perpage``
+      - How many results to show per page (integer).
+
+    * - ``orderby``
+      - ``+<property>`` for ascending order and ``-<property>`` for descending order (``<property`` defaults to ascending).
+        Ascending (descending) order for strings corresponds to alphabetical (reverse-alphabetical) order, whereas for datetime objects it corresponds to chronological (reverse-chronological) order.
+        Examples::
+
+            http://localhost:5000/api/v4/computers?orderby=+id
+            http://localhost:5000/api/v4/computers?orderby=+name
+            http://localhost:5000/api/v4/computers?orderby=-uuid
+
+    * - ``attributes_filter``
+      - A comma-separated list of attributes to return.
+        Use together with ``attributes=true``.
+        Available in the endpoints ``/contents/attributes`` and ``/nodes``.
+        Example::
+
+            http://localhost:5000/api/v4/nodes/4fb10ef1/contents/attributes?attributes_filter=append_text,prepend_text
+
+    * - ``extras_filter``
+      - Similar to ``attributes_filter`` but for extras. It is used in the endpoints ``/contents/extras`` and ``/nodes``.
+
+    * - ``attributes``
+      - Pass ``true`` in order to return attributes in the ``/nodes`` endpoint (excluded by default).
+
+    * - ``extras``
+      - Pass ``true`` in order to return extras in the ``/nodes`` endpoint (excluded by default).
+
+    * - ``download_format``
+      - to specify download format in ``/download`` endpoint.
+
+    * - ``download``
+      - in ``/download`` endpoint, if ``download=false`` it displays the content in the browser instead of downloading a file.
+
+    * - ``filename``
+      - this filter is used to pass file name in ``/repo/list`` and ``/repo/contents`` endpoint.
+
+    * - ``tree_in_limit``
+      - specifies the limit on tree incoming nodes.
+
+    * - ``tree_out_limit``
+      - specifies the limit on tree outgoing nodes.
+
+Regular filters can be compounded, requiring all specified filters to apply.
+
+.. list-table:: Regular filters
+    :header-rows: 1
+
+    * - Filter key
+      - Value type
+      - Supported resources
+
+    * - ``attributes``
+      - string
+      - nodes
+    * - ``ctime``
+      - datetime
+      - nodes
+    * - ``description``
+      - string
+      - computers, groups, nodes
+    * - ``email`` \*
+      - string
+      - users
+    * - ``first_name``
+      - string
+      - users
+    * - ``full_type``
+      - string
+      - nodes
+    * - ``hostname``
+      - string
+      - computers
+    * - ``id``
+      - integer
+      - users, computers, groups, nodes
+    * - ``institution``
+      - string
+      - users
+    * - ``label``
+      - string
+      - groups, nodes
+    * - ``last_name``
+      - string
+      - users
+    * - ``mtime``
+      - datetime
+      - nodes
+    * - ``name``
+      - string
+      - computers
+    * - ``node_type``
+      - string
+      - nodes
+    * - ``scheduler_type``
+      - string
+      - computers
+    * - ``transport_type``
+      - string
+      - computers
+    * - ``type_string``
+      - string
+      - groups
+    * - ``user_id``
+      - integer
+      - groups
+    * - ``uuid``
+      - string
+      - computers, groups, nodes
+
+
+\* Key filtered out in response of the ``/users/`` endpoint privacy reasons.
+
+.. note:: Node types are specified by a string that defines their position in the AiiDA source tree, ending with a dot.
+    Examples:
+
+    - ``node_type="data.core.code.Code."`` selects only objects of type |Code|.
+    - ``node_type="data.core.remote.RemoteData."`` selects only objects of type :py:class:`~aiida.orm.nodes.data.remote.RemoteData`.
+
+.. note:: When using the *links/incoming* (*links/outgoing*) endpoints in combination with one or more filters, the filters are applied to the incoming (outgoing) nodes of the selected *id*.
+    For example, the request::
+
+            http://localhost:5000/api/v4/nodes/a67fba41/links/outgoing?full_type="data.core.dict.Dict.|"
+
+    would first search for the outgoing of the node with *uuid* starting with "a67fba41" and then select only those nodes of full_type *data.core.core.dict.Dict.|*.
+
+
+
+Filter operators
+----------------
+
+The operators supported by a specific filter key are uniquely determined by the value type associated with that key.
+
+For example, a key that requires a boolean value admits only the identity operator ``=``, whereas an integer value enables the usage of the comparison operators ``=``, ``<``, ``<=``, ``>``, ``>=`` plus the membership operator ``=in=``:
+
+.. list-table:: Filter operators
+    :header-rows: 1
+
+    * - Operator
+      - Meaning
+      - Accepted value types
+    * - ``=``
+      - identity
+      - integers, strings, bool, datetime
+    * - ``>``
+      - greater than
+      - integers, strings, datetime
+    * - ``<``
+      - less than
+      - integers, strings, datetime
+    * - ``>=``
+      - greater than or equal to
+      - integers, strings, datetime
+    * - ``<=``
+      - less than or equal to
+      - integers, strings, datetime
+    * - ``=like=``
+      - pattern matching
+      - strings
+    * - ``=ilike=``
+      - case-insensitive pattern matching
+      - strings
+    * - ``=in=``
+      - identity with one element of a list
+      - integers, strings, datetime
+
+
+Pattern matching
+^^^^^^^^^^^^^^^^
+
+The pattern matching operators ``=like=`` and ``=ilike=`` must be followed by the pattern definition, namely, a string where two characters assume special meaning:
+
+    1. ``%`` is used to replace an arbitrary sequence of characters, including no characters.
+    2. ``_`` is used to replace one or zero characters.
+
+.. note:: When special characters are required verbatim, escape them by pre-pending a backslash ``\``.
+
+.. list-table:: Pattern matching with ``=like=`` and ``=ilike=``
+    :header-rows: 1
+
+    * - Filter
+      - Matches
+      - Doesn't match
+    * -  ``name=like="a%d_"``
+      -  "aiida"
+      -  "AiiDA"
+    * -  ``name=ilike="a%d_"``
+      -  "aiida", "AiiDA"
+      -
+    * -  ``name=like="a_d_"``
+      -
+      -  "aiida"
+    * -  ``name=like="aii%d_a"``
+      -  "aiida"
+      -
+    * -  ``uuid=like="cdfd48%"``
+      - "cdfd48f9-7ed2-4969-ba06-09c752b83d2"
+      -
+    * - ``description=like="This calculation is %\% useful"``
+      - "This calculation is 100% useful"
+      -
+
+Membership
+^^^^^^^^^^
+
+The membership operator ``=in=`` has to be followed by a comma-separated list of values of the same type.
+The condition is fulfilled if the column value of an object is an element of the list.
+
+Examples::
+
+    http://localhost:5000/api/v4/nodes?id=in=45,56,78
+    http://localhost:5000/api/v4/computers/?scheduler_type=in="core.slurm","core.pbs"
+
+Comparison
+^^^^^^^^^^^^^^^^^^^^
+
+The comparison operators ``<``, ``>``, ``<=``, ``>=`` assume natural ordering for integers, (case-insensitive) alphabetical ordering for strings, and chronological ordering for datetime values.
+
+Examples:
+
+    - ``http://localhost:5000/api/v4/nodes?id>578`` selects the nodes having an id larger than 578.
+    - ``http://localhost:5000/api/v4/users/?last_name<="m"`` selects only the users whose last name begins with a character in the range [a-m].
+
+
+Filter value types
+------------------
+
+Filter values should be specified as follows:
+
+.. list-table:: Filter value types
+    :header-rows: 1
+
+    * - Value type
+      - Description
+
+    * - ``bool``
+      - Either ``true`` or ``false`` (lower case).
+
+    * - ``datetime``
+      -
+        Datetime objects expressed in the format ``(DATE)T(TIME)(SHIFT)`` where ``(SHIFT)`` is the time difference with respect to the UTC time.
+        This is required to avoid any problem arising from comparing datetime values expressed in different time zones.
+        The formats of each field are:
+
+        1. ``YYYY-MM-DD`` for ``(DATE)`` (mandatory).
+        2. ``HH:MM:SS`` for ``(TIME)`` (optional). The formats ``HH`` and ``HH:MM`` are supported too.
+        3. ``+/-HH:MM`` for ``(SHIFT)`` (optional, if present requires ``(TIME)`` to be specified).
+           The format ``+/-HH`` is allowed too. If no shift is specified UTC time is assumed.
+           The shift format follows the general convention that eastern (western) shifts are positive (negative).
+           The API is unaware of daylight saving times so the user is required to adjust the shift to take them into account.
+
+        This format is ``ISO-8601`` compliant.
+        Note that date and time fields have to be separated by the character ``T``.
+        Examples::
+
+            http://localhost:5000/api/v4/nodes?ctime>2019-04-23T05:45+03:45
+            http://localhost:5000/api/v4/nodes?ctime<2019-04-23T05:45
+            http://localhost:5000/api/v4/nodes?mtime>=2019-04-23
+
+    * - ``integer``
+      - Positive integer numbers.
+
+    * - ``string``
+      - Text enclosed in double quotes.
+        If the string contains double quotes those have to be escaped as ``""`` (two double quotes).
+        Note that in the unlikely occurrence of a sequence of double quotes you will have to escape it by writing twice as many double quotes.
+
+
+.. |Computer| replace:: :py:class:`~aiida.orm.computers.Computer`
+.. |Code| replace:: :py:class:`~aiida.orm.nodes.Code`
+.. |Node| replace:: :py:class:`~aiida.orm.nodes.Node`
+.. |ProcessNode| replace:: :py:class:`~aiida.orm.nodes.process.ProcessNode`
+.. |CalcJobNode| replace:: :py:class:`~aiida.orm.nodes.process.CalcJobNode`
+.. |User| replace:: :py:class:`~aiida.orm.users.User`
+.. |Group| replace:: :py:class:`~aiida.orm.groups.Group`
+.. _reference:api:public:
+
+Overview of public API
+----------------------
+
+The top-level package of the ``aiida-core`` distribution is called ``aiida``.
+It contains various sub-packages that we refer to as "second-level packages".
+
+.. admonition:: Rule
+    :class: tip title-icon-lightbulb
+
+    **Any resource that can be imported directly from the top level or from a second-level package is part of the public python API** and intended for external use.
+    Resources at deeper nesting level are considered internal and are not intended for use outside ``aiida-core``.
+
+    For example:
+
+    .. code-block:: python
+
+        from aiida import load_profile  # OK, top-level import
+        from aiida.orm import QueryBuilder  # OK, second-level import
+        from aiida.tools.importexport import Archive # NOT PUBLIC API
+
+.. warning::
+
+    The interface and implementation of resources that are *not* considered part of the public API can change between minor AiiDA releases, and can even be moved or fully removed, without a deprecation period whatsoever.
+    Be aware that scripts or AiiDA plugins that rely on such resources, can therefore break unexpectedly in between minor AiiDA releases.
+
+Below we provide a list of the resources per second-level package that are exposed in this way.
+If a module is mentioned, then all the resources defined in its ``__all__`` are included
+
+
+``aiida.cmdline``
+.................
+
+::
+
+    params.arguments
+    params.options
+    params.types
+    utils.decorators
+    utils.echo
+
+
+``aiida.common``
+................
+
+::
+
+    datastructures
+    exceptions
+    extendeddicts
+    links
+    log
+
+
+``aiida.engine``
+................
+
+::
+
+    Process
+    ProcessState
+    ToContext
+    assign_
+    append_
+    WorkChain
+    while_
+    return_
+    if_
+    CalcJob
+    calcfunction
+    workfunction
+    ExitCode
+    run
+    run_get_node
+    run_get_pid
+    submit
+
+
+``aiida.orm``
+.............
+
+::
+
+    Node
+    Data
+    ProcessNode
+    CalcFunctionNode
+    CalcJobNode
+    WorkFunctionNode
+    WorkChainNode
+    ArrayData
+    BandsData
+    KpointsData
+    ProjectionData
+    TrajectoryData
+    XyData
+    Bool
+    Float
+    Int
+    Str
+    List
+    ParameterData
+    CifData
+    Code
+    FolderData
+    OrbitalData
+    RemoteData
+    SinglefileData
+    StructureData
+    UpfData
+    Comment
+    Computer
+    Group
+    Log
+    QueryBuilder
+    User
+    load_node
+    load_code
+    load_computer
+    load_group
+    to_aiida_type
+
+
+``aiida.parsers``
+.................
+
+::
+
+    Parser
+
+
+``aiida.plugins``
+.................
+
+::
+
+    entry_point
+    CalculationFactory
+    DataFactory
+    DbImporterFactory
+    ParserFactory
+    SchedulerFactory
+    TransportFactory
+    WorkflowFactory
+
+
+``aiida.scheduler``
+...................
+
+::
+
+    Scheduler
+
+
+``aiida.tools``
+...............
+
+::
+
+    CalculationTools
+    get_kpoints_path
+    get_explicit_kpoints_path
+    structure_to_spglib_tuple
+    spglib_tuple_to_structure
+    DbImporter
+
+
+``aiida.transport``
+...................
+
+::
+
+    Transport
+AiiDA API
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   public
+   ../apidoc/aiida.rst
+.. _internal_architecture:plugin_system:
+
+*************
+Plugin system
+*************
+
+.. note:: This page explains how to contribute to the plugin system in ``aiida-core``.
+   For instrucions on how to develop plugins, see :ref:`how-to:plugins-develop`.
+
+Design Principles
+=================
+
+1. Only restrict plugin developers when really necessary;
+
+2. Avoid database schema changes whenever reasonably possible;
+
+3. Finding and loading plugins must be as fast as the plugin allows, especially for command line interface (CLI) commands.
+   In other words, directly importing a plugin class should not be noticeably faster than using the plugin loader/factory;
+
+4. Implement as a drop-in replacement, provide backwards compatibility to pre-0.9 plugin system;
+
+5. Plugin management should be as user friendly from the verdi shell as from the CLI.
+
+Mini-Spec
+=========
+
+Nomenclature
+------------
+``plugin_name``
+   A unique name identifying the plugin. Suggested naming scheme is
+
+   * ``aiida-<plugin-name>`` for pypi distribution / source code repository
+   * ``aiida_<plugin_name>`` for python package (``import aiida_<plugin_name>``; dashes replaced by underscores)
+   * ``<plugin_name>.ep_name`` for entry points
+
+
+``category``
+   A name given to each aspect of AiiDA that can be extended via plugins, such as ``calculations``, ``schedulers``, ...
+   (see output of ``verdi plugin list`` for a complete list).
+
+   Each category maps to an *entry point group* ``aiida.<category>``.
+
+Interfaces
+----------
+
+Pluginloader
+^^^^^^^^^^^^
+The plugin loading functionality is defined in :py:mod:`aiida.plugins.entry_point`.
+
+Registry Tools
+^^^^^^^^^^^^^^
+See the API documentation in :py:mod:`aiida.plugins`.
+.. _internal_architecture:database:
+
+******************
+Database structure
+******************
+
+The database is the main tool that AiiDA uses to keep track of the provenance.
+It directly stores the most critical data and contains the access information for everything that gets stored in the repository.
+Its content is organized into different tables, and although the exact structure will depend on the backend used (django or sqlalchemy), most of it is the same for both possibilities.
+
+In the following section, we will first go through the main tables that are related to the AiiDA entities and their relationships.
+These tables also have the property of being the same for both backends.
+We will give a general overview and explanation of how they work, and provide a more exhaustive technical description of their internal structure.
+After that, we will introduce the remaining tables that either serve a more auxiliary purpose or are backend specific.
+
+
+The AiiDA entities and their tables
+===================================
+
+There are 7 entities that are stored in the database, each within its own table:
+
+ - **db_dbnode:** the `nodes` are the most important entities of AiiDA.
+   The very provenance graph is made up of interconected data and process nodes.
+
+ - **db_dbgroup:** `groups` are containers for organizing nodes.
+   A group may contain many different nodes, but also each node can be included in different groups.
+
+ - **db_dbuser:** `users` represent (and contain the information of) the real life individuals working with the program.
+   Every node that is created has a single user as its author.
+
+ - **db_dbcomputer:** `computers` represent (and contain the information of) the physical hardware resources available.
+   Nodes can be associated with computers if they are remote codes, remote folders, or processes that had run remotely.
+
+ - **db_dbauthinfo:** `authinfos` contain the specific user configurations for accessing a given computer.
+
+ - **db_dbcomment:** `comments` can be attach to the nodes by the users.
+
+ - **db_dblog:** `logs` may be attached to nodes by AiiDA to provide further information of relevant events that transpired during its creation (for example, warning an errors during the execution of processes).
+
+
+In all of the tables in the database (not just the ones mentioned above), the primary key that uniquely identifies each of their members is a positive integer number called ``id`` (sometimes also ``pk``).
+However, this number is only unique within the table, and thus there can be a user with an ``id`` of 2 and a node with an ``id`` of 2 in the same database (or, more trivially, two different nodes both with an ``id`` of 2, each in a different database).
+
+What most of the entities also have (all the aforementioned except for users and authinfos) is a ``uuid`` value.
+The ``uuid`` is meant to serve as an identifier that is unique within all tables of all AiiDA databases in the world.
+This is a 32-position hexadecimal sequence that is stored as a string with some dash separated sections (for example: ``479a312d-e9b6-4bbb-93b4-f0a7174ccbf4``).
+
+When going over the descriptions for the entities before, you may have noticed that all of them have some kind of "interaction" or "relationship" with at least one other entity in some way.
+Some of these relationships can be tracked inside of one of the related entity's tables, whilst others require the creation of a whole new table with the only purpose of keeping track of them.
+
+
+The many-to-one relationship
+----------------------------
+
+You can see an example of a many-to-one relationship between users and nodes: each node will have one and only one user that has created it, while a single user may have created many nodes.
+Although in that case the relationship is "mandatory", this doesn't need to be the case: for example, not all nodes will have a computer associated with them, but the ones that do will have only one and no more.
+
+The following entities have a many-to-one relationship:
+
+ * Many `nodes` can be created by the same `user`.
+ * Many `nodes` can point to the same `computer`.
+ * Many `groups` can be created by the same `user`.
+ * Many `authinfos` can be set for the same `user`.
+ * Many `authinfos` can be set for the same `computer`.
+ * Many `comments` can be created by the same `user`.
+ * Many `comments` can be attached to the same `node`.
+ * Many `logs` can be attached to the same `node`.
+
+The way to keep track of these relationships is by inserting a `foreign key` column in the table of the "many" entity that points to the corresponding id value of the "one" entity they are related to.
+For example, there is a ``user_id`` foreign key column in the **db_dbnode** table that stores the id of the user that created each node.
+
+
+The many-to-many relationship
+-----------------------------
+
+This type of relationship is a bit more difficult to track, since now both members can be related to more than one element.
+Recording this in the same table as one of the entities would imply storing a list of values in a column (which is often discouraged and not well supported).
+Therefore, it is more convenient to use an extra table in which each of the connections has its corresponding entry indicating which are the specific elements that are related.
+
+There are only two many-to-many relationships in AiiDA:
+
+ - **Between groups and nodes:**
+   as specified before, many nodes can be inside the same group and a single node can belong to many different groups.
+   This relationship is tracked in the **db_dbgroup_dbnodes** table.
+
+ - **Between nodes themselves (Links):**
+   nodes have what is known as a "self-referencing relationship", meaning that they can be connected among themselves.
+   Indeed, this is one of the core principles of how the provenance graph works.
+   This relationship is tracked in the **db_dblinks** table.
+
+
+Table schema
+============
+
+The following section provides a complete schema for each of the tables of the SQLAlchemy backend.
+
+``*`` indicates columns with a unique constraint, ``→`` indicate foreign keys, and ``?`` indicate value types that are nullable.
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.node.DbNode
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.node.DbLink
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.group.DbGroup
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.group.DbGroupNode
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.user.DbUser
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.computer.DbComputer
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.authinfo.DbAuthInfo
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.comment.DbComment
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.log.DbLog
+
+.. sqla-model:: ~aiida.backends.sqlalchemy.models.settings.DbSetting
+
+
+Sequence tables
+---------------
+
+These are necessary to keep track of the id primary key for each main table (including the backend-specific ones).
+They end in ``_id_seq`` (for example, **db_dbnode_id_seq**, **db_dbgroup_id_seq**, **db_dblink_id_seq**).
+
+
+Backend specific tables
+-----------------------
+
+ - **auth_group** (django)
+ - **auth_group_permissions** (django)
+ - **auth_permission** (django)
+ - **django_content_type** (django)
+ - **django_migrations** (django)
+ - **alembic_version** (sqlalchemy)
+
+
+.. todo:: Database migrations (#4035)
+.. _internal-architecture:repository:
+
+**********
+Repository
+**********
+
+The file repository in AiiDA, often referred to simply as the repository, is the data store where all the files are persisted that belong to the nodes in the provenance graph.
+In this chapter, the design and implementation of the file repository is described.
+The current architecture is heavily influenced by lessons learned from the original design of the file repository in the earliest version of AiiDA that had difficulty scaling to large numbers of files.
+For that reason, at end of the chapter there is a description of the original design and its limitations.
+This can be instructive in understanding the design of the current solution.
+
+.. _internal-architecture:repository:design:
+
+Design
+******
+
+The following requirements were considered during the design of the file repository implementation:
+
+ * Scalability: the repository should be able to store millions of files, all the while permitting efficient backups.
+ * Heterogeneity: the repository should operate efficiently for data that is heterogeneous in size, with object of size ranging from a few bytes to multiple gigabytes.
+ * Simplicity: the solution should not require an actively running server to operate.
+ * Concurrency: the repository should support multiple concurrent reading and writing processes.
+ * Efficiency: the repository should automatically deduplicate file content in an effort to reduce the total amount of required storage space.
+
+These are merely the requirements for the data store that persists the content of the files, or the *backend* file repository.
+The frontend interface that is employed by users to store files has another set of requirements altogether.
+Users are used to think about file storage in terms of a file hierarchy, as they would on a normal file system, where files are stored in (nested) directories.
+Moreover, in the context of AiiDA, a node is expected to have their own subset of files with their own hierarchy, an example of which is shown in :numref:`fig:internal-architecture:repository:design-node-repository`.
+The frontend interface therefore needs to allow users to store and address files with such a hierarchy on a per node basis, even if only virtually.
+With that guarantee, the backend implementation is free to store the files in any way imaginable in order to meet the requirements specified above.
+
+.. _fig:internal-architecture:repository:design-node-repository:
+.. figure:: include/images/repository/schematic_design_node_repo.png
+    :align: center
+    :width: 450px
+
+    Schematic representation of a possible virtual file hierarchy of a node in the provenance graph.
+    From a user's perspective, each node can contain an arbitrary number of files and directories with a certain file hierarchy.
+    The hierarchy is completely virtual, however, in the sense that the hierarchy is not necessarily maintained literally in the data store containing the file content.
+
+To satisfy the requirements of the frontend interface and the actual data store at the same time, the file repository solution in AiiDA is divided into two components: a *backend* and a *frontend*.
+In the following, the current backend implementation, the disk object store, is described.
+
+The disk object store
+---------------------
+
+The disk object store was designed from scratch in order to satisfy the technical requirements of the file repository described in the previous section.
+The concept is simple: the file repository is represented by a *container* which is a directory on the local file system and contains all the file content.
+When a file is written to the container, it is first written to the *scratch* directory.
+Once this operation has finished successfully, the file is moved atomically to the *loose* directory.
+It is called *loose* because each file in this directory is stored as an individual or *loose* object.
+The name of the object is given by the hash computed from its content, currently using the `sha256 algorithm <https://en.wikipedia.org/wiki/SHA-2>`_.
+The *loose* directory applies one level of sharding based on the first two characters of the object hashes, in order to make the lookup of objects more performant as described in :ref:`internal-architecture:repository:original-design`.
+A schematic overview of the folder structure of a disk object store *container* is shown in :numref:`fig:internal-architecture:repository:design-dos`.
+
+.. _fig:internal-architecture:repository:design-dos:
+.. figure:: include/images/repository/schematic_design_dos.png
+    :align: center
+    :width: 550px
+
+    Schematic representation of the file hierarchy in a *container* of the `disk object store <https://pypi.org/project/disk-objectstore/>`_ package.
+    When writing files to the container, they are first written to a *scratch* sandbox folder and then moved atomically to the *loose* directory.
+    During maintenance operations, *loose* files can be concatenated to pack files that are stored in the *packed* directory.
+
+The approach of creating new files in the repository by first writing them to the scratch sandbox folder before atomically moving them to the *loose* object directory, directly addresses the requirement of *concurrency*.
+By relying on the *atomic* file move operation of the operating system, all *loose* objects are guaranteed to be protected from data corruptions, within the limits of the atomicity guarantees of the local file system.
+The usage of the file content's hash checksum as the filename automatically fulfils the *efficiency* requirement.
+Assuming that the hashing algorithm used has no collisions, two objects with the same hash are guaranteed to have the same content and so therefore can be stored as a single object.
+Although the computation of a file's hash before storing it incurs a non-negligible overhead, the chosen hashing algorithm is fast enough that it justifies that cost given that it gives a significant reduction in required storage space due to the automatic and implicit data deduplication.
+
+While the approach of the *scratch* and *loose* directories address the criteria of *concurrency* and *efficiency*, the solution is not *scalable*.
+Just as the :ref:`original design <internal-architecture:repository:original-design>`, this solution does not scale to file repositories of multiple millions of nodes, since every object is stored as an individual file on disk.
+As described there, this makes the repository impractical to backup since merely constructing the list of files present is an expensive operation.
+To tackle this problem, the disk object store implements the concept of packing.
+In this maintenance operation, the contents of all loose objects stored in the *loose* directory are concatenated into single files that are stored in the *packed* folder.
+The pack files have a configurable maximum size and once it is reached the next pack file is created, whose filenames are named by consecutive integers.
+
+A `sqlite <https://sqlite.org/index.html>`_ database is used to track in which pack file each object is stored, the byte offset at which it starts and its total byte length.
+Such an index file is necessary once individual objects are packed into a smaller number of files, and to respect the *simplicity* requirement, a sqlite database was chosen, since it is serverless and efficient.
+The loose objects are concatenated in a random order, which is to say that the disk object store undertakes no effort to order objects according to their content size in any way, such as to align them with blocks on the file system, unlike some other key-value store solutions.
+Files of any size are treated equally and as such there is no optimization towards storing smaller files nor larger files.
+This is done intentionally because the disk object store is expected to be able to store files that are strongly heterogeneous in size and as such can not make optimizations for a particular range of file sizes.
+
+Currently, the packing operation is seen as a maintenance operation, and therefore, unlike the writing of new *loose* objects, cannot be operated concurrently by multiple processes.
+Despite this current limitation, the packing mechanism satisfies the final *scalability* requirement.
+By reducing the total number of files and the packing strategy, the pack files can be copied to a backup copy very efficiently.
+Since new objects are concatenated to the end of existing pack files and existing pack files are in principle never touched after they have reached their maximum size (unless the pack files are forcefully repacked), backup up tools, such as `rsync <https://en.wikipedia.org/wiki/Rsync>`_, can reduce the transfer of content to the bare minimum.
+
+
+.. _internal-architecture:repository:design:repository-backend:
+
+The file repository backend
+---------------------------
+
+To be able to respect the divergent requirements (as laid out :ref:`at the start of this section <internal-architecture:repository:design>`) of the file repository regarding its user interface and the actual data store, the implementation is divided into a backend and frontend interface.
+In a clear separation of responsibilities, the backend is solely tasked with storing the content of files and returning them upon request as efficiently as possible, both when retrieving files individual as well as in bulk.
+For simplicity, the repository backend only deals with raw byte streams and does not maintain any sort of file hierarchy.
+The interface that any backend file repository should implement is defined by the :class:`~aiida.repository.backend.abstract.AbstractRepositoryBackend` abstract class.
+
+.. literalinclude:: ../../../aiida/repository/backend/abstract.py
+    :language: python
+    :pyobject: AbstractRepositoryBackend
+
+The :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_filelike` is the main method that, given a stream or filelike-object of bytes, will write it as an object to the repository and return a key.
+The :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_file` is a convenience method that allows to store a file object directly from a file on the local file system, and simply calls through to :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.put_object_from_filelike`.
+The key returned by the *put*-methods, which could be any type of string, should uniquely identify the stored object.
+Using the key, :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.open` and :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.get_object_content` can be used to obtain a handle to the object or its entire content read into memory, respectively.
+Finally, the :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.has_object` and :meth:`~aiida.repository.backend.abstract.AbstractRepositoryBackend.delete_object` can be used to determine whether the repository contains an object with a certain key, or delete it, respectively.
+
+The abstract repository backend interface is implemented for the `disk object store`_ (:class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend`) as well as a scratch sandbox (:class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend`).
+The latter implementation simply implements the interface using a temporary scratch folder on the local file system to store the file content.
+File objects are stored in a flat manner where the filename, that functions as the unique key, is based on a randomly generated UUID, as shown in :numref:`fig:internal-architecture:repository:design-sandbox`.
+
+.. _fig:internal-architecture:repository:design-sandbox:
+.. figure:: include/images/repository/schematic_design_sandbox.png
+    :align: center
+    :width: 550px
+
+    The file structure created by the :class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` implementation of the file repository backend.
+    Files are stored in a completely flat structure with the name determined by a randomly generated UUID.
+    This is the most efficient method for writing and reading files on a local file system.
+    Since these sandbox repositories are intended to have very short lifetimes and contain relatively few objects, the typical drawbacks of a flat file store do not apply.
+
+The simple flat structure of this sandbox implementation should not be a limitation since this backend should only be used for short-lived temporary file repositories.
+The use case is to provide a file repository for unstored nodes.
+New node instances that created in interactive shell sessions are often discarded before being stored, so it is important that not only the creation of new files, but also their deletion once the node is deleted, is as efficient as possible.
+The disk object store is not optimized for efficient ad-hoc object deletion, but rather, object deletion is implemented as a soft-delete and the actual deletion should be performed during maintenance operations, such as the packing of loose objects.
+That is why a new node instance upon instantiation gets an instance of the class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` repository.
+Only when the node gets stored, are the files copied to the permanent :class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend` file repository.
+
+
+.. _internal-architecture:repository:design:repository-front:
+
+The file repository frontend
+----------------------------
+
+To understand how the file repository frontend integrates the ORM and the file repository backend, consider the following class diagram:
+
+.. _fig:internal-architecture:repository:class-hierarchy:
+.. figure:: include/images/repository/schematic_design_class_hierarchy.png
+    :align: center
+    :width: 550px
+
+    The file repository backend is interfaced through the :class:`~aiida.repository.repository.Repository` class.
+    It maintains a reference of an instance of one of the available file repository backend implementations, be it the sandbox or disk object store variant, to store file objects and to retrieve the content for stored objects.
+    Internally, it keeps a virtual file hierarchy, which allows clients to address files by their path in the file hierarchy as opposed to have the unique key identifiers created by the backend.
+    Finally, the :class:`~aiida.orm.nodes.node.Node` class, which is the main point of interaction of users with the entire API, mixes in the :class:`~aiida.orm.nodes.repository.NodeRepositoryMixin` class.
+    The latter keeps an instance of the :class:`~aiida.repository.repository.Repository` class to which all repository operations are forwarded, after the check of node mutability is performed.
+
+As opposed to the backend interface, the frontend :class:`~aiida.repository.repository.Repository` *does* understand the concept of a file hierarchy and keeps it fully in memory.
+This allows clients to interact with this interface as if the files were stored with the indicated hierarchy and address them by their relative filepaths, as opposed to the unique string identifiers that are generated by the backend.
+It is important to note, however, that this virtual hierarchy is not initialized based on the actual contents of the file repository backend.
+In fact it *cannot* be, because the backend has no notion of a file hierarchy and so cannot provide its hierarchy to the :class:`~aiida.repository.repository.Repository` when it is constructed.
+This means that the :class:`~aiida.repository.repository.Repository` only exposes a *subset* of the files that are contained within a file repository backend.
+
+To persist the virtual hierarchy of the files stored for any particular node, it is stored in the database.
+The node database model has a JSONB column called ``repository_metadata`` that contains the virtual file hierarchy in a serialized form.
+This serialized form is generated by the :meth:`~aiida.repository.repository.Repository.serialize` method, and the :meth:`~aiida.repository.repository.Repository.from_serialized` class method can be used to reconstruct a repository instance with a pre-existing file hierarchy.
+Note that upon constructing from a serialized file hierarchy, the :class:`~aiida.repository.repository.Repository` will not actually validate that the file objects contained within the hierarchy are *actually* contained in the backend.
+
+The final integration of the :class:`~aiida.repository.repository.Repository` class with the ORM is through the :class:`~aiida.orm.nodes.repository.NodeRepositoryMixin` class, which is mixed into the :class:`~aiida.orm.nodes.node.Node` class.
+This layer serves a couple of functions:
+
+ * It implements the mutability rules of nodes
+ * It serves as a translation layer between string and byte streams.
+
+The first is necessary because after a node has been stored, its content is considered immutable, which includes the content of its file repository.
+The :class:`~aiida.orm.utils.mixins.Sealable` mixin overrides the :class:`~aiida.repository.repository.Repository` methods that mutate repository content, to ensure that process nodes *can* mutate their content, as long as they are not sealed.
+
+The second *raison-d'être* of the :class:`~aiida.orm.nodes.repository.NodeRepositoryMixin` is to allow clients to work with string streams instead of byte streams.
+As explained in the section on the :ref:`file repository backend <internal-architecture:repository:design:repository-backend>`, it only works with byte streams.
+However, users of the frontend API are often more used to working with strings and files with a given encoding.
+The :class:`~aiida.orm.nodes.repository.NodeRepositoryMixin` overrides the *put*-methods and accepts string streams, and enables returning file handles to existing file objects that automatically decode the byte content.
+The only additional requirement for operating with strings instead of bytes is that the client specifies the encoding.
+Since the file repository backend does not store any sort of metadata, it is impossible to deduce the file encoding and automatically decode it.
+Likewise, using the default file encoding of the system may yield the wrong result since the file could have been imported and actually have been originally written on another system with a different encoding.
+Encoding and decoding of file objects is therefore the responsibility of the frontend user.
+
+The lifetime of a node
+----------------------
+
+Now that all the components are described, here we describe how they are employed throughout the lifetime of a node.
+When a new node instance is constructed, it will not yet have an instance of the :class:`~aiida.repository.repository.Repository`.
+Instead, this is done lazily as soon as an operation on the file repository is executed.
+This is crucial for performance since node instances may often be initialized without their repository contents ever needing to be accessed and constructing the repository interface instances will have a non-negligible overhead.
+If the node is unstored the :class:`~aiida.repository.repository.Repository` will be constructed with an instance of the :class:`~aiida.repository.backend.sandbox.SandboxRepositoryBackend` implementation.
+The advantage is that if the node object does go out of scope before it has been stored, the contents that may have been created in the repository will be automatically cleaned from the local file system.
+
+When a node gets stored, the :class:`~aiida.repository.repository.Repository` instance is replaced with a new instance, this time with the backend set to the :class:`~aiida.repository.backend.disk_object_store.DiskObjectStoreRepositoryBackend` that is initialized to point to the *container* of the current profile.
+The contents of the sandbox repository are copied over to the disk object store through the :class:`~aiida.repository.repository.Repository` interface and at the end its contents are serialized.
+The serialized file hierarchy is then stored on the node itself in the ``repository_metadata`` column.
+This allows to reconstruct the :class:`~aiida.repository.repository.Repository` instance correctly once the node is reloaded from the database, by calling the :meth:`~aiida.repository.repository.Repository.from_serialized` class method while passing the stored ``repository_metadata``.
+
+
+.. _internal-architecture:repository:original-design:
+
+The original design
+*******************
+
+The original file repository in AiiDA was implemented as a simple directory on the local file system.
+The files that belong to a node would be written *as is* to a subdirectory within that repository directory, without any compression or packing.
+The name of the directory was equal to the UUID of the node, guaranteeing that each subdirectory was unique, and the files of different nodes would not overwrite one another, even if they have identical names.
+
+In anticipation of databases containing many nodes leading to many subdirectories, which would slow down the operation of finding the directory of a particular node, the repository was `sharded <https://en.wikipedia.org/wiki/Shard_(database_architecture)>`_.
+In the context of a file system, this means that instead of a flat structure of the file repository, the node directories are stored in a (nested) subdirectory.
+Which subdirectory is once again determined by the UUID: the first and second subdirectories are given by the first and second two characters, respectively.
+The remaining characters of the UUID form the name of the final subdirectory.
+For example, given the UUID ``4802585e-18da-42e1-b063-7504585ea9af``, the relative path of the subdirectory would be ``48/02/585e-18da-42e1-b063-7504585ea9af``.
+With this structure, the file repository would contain at most 256 directories, ``00`` through ``ff``, with the same applying to each one of those.
+Starting from the third level, however, the file hierarchy would once again be flat.
+A schematic overview of the resulting file hierarchy is shown in :numref:`fig:internal-architecture:repository:design-original`.
+
+.. _fig:internal-architecture:repository:design-original:
+.. figure:: include/images/repository/schematic_design_original.png
+    :align: center
+    :width: 550px
+
+    Schematic representation of the original structure of the file repository.
+    The files of each node are stored in a directory that is exclusive to that node, whose path is determined by the UUID of the node.
+    The directory is sharded twice, using two consecutive characters of the start of the UUID to create two levels of subdirectories.
+    This is done to limit the number of directories in any one level in order to make the looking up of a directory for a given node more efficient.
+
+
+Limitations
+-----------
+
+While a simple and robust design, the original architecture of the file repository had various limitations, many of which would start to play a significant role for larger project that contain many files.
+The main limitation of the original design is that all files were stored as is, which eventually leads to a large number of files stored in a large number of subdirectories.
+On a file system, each file or directory requires an *inode*, which is label that the file system to be able to map the filepath to the actual location on disk.
+The number of available inodes on a file system are limited, and certain AiiDA projects were hitting these limits, making it impossible to write more files to disk, even though there might have been plenty of raw storage space left.
+
+In addition, backing up a file repository with the original design was practically impossible.
+Due to the sheer number of files, even just determining the difference between the original and backup of a repository, for example using `rsync <https://en.wikipedia.org/wiki/Rsync>`_ could take days.
+And that is just computing the difference, let alone the time it would take to perform the actual backup.
+
+However, it wasn't merely the number of files that was problematic, but even the number of directories that typical repositories would contain, would already significantly slow down backup operations.
+Since the database kept no reference of which files and directories were stored in the file repository for any given node, the original design would always create a subdirectory in the file repository for any node, even if it contained no files whatsoever.
+Otherwise, it would have been impossible to know whether a node *really* did not contain any files, or if the directory in the file repository was accidentally mistaken.
+This approach did, however, lead to a large number of empty directories, as many nodes often contain no files at all, for example, base type data nodes.
+.. _internal_architecture:engine:
+
+******
+Engine
+******
+
+
+
+.. _internal_architecture:engine:caching:
+
+Controlling caching
+-------------------
+
+.. important::
+
+    This section covers some details of the caching mechanism which are not discussed in the :ref:`topics section <topics:provenance:caching>`.
+    If you are developing plugins and want to modify the caching behavior of your classes, we recommend you read that section first.
+
+There are several methods which the internal classes of AiiDA use to control the caching mechanism:
+
+On the level of the generic :class:`orm.Node <aiida.orm.nodes.Node>` class:
+
+* The :meth:`~aiida.orm.nodes.Node.is_valid_cache` property determines whether a particular node can be used as a cache.
+  This is used for example to disable caching from failed calculations.
+* Node classes have a ``_cachable`` attribute, which can be set to ``False`` to completely switch off caching for nodes of that class.
+  This avoids performing queries for the hash altogether.
+
+On the level of the :class:`Process <aiida.engine.processes.process.Process>` and :class:`orm.ProcessNode <aiida.orm.nodes.process.ProcessNode>` classes:
+
+* The :meth:`ProcessNode.is_valid_cache <aiida.orm.nodes.process.ProcessNode.is_valid_cache>` calls :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>`, passing the node itself.
+  This can be used in :class:`~aiida.engine.processes.process.Process` subclasses (e.g. in calculation plugins) to implement custom ways of invalidating the cache.
+* The :meth:`ProcessNode._hash_ignored_inputs <aiida.orm.nodes.process.process.ProcessNode._hash_ignored_inputs>` attribute lists the inputs that should be ignored when creating the hash.
+  This is checked by the :meth:`ProcessNode._get_objects_to_hash <aiida.orm.nodes.process.process.ProcessNode._get_objects_to_hash>` method.
+* The :meth:`Process.is_valid_cache <aiida.engine.processes.process.Process.is_valid_cache>` is where the :meth:`exit_codes <aiida.engine.processes.process_spec.ProcessSpec.exit_code>` that have been marked by ``invalidates_cache`` are checked.
+
+
+The ``WorkflowNode`` example
+............................
+
+As discussed in the :ref:`topic section <topics:provenance:caching:limitations>`, nodes which can have ``RETURN`` links cannot be cached.
+This is enforced on two levels:
+
+* The ``_cachable`` property is set to ``False`` in the :class:`~aiida.orm.nodes.Node`, and only re-enabled in :class:`~aiida.orm.nodes.process.calculation.calculation.CalculationNode` (which affects CalcJobs and calcfunctions).
+  This means that a :class:`~aiida.orm.nodes.process.workflow.workflow.WorkflowNode` will not be cached.
+* The ``_store_from_cache`` method, which is used to "clone" an existing node, will raise an error if the existing node has any ``RETURN`` links.
+  This extra safe-guard prevents cases where a user might incorrectly override the ``_cachable`` property on a ``WorkflowNode`` subclass.
+
+
+.. _#4038: https://github.com/aiidateam/aiida-core/issues/4038
+.. todo::
+
+    .. _internal_architecture:global-design:
+
+    ***********************
+    Global design decisions
+    ***********************
+
+    `#4039`_
+
+.. _#4039: https://github.com/aiidateam/aiida-core/issues/4039
+.. todo::
+
+    .. _internal_architecture:orm:
+
+    ***
+    ORM
+    ***
+
+    .. _internal_architecture:orm:entities:
+
+    Entities & nodes
+    ================
+
+    `#4040`_
+
+    .. _internal_architecture:orm:querybuilder:
+
+    Querybuilder
+    ============
+
+    `#4041`_
+
+    .. _internal_architecture:orm:ontology:
+
+    AiiDA ontology
+    ==============
+
+    `#4042`_
+
+.. _#4040: https://github.com/aiidateam/aiida-core/issues/4040
+.. _#4041: https://github.com/aiidateam/aiida-core/issues/4041
+.. _#4042: https://github.com/aiidateam/aiida-core/issues/4042
+.. _internal_architecture:orm:archive:
+
+********************
+AiiDA archive format
+********************
+
+An AiiDA archive is a single file format (with canonical extension ``.aiida``), for long term storage of an AiiDA provenance graph.
+It provides a data storage backend, integrating a database and file repository.
+
+The standard format is a ZIP archive, containing the following files:
+
+* ``metadata.json`` file containing information on the version of the archive.
+* ``db.sqlite3`` file containing the AiiDA database.
+* ``repo/`` directory containing the AiiDA file repository.
+
+.. image:: include/images/archive-file-structure.*
+    :width: 60%
+    :align: center
+
+The central directory is written with the metadata and database records at the top of the file.
+Zip files are read first from the bottom, which contains the byte position of the start of the central directory, then scanning down the central directory to extract records for each file.
+When extracting the metadata/database only, one can simply scan for that record, then break and directly decompress the byte array for that file.
+In this way, we do not have to scan through all the records of the repository files
+
+
+.. _internal_architecture:orm:archive:metadata:
+
+metadata
+--------
+
+This file contains important information, and it is necessary for the correct interpretation of ``db.sqlite3```.
+This is used to avoid any incompatibilities among different versions of AiiDA.
+
+Hre is an example ``metadata.json``:
+
+.. literalinclude :: includes/metadata.json
+   :language: json
+
+At the beginning of the file, we see the version of the archive file (under ``export_version``) and the version of the AiiDA code.
+New archive versions are introduced for several different reasons; this may generally be when:
+
+* a change occurs in what can or cannot be exported for each entity,
+* the database and/or archive schemes are updated or changed,
+* or standardized exported property values are updated in AiiDA.
+
+.. note::
+    For archives of version 0.3 and older it is advisable that you manually try to convince yourself that the migration was completely successful.
+    While all migrations are tested, trying to include reasonable edge-cases, the migrations involved from version 0.3 to 0.4 are intricate and the possibility of a missing edge-case test is quite real.
+    It is worth noting that if you ever have an issue, please report it on `GitHub <https://www.github.com/aiidateam/aiida_core/issues/new>`_, join the `AiiDA mailing list <http://www.aiida.net/mailing-list/>`_, or use the `contact form <http://www.aiida.net/contact-new/>`_.
+
+.. note::
+
+    If you have migrated an archive file to the newest version, there may be an extra entry in ``metadata.json``.
+    This simply states from which archive version the file was migrated.
+
+.. note::
+
+    If you supply an old archive file that the current AiiDA code does not support, ``verdi archive import`` will automatically try to migrate the archive by calling ``verdi archive migrate``.
+
+.. _internal_architecture:orm:archive:data-json:
+
+database
+--------
+
+The database is in sqlite format.
+
+The schema is dynamically generated from the SQLAlchemy ORM classes for the "main" database (converting `JSONB` -> `JSON`, and `UUID` -> `String`).
+
+.. seealso::
+
+    :ref:`internal_architecture:database`
+=====================
+Internal architecture
+=====================
+
+.. toctree::
+    :maxdepth: 1
+
+    database
+    repository
+    archive_format
+    plugin_system
+    engine
+    rest_api
+
+.. todo::
+
+    global_design
+    orm
+.. role:: python(code)
+   :language: python
+
+.. _internal_architecture:restapi:
+
+********
+REST API
+********
+
+The AiiDA REST API is made of two main classes:
+
+ * ``App``, inheriting from ``flask.Flask`` (generic class for Flask web applications).
+ * ``AiidaApi``, inheriting ``flask_restful.Api``. This class defines the resources served by the REST API.
+
+The instances of both ``AiidaApi`` (let's call it ``api``) and ``App`` (let's call it ``app``) need to be coupled by setting ``api.app = app``.
+
+
+Extending the REST API
+======================
+
+In the following, we will go through a minimal example of creating an API that extends the AiiDA REST API by adding an endpoint ``/new-endpoint``.
+The endpoint will support two HTTP methods:
+
+ * *GET*: retrieves the latest created Dict object and returns its ``id``, ``ctime`` in ISO 8601 format, and ``attributes``.
+ * *POST*: creates a ``Dict`` object with placeholder attributes, stores it, and returns its ``id``.
+
+In order to achieve this, we will need to:
+
+ * Create the ``flask_restful.Resource`` class that will be bound to the new endpoint.
+ * Extend the :py:class:`~aiida.restapi.api.AiidaApi` class in order to register the new endpoint.
+ * (Optional) Extend the :py:class:`~aiida.restapi.api.App` class for additional customization.
+
+Let's start by putting the following code into a  file ``api.py``:
+
+.. literalinclude:: includes/snippets/api.py
+
+We will now go through the previous code step by step.
+
+First things first: the imports.
+
+.. code-block:: python
+
+    from aiida.restapi.api import AiidaApi, App
+    from aiida.restapi.run_api import run_api
+    from flask_restful import Resource
+
+To start with, we import the base classes to be extended/employed: ``AiidaApi`` and ``App``.
+For simplicity, it is advisable to import the method ``run_api``, as it provides an interface to configure the API, parse command-line arguments, and couple the two classes representing the API and the App.
+However, you can refer to the documentation of `flask_restful <https://flask-restful.readthedocs.io/>`_ to configure and hook-up an API through its built-in methods.
+
+Then we define a class representing the additional resource:
+
+.. code-block:: python
+
+    class NewResource(Resource):
+        """
+        resource containing GET and POST methods. Description of each method
+        follows:
+
+        GET: returns id, ctime, and attributes of the latest created Dict.
+
+        POST: creates a Dict object, stores it in the database,
+        and returns its newly assigned id.
+
+        """
+
+        def get(self):
+            from aiida.orm import QueryBuilder, Dict
+
+            qb = QueryBuilder()
+            qb.append(Dict,
+                      project=['id', 'ctime', 'attributes'],
+                      tag='pdata')
+            qb.order_by({'pdata': {'ctime': "desc"}})
+            result = qb.first()
+
+            # Results are returned as a dictionary, datetime objects is
+            # serialized as ISO 8601
+            return dict(id=result[0],
+                        ctime=result[1].isoformat(),
+                        attributes=result[2])
+
+        def post(self):
+            from aiida.orm import Dict
+
+            params = dict(property1="spam", property2="egg")
+            paramsData = Dict(dict=params).store()
+
+            return {'id': paramsData.pk}
+
+The class ``NewResource`` contains two methods: ``get`` and ``post``.
+The names chosen for these functions are not arbitrary but fixed by ``Flask`` to individuate the functions that respond to HTTP request of type GET and POST, respectively.
+In other words, when the API receives a GET (POST) request to the URL ``new-endpoint``, the function ``NewResource.get()`` (``NewResource.post()``) will be executed.
+The HTTP response is constructed around the data returned by these functions.
+The data, which are packed as dictionaries, are serialized by Flask as a JSON stream of data.
+All the Python built-in types can be serialized by Flask (e.g. ``int``, ``float``, ``str``, etc.), whereas for serialization of custom types we let you refer to the `Flask documentation <http://flask.pocoo.org/docs/>`_ .
+The documentation of Flask is the main source of information also for topics such as customization of HTTP responses, construction of custom URLs (e.g. accepting parameters), and more advanced serialization issues.
+
+Whenever you face the need to handle errors, consider to use the AiiDA REST API-specific exceptions already defined in  :py:class:`aiida.restapi.common.exceptions`.
+The reason will become clear slightly later in this section.
+
+Once the new resource is defined, we have to register it to the API by assigning it one (or more) endpoint(s).
+This is done in the ``__init__()`` of ``NewApi`` by means of the method ``add_resource()``:
+
+.. code-block:: python
+
+    class NewApi(AiidaApi):
+
+        def __init__(self, app=None, **kwargs):
+            """
+            This init serves to add new endpoints to the basic AiiDA Api
+
+            """
+            super().__init__(app=app, **kwargs)
+
+            self.add_resource(NewResource, '/new-endpoint/', strict_slashes=False)
+
+In our original intentions, the main (if not the only) purpose of overriding the ``__init__()`` method is to register new resources to the API.
+In fact, the general form of ``__init__()`` is meant to be:
+
+.. code-block:: python
+
+    class NewApi(AiidaApi):
+
+        def __init__(self, app=None, **kwargs):
+
+            super())
+
+            self.add_resource( ... )
+            self.add_resource( ... )
+            self.add_resource( ... )
+
+            ...
+
+In the example, indeed, the only characteristic line is :python:`self.add_resource(NewResource, '/new-endpoint/', strict_slashes=False)`.
+Anyway, the method ``add_resource()`` is defined and documented in `Flask <http://flask.pocoo.org/docs/>`_.
+
+Finally, the ``main`` code configures and runs the API:
+
+.. code-block:: python
+
+    import aiida.restapi.common as common
+    from aiida import load_profile
+
+    CONFIG_DIR = common.__path__[0]
+
+    import click
+    @click.command()
+    @click.option('-P', '--port', type=click.INT, default=5000,
+        help='Port number')
+    @click.option('-H', '--hostname', default='127.0.0.1',
+        help='Hostname')
+    @click.option('-c','--config-dir','config',type=click.Path(exists=True), default=CONFIG_DIR,
+        help='the path of the configuration directory')
+    @click.option('--debug', 'debug', is_flag=True, default=False,
+        help='run app in debug mode')
+    @click.option('--wsgi-profile', 'wsgi_profile', is_flag=True, default=False,
+        help='to use WSGI profiler middleware for finding bottlenecks in web application')
+
+    def newendpoint(**kwargs):
+        """
+        runs the REST api
+        """
+        # Invoke the runner
+        run_api(App, NewApi, **kwargs)
+
+    # main program
+    if __name__ == '__main__':
+        """
+        Run the app with the provided options. For example:
+        python api.py --host=127.0.0.2 --port=6000
+        """
+
+        load_profile()
+        newendpoint()
+
+The `click package <https://click.palletsprojects.com/en/7.x/>`_ is used to provide a a nice command line interface to process the options and handle the default values to pass to the ``newendpoint`` function.
+
+The method ``run_api()`` accomplishes several functions: it couples the API to an instance of ``flask.Flask``, namely, the Flask fundamental class representing a web app.
+Consequently, the app is configured and, if required, hooked up.
+
+It takes as inputs:
+
+ * the classes representing the API and the application.
+   We strongly suggest to pass to ``run_api()`` the :py:class:`aiida.restapi.api.App` class, inheriting from ``flask.Flask``, as it handles correctly AiiDA RESTApi-specific exceptions.
+
+ * positional arguments representing the command-line arguments/options, passed by the click function.
+   Types, defaults and help strings can be set in the ``@click.option`` definitions, and will be handled by the command line call.
+
+
+A few more things before using the script:
+
+ * if you want to customize further the error handling, you can take inspiration by looking at the definition of ``App`` and create your derived class ``NewApp(App)``.
+
+
+ * the supported command line options are identical to those of ``verdi restapi``.
+   Use ``verdi restapi --help`` for their full documentation.
+   If you want to add more options or modify the existing ones, create you custom runner taking inspiration from ``run_api``.
+
+It is time to run ``api.py``. Type in a terminal
+
+.. code-block:: console
+
+   $ chmod +x api.py
+   $ ./api.py --port=6000
+      * REST API running on http://127.0.0.1:6000/api/v4
+      * Serving Flask app "aiida.restapi.run_api" (lazy loading)
+      * Environment: production
+        WARNING: This is a development server. Do not use it in a production deployment.
+        Use a production WSGI server instead.
+      * Debug mode: off
+      * Running on http://127.0.0.1:6000/ (Press CTRL+C to quit)
+
+Let's use ``curl`` with the GET method to ask for the latest created node:
+
+.. code-block:: bash
+
+    curl http://127.0.0.2:6000/api/v4/new-endpoint/ -X GET
+
+The form of the output (and only the form) should resemble
+
+.. code-block:: python
+
+    {
+        "attributes": {
+            "binding_energy_per_substructure_per_unit_area_units": "eV/ang^2",
+            "binding_energy_per_substructure_per_unit_area": 0.0220032273047497
+        },
+        "ctime": "2017-04-05T16:01:06.227942+00:00",
+        "id": 403504
+    }
+
+whereas the actual values of the response dictionary as well as the internal structure of the attributes field will be in general very different.
+
+Now, let us create a node through the POST method, and check it again through GET:
+
+.. code-block:: python
+
+    curl http://127.0.0.1:6000/api/v4/new-endpoint/ -X POST
+    {"id": 410618}
+    curl http://127.0.0.1:6000/api/v4/new-endpoint/ -X GET
+    {
+        "attributes": {
+            "property1": "spam",
+            "property2": "egg"
+        },
+        "ctime": "2017-06-20T15:36:56.320180+00:00",
+        "id": 410618
+    }
+
+The POST request triggers the creation of a new ``Dict`` node, as confirmed by the response to the GET request.
+
+As a final remark, there might be circumstances in which you do not want to use the internal werkzeug-based server.
+For example, you might want to run the app through Apache using a wsgi script.
+In this case, simply use ``configure_api`` to return a custom object ``api``:
+
+.. code-block:: python
+
+    api = configure_api(App, MycloudApi, **kwargs)
+
+
+The ``app`` can be retrieved by ``api.app``.
+This snippet of code becomes the fundamental block of a *wsgi* file used by Apache as documented in  :ref:`how-to:share:serve:deploy`.
+Moreover, we recommend to consult the documentation of `mod_wsgi <https://modwsgi.readthedocs.io/>`_.
+
+.. note::
+    Optionally, create a click option for the variable ``catch_internal_server`` to be ``False`` in order to let exceptions (including python tracebacks) bubble up to the apache error log.
+    This can be particularly useful when the ``app`` is still under heavy development.
+=================================
+Structures and external databases
+=================================
+
+AiiDA support the automatic import and export of atomic structures from and to selected external databases.
+
+Import
++++++++
+
+The base class that defines the API for the importers can
+be found here: :py:class:`~aiida.tools.dbimporters.baseclasses.DbImporter`.
+
+Below is a list of available plugins:
+
+.. toctree::
+   :maxdepth: 4
+
+   dbimporters/icsd
+   dbimporters/cod
+COD database importer
+---------------------
+
+COD database importer is used to import crystal structures from the `Crystallography Open Database <http://www.crystallography.net>`_ (COD) to AiiDA.
+
+Setup
++++++
+
+An instance of :py:class:`~aiida.tools.dbimporters.plugins.cod.CodDbImporter` is created as follows:
+
+.. code-block:: python
+
+    from aiida.tools.dbimporters.plugins.cod import CodDbImporter
+
+    importer = CodDbImporter()
+
+No additional parameters are required for standard queries on the main COD server.
+
+How to do a query
++++++++++++++++++
+
+A search is initiated by using the :py:meth:`~aiida.tools.dbimporters.plugins.cod.CodDbImporter.query` method, supplying statements using the ``keyword=value`` syntax:
+
+.. code-block:: python
+
+    results = importer.query(chemical_name="caffeine")
+
+List of possible keywords can be listed using the method :py:meth:`~aiida.tools.dbimporters.plugins.cod.CodDbImporter.get_supported_keywords`:
+
+.. code-block:: python
+
+    importer.get_supported_keywords()
+
+Values for most of the keywords can be encapsulated in a list.
+In that case the query will return entries that match any of the values (binary `OR`) from the list.
+Moreover, in the case of multiple keywords, entries that match all the conditions imposed by the keywords, will be returned (binary `AND`).
+
+Example:
+
+.. code-block:: python
+
+    results = importer.query(chemical_name=["caffeine", "serotonin"], year=[2000, 2001])
+
+is equivalent to the following SQL statement:
+
+.. code-block:: sql
+
+    results = SELECT * FROM data WHERE
+                ( chemical_name == "caffeine" OR chemical_name == "serotonin" ) AND
+                ( year = 2000 OR year = 2001 )
+
+A query returns an instance of :py:class:`~aiida.tools.dbimporters.plugins.cod.CodSearchResults`, which can be used in the same way as a list of :py:class:`~aiida.tools.dbimporters.plugins.cod.CodEntry` instances:
+
+.. code-block:: python
+
+
+    print(len(results))
+
+    for entry in results:
+        print(entry)
+
+Using data from :py:class:`~aiida.tools.dbimporters.plugins.cod.CodEntry`
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+:py:class:`~aiida.tools.dbimporters.plugins.cod.CodEntry` has a few methods (inherited from :py:class:`~aiida.tools.dbimporters.baseclasses.CifEntry`) to access the contents of its instances:
+
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_aiida_structure`
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_ase_structure`
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_cif_node`
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_parsed_cif`
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_raw_cif`
+.. _ICSD_importer_guide:
+
+######################
+ICSD database importer
+######################
+
+In this section we explain how to import CIF files from the ICSD database using the :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdDbImporter` class.
+
+Before being able to query ICSD, provided by FIZ Karlsruhe, you should have the intranet database installed on a server (http://www2.fiz-karlsruhe.de/icsd_intranet.html).
+Follow the installation as described in the manual.
+
+It is necessary to know the webpage of the ICSD web interface and have access to the full database from the local machine.
+
+You can either query the MySQL database or the web page.
+The latter is restricted to a maximum of 1000 search results, which makes it unsuitable for data mining.
+For this purpose, we recommend you to set up the MySQL connection.
+
+Setup
++++++
+
+An instance of the :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdDbImporter` can be created as follows:
+
+.. code-block:: python
+
+  from aiida.tools.dbimporters.plugins.icsd import IcsdDbImporter
+
+  importer = IcsdDbImporter(server="http://ICSDSERVER.com/", host= "127.0.0.1")
+
+Here is a list of the most important input parameters with an explanation.
+
+For both connection types (web and SQL):
+
+* ``server``: Address of web interface of the ICSD database.
+  It should contain both the protocol and the domain name, ending with a slash.
+  Example:
+
+  .. code-block:: python
+
+    server = "http://ICSDSERVER.com/"
+
+The following parameters are required only for the MySQL query:
+
+* ``host``: Database host name address.
+
+  .. tip:: If the database is not hosted on your local machine, it can be useful to create an ssh tunnel to the 3306 port of the database host::
+
+      ssh -L 3306:localhost:3306 username@icsddbhostname.com
+
+    If you get an URLError with Errno 111 (Connection refused) when you query the database, try to instead use::
+
+      ssh -L 3306:localhost:3306 -L 8010:localhost:80 username@icsddbhostname.com
+
+    The database can then be accessed using "127.0.0.1" as host::
+
+      host = "127.0.0.1"
+
+* ``user`` / ``pass_wd`` / ``db`` / ``port``: Login username, password, name of database, and port of your MySQL database, respectively.
+  If the standard installation of the ICSD intranet version has been followed, the default values should work.
+  Otherwise contact your system administrator to get the required information::
+
+      user = "dba", pass_wd = "sql", db = "icsd", port = 3306
+
+Other settings:
+
+* ``querydb``: If ``True`` (default) the MySQL database is queried, otherwise the web page is queried.
+
+A more detailed documentation and additional settings can be found under :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdDbImporter`.
+
+How to do a query
++++++++++++++++++
+
+If the setup worked, you can do your first query:
+
+.. code-block:: python
+
+  cif_nr_list = ["50542", "617290", "35538"]
+
+  queryresults = importer.query(id=cif_nr_list)
+
+All supported keywords can be obtained using:
+
+.. code-block:: python
+
+  importer.get_supported_keywords()
+
+More information on the keywords can be found `here <http://www2.fiz-karlsruhe.de/fileadmin/be_user/ICSD/PDF/sci_man_ICSD_v1.pdf>`_.
+
+A query returns an instance of :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdSearchResults`.
+
+The :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdEntry` at position ``i`` can be accessed using:
+
+.. code-block:: python
+
+  queryresults.at(i)
+
+You can also iterate through all query results:
+
+.. code-block:: python
+
+  for entry in query_results:
+      # do something
+
+Instances of :py:class:`~aiida.tools.dbimporters.plugins.icsd.IcsdEntry` have the following methods:
+
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_cif_node`: Return an instance of :py:class:`~aiida.orm.nodes.data.cif.CifData`, which can be used in an AiiDA workflow.
+
+* :py:meth:`~aiida.tools.dbimporters.baseclasses.CifEntry.get_aiida_structure`: Return an AiiDA :py:class:`~aiida.orm.nodes.data.structure.StructureData` instance.
+
+* :py:meth:`~aiida.tools.dbimporters.plugins.icsd.IcsdEntry.get_ase_structure`: Return an ASE structure.
+
+The most convenient format can be chosen for further processing.
+
+
+Full example
+++++++++++++
+
+Here is a full example how the ICSD importer can be used:
+
+.. code-block:: python
+
+
+  from aiida.tools.dbimporters.plugins.icsd import IcsdDbImporter
+
+  cif_nr_list = [
+      "50542",
+      "617290",
+      "35538 ",
+      "165226",
+      "158366"
+  ]
+
+  importer = IcsdDbImporter(server="http://ICSDSERVER.com/", host= "127.0.0.1")
+
+  query_results = importer.query(id=cif_nr_list)
+  for result in query_results:
+      print(result.source['db_id'])
+      aiida_structure = result.get_aiida_structure()
+      # do something with the structure
+
+
+Troubleshooting: Testing the MySQL connection
++++++++++++++++++++++++++++++++++++++++++++++
+
+To test your MySQL connection, first make sure that you can connect to the 3306 port of the machine hosting the database.
+If the database is not hosted by your local machine, use the local port tunneling provided by ssh, as follows::
+
+  ssh -L 3306:localhost:3306 username@icsddbhostname.com
+
+.. note:: If you get an URLError with Errno 111 (Connection refused) when you query the database, try to use instead:
+
+  .. code-block:: shell
+
+    ssh -L 3306:localhost:3306 -L 8010:localhost:80 username@icsddbhostname.com
+
+.. note:: You need an account on the host machine.
+
+.. note:: There are plenty of explanations online on how to setup a tunnel over a SSH connection using the ``-L`` option.
+
+Then open a new ``verdi shell`` and type:
+
+.. ipython::
+  :verbatim:
+
+  In [1]: import MySQLdb
+
+  In [2]: db = MySQLdb.connect(host="127.0.0.1", user="dba", passwd="sql", db="icsd", port=3306)
+
+If you do not get an error and it does not timeout, you have successfully established your connection to the MySQL database.

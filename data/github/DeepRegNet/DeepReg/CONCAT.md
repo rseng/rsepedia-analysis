@@ -4649,3 +4649,739 @@ This work is supported by the Wellcome/EPSRC Centre for Interventional and Surgi
 
 # References
 <!-- This will be filled in by references in paper.bib -->
+.. include:: introduction.rst
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Getting Started
+
+    getting_started/install
+    getting_started/quick_start
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Tutorial
+
+    tutorial/registration
+    tutorial/cross_val
+    tutorial/run_cluster
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: DeepReg Demo
+
+    demo/introduction
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Documentation
+
+    docs/cli
+    docs/logging
+    docs/configuration
+    docs/dataset_loader
+    docs/registry
+    docs/experimental
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: API Reference
+
+    api/entry_point
+    api/loader
+    api/registry
+    api/network
+    api/backbone
+    api/layer
+    api/loss
+    api/optimizer
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Contributing to DeepReg
+
+    contributing/guide
+    contributing/test
+    contributing/demo
+    contributing/docs
+    contributing/release
+DeepReg
+=======
+
+DeepReg is a freely available, community-supported open-source toolkit
+for research and education in medical image registration using deep
+learning.
+
+The current version is implemented as a `TensorFlow2`_-based framework,
+and contains implementations for unsupervised- and weakly-supervised
+algorithms with their combinations and variants. DeepReg has a practical
+focus on growing and diverse clinical applications, as seen in the
+provided examples - `DeepReg Demos`_.
+
+`Get involved`_ and help make DeepReg better!
+
+
+Features
+--------
+
+DeepReg extends and simplifies workflows for medical imaging researchers
+working in TensorFlow 2, and can be easily installed and used for
+efficient training and rapid deployment of deep-learning registration
+algorithms.
+
+DeepReg is designed to be used with minimal programming or scripting,
+owing to its built-in command line tools.
+
+Our development and all related work involved in the project is public,
+and released under the Apache 2.0 license.
+
+
+Contact
+-------
+
+For development matters, please `raise an issue`_.
+
+For matters regarding the `Code of Conduct`_, such as a complaint,
+please email the DeepReg Development Team: DeepRegNet@gmail.com.
+
+Alternatively, please contact one or more members of the CoC Committee as appropriate: Nina Montana Brown (nina.brown.15@ucl.ac.uk), Ester Bonmati (e.bonmati@ucl.ac.uk), Matt Clarkson (m.clarkson@ucl.ac.uk).
+
+
+.. image:: ../asset/weiss.jpg
+    :width: 300
+    :alt: WEISS Logo
+
+
+.. image:: ../asset/medicalengineering.svg
+    :width: 250
+    :alt: CME Logo
+
+.. _TensorFlow2: https://www.tensorflow.org/
+.. _DeepReg Demos: https://deepreg.readthedocs.io/en/latest/demo/introduction.html
+.. _Get involved: https://deepreg.readthedocs.io/en/latest/contributing/guide.html
+.. _WEISS: https://www.ucl.ac.uk/interventional-surgical-sciences/
+.. _CME: https://medicalengineering.org.uk/
+.. _Code of Conduct: https://github.com/DeepRegNet/DeepReg/blob/main/docs/CODE_OF_CONDUCT.md
+.. _raise an issue: https://github.com/DeepRegNet/DeepReg/issues/new
+
+
+Contributors
+------------
+
+DeepReg is maintained by a team of developers and researchers.
+People with significant contributions to DeepReg are acknowledged in the `Contributor List`_.
+
+This open-source initiative started within University College London,
+with support from the Wellcome/EPSRC Centre for Interventional and
+Surgical Sciences (`WEISS`_), and partial support from the
+Wellcome/EPSRC Centre for Medical Engineering (`CME`_).
+
+.. _Contributor List: https://github.com/DeepRegNet/DeepReg/blob/main/docs/Contributors.md
+.. mdinclude:: ../../../demos/unpaired_us_prostate_cv/README.md
+.. mdinclude:: ../../../demos/grouped_mr_heart/README.md
+.. mdinclude:: ../../../demos/unpaired_ct_lung/README.md
+.. mdinclude:: ../../../demos/paired_mrus_prostate/README.md
+.. mdinclude:: ../../../demos/paired_ct_lung/README.md
+.. mdinclude:: ../../../demos/classical_mr_prostate_nonrigid/README.md
+.. mdinclude:: ../../../demos/classical_ct_headneck_affine/README.md
+.. mdinclude:: ../../../demos/unpaired_ct_abdomen/README.md
+.. mdinclude:: ../../../demos/grouped_mask_prostate_longitudinal/README.md
+.. mdinclude:: ../../../demos/unpaired_mr_brain/README.md
+Introduction to DeepReg Demos
+=============================
+
+DeepReg offers multiple built-in dataset loaders to support real-world clinical scenarios, in which images may be paired, unpaired or grouped. Images may also be labeled with segmented regions of interest to assist registration.
+
+A typical workflow to develop a `registration network`_ using DeepReg
+includes:
+
+- Select a dataset loader, among the `unpaired, paired and grouped`_,
+  and prepare data into folders as required;
+- Configure the network training in the configuration yaml file(s), as
+  specified in `supported configuration details`_;
+- Train and tune the registration network with the `command line tool`_
+  ``deepreg_train``;
+- Test or use the final trained registration network with the `command line tool`_
+  ``deepreg_predict``.
+
+Besides the tutorials, a series of DeepReg Demos are provided to
+showcase a wide range of applications with real clinical image and label data.
+These applications range from ultrasound, CT and MR images,
+covering many clinical specialties such as neurology, urology,
+gastroenterology, oncology, respiratory and cardiovascular diseases.
+
+Each DeepReg Demo provides a step-by-step instruction
+to explain how different scenarios can be implemented with DeepReg.
+All data sets used are open-accessible.
+Pre-trained models with numerical and graphical inference results are also available.
+
+.. _demo-disclaimer:
+
+.. note::
+
+   DeepReg Demos are provided to demonstrate functionalities in DeepReg.
+   Although effort has been made to ensure these demos are representative
+   of real-world applications, the implementations and the results are not
+   peer-reviewed or tested for clinical efficacy. Substantial further
+   adaptation and development may be required for any potential clinical
+   adoption.
+
+.. _registration network: ../tutorial/registration.html
+.. _unpaired, paired and grouped: ../docs/dataset_loader.html
+.. _supported configuration details: ../docs/configuration.html
+.. _command line tool: ../docs/cli.html
+
+Paired Images
+=============
+
+The following DeepReg Demos provide examples of
+using paired images.
+
+- `Paired lung CT registration <paired_ct_lung.html>`__
+
+  This demo registers paired CT lung images, with optional weak supervision.
+
+- `Paired brain MR-ultrasound registration <paired_mrus_brain.html>`__
+
+  This demo registers paired preoperative MR images and 3D tracked ultrasound images for
+  locating brain tumours during neurosurgery, with optional weak supervision.
+
+- `Paired prostate MR-ultrasound registration <paired_mrus_prostate.html>`__
+
+  This demo registers paired MR-to-ultrasound prostate images, an example of
+  weakly-supervised multimodal image registration.
+
+.. toctree::
+    :glob:
+    :hidden:
+    :maxdepth: 2
+
+    paired_*
+
+Unpaired Images
+===============
+
+The following DeepReg Demos provide examples of
+using unpaired images.
+
+- `Unpaired abdominal CT registration <unpaired_ct_abdomen.html>`__
+
+  This demo compares three training strategies, using unsupervised, weakly-supervised and
+  combined losses, to register inter-subject abdominal CT images.
+
+- `Unpaired lung CT registration <unpaired_ct_lung.html>`__
+
+  This demo registers unpaired CT lung images, with optional weak supervision.
+
+- `Unpaired hippocampus MR registration <unpaired_mr_brain.html>`__
+
+  This demo aligns hippocampus on MR images between different patients, with optional weak
+  supervision.
+
+- `Unpaired prostate ultrasound registration <unpaired_us_prostate_cv.html>`__
+
+  This demo registers 3D ultrasound images with a 9-fold cross-validation. This strategy
+  is applicable for any of the available dataset loaders.
+
+.. toctree::
+    :glob:
+    :hidden:
+    :maxdepth: 2
+
+    unpaired_*
+
+Grouped Images
+==============
+
+The following DeepReg Demos provide examples of using grouped images.
+
+- `Pairwise registration for grouped prostate segmentation masks <grouped_mask_prostate_longitudinal.html>`__
+
+  This demo registers grouped masks (as input images) of prostate glands from MR images,
+  an example of feature-based registration.
+
+- `Pairwise registration for grouped cardiac MR images <grouped_mr_heart.html>`__
+
+  This demo registers grouped CMR images, where each group has multi-sequence CMR images from a single patient.
+
+.. toctree::
+    :glob:
+    :hidden:
+    :maxdepth: 2
+
+    grouped_*
+
+Classical Registration
+======================
+
+The following DeepReg Demos provide examples of
+using classical registration methods.
+
+- `Classical affine registration for head-and-neck CT images <classical_ct_headneck_affine.html>`__
+
+  This demo registers head-and-neck CT images using iterative affine registration.
+
+- `Classical nonrigid registration for prostate MR images <classical_mr_prostate_nonrigid.html>`__
+
+  This demo registers prostate MR images using iterative nonrigid registration.
+
+.. toctree::
+    :hidden:
+    :glob:
+    :maxdepth: 2
+
+    classical_*
+.. mdinclude:: ../../../demos/paired_mrus_brain/README.md
+Layer
+=====
+
+Layer
+-----
+
+Activation
+^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Activation
+    :members:
+
+AdditiveUpSampling
+^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.AdditiveUpSampling
+    :members:
+
+Conv3d
+^^^^^^
+
+.. autoclass:: deepreg.model.layer.Conv3d
+    :members:
+
+Conv3dBlock
+^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Conv3dBlock
+    :members:
+
+Conv3dWithResize
+^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Conv3dWithResize
+    :members:
+
+Deconv3d
+^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Deconv3d
+    :members:
+
+Deconv3dBlock
+^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Deconv3dBlock
+    :members:
+
+Dense
+^^^^^
+
+.. autoclass:: deepreg.model.layer.Dense
+    :members:
+
+DownSampleResnetBlock
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.DownSampleResnetBlock
+    :members:
+
+IntDVF
+^^^^^^
+
+.. autoclass:: deepreg.model.layer.IntDVF
+    :members:
+
+LocalNetResidual3dBlock
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.LocalNetResidual3dBlock
+    :members:
+
+LocalNetUpSampleResnetBlock
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.LocalNetUpSampleResnetBlock
+    :members:
+
+MaxPool3d
+^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.MaxPool3d
+    :members:
+
+Norm
+^^^^
+
+.. autoclass:: deepreg.model.layer.Norm
+    :members:
+
+Residual3dBlock
+^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Residual3dBlock
+    :members:
+
+UpSampleResnetBlock
+^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: deepreg.model.layer.UpSampleResnetBlock
+    :members:
+
+Warping
+^^^^^^^
+
+.. autoclass:: deepreg.model.layer.Warping
+    :members:
+
+Util
+----
+
+.. automodule:: deepreg.model.layer_util
+    :members:
+Registry
+========
+
+.. autoclass:: deepreg.registry.Registry
+   :members:
+   :private-members:
+Loss
+====
+
+Image Loss
+----------
+
+.. automodule:: deepreg.loss.image
+    :members:
+
+Label Loss
+----------
+
+.. automodule:: deepreg.loss.label
+    :members:
+
+Deformation Loss
+----------------
+
+.. automodule:: deepreg.loss.deform
+    :members:
+
+Loss Util
+---------
+
+.. automodule:: deepreg.loss.util
+    :members:
+Network
+=======
+
+.. automodule:: deepreg.model.network
+    :members:
+Entry Point
+===========
+
+Train
+-----
+
+.. automodule:: deepreg.train
+    :members:
+
+Predict
+-------
+
+.. automodule:: deepreg.predict
+    :members:
+
+Warp
+----
+
+.. automodule:: deepreg.warp
+    :members:
+Optimizer
+=========
+
+.. automodule:: deepreg.model.optimizer
+    :members:
+Backbone
+========
+
+Interface
+---------
+
+.. autoclass:: deepreg.model.backbone.interface.BackboneInterface
+    :members:
+
+Local Net
+---------
+
+.. autoclass:: deepreg.model.backbone.local_net.LocalNet
+    :members:
+
+Global Net
+----------
+
+.. autoclass:: deepreg.model.backbone.global_net.GlobalNet
+    :members:
+
+U-Net
+-----
+
+.. autoclass:: deepreg.model.backbone.u_net.UNet
+    :members:
+Dataset Loader
+==============
+
+Paired Loader
+-------------
+
+.. automodule:: deepreg.dataset.loader.paired_loader
+    :members:
+
+Unpaired Loader
+---------------
+
+.. automodule:: deepreg.dataset.loader.unpaired_loader
+    :members:
+
+Grouped Loader
+--------------
+
+.. automodule:: deepreg.dataset.loader.grouped_loader
+    :members:
+
+File Loader
+===========
+
+Interface
+---------
+
+.. autoclass:: deepreg.dataset.loader.interface.FileLoader
+    :members:
+
+Nifti Loader
+------------
+
+.. automodule:: deepreg.dataset.loader.nifti_loader
+    :members:
+
+H5 Loader
+---------
+
+.. automodule:: deepreg.dataset.loader.h5_loader
+    :members:
+Installation
+============
+
+DeepReg can be installed in Python 3.7 and external python dependencies are mainly defined in `requirements`_.
+DeepReg primarily supports and is regularly tested with Ubuntu and Mac OS.
+
+There are multiple different methods to install DeepReg:
+
+1. Clone `DeepReg`_ and create a virtual environment using `Anaconda`_ / `Miniconda`_ (**recommended**).
+2. Clone `DeepReg`_ and build a docker image using the provided docker file.
+3. Install directly from PyPI release without cloning `DeepReg`_.
+
+Install via Conda
+-----------------
+
+The recommended method is to install DeepReg in a dedicated virtual
+environment using `Anaconda`_ / `Miniconda`_.
+
+Please clone `DeepReg`_ first and change current directory to the DeepReg root directory:
+
+.. code:: bash
+
+    git clone https://github.com/DeepRegNet/DeepReg.git
+    cd DeepReg
+
+Then, install or update the conda environment following the instructions below.
+Please see the `official conda documentation <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`__
+for more details.
+
+.. tabs::
+
+    .. tab:: Linux
+
+        Install prerequisites (Optional).
+
+        .. code:: bash
+
+            sudo apt-get update
+            sudo apt-get install graphviz
+
+        Install DeepReg without GPU support.
+
+        .. code:: bash
+
+            conda env create -f environment_cpu.yml
+            conda activate deepreg
+
+        Install DeepReg with GPU support.
+
+        .. code:: bash
+
+            conda env create -f environment.yml
+            conda activate deepreg
+
+    .. tab:: Mac OS
+
+        Install prerequisites (Optional).
+
+        .. code:: bash
+
+            brew install graphviz
+
+        Install DeepReg without GPU support.
+
+        .. code:: bash
+
+            conda env create -f environment_cpu.yml
+            conda activate deepreg
+
+        Install DeepReg with GPU support.
+
+        .. warning::
+
+            Not supported or tested.
+
+    .. tab:: Windows
+
+        Install DeepReg without GPU support.
+
+        .. warning::
+
+            DeepReg on Windows is not fully supported.
+            However, you can use the `Windows Subsystem for Linux <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`__.
+            Set up WSL and follow the DeepReg setup instructions for Linux.
+
+        Install DeepReg with GPU support.
+
+        .. warning::
+
+            Not supported or tested.
+
+
+After activating the conda environment, please install DeepReg locally:
+
+.. code:: bash
+
+    pip install -e .
+
+Install via docker
+------------------
+
+We also provide the docker file for building the docker image.
+Please clone `DeepReg`_ repository first:
+
+.. code:: bash
+
+    git clone https://github.com/DeepRegNet/DeepReg.git
+
+Then, install DeepReg following the instructions below.
+
+Install docker
+^^^^^^^^^^^^^^
+
+Docker can be installed following the `official documentation <https://docs.docker.com/get-docker/>`__.
+
+For Linux based OS, there are some `additional setup <https://docs.docker.com/engine/install/linux-postinstall/>`__ after the installation.
+Otherwise you might have permission errors.
+
+Build docker image
+^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    docker build . -t deepreg -f Dockerfile
+
+where
+
+- :code:`-t` names the built image as :code:`deepreg`.
+- :code:`-f` provides the docker file for configuration.
+
+Create a container
+^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    docker run --name <container_name> --privileged=true -ti deepreg bash
+
+where
+- :code:`--name` names the created container.
+- :code:`--privileged=true` is required to solve the permission issue linked to TensorFlow profiler.
+- :code:`-it` allows interaction with container and enters the container directly,
+check more info on `stackoverflow <https://stackoverflow.com/questions/48368411/what-is-docker-run-it-flag>`__.
+
+Remove a container
+^^^^^^^^^^^^^^^^^^
+
+.. code:: bash
+
+    docker rm -v <container_name>
+
+which removes a created container and its volumes, check more info on `docker documentation <https://docs.docker.com/engine/reference/commandline/rm/)>`__.
+
+Install via PyPI
+----------------
+
+Please use the following command to install DeepReg directly from the PyPI release:
+
+.. code:: bash
+
+    pip install deepreg
+
+The PyPI release currently does not ship with test data and demos.
+Running examples, such as those in `Quick Start`_ and `DeepReg Demo`_,
+in this documentation may require downloading additional test data.
+
+Once you have installed DeepReg via :code:`pip`, you can run the following
+command to download the necessary files to run all examples by:
+
+.. code:: bash
+
+    deepreg_download
+
+The above will download the files to the current working directory.
+If you need to download to a specific directory, use the
+:code:`--output_dir` or :code:`-d` flag to specify this.
+
+**Note**
+
+1. All dependencies, APIs and command-line tools will be installed automatically via each installation method.
+2. Only released versions of DeepReg are available via PyPI release.
+   Therefore it is different from the `latest (unstable) version <https://github.com/DeepRegNet/DeepReg>`__ on GitHub.
+
+.. _Quick Start: quick_start.html
+.. _DeepReg Demo: ../demo/introduction.html
+.. _Anaconda: https://docs.anaconda.com/anaconda/install
+.. _Miniconda: https://docs.conda.io/en/latest/miniconda.html
+.. _DeepReg: https://github.com/DeepRegNet/DeepReg
+.. _requirements: https://github.com/DeepRegNet/DeepReg/blob/main/requirements.txt
+Experimental Features
+=====================
+
+DeepReg provides some experimental features.
+These are still in development with variable levels of readiness.
+
+The following tutorials provide an overview of these features. To submit feedback, open a `new issue <https://github.com/DeepRegNet/DeepReg/issues/new>`__.
+
+-  `Label sampling`_
+
+.. _Label sampling: exp_label_sampling.html
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+
+    exp_label_sampling

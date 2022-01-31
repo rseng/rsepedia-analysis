@@ -507,3 +507,759 @@ foundation (220020448). MWW is supported by the Wellcome Trust (106183/Z/14/Z;
 Network grant (euSSN; 860563).
 
 # References
+Contribute to EMD
+=================
+
+Thank you for your interest in contributing to EMD! Development of EMD takes place on `our gitlab page <https://gitlab.com/emd-dev/emd>`_. You can contribute to the developement of the EMD toolbox through gitlab by identifying and raising issues or by submitting new code through merge requests. Note that these will require an active account on `gitlab.com <https://www.gitlab.com>`_.
+
+Both issues and merge requests are very welcome! We will try to resolve all issues but please bear in mind that this is a small open-source project with limited developement time.
+
+Issues
+------
+
+Our `issue tracker <https://gitlab.com/emd-dev/emd/-/issues>`_ is the place to submit tickets about things that could or should change in the EMD toolbox. These could be bugs or about any problems you find, or requests for new functionality.
+
+When submitting information about a bug, please include the following information so that the issue can be easily understood and reproduced.
+
+- Expected Behaviour, what should happen when the code runs?
+- Actual Behaviour, what is actually happening?
+- Steps to Reproduce the Problem, what would another person need to do to see the issue?
+- System Specifications, what operating system are you using? which versions of python and emd are you running?
+
+Once the ticket has been submitted, we can take a look at the issue and may use the comments section at the bottom of the issue page to ask for more information and discuss a solution. Once a solution has been found, it will be submitted in a merge request linked to the issue in question.
+
+Merge Requests
+--------------
+
+It it not possible to commit directly to the master branch of EMD, so all updates must first appear as `merge requests <https://gitlab.com/emd-dev/emd/-/merge_requests>`_. Each merge requests corresponds to a git branch containing a set of changes that may be added into EMD.
+
+The merge request page provides a lot of useful information about the branch.
+
+- Is the branch up to date with master? if not a rebase or merge may be required.
+- Are the tests passing? We cannot merge code which breaks our tests! We test for a range of features including code behaviour, flake8 style compliance and spelling (using ``codespell``, this is particularly important for docstrings and tutorials)
+
+At the start, all merge requests are marked as Work In Progress (WIP), this means that the code is not ready for merge yet. This tests can be run and process tracked as commits are added to the branch. Please feel free to use the comments section to discuss any changes and ask for feedback.
+
+See below for detailed descriptions of the contribution process in a couple of different cases.
+
+Create a merge-request....
+**************************
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>... from an issue ticket</h3>
+
+    .. container:: installbody body
+
+        This section outlines how to contribute to by the issue-tracker on gitlab.com/emd-dev/emd. This is the best method to use if the changes will be made with contributions from several people.
+
+        1. First, create an issue in the EMD `issue tracker <https://gitlab.com/emd-dev/emd/-/issues>`_. The issue should clearly introduce the potential changes that will be made.
+        2. The issue will be read by an emd-dev developer who may ask for more information or suggest another solution in the issue discussion.
+        3. If everyone agrees that a change is needed -  the developer will create a new branch and merge request which are specifically linked to the issue.
+        4. The branch will be publicly accessible, you can install EMD with this branch using the methods in the `developer section of the install page <file:///Users/andrew/src/emd/doc/build/html/install.html#development-gitlab-com-version>`_.
+        5. You and the developer can the work on the branch until the changes are finalised. Feel free to use the discussion section of the merge request.
+        6. Once the work is complete, run some final checks on your local branch.
+            - Ensure the tests are passing
+            - Ensure that the code to be committed is flake8 compliant
+            - Briefly describe the changes in the appropriate section of the changelog.
+        7. The developer can then approve the merge request and the changes will be accepted into the main EMD branch.
+
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>... from a fork of EMD</h3>
+
+    .. container:: installbody body
+
+        This section outlines how to contribute to EMD from your own fork of the repository. This might be the simplest method if you would like to configure the gitlab.com environment and/or keep any changes private during development.
+
+        1. First, create a fork of EMD from the `gitlab repository <https://gitlab.com/emd-dev/emd>`_.
+        2. Create a branch for your changes in the fork of EMD. Any contributions must come from a branch - don't merge the branch into master in the forked repository.
+        3. Ensure that runners are enabled so that tests can run on gitlab.com. "Settings -> CI/CD -> Public Pipelines" should be ticked in the gitlab.com settings.
+        4. Complete your work on the branch.
+        5. Run some final checks on your local branch.
+            - Ensure that your branch is up to date with the main branch on emd-dev - this may require updating your fork.
+            - Ensure the tests are passing
+            - Ensure that the code to be committed is flake8 compliant
+            - Briefly describe the changes in the appropriate section of the changelog.
+        6. Submit the merge request from your fork of EMD. On your fork of gitlab.com go to "Repository -> Branches" and click 'Merge request" next to corresponding branch.
+        7. The request will intially be marked as a Work In Progress (WIP). We will review the changes and potentially request some final changes or tweaks in the discussion on the Merge Request page.
+        8. Once the developers are happy that the changes are ready, WIP status will be updated and the branch merged into the main EMD branch.
+
+
+Quick Start
+===========
+
+EMD can be install from `PyPI <https://pypi.org/project/emd/>`_ using pip::
+
+    pip install emd
+
+and used to decompose and describe non-linear timeseries.::
+
+    # Imports
+    import emd
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    # Definitions
+    sample_rate = 1000
+    seconds = 3
+    time_vect = np.linspace(0,seconds,seconds*sample_rate)
+
+    # A non-linear oscillation
+    x = emd.utils.abreu2010( 5, .25, -np.pi/4, sample_rate, seconds )
+    # ...plus a linear oscillation
+    x += np.cos( 2*np.pi*1*time_vect )
+
+    # Sift
+    imf = emd.sift.sift( x )
+
+    # Visualise Intrinsic Mode Functions
+    emd.plotting.plot_imfs( imf, scale_y=True, cmap=True )
+
+    # Compute instantaneous spectral stats
+    IP,IF,IA = emd.spectra.frequency_transform( imf, sample_rate ,'nht' )
+
+    # Compute Hilbert-Huang transform
+    edges,centres = emd.spectra.define_hist_bins(0,10,32)
+    hht = emd.spectra.hilberthuang( IF, IA, edges )
+
+    # Visualise time-frequency spectrum
+    plt.figure()
+    plt.pcolormesh( time_vect, centres, hht, cmap='hot_r')
+    plt.colorbar()
+    plt.xlabel('Time (seconds)')
+    plt.ylabel('Instantaneous  Frequency (Hz)')
+.. emd documentation master file, created by
+   sphinx-quickstart on Sun Jan 27 23:11:40 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+EMD: Empirical Mode Decomposition
+=================================
+
+Python tools for the extraction and analysis of non-linear and non-stationary oscillatory signals.
+
+.. title image, description
+.. raw:: html
+
+    <div class="nopad">
+      <img src="_static/emd_example.png" style="max-width: 768px;  alt="EMD">
+      </div>
+
+Features
+========
+
+* Sift algorithms including the ensemble sift, complete ensemble sift and mask sift
+* Instantaneous phase, frequency and amplitude computation
+* Cycle detection and analysis
+* Hilbert-Huang spectrum estimation (1d frequency spectrum or 2d time-frequency spectrum)
+* Second layer sift to quantify structure in amplitude modulations
+* Holospectrum estimation (3d instantaneous frequency x amplitude modulation frequency x time spectrum)
+
+.. toctree::
+   :maxdepth: 2
+
+   Install<install>
+   Tutorials<emd_tutorials/index>
+   API Reference<api>
+   Contribute<contribute>
+   Changelog<changelog>
+   Cite<cite>
+Citing the EMD Package
+=================================
+|
+
+If this package has significantly contributed to your work, please include the following citation:
+
+.. title image, description
+.. raw:: html
+
+    {Quinn2021_joss}
+
+.. highlight:: none
+::
+
+    @article{Quinn2021_joss,
+      doi = {10.21105/joss.02977},
+      url = {https://doi.org/10.21105/joss.02977},
+      year = {2021},
+      publisher = {The Open Journal},
+      volume = {6},
+      number = {59},
+      pages = {2977},
+      author = {Quinn, Andrew J. and Lopes-dos-Santos, Vitor and Dupret, David and Nobre, Anna C. and Woolrich, Mark W.},
+      title = {EMD: Empirical Mode Decomposition and Hilbert-Huang Spectral Analyses in Python},
+      journal = {Journal of Open Source Software}
+    }
+
+|
+
+The Empirical Mode Decomposition and Hilbert-Huang Spectrum were initially developed by `Norden Huang <https://en.wikipedia.org/wiki/Norden_E._Huang>`_ and colleagues in 1998. This paper is the main reference for the motivation, theory and initial practice of EMD.
+
+.. title image, description
+.. raw:: html
+
+    {Huang1998}
+
+.. highlight:: none
+::
+
+    @article{Huang1998,
+      doi = {10.1098/rspa.1998.0193},
+      url = {https://doi.org/10.1098/rspa.1998.0193},
+      year = {1998},
+      month = mar,
+      publisher = {The Royal Society},
+      volume = {454},
+      number = {1971},
+      pages = {903--995},
+      author = {Norden E. Huang and Zheng Shen and Steven R. Long and Manli C. Wu and Hsing H. Shih and Quanan Zheng and Nai-Chyuan Yen and Chi Chao Tung and Henry H. Liu},
+      title = {The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis},
+      journal = {Proceedings of the Royal Society of London. Series A: Mathematical,  Physical and Engineering Sciences}
+    }
+
+
+|
+
+Reference Library
+-----------------
+
+Depending on the analysis in question, you may also consider citing one or more
+of the following papers. The `function docstrings <api.html>`_ in the `EMD`
+toolbox contains many citations and references for each method. Here we include
+a range of the most relevant papers, grouped by topic.
+
+|
+
+EMD, sifting and the Hilbert-Huang Transform
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Huang1998}
+
+Further EMD Theory
+^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Flandrin2004_empirical}
+
+    {Rilling2008_one}
+
+
+Ensemble Sift
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Wu2009_ensemble}
+
+    {Torres2011_complete}
+
+
+Masked Sift
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Deering2005_masking}
+
+    {Tsai2016_investigating}
+
+    {Fabus2021_automatic}
+
+Instantaneous Frequency
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Huang2009_instantaneous}
+
+
+Cycle Analysis and Waveform Shape
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Quinn2021_within}
+
+Holospectrum
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    {Huang2016_holo}
+Installing EMD
+=================================
+
+There are several ways to install the EMD toolbox. The best one to use depends
+on how you want to use the code.
+
+
+Stable PyPI version
+*******************
+
+The `stable version of the code <https://pypi.org/project/emd/>`_ is hosted on `PyPI <https://pypi.org>`_ and will be updated relatively slowly. Any updates to PyPI will (hopefully) only contain working changes that have been running without problems on the development versions of the code for a while.
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>install from pip</h3>
+
+    .. container:: installbody body
+
+        EMD can be install from `PyPI <https://pypi.org/project/emd/>`_ using pip::
+
+            pip install emd
+
+        pip will install the latest version of EMD from PyPI alongside any missing dependencies into the current python environment. You can install a specific version by specifying the version number::
+
+            pip install emd==0.5.2
+
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>install in conda environment</h3>
+
+    .. container:: installbody body
+
+        If you want to create a conda environment containing EMD, you can use the following yaml config::
+
+            name: emd
+            channels:
+            dependencies:
+               - pip
+               - pip:
+                 - emd
+
+        This can be adapted to specify a particular release of EMD by adding the version number to the emd line::
+
+            name: emd
+            channels:
+            dependencies:
+               - pip
+               - pip:
+                 - emd==0.5.2
+
+        This environment can be customised to include any other packages that you might be working with. The last two lines can also be added to an existing conda environment configuration file to include emd in that env.
+
+        This env can be downloaded `HERE (emd_conda_env.yml) <https://gitlab.com/emd-dev/emd/-/blob/master/envs/emd_conda_env.yml>`_. You can download the config and install the enviromnent by changing directory to the install location and calling these commands::
+
+            curl https://gitlab.com/emd-dev/emd/-/raw/master/envs/emd_conda_env.yml > emd_conda_env.yml
+            conda env create -f emd_conda_env.yml
+
+        this will automatically install the required dependancies alongside EMD. The environment can then be activated by calling::
+
+            source activate emd
+
+
+
+Development gitlab.com version
+******************************
+
+You can also install the `latest development version of EMD
+<https://gitlab.com/emd-dev/emd>`_ from gitlab.com using a conda environment.
+This version is less stable and likely to change quickly during active
+development - however you will get access to new bug-fixes, features and bugs
+more quickly.
+
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>install in conda environment</h3>
+
+    .. container:: installbody body
+
+        A conda environment config file can be specified pointing at the development version of EMD on gitlab::
+
+            name: emd
+            channels:
+            dependencies:
+               - pip
+               - pip:
+                 - git+https://gitlab.com/emd-dev/emd.git
+
+        The env can be downloaded `HERE (emd-dev_conda_env.yml) <https://gitlab.com/emd-dev/emd/-/blob/master/envs/emd-dev_conda_env.yml>`_. You can download the config and install the enviromnent by changing directory to the install location and calling these commands::
+
+            curl https://gitlab.com/emd-dev/emd/-/raw/master/envs/emd-dev_conda_env.yml > emd-dev_conda_env.yml
+            conda env create -f emd-dev_conda_env.yml
+
+        this will automatically install the required dependancies alongside EMD. The environment can then be activated by calling::
+
+            source activate emd-dev
+
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>install development branch in conda environment</h3>
+
+    .. container:: installbody body
+
+        A conda environment config file can be specified pointing at the development version of EMD on gitlab. A specific branch can be indicated by adding the branch name after an @ sign in the line specifying the git repo. Here is an example which installs a branch called 'new_feature'::
+
+            name: emd
+            channels:
+            dependencies:
+               - pip
+               - pip:
+                 - git+https://gitlab.com/emd-dev/emd.git@new_feature
+
+        We provide `an example env here (emd-dev_conda_env.yml) <https://gitlab.com/emd-dev/emd/-/blob/master/envs/emd-dev_conda_env.yml>`_. You can download the config and add the branch name to the right line. Finally, you can install the enviromnent by changing directory to the install location and calling these commands::
+
+            curl https://gitlab.com/emd-dev/emd/-/raw/master/envs/emd-dev_conda_env.yml > emd-dev_conda_env.yml
+            conda env create -f emd-dev_conda_env.yml
+
+        this will automatically install the required dependancies alongside EMD. The environment can then be activated by calling::
+
+            source activate emd-dev
+
+.. container:: toggle body
+
+    .. container:: header body
+
+        .. raw:: html
+
+            <h3 class='installbar'>install from source code</h3>
+
+    .. container:: installbody body
+
+        If you plan to actively contribute to EMD, you will need to install EMD directly from source using git. From the terminal, change into the directory you want to install emd into and run the following command::
+
+            cd /home/andrew/src
+            git clone https://gitlab.com/emd-dev/emd.git
+            cd emd
+            python setup.py install
+
+        You will then be able to use git as normal to switch between development branches of EMD and contribute your own.
+Citing the EMD Package
+=================================
+|
+
+If this package has significantly contributed to your work, please include the following citation:
+
+.. title image, description
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Andrew J. Quinn, Vitor Lopes-dos-Santos, David Dupret, Anna Christina Nobre & Mark W. Woolrich (2021)<br>
+      <strong><font size="3px">EMD: Empirical Mode Decomposition and Hilbert-Huang Spectral Analyses in Python</font></strong><br>
+      Journal of Open Source Software <a href=https://www.doi.org/10.21105/joss.02977>10.21105/joss.02977</a>
+    </div>
+
+
+.. highlight:: none
+::
+
+    @article{Quinn2021_joss,
+      doi = {10.21105/joss.02977},
+      url = {https://doi.org/10.21105/joss.02977},
+      year = {2021},
+      publisher = {The Open Journal},
+      volume = {6},
+      number = {59},
+      pages = {2977},
+      author = {Quinn, Andrew J. and Lopes-dos-Santos, Vitor and Dupret, David and Nobre, Anna C. and Woolrich, Mark W.},
+      title = {EMD: Empirical Mode Decomposition and Hilbert-Huang Spectral Analyses in Python},
+      journal = {Journal of Open Source Software}
+    }
+
+|
+
+The Empirical Mode Decomposition and Hilbert-Huang Spectrum were initially developed by `Norden Huang <https://en.wikipedia.org/wiki/Norden_E._Huang>`_ and colleagues in 1998. This paper is the main reference for the motivation, theory and initial practice of EMD.
+
+.. title image, description
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Norden E. Huang, Zheng Shen, Steven R. Long, Manli C. Wu, Hsing H. Shih, Quanan Zheng, Nai-Chyuan Yen, Chi Chao Tung & Henry H. Liu (1998)<br>
+      <strong><font size="3px">The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis</font></strong><br>
+      Proceedings of the Royal Society of London. Series A: Mathematical,  Physical and Engineering Sciences <a href=https://www.doi.org/10.1098/rspa.1998.0193>10.1098/rspa.1998.0193</a>
+    </div>
+
+
+.. highlight:: none
+::
+
+    @article{Huang1998,
+      doi = {10.1098/rspa.1998.0193},
+      url = {https://doi.org/10.1098/rspa.1998.0193},
+      year = {1998},
+      month = mar,
+      publisher = {The Royal Society},
+      volume = {454},
+      number = {1971},
+      pages = {903--995},
+      author = {Norden E. Huang and Zheng Shen and Steven R. Long and Manli C. Wu and Hsing H. Shih and Quanan Zheng and Nai-Chyuan Yen and Chi Chao Tung and Henry H. Liu},
+      title = {The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis},
+      journal = {Proceedings of the Royal Society of London. Series A: Mathematical,  Physical and Engineering Sciences}
+    }
+
+
+|
+
+Reference Library
+-----------------
+
+Depending on the analysis in question, you may also consider citing one or more
+of the following papers. The `function docstrings <api.html>`_ in the `EMD`
+toolbox contains many citations and references for each method. Here we include
+a range of the most relevant papers, grouped by topic.
+
+|
+
+EMD, sifting and the Hilbert-Huang Transform
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Norden E. Huang, Zheng Shen, Steven R. Long, Manli C. Wu, Hsing H. Shih, Quanan Zheng, Nai-Chyuan Yen, Chi Chao Tung & Henry H. Liu (1998)<br>
+      <strong><font size="3px">The empirical mode decomposition and the Hilbert spectrum for nonlinear and non-stationary time series analysis</font></strong><br>
+      Proceedings of the Royal Society of London. Series A: Mathematical,  Physical and Engineering Sciences <a href=https://www.doi.org/10.1098/rspa.1998.0193>10.1098/rspa.1998.0193</a>
+    </div>
+
+
+Further EMD Theory
+^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      P. Flandrin, G. Rilling & P. Goncalves (2004)<br>
+      <strong><font size="3px">Empirical Mode Decomposition as a Filter Bank</font></strong><br>
+      IEEE} Signal Processing Letters <a href=https://www.doi.org/10.1109/lsp.2003.821662>10.1109/lsp.2003.821662</a>
+    </div>
+
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      G. Rilling & P. Flandrin (2008)<br>
+      <strong><font size="3px">One or Two Frequencies? The Empirical Mode Decomposition Answers</font></strong><br>
+      IEEE} Transactions on Signal Processing <a href=https://www.doi.org/10.1109/tsp.2007.906771>10.1109/tsp.2007.906771</a>
+    </div>
+
+
+
+Ensemble Sift
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Zhaohua Wu & Norden E. Huang (2009)<br>
+      <strong><font size="3px">Ensemble Empirical Mode Decomposition: A Noise-Assisted Data Analysis Method</font></strong><br>
+      Advances in Adaptive Data Analysis <a href=https://www.doi.org/10.1142/s1793536909000047>10.1142/s1793536909000047</a>
+    </div>
+
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Maria E. Torres, Marcelo A. Colominas, Gaston Schlotthauer & Patrick Flandrin (2011)<br>
+      <strong><font size="3px">A complete ensemble empirical mode decomposition with adaptive noise</font></strong><br>
+      2011 IEEE International Conference on Acoustics,  Speech and Signal Processing (ICASSP) <a href=https://www.doi.org/10.1109/icassp.2011.5947265>10.1109/icassp.2011.5947265</a>
+    </div>
+
+
+
+Masked Sift
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Ryan Deering &  James F. Kaiser (2005)<br>
+      <strong><font size="3px">The Use of a Masking Signal to Improve Empirical Mode Decomposition</font></strong><br>
+      2005 IEEE International Conference on Acoustics,  Speech and Signal Processing (ICASSP) <a href=https://www.doi.org/10.1109/icassp.2005.1416051>10.1109/icassp.2005.1416051</a>
+    </div>
+
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Feng-Fang Tsai, Shou-Zen Fan, Yi-Shiuan Lin, Norden E. Huang & Jia-Rong Yeh (2016)<br>
+      <strong><font size="3px">Investigating Power Density and the Degree of Nonlinearity in Intrinsic Components of Anesthesia EEG by the Hilbert-Huang Transform: An Example Using Ketamine and Alfentanil</font></strong><br>
+      PLOS-ONE <a href=https://www.doi.org/10.1371/journal.pone.0168108>10.1371/journal.pone.0168108</a>
+    </div>
+
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Marco S. Fabus, Andrew J. Quinn, Catherine E. Warnaby & Mark W. Woolrich (2021)<br>
+      <strong><font size="3px">Automatic decomposition of electrophysiological data into distinct nonsinusoidal oscillatory modes</font></strong><br>
+      Journal of Neurophysiology <a href=https://www.doi.org/10.1152/jn.00315.2021>10.1152/jn.00315.2021</a>
+    </div>
+
+
+Instantaneous Frequency
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Norden E. Huang, Zhaohua Wu, Steven R. Long, Kenneth C. Arnold, Xianyao Chen & Karin Blank (2009)<br>
+      <strong><font size="3px">On Instantaneous Frequency</font></strong><br>
+      Advances in Adaptive Data Analysis <a href=https://www.doi.org/10.1142/s1793536909000096>10.1142/s1793536909000096</a>
+    </div>
+
+
+
+Cycle Analysis and Waveform Shape
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Quinn, Andrew J., Lopes-dos-Santos, Vítor, Huang, Norden, Liang, Wei-Kuang, Juan, Chi-Hung, Yeh, Jia-Rong, Nobre, Anna C., Dupret, David, Woolrich & Mark W. (2021)<br>
+      <strong><font size="3px">Within-cycle instantaneous frequency profiles report oscillatory waveform dynamics</font></strong><br>
+      Journal of Neurophysiology <a href=https://www.doi.org/10.1152/jn.00201.2021>10.1152/jn.00201.2021</a>
+    </div>
+
+
+Holospectrum
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. raw:: html
+
+    
+    <div class="container" style="margin-bottom:10px; padding-left: 35px; text-indent: -40px">
+      Norden E. Huang, Kun Hu, Albert C. C. Yang, Hsing-Chih Chang, Deng Jia, Wei-Kuang Liang, Jia Rong Yeh, Chu-Lan Kao, Chi-Hung Juan, Chung Kang Peng, Johanna H. Meijer, Yung-Hung Wang, Steven R. Long & Zhauhua Wu (2016)<br>
+      <strong><font size="3px">On Holo-Hilbert spectral analysis: a full informational spectral representation for nonlinear and non-stationary data</font></strong><br>
+      Philosophical Transactions of the Royal Society A: Mathematical,  Physical and Engineering Sciences <a href=https://www.doi.org/10.1098/rsta.2015.0206>10.1098/rsta.2015.0206</a>
+    </div>
+
+API
+================
+
+
+Sift Functions
+*********************
+
+Primary user-level functions for running the sift.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.sift.sift
+     emd.sift.ensemble_sift
+     emd.sift.complete_ensemble_sift
+     emd.sift.mask_sift
+     emd.sift.iterated_mask_sift
+     emd.sift.sift_second_layer
+     emd.sift.mask_sift_second_layer
+
+
+Sift Utilities
+*********************
+
+Low-level utility functions used by the sift routines.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.sift.get_config
+     emd.sift.get_next_imf
+     emd.sift.get_next_imf_mask
+     emd.sift.interp_envelope
+     emd.sift.get_padded_extrema
+     emd.sift.fixed_stop
+     emd.sift.sd_stop
+     emd.sift.rilling_stop
+     emd.sift.energy_stop
+     emd.sift.is_imf
+
+Frequency Functions
+*********************
+
+Computing frequency transforms from narrow band oscillations (IMFs).
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.spectra.frequency_transform
+     emd.spectra.phase_from_complex_signal
+     emd.spectra.freq_from_phase
+     emd.spectra.phase_from_freq
+
+Spectrum Functions
+*********************
+
+Compute Hilbert-Huang and Holospectra from instantaneous frequency data.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.spectra.hilberthuang
+     emd.spectra.holospectrum
+
+Spectrum Utilities
+*********************
+
+Low-level helper functions for spectrum computations.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.spectra.define_hist_bins
+     emd.spectra.define_hist_bins_from_data
+
+Cycle Analysis
+*********************
+
+Identify and analyse single cycles of an oscillation.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.cycles.Cycles
+     emd.cycles.get_cycle_vector
+     emd.cycles.get_cycle_stat
+     emd.cycles.get_control_points
+     emd.cycles.phase_align
+     emd.cycles.normalised_waveform
+     emd.cycles.bin_by_phase
+     emd.cycles.mean_vector
+     emd.cycles.kdt_match
+
+Package Utilities
+*********************
+
+Routines related to python, logging and installation.
+
+.. autosummary::
+     :toctree: stubs
+
+     emd.support.get_install_dir
+     emd.support.get_installed_version
+     emd.logger.set_up

@@ -7977,3 +7977,304 @@ The versions coincide with releases on pip.
  - adding grids section in test file, and function definition for args
  - first alpha release with basic grid test generation (0.0.1)
  - skeleton release (0.0.0)
+.. Gridtest documentation master file, created by
+   sphinx-quickstart on Sun Feb 11 12:17:05 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to GridTest Python documentation!
+==================================================
+
+GridTest is a testing framework for those that don't have time to write tests. 
+It makes it easy to figure out the tests that need to be written, generate
+an easy-to-fill-in template, and then run the tests. The module is licensed
+under the MPL 2.0 LICENSE.
+
+Contents:
+
+.. toctree::
+   :maxdepth: 3
+
+   source/gridtest.rst
+   changelog.md
+
+
+Indices and tables
+------------------
+
+* :ref:`modindex`
+gridtest.templates package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: gridtest.templates
+   :members:
+   :undoc-members:
+   :show-inheritance:
+gridtest.logger package
+=======================
+
+Submodules
+----------
+
+gridtest.logger.message module
+------------------------------
+
+.. automodule:: gridtest.logger.message
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.logger.namer module
+----------------------------
+
+.. automodule:: gridtest.logger.namer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.logger.progress module
+-------------------------------
+
+.. automodule:: gridtest.logger.progress
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.logger.spinner module
+------------------------------
+
+.. automodule:: gridtest.logger.spinner
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: gridtest.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+gridtest.main package
+=====================
+
+Submodules
+----------
+
+gridtest.main.check module
+--------------------------
+
+.. automodule:: gridtest.main.check
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.expand module
+---------------------------
+
+.. automodule:: gridtest.main.expand
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.generate module
+-----------------------------
+
+.. automodule:: gridtest.main.generate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.grids module
+--------------------------
+
+.. automodule:: gridtest.main.grids
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.helpers module
+----------------------------
+
+.. automodule:: gridtest.main.helpers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.substitute module
+-------------------------------
+
+.. automodule:: gridtest.main.substitute
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.test module
+-------------------------
+
+.. automodule:: gridtest.main.test
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.update module
+---------------------------
+
+.. automodule:: gridtest.main.update
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.main.workers module
+----------------------------
+
+.. automodule:: gridtest.main.workers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: gridtest.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+gridtest.client package
+=======================
+
+Submodules
+----------
+
+gridtest.client.check module
+----------------------------
+
+.. automodule:: gridtest.client.check
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.client.generate module
+-------------------------------
+
+.. automodule:: gridtest.client.generate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.client.gridview module
+-------------------------------
+
+.. automodule:: gridtest.client.gridview
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.client.shell module
+----------------------------
+
+.. automodule:: gridtest.client.shell
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.client.test module
+---------------------------
+
+.. automodule:: gridtest.client.test
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.client.update module
+-----------------------------
+
+.. automodule:: gridtest.client.update
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: gridtest.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+gridtest package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   gridtest.client
+   gridtest.logger
+   gridtest.main
+   gridtest.templates
+
+Submodules
+----------
+
+gridtest.decorators module
+--------------------------
+
+.. automodule:: gridtest.decorators
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.defaults module
+------------------------
+
+.. automodule:: gridtest.defaults
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.func module
+--------------------
+
+.. automodule:: gridtest.func
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.utils module
+---------------------
+
+.. automodule:: gridtest.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+gridtest.version module
+-----------------------
+
+.. automodule:: gridtest.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: gridtest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+gridtest
+========
+
+.. toctree::
+   :maxdepth: 4
+
+   gridtest

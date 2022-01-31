@@ -378,4 +378,220 @@ Some useful expression are:
 - transonic inlet velocity: $U_{in} = Ma \cdot c = 0.73\cdot 343.5 = 250.8$
 - free-stream density: $\rho = p_{inf}/(R_s T_{in}) = 10^5 / (287.7 \cdot 293) = 1.186 kg/m^3$
 - kinematic viscosity based on free-stream values: $\nu = \mu / \rho = 1.82\times 10^{-5} / 1.186 = 1.5342\times 10^{-5} m^2/s$
-- characteristic length (chord length of airfoil): $L = Re \nu / U_{in} = 3\times 10^6 \cdot 1.5342\times 10^{-5} / 250.8 = 0.18352$
+- characteristic length (chord length of airfoil): $L = Re \nu / U_{in} = 3\times 10^6 \cdot 1.5342\times 10^{-5} / 250.8 = 0.18352$flowtorch 
+=========
+
+.. toctree::
+   :maxdepth: 1
+
+   flowtorch.data
+   flowtorch.analysis
+   flowtorch.rom
+
+flowtorch.constants
+-------------------
+
+.. automodule:: flowtorch.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:flowtorch.rom
+=============
+
+flowtorch.rom.base
+------------------
+
+.. automodule:: flowtorch.rom.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.rom.cnm
+-----------------
+
+.. automodule:: flowtorch.rom.cnm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.rom.svd\_encoder
+--------------------------
+
+.. automodule:: flowtorch.rom.svd_encoder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.rom.utils
+-------------------
+
+.. automodule:: flowtorch.rom.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:flowtorch.analysis
+==================
+
+flowtorch.analysis.svd 
+----------------------
+
+.. automodule:: flowtorch.analysis.svd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.analysis.dmd 
+----------------------
+
+.. automodule:: flowtorch.analysis.dmd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.analysis.psp\_explorer
+---------------------------------
+
+.. automodule:: flowtorch.analysis.psp_explorer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data 
+==============
+
+flowtorch.data.dataloader
+-------------------------
+
+.. automodule:: flowtorch.data.dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.foam\_dataloader
+-------------------------------
+
+.. automodule:: flowtorch.data.foam_dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+flowtorch.data.hdf5\_file
+-------------------------
+
+.. automodule:: flowtorch.data.hdf5_file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.psp\_dataloader
+------------------------------
+
+.. automodule:: flowtorch.data.psp_dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.vtk\_dataloader
+------------------------------
+
+.. automodule:: flowtorch.data.vtk_dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.csv\_dataloader
+------------------------------
+
+.. automodule:: flowtorch.data.csv_dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.tau\_dataloader
+------------------------------
+
+.. automodule:: flowtorch.data.tau_dataloader
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.selection\_tools
+-------------------------------
+
+.. automodule:: flowtorch.data.selection_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+flowtorch.data.utils
+--------------------
+
+.. automodule:: flowtorch.data.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+flowTorch Documentation
+=======================
+
+Welcome to the **flowTorch** documentation! On this website, you find examples with numerical and experimental data, and a documentation of
+the Python :term:`API`.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples
+
+   overview/glossary
+   notebooks/linear_algebra_basics
+   notebooks/svd_ht
+   notebooks/ipsp_explorer
+   notebooks/dmd_intro
+   notebooks/svd_cylinder
+   notebooks/dmd_cylinder
+   notebooks/cnm_cylinder
+   notebooks/dmd_naca0012_surface
+   notebooks/piv_analysis
+   
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Python API
+
+   flowtorch
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Glossary
+========
+
+.. glossary::
+
+   API
+      application programming interface
+
+   CNM
+      cluster-based network modeling
+
+   DMD
+      dynamic mode decomposition
+
+   PCA
+      principal component analysis
+
+   PIV
+      particle image velocimetry
+
+   POD
+      proper orthogonal decomposition
+
+   PSP
+      pressure sensitive paint
+
+   PyTorch
+      library for tensor operations on CPU and GPU
+
+   SVD
+      singular value decomposition

@@ -1096,4 +1096,177 @@ extraction from LiDAR data:
 -   **Wu, Q.**, Lane, C.R., & Liu, H. (2014). An effective method for
     detecting potential woodland vernal pools using high-resolution
     LiDAR data and aerial imagery. *Remote Sensing*. 6(11):11444-11467.
-    DOI: [10.3390/rs61111444](http://dx.doi.org/10.3390/rs61111444)
+    DOI: [10.3390/rs61111444](http://dx.doi.org/10.3390/rs61111444).. include:: ../CONTRIBUTING.rst
+.. include:: ../HISTORY.rst
+=====
+Usage
+=====
+
+To use lidar in a project:
+
+.. code:: python
+
+  import os
+  import pkg_resources
+  import lidar
+  import richdem as rd
+
+  # identify the sample data directory of the package
+  package_name = 'lidar'
+  data_dir = pkg_resources.resource_filename(package_name, 'data/')
+
+  # use the sample dem. Change it to your own dem if needed
+  in_dem = os.path.join(data_dir, 'dem.tif')
+  # set output directory. By default, use the temp directory under user's home directory
+  out_dir = os.path.join(os.path.expanduser("~"), "temp")
+
+  # parameters for identifying sinks and delineating nested depressions
+  min_size = 1000             # minimum number of pixels as a depression
+  min_depth = 0.3             # minimum depth as a depression
+  interval = 0.3      # slicing interval for the level-set method
+  bool_shp = False      # output shapefiles for each individual level
+
+  # extracting sinks based on user-defined minimum depression size
+  sink_path = lidar.ExtractSinks(in_dem, min_size, out_dir)
+  dep_id_path, dep_level_path = lidar.DelineateDepressions(sink_path, min_size, min_depth, interval, out_dir, bool_shp)
+
+  # loading data and results
+  dem = rd.LoadGDAL(in_dem)
+  sink = rd.LoadGDAL(sink_path)
+  dep_id = rd.LoadGDAL(dep_id_path)
+  dep_level = rd.LoadGDAL(dep_level_path)
+
+  # plotting results
+  dem_fig = rd.rdShow(dem, ignore_colours=[0], axes=False, cmap='jet', figsize=(6, 5.5))
+  sink_fig = rd.rdShow(sink, ignore_colours=[0], axes=False, cmap='jet', figsize=(6, 5.5))
+  dep_id_fig = rd.rdShow(dep_id, ignore_colours=[0], axes=False, cmap='jet', figsize=(6, 5.5))
+  dep_level_path = rd.rdShow(dep_level, ignore_colours=[0], axes=False, cmap='jet', figsize=(6, 5.5))
+
+Check the example.py for more details.
+.. include:: ../AUTHORS.rst
+.. include:: ../README.rst
+.. highlight:: shell
+
+============
+Installation
+============
+
+
+Stable release
+--------------
+
+To install lidar, run this command in your terminal:
+
+.. code-block:: console
+
+    $ pip install lidar
+
+This is the preferred method to install lidar, as it will always install the most recent stable release.
+
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
+
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+
+
+From sources
+------------
+
+The sources for lidar can be downloaded from the `Github repo`_.
+
+You can either clone the public repository:
+
+.. code-block:: console
+
+    $ git clone git://github.com/giswqs/lidar
+
+Or download the `tarball`_:
+
+.. code-block:: console
+
+    $ curl  -OL https://github.com/giswqs/lidar/tarball/master
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: console
+
+    $ python setup.py install
+
+
+.. _Github repo: https://github.com/giswqs/lidar
+.. _tarball: https://github.com/giswqs/lidar/tarball/master
+Modules
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   lidar
+Welcome to lidar's documentation!
+======================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   readme
+   installation
+   usage
+   modules
+   contributing
+   authors
+   history
+
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+lidar package
+==============
+
+Submodules
+----------
+
+filtering module
+----------------------
+
+.. automodule:: lidar.filtering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+filling module
+--------------------
+
+.. automodule:: lidar.filling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+slicing module
+--------------------
+
+.. automodule:: lidar.slicing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+mounts module
+-------------------
+
+.. automodule:: lidar.mounts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+
+Module contents
+---------------
+
+.. automodule:: lidar
+   :members:
+   :undoc-members:
+   :show-inheritance:

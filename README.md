@@ -78,8 +78,30 @@ This will generate vectors along with embeddings and the distance matrix for
 those embeddings that drive the visualization in `index.html`. The plot shows
 the different repository embeddings, colored by language.
 
+## 4. Wikipedia Model
 
-### 4. Probabilistic Model
+**under development - files not added yet!**
+
+Since the dataset is small, it would make sense to try using a larger dataset,
+perhaps Wikipedia that also can generate vectors for articles (topics) that could
+be matched to software. First download the data:
+
+```bash
+$ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
+```
+
+Note this is big and will take 30 minutes to an hour to download, depending on
+your connection. Then run the script!
+
+```bash
+$ python 4.wikipedia.py ./data
+```
+
+If this works, we can derive labels from here, and either use this clustering
+or the previous one generated to visualize the labels.
+
+
+### 5. Probabilistic Model
 
 The labels are too distinct I think to be useful, so instead I'm going to try:
 

@@ -786,3 +786,1154 @@ make html
 The `tyssue` library seeks to provide a unified interface to implement
 bio-mechanical models of living tissues.
 It's main focus is on **vertex based epithelium models**.
+
+Core objects
+============
+
+The Epithelium object
+---------------------
+
+.. autoclass::   tyssue.Epithelium
+   :members:
+   :undoc-members:
+
+
+Sheet object
+------------
+
+.. autoclass::   tyssue.Sheet
+   :members:
+   :undoc-members:
+
+
+Monolayer object
+----------------
+
+.. autoclass::   tyssue.Monolayer
+   :members:
+   :undoc-members:
+
+
+Drawing functions
+=================
+
+Matplotlib based
+----------------
+
+.. automodule::    tyssue.draw.plt_draw
+   :members:
+   :undoc-members:
+
+Ipyvolume based
+----------------
+
+.. automodule::    tyssue.draw.ipv_draw
+   :members:
+   :undoc-members:
+
+
+Geometry classes
+================
+
+Planar
+------
+
+.. autoclass:: tyssue.PlanarGeometry
+   :members:
+   :undoc-members:
+
+Sheet (2D 1/2)
+--------------
+
+.. autoclass:: tyssue.SheetGeometry
+   :members:
+   :undoc-members:
+
+.. autoclass:: tyssue.ClosedSheetGeometry
+   :members:
+   :undoc-members:
+
+.. autoclass:: tyssue.geometry.sheet_geometry.EllipsoidGeometry
+   :members:
+   :undoc-members:
+
+
+Bulk (3D)
+---------
+
+.. autoclass:: tyssue.BulkGeometry
+   :members:
+   :undoc-members:
+
+.. autoclass:: tyssue.MonolayerGeometry
+   :members:
+   :undoc-members:
+
+.. autoclass:: tyssue.ClosedMonolayerGeometry
+   :members:
+   :undoc-members:
+
+
+Topology functions
+==================
+
+Base
+----
+
+.. automodule:: tyssue.topology.base_topology
+   :members:
+   :undoc-members:
+
+Sheet
+-----
+
+.. automodule:: tyssue.topology.sheet_topology
+   :members:
+   :undoc-members:
+
+
+Bulk and Monolayer
+------------------
+
+.. automodule:: tyssue.topology.bulk_topology
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.topology.monolayer_topology
+   :members:
+   :undoc-members:
+
+
+Dynamic models definitions
+==========================
+
+Gradients
+---------
+
+.. automodule:: tyssue.dynamics.base_gradients
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.planar_gradients
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.sheet_gradients
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.bulk_gradients
+   :members:
+   :undoc-members:
+
+
+Effectors and Model factory
+---------------------------
+
+.. automodule:: tyssue.dynamics.factory
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.effectors
+   :members:
+   :undoc-members:
+
+
+Predefined models
+-----------------
+
+.. automodule:: tyssue.dynamics.planar_vertex_model
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.sheet_vertex_model
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.apoptosis_model
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.dynamics.bulk_model
+   :members:
+   :undoc-members:
+
+
+Quasistatic solver
+------------------
+
+.. autoclass:: tyssue.solvers.quasistatic_solver.QSSolver
+   :members:
+   :undoc-members:
+
+
+
+
+Epithelium generation utilities
+===============================
+
+.. automodule:: tyssue.generation
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.generation.shapes
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.generation.modifiers
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.generation.hexagonal_grids
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.generation.from_voronoi
+   :members:
+   :undoc-members:
+
+
+Input/output
+============
+
+.. automodule:: tyssue.io.hdf5
+   :members:
+   :undoc-members:
+
+
+.. automodule:: tyssue.io.csv
+   :members:
+   :undoc-members:
+
+.. automodule:: tyssue.io.obj
+   :members:
+   :undoc-members:
+
+
+Predefined datasets
+-------------------
+
+.. automodule:: tyssue.stores
+   :members:
+   :undoc-members:
+
+
+Collision detection and correction
+==================================
+
+Detection
+---------
+
+.. automodule:: tyssue.collisions.intersection
+   :members:
+   :undoc-members:
+
+
+Resolution
+----------
+
+.. automodule:: tyssue.collisions.solvers
+   :members:
+   :undoc-members:
+
+
+Miscellanous utils
+==================
+
+.. automodule:: tyssue.utils.utils
+   :members:
+   :undoc-members:
+
+
+Decorators
+----------
+
+.. automodule:: tyssue.utils.decorators
+   :members:
+   :undoc-members:
+tyssue.utils package
+====================
+
+Submodules
+----------
+
+tyssue.utils.decorators module
+------------------------------
+
+.. automodule:: tyssue.utils.decorators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.utils.testing module
+---------------------------
+
+.. automodule:: tyssue.utils.testing
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.utils.utils module
+-------------------------
+
+.. automodule:: tyssue.utils.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.utils.widgets module
+---------------------------
+
+.. automodule:: tyssue.utils.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.behaviors.sheet package
+==============================
+
+Submodules
+----------
+
+tyssue.behaviors.sheet.actions module
+-------------------------------------
+
+.. automodule:: tyssue.behaviors.sheet.actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.sheet.apoptosis\_events module
+-----------------------------------------------
+
+.. automodule:: tyssue.behaviors.sheet.apoptosis_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.sheet.basic\_events module
+-------------------------------------------
+
+.. automodule:: tyssue.behaviors.sheet.basic_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.sheet.delamination\_events module
+--------------------------------------------------
+
+.. automodule:: tyssue.behaviors.sheet.delamination_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.behaviors.sheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tests package
+=============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tests.behaviors
+    tests.config
+    tests.core
+    tests.draw
+    tests.dynamics
+    tests.generation
+    tests.geometry
+    tests.io
+    tests.solvers
+    tests.topology
+    tests.utils
+
+Module contents
+---------------
+
+.. automodule:: tests
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.core package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.stores package
+============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.stores
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.particles package
+========================
+
+Submodules
+----------
+
+tyssue.particles.point\_cloud module
+------------------------------------
+
+.. automodule:: tyssue.particles.point_cloud
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.particles
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.subdiv package
+============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.subdiv
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.draw package
+==========================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.draw
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue package
+==============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tyssue.behaviors
+    tyssue.config
+    tyssue.core
+    tyssue.draw
+    tyssue.dynamics
+    tyssue.generation
+    tyssue.geometry
+    tyssue.io
+    tyssue.particles
+    tyssue.solvers
+    tyssue.stores
+    tyssue.topology
+    tyssue.utils
+
+Submodules
+----------
+
+tyssue.version module
+---------------------
+
+.. automodule:: tyssue.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue
+    :members:
+    :undoc-members:
+    :show-inheritance:
+setup module
+============
+
+.. automodule:: setup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.behaviors.monolayer package
+==================================
+
+Submodules
+----------
+
+tyssue.behaviors.monolayer.actions module
+-----------------------------------------
+
+.. automodule:: tyssue.behaviors.monolayer.actions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.monolayer.apoptosis\_events module
+---------------------------------------------------
+
+.. automodule:: tyssue.behaviors.monolayer.apoptosis_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.monolayer.basic\_events module
+-----------------------------------------------
+
+.. automodule:: tyssue.behaviors.monolayer.basic_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.behaviors.monolayer.delamination\_events module
+------------------------------------------------------
+
+.. automodule:: tyssue.behaviors.monolayer.delamination_events
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.behaviors.monolayer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.io package
+=================
+
+Submodules
+----------
+
+tyssue.io.csv module
+--------------------
+
+.. automodule:: tyssue.io.csv
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.io.hdf5 module
+---------------------
+
+.. automodule:: tyssue.io.hdf5
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.io.obj module
+--------------------
+
+.. automodule:: tyssue.io.obj
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.io
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.core package
+===================
+
+Submodules
+----------
+
+tyssue.core.history module
+--------------------------
+
+.. automodule:: tyssue.core.history
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.core.monolayer module
+----------------------------
+
+.. automodule:: tyssue.core.monolayer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.core.multisheet module
+-----------------------------
+
+.. automodule:: tyssue.core.multisheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.core.objects module
+--------------------------
+
+.. automodule:: tyssue.core.objects
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.core.sheet module
+------------------------
+
+.. automodule:: tyssue.core.sheet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.draw package
+===================
+
+Submodules
+----------
+
+tyssue.draw.ipv\_draw module
+----------------------------
+
+.. automodule:: tyssue.draw.ipv_draw
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.draw.plt\_draw module
+----------------------------
+
+.. automodule:: tyssue.draw.plt_draw
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.draw
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.dynamics package
+=======================
+
+Submodules
+----------
+
+tyssue.dynamics.apoptosis\_model module
+---------------------------------------
+
+.. automodule:: tyssue.dynamics.apoptosis_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.base\_gradients module
+--------------------------------------
+
+.. automodule:: tyssue.dynamics.base_gradients
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.bulk\_gradients module
+--------------------------------------
+
+.. automodule:: tyssue.dynamics.bulk_gradients
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.bulk\_model module
+----------------------------------
+
+.. automodule:: tyssue.dynamics.bulk_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.effectors module
+--------------------------------
+
+.. automodule:: tyssue.dynamics.effectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.factory module
+------------------------------
+
+.. automodule:: tyssue.dynamics.factory
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.planar\_gradients module
+----------------------------------------
+
+.. automodule:: tyssue.dynamics.planar_gradients
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.planar\_vertex\_model module
+--------------------------------------------
+
+.. automodule:: tyssue.dynamics.planar_vertex_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.sheet\_gradients module
+---------------------------------------
+
+.. automodule:: tyssue.dynamics.sheet_gradients
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.sheet\_vertex\_model module
+-------------------------------------------
+
+.. automodule:: tyssue.dynamics.sheet_vertex_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.dynamics.units module
+----------------------------
+
+.. automodule:: tyssue.dynamics.units
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.dynamics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.topology package
+=======================
+
+Submodules
+----------
+
+tyssue.topology.base\_topology module
+-------------------------------------
+
+.. automodule:: tyssue.topology.base_topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.topology.bulk\_topology module
+-------------------------------------
+
+.. automodule:: tyssue.topology.bulk_topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.topology.monolayer\_topology module
+------------------------------------------
+
+.. automodule:: tyssue.topology.monolayer_topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.topology.sheet\_topology module
+--------------------------------------
+
+.. automodule:: tyssue.topology.sheet_topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.topology
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.behaviors package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tyssue.behaviors.monolayer
+    tyssue.behaviors.sheet
+
+Submodules
+----------
+
+tyssue.behaviors.event\_manager module
+--------------------------------------
+
+.. automodule:: tyssue.behaviors.event_manager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.behaviors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.geometry package
+=======================
+
+Submodules
+----------
+
+tyssue.geometry.base\_geometry module
+-------------------------------------
+
+.. automodule:: tyssue.geometry.base_geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.geometry.bulk\_geometry module
+-------------------------------------
+
+.. automodule:: tyssue.geometry.bulk_geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.geometry.multisheetgeometry module
+-----------------------------------------
+
+.. automodule:: tyssue.geometry.multisheetgeometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.geometry.planar\_geometry module
+---------------------------------------
+
+.. automodule:: tyssue.geometry.planar_geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.geometry.sheet\_geometry module
+--------------------------------------
+
+.. automodule:: tyssue.geometry.sheet_geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.geometry.utils module
+----------------------------
+
+.. automodule:: tyssue.geometry.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.geometry package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.geometry
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.solvers package
+=============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.solvers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.solvers package
+======================
+
+Submodules
+----------
+
+tyssue.solvers.base module
+--------------------------
+
+.. automodule:: tyssue.solvers.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.solvers.isotropic\_solver module
+---------------------------------------
+
+.. automodule:: tyssue.solvers.isotropic_solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.solvers.quasistatic module
+---------------------------------
+
+.. automodule:: tyssue.solvers.quasistatic
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.solvers.sheet\_vertex\_solver module
+-------------------------------------------
+
+.. automodule:: tyssue.solvers.sheet_vertex_solver
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.solvers.viscous module
+-----------------------------
+
+.. automodule:: tyssue.solvers.viscous
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.solvers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config.dynamics package
+==============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config.dynamics
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.stores package
+=====================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.stores
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   setup
+   tests
+   tyssue
+tyssue.generation.cpp package
+=============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.generation.cpp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+tyssue.collisions.cpp package
+=============================
+
+Module contents
+---------------
+
+.. automodule:: tyssue.collisions.cpp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.collisions package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tyssue.collisions.cpp
+
+Submodules
+----------
+
+tyssue.collisions.intersection module
+-------------------------------------
+
+.. automodule:: tyssue.collisions.intersection
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.collisions.solvers module
+--------------------------------
+
+.. automodule:: tyssue.collisions.solvers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.collisions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.config package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    tyssue.config.core
+    tyssue.config.draw
+    tyssue.config.dynamics
+    tyssue.config.geometry
+    tyssue.config.solvers
+    tyssue.config.stores
+    tyssue.config.subdiv
+
+Submodules
+----------
+
+tyssue.config.json\_parser module
+---------------------------------
+
+.. automodule:: tyssue.config.json_parser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.config
+    :members:
+    :undoc-members:
+    :show-inheritance:
+tyssue.generation package
+=========================
+
+Submodules
+----------
+
+tyssue.generation.from\_voronoi module
+--------------------------------------
+
+.. automodule:: tyssue.generation.from_voronoi
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.generation.hexagonal\_grids module
+-----------------------------------------
+
+.. automodule:: tyssue.generation.hexagonal_grids
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.generation.modifiers module
+----------------------------------
+
+.. automodule:: tyssue.generation.modifiers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.generation.shapes module
+-------------------------------
+
+.. automodule:: tyssue.generation.shapes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+tyssue.generation.utils module
+------------------------------
+
+.. automodule:: tyssue.generation.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: tyssue.generation
+    :members:
+    :undoc-members:
+    :show-inheritance:

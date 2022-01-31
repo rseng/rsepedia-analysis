@@ -592,3 +592,978 @@ SPSS [@ibm2020] offers a function for planned contrasts in an ANOVA. But to our 
 We want to thank Thomas Schäfer and Isabell Winkler for testing `cofad` and giving helpful feedback.
 
 # References
+---
+title: Cofad User Guide
+output:
+  github_document:
+    pandoc_args: --webtex
+    hard_line_breaks: TRUE
+bibliography: "clean_library.bib"
+csl: apa.csl
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(width = 80)
+
+library(stringr)
+
+clean_bib <- function(input_file, input_bib, output_bib){
+  lines <- paste(readLines(input_file), collapse = "")
+  entries <- unique(str_match_all(lines,"@([a-zA-Z0-9]+)[,\\. \\?\\!\\]]")[[1]][, 2])
+
+  bib <- paste(readLines(input_bib), collapse = "\n")
+  bib <- unlist(strsplit(bib, "\n@"))
+
+  output <- sapply(entries, grep, bib, value = T)
+  output <- paste("@", output, sep = "")
+
+  writeLines(unlist(output), output_bib)
+}
+
+clean_bib("README.Rmd", "library.bib", "clean_library.bib")
+clean_bib("paper/paper.md", "library.bib", "paper/library_paper.bib")
+```
+
+[![Build Status](https://travis-ci.com/johannes-titz/cofad.svg?branch=main)](https://travis-ci.com/johannes-titz/cofad)
+[![CRAN status](https://www.r-pkg.org/badges/version/cofad)](https://CRAN.R-project.org/package=cofad)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03822/status.svg)](https://doi.org/10.21105/joss.03822)
+
+<!-- [![DOI](https://joss.theoj.org/papers/10.21105/joss.02116/status.svg)](https://doi.org/10.21105/joss.02116) -->
+
+<!-- To cite cofad in publications use: -->
+
+<!-- Titz, J. (2020). cofad: A modern graphical user interface for 2-level mixed models. *Journal of Open Source Software, 5*(49), 2116. https://doi.org/10.21105/joss.02116 -->
+
+<!-- A BibTeX entry for LaTeX users is -->
+
+<!-- ``` -->
+<!-- @article{titz2020, -->
+<!--   title = {cofad: {A} }, -->
+<!--   author = {Titz, Johannes and Burkhardt, Markus}, -->
+<!--   year = {2020}, -->
+<!--   journal = {Journal of Open Source Software}, -->
+<!--   volume = {5}, -->
+<!--   pages = {2116}, -->
+<!--   doi = {10.21105/joss.02116}, -->
+<!--   number = {49} -->
+<!-- } -->
+<!-- ``` -->
+
+## Introduction
+
+Cofad is an R package for conducting COntrast analysis in FActorial Designs like ANOVAs. If contrast analysis was to win a price it would be the one for the most underestimated, underused statistical technique. This is unfortunate because in every case a contrast analysis is at least as good as an ANOVA, but in most cases it is better. Contrast analysis gets rid off the unspecific omnibus-hypothesis *there are differences somewhere* and replaces it with a very specific numerical hypothesis. Furthermore, contrast analysis focuses on effects instead of significance. This is expressed doubly: First, there are three different effect sizes for contrast analysis: $r_\mathrm{effectsize}$, $r_\mathrm{contrast}$ and $r_\mathrm{alerting}$. Second, the effect size refers not to the data but to the tested hypothesis. The larger the effect, the more this speaks for the hypothesis. One can even compare different hypotheses against each other (experimentum crucis!) by looking at the effect size for each hypothesis.
+
+Sounds interesting? Then check out some introductory literature such as @furr2004, @rosenthal1985, @rosenthal2000, or, for the German-speaking audience, @sedlmeier2018. Contrast analysis is fairly easy to understand if you know what an ANOVA and a correlation is. In this vignette we assume you are familiar with the basics of contrast analysis and want to apply it to a specific data set. First we show how to install cofad and use the graphical user interface. Then we demonstrate some exemplary analyses for between, within and mixed designs in R.
+
+## Installation
+
+Cofad has two components, the plain R package and a shiny-app that offers an intuitive graphical user interface.
+
+If you just want to use the cofad-app, you do not need to install it. Just go to https://cofad.titz.science and use it there. An example data file is loaded when you go to https://cofad.titz.science/example.
+
+If you prefer the command line interface or want to use the cofad-app locally, install it from github (you need the package devtools for this):
+
+```{r echo = T, results = "hide", eval = F}
+# install.packages("devtools") # uncomment if you do not have devtools installed
+devtools::install_github("johannes-titz/cofad")
+```
+
+Now you can load cofad and use it in your R scripts.
+
+You can also run the app:
+
+```{r echo = T, results = "hide", eval = F}
+cofad::run_app()
+```
+
+If you have any problems installing cofad, check that your R version is up to date (currently `r version$version.string`). If you are using Windows, enable TLS 1.2 in the Internet Options Advanced tab (see https://github.com/r-lib/remotes/issues/130#issuecomment-423830669). Under Windows, you will also need Rtools to build the package: https://cran.r-project.org/bin/windows/Rtools/.
+
+If it still does not work drop an e-mail at johannes at titz.science or at johannes.titz at gmail.com.
+
+## Using cofad
+
+Before we start: Your data has to be in the long-format (also referred to as narrow or tidy)! If you do not know what this means, please check the short description of the Wikipedia-article: https://en.wikipedia.org/wiki/Wide_and_narrow_data
+
+### Graphical-User-Interface
+
+The graphical-user-interface is self-explanatory. Just load your data and drag the variables to the correct position. At the moment you can only read .sav (SPSS) and .csv files.
+
+As an example go to https://cofad.titz.science/example which will load a data set from @rosenthal2000 (Table 5.3). The cognitive ability of nine children belonging to different age groups (between) was measured four times (within).
+
+There are two hypotheses:
+
+1. cognitive ability linearly increases over time (within)
+($\lambda_\mathrm{1} = -3, \lambda_\mathrm{2} = -1, \lambda_\mathrm{3} = 1, \lambda_\mathrm{4} = 3$)
+2. cognitive ability linearly increase over age groups (between)
+($\lambda_\mathrm{Age 8} = -1, \lambda_\mathrm{Age 10} = 0, \lambda_\mathrm{Age12} = 1$)
+
+Now drag the variables to the correct position and set the lambdas accordingly:
+
+![cofad GUI](gui1b.png)
+
+The result should look like this:
+
+![cofad GUI](gui2b.png)
+
+A mixed design is ideal for testing out the cofad-app. You can now construct a separate within-model by removing the between variable "age". Then you can construct a separate between-model by removing "time" from within and dragging "age" back into the between panel.
+
+The graphical user interface will suffice for most users, but some will prefer to use the scripting capabilities of R. In the next sections we will look at several script examples for different designs.
+
+### Between-Subjects Designs
+
+Let us first load the package:
+
+```{r setup}
+library(cofad)
+```
+
+Now we need some data and hypotheses. We can simply take the data from @furr2004, where we have different empathy ratings of students from different majors. This data set is available in the cofad package:
+
+```{r}
+data("furr_p4")
+furr_p4
+```
+
+Furr states three hypotheses:
+
+  - Contrast A: Psychology majors have higher empathy scores than Education majors ($\lambda_\mathrm{psych} = 1, \lambda_\mathrm{edu} = -1$).
+  - Contrast B: Business majors have higher empathy scores than Chemistry majors ($\lambda_\mathrm{bus} = 1, \lambda_\mathrm{chem} = -1$).
+  - Contrast C: On average, Psychology and Education majors have higher empathy scores than Business and Chemistry majors ($\lambda_\mathrm{psych} = 1, \lambda_\mathrm{edu} = 1, \lambda_\mathrm{bus} = -1, \lambda_\mathrm{chem} = -1$).
+
+These hypotheses are only mean comparisons, but this is a good way to start. Let's use cofad to conduct the contrast analysis:
+
+```{r}
+ca <- calc_contrast(dv = empathy, between = major,
+                    lambda_between = c("psychology" = 1, "education" = -1,
+                                       "business" = 0, "chemistry" = 0),
+                    data = furr_p4)
+ca
+```
+
+The print method shows some basic information that can be directly used in a publication. With the summary method some more details are shown:
+
+```{r}
+summary(ca)
+```
+
+From this table, $r_\mathrm{effectsize}$ is probably the most useful statistic. It is just the correlation between the lambdas and the dependent variable, which can also be calculated by hand:
+
+```{r}
+lambdas <- rep(c(1, -1, 0, 0), each = 5)
+cor(furr_p4$empathy, lambdas)
+```
+
+The other two hypotheses can be tested accordingly:
+
+```{r}
+ca <- calc_contrast(dv = empathy, between = major,
+                    lambda_between = c("psychology" = 0, "education" = 0,
+                                       "business" = 1, "chemistry" = -1),
+                    data = furr_p4)
+ca
+ca <- calc_contrast(dv = empathy, between = major,
+                    lambda_between = c("psychology" = 1, "education" = 1,
+                                       "business" = -1, "chemistry" = -1),
+                    data = furr_p4)
+ca
+```
+
+You will find that the numbers are identical to the ones presented in @furr2004. Now, imagine we have a more fun hypothesis and not just mean differences. From an elaborate theory we could derive that the means should be 73, 61, 51 and 38. We can test this with cofad directly because cofad will center the lambdas (the mean of the lambdas has to be 0):
+
+```{r}
+ca <- calc_contrast(dv = empathy, between = major,
+                    lambda_between = c("psychology" = 73, "education" = 61,
+                                       "business" = 51, "chemistry" = 38),
+                    data = furr_p4)
+ca
+```
+
+The manual test gives the same effect size:
+
+```{r}
+lambdas <- rep(c(73, 61, 51, 38), each = 5)
+cor(furr_p4$empathy, lambdas)
+```
+
+Let us now run an analysis for within-subjects designs.
+
+## Within-Subjects Designs
+
+For within designs the calculations are quite different, but cofad takes care of the details. We just have to use the within parameters *within* and *lambda_within* instead of the between equivalents. As an example we use Table 16.5 from @sedlmeier2018. Reading ability was assessed for eight participants under four different conditions. The hypothesis is that you can read best without music, white noise reduces your reading ability and music (independent of type) reduces it even further.
+
+```{r}
+data("sedlmeier_p537")
+head(sedlmeier_p537)
+calc_contrast(dv = reading_test, within = music,
+              lambda_within = c("without music" = 1.25, 
+                                "white noise" = 0.25,
+                                "classic" = -0.75,
+                                "jazz" = -0.75),
+              id = participant, data = sedlmeier_p537)
+```
+
+You can see that the significance test is just a $t$-test and the reported effect size is referring to a mean comparison ($g$). (The $t$-test is one-tailed, because contrast analysis has always a specific hypotheses.) When conducting the analysis by hand, we can see why:
+
+```{r}
+mtr <- matrix(sedlmeier_p537$reading_test, ncol = 4)
+lambdas <- c(1.25, 0.25, -0.75, -0.75)
+lc1 <- mtr %*% lambdas
+t.test(lc1)
+```
+
+Only the linear combination of the dependent variable and the contrast weights for each participant is needed. With these values a normal $t$-test against 0 is conducted. While you can do this manually, using cofad is quicker and it also gives you more information such as the different effect sizes.
+
+## Mixed Designs
+
+A mixed design combines between and within factors. In this case cofad first calculates the linear combination (*L*-Values) for the within factor. This new variable serves as the dependent variable for a between contrast analysis. We will again look at the example presented in @rosenthal2000 (see the section graphical user interface). The cognitive ability of nine children belonging to different age groups (between) was measured four times (within).
+
+There are two hypotheses:
+
+1. cognitive ability linearly increases over time (within)
+($\lambda_\mathrm{1} = -3, \lambda_\mathrm{2} = -1, \lambda_\mathrm{3} = 1, \lambda_\mathrm{4} = 3$)
+2. cognitive ability linearly increase over age groups (between)
+($\lambda_\mathrm{Age 8} = -1, \lambda_\mathrm{Age 10} = 0, \lambda_\mathrm{Age12} = 1$)
+
+Let's have a look at the data and calculation:
+
+```{r}
+data("rosenthal_tbl53")
+head(rosenthal_tbl53)
+lambda_within <- c("1" = -3, "2" = -1, "3" = 1, "4" = 3)
+lambda_between <-c("age8" = -1, "age10" = 0, "age12" = 1)
+
+contr_mx <- calc_contrast(dv = dv, 
+                          between = between,
+                          lambda_between = lambda_between,
+                          within = within,
+                          lambda_within = lambda_within,
+                          id = id, 
+                          data = rosenthal_tbl53)
+contr_mx
+```
+
+The results look like a contrast analysis for between-subject designs. The summary gives some more details: The effect sizes, within group means and standard errors of the *L*-values.
+
+```{r}
+summary(contr_mx)
+```
+
+## Aggregated Data
+
+Sometimes you would like to run a contrast analysis on aggregated data (e.g. when no raw data is available). If you have the means, standard deviations and sample sizes for every condition, you can do this with cofad. For instance, if we take our first example and aggregate it, we can still calculate the contrast analysis:
+
+```{r message=FALSE}
+library(dplyr)
+furr_agg <- furr_p4 %>% 
+  group_by(major) %>% 
+  summarize(mean = mean(empathy), sd = sd(empathy), n = n())
+lambdas = c("psychology" = 1, "education" = -1, "business" = 0, "chemistry" = 0)
+calc_contrast_aggregated(mean, sd, n, major, lambdas, furr_agg)
+```
+
+And the result is indeed the same when compared to the analysis with the raw data:
+
+```{r}
+ca <- calc_contrast(dv = empathy, between = major,
+                    lambda_between = c("psychology" = 1, "education" = -1,
+                                       "business" = 0, "chemistry" = 0),
+                    data = furr_p4)
+ca
+```
+
+Note that this will only work for between-subjects designs.
+
+## Issues and Support
+
+If you find any bugs, please use the issue tracker at:
+
+https://github.com/johannes-titz/cofad/issues
+
+If you need answers on how to use the package, drop an e-mail at johannes at titz.science or johannes.titz at gmail.com
+
+## Contributing
+
+Comments and feedback of any kind are very welcome! We will thoroughly consider every suggestion on how to improve the code, the documentation, and the presented examples. Even minor things, such as suggestions for better wording or improving grammar in any part of the package, are more than welcome.
+
+If you want to make a pull request, please check that you can still build the package without any errors, warnings, or notes. Overall, simply stick to the R packages book: https://r-pkgs.org/ and follow the code style described here: http://r-pkgs.had.co.nz/r.html#style
+
+## Acknowledgments
+
+We want to thank Thomas Schäfer and Isabell Winkler for testing cofad and giving helpful feedback.
+
+## References
+---
+output: github_document
+---
+
+# todos
+
+[] strwrap print -- does not work!
+
+[] KI für Korrelationen
+[] abbildung?
+[] jamovi
+[] convert to tags, check data type when there are two classes, currently this 
+is only a hot-fix!
+
+# paar hinweise zur reaktivität
+
+mit reactive$.. , also eigenen reactive werten hat man viel mehr flexibilität; man kann z. B. beim laden der daten alles auf NULL setzen; das geht z. b. nicht bei inputs, oder doch? über updateTextInput updateNumericInput, aber was ist mit sortable usw.?
+
+# bug
+
+wenn neue datei geladen wird mit gleichen var-names, dann bring tdas ziehen (drag) nichts, es wird offensichtlich kein observeEvent rausgehauen.
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# cofad
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of cofad is to ...
+
+## Installation
+
+You can install the released version of cofad from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("cofad")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(cofad)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(cars)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/master/examples>.
+
+You can also embed plots, for example:
+
+```{r pressure, echo = FALSE}
+plot(pressure)
+```
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+# TODOS
+
+- improve names of data sets
+- document data sets
+- load data sets in shiny as examples
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/run_app.R
+\name{run_app}
+\alias{run_app}
+\title{Starts the mimosa shiny app}
+\usage{
+run_app()
+}
+\description{
+Starts the mimosa shiny app
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/print_methods.R
+\name{print.cofad_wi}
+\alias{print.cofad_wi}
+\title{Output of a within subject design contrast analysis}
+\usage{
+\method{print}{cofad_wi}(x, ...)
+}
+\arguments{
+\item{x}{output of calc_contrast}
+
+\item{...}{further arguments}
+}
+\value{
+Displays the significance of the contrast analysis. The
+contrastweights, the corresponding group and an effectsize are given.
+}
+\description{
+Output of a within subject design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/summary_methods.R
+\name{summary.cofad_wi}
+\alias{summary.cofad_wi}
+\title{Summary of within subject design contrast analysis}
+\usage{
+\method{summary}{cofad_wi}(object, ci = 0.95, ...)
+}
+\arguments{
+\item{object}{output of calc_contrast}
+
+\item{ci}{confidence intervall for composite Score (L-Values)}
+
+\item{...}{further arguments}
+}
+\value{
+Displays ANOVA table of the contrastanalysis
+and the typical effectsizes.
+}
+\description{
+Summary of within subject design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{furr_p4}
+\alias{furr_p4}
+\title{Empathy data set by Furr (2004)}
+\format{
+a data frame with 20 rows and 2 columns
+\describe{
+  \item{empathy}{Empathy rating}
+  \item{major}{major of student}
+}
+}
+\source{
+Furr, R. M. (2004). Interpreting effect sizes in contrast analysis.
+  Understanding Statistics, 3, 1–25.
+  https://doi.org/10.1207/s15328031us0301_1
+}
+\usage{
+furr_p4
+}
+\description{
+fictious data set on empathy ratings of students from different majors
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{rosenthal_tbl53}
+\alias{rosenthal_tbl53}
+\title{Children data set by Rosenthal and Rosnow (2000)}
+\format{
+a data frame with 36 rows and 4 columns
+\describe{
+  \item{dv}{dependent variable}
+  \item{between}{age group (8, 10, 12 years)}
+  \item{id}{unique identifier for child}
+  \item{within}{measurement (1, 2, 3, 4)}
+}
+}
+\source{
+Rosenthal, R., Rosnow, R. L., & Rubin, D. B. (2000). Contrasts and
+  Effect Sizes in Behavioral Research: A Correlational Approach. Cambridge
+  University Press.
+}
+\usage{
+rosenthal_tbl53
+}
+\description{
+Table 5.3 in Rosenthal and Rosnow (2000) on p. 129.
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{rosenthal_p141}
+\alias{rosenthal_p141}
+\title{Data set by Rosenthal and Rosnow (2000)}
+\format{
+a data frame with 12 rows and 4 columns
+\describe{
+  \item{id}{unique identifier of participant}
+  \item{dv}{dependent variable}
+  \item{within}{within variable}
+  \item{between}{between variable}
+}
+}
+\source{
+Rosenthal, R., Rosnow, R. L., & Rubin, D. B. (2000). Contrasts and
+  Effect Sizes in Behavioral Research: A Correlational Approach. Cambridge
+  University Press.
+}
+\usage{
+rosenthal_p141
+}
+\description{
+Fictious example corresponding to aggregated data set on p. 141 in Rosenthal
+and Rosnow (2000)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/summary_methods.R
+\name{summary.cofad_bw}
+\alias{summary.cofad_bw}
+\title{Summary of between subject design contrast analysis}
+\usage{
+\method{summary}{cofad_bw}(object, ...)
+}
+\arguments{
+\item{object}{output of calc_contrast}
+
+\item{...}{further arguments}
+}
+\value{
+Displays ANOVA table of the contrastanalysis
+and the typical effectsizes.
+}
+\description{
+Summary of between subject design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{rosenthal_tbl59}
+\alias{rosenthal_tbl59}
+\title{Therapy data set by Rosenthal and Rosnow (2000)}
+\format{
+a data frame with 12 rows and 4 columns
+\describe{
+  \item{id}{unique identifier}
+  \item{dv}{dependent variable}
+  \item{med}{within variable: medication (treatment or placebo)}
+  \item{pt}{between variable: psychotherapy (treatment or placebo)}
+}
+}
+\source{
+Rosenthal, R., Rosnow, R. L., & Rubin, D. B. (2000). Contrasts and
+  Effect Sizes in Behavioral Research: A Correlational Approach. Cambridge
+  University Press.
+}
+\usage{
+rosenthal_tbl59
+}
+\description{
+Table 5.9 in Rosenthal and Rosnow (2000)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast.R
+\name{calc_r_alerting}
+\alias{calc_r_alerting}
+\title{Calculate r_alerting from r_contrast and r_effectsize}
+\usage{
+calc_r_alerting(r_contrast, r_effectsize)
+}
+\arguments{
+\item{r_contrast}{what it says}
+
+\item{r_effectsize}{what it says}
+}
+\description{
+Convenience function to transform effect sizes in contrast analyses.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/print_methods.R
+\name{print.cofad_mx}
+\alias{print.cofad_mx}
+\title{Output of a mixed design contrast analysis}
+\usage{
+\method{print}{cofad_mx}(x, ...)
+}
+\arguments{
+\item{x}{output of calc_contrast}
+
+\item{...}{further arguments}
+}
+\value{
+Displays the significance of the contrast analysis. The
+contrastweights, the corresponding group and an effectsize are given.
+}
+\description{
+Output of a mixed design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast.R
+\name{calc_r_effectsize}
+\alias{calc_r_effectsize}
+\title{Calculate r_effectsize from r_contrast and r_alerting}
+\usage{
+calc_r_effectsize(r_alerting, r_contrast)
+}
+\arguments{
+\item{r_alerting}{what it says}
+
+\item{r_contrast}{what it says}
+}
+\description{
+Convenience function to transform effect sizes in contrast analyses.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{sedlmeier_p525}
+\alias{sedlmeier_p525}
+\title{Problem solving data set by Sedlmeier & Renkewitz (2018)}
+\format{
+a data frame with 15 rows and 3 columns
+\describe{
+  \item{lsg}{dv, number of solved exercises}
+  \item{between}{group, KT=no training, JT=boys-specific, MT=girls-specific}
+  \item{lambda}{lambdas used for this example}
+}
+}
+\source{
+Sedlmeier, P., & Renkewitz, F. (2018). Forschungsmethoden und
+  Statistik für Psychologen und Sozialwissenschaftler (3rd ed.). Pearson
+  Studium.
+}
+\usage{
+sedlmeier_p525
+}
+\description{
+Example 16.2, table 16.1 in Sedlmeier & Renkewitz (2018). Fictious data set
+with 15 boys divided into three groups (no training, boys-specific material,
+girls-specific training material). The DV is the number of solved problem
+(similar to the training).
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast.R
+\name{calc_r_alerting_from_f}
+\alias{calc_r_alerting_from_f}
+\title{Calculate r_alerting from F-values}
+\usage{
+calc_r_alerting_from_f(f_contrast, f_between, df_between)
+}
+\arguments{
+\item{f_contrast}{F value from contrast analysis}
+
+\item{f_between}{F value from ANOVA (one between variable!)}
+
+\item{df_between}{degrees of freedom of ANOVA}
+}
+\description{
+Convenience function to calculate effect sizes in contrast analyses.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{sedlmeier_p537}
+\alias{sedlmeier_p537}
+\title{Music data set by Sedlmeier & Renkewitz (2018)}
+\format{
+a data frame with 32 rows and 3 columns
+\describe{
+  \item{reading_test}{dependent variable}
+  \item{participant}{unique id}
+  \item{music}{within variable}
+}
+}
+\source{
+Sedlmeier, P., & Renkewitz, F. (2018). Forschungsmethoden und
+  Statistik für Psychologen und Sozialwissenschaftler (3rd ed.). Pearson
+  Studium.
+}
+\usage{
+sedlmeier_p537
+}
+\description{
+Example 16.6, table 16.5 in Sedlmeier & Renkewitz (2018). Fictious data set
+with 8 participants that listened to no music, white noise, classical music,
+and jazz music (within). The DV is a reading test.
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast_aggregated.R
+\name{calc_contrast_aggregated}
+\alias{calc_contrast_aggregated}
+\title{Calculate between contrast analysis from aggregated data (means, sds and ns)}
+\usage{
+calc_contrast_aggregated(means, sds, ns, between, lambda_between, data)
+}
+\arguments{
+\item{means}{numeric vector of mean values for every condition}
+
+\item{sds}{numeric vector of standard deviation values for every condition}
+
+\item{ns}{numeric vector of sample size values for every condition}
+
+\item{between}{factor for the independent variable that divides the data into
+independent groups}
+
+\item{lambda_between}{numeric vector for contrast weights. Names must match
+the levels of \code{between}. If \code{lambda_between} does not sum up to
+zero, this will be done automatically (centering).}
+
+\item{data}{optional argument for the \code{data.frame} containing all
+variables except for lambda_between}
+}
+\value{
+an object of type cofad_bw, including p-value, F-value, contrast
+  weights, different effect sizes
+}
+\description{
+Calculate between contrast analysis from aggregated data (means, sds and ns)
+}
+\examples{
+library(dplyr)
+furr_agg <- furr_p4 \%>\%
+  group_by(major) \%>\%
+  summarize(mean = mean(empathy), sd = sd(empathy), n = n())
+lambdas = c("psychology" = 1, "education" = -1, "business" = 0,
+            "chemistry" = 0)
+calc_contrast_aggregated(mean, sd, n, major, lambdas, furr_agg)
+
+}
+\references{
+Rosenthal, R., Rosnow, R.L., & Rubin, D.B. (2000). Contrasts and
+  effect sizes in behavioral research: A correlational approach. New York:
+  Cambridge University Press.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/utils-pipe.R
+\name{\%>\%}
+\alias{\%>\%}
+\title{Pipe operator}
+\usage{
+lhs \%>\% rhs
+}
+\arguments{
+\item{lhs}{A value or the magrittr placeholder.}
+
+\item{rhs}{A function call using the magrittr semantics.}
+}
+\value{
+The result of calling `rhs(lhs)`.
+}
+\description{
+See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/summary_methods.R
+\name{summary.cofad_mx}
+\alias{summary.cofad_mx}
+\title{Summary of a mixed design contrast analysis}
+\usage{
+\method{summary}{cofad_mx}(object, ...)
+}
+\arguments{
+\item{object}{output of calc_contrast}
+
+\item{...}{further arguments}
+}
+\value{
+Displays ANOVA table of the contrastanalysis
+and the typical effectsizes.
+}
+\description{
+Summary of a mixed design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/print_methods.R
+\name{print.cofad_bw}
+\alias{print.cofad_bw}
+\title{Output of between-subject design contrast analysis}
+\usage{
+\method{print}{cofad_bw}(x, ...)
+}
+\arguments{
+\item{x}{output of calc_contrast}
+
+\item{...}{further arguments}
+}
+\value{
+Displays the significance of the contrast analysis. The contrast
+weights, the corresponding group and an effectsize are given.
+}
+\description{
+Output of between-subject design contrast analysis
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast.R
+\name{calc_contrast}
+\alias{calc_contrast}
+\title{Calculate contrast analysis for factorial designs}
+\usage{
+calc_contrast(
+  dv,
+  between = NULL,
+  lambda_between = NULL,
+  within = NULL,
+  lambda_within = NULL,
+  ID = NULL,
+  id = NULL,
+  data = NULL
+)
+}
+\arguments{
+\item{dv}{dependent variable. Values must be numeric.}
+
+\item{between}{independent variable that divides the data into
+independent groups. Vector must be a factor.}
+
+\item{lambda_between}{contrast weights must be a named numeric.
+Names must match the levels of \code{between}. If
+\code{lambda_between}
+does not sum up to zero, this will be done automatically.}
+
+\item{within}{independent variable which divides the data into
+dependent groups. This must be a factor.}
+
+\item{lambda_within}{contrast must be a named numeric.
+Names must match the levels of \code{between}. If
+\code{lambda_between}
+does not sum up to zero, this will be done automatically.}
+
+\item{ID}{deprecated, use id instead}
+
+\item{id}{identifier for cases or subjects is needed
+for within- and mixed contrast analysis.}
+
+\item{data}{optional argument for the \code{data.frame}
+containing \code{dv} and groups.}
+}
+\value{
+an object of type cofad_bw or cofad_wi or cofad_mx, including
+  p-value, F-value, contrast weights, different effect sizes
+}
+\description{
+Calculate contrast analysis for factorial designs
+}
+\details{
+For multi-factorial designs, the lambda weights of
+the factors must be connected.
+}
+\examples{
+# Example for between-subjects design Table 3.1 from
+# Rosenthal, Rosnow and Rubin (2001)
+
+data(rosenthal_tbl31)
+contr_bw <- calc_contrast(
+   dv = dv,
+   between = between,
+   lambda_between = c("A" = -3, "B" = -1, "C" = 1, "D" = 3),
+   data = rosenthal_tbl31)
+contr_bw
+summary(contr_bw)
+
+# Example for within-subjects design Calculation 16.6 from
+# Sedlmeier and Renkewitz (2018, p. 537)
+
+data(sedlmeier_p537)
+contr_wi <- calc_contrast(
+   dv = reading_test,
+   within = music,
+   id = participant,
+   lambda_within = c(
+     "without music" = 1.25,
+     "white noise" = 0.25,
+     "classic" = -0.75,
+     "jazz" = -0.75
+   ),
+   data = sedlmeier_p537
+ )
+contr_wi
+summary(contr_wi, ci = .90)
+
+# Example for mixed-design Table 5.3 from
+# Rosenthal, Rosnow and Rubin (2001)
+
+data(rosenthal_tbl53)
+
+contr_mx <- calc_contrast(dv = dv, between = between,
+              lambda_between = c("age8" = -1, "age10" = 0, "age12" = 1),
+              within = within,
+              lambda_within = c("1" = -3, "2" = -1,"3" = 1, "4" = 3),
+              id = id, data = rosenthal_tbl53
+              )
+contr_mx
+summary(contr_mx)
+
+}
+\references{
+Rosenthal, R., Rosnow, R.L., & Rubin, D.B. (2000). Contrasts and
+  effect sizes in behavioral research: A correlational approach. New York:
+  Cambridge University Press.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{rosenthal_chap5_q2}
+\alias{rosenthal_chap5_q2}
+\title{Complexity data set by Rosenthal and Rosnow (2000)}
+\format{
+a data frame with 12 rows and 4 columns
+\describe{
+  \item{dv}{dependent variable: rating of degree of complexity of social
+  interaction from a series of clips}
+  \item{id}{unique identifier of participant}
+  \item{within}{within variable: complexity of interaction (low, medium
+  high)}
+  \item{between}{between variable: cognitive complexity of participant (high
+  or low)}
+}
+}
+\source{
+Rosenthal, R., Rosnow, R. L., & Rubin, D. B. (2000). Contrasts and
+  Effect Sizes in Behavioral Research: A Correlational Approach. Cambridge
+  University Press.
+}
+\usage{
+rosenthal_chap5_q2
+}
+\description{
+Exercise 2 from Chapter 5 (table on p. 147) in Rosenthal and Rosnow (2000)
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/calc_contrast.R
+\name{calc_r_contrast}
+\alias{calc_r_contrast}
+\title{Calculate r_contrast from r_alerting and r_effectsize}
+\usage{
+calc_r_contrast(r_alerting, r_effectsize)
+}
+\arguments{
+\item{r_alerting}{what it says}
+
+\item{r_effectsize}{what it says}
+}
+\description{
+Convenience function to transform effect sizes in contrast analyses.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\docType{data}
+\name{rosenthal_tbl31}
+\alias{rosenthal_tbl31}
+\title{Data set by Rosenthal and Rosnow (2000)}
+\format{
+a data frame with 20 rows and 2 columns
+\describe{
+  \item{dv}{dependent variable}
+  \item{between}{group (A, B, C, D))}
+}
+}
+\source{
+Rosenthal, R., Rosnow, R. L., & Rubin, D. B. (2000). Contrasts and
+  Effect Sizes in Behavioral Research: A Correlational Approach. Cambridge
+  University Press.
+}
+\usage{
+rosenthal_tbl31
+}
+\description{
+Table 3.1 in Rosenthal and Rosnow (2000) on p. 38.
+}
+\keyword{datasets}

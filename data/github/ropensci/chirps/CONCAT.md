@@ -549,3 +549,773 @@ dt <- get_esi(tp_gjson, dates = c("2017-12-15","2017-12-31"), dist = 0.1)
 
 
 
+---
+title: "Introduction to chirps"
+package: chirps
+author:
+- name: Kauê de Sousa
+  affiliation: Department of Agricultural Sciences, Inland Norway University, Hamar, Norway </br> The Alliance of Bioversity International and CIAT, Montpellier, France
+- name: Adam H. Sparks 
+  affiliation: Centre for Crop Health, University of Southern Queensland, Toowoomba, Australia
+- name: Aniruddha Ghosh
+  affiliation: The Alliance of Bioversity International and CIAT, Nairobi, Kenya
+output: html_document
+vignette: >
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Introduction to chirps}
+  %\usepackage[UTF-8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+bibliography: ["chirps.bib"]
+csl: citation_style.csl
+---
+
+
+
+# Summary
+
+The **chirps** package [@chirps] provides functionalities for reproducible analysis using the CHIRPS [@Funk2015] and CHIRTS data [@Funk2019] . CHIRPS is a daily precipitation data set developed by the [Climate Hazards Group](https://www.chc.ucsb.edu/) for high resolution precipitation gridded data. Spanning 50°S - 50°N (and all longitudes) and ranging from 1981 to near-present (normally with a 45 day lag), CHIRPS incorporates 0.05 arc-degree resolution satellite imagery, and in-situ station data to create gridded precipitation time series for trend analysis and seasonal drought monitoring. CHIRTS is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. 
+
+Other functionalities of **chirps** are the computation of precipitation indices, the retrieval of the evaporative stress index (ESI) which describes temporal anomalies in evapotranspiration produced weekly at 0.25 arc-degree resolution for the entire globe, and the retrieval of IMERG data which provides near-real time global observations of rainfall at 0.5 arc-degree resolution.
+
+# CHIRPS (precipitation data)
+
+The *Tapajós* National Forest is a protected area in the Brazilian Amazon. Located within the coordinates -55.4° and -54.8°E and -4.1° and -2.7°S with ~527,400 ha of multiple Amazonian ecosystems. We take three points within its area to get the precipitation from Jan-2013 to Dec-2018 using `get_chirps()`.
+
+<img src="map.png" title="plot of chunk map" alt="plot of chunk map" style="display: block; margin: auto;" />
+
+For this example we fetch the data from the server "ClimateSERV" using the argument `server = "ClimateSERV"`. This option is recommended when working with few data points as the request could be faster. The default `server = "CHC"` is used for multiple data points and years. 
+
+
+```r
+
+library("chirps")
+library("sf")
+
+data("tapajos", package = "chirps")
+
+# sample three points within the Tapajos area
+set.seed(1234)
+tp_point <- st_sample(tapajos, 3)
+
+# coerce as sf points
+tp_point <- st_as_sf(tp_point)
+
+dat <- get_chirps(tp_point,
+                  dates = c("2013-01-01","2018-12-31"), 
+                  server = "ClimateSERV")
+#> Fetching data from ClimateSERV
+#> Getting your request...
+```
+
+## Precipitation indices
+
+By default, the function `get_chirps()` returns a data.frame which inherits the classes 'chirps' and 'chirps_df', where each id represents the index for the rows in the in-putted 'object'. It is possible to return the data as a matrix using the argument `as.matrix = TRUE`.
+
+
+```r
+dat
+#>          id    lon   lat       date chirps
+#>       <int>  <dbl> <dbl>     <date>  <dbl>
+#> 1:        1 -55.03 -3.80 2013-01-01   0.00
+#> 2:        1 -55.03 -3.80 2013-01-02  12.36
+#> 3:        1 -55.03 -3.80 2013-01-03  24.72
+#> 4:        1 -55.03 -3.80 2013-01-04   0.00
+#> 5:        1 -55.03 -3.80 2013-01-05   0.00
+#> ---                                       
+#> 6569:     3 -55.03 -3.41 2018-12-27   0.00
+#> 6570:     3 -55.03 -3.41 2018-12-28   0.00
+#> 6571:     3 -55.03 -3.41 2018-12-29   0.00
+#> 6572:     3 -55.03 -3.41 2018-12-30   0.00
+#> 6573:     3 -55.03 -3.41 2018-12-31   0.00
+```
+
+With `precip_indices()` is possible to assess how the precipitation changes across a time series using precipitation variability indices [@Aguilar2005]. Here, we take the indices for intervals of 15 days and compute the indices for the time series (from Jan-2013 to Dec-2018).
+
+
+```r
+p_ind <- precip_indices(dat, timeseries = TRUE, intervals = 15)
+
+p_ind
+#>          id       date    lon   lat  index  value
+#>       <int>     <date>  <dbl> <dbl>  <chr>  <dbl>
+#> 1:        1 2013-01-01 -55.03 -3.80   MLDS   7.00
+#> 2:        1 2013-01-01 -55.03 -3.80   MLWS   2.00
+#> 3:        1 2013-01-01 -55.03 -3.80  R10mm   1.00
+#> 4:        1 2013-01-01 -55.03 -3.80  R20mm   3.00
+#> 5:        1 2013-01-01 -55.03 -3.80 Rx1day  45.70
+#> ---                                              
+#> 3446:     3 2018-12-16 -55.03 -3.41 Rx5day  53.90
+#> 3447:     3 2018-12-16 -55.03 -3.41   R95p  34.53
+#> 3448:     3 2018-12-16 -55.03 -3.41   R99p  34.53
+#> 3449:     3 2018-12-16 -55.03 -3.41 Rtotal  80.49
+#> 3450:     3 2018-12-16 -55.03 -3.41   SDII  13.42
+```
+
+The function `precip_indices()` returns a data.frame with the precipitation indices. Each date corresponds to the first day in the time series intervals as defined by the argument 'intervals'. When `timeseries = FALSE` the function returns a single precipitation index for the entire time series.
+
+# CHIRTS (temperature data)
+
+Maximum and minimum temperature and relative humidity data are available with the function `get_chirts()`. Data is requested to the server CHC as default and is currently available from 1983 to 2016. We use the same random points from the Tapajós National Forest but for few days to speed up the call. 
+
+
+
+```r
+
+dates <- c("2010-12-15","2010-12-31")
+
+temp1 <- get_chirts(tp_point, dates, var = "Tmax", as.matrix = TRUE)
+
+temp2 <- get_chirts(tp_point, dates, var = "Tmin", as.matrix = TRUE)
+
+rhu <- get_chirts(tp_point, dates, var = "RHum", as.matrix = TRUE)
+
+```
+
+
+# Going further
+
+## Evapotranspiration 
+
+The **chirps** package also retrieves the Evaporative Stress Index (ESI) using the function `get_esi()` which behaves similarly as `get_chirps()`. 
+
+
+```r
+
+dt <- get_esi(tp_point, c("2016-05-01","2016-12-31"))
+
+```
+
+The function `get_esi()` may return `NA`s due to cloudiness in the dataset. Which will return an error message:
+
+
+```r
+set.seed(123)
+lonlat <- data.frame(lon = runif(1, -55, -54),
+                     lat = runif(1, -3, -2.7))
+
+get_esi(lonlat, c("2017-12-01","2018-01-20"))
+
+```
+
+One way to deal with this is increase the buffer area around the in-putted object with the argument `dist` passed to `st_buffer()` from *sf*[@sf] through the `...` functionality in `get_esi()`. The argument `nQuadSegs` defines the number of segments per quadrant in the buffer.  
+
+
+```r
+
+get_esi(lonlat, c("2017-12-01","2018-01-20"), dist = 0.1, nQuadSegs = 6)
+
+```
+
+## Objects of class sf
+
+To return an object with the same class (`sf`), the argument `as.sf = TRUE` is used.
+
+
+
+```r
+
+get_chirps(tapajos, dates = c("2017-12-15","2017-12-31"), as.sf = TRUE)
+
+```
+## Objects of class geojson
+
+`get_chirps()` and `get_esi()` also contains a method for objects of class geojson with geometries 'Point' and 'Polygon'. To return an object with the same class (`geojson`), the argument `as.geojson = TRUE` is used.
+
+
+
+```r
+
+tp_gjson <- sf_to_geojson(tp_point)
+
+dt <- get_esi(tp_gjson, dates = c("2017-12-15","2017-12-31"), dist = 0.1)
+
+```
+
+# References
+
+
+
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_chirps.R
+\name{get_chirps}
+\alias{get_chirps}
+\alias{get_chirps.default}
+\alias{get_chirps.SpatVector}
+\alias{get_chirps.SpatRaster}
+\alias{get_chirps.sf}
+\alias{get_chirps.geojson}
+\alias{get_chirps.SpatExtent}
+\title{Get CHIRPS precipitation data}
+\usage{
+get_chirps(object, dates, server, ...)
+
+\method{get_chirps}{default}(object, dates, server, as.matrix = FALSE, ...)
+
+\method{get_chirps}{SpatVector}(object, dates, server = "CHC", as.raster = TRUE, ...)
+
+\method{get_chirps}{SpatRaster}(
+  object,
+  dates,
+  server = "CHC",
+  as.matrix = TRUE,
+  as.raster = FALSE,
+  ...
+)
+
+\method{get_chirps}{sf}(object, dates, server, as.sf = FALSE, ...)
+
+\method{get_chirps}{geojson}(object, dates, server, as.geojson = FALSE, ...)
+
+\method{get_chirps}{SpatExtent}(object, dates, server = "CHC", as.raster = TRUE, ...)
+}
+\arguments{
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or
+any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}} or \code{geojson}}
+
+\item{dates}{a character of start and end dates in that order in the format
+"YYYY-MM-DD"}
+
+\item{server}{a character that represent the server source "CHC" or
+"ClimateSERV"}
+
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+or \code{\link[sf]{sf}} methods
+See details}
+
+\item{as.matrix}{logical, returns an object of class \code{matrix}}
+
+\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
+
+\item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
+
+\item{as.geojson}{logical, returns an object of class \code{geojson}}
+}
+\value{
+A matrix, raster or a data frame of \acronym{CHIRPS} data:
+\describe{
+  \item{id}{the index for the rows in \code{object}}
+  \item{dates}{the dates from which \acronym{CHIRPS} was requested}
+  \item{lon}{the longitude as provided in \code{object}}
+  \item{lat}{the latitude as provided in \code{object}}
+  \item{chirps}{the \acronym{CHIRPS} value in mm}
+}
+}
+\description{
+Get daily precipitation data from the "Climate Hazards Group". Two server 
+ sources are available. The first, "CHC" (default) is recommended for 
+ multiple data-points, while "ClimateSERV" is recommended when 
+ few data-points are required (~ 50).
+}
+\details{
+Data description at 
+\url{https://data.chc.ucsb.edu/products/CHIRPS-2.0/README-CHIRPS.txt}
+
+\strong{Additional arguments when using server = "CHC"}
+
+\bold{resolution}: numeric, resolution of CHIRPS tiles either 
+ 0.05 (default) or 0.25 degrees
+
+\strong{Additional arguments when using server = "ClimateSERV"}
+
+\bold{dist}: numeric, buffer distance for each \code{object} coordinate
+
+\bold{nQuadSegs}: integer, number of segments per buffer quadrant
+
+\bold{operation}: supported operations for ClimateSERV are:
+ \tabular{rll}{
+ \bold{operation}      \tab    \tab \bold{value}\cr
+ max                   \tab =  \tab 0\cr
+ min                   \tab =  \tab 1\cr
+ median                \tab =  \tab 2\cr
+ sum                   \tab =  \tab 4\cr
+ average               \tab =  \tab 5 (\emph{default value})\cr
+ }
+}
+\note{
+get_chirps may return some warning messages given by 
+\code{\link[sf]{sf}}, please look sf documentation for 
+possible issues.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library("chirps")
+library("terra")
+
+# Case 1: return as a data.frame
+dates <- c("2017-12-15","2017-12-31")
+lonlat <- data.frame(lon = c(-55.0281,-54.9857), lat = c(-2.8094, -2.8756))
+
+r1 <- get_chirps(lonlat, dates, server = "CHC")
+
+# Case 2: return a matrix
+r2 <- get_chirps(lonlat, dates, server = "CHC", as.matrix = TRUE)
+
+# Case 3: input SpatVector and return raster
+f <- system.file("ex/lux.shp", package = "terra")
+v <- vect(f)
+r3 <- get_chirps(v, dates, server = "CHC", as.raster = TRUE)
+
+# Case 4: input SpatExtent and return a raster within the extent
+area <- ext(c(-66, -64, -6, -4))
+
+dates <- c("2017-12-15", "2017-12-31")
+
+r4 <- get_chirps(area, dates, server = "CHC")
+
+# Case 5: using the server "ClimateSERV"
+r5 <- get_chirps(lonlat, dates, server = "ClimateSERV")
+
+# Case 6: from "ClimateSERV" and return as a matrix
+r6 <- get_chirps(lonlat, dates, server = "ClimateSERV", as.matrix = TRUE)
+
+\dontshow{\}) # examplesIf}
+}
+\references{
+Funk C. et al. (2015). Scientific Data, 2, 150066.
+ \cr\doi{10.1038/sdata.2015.66}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/precip_indices.R
+\name{precip_indices}
+\alias{precip_indices}
+\title{Compute precipitation indices over a time series.}
+\usage{
+precip_indices(object, timeseries = FALSE, intervals = NULL)
+}
+\arguments{
+\item{object}{an object of class \code{chirps} as provided by
+\code{\link{get_chirps}}}
+
+\item{timeseries}{logical, \code{FALSE} for a single point time series
+observation or \code{TRUE} for a time series based on \var{intervals}}
+
+\item{intervals}{integer no lower than 5, for the days intervals when
+\var{timeseries} = \code{TRUE}}
+}
+\value{
+A dataframe with precipitation indices:
+\item{MLDS}{maximum length of consecutive dry day, rain < 1 mm (days)}
+\item{MLWS}{maximum length of consecutive wet days, rain >= 1 mm (days)}
+\item{R10mm}{number of heavy precipitation days 10 >= rain < 20 mm (days)}
+\item{R20mm}{number of very heavy precipitation days rain >= 20 (days)}
+\item{Rx1day}{maximum 1-day precipitation (mm)}
+\item{Rx5day}{maximum 5-day precipitation (mm)}
+\item{R95p}{total precipitation when rain > 95th percentile (mm)}
+\item{R99p}{total precipitation when rain > 99th percentile (mm)}
+\item{Rtotal}{total precipitation (mm) in wet days, rain >= 1 (mm)}
+\item{SDII}{simple daily intensity index, total precipitation divided by the
+ number of wet days (mm/days)}
+}
+\description{
+Compute precipitation indices over a time series.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+                     lat = c(-2.8094, -2.8756))
+
+dates <- c("2017-12-15", "2017-12-31")
+
+dt <- get_chirps(lonlat, dates, server = "ClimateSERV")
+
+# take the indices for the entire period
+precip_indices(dt, timeseries = FALSE)
+
+# take the indices for periods of 7 days
+precip_indices(dt, timeseries = TRUE, intervals = 7)
+\dontshow{\}) # examplesIf}
+}
+\references{
+Aguilar E., et al. (2005). Journal of Geophysical Research, 110(D23), D23107.
+
+Kehel Z., et al. (2016). In: Applied Mathematics and Omics to Assess Crop
+ Genetic Resources for Climate Change Adaptive Traits (eds Bari A., Damania
+ A. B., Mackay M., Dayanandan S.), pp. 151–174. CRC Press.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_chirts.R
+\name{get_chirts}
+\alias{get_chirts}
+\alias{get_chirts.default}
+\alias{get_chirts.SpatVector}
+\alias{get_chirts.SpatRaster}
+\alias{get_chirts.SpatExtent}
+\title{Get CHIRTS temperature data data}
+\usage{
+get_chirts(object, dates, var, ...)
+
+\method{get_chirts}{default}(object, dates, var, as.matrix = FALSE, ...)
+
+\method{get_chirts}{SpatVector}(object, dates, var, as.raster = TRUE, ...)
+
+\method{get_chirts}{SpatRaster}(object, dates, var, as.raster = TRUE, ...)
+
+\method{get_chirts}{SpatExtent}(object, dates, var, as.raster = TRUE, ...)
+}
+\arguments{
+\item{object}{an object of class \code{\link[base]{data.frame}} (or any other 
+object that can be coerced to a \code{data.frame}), \code{\link[terra]{SpatExtent}},
+\code{\link[terra]{SpatVector}}, or \code{\link[terra]{SpatRaster}}}
+
+\item{dates}{a character of start and end dates in that order in the format
+"YYYY-MM-DD"}
+
+\item{var}{character, A valid variable from the options: \dQuote{Tmax},
+\dQuote{Tmin}, \dQuote{RHum} and \dQuote{HeatIndex}}
+
+\item{...}{additional arguments passed to \code{\link[terra]{terra}}}
+
+\item{as.matrix}{logical, returns an object of class \code{matrix}}
+
+\item{as.raster}{logical, returns an object of class \code{\link[terra]{SpatRaster}}}
+}
+\value{
+A SpatRaster object if \code{as.raster=TRUE}, else \code{matrix}, 
+\code{list}, or \code{data.frame}
+}
+\description{
+Get daily maximum and minimum temperature data from the "Climate Hazards
+ Group". CHIRTS-daily is a global 2-m temperature product that combines the
+ monthly CHIRTSmax data set with the ERA5 reanalysis to produce routinely
+ updated data to support the monitoring of temperature extreme. Data is
+ currently available from 1983 to 2016. Soon available to near-present.
+}
+\details{
+Variable description from 
+\url{https://data.chc.ucsb.edu/products/CHIRTSdaily/aaa.Readme.txt}
+\describe{
+  \item{Tmax}{Daily average maximum air temperature at 2 m above ground}
+  \item{Tmin}{Daily average minimum air temperature at 2 m above ground}
+  \item{RHum}{Daily average relative humidity}
+  \item{HeatIndex}{Daily average heat index}
+  }
+}
+\section{Additional arguments}{
+ 
+\bold{interval}: supported intervals are \dQuote{daily}, \dQuote{pentad},
+ \dQuote{dekad}, \dQuote{monthly}, \dQuote{2-monthly}, \dQuote{3-monthly},
+ and \dQuote{annual}. Currently hard coded to \dQuote{daily}.
+}
+
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library("chirps")
+library("terra")
+
+# Case 1: input a data frame return a data frame in the long format
+dates <- c("2010-12-15","2010-12-31")
+lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+                     lat = c(-2.8094, -2.8756))
+
+temp1 <- get_chirts(lonlat, dates, var = "Tmax")
+
+# Case 2: input a data frame return a matrix
+temp2 <- get_chirts(lonlat, dates, "Tmax", as.matrix = TRUE)
+
+# Case 3: input a raster and return raster
+f <- system.file("ex/lux.shp", package="terra")
+v <- vect(f)
+temp3 <- get_chirts(v, dates, var = "Tmax", as.raster = TRUE)
+
+# Case 4: input a raster and return raster
+temp4 <- get_chirts(v, dates, var = "Tmax", as.matrix = TRUE)
+\dontshow{\}) # examplesIf}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tapajos.R
+\docType{data}
+\name{tapajos}
+\alias{tapajos}
+\title{Tapajos National Forest}
+\format{
+An object of class 'sfc_POLYGON' within the bounding box 
+xmin: -55.41127 ymin: -4.114584 
+xmax: -54.7973 ymax: -2.751706
+}
+\source{
+The data was provided by the Chico Mendes Institute via
+\url{https://www.protectedplanet.net/en}
+}
+\usage{
+tapajos
+}
+\description{
+Geometries for the Tapajos National Forest, a protected 
+area in the Brazilian Amazon
+}
+\keyword{datasets}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_imerg.R
+\name{get_imerg}
+\alias{get_imerg}
+\alias{get_imerg.default}
+\alias{get_imerg.sf}
+\alias{get_imerg.geojson}
+\title{Get Integrated Multisatellite Retrievals for GPM (IMERG) data}
+\usage{
+get_imerg(object, dates, operation = 5, ...)
+
+\method{get_imerg}{default}(object, dates, operation = 5, ...)
+
+\method{get_imerg}{sf}(object, dates, operation = 5, as.sf = FALSE, ...)
+
+\method{get_imerg}{geojson}(object, dates, operation = 5, as.geojson = FALSE, ...)
+}
+\arguments{
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or
+any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}} or \code{geojson}}
+
+\item{dates}{a character of start and end dates in that order in the format
+"YYYY-MM-DD"}
+
+\item{operation}{optional, an integer that represents which type of
+statistical operation to perform on the dataset}
+
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+or \code{\link[sf]{sf}} methods
+See details}
+
+\item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
+
+\item{as.geojson}{logical, returns an object of class \code{geojson}}
+}
+\value{
+A data frame of \acronym{imerg} data:
+\item{id}{the index for the rows in \code{object}}
+\item{dates}{the dates from which imerg was requested}
+\item{lon}{the longitude as provided in \code{object}}
+\item{lat}{the latitude as provided in \code{object}}
+\item{imerg}{the IMERG value}
+}
+\description{
+The IMERG dataset provides near-real time global observations of 
+ rainfall at 10km resolution, which can be used to estimate total
+ rainfall accumulation from storm systems and quantify the intensity 
+ of rainfall and flood impacts from tropical cyclones and other storm 
+ systems. IMERG is a daily precipitation dataset available from 2015 
+ to present within the latitudes 70 and -70.
+}
+\details{
+\bold{operation}: supported operations are:  
+ \tabular{rll}{
+ \bold{operation}      \tab    \tab \bold{value}\cr
+ max                   \tab =  \tab 0\cr
+ min                   \tab =  \tab 1\cr
+ median                \tab =  \tab 2\cr
+ sum                   \tab =  \tab 4\cr
+ average               \tab =  \tab 5 (\emph{default value})\cr
+ }
+
+\bold{dist}: numeric, buffer distance for each \code{object} coordinate
+
+\bold{nQuadSegs}: integer, number of segments per buffer quadrant
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+                     lat = c(-2.8094, -2.8756))
+
+dates <- c("2017-12-15", "2017-12-31")
+
+dt <- get_imerg(lonlat, dates)
+
+dt
+\dontshow{\}) # examplesIf}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/chirps.R
+\docType{package}
+\name{chirps}
+\alias{chirps}
+\alias{chirps-package}
+\title{API Client for CHIRPS and CHIRTS}
+\description{
+API Client for the Climate Hazards Center 'CHIRPS' and 'CHIRTS'. The 'CHIRPS' data is a quasi-global (50°S – 50°N) high-resolution (0.05 arc-degrees) rainfall data set, which incorporates satellite imagery and in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring. 'CHIRTS' is a quasi-global (60°S – 70°N), high-resolution data set of daily maximum and minimum temperatures. For more details on 'CHIRPS' and 'CHIRTS' data please visit its official home page <https://www.chc.ucsb.edu/data>.
+}
+\note{
+While \CRANpkg{chirps} does not redistribute the data or provide it in any
+ way, we encourage users to cite Funk et al. (2015) when using
+ \acronym{CHIRPS} and Funk et al. (2019) when using \acronym{CHIRTS}.
+
+Funk et al. (2015). Scientific Data, 2, 150066. 
+\doi{10.1038/sdata.2015.66}
+
+Funk et al. (2019). Journal of Climate, 32(17), 5639–5658. 
+\doi{10.1175/JCLI-D-18-0698.1}
+}
+\seealso{
+\strong{Useful links:}
+\itemize{
+\item{JOSS paper: 
+ \doi{10.21105/joss.02419}}
+\item{Development repository: 
+ \url{https://github.com/ropensci/chirps}}
+\item{Static documentation: 
+ \url{https://docs.ropensci.org/chirps/}}
+\item{Report bugs: 
+ \url{https://github.com/ropensci/chirps/issues}}
+\item{CHC website: 
+ \url{https://www.chc.ucsb.edu}}
+}
+}
+\author{
+Kauê de Sousa and Adam H. Sparks and Aniruddha Ghosh
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/as.geojson.R
+\name{as.geojson}
+\alias{as.geojson}
+\alias{as.geojson.default}
+\alias{as.geojson.sf}
+\title{Methods to coerce geographical coordinates into a geojson polygon}
+\usage{
+as.geojson(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+
+\method{as.geojson}{default}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+
+\method{as.geojson}{sf}(lonlat, dist = 1e-05, nQuadSegs = 2L, ...)
+}
+\arguments{
+\item{lonlat}{a data.frame or matrix with geographical coordinates lonlat, in 
+that order, or an object of class 'sf' with geometry type 'POINT' or 'POLYGON'}
+
+\item{dist}{numeric, buffer distance for all \code{lonlat}}
+
+\item{nQuadSegs}{integer, number of segments per quadrant}
+
+\item{...}{further arguments passed to \code{\link[sf]{sf}} methods}
+}
+\value{
+An object of class 'geosjon' for each row in \code{lonlat}
+}
+\description{
+Take single points from geographical coordinates and coerce into a
+geojson of geometry 'Polygon'
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+# Default S3 Method
+# random geographic points within bbox(10, 12, 45, 47)
+library("sf")
+
+set.seed(123)
+lonlat <- data.frame(lon = runif(1, 10, 12),
+                     lat = runif(1, 45, 47))
+
+gjson <- as.geojson(lonlat)
+
+#################
+
+# S3 Method for objects of class 'sf'
+# random geographic points within bbox(10, 12, 45, 47)
+library("sf")
+
+set.seed(123)
+lonlat <- data.frame(lon = runif(5, 10, 12),
+                     lat = runif(5, 45, 47))
+
+lonlat <- st_as_sf(lonlat, coords = c("lon","lat"))
+
+gjson <- as.geojson(lonlat)
+\dontshow{\}) # examplesIf}
+}
+\concept{utility functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_esi.R
+\name{get_esi}
+\alias{get_esi}
+\alias{get_esi.default}
+\alias{get_esi.sf}
+\alias{get_esi.geojson}
+\title{Get evaporative stress index (ESI) data}
+\usage{
+get_esi(object, dates, operation = 5, period = 1, ...)
+
+\method{get_esi}{default}(object, dates, operation = 5, period = 1, ...)
+
+\method{get_esi}{sf}(object, dates, operation = 5, period = 1, as.sf = FALSE, ...)
+
+\method{get_esi}{geojson}(object, dates, operation = 5, period = 1, as.geojson = FALSE, ...)
+}
+\arguments{
+\item{object}{input, an object of class \code{\link[base]{data.frame}} (or
+any other object that can be coerced to data.frame), \code{\link[terra]{SpatVector}}, 
+\code{\link[terra]{SpatRaster}}, \code{\link[terra]{SpatExtent}},
+\code{\link[sf]{sf}} or \code{geojson}}
+
+\item{dates}{a character of start and end dates in that order in the format
+"YYYY-MM-DD"}
+
+\item{operation}{optional, an integer that represents which type of
+statistical operation to perform on the dataset}
+
+\item{period}{an integer value for the period of ESI data, 
+four weeks period = 1, twelve weeks = 2}
+
+\item{...}{additional arguments passed to \code{\link[terra]{terra}} 
+or \code{\link[sf]{sf}} methods
+See details}
+
+\item{as.sf}{logical, returns an object of class \code{\link[sf]{sf}}}
+
+\item{as.geojson}{logical, returns an object of class \code{geojson}}
+}
+\value{
+A data frame of \acronym{ESI} data:
+\item{id}{the index for the rows in \code{object}}
+\item{dates}{the dates from which ESI was requested}
+\item{lon}{the longitude as provided in \code{object}}
+\item{lat}{the latitude as provided in \code{object}}
+\item{esi}{the ESI value}
+}
+\description{
+Get evaporative stress index (\acronym{ESI}) from \acronym{SERVIR} Global
+via ClimateSERV \acronym{API} Client. \acronym{ESI} is available every four
+ (or twelve) weeks from 2001 to present.
+The dataset may contain cloudy data which is returned as \code{NA}s.
+ClimateSERV works with geojson of type 'Polygon'. The input \code{object} is
+ then transformed into polygons with a small buffer area around the point.
+}
+\details{
+\bold{operation}: supported operations are:  
+ \tabular{rll}{
+ \bold{operation}      \tab    \tab \bold{value}\cr
+ max                   \tab =  \tab 0\cr
+ min                   \tab =  \tab 1\cr
+ median                \tab =  \tab 2\cr
+ sum                   \tab =  \tab 4\cr
+ average               \tab =  \tab 5 (\emph{default value})\cr
+ }
+
+\bold{dist}: numeric, buffer distance for each \code{object} coordinate
+
+\bold{nQuadSegs}: integer, number of segments per buffer quadrant
+}
+\note{
+get_esi may return some warning messages given by 
+\code{\link[sf]{sf}}, please look sf documentation for 
+possible issues.
+}
+\examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+lonlat <- data.frame(lon = c(-55.0281,-54.9857),
+                     lat = c(-2.8094, -2.8756))
+
+dates <- c("2017-12-15","2018-06-20")
+
+# by default the function set a very small buffer around the points
+# which can return NAs due to cloudiness in ESI data
+
+dt <- get_esi(lonlat, dates = dates)
+
+# the argument dist passed through sf increase the buffer area
+
+dt <- get_esi(lonlat, dates = dates, dist = 0.1)
+\dontshow{\}) # examplesIf}
+}

@@ -1334,3 +1334,298 @@ A clear and concise description of any alternative solutions or features you've 
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+dgenies.lib package
+===================
+
+Submodules
+----------
+
+dgenies.lib.crons module
+------------------------
+
+.. automodule:: dgenies.lib.crons
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.decorators module
+-----------------------------
+
+.. automodule:: dgenies.lib.decorators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.drmaasession module
+-------------------------------
+
+.. automodule:: dgenies.lib.drmaasession
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.fasta module
+------------------------
+
+.. automodule:: dgenies.lib.fasta
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.functions module
+----------------------------
+
+.. automodule:: dgenies.lib.functions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.job\_manager module
+-------------------------------
+
+.. automodule:: dgenies.lib.job_manager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.latest module
+-------------------------
+
+.. automodule:: dgenies.lib.latest
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.mailer module
+-------------------------
+
+.. automodule:: dgenies.lib.mailer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.paf module
+----------------------
+
+.. automodule:: dgenies.lib.paf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.parsers module
+--------------------------
+
+.. automodule:: dgenies.lib.parsers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.upload\_file module
+-------------------------------
+
+.. automodule:: dgenies.lib.upload_file
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.lib.validators module
+-----------------------------
+
+.. automodule:: dgenies.lib.validators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: dgenies.lib
+    :members:
+    :undoc-members:
+    :show-inheritance:
+dgenies.bin package
+===================
+
+Submodules
+----------
+
+dgenies.bin.clean\_jobs module
+------------------------------
+
+.. automodule:: dgenies.bin.clean_jobs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.filter\_contigs module
+----------------------------------
+
+.. automodule:: dgenies.bin.filter_contigs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.index module
+------------------------
+
+.. automodule:: dgenies.bin.index
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.local\_scheduler module
+-----------------------------------
+
+.. automodule:: dgenies.bin.local_scheduler
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.merge\_splitted\_chrms module
+-----------------------------------------
+
+.. automodule:: dgenies.bin.merge_splitted_chrms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.sort\_paf module
+----------------------------
+
+.. automodule:: dgenies.bin.sort_paf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.bin.split\_fa module
+----------------------------
+
+.. automodule:: dgenies.bin.split_fa
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Python packages & modules
+-------------------------
+
+Subpackages
+^^^^^^^^^^^
+
+.. toctree::
+
+    dgenies.lib
+    dgenies.bin
+
+Submodules
+^^^^^^^^^^
+
+.. toctree::
+
+    dgenies.submodules
+
+Module contents
+^^^^^^^^^^^^^^^
+
+.. toctree::
+
+    dgenies.content
+dgenies.config\_reader module
+-----------------------------
+
+.. automodule:: dgenies.config_reader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.database module
+-----------------------
+
+.. automodule:: dgenies.database
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.tools module
+--------------------
+
+.. automodule:: dgenies.tools
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+dgenies.views module
+--------------------
+
+.. automodule:: dgenies.views
+    :members:
+    :undoc-members:
+    :show-inheritance:
+Python server part
+------------------
+
+.. toctree::
+
+   dgenies.rst
+
+Javascript client part
+----------------------
+
+.. toctree::
+
+   javascript/index.rst
+.. D-Genies documentation master file, created by
+   sphinx-quickstart on Mon Jun 18 10:58:43 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to D-Genies's documentation!
+====================================
+
+Dot plots are widely used to quickly compare sequence sets. They provide a synthetic similarity overview, highlighting repetitions, breaks and inversions. Different tools have been developed to easily generated genomic alignment dot plots, but they are often limited in the input sequence size. D-GENIES is a standalone and web application performing large genome alignments using minimap2 software package and generating interactive dot plots. It enables users to sort query sequences along the reference, zoom in the plot and download several image, alignment or sequence files. D-GENIES is an easy-to-install, open-source software package (GPL) developed in Python and JavaScript. The source code is available at https://github.com/genotoul-bioinfo/dgenies and it can be tested at http://dgenies.toulouse.inra.fr/.
+
+
+How to cite?
+============
+
+Cabanettes F, Klopp C. (2018) D-GENIES: dot plot large genomes in an interactive, efficient and simple way. PeerJ 6:e4958 https://doi.org/10.7717/peerj.4958
+
+How to install?
+===============
+
+`See the doc here <http://dgenies.toulouse.inra.fr/install>`_
+
+
+How to use?
+===========
+
+* `Launch a job <http://dgenies.toulouse.inra.fr/documentation/run>`_
+* `Results page <http://dgenies.toulouse.inra.fr/documentation/result>`_
+* `Dot plot: events <http://dgenies.toulouse.inra.fr/documentation/dotplot>`_
+* `Supported file formats <http://dgenies.toulouse.inra.fr/documentation/formats>`_
+
+
+Code API
+===============
+
+Index
+-----
+
+* :ref:`genindex`
+
+.. include:: modules.rst
+dgenies
+-------
+
+.. automodule:: dgenies
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1384,4 +1384,1838 @@ We checked 6 reverse dependencies, comparing R CMD check results across CRAN and
 
 # Revdeps
 
-*Wow, no problems at all. :)**Wow, no problems at all. :)*
+*Wow, no problems at all. :)**Wow, no problems at all. :)*---
+output: github_document
+---
+
+# correlation <img src='man/figures/logo.png' align="right" height="139" />
+
+```{r README-1, warning=FALSE, message=FALSE, echo=FALSE}
+library(ggplot2)
+library(poorman)
+library(correlation)
+
+options(digits = 2)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  dpi = 450,
+  message = FALSE,
+  warning = FALSE,
+  fig.path = "man/figures/"
+)
+```
+
+
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.02306/status.svg)](https://doi.org/10.21105/joss.02306)
+[![downloads](http://cranlogs.r-pkg.org/badges/correlation)](https://cran.r-project.org/package=correlation)
+[![total](https://cranlogs.r-pkg.org/badges/grand-total/correlation)](https://cranlogs.r-pkg.org/) [![status](https://tinyverse.netlify.com/badge/correlation)](https://CRAN.R-project.org/package=correlation) 
+
+`correlation` is an [**easystats**](https://github.com/easystats/easystats) package focused on correlation analysis. It's lightweight, easy to use, and allows for the computation of many different kinds of correlations, such as **partial** correlations, **Bayesian** correlations, **multilevel** correlations, **polychoric** correlations, **biweight**, **percentage bend** or **Sheperd's Pi** correlations (types of robust correlation), **distance** correlation (a type of non-linear correlation) and more, also allowing for combinations between them (for instance, *Bayesian partial multilevel correlation*).
+
+# Citation
+
+You can reference the package and its documentation as follows:
+
+Makowski, D., Ben-Shachar, M. S., Patil, I., \& Lüdecke, D. (2019). Methods and Algorithms for Correlation Analysis in R. _Journal of Open Source Software_,
+*5*(51), 2306. https://doi.org/10.21105/joss.02306
+
+# Installation
+
+[![CRAN](http://www.r-pkg.org/badges/version/correlation)](https://cran.r-project.org/package=correlation)
+[![Build Status](https://travis-ci.org/easystats/correlation.svg?branch=master)](https://travis-ci.org/easystats/correlation)
+[![codecov](https://codecov.io/gh/easystats/correlation/branch/master/graph/badge.svg)](https://codecov.io/gh/easystats/correlation)
+
+Run the following to install the stable release from CRAN:
+
+```{r README-2, eval=FALSE}
+install.packages("correlation")
+```
+
+Or this one to install the latest development version:
+
+```{r README-3, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("easystats/correlation")
+```
+
+# Documentation
+
+[![Documentation](https://img.shields.io/badge/documentation-correlation-orange.svg?colorB=E91E63)](https://easystats.github.io/correlation/)
+[![Blog](https://img.shields.io/badge/blog-easystats-orange.svg?colorB=FF9800)](https://easystats.github.io/blog/posts/)
+[![Features](https://img.shields.io/badge/features-correlation-orange.svg?colorB=2196F3)](https://easystats.github.io/correlation/reference/index.html)
+
+Click on the buttons above to access the package [documentation](https://easystats.github.io/correlation/) and the [easystats blog](https://easystats.github.io/blog/posts/), and check-out these vignettes:
+
+
+- [Types of Correlation](https://easystats.github.io/correlation/articles/types.html)
+- [Multilevel Correlations](https://easystats.github.io/correlation/articles/multilevel.html)
+
+# Features
+
+The *correlation* package can compute many different types of correlation,
+including:
+
+✅ **Pearson's correlation**<br>
+✅ **Spearman's rank correlation**<br>
+✅ **Kendall's rank correlation**<br>
+✅ **Biweight midcorrelation**<br>
+✅ **Distance correlation**<br>
+✅ **Percentage bend correlation**<br>
+✅ **Shepherd's Pi correlation**<br>
+✅ **Blomqvist’s coefficient**<br>
+✅ **Hoeffding’s D**<br>
+✅ **Gamma correlation**<br>
+✅ **Gaussian rank correlation**<br>
+✅ **Point-Biserial and biserial correlation**<br>
+✅ **Winsorized correlation**<br>
+✅ **Polychoric correlation**<br>
+✅ **Tetrachoric correlation**<br>
+✅ **Multilevel correlation**<br>
+
+An overview and description of these correlations types is [**available here**](https://easystats.github.io/correlation/articles/types.html). Moreover,
+many of these correlation types are available as **partial** or within a
+**Bayesian** framework.
+
+# Examples
+
+The main function is [`correlation()`](https://easystats.github.io/correlation/reference/correlation.html), which builds on top of [`cor_test()`](https://easystats.github.io/correlation/reference/cor_test.html) and comes with a number of possible options.
+
+## Correlation details and matrix
+
+```{r README-4}
+results <- correlation(iris)
+results
+```
+
+The output is not a square matrix, but a **(tidy) dataframe with all correlations tests per row**. One can also obtain a **matrix** using:
+
+```{r README-5}
+summary(results)
+```
+
+Note that one can also obtain the full, **square** and redundant matrix using:
+
+```{r README-6}
+summary(results, redundant = TRUE)
+```
+
+
+```{r README-7}
+library(see)
+
+results %>%
+  summary(redundant = TRUE) %>%
+  plot()
+```
+
+## Correlation tests
+
+The `cor_test()` function, for pairwise correlations, is also very convenient for making quick scatter plots.
+
+```{r README-corr}
+plot(cor_test(iris, "Sepal.Width", "Sepal.Length"))
+```
+
+
+## Grouped dataframes
+
+The `correlation()` function also supports **stratified correlations**, all within the
+*tidyverse* workflow!
+
+```{r README-8}
+iris %>%
+  select(Species, Sepal.Length, Sepal.Width, Petal.Width) %>%
+  group_by(Species) %>%
+  correlation()
+```
+
+
+## Bayesian Correlations
+
+It is very easy to switch to a **Bayesian framework**.
+
+```{r README-9}
+correlation(iris, bayesian = TRUE)
+```
+
+## Tetrachoric, Polychoric, Biserial, Biweight...
+
+The `correlation` package also supports different types of methods, which can
+deal with correlations **between factors**!
+
+```{r README-10}
+correlation(iris, include_factors = TRUE, method = "auto")
+```
+
+
+## Partial Correlations
+
+It also supports **partial correlations** (as well as Bayesian partial correlations).
+
+```{r README-11}
+iris %>%
+  correlation(partial = TRUE) %>%
+  summary()
+```
+
+## Gaussian Graphical Models (GGMs)
+
+Such partial correlations can also be represented as **Gaussian Graphical
+Models** (GGM), an increasingly popular tool in psychology. A GGM traditionally
+include a set of variables depicted as circles ("nodes"), and a set of lines
+that visualize relationships between them, which thickness represents the
+strength of association (see [Bhushan et al., 2019](https://www.frontiersin.org/articles/10.3389/fpsyg.2019.01050/full)).
+
+```{r README-12}
+library(see) # for plotting
+library(ggraph) # needs to be loaded
+
+mtcars %>%
+  correlation(partial = TRUE) %>%
+  plot()
+```
+
+## Multilevel Correlations
+
+It also provide some cutting-edge methods, such as Multilevel (partial)
+correlations. These are are partial correlations based on linear mixed-effects
+models that include the factors as **random effects**. They can be see as
+correlations *adjusted* for some group (*hierarchical*) variability.
+
+```{r README-13}
+iris %>%
+  correlation(partial = TRUE, multilevel = TRUE) %>%
+  summary()
+```
+
+However, if the `partial` argument is set to `FALSE`, it will try to convert the
+partial coefficient into regular ones.These can be **converted back** to full
+correlations:
+
+```{r README-14}
+iris %>%
+  correlation(partial = FALSE, multilevel = TRUE) %>%
+  summary()
+```
+
+# Contributing and Support
+
+In case you want to file an issue or contribute in another way to the package, please follow [this guide](https://easystats.github.io/correlation/CONTRIBUTING.html). For questions about the functionality, you may either contact us via email or also file an issue.
+
+# Code of Conduct
+
+Please note that this project is released with a 
+[Contributor Code of Conduct](https://easystats.github.io/correlation/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms.
+
+---
+title: "Correlation Types"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, correlation, types]
+vignette: >
+  %\VignetteIndexEntry{Correlation Types}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+```{r, include=FALSE}
+library(knitr)
+options(knitr.kable.NA = "")
+knitr::opts_chunk$set(
+  comment = ">",
+  out.width = "100%",
+  message = FALSE,
+  warning = FALSE,
+  dpi = 450
+)
+options(digits = 2)
+
+set.seed(333)
+
+
+if (!requireNamespace("see", quietly = TRUE) ||
+  !requireNamespace("tidyr", quietly = TRUE) ||
+  !requireNamespace("poorman", quietly = TRUE) ||
+  !requireNamespace("ggplot2", quietly = TRUE)) {
+  knitr::opts_chunk$set(eval = FALSE)
+} else {
+  library(see)
+  library(tidyr)
+  library(poorman)
+  library(ggplot2)
+}
+```
+
+---
+
+This vignette can be cited as:
+
+```{r cite}
+citation("correlation")
+```
+
+---
+
+## Different Methods for Correlations
+
+Correlations tests are arguably one of the most commonly used statistical
+procedures, and are used as a basis in many applications such as exploratory
+data analysis, structural modeling, data engineering, etc. In this context, we
+present **correlation**, a toolbox for the R language [@Rteam] and part of the
+[**easystats**](https://github.com/easystats/easystats) collection, focused on
+correlation analysis. Its goal is to be lightweight, easy to use, and allows for
+the computation of many different kinds of correlations, such as:
+
+- **Pearson's correlation**: This is the most common correlation method. It
+  corresponds to the covariance of the two variables normalized (i.e., divided)
+  by the product of their standard deviations.
+
+$$r_{xy} = \frac{cov(x,y)}{SD_x \times SD_y}$$
+
+- **Spearman's rank correlation**: A non-parametric measure of correlation, the
+Spearman correlation between two variables is equal to the Pearson correlation
+between the rank scores of those two variables; while Pearson's correlation
+assesses linear relationships, Spearman's correlation assesses monotonic
+relationships (whether linear or not). Confidence Intervals (CI) for Spearman's
+correlations are computed using the @fieller1957tests correction [see
+@bishara2017confidence].
+
+$$r_{s_{xy}} = \frac{cov(rank_x, rank_y)}{SD(rank_x) \times SD(rank_y)}$$
+
+- **Kendall's rank correlation**: In the normal case, the Kendall correlation is
+preferred to the Spearman correlation because of a smaller gross error
+sensitivity (GES) and a smaller asymptotic variance (AV), making it more robust
+and more efficient. However, the interpretation of Kendall's tau is less direct
+compared to that of the Spearman's rho, in the sense that it quantifies the
+difference between the % of concordant and discordant pairs among all possible
+pairwise events. Confidence Intervals (CI) for Kendall's correlations are
+computed using the @fieller1957tests correction [see
+@bishara2017confidence]. For each pair of observations (i ,j) of two variables
+(x, y), it is defined as follows:
+
+$$\tau_{xy} = \frac{2}{n(n-1)}\sum_{i<j}^{}sign(x_i - x_j) \times sign(y_i - y_j)$$
+
+- **Biweight midcorrelation**: A measure of similarity that is median-based,
+instead of the traditional mean-based, thus being less sensitive to outliers. It
+can be used as a robust alternative to other similarity metrics, such as Pearson
+correlation [@langfelder2012fast].
+
+- **Distance correlation**: Distance correlation measures both linear and
+non-linear association between two random variables or random vectors. This is
+in contrast to Pearson's correlation, which can only detect linear association
+between two random variables.
+
+- **Percentage bend correlation**: Introduced by Wilcox (1994), it is based on a
+down-weight of a specified percentage of marginal observations deviating from
+the median (by default, 20 percent).
+
+- **Shepherd's Pi correlation**: Equivalent to a Spearman's rank correlation
+after outliers removal (by means of bootstrapped Mahalanobis distance).
+
+- **Blomqvist’s coefficient**: The Blomqvist’s coefficient (also referred to as
+Blomqvist's Beta or medial correlation; Blomqvist, 1950) is a median-based
+non-parametric correlation that has some advantages over measures such as
+Spearman's or Kendall's estimates (see Shmid and Schimdt, 2006).
+
+- **Hoeffding’s D**: The Hoeffding’s D statistic is a non-parametric rank based
+measure of association that detects more general departures from independence
+(Hoeffding 1948), including non-linear associations. Hoeffding’s D varies
+between -0.5 and 1 (if there are no tied ranks, otherwise it can have lower
+values), with larger values indicating a stronger relationship between the
+variables.
+
+- **Gamma correlation**: The Goodman-Kruskal gamma statistic is similar to
+Kendall's Tau coefficient. It is relatively robust to outliers and deals well
+with data that have many ties.
+
+- **Gaussian rank correlation**: The Gaussian rank correlation estimator is a
+simple and well-performing alternative for robust rank correlations (Boudt et
+al., 2012). It is based on the Gaussian quantiles of the ranks.
+
+- **Point-Biserial and biserial correlation**: Correlation coefficient used when
+one variable is continuous and the other is dichotomous (binary). Point-Biserial
+is equivalent to a Pearson's correlation, while Biserial should be used when the
+binary variable is assumed to have an underlying continuity. For example,
+anxiety level can be measured on a continuous scale, but can be classified
+dichotomously as high/low.
+
+- **Winsorized correlation**: Correlation of variables that have been
+Winsorized, i.e., transformed by limiting extreme values to reduce the effect of
+possibly spurious outliers.
+
+- **Polychoric correlation**: Correlation between two theorised normally
+distributed continuous latent variables, from two observed ordinal variables.
+
+- **Tetrachoric correlation**: Special case of the polychoric correlation
+applicable when both observed variables are dichotomous.
+
+- **Partial correlation**: Correlation between two variables after adjusting for
+the (linear) effect of one or more variables. The correlation test is 
+run after having partialized the dataset, independently from it. In other words,
+it considers partialization as an independent step generating a different
+dataset, rather than belonging to the same model. This is why some discrepancies
+are to be expected for the *t*- and the *p*-values (but not the correlation
+coefficient) compared to other implementations such as `ppcor`. Let $e_{x.z}$ be
+the residuals from the linear prediction of $x$ by $z$ (note that this can be
+expanded to a multivariate $z$):
+
+$$r_{xy.z} = r_{e_{x.z},e_{y.z}}$$
+
+- **Multilevel correlation**: Multilevel correlations are a special case of
+partial correlations where the variable to be adjusted for is a factor and is
+included as a random effect in a mixed-effects model.
+
+## Comparison
+
+We will fit different types of correlations of generated data with different
+link strengths and link types.
+
+Let's first load the required libraries for this analysis.
+
+```{r}
+library(correlation)
+library(bayestestR)
+library(see)
+library(ggplot2)
+library(tidyr)
+library(poorman)
+```
+
+### Utility functions
+
+```{r}
+generate_results <- function(r, n = 100, transformation = "none") {
+  data <- bayestestR::simulate_correlation(round(n), r = r)
+  
+  if (transformation != "none") {
+    var <- ifelse(grepl("(", transformation, fixed = TRUE), "data$V2)", "data$V2")
+    transformation <- paste0(transformation, var)
+    data$V2 <- eval(parse(text = transformation))
+  }
+  
+  out <- data.frame(n = n, transformation = transformation, r = r)
+
+  out$Pearson <- cor_test(data, "V1", "V2", method = "pearson")$r
+  out$Spearman <- cor_test(data, "V1", "V2", method = "spearman")$rho
+  out$Kendall <- cor_test(data, "V1", "V2", method = "kendall")$tau
+  out$Biweight <- cor_test(data, "V1", "V2", method = "biweight")$r
+  out$Distance <- cor_test(data, "V1", "V2", method = "distance")$r
+  out$Distance <- cor_test(data, "V1", "V2", method = "distance")$r
+  
+  out
+}
+```
+
+### Effect of Relationship Type
+
+```{r}
+data <- data.frame()
+for (r in seq(0, 0.999, length.out = 200)) {
+  for (n in c(100)) {
+    for (transformation in c(
+      "none",
+      "exp(",
+      "log10(1+max(abs(data$V2))+",
+      "1/",
+      "tan(",
+      "sin(",
+      "cos(",
+      "cos(2*",
+      "abs(",
+      "data$V2*",
+      "data$V2*data$V2*",
+      "ifelse(data$V2>0, 1, 0)*("
+    )) {
+      data <- rbind(data, generate_results(r, n, transformation = transformation))
+    }
+  }
+}
+
+
+data %>%
+  tidyr::pivot_longer(-c(n, r, transformation),
+                      names_to = "Type",
+                      values_to = "Estimation") %>% 
+  mutate(Type = forcats::fct_relevel(Type, "Pearson", "Spearman", "Kendall", "Biweight", "Distance")) %>%
+  ggplot(aes(x = r, y = Estimation, fill = Type)) +
+  geom_smooth(aes(color = Type), method = "loess", alpha = 0) +
+  geom_vline(aes(xintercept = 0.5), linetype = "dashed") +
+  geom_hline(aes(yintercept = 0.5), linetype = "dashed") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1))) +
+  see::theme_modern() +
+  scale_color_flat_d(palette = "rainbow") +
+  scale_fill_flat_d(palette = "rainbow") +
+  guides(colour = guide_legend(override.aes = list(alpha = 1))) +
+  facet_wrap(~transformation)
+
+model <- data %>%
+  tidyr::pivot_longer(-c(n, r, transformation),
+                      names_to = "Type",
+                      values_to = "Estimation") %>% 
+  lm(r ~ Type / Estimation, data = .) %>%
+  parameters::parameters()
+
+arrange(model[6:10, ], desc(Coefficient))
+```
+
+As we can see, **distance** correlation is able to capture the strength even for
+severely non-linear relationships.
+
+# References
+
+---
+title: "Multilevel Correlations"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    fig_width: 10.08
+    fig_height: 6
+tags: [r, correlation, types]
+vignette: >
+  %\VignetteIndexEntry{Multilevel Correlations}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+bibliography: bibliography.bib
+---
+
+---
+
+This vignette can be cited as:
+
+```{r cite}
+citation("correlation")
+```
+
+---
+
+```{r, include=FALSE}
+library(knitr)
+options(
+  knitr.kable.NA = "",
+  digits = 2,
+  out.width = "100%",
+  message = FALSE,
+  warning = FALSE,
+  dpi = 450
+)
+
+if (!requireNamespace("ggplot2", quietly = TRUE) ||
+  !requireNamespace("lme4", quietly = TRUE)) {
+  knitr::opts_chunk$set(eval = FALSE)
+}
+```
+
+## Data
+
+Imagine we have an experiment in which **10 individuals** completed a task with
+**100 trials**. For each trial - there will 1000 trials (10 * 1000) in total -
+we measured two things, **V1** and **V2**, and we are interested in
+**investigating the link between these two variables**.
+
+We will generate data using the
+[`simulate_simpson()`](https://easystats.github.io/bayestestR/reference/simulate_simpson.html)
+function from this package and look at its summary:
+
+```{r}
+library(correlation)
+
+data <- simulate_simpson(n = 100, groups = 10)
+
+summary(data)
+```
+
+Now let's visualize the two variables:
+
+```{r}
+library(ggplot2)
+
+ggplot(data, aes(x = V1, y = V2)) +
+  geom_point() +
+  geom_smooth(colour = "black", method = "lm", se = FALSE) +
+  theme_classic()
+```
+
+That seems pretty straightforward! It seems like there is a **negative
+correlation** between V1 and V2. Let's test this.
+
+## Simple correlation
+
+```{r}
+correlation(data)
+```
+
+Indeed, there is  a **strong, negative and significant correlation** between V1
+and V2.
+
+Great, can we go ahead and **publish these results in _PNAS_**?
+
+## The Simpson's Paradox
+
+Not so fast! Ever heard of the [**Simpson's Paradox**](https://en.wikipedia.org/wiki/Simpson%27s_paradox)?
+
+Let's colour our datapoints by group (by individuals):
+
+```{r}
+library(ggplot2)
+
+ggplot(data, aes(x = V1, y = V2)) +
+  geom_point(aes(colour = Group)) +
+  geom_smooth(aes(colour = Group), method = "lm", se = FALSE) +
+  geom_smooth(colour = "black", method = "lm", se = FALSE) +
+  theme_classic()
+```
+
+Mmh, interesting. It seems like, for each subject, the relationship is
+different. The (global) negative trend seems to be an artifact of **differences between the groups** and could be spurious!
+
+**Multilevel *(as in multi-group)* ** correlations allow us to account for
+**differences between groups**. It is based on a partialization of the group,
+entered as a random effect in a mixed linear regression.
+
+You can compute them with the
+[**correlations**](https://github.com/easystats/correlation) package by setting
+the `multilevel` argument to `TRUE`.
+
+```{r}
+correlation(data, multilevel = TRUE)
+```
+
+For completeness, let's also see if its Bayesian cousin agrees with it:
+
+```{r}
+correlation(data, multilevel = TRUE, bayesian = TRUE)
+```
+
+**Dayum!** 
+We were too hasty in our conclusions! Taking the group into account
+seems to be super important.
+
+_Note_: In this simple case where only two variables are of interest, it would be
+of course best to directly proceed using a mixed regression model instead of
+correlations. That being said, the latter can be useful for exploratory
+analysis, when multiple variables are of interest, or in combination with a
+network or structural approach.
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/display.R, R/methods_print.R
+\name{display.easycormatrix}
+\alias{display.easycormatrix}
+\alias{print_md.easycorrelation}
+\alias{print_html.easycorrelation}
+\alias{print_md.easycormatrix}
+\alias{print_html.easycormatrix}
+\title{Export tables into different output formats}
+\usage{
+\method{display}{easycormatrix}(
+  object,
+  format = "markdown",
+  digits = 2,
+  p_digits = 3,
+  stars = TRUE,
+  include_significance = NULL,
+  ...
+)
+
+\method{print_md}{easycorrelation}(x, digits = NULL, p_digits = NULL, stars = NULL, ...)
+
+\method{print_html}{easycorrelation}(x, digits = NULL, p_digits = NULL, stars = NULL, ...)
+
+\method{print_md}{easycormatrix}(
+  x,
+  digits = NULL,
+  p_digits = NULL,
+  stars = NULL,
+  include_significance = NULL,
+  ...
+)
+
+\method{print_html}{easycormatrix}(
+  x,
+  digits = NULL,
+  p_digits = NULL,
+  stars = NULL,
+  include_significance = NULL,
+  ...
+)
+}
+\arguments{
+\item{object, x}{An object returned by
+\code{\link[=correlation]{correlation()}} or its summary.}
+
+\item{format}{String, indicating the output format. Currently, only
+\code{"markdown"} is supported.}
+
+\item{digits, p_digits}{To do...}
+
+\item{stars}{To do...}
+
+\item{include_significance}{To do...}
+
+\item{...}{Currently not used.}
+}
+\value{
+A character vector. If \code{format = "markdown"}, the return value
+will be a character vector in markdown-table format.
+}
+\description{
+Export tables (i.e. data frame) into different output formats.
+\code{print_md()} is a alias for \code{display(format = "markdown")}.
+}
+\details{
+\code{display()} is useful when the table-output from functions,
+which is usually printed as formatted text-table to console, should
+be formatted for pretty table-rendering in markdown documents, or if
+knitted from rmarkdown to PDF or Word files.
+}
+\examples{
+data(iris)
+corr <- correlation(iris)
+display(corr)
+
+s <- summary(corr)
+display(s)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/correlation.R
+\name{correlation}
+\alias{correlation}
+\title{Correlation Analysis}
+\usage{
+correlation(
+  data,
+  data2 = NULL,
+  select = NULL,
+  select2 = NULL,
+  rename = NULL,
+  method = "pearson",
+  p_adjust = "holm",
+  ci = 0.95,
+  bayesian = FALSE,
+  bayesian_prior = "medium",
+  bayesian_ci_method = "hdi",
+  bayesian_test = c("pd", "rope", "bf"),
+  redundant = FALSE,
+  include_factors = FALSE,
+  partial = FALSE,
+  partial_bayesian = FALSE,
+  multilevel = FALSE,
+  ranktransform = FALSE,
+  winsorize = FALSE,
+  verbose = TRUE,
+  standardize_names = getOption("easystats.standardize_names", FALSE),
+  ...
+)
+}
+\arguments{
+\item{data}{A data frame.}
+
+\item{data2}{An optional data frame. If specified, all pair-wise correlations
+between the variables in \code{data} and \code{data2} will be computed.}
+
+\item{select, select2}{(Ignored if \code{data2} is specified.) Optional names
+of variables that should be selected for correlation. Instead of providing
+the data frames with those variables that should be correlated, \code{data}
+can be a data frame and \code{select} and \code{select2} are (quoted) names
+of variables (columns) in \code{data}. \code{correlation()} will then
+compute the correlation between \code{data[select]} and
+\code{data[select2]}. If only \code{select} is specified, all pairwise
+correlations between the \code{select} variables will be computed. This is
+a "pipe-friendly" alternative way of using \code{correlation()} (see
+'Examples').}
+
+\item{rename}{In case you wish to change the names of the variables in
+the output, these arguments can be used to specify these alternative names.
+Note that the number of names should be equal to the number of columns
+selected. Ignored if \code{data2} is specified.}
+
+\item{method}{A character string indicating which correlation coefficient is
+to be used for the test. One of \code{"pearson"} (default),
+\code{"kendall"}, \code{"spearman"} (but see also the \code{robust} argument), \code{"biserial"},
+\code{"polychoric"}, \code{"tetrachoric"}, \code{"biweight"},
+\code{"distance"}, \code{"percentage"} (for percentage bend correlation),
+\code{"blomqvist"} (for Blomqvist's coefficient), \code{"hoeffding"} (for
+Hoeffding's D), \code{"gamma"}, \code{"gaussian"} (for Gaussian Rank
+correlation) or \code{"shepherd"} (for Shepherd's Pi correlation). Setting
+\code{"auto"} will attempt at selecting the most relevant method
+(polychoric when ordinal factors involved, tetrachoric when dichotomous
+factors involved, point-biserial if one dichotomous and one continuous and
+pearson otherwise). See below the \strong{details} section for a description of
+these indices.}
+
+\item{p_adjust}{Correction method for frequentist correlations. Can be one of
+\code{"holm"} (default), \code{"hochberg"}, \code{"hommel"},
+\code{"bonferroni"}, \code{"BH"}, \code{"BY"}, \code{"fdr"},
+\code{"somers"} or \code{"none"}. See
+\code{\link[stats:p.adjust]{stats::p.adjust()}} for further details.}
+
+\item{ci}{Confidence/Credible Interval level. If \code{"default"}, then it is
+set to \code{0.95} (\verb{95\%} CI).}
+
+\item{bayesian}{If TRUE, will run the correlations under a
+Bayesian framework. Note that for partial correlations, you will also need
+to set \code{partial_bayesian} to \code{TRUE} to obtain "full" Bayesian
+partial correlations. Otherwise, you will obtain pseudo-Bayesian partial
+correlations (i.e., Bayesian correlation based on frequentist
+partialization).}
+
+\item{bayesian_prior}{For the prior argument, several named values are
+recognized: \code{"medium.narrow"}, \code{"medium"}, \code{"wide"}, and
+\code{"ultrawide"}. These correspond to scale values of \code{1/sqrt(27)},
+\code{1/3}, \code{1/sqrt(3)} and \code{1}, respectively. See the
+\code{BayesFactor::correlationBF} function.}
+
+\item{bayesian_ci_method}{See arguments in
+\code{\link[=parameters]{model_parameters()}} for \code{BayesFactor} tests.}
+
+\item{bayesian_test}{See arguments in
+\code{\link[=parameters]{model_parameters()}} for \code{BayesFactor} tests.}
+
+\item{redundant}{Should the data include redundant rows (where each given
+correlation is repeated two times).}
+
+\item{include_factors}{If \code{TRUE}, the factors are kept and eventually
+converted to numeric or used as random effects (depending of
+\code{multilevel}). If \code{FALSE}, factors are removed upfront.}
+
+\item{partial}{Can be \code{TRUE} or \code{"semi"} for partial and
+semi-partial correlations, respectively.}
+
+\item{partial_bayesian}{If TRUE, will run the correlations under a
+Bayesian framework. Note that for partial correlations, you will also need
+to set \code{partial_bayesian} to \code{TRUE} to obtain "full" Bayesian
+partial correlations. Otherwise, you will obtain pseudo-Bayesian partial
+correlations (i.e., Bayesian correlation based on frequentist
+partialization).}
+
+\item{multilevel}{If \code{TRUE}, the factors are included as random factors.
+Else, if \code{FALSE} (default), they are included as fixed effects in the
+simple regression model.}
+
+\item{ranktransform}{If \code{TRUE}, will rank-transform the variables prior to
+estimating the correlation, which is one way of making the analysis more
+resistant to extreme values (outliers). Note that, for instance, a Pearson's
+correlation on rank-transformed data is equivalent to a Spearman's rank
+correlation. Thus, using \code{robust=TRUE} and \code{method="spearman"} is
+redundant. Nonetheless, it is an easy option to increase the robustness of the
+correlation as well as flexible way to obtain Bayesian or multilevel
+Spearman-like rank correlations.}
+
+\item{winsorize}{Another way of making the correlation more "robust" (i.e.,
+limiting the impact of extreme values). Can be either \code{FALSE} or a
+number between 0 and 1 (e.g., \code{0.2}) that corresponds to the desired
+threshold. See the \code{\link[=winsorize]{winsorize()}} function for more details.}
+
+\item{verbose}{Toggle warnings.}
+
+\item{standardize_names}{This option can be set to \code{TRUE} to run
+\code{\link[insight:standardize_names]{insight::standardize_names()}} on the output to get standardized column
+names. This option can also be set globally by running
+\code{options(easystats.standardize_names = TRUE)}.}
+
+\item{...}{Additional arguments (e.g., \code{alternative}) to be passed to
+other methods. See \code{stats::cor.test} for further details.}
+}
+\value{
+A correlation object that can be displayed using the \code{print}, \code{summary} or
+\code{table} methods.
+
+\subsection{Multiple tests correction}{
+The \code{p_adjust} argument can be used to adjust p-values for multiple
+comparisons. All adjustment methods available in \code{p.adjust} function
+\code{stats} package are supported.
+}
+}
+\description{
+Performs a correlation analysis.
+}
+\details{
+\subsection{Correlation Types}{
+\itemize{
+\item \strong{Pearson's correlation}: This is the most common correlation
+method. It corresponds to the covariance of the two variables normalized
+(i.e., divided) by the product of their standard deviations.
+\item \strong{Spearman's rank correlation}: A non-parametric measure of rank
+correlation (statistical dependence between the rankings of two variables).
+The Spearman correlation between two variables is equal to the Pearson
+correlation between the rank values of those two variables; while Pearson's
+correlation assesses linear relationships, Spearman's correlation assesses
+monotonic relationships (whether linear or not). Confidence Intervals (CI)
+for Spearman's correlations are computed using the Fieller et al. (1957)
+correction (see Bishara and Hittner, 2017).
+\item \strong{Kendall's rank correlation}: In the normal case, the Kendall correlation
+is preferred than the Spearman correlation because of a smaller gross error
+sensitivity (GES) and a smaller asymptotic variance (AV), making it more
+robust and more efficient. However, the interpretation of Kendall's tau is
+less direct than that of Spearman's rho, in the sense that it quantifies the
+difference between the percentage of concordant and discordant pairs among
+all possible pairwise events. Confidence Intervals (CI) for Kendall's
+correlations are computed using the Fieller et al. (1957) correction (see
+Bishara and Hittner, 2017).
+\item \strong{Biweight midcorrelation}: A measure of similarity that is
+median-based, instead of the traditional mean-based, thus being less
+sensitive to outliers. It can be used as a robust alternative to other
+similarity metrics, such as Pearson correlation (Langfelder & Horvath,
+2012).
+\item \strong{Distance correlation}: Distance correlation measures both
+linear and non-linear association between two random variables or random
+vectors. This is in contrast to Pearson's correlation, which can only detect
+linear association between two random variables.
+\item \strong{Percentage bend correlation}: Introduced by Wilcox (1994), it
+is based on a down-weight of a specified percentage of marginal observations
+deviating from the median (by default, \verb{20\%}).
+\item \strong{Shepherd's Pi correlation}: Equivalent to a Spearman's rank
+correlation after outliers removal (by means of bootstrapped Mahalanobis
+distance).
+\item \strong{Blomqvist’s coefficient}: The Blomqvist’s coefficient (also
+referred to as Blomqvist's Beta or medial correlation; Blomqvist, 1950) is a
+median-based non-parametric correlation that has some advantages over
+measures such as Spearman's or Kendall's estimates (see Shmid & Schimdt,
+2006).
+\item \strong{Hoeffding’s D}: The Hoeffding’s D statistics is a
+non-parametric rank based measure of association that detects more general
+departures from independence (Hoeffding 1948), including non-linear
+associations. Hoeffding’s D varies between -0.5 and 1 (if there are no tied
+ranks, otherwise it can have lower values), with larger values indicating a
+stronger relationship between the variables.
+\item \strong{Somers’ D}: The Somers’ D statistics is a non-parametric rank
+based measure of association between a binary variable and a continuous
+variable, for instance, in the context of logistic regression the binary
+outcome and the predicted probabilities for each outcome. Usually, Somers' D
+is a measure of ordinal association, however, this implementation it is
+limited to the case of a binary outcome.
+\item \strong{Point-Biserial and biserial correlation}: Correlation
+coefficient used when one variable is continuous and the other is dichotomous
+(binary). Point-Biserial is equivalent to a Pearson's correlation, while
+Biserial should be used when the binary variable is assumed to have an
+underlying continuity. For example, anxiety level can be measured on a
+continuous scale, but can be classified dichotomously as high/low.
+\item \strong{Gamma correlation}: The Goodman-Kruskal gamma statistic is
+similar to Kendall's Tau coefficient. It is relatively robust to outliers and
+deals well with data that have many ties.
+\item \strong{Winsorized correlation}: Correlation of variables that have
+been formerly Winsorized, i.e., transformed by limiting extreme values to
+reduce the effect of possibly spurious outliers.
+\item \strong{Gaussian rank Correlation}: The Gaussian rank correlation
+estimator is a simple and well-performing alternative for robust rank
+correlations (Boudt et al., 2012). It is based on the Gaussian quantiles of
+the ranks.
+\item \strong{Polychoric correlation}: Correlation between two theorized
+normally distributed continuous latent variables, from two observed ordinal
+variables.
+\item \strong{Tetrachoric correlation}: Special case of the polychoric
+correlation applicable when both observed variables are dichotomous.
+}
+}
+
+\subsection{Partial Correlation}{
+\strong{Partial correlations} are estimated as the correlation between two
+variables after adjusting for the (linear) effect of one or more other
+variable. The correlation test is then run after having partialized the
+dataset, independently from it. In other words, it considers partialization
+as an independent step generating a different dataset, rather than belonging
+to the same model. This is why some discrepancies are to be expected for the
+t- and p-values, CIs, BFs etc (but \emph{not} the correlation coefficient)
+compared to other implementations (e.g., \code{ppcor}). (The size of these
+discrepancies depends on the number of covariates partialled-out and the
+strength of the linear association between all variables.) Such partial
+correlations can be represented as Gaussian Graphical Models (GGM), an
+increasingly popular tool in psychology. A GGM traditionally include a set of
+variables depicted as circles ("nodes"), and a set of lines that visualize
+relationships between them, which thickness represents the strength of
+association (see Bhushan et al., 2019).
+
+\strong{Multilevel correlations} are a special case of partial correlations where
+the variable to be adjusted for is a factor and is included as a random
+effect in a mixed model (note that the remaining continuous variables of the
+dataset will still be included as fixed effects, similarly to regular partial
+correlations). That said, there is an important difference between using
+\code{cor_test()} and \code{correlation()}: If you set \code{multilevel=TRUE} in
+\code{correlation()} but \code{partial} is set to \code{FALSE} (as per default), then a
+back-transformation from partial to non-partial correlation will be attempted
+(through \code{\link[=pcor_to_cor]{pcor_to_cor()}}). However, this is not possible when
+using \code{cor_test()} so that if you set \code{multilevel=TRUE} in it, the resulting
+correlations are partial one. Note that for Bayesian multilevel correlations,
+if \code{partial = FALSE}, the back transformation will also recompute \emph{p}-values
+based on the new \emph{r} scores, and will drop the Bayes factors (as they are not
+relevant anymore). To keep Bayesian scores, set \code{partial = TRUE}.
+}
+
+\subsection{Notes}{
+Kendall and Spearman correlations when \code{bayesian=TRUE}: These are technically
+Pearson Bayesian correlations of rank transformed data, rather than pure
+Bayesian rank correlations (which have different priors).
+}
+}
+\examples{
+
+library(correlation)
+results <- correlation(iris)
+
+results
+summary(results)
+summary(results, redundant = TRUE)
+
+# pipe-friendly usage with  grouped dataframes from {dplyr} package
+if (require("poorman")) {
+  iris \%>\%
+    correlation(select = "Petal.Width", select2 = "Sepal.Length")
+
+  # Grouped dataframe
+  # grouped correlations
+  iris \%>\%
+    group_by(Species) \%>\%
+    correlation()
+
+  # selecting specific variables for correlation
+  mtcars \%>\%
+    group_by(am) \%>\%
+    correlation(
+      select = c("cyl", "wt"),
+      select2 = c("hp")
+    )
+}
+
+# supplying custom variable names
+correlation(anscombe, select = c("x1", "x2"), rename = c("var1", "var2"))
+
+# automatic selection of correlation method
+correlation(mtcars[-2], method = "auto")
+
+}
+\references{
+\itemize{
+\item Boudt, K., Cornelissen, J., & Croux, C. (2012). The Gaussian rank
+correlation estimator: robustness properties. Statistics and Computing,
+22(2), 471-483.
+\item Bhushan, N., Mohnert, F., Sloot, D., Jans, L., Albers, C., & Steg, L.
+(2019). Using a Gaussian graphical model to explore relationships between
+items and variables in environmental psychology research. Frontiers in
+psychology, 10, 1050.
+\item Bishara, A. J., & Hittner, J. B. (2017). Confidence intervals for
+correlations when data are not normal. Behavior research methods, 49(1),
+294-309.
+\item Fieller, E. C., Hartley, H. O., & Pearson, E. S. (1957). Tests for
+rank correlation coefficients. I. Biometrika, 44(3/4), 470-481.
+\item Langfelder, P., & Horvath, S. (2012). Fast R functions for robust
+correlations and hierarchical clustering. Journal of statistical software,
+46(11).
+\item Blomqvist, N. (1950). On a measure of dependence between two random
+variables,Annals of Mathematical Statistics,21, 593–600
+\item Somers, R. H. (1962). A new asymmetric measure of association for
+ordinal variables. American Sociological Review. 27 (6).
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_smooth.R
+\name{cor_smooth}
+\alias{cor_smooth}
+\alias{is.positive_definite}
+\alias{is_positive_definite}
+\title{Smooth a non-positive definite correlation matrix to make it positive definite}
+\usage{
+cor_smooth(x, method = "psych", verbose = TRUE, ...)
+
+is.positive_definite(x, tol = 10^-12, ...)
+
+is_positive_definite(x, tol = 10^-12, ...)
+}
+\arguments{
+\item{x}{A correlation matrix.}
+
+\item{method}{Smoothing method. Can be \code{psych} (will use
+\code{psych::cor.smooth()}), \code{hj} (Jorjani et al., 2003) or \code{lrs} (Schaeffer,
+2014). For the two last, will use \code{mbend::bend()} (check its documentation
+for details).}
+
+\item{verbose}{Set to \code{FALSE} to silence the function.}
+
+\item{...}{Other arguments to be passed to or from other functions.}
+
+\item{tol}{The minimum eigenvalue to be considered as acceptable.}
+}
+\description{
+Make correlations positive definite using \code{psych::cor.smooth}. If smoothing
+is done, inferential statistics (\emph{p}-values, confidence intervals, etc.) are
+removed, as they are no longer valid.
+}
+\examples{
+set.seed(123)
+data <- as.matrix(mtcars)
+# Make missing data so pairwise correlation matrix is non-positive definite
+data[sample(seq_len(352), size = 60)] <- NA
+data <- as.data.frame(data)
+x <- correlation(data)
+is.positive_definite(x)
+
+smoothed <- cor_smooth(x)
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/matrix_inverse.R
+\name{matrix_inverse}
+\alias{matrix_inverse}
+\title{Matrix Inversion}
+\usage{
+matrix_inverse(m, tol = .Machine$double.eps^(2/3))
+}
+\arguments{
+\item{m}{Matrix for which the inverse is required.}
+
+\item{tol}{Relative tolerance to detect zero singular values.}
+}
+\value{
+An inversed matrix.
+}
+\description{
+Performs a Moore-Penrose generalized inverse (also called the Pseudoinverse).
+}
+\examples{
+m <- cor(iris[1:4])
+matrix_inverse(m)
+}
+\seealso{
+pinv from the pracma package
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_to_cov.R
+\name{cor_to_cov}
+\alias{cor_to_cov}
+\title{Convert a correlation to covariance}
+\usage{
+cor_to_cov(cor, sd = NULL, variance = NULL, tol = .Machine$double.eps^(2/3))
+}
+\arguments{
+\item{cor}{A correlation matrix, or a partial or a semipartial
+correlation matrix.}
+
+\item{sd, variance}{A vector that contains the standard deviations, or the
+variance, of the variables in the correlation matrix.}
+
+\item{tol}{Relative tolerance to detect zero singular values.}
+}
+\value{
+A covariance matrix.
+}
+\description{
+Convert a correlation to covariance
+}
+\examples{
+cor <- cor(iris[1:4])
+cov(iris[1:4])
+
+cor_to_cov(cor, sd = sapply(iris[1:4], sd))
+cor_to_cov(cor, variance = sapply(iris[1:4], var))
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/utils.R
+\name{isSquare}
+\alias{isSquare}
+\title{Check if Square Matrix}
+\usage{
+isSquare(m)
+}
+\arguments{
+\item{m}{A matrix.}
+}
+\value{
+\code{TRUE} of the matrix is square or \code{FALSE} otherwise.
+}
+\description{
+Check if Square Matrix
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_to_pcor.R, R/cor_to_spcor.R
+\name{cor_to_pcor}
+\alias{cor_to_pcor}
+\alias{pcor_to_cor}
+\alias{cor_to_spcor}
+\title{Correlation Matrix to (Semi) Partial Correlations}
+\usage{
+cor_to_pcor(cor, tol = .Machine$double.eps^(2/3))
+
+pcor_to_cor(pcor, tol = .Machine$double.eps^(2/3))
+
+cor_to_spcor(cor = NULL, cov = NULL, tol = .Machine$double.eps^(2/3))
+}
+\arguments{
+\item{cor, pcor}{A correlation matrix, or a partial or a semipartial
+correlation matrix.}
+
+\item{tol}{Relative tolerance to detect zero singular values.}
+
+\item{cov}{A covariance matrix (or a vector of the SD of the variables).
+Required for semi-partial correlations.}
+}
+\value{
+The (semi) partial correlation matrix.
+}
+\description{
+Convert a correlation matrix to a (semi)partial correlation matrix. Partial
+correlations are a measure of the correlation between two variables that
+remains after controlling for (i.e., "partialling" out) all the other
+relationships. They can be used for graphical Gaussian models, as they
+represent the direct interactions between two variables, conditioned on all
+remaining variables. This means that the squared partial correlation between
+a predictor X1 and a response variable Y can be interpreted as the proportion
+of (unique) variance accounted for by X1 relative to the residual or
+unexplained variance of Y that cannot be accounted by the other variables.
+}
+\details{
+The semi-partial correlation is similar to the partial correlation statistic.
+However, it represents (when squared) the proportion of (unique) variance
+accounted for by the predictor X1, relative to the total variance of Y. Thus,
+it might be seen as a better indicator of the "practical relevance" of a
+predictor, because it is scaled to (i.e., relative to) the total variability
+in the response variable.
+}
+\examples{
+cor <- cor(iris[1:4])
+
+# Partialize
+cor_to_pcor(cor)
+cor_to_spcor(cor, cov = sapply(iris[1:4], sd))
+
+# Inverse
+round(pcor_to_cor(cor_to_pcor(cor)) - cor, 2) # Should be 0
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/utils.R
+\name{is.cor}
+\alias{is.cor}
+\title{Check if matrix ressembles a correlation matrix}
+\usage{
+is.cor(x)
+}
+\arguments{
+\item{x}{A matrix.}
+}
+\value{
+\code{TRUE} of the matrix is a correlation matrix or \code{FALSE} otherwise.
+}
+\description{
+Check if matrix ressembles a correlation matrix
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_sort.R
+\name{cor_sort}
+\alias{cor_sort}
+\title{Sort a correlation matrix to improve readability of groups and clusters}
+\usage{
+cor_sort(x, distance = "correlation", ...)
+}
+\arguments{
+\item{x}{A correlation matrix.}
+
+\item{distance}{How the distance between each variable should be calculated.
+If \code{correlation} (default; suited for correlation matrices), the matrix
+will be rescaled to 0-1 (\code{distance = 0} indicating correlation of 1;
+\code{distance = 1} indicating correlation of -1). If \code{raw}, then the matrix
+will be used as a distance matrix as-is. Can be others (\code{euclidean},
+\code{manhattan}, ...), in which case it will be passed to \code{dist()} (see the
+arguments for it).}
+
+\item{...}{Other arguments to be passed to or from other functions.}
+}
+\description{
+Sort a correlation matrix based on \code{hclust}.
+}
+\examples{
+x <- correlation(mtcars)
+
+cor_sort(as.matrix(x))
+cor_sort(x, hclust_method = "ward.D2") # It can also reorder the long form output
+cor_sort(summary(x, redundant = TRUE)) # As well as from the summary
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/z_fisher.R
+\name{z_fisher}
+\alias{z_fisher}
+\title{Fisher z-transformation}
+\usage{
+z_fisher(r = NULL, z = NULL)
+}
+\arguments{
+\item{r, z}{The r or the z' value to be converted.}
+}
+\value{
+The transformed value.
+}
+\description{
+The Fisher z-transformation converts the standard Pearson's \emph{r} to a normally
+distributed variable z'. It is used to compute confidence intervals to
+correlations. The z' variable is different from the \emph{z}-statistic.
+}
+\examples{
+z_fisher(r = 0.7)
+z_fisher(z = 0.867)
+
+}
+\references{
+Zar, J.H., (2014). Spearman Rank Correlation: Overview. Wiley StatsRef:
+Statistics Reference Online. doi:10.1002/9781118445112.stat05964
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_to_ci.R, R/cor_to_p.R
+\name{cor_to_ci}
+\alias{cor_to_ci}
+\alias{cor_to_p}
+\title{Convert correlation to p-values and CIs}
+\usage{
+cor_to_ci(cor, n, ci = 0.95, method = "pearson", correction = "fieller", ...)
+
+cor_to_p(cor, n, method = "pearson")
+}
+\arguments{
+\item{cor}{A correlation matrix or coefficient.}
+
+\item{n}{The sample size (number of observations).}
+
+\item{ci}{Confidence/Credible Interval level. If \code{"default"}, then it is
+set to \code{0.95} (\verb{95\%} CI).}
+
+\item{method}{A character string indicating which correlation coefficient is
+to be used for the test. One of \code{"pearson"} (default),
+\code{"kendall"}, \code{"spearman"} (but see also the \code{robust} argument), \code{"biserial"},
+\code{"polychoric"}, \code{"tetrachoric"}, \code{"biweight"},
+\code{"distance"}, \code{"percentage"} (for percentage bend correlation),
+\code{"blomqvist"} (for Blomqvist's coefficient), \code{"hoeffding"} (for
+Hoeffding's D), \code{"gamma"}, \code{"gaussian"} (for Gaussian Rank
+correlation) or \code{"shepherd"} (for Shepherd's Pi correlation). Setting
+\code{"auto"} will attempt at selecting the most relevant method
+(polychoric when ordinal factors involved, tetrachoric when dichotomous
+factors involved, point-biserial if one dichotomous and one continuous and
+pearson otherwise). See below the \strong{details} section for a description of
+these indices.}
+
+\item{correction}{Only used if method is 'spearman' or 'kendall'. Can be
+'fieller' (default; Fieller et al., 1957), 'bw' (only for Spearman) or
+'none'. Bonett and Wright (2000) claim their correction ('bw') performs
+better, though the Bishara and Hittner (2017) paper favours the Fieller
+correction. Both are generally very similar.}
+
+\item{...}{Additional arguments (e.g., \code{alternative}) to be passed to
+other methods. See \code{stats::cor.test} for further details.}
+}
+\value{
+A list containing a \emph{p}-value and the statistic or the CI bounds.
+}
+\description{
+Get statistics, \emph{p}-values and confidence intervals (CI) from correlation
+coefficients.
+}
+\examples{
+cor.test(iris$Sepal.Length, iris$Sepal.Width)
+cor_to_p(-0.1175698, n = 150)
+cor_to_p(cor(iris[1:4]), n = 150)
+cor_to_ci(-0.1175698, n = 150)
+cor_to_ci(cor(iris[1:4]), n = 150)
+
+cor.test(iris$Sepal.Length, iris$Sepal.Width, method = "spearman")
+cor_to_p(-0.1667777, n = 150, method = "spearman")
+cor_to_ci(-0.1667777, ci = 0.95, n = 150)
+
+cor.test(iris$Sepal.Length, iris$Sepal.Width, method = "kendall")
+cor_to_p(-0.07699679, n = 150, method = "kendall")
+}
+\references{
+Bishara, A. J., & Hittner, J. B. (2017). Confidence intervals for
+correlations when data are not normal. Behavior research methods, 49(1),
+294-309.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/visualisation_recipe.cor_test.R,
+%   R/visualisation_recipe.easycormatrix.R,
+%   R/visualisation_recipe.easycorrelation.R
+\name{visualisation_recipe.easycor_test}
+\alias{visualisation_recipe.easycor_test}
+\alias{visualisation_recipe.easycormatrix}
+\alias{visualisation_recipe.easycorrelation}
+\title{Visualisation Recipe for 'correlation' Objects}
+\usage{
+\method{visualisation_recipe}{easycor_test}(
+  x,
+  show_data = "point",
+  show_text = "subtitle",
+  smooth = NULL,
+  point = NULL,
+  text = NULL,
+  labs = NULL,
+  ...
+)
+
+\method{visualisation_recipe}{easycormatrix}(
+  x,
+  show_data = "tile",
+  show_text = "text",
+  show_legend = TRUE,
+  tile = NULL,
+  point = NULL,
+  text = NULL,
+  scale = NULL,
+  scale_fill = NULL,
+  labs = NULL,
+  type = show_data,
+  ...
+)
+
+\method{visualisation_recipe}{easycorrelation}(x, ...)
+}
+\arguments{
+\item{x}{A correlation object.}
+
+\item{show_data}{Show data. For correlation matrices, can be \code{"tile"}
+(default) or \code{"point"}.}
+
+\item{show_text}{Show labels with matrix values.}
+
+\item{...}{Other arguments passed to other functions.}
+
+\item{show_legend}{Show legend. Can be set to \code{FALSE} to remove the legend.}
+
+\item{tile, point, text, scale, scale_fill, smooth, labs}{Additional aesthetics and
+parameters for the geoms (see customization example).}
+
+\item{type}{Alias for \code{show_data}, for backwards compatibility.}
+}
+\description{
+Visualisation Recipe for 'correlation' Objects
+}
+\examples{
+\donttest{
+# ==============================================
+# Correlation Test
+# ==============================================
+if (require("see")) {
+  rez <- cor_test(mtcars, "mpg", "wt")
+
+  layers <- visualisation_recipe(rez, labs = list(x = "Miles per Gallon (mpg)"))
+  layers
+  plot(layers)
+
+  plot(rez,
+    show_text = "label",
+    point = list(color = "#f44336"),
+    text = list(fontface = "bold"),
+    show_statistic = FALSE, show_ci = FALSE, stars = TRUE
+  )
+}
+}
+# ==============================================
+# Correlation Matrix
+# ==============================================
+if (require("see")) {
+  rez <- correlation(mtcars)
+
+  x <- cor_sort(as.matrix(rez))
+  layers <- visualisation_recipe(x)
+  layers
+  plot(layers)
+
+  #' Get more details using `summary()`
+  x <- summary(rez, redundant = TRUE, digits = 3)
+  plot(visualisation_recipe(x))
+
+  # Customize
+  x <- summary(rez)
+  layers <- visualisation_recipe(x,
+    show_data = "points",
+    scale = list(range = c(10, 20)),
+    scale_fill = list(
+      high = "#FF5722",
+      low = "#673AB7",
+      name = "r"
+    ),
+    text = list(color = "white"),
+    labs = list(title = "My Plot")
+  )
+  plot(layers) + theme_modern()
+}
+\donttest{
+if (FALSE) {
+  # ==============================================
+  # Correlation Results (easycorrelation)
+  # ==============================================
+  if (require("see") && require("tidygraph") && require("ggraph")) {
+    rez <- correlation(iris)
+
+    layers <- visualisation_recipe(rez)
+    layers
+    plot(layers)
+  }
+}
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/reexports.R
+\docType{import}
+\name{reexports}
+\alias{reexports}
+\alias{simulate_simpson}
+\alias{visualisation_recipe}
+\alias{print_md}
+\alias{print_html}
+\alias{display}
+\title{Objects exported from other packages}
+\keyword{internal}
+\description{
+These objects are imported from other packages. Follow the links
+below to see their documentation.
+
+\describe{
+  \item{bayestestR}{\code{\link[bayestestR]{simulate_simpson}}}
+
+  \item{datawizard}{\code{\link[datawizard]{visualisation_recipe}}}
+
+  \item{insight}{\code{\link[insight]{display}}, \code{\link[insight:display]{print_html}}, \code{\link[insight:display]{print_md}}}
+}}
+
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_test.R
+\name{cor_test}
+\alias{cor_test}
+\title{Correlation test}
+\usage{
+cor_test(
+  data,
+  x,
+  y,
+  method = "pearson",
+  ci = 0.95,
+  bayesian = FALSE,
+  bayesian_prior = "medium",
+  bayesian_ci_method = "hdi",
+  bayesian_test = c("pd", "rope", "bf"),
+  include_factors = FALSE,
+  partial = FALSE,
+  partial_bayesian = FALSE,
+  multilevel = FALSE,
+  ranktransform = FALSE,
+  winsorize = FALSE,
+  verbose = TRUE,
+  ...
+)
+}
+\arguments{
+\item{data}{A data frame.}
+
+\item{x, y}{Names of two variables present in the data.}
+
+\item{method}{A character string indicating which correlation coefficient is
+to be used for the test. One of \code{"pearson"} (default),
+\code{"kendall"}, \code{"spearman"} (but see also the \code{robust} argument), \code{"biserial"},
+\code{"polychoric"}, \code{"tetrachoric"}, \code{"biweight"},
+\code{"distance"}, \code{"percentage"} (for percentage bend correlation),
+\code{"blomqvist"} (for Blomqvist's coefficient), \code{"hoeffding"} (for
+Hoeffding's D), \code{"gamma"}, \code{"gaussian"} (for Gaussian Rank
+correlation) or \code{"shepherd"} (for Shepherd's Pi correlation). Setting
+\code{"auto"} will attempt at selecting the most relevant method
+(polychoric when ordinal factors involved, tetrachoric when dichotomous
+factors involved, point-biserial if one dichotomous and one continuous and
+pearson otherwise). See below the \strong{details} section for a description of
+these indices.}
+
+\item{ci}{Confidence/Credible Interval level. If \code{"default"}, then it is
+set to \code{0.95} (\verb{95\%} CI).}
+
+\item{bayesian, partial_bayesian}{If TRUE, will run the correlations under a
+Bayesian framework. Note that for partial correlations, you will also need
+to set \code{partial_bayesian} to \code{TRUE} to obtain "full" Bayesian
+partial correlations. Otherwise, you will obtain pseudo-Bayesian partial
+correlations (i.e., Bayesian correlation based on frequentist
+partialization).}
+
+\item{bayesian_prior}{For the prior argument, several named values are
+recognized: \code{"medium.narrow"}, \code{"medium"}, \code{"wide"}, and
+\code{"ultrawide"}. These correspond to scale values of \code{1/sqrt(27)},
+\code{1/3}, \code{1/sqrt(3)} and \code{1}, respectively. See the
+\code{BayesFactor::correlationBF} function.}
+
+\item{bayesian_ci_method, bayesian_test}{See arguments in
+\code{\link[=parameters]{model_parameters()}} for \code{BayesFactor} tests.}
+
+\item{include_factors}{If \code{TRUE}, the factors are kept and eventually
+converted to numeric or used as random effects (depending of
+\code{multilevel}). If \code{FALSE}, factors are removed upfront.}
+
+\item{partial}{Can be \code{TRUE} or \code{"semi"} for partial and
+semi-partial correlations, respectively.}
+
+\item{multilevel}{If \code{TRUE}, the factors are included as random factors.
+Else, if \code{FALSE} (default), they are included as fixed effects in the
+simple regression model.}
+
+\item{ranktransform}{If \code{TRUE}, will rank-transform the variables prior to
+estimating the correlation, which is one way of making the analysis more
+resistant to extreme values (outliers). Note that, for instance, a Pearson's
+correlation on rank-transformed data is equivalent to a Spearman's rank
+correlation. Thus, using \code{robust=TRUE} and \code{method="spearman"} is
+redundant. Nonetheless, it is an easy option to increase the robustness of the
+correlation as well as flexible way to obtain Bayesian or multilevel
+Spearman-like rank correlations.}
+
+\item{winsorize}{Another way of making the correlation more "robust" (i.e.,
+limiting the impact of extreme values). Can be either \code{FALSE} or a
+number between 0 and 1 (e.g., \code{0.2}) that corresponds to the desired
+threshold. See the \code{\link[=winsorize]{winsorize()}} function for more details.}
+
+\item{verbose}{Toggle warnings.}
+
+\item{...}{Additional arguments (e.g., \code{alternative}) to be passed to
+other methods. See \code{stats::cor.test} for further details.}
+}
+\description{
+This function performs a correlation test between two variables.
+}
+\details{
+\subsection{Correlation Types}{
+\itemize{
+\item \strong{Pearson's correlation}: This is the most common correlation
+method. It corresponds to the covariance of the two variables normalized
+(i.e., divided) by the product of their standard deviations.
+\item \strong{Spearman's rank correlation}: A non-parametric measure of rank
+correlation (statistical dependence between the rankings of two variables).
+The Spearman correlation between two variables is equal to the Pearson
+correlation between the rank values of those two variables; while Pearson's
+correlation assesses linear relationships, Spearman's correlation assesses
+monotonic relationships (whether linear or not). Confidence Intervals (CI)
+for Spearman's correlations are computed using the Fieller et al. (1957)
+correction (see Bishara and Hittner, 2017).
+\item \strong{Kendall's rank correlation}: In the normal case, the Kendall correlation
+is preferred than the Spearman correlation because of a smaller gross error
+sensitivity (GES) and a smaller asymptotic variance (AV), making it more
+robust and more efficient. However, the interpretation of Kendall's tau is
+less direct than that of Spearman's rho, in the sense that it quantifies the
+difference between the percentage of concordant and discordant pairs among
+all possible pairwise events. Confidence Intervals (CI) for Kendall's
+correlations are computed using the Fieller et al. (1957) correction (see
+Bishara and Hittner, 2017).
+\item \strong{Biweight midcorrelation}: A measure of similarity that is
+median-based, instead of the traditional mean-based, thus being less
+sensitive to outliers. It can be used as a robust alternative to other
+similarity metrics, such as Pearson correlation (Langfelder & Horvath,
+2012).
+\item \strong{Distance correlation}: Distance correlation measures both
+linear and non-linear association between two random variables or random
+vectors. This is in contrast to Pearson's correlation, which can only detect
+linear association between two random variables.
+\item \strong{Percentage bend correlation}: Introduced by Wilcox (1994), it
+is based on a down-weight of a specified percentage of marginal observations
+deviating from the median (by default, \verb{20\%}).
+\item \strong{Shepherd's Pi correlation}: Equivalent to a Spearman's rank
+correlation after outliers removal (by means of bootstrapped Mahalanobis
+distance).
+\item \strong{Blomqvist’s coefficient}: The Blomqvist’s coefficient (also
+referred to as Blomqvist's Beta or medial correlation; Blomqvist, 1950) is a
+median-based non-parametric correlation that has some advantages over
+measures such as Spearman's or Kendall's estimates (see Shmid & Schimdt,
+2006).
+\item \strong{Hoeffding’s D}: The Hoeffding’s D statistics is a
+non-parametric rank based measure of association that detects more general
+departures from independence (Hoeffding 1948), including non-linear
+associations. Hoeffding’s D varies between -0.5 and 1 (if there are no tied
+ranks, otherwise it can have lower values), with larger values indicating a
+stronger relationship between the variables.
+\item \strong{Somers’ D}: The Somers’ D statistics is a non-parametric rank
+based measure of association between a binary variable and a continuous
+variable, for instance, in the context of logistic regression the binary
+outcome and the predicted probabilities for each outcome. Usually, Somers' D
+is a measure of ordinal association, however, this implementation it is
+limited to the case of a binary outcome.
+\item \strong{Point-Biserial and biserial correlation}: Correlation
+coefficient used when one variable is continuous and the other is dichotomous
+(binary). Point-Biserial is equivalent to a Pearson's correlation, while
+Biserial should be used when the binary variable is assumed to have an
+underlying continuity. For example, anxiety level can be measured on a
+continuous scale, but can be classified dichotomously as high/low.
+\item \strong{Gamma correlation}: The Goodman-Kruskal gamma statistic is
+similar to Kendall's Tau coefficient. It is relatively robust to outliers and
+deals well with data that have many ties.
+\item \strong{Winsorized correlation}: Correlation of variables that have
+been formerly Winsorized, i.e., transformed by limiting extreme values to
+reduce the effect of possibly spurious outliers.
+\item \strong{Gaussian rank Correlation}: The Gaussian rank correlation
+estimator is a simple and well-performing alternative for robust rank
+correlations (Boudt et al., 2012). It is based on the Gaussian quantiles of
+the ranks.
+\item \strong{Polychoric correlation}: Correlation between two theorized
+normally distributed continuous latent variables, from two observed ordinal
+variables.
+\item \strong{Tetrachoric correlation}: Special case of the polychoric
+correlation applicable when both observed variables are dichotomous.
+}
+}
+
+\subsection{Partial Correlation}{
+\strong{Partial correlations} are estimated as the correlation between two
+variables after adjusting for the (linear) effect of one or more other
+variable. The correlation test is then run after having partialized the
+dataset, independently from it. In other words, it considers partialization
+as an independent step generating a different dataset, rather than belonging
+to the same model. This is why some discrepancies are to be expected for the
+t- and p-values, CIs, BFs etc (but \emph{not} the correlation coefficient)
+compared to other implementations (e.g., \code{ppcor}). (The size of these
+discrepancies depends on the number of covariates partialled-out and the
+strength of the linear association between all variables.) Such partial
+correlations can be represented as Gaussian Graphical Models (GGM), an
+increasingly popular tool in psychology. A GGM traditionally include a set of
+variables depicted as circles ("nodes"), and a set of lines that visualize
+relationships between them, which thickness represents the strength of
+association (see Bhushan et al., 2019).
+
+\strong{Multilevel correlations} are a special case of partial correlations where
+the variable to be adjusted for is a factor and is included as a random
+effect in a mixed model (note that the remaining continuous variables of the
+dataset will still be included as fixed effects, similarly to regular partial
+correlations). That said, there is an important difference between using
+\code{cor_test()} and \code{correlation()}: If you set \code{multilevel=TRUE} in
+\code{correlation()} but \code{partial} is set to \code{FALSE} (as per default), then a
+back-transformation from partial to non-partial correlation will be attempted
+(through \code{\link[=pcor_to_cor]{pcor_to_cor()}}). However, this is not possible when
+using \code{cor_test()} so that if you set \code{multilevel=TRUE} in it, the resulting
+correlations are partial one. Note that for Bayesian multilevel correlations,
+if \code{partial = FALSE}, the back transformation will also recompute \emph{p}-values
+based on the new \emph{r} scores, and will drop the Bayes factors (as they are not
+relevant anymore). To keep Bayesian scores, set \code{partial = TRUE}.
+}
+
+\subsection{Notes}{
+Kendall and Spearman correlations when \code{bayesian=TRUE}: These are technically
+Pearson Bayesian correlations of rank transformed data, rather than pure
+Bayesian rank correlations (which have different priors).
+}
+}
+\examples{
+library(correlation)
+
+cor_test(iris, "Sepal.Length", "Sepal.Width")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "spearman")
+\dontrun{
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "kendall")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "biweight")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "distance")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "percentage")
+if (require("wdm", quietly = TRUE)) {
+  cor_test(iris, "Sepal.Length", "Sepal.Width", method = "blomqvist")
+}
+if (require("Hmisc", quietly = TRUE)) {
+  cor_test(iris, "Sepal.Length", "Sepal.Width", method = "hoeffding")
+}
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "gamma")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "gaussian")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "shepherd")
+if (require("BayesFactor", quietly = TRUE)) {
+  cor_test(iris, "Sepal.Length", "Sepal.Width", bayesian = TRUE)
+}
+
+# Robust (these two are equivalent)
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "spearman")
+cor_test(iris, "Sepal.Length", "Sepal.Width", method = "pearson", ranktransform = TRUE)
+
+# Winsorized
+cor_test(iris, "Sepal.Length", "Sepal.Width", winsorize = 0.2)
+
+# Tetrachoric
+if (require("psych", quietly = TRUE)) {
+  data <- iris
+  data$Sepal.Width_binary <- ifelse(data$Sepal.Width > 3, 1, 0)
+  data$Petal.Width_binary <- ifelse(data$Petal.Width > 1.2, 1, 0)
+  cor_test(data, "Sepal.Width_binary", "Petal.Width_binary", method = "tetrachoric")
+
+  # Biserial
+  cor_test(data, "Sepal.Width", "Petal.Width_binary", method = "biserial")
+
+  # Polychoric
+  data$Petal.Width_ordinal <- as.factor(round(data$Petal.Width))
+  data$Sepal.Length_ordinal <- as.factor(round(data$Sepal.Length))
+  cor_test(data, "Petal.Width_ordinal", "Sepal.Length_ordinal", method = "polychoric")
+
+  # When one variable is continuous, will run 'polyserial' correlation
+  cor_test(data, "Sepal.Width", "Sepal.Length_ordinal", method = "polychoric")
+}
+
+# Partial
+cor_test(iris, "Sepal.Length", "Sepal.Width", partial = TRUE)
+cor_test(iris, "Sepal.Length", "Sepal.Width", multilevel = TRUE)
+cor_test(iris, "Sepal.Length", "Sepal.Width", partial_bayesian = TRUE)
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/mahalanobis.R
+\name{distance_mahalanobis}
+\alias{distance_mahalanobis}
+\title{Mahalanobis distance and confidence interval (CI)}
+\usage{
+distance_mahalanobis(data, ci = 0.95, iterations = 1000, robust = TRUE, ...)
+}
+\arguments{
+\item{data}{A data frame.}
+
+\item{ci}{Confidence/Credible Interval level. If \code{"default"}, then it is
+set to \code{0.95} (\verb{95\%} CI).}
+
+\item{iterations}{The number of draws to simulate/bootstrap (when
+\code{robust} is \code{TRUE}).}
+
+\item{robust}{If \code{TRUE}, will run a bootstrapped version of the function
+with i iterations.}
+
+\item{...}{Additional arguments (e.g., \code{alternative}) to be passed to
+other methods. See \code{stats::cor.test} for further details.}
+}
+\value{
+Description of the Mahalanobis distance.
+}
+\description{
+The Mahalanobis distance (in squared units) measures the distance in
+multivariate space taking into account the covariance structure of the data.
+Because a few extreme outliers can skew the covariance estimate, the
+bootstrapped version is considered as more robust.
+}
+\examples{
+library(correlation)
+
+distance_mahalanobis(iris[, 1:4])
+distance_mahalanobis(iris[, 1:4], robust = FALSE)
+}
+\references{
+\itemize{
+\item Schwarzkopf, D. S., De Haas, B., & Rees, G. (2012). Better ways to
+improve standards in brain-behavior correlation analysis. Frontiers in
+human neuroscience, 6, 200.
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cor_text.R
+\name{cor_text}
+\alias{cor_text}
+\title{Correlation text}
+\usage{
+cor_text(x, show_ci = TRUE, show_statistic = TRUE, show_sig = TRUE, ...)
+}
+\arguments{
+\item{x}{A dataframe with correlation statistics.}
+
+\item{show_ci, show_statistic, show_sig}{Toggle on/off different parts of the text.}
+
+\item{...}{Other arguments to be passed to or from other functions.}
+}
+\description{
+This function returns a formatted character of correlation statistics.
+}
+\examples{
+rez <- cor_test(mtcars, "mpg", "wt")
+
+cor_text(rez)
+cor_text(rez, show_statistic = FALSE, show_ci = FALSE, stars = TRUE)
+
+rez <- correlation(mtcars)
+
+cor_text(rez)
+}

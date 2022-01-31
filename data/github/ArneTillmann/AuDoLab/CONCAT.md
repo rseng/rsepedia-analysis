@@ -68,3 +68,425 @@ Thereby, AuDoLab uses and integrates in particular a combination of Web Scraping
 We thank the Campus-Institut Data Science (CIDAS), Göttingen, Germany for funding this project.
 
 # References
+.. highlight:: shell
+
+============
+Contributing
+============
+
+Contributions are welcome, and they are greatly appreciated! Every little bit
+helps, and credit will always be given.
+
+You can contribute in many ways:
+
+Types of Contributions
+----------------------
+
+Report Bugs
+~~~~~~~~~~~
+
+Report bugs at https://github.com/ArneTillmann/AuDoLab/issues.
+
+If you are reporting a bug, please include:
+
+* Your operating system name and version.
+* Any details about your local setup that might be helpful in troubleshooting.
+* Detailed steps to reproduce the bug.
+
+Fix Bugs
+~~~~~~~~
+
+Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+wanted" is open to whoever wants to implement it.
+
+Implement Features
+~~~~~~~~~~~~~~~~~~
+
+Look through the GitHub issues for features. Anything tagged with "enhancement"
+and "help wanted" is open to whoever wants to implement it.
+
+Write Documentation
+~~~~~~~~~~~~~~~~~~~
+
+AuDoLab could always use more documentation, whether as part of the
+official AuDoLab docs, in docstrings, or even on the web in blog posts,
+articles, and such.
+
+Submit Feedback
+~~~~~~~~~~~~~~~
+
+The best way to send feedback is to file an issue at https://github.com/ArneTillmann/AuDoLab/issues.
+
+If you are proposing a feature:
+
+* Explain in detail how it would work.
+* Keep the scope as narrow as possible, to make it easier to implement.
+* Remember that this is a volunteer-driven project, and that contributions
+  are welcome :)
+
+Get Started!
+------------
+
+Ready to contribute? Here's how to set up `AuDoLab` for local development.
+
+1. Fork the `AuDoLab` repo on GitHub.
+2. Clone your fork locally::
+
+    $ git clone git@github.com:your_name_here/AuDoLab.git
+
+3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+
+    $ mkvirtualenv AuDoLab
+    $ cd AuDoLab/
+    $ python setup.py develop
+
+4. Create a branch for local development::
+
+    $ git checkout -b name-of-your-bugfix-or-feature
+
+   Now you can make your changes locally.
+
+5. When you're done making changes, check that your changes pass flake8 and the
+   tests, including testing other Python versions with tox::
+
+    $ flake8 AuDoLab tests
+    $ python setup.py test or pytest
+    $ tox
+
+   To get flake8 and tox, just pip install them into your virtualenv.
+
+6. Commit your changes and push your branch to GitHub::
+
+    $ git add .
+    $ git commit -m "Your detailed description of your changes."
+    $ git push origin name-of-your-bugfix-or-feature
+
+7. Submit a pull request through the GitHub website.
+
+Pull Request Guidelines
+-----------------------
+
+Before you submit a pull request, check that it meets these guidelines:
+
+1. The pull request should include tests.
+2. If the pull request adds functionality, the docs should be updated. Put
+   your new functionality into a function with a docstring, and add the
+   feature to the list in README.rst.
+3. The pull request should work for Python 3.5, 3.6, 3.7 and 3.8, and for PyPy. Check
+   https://travis-ci.com/ArneTillmann/AuDoLab/pull_requests
+   and make sure that the tests pass for all supported Python versions.
+
+Tips
+----
+
+To run a subset of tests::
+
+$ pytest tests.test_AuDoLab
+
+
+Deploying
+---------
+
+A reminder for the maintainers on how to deploy.
+Make sure all your changes are committed (including an entry in HISTORY.rst).
+Then run::
+
+$ bump2version patch # possible: major / minor / patch
+$ git push
+$ git push --tags
+
+Travis will then deploy to PyPI if tests pass.
+=======
+Credits
+=======
+
+Development Lead
+----------------
+
+* Arne Tillmann <arne.tillmann.vellmar@gmail.com>
+
+Contributors
+------------
+* Anton Thielmann <anton.thielmann@stud.uni-goettingen.de>
+* Christoph Weisser <c.weisser@stud.uni-goettingen.de>
+* Benjamin Säfken <benjamin.saefken@uni-goettingen.de>
+* Alexander Silbersdorff <asilbersdorff@uni-goettingen.de>
+* Thomas Kneib <Thomas.Kneib@wiwi.uni-goettingen.de>
+
+Special thanks
+--------------
+
+
+
+This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+=======
+History
+=======
+
+0.0.1 (2021-04-07)
+------------------
+
+* First release on PyPI.
+=======
+AuDoLab
+=======
+
+.. image:: https://img.shields.io/pypi/v/AuDoLab.svg
+        :target: https://pypi.python.org/pypi/AuDoLab
+
+.. image:: https://api.travis-ci.com/ArneTillmann/AuDoLab.svg?branch=main&status=passed
+        :target: https://travis-ci.com/ArneTillmann/AuDoLab
+
+.. image:: https://readthedocs.org/projects/audolab/badge/?version=latest
+        :target: https://audolab.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
+.. image:: https://joss.theoj.org/papers/10.21105/joss.03719/status.svg
+        :target: https://doi.org/10.21105/joss.03719
+
+With AuDoLab you can perform Latend Direchlet Allocation on highly imbalanced datasets.
+
+=======
+Summary
+=======
+
+AuDoLab provides a novel approach to one-class document classification for heavily imbalanced datasets, even if labelled training data is not available. Our package enables the user to create specific out-of-domain training data to classify a heavily underrepresented target class in a document dataset using a recently developed integration of Web Scraping, Latent Dirichlet Allocation Topic Modelling and One-class Support Vector Machines. AuDoLab can achieve high quality results even on higly specific classification problems without the need to invest in the time and cost intensive labelling of training documents by humans. Hence, AuDoLab has a broad range of scientific research or business applications.
+
+Unsupervised document classification is mainly performed to gain insight into the underlying topics of large text corpora. In this process, documents covering highly underrepresented topics have only a minor impact on the algorithm's topic definitions. As a result, underrepresented topics can sometimes be "overlooked" and documents are assigned topic prevalences that do not reflect the underlying content. Thus, labeling underrepresented topics in large text corpora is often done manually and can therefore be very labour-intensive and time-consuming. AuDoLab enables the user to tackle this problem and perform unsupervised one-class document classification for heavily underrepresented document classes.
+
+============
+Installation
+============
+
+
+Stable release
+--------------
+
+To install AuDoLab, run this command in your terminal (bash, PowerShell, etc.), given that you have python 3 and pip installed :
+
+.. code-block:: console
+
+    $ pip install AuDoLab
+
+This is the preferred method to install AuDoLab, as it will always install the most recent stable release.
+
+If you don't have `pip`_ installed, this `Python installation guide`_ can guide
+you through the process.
+
+.. _pip: https://pip.pypa.io
+.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
+
+
+From sources
+------------
+
+The sources for AuDoLab can be downloaded from the `Github repo`_.
+
+You can either clone the public repository:
+
+.. code-block:: console
+
+    $ git clone git://github.com/ArneTillmann/AuDoLab
+
+Or download the `tarball`_:
+
+.. code-block:: console
+
+    $ curl -OJL https://github.com/ArneTillmann/AuDoLab/tarball/master
+
+Once you have a copy of the source, you can install it with:
+
+.. code-block:: console
+
+    $ python setup.py install
+
+
+.. _Github repo: https://github.com/ArneTillmann/AuDoLab
+.. _tarball: https://github.com/ArneTillmann/AuDoLab/tarball/master
+
+=====
+Usage
+=====
+Before the actuall usage you want to download the stopwords for nltk by running::
+
+    import nltk
+    nltk.download('stopwords')
+
+inside a python console.
+To use AuDoLab in a project::
+
+    from AuDoLab import AuDoLab
+
+Then you want to create an instance of the AuDoLab class
+
+    audo = AuDoLab.AuDoLab()
+
+In this example we used publicly available data from the nltk package::
+
+    from nltk.corpus import reuters
+    import numpy as np
+    import pandas as pd
+
+    data = []
+
+    for fileid in reuters.fileids():
+        tag, filename = fileid.split("/")
+        data.append(
+            (filename,
+             ", ".join(
+                 reuters.categories(fileid)),
+                reuters.raw(fileid)))
+
+    data = pd.DataFrame(data, columns=["filename", "categories", "text"])
+
+Then you want to scrape abstracts, e.g. from IEEE with the abstract scraper::
+
+    scraped_documents = audo.get_ieee("https://ieeexplore.ieee.org/search
+                                       /searchresult.jsp?newsearch=true&
+                                       queryText=cotton&highlight=true&
+                                       returnFacets=ALL&returnType=SEARCH&
+                                       matchPubs=true&rowsPerPage=100&
+                                       pageNumber=1\",
+                                       pages=1)
+
+The data as well as the scraped papers need to be preprocessed before use in the
+classifier::
+
+    preprocessed_target = audo.text_cleaning(data=data, column="text")
+
+    preprocessed_paper = audo.text_cleaning(
+        data=scraped_documents, column="abstract")
+
+    target_tfidf, training_tfidf = audo.tf_idf(
+        data=preprocessed_target,
+        papers=preprocessed_paper,
+        data_column="lemma",
+        papers_column="lemma",
+        features=100000,
+    )
+
+Afterwards we can train and use the classifiers and choose the desired
+one::
+
+    o_svm_result = audo.one_class_svm(
+        training=training_tfidf,
+        predicting=target_tfidf,
+        nus=np.round(np.arange(0.001, 0.5, 0.01), 7),
+        quality_train=0.9,
+        min_pred=0.001,
+        max_pred=0.05,
+    )
+
+    result = audo.choose_classifier(preprocessed_target, o_svm_result, 0)
+
+And finally you can estimate the topics of the data::
+
+    lda_target = audo.lda_modeling(data=result, num_topics=5)
+
+    audo.lda_visualize_topics(type="pyldavis")
+
+* Free software: GNU General Public License v3
+* Documentation: https://AuDoLab.readthedocs.io.
+AuDoLab.subclasses.one\_class\_svm
+==================================
+
+.. automodule:: AuDoLab.subclasses.one_class_svm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+AuDoLab.subclasses.abstractscraper_pubmed
+=========================================
+
+.. automodule:: AuDoLab.subclasses.abstractscraper_pubmed
+   :members:
+   :undoc-members:
+   :show-inheritance:
+.. include:: ../CONTRIBUTING.rst
+.. include:: ../HISTORY.rst
+.. include:: ../AUTHORS.rst
+AuDoLab.subclasses.abstractscraper
+==================================
+
+.. automodule:: AuDoLab.subclasses.abstractscraper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+AuDoLab.subclasses.abstractscraper_arxiv
+========================================
+
+.. automodule:: AuDoLab.subclasses.abstractscraper_arxiv
+   :members:
+   :undoc-members:
+   :show-inheritance:
+AuDoLab.subclasses.preprocessing
+================================
+
+.. automodule:: AuDoLab.subclasses.preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+.. include:: ../README.rst
+AuDoLab.subclasses.tf\_idf
+==========================
+
+.. automodule:: AuDoLab.subclasses.tf_idf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Classes and Methods
+===================
+
+.. toctree::
+   :maxdepth: 4
+
+
+AuDoLab.AuDoLab main module
+---------------------------
+
+.. automodule:: AuDoLab.AuDoLab
+ :members:
+ :undoc-members:
+ :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+  :maxdepth: 4
+
+
+  AuDoLab.abstractscraper
+  AuDoLab.abstractscraper_arxiv
+  AuDoLab.abstractscraper_pubmed
+  AuDoLab.preprocessing
+  AuDoLab.tf_idf
+  AuDoLab.one_class_svm
+  AuDoLab.lda
+Welcome to AuDoLab's documentation!
+======================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   readme
+   modules
+   contributing
+   authors
+   history
+
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+AuDoLab.subclasses.lda
+======================
+
+.. automodule:: AuDoLab.subclasses.lda
+   :members:
+   :undoc-members:
+   :show-inheritance:

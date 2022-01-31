@@ -266,3 +266,291 @@ Figure: output figure type 1 for the hyint index calculated for EC-Earth rcp85 m
 4)  Selection of indices to be plotted from the following list (order-sensitive): "SDII", "DSL", "WSL", "HY-INT", "ABS_INT", "ABS_DSL", "ABS_WSL", "PA", "R95", "altcddETCCDI", "altcsdiETCCDI", "altcwdETCCDI", "altwsdiETCCDI", "cddETCCDI", "csdiETCCDI", "cwdETCCDI", "dtrETCCDI", "fdETCCDI", "gslETCCDI", "idETCCDI", "prcptotETCCDI", "r10mmETCCDI", "r1mmETCCDI", "r20mmETCCDI", "r95pETCCDI", "r99pETCCDI", "rx1dayETCCDI", "rx5dayETCCDI", "sdiiETCCDI", "suETCCDI", "tn10pETCCDI", "tn90pETCCDI", "tnnETCCDI", "tnxETCCDI", "trETCCDI", "tx10pETCCDI", "tx90pETCCDI", "txnETCCDI", "txxETCCDI", "wsdiETCCDI"
 
 5) Type of figure: 1) lon/lat maps per individual field/exp/multi-year mean, 2) lon/lat maps per individual field exp-ref-diff/multi-year mean, 3) lon/lat maps multi-field/exp-ref-diff/multi-year mean (figure type 3 resembles Giorgi et al. 2011).
+CHANGELOG
+*********
+
+1.0.0 (2019-11-16)
+=====================
+
+* Stable release of c3s-magic-wps. A lot of small fixes were done to all the Processes contained within this Service, and documentation was improved.
+
+1.0.0rc1 (2019-06-06)
+=====================
+
+* First release candidate of stable release of c3s-magic-wps. A Web Processing Service for Climate Data Analysis in the MAGIC project. The software in this WPS powers the processes behind the C3S-MAGIC portal. This software was designed to be run on a resource with access to data produced by the CP4CDS project.
+C3S MAGIC WPS
+=============
+.. image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+    :target: https://opensource.org/licenses/Apache-2.0
+    :alt: License
+
+.. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
+   :target: http://c3s-magic-wps.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://travis-ci.com/c3s-magic/c3s-magic-wps.svg?branch=master
+   :target: https://travis-ci.com/c3s-magic/c3s-magic-wps
+   :alt: Travis Build
+
+.. image:: https://badge.fury.io/py/c3s-magic-wps.svg
+    :target: https://badge.fury.io/py/c3s-magic-wps
+
+.. image:: https://zenodo.org/badge/184254565.svg
+   :target: https://zenodo.org/badge/latestdoi/184254565
+
+.. inclusion-marker-start-do-not-remove
+
+Web Processing Service for Climate Data Analysis in the MAGIC project. The software in this WPS powers the processes behind the C3S-MAGIC portal. This software was designed to be run on a resource with access to data produced by the CP4CDS project.
+
+.. inclusion-marker-end-do-not-remove
+
+* Free software: Apache Software License 2.0
+* Documentation: https://c3s-magic-wps.readthedocs.io.
+
+Links
+-----
+
+* `Climate Data Store`_
+* `C3S MAGIC Portal`_
+* `CP4CDS Quality Control`_
+
+Credits
+-------
+
+This package was created with Cookiecutter_ and the `bird-house/cookiecutter-birdhouse`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`bird-house/cookiecutter-birdhouse`: https://github.com/bird-house/cookiecutter-birdhouse
+.. _`Climate Data Store`: https://cds.climate.copernicus.eu
+.. _`C3S MAGIC Portal`: http://portal.c3s-magic.eu
+.. _`CP4CDS Quality Control`: https://cp4cds-qcapp.ceda.ac.uk
+.. _processes:
+
+Processes
+=========
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+Data Availability
+-----------------
+
+A special *Meta* process in the Magic WPS is available to automatically determine the available cmip5 model data by reading the available files from the data folder. As CMIP5 data is structured according to the DRS this can be done automatically. The format used to pass this information is the json output of the `linux tree command`_. If configured correctly, the WPS processes will automatically find the data
+
+.. code-block:: bash
+
+        tree -J -l -d -L 8 /group_workspaces/jasmin2/cp4cds1/data/c3s-cmip5
+
+.. _linux tree command: http://mama.indstate.edu/users/ice/tree/
+
+Metrics
+-------
+
+This is a list of metrics available as processes in the MAGIC WPS.
+
+The list of Models, Experiments, and Ensembles is created automatically when the server is started, and shown as "None" here.
+
+.. automodule:: c3s_magic_wps.processes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :noindex:
+.. _configuration:
+
+Configuration
+=============
+
+Command-line options
+--------------------
+
+You can overwrite the default `PyWPS`_ configuration by using command-line options.
+See the c3s magic wps help which options are available::
+
+    $ c3s_magic_wps start --help
+    --hostname HOSTNAME        hostname in PyWPS configuration.
+    --port PORT                port in PyWPS configuration.
+
+Start service with different hostname and port::
+
+    $ c3s_magic_wps start --hostname localhost --port 5001
+
+Use a custom configuration file
+-------------------------------
+
+You can overwrite the default `PyWPS`_ configuration by providing your own
+PyWPS configuration file (just modifiy the options you want to change).
+Use one of the existing ``sample-*.cfg`` files as example and copy them to ``etc/custom.cfg``.
+
+For example change the hostname (*demo.org*) and logging level:
+
+.. code-block:: sh
+
+   $ cd c3s_magic_wps
+   $ vim etc/custom.cfg
+   $ cat etc/custom.cfg
+   [server]
+   url = http://demo.org:5000/wps
+   outputurl = http://demo.org:5000/outputs
+
+   [logging]
+   level = DEBUG
+
+   [data]
+   archive_root =/cmip5
+   obs_root = /obs
+
+
+Start the service with your custom configuration:
+
+.. code-block:: sh
+
+   # start the service with this configuration
+   $ c3s_magic_wps start -c etc/custom.cfg
+
+
+.. _PyWPS: http://pywps.org/
+.. _installation:
+
+Installation
+============
+
+.. contents::
+    :local:
+    :depth: 1
+
+Install from PyPI
+------------------
+
+The MAGIC WPS is available as a package in `PyPI <https://pypi.org/>` (c3s-magic-wps). A working installation of `ESMValTool <https://www.esmvaltool.org/>`_ is required, currently version 2.0a2 is supported.
+
+Install from GitHub
+-------------------
+
+*Note: These installation instructions assume you have* `Anaconda <https://docs.anaconda.com/anaconda/install/>`_ *installed.*
+
+*Note: these installtion instructions assume you have* `Julia <https://julialang.org/downloads/>`_ *installed*
+
+Check out code from the c3s magic wps GitHub repo and create a conda environment:
+
+.. code-block:: sh
+
+   $ git clone https://github.com/c3s-magic/c3s-magic-wps.git
+   $ cd c3s-magic-wps
+   $ conda env create -f environment.yml
+   $ source activate c3s_magic_wps
+
+*Note: the environment will pull pywps from github via pip, ESMValTool is installed using conda*
+
+Next, to complete the installation of ESMValTool a R and Julia script are required. These are available in the package. Please adjust to match the installation location of conda on your system
+
+.. code-block:: sh
+
+   $ Rscript /opt/conda/envs/c3s-magic-wps/lib/python3.6/site-packages/esmvaltool/install/R/setup.R
+   $ julia /opt/conda/envs/c3s-magic-wps/lib/python3.6/site-packages/esmvaltool/install/Julia/setup.jl
+
+Finally install the WPS:
+
+.. code-block:: sh
+
+   $ cd ../c3s-magic-wps
+   $ python setup.py develop
+
+Configure c3s magic wps PyWPS service
+-------------------------------------
+
+The wps can be configured using the `pywps configuration files <https://pywps.readthedocs.io/en/master/configuration.html>`_. See the etc folder for examples. Create a file called ``.custom.cfg`` to customize settings for your installation. A path to the cmip and obs files is needed to run the metrics.
+
+See the :ref:`installation` section for more info
+
+
+Start c3s magic wps PyWPS service
+---------------------------------
+
+After successful installation you can start the service using the ``c3s_magic_wps`` command-line. An additional environment variable is needed with the location of the model data.
+
+.. code-block:: sh
+
+   $ export CMIP_DATA_ROOT=/path/to/cmip/files
+
+
+   $ c3s_magic_wps --help # show help
+   $ c3s_magic_wps start  # start service with default configuration
+
+   OR
+
+   $ c3s_magic_wps start --daemon # start service as daemon
+   loading configuration
+   forked process id: 42
+
+*Note: Remember the process ID (PID) so you can stop the service with* ``kill PID``.
+
+The deployed WPS service is by default available on:
+
+http://localhost:5000/wps?service=WPS&version=1.0.0&request=GetCapabilities
+
+You can find which process uses a given port using the following command (here for port 5000):
+
+.. code-block:: sh
+
+   $ netstat -nlp | grep :5000
+
+Check the log files for errors:
+
+.. code-block:: sh
+
+   $ tail -f  pywps.log
+
+Run c3s magic wps as Docker container
+-------------------------------------
+
+*Note: These installation instructions assume you have* `Docker <https://docs.docker.com/install/>`_ *installed.*
+
+You can also choose to run c3s magic wps from a Docker container.
+
+Download c3s-magic-wps, build the docker container and run it using docker-compose:  
+
+.. code-block:: sh
+
+   $ git clone https://github.com/c3s-magic/c3s-magic-wps.git
+   $ cd c3s-magic-wps
+   $ docker-compose build              
+   $ docker-compose up
+
+By default the WPS service should be available on port 5000:
+
+ http://localhost:5000/wps?service=wps&request=GetCapabilities
+
+Run docker exec to watch logs:
+
+.. code-block:: sh
+
+   $ docker ps     # find container name
+   container_name
+   $ docker exec container_name tail -f /opt/wps/pywps.log
+
+Use docker-compose to stop the containers:
+
+.. code-block:: sh
+
+   $ docker-compose down
+
+Use Ansible to deploy c3s magic wps on your System
+--------------------------------------------------
+
+Use the `Ansible playbook`_ for PyWPS to deploy c3s magic wps on your system.
+
+.. _Ansible playbook: http://ansible-wps-playbook.readthedocs.io/en/latest/index.html
+C3S MAGIC WPS
+=============
+
+This is the documentation for the Web Processing Services for Climate Data Analysis developed in the MAGIC project.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents
+
+   installation
+   configuration
+   processes

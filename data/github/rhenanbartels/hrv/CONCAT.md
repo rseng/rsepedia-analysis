@@ -259,3 +259,815 @@ The `hrv` package depends on the following modules: numpy [@numpy], matplotlib [
 The authors are grateful to CAPES (Coordenadoria de Aperfeiçoamento de Pessoal de Nível Superior), FAPERJ (Fundação de Amparo à Pesquisa do Estado do Rio de Janeiro), FAPESP (2016/23319-0 - Fundação de Amparo à Pesquisa do Estado do São Paulo) and CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico) for financial support. We are also grateful to Wilson Mello a.k.a Bakudas for creating the nice logo of the `hrv` module.
 
 # References
+First Steps
+===========
+
+Installation
+############
+
+To install use pip:
+
+.. code-block:: bash
+
+   pip install hrv
+
+Or clone the repo:
+
+.. code-block:: bash
+
+   git clone https://github.com/rhenanbartels/hrv.git
+   python setup.py install
+
+
+Basic Usage
+######################
+
+**Create an RRi instance**
+
+Once you create an RRi object you will have the power of a native Python iterable object.
+This means, that you can loop through it using a **for loop**, get a just a part of the series using native
+**slicing** and much more. Let us try it:
+
+
+.. code-block:: python
+
+    from hrv.rri import RRi
+
+    rri_list = [800, 810, 815, 750, 753, 905]
+    rri = RRi(rri_list)
+
+    print(rri)
+    RRi array([800., 810., 815., 750., 753., 905.])
+
+**Slicing**
+
+.. code-block:: python
+
+    print(rri[0])
+    800.0
+
+    print(type(rri[0]))
+    numpy.float64
+
+    print(rri[::2])
+    RRi array([800., 815., 753.])
+
+**Logical Indexing**
+
+.. code-block:: python
+
+    from hrv.rri import RRi
+
+    rri = RRi([800, 810, 815, 750, 753, 905])
+    rri_ge = rri[rri >= 800]
+
+    rri_ge
+    RRi array([800., 810., 815., 905.])
+
+**Loop**
+
+.. code-block:: python
+
+    for rri_value in rri:
+        print(rri_value)
+
+    800.0
+    810.0
+    815.0
+    750.0
+    753.0
+    905.0
+
+**Note:**
+When time information is not provided, time array will be created using the cumulative sum of successive RRi. After cumulative sum, the time array is subtracted from the value at `t[0]` to make it start from `0s`
+
+**RRi object and time information**
+
+.. code-block:: python
+
+    from hrv.rri import RRi
+
+    rri_list = [800, 810, 815, 750, 753, 905]
+    rri = RRi(rri_list)
+
+    print(rri.time)
+    array([0.   , 0.81 , 1.625, 2.375, 3.128, 4.033]) # Cumsum of rri values minus t[0]
+
+    rri = RRi(rri_list, time=[0, 1, 2, 3, 4, 5])
+    print(rri.time)
+    [0. 1. 2. 3. 4. 5.]
+
+**Note:**
+Some validations are made in the time list/array provided to the RRi class, for instance: 
+
+ * RRi and time list/array must have the same length;
+ * Time list/array can not have negative values;
+ * Time list/array must be monotonic increasing.
+
+**Basic math operations**
+
+With RRi objects you can make math operatins just like a numpy array:
+
+.. code-block:: python
+
+    rri
+    RRi array([800., 810., 815., 750., 753., 905.])
+
+    rri * 10
+    RRi array([8000., 8100., 8150., 7500., 7530., 9050.])
+
+    rri + 200
+    RRi array([1000., 1010., 1015.,  950.,  953., 1105.])
+
+**Works with Numpy functions**
+
+.. code-block:: python
+
+    import numpy as np
+
+    rri = RRi([800, 810, 815, 750, 753, 905])
+
+    sum_rri = np.sum(rri)
+    print(sum_rri)
+    4833.0
+
+    mean_rri = np.mean(rri)
+    print(mean_rri)
+    805.5
+
+    std_rri = np.std(rri)
+    print(std_rri)
+    51.44171459039833
+RRi Visualization
+=================
+
+The RRi class brings a very easy way to visualize your series:
+
+Plot RRi Series
+###############
+
+.. code-block:: python
+
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+    fig, ax = rri.plot(color='k')
+
+.. image:: ../figures/rri_fig.png
+   :width: 500 px
+
+RRi histogram and Heart Rate Histogram
+######################################
+
+.. code-block:: python
+
+    rri.hist()
+
+    rri.hist(hr=True)
+
+.. image:: ../figures/rri_hist.png
+   :width: 500 px
+
+.. image:: ../figures/hr_hist.png
+   :width: 500 px
+Pre-Processing
+==============
+
+Filters
+#######
+
+**Moving Average**
+
+.. code-block:: python
+
+    from hrv.filters import moving_average
+    filt_rri = moving_average(rri, order=3)
+
+    fig, ax = rri.plot()
+    filt_rri.plot(ax=ax)
+
+.. image:: ../figures/mov_avg.png
+    :width: 500 px
+
+**Moving Median**
+
+.. code-block:: python
+
+    from hrv.filters import moving_median
+    filt_rri = moving_median(rri, order=3)
+
+    fig, ax = rri.plot()
+    filt_rri.plot(ax=ax)
+
+
+.. image:: ../figures/mov_median.png
+    :width: 500 px
+
+**Quotient**
+
+`Read more`_
+
+.. _Read more: https://www.ncbi.nlm.nih.gov/pubmed/17322593
+
+.. code-block:: python
+
+    from hrv.filters import quotient
+    filt_rri = quotient(rri)
+
+    fig, ax = rri.plot()
+    filt_rri.plot(ax=ax)
+
+.. image:: ../figures/quotient.png
+    :width: 500 px
+
+**Threshold Filter**
+
+This filter is inspired by the threshold-based artifact correction algorithm offered by kubios_ <sup>&reg;</sup> .
+To elect outliers in the tachogram series, each RRi is compared to the median value of local RRi (default N=5).
+All the RRi which the difference is greater than the local median value plus a threshold is replaced by
+cubic_ interpolated RRi.
+
+.. _kubios: https://www.kubios.com/
+.. _cubic: https://en.wikiversity.org/wiki/Cubic_Spline_Interpolation
+
+The threshold filter has five pre-defined strength values:
+
+    * Very Low: 450ms
+    * Low: 350ms
+    * Medium: 250ms
+    * Strong: 150ms
+    * Very Strong: 50ms
+
+It also accepts custom threshold values (in milliseconds).
+The following snippet shows the ectopic RRi removal:
+
+.. code-block:: python
+
+    from hrv.filters import threshold_filter
+    filt_rri = threshold_filter(rri, threshold='medium', local_median_size=5)
+
+    fig, ax = rri.plot()
+    filt_rri.plot(ax=ax)
+
+.. image:: ../figures/threshold_filter.png
+    :width: 500 px
+
+Detrending
+##########
+
+The **hrv** module also offers functions to remove the non-stationary trends from the RRi series.
+It allows the removal of slow linear or more complex trends using the following approaches:
+
+**Polynomial models**
+
+Given a degree a polynomial filter is applied to the RRi series and subtracted from the tachogram
+
+.. code-block:: python
+
+    from hrv.detrend import polynomial_detrend
+
+    rri_detrended = polynomial_detrend(rri, degree=1)
+
+    fig, ax = rri.plot()
+    rri_detrended.plot(ax, color='k')
+
+.. image:: ../figures/polynomial_detrend.png
+    :width: 500 px
+
+
+**Smoothness priors**
+
+Developed by Tarvainen *et al*, allow the removal of complex trends. Visit here_ for more information.
+It worth noticing that the detrended RRi with the Smoothness priors approach is also interpolated
+and resampled using frequency equals to ```fs```.
+
+.. _here: https://ieeexplore.ieee.org/document/979357
+
+.. code-block:: python
+
+    from hrv.detrend import smoothness_priors
+
+    rri_detrended = smoothness_priors(rri, l=500, fs=4.0)
+
+    fig, ax = rri.plot()
+    rri_detrended.plot(ax, color='k')
+
+.. image:: ../figures/smoothness_priors.png
+    :width: 500 px
+
+**Note:**
+this approach depends on a numpy matrix inversion and due to floating-point precision it might
+present round-off errors in the trend calculation
+
+**Savitzky-Golay**
+
+Uses the lowpass filter known as  Savitzky-Golay filter to smooth the RRi series and remove slow components from the tachogram
+
+.. code-block:: python
+
+    from hrv.detrend import sg_detrend
+
+    rri_detrended = sg_detrend(rri, window_size=51, polyorder=3)
+
+    fig, ax = rri.plot()
+    rri_detrended.plot(ax, color='k')
+
+.. image:: ../figures/savitzky_golay_detrend.png
+    :width: 500 px
+RRi statistics
+==============
+
+Basic Statistics
+################
+The RRi object implements some basic statistics information about its values:
+
+* mean
+* median
+* standard deviation
+* variance
+* minimum
+* maximum
+* amplitude
+
+Some examples:
+
+.. code-block:: python
+
+    from hrv.rri import RRi
+
+    rri = RRi([800, 810, 815, 750, 753, 905])
+
+    # mean
+    rri.mean()
+    805.5
+
+    # median
+    rri.median()
+    805.0
+
+You can also have a complete overview of its statistical charactheristic
+
+.. code-block:: python
+
+    desc = rri.describe()
+    desc
+
+    ----------------------------------------
+                       rri          hr
+    ----------------------------------------
+    min             750.00       66.30
+    max             905.00       80.00
+    mean            805.50       74.78
+    var            2646.25       20.85
+    std              51.44        4.57
+    median          805.00       74.54
+    amplitude       155.00       13.70
+
+    print(desc['std'])
+    {'rri': 51.44171459039833, 'hr': 4.5662272355549725}
+
+RRi Basic Information
+#####################
+
+.. code-block:: python
+
+    rri = RRi([800, 810, 815, 750, 753, 905])
+    rri.info()
+
+    N Points: 6
+    Duration: 4.03s
+    Interpolated: False
+    Detrended: False
+    Memory Usage: 0.05Kb
+
+
+Analysis
+========
+
+Time Domain Analysis
+####################
+
+.. code-block:: python
+
+    from hrv.classical import time_domain
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+    results = time_domain(rri)
+    print(results)
+
+    {'mhr': 66.528130159638053,
+     'mrri': 912.50302419354841,
+     'nn50': 337,
+     'pnn50': 33.971774193548384,
+     'rmssd': 72.849900286450023,
+     'sdnn': 96.990569261440797,
+     'sdsd': 46.233829821038042}
+
+Frequency Domain Analysis
+#########################
+.. code-block:: python
+
+    from hrv.classical import frequency_domain
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+    results = frequency_domain(
+        rri=rri,
+        fs=4.0,
+        method='welch',
+        interp_method='cubic',
+        detrend='linear'
+    )
+    print(results)
+
+    {'hf': 1874.6342520920668,
+     'hfnu': 27.692517001462079,
+     'lf': 4894.8271587038234,
+     'lf_hf': 2.6110838171452708,
+     'lfnu': 72.307482998537921,
+     'total_power': 7396.0879278950533,
+     'vlf': 626.62651709916258}
+
+Non-linear Analysis
+###################
+
+.. code-block:: python
+
+    from hrv.classical import non_linear
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+    results = non_linear(rri)
+    print(results)
+
+    {'sd1': 51.538501037146382,
+     'sd2': 127.11460955437322}
+
+It is also possible to depict the Poincaré Plot, from which SD1 and SD2 are derived:
+
+.. code-block:: python
+
+    rri.poincare_plot()
+
+.. image:: ../figures/poincare.png
+   :width: 500 px
+Read RRi files
+==============
+
+Read .txt files
+####################
+
+Text files contains a single column with all RRi values.
+Example of RRi text file
+
+.. code-block:: bash
+
+    800
+    810
+    815
+    750
+
+.. code-block:: python
+
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+
+    print(rri)
+    RRi array([800., 810., 815., 750.])
+
+Read Polar® (.hrm) files
+########################################
+
+The .hrm files contain the RRi acquired with Polar®
+
+A complete guide for .hrm files can be found here_
+
+.. _here: https://www.polar.com/files/Polar_HRM_file%20format.pdf
+
+.. code-block:: python
+
+    from hrv.io import read_from_hrm
+
+    rri = read_from_hrm('path/to/file.hrm')
+
+    print(rri)
+    RRi array([800., 810., 815., 750.])
+
+Read .csv files
+#####################################
+Example of csv file:
+
+.. code-block:: bash
+
+    800,
+    810,
+    815,
+    750,
+
+.. code-block:: python
+
+    from hrv.io import read_from_csv
+
+    rri = read_from_csv('path/to/file.csv')
+
+    print(rri)
+    RRi array([800., 810., 815., 750.])
+
+**Note**:
+When using **read_from_csv** you can also provide a column containing time information. Let's check it.
+
+.. code-block:: bash
+
+    800,1
+    810,2
+    815,3
+    750,4
+
+.. code-block:: python
+
+    rri = read_from_csv('path/to/file.csv', time_col_index=1)
+
+    print(rri)
+    RRi array([800., 810., 815., 750.])
+
+    print(rri.time)
+    array([0., 1., 2., 3., 4.])
+
+RRi Sample Data
+###############
+
+The hrv module comes with some sample data. It contains:
+
+* RRi collected during rest
+* RRi collected during exercise
+* RRi containing ectopic beats
+
+**Rest RRi**
+
+.. code-block:: python
+
+    from hrv.sampledata import load_rest_rri
+
+    rri = load_rest_rri()
+    rri.plot()
+
+
+.. image:: ../figures/rest_rri.png
+    :width: 500 px
+
+**Exercise RRi**
+
+.. code-block:: python
+
+    from hrv.sampledata import load_exercise_rri
+
+    rri = load_exercise_rri()
+    rri.plot()
+
+.. image:: ../figures/exercise_rri.png
+    :width: 500 px
+
+**Noisy RRi**
+
+.. code-block:: python
+
+    from hrv.sampledata import load_noisy_rri
+
+    rri = load_noisy_rri()
+    rri.plot()
+
+.. image:: ../figures/noisy_rri.png
+    :width: 500 px
+.. hrv documentation master file, created by
+   sphinx-quickstart on Wed Dec 18 12:07:31 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to hrv's documentation!
+===============================
+
+**hrv** is a simple Python module that brings the most widely used
+techniques to extract information about cardiac autonomic functions through RRi series and Heart Rate Variability (HRV) analyses without losing the **Power** and **Flexibility**
+of a native Python object.
+
+In other words, the **hrv** module eases the manipulation, inspection, pre-processing, visualization, and analyses of HRV-related information. Additionally, it is written with idiomatic code and tries to implement the API of a built-in object, which might make it intuitive for Python users.
+
+
+.. _numpy: http://numpy.org
+
+
+Contents
+******************
+
+.. toctree::
+   :maxdepth: 3
+
+   firststeps
+   readfiles
+   statistics
+   visualization
+   timeslicing
+   preprocessing
+   analysis
+   nonstationary
+   contribution
+Non-stationary RRi series
+============
+
+In some situations like physical exercise, the RRi series might present
+a non-stationary behavior. In cases like these, classical approaches are not
+recommended once the statistical properties of the signal vary over time.
+
+The following figure depicts the RRi series recorded on a subject riding a bicycle.
+Without running analysis and only visually inspecting the time series, is possible
+to tell that the average and the standard deviation of the RRi are not constant
+as a function of time.
+
+.. image:: ../figures/exercise_rri.png
+    :width: 500 px
+
+In order to extract useful information about the dynamics of non-stationary RRi series,
+the following methods applies the classical metrics in shorter running adjacent segments, 
+as illustrated in the following image:
+
+.. image:: ../figures/sliding_segments.png
+    :width: 500 px
+
+For example, for a segment size of **30s** (S) and **15s** (O) overlap a signal with **300s** (D) will have P segments:
+
+P = int((D - S) / (S - O)) + 1
+
+P = int((300 - 30) / (30 - 15)) + 1 = 19 segments
+
+Time Varying
+############
+
+Time domain indices applied to shorter segments
+
+.. code-block:: python
+
+    from hrv.sampledata import load_exercise_rri
+    from hrv.nonstationary import time_varying
+
+    rri = load_exercise_rri()
+    results = time_varying(rri, seg_size=30, overlap=0)
+    results.plot(index="rmssd", marker="o", color="r")
+
+
+.. image:: ../figures/tv_rmssd.png
+    :width: 500 px
+
+
+Plot the results from **time varying** together with its respective RRi series
+
+
+.. code-block:: python
+
+    from hrv.sampledata import load_exercise_rri
+    from hrv.nonstationary import time_varying
+
+    rri = load_exercise_rri()
+    results = time_varying(rri, seg_size=30, overlap=0)
+    results.plot_together(index="rmssd", marker="o", color="k")
+
+.. image:: ../figures/tv_together.png
+    :width: 500 px
+
+Short Time Fourier Transform
+############################
+
+To be implemented.
+Time Slicing
+============
+
+It is also possible to slice RRi series with time range information
+(in **seconds**).
+
+In the following example, we are taking a slice that starts at `100s ` and ends at `200s`.
+
+.. code-block:: python
+
+    from hrv.io import read_from_text
+
+    rri = read_from_text('path/to/file.txt')
+    rri_range = rri.time_range(start=100, end=200)
+
+    fig, ax = rri_range.plot(marker='.')
+
+.. image:: ../figures/rri_range.png
+    :width: 500 px
+
+Time offset can be reset from the RRi series range:
+
+.. code-block:: python
+
+    rri_range.reset_time(inplace=True)
+
+.. image:: ../figures/rri_range_reset.png
+    :width: 500 px
+Contribution start guide
+========================
+
+The preferred way to start contributing for the project is creating a virtualenv (you can do by using virtualenv,
+virtualenvwrapper, pyenv or whatever tool you'd like). Only **Python 3.x** are supported
+
+
+Preparing the eviroment
+#######################
+
+Create the virtualenv:
+
+.. code-block:: bash
+
+    mkvirtualenv hrv
+
+Install all dependencies:
+
+.. code-block:: bash
+
+    pip install -r requirements.txt
+
+Install development dependencies:
+
+.. code-block:: bash
+
+    pip install -r dev-requirements.txt
+
+Running the tests
+#################
+
+In order to run the tests, activate the virtualenv and execute pytest:
+
+.. code-block:: bash
+
+    workon <virtualenv>
+    pytest -v
+    # or
+    make test
+
+
+Coding and Docstring styles
+##########################
+
+
+Generally, we try to use Python common styles conventions as described
+in `PEP 8`_ and `PEP 257`_, which are also followed by the `numpy`_ project.
+
+.. _PEP 8: https://www.python.org/dev/peps/pep-0008/ 
+.. _PEP 257: https://www.python.org/dev/peps/pep-0257/
+.. _numpy: https://numpydoc.readthedocs.io/en/latest/format.html
+
+Example
+********
+.. code-block:: python
+
+    def moving_average(rri, order=3):
+        """
+        Low-pass filter. Replace each RRi value by the average of its ⌊N/2⌋
+        neighbors. The first and the last ⌊N/2⌋ RRi values are not filtered
+
+        Parameters
+        ----------
+        rri : array_like
+        sequence containing the RRi series
+        order : int, optional
+        Strength of the filter. Number of adjacent RRi values used to calculate
+        the average value to replace the current RRi. Defaults to 3.
+
+        .. math::
+        considering movinge average of order equal to 3:
+        RRi[j] = sum(RRi[j-2] + RRi[j-1] + RRi[j+1] + RRi[j+2]) / 3
+
+        Returns
+        -------
+        results : RRi array
+        instance of the RRi class containing the filtered RRi values
+
+        See Also
+        -------
+        moving_median, threshold_filter, quotient
+
+        Examples
+        --------
+        >>> from hrv.filters import moving_average
+        >>> from hrv.sampledata import load_noisy_rri
+        >>> noisy_rri = load_noisy_rri()
+        >>> moving_average(noisy_rri)
+        RRi array([904., 918., 941.66666667, ..., 732.66666667, 772.33333, 808.])
+        """
+
+We also encourage the  use of code linters, such `isort`_ , `black`_ and `autoflake`_.
+
+.. _isort: https://github.com/timothycrosley/isort
+.. _black: https://github.com/psf/black
+.. _autoflake: https://github.com/myint/autoflake
+
+
+.. code-block:: bash
+
+    autoflake --in-place --recursive --remove-unused-variables --remove-all-unused-imports .
+    sort -rc .
+    black .
+    

@@ -775,3 +775,127 @@ Maintainer: Toshi Umehara <toshi@niceume.com>
 * Package skeleton was created. (11/15/2018)
    + The original name was RCppCalc, which was intended only for arithmetic calculation.
 
+\name{adult_total}
+\docType{data}
+\alias{adult_total}
+\title{Census income dataset}
+\description{
+"Census Income" dataset from UCI machine learning repository. 
+}
+\usage{data(adult_total)}
+\format{
+>50K, <=50K.
+age: continuous.
+workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked.
+fnlwgt: continuous.
+education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
+education-num: continuous.
+marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
+occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
+relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
+race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
+sex: Female, Male.
+capital-gain: continuous.
+capital-loss: continuous.
+hours-per-week: continuous.
+native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands.
+}
+\source{
+  https://archive.ics.uci.edu/ml/datasets/Adult
+}
+\references{
+  https://archive.ics.uci.edu/ml/datasets/Adult
+}
+\keyword{datasets}
+%File sail.Rd
+
+\name{sail}
+\alias{sail}
+\title{Run 'DataSailr' script and manipulate dataframe }
+\description{
+  datasailr::sail() is the main function of this 'DataSailr' package. This function takes a data.frame as the 1st argument and a 'DataSailr' script as the 2nd argument. 
+}
+\usage{
+  sail( df, code, fullData = TRUE, rowname = "_rowname_", stringsAsFactors = FALSE)
+}
+\arguments{
+  \item{df}{ data.frame to be processed.}
+  \item{code}{ 'DataSailr' script that instructs how to manipulate values and strings.}
+  \item{fullData}{ When fullData is set FALSE, only the columns corresponding to left-hand-side(LHS) variables in 'DataSailr' scripts are returned. (e.g. In 'DataSailr' script, bmi = weight / height / height , the variable bmi is the LHS.) If set TRUE, all the columns are returned. }
+  \item{rowname}{ Dataframe's row names are accessed via the variable name specified by this option. The default variable name is _rowname_, meaning that _rowname_ represents dataframe's row names in 'DataSailr' script, though this does not allow assignment. Even if you assign some value to this variable, they are not reflected in the row names of the resultant dataframe. }
+  \item{stringsAsFactors}{ Columns of character vectors (= string vectors) that appear as left-hand-side(LHS) variables in 'DataSailr' scripts can be returned as either character vectors or factor vectors. If stringsAsFactors is set to FALSE(default), character columns are returned as character vectors. If stringsAsFactors is set to TRUE, character columns are returned as factor vectors. }
+}
+\value{
+  If fullData argument is set FALSE, return value is a data.frame. If fullData is TRUE, the result is created by cbind(), which concatenates the original input and newly created dataframe. For example, if the original input is 'data.table', the return value is 'data.table'.
+}
+\examples{
+library(datasailr)
+data(iris)
+
+iris_code = '
+iris_type = .
+if ( Species == "setosa" ) { 
+    type = 1
+    type_char = "A"
+}else if( Species == "versicolor" ) { 
+    type = 2
+    type_char = "B"
+}else if(Species == "virginica" ) { 
+    type = 3
+    type_char = "C"
+}
+'
+sail(iris, iris_code)
+}
+
+%File datasailr-package.Rd
+
+\name{datasailr-package}
+\alias{datasailr-package}
+\docType{package}
+\title{
+  Row by Row Data Processing Tool, Using 'DataSailr' Script
+}
+\description{
+  A row by row data processing tool. You can write data manipulation code in 'DataSailr' script which is specially intended for the data manipulation. The package uses 'libsailr' (C/C++ library) for its 'DataSailr' code parsing and its execution.
+}
+\details{
+  The main function, datasailr::sail(), takes dataframe as its 1st argument and 'DataSailr' script as its 2nd argument, and returns the processing results as dataframe. This package works with 'libsailr' library, which conducts arithmetic calculations and string/character manipulations following 'Sailr' script (which is a base version of 'DataSailr' script). 'DataSailr' package passes both 'DataSailr' script and values of each row of dataframe to the 'libsailr', and 'libsailr' processes those values of each row. The processing results are stored and are returned as dataframe.
+}
+\author{
+Toshi Umehara, toshi@niceume.com.
+Maintainer: Toshi Umehara <toshi@niceume.com>
+}
+\keyword{ package }
+\seealso{
+  \code{\link{sail}}.
+}
+\examples{
+library(datasailr)
+data(mtcars)
+
+code_example = 'powerful = .
+  if( 145 >= hp && hp > 0 ){
+    powerful = 0
+  }else if( hp > 145 ){
+    powerful = 1
+  }else{
+    powerful = 2
+  }
+
+  germany = re/(^Merc|^Porsche|^Volvo)/
+  japan = re/(^Mazda|^Honda|^Toyota)/
+
+  if ( _rowname_ =~  germany ) { 
+      country = "Germany" 
+  }else if( _rowname_ =~ japan ){
+      country = "Japan"
+  }else {
+      country = "Other"
+  }
+  company = rexp_matched(1)
+'
+
+sail(mtcars, code_example)
+}
+

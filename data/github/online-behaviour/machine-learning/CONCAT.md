@@ -653,3 +653,29 @@ The sections below outline the steps in each case.
 1. create the pull request, e.g. following the instructions [here](https://help.github.com/articles/creating-a-pull-request/).
 
 In case you feel like you've made a valuable contribution, but you don't know how to write or run tests for it, or how to generate the documentation: don't let this discourage you from making the pull request; we can help you! Just go ahead and submit the pull request, but keep in mind that you might be asked to append additional commits to your pull request.
+.. machine_learning documentation main file, created by
+  sphinx-quickstart on Thu Jun 21 11:07:11 2018.
+  You can adapt this file completely to your liking, but it should at least
+  contain the root `toctree` directive.
+
+Welcome to machine_learning's documentation!
+==========================================================
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Contents:
+
+API Reference
+=============
+
+.. toctree::
+  :maxdepth: 2
+
+  machine_learning <apidocs/machine_learning.rst>
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

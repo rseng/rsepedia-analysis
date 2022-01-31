@@ -783,4 +783,1223 @@ Run `cloud_details(, "iotables")` for more info
 |2  |dbplyr          |1.0.0   |        7.3|
 
 
-*Wow, no problems at all. :)*
+*Wow, no problems at all. :)*---
+output:
+  github_document:
+    html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+library(glue)
+```
+
+# glue <a href='https://glue.tidyverse.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
+
+<!-- badges: start -->
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/glue)](https://cran.r-project.org/package=glue)
+[![R-CMD-check](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/R-CMD-check.yaml)
+[![test-coverage](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/tidyverse/glue/actions/workflows/test-coverage.yaml)
+<!-- badges: end -->
+
+## Overview
+
+Glue offers interpreted string literals that are small, fast, and dependency-free.  Glue does this by embedding R expressions in curly braces which are then evaluated and inserted into the argument string. 
+
+## Installation
+
+::: .pkgdown-release
+```{r, eval = FALSE}
+# Install released version from CRAN
+install.packages("glue")
+```
+:::
+
+::: .pkgdown-devel
+```{r, eval = FALSE}
+# Install development version from GitHub
+devtools::install_github("tidyverse/glue")
+```
+:::
+
+## Usage
+
+##### Variables can be passed directly into strings.
+```{r}
+library(glue)
+name <- "Fred"
+glue('My name is {name}.')
+```
+
+Note that `glue::glue()` is also made available via `stringr::str_glue()`.
+So if you've already attached stringr (or perhaps the whole tidyverse), you can access `glue()` like so:
+
+```{r eval = FALSE}
+library(stringr) # or library(tidyverse)
+
+stringr_fcn <- "`stringr::str_glue()`"
+glue_fcn    <- "`glue::glue()`"
+
+str_glue('{stringr_fcn} is essentially an alias for {glue_fcn}.')
+#> `stringr::str_glue()` is essentially an alias for `glue::glue()`.
+```
+
+##### Long strings are broken by line and concatenated together.
+```{r}
+library(glue)
+
+name <- "Fred"
+age <- 50
+anniversary <- as.Date("1991-10-12")
+glue('My name is {name},',
+  ' my age next year is {age + 1},',
+  ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.')
+```
+
+##### Named arguments are used to assign temporary variables.
+```{r}
+glue('My name is {name},',
+  ' my age next year is {age + 1},',
+  ' my anniversary is {format(anniversary, "%A, %B %d, %Y")}.',
+  name = "Joe",
+  age = 40,
+  anniversary = as.Date("2001-10-12"))
+```
+
+##### `glue_data()` is useful with [magrittr](https://cran.r-project.org/package=magrittr) pipes.
+```{r}
+`%>%` <- magrittr::`%>%`
+head(mtcars) %>% glue_data("{rownames(.)} has {hp} hp")
+```
+
+##### Or within dplyr pipelines
+```{r, message = FALSE}
+library(dplyr)
+head(iris) %>%
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+```
+
+##### Leading whitespace and blank lines from the first and last lines are automatically trimmed.
+This lets you indent the strings naturally in code.
+```{r}
+glue("
+    A formatted string
+    Can have multiple lines
+      with additional indention preserved
+    ")
+```
+
+##### An additional newline can be used if you want a leading or trailing newline.
+```{r}
+glue("
+
+  leading or trailing newlines can be added explicitly
+
+  ")
+```
+
+##### `\\` at the end of a line continues it without a new line.
+```{r}
+glue("
+    A formatted string \\
+    can also be on a \\
+    single line
+    ")
+```
+
+##### A literal brace is inserted by using doubled braces.
+```{r}
+name <- "Fred"
+glue("My name is {name}, not {{name}}.")
+```
+
+##### Alternative delimiters can be specified with `.open` and `.close`.
+```{r}
+one <- "1"
+glue("The value of $e^{2\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
+```
+
+##### All valid R code works in expressions, including braces and escaping.
+Backslashes do need to be doubled just like in all R strings.
+```{r}
+  `foo}\`` <- "foo"
+glue("{
+      {
+        '}\\'' # { and } in comments, single quotes
+        \"}\\\"\" # or double quotes are ignored
+        `foo}\\`` # as are { in backticks
+      }
+  }")
+```
+
+##### `glue_sql()` makes constructing SQL statements safe and easy
+Use backticks to quote identifiers, normal strings and numbers are quoted
+appropriately for your backend.
+
+```{r}
+library(glue)
+
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+colnames(iris) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris)
+var <- "sepal_width"
+tbl <- "iris"
+num <- 2
+val <- "setosa"
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+# `glue_sql()` can be used in conjunction with parameterized queries using
+# `DBI::dbBind()` to provide protection for SQL Injection attacks
+ sql <- glue_sql("
+    SELECT {`var`}
+    FROM {`tbl`}
+    WHERE {`tbl`}.sepal_length > ?
+  ", .con = con)
+query <- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+DBI::dbClearResult(query)
+
+# `glue_sql()` can be used to build up more complex queries with
+# interchangeable sub queries. It returns `DBI::SQL()` objects which are
+# properly protected from quoting.
+sub_query <- glue_sql("
+  SELECT *
+  FROM {`tbl`}
+  ", .con = con)
+
+glue_sql("
+  SELECT s.{`var`}
+  FROM ({sub_query}) AS s
+  ", .con = con)
+
+# If you want to input multiple values for use in SQL IN statements put `*`
+# at the end of the value and the values will be collapsed and quoted appropriately.
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
+```
+
+##### Optionally combine strings with `+`
+
+```{r}
+x <- 1
+y <- 3
+glue("x + y") + " = {x + y}"
+```
+
+# Other implementations
+
+Some other implementations of string interpolation in R (although not using identical syntax).
+
+- [stringr::str_interp](https://stringr.tidyverse.org/reference/str_interp.html)
+- [R.utils::gstring](https://cran.r-project.org/package=R.utils)
+- [rprintf](https://cran.r-project.org/package=rprintf)
+
+String templating is closely related to string interpolation, although not
+exactly the same concept. Some packages implementing string templating in R
+include.
+
+- [whisker](https://cran.r-project.org/package=whisker)
+- [brew](https://cran.r-project.org/package=brew)
+
+## Code of Conduct
+
+Please note that the glue project is released with a [Contributor Code of Conduct](https://glue.tidyverse.org/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+---
+title: "glue custom knitr language engines"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{glue custom knitr language engines}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(glue)
+```
+
+Glue provides a few [custom language engines](https://bookdown.org/yihui/rmarkdown-cookbook/custom-engine.html#custom-engine) for knitr, which allows you to use glue directly in knitr chunks.
+
+## `glue` engine
+
+The first engine is the `glue` engine, which evaluates the chunk contents as a glue template.
+
+```{glue}
+1 + 1 = {1 + 1}
+```
+
+Maybe the most useful use of the `glue` engine is to set the knitr option `results = 'asis'` and output markdown or HTML directly into the document.
+
+````markdown
+`r '' ````{glue, results = 'asis', echo = FALSE}
+#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+```
+````
+
+```{glue, results = 'asis', echo = FALSE}
+#### mtcars has **{nrow(mtcars)} rows** and _{ncol(mtcars)} columns_.
+```
+
+If you want to pass additional arguments into the glue call, simply include them as chunk options.
+
+````markdown
+`r '' ````{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
+```
+````
+
+```{glue, .open = "<<", .close = ">>", results = 'asis', echo = FALSE}
+The **median waiting time** between eruptions is <<median(faithful$waiting)>>.
+```
+
+## `glue_sql` engine
+
+The second engine is `glue_sql`, which will use `glue::glue_sql()` to generate a SQL query and then run the query using the [sql engine](https://bookdown.org/yihui/rmarkdown/language-engines.html#sql).
+
+First we create a new connection to an in-memory SQLite database, and write a new table to it.
+```{r}
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+mtcars$model <- rownames(mtcars)
+DBI::dbWriteTable(con, "mtcars", mtcars)
+```
+
+Next define some variables we that we can use with glue to interpolate.
+```{r}
+var <- "mpg"
+tbl <- "mtcars"
+num <- 150
+```
+
+Then we can use `glue_sql` to construct and run a query using those variables into that database. *Note* you need to provide the connection object as a `connection` chunk option.
+
+In this example there are two type of quotes. The first is a bare backtick, these are passed directly to the SQL engine unchanged.
+The second is backticks inside of braces, which are specially interpreted to do the proper quoting for the given SQL engine by glue.
+In this example we use the `sqlite` engine, which uses backticks for quoting, but you would use the same backticks inside brace syntax for postgreSQL, and `glue_sql()` would automatically use double quotes for quoting instead.
+
+````markdown
+`r '' ````{glue_sql, connection = con}
+SELECT `model`, `hp`, {`var`}
+FROM {`tbl`}
+WHERE {`tbl`}.hp > {num}
+```
+````
+
+```{glue_sql, connection = con}
+SELECT `model`, `hp`, {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.hp > {num}
+```
+---
+title: "Speed of glue"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Speed of glue}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{R.utils
+    R.utils,
+    forcats,
+    microbenchmark,
+    rprintf,
+    stringr,
+    ggplot2}
+---
+
+Glue is advertised as
+
+> Fast, dependency free string literals
+
+So what do we mean when we say that glue is fast? This does not mean glue is
+the fastest thing to use in all cases, however for the features it provides we
+can confidently say it is fast.
+
+A good way to determine this is to compare it's speed of execution to some alternatives.
+
+- `base::paste0()`, `base::sprintf()` - Functions in base R implemented in C
+  that provide variable insertion (but not interpolation).
+- `R.utils::gstring()`, `stringr::str_interp()` - Provides a similar interface
+  as glue, but using `${}` to delimit blocks to interpolate.
+- `pystr::pystr_format()`[^1], `rprintf::rprintf()` - Provide a interfaces similar
+  to python string formatters with variable replacement, but not arbitrary
+  interpolation.
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE, comment = "#>",
+  eval = as.logical(Sys.getenv("EVAL_VIGNETTES", "FALSE")),
+  cache = FALSE)
+library(glue)
+```
+
+```{r setup2, include = FALSE}
+plot_comparison <- function(x, ...) {
+  library(ggplot2)
+  library(microbenchmark)
+  x$expr <- forcats::fct_reorder(x$expr, x$time)
+  colors <- ifelse(levels(x$expr) == "glue", "orange", "grey")
+  autoplot(x, ...) +
+    theme(axis.text.y = element_text(color = colors)) +
+      aes(fill = expr) + scale_fill_manual(values = colors, guide = FALSE)
+}
+```
+
+## Simple concatenation
+
+```{r, message = FALSE}
+bar <- "baz"
+
+simple <-
+  microbenchmark::microbenchmark(
+  glue = glue::glue("foo{bar}"),
+  gstring = R.utils::gstring("foo${bar}"),
+  paste0 = paste0("foo", bar),
+  sprintf = sprintf("foo%s", bar),
+  str_interp = stringr::str_interp("foo${bar}"),
+  rprintf = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+print(unit = "eps", order = "median", signif = 4, simple)
+
+plot_comparison(simple)
+```
+
+While `glue()` is slower than `paste0`,`sprintf()` it is
+twice as fast as `str_interp()` and `gstring()`, and on par with `rprintf()`.
+
+Although `paste0()`, `sprintf()` don't do string interpolation and will likely always be
+significantly faster than glue, glue was never meant to be a direct replacement
+for them.
+
+`rprintf()` does only variable interpolation, not arbitrary expressions, which
+was one of the explicit goals of writing glue.
+
+So glue is ~2x as fast as the two functions (`str_interp()`, `gstring()`), which do have
+roughly equivalent functionality.
+
+It also is still quite fast, with over 6000 evaluations per second on this machine.
+
+## Vectorized performance
+
+Taking advantage of glue's vectorization is the best way to avoid performance.
+For instance the vectorized form of the previous benchmark is able to generate
+100,000 strings in only 22ms with performance much closer to that of
+`paste0()` and `sprintf()`. NB: `str_interp()` does not support
+vectorization, and so was removed.
+
+```{r, message = FALSE}
+bar <- rep("bar", 1e5)
+
+vectorized <-
+  microbenchmark::microbenchmark(
+  glue = glue::glue("foo{bar}"),
+  gstring = R.utils::gstring("foo${bar}"),
+  paste0 = paste0("foo", bar),
+  sprintf = sprintf("foo%s", bar),
+  rprintf = rprintf::rprintf("foo$bar", bar = bar)
+)
+
+print(unit = "ms", order = "median", signif = 4, vectorized)
+
+plot_comparison(vectorized, log = FALSE)
+```
+
+[^1]: pystr is no longer available from CRAN due to failure to correct
+installation errors and was therefore removed from further testing.
+---
+title: "Transformers"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Transformers}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Transformers allow you to apply functions to the glue input and output, before
+and after evaluation. This allows you to write things like `glue_sql()`, which
+automatically quotes variables for you or add a syntax for automatically
+collapsing outputs.
+
+The transformer functions simply take two arguments `text` and `envir`, where
+`text` is the unparsed string inside the glue block and `envir` is the
+execution environment. Most transformers will then call `eval(parse(text = text,
+keep.source = FALSE), envir)` which parses and evaluates the code.
+
+You can then supply the transformer function to glue with the `.transformer`
+argument. In this way users can manipulate the text before parsing and
+change the output after evaluation.
+
+It is often useful to write a `glue()` wrapper function which supplies a
+`.transformer` to `glue()` or `glue_data()` and potentially has additional
+arguments. One important consideration when doing this is to include
+`.envir = parent.frame()` in the wrapper to ensure the evaluation environment
+is correct.
+
+Some example implementations of potentially useful transformers follow. The
+aim right now is not to include most of these custom functions within the
+`glue` package. Rather, users are encouraged to create custom functions using
+transformers to fit their individual needs.
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+library(glue)
+```
+
+### collapse transformer
+
+A transformer which automatically collapses any glue block ending with `*`.
+
+```{r}
+collapse_transformer <- function(regex = "[*]$", ...) {
+  function(text, envir) {
+    collapse <- grepl(regex, text)
+    if (collapse) {
+      text <- sub(regex, "", text)
+    }
+    res <- identity_transformer(text, envir)
+    if (collapse) {
+      glue_collapse(res, ...)  
+    } else {
+      res
+    }
+  }
+}
+
+glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", "))
+
+glue("{1:5*}\n{letters[1:5]*}", .transformer = collapse_transformer(sep = ", ", last = " and "))
+
+x <- c("one", "two")
+glue("{x}: {1:5*}", .transformer = collapse_transformer(sep = ", "))
+```
+
+### Shell quoting transformer
+
+A transformer which automatically quotes variables for use in shell commands,
+e.g. via `system()` or `system2()`.
+
+```{r}
+shell_transformer <- function(type = c("sh", "csh", "cmd", "cmd2")) {
+  type <- match.arg(type)
+  function(text, envir) {
+    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    shQuote(res)
+  }
+}
+
+glue_sh <- function(..., .envir = parent.frame(), .type = c("sh", "csh", "cmd", "cmd2")) {
+  .type <- match.arg(.type)
+  glue(..., .envir = .envir, .transformer = shell_transformer(.type))
+
+}
+
+filename <- "test"
+writeLines(con = filename, "hello!")
+
+command <- glue_sh("cat {filename}")
+command
+system(command)
+```
+
+```{r include = FALSE}
+if (file.exists("test")) {
+  unlink("test")
+}
+```
+
+### emoji transformer
+
+A transformer which converts the text to the equivalent emoji.
+
+```{r, eval = require("emo")}
+emoji_transformer <- function(text, envir) {
+  if (grepl("[*]$", text)) {
+    text <- sub("[*]$", "", text)
+    glue_collapse(ji_find(text)$emoji)
+  } else {
+    ji(text)
+  }
+}
+
+glue_ji <- function(..., .envir = parent.frame()) {
+  glue(..., .open = ":", .close = ":", .envir = .envir, .transformer = emoji_transformer)
+}
+glue_ji("one :heart:")
+glue_ji("many :heart*:")
+```
+
+### sprintf transformer
+
+A transformer which allows succinct sprintf format strings.
+
+```{r}
+sprintf_transformer <- function(text, envir) {
+  m <- regexpr(":.+$", text)
+  if (m != -1) {
+    format <- substring(regmatches(text, m), 2)
+    regmatches(text, m) <- ""
+    res <- eval(parse(text = text, keep.source = FALSE), envir)
+    do.call(sprintf, list(glue("%{format}"), res))
+  } else {
+    eval(parse(text = text, keep.source = FALSE), envir)
+  }
+}
+
+glue_fmt <- function(..., .envir = parent.frame()) {
+  glue(..., .transformer = sprintf_transformer, .envir = .envir)
+}
+glue_fmt("π = {pi:.3f}")
+```
+
+### safely transformer
+
+A transformer that acts like `purrr::safely()`, which returns a value instead of an error.
+
+```{r}
+safely_transformer <- function(otherwise = NA) {
+  function(text, envir) {
+    tryCatch(
+      eval(parse(text = text, keep.source = FALSE), envir),
+      error = function(e) if (is.language(otherwise)) eval(otherwise) else otherwise)
+  }
+}
+
+glue_safely <- function(..., .otherwise = NA, .envir = parent.frame()) {
+  glue(..., .transformer = safely_transformer(.otherwise), .envir = .envir)
+}
+
+# Default returns missing if there is an error
+glue_safely("foo: {xyz}")
+
+# Or an empty string
+glue_safely("foo: {xyz}", .otherwise = "Error")
+
+# Or output the error message in red
+library(crayon)
+glue_safely("foo: {xyz}", .otherwise = quote(glue("{red}Error: {conditionMessage(e)}{reset}")))
+```
+
+### "Variables and Values" transformer
+
+A transformer that expands input of the form `{var_name=}` into `var_name = var_value`, i.e. a shorthand for exposing variable names with their values. This is inspired by an [f-strings feature coming in Python 3.8](https://docs.python.org/3.8/whatsnew/3.8.html#f-strings-now-support-for-quick-and-easy-debugging). It's actually more general: you can use it with an expression input such as `{expr=}`.
+
+```{r}
+vv_transformer <- function(text, envir) {
+  regex <- "=$"
+  if (!grepl(regex, text)) {
+    return(identity_transformer(text, envir))
+  }
+
+  text <- sub(regex, "", text)
+  res <- identity_transformer(text, envir)
+  n <- length(res)
+  res <- glue_collapse(res, sep = ", ")
+  if (n > 1) {
+    res <- c("[", res, "]")
+  }
+  glue_collapse(c(text, " = ", res))
+}
+```
+
+```{r}
+set.seed(1234)
+description <- "some random"
+numbers <- sample(100, 4)
+average <- mean(numbers)
+sum <- sum(numbers)
+
+glue("For {description} {numbers=}, {average=}, {sum=}.", .transformer = vv_transformer)
+
+a <- 3
+b <- 5.6
+glue("{a=}\n{b=}\n{a * 9 + b * 2=}", .transformer = vv_transformer)
+```
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/safe.R
+\name{glue_safe}
+\alias{glue_safe}
+\alias{glue_data_safe}
+\title{Safely interpolate strings}
+\usage{
+glue_safe(..., .envir = parent.frame())
+
+glue_data_safe(.x, ..., .envir = parent.frame())
+}
+\arguments{
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
+
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
+}
+\description{
+\code{glue_safe()} and \code{glue_data_safe()} differ from \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}}
+in that the safe versions only look up symbols from an environment using
+\code{\link[=get]{get()}}. They do not execute any R code. This makes them suitable for use
+with untrusted input, such as inputs in a Shiny application, where using the
+normal functions would allow an attacker to execute arbitrary code.
+}
+\examples{
+"1 + 1" <- 5
+# glue actually executes the code
+glue("{1 + 1}")
+
+# glue_safe just looks up the value
+glue_safe("{1 + 1}")
+
+rm("1 + 1")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/transformer.R
+\name{identity_transformer}
+\alias{identity_transformer}
+\title{Parse and Evaluate R code}
+\usage{
+identity_transformer(text, envir)
+}
+\arguments{
+\item{text}{Text (typically) R code to parse and evaluate.}
+
+\item{envir}{environment to evaluate the code in}
+}
+\description{
+This is a simple wrapper around \code{eval(parse())}, used as the default
+transformer.
+}
+\seealso{
+\code{vignette("transformers", "glue")} for documentation on creating
+custom glue transformers and some common use cases.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/glue.R, R/sql.R
+\name{glue_collapse}
+\alias{glue_collapse}
+\alias{glue_sql_collapse}
+\title{Collapse a character vector}
+\usage{
+glue_collapse(x, sep = "", width = Inf, last = "")
+
+glue_sql_collapse(x, sep = "", width = Inf, last = "")
+}
+\arguments{
+\item{x}{The character vector to collapse.}
+
+\item{sep}{a character string to separate the terms.  Not
+    \code{\link[base]{NA_character_}}.}
+
+\item{width}{The maximum string width before truncating with \code{...}.}
+
+\item{last}{String used to separate the last two items if \code{x} has at least
+2 items.}
+}
+\description{
+\code{glue_collapse()} collapses a character vector of any length into a length 1 vector.
+\code{glue_sql_collapse()} does the same but returns a \verb{[DBI::SQL()]}
+object rather than a glue object.
+}
+\examples{
+glue_collapse(glue("{1:10}"))
+
+# Wide values can be truncated
+glue_collapse(glue("{1:10}"), width = 5)
+
+glue_collapse(1:4, ", ", last = " and ")
+#> 1, 2, 3 and 4
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/glue.R
+\name{trim}
+\alias{trim}
+\title{Trim a character vector}
+\usage{
+trim(x)
+}
+\arguments{
+\item{x}{A character vector to trim.}
+}
+\description{
+This trims a character vector according to the trimming rules used by glue.
+These follow similar rules to \href{https://www.python.org/dev/peps/pep-0257/}{Python Docstrings},
+with the following features.
+\itemize{
+\item Leading and trailing whitespace from the first and last lines is removed.
+\item A uniform amount of indentation is stripped from the second line on, equal
+to the minimum indentation of all non-blank lines after the first.
+\item Lines can be continued across newlines by using \verb{\\\\}.
+}
+}
+\examples{
+glue("
+    A formatted string
+    Can have multiple lines
+      with additional indention preserved
+    ")
+
+glue("
+  \ntrailing or leading newlines can be added explicitly\n
+  ")
+
+glue("
+    A formatted string \\\\
+    can also be on a \\\\
+    single line
+    ")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/glue.R
+\name{glue-deprecated}
+\alias{glue-deprecated}
+\title{Deprecated Functions}
+\description{
+These functions are Deprecated in this release of glue, they will be removed
+in a future version.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/color.R
+\name{glue_col}
+\alias{glue_col}
+\alias{glue_data_col}
+\title{Construct strings with color}
+\usage{
+glue_col(..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
+
+glue_data_col(.x, ..., .envir = parent.frame(), .na = "NA", .literal = FALSE)
+}
+\arguments{
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
+
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
+
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
+}
+\description{
+The \link[crayon:crayon]{crayon} package defines a number of functions used to
+color terminal output. \code{glue_col()} and \code{glue_data_col()} functions provide
+additional syntax to make using these functions in glue strings easier.
+
+Using the following syntax will apply the function \code{\link[crayon:crayon]{crayon::blue()}} to the text 'foo bar'.\preformatted{\{blue foo bar\}
+}
+
+If you want an expression to be evaluated, simply place that in a normal brace
+expression (these can be nested).\preformatted{\{blue 1 + 1 = \{1 + 1\}\}
+}
+
+If the text you want to color contains, e.g., an unpaired quote or a comment
+character, specify \code{.literal = TRUE}.
+}
+\examples{
+\dontshow{if (require(crayon)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+library(crayon)
+
+glue_col("{blue foo bar}")
+
+glue_col("{blue 1 + 1 = {1 + 1}}")
+
+glue_col("{blue 2 + 2 = {green {2 + 2}}}")
+
+white_on_black <- bgBlack $ white
+glue_col("{white_on_black
+  Roses are {red {colors()[[552]]}},
+  Violets are {blue {colors()[[26]]}},
+  `glue_col()` can show \\\\
+  {red c}{yellow o}{green l}{cyan o}{blue r}{magenta s}
+  and {bold bold} and {underline underline} too!
+}")
+
+# this would error due to an unterminated quote, if we did not specify
+# `.literal = TRUE`
+glue_col("{yellow It's} happening!", .literal = TRUE)
+
+# `.literal = TRUE` also prevents an error here due to the `#` comment
+glue_col(
+  "A URL: {magenta https://github.com/tidyverse/glue#readme}",
+  .literal = TRUE
+)
+
+# `.literal = TRUE` does NOT prevent evaluation
+x <- "world"
+y <- "day"
+glue_col("hello {x}! {green it's a new {y}!}", .literal = TRUE)
+\dontshow{\}) # examplesIf}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/glue.R
+\name{glue}
+\alias{glue}
+\alias{glue_data}
+\title{Format and interpolate a string}
+\usage{
+glue_data(
+  .x,
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+)
+
+glue(
+  ...,
+  .sep = "",
+  .envir = parent.frame(),
+  .open = "{",
+  .close = "}",
+  .na = "NA",
+  .null = character(),
+  .comment = "#",
+  .literal = FALSE,
+  .transformer = identity_transformer,
+  .trim = TRUE
+)
+}
+\arguments{
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
+
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
+
+\item{.sep}{[\code{character(1)}: \sQuote{""}]\cr Separator used to separate elements.}
+
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+
+\item{.open}{[\code{character(1)}: \sQuote{\\\{}]\cr The opening delimiter. Doubling the
+full delimiter escapes it.}
+
+\item{.close}{[\code{character(1)}: \sQuote{\\\}}]\cr The closing delimiter. Doubling the
+full delimiter escapes it.}
+
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+
+\item{.null}{[\code{character(1)}: \sQuote{character()}]\cr Value to replace
+NULL values with. If \code{character()} whole output is \code{character()}. If
+\code{NULL} all NULL values are dropped (as in \code{paste0()}). Otherwise the
+value is replaced by the value of \code{.null}.}
+
+\item{.comment}{[\code{character(1)}: \sQuote{#}]\cr Value to use as the comment
+character.}
+
+\item{.literal}{[\code{boolean(1)}: \sQuote{FALSE}]\cr Whether to treat single or
+double quotes, backticks, and comments as regular characters (vs. as
+syntactic elements), when parsing the expression string. Setting \code{.literal = TRUE} probably only makes sense in combination with a custom
+\code{.transformer}, as is the case with \code{glue_col()}. Regard this argument
+(especially, its name) as experimental.}
+
+\item{.transformer}{[\verb{function]}\cr A function taking three parameters \code{code}, \code{envir} and
+\code{data} used to transform the output of each block before, during, or after
+evaluation. For example transformers see \code{vignette("transformers")}.}
+
+\item{.trim}{[\code{logical(1)}: \sQuote{TRUE}]\cr Whether to trim the input
+template with \code{\link[=trim]{trim()}} or not.}
+}
+\description{
+Expressions enclosed by braces will be evaluated as R code. Long strings are
+broken by line and concatenated together. Leading whitespace and blank lines
+from the first and last lines are automatically trimmed.
+}
+\examples{
+name <- "Fred"
+age <- 50
+anniversary <- as.Date("1991-10-12")
+glue('My name is {name},',
+  'my age next year is {age + 1},',
+  'my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.')
+
+# single braces can be inserted by doubling them
+glue("My name is {name}, not {{name}}.")
+
+# Named arguments can be used to assign temporary variables.
+glue('My name is {name},',
+  ' my age next year is {age + 1},',
+  ' my anniversary is {format(anniversary, "\%A, \%B \%d, \%Y")}.',
+  name = "Joe",
+  age = 40,
+  anniversary = as.Date("2001-10-12"))
+
+# `glue()` can also be used in user defined functions
+intro <- function(name, profession, country){
+  glue("My name is {name}, a {profession}, from {country}")
+}
+intro("Shelmith", "Senior Data Analyst", "Kenya")
+intro("Cate", "Data Scientist", "Kenya")
+
+# `glue_data()` is useful in magrittr pipes
+if (require(magrittr)) {
+
+mtcars \%>\% glue_data("{rownames(.)} has {hp} hp")
+
+# Or within dplyr pipelines
+if (require(dplyr)) {
+
+head(iris) \%>\%
+  mutate(description = glue("This {Species} has a petal length of {Petal.Length}"))
+
+}}
+
+# Alternative delimiters can also be used if needed
+one <- "1"
+glue("The value of $e^{2\\\\pi i}$ is $<<one>>$.", .open = "<<", .close = ">>")
+}
+\seealso{
+\url{https://www.python.org/dev/peps/pep-0498/} and
+\url{https://www.python.org/dev/peps/pep-0257/} upon which this is based.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/sql.R
+\name{glue_sql}
+\alias{glue_sql}
+\alias{glue_data_sql}
+\title{Interpolate strings with SQL escaping}
+\usage{
+glue_sql(..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
+
+glue_data_sql(.x, ..., .con, .envir = parent.frame(), .na = DBI::SQL("NULL"))
+}
+\arguments{
+\item{...}{[\code{expressions}]\cr Unnamed arguments are taken to be expression
+string(s) to format. Multiple inputs are concatenated together before formatting.
+Named arguments are taken to be temporary variables available for substitution.}
+
+\item{.con}{[\code{DBIConnection}]: A DBI connection object obtained from
+\code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
+
+\item{.envir}{[\code{environment}: \code{parent.frame()}]\cr Environment to evaluate each expression in. Expressions are
+evaluated from left to right. If \code{.x} is an environment, the expressions are
+evaluated in that environment and \code{.envir} is ignored. If \code{NULL} is passed, it is equivalent to \code{\link[=emptyenv]{emptyenv()}}.}
+
+\item{.na}{[\code{character(1)}: \sQuote{NA}]\cr Value to replace \code{NA} values
+with. If \code{NULL} missing values are propagated, that is an \code{NA} result will
+cause \code{NA} output. Otherwise the value is replaced by the value of \code{.na}.}
+
+\item{.x}{[\code{listish}]\cr An environment, list, or data frame used to lookup values.}
+}
+\value{
+A \code{\link[DBI:SQL]{DBI::SQL()}} object with the given query.
+}
+\description{
+SQL databases often have custom quotation syntax for identifiers and strings
+which make writing SQL queries error prone and cumbersome to do. \code{glue_sql()} and
+\code{glue_data_sql()} are analogs to \code{\link[=glue]{glue()}} and \code{\link[=glue_data]{glue_data()}} which handle the
+SQL quoting. \code{glue_sql_collapse()} can be used to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
+}
+\details{
+They automatically quote character results, quote identifiers if the glue
+expression is surrounded by backticks '\verb{`}' and do not quote
+non-characters such as numbers. If numeric data is stored in a character
+column (which should be quoted) pass the data to \code{glue_sql()} as a
+character.
+
+Returning the result with \code{\link[DBI:SQL]{DBI::SQL()}} will suppress quoting if desired for
+a given value.
+
+Note \href{https://db.rstudio.com/best-practices/run-queries-safely#parameterized-queries}{parameterized queries}
+are generally the safest and most efficient way to pass user defined
+values in a query, however not every database driver supports them.
+
+If you place a \code{*} at the end of a glue expression the values will be
+collapsed with commas. This is useful for the \href{https://www.w3schools.com/sql/sql_in.asp}{SQL IN Operator}
+for instance.
+}
+\examples{
+\dontshow{if (requireNamespace("DBI", quietly = TRUE) && requireNamespace("RSQLite", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+con <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
+iris2 <- iris
+colnames(iris2) <- gsub("[.]", "_", tolower(colnames(iris)))
+DBI::dbWriteTable(con, "iris", iris2)
+var <- "sepal_width"
+tbl <- "iris"
+num <- 2
+val <- "setosa"
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {num}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+# If sepal_length is store on the database as a character explicitly convert
+# the data to character to quote appropriately.
+glue_sql("
+  SELECT {`var`}
+  FROM {`tbl`}
+  WHERE {`tbl`}.sepal_length > {as.character(num)}
+    AND {`tbl`}.species = {val}
+  ", .con = con)
+
+
+# `glue_sql()` can be used in conjuction with parameterized queries using
+# `DBI::dbBind()` to provide protection for SQL Injection attacks
+ sql <- glue_sql("
+    SELECT {`var`}
+    FROM {`tbl`}
+    WHERE {`tbl`}.sepal_length > ?
+  ", .con = con)
+query <- DBI::dbSendQuery(con, sql)
+DBI::dbBind(query, list(num))
+DBI::dbFetch(query, n = 4)
+DBI::dbClearResult(query)
+
+# `glue_sql()` can be used to build up more complex queries with
+# interchangeable sub queries. It returns `DBI::SQL()` objects which are
+# properly protected from quoting.
+sub_query <- glue_sql("
+  SELECT *
+  FROM {`tbl`}
+  ", .con = con)
+
+glue_sql("
+  SELECT s.{`var`}
+  FROM ({sub_query}) AS s
+  ", .con = con)
+
+# If you want to input multiple values for use in SQL IN statements put `*`
+# at the end of the value and the values will be collapsed and quoted appropriately.
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE sepal_length IN ({vals*})",
+  vals = 1:5, .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = "setosa", .con = con)
+
+glue_sql("SELECT * FROM {`tbl`} WHERE species IN ({vals*})",
+  vals = c("setosa", "versicolor"), .con = con)
+
+# If you need to reference variables from multiple tables use `DBI::Id()`.
+# Here we create a new table of nicknames, join the two tables together and
+# select columns from both tables. Using `DBI::Id()` and the special
+# `glue_sql()` syntax ensures all the table and column identifiers are quoted
+# appropriately.
+
+iris_db <- "iris"
+nicknames_db <- "nicknames"
+
+nicknames <- data.frame(
+  species = c("setosa", "versicolor", "virginica"),
+  nickname = c("Beachhead Iris", "Harlequin Blueflag", "Virginia Iris"),
+  stringsAsFactors = FALSE
+)
+
+DBI::dbWriteTable(con, nicknames_db, nicknames)
+
+cols <- list(
+  DBI::Id(table = iris_db, column = "sepal_length"),
+  DBI::Id(table = iris_db, column = "sepal_width"),
+  DBI::Id(table = nicknames_db, column = "nickname")
+)
+
+iris_species <- DBI::Id(table = iris_db, column = "species")
+nicknames_species <- DBI::Id(table = nicknames_db, column = "species")
+
+query <- glue_sql("
+  SELECT {`cols`*}
+  FROM {`iris_db`}
+  JOIN {`nicknames_db`}
+  ON {`iris_species`}={`nicknames_species`}",
+  .con = con
+)
+query
+
+DBI::dbGetQuery(con, query, n = 5)
+
+DBI::dbDisconnect(con)
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=glue_sql_collapse]{glue_sql_collapse()}} to collapse \code{\link[DBI:SQL]{DBI::SQL()}} objects.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/glue.R
+\name{as_glue}
+\alias{as_glue}
+\title{Coerce object to glue}
+\usage{
+as_glue(x, ...)
+}
+\arguments{
+\item{x}{object to be coerced.}
+
+\item{...}{further arguments passed to methods.}
+}
+\description{
+Coerce object to glue
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/quoting.R
+\name{quoting}
+\alias{quoting}
+\alias{single_quote}
+\alias{double_quote}
+\alias{backtick}
+\title{Quoting operators}
+\usage{
+single_quote(x)
+
+double_quote(x)
+
+backtick(x)
+}
+\arguments{
+\item{x}{A character to quote.}
+}
+\description{
+These functions make it easy to quote each individual element and are useful
+in conjunction with \code{\link[=glue_collapse]{glue_collapse()}}.
+}
+\examples{
+x <- 1:5
+glue('Values of x: {glue_collapse(backtick(x), sep = ", ", last = " and ")}')
+}

@@ -1868,3 +1868,620 @@ axes[1].set_ylim(-110, 110)
 
 plt.tight_layout()
 ```
+0.5.1 (2021-06-21)
+++++++++++++++++++
+
+- Adds support for testing using tox (`#197 <https://github.com/exoplanet-dev/exoplanet/pull/197>`_)
+- Updates documentation, tutorials, and case studies for JOSS review (`#186 <https://github.com/exoplanet-dev/exoplanet/pull/186>`_ and `#200 <https://github.com/exoplanet-dev/exoplanet/pull/200>`_)
+
+
+0.5.0 (2021-05-04)
+++++++++++++++++++
+
+- Adds high-level, pure-Theano/Aesara implementation of ``RegularGridInterpolator`` to replace compiled version (`#167 <https://github.com/exoplanet-dev/exoplanet/pull/167>`_)
+- Moves compiled Ops to `exoplanet-core <https://github.com/exoplanet-dev/exoplanet-core>`_ making exoplanet a pure-Python package (`#171 <https://github.com/exoplanet-dev/exoplanet/pull/171>`_)
+- Moves `ReboundOp` and `ReboundOrbit` to `rebound-pymc3 <https://github.com/exoplanet-dev/rebound-pymc3>`_ (`#166 <https://github.com/exoplanet-dev/exoplanet/pull/166>`_)
+- Removes deprecated submodules (``gp``, ``optimize``, and ``sampling``) and base distributions (e.g. ``xo.Angle``) (`#165 <https://github.com/exoplanet-dev/exoplanet/pull/165>`_)
+
+
+0.4.5 (2021-03-15)
+++++++++++++++++++
+
+- Adds support for recent versions of PyMC3 built on Aesara (`#150 <https://github.com/exoplanet-dev/exoplanet/pull/150>`_)
+- Fixes bug in `SimpleTransitOrbit` contact point calculation (`#148 <https://github.com/exoplanet-dev/exoplanet/pull/148>`_)
+
+
+0.4.4 (2021-01-04)
+++++++++++++++++++
+
+- Adds support for relativistic orbits using REBOUNDx (`#98 <https://github.com/exoplanet-dev/exoplanet/pull/98>`_)
+
+
+0.4.3 (2020-12-08)
+++++++++++++++++++
+
+- Adds support for PyMC3 v3.10 and Theano-pymc
+
+
+0.4.2 (2020-11-15)
+++++++++++++++++++
+
+- Fixes issue with automatic execution of tutorials
+
+
+0.4.1 (2020-11-15)
+++++++++++++++++++
+
+- Fixes pickling error when sampling in parallel (`#120 <https://github.com/exoplanet-dev/exoplanet/pull/120>`_)
+
+
+0.4.0 (2020-10-05)
+++++++++++++++++++
+
+- Adds faster solver for Kepler's equation
+- Improves automation of documentation and release process
+- Removes most C++ Ops and replaces them with pre-compiled functions which allows the distribution of binary wheels
+- Removes ``gp`` submodule; moved to new `celerite2 <https://celerite2.readthedocs.io>`_ package
+- Deprecates some non-exoplanet-specific functions and distributions; moved to `pymc3-ext <https://github.com/exoplanet-dev/pymc3-ext>`_ package
+
+
+0.3.3 (2020-09-09)
+++++++++++++++++++
+
+- Fixes compatibility with PyMC3 version 3.9
+
+
+0.3.2 (2020-05-04)
+++++++++++++++++++
+
+- Fixes a documentation bug introduced in v0.3.1
+
+
+0.3.1 (2020-05-04)
+++++++++++++++++++
+
+- Adds support for light travel time when computing positions in Keplerian orbits
+- Adds ``SecondaryEclipseLightCurve`` for modeling eclipsing binaries
+- Adds ``UnitDisk`` distribution for fitting eccentricity vectors
+
+
+0.3.0 (2020-04-03)
+++++++++++++++++++
+
+- Adds tests and support for Windows
+- Adds a "Jacobian" interface to the orbit objects for reparameterization
+
+
+0.2.6 (2020-03-23)
+++++++++++++++++++
+
+- Adds support for fitting circular orbits with duration
+- Adds a ``bls_estimator`` for transit search using Astropy's ``BoxLeastSquares``
+
+
+0.2.5 (2020-03-11)
+++++++++++++++++++
+
+- Improves infrastructure for generating documentation
+- Adds an ``EclipsingBinaryLightCurve`` for building binary star models
+- Adds ``DensityDist`` implementation for celerite GP likelihoods
+
+
+0.2.4 (2019-12-30)
+++++++++++++++++++
+
+- Makes ``rebound`` an optional dependency
+
+
+0.2.3 (2019-11-12)
+++++++++++++++++++
+
+- Adds ``ConditionalMeanOp`` and ``DotLOp`` for scalable conditional mean calculation
+  and prior sampling with celerite
+- Adds developer documentation
+- Moves documentation to a separate repository
+
+
+0.2.2 (2019-10-25)
+++++++++++++++++++
+
+- Adds ``TTVOrbit`` tutorial
+- Switches tutorials to `lightkurve <https://docs.lightkurve.org>`_ for data access
+- Improves packaging and code style features
+- Fixes bugs and improves interface to ``TTVOrbit``
+
+
+0.2.1 (2019-09-26)
+++++++++++++++++++
+
+- Adds a new interface for tuning dense mass matrices with less overhead
+- Adds support for photodynamics using `rebound <https://rebound.rtfd.io>`_
+- Adds a new interface for assigning units to Theano variables
+- Adds new physically-motivated distributions for impact parameter and
+  eccentricity
+- Improves test coverage
+- Fixes bug in diagonal elements of the ``IntegratedTerm`` model
+- Fixes bug in indexing for ``TTVOrbit`` models with large TTVs
+
+
+0.2.0 (2019-08-04)
+++++++++++++++++++
+
+- Updates ``starry`` to get much better performance for high order spherical
+  harmonics
+- Renames ``StarryLightCurve`` to ``LimbDarkLightCurve``
+- Restructures the C++ backend to reduce code duplication
+- Adds support for fitting of astrometric observations
+- Adds support for exposure time integration in ``celerite`` models
+- Adds new distributions for periodic parameters and U(0, 1).
+- Fixes many small bugs
+
+
+0.1.6 (2019-04-24)
+++++++++++++++++++
+
+- Fixes some edge case failures for Kepler solver
+- Improves reliability of contact point solver and fails (more) gracefully
+  when this doesn't work; this reduces the number of divergences when fitting
+  a transit model
+
+
+0.1.5 (2019-03-07)
+++++++++++++++++++
+
+- Improves contact point solver using companion matrix to solve quadratic
+- Improves reliability of ``Angle`` distribution when the value of the angle
+  is well constrained
+
+
+0.1.4 (2019-02-10)
+++++++++++++++++++
+
+- Improves the reliability of the PyMC3Sampler
+- Adds a new ``optimize`` function since the ``find_MAP`` method
+  in PyMC3 is deprecated
+- Adds cronjob script for automatically updating tutorials.
+
+
+0.1.3 (2019-01-09)
+++++++++++++++++++
+
+- Adds a more robust and faster Kepler solver (`ref
+  <http://adsabs.harvard.edu/abs/1991CeMDA..51..319N>`_)
+- Fixes minor behavioral bugs in PyMC3 sampler wrapper
+
+
+0.1.2 (2018-12-13)
+++++++++++++++++++
+
+- Adds regular grid interpolation Op for Theano
+- Fixes major bug in handling of the stellar radius for transits
+- Fixes small bugs in packaging and installation
+- Fixes handling of diagonal covariances in ``PyMC3Sampler``
+
+
+0.1.1 (IPO; 2018-12-06)
++++++++++++++++++++++++
+
+- Initial public release
+Changelog
+=========
+
+.. include:: ../HISTORY.rst
+exoplanet
+=========
+
+*exoplanet* is a toolkit for probabilistic modeling of time series data in
+astronomy with a focus on observations of `exoplanets
+<https://en.wikipedia.org/wiki/Exoplanet>`_, using `PyMC3
+<https://docs.pymc.io>`_. *PyMC3* is a flexible and high-performance model
+building language and inference engine that scales well to problems with a large
+number of parameters. *exoplanet* extends *PyMC3*'s language to support many of
+the custom functions and distributions required when fitting exoplanet datasets.
+These features include:
+
+* A fast and robust solver for Kepler's equation.
+* Scalable Gaussian Processes using `celerite <https://celerite2.readthedocs.io>`_.
+* Fast and accurate limb darkened light curves using `starry
+  <https://rodluger.github.io/starry>`_.
+* Common reparameterizations for exoplanet-specific parameters like `limb
+  darkening <https://arxiv.org/abs/1308.0009>`_ and eccentricity.
+* And many others!
+
+All of these functions and distributions include methods for efficiently
+calculating their *gradients* so that they can be used with gradient-based
+inference methods like `Hamiltonian Monte Carlo
+<https://arxiv.org/abs/1206.1901>`_, `No U-Turns Sampling
+<https://arxiv.org/abs/1111.4246>`_, and `variational inference
+<https://arxiv.org/abs/1603.00788>`_. These methods tend to be more robust than
+the methods more commonly used in astronomy (like `ensemble samplers
+<https://emcee.readthedocs.io>`_ and `nested sampling
+<https://ccpforge.cse.rl.ac.uk/gf/project/multinest/>`_) especially when the
+model has more than a few parameters. For many exoplanet applications,
+*exoplanet* (the code) can improve the typical performance by orders of
+magnitude.
+
+*exoplanet* is being actively developed in `a public repository on GitHub
+<https://github.com/exoplanet-dev/exoplanet>`_ so if you have any trouble, `open
+an issue <https://github.com/exoplanet-dev/exoplanet/issues>`_ there.
+
+.. admonition:: Where to find what you need
+   :class: hint
+
+   🖥 For general installation and basic usage, continue scrolling to the table of
+   contents below.
+
+   🖼 For more in depth examples of *exoplanet* used for more realistic problems,
+   go to the `Case studies page <https://gallery.exoplanet.codes>`_.
+
+   📈 For more information about scalable Gaussian Processes in PyMC3 (this was
+   previously implemented as part of *exoplanet*), see the `celerite2 documentation
+   page <https://celerite2.readthedocs.io>`_.
+
+   👉 For helper functions and PyMC3 extras that used to be implemented as part of
+   *exoplanet*, see the `pymc3-ext project
+   <https://github.com/exoplanet-dev/pymc3-ext>`_.
+
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 1
+   :caption: User Guide
+
+   user/install
+   tutorials/citation.md
+   user/theano
+   user/multiprocessing
+   user/api
+   user/dev
+   changes.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Tutorials
+
+   tutorials/about.md
+   tutorials/autodiff.md
+   tutorials/intro-to-pymc3.md
+   tutorials/data-and-models.md
+   tutorials/light-delay.md
+   tutorials/reparameterization.md
+   Case studies <https://gallery.exoplanet.codes>
+   celerite2 <https://celerite2.readthedocs.io>
+
+
+License & attribution
+---------------------
+
+Copyright 2018, 2019, 2020, 2021 Daniel Foreman-Mackey.
+
+The source code is made available under the terms of the MIT license.
+
+If you make use of this code, please cite this package and its dependencies. You
+can find more information about how and what to cite in the `citation
+<tutorials/citation.md>`_ documentation.
+.. _multiprocessing:
+
+Multiprocessing
+===============
+
+By default, when you sample with ``PyMC3``, it will try to run chains in
+parallel using Python's `multiprocessing` module. This is pretty much always
+what you want, but it can also cause some headaches (mostly on macOS or Windows)
+for the large and computationally expensive models tackled by ``exoplanet``. In
+particular, you might sometimes get hit by the "dreaded broken pipe" error where
+your sampler crashes for no obvious reason or (worse!) you might find you
+sampler hanging indefinitely before it even starts running. The official
+``PyMC3`` solution is to use the ``mp_ctx="forkserver"`` option when calling
+``pm.sample`` on macOS or Windows. Unfortunately, this (for reasons that I don't
+totally understand) will often cause a huge performance hit that can increase
+your runtime by orders of magnitude.
+
+Throughout these documentation pages and for the Case Studies, we have tried to
+design the example models such that you shouldn't run into issues with
+multiprocessing but, if you do, please `open an issue on GitHub
+<https://github.com/exoplanet-dev/exoplanet/issues>`_. For your own projects, if
+you run into multiprocessing issues, you can try adjusting the ``mp_ctx`` and
+``pickle_backend`` parameters (see the `PyMC3 docs
+<https://docs.pymc.io/api/inference.html#pymc3.sampling.sample>`_), or as a last
+resort, set ``cores=1`` to get serial sampling.
+.. _theano:
+
+Theano vs. Aesara
+=================
+
+*exoplanet* is built on top of the excellent `PyMC3 library
+<https://docs.pymc.io/>`_ and it uses some of the more advanced features of
+PyMC3 to enable the complex models required for exoplanet data analysis. As a
+user of *exoplanet* you will become familiar with some of these details and, in
+particular, you will find yourself interacting with PyMC3's backend directly.
+When it was originally designed, PyMC3 was built on top of a library called
+Theano, but the development of that library has since been taken over by the
+PyMC developers and it was renamed to `Aesara <https://aesara.readthedocs.io>`_
+(there are more details, and you can read about those in `this blog post from
+the PyMC developers
+<https://pymc-devs.medium.com/the-future-of-pymc3-or-theano-is-dead-long-live-theano-d8005f8a0e9b>`_).
+Theano and Aesara are not completely compatible so this transition has been a
+little painful for downstream users, like you and the developers of *exoplanet*.
+In the long run, we will switch over to using Aesara directly instead of Theano,
+but in the meantime, since some users will have Theano installed and others will
+have Aesara installed, we have developed a small library that can help smooth
+this transition: `aesara-theano-fallback
+<https://github.com/exoplanet-dev/aesara-theano-fallback>`_. This will be
+installed automatically when you install *exoplanet*, but you can also install
+it directly using:
+
+.. code-block:: bash
+
+    python -m pip install aesara-theano-fallback
+
+Then, you can use this with syntax like the following:
+
+.. code-block:: python
+
+    import aesara_theano_fallback.tensor as tt
+
+and:
+
+.. code-block:: python
+
+    from aesara_theano_fallback import aesara as theano
+
+In both of these examples, the library will attempt to provide a consistent
+interface regardless of which backend is installed. That being said, this has
+only been designed to support the features used by *exoplanet* and `starry
+<https://github.com/rodluger/starry>`_, so your mileage might vary. Check out
+`aesara-theano-fallback on GitHub for more information or to open issues
+<https://github.com/exoplanet-dev/aesara-theano-fallback>`_.
+.. _dev:
+
+Developer documentation
+=======================
+
+Development of ``exoplanet`` is actively happening `on GitHub
+<https://github.com/exoplanet-dev/exoplanet>`_ and we would love your
+contributions. There are a few different methods of contributing to
+``exoplanet`` and the details are discussed below.
+
+Reporting an issue
+------------------
+
+If you run into issues, bugs, or anything else, it is very useful if you can
+`post an issue on the GitHub repository
+<https://github.com/exoplanet-dev/exoplanet/issues>`_. When you post an issue,
+please provide the details to reproduce the issue. For example, if you find a
+bug, please provide a *standalone* and *executable* snippet of code that
+demonstrates the issue. It's also useful to include details about your platform
+and the versions of key packages that your using.
+
+
+Contributing code or documentation
+----------------------------------
+
+If you're not familiar with the workflow for contributing code to a GitHub
+repository, an excellent place to start is the `AstroPy developer docs
+<https://docs.astropy.org/en/stable/development/workflow/development_workflow.html>`_.
+
+
+Set up your development environment
++++++++++++++++++++++++++++++++++++
+
+After getting some familiarity with the workflow, you should fork `the exoplanet
+repository <https://github.com/exoplanet-dev/exoplanet>`_ and clone it to your
+local machine:
+
+.. code-block:: bash
+
+    git clone https://github.com/YOURUSERNAME/exoplanet.git
+    cd exoplanet
+    git checkout -b BRANCHNAME
+
+for some name ``BRANCHNAME`` describing your contribution.
+
+Then you should set up an isolated environment for development using a `Conda
+environment
+<https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_,
+`virtualenv <https://virtualenv.pypa.io/>`_, `venv
+<https://docs.python.org/3/library/venv.html>`_, or similar.
+
+If you're using a ``pip`` based environment, you can install the developer
+dependencies as follows:
+
+.. code-block:: bash
+
+    python -m pip install -U pip
+    python -m pip install -U -e ".[dev]"
+
+
+Finding your way around the codebase
+++++++++++++++++++++++++++++++++++++
+
+``exoplanet`` is mostly arranged as a typical Python project with the module
+root in the ``src/exoplanet`` directory. But there are a few directions that can
+be useful before diving in:
+
+1. **Tutorials**: The tutorials are written using the `jupytext
+<https://github.com/mwouts/jupytext>`_ tool to keep the size of the repository
+from blowing up. The tutorial files are saved (using jupytext) in the
+``docs/tutorials`` directory as ``.py`` files in the ``py:light`` format. You
+can edit these files as if they are Jupyter notebooks by using the extension:
+
+.. code-block:: bash
+
+    jupyter nbextension install --py jupytext
+    jupyter nbextension enable --py jupytext
+
+If you are contributing a new tutorial, you should copy one of the existing ones
+and try to follow roughly the same format.
+
+2. **Case studies**: These are more in depth tutorials that require more
+computational run time. These can be found in the `case studies
+<https://github.com/exoplanet-dev/case-studies>`_ repo and there is more
+information there about how to contribute.
+
+3. **Theano/Aesara ops**: ``exoplanet`` comes bundled with a set of custom ops
+that are implemented in the `exoplanet-core project
+<https://github.com/exoplanet-dev/exoplanet-core>`_. As a user, hopefully you'll
+rarely interact with these directly and we haven't put a lot of work into making
+them user friendly, but if you are interested in diving in, feel free to ask
+questions on GitHub or via email.
+
+
+Testing your contribution
++++++++++++++++++++++++++
+
+If you're contributing a change to the code (either a new feature or bug fix),
+make sure that you implement at least one test that checks the behavior of your
+code. Then, you should run all of the unit tests before submitting a pull
+request using the following command:
+
+.. code-block:: bash
+
+    python -m pytest -v tests
+.. _install:
+
+Installation
+============
+
+.. note:: ``exoplanet`` requires Python 3.6 and later.
+
+Using pip
+---------
+
+The recommended method of installing *exoplanet* is with `pip
+<https://pip.pypa.io>`_:
+
+.. code-block:: bash
+
+    python -m pip install -U exoplanet
+
+If you want to install some recommended extras (`pymc3-ext
+<https://github.com/exoplanet-dev/pymc3-ext>`_ and `celerite2
+<https://celerite2.readthedocs.io>`_), you can use the following, or just follow
+the instructions on the relevant documentation pages:
+
+.. code-block:: bash
+
+    python -m pip install -U "exoplanet[extras]"
+
+Both of these installation methods will install the required dependencies:
+
+- `numpy <https://numpy.org>`_
+- `astropy <https://www.astropy.org>`_
+- `pymc3 <https://docs.pymc.io>`_
+- `exoplanet-core <https://github.com/exoplanet-dev/exoplanet-core>`_
+- `aesara-theano-fallback <https://github.com/exoplanet-dev/aesara-theano-fallback>`_
+
+
+Using conda
+-----------
+
+*exoplanet* can also be installed using `conda <https://docs.conda.io>`_ from
+``conda-forge``:
+
+.. code-block:: bash
+
+    conda install -c conda-forge exoplanet
+
+
+.. _source:
+
+From Source
+-----------
+
+The source code for *exoplanet* can be downloaded and installed `from GitHub
+<https://github.com/exoplanet-dev/exoplanet>`_ by running
+
+.. code-block:: bash
+
+    git clone https://github.com/exoplanet-dev/exoplanet.git
+    cd exoplanet
+    python -m pip install -e .
+
+
+Testing
+-------
+
+To run the unit tests, install the development dependencies using pip:
+
+.. code-block:: bash
+
+    python -m pip install -e ".[test]"
+
+and then execute:
+
+.. code-block:: bash
+
+    python -m pytest -v tests
+
+All of the tests should (of course) pass. If any of the tests don't pass and if
+you can't sort out why, `open an issue on GitHub
+<https://github.com/exoplanet-dev/exoplanet/issues>`_.
+.. module:: exoplanet
+
+.. _api:
+
+API documentation
+=================
+
+Orbits
+------
+
+.. autoclass:: exoplanet.orbits.KeplerianOrbit
+   :inherited-members:
+
+.. autoclass:: exoplanet.orbits.TTVOrbit
+   :inherited-members:
+
+.. autoclass:: exoplanet.orbits.SimpleTransitOrbit
+   :inherited-members:
+
+
+Light curve models
+------------------
+
+.. autoclass:: exoplanet.LimbDarkLightCurve
+   :inherited-members:
+
+.. autoclass:: exoplanet.SecondaryEclipseLightCurve
+   :inherited-members:
+
+
+Estimators
+----------
+
+.. autofunction:: exoplanet.estimate_semi_amplitude
+.. autofunction:: exoplanet.estimate_minimum_mass
+.. autofunction:: exoplanet.lomb_scargle_estimator
+.. autofunction:: exoplanet.autocorr_estimator
+.. autofunction:: exoplanet.bls_estimator
+
+
+Distributions
+-------------
+
+Physical distributions
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: exoplanet.distributions.QuadLimbDark
+.. autoclass:: exoplanet.distributions.ImpactParameter
+
+Eccentricity distributions
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autofunction:: exoplanet.distributions.eccentricity.kipping13
+.. autofunction:: exoplanet.distributions.eccentricity.vaneylen19
+
+
+Miscellaneous
+-------------
+
+.. autofunction:: exoplanet.orbits.ttv.compute_expected_transit_times
+
+.. autofunction:: exoplanet.units.with_unit
+.. autofunction:: exoplanet.units.has_unit
+.. autofunction:: exoplanet.units.to_unit
+
+.. autofunction:: exoplanet.citations.get_citations_for_model

@@ -2386,4 +2386,3037 @@ IPython代码库的Big Split™。 IPython 3是最后一个主要的整体
 - [Korean Version of Installation](https://github.com/ChungJooHo/Jupyter_Kor_doc/)
 - [Documentation for Project Jupyter](https://jupyter.readthedocs.io/en/latest/index.html) [[PDF](https://media.readthedocs.org/pdf/jupyter/latest/jupyter.pdf)]
 - [Issues](https://github.com/jupyter/notebook/issues)
-- [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter) 
+- [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter) Contributing to the Jupyter Notebook
+====================================
+
+If you're reading this section, you're probably interested in contributing to
+Jupyter.  Welcome and thanks for your interest in contributing!
+
+Please take a look at the Contributor documentation, familiarize yourself with
+using the Jupyter Notebook, and introduce yourself on the mailing list and
+share what area of the project you are interested in working on.
+
+General Guidelines
+------------------
+
+For general documentation about contributing to Jupyter projects, see the
+`Project Jupyter Contributor Documentation`__.
+
+__ https://jupyter.readthedocs.io/en/latest/contributing/content-contributor.html
+
+
+Setting Up a Development Environment
+------------------------------------
+
+Installing Node.js and npm
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Building the Notebook from its GitHub source code requires some tools to
+create and minify JavaScript components and the CSS,
+specifically Node.js and Node's package manager, ``npm``.
+It should be node version ≥ 6.0.
+
+If you use ``conda``, you can get them with::
+
+    conda install -c conda-forge nodejs
+
+If you use `Homebrew <https://brew.sh/>`_ on Mac OS X::
+
+    brew install node
+
+Installation on Linux may vary, but be aware that the `nodejs` or `npm` packages
+included in the system package repository may be too old to work properly.
+
+You can also use the installer from the `Node.js website <https://nodejs.org>`_.
+
+
+Installing the Jupyter Notebook
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you have installed the dependencies mentioned above, use the following
+steps::
+
+    pip install --upgrade setuptools pip
+    git clone https://github.com/jupyter/notebook
+    cd notebook
+    pip install -e .
+
+If you are using a system-wide Python installation and you only want to install the notebook for you,
+you can add ``--user`` to the install commands.
+
+Once you have done this, you can launch the master branch of Jupyter notebook
+from any directory in your system with::
+
+    jupyter notebook
+
+Verification
+^^^^^^^^^^^^
+
+While running the notebook, select one of your notebook files (the file will have the extension ``.ipynb``).
+In the top tab you will click on "Help" and then click on "About". In the pop window you will see information about the version of Jupyter that you are running. You will see "The version of the notebook server is:".
+If you are working in development mode, you will see that your version of Jupyter notebook will include the word "dev". If it does not include the word "dev", you are currently not working in development mode and should follow the steps below to uninstall and reinstall Jupyter.
+
+Troubleshooting the Installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you do not see that your Jupyter Notebook is not running on dev mode, it's possible that you are
+running other instances of Jupyter Notebook. You can try the following steps:
+
+1. Uninstall all instances of the notebook package. These include any installations you made using
+   pip or conda.
+2. Run ``python3 -m pip install -e .`` in the notebook repository to install the notebook from there.
+3. Run ``npm run build`` to make sure the Javascript and CSS are updated and compiled.
+4. Launch with ``python3 -m notebook --port 8989``, and check that the browser is pointing to ``localhost:8989``
+   (rather than the default 8888). You don't necessarily have to launch with port 8989, as long as you use
+   a port that is neither the default nor in use, then it should be fine.
+5. Verify the installation with the steps in the previous section.
+
+
+Rebuilding JavaScript and CSS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is a build step for the JavaScript and CSS in the notebook.
+To make sure that you are working with up-to-date code, you will need to run
+this command whenever there are changes to JavaScript or LESS sources::
+
+    npm run build
+
+**IMPORTANT:** Don't forget to run ``npm run build`` after switching branches.
+When switching between branches of different versions (e.g. ``4.x`` and
+``master``), run ``pip install -e .``. If you have tried the above and still
+find that the notebook is not reflecting the current source code, try cleaning
+the repo with ``git clean -xfd`` and reinstalling with ``pip install -e .``.
+
+Development Tip
+"""""""""""""""
+
+When doing development, you can use this command to automatically rebuild
+JavaScript and LESS sources as they are modified::
+
+    npm run build:watch
+
+Git Hooks
+"""""""""
+
+If you want to automatically update dependencies and recompile JavaScript and
+CSS after checking out a new commit, you can install post-checkout and
+post-merge hooks which will do it for you::
+
+    git-hooks/install-hooks.sh
+
+See ``git-hooks/README.md`` for more details.
+
+
+Running Tests
+-------------
+
+Python Tests
+^^^^^^^^^^^^
+
+Install dependencies::
+
+    pip install -e '.[test]'
+
+To run the Python tests, use::
+
+    pytest
+
+If you want coverage statistics as well, you can run::
+
+    py.test --cov notebook -v --pyargs notebook
+
+JavaScript Tests
+^^^^^^^^^^^^^^^^
+
+To run the JavaScript tests, you will need to have PhantomJS and CasperJS
+installed::
+
+    npm install -g casperjs phantomjs-prebuilt
+
+Then, to run the JavaScript tests::
+
+    python -m notebook.jstest [group]
+
+where ``[group]`` is an optional argument that is a path relative to
+``notebook/tests/``.
+For example, to run all tests in ``notebook/tests/notebook``::
+
+    python -m notebook.jstest notebook
+
+or to run just ``notebook/tests/notebook/deletecell.js``::
+
+    python -m notebook.jstest notebook/deletecell.js
+
+
+Building the Documentation
+--------------------------
+
+To build the documentation you'll need `Sphinx <http://www.sphinx-doc.org/>`_,
+`pandoc <http://pandoc.org/>`_ and a few other packages.
+
+To install (and activate) a conda environment named ``notebook_docs``
+containing all the necessary packages (except pandoc), use::
+
+    conda create -n notebook_docs pip
+    conda activate notebook_docs  # Linux and OS X
+    activate notebook_docs        # Windows
+    pip install .[docs]
+
+If you want to install the necessary packages with ``pip``, use the following instead::
+
+    pip install .[docs]
+
+Once you have installed the required packages, you can build the docs with::
+
+    cd docs
+    make html
+
+After that, the generated HTML files will be available at
+``build/html/index.html``. You may view the docs in your browser.
+
+You can automatically check if all hyperlinks are still valid::
+
+    make linkcheck
+
+Windows users can find ``make.bat`` in the ``docs`` folder.
+
+You should also have a look at the `Project Jupyter Documentation Guide`__.
+
+__ https://jupyter.readthedocs.io/en/latest/contributing/docs-contributions/index.html
+.. highlight:: sh
+
+.. include:: ../../CONTRIBUTING.rst
+
+.. _server_security:
+
+Security in the Jupyter notebook server
+=======================================
+
+Since access to the Jupyter notebook server means access to running arbitrary code,
+it is important to restrict access to the notebook server.
+For this reason, notebook 4.3 introduces token-based authentication that is **on by default**.
+
+.. note::
+
+    If you enable a password for your notebook server,
+    token authentication is not enabled by default,
+    and the behavior of the notebook server is unchanged from versions earlier than 4.3.
+
+When token authentication is enabled, the notebook uses a token to authenticate requests.
+This token can be provided to login to the notebook server in three ways:
+
+- in the ``Authorization`` header, e.g.::
+
+    Authorization: token abcdef...
+
+- In a URL parameter, e.g.::
+
+    https://my-notebook/tree/?token=abcdef...
+
+- In the password field of the login form that will be shown to you if you are not logged in.
+
+When you start a notebook server with token authentication enabled (default),
+a token is generated to use for authentication.
+This token is logged to the terminal, so that you can copy/paste the URL into your browser::
+
+    [I 11:59:16.597 NotebookApp] The Jupyter Notebook is running at:
+    http://localhost:8888/?token=c8de56fa4deed24899803e93c227592aef6538f93025fe01
+
+
+If the notebook server is going to open your browser automatically
+(the default, unless ``--no-browser`` has been passed),
+an *additional* token is generated for launching the browser.
+This additional token can be used only once,
+and is used to set a cookie for your browser once it connects.
+After your browser has made its first request with this one-time-token,
+the token is discarded and a cookie is set in your browser.
+
+At any later time, you can see the tokens and URLs for all of your running servers with :command:`jupyter notebook list`::
+
+    $ jupyter notebook list
+    Currently running servers:
+    http://localhost:8888/?token=abc... :: /home/you/notebooks
+    https://0.0.0.0:9999/?token=123... :: /tmp/public
+    http://localhost:8889/ :: /tmp/has-password
+
+For servers with token-authentication enabled, the URL in the above listing will include the token,
+so you can copy and paste that URL into your browser to login.
+If a server has no token (e.g. it has a password or has authentication disabled),
+the URL will not include the token argument.
+Once you have visited this URL,
+a cookie will be set in your browser and you won't need to use the token again,
+unless you switch browsers, clear your cookies, or start a notebook server on a new port.
+
+Alternatives to token authentication
+------------------------------------
+
+If a generated token doesn't work well for you,
+you can set a password for your notebook.
+:command:`jupyter notebook password` will prompt you for a password,
+and store the hashed password in your :file:`jupyter_notebook_config.json`.
+
+.. versionadded:: 5.0
+
+    :command:`jupyter notebook password` command is added.
+
+
+It is possible to disable authentication altogether by setting the token and password to empty strings,
+but this is **NOT RECOMMENDED**, unless authentication or access restrictions are handled at a different layer in your web application:
+
+.. sourcecode:: python
+
+    c.NotebookApp.token = ''
+    c.NotebookApp.password = ''
+
+
+.. _notebook_security:
+
+Security in notebook documents
+==============================
+
+As Jupyter notebooks become more popular for sharing and collaboration,
+the potential for malicious people to attempt to exploit the notebook
+for their nefarious purposes increases. IPython 2.0 introduced a
+security model to prevent execution of untrusted code without explicit
+user input.
+
+The problem
+-----------
+
+The whole point of Jupyter is arbitrary code execution. We have no
+desire to limit what can be done with a notebook, which would negatively
+impact its utility.
+
+Unlike other programs, a Jupyter notebook document includes output.
+Unlike other documents, that output exists in a context that can execute
+code (via Javascript).
+
+The security problem we need to solve is that no code should execute
+just because a user has **opened** a notebook that **they did not
+write**. Like any other program, once a user decides to execute code in
+a notebook, it is considered trusted, and should be allowed to do
+anything.
+
+Our security model
+------------------
+
+-  Untrusted HTML is always sanitized
+-  Untrusted Javascript is never executed
+-  HTML and Javascript in Markdown cells are never trusted
+-  **Outputs** generated by the user are trusted
+-  Any other HTML or Javascript (in Markdown cells, output generated by
+   others) is never trusted
+-  The central question of trust is "Did the current user do this?"
+
+The details of trust
+--------------------
+
+When a notebook is executed and saved, a signature is computed from a
+digest of the notebook's contents plus a secret key. This is stored in a
+database, writable only by the current user. By default, this is located at::
+
+    ~/.local/share/jupyter/nbsignatures.db  # Linux
+    ~/Library/Jupyter/nbsignatures.db       # OS X
+    %APPDATA%/jupyter/nbsignatures.db       # Windows
+
+Each signature represents a series of outputs which were produced by code the
+current user executed, and are therefore trusted.
+
+When you open a notebook, the server computes its signature, and checks if it's
+in the database. If a match is found, HTML and Javascript
+output in the notebook will be trusted at load, otherwise it will be
+untrusted.
+
+Any output generated during an interactive session is trusted.
+
+Updating trust
+**************
+
+A notebook's trust is updated when the notebook is saved. If there are
+any untrusted outputs still in the notebook, the notebook will not be
+trusted, and no signature will be stored. If all untrusted outputs have
+been removed (either via ``Clear Output`` or re-execution), then the
+notebook will become trusted.
+
+While trust is updated per output, this is only for the duration of a
+single session. A newly loaded notebook file is either trusted or not in its
+entirety.
+
+Explicit trust
+**************
+
+Sometimes re-executing a notebook to generate trusted output is not an
+option, either because dependencies are unavailable, or it would take a
+long time. Users can explicitly trust a notebook in two ways:
+
+-  At the command-line, with::
+
+    jupyter trust /path/to/notebook.ipynb
+
+-  After loading the untrusted notebook, with ``File / Trust Notebook``
+
+These two methods simply load the notebook, compute a new signature, and add
+that signature to the user's database.
+
+Reporting security issues
+-------------------------
+
+If you find a security vulnerability in Jupyter, either a failure of the
+code to properly implement the model described here, or a failure of the
+model itself, please report it to security@ipython.org.
+
+If you prefer to encrypt your security reports,
+you can use :download:`this PGP public key <ipython_security.asc>`.
+
+Affected use cases
+------------------
+
+Some use cases that work in Jupyter 1.0 became less convenient in
+2.0 as a result of the security changes. We do our best to minimize
+these annoyances, but security is always at odds with convenience.
+
+Javascript and CSS in Markdown cells
+************************************
+
+While never officially supported, it had become common practice to put
+hidden Javascript or CSS styling in Markdown cells, so that they would
+not be visible on the page. Since Markdown cells are now sanitized (by
+`Google Caja <https://developers.google.com/caja>`__), all Javascript
+(including click event handlers, etc.) and CSS will be stripped.
+
+We plan to provide a mechanism for notebook themes, but in the meantime
+styling the notebook can only be done via either ``custom.css`` or CSS
+in HTML output. The latter only have an effect if the notebook is
+trusted, because otherwise the output will be sanitized just like
+Markdown.
+
+Collaboration
+*************
+
+When collaborating on a notebook, people probably want to see the
+outputs produced by their colleagues' most recent executions. Since each
+collaborator's key will differ, this will result in each share starting
+in an untrusted state. There are three basic approaches to this:
+
+-  re-run notebooks when you get them (not always viable)
+-  explicitly trust notebooks via ``jupyter trust`` or the notebook menu
+   (annoying, but easy)
+-  share a notebook signatures database, and use configuration dedicated to the
+   collaboration while working on the project.
+
+To share a signatures database among users, you can configure:
+
+.. code-block:: python
+
+    c.NotebookNotary.data_dir = "/path/to/signature_dir"
+
+to specify a non-default path to the SQLite database (of notebook hashes,
+essentially). We are aware that SQLite doesn't work well on NFS and we are
+`working out better ways to do this <https://github.com/jupyter/notebook/issues/1782>`_.
+.. _frontend_config:
+
+Configuring the notebook frontend
+=================================
+
+.. note::
+
+    The ability to configure the notebook frontend UI and preferences is
+    still a work in progress.
+
+This document is a rough explanation on how you can persist some configuration
+options for the notebook JavaScript.
+
+There is no exhaustive list of all the configuration options as most options
+are passed down to other libraries, which means that non valid
+configuration can be ignored without any error messages.
+
+
+How front end configuration works
+---------------------------------
+The frontend configuration system works as follows:
+
+  - get a handle of a configurable JavaScript object.
+  - access its configuration attribute.
+  - update its configuration attribute with a JSON patch.
+
+
+Example - Changing the notebook's default indentation
+-----------------------------------------------------
+This example explains how to change the default setting ``indentUnit``
+for CodeMirror Code Cells::
+
+    var cell = Jupyter.notebook.get_selected_cell();
+    var config = cell.config;
+    var patch = {
+          CodeCell:{
+            cm_config:{indentUnit:2}
+          }
+        }
+    config.update(patch)
+
+You can enter the previous snippet in your browser's JavaScript console once.
+Then reload the notebook page in your browser. Now, the preferred indent unit
+should be equal to two spaces. The custom setting persists and you do not need
+to reissue the patch on new notebooks.
+
+``indentUnit``, used in this example, is one of the many `CodeMirror options
+<https://codemirror.net/doc/manual.html#option_indentUnit>`_ which are available
+for configuration.
+
+You can similarly change the options of the file editor by entering the following
+snippet in the browser's Javascript console once (from a file editing page).::
+
+   var config = Jupyter.editor.config
+   var patch = {
+         Editor: {
+           codemirror_options: {
+             indentUnit: 2
+           }
+         }
+       }
+   config.update(patch)
+
+Example - Restoring the notebook's default indentation
+------------------------------------------------------
+If you want to restore a notebook frontend preference to its default value,
+you will enter a JSON patch with a ``null`` value for the preference setting.
+
+For example, let's restore the indent setting ``indentUnit`` to its default of
+four spaces. Enter the following code snippet in your JavaScript console::
+
+    var cell = Jupyter.notebook.get_selected_cell();
+    var config = cell.config;
+    var patch = {
+          CodeCell:{
+            cm_config:{indentUnit: null} // only change here.
+          }
+        }
+    config.update(patch)
+
+Reload the notebook in your browser and the default indent should again be two
+spaces.
+
+Persisting configuration settings
+---------------------------------
+Under the hood, Jupyter will persist the preferred configuration settings in
+``~/.jupyter/nbconfig/<section>.json``, with ``<section>``
+taking various value depending on the page where the configuration is issued.
+``<section>`` can take various values like ``notebook``, ``tree``, and
+``editor``. A ``common`` section contains configuration settings shared by all
+pages.
+.. _htmlnotebook:
+
+The Jupyter Notebook
+====================
+
+Introduction
+------------
+
+The notebook extends the console-based approach to interactive computing in
+a qualitatively new direction, providing a web-based application suitable for
+capturing the whole computation process: developing, documenting, and
+executing code, as well as communicating the results.  The Jupyter notebook
+combines two components:
+
+**A web application**: a browser-based tool for interactive authoring of
+documents which combine explanatory text, mathematics, computations and their
+rich media output.
+
+**Notebook documents**: a representation of all content visible in the web
+application, including inputs and outputs of the computations, explanatory
+text, mathematics, images, and rich media representations of objects.
+
+.. seealso::
+
+    See the :ref:`installation guide <jupyter:install>` on how to install the
+    notebook and its dependencies.
+
+
+Main features of the web application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* In-browser editing for code, with automatic syntax highlighting,
+  indentation, and tab completion/introspection.
+
+* The ability to execute code from the browser, with the results of
+  computations attached to the code which generated them.
+
+* Displaying the result of computation using rich media representations, such
+  as HTML, LaTeX, PNG, SVG, etc. For example, publication-quality figures
+  rendered by the matplotlib_ library, can be included inline.
+
+* In-browser editing for rich text using the Markdown_ markup language, which
+  can provide commentary for the code, is not limited to plain text.
+
+* The ability to easily include mathematical notation within markdown cells
+  using LaTeX, and rendered natively by MathJax_.
+
+
+
+.. _MathJax: https://www.mathjax.org/
+
+
+Notebook documents
+~~~~~~~~~~~~~~~~~~
+Notebook documents contains the inputs and outputs of a interactive session as
+well as additional text that accompanies the code but is not meant for
+execution.  In this way, notebook files can serve as a complete computational
+record of a session, interleaving executable code with explanatory text,
+mathematics, and rich representations of resulting objects. These documents
+are internally JSON_ files and are saved with the ``.ipynb`` extension. Since
+JSON is a plain text format, they can be version-controlled and shared with
+colleagues.
+
+.. _JSON: https://en.wikipedia.org/wiki/JSON
+
+Notebooks may be exported to a range of static formats, including HTML (for
+example, for blog posts), reStructuredText, LaTeX, PDF, and slide shows, via
+the nbconvert_ command.
+
+Furthermore, any  ``.ipynb`` notebook document available from a public
+URL can be shared via the Jupyter Notebook Viewer <nbviewer>.
+This service loads the notebook document from the URL and renders it as a
+static web page.  The results may thus be shared with a colleague, or as a
+public blog post, without other users needing to install the Jupyter notebook
+themselves.  In effect, nbviewer is simply nbconvert_ as
+a web service, so you can do your own static conversions with nbconvert,
+without relying on nbviewer.
+
+
+
+.. seealso::
+
+    :ref:`Details on the notebook JSON file format <nbformat:notebook_file_format>`
+
+
+Notebooks and privacy
+~~~~~~~~~~~~~~~~~~~~~
+
+Because you use Jupyter in a web browser, some people are understandably
+concerned about using it with sensitive data.
+However, if you followed the standard
+`install instructions <https://jupyter.readthedocs.io/en/latest/install.html>`_,
+Jupyter is actually running on your own computer.
+If the URL in the address bar starts with ``http://localhost:`` or
+``http://127.0.0.1:``, it's your computer acting as the server.
+Jupyter doesn't send your data anywhere else—and as it's open source,
+other people can check that we're being honest about this.
+
+You can also use Jupyter remotely:
+your company or university might run the server for you, for instance.
+If you want to work with sensitive data in those cases,
+talk to your IT or data protection staff about it.
+
+We aim to ensure that other pages in your browser or other users on the same
+computer can't access your notebook server. See :ref:`server_security` for
+more about this.
+
+
+Starting the notebook server
+----------------------------
+
+You can start running a notebook server from the command line using the
+following command::
+
+    jupyter notebook
+
+This will print some information about the notebook server in your console,
+and open a web browser to the URL of the web application (by default,
+``http://127.0.0.1:8888``).
+
+The landing page of the Jupyter notebook web application, the **dashboard**,
+shows the notebooks currently available in the notebook directory (by default,
+the directory from which the notebook server was started).
+
+You can create new notebooks from the dashboard with the ``New Notebook``
+button, or open existing ones by clicking on their name.  You can also drag
+and drop ``.ipynb`` notebooks and standard ``.py`` Python source code files
+into the notebook list area.
+
+When starting a notebook server from the command line, you can also open a
+particular notebook directly, bypassing the dashboard, with ``jupyter notebook
+my_notebook.ipynb``. The ``.ipynb`` extension is assumed if no extension is
+given.
+
+When you are inside an open notebook, the `File | Open...` menu option will
+open the dashboard in a new browser tab, to allow you to open another notebook
+from the notebook directory or to create a new notebook.
+
+
+.. note::
+
+   You can start more than one notebook server at the same time, if you want
+   to work on notebooks in different directories.  By default the first
+   notebook server starts on port 8888, and later notebook servers search for
+   ports near that one.  You can also manually specify the port with the
+   ``--port`` option.
+
+Creating a new notebook document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new notebook may be created at any time, either from the dashboard, or using
+the :menuselection:`File --> New` menu option from within an active notebook.
+The new notebook is created within the same directory and will open in a new
+browser tab. It will also be reflected as a new entry in the notebook list on
+the dashboard.
+
+.. image:: _static/images/new-notebook.gif
+
+
+Opening notebooks
+~~~~~~~~~~~~~~~~~
+An open notebook has **exactly one** interactive session connected to a
+kernel, which will execute code sent by the user
+and communicate back results.  This kernel remains active if the web browser
+window is closed, and reopening the same notebook from the dashboard will
+reconnect the web application to the same kernel. In the dashboard, notebooks
+with an active kernel have a ``Shutdown`` button next to them, whereas
+notebooks without an active kernel have a ``Delete`` button in its place.
+
+Other clients may connect to the same kernel.
+When each kernel is started, the notebook server prints to the terminal a
+message like this::
+
+    [NotebookApp] Kernel started: 87f7d2c0-13e3-43df-8bb8-1bd37aaf3373
+
+This long string is the kernel's ID which is sufficient for getting the
+information necessary to connect to the kernel. If the notebook uses the IPython
+kernel, you can also see this
+connection data by running the ``%connect_info`` :ref:`magic
+<magics_explained>`, which will print the same ID information along with other
+details.
+
+You can then, for example, manually start a Qt console connected to the *same*
+kernel from the command line, by passing a portion of the ID::
+
+    $ jupyter qtconsole --existing 87f7d2c0
+
+Without an ID, ``--existing`` will  connect to the most recently
+started kernel.
+
+With the IPython kernel, you can also run the ``%qtconsole``
+:ref:`magic <magics_explained>` in the notebook to open a Qt console connected
+to the same kernel.
+
+.. seealso::
+
+    :ref:`ipythonzmq`
+
+Notebook user interface
+-----------------------
+
+When you create a new notebook document, you will be presented with the
+**notebook name**, a **menu bar**, a **toolbar** and an empty **code cell**.
+
+.. image:: ./_static/images/blank-notebook-ui.png
+
+**Notebook name**: The name displayed at the top of the page,
+next to the Jupyter logo, reflects the name of the ``.ipynb`` file.
+Clicking on the notebook name brings up a dialog which allows you to rename it.
+Thus, renaming a notebook
+from "Untitled0" to "My first notebook" in the browser, renames the
+``Untitled0.ipynb`` file to ``My first notebook.ipynb``.
+
+**Menu bar**: The menu bar presents different options that may be used to
+manipulate the way the notebook functions.
+
+**Toolbar**: The tool bar gives a quick way of performing the most-used
+operations within the notebook, by clicking on an icon.
+
+**Code cell**: the default type of cell; read on for an explanation of cells.
+
+
+Structure of a notebook document
+--------------------------------
+
+The notebook consists of a sequence of cells.  A cell is a multiline text input
+field, and its contents can be executed by using :kbd:`Shift-Enter`, or by
+clicking either the "Play" button the toolbar, or :guilabel:`Cell`, :guilabel:`Run` in the menu bar.
+The execution behavior of a cell is determined by the cell's type.  There are three
+types of cells: **code cells**, **markdown cells**, and **raw cells**.  Every
+cell starts off being a **code cell**, but its type can be changed by using a
+drop-down on the toolbar (which will be "Code", initially), or via
+:ref:`keyboard shortcuts <keyboard-shortcuts>`.
+
+For more information on the different things you can do in a notebook,
+see the `collection of examples
+<https://nbviewer.jupyter.org/github/jupyter/notebook/tree/master/docs/source/examples/Notebook/>`_.
+
+Code cells
+~~~~~~~~~~
+A *code cell* allows you to edit and write new code, with full syntax
+highlighting and tab completion. The programming language you use depends
+on the *kernel*, and the default kernel (IPython) runs Python code.
+
+When a code cell is executed, code that it contains is sent to the kernel
+associated with the notebook.  The results that are returned from this
+computation  are then displayed in the notebook as the cell's *output*. The
+output is not limited to text, with many other possible forms of output are
+also possible, including ``matplotlib`` figures and HTML tables (as used, for
+example, in the ``pandas`` data analysis package). This is known as IPython's
+*rich display* capability.
+
+.. seealso::
+
+   `Rich Output`_  example notebook
+
+Markdown cells
+~~~~~~~~~~~~~~
+You can document the computational process in a literate way, alternating
+descriptive text with code, using *rich text*. In IPython this is accomplished
+by marking up text with the Markdown language. The corresponding cells are
+called *Markdown cells*. The Markdown language provides a simple way to
+perform this text markup, that is, to specify which parts of the text should
+be emphasized (italics), bold, form lists, etc.
+
+If you want to provide structure for your document, you can use markdown
+headings. Markdown headings consist of 1 to 6 hash # signs ``#`` followed by a
+space and the title of your section. The markdown heading will be converted
+to a clickable link for a section of the notebook. It is also used as a hint
+when exporting to other document formats, like PDF.
+
+When a Markdown cell is executed, the Markdown code is converted into
+the corresponding formatted rich text. Markdown allows arbitrary HTML code for
+formatting.
+
+Within Markdown cells, you can also include *mathematics* in a straightforward
+way, using standard LaTeX notation: ``$...$`` for inline mathematics and
+``$$...$$`` for displayed mathematics. When the Markdown cell is executed,
+the LaTeX portions are automatically rendered in the HTML output as equations
+with high quality typography. This is made possible by MathJax_, which
+supports a `large subset <https://docs.mathjax.org/en/latest/input/tex/index.html>`__ of LaTeX functionality
+
+Standard mathematics environments defined by LaTeX and AMS-LaTeX (the
+``amsmath`` package) also work, such as
+``\begin{equation}...\end{equation}``, and ``\begin{align}...\end{align}``.
+New LaTeX macros may be defined using standard methods,
+such as ``\newcommand``, by placing them anywhere *between math delimiters* in
+a Markdown cell. These definitions are then available throughout the rest of
+the IPython session.
+
+.. seealso::
+
+    `Working with Markdown Cells`_ example notebook
+
+Raw cells
+~~~~~~~~~
+
+*Raw* cells provide a place in which you can write *output* directly.
+Raw cells are not evaluated by the notebook.
+When passed through nbconvert_, raw cells arrive in the
+destination format unmodified. For example, you can type full LaTeX
+into a raw cell, which will only be rendered by LaTeX after conversion by
+nbconvert.
+
+
+Basic workflow
+--------------
+
+The normal workflow in a notebook is, then, quite similar to a standard
+IPython session, with the difference that you can edit cells in-place multiple
+times until you obtain the desired results, rather than having to
+rerun separate scripts with the ``%run`` magic command.
+
+
+Typically, you will work on a computational problem in pieces, organizing
+related ideas into cells and moving forward once previous parts work
+correctly. This is much more convenient for interactive exploration than
+breaking up a computation into scripts that must be executed together, as was
+previously necessary, especially if parts of them take a long time to run.
+
+To interrupt a calculation which is taking too long, use the :guilabel:`Kernel`,
+:guilabel:`Interrupt` menu option, or the :kbd:`i,i` keyboard shortcut.
+Similarly, to restart the whole computational process,
+use the :guilabel:`Kernel`, :guilabel:`Restart` menu option or :kbd:`0,0`
+shortcut.
+
+A notebook may be downloaded as a ``.ipynb`` file or converted to a number of
+other formats using the menu option :guilabel:`File`, :guilabel:`Download as`.
+
+.. seealso::
+
+    `Running Code in the Jupyter Notebook`_ example notebook
+
+    `Notebook Basics`_ example notebook
+
+.. _keyboard-shortcuts:
+
+Keyboard shortcuts
+~~~~~~~~~~~~~~~~~~
+All actions in the notebook can be performed with the mouse, but keyboard
+shortcuts are also available for the most common ones. The essential shortcuts
+to remember are the following:
+
+* :kbd:`Shift-Enter`:  run cell
+    Execute the current cell, show any output, and jump to the next cell below.
+    If :kbd:`Shift-Enter` is invoked on the last cell, it makes a new cell below.
+    This is equivalent to clicking the :guilabel:`Cell`, :guilabel:`Run` menu
+    item, or the Play button in the toolbar.
+
+* :kbd:`Esc`: Command mode
+    In command mode, you can navigate around the notebook using keyboard shortcuts.
+
+* :kbd:`Enter`: Edit mode
+    In edit mode, you can edit text in cells.
+
+For the full list of available shortcuts, click :guilabel:`Help`,
+:guilabel:`Keyboard Shortcuts` in the notebook menus.
+
+Plotting
+--------
+One major feature of the Jupyter notebook is the ability to display plots that
+are the output of running code cells. The IPython kernel is designed to work
+seamlessly with the matplotlib_ plotting library to provide this functionality.
+Specific plotting library integration is a feature of the kernel.
+
+Installing kernels
+------------------
+
+For information on how to install a Python kernel, refer to the
+`IPython install page <https://ipython.org/install.html>`__.
+
+The Jupyter wiki has a long list of `Kernels for other languages
+<https://github.com/jupyter/jupyter/wiki/Jupyter-kernels>`_.
+They usually come with instructions on how to make the kernel available
+in the notebook.
+
+
+.. _signing_notebooks:
+
+Trusting Notebooks
+------------------
+
+To prevent untrusted code from executing on users' behalf when notebooks open,
+we store a signature of each trusted notebook.
+The notebook server verifies this signature when a notebook is opened.
+If no matching signature is found,
+Javascript and HTML output will not be displayed
+until they are regenerated by re-executing the cells.
+
+Any notebook that you have fully executed yourself will be
+considered trusted, and its HTML and Javascript output will be displayed on
+load.
+
+If you need to see HTML or Javascript output without re-executing,
+and you are sure the notebook is not malicious, you can tell Jupyter to trust it
+at the command-line with::
+
+    $ jupyter trust mynotebook.ipynb
+
+See :ref:`notebook_security` for more details about the trust mechanism.
+
+Browser Compatibility
+---------------------
+
+The Jupyter Notebook aims to support the latest versions of these browsers:
+
+* Chrome
+* Safari
+* Firefox
+
+Up to date versions of Opera and Edge may also work, but if they don't, please
+use one of the supported browsers.
+
+Using Safari with HTTPS and an untrusted certificate is known to not work
+(websockets will fail).
+
+.. include:: links.txt
+What to do when things go wrong
+===============================
+
+First, have a look at the common problems listed below. If you can figure it out
+from these notes, it will be quicker than asking for help.
+
+Check that you have the latest version of any packages that look relevant.
+Unfortunately it's not always easy to figure out what packages are relevant,
+but if there was a bug that's already been fixed,
+it's easy to upgrade and get on with what you wanted to do.
+
+Jupyter fails to start
+----------------------
+
+* Have you `installed it <https://jupyter.org/install.html>`__? ;-)
+* If you're using a menu shortcut or Anaconda launcher to start it, try
+  opening a terminal or command prompt and running the command ``jupyter notebook``.
+* If it can't find ``jupyter``,
+  you may need to configure your ``PATH`` environment variable.
+  If you don't know what that means, and don't want to find out,
+  just (re)install Anaconda with the default settings,
+  and it should set up PATH correctly.
+* If Jupyter gives an error that it can't find ``notebook``,
+  check with pip or conda that the ``notebook`` package is installed.
+* Try running ``jupyter-notebook`` (with a hyphen). This should normally be the
+  same as ``jupyter notebook`` (with a space), but if there's any difference,
+  the version with the hyphen is the 'real' launcher, and the other one wraps
+  that.
+
+Jupyter doesn't load or doesn't work in the browser
+---------------------------------------------------
+
+* Try in another browser (e.g. if you normally use Firefox, try with Chrome).
+  This helps pin down where the problem is.
+* Try disabling any browser extensions and/or any Jupyter extensions you have
+  installed.
+* Some internet security software can interfere with Jupyter.
+  If you have security software, try turning it off temporarily,
+  and look in the settings for a more long-term solution.
+* In the address bar, try changing between ``localhost`` and ``127.0.0.1``.
+  They should be the same, but in some cases it makes a difference.
+
+Jupyter can't start a kernel
+----------------------------
+
+Files called *kernel specs* tell Jupyter how to start different kinds of kernels.
+To see where these are on your system, run ``jupyter kernelspec list``::
+
+    $ jupyter kernelspec list
+    Available kernels:
+      python3      /home/takluyver/.local/lib/python3.6/site-packages/ipykernel/resources
+      bash         /home/takluyver/.local/share/jupyter/kernels/bash
+      ir           /home/takluyver/.local/share/jupyter/kernels/ir
+
+There's a special fallback for the Python kernel:
+if it doesn't find a real kernelspec, but it can import the ``ipykernel`` package,
+it provides a kernel which will run in the same Python environment as the notebook server.
+A path ending in ``ipykernel/resources``, like in the example above,
+is this default kernel.
+The default often does what you want,
+so if the ``python3`` kernelspec points somewhere else
+and you can't start a Python kernel,
+try deleting or renaming that kernelspec folder to expose the default.
+
+If your problem is with another kernel, not the Python one we maintain,
+you may need to look for support about that kernel.
+
+Python Environments
+-------------------
+Multiple python environments, whether based on Anaconda or Python Virtual environments,
+are often the source of reported issues.  In many cases, these issues stem from the
+Notebook server running in one environment, while the kernel and/or its resources,
+derive from another environment.  Indicators of this scenario include:
+
+* ``import`` statements within code cells producing ``ImportError`` or ``ModuleNotFound`` exceptions.
+* General kernel startup failures exhibited by nothing happening when attempting
+  to execute a cell.
+
+In these situations, take a close look at your environment structure and ensure all
+packages required by your notebook's code are installed in the correct environment.
+If you need to run the kernel from different environments than your Notebook
+server, check out `IPython's documentation <https://ipython.readthedocs.io/en/stable/install/kernel_install.html#kernels-for-different-environments>`_
+for using kernels from different environments as this is the recommended approach.
+Anaconda's `nb_conda_kernels <https://github.com/Anaconda-Platform/nb_conda_kernels>`_
+package might also be an option for you in these scenarios.
+
+Another thing to check is the ``kernel.json`` file that will be located in the
+aforementioned *kernel specs* directory identified by running ``jupyter kernelspec list``.
+This file will contain an ``argv`` stanza that includes the actual command to run
+when launching the kernel.  Oftentimes, when reinstalling python environments, a previous
+``kernel.json`` will reference an python executable from an old or non-existent location.
+As a result, it's always a good idea when encountering kernel startup issues to validate
+the ``argv`` stanza to ensure all file references exist and are appropriate.
+
+Windows Systems
+---------------
+Although Jupyter Notebook is primarily developed on the various flavors of the Unix
+operating system it also supports Microsoft
+Windows - which introduces its own set of commonly encountered issues,
+particularly in the areas of security, process management and lower-level libraries.
+
+pywin32 Issues
+^^^^^^^^^^^^^^^^^^
+The primary package for interacting with Windows' primitives is ``pywin32``.
+
+* Issues surrounding the creation of the kernel's communication file utilize
+  ``jupyter_core``'s ``secure_write()`` function.  This function ensures a file is
+  created in which only the owner of the file has access.  If libraries like ``pywin32``
+  are not properly installed, issues can arise when it's necessary to use the native
+  Windows libraries.
+
+  Here's a portion of such a traceback::
+
+    File "c:\users\jovyan\python\myenv.venv\lib\site-packages\jupyter_core\paths.py", line 424, in secure_write
+    win32_restrict_file_to_user(fname)
+    File "c:\users\jovyan\python\myenv.venv\lib\site-packages\jupyter_core\paths.py", line 359, in win32_restrict_file_to_user
+    import win32api
+    ImportError: DLL load failed: The specified module could not be found.
+
+* As noted earlier, the installation of ``pywin32`` can be problematic on Windows
+  configurations.  When such an issue occurs, you may need to revisit how the environment
+  was setup.  Pay careful attention to whether you're running the 32 or 64 bit versions
+  of Windows and be sure to install appropriate packages for that environment.
+
+  Here's a portion of such a traceback::
+
+    File "C:\Users\jovyan\AppData\Roaming\Python\Python37\site-packages\jupyter_core\paths.py", line 435, in secure_write
+    win32_restrict_file_to_user(fname)
+    File "C:\Users\jovyan\AppData\Roaming\Python\Python37\site-packages\jupyter_core\paths.py", line 361, in win32_restrict_file_to_user
+    import win32api
+    ImportError: DLL load failed: %1 is not a valid Win32 application
+
+Resolving pywin32 Issues
+""""""""""""""""""""""""""""
+  In this case, your ``pywin32`` module may not be installed correctly and the following
+  should be attempted:
+  ::
+
+    pip install --upgrade pywin32
+
+  or::
+
+    conda install --force-reinstall pywin32
+
+  followed by::
+
+    python.exe Scripts/pywin32_postinstall.py -install
+
+  where ``Scripts`` is located in the active Python's installation location.
+
+* Another common failure specific to Windows environments is the location of various
+  python commands.  On ``*nix`` systems, these typically reside in the ``bin`` directory
+  of the active Python environment.  However, on Windows, these tend to reside in the
+  ``Scripts`` folder - which is a sibling to ``bin``.  As a result, when encountering
+  kernel startup issues, again, check the ``argv`` stanza and verify it's pointing to a
+  valid file.  You may find that it's pointing in ``bin`` when ``Scripts`` is correct, or
+  the referenced file does not include its ``.exe`` extension - typically resulting in
+  ``FileNotFoundError`` exceptions.
+
+This Worked An Hour Ago
+-----------------------
+The Jupyter stack is very complex and rightfully so, there's a lot going on.  On occassion
+you might find the system working perfectly well, then, suddenly, you can't get past a
+certain cell due to ``import`` failures.  In these situations, it's best to ask yourself
+if any new python files were added to your notebook development area.
+
+These issues are usually evident by carefully analyzing the traceback produced in
+the notebook error or the Notebook server's command window.  In these cases, you'll typically
+find the Python kernel code (from ``IPython`` and ``ipykernel``) performing *its* imports
+and notice a file from your Notebook development error included in that traceback followed
+by an ``AttributeError``::
+
+    File "C:\Users\jovyan\anaconda3\lib\site-packages\ipykernel\connect.py", line 13, in
+    from IPython.core.profiledir import ProfileDir
+    File "C:\Users\jovyan\anaconda3\lib\site-packages\IPython_init.py", line 55, in
+    from .core.application import Application
+    ...
+    File "C:\Users\jovyan\anaconda3\lib\site-packages\ipython_genutils\path.py", line 13, in
+    import random
+    File "C:\Users\jovyan\Desktop\Notebooks\random.py", line 4, in
+    rand_set = random.sample(english_words_lower_set, 12)
+    AttributeError: module 'random' has no attribute 'sample'
+
+What has happened is that you have named a file that conflicts with an installed package
+that is used by the kernel software and now introduces a conflict preventing the
+kernel's startup.
+
+**Resolution**: You'll need to rename your file.  A best practice would be to prefix or
+*namespace* your files so as not to conflict with any python package.
+
+
+Asking for help
+---------------
+
+As with any problem, try searching to see if someone has already found an answer.
+If you can't find an existing answer, you can ask questions at:
+
+* The `Jupyter Discourse Forum <https://discourse.jupyter.org/>`_
+* The `jupyter-notebook tag on Stackoverflow <https://stackoverflow.com/questions/tagged/jupyter-notebook>`_
+* Peruse the `jupyter/help repository on Github <https://github.com/jupyter/help>`_ (read-only)
+* Or in an issue on another repository, if it's clear which component is
+  responsible.  Typical repositories include:
+
+    * `jupyter_core <https://github.com/jupyter/jupyter_core>`_ - ``secure_write()``
+      and file path issues
+    * `jupyter_client <https://github.com/jupyter/jupyter_core>`_ - kernel management
+      issues found in Notebook server's command window.
+    * `IPython <https://github.com/ipython/ipython>`_ and
+      `ipykernel <https://github.com/ipython/ipykernel>`_ - kernel runtime issues
+      typically found in Notebook server's command window and/or Notebook cell execution.
+
+Gathering Information
+^^^^^^^^^^^^^^^^^^^^^
+Should you find that your problem warrants that an issue be opened in
+`notebook <https://github.com/jupyter/notebook>`_ please don't forget to provide details
+like the following:
+
+* What error messages do you see (within your notebook and, more importantly, in
+  the Notebook server's command window)?
+* What platform are you on?
+* How did you install Jupyter?
+* What have you tried already?
+
+The ``jupyter troubleshoot`` command collects a lot of information
+about your installation, which can also be useful.
+
+When providing textual information, it's most helpful if you can *scrape* the contents
+into the issue rather than providing a screenshot.  This enables others to select
+pieces of that content so they can search more efficiently and try to help.
+
+Remember that it's not anyone's job to help you.
+We want Jupyter to work for you,
+but we can't always help everyone individually.
+.. _development_faq:
+
+Developer FAQ
+=============
+
+1. How do I install a prerelease version such as a beta or release candidate?
+
+.. code-block:: bash
+
+    python -m pip install notebook --pre --upgrade
+User interface components
+=========================
+
+When opening bug reports or sending emails to the Jupyter mailing list, it is
+useful to know the names of different UI components so that other developers
+and users have an easier time helping you diagnose your problems. This section
+will familiarize you with the names of UI elements within the Notebook and the
+different Notebook modes.
+
+Notebook Dashboard
+-------------------
+
+When you launch ``jupyter notebook`` the first page that you encounter is the
+Notebook Dashboard.
+
+.. image:: ./_static/images/jupyter-notebook-dashboard.png
+
+Notebook Editor
+---------------
+
+Once you've selected a Notebook to edit, the Notebook will open in the Notebook
+Editor.
+
+.. image:: ./_static/images/jupyter-notebook-default.png
+
+Interactive User Interface Tour of the Notebook
+-----------------------------------------------
+
+If you would like to learn more about the specific elements within the Notebook
+Editor, you can go through the user interface tour by selecting *Help* in the
+menubar then selecting *User Interface Tour*.
+
+Edit Mode and Notebook Editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When a cell is in edit mode, the Cell Mode Indicator will change to reflect
+the cell's state. This state is indicated by a small pencil icon on the
+top right of the interface. When the cell is in command mode, there is no
+icon in that location.
+
+.. image:: ./_static/images/jupyter-notebook-edit.png
+
+File Editor
+-----------
+
+Now let's say that you've chosen to open a Markdown file instead of a Notebook
+file whilst in the Notebook Dashboard. If so, the file will be opened in the
+File Editor.
+
+.. image:: ./_static/images/jupyter-file-editor.png
+====================
+The Jupyter Notebook
+====================
+
+* `Installation <https://jupyter.readthedocs.io/en/latest/install.html>`_
+* `Starting the Notebook <https://jupyter.readthedocs.io/en/latest/running.html>`_
+
+.. toctree::
+   :maxdepth: 1
+   :caption: User Documentation
+
+   notebook
+   ui_components
+   examples/Notebook/examples_index.rst
+   troubleshooting
+   changelog
+   comms
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Configuration
+
+   config_overview
+   config
+   public_server
+   security
+   frontend_config
+   examples/Notebook/Distributing Jupyter Extensions as Python Packages
+   extending/index.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contributor Documentation
+
+   contributing
+   development_faq
+
+.. toctree::
+    :hidden:
+
+    examples/Notebook/nbpackage/mynotebook.ipynb
+    examples/Notebook/nbpackage/nbs/other.ipynb
+.. _configuration-overview:
+
+Configuration Overview
+======================
+
+Beyond the default configuration settings, you can configure a rich array of
+options to suit your workflow. Here are areas that are commonly configured
+when using Jupyter Notebook:
+
+    - :ref:`Jupyter's common configuration system <configure_common>`
+    - :ref:`Notebook server <configure_nbserver>`
+    - :ref:`Notebook front-end client <configure_nbclient>`
+    - :ref:`Notebook extensions <configure_nbextensions>`
+
+Let's look at highlights of each area.
+
+.. _configure_common:
+
+Jupyter's Common Configuration system
+-------------------------------------
+Jupyter applications, from the Notebook to JupyterHub to nbgrader, share a
+common configuration system. The process for creating a configuration file
+and editing settings is similar for all the Jupyter applications.
+
+    - `Jupyter’s Common Configuration Approach <https://jupyter.readthedocs.io/en/latest/use/config.html>`_
+    - `Common Directories and File Locations <https://jupyter.readthedocs.io/en/latest/use/jupyter-directories.html>`_
+    - `Language kernels <https://jupyter.readthedocs.io/en/latest/projects/kernels.html>`_
+    - `traitlets <https://traitlets.readthedocs.io/en/latest/config.html#module-traitlets.config>`_
+      provide a low-level architecture for configuration.
+
+.. _configure_nbserver:
+
+Notebook server
+---------------
+The Notebook server runs the language kernel and communicates with the
+front-end Notebook client (i.e. the familiar notebook interface).
+
+  - Configuring the Notebook server
+
+      To create a ``jupyter_notebook_config.py`` file in the ``.jupyter``
+      directory, with all the defaults commented out, use the following
+      command::
+
+            $ jupyter notebook --generate-config
+
+        :ref:`Command line arguments for configuration <config>` settings are
+        documented in the configuration file and the user documentation.
+
+  - :ref:`Running a Notebook server <working_remotely>`
+  - Related: `Configuring a language kernel <https://ipython.readthedocs.io/en/latest/install/kernel_install.html>`_
+    to run in the Notebook server enables your server to run other languages, like R or Julia.
+
+.. _configure_nbclient:
+
+Notebook front-end client
+-------------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   frontend_config
+
+.. _configure_nbextensions:
+
+Notebook extensions
+-------------------
+- `Distributing Jupyter Extensions as Python Packages <https://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Distributing%20Jupyter%20Extensions%20as%20Python%20Packages.html#Distributing-Jupyter-Extensions-as-Python-Packages>`_
+- `Extending the Notebook <https://jupyter-notebook.readthedocs.io/en/latest/extending/index.html>`_
+
+
+:ref:`Security in Jupyter notebooks:  <notebook_security>` Since security
+policies vary from organization to organization, we encourage you to
+consult with your security team on settings that would be best for your use
+cases. Our documentation offers some responsible security practices, and we
+recommend becoming familiar with the practices.
+Comms
+=====
+
+*Comms* allow custom messages between the frontend and the kernel. They are used,
+for instance, in `ipywidgets <https://ipywidgets.readthedocs.io/en/latest/>`__ to
+update widget state.
+
+A comm consists of a pair of objects, in the kernel and the frontend, with an
+automatically assigned unique ID. When one side sends a message, a callback on
+the other side is triggered with that message data. Either side, the frontend
+or kernel, can open or close the comm.
+
+.. seealso::
+
+    `Custom Messages <https://jupyter-client.readthedocs.io/en/latest/messaging.html#custom-messages>`__
+      The messaging specification section on comms
+
+Opening a comm from the kernel
+------------------------------
+
+First, the function to accept the comm must be available on the frontend. This
+can either be specified in a `requirejs` module, or registered in a registry, for
+example when an :doc:`extension <extending/frontend_extensions>` is loaded.
+This example shows a frontend comm target registered in a registry:
+
+.. code-block:: javascript
+
+    Jupyter.notebook.kernel.comm_manager.register_target('my_comm_target',
+        function(comm, msg) {
+            // comm is the frontend comm instance
+            // msg is the comm_open message, which can carry data
+
+            // Register handlers for later messages:
+            comm.on_msg(function(msg) {...});
+            comm.on_close(function(msg) {...});
+            comm.send({'foo': 0});
+        });
+
+Now that the frontend comm is registered, you can open the comm from the kernel:
+
+.. code-block:: python
+
+    from ipykernel.comm import Comm
+
+    # Use comm to send a message from the kernel
+    my_comm = Comm(target_name='my_comm_target', data={'foo': 1})
+    my_comm.send({'foo': 2})
+
+    # Add a callback for received messages.
+    @my_comm.on_msg
+    def _recv(msg):
+        # Use msg['content']['data'] for the data in the message
+
+
+This example uses the IPython kernel; it's up to each language kernel what API,
+if any, it offers for using comms.
+
+Opening a comm from the frontend
+--------------------------------
+
+This is very similar to above, but in reverse. First, a comm target must be
+registered in the kernel. For instance, this may be done by code displaying
+output: it will register a target in the kernel, and then display output
+containing Javascript to connect to it.
+
+.. code-block:: python
+
+    def target_func(comm, open_msg):
+        # comm is the kernel Comm instance
+        # msg is the comm_open message
+
+        # Register handler for later messages
+        @comm.on_msg
+        def _recv(msg):
+            # Use msg['content']['data'] for the data in the message
+            comm.send({'echo': msg['content']['data']})
+
+        # Send data to the frontend on creation
+        comm.send({'foo': 5})
+
+    get_ipython().kernel.comm_manager.register_target('my_comm_target', target_func)
+
+This example uses the IPython kernel again; this example will be different in
+other kernels that support comms. Refer to the specific language kernel's
+documentation for comms support.
+
+And then open the comm from the frontend:
+
+.. code-block:: javascript
+
+    const comm = Jupyter.notebook.kernel.comm_manager.new_comm('my_comm_target', {'foo': 6})
+    // Send data
+    comm.send({'foo': 7})
+
+    // Register a handler
+    comm.on_msg(function(msg) {
+        console.log(msg.content.data.foo);
+    });
+.. _working_remotely:
+
+Running a notebook server
+=========================
+
+
+The :doc:`Jupyter notebook <notebook>` web application is based on a
+server-client structure.  The notebook server uses a :ref:`two-process kernel
+architecture <ipython:ipythonzmq>` based on ZeroMQ_, as well as Tornado_ for
+serving HTTP requests.
+
+.. note::
+   By default, a notebook server runs locally at 127.0.0.1:8888
+   and is accessible only from `localhost`. You may access the
+   notebook server from the browser using `http://127.0.0.1:8888`.
+
+This document describes how you can
+:ref:`secure a notebook server <notebook_server_security>` and how to
+:ref:`run it on a public interface <notebook_public_server>`.
+
+.. important::
+
+    **This is not the multi-user server you are looking for**. This document
+    describes how you can run a public server with a single user. This should
+    only be done by someone who wants remote access to their personal machine.
+    Even so, doing this requires a thorough understanding of the set-ups
+    limitations and security implications. If you allow multiple users to
+    access a notebook server as it is described in this document, their
+    commands may collide, clobber and overwrite each other.
+
+    If you want a multi-user server, the official solution is  JupyterHub_.
+    To use JupyterHub, you need a Unix server (typically Linux) running
+    somewhere that is accessible to your users on a network. This may run over
+    the public internet, but doing so introduces additional
+    `security concerns <https://jupyterhub.readthedocs.io/en/latest/getting-started/security-basics.html>`_.
+
+
+
+.. _ZeroMQ: http://zeromq.org
+
+.. _Tornado: http://www.tornadoweb.org
+
+.. _JupyterHub: https://jupyterhub.readthedocs.io/en/latest/
+
+.. _notebook_server_security:
+
+Securing a notebook server
+--------------------------
+
+You can protect your notebook server with a simple single password. As of notebook
+5.0 this can be done automatically. To set up a password manually you can configure the
+:attr:`NotebookApp.password` setting in :file:`jupyter_notebook_config.py`.
+
+
+Prerequisite: A notebook configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Check to see if you have a notebook configuration file,
+:file:`jupyter_notebook_config.py`. The default location for this file
+is your Jupyter folder located in your home directory:
+
+    - Windows: :file:`C:\\Users\\USERNAME\\.jupyter\\jupyter_notebook_config.py`
+    - OS X: :file:`/Users/USERNAME/.jupyter/jupyter_notebook_config.py`
+    - Linux: :file:`/home/USERNAME/.jupyter/jupyter_notebook_config.py`
+
+If you don't already have a Jupyter folder, or if your Jupyter folder doesn't contain
+a notebook configuration file, run the following command::
+
+  $ jupyter notebook --generate-config
+
+This command will create the Jupyter folder if necessary, and create notebook
+configuration file, :file:`jupyter_notebook_config.py`, in this folder.
+
+
+Automatic Password setup
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of notebook 5.3, the first time you log-in using a token, the notebook server
+should give you the opportunity to setup a password from the user interface.
+
+You will be presented with a form asking for the current _token_, as well as
+your _new_ _password_ ; enter both and click on ``Login and setup new password``.
+
+Next time you need to log in you'll be able to use the new password instead of
+the login token, otherwise follow the procedure to set a password from the
+command line.
+
+The ability to change the password at first login time may be disabled by
+integrations by setting the ``--NotebookApp.allow_password_change=False``
+
+
+Starting at notebook version 5.0, you can enter and store a password for your
+notebook server with a single command. :command:`jupyter notebook password` will
+prompt you for your password and record the hashed password in your
+:file:`jupyter_notebook_config.json`.
+
+.. code-block:: bash
+
+    $ jupyter notebook password
+    Enter password:  ****
+    Verify password: ****
+    [NotebookPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_notebook_config.json
+
+This can be used to reset a lost password; or if you believe your credentials
+have been leaked and desire to change your password. Changing your password will
+invalidate all logged-in sessions after a server restart.
+
+.. _hashed-pw:
+
+Preparing a hashed password
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can prepare a hashed password manually, using the function
+:func:`notebook.auth.security.passwd`:
+
+.. code-block:: ipython
+
+    In [1]: from notebook.auth import passwd
+    In [2]: passwd()
+    Enter password:
+    Verify password:
+    Out[2]: 'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
+
+.. caution::
+
+  :func:`~notebook.auth.security.passwd` when called with no arguments
+  will prompt you to enter and verify your password such as
+  in the above code snippet. Although the function can also
+  be passed a string as an argument such as ``passwd('mypassword')``, please
+  **do not** pass a string as an argument inside an IPython session, as it
+  will be saved in your input history.
+
+Adding hashed password to your notebook configuration file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can then add the hashed password to your
+:file:`jupyter_notebook_config.py`. The default location for this file
+:file:`jupyter_notebook_config.py` is in your Jupyter folder in your home
+directory, ``~/.jupyter``, e.g.::
+
+    c.NotebookApp.password = u'sha1:67c9e60bb8b6:9ffede0825894254b2e042ea597d771089e11aed'
+
+Automatic password setup will store the hash in ``jupyter_notebook_config.json``
+while this method stores the hash in ``jupyter_notebook_config.py``. The ``.json``
+configuration options take precedence over the ``.py`` one, thus the manual
+password may not take effect if the Json file has a password set.
+
+
+Using SSL for encrypted communication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When using a password, it is a good idea to also use SSL with a web
+certificate, so that your hashed password is not sent unencrypted by your
+browser.
+
+.. important::
+   Web security is rapidly changing and evolving. We provide this document
+   as a convenience to the user, and recommend that the user keep current on
+   changes that may impact security, such as new releases of OpenSSL.
+   The Open Web Application Security Project (`OWASP`_) website is a good resource
+   on general security issues and web practices.
+
+You can start the notebook to communicate via a secure protocol mode by setting
+the ``certfile`` option to your self-signed certificate, i.e. ``mycert.pem``,
+with the command::
+
+    $ jupyter notebook --certfile=mycert.pem --keyfile mykey.key
+
+.. tip::
+
+    A self-signed certificate can be generated with ``openssl``.  For example,
+    the following command will create a certificate valid for 365 days with
+    both the key and certificate data written to the same file::
+
+        $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mykey.key -out mycert.pem
+
+When starting the notebook server, your browser may warn that your self-signed
+certificate is insecure or unrecognized.  If you wish to have a fully
+compliant self-signed certificate that will not raise warnings, it is possible
+(but rather involved) to create one, as explained in detail in this
+`tutorial`_. Alternatively, you may use `Let's Encrypt`_ to acquire a free SSL
+certificate and follow the steps in :ref:`using-lets-encrypt` to set up a
+public server.
+
+.. _OWASP: https://www.owasp.org
+.. _tutorial: https://arstechnica.com/information-technology/2009/12/how-to-get-set-with-a-secure-sertificate-for-free/
+
+.. _notebook_public_server:
+
+Running a public notebook server
+--------------------------------
+
+If you want to access your notebook server remotely via a web browser,
+you can do so by running a public notebook server. For optimal security
+when running a public notebook server, you should first secure the
+server with a password and SSL/HTTPS as described in
+:ref:`notebook_server_security`.
+
+Start by creating a certificate file and a hashed password, as explained in
+:ref:`notebook_server_security`.
+
+If you don't already have one, create a
+config file for the notebook using the following command line::
+
+  $ jupyter notebook --generate-config
+
+In the ``~/.jupyter`` directory, edit the notebook config file,
+``jupyter_notebook_config.py``.  By default, the notebook config file has
+all fields commented out. The minimum set of configuration options that
+you should uncomment and edit in :file:`jupyter_notebook_config.py` is the
+following::
+
+     # Set options for certfile, ip, password, and toggle off
+     # browser auto-opening
+     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/mycert.pem'
+     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/mykey.key'
+     # Set ip to '*' to bind on all interfaces (ips) for the public server
+     c.NotebookApp.ip = '*'
+     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
+     c.NotebookApp.open_browser = False
+
+     # It is a good idea to set a known, fixed port for server access
+     c.NotebookApp.port = 9999
+
+You can then start the notebook using the ``jupyter notebook`` command.
+
+.. _using-lets-encrypt:
+
+Using Let's Encrypt
+~~~~~~~~~~~~~~~~~~~
+`Let's Encrypt`_ provides free SSL/TLS certificates. You can also set up a
+public server using a `Let's Encrypt`_ certificate.
+
+:ref:`notebook_public_server` will be similar when using a Let's Encrypt
+certificate with a few configuration changes. Here are the steps:
+
+1. Create a `Let's Encrypt certificate <https://letsencrypt.org/getting-started/>`_.
+2. Use :ref:`hashed-pw` to create one.
+3. If you don't already have config file for the notebook, create one
+   using the following command:
+
+   .. code-block:: bash
+
+       $ jupyter notebook --generate-config
+
+4. In the ``~/.jupyter`` directory, edit the notebook config file,
+``jupyter_notebook_config.py``.  By default, the notebook config file has
+all fields commented out. The minimum set of configuration options that
+you should to uncomment and edit in :file:`jupyter_notebook_config.py` is the
+following::
+
+     # Set options for certfile, ip, password, and toggle off
+     # browser auto-opening
+     c.NotebookApp.certfile = u'/absolute/path/to/your/certificate/fullchain.pem'
+     c.NotebookApp.keyfile = u'/absolute/path/to/your/certificate/privkey.pem'
+     # Set ip to '*' to bind on all interfaces (ips) for the public server
+     c.NotebookApp.ip = '*'
+     c.NotebookApp.password = u'sha1:bcd259ccf...<your hashed password here>'
+     c.NotebookApp.open_browser = False
+
+     # It is a good idea to set a known, fixed port for server access
+     c.NotebookApp.port = 9999
+
+You can then start the notebook using the ``jupyter notebook`` command.
+
+.. important::
+
+    **Use 'https'.**
+    Keep in mind that when you enable SSL support, you must access the
+    notebook server over ``https://``, not over plain ``http://``.  The startup
+    message from the server prints a reminder in the console, but *it is easy
+    to overlook this detail and think the server is for some reason
+    non-responsive*.
+
+    **When using SSL, always access the notebook server with 'https://'.**
+
+You may now access the public server by pointing your browser to
+``https://your.host.com:9999`` where ``your.host.com`` is your public server's
+domain.
+
+.. _`Let's Encrypt`: https://letsencrypt.org
+
+
+Firewall Setup
+~~~~~~~~~~~~~~
+
+To function correctly, the firewall on the computer running the jupyter
+notebook server must be configured to allow connections from client
+machines on the access port ``c.NotebookApp.port`` set in
+:file:`jupyter_notebook_config.py` to allow connections to the
+web interface.  The firewall must also allow connections from
+127.0.0.1 (localhost) on ports from 49152 to 65535.
+These ports are used by the server to communicate with the notebook kernels.
+The kernel communication ports are chosen randomly by ZeroMQ, and may require
+multiple connections per kernel, so a large range of ports must be accessible.
+
+Running the notebook with a customized URL prefix
+-------------------------------------------------
+
+The notebook dashboard, which is the landing page with an overview
+of the notebooks in your working directory, is typically found and accessed
+at the default URL ``http://localhost:8888/``.
+
+If you prefer to customize the URL prefix for the notebook dashboard, you can
+do so through modifying ``jupyter_notebook_config.py``. For example, if you
+prefer that the notebook dashboard be located with a sub-directory that
+contains other ipython files, e.g. ``http://localhost:8888/ipython/``,
+you can do so with configuration options like the following (see above for
+instructions about modifying ``jupyter_notebook_config.py``):
+
+.. code-block:: python
+
+    c.NotebookApp.base_url = '/ipython/'
+
+
+Embedding the notebook in another website
+-----------------------------------------
+
+Sometimes you may want to embed the notebook somewhere on your website,
+e.g. in an IFrame. To do this, you may need to override the
+Content-Security-Policy to allow embedding. Assuming your website is at
+`https://mywebsite.example.com`, you can embed the notebook on your website
+with the following configuration setting in
+:file:`jupyter_notebook_config.py`:
+
+.. code-block:: python
+
+    c.NotebookApp.tornado_settings = {
+        'headers': {
+            'Content-Security-Policy': "frame-ancestors https://mywebsite.example.com 'self' "
+        }
+    }
+
+When embedding the notebook in a website using an iframe,
+consider putting the notebook in single-tab mode.
+Since the notebook opens some links in new tabs by default,
+single-tab mode keeps the notebook from opening additional tabs.
+Adding the following to :file:`~/.jupyter/custom/custom.js` will enable
+single-tab mode:
+
+.. code-block:: javascript
+
+    define(['base/js/namespace'], function(Jupyter){
+        Jupyter._target = '_self';
+    });
+
+
+Using a gateway server for kernel management
+--------------------------------------------
+
+You are now able to redirect the management of your kernels to a Gateway Server
+(i.e., `Jupyter Kernel Gateway <https://jupyter-kernel-gateway.readthedocs.io/en/latest/>`_ or
+`Jupyter Enterprise Gateway <https://jupyter-enterprise-gateway.readthedocs.io/en/latest/>`_)
+simply by specifying a Gateway url via the following command-line option:
+
+    .. code-block:: bash
+
+        $ jupyter notebook --gateway-url=http://my-gateway-server:8888
+
+the environment:
+
+    .. code-block:: bash
+
+        JUPYTER_GATEWAY_URL=http://my-gateway-server:8888
+
+or in :file:`jupyter_notebook_config.py`:
+
+   .. code-block:: python
+
+      c.GatewayClient.url = http://my-gateway-server:8888
+
+When provided, all kernel specifications will be retrieved from the specified Gateway server and all
+kernels will be managed by that server.  This option enables the ability to target kernel processes
+against managed clusters while allowing for the notebook's management to remain local to the Notebook
+server.
+
+Known issues
+------------
+
+Proxies
+~~~~~~~
+
+When behind a proxy, especially if your system or browser is set to autodetect
+the proxy, the notebook web application might fail to connect to the server's
+websockets, and present you with a warning at startup. In this case, you need
+to configure your system not to use the proxy for the server's address.
+
+For example, in Firefox, go to the Preferences panel, Advanced section,
+Network tab, click 'Settings...', and add the address of the notebook server
+to the 'No proxy for' field.
+
+Content-Security-Policy (CSP)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Certain `security guidelines
+<https://infosec.mozilla.org/guidelines/web_security.html#content-security-policy>`_
+recommend that servers use a Content-Security-Policy (CSP) header to prevent
+cross-site scripting vulnerabilities, specifically limiting to ``default-src:
+https:`` when possible.  This directive causes two problems with Jupyter.
+First, it disables execution of inline javascript code, which is used
+extensively by Jupyter.  Second, it limits communication to the https scheme,
+and prevents WebSockets from working because they communicate via the wss
+scheme (or ws for insecure communication).  Jupyter uses WebSockets for
+interacting with kernels, so when you visit a server with such a CSP, your
+browser will block attempts to use wss, which will cause you to see
+"Connection failed" messages from jupyter notebooks, or simply no response
+from jupyter terminals.  By looking in your browser's javascript console, you
+can see any error messages that will explain what is failing.
+
+To avoid these problem, you need to add ``'unsafe-inline'`` and ``connect-src
+https: wss:`` to your CSP header, at least for pages served by jupyter.  (That
+is, you can leave your CSP unchanged for other parts of your website.)  Note
+that multiple CSP headers are allowed, but successive CSP headers can only
+restrict the policy; they cannot loosen it.  For example, if your server sends
+both of these headers
+
+    Content-Security-Policy "default-src https: 'unsafe-inline'"
+    Content-Security-Policy "connect-src https: wss:"
+
+the first policy will already eliminate wss connections, so the second has no
+effect.  Therefore, you can't simply add the second header; you have to
+actually modify your CSP header to look more like this:
+
+    Content-Security-Policy "default-src https: 'unsafe-inline'; connect-src https: wss:"
+
+
+
+Docker CMD
+~~~~~~~~~~
+
+Using ``jupyter notebook`` as a
+`Docker CMD <https://docs.docker.com/engine/reference/builder/#cmd>`_ results in
+kernels repeatedly crashing, likely due to a lack of `PID reaping
+<https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/>`_.
+To avoid this, use the `tini <https://github.com/krallin/tini>`_ ``init`` as your
+Dockerfile `ENTRYPOINT`::
+
+  # Add Tini. Tini operates as a process subreaper for jupyter. This prevents
+  # kernel crashes.
+  ENV TINI_VERSION v0.6.0
+  ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
+  RUN chmod +x /usr/bin/tini
+  ENTRYPOINT ["/usr/bin/tini", "--"]
+
+  EXPOSE 8888
+  CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0"]
+File save hooks
+===============
+
+You can configure functions that are run whenever a file is saved. There are
+two hooks available:
+
+* ``ContentsManager.pre_save_hook`` runs on the API path and model with
+  content. This can be used for things like stripping output that people don't
+  like adding to VCS noise.
+* ``FileContentsManager.post_save_hook`` runs on the filesystem path and model
+  without content. This could be used to commit changes after every save, for
+  instance.
+
+They are both called with keyword arguments:
+
+.. code-block:: python
+
+    pre_save_hook(model=model, path=path, contents_manager=cm)
+    post_save_hook(model=model, os_path=os_path, contents_manager=cm)
+
+Examples
+--------
+
+These can both be added to :file:`jupyter_notebook_config.py`.
+
+A pre-save hook for stripping output:
+
+.. code-block:: python
+
+    def scrub_output_pre_save(model, **kwargs):
+        """scrub output before saving notebooks"""
+        # only run on notebooks
+        if model['type'] != 'notebook':
+            return
+        # only run on nbformat v4
+        if model['content']['nbformat'] != 4:
+            return
+
+        for cell in model['content']['cells']:
+            if cell['cell_type'] != 'code':
+                continue
+            cell['outputs'] = []
+            cell['execution_count'] = None
+
+    c.FileContentsManager.pre_save_hook = scrub_output_pre_save
+
+A post-save hook to make a script equivalent whenever the notebook is saved
+(replacing the ``--script`` option in older versions of the notebook):
+
+.. code-block:: python
+
+    import io
+    import os
+    from notebook.utils import to_api_path
+
+    _script_exporter = None
+
+    def script_post_save(model, os_path, contents_manager, **kwargs):
+        """convert notebooks to Python script after save with nbconvert
+
+        replaces `jupyter notebook --script`
+        """
+        from nbconvert.exporters.script import ScriptExporter
+
+        if model['type'] != 'notebook':
+            return
+
+        global _script_exporter
+
+        if _script_exporter is None:
+            _script_exporter = ScriptExporter(parent=contents_manager)
+
+        log = contents_manager.log
+
+        base, ext = os.path.splitext(os_path)
+        script, resources = _script_exporter.from_filename(os_path)
+        script_fname = base + resources.get('output_extension', '.txt')
+        log.info("Saving script /%s", to_api_path(script_fname, contents_manager.root_dir))
+
+        with io.open(script_fname, 'w', encoding='utf-8') as f:
+            f.write(script)
+
+    c.FileContentsManager.post_save_hook = script_post_save
+
+
+This could be a simple call to ``jupyter nbconvert --to script``, but spawning
+the subprocess every time is quite slow.
+Custom request handlers
+=======================
+
+The notebook webserver can be interacted with using a well `defined
+RESTful
+API <http://petstore.swagger.io/?url=https://raw.githubusercontent.com/jupyter/notebook/master/notebook/services/api/api.yaml>`__.
+You can define custom RESTful API handlers in addition to the ones
+provided by the notebook. As described below, to define a custom handler
+you need to first write a notebook server extension. Then, in the
+extension, you can register the custom handler.
+
+Writing a notebook server extension
+-----------------------------------
+
+The notebook webserver is written in Python, hence your server extension
+should be written in Python too. Server extensions, like IPython
+extensions, are Python modules that define a specially named load
+function, ``load_jupyter_server_extension``. This function is called
+when the extension is loaded.
+
+.. code:: python
+
+    def load_jupyter_server_extension(nb_server_app):
+        """
+        Called when the extension is loaded.
+
+        Args:
+            nb_server_app (NotebookWebApplication): handle to the Notebook webserver instance.
+        """
+        pass
+
+To get the notebook server to load your custom extension, you'll need to
+add it to the list of extensions to be loaded. You can do this using the
+config system. ``NotebookApp.nbserver_extensions`` is a config variable
+which is a dictionary of strings, each a Python module to be imported, mapping
+to ``True`` to enable or ``False`` to disable each extension.
+Because this variable is notebook config, you can set it two different
+ways, using config files or via the command line.
+
+For example, to get your extension to load via the command line add a
+double dash before the variable name, and put the Python dictionary in
+double quotes. If your package is "mypackage" and module is
+"mymodule", this would look like
+``jupyter notebook --NotebookApp.nbserver_extensions="{'mypackage.mymodule':True}"``
+.
+Basically the string should be Python importable.
+
+Alternatively, you can have your extension loaded regardless of the
+command line args by setting the variable in the Jupyter config file.
+The default location of the Jupyter config file is
+``~/.jupyter/jupyter_notebook_config.py`` (see :doc:`/config_overview`). Inside
+the config file, you can use Python to set the variable. For example,
+the following config does the same as the previous command line example.
+
+.. code:: python
+
+    c = get_config()
+    c.NotebookApp.nbserver_extensions = {
+        'mypackage.mymodule': True,
+    }
+
+Before continuing, it's a good idea to verify that your extension is
+being loaded. Use a print statement to print something unique. Launch
+the notebook server and you should see your statement printed to the
+console.
+
+Registering custom handlers
+---------------------------
+
+Once you've defined a server extension, you can register custom handlers
+because you have a handle to the Notebook server app instance
+(``nb_server_app`` above). However, you first need to define your custom
+handler. To declare a custom handler, inherit from
+``notebook.base.handlers.IPythonHandler``. The example below[1] is a
+Hello World handler:
+
+.. code:: python
+
+    from notebook.base.handlers import IPythonHandler
+
+    class HelloWorldHandler(IPythonHandler):
+        def get(self):
+            self.finish('Hello, world!')
+
+The Jupyter Notebook server use
+`Tornado <http://www.tornadoweb.org/en/stable/>`__ as its web framework.
+For more information on how to implement request handlers, refer to the
+`Tornado documentation on the
+matter <http://www.tornadoweb.org/en/stable/web.html#request-handlers>`__.
+
+After defining the handler, you need to register the handler with the
+Notebook server. See the following example:
+
+.. code:: python
+
+    web_app = nb_server_app.web_app
+    host_pattern = '.*$'
+    route_pattern = url_path_join(web_app.settings['base_url'], '/hello')
+    web_app.add_handlers(host_pattern, [(route_pattern, HelloWorldHandler)])
+
+Putting this together with the extension code, the example looks like the
+following:
+
+.. code:: python
+
+    from notebook.utils import url_path_join
+    from notebook.base.handlers import IPythonHandler
+
+    class HelloWorldHandler(IPythonHandler):
+        def get(self):
+            self.finish('Hello, world!')
+
+    def load_jupyter_server_extension(nb_server_app):
+        """
+        Called when the extension is loaded.
+
+        Args:
+            nb_server_app (NotebookWebApplication): handle to the Notebook webserver instance.
+        """
+        web_app = nb_server_app.web_app
+        host_pattern = '.*$'
+        route_pattern = url_path_join(web_app.settings['base_url'], '/hello')
+        web_app.add_handlers(host_pattern, [(route_pattern, HelloWorldHandler)])
+
+
+Extra Parameters and authentication
+===================================
+
+Here is a quick rundown of what you need to know to pass extra parameters to the handler and enable authentication:
+
+ - extra arguments to the ``__init__`` constructor are given in a dictionary after the  handler class in ``add_handlers``:
+
+.. code:: python
+
+
+    class HelloWorldHandler(IPythonHandler):
+
+        def __init__(self, *args, **kwargs):
+            self.extra = kwargs.pop('extra')
+            ...
+
+    def load_jupyter_server_extension(nb_server_app):
+
+        ...
+
+        web_app.add_handlers(host_pattern,
+            [
+               (route_pattern, HelloWorldHandler, {"extra": nb_server_app.extra})
+            ])
+
+
+All handler methods that require authentication _MUST_ be decorated with ``@tornado.web.authenticated``:
+
+
+.. code:: python
+
+    from tornado import web
+
+    class HelloWorldHandler(IPythonHandler):
+
+        ...
+
+        @web.authenticated
+        def  get(self, *args, **kwargs):
+             ...
+
+        @web.authenticated
+        def  post(self, *args, **kwargs):
+             ...
+
+
+References:
+
+1. `Peter Parente's Mindtrove <https://mindtrove.info/4-ways-to-extend-jupyter-notebook/#nb-server-exts>`__
+Custom front-end extensions
+===========================
+
+This describes the basic steps to write a JavaScript extension for the Jupyter
+notebook front-end. This allows you to customize the behaviour of the various
+pages like the dashboard, the notebook, or the text editor.
+
+The structure of a front-end extension
+--------------------------------------
+
+.. note::
+
+    The notebook front-end and Javascript API are not stable, and are subject
+    to a lot of changes. Any extension written for the current notebook is
+    almost guaranteed to break in the next release.
+
+.. _AMD module: https://en.wikipedia.org/wiki/Asynchronous_module_definition
+
+A front-end extension is a JavaScript file that defines an `AMD module`_
+which exposes at least a function called ``load_ipython_extension``, which
+takes no arguments. We will not get into the details of what each of these
+terms consists of yet, but here is the minimal code needed for a working
+extension:
+
+.. code:: javascript
+
+    // file my_extension/main.js
+
+    define(function(){
+
+        function load_ipython_extension(){
+            console.info('this is my first extension');
+        }
+
+        return {
+            load_ipython_extension: load_ipython_extension
+        };
+    });
+
+.. note::
+
+    Although for historical reasons the function is called
+    ``load_ipython_extension``, it does apply to the Jupyter notebook in
+    general, and will work regardless of the kernel in use.
+
+If you are familiar with JavaScript, you can use this template to require any
+Jupyter module and modify its configuration, or do anything else in client-side
+Javascript. Your extension will be loaded at the right time during the notebook
+page initialisation for you to set up a listener for the various events that
+the page can trigger.
+
+You might want access to the current instances of the various Jupyter notebook
+components on the page, as opposed to the classes defined in the modules. The
+current instances are exposed by a module named ``base/js/namespace``. If you
+plan on accessing instances on the page, you should ``require`` this module
+rather than accessing the global variable ``Jupyter``, which will be removed in
+future. The following example demonstrates how to access the current notebook
+instance:
+
+.. code:: javascript
+
+    // file my_extension/main.js
+
+    define([
+        'base/js/namespace'
+    ], function(
+        Jupyter
+    ) {
+        function load_ipython_extension() {
+            console.log(
+                'This is the current notebook application instance:',
+                Jupyter.notebook
+            );
+        }
+
+        return {
+            load_ipython_extension: load_ipython_extension
+        };
+    });
+
+
+Modifying key bindings
+----------------------
+
+One of the abilities of extensions is to modify key bindings, although once
+again this is an API which is not guaranteed to be stable. However, custom key
+bindings are frequently requested, and are helpful to increase accessibility,
+so in the following we show how to access them.
+
+Here is an example of an extension that will unbind the shortcut ``0,0`` in
+command mode, which normally restarts the kernel, and bind ``0,0,0`` in its
+place:
+
+.. code:: javascript
+
+    // file my_extension/main.js
+
+    define([
+        'base/js/namespace'
+    ], function(
+        Jupyter
+    ) {
+
+        function load_ipython_extension() {
+            Jupyter.keyboard_manager.command_shortcuts.remove_shortcut('0,0');
+            Jupyter.keyboard_manager.command_shortcuts.add_shortcut('0,0,0', 'jupyter-notebook:restart-kernel');
+        }
+
+        return {
+            load_ipython_extension: load_ipython_extension
+        };
+    });
+
+.. note::
+
+    The standard keybindings might not work correctly on non-US keyboards.
+    Unfortunately, this is a limitation of browser implementations and the
+    status of keyboard event handling on the web in general. We appreciate your
+    feedback if you have issues binding keys, or have any ideas to help improve
+    the situation.
+
+You can see that I have used the **action name**
+``jupyter-notebook:restart-kernel`` to bind the new shortcut. There is no API
+yet to access the list of all available *actions*, though the following in the
+JavaScript console of your browser on a notebook page should give you an idea
+of what is available:
+
+.. code:: javascript
+
+    Object.keys(require('base/js/namespace').actions._actions);
+
+In this example, we changed a keyboard shortcut in **command mode**; you
+can also customize keyboard shortcuts in **edit mode**.
+However, most of the keyboard shortcuts in edit mode are handled by CodeMirror,
+which supports custom key bindings via a completely different API.
+
+
+Defining and registering your own actions
+-----------------------------------------
+
+As part of your front-end extension, you may wish to define actions, which can
+be attached to toolbar buttons, or called from the command palette. Here is an
+example of an extension that defines an (not very useful!) action to show an
+alert, and adds a toolbar button using the full action name:
+
+.. code:: javascript
+
+    // file my_extension/main.js
+
+    define([
+        'base/js/namespace'
+    ], function(
+        Jupyter
+    ) {
+        function load_ipython_extension() {
+
+            var handler = function () {
+                alert('this is an alert from my_extension!');
+            };
+
+            var action = {
+                icon: 'fa-comment-o', // a font-awesome class used on buttons, etc
+                help    : 'Show an alert',
+                help_index : 'zz',
+                handler : handler
+            };
+            var prefix = 'my_extension';
+            var action_name = 'show-alert';
+
+            var full_action_name = Jupyter.actions.register(action, action_name, prefix); // returns 'my_extension:show-alert'
+            Jupyter.toolbar.add_buttons_group([full_action_name]);
+        }
+
+        return {
+            load_ipython_extension: load_ipython_extension
+        };
+    });
+
+Every action needs a name, which, when joined with its prefix to make the full
+action name, should be unique. Built-in actions, like the
+``jupyter-notebook:restart-kernel`` we bound in the earlier
+`Modifying key bindings`_ example, use the prefix ``jupyter-notebook``. For
+actions defined in an extension, it makes sense to use the extension name as
+the prefix. For the action name, the following guidelines should be considered:
+
+.. adapted from notebook/static/notebook/js/actions.js
+
+* First pick a noun and a verb for the action. For example, if the action is
+  "restart kernel," the verb is "restart" and the noun is "kernel".
+* Omit terms like "selected" and "active" by default, so "delete-cell", rather
+  than "delete-selected-cell". Only provide a scope like "-all-" if it is other
+  than the default "selected" or "active" scope.
+* If an action has a secondary action, separate the secondary action with
+  "-and-", so "restart-kernel-and-clear-output".
+* Use above/below or previous/next to indicate spatial and sequential
+  relationships.
+* Don't ever use before/after as they have a temporal connotation that is
+  confusing when used in a spatial context.
+* For dialogs, use a verb that indicates what the dialog will accomplish, such
+  as "confirm-restart-kernel".
+
+
+Installing and enabling extensions
+----------------------------------
+
+You can install your nbextension with the command::
+
+    jupyter nbextension install path/to/my_extension/ [--user|--sys-prefix]
+
+The default installation is system-wide. You can use ``--user`` to do a
+per-user installation, or ``--sys-prefix`` to install to Python's prefix (e.g.
+in a virtual or conda environment). Where my_extension is the directory
+containing the Javascript files. This will copy it to a Jupyter data directory
+(the exact location is platform dependent - see :ref:`jupyter_path`).
+
+For development, you can use the ``--symlink`` flag to symlink your extension
+rather than copying it, so there's no need to reinstall after changes.
+
+To use your extension, you'll also need to **enable** it, which tells the
+notebook interface to load it. You can do that with another command::
+
+    jupyter nbextension enable my_extension/main [--sys-prefix][--section='common']
+
+The argument refers to the Javascript module containing your
+``load_ipython_extension`` function, which is ``my_extension/main.js`` in this
+example. The ``--section='common'`` argument will affect all pages, by default 
+it will be loaded on the notebook view only. 
+There is a corresponding ``disable`` command to stop using an
+extension without uninstalling it.
+
+.. versionchanged:: 4.2
+
+    Added ``--sys-prefix`` argument
+
+
+Kernel Specific extensions
+--------------------------
+
+.. warning::
+
+  This feature serves as a stopgap for kernel developers who need specific
+  JavaScript injected onto the page. The availability and API are subject to
+  change at anytime.
+
+
+It is possible to load some JavaScript on the page on a per kernel basis. Be
+aware that doing so will make the browser page reload without warning as
+soon as the user switches the kernel without notice.
+
+If you, a kernel developer, need a particular piece of JavaScript to be loaded
+on a "per kernel" basis, such as:
+
+* if you are developing a CodeMirror mode for your language
+* if you need to enable some specific debugging options
+
+your ``kernelspecs`` are allowed to contain a ``kernel.js`` file that defines
+an AMD module. The AMD module should define an `onload` function that will be
+called when the kernelspec loads, such as:
+
+* when you load a notebook that uses your kernelspec
+* change the active kernelspec of a notebook to your kernelspec.
+
+Note that adding a `kernel.js` to your kernelspec will add an unexpected side
+effect to changing a kernel in the notebook. As it is impossible to "unload"
+JavaScript, any attempt to change the kernelspec again will save the current
+notebook and reload the page without confirmations.
+
+Here is an example of ``kernel.js``:
+
+.. code:: javascript
+
+    define(function(){
+      return {onload: function(){
+        console.info('Kernel specific javascript loaded');
+
+        // do more things here, like define a codemirror mode
+
+      }}
+
+    });
+.. _contents_api:
+
+Contents API
+============
+
+.. currentmodule:: notebook.services.contents
+
+The Jupyter Notebook web application provides a graphical interface for
+creating, opening, renaming, and deleting files in a virtual filesystem.
+
+The :class:`~manager.ContentsManager` class defines an abstract
+API for translating these interactions into operations on a particular storage
+medium. The default implementation,
+:class:`~filemanager.FileContentsManager`, uses the local
+filesystem of the server for storage and straightforwardly serializes notebooks
+into JSON.  Users can override these behaviors by supplying custom subclasses
+of ContentsManager.
+
+This section describes the interface implemented by ContentsManager subclasses.
+We refer to this interface as the **Contents API**.
+
+Data Model
+----------
+
+.. currentmodule:: notebook.services.contents.manager
+
+Filesystem Entities
+~~~~~~~~~~~~~~~~~~~
+.. _notebook models:
+
+ContentsManager methods represent virtual filesystem entities as dictionaries,
+which we refer to as **models**.
+
+Models may contain the following entries:
+
++--------------------+-----------+------------------------------+
+| Key                | Type      |Info                          |
++====================+===========+==============================+
+|**name**            |unicode    |Basename of the entity.       |
++--------------------+-----------+------------------------------+
+|**path**            |unicode    |Full                          |
+|                    |           |(:ref:`API-style<apipaths>`)  |
+|                    |           |path to the entity.           |
++--------------------+-----------+------------------------------+
+|**type**            |unicode    |The entity type. One of       |
+|                    |           |``"notebook"``, ``"file"`` or |
+|                    |           |``"directory"``.              |
++--------------------+-----------+------------------------------+
+|**created**         |datetime   |Creation date of the entity.  |
++--------------------+-----------+------------------------------+
+|**last_modified**   |datetime   |Last modified date of the     |
+|                    |           |entity.                       |
++--------------------+-----------+------------------------------+
+|**content**         |variable   |The "content" of the entity.  |
+|                    |           |(:ref:`See                    |
+|                    |           |Below<modelcontent>`)         |
++--------------------+-----------+------------------------------+
+|**mimetype**        |unicode or |The mimetype of ``content``,  |
+|                    |``None``   |if any.  (:ref:`See           |
+|                    |           |Below<modelcontent>`)         |
++--------------------+-----------+------------------------------+
+|**format**          |unicode or |The format of ``content``,    |
+|                    |``None``   |if any. (:ref:`See            |
+|                    |           |Below<modelcontent>`)         |
++--------------------+-----------+------------------------------+
+
+.. _modelcontent:
+
+Certain model fields vary in structure depending on the ``type`` field of the
+model. There are three model types: **notebook**, **file**, and **directory**.
+
+- ``notebook`` models
+    - The ``format`` field is always ``"json"``.
+    - The ``mimetype`` field is always ``None``.
+    - The ``content`` field contains a
+      :class:`nbformat.notebooknode.NotebookNode` representing the .ipynb file
+      represented by the model.  See the `NBFormat`_ documentation for a full
+      description.
+
+- ``file`` models
+    - The ``format`` field is either ``"text"`` or ``"base64"``.
+    - The ``mimetype`` field can be any mimetype string, but defaults to 
+      ``text/plain`` for text-format models and
+      ``application/octet-stream`` for base64-format models. For files with
+      unknown mime types (e.g. unknown file extensions), this field may be
+      `None`.
+    - The ``content`` field is always of type ``unicode``.  For text-format
+      file models, ``content`` simply contains the file's bytes after decoding
+      as UTF-8.  Non-text (``base64``) files are read as bytes, base64 encoded,
+      and then decoded as UTF-8.
+
+- ``directory`` models
+    - The ``format`` field is always ``"json"``.
+    - The ``mimetype`` field is always ``None``.
+    - The ``content`` field contains a list of :ref:`content-free<contentfree>`
+      models representing the entities in the directory.
+
+.. note::
+
+   .. _contentfree:
+
+   In certain circumstances, we don't need the full content of an entity to
+   complete a Contents API request. In such cases, we omit the ``content``, and
+   ``format`` keys from the model. The default values for the ``mimetype``
+   field will might also not be evaluated, in which case it will be set as `None`.
+   This reduced reply most commonly occurs when listing a directory, in
+   which circumstance we represent files within the directory as content-less
+   models to avoid having to recursively traverse and serialize the entire
+   filesystem.
+
+**Sample Models**
+
+.. code-block:: python
+
+    # Notebook Model with Content
+    {
+        'content': {
+            'metadata': {},
+            'nbformat': 4,
+            'nbformat_minor': 0,
+            'cells': [
+                {
+                    'cell_type': 'markdown',
+                    'metadata': {},
+                    'source': 'Some **Markdown**',
+                },
+            ],
+        },
+        'created': datetime(2015, 7, 25, 19, 50, 19, 19865),
+        'format': 'json',
+        'last_modified': datetime(2015, 7, 25, 19, 50, 19, 19865),
+        'mimetype': None,
+        'name': 'a.ipynb',
+        'path': 'foo/a.ipynb',
+        'type': 'notebook',
+        'writable': True,
+    }
+
+    # Notebook Model without Content
+    {
+        'content': None,
+        'created': datetime.datetime(2015, 7, 25, 20, 17, 33, 271931),
+        'format': None,
+        'last_modified': datetime.datetime(2015, 7, 25, 20, 17, 33, 271931),
+        'mimetype': None,
+        'name': 'a.ipynb',
+        'path': 'foo/a.ipynb',
+        'type': 'notebook',
+        'writable': True
+    }
+
+
+API Paths
+~~~~~~~~~
+.. _apipaths:
+
+ContentsManager methods represent the locations of filesystem resources as
+**API-style paths**.  Such paths are interpreted as relative to the root
+directory of the notebook server.  For compatibility across systems, the
+following guarantees are made:
+
+* Paths are always ``unicode``, not ``bytes``.
+* Paths are not URL-escaped.
+* Paths are always forward-slash (/) delimited, even on Windows.
+* Leading and trailing slashes are stripped.  For example, ``/foo/bar/buzz/``
+  becomes ``foo/bar/buzz``.
+* The empty string (``""``) represents the root directory.
+
+
+Writing a Custom ContentsManager
+--------------------------------
+
+The default ContentsManager is designed for users running the notebook as an
+application on a personal computer.  It stores notebooks as .ipynb files on the
+local filesystem, and it maps files and directories in the Notebook UI to files
+and directories on disk.  It is possible to override how notebooks are stored
+by implementing your own custom subclass of ``ContentsManager``. For example,
+if you deploy the notebook in a context where you don't trust or don't have
+access to the filesystem of the notebook server, it's possible to write your
+own ContentsManager that stores notebooks and files in a database.
+
+
+Required Methods
+~~~~~~~~~~~~~~~~
+
+A minimal complete implementation of a custom
+:class:`~manager.ContentsManager` must implement the following
+methods:
+
+.. autosummary::
+   ContentsManager.get
+   ContentsManager.save
+   ContentsManager.delete_file
+   ContentsManager.rename_file
+   ContentsManager.file_exists
+   ContentsManager.dir_exists
+   ContentsManager.is_hidden
+
+You may be required to specify a Checkpoints object, as the default one,
+``FileCheckpoints``, could be incompatible with your custom 
+ContentsManager.
+
+
+Chunked Saving
+~~~~~~~~~~~~~~
+
+The contents API allows for "chunked" saving of files, i.e.
+saving/transmitting in partial pieces:
+
+* This can only be used when the ``type`` of the model is ``file``.
+* The model should be as otherwise expected for
+  :meth:`~manager.ContentsManager.save`, with an added field ``chunk``.
+* The value of ``chunk`` should be an integer starting at ``1``, and incrementing
+  for each subsequent chunk, except for the final chunk, which should be
+  indicated with a value of ``-1``.
+* The model returned from using :meth:`~manager.ContentsManager.save` with
+  ``chunk`` should be treated as unreliable for all chunks except the final one.
+* Any interaction with a file being saved in a chunked manner is unreliable
+  until the final chunk has been saved. This includes directory listings.
+
+
+Customizing Checkpoints
+-----------------------
+.. currentmodule:: notebook.services.contents.checkpoints
+
+Customized Checkpoint definitions allows behavior to be 
+altered and extended.
+
+The ``Checkpoints`` and ``GenericCheckpointsMixin`` classes
+(from :mod:`notebook.services.contents.checkpoints`)
+have reusable code and are intended to be used together, 
+but require the following methods to be implemented.
+
+.. autosummary::
+   Checkpoints.rename_checkpoint
+   Checkpoints.list_checkpoints
+   Checkpoints.delete_checkpoint
+   GenericCheckpointsMixin.create_file_checkpoint
+   GenericCheckpointsMixin.create_notebook_checkpoint
+   GenericCheckpointsMixin.get_file_checkpoint
+   GenericCheckpointsMixin.get_notebook_checkpoint
+
+No-op example
+~~~~~~~~~~~~~
+
+Here is an example of a no-op checkpoints object - note the mixin
+comes first. The docstrings indicate what each method should do or 
+return for a more complete implementation.
+
+.. code-block:: python
+
+    class NoOpCheckpoints(GenericCheckpointsMixin, Checkpoints):
+        """requires the following methods:"""
+        def create_file_checkpoint(self, content, format, path):
+            """ -> checkpoint model"""
+        def create_notebook_checkpoint(self, nb, path):
+            """ -> checkpoint model"""
+        def get_file_checkpoint(self, checkpoint_id, path):
+            """ -> {'type': 'file', 'content': <str>, 'format': {'text', 'base64'}}"""
+        def get_notebook_checkpoint(self, checkpoint_id, path):
+            """ -> {'type': 'notebook', 'content': <output of nbformat.read>}"""
+        def delete_checkpoint(self, checkpoint_id, path):
+            """deletes a checkpoint for a file"""
+        def list_checkpoints(self, path):
+            """returns a list of checkpoint models for a given file, 
+            default just does one per file
+            """
+            return []
+        def rename_checkpoint(self, checkpoint_id, old_path, new_path):
+            """renames checkpoint from old path to new path"""
+
+See ``GenericFileCheckpoints`` in :mod:`notebook.services.contents.filecheckpoints`
+for a more complete example.
+
+Testing
+-------
+.. currentmodule:: notebook.services.contents.tests
+
+:mod:`notebook.services.contents.tests` includes several test suites written
+against the abstract Contents API.  This means that an excellent way to test a
+new ContentsManager subclass is to subclass our tests to make them use your
+ContentsManager.
+
+.. note::
+
+   PGContents_ is an example of a complete implementation of a custom
+   ``ContentsManager``.  It stores notebooks and files in PostgreSQL_ and encodes
+   directories as SQL relations.  PGContents also provides an example of how to
+   re-use the notebook's tests.
+
+.. _NBFormat: https://nbformat.readthedocs.io/en/latest/index.html
+.. _PGContents: https://github.com/quantopian/pgcontents
+.. _PostgreSQL: https://www.postgresql.org/
+Custom bundler extensions
+=========================
+
+The notebook server supports the writing of *bundler extensions* that
+transform, package, and download/deploy notebook files. As a developer, you
+need only write a single Python function to implement a bundler. The notebook
+server automatically generates a *File -> Download as* or *File -> Deploy as*
+menu item in the notebook front-end to trigger your bundler.
+
+Here are some examples of what you can implement using bundler extensions:
+
+* Convert a notebook file to a HTML document and publish it as a post on a
+  blog site
+* Create a snapshot of the current notebook environment and bundle that
+  definition plus notebook into a zip download
+* Deploy a notebook as a standalone, interactive `dashboard <https://github.com/jupyter-incubator/dashboards_bundlers>`_
+
+To implement a bundler extension, you must do all of the following:
+
+* Declare bundler extension metadata in your Python package
+* Write a `bundle` function that responds to bundle requests
+* Instruct your users on how to enable/disable your bundler extension
+
+The following sections describe these steps in detail.
+
+Declaring bundler metadata
+--------------------------
+
+You must provide information about the bundler extension(s) your package
+provides by implementing a `_jupyter_bundlerextensions_paths` function. This
+function can reside anywhere in your package so long as it can be imported
+when enabling the bundler extension. (See :ref:`enabling-bundlers`.)
+
+.. code:: python
+
+    # in mypackage.hello_bundler
+
+    def _jupyter_bundlerextension_paths():
+        """Example "hello world" bundler extension"""
+        return [{
+            'name': 'hello_bundler',                    # unique bundler name
+            'label': 'Hello Bundler',                   # human-readable menu item label
+            'module_name': 'mypackage.hello_bundler',   # module containing bundle()
+            'group': 'deploy'                           # group under 'deploy' or 'download' menu
+        }]
+
+Note that the return value is a list. By returning multiple dictionaries in
+the list, you allow users to enable/disable sets of bundlers all at once.
+
+Writing the `bundle` function
+-----------------------------
+
+At runtime, a menu item with the given label appears either in the
+*File ->  Deploy as* or *File -> Download as* menu depending on the `group`
+value in your metadata. When a user clicks the menu item, a new browser tab
+opens and notebook server invokes a `bundle` function in the `module_name`
+specified in the metadata.
+
+You must implement a `bundle` function that matches the signature of the
+following example:
+
+.. code:: python
+
+    # in mypackage.hello_bundler
+
+    def bundle(handler, model):
+        """Transform, convert, bundle, etc. the notebook referenced by the given
+        model.
+
+        Then issue a Tornado web response using the `handler` to redirect
+        the user's browser, download a file, show a HTML page, etc. This function
+        must finish the handler response before returning either explicitly or by
+        raising an exception.
+
+        Parameters
+        ----------
+        handler : tornado.web.RequestHandler
+            Handler that serviced the bundle request
+        model : dict
+            Notebook model from the configured ContentManager
+        """
+        handler.finish('I bundled {}!'.format(model['path']))
+
+Your `bundle` function is free to do whatever it wants with the request and
+respond in any manner. For example, it may read additional query parameters
+from the request, issue a redirect to another site, run a local process (e.g.,
+`nbconvert`), make a HTTP request to another service, etc.
+
+The caller of the `bundle` function is `@tornado.gen.coroutine` decorated and
+wraps its call with `torando.gen.maybe_future`. This behavior means you may
+handle the web request synchronously, as in the example above, or
+asynchronously using `@tornado.gen.coroutine` and `yield`, as in the example
+below.
+
+.. code:: python
+
+    from tornado import gen
+
+    @gen.coroutine
+    def bundle(handler, model):
+      # simulate a long running IO op (e.g., deploying to a remote host)
+      yield gen.sleep(10)
+
+      # now respond
+      handler.finish('I spent 10 seconds bundling {}!'.format(model['path']))
+
+You should prefer the second, asynchronous approach when your bundle operation
+is long-running and would otherwise block the notebook server main loop if
+handled synchronously.
+
+For more details about the data flow from menu item click to bundle function
+invocation, see :ref:`bundler-details`.
+
+.. _enabling-bundlers:
+
+Enabling/disabling bundler extensions
+-------------------------------------
+
+The notebook server includes a command line interface (CLI) for enabling and
+disabling bundler extensions.
+
+You should document the basic commands for enabling and disabling your
+bundler. One possible command for enabling the `hello_bundler` example is the
+following:
+
+.. code:: bash
+
+    jupyter bundlerextension enable --py mypackage.hello_bundler --sys-prefix
+
+The above updates the notebook configuration file in the current
+conda/virtualenv environment (`--sys-prefix`) with the metadata returned by
+the `mypackage.hellow_bundler._jupyter_bundlerextension_paths` function.
+
+The corresponding command to later disable the bundler extension is the
+following:
+
+.. code:: bash
+
+    jupyter bundlerextension disable --py mypackage.hello_bundler --sys-prefix
+
+For more help using the `bundlerextension` subcommand, run the following.
+
+.. code:: bash
+
+    jupyter bundlerextension --help
+
+The output describes options for listing enabled bundlers, configuring
+bundlers for single users, configuring bundlers system-wide, etc.
+
+Example: IPython Notebook bundle (.zip)
+---------------------------------------
+
+The `hello_bundler` example in this documentation is simplistic in the name
+of brevity. For more meaningful examples, see
+`notebook/bundler/zip_bundler.py` and `notebook/bundler/tarball_bundler.py`.
+You can enable them to try them like so:
+
+.. code:: bash
+
+    jupyter bundlerextension enable --py notebook.bundler.zip_bundler --sys-prefix
+    jupyter bundlerextension enable --py notebook.bundler.tarball_bundler --sys-prefix
+
+.. _bundler-details:
+
+Bundler invocation details
+--------------------------
+
+Support for bundler extensions comes from Python modules in `notebook/bundler`
+and JavaScript in `notebook/static/notebook/js/menubar.js`. The flow of data
+between the various components proceeds roughly as follows:
+
+1. User opens a notebook document
+2. Notebook front-end JavaScript loads notebook configuration
+3. Bundler front-end JS creates menu items for all bundler extensions in the
+   config
+4. User clicks a bundler menu item
+5. JS click handler opens a new browser window/tab to
+   `<notebook base_url>/bundle/<path/to/notebook>?bundler=<name>` (i.e., a
+   HTTP GET request)
+6. Bundle handler validates the notebook path and bundler `name`
+7. Bundle handler delegates the request to the `bundle` function in the
+   bundler's `module_name`
+8. `bundle` function finishes the HTTP request
+======================
+Extending the Notebook
+======================
+
+Certain subsystems of the notebook server are designed to be extended or
+overridden by users. These documents explain these systems, and show how to
+override the notebook's defaults with your own custom behavior.
+
+.. toctree::
+    :maxdepth: 2
+
+    contents
+    savehooks
+    handlers
+    frontend_extensions
+    keymaps
+    bundler_extensions
+Customize keymaps
+=================
+
+.. note::
+
+    Declarative Custom Keymaps is a provisional feature with unstable API
+    which is not guaranteed to be kept in future versions of the notebook,
+    and can be removed or changed without warnings.
+
+The notebook shortcuts that are defined by jupyter both in edit mode and 
+command mode are configurable in the frontend configuration file
+``~/.jupyter/nbconfig/notebook.json``. The modification of keyboard 
+shortcuts suffers from several limitations, mainly that your Browser and OS 
+might prevent certain shortcuts from working correctly. If this is the case,
+there is unfortunately not much that can be done. The second issue can arise
+with keyboards that have a layout different than US English. Again, even if 
+we are aware of the issue, there is not much that can be done.
+
+Shortcuts are also limited by the underlying library that handles code and 
+text editing: CodeMirror. If some keyboard shortcuts are conflicting, the 
+method described below might not work to create new keyboard shortcuts, 
+especially in the ``edit`` mode of the notebook.
+
+
+The 4 sections of interest in ``~/.jupyter/nbconfig/notebook.json`` are the
+following:
+
+  - ``keys.command.unbind``
+  - ``keys.edit.unbind``
+  - ``keys.command.bind``
+  - ``keys.edit.bind``
+
+The first two sections describe which default keyboard shortcuts not to 
+register at notebook startup time. These are mostly useful if you need to 
+``unbind`` a default keyboard shortcut before binding it to a new 
+``command``.
+
+The first two sections apply respectively to the ``command`` and ``edit``
+mode of the notebook. They take a list of shortcuts to ``unbind``.
+
+For example, to unbind the shortcut to split a cell at the position of the
+cursor (``Ctrl-Shift-Minus``) use the following:
+
+.. code:: javascript
+
+    // file ~/.jupyter/nbconfig/notebook.json
+
+    {
+      "keys": {
+        "edit": {
+          "unbind": [
+            "Ctrl-Shift-Minus"
+          ]
+        },
+      },
+    }
+
+
+
+
+The last two sections describe which new keyboard shortcuts to register
+at notebook startup time and which actions they trigger.
+
+The last two sections apply respectively to the ``command`` and ``edit``
+mode of the notebook. They take a dictionary with shortcuts as ``keys`` and
+``commands`` name as value.
+
+For example, to bind the shortcut ``G,G,G`` (Press G three time in a row) in
+command mode to the command that restarts the kernel and runs all cells, use
+the following:
+
+
+.. code:: javascript
+
+    // file ~/.jupyter/nbconfig/notebook.json
+
+    {
+      "keys": {
+        "command": {
+            "bind": {
+                "G,G,G":"jupyter-notebook:restart-kernel-and-run-all-cells"
+            }
+        }
+      },
+    }
+
+
+
+
+The name of the available ``commands`` can be find by hovering over the 
+right end of a row in the command palette.
+=================
+Notebook Examples
+=================
+
+The pages in this section are all converted notebook files. You can also
+`view these notebooks on nbviewer`__.
+
+__ https://nbviewer.jupyter.org/github/jupyter/notebook/blob/master/
+   docs/source/examples/Notebook/
+
+.. toctree::
+   :maxdepth: 2
+
+   What is the Jupyter Notebook
+   Notebook Basics
+   Running Code
+   Working With Markdown Cells
+   Custom Keyboard Shortcuts
+   JavaScript Notebook Extensions
+   Importing Notebooks
+   Connecting with the Qt Console
+   Typesetting Equations

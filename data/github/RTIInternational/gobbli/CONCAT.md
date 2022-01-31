@@ -14777,3 +14777,690 @@ information on using pull requests.
 
 This project follows
 [Google's Open Source Community Guidelines](https://opensource.google.com/conduct/).
+Prerequisites
+=============
+
+gobbli requires Python 3.7+.
+
+First, ensure `Docker <https://www.docker.com/>`__ is installed and your user has permissions to run docker commands.  Next, install the ``gobbli`` package and dependencies into your environment:
+
+.. code-block:: bash
+
+  pip install gobbli
+
+Some of the :ref:`data-augmentation` methods require extra packages.  You can install them all using the following steps:
+
+.. code-block:: bash
+
+    pip install gobbli[augment]
+    python -m spacy download en_core_web_sm
+
+Additionally, :ref:`document-windowing` with the `SentencePiece <https://github.com/google/sentencepiece>`__ tokenizer requires extra packages.  Install them like so:
+
+.. code-block:: bash
+
+    pip install gobbli[tokenize]
+
+.. _interactive-app-prereqs:
+
+The `Streamlit <https://streamlit.io>`__-based :ref:`interactive-apps` require their own set of dependencies:
+
+.. code-block:: bash
+
+   pip install gobbli[interactive]
+
+If you want to train models using a GPU, you will additionally need an NVIDIA graphics card and `nvidia-docker <https://github.com/NVIDIA/nvidia-docker>`__.
+Quickstart
+==========
+
+Models
+------
+
+Since deep learning models can take a long time to train, gobbli provides trivial models for certain use cases that can be used to verify your code runs properly without investing a long time into model training.
+
+- Majority classifier (:class:`gobbli.model.majority.MajorityClassifier`): Classifies each example as the most frequent class in the training set.  Supports training and prediction.
+- Random embedder (:class:`gobbli.model.random.RandomEmbedder`): Generates a fixed-size random length vector for each document.  Supports embedding generation.
+
+We recommend scaffolding your code using one of these techniques before switching to a real model.  Here are the currently implemented models:
+
+- `Google's BERT <https://github.com/google-research/bert>`__: (:class:`gobbli.model.bert.BERT`) Supports training/prediction (multiclass) and embedding generation.
+- `Microsoft's MT-DNN <https://github.com/namisan/mt-dnn>`__: (:class:`gobbli.model.mtdnn.MTDNN`) Supports training/prediction (multiclass).
+- `Universal Sentence Encoder (USE) <https://tfhub.dev/google/universal-sentence-encoder/2>`__: (:class:`gobbli.model.use.USE`) Supports embedding generation.
+- `Facebook's fastText <https://github.com/facebookresearch/fastText>`__: (:class:`gobbli.model.fasttext.FastText`) Supports training/prediction (multiclass and multilabel) and embedding generation.
+- `transformer models <https://github.com/huggingface/transformers>`__: (:class:`gobbli.model.transformer.Transformer`) Models with a ``<model>ForSequenceClassification`` version implemented can be used for training/prediction (multiclass and multilabel) and embedding generation (ex. ``Bert``).  All other models can only be used for embedding generation.
+- `scikit-learn models <https://scikit-learn.org/stable/>`__: (:class:`gobbli.model.sklearn.SKLearnClassifier`) Any scikit-learn pipeline which accepts text input and outputs a predicted probability can be used as a gobbli model.  A simple default is implemented composing TF-IDF vectorization and logistic regression.  Baseline "embeddings" are also provided via a TF-IDF vectorizer (:class:`gobbli.model.sklearn.TfidfEmbedder`).  Multilabel classification is supported by wrapping the passed classifier in a :class:`sklearn.multiclass.OneVsRestClassifier`.
+- `spaCy models <https://spacy.io/>`__: (:class:`gobbli.model.spacy.SpaCyModel`) The text categorizer component of any spaCy language model (or spacy-transformers model) can be trained and used for prediction (multiclass and multilabel).  The spaCy model vectors can also be retrieved as static embeddings (pre-training not supported).
+
+Most models can accept model-specific parameters during initialization.  See the documentation for each model's :meth:`init` method for information on model-specific parameters.
+
+Logging
+-------
+
+gobbli implements some logging with timing for deep learning models.  If you want to see some more detailed information while running tasks, set up logging like so: ::
+
+  import logging
+  logging.basicConfig(level=logging.INFO)
+
+Using ``level=logging.DEBUG`` will directly propagate logs from any spawned Docker containers for even more detailed status information.
+
+High-Level API -- Experiments
+-----------------------------
+
+gobbli's high-level API supports canned experimentation workflows based on a couple of tasks.  It's easiest to start out with an Experiment and drop down to the lower-level Task API if you need more flexibility.
+
+A high-level overview of each type of experiment follows.  For an overview of more detailed configuration options, including parameter tuning, parallel/distributed experiments, and using GPUs in experiments, see :ref:`advanced-experimentation`.  For example experiments on benchmark datasets, see the Markdown documents in the ``benchmark/`` directory of the repository.
+
+Classification Experiment
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This type of experiment is useful when you have a classification problem, or a set of documents with associated labels.  A :class:`gobbli.experiment.classification.ClassificationExperiment` requires a model and dataset.  The dataset can be either a :class:`gobbli.dataset.base.BaseDataset` derived class instance or an (X, y) tuple, where X is a list of strings, and y is a corresponding list of labels (or, for multilabel classification, a list of lists of labels).  The dataset will be split into train, validation, and test sets.  Training will be run on the train set, evaluated on the validation set, and results on the test set will be reporting.
+
+To run an experiment: ::
+
+  from gobbli.experiment import ClassificationExperiment
+  from gobbli.model import MajorityClassifier
+
+  X = [
+      "This is positive.",
+      "This is negative.",
+      "This is bad.",
+      "This is good.",
+      "This is really bad.",
+      "This is really good.",
+      "This is pretty good.",
+      "This is pretty bad.",
+  ]
+
+  y = [
+      "Good",
+      "Bad",
+      "Bad",
+      "Good",
+      "Bad",
+      "Good",
+      "Good",
+      "Bad",
+  ]
+
+  # Example multilabel format
+  y_multilabel = [
+      ["Fancy", "Cool"],
+      ["Scary"],
+      [],
+      ["Boring"],
+      [],
+      ["Cool"],
+      ["Fancy"],
+      ["Scary", "Cool"],
+  ]
+
+  exp = ClassificationExperiment(
+    model_cls=MajorityClassifier,
+    dataset=(X, y)
+  )
+
+  results = exp.run()
+
+The results object contains raw output (including predicted probabilities) on the test set and several methods for analyzing it, including metrics, error analysis, and plotting.  If the provided methods aren't sufficient, you can perform your own results analysis using the raw output.  See :class:`gobbli.experiment.classification.ClassificationExperimentResults` for more information.
+
+If you want to reuse the resulting model checkpoint in the future, use the :meth:`get_checkpoint <gobbli.experiment.classification.ClassificationExperimentResults.get_checkpoint>` method to save the checkpoint to your filesystem.  The returned path can be directly passed to future invocations of the model class to make more predictions or continue training.
+
+Low-Level API - Tasks
+---------------------
+
+If you require more specialized workflows, you can use the lower-level Task API.  Experiments run a canned set of tasks with some sensible default parameters.  See the following sections for more information on the individual tasks each experiment is composed of.
+
+Training
+^^^^^^^^
+
+Deep learning models can generally be fine-tuned on a user's specific problem after having been pretrained on a large, general dataset.  Training enables the model to develop an internal representation more suited to the nuances of a given problem.  We generally train models in a classification paradigm, encouraging them to learn to predict a set of labels.
+
+Most gobbli models can be trained. First, create your training input. Multilabel classification is also transparently supported; just pass a list of lists of labels instead of a list containing a single label for each document. ::
+
+  from gobbli.io import TrainInput
+
+  train_input = TrainInput(
+      # X_train: A list of strings to classify
+      X_train=["This is a training document.",
+               "This is another training document."],
+      # y_train: The true class for each string in X_train
+      y_train=["0", "1"],
+      # Use the below data format for multilabel classification
+      # y_train=[["0"], ["0", "1"]]
+      # And likewise for validation
+      X_valid=["This is a validation sentence.",
+               "This is another validation sentence."],
+      y_valid=["1", "0"],
+      # Number of documents to train on at once
+      train_batch_size=1,
+      # Number of documents to evaluate at once
+      valid_batch_size=1,
+      # Number of times to iterate over the training set
+      num_train_epochs=1
+  )
+
+Now set up your model. ::
+
+  from gobbli.model import MajorityClassifier
+
+  clf = MajorityClassifier()
+
+  # Set up classifier resources -- Docker image, etc.
+  clf.build()
+
+Finally, train the model and inspect the output, if you want. See :class:`gobbli.io.TrainOutput` for the supported properties. ::
+  
+  train_output = clf.train(train_input)
+
+Training is generally used to enhance performance on other tasks, such as classification or generating embeddings, rather than being the end product itself.
+
+Predicting
+^^^^^^^^^^^
+
+Classification models predict whether the input falls into one of several predetermined classes (or, for a multilabel model, which of several labels apply).
+
+With a trained model, we can make predictions. ::
+
+  from gobbli.io import PredictInput
+
+  predict_input = PredictInput(
+      # X: A list of strings to predict the trained classes for
+      X=["Which class is this document?"],
+      # Pass the set of labels, trained checkpoint, and
+      # whether the model was multilabel from the training output
+      labels=train_output.labels,
+      checkpoint=train_output.checkpoint,
+      multilabel=train_output.multilabel,
+      # Number of documents to predict at once
+      predict_batch_size=1
+  )
+
+  predict_output = clf.predict(predict_input)
+
+See :class:`gobbli.io.PredictOutput` for the output structure.
+    
+
+Generating Embeddings
+^^^^^^^^^^^^^^^^^^^^^
+
+A document embedding is a numeric vector representing the semantic meaning of a document.  Embeddings can be used in place of simpler word counts/TF-IDF vectorization methods to account for problems like synonyms having similar meanings despite using different words.  The resulting vectors can be used for applications like determining similarity between documents and/or clustering.
+
+Embeddings can be generated from a trained model.  Some models also use pretrained weights that can provide a decent representation of documents without additional training.  In their case, training is optional but may improve the results.
+
+An example of generating embeddings: ::
+
+  from gobbli.model import RandomEmbedder
+  from gobbli.io import EmbedInput
+
+  clf = RandomEmbedder()
+  clf.build()
+
+  # Construct input for embedding generation
+  embed_input = EmbedInput(
+      # X: A list of strings to generate embeddings for
+      X=["We want an embedding for this.", "Also for this."],
+      # Number of documents to generate embeddings for at once
+      embed_batch_size=1,
+      # How to pool the token embeddings to generate a document embedding
+      pooling=gobbli.io.EmbedPooling.MEAN,
+      checkpoint=train_output.checkpoint
+  )
+
+  embed_output = clf.embed(embed_input)
+    
+See :class:`gobbli.io.EmbedOutput` for the output structure.
+
+Interactive Apps
+----------------
+
+Now that you understand the basics of how gobbli works, you might want to try out some of gobbli’s :ref:`interactive-apps` to perform some common tasks without writing any code.
+
+
+Extras
+------
+
+gobbli provides some additional functionality that can be used with or independently of its models. If you want to use gobbli to augment your dataset and transfer the dataset to another modeling framework, feel free.
+
+
+.. _data-augmentation:
+
+Data Augmentation
+^^^^^^^^^^^^^^^^^
+
+gobbli provides some helper functions to perform data augmentation.  If you only have a small set of labeled data, generating new data can help your model perform better.  Generated data will be similar but not exactly equal to the original data (similarity can generally be tweaked using some parameters), so you can apply your existing labels to the new data.
+
+gobbli currently implements 3 data augmentation strategies, listed below.  All methods allow you to configure the proportion of words flagged for replacement and the amount of data generated.
+
+- :class:`gobbli.augment.word2vec.Word2Vec`: Generate new documents by tokenizing existing documents and replacing a subset of tokens with similar words according to a Word2Vec model.  We use `gensim's word2vec implementation <https://radimrehurek.com/gensim/models/word2vec.html>`__ under the hood, so this method requires `installing gensim <https://radimrehurek.com/gensim/install.html>`__.  You can pick one of several pretrained gensim word2vec models or supply your own.  Tokenization can be naive, spaCy-based (requires `installing spaCy <https://spacy.io/usage>`__), or custom.  See the class documentation for additional configuration options.
+- :class:`gobbli.augment.wordnet.WordNet`: Generate new documents by part-of-speech tagging existing documents (requires `installing spaCy <https://spacy.io/usage>`__) and replacing a subset of tokens with synonyms/hypernyms/hyponyms according to the `WordNet lexical database <https://wordnet.princeton.edu/>`__ (requires `installing nltk <https://www.nltk.org/install.html>`__). You can configure the language model used by spaCy to do tagging.
+- :class:`gobbli.augment.bert.BERTMaskedLM`: Generate new documents using the language modeling capabilities of `BERT <https://github.com/google-research/bert>`__, as implemented in `transformers <https://github.com/huggingface/transformers>`__.  The model predicts each masked word using the surrounding context, generating new documents.  You can use any pretrained BERT model supported by pytorch-transformers.  See the class documentation for additional configuration options.
+- :class:`gobbli.augment.marian.MarianMT`: Generate new documents using backtranslation by translating the documents into a non-English language and then translating the result back to English.  Powered by the `Marian Machine Translation model from transformers <https://huggingface.co/transformers/model_doc/marian.html>`__.  See the :attr:`LANGUAGE_CODE_MAPPING <gobbli.augment.marian.MarianMT.LANGUAGE_CODE_MAPPING>` attribute for supported languages.
+
+An example of augmenting a dataset: ::
+
+  from gobbli.augment import WordNet
+
+  wn = WordNet()
+
+  X = ["This is positive.", "This is negative."]
+  y = ["1", "0"]
+
+  times = 3
+  X_augmented = X + wn.augment(X, times=times, p=0.5)
+  y_augmented = y + (y * times)
+
+.. _document-windowing:
+
+Document Windowing
+^^^^^^^^^^^^^^^^^^
+
+Many advanced deep learning models have a fixed max sequence length to limit memory usage for long documents.  If you don't have enough memory available to raise the sequence length to fit all your documents, you can use gobbli's "document windowing" helpers.
+
+The idea is to tokenize each document and split it into equal-length windows roughly equal to your model's max sequence length, which will prevent your model from missing any of the information in the documents during training.  For tasks after training (such as prediction and embedding), the windowed output can then be pooled in a way that makes sense for your problem.  For example, if you're generating embeddings, you probably want each document embedding to be the mean of all the windows, but if you're building a classifier to detect whether a subject is discussed in a document, you may want the output predicted probability for each class to be the maximum of all the windows.
+
+You'll want to use the :class:`gobbli.util.TokenizeMethod` most similar to your model's tokenizer to get the most precise windowing.
+
+Here's an example of document windowing: ::
+
+  from gobbli.io import make_document_windows, pool_document_windows
+  from gobbli.util import TokenizeMethod
+
+  X = ["This is a long sentence.", "This is short."]
+  y = ["1", "0"]
+
+  # Convert the documents to windows
+  X_windowed, X_windowed_indices, y_windowed = make_document_windows(X, 3, y=y)
+  # The above objects all contain one or more rows for each window in the document
+
+  # Get predictions or embeddings from a model
+  input = PredictInput(
+    X=X_windowed,
+    labels=["1", "0"],
+  )
+  output = ... 
+
+  # Pool the predictions for the output in-place
+  pool_document_windows(output, X_windowed_indices)
+
+  # Now you can compare the pooled predictions to the original "y"
+Troubleshooting
+===============
+
+gobbli uses some heavy-duty abstractions to hide a lot of complexity, so there's a lot of potential for complex errors along the way.  Here are some things you might run into:
+
+My model is predicting only one class
+-------------------------------------
+
+This indicates something's wrong with the training process.  Some things to check:
+
+- Do you have a very imbalanced dataset?  You may need to raise the batch size, if possible, or try downsampling/upsampling to ensure you don't get many batches composed of only one class.
+- Is your dataset ordered by label?  The model needs to have a mix of classes in each batch to learn effectively.  Ensure your training dataset is shuffled.  gobbli :class:`Datasets <gobbli.dataset.base.BaseDataset>` take care of this with the :meth:`train_input <gobbli.dataset.base.BaseDataset.train_input>` method.
+
+I'm running out of memory
+-----------------------------
+
+Your dataset might be too big to fit in memory.  gobbli currently doesn't support lazily loading datasets from disk, so anything you use to train has to fit in memory.  You can try:
+
+ - Sampling from your dataset.
+ - If you're running an experiment in parallel, try reducing the number of models training at a time to reduce the number of copies of your dataset in memory.
+ - If you're running a distributed experiment, the ray object store has to be large enough to fit weights for all models trained during the experiment at the same time.  You may need to train fewer models or increase the size of the object store.
+
+I'm running out of GPU memory
+-----------------------------
+
+Some models are larger than others.  You can try:
+
+ - Decreasing the :paramref:`train_batch_size <gobbli.io.TrainInput.params.train_batch_size>` if you're training; this is the biggest driver of GPU memory usage.  Beware of making the batch size so small that the model can't update gradients accurately, though. The :class:`gobbli.model.transformer.Transformer` model supports gradient accumulation, which can be used to counteract the detrimental effect of a smaller batch size.
+ - Decreasing the ``max_seq_len`` parameter of your model, if it has one.  Consider using :ref:`document-windowing` if you do this to account for the truncation of your texts.
+ - Using a smaller set of pretrained weights (ex. instead of ``bert-large-uncased``, try ``bert-base-uncased``).
+
+
+My disk is filling up
+---------------------
+
+gobbli saves a ton of data to disk, especially if you have a large dataset, and won't automatically remove any of it in case you need to access it later.  If you need to free up some space, see :ref:`housekeeping`.
+
+
+A gobbli function appears to be hanging
+---------------------------------------
+
+gobbli sometimes needs to download very large files in the background -- for example, the pretrained weights for BERT Large are over 1GB.  It can look like nothing is happening while this is going on.  You can try enabling debug logs to see (much) more detailed information about what gobbli is doing behind the scenes: ::
+
+    import logging
+    logging.basicConfig(level=logging.DEBUG)
+
+We have noticed that sometimes a download can time out repeatedly, depending on the quality of your internet connection.  If this keeps happening, you can try manually downloading the file gobbli is trying to download by pasting the URL in your browser and moving the resulting file to the path where gobbli is trying to save it.  gobbli should detect the file and not attempt to redownload the file the next time it tries to access the file.
+Advanced Usage
+==============
+
+gobbli provides some additional features for further customization.
+
+Filesystem Organization
+-----------------------
+
+gobbli persists lots of data to disk, including datasets, model weights, and output.  All data will be saved under the gobbli directory, which is ``~/.gobbli`` by default.  If you want to keep your gobbli data elsewhere, set the ``GOBBLI_DIR`` environment variable to somewhere different.
+    
+The default directory hierarchy isolates models and task runs using unique directories named by UUIDs, which aren't particularly readable.  If you need more control over the directory hierarchy, you can use the ``data_dir`` argument when creating a model: ::
+
+  from gobbli.model import BERT
+  from pathlib import Path
+
+  clf = BERT(
+      data_dir=Path("./my_bert/")
+  )
+    
+This will override the default organization and place all model data under the given directory, which must be empty.  For a given task (training/prediction/embedding/etc), you can also supply a user-provided name to replace the UUID: ::
+
+    clf.train(train_input, train_dir_name='train_batch_128')
+
+The above will store all training input and output files in a directory named ``train_batch_128`` under the model's ``data_dir``.
+
+The hierarchy generally looks something like this:
+
+.. code-block:: none
+
+   GOBBLI_DIR/model/<model_class_name>/<model_data_dir_name>/<task_name>/<task_data_dir_name>/{input,output}/
+
+For example:
+
+.. code-block:: none
+
+   GOBBLI_DIR/model/BERT/my_bert/train/train_batch_128/{input,output}/
+
+.. _housekeeping:
+
+Housekeeping
+------------
+
+If you've run a lot of tasks, you may start to fill up your disk.  gobbli provides a couple of utilities to manage disk usage in the default gobbli directory hierarchy.  You can use :func:`gobbli.util.human_disk_usage` to print the current disk usage of the gobbli directory and :func:`gobbli.util.cleanup` to remove unused files.  The cleanup function removes only task input and output by default, leaving downloaded model weights and datasets.  If you want to erase all gobbli data, you can use the :paramref:`full <gobbli.util.cleanup.params.full>` argument.
+
+>>> gobbli.util.human_disk_usage()
+'21.3 GB'
+>>> gobbli.util.cleanup()
+Cleanup will remove all task input/output, including trained models.  Are you sure? [Y/n]y
+>>> gobbli.util.human_disk_usage()
+'8.8 GB'
+
+
+.. _advanced-experimentation:
+
+Advanced Experimentation
+------------------------
+
+gobbli experiments are limited to a predetermined workflow but include some options for customization.
+
+- **Parameter Tuning**: Experiments accept a :paramref:`param_grid <gobbli.experiment.base.BaseExperiment.params.param_grid>` option that enables users to pass a parameter grid specifying a set of different parameters to try.  The grid should be a dictionary with parameter names (strings) as keys and lists of parameter settings to try as values.  Each parameter combination will be trained on the training set and evaluated on the validation set, and the best combination will be retrained on the combined training/validation set and evaluated on the test set for the final results.
+- **Parallel/Distributed Experimentation**: gobbli uses `ray <https://ray.readthedocs.io/en/latest/>`__ under the hood to run multiple training/validation steps in parallel.  Ray creates and uses a local cluster composed of all CPUs on your machine by default, but it can also be used to add GPUs or connect to an existing distributed cluster. Note ray (and gobbli) must be installed on all worker nodes in the cluster.  Experiments accept an optional :paramref:`ray_kwargs <gobbli.experiment.base.BaseExperiment.params.ray_kwargs>` option, which is passed directly to :func:`ray.init`.  Use this parameter for more control over the underlying Ray cluster.  **NOTE:** If you're running an experiment on a single node, gobbli will simply pass checkpoints around as file paths, since the Ray master and workers share a filesystem.  If you're running a distributed experiment, gobbli cannot rely on file paths being the same between workers and the master node, so it will save checkpoints as gzip-compressed tar archives in memory and store them in the Ray object store.  This means your object store must be able to hold weights for as many trials as will be run in one experiment, which may be a **lot** of memory.
+- **Enabling GPU support**: During experiments, gobbli exposes GPUs to models based on whether they're made available to the Ray cluster and are required for tasks.  To run a GPU-enabled experiment, reserve a nonzero number of GPUs for each task via the :paramref:`task_num_gpus <gobbli.experiment.base.BaseExperiment.params.task_num_gpus>` parameter and tell Ray the cluster contains a nonzero number of GPUs via the :obj:`num_gpus` argument to :func:`ray.init`.
+
+Metadata
+--------
+
+Each model and task write JSON-formatted metadata to their respective data directories containing parameters and other useful information.  The metadata can be read to recall what parameters were used to train a given model, where the checkpoint for a training task is stored, how many embeddings were generated, etc.
+
+Model metadata is stored in the model's data directory in a file named ``gobbli-model-meta.json``.  The metadata generally contains model parameters that can be used to recreate the same model later (see `Re-Initializing Models`_).  See the :meth:`init()` method for classes derived from :class:`gobbli.model.base.BaseModel` for more info on which keys should be expected in the metadata.  Example model metadata:
+
+.. code-block:: json
+
+   {
+       "max_seq_length": 128
+   }
+
+Task metadata is stored in the task's directory in a file named ``gobbli-task-meta.json``.  For input tasks, the metadata generally contains the task parameters and some summary information about the input.  For output tasks, the metadata usually has the locations of any generated artifacts and summary information about the generated output.  See the :meth:`metadata()` method for classes derived from :class:`gobbli.io.TaskIO` for more info on which keys should be expected in the metadata.  Example task metadata:
+
+.. code-block:: json
+
+  {
+      "train_batch_size": 32,
+      "valid_batch_size": 8,
+      "num_train_epochs": 1,
+      "len_X_train": 40,
+      "len_y_train": 40,
+      "len_X_valid": 10,
+      "len_y_valid": 10
+  }
+
+Re-Initializing Models
+-----------------------
+    
+You can re-initialize a model from the metadata in an existing data directory using the ``load_existing`` argument -- the model will reload its parameters from the metadata file in that directory, so you don't have to specify them again.  To reload the model created with non-default parameters above in a different session: ::
+
+  clf = BERT(
+      data_dir=Path("./my_bert/"),
+      load_existing=True
+  )
+
+Running gobbli Inside a Docker Container
+----------------------------------------
+
+Since gobbli must spawn its own Docker containers, there are some extra complications when trying to run it from inside a Docker container (as opposed to natively on the host machine).
+
+ - You must mount ``/var/run/docker.sock`` on the host to the same directory on the container.  This is needed to allow the Docker client in the container to communicate with the daemon on the host.
+ - Any directories that should contain persistent files (your gobbli directory, custom model directories, etc.) which themselves need to be mounted in spawned containers must be mounted in the main Docker container **with the same name they would have on the host**.  This is because the Docker daemon can only see paths on the host, so any paths that need to be mounted in containers must also exist on the host.  You can accomplish this with something like the following mount declaration: ``$(pwd):$(pwd)``.
+
+See the ``gobbli-ci`` service declaration in ``ci/docker-compose.yml`` for a working example of how to properly run gobbli inside a Docker container.
+.. gobbli documentation master file, created by
+   sphinx-quickstart on Tue Jun  4 14:50:18 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to gobbli's documentation
+=================================
+
+gobbli is a library designed to make experimentation and analysis using deep learning easier.  It provides a simple, uniform interface to deep learning models that abstracts away most of the complexity in terms of different input/output formats, library versions, etc.  It attempts to implement a set of common use cases with an emphasis on usability rather than performance.
+
+gobbli is *not* designed to provide deep learning models in a production context.  Each task generally involves running a Docker container in the background and transferring a large amount of data to and from disk, which creates significant overhead.  Additionally, gobbli does not support fine-grained model-specific tuning, such as custom loss functions.  Our goal is to take the user 80% of the way to their deep learning solution as quickly as possible so they can decide whether it's worth the effort to resolve the remaining 20%.
+
+.. toctree::
+   prerequisites
+   quickstart
+   interactive_apps
+   troubleshooting
+   advanced_usage
+   api
+.. _interactive-apps:
+
+Interactive Apps
+================
+
+First, make sure you have the :ref:`interactive app prerequisites <interactive-app-prereqs>` installed.  Once that's done, you'll be able to use the command line interface which wraps the bundled Streamlit apps.  You can see the available apps by running the following in your shell:
+
+.. code-block:: bash
+
+    gobbli --help
+
+Here are some general things to know about the gobbli interactive apps:
+
+ - Parameters and user input are kept in the sidebar. The main section is reserved for displaying data and output.
+ - Since the entire app re-runs with every input widget change, the apps default to taking a small sample of data so you can tweak parameters without locking up your browser on long-running tasks. You can increase the sample size when you have everything set the way you want.
+ - All the normal gobbli output goes to the terminal window running Streamlit. Check the terminal to see status of long-running tasks that involve use of a model (embedding generation, prediction, etc).
+ - We attempt to cache long-running task results as much as possible, but re-running costly tasks is required in many cases when parameters change.
+ - Use ``gobbli <app_name> -- --help`` to see information on allowed arguments for each app, including enabling GPU usage and multilabel classification support.
+
+explore
+-------
+
+.. _dataset-formats:
+
+The explore app requires a dataset. The dataset can be one of a few formats (note it must fit in memory):
+
+ - A built-in gobbli dataset (ex. NewsgroupsDataset or IMDBDataset)
+ - A text file with one document per line
+ - A ``.csv`` file with a "text" column and optional "label" column
+ - A ``.tsv`` file with a "text" column and optional "label" column
+
+Labels can be multiclass (single label per row) or multilabel (multiple labels per row).  Use the ``--multilabel`` and ``--multilabel-sep`` arguments to the apps to let gobbli know if and how you're giving it a multilabel dataset from a file.
+
+Some functionality won't appear for datasets without labels. If you don't have your own dataset handy, the following invocation will work out of the box:
+
+.. code-block:: bash
+
+    gobbli explore IMDBDataset
+
+If everything is installed correctly, you should see the explore app open in your browser.
+
+.. figure:: img/interactive_apps/explore/explore.png
+   :alt: Explore app
+
+   The explore app pointed at the built-in IMDB dataset.
+                 
+You'll be able to read through example documents from the dataset and check the distributions of labels and document lengths. The more involved tasks of topic modeling and embedding generation require some additional inputs.
+
+Topic Modeling
+^^^^^^^^^^^^^^
+
+The explore app provides an interface to `gensim <https://radimrehurek.com/gensim/>`__'s `LDA <https://radimrehurek.com/gensim/auto_examples/tutorials/run_lda.html#sphx-glr-auto-examples-tutorials-run-lda-py>`__ model, which allows you to train a topic model that learns latent topics from a bag-of-words representation of your documents. The approach doesn't incorporate contextual information like a modern neural network, but it can reveal recurring themes in your dataset. To train a topic model, check the "Enable Topic Model" box in the sidebar and click "Train Topic Model".
+
+.. figure:: img/interactive_apps/explore/explore_topic_model.png
+   :alt: Explore topic model
+
+   Results from a topic model in the explore app.
+
+The explore app displays the coherence score and top 20 words for each learned topic. It also displays the correlation between topics, which helps determine how well-fit the model is, and the correlation between topics and labels, which may help interpret some of the topics.
+
+Plotting Embeddings
+^^^^^^^^^^^^^^^^^^^
+
+Embeddings represent the hidden state of a neural network. They generally aim to quantify the semantics of a document, meaning documents with similar meanings are close together in the embedding space, so plotting them can provide a useful "map" of your dataset. gobbli makes this easy. To generate and plot embeddings, check the "Enable Embeddings" check box and click the "Generate Embeddings" button.
+
+.. figure:: img/interactive_apps/explore/explore_embeddings.png
+   :alt: Explore embeddings plot
+
+   Results from plotting embeddings in the explore app.
+
+After some time, you'll see the embeddings with their dimensionality reduced via `UMAP <https://umap-learn.readthedocs.io/en/latest/>`__. You can hover over individual points to see the text and label for that document. Points are colored by label.
+
+Untrained embeddings can preview how well a model differentiates between the classes in your dataset. The more separated your classes are in the embeddings plot, the more likely the model will be able to discern the difference between them. Using the "Model Class" dropdown and "Model Parameters" JSON input, you can quickly evaluate different model types and parameter combinations on your dataset.
+
+.. _data-dir-methods:
+
+If you have a trained gobbli model, you can also visualize its embeddings (if it supports embeddings). You'll need the path returned by calling ".data_dir()" on the model if you trained a model directly: ::
+
+    from gobbli.model.bert import BERT
+    from gobbli.io import TrainInput
+
+    clf = BERT()
+    clf.build()
+
+    train_input = TrainInput(
+        X_train=["This is a training document.",
+                "This is another training document."],
+        y_train=["0", "1"],
+        X_valid=["This is a validation sentence.",
+                "This is another validation sentence."],
+        y_valid=["1", "0"],
+    )
+
+    clf.train(train_input)
+    print(clf.data_dir())
+
+If you trained the model using a (non-distributed) experiment, you'll need the path two directories up from the checkpoint: ::
+
+    from gobbli.experiment.classification import ClassificationExperiment
+    from gobbli.model.bert import BERT
+
+    X = [
+        "This is positive.",
+        "This is negative.",
+        ...
+    ]
+
+    y = [
+        "Good",
+        "Bad",
+        ...
+    ]
+
+    # Experiment must NOT be run in distributed mode --
+    # if it was, the checkpoint will be somewhere on a worker.
+    # You'd need to go find the model data directory on the worker
+    # in that case.
+    exp = ClassificationExperiment(
+        model_cls=BERT,
+        dataset=(X, y)
+    )
+
+    results = exp.run()
+    print(results.get_checkpoint().parent.parent)
+
+Pass this path to the explore app to use a trained model:
+
+.. code-block:: bash
+
+    gobbli explore --model-data-dir <MODEL_DATA_DIR> <DATASET>
+
+You should then see the available checkpoints for the model in the "Embedding" section:
+
+.. figure:: img/interactive_apps/explore/explore_trained_embeddings.png
+   :alt: Explore trained embeddings plot
+
+   Generating embeddings using a trained gobbli model.
+
+You can also apply clustering algorithms (`HDBSCAN <https://hdbscan.readthedocs.io/en/latest/how_hdbscan_works.html>`__ or `K-means <https://scikit-learn.org/stable/modules/clustering.html#k-means>`__) to the embeddings before or after dimensionality reduction and plot the clusters, if you're interested in seeing how well a clustering algorithm groups your documents in a high-dimensional or low-dimensional space. Check the "Cluster Embeddings" box, set parameters, and click "Generate Embeddings" again to see clusters plotted.
+
+
+evaluate
+--------
+
+The evaluate app displays evaluation metrics for a trained gobbli model applied to a given dataset. To use it, you need a dataset in any of the formats described :ref:`above <dataset-formats>` and the data directory of a trained model as obtained in one of the ways described :ref:`above <data-dir-methods>`:
+
+.. code-block:: bash
+
+   gobbli evaluate <MODEL_DATA_DIR> <DATASET>
+
+This should open the evaluate app in your browser.
+
+.. figure:: img/interactive_apps/evaluate/evaluate.png
+   :alt: Evaluate app
+
+   The evaluate app displaying results.
+
+After loading and generating predictions using the passed model, the app displays the following:
+
+ - metadata (parameters) for the model
+ - standard metrics calculated from the model's performance on the sampled dataset
+ - a plot of the predicted probability for every observation in the sample for each class
+ - a small set of example predictions, including the model's most highly predicted classes and the true class for each
+ - the top errors (false positives and false negatives) in the sample by predicted probability, allowing you to see which documents are most confusing to your model
+
+These tools allow you to inspect both the overall and fine-grained performance of your model and potentially determine ways to improve its performance on troublesome documents.
+
+
+explain
+-------
+
+Finally, the explain app allows you to generate local explanations for individual documents using the `ELI5 <https://eli5.readthedocs.io/en/latest/overview.html>`__ package's implementation of `LIME <https://eli5.readthedocs.io/en/latest/blackbox/lime.html#eli5-lime>`__. These explanations can be useful for understanding why a model generates a certain prediction. Just like the evaluate app, the explain app requires a trained gobbli model's :ref:`data directory <data-dir-methods>` and a :ref:`dataset <dataset-formats>`:
+
+.. code-block:: bash
+
+   gobbli evaluate <MODEL_DATA_DIR> <DATASET>
+
+You'll see this when the explain app launches in your browser:
+
+
+.. figure:: img/interactive_apps/explain/explain.png
+   :alt: Explain app
+
+   The explain app before displaying results.
+
+The interface allows you to choose a single document and shows its full text and true label. If you check "Generate LIME explanation" and click the "Run" button, the app will train a white-box estimator to approximate your trained model's behavior for documents similar to the chosen example. After the white-box estimator is trained, you'll see some output:
+
+.. figure:: img/interactive_apps/explain/explain_output.png
+   :alt: Explain app output
+
+   LIME output, including evaluation metrics and per-label feature contributions.
+
+The JSON output shows the evaluation metrics directly from LIME. See `the ELI5 tutorial <https://eli5.readthedocs.io/en/latest/tutorials/black-box-text-classifiers.html#should-we-trust-the-explanation>`__ for more details, but the gist is that mean KL divergence should be close to 0, and the score should be close to 1 for a good approximation. If these conditions aren't met, the white-box classifier likely doesn't match your original model well, and the explanation shouldn't be trusted. You can try raising the number of generated samples to get a better-performing white box classifier.
+
+Below the metrics, the app displays a table for each label in the dataset along with the top features contributing to the prediction for that label. Assuming the white-box classifier accurately matched the predictions of your trained model, the list of features tells you which words informed the model's prediction.
+
+An inherent limitation of this approach is that the white-box classifier uses a bag-of-words representation of the document, which doesn't incorporate context the way most neural networks do. You can partially account for this by checking "Use position-dependent vectorizer", which prevents grouping the same word together in the explanation, but you may still be unable to obtain an accurate explanation of a complex neural network model.
+API Reference
+=============
+
+Detailed reference for all code in the library.
+
+.. toctree::
+   :maxdepth: 4
+
+   auto/gobbli

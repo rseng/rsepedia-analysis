@@ -396,3 +396,283 @@ This notebook demonstrates how to use the `SNOwGLoBES` class in `snewpy.models`,
 ## SNOwGLoBES_usage
 
 This notebook demonstrates how to use SNEWPY’s `snewpy.snowglobes` module to interact with SNOwGLoBES.
+Contributing to SNEWPY
+======================
+
+Development of SNEWPY happens in `our repository on GitHub <https://github.com/SNEWS2/snewpy/>`_.
+If you already use GitHub, everything works as you’re used to; if you don’t,
+check out `GitHub’s documentation <https://docs.github.com/en/github>`_ if
+anything in this section is unclear.
+
+Feedback or Problems
+--------------------
+
+The best way to give feedback, request features or report problems is to
+`open an issue <https://github.com/SNEWS2/snewpy/issues>`_.
+
+
+Contribute Code or Documentation
+--------------------------------
+**Your contributions to SNEWPY are welcome!**
+
+To contribute, please clone the GitHub repository::
+
+    git clone git@github.com:SNEWS2/snewpy.git
+    cd snewpy/
+
+then make your changes and install the package with the dependencies for the development::
+    
+    pip install ".[dev]"
+
+or, if you want to build the documentation::
+
+    pip install ".[docs]"
+    cd doc/
+    make html
+
+Once you're happy with your changes, please 
+`submit a pull request <https://github.com/SNEWS2/snewpy/pulls>`_.
+If you plan larger changes, it’s probably a good idea to open an issue first
+to coordinate our work.
+
+Testing
+~~~~~~~
+
+SNEWPY uses the `pytest <https://docs.pytest.org>`_ package
+for automated testing. Tests will run when you submit a pull request
+or you can run them manually using::
+
+    pytest
+
+command in the SNEWPY root directory.
+SNOwGLoBES interface tests requires ``$SNOWGLOBES`` environment variable to be set to the path of you SNOwGLoBES installation.
+If you want to skip this part, use::
+    
+    pytest -k 'not snowglobes'
+
+to run all tests except those for the SNOwGLoBES interface.
+
+Contribute Supernova Models
+---------------------------
+
+If you are a supernova modeler and want to allow us to use your models in
+SNEWPY, we are happy to hear from you!
+Please `open an issue <https://github.com/SNEWS2/snewpy/issues>`_ to discuss
+your contribution or simply `submit a pull request
+<https://github.com/SNEWS2/snewpy/pulls>`_ with your model files.
+
+Ideally, your pull request should include a customized SupernovaModel subclass
+to read in your model files. See the code of existing models for examples or
+let us know in you issue or pull request if you need help.
+Citing SNEWPY
+=============
+
+If you use SNEWPY for your own research, please cite the following two papers:
+
+* \A. L. Baxter `et al.` (SNEWS Collaboration):
+  “SNEWPY: A Data Pipeline from Supernova Simulations to Neutrino Signals”.
+  Journal of Open Source Software 6 (2021) 67, 3772.
+  [`DOI:10.21105/joss.03772 <https://dx.doi.org/10.21105/joss.03772>`_]
+
+* \A. L. Baxter `et al.` (SNEWS Collaboration):
+  “SNEWPY: A Data Pipeline from Supernova Simulations to Neutrino Signals”.
+  Astrophysical Journal (2022), in print.
+  [`arXiv:2109.08188 <https://arxiv.org/abs/2109.08188>`_, `DOI:10.3847/1538-4357/ac350f <https://dx.doi.org/10.3847/1538-4357/ac350f>`_]
+
+
+To refer to a specific version of SNEWPY (e.g. to ensure reproducibility), you
+can use the `Zenodo entry for SNEWPY <https://doi.org/10.5281/zenodo.4498940>`_.
+Zenodo automatically archives all released SNEWPY versions and generates version-specific DOIs.
+
+
+Additionally, SNEWPY lets you access hundreds of supernova models from different modeling groups.
+If you use one of these models, please always cite the appropriate reference.
+You can find the appropriate reference in the README file downloaded alongside
+the model files or in the documentation of the respective :class:`.SupernovaModel` subclass.Supernova Models: ``snewpy.models``
+===================================
+
+Base Class for Supernova Models
+-------------------------------
+.. autoclass:: snewpy.models.base.SupernovaModel
+   :members:
+
+Derived Models
+--------------
+
+.. automodule:: snewpy.models.ccsn
+   :members:
+   :exclude-members: SNOwGLoBES
+
+Other Models
+------------
+
+.. autoclass:: snewpy.models.ccsn.SNOwGLoBES
+   :members:
+Welcome to SNEWPY!
+==================
+
+SNEWPY is a Python package for working with supernova neutrinos. It offers …
+
+* … a simple and unified interface to hundreds of supernova simulations.
+* … a large library of flavor transformations that relate neutrino fluxes
+  produced in the supernova to those reaching a detector on Earth.
+* … and a Python interface to SNOwGLoBES which lets you estimate and plot event
+  rates in many different neutrino detectors.
+
+This documentation describes SNEWPY’s API. For descriptions of the underlying
+physics, please see the paper `arXiv:2109.08188 <https://arxiv.org/abs/2109.08188>`_.
+
+Table of Contents
+-----------------
+
+.. toctree::
+   :maxdepth: 2
+   
+   gettingstarted
+   snowglobes
+   models
+   transformations
+   neutrino
+   contributing
+   citing
+
+
+Indices and Search
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Using SNEWPY as a Front End for SNOwGLoBES
+==========================================
+
+
+Install SNOwGLoBES
+------------------
+Important parts of SNEWPY’s functionality require the `SNOwGLoBES <https://github.com/SNOwGLoBES/snowglobes>`_ (v1.2 recommended) and
+`GLoBES <https://www.mpi-hd.mpg.de/personalhomes/globes/>`_ libraries, which need to be installed separately.
+(See the respective documentation for instructions.)
+
+
+Usage
+-----
+.. automodule:: snewpy.snowglobes
+   :members:
+   :member-order: bysource
+ 
+Low-level interface
+-------------------
+.. automodule:: snewpy.snowglobes_interface
+   :members: SNOwGLoBES, SimpleRate
+Flavor Transformations: ``snewpy.flavor_transformation``
+========================================================
+
+This module implements flavor transformations that describe how neutrinos of
+different flavors change into each other between production inside the
+supernova and detection on Earth.
+
+
+Base Class for Flavor Transformations
+-------------------------------------
+.. autoclass:: snewpy.flavor_transformation.FlavorTransformation
+   :members:
+
+Available Transformations
+-------------------------
+
+.. automodule:: snewpy.flavor_transformation
+   :members:
+   :exclude-members: FlavorTransformation
+   :member-order: bysourceGetting Started
+===============
+
+Installation
+------------
+
+To use SNEWPY, first install it using pip:
+
+.. code-block:: console
+
+   $ pip install snewpy
+
+
+.. _sec-download_models:
+
+Download Supernova Models
+-------------------------
+
+SNEWPY includes a large number of supernova models from different simulation groups.
+Since these models have a size of several 100 MB, they are not included in the initial install.
+Instead, after installing, run the following command to download models you want to use:
+
+.. code-block:: console
+
+   $ python -c 'import snewpy; snewpy.get_models()'
+
+By default, they will be downloaded to a subdirectory named ``SNEWPY-models/<model_name>/`` in the current directory.
+
+.. note::
+
+   Each model includes a README file with more information, usually including a reference to the corresponding publication
+   (e.g. DOI or arXiv identifier). If you use one of these models, please always cite the appropriate reference.
+
+
+Usage
+-----
+
+This example script shows how to use SNEWPY to compare the luminosity of two different supernova models:
+
+.. code-block:: python
+
+   import matplotlib as mpl
+   import matplotlib.pyplot as plt
+   import snewpy
+   from snewpy.models import Nakazato_2013, Bollig_2016
+   from snewpy.neutrino import Flavor
+
+   mpl.rc('font', size=16)
+
+   # Download a few model files we can plot
+   snewpy.get_models(models=["Nakazato_2013", "Bollig_2016"])
+
+   # Read data from downloaded files
+   nakazato = Nakazato_2013('SNEWPY_models/Nakazato_2013/nakazato-shen-z0.004-t_rev100ms-s20.0.fits')
+   bollig = Bollig_2016('SNEWPY_models/Bollig_2016/s27.0c')  # This model has one file per flavor. Use common prefix, not full filename.
+
+   # Plot luminosity of both models
+   fig, ax = plt.subplots(1, figsize=(10, 6))
+   
+   for flavor in Flavor:
+       ax.plot(nakazato.time, nakazato.luminosity[flavor]/1e51,  # Report luminosity in units foe/s
+               label=flavor.to_tex() + ' (Nakazato)',
+               color='C0' if flavor.is_electron else 'C2',
+               ls='-' if flavor.is_neutrino else '--',
+               lw=2)
+
+   for flavor in Flavor:
+       ax.plot(bollig.time, bollig.luminosity[flavor]/1e51,  # Report luminosity in units foe/s
+               label=flavor.to_tex() + ' (Bollig)',
+               color='C1' if flavor.is_electron else 'C3',
+               ls='-' if flavor.is_neutrino else '--',
+               lw=1)
+
+   ax.set(xlim=(-0.05, 0.5), xlabel=r'$t-t_{\rm bounce}$ [s]', ylabel=r'luminosity [foe s$^{-1}$]')
+   ax.grid()
+   ax.legend(loc='upper right', ncol=2, fontsize=18)
+
+   fig.tight_layout()
+
+This will generate the following figure:
+
+.. image:: luminosity-comparison.*
+
+
+The SNEWPY repository contains many Jupyter notebooks in ``doc/nb/`` with sample code
+showing different models or how to apply flavor transformations to the neutrino fluxes.
+
+More advanced usage of SNEWPY requires SNOwGLoBES and is described in the following section.
+Neutrino Physics: ``snewpy.neutrino``
+=====================================
+
+.. automodule:: snewpy.neutrino
+   :members:

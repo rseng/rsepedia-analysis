@@ -858,3 +858,969 @@ CRAN win-builder:
 * R-oldrelease, R-release, R-devel
 
 Package also checked using `Clang++ -Weverything`, and both local memory sanitzer and `rocker/r-devel-san` with clean results.
+---
+title: "pkgstats"
+output:
+  md_document:
+    variant: gfm
+
+  rmarkdown::html_vignette:
+    self_contained: no
+---
+
+<!-- badges: start -->
+[![R build status](https://github.com/ropensci-review-tools/pkgstats/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci-review-tools/pkgstats/actions?query=workflow%3AR-CMD-check)
+[![codecov](https://codecov.io/gh/ropensci-review-tools/pkgstats/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/pkgstats)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+<!-- badges: end -->
+
+```{r, include = FALSE, echo = FALSE}
+if (identical (Sys.getenv ("IN_PKGDOWN"), "true")) {
+    pkgstats::ctags_install ()
+}
+```
+
+
+# pkgstats
+
+Extract summary statistics of R package structure and functionality. Not all
+statistics of course, but a good go at balancing insightful statistics while
+ensuring computational feasibility. `pkgstats` is a *static* code analysis
+tool, so is generally very fast (a few seconds at most for very large
+packages).
+
+## What statistics?
+
+Statistics are derived from these primary sources:
+
+1. Numbers of lines of code, documentation, and white space (both between and
+   within lines) in each directory and language
+2. Summaries of package `DESCRIPTION` file and related package meta-statistics
+3. Summaries of all objects created via package code across multiple languages
+   and all directories containing source code (`./R`, `./src`, and
+   `./inst/include`).
+4. A function call network derived from function definitions obtained from
+   [the code tagging library, `ctags`](https://ctags.io), and references
+   ("calls") to those obtained from [another tagging library,
+   `gtags`](https://www.gnu.org/software/global/). This network roughly
+   connects every object making a call (as `from`) with every object being
+   called (`to`).
+5. An additional function call network connecting calls within R functions to
+   all functions from other R packages.
+
+The [primary function,
+`pkgstats()`](https://docs.ropensci.org/pkgstats/reference/pkgstats.html),
+returns a list of these various components, including full `data.frame` objects
+for the final three components described above. The statistical properties of
+this list can be aggregated by the [`pkgstats_summary()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html),
+which returns a `data.frame` with a single row of summary statistics. This
+function is demonstrated below, including full details of all statistics
+extracted.
+
+
+## Installation
+
+The easiest way to install this package is [via the associated
+`r-universe`](https://ropensci-review-tools.r-universe.dev/ui#builds). As
+shown there, simply enable the universe with
+
+```{r options, eval = FALSE}
+options (repos = c (
+    ropenscireviewtools = "https://ropensci-review-tools.r-universe.dev",
+    CRAN = "https://cloud.r-project.org"
+))
+```
+
+And then install the usual way with,
+
+```{r install, eval = FALSE}
+install.packages ("pkgstats")
+```
+
+Alternatively, the package can be installed by running one of the following
+lines:
+
+
+
+```{r remotes, eval = FALSE}
+remotes::install_github ("ropensci-review-tools/pkgstats")
+pak::pkg_install ("ropensci-review-tools/pkgstats")
+```
+
+The package can then loaded for use with:
+
+```{r library, eval = TRUE}
+library (pkgstats)
+```
+
+### Installation on Linux systems
+
+This package requires the [system libraries
+`ctags-universal`](https://ctags.io) and [GNU
+`global`](https://www.gnu.org/software/global/), both of which are
+automatically installed along with the package on both Windows and MacOS
+systems. Most Linux distributions do not include a sufficiently up-to-date
+version of [`ctags-universal`](https://ctags.io), and so it must be compiled
+from source. This can be done by running a single function, `ctags_install()`,
+which will install both [`ctags-universal`](https://ctags.io) and [GNU
+`global`](https://www.gnu.org/software/global/).
+
+The `pkgstats` package includes a function to ensure your local installations
+of `universal-ctags` and `global` work correctly. Please ensure you see the
+following prior to proceeding:
+
+```{r ctags-check, eval = TRUE}
+ctags_test ()
+```
+
+Note that GNU `global` can be linked at installation to the Universal Ctags
+plug-in parser to expand the [default 5 languages to
+30](https://www.gnu.org/software/global/). This makes no difference to
+`pkgstats` results, as `gtags` output is only used to trace function call
+networks, which is only possible for compiled languages able to dynamically
+share pointers to the same objects. This is possible with the default parser
+regardless. The wealth of extra information obtained from linking `global` to
+the Universal Ctags parser is ultimately discarded anyway, yet parsing may take
+considerably longer. If this is the case, "default" behaviour may be recovered
+by first running the following command:
+
+```{r unsetenv, eval = FALSE}
+Sys.unsetenv (c ("GTAGSCONF", "GTAGSLABEL"))
+```
+
+See [information on how to install the
+plugin](https://cvs.savannah.gnu.org/viewvc/global/global/plugin-factory/PLUGIN_HOWTO.pygments?revision=1.6&view=markup)
+for more details.
+
+
+## Demonstration
+
+The following code demonstrates the output of the main function, `pkgstats`,
+using an internally bundled `.tar.gz` "tarball" of this package. The
+`system.time` call demonstrates that the static code analyses of `pkgstats` are
+generally very fast.
+
+```{r demo}
+tarball <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+system.time (
+    p <- pkgstats (tarball)
+)
+names (p)
+```
+
+The result is a list of various data extracted from the code. All except for
+`objects` and `network` represent summary data:
+
+```{r}
+p [!names (p) %in% c ("objects", "network", "external_calls")]
+```
+
+These results demonstrate that many fields use `NA` to denote values of zero.
+The first item, `loc`, contains the following Lines-Of-Code and related
+statistics, separated into distinct combinations of computer language and
+directory:
+
+1. `nfiles` = Numbers of files in each directory and language.
+2. `nlines` = Total numbers of lines in all files.
+2. `nlines` = Total numbers of lines of code.
+3. `ndoc` = Total numbers of documentation or comment lines.
+4. `nempty` = Total numbers of empty of blank lines.
+5. `nspaces` = Total numbers of white spaces in all code lines, excluding
+   leading indentation spaces.
+6. `nchars` = Total numbers of non-white-space characters in all code lines.
+7. `nexpr` = Median numbers of nested expressions in all lines which have any
+   expressions (see below).
+8. `ntabs` = Number of lines of code with initial tab indentation.
+8. `indentation` = Number of spaces by which code is indented (with `-1`
+   denoting tab-indentation).
+
+Numbers of nested expressions are counted as numbers of brackets or braces of
+any type nested on a single line. The following line has one nested bracket:
+
+```{r nested1, eval = FALSE}
+x <- myfn ()
+```
+
+while the following has four:
+
+```{r nested4, eval = FALSE}
+x <- function () { return (myfn ()) }
+```
+
+Code with fewer nested expressions per line is generally easier to read, and
+this metric is provided as one indication of the general readability of
+code. A second relative indication may be extracted by converting numbers of
+spaces and characters to a measure of relative numbers of white spaces, noting
+that the `nchars` value quantifies total characters including white spaces.
+
+```{r rel-space}
+index <- which (p$loc$dir %in% c ("R", "src")) # consider source code only
+sum (p$loc$nspaces [index]) / sum (p$loc$nchars [index])
+```
+
+Finally, the `ntabs` statistic can be used to identify whether code uses tab
+characters as indentation, otherwise the `indentation` statistics indicate
+median numbers of white spaces by which code is indented. The `objects`,
+`network`, and `external_calls` items returned by the [`pkgstats()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats.html) are
+described further below.
+
+
+### Overview of statistics and the `pkgstats_summary()` function
+
+A summary of the `pkgstats` data can be obtained by submitting the object
+returned from `pkgstats()` to the [`pkgstats_summary()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html):
+
+```{r summary, echo = TRUE}
+s <- pkgstats_summary (p)
+```
+
+This function reduces the result of the [`pkgstats()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html)
+to a single line with `r ncol (s)` entries, represented as a `data.frame` with
+one row and that number of columns. This format is intended to enable summary
+statistics from multiple packages to be aggregated by simply binding rows
+together. While `r ncol (s)` statistics might seem like a lot, the
+[`pkgstats_summary()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html)
+aims to return as many usable raw statistics as possible in order to flexibly
+allow higher-level statistics to be derived through combination and
+aggregation. These `r ncol (s)` statistics can be roughly grouped into the
+following categories (not shown in the order in which they actually appear),
+with variable names in parentheses after each description. Some statistics are
+summarised as comma-delimited character strings, such as translations into
+human languages, or other packages listed under "depends", "imports", or
+"suggests". This enables subsequent analyses of their contents, for example of
+actual translated languages, or both aggregate numbers and individual details
+of all package dependencies, as demonstrated immediately below.
+
+**Package Summaries**
+
+- name (`package`)
+- Package version (`version`)
+- Package date, as modification time of `DESCRIPTION` file where not explicitly
+  stated (`date`)
+- License (`license`)
+- Languages, as a single comma-separated character value (`languages`), and
+  excluding `R` itself.
+- List of translations where package includes translations files, given as list
+  of (spoken) language codes (`translations`).
+
+**Information from `DESCRIPTION` file**
+
+- Package URL(s) (`url`)
+- URL for BugReports (`bugs`)
+- Number of contributors with role of *author* (`desc_n_aut`), *contributor*
+  (`desc_n_ctb`), *funder* (`desc_n_fnd`), *reviewer* (`desc_n_rev`), *thesis
+  advisor* (`ths`), and *translator* (`trl`, relating to translation between
+  computer and not spoken languages).
+- Comma-separated character entries for all `depends`, `imports`, `suggests`,
+  and `linking_to` packages.
+
+Numbers of entries in each the of the last two kinds of items can be obtained
+from by a simple `strsplit` call, like this:
+
+```{r strsplit}
+deps <- strsplit (s$suggests, ", ") [[1]]
+length (deps)
+print (deps)
+```
+
+**Numbers of files and associated data**
+
+- Number of vignettes (`num_vignettes`)
+- Number of demos (`num_demos`)
+- Number of data files (`num_data_files`)
+- Total size of all package data (`data_size_total`)
+- Median size of package data files (`data_size_median`)
+- Numbers of files in main sub-directories (`files_R`, `files_src`,
+  `files_inst`, `files_vignettes`, `files_tests`), where numbers are
+  recursively counted in all sub-directories, and where `inst` only counts
+  files in the `inst/include` sub-directory.
+
+**Statistics on lines of code**
+
+- Total lines of code in each sub-directory (`loc_R`, `loc_src`, `loc_ins`,
+  `loc_vignettes`, `loc_tests`).
+- Total numbers of blank lines in each sub-directory (`blank_lines_R`,
+  `blank_lines_src`, `blank_lines_inst`, `blank_lines_vignette`,
+  `blank_lines_tests`).
+- Total numbers of comment lines in each sub-directory (`comment_lines_R`,
+  `comment_lines_src`, `comment_lines_inst`, `comment_lines_vignettes`,
+  `comment_lines_tests`).
+- Measures of relative white space in each sub-directory (`rel_space_R`,
+  `rel_space_src`, `rel_space_inst`, `rel_space_vignettes`, `rel_space_tests`),
+  as well as an overall measure for the `R/`, `src/`, and `inst/` directories
+  (`rel_space`).
+- The number of spaces used to indent code (`indentation`), with values of -1
+  indicating indentation with tab characters.
+- The median number of nested expression per line of code, counting only those
+  lines which have any expressions (`nexpr`).
+
+**Statistics on individual objects (including functions)**
+
+These statistics all refer to "functions", but actually represent more general
+"objects," such as global variables or class definitions (generally from
+languages other than R), as detailed below.
+
+- Numbers of functions in R (`n_fns_r`)
+- Numbers of exported and non-exported R functions (`n_fns_r_exported`,
+  `n_fns_r_not_exported`)
+- Number of functions (or objects) in other computer languages (`n_fns_src`),
+  including functions in both `src` and `inst/include` directories.
+- Number of functions (or objects) per individual file in R and in all other
+  (`src`) directories (`n_fns_per_file_r`, `n_fns_per_file_src`).
+- Median and mean numbers of parameters per exported R function
+  (`npars_exported_mn`, `npars_exported_md`).
+- Mean and median lines of code per function in R and other languages,
+  including distinction between exported and non-exported R functions
+  (`loc_per_fn_r_mn`, `loc_per_fn_r_md`, `loc_per_fn_r_exp_m`,
+  `loc_per_fn_r_exp_md`, `loc_per_fn_r_not_exp_mn`, `loc_per_fn_r_not_exp_m`,
+  `loc_per_fn_src_mn`, `loc_per_fn_src_md`).
+- Equivalent mean and median numbers of documentation lines per function
+  (`doclines_per_fn_exp_mn`, `doclines_per_fn_exp_md`,
+  `doclines_per_fn_not_exp_m`, `doclines_per_fn_not_exp_md`,
+  `docchars_per_par_exp_mn`, `docchars_per_par_exp_m`).
+
+**Network Statistics**
+
+The full structure of the `network` table is described below, with summary
+statistics including:
+
+- Number of edges, including distinction between languages (`n_edges`,
+  `n_edges_r`, `n_edges_src`).
+- Number of distinct clusters in package network (`n_clusters`).
+- Mean and median centrality of all network edges, calculated from both
+  directed and undirected representations of network (`centrality_dir_mn`,
+  `centrality_dir_md`, `centrality_undir_mn`, `centrality_undir_md`).
+- Equivalent centrality values excluding edges with centrality of zero
+  (`centrality_dir_mn_no0`, `centrality_dir_md_no0`, `centrality_undir_mn_no0`,
+  `centrality_undir_md_no`).
+- Numbers of terminal edges (`num_terminal_edges_dir`,
+  `num_terminal_edges_undir`).
+- Summary statistics on node degree (`node_degree_mn`, `node_degree_md`,
+  `node_degree_max`)
+
+
+**External Call Statistics**
+
+The final column in the result of [the `pkgstats_summary()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html)
+summarises the `external_calls` object detailing all calls make to external
+packages (including to base and recommended packages). This summary is
+also represented as a single character string. Each package lists total numbers
+of function calls, and total numbers of unique function calls. Data for each
+package are separated by a comma, while data within each package are separated
+by a colon.
+
+```{r summary-external-calls}
+s$external_calls
+```
+
+This structure allows numbers of calls to all packages to be readily extracted
+with code like the following:
+
+```{r summary-exteranl-calls-transform}
+calls <- do.call (
+    rbind,
+    strsplit (strsplit (s$external_call, ",") [[1]], ":")
+)
+calls <- data.frame (
+    package = calls [, 1],
+    n_total = as.integer (calls [, 2]),
+    n_unique = as.integer (calls [, 3])
+)
+print (calls)
+```
+
+The two numeric columns respectively show the total number of calls made to
+each package, and the total number of unique functions used within those
+packages. These results provide detailed information on numbers of calls made
+to, and functions used from, other R packages, including base and recommended
+packages.
+
+Finally, the summary statistics conclude with two further statistics of
+`afferent_pkg` and `efferent_pkg`. These are package-internal measures of
+[afferent and efferent
+couplings](https://en.wikipedia.org/wiki/Software_package_metrics) between the
+files of a package. The *afferent* couplings (`ca`) are numbers of *incoming*
+calls to each file of a package from functions defined elsewhere in the
+package, while the *efferent* couplings (`ce`) are numbers of *outgoing* calls
+from each file of a package to functions defined elsewhere in the package.
+These can be used to derive a measure of "internal package instability" as the
+ratio of efferent to total coupling (`ce / (ce + ca)`).
+
+The following sub-sections provide further detail on the `objects`, `network`,
+and `external_call` items, which could be used to extract additional statistics
+beyond those described here.
+
+
+### Objects
+
+The `objects` item contains all code objects identified by
+the code-tagging library [`ctags`](https://ctags.io). For R, those are
+primarily functions, but for other languages may be a variety of entities such
+as class or structure definitions, or sub-members thereof. Object tables look
+like this:
+
+```{r}
+head (p$objects)
+```
+
+The `magrittr` package has a total of `r nrow (p$objects)` objects, which the
+following lines provide some insight into.
+
+```{r}
+table (p$objects$language)
+table (p$objects$kind)
+table (p$objects$kind [p$objects$language == "R"])
+table (p$objects$kind [p$objects$language == "C++"])
+```
+
+### Network
+
+The `network` item details all relationships between objects, which generally
+reflects one object calling or otherwise depending on another object. Each row
+thus represents one edge of a "function call" network, with each entry in the
+`from` and `to` columns representing the network vertices or nodes.
+
+```{r}
+head (p$network)
+nrow (p$network)
+```
+
+The network table includes additional statistics on the centrality of each
+edge, measured as betweenness centrality assuming edges to be both directed
+(`centrality_dir`) and undirected (`centrality_undir`). More central edges
+reflect connections between objects that are more central to package
+functionality, and vice versa. The distinct components of the network are also
+represented by discrete cluster numbers, calculated both for directed and
+undirected versions of the network. Each distinct cluster number represents
+a distinct group of objects, internally related to other members of the same
+cluster, yet independent of all objects with different cluster numbers.
+
+The network can be viewed as an interactive [`vis.js`](https://visjs.org/)
+network through passing the result of `pkgstats` -- the variable `p` in the
+code above -- to the [`plot_network()`
+function](https://docs.ropensci.org/pkgstats/reference/plot_network.html).
+
+### External Calls
+
+The `external_calls` item is structured similar to the `network` object, but
+identifies all calls to functions from external packages. However, unlike the
+`network` and `object` data, which provide information on objects and
+relationships in all computer languages used within a package, the
+`external_calls` object maps calls within R code only, in order to provide
+insight into the use within a package of of functions from other packages,
+including R's base and recommended packages. The object looks like this:
+
+```{r ext-call-head}
+head (p$external_calls)
+```
+
+These data are converted to a summary form by the [`pkgstats_summary()`
+function](https://docs.ropensci.org/pkgstats/reference/pkgstats_summary.html),
+which tabulates numbers of external calls and unique functions from each
+package. These data are presented as a single character string which can be
+easily converted to the corresponding numeric values using code like the
+following:
+
+```{r ext-call-summary}
+x <- strsplit (s$external_calls, ",") [[1]]
+x <- do.call (rbind, strsplit (x, ":"))
+x <- data.frame (
+    pkg = x [, 1],
+    n_total = as.integer (x [, 2]),
+    n_unique = as.integer (x [, 3])
+)
+x$n_total_rel <- round (x$n_total / sum (x$n_total), 3)
+x$n_unique_rel <- round (x$n_unique / sum (x$n_unique), 3)
+print (x)
+```
+
+Those data reveal, for example, that the `magrittr` package makes 
+`r x$n_total [x$pkg == "base"]` individual calls to
+`r x$n_unique [x$pkg == "base"]` unique functions from the "base" package.
+
+
+
+## Code of Conduct
+
+Please note that this package is released with a [Contributor Code of
+Conduct](https://ropensci.org/code-of-conduct/). By contributing to this
+project, you agree to abide by its terms.
+
+Construct the demo package in the tests/testthat directory, adding an extra
+function call so that external calls register something
+
+```{r}
+library (srr)
+path <- srr_stats_pkg_skeleton ()
+
+f <- file.path (path, "R", "test.R")
+
+x <- brio::read_lines (f)
+x <- x [seq (grep ("function\\(\\)", x))]
+x <- gsub ("function\\(\\)", "function(a, b)", x)
+x <- c (x,
+        "    y <- runif (a, 0, b)",
+        "    return (y)",
+        "}")
+brio::write_lines (x, f)
+```
+
+Then make tarball:
+
+```{r}
+f <- pkgbuild::build (path)
+p <- utils::tail (strsplit (f, .Platform$file.sep) [[1]], 1L)
+file.copy (f, file.path (here::here (), "tests", "testthat", p))
+```
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tag-data.R
+\name{tags_data}
+\alias{tags_data}
+\title{use ctags and gtags to parse call data}
+\usage{
+tags_data(path, has_tabs = NULL, pkg_name = NULL)
+}
+\arguments{
+\item{path}{Path to local repository}
+
+\item{has_tabs}{A logical flag indicating whether or not the code contains
+any tab characters. This can be determined from \link{loc_stats}, which has a
+\code{tabs} column. If not given, that value will be extracted from internally
+calling that function.}
+
+\item{pkg_name}{Only used for external_call_network, to label
+package-internal calls.}
+}
+\description{
+use ctags and gtags to parse call data
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+# have to extract tarball to call function on source code:
+path <- extract_tarball (f)
+tags <- tags_data (path)
+}
+\seealso{
+Other tags: 
+\code{\link{ctags_install}()},
+\code{\link{ctags_test}()}
+}
+\concept{tags}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pkgstats-package.R
+\docType{package}
+\name{pkgstats-package}
+\alias{pkgstats-package}
+\alias{_PACKAGE}
+\title{pkgstats: Metrics of R Packages}
+\description{
+Metrics of R packages.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/pkgstats/}
+  \item \url{https://github.com/ropensci-review-tools/pkgstats}
+  \item Report bugs at \url{https://github.com/ropensci-review-tools/pkgstats/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Mark Padgham \email{mark.padgham@email.com} (\href{https://orcid.org/0000-0003-2172-5265}{ORCID})
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/extract_tarball.R
+\name{extract_tarball}
+\alias{extract_tarball}
+\title{Extract tarball of a package into temp directory and return path to extracted
+package}
+\usage{
+extract_tarball(tarball)
+}
+\arguments{
+\item{tarball}{Full path to local tarball of an R package.}
+}
+\value{
+Path to extracted version of package (in \code{tempdir()}).
+}
+\description{
+Extract tarball of a package into temp directory and return path to extracted
+package
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- extract_tarball (f)
+}
+\concept{misc}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pkgstats.R
+\name{pkgstats}
+\alias{pkgstats}
+\title{Collates statistics from one local tarball}
+\usage{
+pkgstats(path = ".")
+}
+\arguments{
+\item{path}{Either a path to a local source repository, or a local '.tar.gz'
+file containing code for an R package.}
+}
+\value{
+List of statistics and data on function call networks (or object
+relationships in other languages). Includes the following components:
+\enumerate{
+\item{loc: }{Summary of Lines-of-Code in all package directories}
+\item{vignettes: }{Numbers of vignettes and "demo" files}
+\item{data_stats: }{Statistics of numbers and sizes of package data files}
+\item{desc: }{Summary of contents of 'DESCRIPTION' file}
+\item{translations: }{List of translations into other (human) languages
+(where provides)}
+\item{objects: }{A \code{data.frame} of all functions in R, and all other
+objects (functions, classes, structures, global variables, and more) in all
+other languages}
+\item{network: }{A \code{data.frame} of object references within and between all
+languages; in R these are function calls, but may be more abstract in other
+languages.}
+\item{external_calls: }{A \code{data.frame} of all calls make to all functions
+from all other R packages, including base and recommended as well as
+contributed packages.}
+}
+}
+\description{
+Collates statistics from one local tarball
+}
+\examples{
+# 'path' can be path to a package tarball:
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+s <- pkgstats (f)
+# or to a source directory:
+path <- extract_tarball (f)
+s <- pkgstats (path)
+}
+\seealso{
+Other stats: 
+\code{\link{desc_stats}()},
+\code{\link{loc_stats}()},
+\code{\link{pkgstats_summary}()},
+\code{\link{rd_stats}()}
+}
+\concept{stats}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/loc.R
+\name{loc_stats}
+\alias{loc_stats}
+\title{Internal calculation of Lines-of-Code Statistics}
+\usage{
+loc_stats(path)
+}
+\arguments{
+\item{path}{Directory to package being analysed}
+}
+\value{
+A list of statistics for each of three directories, 'R', 'src', and
+'inst/include', each one having 5 statistics of total numbers of lines,
+numbers of empty lines, total numbers of white spaces, total numbers of
+characters, and indentation used in files in that directory.
+}
+\description{
+Internal calculation of Lines-of-Code Statistics
+}
+\note{
+NA values are returned for directories which do not exist.
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- extract_tarball (f)
+loc_stats (path)
+}
+\seealso{
+Other stats: 
+\code{\link{desc_stats}()},
+\code{\link{pkgstats_summary}()},
+\code{\link{pkgstats}()},
+\code{\link{rd_stats}()}
+}
+\concept{stats}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ctags-test.R
+\name{ctags_test}
+\alias{ctags_test}
+\title{test a 'ctags' installation}
+\usage{
+ctags_test(quiet = TRUE)
+}
+\arguments{
+\item{quiet}{If \code{TRUE}, display on screen whether or not 'ctags' is correctly
+installed.}
+}
+\value{
+'TRUE' or 'FALSE' respectively indicating whether or not 'ctags' is
+correctly installed.
+}
+\description{
+This uses the example from
+\url{https://github.com/universal-ctags/ctags/blob/master/man/ctags-lang-r.7.rst.in}
+and also checks the GNU global installation.
+}
+\examples{
+\dontrun{
+ctags_test ()
+}
+}
+\seealso{
+Other tags: 
+\code{\link{ctags_install}()},
+\code{\link{tags_data}()}
+}
+\concept{tags}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/desc-stats.R
+\name{desc_stats}
+\alias{desc_stats}
+\title{Statistics from DESCRIPTION files}
+\usage{
+desc_stats(path)
+}
+\arguments{
+\item{path}{Directory to package being analysed}
+}
+\description{
+Statistics from DESCRIPTION files
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+path <- extract_tarball (f)
+desc_stats (path)
+}
+\seealso{
+Other stats: 
+\code{\link{loc_stats}()},
+\code{\link{pkgstats_summary}()},
+\code{\link{pkgstats}()},
+\code{\link{rd_stats}()}
+}
+\concept{stats}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pkgstats-summary.R
+\name{pkgstats_summary}
+\alias{pkgstats_summary}
+\title{Condense the output of \code{pkgstats} to summary statistics only}
+\usage{
+pkgstats_summary(s = NULL)
+}
+\arguments{
+\item{s}{Output of \link{pkgstats}, containing full statistical data on one
+package. Default of \code{NULL} returns a single row with \code{NA} values (used in
+\link{pkgstats_from_archive}).}
+}
+\value{
+Summarised version of \code{s}, as a single row of a standardised
+\code{data.frame} object
+}
+\description{
+Condense the output of \code{pkgstats} to summary statistics only
+}
+\note{
+Variable names in the summary object use the following abbreviations:
+\itemize{
+\item "loc" = Lines-of-Code
+\item "fn" = Function
+\item "n_fns" = Number of functions
+\item "npars" = Number of parameters
+\item "doclines" = Number of documentation lines
+\item "nedges" = Number of edges in function call network, as a count of
+\emph{unique} edges, which may be less than the size of the \code{network}
+object returned by \link{pkgstats}, because that may include multiple calls
+between identical function pairs.
+\item "n_clusters" = Number of connected clusters within the function call
+network.
+\item "centrality" used as a prefix for several statistics, along with
+"dir" or "undir" for centrality calculated on networks respectively
+constructed with directed or undirected edges; "mn" or "md" for respective
+measures of mean or median centrality, and "no0" for measures excluding
+edges with zero centrality.
+}
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+p <- pkgstats (f)
+s <- pkgstats_summary (p)
+}
+\seealso{
+Other stats: 
+\code{\link{desc_stats}()},
+\code{\link{loc_stats}()},
+\code{\link{pkgstats}()},
+\code{\link{rd_stats}()}
+}
+\concept{stats}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/archive-trawl.R
+\name{pkgstats_from_archive}
+\alias{pkgstats_from_archive}
+\title{Trawl a local CRAN archive and extract statistics from all packages}
+\usage{
+pkgstats_from_archive(
+  path,
+  archive = TRUE,
+  prev_results = NULL,
+  results_file = NULL,
+  chunk_size = 1000L,
+  num_cores = 1L,
+  save_full = FALSE,
+  save_ex_calls = FALSE,
+  results_path = tempdir()
+)
+}
+\arguments{
+\item{path}{Path to local CRAN archive}
+
+\item{archive}{If \code{TRUE}, extract statistics for all packages in the
+\verb{/Archive} sub-directory, otherwise only statistics for main \code{tarballs}
+directory (that is, current packages only).}
+
+\item{prev_results}{Result of previous call to this function, if available.
+Submitting previous results will ensure that only newer packages not present
+in previous result will be analysed, with new results simply appended to
+previous results. This parameter can also specify a file to be read with
+\code{readRDS()}.}
+
+\item{results_file}{Can be used to specify the name or full path of a \code{.Rds}
+file to which results should be saved once they have been generated. The
+'.Rds' extension will be automatically appended, and any other extensions
+will be ignored.}
+
+\item{chunk_size}{Divide large archive trawl into chunks of this size, and
+save intermediate results to local files. These intermediate files can be
+combined to generate a single \code{prev_results} file, to enable jobs to be
+stopped and re-started without having to recalculate all results. These files
+will be named \code{pkgstats-results-N.Rds}, where "N" incrementally numbers each
+file.}
+
+\item{num_cores}{Number of machine cores to use in parallel, defaulting to
+single-core processing.}
+
+\item{save_full}{If \code{TRUE}, full \link{pkgstats} results are saved for each
+package to files in \code{results_path}.}
+
+\item{save_ex_calls}{If \code{TRUE}, the results of the \code{external_calls} component
+are saved for each package to files in \code{results_path} (only if \code{save_full = FALSE}).}
+
+\item{results_path}{Path to save intermediate files generated by the
+\code{chunk_size} parameter described above.}
+}
+\value{
+A \code{data.frame} object with one row for each package containing
+summary statistics generated from the \link{pkgstats_summary} function.
+}
+\description{
+Trawl a local CRAN archive and extract statistics from all packages
+}
+\note{
+Each analysis in an archive trawl spawns several \emph{unsupervised}
+processes, preventing the trawl from running in parallel. Accurate results
+can only be guaranteed by running this function as a single process.
+}
+\concept{archive}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/plot.R
+\name{plot_network}
+\alias{plot_network}
+\title{Plot interactive \pkg{visNetwork} visualisation of object-relationship
+network of package.}
+\usage{
+plot_network(s, plot = TRUE, vis_save = NULL)
+}
+\arguments{
+\item{s}{Package statistics obtained from \link{pkgstats} function.}
+
+\item{plot}{If \code{TRUE}, plot the network using \pkg{visNetwork} which opens an
+interactive browser pane.}
+
+\item{vis_save}{Name of local file in which to save \code{html} file of network
+visualisation (will override \code{plot} to \code{FALSE}).}
+}
+\value{
+(Invisibly) A \pkg{visNetwork} representation of the package network.
+}
+\description{
+Plot interactive \pkg{visNetwork} visualisation of object-relationship
+network of package.
+}
+\note{
+Edge thicknesses are scaled to centrality within the package function
+call network. Node sizes are scaled to numbers of times each function is
+called from all other functions within a package.
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+p <- pkgstats (f)
+plot_network (p)
+}
+\concept{output}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/rd-stats.R
+\name{rd_stats}
+\alias{rd_stats}
+\title{Stats from '.Rd' files}
+\usage{
+rd_stats(path)
+}
+\arguments{
+\item{path}{Directory to package being analysed}
+}
+\description{
+Stats from '.Rd' files
+}
+\examples{
+f <- system.file ("extdata", "pkgstats_9.9.tar.gz", package = "pkgstats")
+# have to extract tarball to call function on source code:
+path <- extract_tarball (f)
+rd_stats (path)
+}
+\seealso{
+Other stats: 
+\code{\link{desc_stats}()},
+\code{\link{loc_stats}()},
+\code{\link{pkgstats_summary}()},
+\code{\link{pkgstats}()}
+}
+\concept{stats}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/ctags-install.R
+\name{ctags_install}
+\alias{ctags_install}
+\title{Install 'ctags' from a clone of the 'git' repository}
+\usage{
+ctags_install(bin_dir = NULL, sudo = TRUE)
+}
+\arguments{
+\item{bin_dir}{Prefix to pass to the \code{autoconf} configure command
+defining location to install the binary, with default of \verb{/usr/local}.}
+
+\item{sudo}{Set to \code{FALSE} if \code{sudo} is not available, in which case a
+value for \code{bin_dir} will also have to be explicitly specified, and be a
+location where a binary is able to be installed without \code{sudo} privileges.}
+}
+\description{
+'ctags' is installed with this package on both Windows and macOS systems;
+this is an additional function to install from source on Unix systems.
+}
+\examples{
+\dontrun{
+ctags_install (bin_dir = "/usr/local") # default
+}
+}
+\seealso{
+Other tags: 
+\code{\link{ctags_test}()},
+\code{\link{tags_data}()}
+}
+\concept{tags}

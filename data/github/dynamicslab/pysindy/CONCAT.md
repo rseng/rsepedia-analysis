@@ -384,3 +384,503 @@ JNK acknowledges support from the Air Force Office of Scientific Research (AFOSR
 This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant Number DGE-1256082.
 
 # References
+PySINDy
+=========
+
+|BuildCI| |RTD| |PyPI| |Codecov| |JOSS1| |JOSS2| |DOI|
+
+**PySINDy** is a sparse regression package with several implementations for the Sparse Identification of Nonlinear Dynamical systems (SINDy) method introduced in Brunton et al. (2016a), including the unified optimization approach of Champion et al. (2019), SINDy with control from Brunton et al. (2016b), Trapping SINDy from Kaptanoglu et al. (2021), SINDy-PI from Kaheman et al. (2020), PDE-FIND from Rudy et al. (2017), and so on. A comprehensive literature review is given in de Silva et al. (2020) and Kaptanoglu, de Silva et al. (2021).
+
+.. contents:: Table of contents
+
+System identification
+---------------------
+System identification refers to the process of leveraging measurement data to infer governing equations, in the form of dynamical systems, describing the data. Once discovered, these equations can make predictions about future states, can inform control inputs, or can enable the theoretical study using analytical techniques.
+Dynamical systems are a flexible, well-studied class of mathematical objects for modeling systems evolving in time.
+SINDy is a model discovery method which uses *sparse regression* to infer nonlinear dynamical systems from measurement data.
+The resulting models are inherently *interpretable* and *generalizable*.
+
+How it works
+^^^^^^^^^^^^
+Suppose, for some physical system of interest, we have measurements of state variables ``x(t)`` (a vector of length n) at different points in time. Examples of state variables include the position, velocity, or acceleration of objects; lift, drag, or angle of attack of aerodynamic objects; and concentrations of different chemical species. If we suspect that the system could be well-modeled by a dynamical system of the form
+
+.. code-block:: text
+
+    x'(t) = f(x(t)),
+
+then we can use SINDy to learn ``f(x)`` from the data (``x'(t)`` denotes the time derivative of ``x(t)``). Note that both ``f(x)`` and ``x(t)`` are typically vectors. The fundamental assumption SINDy employs is that each component of ``f(x)``, ``f_i(x)`` can be represented as a *sparse* linear combination of basis functions ``theta_j(x)``
+
+.. code-block:: text
+
+    f_i(x) = theta_1(x) * xi_{1,i} + theta_2(x) * xi_{2,i} + ... + theta_k * xi{k,i}
+
+Concatenating all the objects into matrices (denoted with capitalized names) helps to simplify things.
+To this end we place all measurements of the state variables into a data matrix ``X`` (with a row per time measurement and a column per variable), the derivatives of the state variables into a matrix ``X'``, all basis functions evaluated at all points in time into a matrix ``Theta(X)`` (each basis function gets a column), and all coefficients into a third matrix ``Xi`` (one column per state variable).
+The approximation problem to be solved can then be compactly written as
+
+.. code-block:: text
+
+    X' = Theta(X) * Xi.
+
+Each row of this matrix equation corresponds to one coordinate function of ``f(x)``.
+SINDy employs sparse regression techniques to find a solution ``Xi`` with sparse column vectors.
+For a more in-depth look at the mathematical foundations of SINDy, please see our `introduction to SINDy <https://pysindy.readthedocs.io/en/latest/examples/2_introduction_to_sindy.html>`__.
+
+Relation to PySINDy
+^^^^^^^^^^^^^^^^^^^
+The PySINDy package revolves around the ``SINDy`` class which consists of three primary components; one for each term in the above matrix approximation problem.
+
+* ``differentiation_method``: computes ``X'``, though if derivatives are known or measured directly, they can be used instead
+* ``feature_library``: specifies the candidate basis functions to be used to construct ``Theta(X)``
+* ``optimizer``: implements a sparse regression method for solving for ``Xi``
+
+Once a ``SINDy`` object has been created it must be fit to measurement data, similar to a ``scikit-learn`` model. It can then be used to predict derivatives given new measurements, evolve novel initial conditions forward in time, and more. PySINDy has been written to be as compatible with ``scikit-learn`` objects and methods as possible.
+
+Example
+^^^^^^^
+Suppose we have measurements of the position of a particle obeying the following dynamical system at different points in time
+
+.. code-block:: text
+
+  x' = -2x
+  y' = y
+
+Note that this system of differential equations decouples into two differential equations whose solutions are simply ``x(t) = x_0 * exp(-2 * t)`` and ``y(t) = y_0 * exp(t)``, where ``x_0 = x(0)`` and ``y_0 = y(0)`` are the initial conditions.
+
+Using the initial conditions ``x_0 = 3`` and ``y_0 = 0.5``, we construct the data matrix ``X``.
+
+.. code-block:: python
+
+  import numpy as np
+  import pysindy as ps
+
+  t = np.linspace(0, 1, 100)
+  x = 3 * np.exp(-2 * t)
+  y = 0.5 * np.exp(t)
+  X = np.stack((x, y), axis=-1)  # First column is x, second is y
+
+To instantiate a ``SINDy`` object with the default differentiation method, feature library, and optimizer and then fit it to the data, we invoke
+
+.. code-block:: python
+
+  model = ps.SINDy(feature_names=["x", "y"])
+  model.fit(X, t=t)
+
+We use the ``feature_names`` argument so that the model prints out the correct labels for ``x`` and ``y``. We can inspect the governing equations discovered by the model and check whether they seem reasonable with the ``print`` function.
+
+.. code-block:: python
+
+  model.print()
+
+which prints the following
+
+.. code-block:: text
+
+  x' = -2.000 x
+  y' = 1.000 y
+
+PySINDy provides numerous other features not shown here. We recommend the `feature overview <https://pysindy.readthedocs.io/en/latest/examples/1_feature_overview.html>`__ section of the documentation for a more exhaustive summary of additional features.
+
+Installation
+------------
+
+Installing with pip
+^^^^^^^^^^^^^^^^^^^
+
+If you are using Linux or macOS you can install PySINDy with pip:
+
+.. code-block:: bash
+
+  pip install pysindy
+
+Installing from source
+^^^^^^^^^^^^^^^^^^^^^^
+First clone this repository:
+
+.. code-block:: bash
+
+  git clone https://github.com/dynamicslab/pysindy.git
+
+Then, to install the package, run
+
+.. code-block:: bash
+
+  pip install .
+
+If you do not have pip you can instead use
+
+.. code-block:: bash
+
+  python setup.py install
+
+If you do not have root access, you should add the ``--user`` option to the above lines.
+
+Caveats
+^^^^^^^
+If you would like to use the ``SINDy-PI`` optimizer, the ``Trapping SINDy`` optimizer (TrappingSR3), or the other SR3 optimizations with inequality constraints, you will also need to install the cvxpy package, e.g. with ``pip install cvxpy``.
+
+To run the unit tests, example notebooks, or build a local copy of the documentation, you should install the additional dependencies in ``requirements-dev.txt``
+
+.. code-block:: bash
+
+  pip install -r requirements-dev.txt
+
+
+Documentation
+-------------
+The documentation site for PySINDy can be found `here <https://pysindy.readthedocs.io/en/latest/>`__. There are numerous `examples <https://pysindy.readthedocs.io/en/latest/examples/index.html>`_ of PySINDy in action to help you get started. Examples are also available as `Jupyter notebooks <https://github.com/dynamicslab/pysindy/tree/master/examples>`__. A video overview of PySINDy can be found on `Youtube <https://www.youtube.com/watch?v=DvbbXX8Bd90>`__. We have also created a `video playlist <https://www.youtube.com/playlist?list=PLN90bHJU-JLoOfEk0KyBs2qLTV7OkMZ25>`__ with practical PySINDy tips.
+
+PySINDy implements a lot of advanced functionality that may be overwhelming for new users or folks who are unfamiliar with these methods. Below (see here if image does not render https://github.com/dynamicslab/pysindy/blob/master/docs/JOSS2/Fig3.png), we provide a helpful flowchart for figuring out which methods to use, given the characteristics of your dataset:
+
+.. image:: https://github.com/dynamicslab/pysindy/blob/master/docs/JOSS2/Fig3.png
+
+This flow chart summarizes how `PySINDy` users can start with a dataset and systematically choose the proper candidate library and sparse regression optimizer that are tailored for a specific scientific task. The `GeneralizedLibrary` class allows for tensoring, concatenating, and otherwise combining many different candidate libraries.
+
+Community guidelines
+--------------------
+
+Contributing examples
+^^^^^^^^^^^^^^^^^^^^^
+We love seeing examples of PySINDy being used to solve interesting problems! If you would like to contribute an example, reach out to us by creating an issue.
+
+Contributing code
+^^^^^^^^^^^^^^^^^
+We welcome contributions to PySINDy. To contribute a new feature please submit a pull request. To get started we recommend installing the packages in ``requirements-dev.txt`` via
+
+.. code-block:: bash
+
+    pip install -r requirements-dev.txt
+
+This will allow you to run unit tests and automatically format your code. To be accepted your code should conform to PEP8 and pass all unit tests. Code can be tested by invoking
+
+.. code-block:: bash
+
+    pytest
+
+We recommend using ``pre-commit`` to format your code. Once you have staged changes to commit
+
+.. code-block:: bash
+
+    git add path/to/changed/file.py
+
+you can run the following to automatically reformat your staged code
+
+.. code-block:: bash
+
+    pre-commit
+
+Note that you will then need to re-stage any changes ``pre-commit`` made to your code.
+
+There are a number of SINDy variants and advanced functionality that would be great to implement in future releases:
+
+1. Bayesian SINDy, for instance that from Hirsh, Seth M., David A. Barajas-Solano, and J. Nathan Kutz. "Sparsifying Priors for Bayesian Uncertainty Quantification in Model Discovery." arXiv preprint arXiv:2107.02107 (2021).
+
+2. Tensor SINDy, using the methods in Gelß, Patrick, et al. "Multidimensional approximation of nonlinear dynamical systems." Journal of Computational and Nonlinear Dynamics 14.6 (2019).
+
+3. Stochastic SINDy, using the methods in Brückner, David B., Pierre Ronceray, and Chase P. Broedersz. "Inferring the dynamics of underdamped stochastic systems." Physical review letters 125.5 (2020): 058103.
+
+4. Integration of PySINDy with a Python model-predictive control (MPC) code.
+
+5. The PySINDy weak formulation is based on the work in Reinbold, Patrick AK, Daniel R. Gurevich, and Roman O. Grigoriev. "Using noisy or incomplete data to discover models of spatiotemporal dynamics." Physical Review E 101.1 (2020): 010203. It might be useful to additionally implement the weak formulation from Messenger, Daniel A., and David M. Bortz. "Weak SINDy for partial differential equations." Journal of Computational Physics (2021): 110525. The weak formulation in PySINDy is also fairly slow and computationally intensive, so finding ways to speed up the code would be great. 
+
+6. The blended conditional gradients (BCG) algorithm for solving the constrained LASSO problem, Carderera, Alejandro, et al. "CINDy: Conditional gradient-based Identification of Non-linear Dynamics--Noise-robust recovery." arXiv preprint arXiv:2101.02630 (2021).
+
+Reporting issues or bugs
+^^^^^^^^^^^^^^^^^^^^^^^^
+If you find a bug in the code or want to request a new feature, please open an issue.
+
+Getting help
+^^^^^^^^^^^^
+For help using PySINDy please consult the `documentation <https://pysindy.readthedocs.io/en/latest/>`__ and/or our `examples <https://github.com/dynamicslab/pysindy/tree/master/examples>`__, or create an issue.
+
+Citing PySINDy
+--------------
+PySINDy has been published in the Journal of Open Source Software (JOSS). The paper can be found `here <https://joss.theoj.org/papers/10.21105/joss.02104>`__.
+
+If you use PySINDy in your work, please cite it using the following two references:
+
+Brian M. de Silva, Kathleen Champion, Markus Quade, Jean-Christophe Loiseau, J. Nathan Kutz, and Steven L. Brunton., (2020). *PySINDy: A Python package for the sparse identification of nonlinear dynamical systems from data.* Journal of Open Source Software, 5(49), 2104, https://doi.org/10.21105/joss.02104
+
+Alan A. Kaptanoglu, Brian M. de Silva, Urban Fasel, Kadierdan Kaheman, Andy J. Goldschmidt, Jared L. Callaham,   Charles  B.  Delahunt,   Zachary G. Nicolaou,   Kathleen  Champion,   Jean-Christophe  Loiseau,J. Nathan Kutz, and Steven L. Brunton. *PySINDy:  A comprehensive Python package for robust sparse system identification.* arXiv preprint arXiv:2111.08481, 2021.
+
+Bibtex:
+
+.. code-block:: text
+
+    @article{desilva2020,
+    doi = {10.21105/joss.02104},
+    url = {https://doi.org/10.21105/joss.02104},
+    year = {2020},
+    publisher = {The Open Journal},
+    volume = {5},
+    number = {49},
+    pages = {2104},
+    author = {Brian de Silva and Kathleen Champion and Markus Quade and Jean-Christophe Loiseau and J. Kutz and Steven Brunton},
+    title = {PySINDy: A Python package for the sparse identification of nonlinear dynamical systems from data},
+    journal = {Journal of Open Source Software}
+    }
+
+Bibtex:
+
+.. code-block:: text
+
+      @article{kaptanoglu2021pysindy,
+      title={PySINDy: A comprehensive Python package for robust sparse system identification},
+      author={Alan A. Kaptanoglu and Brian M. de Silva and Urban Fasel and Kadierdan Kaheman and Andy J. Goldschmidt and Jared L. Callaham and Charles B. Delahunt and Zachary G. Nicolaou and Kathleen Champion and Jean-Christophe Loiseau and J. Nathan Kutz and Steven L. Brunton},
+      year={2021},
+	  Journal = {arXiv preprint arXiv:2111.08481},
+      }
+
+References
+----------------------
+-  de Silva, Brian M., Kathleen Champion, Markus Quade,
+   Jean-Christophe Loiseau, J. Nathan Kutz, and Steven L. Brunton.
+   *PySINDy: a Python package for the sparse identification of
+   nonlinear dynamics from data.* arXiv preprint arXiv:2004.08424 (2020)
+   `[arXiv] <https://arxiv.org/abs/2004.08424>`__
+
+-  Kaptanoglu, Alan A., Brian M. de Silva, Urban Fasel, Kadierdan Kaheman, Andy J. Goldschmidt
+   Jared L. Callaham, Charles B. Delahunt, Zachary G. Nicolaou, Kathleen Champion, 
+   Jean-Christophe Loiseau, J. Nathan Kutz, and Steven L. Brunton.
+   *PySINDy: A comprehensive Python package for robust sparse system identification.*
+   arXiv preprint arXiv:2111.08481 (2021).
+   `[arXiv] <https://arxiv.org/abs/2111.08481>`__
+
+-  Brunton, Steven L., Joshua L. Proctor, and J. Nathan Kutz.
+   *Discovering governing equations from data by sparse identification
+   of nonlinear dynamical systems.* Proceedings of the National
+   Academy of Sciences 113.15 (2016): 3932-3937.
+   `[DOI] <http://dx.doi.org/10.1073/pnas.1517384113>`__
+
+-  Champion, K., Zheng, P., Aravkin, A. Y., Brunton, S. L., & Kutz, J. N. (2020).
+   *A unified sparse optimization framework to learn parsimonious physics-informed
+   models from data.* IEEE Access, 8, 169259-169271.
+   `[DOI] <https://doi.org/10.1109/ACCESS.2020.3023625>`__
+
+-  Brunton, Steven L., Joshua L. Proctor, and J. Nathan Kutz.
+   *Sparse identification of nonlinear dynamics with control (SINDYc).*
+   IFAC-PapersOnLine 49.18 (2016): 710-715.
+   `[DOI] <https://doi.org/10.1016/j.ifacol.2016.10.249>`__
+
+-  Kaheman, K., Kutz, J. N., & Brunton, S. L. (2020).
+   *SINDy-PI: a robust algorithm for parallel implicit sparse identification
+   of nonlinear dynamics.* Proceedings of the Royal Society A, 476(2242), 20200279.
+   `[DOI] <https://doi.org/10.1098/rspa.2020.0279>`__
+
+-  Kaptanoglu, A. A., Callaham, J. L., Aravkin, A., Hansen, C. J., & Brunton, S. L. (2021).
+   *Promoting global stability in data-driven models of quadratic nonlinear dynamics.*
+   Physical Review Fluids, 6(9), 094401.
+   `[DOI] <https://doi.org/10.1103/PhysRevFluids.6.094401>`__
+
+
+Related packages
+----------------
+* `Deeptime <https://github.com/deeptime-ml/deeptime>`_ - A Python library for the analysis of time series data with methods for dimension reduction, clustering, and Markov model estimation.
+* `PyDMD <https://github.com/mathLab/PyDMD/>`_ - A Python package using the Dynamic Mode Decomposition (DMD) for a data-driven model simplification based on spatiotemporal coherent structures. DMD is a great alternative to SINDy.
+* `PySINDyGUI <https://github.com/hyumo/pysindy-gui>`_ - A slick-looking GUI for PySINDy.
+* `SEED <https://github.com/M-Vause/SEED2.0>`_ - Software for the Extraction of Equations from Data: a GUI for many of the methods provided by PySINDy.
+
+Contributors
+------------
+Thanks to the members of the community who have contributed to PySINDy!
+
++-------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `billtubbs <https://github.com/kopytjuk>`_            | Bug fix `#68 <https://github.com/dynamicslab/pysindy/issues/68>`_                                                                                          |
++-------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `kopytjuk <https://github.com/kopytjuk>`_             | Concatenation feature for libraries `#72 <https://github.com/dynamicslab/pysindy/pull/72>`_                                                                |
++-------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `andgoldschmidt <https://github.com/andgoldschmidt>`_ | `derivative <https://derivative.readthedocs.io/en/latest/>`_ package for numerical differentiation `#85 <https://github.com/dynamicslab/pysindy/pull/85>`_ |
++-------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+.. |BuildCI| image:: https://github.com/dynamicslab/pysindy/workflows/Build%20CI/badge.svg
+    :target: https://github.com/dynamicslab/pysindy/actions?query=workflow%3A%22Build+CI%22
+
+.. |RTD| image:: https://readthedocs.org/projects/pysindy/badge/?version=latest
+    :target: https://pysindy.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. |PyPI| image:: https://badge.fury.io/py/pysindy.svg
+    :target: https://badge.fury.io/py/pysindy
+
+.. |Codecov| image:: https://codecov.io/gh/dynamicslab/pysindy/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/dynamicslab/pysindy
+
+.. |JOSS1| image:: https://joss.theoj.org/papers/82d080bbe10ac3ab4bc03fa75f07d644/status.svg
+    :target: https://joss.theoj.org/papers/82d080bbe10ac3ab4bc03fa75f07d644
+    
+.. |JOSS2| image:: https://joss.theoj.org/papers/10.21105/joss.03994/status.svg
+    :target: https://doi.org/10.21105/joss.03994
+
+.. |DOI| image:: https://zenodo.org/badge/186055899.svg
+   :target: https://zenodo.org/badge/latestdoi/186055899
+PySINDy Examples
+================
+
+This directory showcases the following examples of PySINDy in action.
+
+`Feature overview <https://pysindy.readthedocs.io/en/latest/examples/1_feature_overview.html>`_
+-----------------------------------------------------------------------------------------------------------
+This notebook gives an almost exhaustive overview of the different features available in PySINDy. It's a good reference for how to set various options and work with different types of datasets.
+
+`Introduction to SINDy <https://pysindy.readthedocs.io/en/latest/examples/2_introduction_to_sindy.html>`_
+---------------------------------------------------------------------------------------------------------------------
+We recommend that people new to SINDy start here. We give a gentle introduction to the SINDy method and how different steps in the algorithm are represented in PySINDy. We also show how to use PySINDy to learn a model for a simple linear differential equation.
+
+`Original paper <https://pysindy.readthedocs.io/en/latest/examples/3_original_paper.html>`_
+-------------------------------------------------------------------------------------------------------
+This notebook uses PySINDy to reproduce the examples in the `original SINDy paper <https://www.pnas.org/content/pnas/113/15/3932.full.pdf>`_. Namely, it applies PySINDy to the following problems:
+
+* Linear 2D ODE
+* Cubic 2D ODE
+* Linear 3D ODE
+* Lorenz system
+* Fluid wake behind a cylinder
+* Logistic map
+* Hopf system
+
+`Scikit-learn compatibility <https://pysindy.readthedocs.io/en/latest/examples/4_scikit_learn_compatibility.html>`_
+-------------------------------------------------------------------------------------------------------------------------------
+Shows how PySINDy interfaces with various Scikit-learn objects.
+
+* Cross-validation
+* Sparse regressors
+
+`Differentiation <https://pysindy.readthedocs.io/en/latest/examples/5_differentation.html>`_
+---------------------------------------------------------------------------------------------------------
+Explore the differentiation methods available in PySINDy on pure differentiation problems and as components in the SINDy algorithm.
+
+`Deeptime compatibility <https://pysindy.readthedocs.io/en/latest/examples/6_deeptime_compatibility.html>`_
+------------------------------------------------------------------------------------------------------------------------
+See a demonstration of PySINDy objects designed to conform to the `Deeptime <https://deeptime-ml.github.io/latest/index.html>`_ API.
+
+`Plasma physics <https://pysindy.readthedocs.io/en/latest/examples/7_plasma_example.html>`_
+----------------------------------------------------------------------------------------------
+Use the ``ConstrainedSR3`` optimizer to build a constrained model for the temporal POD modes of a plasma simulation.
+
+
+`Trapping SINDy <https://pysindy.readthedocs.io/en/latest/examples/8_trapping_sindy_paper_examples.html>`_
+----------------------------------------------------------------------------------------------
+This notebook applies the ``TrappingSR3`` optimizer to various canonical fluid systems., proposed in this paper: Kaptanoglu, Alan A., et al. "Promoting global stability in data-driven models of quadratic nonlinear dynamics." Physical Review Fluids 6.9 (2021): 094401. A preprint is found here `<https://arxiv.org/abs/2105.01843>`_.
+
+`SINDyPI <https://pysindy.readthedocs.io/en/latest/examples/9_sindypi_with_sympy.html>`_
+----------------------------------------------------------------------------------------------
+This notebook applies the ``SINDyPI`` optimizer to a simple implicit ODE and was originally proposed in this paper: Kaheman, Kadierdan, J. Nathan Kutz, and Steven L. Brunton. "SINDy-PI: a robust algorithm for parallel implicit sparse identification of nonlinear dynamics." Proceedings of the Royal Society A 476.2242 (2020): 20200279. 
+
+`PDEFIND <https://pysindy.readthedocs.io/en/latest/examples/10_PDEFIND_examples.html>`_
+----------------------------------------------------------------------------------------------
+This notebook applies the PDEFIND algorithm (SINDy for PDE identification) to a number of PDEs, and was originally proposed in this paper: Rudy, Samuel H., et al. "Data-driven discovery of partial differential equations." Science Advances 3.4 (2017): e1602614.
+
+`Greedy Algorithms <https://pysindy.readthedocs.io/en/latest/examples/11_SSR_FROLS_examples.html>`_
+----------------------------------------------------------------------------------------------
+This notebook uses the step-wise sparse regression (SSR) and forward-regression orthogonal least-squares (FROLS) algorithms, which are greedy algorithms that iteratively truncate (or add) one nonzero coefficient at each algorithm iteration. 
+
+`Weak formulation SINDy <https://pysindy.readthedocs.io/en/latest/examples/12_weakform_SINDy_examples.html>`_
+----------------------------------------------------------------------------------------------
+This notebook uses SINDy to identify the weak-formulation of a system of ODEs or PDEs, adding significant robustness against noise in the data.
+
+`Model ensembles <https://pysindy.readthedocs.io/en/latest/examples/13_ensembling.html>`_
+----------------------------------------------------------------------------------------------
+This notebook uses sub-sampling of the data and sub-sampling of the SINDy library to generate many models, and the user can choose how to average or otherwise combine these models together. This tends to make SINDy more robust against noisy data.
+
+`Cavity flow <https://pysindy.readthedocs.io/en/latest/examples/14_cavity_flow.html>`_
+----------------------------------------------------------------------------------------------
+Demonstrates the use of SINDy to learn a model for the quasiperiodic dynamics in a shear-driven cavity at Re=7500, following Callaham, Brunton, and Loiseau (2021), preprint available here `<https://arxiv.org/pdf/2106.02409>`_.
+
+
+Full table of contents
+----------------------
+Practical tips
+==============
+
+Here we provide pragmatic advice for using PySINDy effectively. We discuss potential pitfalls and strategies for overcoming them. We also specify how to incorporate custom methods not implemented natively in PySINDy, where applicable. The information presented here is derived from a combination of experience and theoretical considerations.
+
+Numerical differentiation
+-------------------------
+
+Numerical differentiation is one of the core components of the SINDy method. Derivatives of measurement variables provide the targets (left-hand side :math:`\dot{X}`) for the sparse regression problem solved by SINDy:
+
+.. math::
+
+	\dot{X} \approx \Theta(X)\Xi.
+
+If care is not taken in computing these derivatives, the quality of the learned model is likely to suffer.
+
+By default, a second order finite difference method is used to differentiate input data. Finite difference methods tend to amplify noise in data. If the data are smooth (at least twice differentiable), then finite difference methods give accurate derivative approximations. When the data are noisy, they give derivative estimates with *more* noise than the original data. The following figure visualizes the impact of noise on numerical derivatives. Note that even a small amount of noise in the data can produce noticeable degradation in the quality of the numerical derivative.
+
+.. figure:: figures/noisy_differentiation.png
+	:align: center
+	:alt: A toy example illustrating the effect of noise on derivatives computed with a second order finite difference method
+	:figclass: align-center
+
+	A toy example illustrating the effect of noise on derivatives computed with a second order finite difference method. Left: The data to be differentiated; :math:`y=\sin(x)` with and without a small amount of additive noise (normally distributed with mean 0 and standard deviation 0.01). Right: Derivatives of the data; the exact derivative :math:`\cos(x)` (blue), the finite difference derivative of the exact data (black, dashed), and the finite difference derivative of the noisy data.
+
+One way to mitigate the effects of noise is to smooth the measurements before computing derivatives. The :code:`SmoothedFiniteDifference` method can be used for this purpose.
+A numerical differentiation scheme with total variation regularization has also been proposed [Chartrand_2011]_ and recommended for use in SINDy [Brunton_2016]_.
+
+Users wishing to employ their own numerical differentiation schemes have two ways of doing so. Derivatives of input measurements can be computed externally with the method of choice and then passed directly into the :code:`SINDy.fit` method via the :code:`x_dot` keyword argument. Alternatively, users can implement their own differentiation methods and pass them into the :code:`SINDy` constructor using the :code:`differentiation_method` argument. In this case, the supplied class need only have implemented a :code:`__call__` method taking two arguments, :code:`x` and :code:`t`.
+
+Library selection
+-----------------
+
+The SINDy method assumes dynamics can be represented as a *sparse* linear combination of library functions. If this assumption is violated, the method is likely to exhibit poor performance. This issue tends to manifest itself as numerous library terms being active, often with weights of vastly different magnitudes, still resulting in poor model error.
+
+Typically, prior knowledge of the system of interest and its dynamics should be used to make a judicious choice of basis functions. When such information is unavailable, the default class of library functions, polynomials, are a good place to start, as smooth functions have rapidly converging Taylor series. Brunton et al. [Brunton_2016]_ showed that, equipped with a  polynomial library, SINDy can recover the first few terms of the (zero-centered) Taylor series of the true right-hand side function :math:`\mathbf{f}(x)`. If one has reason to believe the dynamics can be sparsely represented in terms of Chebyshev polynomials rather than monomials, then the library should include Chebyshev polynomials.
+
+PySINDy includes the :code:`CustomLibrary` and :code:`IdentityLibrary` objects to allow for flexibility in the library functions. When the desired library consists of a set of functions that should be applied to each measurement variable (or pair, triplet, etc. of measurement variables) in turn, the :code:`CustomLibrary` class should be used. The :code:`IdentityLibrary` class is the most customizable, but transfers the work of computing library functions over to the user. It expects that all the features one wishes to include in the library have already been computed and are present in :code:`X` before :code:`SINDy.fit` is called, as it simply applies the identity map to each variable that is passed to it. 
+It is best suited for situations in which one has very specific instructions for how to apply library functions (e.g. if some of the functions should be applied to only some of the input variables).
+
+As terms are added to the library, the underlying sparse regression problem becomes increasingly ill-conditioned. Therefore it is recommended to start with a small library whose size is gradually expanded until the desired level of performance is achieved. 
+For example, a user may wish to start with a library of linear terms and then add quadratic and cubic terms as necessary to improve model performance.  
+For the best results, the strength of regularization applied should be increased in proportion to the size of the library to account for the worsening condition number of the resulting linear system.
+
+Users may also choose to implement library classes tailored to their applications. To do so one should have the new class inherit from our :code:`BaseFeatureLibrary` class. See the documentation for guidance on which functions the new class is expected to implement.
+
+Optimization
+------------
+PySINDy uses various optimizers to solve the sparse regression problem. For a fixed differentiation method, set of inputs, and candidate library, there is still some variance in the dynamical system identified by SINDY, depending on which optimizer is employed.
+
+The default optimizer in PySINDy is the sequentially-thresholded least-squares algorithm (:code:`STLSQ`). In addition to being the method originally proposed for use with SINDy, it involves a single, easily interpretable hyperparameter, and it exhibits good performance across a variety of problems.
+
+The sparse relaxed regularized regression (:code:`SR3`) [Zheng_2018]_ [Champion_2019]_ algorithm can be used when the results of :code:`STLSQ` are unsatisfactory. It involves a few more hyperparameters that can  be tuned for improved accuracy. In particular, the :code:`thresholder` parameter controls the type of regularization that is applied. For optimal results, one may find it useful to experiment with :math:`L^0`, :math:`L^1`, and clipped absolute deviation (CAD) regularization. The other hyperparameters can be tuned with cross-validation.
+
+Custom or third party sparse regression methods are also supported. Simply instantiate an instance of the custom object and pass it to the :code:`SINDy` constructor using the :code:`optimizer` keyword. Our implementation is compatible with any of the linear models from Scikit-learn (e.g. :code:`RidgeRegression`, :code:`Lasso`, and :code:`ElasticNet`).
+See the documentation for a list of methods and attributes a custom optimizer is expected to implement. There you will also find an example where the Scikit-learn :code:`Lasso` object is used to perform sparse regression.
+
+Regularization
+--------------
+Regularization, in this context, is a technique for improving the conditioning of ill-posed problems. Without regularization, one often obtains highly unstable results, with learned parameter values differing substantially for slightly different inputs. SINDy seeks weights that express dynamics as a *sparse* linear combination of library functions. When the columns of the measurement data or the library are statistically correlated, which is likely for  large libraries, the SINDy inverse problem can quickly become ill-posed. Though the sparsity constraint is a type of regularization itself, for many problems another form of regularization is needed for SINDy to learn a robust dynamical model.
+
+In some cases regularization can be interpreted as enforcing a prior distribution on the model parameters [Bishop_2016]_.
+Applying strong regularization biases the learned weights *away* from the values that would allow them to best fit the data and *toward* the values preferred by the prior distribution (e.g. :math:`L^2` regularization corresponds to a Gaussian prior).
+Therefore once a sparse set of nonzero coefficients is discovered, our methods apply an extra  "unbiasing" step where *unregularized* least-squares is used to find the values of the identified nonzero coefficients.
+All of our built-in methods use regularization by default.
+
+Some general best practices regarding regularization follow. Most problems will benefit from some amount of regularization. Regularization strength should be increased as the size of the candidate right-hand side library grows. If warnings about ill-conditioned matrices are generated when :code:`SINDy.fit` is called, more regularization may help. We also recommend setting :code:`unbias` to :code:`True` when invoking the :code:`SINDy.fit` method, especially when large amounts of regularization are being applied. Cross-validation can be used to select appropriate regularization parameters for a given problem.
+
+
+.. [Chartrand_2011] R. Chartrand, “Numerical differentiation of noisy, nonsmooth data,” *ISRN Applied Mathematics*, vol. 2011, 2011.
+
+.. [Brunton_2016] S. L. Brunton, J. L. Proctor, and J. N. Kutz, “Discovering governing equations from data by sparse identification of nonlinear dynamical systems,” *Proceedings of the National Academy of Sciences*, vol. 113, no. 15, pp. 3932–3937, 2016.
+
+.. [Zheng_2018] P. Zheng, T. Askham, S. L. Brunton, J. N. Kutz, and A. Y. Aravkin, “A unified framework for sparse relaxed regularized regression: Sr3,” *IEEE Access*, vol. 7, pp. 1404–1423, 2018.
+
+.. [Champion_2019] K. Champion, P. Zheng, A. Y. Aravkin, S. L. Brunton, and J. N. Kutz, “A unified sparse optimization framework to learn parsimonious physics-informed models from data,” *arXiv preprint arXiv:1906.10612*, 2019.
+
+.. [Bishop_2016] C. M. Bishop, Pattern recognition and machine learning. Springer, 2006... include:: ../README.rst
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: User Guide
+
+   API Documentation <api/pysindy>
+   Examples <examples/index>
+   Practical tips <tips>
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Useful links
+
+
+   PySINDy @ PyPI <https://pypi.org/project/PySINDy/>
+   Issue Tracker <https://github.com/dynamicslab/pysindy/issues>

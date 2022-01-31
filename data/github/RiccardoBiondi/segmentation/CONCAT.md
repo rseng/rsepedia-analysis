@@ -676,3 +676,526 @@ Python 3.8.2
 $ python -c "import segmentation; print(segmentation.__version__)"
 '1.0.0'
 -->
+Script
+======
+Since the segmentation of several patients is time-consuming, some scripts
+to automatize this process are provided. The scripts are in two versions: bash and
+PowerShell. The segmentation approach is different, instead of to perform the
+entire segmentation of all the patient all at once, the segmentation steps are
+divided into two different steps :
+
+- lung extraction
+- labeling
+
+The following examples will use the data previously downloaded from the public dataset.
+
+Lung Extraction
+---------------
+
+This script allows to run the lung segmentation on the whole set of patients,
+that is the preliminary step of the GGO identification. Its implemented both for
+bash and PowerShell.
+
+In this example we will segment *coronacases_002* and *coronacases_005* patients.
+To perform the segmentation, you have to create two folers:
+
+  - input: contains only the scan to segment
+  - lung: contains the lung extraction results.
+
+
+
+Ensure that in the input folder there are only the files corresponding to the scan
+to segment. The supported input format are all the ones supported by SimpleITK_.
+you can provide as input also DICOM series, simply arrange them into one folder
+for each scan. Please ensure that all the subsamples contain only one series.
+
+Now you can simply run the following command from bash :
+
+.. code-block:: bash
+
+  mkdir ./Examples/INPUT
+  mkdir ./Examples/LUNG
+  mv ./Examples/COVID-19-CT/coronacases_002.nii.gz ./Examples/COVID-19-CT/coronacases_005.nii.gz ./Examples/INPUT
+  lung_extraction.sh ./Examples/INPUT ./Examples/LUNG
+
+or its equivalent for powershell
+
+.. code-block:: powershell
+
+  New-Item -Path "Examples" -Name "INPUT" -ItemType "directory"
+  New-Item -Path "Examples" -Name "LUNG" -ItemType "directory"
+  Move-Item -Path "Examples\COVID-19-CT\coronacases_002.nii.gz" -Destination "Examples\INPUT"
+  Move-Item -Path "Examples\COVID-19-CT\coronacases_005.nii.gz" -Destination "Examples\INPUT"
+  lung_extraction.ps1 .\Examples\INPUT .\Examples\LUNG
+
+For lung extraction, a pre-trained UNet model was used. The model and the
+code used to apply it belong to this_ repository. For more details, please
+refers here_.
+
+Labeling
+--------
+
+Once you have isolated the lung, you can run the actual segmentation.
+In this case you have to create an other empty folder, wich will contains all the results.
+As input the script requires the results of the lung extraction(in this case stored in LUNG folder).
+
+Run from bash:
+
+.. code-block:: bash
+
+  mkdir ./Examples/OUTPUT
+  labeling.sh ./Examples/LUNG ./Examples/OUTPUT
+
+or its equivalent for powershell
+
+  .. code-block:: powershell
+
+    New-Item -Path "Examples" -Name "OUTPUT" -ItemType "directory"
+    labeling.ps1 .\Examples\LUNG .\Examples\OUTPUT
+
+This will run the segmentation by using the already estimated centroids. If you
+want to use another set of centroids, simply provide as third arguments the path
+of the file in which the set of centroids is saved
+
+Train
+-----
+
+Even if with the script a set of pre-estimated centroids is provided, we also provide
+a script to train another set of centroids. To perform the training simply organize
+the scans resulting from the lung extraction into the same folder, this will be the
+training set. Now simply the training script:
+
+.. code-block:: bash
+
+  python -m CTLungSeg.train --input='./Examples/LUNG' --output='./Examples/new_centroids.pkl.npy'
+
+Once you have run this script, a brief recap of the training parameter will be
+displayed :
+
+.. code-block:: bash
+
+  I m Loading...
+  Loaded 20 files from ./Examples/LUNG
+  *****Starting clustering*****
+  Number of subsamples--> 100
+  Total images --> 4000
+  Centroid initialization technique-->KMEANS_RANDOM_CENTERS
+  I m clustering...
+  100%|█████████████████████████████████████████████████████████████████████████████████████| 100/100 [00:14<00:00,  2.86s/it]
+  I m saving...
+  [DONE]
+
+All the images will be divided into N subsamples, and a K-means clustering is
+performed for each subsample, after that a second clustering is performed in order
+to refine the clustering and provide the set of centroids.
+To control the parameters simply provides the following arguments when the script
+is execute:
+
+* init : centroid initialization algorithm: if 0 the centroids will be initialized randomly, if 1 the K-means++ center will be used.
+
+* n : number of subsamples, as default as 100.
+
+Once the training is complete, the centroid file will be stored in `.pkl.npy`
+format.
+
+.. note::
+
+  please notice that this process may be time consuming and computational expansive
+
+.. _SimpleITK: https://simpleitk.readthedocs.io/en/master/IO.html
+.. _this: https://github.com/JoHof/lungmask
+.. _here: https://eurradiolexp.springeropen.com/articles/10.1186/s41747-020-00173-2
+COVID-19 Lung Segmentation
+==========================
+
+The SARS-CoV-2 virus has widely spread all over the world since the beginning of 2020.
+This virus affects lung areas and causes respiratory illness. In this scenario is
+highly desirable a method to identify in CT images the lung injuries caused by COVID-19.
+The approach proposed here is based on colour quantization to identify the infection
+regions inside the lung(Ground Glass Opacities, Consolidation and Pleural Effusion).
+
+To achieve this purpose we have used the colour quantization approach to segment the
+chest CT scans of patients affected by COVID-19. Use this technique as medical
+image segmentation means to reduce the number of colours in the image to the number
+of anatomical structures and tissue present in the anatomical region; in this
+way we  assign to each kind of tissue a characteristic colour: so must exist a
+relationship between the kind of tissue and the colour used to represent it.
+
+For CT scan which is in greyscale, each colour is represented by a single value
+given by the Hounsfield Units(HU): voxels colours are proportional to HU, which
+are defined as a linear transformation of the linear attenuation coefficient.
+HU normalize the coefficient of a particular tissue according to a reference one,
+usually, water, as we can see in the equation below :
+
+.. math::
+
+  	HU = 1000\times\frac{\mu - \mu_{H_2 O}}{\mu_{H_2 O}}
+
+In the end, each colour results proportional to the linear attenuation coefficient,
+different from each tissue, so exist a relation between the GL and the tissue type
+that makes these techniques available.
+
+Colour quantization and the properties of digital images allow us to consider also
+other properties of the image beside the single voxel intensity.
+This purpose can be achieved by building a suitable colour space:
+
+In digital image processing, images are represented with a 3D tensor, in which the
+first two dimensions represent the height and width of the image and the last one
+the number of channels. Grayscale images require only one channel, so each pixel
+has a numeric value whose range may change according to the image format.
+On the other hand colour images requires 3 channels, and the value of each channel
+represent the level of the primary colour stored in this particular channel, so each
+colour is represented by 3 different values, according to the Young model.
+In this work, the different channels are used to takes into account different properties,
+exploited by the application of different filters. This allows us to consider also
+neighbouring voxels, which is really suitable for the segmentation since the
+lesions areas involve many closest voxels, not only a single one. We have also
+used these features to discriminate between other lung regions like bronchi by
+exploit shape information.
+The used image features are displayed in the figure below:
+
+.. image:: images/Multi_Channel.png
+   :height: 500px
+   :width: 500px
+   :scale: 100 %
+   :alt:
+   :align: left
+
+Once we have built the colour space, we have to found the characteristic colour of
+each tissue under study, which is represented by centroids in the colour space.
+To perform this task and achieve the centroids estimation a simple -means
+clustering was used.
+K-means clustering requires prior knowledge about the number of clusters, which
+in our case is given by the anatomical structure of the lung, so we can consider
+a different cluster for each anatomical structure.
+Once we have estimated the centroids for each tissue, we use that for the actual
+segmentation by assign each voxel to the cluster of the closest centroids: in this
+way the estimation step, that we will call "train", needs to be performed only once,
+so can be time expansive since is not involved in the actual segmentation.
+
+This package provides a set of already estimates centroids, together with scripts
+to perform the actual segmentation. Also, a script to train your own set of centroids
+is provided.
+Snakemake
+=========
+
+Since the segmentation of several patients is time-consuming, we have provided a
+snakemake pipeline to automate the process. This pipeline also allows to train
+other set of centroids and use it for the segmentation. This file allows to
+customize the usage of the hardware resources, like the number of threads and the
+amount of memory.
+
+As before, this examples will use he data previously downloaded from the public dataset
+
+Segment Multiple Scan
+---------------------
+
+First of all, you have to create two folders:
+
+  - INPUT : contains all and only the CT scans to segment
+  - OUTPUT : empty folder, will contain the segmented scans as *nrrd*.
+
+Now simply execute from command line
+
+.. code-block:: bash
+
+  snakemake --cores 1 --config input_path='./Examples/INPUT/' --output_path='./Examples/OUTPUT/'
+
+.. note::
+
+  It will create a folder named **LUNG** inside the INPUT, which
+  contains the results of the lung extraction step.
+
+Train a Centroid Set
+--------------------
+
+Prepare three folders:
+  - INPUT: will contains all the scans to segment
+  - OUTPUT: will contain the segmented scans
+  - TRAIN: will contain all the scans of the training set.
+
+Now run Snakemake with the following configuration parameters :
+
+.. code-block:: bash
+
+  snakemake --cores 1 --config input_path='./Examples/INPUT/' --output_path='./Examples/OUTPUT/'
+  --train_path='./Examples/TRAIN/' --centroid_path='.Examples/centorid_set.pkl.npy'
+
+This will train the centroid set and use them to segment the input scans.
+
+.. note::
+
+  This will create a folder named LUNG inside INPUT and TRAIN which
+  contains the scans after lung extraction.
+
+.. warning::
+
+  The `TRAIN` folder cannot be the same of `INPUT`!
+
+Configuration
+-------------
+
+We have provided a configuration file (config.yaml) which allows to manage the
+resources and the path, which we usually provide from command-line.
+
+**Threads**:
+
+  - *threads_labelling* : Set the number of threads to use for the labelling process (default = 8);
+
+  - *threads_lung_extraction* : Set the number of threads to use for the lung_extraction (default = 8);
+
+  - *threads_train* : Set the number of threads to use for the training process (default = 8).
+
+**Memory**:
+
+  - memory_labelling : 8
+  - memory_lung_extraction : 8
+  - memory_train : 8
+
+**Training Parameters**:
+
+It is possible to specify the parameters for the training step:
+
+  - n_subsamples : number of subsamples in which the slice of the training set  will be divided during the training;
+
+  - centroid_initialization : technique to use for the initialization of the centroids during k-means (0 for random initialization, 1 for k-means++)
+Installation
+=================
+
+Supported python versions :
+|python version|
+
+The full list of prerequisites is the following:
+
+- numpy>=1.17
+- opencv-python
+- tdqm
+- SimpleITK
+
+And, for testing:
+
+- PyTest>=3.0.7
+- Hypothesis>=4.13.0
+
+The lung extraction is performed by using pre-trained UNet, so please ensure to
+have installed the lungmask_ package. For more information about how the network
+is trained, please refers here_
+
+Installation
+------------
+
+First of all, ensure to have the right python version and the package for the
+lung extraction correctly installed
+
+To install this package first of all you have to clone the repositories from GitHub:
+
+.. code-block:: bash
+
+  git clone https://github.com/RiccardoBiondi/segmentation
+
+Now you can install tha package using pip
+
+.. code-block:: bash
+
+  pip install segmentation/
+
+Testing
+-------
+
+Testing routines use pytest_ and hypothesis_ packages. please install
+these packages to perform the test:
+
+.. code-block:: bash
+
+  pip install pytest>=3.0.7
+  pip install hypothesis>=4.13.0
+
+.. warning::
+  Pytest versions above 6.1.2 are not available for python 3.5
+
+
+All the full set of test is provided in the testing_ directory.
+You can run the full list of test from the segmentation folder:
+
+.. code-block:: bash
+
+  cd segmentation
+  python -m pytest
+
+
+.. |python version| image:: https://img.shields.io/badge/python-3.5|3.6|3.7|3.8-blue.svg
+.. _pytest: https://pypi.org/project/pytest/6.0.2/
+.. _hypothesis: https://hypothesis.readthedocs.io/en/latest/
+.. _testing: https://github.com/RiccardoBiondi/segmentation/tree/master/testing
+.. _lungmask: https://github.com/JoHof/lungmask
+.. _here: https://eurradiolexp.springeropen.com/articles/10.1186/s41747-020-00173-2
+Modules
+=======
+
+Together with the scripts, a series of modules are provided. Each module
+contains a series of functions for image processing which are used during the
+script developing. The modules are the following, each of them provides a different
+kind of functions.
+
+Utils
+-----
+
+This modules provides all the functions to read and write images in a medical image
+format like '.nrrd' or '.nifti'. All the formats supported by SimpleITK_ are allowed.
+
+.. _SimpleITK: https://simpleitk.readthedocs.io/en/master/IO.html
+
+.. automodule:: utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members: _read_dicom_series, _read_image
+   :special-members:
+
+Method
+------
+
+This module contains the implementation of all the filter used for the
+processing of images inside the script. The functions are based on SimpleITK_
+methods
+
+.. _OpenCV: https://opencv.org/
+
+.. automodule:: method
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+   :special-members:
+
+Segmentation
+------------
+
+This module contains the implementation of the functions used to perform the
+tasks on each script.
+
+.. automodule:: CTLungSeg.segmentation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+   :special-members:
+.. CTLungSeg documentation master file, created by
+   sphinx-quickstart on Wed Oct 21 12:55:39 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to CTLungSeg's documentation!
+=====================================
+
+Automated Pipeline for the segmentation of Ground Glass Opacities on chest CT
+scans of COVID-19 affected patients.
+
+This package provides a fast way to isolate the lung region and identify ground glass
+lesions on CT images of patients affected by COVID-19.
+The segmentation approach is based on colour quantization,
+performed using K-means clustering. This package provides a series of scripts to
+isolate lung regions, pre-process the images, estimate K-means centroids and
+labels the lung regions; together with methods to perform thresholding,
+morphological and statistical operations on image series.
+
+.. image :: ../../images/results.png
+
+Usage Example
+=============
+
+Once you have installed you can directly start to segment the images.
+Input CT scans must be in Hounsfield units(HU), gray-scale images are not allowed.
+The input allowed formats are the ones supported by SimpleITK_ .
+
+Example Data
+------------
+
+As Example data, we will use the ones of the public dataset  *COVID-19 CT Lung and Infection Segmentation Dataset*, published by Zenodo.
+How to organize them depends on the purpose and will be explained for each tutorial.
+
+Firstly, create the Examples folder, which will contain the dataset and the results.
+After, you will download the .zip containing the data and unzip it.
+
+So, run from bash:
+
+.. code-block:: bash
+
+  mkdir Examples
+  wget https://zenodo.org/record/3757476/files/COVID-19-CT-Seg_20cases.zip -P ./Examples
+  unzip ./Examples/COVID-19-CT-Seg_20cases.zip -d ./Examples/COVID-19-CT
+
+or PowerShell:
+
+.. code-block:: powershell
+
+    New-Item  -Path . -Name "Examples" -ItemType "directory"
+    Start-BitsTransfer -Source https://zenodo.org/record/3757476/files/COVID-19-CT-Seg_20cases.zip -Destination .\Examples\
+    Expand-Archive -LiteralPath .\Examples\COVID-19-CT-Seg_20cases.zip -DestinationPath .\Examples\COVID-19-CT -Force
+
+Single Patient Example
+----------------------
+
+To segment a single CT scan, run the following command from the bash or
+PowerShell :
+
+.. code-block:: bash
+
+   python -m CTLungSeg --input='.Examples/COVID-19-CT/coronacases_002.nii.gz'  --output='./Examples/coronacases_002_label.nrrd'
+
+Which takes as input the CT scan in each format supported by SimpleITK_. If the
+input is a Dicom series, simply pass the path to the directory which contains
+the series files, please ensure that in the folder there is only one series.
+
+The output label will be saved as '.nrrd'.
+
+Multiple Patient Example
+------------------------
+
+The segmentation of multiple patients can be time-consuming and tedious, so we have provided a series of scripts to automate this procedure.  Moreover, we have provided a snakemake pipeline.
+To see their usage, please refer to script and snakemake contents.
+
+
+.. _SimpleITK: https://simpleitk.org/
+
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Contents:
+
+  installation
+  theory
+  modules
+  script
+  snakemake
+  ./examples/examples
+  references
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+References
+----------
+
+- Hofmanninger, J., Prayer, F., Pan, J. et al. Automatic lung segmentation in routine imaging is primarily a data diversity problem, not a methodology problem. Eur Radiol Exp 4, 50 (2020). https://doi.org/10.1186/s41747-020-00173-2
+
+- Bradski, G. (2000). The OpenCV Library. Dr. Dobb&#x27;s Journal of Software Tools.
+
+- Yaniv, Z., Lowekamp, B.C., Johnson, H.J. et al. SimpleITK Image-Analysis Notebooks: a Collaborative Environment for Education and Reproducible Research. J Digit Imaging 31, 290–303 (2018). https://doi.org/10.1007/s10278-017-0037-8
+
+- Lowekamp Bradley, Chen David, Ibanez Luis, Blezek Daniel The Design of SimpleITK  Frontiers in Neuroinformatics 7, 45 (2013) https://www.frontiersin.org/article/10.3389/fninf.2013.00045
+
+- Ma Jun, Ge Cheng, Wang Yixin, An Xingle, Gao Jiantao, Yu Ziqi, Zhang Minqing, Liu Xin, Deng Xueyuan, Cao Shucheng, Wei Hao, Mei Sen, Yang Xiaoyu, Nie Ziwei, Li Chen, Tian Lu, Zhu Yuntao, Zhu Qiongjie, Dong Guoqiang, & He Jian. (2020). COVID-19 CT Lung and Infection Segmentation Dataset (Verson 1.0) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.3757476.
+Examples
+========
+
+.. toctree::
+  :maxdepth: 1
+
+  ./pipeline_workflow.ipynb
+  ./body_segmentation.ipynb

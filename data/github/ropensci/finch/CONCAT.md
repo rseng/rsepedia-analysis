@@ -351,4 +351,495 @@ grammar, please include new tests for your change -->
 
 # Revdeps
 
-*Wow, no problems at all. :)**Wow, no problems at all. :)*
+*Wow, no problems at all. :)**Wow, no problems at all. :)*finch
+=====
+
+```{r echo=FALSE}
+hook_output <- knitr::knit_hooks$get("output")
+knitr::knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))  # pass to default hook
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) {        # first n lines
+    if (length(x) > lines) {
+      # truncate the output, but add ....
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(if (abs(lines[1])>1) more else NULL,
+           x[lines],
+           if (length(x)>lines[abs(length(lines))]) more else NULL
+    )
+  }
+  # paste these lines together
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+})
+
+knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+[![R-check](https://github.com/ropensci/finch/workflows/R-check/badge.svg)](https://github.com/ropensci/finch/actions?query=workflow%3AR-check)
+[![cran checks](https://cranchecks.info/badges/worst/finch)](https://cranchecks.info/pkgs/finch)
+[![codecov](https://codecov.io/gh/ropensci/finch/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/finch)
+[![cran version](https://www.r-pkg.org/badges/version/finch)](https://cran.r-project.org/package=finch)
+
+`finch` parses Darwin Core simple and archive files
+
+Docs: <https://docs.ropensci.org/finch/>
+
+* Darwin Core description at Biodiversity Information Standards site <http://rs.tdwg.org/dwc.htm>
+* Darwin Core at Wikipedia <https://en.wikipedia.org/wiki/Darwin_Core>
+
+## Install
+
+Stable version
+
+```{r eval=FALSE}
+install.packages("finch")
+```
+
+Development version, from GitHub
+
+```{r eval=FALSE}
+remotes::install_github("ropensci/finch")
+```
+
+```{r}
+library("finch")
+```
+
+## Parse
+
+To parse a simple darwin core file like
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<SimpleDarwinRecordSet
+ xmlns="http://rs.tdwg.org/dwc/xsd/simpledarwincore/"
+ xmlns:dc="http://purl.org/dc/terms/"
+ xmlns:dwc="http://rs.tdwg.org/dwc/terms/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://rs.tdwg.org/dwc/xsd/simpledarwincore/ ../../xsd/tdwg_dwc_simple.xsd">
+ <SimpleDarwinRecord>
+  <dwc:occurrenceID>urn:catalog:YPM:VP.057488</dwc:occurrenceID>
+  <dc:type>PhysicalObject</dc:type>
+  <dc:modified>2009-02-12T12:43:31</dc:modified>
+  <dc:language>en</dc:language>
+  <dwc:basisOfRecord>FossilSpecimen</dwc:basisOfRecord>
+  <dwc:institutionCode>YPM</dwc:institutionCode>
+  <dwc:collectionCode>VP</dwc:collectionCode>
+  <dwc:catalogNumber>VP.057488</dwc:catalogNumber>
+  <dwc:individualCount>1</dwc:individualCount>
+  <dwc:locationID xsi:nil="true"/>
+  <dwc:continent>North America</dwc:continent>
+  <dwc:country>United States</dwc:country>
+  <dwc:countryCode>US</dwc:countryCode>
+  <dwc:stateProvince>Montana</dwc:stateProvince>
+  <dwc:county>Garfield</dwc:county>
+  <dwc:scientificName>Tyrannosourus rex</dwc:scientificName>
+  <dwc:genus>Tyrannosourus</dwc:genus>
+  <dwc:specificEpithet>rex</dwc:specificEpithet>
+  <dwc:earliestPeriodOrHighestSystem>Creataceous</dwc:earliestPeriodOrHighestSystem>
+  <dwc:latestPeriodOrHighestSystem>Creataceous</dwc:latestPeriodOrHighestSystem>
+  <dwc:earliestEonOrHighestEonothem>Late Cretaceous</dwc:earliestEonOrHighestEonothem>
+  <dwc:latestEonOrHighestEonothem>Late Cretaceous</dwc:latestEonOrHighestEonothem>
+ </SimpleDarwinRecord>
+</SimpleDarwinRecordSet>
+```
+
+This file is in this package as an example file, get the file, then `simple()`
+
+```{r}
+file <- system.file("examples", "example_simple_fossil.xml", package = "finch")
+out <- simple_read(file)
+```
+
+Index to `meta`, `dc` or `dwc`
+
+```{r}
+out$dc
+```
+
+## Parse Darwin Core Archive
+
+To parse a Darwin Core Archive like can be gotten from GBIF use `dwca_read()`
+
+There's an example Darwin Core Archive:
+
+```{r}
+file <- system.file("examples", "0000154-150116162929234.zip", package = "finch")
+(out <- dwca_read(file, read = TRUE))
+```
+
+List files in the archive
+
+```{r output.lines=1:10}
+out$files
+```
+
+High level metadata for the whole archive
+
+```{r output.lines=1:20}
+out$emlmeta
+```
+
+High level metadata for each data file, there's many files, but we'll just look at one
+
+```{r}
+hm <- out$highmeta
+head( hm$occurrence.txt )
+```
+
+You can get the same metadata as above for each dataset that went into the tabular dataset downloaded
+
+```{r eval=FALSE}
+out$dataset_meta[[1]]
+```
+
+View one of the datasets, brief overview.
+
+```{r}
+head( out$data[[1]][,c(1:5)] )
+```
+
+You can also give `dwca()` a local directory, or url that contains a Darwin Core Archive.
+
+## Meta
+
+* Please [report any issues or bugs](https://github.com/ropensci/finch/issues).
+* License: MIT
+* Get citation information for `finch` in R doing `citation(package = 'finch')`
+* Please note that this package is released with a [Contributor Code of Conduct](https://ropensci.org/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+
+[![rofooter](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/simple.R
+\name{simple_read}
+\alias{simple_read}
+\title{Parse a DarwinRecordSet and SimpleDarwinRecordSet files}
+\usage{
+simple_read(file)
+}
+\arguments{
+\item{file}{(character) A path to a single simple Darwin Core
+file in XML format. Required.}
+}
+\value{
+a S3 class \code{dwc_recordset} when a DarwinRecordSet is given, or
+a \code{dwc_simplerecordset} when a SimpleDarwinRecordSet is given. In
+each case the object is really just a list, with lightweight S3 class
+attached for easy downstream usage. Prints summary to screen by default
+}
+\description{
+Parse a DarwinRecordSet and SimpleDarwinRecordSet files
+}
+\details{
+Make sure when reading a DarwinRecordSet to access the chunks by
+position rather than name since duplicate names are allowed in chunks.
+}
+\examples{
+\dontrun{
+# SimpleDarwinRecordSet examples
+file <- system.file("examples", "example_simple.xml", package = "finch")
+simple_read(file)
+file <- system.file("examples", "example_simple_fossil.xml",
+  package = "finch")
+simple_read(file)
+
+# DarwinRecordSet examples
+file <- system.file("examples", "example_classes_observation.xml",
+  package = "finch")
+simple_read(file)
+
+file <- system.file("examples", "example_classes_specimen.xml",
+  package = "finch")
+simple_read(file)
+
+# access elements of the object
+file <- system.file("examples", "example_classes_specimen.xml",
+  package = "finch")
+res <- simple_read(file)
+## namespaces
+res$meta
+## locations
+res$locations
+## chunks, the first one
+res$chunks[[1]]
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/defunct.R
+\name{finch-defunct}
+\alias{finch-defunct}
+\title{Defunct functions in finch}
+\description{
+\itemize{
+\item \code{dwca_cache_delete}: Defunt - see \link{dwca_cache}
+\item \code{dwca_cache_delete_all}: Defunt - see \link{dwca_cache}
+\item \code{dwca_cache_details}: Defunt - see \link{dwca_cache}
+\item \code{dwca_cache_list}: Defunt - see \link{dwca_cache}
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/finch-package.R
+\docType{package}
+\name{finch-package}
+\alias{finch-package}
+\alias{finch}
+\title{finch}
+\description{
+Parse Darwin Core Archive files
+}
+\author{
+Scott Chamberlain \email{myrmecocystus@gmail.com}
+}
+\keyword{package}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/dwca.R
+\name{dwca_read}
+\alias{dwca_read}
+\title{Parse Darwin Core Archive}
+\usage{
+dwca_read(input, read = FALSE, ...)
+}
+\arguments{
+\item{input}{(character) Path to local zip file, directory, or a url.
+If a URL it must be for a zip file.}
+
+\item{read}{(logical) Whether or not to read in data files. If \code{FALSE},
+we give back paths to files only. Default: \code{FALSE}}
+
+\item{...}{Further args passed on to \code{\link[data.table:fread]{data.table::fread()}}}
+}
+\description{
+Parse Darwin Core Archive
+}
+\details{
+Note that sometimes file reads fail. We use \code{\link[data.table:fread]{data.table::fread()}}
+internally, which is very fast, but can fail sometimes. If so, try reading
+in the data manually.
+
+When you pass in a URL, we use \pkg{rappdirs} to determine cache path, and
+if you pass the same URL again, and your cache is not cleared, we'll
+pull from the cache. Passing a file or directory on your local system
+won't invoke the caching route, but will go directly to the file/directory.
+}
+\examples{
+\dontrun{
+# set up a temporary directory for the example
+dwca_cache$cache_path_set(path = "finch", type = "tempdir")
+
+dir <- system.file("examples", "0000154-150116162929234", package = "finch")
+
+# Don't read data in
+(x <- dwca_read(dir, read=FALSE))
+x$files
+x$highmeta
+x$dataset_meta[[1]]
+x$data
+
+# Read data
+(x <- dwca_read(dir, read=TRUE))
+head(x$data[[1]])
+
+# Can pass in a zip file
+zip <- system.file("examples", "0000154-150116162929234.zip",
+  package = "finch")
+(out <- dwca_read(zip))
+out$files
+out$highmeta
+out$emlmeta
+out$dataset_meta
+
+# Can pass in zip file as a url
+url <-
+"https://github.com/ropensci/finch/blob/master/inst/examples/0000154-150116162929234.zip?raw=true"
+(out <- dwca_read(url))
+
+# another url
+url <- "http://ipt.jbrj.gov.br/jbrj/archive.do?r=redlist_2013_taxons&v=3.12"
+(out <- dwca_read(url))
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/cache.R
+\name{dwca_cache}
+\alias{dwca_cache}
+\title{Caching}
+\description{
+Manage cached \code{finch} files with package \pkg{hoardr}
+}
+\details{
+The dafault cache directory is
+\code{paste0(rappdirs::user_cache_dir(), "/R/finch")}, but you can set
+your own path using \code{cache_path_set()}
+
+\code{cache_delete} only accepts one file name, while
+\code{cache_delete_all} doesn't accept any names, but deletes all files.
+For deleting many specific files, use \code{cache_delete} in a \code{\link[=lapply]{lapply()}}
+type call
+}
+\section{Useful user functions}{
+
+\itemize{
+\item \code{dwca_cache$cache_path_get()} get cache path
+\item \code{dwca_cache$cache_path_set()} set cache path
+\item \code{dwca_cache$list()} returns a character vector of full
+path file names
+\item \code{dwca_cache$files()} returns file objects with metadata
+\item \code{dwca_cache$details()} returns files with details
+\item \code{dwca_cache$delete()} delete specific files
+\item \code{dwca_cache$delete_all()} delete all files, returns nothing
+}
+}
+
+\examples{
+\dontrun{
+dwca_cache
+
+# list files in cache
+dwca_cache$list()
+
+# delete certain database files
+# dwca_cache$delete("file path")
+# dwca_cache$list()
+
+# delete all files in cache
+# dwca_cache$delete_all()
+# dwca_cache$list()
+
+# set a different cache path from the default
+}
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/defunct.R
+\name{dwca_cache_delete}
+\alias{dwca_cache_delete}
+\title{This function is defunct.}
+\usage{
+dwca_cache_delete(...)
+}
+\description{
+This function is defunct.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/defunct.R
+\name{dwca_cache_details}
+\alias{dwca_cache_details}
+\title{This function is defunct.}
+\usage{
+dwca_cache_details(...)
+}
+\description{
+This function is defunct.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/defunct.R
+\name{dwca_cache_delete_all}
+\alias{dwca_cache_delete_all}
+\title{This function is defunct.}
+\usage{
+dwca_cache_delete_all(...)
+}
+\description{
+This function is defunct.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/defunct.R
+\name{dwca_cache_list}
+\alias{dwca_cache_list}
+\title{This function is defunct.}
+\usage{
+dwca_cache_list(...)
+}
+\description{
+This function is defunct.
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/as.location.R
+\name{as.location}
+\alias{as.location}
+\alias{as.location.character}
+\alias{as.location.location}
+\alias{print.location}
+\title{Convert a path or URL to a location object}
+\usage{
+as.location(x, ...)
+
+\method{as.location}{character}(x, ...)
+
+\method{as.location}{location}(x, ...)
+
+\method{print}{location}(x, ...)
+}
+\arguments{
+\item{x}{Input, a path or URL}
+
+\item{...}{Ignored.}
+}
+\description{
+Convert a path or URL to a location object
+}
+\examples{
+# A zip file
+file <- system.file("examples/0000154-150116162929234.zip",
+  package = "finch")
+as.location(file)
+
+# A directory
+dir <- system.file("examples/0000154-150116162929234",
+  package = "finch")
+as.location(dir)
+
+# A URL
+as.location("https://httpbin.org/get")
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/dwca_validate.R
+\name{dwca_validate}
+\alias{dwca_validate}
+\title{Validate a Darwin Core Archive}
+\usage{
+dwca_validate(x, ifModifiedSince = NULL, browse = FALSE, ...)
+}
+\arguments{
+\item{x}{(character) A url for a Darwin Core Archive. If you have a local
+Darwin Core Archive, put it up online somewhere. Required.}
+
+\item{ifModifiedSince}{(character) An optional ISO date (yyyy-mm-dd) to
+enable conditional get requests, validating archives only if they have
+been modified since the given date. This feature requires the archive url
+to honor the if-modified-since http header. Apache webservers for example
+do this out of the box for static files, but if you use dynamic scripts
+to generate the archive on the fly this might not be recognised. Optional.}
+
+\item{browse}{(logical) Browse to generated report or not.
+Default: \code{FALSE}}
+
+\item{...}{Curl options passed to \link[crul:HttpClient]{crul::HttpClient}}
+}
+\description{
+Validate a Darwin Core Archive
+}
+\details{
+Uses the GBIF DCA validator (http://tools.gbif.org/dwca-validator/)
+}
+\examples{
+\dontrun{
+x <- "http://rs.gbif.org/datasets/german_sl.zip"
+dwca_validate(x)
+}
+}

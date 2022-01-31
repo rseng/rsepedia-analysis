@@ -764,3 +764,923 @@ Which variables in a c14_date_list equal the ones in the source databases?
 - **database**: source database
 - **database_variable**: name of variable in the respective source database
 
+---
+title: "Simple plotting options for radiocarbon dates in c14_date_lists"
+author: "Clemens Schmid"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 5
+vignette: >
+  %\VignetteIndexEntry{Simple plotting options for radiocarbon dates in c14_date_lists}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+This vignette shows some basic workflows to plot radiocarbon dates in `c14_date_list`s. This is only a short compilation to get you started.
+
+So let's begin by loading the main packages for this endeavour: c14bazAAR and [ggplot2](https://CRAN.R-project.org/package=ggplot2). And of course [magrittr](https://CRAN.R-project.org/package=magrittr) to enable the pipe (`%>%`) operator. We will use functions from other packages as well, but address them individually with the `::` operator. 
+
+```{r}
+library(c14bazAAR)
+library(ggplot2)
+library(magrittr)
+```
+
+The basis for this example code is the [adrac data collection](https://github.com/dirkseidensticker/aDRAC) by Dirk Seidensticker. So let's download the data with the relevant c14bazAAR getter function: 
+
+```{r, include = FALSE}
+adrac <- get_c14data("adrac")
+```
+
+```{r, eval = FALSE}
+adrac <- get_c14data("adrac")
+```
+
+## Temporal plotting of radiocarbon ages
+
+Radiocarbon dating is a method to determine the absolute age of samples. Therefore one of the main aims for plotting naturally is to display temporal information. Let's select the dates of one individual site -- *Batalimo* in Central Africa -- as a subset to reproduce two of the most common types of radiocarbon date plots.
+
+```{r}
+Batalimo <- adrac %>%
+  dplyr::filter(site == "Batalimo")
+```
+
+If age modelling and date plotting on a local or regional scale is the major aim of your analysis, you might want to take a look at the [oxcAAR](https://CRAN.R-project.org/package=oxcAAR) package. It serves as an R interface to [OxCal](https://c14.arch.ox.ac.uk/oxcal.html) and provides powerful default plotting methods
+
+### Ridgeplots of density distributions
+
+One way to plot radiocarbon ages is to show the probability density distribution of individual calibrated dates as ridgeplots. To produce a plot like that, we first of all need the age-probability information for each date. We can calculate that with the function `c14bazAAR::calibrate()`. 
+
+```{r, include = FALSE}
+Batalimo_calibrated <- Batalimo %>%
+  calibrate(choices = "calprobdistr")
+```
+
+```{r, eval = FALSE}
+Batalimo_calibrated <- Batalimo %>%
+  calibrate(choices = "calprobdistr")
+```
+
+This adds a list column `calprobdistr` to the input `c14_date_list`. The list column contains a nested data.frame for each date with its probability distribution. 
+
+```{r, echo=FALSE}
+Batalimo_calibrated
+```
+
+With `tidyr::unnest()` the list column can be dissolved ("unnested") and integrated into the initial `c14_date_list`. Of course the latter looses its original structure and meaning with this step. Each row now represents the probability for one date and year.
+
+```{r}
+Batalimo_cal_dens <- Batalimo_calibrated %>% tidyr::unnest(cols = c("calprobdistr"))
+```
+
+A table like that can be used for plotting a ridgeplot. 
+
+```{r, warning=FALSE}
+Batalimo_cal_dens %>%
+  ggplot() +
+  # a special geom for ridgeplots is provided by the ggridges package
+  ggridges::geom_ridgeline(
+    # the relevant variables that have to be mapped for this geom are 
+    # x (the time -- here the calibrated age transformed to calBC), 
+    # y (the individual lab number of the dates) and
+    # height (the probability for each year and date) 
+    aes(x = -calage + 1950, y = labnr, height = density),
+    # ridgeplots lack a scientifically clear y axis for each 
+    # distribution plot and we can adjust the scaling to our needs
+    scale = 300
+  ) +
+  xlab("age calBC/calAD") +
+  ylab("dates")
+```
+
+### Calcurve plot
+
+Another way to plot radiocarbon dates is to project them onto a calibration curve. The [Bchron](https://CRAN.R-project.org/package=Bchron) R package contains a data.frame with the [intcal13](https://www.doi.org/10.2458/azu_js_rc.55.16947) calibration curve data. We can load the `intcal13` table directly from Bchron.
+
+```{r}
+load(system.file('data/intcal13.rda', package = 'Bchron'))
+```
+
+For this kind of plot it is more convenient to work with the simplified `calrange` output of `c14bazAAR::calibrate()`.
+
+```{r, include = FALSE}
+Batalimo_calibrated <- Batalimo %>%
+  calibrate(choices = "calrange")
+```
+
+```{r, eval = FALSE}
+Batalimo_calibrated <- Batalimo %>%
+  calibrate(choices = "calrange")
+```
+
+Like the `calprobdistr` option this also adds a list column to the input `c14_date_list`, but a much smaller one. For each date only the age ranges that make up the 2-sigma significance interval of the probability distribution are stored.
+
+```{r}
+Batalimo_calibrated$calrange[1:3]
+```
+
+The resulting table can also be unnested to make the list column content available in the main table.
+
+```{r}
+Batalimo_cal_range <- Batalimo_calibrated %>% tidyr::unnest(cols = c("calrange"))
+```
+
+Now we can plot the calibration curve and -- on top -- error bars with the `calrange` sequences.
+
+```{r, warning=FALSE}
+ggplot() +
+  # line plot of the intcal curve
+  geom_line(
+    data = intcal13,
+    # again we transform the age information from BP to BC
+    mapping = aes(x = -V1 + 1950, y = -V2 + 1950)
+  ) +
+  # the errorbars are plotted on top of the curve
+  geom_errorbarh(
+    data = Batalimo_cal_range,
+    mapping = aes(y = -c14age + 1950, xmin = -to + 1950, xmax = -from + 1950)
+  ) +
+  # we define the age range manually -- typically the calcurve
+  # is arranged to go from the top left to the bottom right corner
+  xlim(-1000, 2000) +
+  ylim(2000, -1000) +
+  xlab("age calBC/calAD") +
+  ylab("uncalibrated age BC/AD")
+```
+
+## Spatial mapping of radiocarbon dates
+
+Most radiocarbon dates that can be accessed with c14bazAAR have coordinate information for the respective sites where the samples were taken. Spatial maps therefore are an important form of data visualization as well.
+
+`c14_date_list`s can directly be transformed to objects of class `sf`. `sf` objects were introduced by the R package [sf](https://CRAN.R-project.org/package=sf) which provides a tidy interface to work with spatial data in R.
+
+```{r}
+adrac_sf <- adrac %>% as.sf()
+```
+
+This tabular data structure contains the spatial point information for each date in a column *geom*, but also the initial columns of the input dataset: *data.\**
+
+```{r, echo=FALSE}
+adrac_sf %>% dplyr::select(data.labnr, data.c14age, data.c14std, geom)
+```
+
+It can be manipulated with the powerful dplyr functions. We `filter` out all dates from one particular publication (*Moga 2008*), `group` the dates `by` *site* and apply the `summarise` command to keep only one value per group. As we do not define an operation to fold the other variables in the input table, they are removed. Only the geometry column remains.
+
+```{r}  
+Moga_spatial <- adrac_sf %>%
+  dplyr::filter(grepl("Moga 2008", data.shortref)) %>%
+  dplyr::group_by(data.site) %>%
+  dplyr::summarise(.groups = "drop")
+```
+
+### Interactive map view
+
+The resulting `sf` object can be plotted interactively with the [mapview](https://CRAN.R-project.org/package=mapview) package. 
+
+```{r}
+# Moga_spatial %>% mapview::mapview()
+```
+
+### Static map plot
+
+The `sf` object can also be used for a static plot -- which is useful for publications. We download some simple country border base map vector data with the [rnaturalearth](https://CRAN.R-project.org/package=rnaturalearth) R package and transform it to `sf` as well.
+
+```{r}
+countries <- rnaturalearth::ne_countries() %>% sf::st_as_sf()
+```
+
+Now we can combine the base layer and our point data to create the prototype of a static map plot. 
+
+```{r, warning=FALSE}
+ggplot() +
+  # geom_sf is a special geom to handle spatial data in the sf format
+  geom_sf(data = countries) +
+  # the explicit mapping of variables is not necessary here, as geom_sf 
+  # automatically finds the *geom* column in the input table
+  geom_sf_text(data = countries, mapping = aes(label = formal_en), size = 2) +
+  geom_sf(data = Moga_spatial) +
+  # with geom_sf comes coord_sf to manage the underlying coordinate grid
+  coord_sf(xlim = c(10, 30), ylim = c(0, 15))
+```
+
+Please feel free to open an issue [here](https://github.com/ropensci/c14bazAAR/issues) if you have questions about plotting radiocarbon dates.
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_14cpalaeolithic.R, R/get_14sea.R,
+%   R/get_adrac.R, R/get_agrichange.R, R/get_aida.R, R/get_austarch.R,
+%   R/get_bda.R, R/get_c14data.R, R/get_calpal.R, R/get_caribbean.R,
+%   R/get_context.R, R/get_eubar.R, R/get_euroevol.R, R/get_irdd.R,
+%   R/get_jomon.R, R/get_katsianis.R, R/get_kiteeastafrica.R,
+%   R/get_medafricarbon.R, R/get_mesorad.R, R/get_nerd.R, R/get_pacea.R,
+%   R/get_palmisano.R, R/get_radon.R, R/get_radonb.R, R/get_rxpand.R,
+%   R/get_sard.R
+\name{get_14cpalaeolithic}
+\alias{get_14cpalaeolithic}
+\alias{get_14sea}
+\alias{get_adrac}
+\alias{get_agrichange}
+\alias{get_aida}
+\alias{get_austarch}
+\alias{get_bda}
+\alias{get_all_dates}
+\alias{get_calpal}
+\alias{get_caribbean}
+\alias{get_context}
+\alias{get_eubar}
+\alias{get_euroevol}
+\alias{get_irdd}
+\alias{get_jomon}
+\alias{get_katsianis}
+\alias{get_kiteeastafrica}
+\alias{get_medafricarbon}
+\alias{get_mesorad}
+\alias{get_nerd}
+\alias{get_pacea}
+\alias{get_palmisano}
+\alias{get_radon}
+\alias{get_radonb}
+\alias{get_rxpand}
+\alias{get_sard}
+\title{Backend functions for data download}
+\usage{
+get_14cpalaeolithic(db_url = get_db_url("14cpalaeolithic"))
+
+get_14sea(db_url = get_db_url("14sea"))
+
+get_adrac(db_url = get_db_url("adrac"))
+
+get_agrichange(db_url = get_db_url("agrichange"))
+
+get_aida(db_url = get_db_url("aida"))
+
+get_austarch(db_url = get_db_url("austarch"))
+
+get_bda(db_url = get_db_url("bda"))
+
+get_all_dates()
+
+get_calpal(db_url = get_db_url("calpal"))
+
+get_caribbean(db_url = get_db_url("caribbean"))
+
+get_context(db_url = get_db_url("context"))
+
+get_eubar(db_url = get_db_url("eubar"))
+
+get_euroevol(db_url = get_db_url("euroevol"))
+
+get_irdd(db_url = get_db_url("irdd"))
+
+get_jomon(db_url = get_db_url("jomon"))
+
+get_katsianis(db_url = get_db_url("katsianis"))
+
+get_kiteeastafrica(db_url = get_db_url("kiteeastafrica"))
+
+get_medafricarbon(db_url = get_db_url("medafricarbon"))
+
+get_mesorad(db_url = get_db_url("mesorad"))
+
+get_nerd(db_url = get_db_url("nerd"))
+
+get_pacea(db_url = get_db_url("pacea"))
+
+get_palmisano(db_url = get_db_url("palmisano"))
+
+get_radon(db_url = get_db_url("radon"))
+
+get_radonb(db_url = get_db_url("radonb"))
+
+get_rxpand(db_url = get_db_url("rxpand"))
+
+get_sard(db_url = get_db_url("sard"))
+}
+\arguments{
+\item{db_url}{Character. URL that points to the c14 archive file. \code{c14bazAAR::get_db_url()}
+fetches the URL from a reference list}
+}
+\description{
+Backend functions to download data. See \code{?\link{get_c14data}}
+for a more simple interface and further information.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_duplicates_remove.R
+\name{duplicates}
+\alias{duplicates}
+\alias{remove_duplicates}
+\alias{remove_duplicates.default}
+\alias{remove_duplicates.c14_date_list}
+\title{Remove duplicates in a \strong{c14_date_list}}
+\usage{
+remove_duplicates(
+  x,
+  preferences = NULL,
+  supermerge = FALSE,
+  log = TRUE,
+  mark_only = FALSE
+)
+
+\method{remove_duplicates}{default}(
+  x,
+  preferences = NULL,
+  supermerge = FALSE,
+  log = TRUE,
+  mark_only = FALSE
+)
+
+\method{remove_duplicates}{c14_date_list}(
+  x,
+  preferences = NULL,
+  supermerge = FALSE,
+  log = TRUE,
+  mark_only = FALSE
+)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{preferences}{character vector with the order of source databases by
+which the deduping should be executed. If e.g. preferences = c("radon", "calpal")
+and a certain date appears in radon and euroevol, then only the radon entry remains.
+Default: NULL. With preferences = NULL all overlapping, conflicting information in
+individual columns of one duplicated date is removed. See Option 2 and 3.}
+
+\item{supermerge}{boolean. Should the duplicated datasets be merged on the column level?
+Default: FALSE. See Option 3.}
+
+\item{log}{logical. If log = TRUE, an additional column is added that contains a string
+documentation of all variants of the information for one date from all conflicting
+databases. Default = TRUE.}
+
+\item{mark_only}{boolean. Should duplicates not be removed, but only indicated? Default: FALSE.}
+}
+\value{
+an object of class c14_date_list with the additional
+columns \strong{duplicate_group} or \strong{duplicate_remove_log}
+}
+\description{
+Duplicates are found by comparison of \strong{labnr}s.
+Only dates with exactly equal \strong{labnr}s are considered duplicates.
+Duplicate groups are numbered (from 0) and these numbers linked to
+the individual dates in a internal column \strong{duplicate_group}.
+If you only want to see this grouping without removing anything use the \code{mark_only} flag.
+\code{c14bazAAR::remove_duplicates()} can remove duplicates with three different strategies
+according to the value of the arguments \code{preferences} and \code{supermerge}:
+\enumerate{
+  \item Option 1: By merging all dates in a \strong{duplicate_group}. All non-equal variables
+  in the duplicate group are turned to \code{NA}. This is the default option.
+  \item Option 2: By selecting individual database entries in a \strong{duplicate_group}
+  according to a trust hierarchy as defined by the parameter \code{preferences}.
+  In case of duplicates within one database the first occurrence in the table (top down)
+  is selected. All databases not mentioned in \code{preferences} are dropped.
+  \item Option 3: Like option 2, but in this case the different datasets in a
+  \strong{duplicate_group} are merged column by column to
+  create a superdataset with a maximum of information. The column \strong{sourcedb} is
+  dropped in this case to indicate that multiple databases have been merged. Data
+  citation is a lot more difficult with this option. It can be activated with \code{supermerge}.
+}
+The option \code{log} allows to add a new column \strong{duplicate_remove_log}
+that documents the variety of values provided by all databases for this
+duplicated date.
+}
+\examples{
+library(magrittr)
+
+test_data <- tibble::tribble(
+  ~sourcedb, ~labnr,  ~c14age, ~c14std,
+ "A",       "lab-1", 1100,    10,
+ "A",       "lab-1", 2100,    20,
+ "B",       "lab-1", 3100,    30,
+ "A",       "lab-2", NA,      10,
+ "B",       "lab-2", 2200,    20,
+ "C",       "lab-3", 1300,    10
+) \%>\% as.c14_date_list()
+
+# remove duplicates with option 1:
+test_data \%>\% remove_duplicates()
+
+# remove duplicates with option 2:
+test_data \%>\% remove_duplicates(
+  preferences = c("A", "B")
+)
+
+# remove duplicates with option 3:
+test_data \%>\% remove_duplicates(
+  preferences = c("A", "B"),
+  supermerge = TRUE
+)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14bazAAR.R
+\docType{package}
+\name{c14bazAAR-package}
+\alias{c14bazAAR}
+\alias{c14bazAAR-package}
+\title{c14bazAAR: Download and Prepare C14 Dates from Different Source Databases}
+\description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
+Query different C14 date databases and apply basic data cleaning, merging and calibration steps. Currently available databases: 14cpalaeolithic, 14sea, adrac, agrichange, aida, austarch, bda, calpal, caribbean, context, eubar, euroevol, irdd, jomon, katsianis, kiteeastafrica, medafricarbon, mesorad, nerd, pacea, palmisano, radon, radonb, rxpand, sard.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/c14bazAAR}
+  \item \url{https://github.com/ropensci/c14bazAAR}
+  \item Report bugs at \url{https://github.com/ropensci/c14bazAAR/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Clemens Schmid \email{clemens@nevrome.de} (\href{https://orcid.org/0000-0003-3448-5715}{ORCID}) [copyright holder]
+
+Authors:
+\itemize{
+  \item Dirk Seidensticker \email{dirk.seidensticker@gmail.com} (\href{https://orcid.org/0000-0002-8155-7702}{ORCID})
+  \item Daniel Knitter \email{knitter@geographie.uni-kiel.de} (\href{https://orcid.org/0000-0003-3014-4497}{ORCID})
+  \item Martin Hinz \email{martin.hinz@iaw.unibe.ch} (\href{https://orcid.org/0000-0002-9904-6548}{ORCID})
+  \item David Matzig \email{matzigdavid@gmail.com} (\href{https://orcid.org/0000-0001-7349-5401}{ORCID})
+  \item Wolfgang Hamer \email{hamer@geographie.uni-kiel.de} (\href{https://orcid.org/0000-0002-5943-5020}{ORCID})
+  \item Kay Schmütz \email{kschmuetz@ufg.uni-kiel.de}
+}
+
+Other contributors:
+\itemize{
+  \item Thomas Huet \email{thomashuet7@gmail.com} (\href{https://orcid.org/0000-0002-1112-6122}{ORCID}) [contributor]
+  \item Nils Mueller-Scheessel \email{nils.mueller-scheessel@ufg.uni-kiel.de} (\href{https://orcid.org/0000-0001-7992-8722}{ORCID}) [contributor]
+  \item Ben Marwick (\href{https://orcid.org/0000-0001-7879-4531}{ORCID}) [reviewer]
+  \item Enrico R. Crema (\href{https://orcid.org/0000-0001-6727-5138}{ORCID}) [reviewer]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/deprecated_functions.R
+\name{deprecated_functions}
+\alias{deprecated_functions}
+\alias{mark_duplicates}
+\alias{coordinate_precision}
+\alias{finalize_country_name}
+\alias{standardize_country_name}
+\alias{get_emedyd}
+\alias{fix_database_country_name}
+\alias{classify_material}
+\title{Deprecated functions}
+\usage{
+mark_duplicates(...)
+
+coordinate_precision(...)
+
+finalize_country_name(...)
+
+standardize_country_name(...)
+
+get_emedyd(...)
+
+fix_database_country_name(...)
+
+classify_material(...)
+}
+\arguments{
+\item{...}{...}
+}
+\description{
+Run them anyway to get some information about their replacements
+or why they were removed.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_calibrate.R
+\name{calibrate}
+\alias{calibrate}
+\alias{calibrate.default}
+\alias{calibrate.c14_date_list}
+\title{Calibrate all valid dates in a \strong{c14_date_list}}
+\usage{
+calibrate(
+  x,
+  choices = c("calrange"),
+  sigma = 2,
+  calCurves = rep("intcal20", nrow(x)),
+  ...
+)
+
+\method{calibrate}{default}(
+  x,
+  choices = c("calrange"),
+  sigma = 2,
+  calCurves = rep("intcal20", nrow(x)),
+  ...
+)
+
+\method{calibrate}{c14_date_list}(
+  x,
+  choices = c("calrange"),
+  sigma = 2,
+  calCurves = rep("intcal20", nrow(x)),
+  ...
+)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{choices}{whether the result should include the full calibrated
+probability dataframe ('calprobdistr') or the sigma range ('calrange').
+Both arguments may be given at the same time.}
+
+\item{sigma}{the desired sigma value (1,2,3) for the calibrated sigma ranges}
+
+\item{calCurves}{a vector of values containing either intcal20, shcal20,
+marine20, or normal (older calibration curves are supposed such as intcal13).
+Should be the same length the number of ages supplied.
+See \link[Bchron]{BchronCalibrate} for more information}
+
+\item{...}{passed to \link[Bchron]{BchronCalibrate}}
+}
+\value{
+an object of class c14_date_list with the additional columns
+\strong{calprobdistr} or \strong{calrange} and \strong{sigma}
+}
+\description{
+Calibrate all dates in a \strong{c14_date_list} with
+\code{Bchron::BchronCalibrate()}. The function provides two different
+kinds of output variables that are added as new list columns to the input
+\strong{c14_date_list}: \strong{calprobdistr} and \strong{calrange}.
+\strong{calrange} is accompanied by \strong{sigma}. See
+\code{?Bchron::BchronCalibrate} and \code{?c14bazAAR:::hdr} for some more
+information. \cr
+\strong{calprobdistr}: The probability distribution of the individual date
+for all ages with an individual probability >= 1e-06. For each date there's
+a data.frame with the columns \strong{calage} and \strong{density}. \cr
+\strong{calrange}: The contiguous ranges which cover the probability interval
+requested for the individual date. For each date there's a data.frame with the
+columns \strong{dens} and \strong{from} and \strong{to}.
+}
+\examples{
+calibrate(
+  example_c14_date_list,
+  choices = c("calprobdistr", "calrange"),
+  sigma = 1
+)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/get_c14data.R
+\name{get_c14data}
+\alias{get_c14data}
+\title{Download radiocarbon source databases and convert them to a \strong{c14_date_list}}
+\usage{
+get_c14data(databases = c())
+}
+\arguments{
+\item{databases}{Character vector. Names of databases to be downloaded. "all" causes the download of all databases. \code{get_c14data()} prints a list of the currently available databases}
+}
+\description{
+\code{get_c14data()} allows to download source databases and adjust their variables to conform to the
+definition in the
+\href{https://github.com/ropensci/c14bazAAR/blob/master/data-raw/variable_reference.csv}{variable_reference}
+table. That includes renaming and arranging the variables (with \code{c14bazAAR::order_variables()})
+as well as type conversion (with \code{c14bazAAR::enforce_types()}) -- so all the steps undertaken by
+\code{as.c14_date_list()}. \cr
+All databases require different downloading and data wrangling steps. Therefore
+there's a custom getter function for each of them (see \code{?get_all_dates}). \cr
+
+\code{get_c14data()} is a wrapper to download all dates from multiple databases and
+\code{c14bazAAR::fuse()} the results.
+}
+\examples{
+
+\dontrun{
+ get_c14data(databases = c("adrac", "palmisano"))
+  get_all_dates()}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_country_attribution.R
+\name{country_attribution}
+\alias{country_attribution}
+\alias{determine_country_by_coordinate}
+\alias{determine_country_by_coordinate.default}
+\alias{determine_country_by_coordinate.c14_date_list}
+\title{Determine the country of all dates in a \strong{c14_date_list} from their coordinates}
+\usage{
+determine_country_by_coordinate(x, suppress_spatial_warnings = TRUE)
+
+\method{determine_country_by_coordinate}{default}(x, suppress_spatial_warnings = TRUE)
+
+\method{determine_country_by_coordinate}{c14_date_list}(x, suppress_spatial_warnings = TRUE)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{suppress_spatial_warnings}{suppress some spatial data messages and warnings}
+}
+\value{
+an object of class c14_date_list with the additional column \strong{country_coord}
+}
+\description{
+\code{c14bazAAR::determine_country_by_coordinate()} adds the column
+\strong{country_coord} with standardized country attribution based on the coordinate
+information for the dates.
+Due to the inconsistencies in the \strong{country} column in many c14 source databases
+it's often necessary to rely on the coordinate position (\strong{lat} & \strong{lon})
+for country attribution information. Unfortunately not all source databases store
+coordinates.
+}
+\examples{
+library(magrittr)
+example_c14_date_list \%>\%
+  determine_country_by_coordinate()
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\name{db_info_table}
+\alias{db_info_table}
+\title{Database lookup table}
+\format{
+a data.frame. Columns:
+\itemize{
+ \item{db: database name}
+ \item{version: database version}
+ \item{url_num: url number (some databases are spread over multiple files)}
+ \item{url: file url where the database can be downloaded}
+}
+}
+\description{
+Lookup table for general source database information.
+}
+\concept{lookup_tables}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/helpers_dbs.R
+\name{get_db_url}
+\alias{get_db_url}
+\alias{get_db_version}
+\title{Get information for c14 databases}
+\usage{
+get_db_url(..., db_info_table = c14bazAAR::db_info_table)
+
+get_db_version(..., db_info_table = c14bazAAR::db_info_table)
+}
+\arguments{
+\item{...}{names of the databases}
+
+\item{db_info_table}{db info reference table}
+}
+\description{
+Looks for information for the c14 source databases in \link{db_info_table}.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_fuse.R
+\name{fuse}
+\alias{fuse}
+\alias{fuse.default}
+\alias{fuse.c14_date_list}
+\title{Fuse multiple \strong{c14_date_list}s}
+\usage{
+fuse(...)
+
+\method{fuse}{default}(...)
+
+\method{fuse}{c14_date_list}(...)
+}
+\arguments{
+\item{...}{objects of class c14_date_list}
+}
+\value{
+an object of class c14_date_list
+}
+\description{
+This function combines \strong{c14_date_list}s with
+\code{dplyr::bind_rows()}. \cr
+This is not a joining operation and it therefore
+might introduce duplicates. See \code{c14bazAAR::mark_duplicates()}
+and \code{c14bazAAR::remove_duplicates()} for a way to find and remove
+them.
+}
+\examples{
+# fuse three identical example c14_date_lists
+fuse(example_c14_date_list, example_c14_date_list, example_c14_date_list)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_convert.R
+\name{as.sf}
+\alias{as.sf}
+\alias{as.sf.default}
+\alias{as.sf.c14_date_list}
+\title{Convert a \strong{c14_date_list} to a sf object}
+\usage{
+as.sf(x, quiet = FALSE)
+
+\method{as.sf}{default}(x, quiet = FALSE)
+
+\method{as.sf}{c14_date_list}(x, quiet = FALSE)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{quiet}{suppress warning about the removal of dates without coordinates}
+}
+\value{
+an object of class sf
+}
+\description{
+Most 14C dates have point position information in
+the coordinates columns \strong{lat} and \strong{lon}. This allows
+them to be converted to a spatial simple feature collection as provided
+by the \code{sf} package. This simplifies for example mapping of the
+dates.
+}
+\examples{
+sf_c14 <- as.sf(example_c14_date_list)
+
+\dontrun{
+library(mapview)
+mapview(sf_c14$geom)
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_basic.R
+\name{c14_date_list}
+\alias{c14_date_list}
+\alias{as.c14_date_list}
+\alias{is.c14_date_list}
+\alias{format.c14_date_list}
+\alias{print.c14_date_list}
+\alias{plot.c14_date_list}
+\title{\strong{c14_date_list}}
+\usage{
+as.c14_date_list(x, ...)
+
+is.c14_date_list(x, ...)
+
+\method{format}{c14_date_list}(x, ...)
+
+\method{print}{c14_date_list}(x, ...)
+
+\method{plot}{c14_date_list}(x, ...)
+}
+\arguments{
+\item{x}{an object}
+
+\item{...}{further arguments passed to or from other methods}
+}
+\description{
+The \strong{c14_date_list} is the central data structure of the
+\code{c14bazAAR} package. It's a tibble with set of custom methods and
+variables. Please see the
+\href{https://github.com/ropensci/c14bazAAR/blob/master/data-raw/variable_reference.csv}{variable_reference}
+table for a description of the variables. Further available variables are ignored. \cr
+If an object is of class data.frame or tibble (tbl & tbl_df), it can be
+converted to an object of class \strong{c14_date_list}. The only requirement
+is that it contains the essential columns \strong{c14age} and \strong{c14std}.
+The \code{as} function adds the string "c14_date_list" to the classes vector
+of the object and applies \code{order_variables()}, \code{enforce_types()} and
+the helper function \code{clean_latlon()} to it.
+}
+\examples{
+as.c14_date_list(data.frame(c14age = c(2000, 2500), c14std = c(30, 35)))
+is.c14_date_list(5) # FALSE
+is.c14_date_list(example_c14_date_list) # TRUE
+
+print(example_c14_date_list)
+plot(example_c14_date_list)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_write_c14.R
+\name{write_c14}
+\alias{write_c14}
+\alias{write_c14.default}
+\alias{write_c14.c14_date_list}
+\title{write \strong{c14_date_list}s to files}
+\usage{
+write_c14(x, format = c("csv"), ...)
+
+\method{write_c14}{default}(x, format = c("csv"), ...)
+
+\method{write_c14}{c14_date_list}(x, format = c("csv"), ...)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{format}{the output format: 'csv' (default) or 'xlsx'.
+'csv' calls \code{utils::write.csv()},
+'xlsx' calls \code{writexl::write_xlsx()}}
+
+\item{...}{passed to the actual writing functions}
+}
+\description{
+write \strong{c14_date_list}s to files
+}
+\examples{
+csv_file <- tempfile(fileext = ".csv")
+write_c14(
+  example_c14_date_list,
+  format = "csv",
+  file = csv_file
+)
+\donttest{
+xlsx_file <- tempfile(fileext = ".xlsx")
+write_c14(
+  example_c14_date_list,
+  format = "xlsx",
+  path = xlsx_file,
+)
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_order_variables.R
+\name{order_variables}
+\alias{order_variables}
+\alias{order_variables.default}
+\alias{order_variables.c14_date_list}
+\title{Order the variables in a \strong{c14_date_list}}
+\usage{
+order_variables(x)
+
+\method{order_variables}{default}(x)
+
+\method{order_variables}{c14_date_list}(x)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+}
+\value{
+an object of class c14_date_list
+}
+\description{
+Arrange variables according to a defined order. This makes
+sure that a \strong{c14_date_list} always appears with the same
+outline. \cr
+A \strong{c14_date_list} has at least the columns \strong{c14age}
+and \strong{c14std}. Beyond that there's a selection of additional
+variables depending on the input from the source databases, as a
+result of the \code{c14bazAAR} functions or added by other data
+analysis steps. This function arranges the expected variables in
+a distinct, predefined order. Undefined variables are added at the
+end.
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/c14_date_list_enforce_types.R
+\name{enforce_types}
+\alias{enforce_types}
+\alias{enforce_types.default}
+\alias{enforce_types.c14_date_list}
+\title{Enforce variable types in a \strong{c14_date_list}}
+\usage{
+enforce_types(x, suppress_na_introduced_warnings = TRUE)
+
+\method{enforce_types}{default}(x, suppress_na_introduced_warnings = TRUE)
+
+\method{enforce_types}{c14_date_list}(x, suppress_na_introduced_warnings = TRUE)
+}
+\arguments{
+\item{x}{an object of class c14_date_list}
+
+\item{suppress_na_introduced_warnings}{suppress warnings caused by data removal in
+type transformation due to wrong database entries (such as text in a number column)}
+}
+\value{
+an object of class c14_date_list
+}
+\description{
+Enforce variable types in a \strong{c14_date_list} and remove
+everything that doesn't fit (e.g. text in a number field).
+See the
+\href{https://github.com/ropensci/c14bazAAR/blob/master/data-raw/variable_reference.csv}{variable_reference}
+table for a documentation of the variable types.
+\code{enforce_types()} is called in \code{c14bazAAR::as.c14_date_list()}.
+}
+\examples{
+# initial situation
+ex <- example_c14_date_list
+class(ex$c14age)
+
+# modify variable/column type
+ex$c14age <- as.character(ex$c14age)
+class(ex$c14age)
+
+# fix type with enforce_types()
+ex <- enforce_types(ex)
+class(ex$c14age)
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data.R
+\name{example_c14_date_list}
+\alias{example_c14_date_list}
+\title{Example c14_date_list}
+\format{
+a c14_date_list.
+See data_raw/variable_definition.csv for an explanation of
+the variable meaning.
+}
+\description{
+c14_date_list for tests and example code.
+}
+\concept{c14_date_lists}

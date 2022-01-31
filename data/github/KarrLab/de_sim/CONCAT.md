@@ -422,3 +422,149 @@ Institutes of Health [R35GM119771 to JRK], and the Icahn Institute for Data Scie
 
 # References
 
+Getting started
+===============
+
+The following examples and tutorials illustrate how to use *DE-Sim* to build and simulate models.
+
+-----------------------------------
+Examples
+-----------------------------------
+
+* `Minimal simulation <https://github.com/KarrLab/de_sim/blob/master/de_sim/examples/minimal_simulation.py>`_: a minimal example of a simulation
+* `Random walk <https://github.com/KarrLab/de_sim/blob/master/de_sim/examples/random_walk.py>`_: a one-dimensional random walk model, with random times between steps
+* `Parallel hold (PHOLD) <https://github.com/KarrLab/de_sim/blob/master/de_sim/examples/phold.py>`_: a model developed by Richard Fujimoto to benchmark parallel discrete-event simulators
+* `Epidemic <https://github.com/KarrLab/de_sim/blob/master/de_sim/examples/sirs.py>`_: two SIR models of an infectious disease epidemic
+
+These examples have corresponding unit tests which run them in the *DE-Sim*'s `directory of unit tests of examples <https://github.com/KarrLab/de_sim/tree/master/tests/examples>`_.
+
+-----------------------------------
+Interactive tutorials
+-----------------------------------
+
+Please see `sandbox.karrlab.org <https://sandbox.karrlab.org/tree/de_sim>`_ for interactive Jupyter notebook tutorials about designing, building and simulating models with *DE-Sim*.
+It includes tutorials that use the random walk, PHOLD, and epidemic models listed above.
+
+-----------------------------------
+Template for models and simulations
+-----------------------------------
+
+The minimal simulation, located at `de_sim/examples/minimal_simulation.py <https://github.com/KarrLab/de_sim/blob/master/de_sim/examples/minimal_simulation.py>`_, can be used as a template for implementing and simulating a model with *DE-Sim*.
+Performance
+===========
+
+Please see Arthur P. Goldberg & Jonathan Karr. (2020). `DE-Sim: an object-oriented, discrete-event simulation tool for data-intensive modeling of complex systems in Python. Journal of Open Source Software, 5(55), 2685. <https://doi.org/10.21105/joss.02685>`_ for information about the performance of *DE-Sim*.Comparison to other DES tools
+=============================
+
+Please see Arthur P. Goldberg & Jonathan Karr. (2020). `DE-Sim: an object-oriented, discrete-event simulation tool for data-intensive modeling of complex systems in Python. Journal of Open Source Software, 5(55), 2685. <https://doi.org/10.21105/joss.02685>`_ for a comparison of *DE-Sim* with other DES tools.Installation
+============
+
+Prerequisites
+--------------------------
+
+* Python >= 3.7
+* Pip >= 19
+
+Latest release from PyPI
+---------------------------
+Run the following command to install the latest release from PyPI::
+
+    pip install de_sim
+
+Latest release from DockerHub
+-----------------------------
+Run the following command to install a Docker image with the latest release from DockerHub::
+
+    docker pull karrlab/de_sim
+
+Latest revision from GitHub
+---------------------------
+Run the following command to install the latest version from GitHub::
+
+    pip install git+https://github.com/KarrLab/de_sim.git#egg=de_sim
+*DE-Sim* documentation
+======================
+
+*DE-Sim* is an open-source, Python-based, object-oriented discrete-event simulation tool that helps modelers model complex systems.
+First, *DE-Sim* enables them to use Python's powerful object-oriented features to manage multiple types of components in a complex system and multiple types of interactions between these components.
+Second, by building upon Python, DE-Sim makes it easy for modelers to use Python's powerful data science tools, such as `NumPy <https://numpy.org/>`_, `Scipy <https://scipy.org/scipylib/index.html>`_, `pandas <https://pandas.pydata.org/>`_, and `SQLAlchemy <https://www.sqlalchemy.org/>`_,
+to incorporate large, heterogeneous datasets into comprehensive and detailed models.
+We anticipate that DE-Sim will enable a new generation of models that capture systems with unprecedented breadth and depth.
+
+*DE-Sim* provides the following features to help users build and simulate complex, data-intensive models:
+
+* **High-level, object-oriented modeling:** *DE-Sim* facilitates model designs that use classes of *simulation objects* to encapsulate the complex logic required to represent each *model component*, and use classes of *event messages* to encapsulate the logic required to describe the *interactions* between components.
+* **Powerful stop conditions:** *DE-Sim* makes it easy to terminate simulations when specific criteria are reached. Modelers can specify stop conditions as functions that return true when the simulation should conclude.
+* **Results checkpointing:** Models that use *DE-Sim* can record the results of simulations, and metadata such as the start and run time of each simulation, by simply configuring a checkpointing module.
+* **Space-time visualizations:** *DE-Sim* can generate space-time visualizations of simulation objects and the event messages that they exchange. These diagrams can help modelers understand and debug simulations.
+* **Reproducible simulations:** To help modelers debug simulations and analyze their results, repeated executions of a simulation with the same configuration and random number generator seed produce the same results.
+
+We have used *DE-Sim* to develop `WC-Sim <https://github.com/KarrLab/wc_sim>`_, a multi-algorithmic simulator for `whole-cell models <https://www.wholecell.org>`_.
+
+For more information, see the `interactive DE-Sim Jupyter notebooks <https://sandbox.karrlab.org/tree/de_sim>`_ that contain a *DE-Sim* tutorial and several example *DE-Sim* models.
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 3
+   :numbered:
+
+   getting-started.rst
+   installation.rst
+   API documentation <source/de_sim.rst>
+   performance.rst
+   comparison.rst
+   about.rst
+About
+=====
+
+----------------------
+License
+----------------------
+
+The software is released under the MIT license:
+
+.. literalinclude:: ../LICENSE
+    :language: text
+
+---------------
+Citing *DE-Sim*
+---------------
+
+Please use the following reference to cite *DE-Sim*:
+
+Arthur P. Goldberg & Jonathan Karr. (2020). `DE-Sim: an object-oriented, discrete-event simulation tool for data-intensive modeling of complex systems in Python. Journal of Open Source Software, 5(55), 2685. <https://doi.org/10.21105/joss.02685>`_
+
+------------------------
+Contributing to *DE-Sim*
+------------------------
+
+We enthusiastically welcome contributions to *DE-Sim*! Please see the `guide to contributing <https://github.com/KarrLab/de_sim/blob/master/CONTRIBUTING.md>`_ and the `developer's code of conduct <https://github.com/KarrLab/de_sim/blob/master/CODE_OF_CONDUCT.md>`_.
+
+----------------------
+Development team
+----------------------
+
+This package was developed by the `Karr Lab <https://www.karrlab.org/>`_ at the Icahn School of Medicine at Mount Sinai in New York, USA by the following individuals: 
+
+* `Arthur Goldberg <https://www.mountsinai.org/profiles/arthur-p-goldberg>`_
+* `Jonathan Karr <https://www.karrlab.org>`_
+
+----------------------
+Acknowledgements
+----------------------
+
+This work was supported by National Science Foundation award 1649014, National Institutes of Health award R35GM119771, and the Icahn Institute for Data Science and Genomic Technology.
+
+----------------------
+Questions and comments
+----------------------
+
+Please submit questions and issues to `GitHub <https://github.com/KarrLab/de_sim/issues>`_ or contact the `Karr Lab <mailto:info@karrlab.org>`_.
+References
+==========
+
+.. bibliography:: references.bib
+    :encoding: latin
+    :style: unsrt

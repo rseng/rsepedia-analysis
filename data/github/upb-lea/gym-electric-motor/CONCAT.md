@@ -481,3 +481,2217 @@ Featured examples:
 
 
 # References
+.. gym-electric-motor documentation master file, created by
+   sphinx-quickstart on Tue Jul  2 15:49:19 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to gym-electric-motor(GEM)'s documentation!
+===================================================
+
+The gym-electric-motor (GEM) package is a software toolbox for the simulation of different electric motors to
+train and test reinforcement learning motor controllers and to compare them with classical motor controllers.
+
+
+Getting started
+***************************
+
+A quick start guide can be found in the following Readme-File.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Gym Electric Motor Readme:
+
+   parts/readme
+
+
+Content
+*******
+
+In the environments section all available GEM-environments are presented with their default configuration.
+For quick start, one of these can be selected and used out of the box.
+
+
+The documentation of the base classes is important for the development of own modules like further reward functions or
+reference generators. In this part, the basic interfaces of each module are specified.
+For the development of physical models like further motor models or further mechanical load models, the physical system
+documentation specifies the basic interfaces inside a physical system.
+
+..  toctree::
+    :maxdepth: 4
+    :titlesonly:
+    :caption: gym-electric-motor Contents:
+
+    parts/environments/environment
+    parts/reference_generators/reference_generator
+    parts/reward_functions/reward_function
+    parts/physical_systems/physical_system
+    parts/visualizations/visualization
+    parts/constraint_monitor
+    parts/core
+    parts/utils
+    parts/callbacks
+    parts/random_component
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+
+
+Technical Models
+################
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Introduction
+************
+The technical models contain the technical properties of the motor, the power electronic converter and the load.
+
+The motors and the loads can be parametrized by either choosing the number of its default set in the environment
+initialization or by passing a new Load or Motor parameter dictionary as described below.
+The parameters of the power electronic converter are directly included in the initialization.
+
+
+
+DC Motor Parameter Dictionary
+'''''''''''''''''''''''''''''
+
++----------------------------+------------------------------------------------------------+
+| **Key**                    |  **Description**                                           |
++============================+============================================================+
+| r_a                        | Resistance of the armature circuit in Ohm                  |
++----------------------------+------------------------------------------------------------+
+| r_e                        | Resistance of the excitation circuit in Ohm                |
++----------------------------+------------------------------------------------------------+
+| l_a                        | Inductance of the armature circuit in Henry                |
++----------------------------+------------------------------------------------------------+
+| l_e                        | Inductance of the excitation circuit in Henry              |
++----------------------------+------------------------------------------------------------+
+| l_e_prime                  | effective excitation inductance in Henry                   |
++----------------------------+------------------------------------------------------------+
+| psi_e                      | effective flux linkage in Henry Ampere                     |
++----------------------------+------------------------------------------------------------+
+| j                          | Moment of inertia of the motors rotor in kg/m^2            |
++----------------------------+------------------------------------------------------------+
+| u_sup                      | Supply voltage of the motor in Volt                        |
++----------------------------+------------------------------------------------------------+
+| i_N                        | Nominal current in Ampere (only PermEx and Series)         |
++----------------------------+------------------------------------------------------------+
+| i_a_N                      | Nominal armature current in Ampere(only ExtEx and Shunt)   |
++----------------------------+------------------------------------------------------------+
+| i_e_N                      | Nominal excitation current in Ampere (only ExtEx and Shunt)|
++----------------------------+------------------------------------------------------------+
+| u_N                        | Nominal voltage in Volt(only PermEx, Series and Shunt)     |
++----------------------------+------------------------------------------------------------+
+| u_a_N                      | Nominal armature voltage in Volt (only ExtEx)              |
++----------------------------+------------------------------------------------------------+
+| u_e_N                      | Nominal excitation voltage in Volt (only ExtEx)            |
++----------------------------+------------------------------------------------------------+
+| torque_N                   | Nominal torque in Nm                                       |
++----------------------------+------------------------------------------------------------+
+| omega_N                    | Nominal angular velocity rad/s                             |
++----------------------------+------------------------------------------------------------+
+
+
+PMSM and SynRM Parameter Dictionary
+'''''''''''''''''''''''''''''''''''
+
++------------------+------------------------------------------------+---------------------+
+| **Key**          |  **Description**                               | **Default**         |
++==================+================================================+=====================+
+| r_s              | Stator Resistance in Ohm                       | 4.9                 |
++------------------+------------------------------------------------+---------------------+
+| l_d              | d-axis inductance in Henry                     | 79e-3               |
++------------------+------------------------------------------------+---------------------+
+| l_q              | q-axis inductance in Henry                     | 113e-3              |
++------------------+------------------------------------------------+---------------------+
+| j_rotor          | Moment of inertia of the rotor                 | 2.45e-3             |
++------------------+------------------------------------------------+---------------------+
+| psi_p            | Permanent linked rotor flux                    | 0.165               |
++------------------+------------------------------------------------+---------------------+
+| p                | Pole pair Number                               | 2                   |
++------------------+------------------------------------------------+---------------------+
+
+
+All nominal voltages and currents are peak phase values.
+Therefore, data sheet values for line voltages and phase currents has to be transformed such that
+:math:`U_N=\sqrt(2/3) U_L` and :math:`I_N=\sqrt(2) I_S`.
+
+Furthermore, the angular velocity is the electrical one and not the mechanical one :math:`\omega = p \omega_{me}`.
+
+Load Parameter Dictionary
+'''''''''''''''''''''''''
+
++----------------------------+----------------------------------------------------------+
+| **Key**                    |  **Description**                                         |
++============================+==========================================================+
+| a                          | Constant term in the load equation                       |
++----------------------------+----------------------------------------------------------+
+| b                          | Linear factor in the load equation                       |
++----------------------------+----------------------------------------------------------+
+| c                          | Quadratic factor in the load equation                    |
++----------------------------+----------------------------------------------------------+
+| j_load                     | Moment of inertia of the load                            |
++----------------------------+----------------------------------------------------------+
+
+DC Shunt Default Models
+'''''''''''''''''''''''
+
++----------------------------+------------------------------+
+| **Key**                    |  **No 0**                    |
++============================+==============================+
+| r_a                        | 2.78                         |
++----------------------------+------------------------------+
+| r_e                        | 350.0                        |
++----------------------------+------------------------------+
+| l_a                        | 6.3e-3                       |
++----------------------------+------------------------------+
+| l_e                        | 160.0                        |
++----------------------------+------------------------------+
+| l_e_prime                  | 0.94                         |
++----------------------------+------------------------------+
+| j_rotor                    | 0.017                        |
++----------------------------+------------------------------+
+
+
+
+DC Series Default Models
+''''''''''''''''''''''''
+
++----------------------------+------------------------------+
+| **Key**                    |  **No 0**                    |
++============================+==============================+
+| r_a                        | 2.78                         |
++----------------------------+------------------------------+
+| r_e                        | 1.0                          |
++----------------------------+------------------------------+
+| l_a                        | 6.3e-3                       |
++----------------------------+------------------------------+
+| l_e                        | 1.6e-3                       |
++----------------------------+------------------------------+
+| l_e_prime                  | 0.05                         |
++----------------------------+------------------------------+
+| j_rotor                    | 0.017                        |
++----------------------------+------------------------------+
+
+
+DC Permanently Excited Default Models
+'''''''''''''''''''''''''''''''''''''
+
++----------------------------+------------------------------+
+| **Key**                    |  **No 0**                    |
++============================+==============================+
+| r_a                        | 25.0                         |
++----------------------------+------------------------------+
+| r_e                        | 258.0                        |
++----------------------------+------------------------------+
+| l_a                        | 3.438e-2                     |
++----------------------------+------------------------------+
+| psi_e                      | 18                           |
++----------------------------+------------------------------+
+| j_rotor                    | 0.0017                       |
++----------------------------+------------------------------+
+
+
+DC Externally Excited Default Models
+''''''''''''''''''''''''''''''''''''
+
++----------------------------+------------------------------+
+| **Key**                    |  **No 0**                    |
++============================+==============================+
+| r_a                        | 0.78                         |
++----------------------------+------------------------------+
+| r_e                        | 350.0                        |
++----------------------------+------------------------------+
+| l_a                        | 6.3e-3                       |
++----------------------------+------------------------------+
+| l_e                        | 60                           |
++----------------------------+------------------------------+
+| l_e_prime                  | 0.94                         |
++----------------------------+------------------------------+
+| j                          | 0.017                        |
++----------------------------+------------------------------+
+| u_sup                      | 420.0                        |
++----------------------------+------------------------------+
+| i_a_N                      | 50.0                         |
++----------------------------+------------------------------+
+| i_e_N                      | 1.2                          |
++----------------------------+------------------------------+
+| U_a_N                      | 420.0                        |
++----------------------------+------------------------------+
+| U_e_N                      | 420.0                        |
++----------------------------+------------------------------+
+| torque_N                   | 40.0                         |
++----------------------------+------------------------------+
+| omega_N                    | 368.0                        |
++----------------------------+------------------------------+
+Callbacks
+#####
+
+.. automodule:: gym_electric_motor.callbacks
+    :members:
+Utils
+#####
+
+.. automodule:: gym_electric_motor.utils
+    :members:
+
+Constraint Monitor
+#####################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Constraints:
+
+    constraints/constraint
+    constraints/limit_constraint
+    constraints/squared_constraint
+
+Usage Guide
+___________
+
+ToDo
+
+Constraint Monitor API Documentation
+____________________________________
+.. autoclass:: gym_electric_motor.core.ConstraintMonitor
+    :members:
+    :inherited-members:
+Random Component
+############################
+
+.. autoclass:: gym_electric_motor.RandomComponent
+   :members:
+   :inherited-members:
+
+Technical Background
+====================
+The package contains different electric motors, power electronic converters and load models.
+In this part the technical models are described and references to more detailed explanations are given.
+All included electric motors can be represented by a system of differential equations and those are the same for the
+continuous and discrete action case. The load model is the same in all cases.
+The converters are shortly introduced. More detailed descriptions are included in each converter class, where also the
+action space is specified.
+
+The DC motors
+
+- permanently excited
+- externally excited
+- series
+- shunt
+
+and the synchronous motors
+
+- permanent magnet synchronous motor (PMSM)
+- synchronous reluctance motor (SynRM)
+
+are included. The figure below shows the basic structure of converter, motor and load that is modeled.
+
+.. figure:: ../plots/FigureConvMotorLoad6.svg
+
+Further information about electrical motor and power electronic converters can be found in [Boecker2018a]_, [Boecker2018b]_ and [Chiasson2005]_.
+
+DC Motors
+#########
+
+Externally Excited Motor
+------------------------
+The figure shows the circuit diagram of this motor [Boecker2018a]_.
+
+.. figure:: ../plots/ESBdcExtEx.svg
+
+The equations are
+
+:math:`u_A=\mathit{\Psi}^\prime_E \omega + L_A \frac{\mathrm{d} i_A}{\mathrm{d} t} +R_A i_A`
+
+:math:`u_E=L_E \frac{\mathrm{d} i_E}{\mathrm{d} t} + R_E i_E`
+
+:math:`\mathit{\Psi}^\prime_E=L^\prime_E i_E`
+
+:math:`T=\mathit{\Psi}^\prime_E i_A`
+
+:math:`\frac{\mathrm{d} \omega_{me}}{\mathrm{d} t}=\frac{T-T_L(\omega_{me})}{J}`
+
+and can be rewritten as
+
+:math:`\frac{\mathrm{d} i_A}{\mathrm{d} t}=\frac{u_A-L^\prime_E \omega i_E -R_A i_A}{L_A}`
+
+:math:`\frac{\mathrm{d} i_E}{\mathrm{d} t}=\frac{u_E-R_E i_E}{L_E}`
+
+:math:`\frac{\mathrm{d} \omega_{me}}{\mathrm{d} t}=\frac{L^\prime_E i_A i_E -T_L(\omega_{me})}{J}\text{.}`
+
+For DC motors is :math:`\omega_{me}=\omega` valid.
+
+The quantities for this and the other motors are:
+
+- :math:`u_A` armature voltage
+
+- :math:`u_E` excitation voltage
+
+- :math:`i_A` armature current
+
+- :math:`i_E` armature current
+
+- :math:`R_A` armature resistance
+
+- :math:`R_E` excitation resistance
+
+- :math:`L_A` armature inductance
+
+- :math:`L_E` excitation inductance
+
+- :math:`\omega` (electrical) angular velocity
+
+- :math:`\omega_{me}` mechanical angular velocity
+
+- :math:`L^\prime_E` effective excitation inductance
+
+- :math:`T` Torque produced by the motor
+
+- :math:`T_L` Torque from the load
+
+- :math:`J` moment of inertia
+
+- :math:`\mathit{\Psi}^\prime_E` effective excitation flux
+
+Other motors are build on this motor with different connections of armature and excitation circuit.
+
+
+
+Series Motor
+------------
+In this type both circuits are in series connection, :math:`i=i_A=i_E` and :math:`u=u_A+u_E`,  as shown in the figure [Boecker2018a]_.
+
+.. figure:: ../plots/ESBseries.svg
+
+The equation for this motor are
+
+:math:`\frac{\mathrm{d} i}{\mathrm{d} t}=-\frac{L^\prime_E}{L_A+L_E} i \omega -\frac{R_A+R_E}{L_A+L_E} i + \frac{1}{L_A+L_E} u`
+
+:math:`\frac{\mathrm{d} \omega}{\mathrm{d} t}=\frac{L^\prime_E}{J} i^2-\frac{1}{J}T_L(\omega)`
+
+The torque equation is the same as before.
+
+
+Shunt Motor
+-----------
+In this type the circuits are connected in parallel, :math:`i=i_A+i_E` and :math:`u=u_A=u_E`,  as shown in the figure [Boecker2018a]_.
+
+.. figure:: ../plots/ESBshunt.svg
+
+The equation for this motor are
+
+:math:`\frac{\mathrm{d} i_A}{\mathrm{d} t}=\frac{u-L^\prime_E \omega i_E -R_A i_A}{L_A}`
+
+:math:`\frac{\mathrm{d} i_E}{\mathrm{d} t}=\frac{u-R_E i_E}{L_E}`
+
+:math:`\frac{\mathrm{d} \omega}{\mathrm{d} t}=\frac{L^\prime_E i_A i_E -T_L(\omega)}{J}`
+
+
+and the torque equation is the same as before.
+
+Permanently Excited Motor
+--------------------------
+In this type the excitation :math:`\mathit{\Psi}^\prime_E` is constant and therefore it only contains the armature circuit of the
+externally excited motor.
+
+The equations are
+
+:math:`\frac{\mathrm{d} i}{\mathrm{d} t}=\frac{u-\mathit{\Psi}^\prime_E \omega -R_A i}{L_A}`
+
+:math:`\frac{\mathrm{d} \omega}{\mathrm{d} t}=\frac{L^\prime_E i^2 -T_L(\omega)}{J}`
+
+
+Permanent Magnet Synchronous Motor (PMSM)
+#########################################
+
+The PMSM is a three phase motor with a permanent magnet in the rotor as shown in the figure [Boecker2018b]_. The input of this motor are
+the voltages :math:`u_a`, :math:`u_b` and :math:`u_c`.
+
+The quantities are:
+
+- :math:`u_a`, :math:`u_b`, :math:`u_c` phase voltages
+
+- :math:`i_a`, :math:`i_b`, :math:`i_c` phase currents
+
+- :math:`R_s` stator resistance
+
+- :math:`L_d` d-axis inductance
+
+- :math:`L_q` q-axis inductance
+
+
+- :math:`i_{sd}` d-axis current
+
+- :math:`i_{sq}` q-axis current
+
+- :math:`u_{sd}` d-axis voltage
+
+- :math:`u_{sq}` q-axis voltage
+
+- :math:`p` pole pair number
+
+- :math:`\mathit{\Psi}_p` permanent linked rotor flux
+
+- :math:`\epsilon` rotor position angle
+
+- :math:`\omega` (electrical) angular velocity
+
+- :math:`\omega_{me}` mechanical angular velocity
+
+- :math:`T` Torque produced by the motor
+
+- :math:`T_L` Torque from the load
+
+- :math:`J` moment of inertia
+
+The electrical angular velocity and the mechanical angular velocity are related such that :math:`\omega=\omega_{me} p`.
+
+.. figure:: ../plots/GDAFig29.svg
+
+The circuit diagram of the phases are similar to each other and the armature circuit of the externally excited motor.
+
+.. figure:: ../plots/pmsmMotorB6.png
+
+For an easy computation the three phases are first transformed to the quantities :math:`\alpha` and :math:`\beta` and
+afterwards to :math:`d/q` coordinates that rotated with the rotor as given in [Boecker2018b]_.
+
+.. figure:: ../plots/ESBdq.svg
+
+This results in the equations:
+
+
+:math:`u_{sd}=R_s i_{sd}+L_d \frac{\mathrm{d} i_{sd}}{\mathrm{d} t}-\omega_{me}p L_q i_{sq}`
+
+:math:`u_{sq}=R_s i_{sq}+L_q \frac{\mathrm{d} i_{sq}}{\mathrm{d} t}+\omega_{me}p L_d i_{sd}+\omega_{me}p \mathit{\Psi}_p`
+
+:math:`\frac{\mathrm{d} \omega_{me}}{\mathrm{d} t}=\frac{T-T_L(\omega_{me})}{J}`
+
+:math:`T=\frac{3}{2} p (\mathit{\Psi}_p +(L_d-L_q)i_{sd}) i_{sq}`
+
+
+
+A more detailed derivation can be found in
+[Modeling and High-Performance Control of Electric Machines, John Chiasson (2005)]
+
+The difference between rms and peak values and between line and phase quantities has to be considered at the PMSM.
+The PMSM is in star conncetion and the line voltage :math:`U_L` is mostly given in data sheets as rms value.
+In the toolbox the nominal value of the phase voltage :math:`\hat{U}_S=\sqrt{\frac{2}{3}}U_L` is needed.
+Furthermore, the supply voltage is typically the same :math:`u_{sup}=\hat{U}_S`.
+For example, a line voltage of :math:`U_L=400~\text{V}` is given, the rms phase voltage is :math:`U_S=\sqrt{\frac{1}{3}}U_L = 230.9 \text{ V}`
+and the peak value :math:`\hat{U}_S=326.6 \text{ V}`.
+The nominal peak current of a phase is given by :math:`\hat{I}_S=\sqrt{2} I_S`.
+
+.. figure:: ../plots/Drehstromtrafo.svg
+
+Converter
+#########
+
+The DC input voltage of the converter is named supply voltage :math:`u_{sup}` in the package and the output voltage and
+current are the input quantities of the motor and therefore are named as :math:`u_{in}` and :math:`i_{in}`.
+All converter contain a dead time of one sampling interval and an interlocking times can be considered.
+More details can be found in [Boecker2018a]_, [Boecker2018b]_ and [Chiasson2005]_.
+
+1 Quadrant Converter (1QC)
+--------------------------
+This converter can provide positive voltages and positive currents at the output [Boecker2018a]_.
+
+:math:`u_{in} \geq 0`
+
+:math:`i_{in} \geq 0`
+
+.. figure:: ../plots/1QC.svg
+
+2 Quadrant Converter (2QC)
+--------------------------
+
+This converter can provide positive voltages and both current directions at the output [Boecker2018a]_.
+
+:math:`u_{in} \geq 0`
+
+:math:`i_{in}` both signs
+
+.. figure:: ../plots/2QCigbt.svg
+
+4 Quadrant Converter (4QC)
+--------------------------
+
+This converter can provide both voltage and currents polarities at the output [Boecker2018a]_.
+
+:math:`u_{in}` both signs
+
+:math:`i_{in}` both signs
+
+.. figure:: ../plots/4QC.svg
+
+Three-Phase Voltage Source Inverter
+-----------------------------------
+
+This converter is also called B6 bridge and is used for three phase motors as the PMSM. The supply voltage is DC and it
+consists of three parallel half bridges, one for each phase :math:`u_a`, :math:`u_b` and :math:`u_c`. Due to this 8
+different switching states are possible. A dead time of one sampling time step and
+interlocking times can be considered. A symmetric B6 bridge with a voltage range of :math:`[-u_{DC}/2,~+u_{DC}/2]` is used.
+[Boecker2018b]_
+
+.. figure:: ../plots/B6.svg
+
+
+
+
+Load Models
+###########
+
+The package can deal with polynomial load equations
+
+:math:`T_L(\omega_{me})=\mathrm{sign}(\omega_{me})(c \omega^2_{me} + b \vert\omega_{me}\vert + a)`.
+
+Furthermore an additional moment of inertia :math:`J_{Load}` of the load can be set.
+
+
+References
+##########
+
+.. [Boecker2018a] Böcker, Joachim; Elektrische Antriebstechnik; 2018; Paderborn University
+
+.. [Boecker2018b] Böcker, Joachim; Controlled Three-Phase Drives; 2018; Paderborn University
+
+.. [Chiasson2005] Chiasson, John; Modeling and High-Performance Control of Electric Machines; 2005; Hoboken, NJ, USA
+
+
+
+
+-----------
+Readme File
+-----------
+
+.. mdinclude:: ../../README.mdCore
+#####
+
+.. figure:: ../plots/CoreClasses.svg
+
+.. automodule:: gym_electric_motor.core
+    :members:
+Weighted Sum of Errors
+######################
+
+Usage Guide
+***********
+
+To use the weighted sum of errors, you have to import the class, initialize an object and pass it to the environment.
+
+
+.. code-block:: python
+
+    import gym_electric_motor as gem
+    from gym_electric_motor.reward_functions import WeightedSumOfErrors
+
+
+    # initialize the reward function
+    wse = WeightedSumOfErrors(
+        reward_weights=dict(i_a=1, i_e=2) # Current control problem. Tracking of i_e is rewarded better.
+        reward_power=2 # Squared Error
+        # Alternative: reward_power=dict(i_a=1, i_e=0.5) Absolute error i_a, root error on i_e
+        bias='positive' # Shift the reward range from negative to positive
+        violation_reward=-250 # Self defined violation reward
+        gamma=0.9 # Ignored, if a violation_reward is defined.
+        normed_reward_weights=False # Otherwise weights will be normed automatically to sum up to 1.
+
+    )
+
+    # pass it to the environment
+    env = gem.make('my-env-id-v0', reward_function=wse)
+
+API Documentation
+*****************
+
+.. autoclass:: gym_electric_motor.reward_functions.weighted_sum_of_errors.WeightedSumOfErrors
+   :members:
+   :inherited-members:
+Reward Functions
+#####################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Reward Functions:
+
+    weighted_sum_of_errors
+
+Reward Function Base Class
+''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.core.RewardFunction
+   :members:
+Console Printer
+###############################
+
+.. autoclass:: gym_electric_motor.visualization.console_printer.ConsolePrinter
+   :members:
+   :inherited-members:
+Motor Dashboard
+###############################
+
+..  contents::
+
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Plots:
+    :glob:
+
+    motor_dashboard_plots/*
+
+Usage Guide
+__________________
+To use the dashboard, you have to import the class, define the plots,
+instantiate the dashboard and pass it to the environment.
+
+The most common plots can be quickly selected directly in the constructor of the dashboard.
+Further plots like a *MeanEpisodeRewardPlot* or self-defined ones have to be instantiated and passed to the dashboard.
+
+.. code-block:: python
+
+    import gym_electric_motor as gem
+    from gym_electric_motor.visualization import MotorDashboard
+    from gym_electric_motor.visualization.motor_dashboard_plots import MeanEpisodeRewardPlot
+
+    # create the dashboard and define the plots
+    dashboard = MotorDashboard(
+        state_plots = ['omega', 'i'], # Pass a list of state names or 'all' for all states to plot
+        reward_plot = True, # True / False (False default)
+        action_plots = [0] # 'all' plots all actions (if multiple are applied)
+        additional_plots=[MeanEpisodeRewardPlot()] # Add all further plots here
+    )
+
+    # pass it to the environment
+    env = gem.make('my-env-id-v0', visualization=dashboard)
+
+
+
+
+Motor Dashboard API
+__________________________
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard.MotorDashboard
+   :members:
+   :inherited-members:
+
+..
+    The following section is commented out. It may serve as a little introduction on how to define
+    your own custom plots in the future.
+
+    Create your own plots
+    _____________________________
+     In the following, there is
+    .. code-block:: python
+
+        import gym_electric_motor as gem
+        from gym_electric_motor.visualization import MotorDashboard
+        from gym_electric_motor.visualization.motor_dashboard_plots import TimePlot
+
+        # the class may also derive from EpisodePlot or StepPlot, depending on the x-axis
+        class MyPlot(TimePlot):
+        """This plot will show the current step of the episode *k* on the y-axis.
+
+         As it derives from TimePlot the x-Axis is the cumulative simulated time over all episodes.
+         """
+
+            def __init__(self):
+                super().__init__()
+                # Set the y-axis label
+                self._label = 'k'
+
+            def initialize(self, axis):
+                super().initialize(axis)
+                self._k_line, =  self._axis.plot([],[])
+                self._lines.append(self._k_line)
+
+            def set_env(self, env):
+                super().set_env(env)
+                self._k_data = np.ones_like(self._x_data) * np.nan
+                self._y_data.append(self._k_data)
+
+            def on_step_begin(self, k, action):
+                super().on_step_begin(k, action)
+                idx = self.data_idx
+                self._k_data[idx] = k
+
+            def _scale_y_axis(self):
+                """This function can be defined to automatically scale the plots limits.
+                Here, the y limits are set such that the data fits perfectly.
+                """
+                self._axis.set_ylim(0,max(self._k_data))
+
+        dashboard = MotorDashboard(
+            state_plots='all',
+            additional_plots=[MyPlot()]
+        )
+        env = gem.make('my-env-id-v0', visualization=dashboard)
+Visualization
+#############
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Visualizations:
+
+    motor_dashboard
+    console_printer
+
+
+Visualization Base Class
+''''''''''''''''''''''''''''''
+
+..  autoclass:: gym_electric_motor.core.ElectricMotorVisualization
+    :members:
+    :inherited-members:
+Reward Plot
+###########
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.RewardPlot
+   :members:
+   :inherited-members:
+Episode Plot (Abstract)
+#####################
+The EpisodePlot is the base class for all plots that plot data with number of episodes on the x-axis.
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.EpisodePlot
+   :members:
+   :inherited-members:
+Cumulative Constraint Violation Plot
+####################################
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.CumulativeConstraintViolationPlot
+   :members:
+   :inherited-members:Time Plot (Abstract)
+#####################
+The TimePlot is the base class for all plots that plot data with the time on the x-axis.
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.TimePlot
+   :members:
+   :inherited-members:
+Mean Episode Reward Plot
+########################
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.MeanEpisodeRewardPlot
+   :members:
+   :inherited-members:Episode Length Plot
+####################################
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.EpisodeLengthPlot
+   :members:
+   :inherited-members:Action Plot
+###########
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.ActionPlot
+   :members:
+   :inherited-members:
+Step Plot (Abstract)
+#####################
+The StepPlot is the base class for all plots that plot data with the cumulative number of steps on the x-axis.
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.TimePlot
+   :members:
+   :inherited-members:
+State Plot
+###########
+
+.. autoclass:: gym_electric_motor.visualization.motor_dashboard_plots.StatePlot
+   :members:
+   :inherited-members:
+Electric Motors
+###############
+
+Electric Motor Base Class
+*************************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.ElectricMotor
+   :members:
+
+
+Synchronous Motors
+******************
+
+Parameter Dictionary
+''''''''''''''''''''
+
++------------------+------------------------------------------------+---------------------+
+| **Key**          |  **Description**                               | **Default**         |
++==================+================================================+=====================+
+| r_s              | Stator Resistance in Ohm                       | 4.9                 |
++------------------+------------------------------------------------+---------------------+
+| l_d              | d-axis inductance in Henry                     | 79e-3               |
++------------------+------------------------------------------------+---------------------+
+| l_q              | q-axis inductance in Henry                     | 113e-3              |
++------------------+------------------------------------------------+---------------------+
+| j_rotor          | Moment of inertia of the rotor                 | 2.45e-3             |
++------------------+------------------------------------------------+---------------------+
+| psi_p            | Permanent linked rotor flux                    | 0.165               |
++------------------+------------------------------------------------+---------------------+
+| p                | Pole pair Number                               | 2                   |
++------------------+------------------------------------------------+---------------------+
+
+
+All nominal voltages and currents are peak phase values.
+Therefore, data sheet values for line voltages and phase currents has to be transformed such that
+:math:`U_N=\sqrt(2/3) U_L` and :math:`I_N=\sqrt(2) I_S`.
+
+Furthermore, the angular velocity is the electrical one and not the mechanical one :math:`\omega = p \omega_{me}`.
+
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.SynchronousMotor
+   :members:
+
+Synchronous Reluctance Motor
+****************************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.SynchronousReluctanceMotor
+   :members:
+
+Permanent Magnet Synchronous Motor
+**********************************
+
+The PMSM is a three phase motor with a permanent magnet in the rotor as shown in the figure [Boecker2018b]_.
+The input of this motor are the voltages :math:`u_a`, :math:`u_b` and :math:`u_c`.
+
+The quantities are:
+
+- :math:`u_a`, :math:`u_b`, :math:`u_c` phase voltages
+
+- :math:`i_a`, :math:`i_b`, :math:`i_c` phase currents
+
+- :math:`R_s` stator resistance
+
+- :math:`L_d` d-axis inductance
+
+- :math:`L_q` q-axis inductance
+
+
+- :math:`i_{sd}` d-axis current
+
+- :math:`i_{sq}` q-axis current
+
+- :math:`u_{sd}` d-axis voltage
+
+- :math:`u_{sq}` q-axis voltage
+
+- :math:`p` pole pair number
+
+- :math:`\mathit{\Psi}_p` permanent linked rotor flux
+
+- :math:`\epsilon` rotor position angle
+
+- :math:`\omega` (electrical) angular velocity
+
+- :math:`\omega_{me}` mechanical angular velocity
+
+- :math:`T` Torque produced by the motor
+
+- :math:`T_L` Torque from the load
+
+- :math:`J` moment of inertia
+
+The electrical angular velocity and the mechanical angular velocity are related such that :math:`\omega=\omega_{me} p`.
+
+.. figure:: ../../plots/GDAFig29.svg
+
+The circuit diagram of the phases are similar to each other and the armature circuit of the externally excited motor.
+
+.. figure:: ../../plots/pmsmMotorB6.png
+
+For an easy computation the three phases are first transformed to the quantities :math:`\alpha` and :math:`\beta` and
+afterwards to :math:`d/q` coordinates that rotated with the rotor as given in [Boecker2018b]_.
+
+.. figure:: ../../plots/ESBdq.svg
+
+This results in the equations:
+
+
+:math:`u_{sd}=R_s i_{sd}+L_d \frac{\mathrm{d} i_{sd}}{\mathrm{d} t}-\omega_{me}p L_q i_{sq}`
+
+:math:`u_{sq}=R_s i_{sq}+L_q \frac{\mathrm{d} i_{sq}}{\mathrm{d} t}+\omega_{me}p L_d i_{sd}+\omega_{me}p \mathit{\Psi}_p`
+
+:math:`\frac{\mathrm{d} \omega_{me}}{\mathrm{d} t}=\frac{T-T_L(\omega_{me})}{J}`
+
+:math:`T=\frac{3}{2} p (\mathit{\Psi}_p +(L_d-L_q)i_{sd}) i_{sq}`
+
+
+
+A more detailed derivation can be found in
+[Modeling and High-Performance Control of Electric Machines, John Chiasson (2005)]
+
+The difference between rms and peak values and between line and phase quantities has to be considered at the PMSM.
+The PMSM is in star conncetion and the line voltage :math:`U_L` is mostly given in data sheets as rms value.
+In the toolbox the nominal value of the phase voltage :math:`\hat{U}_S=\sqrt{\frac{2}{3}}U_L` is needed.
+Furthermore, the supply voltage is typically the same :math:`u_{sup}=\hat{U}_S`.
+For example, a line voltage of :math:`U_L=400~\text{V}` is given, the rms phase voltage is
+:math:`U_S=\sqrt{\frac{1}{3}}U_L = 230.9 \text{ V}`
+and the peak value :math:`\hat{U}_S=326.6 \text{ V}`.
+The nominal peak current of a phase is given by :math:`\hat{I}_S=\sqrt{2} I_S`.
+
+.. figure:: ../../plots/Drehstromtrafo.svg
+
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.PermanentMagnetSynchronousMotor
+   :members:
+
+
+
+References
+##########
+
+.. [Boecker2018a] Böcker, Joachim; Elektrische Antriebstechnik; 2018; Paderborn University
+
+.. [Boecker2018b] Böcker, Joachim; Controlled Three-Phase Drives; 2018; Paderborn University
+
+.. [Chiasson2005] Chiasson, John; Modeling and High-Performance Control of Electric Machines; 2005; Hoboken, NJ, USA
+
+
+
+Supply Converter Motor Load System (SCML)
+#########################################
+
+The technical structure of the SCML-Systems in the GEM-toolbox can bee seen in the figure below.
+
+.. figure:: ../../plots/SCML_Setting.svg
+
+The system consists of a Voltage Supply, a Power Electronic Converter, an Electrical Motor and the Mechanical Load.
+Additionally, each SCML-System has got an ODE-Solver for the simulation.
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Subcomponents of the SCML:
+
+    converters/converter
+    mechanical_loads/mechanical_load
+    noise_generators/noise_generator
+    electric_motors/electric_motor
+    voltage_supplies/voltage_supply
+    ode_solvers/ode_solver
+
+
+
+The abstract SCML-System defines the overall structure. From this, the DcMotorSystem and the SynchronousMotorSystem
+derive. They only implement private methods. Therefore, the interface to the user stays the same in all cases.
+
+.. autoclass:: gym_electric_motor.physical_systems.physical_systems.SCMLSystem
+   :members:
+
+Dc Motor System
+****************
+.. autoclass:: gym_electric_motor.physical_systems.physical_systems.DcMotorSystem
+   :members:
+
+Synchronous Motor System
+************************
+.. autoclass:: gym_electric_motor.physical_systems.physical_systems.SynchronousMotorSystem
+   :members:
+
+Squirrel Cage Induction Motor System
+************************
+.. autoclass:: gym_electric_motor.physical_systems.physical_systems.SquirrelCageInductionMotorSystem
+   :members:
+
+Doubly Fed Induction Motor System
+************************
+.. autoclass:: gym_electric_motor.physical_systems.physical_systems.DoublyFedInductionMotorSystem
+   :members:Physical Systems
+==========================
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Physical Systems:
+
+    scml_system
+
+
+Physical System Base Class
+''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.core.PhysicalSystem
+   :members:
+AC 1 Phase Supply
+##############################
+
+.. autoclass:: gym_electric_motor.physical_systems.voltage_supplies.AC1PhaseSupply
+    :members:
+    :inherited-members:
+Ideal Voltage Supply
+##############################
+
+.. autoclass:: gym_electric_motor.physical_systems.voltage_supplies.IdealVoltageSupply
+    :members:
+    :inherited-members:
+Voltage Supplies
+################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Voltage Supplies:
+
+    ideal_voltage_supply
+    rc_voltage_supply
+    ac_1_phase_supply
+    ac_3_phase_supply
+
+
+Voltage Supply Base Class
+*************************************
+
+.. autoclass:: gym_electric_motor.physical_systems.voltage_supplies.VoltageSupply
+   :members:
+RC Voltage Supply
+##############################
+
+.. autoclass:: gym_electric_motor.physical_systems.voltage_supplies.RCVoltageSupply
+    :members:
+    :inherited-members:
+AC 3 Phase Supply
+##############################
+
+.. autoclass:: gym_electric_motor.physical_systems.voltage_supplies.AC3PhaseSupply
+    :members:
+    :inherited-members:
+Base Three Phase Motor
+############################
+
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.ThreePhaseMotor
+   :members:
+   :inherited-members:
+Base Synchronous Motor
+############################
+
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.SynchronousMotor
+   :members:
+   :inherited-members:
+DC Series Motor
+############################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESBseries.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i}{\mathrm{d} t} &= \frac{u - L_\mathrm{e}^\prime i \omega_\mathrm{me} - (R_\mathrm{a} + R_\mathrm{e}) i}{L_\mathrm{a} + L_\mathrm{e}} \\
+
+
+Torque Equation
+***************
+.. math::
+    T = L_\mathrm{e}^\prime i^2
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DcSeriesMotor
+   :members:
+   :inherited-members:
+Permanently Excited DC Motor
+#############################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESBdcpermex.svg
+
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i}{\mathrm{d} t} &= \frac{u_\mathrm{a} - \mathit{\Psi}^\prime_\mathrm{e} \omega_\mathrm{me} - R_\mathrm{a} i}{L_\mathrm{a}} \\
+
+
+Torque Equation
+***************
+.. math::
+    T = \mathit{\Psi}_\mathrm{e} i
+
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DcPermanentlyExcitedMotor
+   :members:
+   :inherited-members:
+Squirrel Cage Induction Motor
+##################################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESB_SCIM_alphabeta.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{s \alpha}}{\mathrm{d} t}&= -\frac{1}{\tau_\sigma} i_\mathrm{s \alpha} + \frac{R_\mathrm{r} L_\mathrm{m}}{\sigma L_\mathrm{r}^2 L_\mathrm{s}} \psi_\mathrm{r \alpha} + p \omega_{\text{me}} \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}} \psi_\mathrm{r \beta} + \frac{1}{\sigma L_\mathrm{s}} u_\mathrm{s \alpha}\\
+    \frac{\mathrm{d} i_\mathrm{s \beta}}{\mathrm{d} t}&= -\frac{1}{\tau_\sigma} i_\mathrm{s \beta} - p \omega_{\text{me}} \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}}  \psi_\mathrm{r \alpha}  + \frac{R_\mathrm{r} L_\mathrm{m}}{\sigma L_\mathrm{r}^2 L_\mathrm{s}} \psi_\mathrm{r \beta} + \frac{1}{\sigma L_\mathrm{s}} u_\mathrm{s \beta}\\
+    \frac{\mathrm{d} \psi_\mathrm{r \alpha}}{\mathrm{d} t}&= \frac{L_\mathrm{m}}{\tau_\mathrm{r}} i_\mathrm{s \alpha} - \frac{1}{\tau_\text{r}} \psi_\mathrm{r \alpha} - p \omega_{\text{me}} \psi_\mathrm{r \beta} \\
+    \frac{\mathrm{d} \psi_\mathrm{r \beta}}{\mathrm{d} t}&= \frac{L_\mathrm{m}}{\tau_\mathrm{r}} i_\mathrm{s \beta} + p \omega_{\mathrm{me}} \psi_\mathrm{r \alpha} - \frac{1}{\tau_\mathrm{r}} \psi_\mathrm{r \beta} \\
+    \frac{\mathrm{d} \varepsilon_\mathrm{el}}{\mathrm{d} t}&= p \omega_\mathrm{me}
+
+with
+
+.. math::
+    L_\mathrm{s} &= L_\mathrm{m} + L_\mathrm{\sigma s}, & L_\mathrm{r} &= L_\mathrm{m} + L_\mathrm{\sigma r}\\
+    \sigma &= \frac{L_\mathrm{r} L_\mathrm{s} - L_\mathrm{m}^2}{L_\mathrm{r} L_\mathrm{s}}, & \tau_\mathrm{r} &=\frac{L_\mathrm{r}}{R_\mathrm{r}}, & \tau_\sigma &= \frac{\sigma L_\mathrm{s}}{R_\mathrm{s} + R_\mathrm{r} \frac{L_\mathrm{m}^2}{L_\mathrm{r}^2}}
+
+
+Torque Equation
+***************
+
+.. math:: T=\frac{3}{2} p \frac{L_\mathrm{m}}{L_\mathrm{r}} (\psi_\mathrm{r \alpha} i_\mathrm{s \beta} - \psi_\mathrm{r \beta} i_\mathrm{s \alpha})
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.SquirrelCageInductionMotor
+   :members:
+   :inherited-members:Doubly Fed Induction Motor
+##################################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESB_DFIM_alphabeta.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{s \alpha}}{\mathrm{d} t}&= -\frac{1}{\tau_\sigma} i_\mathrm{s \alpha} + \frac{R_\mathrm{r} L_\mathrm{m}}{\sigma L_\mathrm{r}^2 L_\mathrm{s}} \psi_\mathrm{r \alpha} + p \omega_\mathrm{\text{me}} \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}}  \psi_\mathrm{r \beta} + \frac{1}{\sigma L_\mathrm{s}} u_\mathrm{s \alpha} - \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}} u_\mathrm{r \alpha}\\
+    \frac{\mathrm{d} i_\mathrm{s \beta}}{\mathrm{d} t}&= -\frac{1}{\tau_\sigma} i_\mathrm{s \beta} - p \omega_\mathrm{\text{me}} \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}}  \psi_\mathrm{r \alpha}  + \frac{R_\mathrm{r} L_\mathrm{m}}{\sigma L_\mathrm{r}^2 L_\mathrm{s}} \psi_\mathrm{r \beta} + \frac{1}{\sigma L_\mathrm{s}} u_\mathrm{s \beta} - \frac{L_\mathrm{m}}{\sigma L_\mathrm{r} L_\mathrm{s}} u_\mathrm{r \beta}\\
+    \frac{\mathrm{d} \psi_\mathrm{r \alpha}}{\mathrm{d} t}&= \frac{L_\mathrm{m}}{\tau_\mathrm{r}} i_\mathrm{s \alpha} - \frac{1}{\tau_\mathrm{r}} \psi_\mathrm{r \alpha} - p \omega_\mathrm{\text{me}} \psi_\mathrm{r \beta} + u_\mathrm{r \alpha}\\
+    \frac{\mathrm{d} \psi_\mathrm{r \beta}}{\mathrm{d} t}&= \frac{L_\mathrm{m}}{\tau_\mathrm{r}} i_\mathrm{s \beta} + p \omega_\mathrm{\text{me}} \psi_\mathrm{r \alpha} - \frac{1}{\tau_\mathrm{r}} \psi_\mathrm{r \beta} + u_\mathrm{r \beta}\\
+    \frac{\mathrm{d} \varepsilon_\mathrm{el}}{\mathrm{d} t}&= p \omega_\mathrm{me}
+
+with
+
+.. math::
+    L_\mathrm{s} &= L_\mathrm{m} + L_\mathrm{\sigma s} & \quad L_\mathrm{r} &= L_\mathrm{m} + L_\mathrm{\sigma r}\\
+    \sigma &= \frac{L_\mathrm{r} L_\mathrm{s} - L_\mathrm{m}^2}{L_\mathrm{r} L_\mathrm{s}} & \quad \tau_\mathrm{r} &=\frac{L_\mathrm{r}}{R_\mathrm{r}} & \quad \tau_\sigma &= \frac{\sigma L_\mathrm{s}}{R_\mathrm{s} + R_\mathrm{r} \frac{L_\mathrm{m}^2}{L_\mathrm{r}^2}}
+
+
+Torque Equation
+***************
+
+.. math:: T=\frac{3}{2} p \frac{L_\mathrm{m}}{L_\mathrm{r}} (\psi_\mathrm{r \alpha} i_\mathrm{s \beta} - \psi_\mathrm{r \beta} i_\mathrm{s \alpha})
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DoublyFedInductionMotor
+   :members:
+   :inherited-members:Synchronous Reluctance Motor
+############################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESBdqSynRM.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{sd}}{\mathrm{d} t}&=\frac{u_\mathrm{sd} + p \omega_\mathrm{me} L_\mathrm{q} i_\mathrm{sq} - R_\mathrm{s} i_\mathrm{sd}}{L_\mathrm{d}} \\
+    \frac{\mathrm{d} i_\mathrm{sq}}{\mathrm{d} t}&=\frac{u_\mathrm{sq} - p \omega_\mathrm{me} L_\mathrm{d} i_\mathrm{sd} - R_\mathrm{s} i_\mathrm{sq}}{L_\mathrm{q}} \\
+    \frac{\mathrm{d} \varepsilon_\mathrm{el}}{\mathrm{d} t}&= p \omega_\mathrm{me}
+
+Torque Equation
+***************
+.. math::
+    T = \frac{3}{2} p (L_\mathrm{d} - L_\mathrm{q}) i_\mathrm{sd} i_\mathrm{sq}
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.SynchronousReluctanceMotor
+   :members:
+   :inherited-members:
+Externally Excited DC Motor
+############################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESBdcExtEx.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{a}}{\mathrm{d} t} &= \frac{u_\mathrm{a} - L_\mathrm{e}^\prime i_\mathrm{e} \omega_\mathrm{me} - R_\mathrm{a} i_\mathrm{a}}{L_\mathrm{a}} \\
+    \frac{\mathrm{d} i_\mathrm{e}}{\mathrm{d} t} &= \frac{u_\mathrm{e} - R_\mathrm{e} i_\mathrm{e}}{L_\mathrm{e}}
+
+
+Torque Equation
+***************
+.. math::
+    T = L_\mathrm{e}^\prime i_\mathrm{e} i_\mathrm{a}
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DcExternallyExcitedMotor
+   :members:
+   :inherited-members:
+Permanent Magnet Synchronous Motor
+##################################
+
+Schematic
+*********
+
+.. figure:: ../../../plots/ESBdq.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{sd}}{\mathrm{d} t}&=\frac{u_\mathrm{sd} + p \omega_\mathrm{me} L_\mathrm{q} i_\mathrm{sq} - R_\mathrm{s} i_\mathrm{sd}}{L_\mathrm{d}} \\
+    \frac{\mathrm{d} i_\mathrm{sq}}{\mathrm{d} t}&=\frac{u_\mathrm{sq} - p \omega_\mathrm{me} (L_\mathrm{d} i_\mathrm{sd} + \mathit{\Psi}_\mathrm{p}) - R_\mathrm{s} i_\mathrm{sq}}{L_\mathrm{q}} \\
+    \frac{\mathrm{d} \varepsilon_\mathrm{el}}{\mathrm{d} t}&= p \omega_\mathrm{me}
+
+
+
+Torque Equation
+***************
+
+.. math:: T=\frac{3}{2} p (\mathit{\Psi}_\mathrm{p} +(L_\mathrm{d}-L_\mathrm{q})i_\mathrm{sd}) i_\mathrm{sq}
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.PermanentMagnetSynchronousMotor
+   :members:
+   :inherited-members:
+Electric Motors
+######################################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Electric Motors:
+
+    permex
+    extex
+    series
+    shunt
+    pmsm
+    synrm
+    scim
+    dfim
+    dc_base
+    three_phase_base
+    synchronous_base
+    induction_base
+
+Electric Motor Base Class
+*************************************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.ElectricMotor
+    :members:Base Induction Motor
+############################
+
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.InductionMotor
+   :members:
+   :inherited-members:
+DC Shunt Motor
+############################
+
+Schematic
+*********
+.. figure:: ../../../plots/ESBshunt.svg
+
+Electrical ODE
+**************
+
+.. math::
+    \frac{\mathrm{d} i_\mathrm{a}}{\mathrm{d} t} &= \frac{u - L_\mathrm{e}^\prime i_\mathrm{e} \omega_\mathrm{me} - R_\mathrm{a} i_\mathrm{a}}{L_\mathrm{a}} \\
+    \frac{\mathrm{d} i_\mathrm{e}}{\mathrm{d} t} &= \frac{u - R_\mathrm{e} i_\mathrm{e}}{L_\mathrm{e}}
+
+
+Torque Equation
+***************
+.. math::
+    T = L_\mathrm{e}^\prime i_\mathrm{e} i_\mathrm{a}
+
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DcShuntMotor
+   :members:
+   :inherited-members:
+Base DC Motor
+############################
+
+Code Documentation
+******************
+
+.. autoclass:: gym_electric_motor.physical_systems.electric_motors.DcMotor
+   :members:
+   :inherited-members:
+scipy.integrate.solve_ivp Solver
+################################
+
+.. autoclass:: gym_electric_motor.physical_systems.solvers.ScipySolveIvpSolver
+    :members:
+    :inherited-members:
+scipy.integrate.ode Solver
+##########################
+
+.. autoclass:: gym_electric_motor.physical_systems.solvers.ScipyOdeSolver
+    :members:
+    :inherited-members:
+
+Euler Solver
+############
+
+.. autoclass:: gym_electric_motor.physical_systems.solvers.EulerSolver
+    :members:
+    :inherited-members:
+
+ODE-Solvers
+###########
+
+Solving of ODE-Systems in the form
+
+.. math::
+    \frac{\mathrm{d} \mathbf{x}}{\mathrm{d} t}&= f(\mathbf{x}, \mathbf{u}, t)\\
+
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available ODE-Solvers:
+
+    euler
+    scipy_solve_ivp
+    scipy_ode
+    scipy_odeint
+
+
+
+ODE-Solver Base Class
+'''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.solvers.OdeSolver
+    :members:
+scipy.integrate.odeint Solver
+#############################
+
+.. autoclass:: gym_electric_motor.physical_systems.solvers.ScipyOdeIntSolver
+    :members:
+    :inherited-members:
+Noise Generators
+################
+
+The Noise Generators generate noise which is added to the state variables.
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Noise Generators:
+
+    gaussian_white_noise
+
+
+Noise Generator Base Class
+''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.noise_generators.NoiseGenerator
+   :members:Gaussian White Noise Generator
+##############################
+
+.. autoclass:: gym_electric_motor.physical_systems.noise_generators.NoiseGenerator
+    :members:
+    :inherited-members:Four Quadrant Converters
+#########################
+
+.. figure:: ../../../plots/4QC.svg
+
+Discrete Four Quadrant Converter
+''''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteFourQuadrantConverter
+   :members:
+   :inherited-members:
+
+Continuous Four Quadrant Converter
+'''''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContFourQuadrantConverter
+   :members:
+   :inherited-members:
+Two Quadrant Converters
+#######################
+
+.. figure:: ../../../plots/2QC.svg
+
+Discrete Two Quadrant Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteTwoQuadrantConverter
+   :members:
+   :inherited-members:
+
+Continuous Two Quadrant Converter
+'''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContTwoQuadrantConverter
+   :members:
+   :inherited-members:
+One Quadrant Converters
+#######################
+
+.. figure:: ../../../plots/1QC.svg
+
+Discrete One Quadrant Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteOneQuadrantConverter
+   :members:
+   :inherited-members:
+
+Continuous One Quadrant Converter
+'''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContOneQuadrantConverter
+   :members:
+   :inherited-members:
+No Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.NoConverter
+   :members:
+   :inherited-members:
+Multi Converters
+#######################
+
+The Multi Converters allow to include an arbitrary number of (discrete or continuous) subconverters for the use in e.g. the Externally Excited Dc Motor.
+Subconverters must be 'elementary' and can not be Multi Converters.
+
+
+Discrete Multi Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteMultiConverter
+   :members:
+   :inherited-members:
+
+Continuous Multi Converter
+'''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContMultiConverter
+   :members:
+   :inherited-members:
+Three Phase Converters
+#######################
+
+.. figure:: ../../../plots/B6.svg
+
+Discrete B6 Bridge Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteB6BridgeConverter
+   :members:
+   :inherited-members:
+
+Continuous B6 Bridge Converter
+'''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContB6BridgeConverter
+   :members:
+   :inherited-members:
+Power Electronic Converters
+##################################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Converters:
+
+    1QC
+    2QC
+    4QC
+    B6C
+    DoubleConv
+    NoConv
+
+The converters are divided into two classes: The discretely controlled and continuously controlled converters.
+The PowerElectronicConverter class is the base class for all converters. From that, the DiscreteConverter and the
+ContinuousDynamicallyAveragedConverter derive to be the base class for all continuous and discrete converters.
+
+
+Converter Base Class
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.PowerElectronicConverter
+   :members:
+
+Finite Control Set Converter
+'''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.FiniteConverter
+   :members:
+   :inherited-members:
+
+
+Continuous Control Set Dynamically Averaged Converter
+'''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.physical_systems.converters.ContDynamicallyAveragedConverter
+   :members:
+   :inherited-members:
+Ornstein Uhlenbeck Load
+######################
+
+Class Description
+''''''''''''''''''
+.. autoclass:: gym_electric_motor.physical_systems.mechanical_loads.OrnsteinUhlenbeckLoad
+    :members:
+    :inherited-members:Mechanical Loads
+################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Mechanical Loads:
+
+    polystatic
+    const_speed_load
+    ext_speed_load
+    ornstein_uhlenbeck_load
+
+MechanicalLoad Base Class
+*************************************
+
+.. autoclass:: gym_electric_motor.physical_systems.mechanical_loads.MechanicalLoad
+   :members:Constant Speed Load
+######################
+
+Class Description
+''''''''''''''''''
+.. autoclass:: gym_electric_motor.physical_systems.mechanical_loads.ConstantSpeedLoad
+    :members:
+    :inherited-members:
+External Speed Load
+######################
+
+Class Description
+''''''''''''''''''
+.. autoclass:: gym_electric_motor.physical_systems.mechanical_loads.ExternalSpeedLoad
+    :members:
+    :inherited-members:Polynomial Static Load
+######################
+
+Mechanical ODE
+''''''''''''''
+
+.. math::
+    \frac{ \mathrm{d} \omega_\mathrm{me} } { \mathrm{d} t } = \frac{ T - T_\mathrm{L} (\omega_\mathrm{me})}{J_\mathrm{total}}
+
+
+Polynomial Load Equation
+''''''''''''''''''''''''
+
+.. math::
+    T_\mathrm{L}(\omega_\mathrm{me})=\mathrm{sign}(\omega_\mathrm{me})(c \omega^2_\mathrm{me} + b \vert\omega_\mathrm{me}\vert + a)\\
+
+Class Description
+''''''''''''''''''
+.. autoclass:: gym_electric_motor.physical_systems.mechanical_loads.PolynomialStaticLoad
+    :members:
+    :inherited-members:
+Wiener Process Reference Generator
+##################################
+
+.. autoclass:: gym_electric_motor.reference_generators.WienerProcessReferenceGenerator
+    :members:
+    :inherited-members:Reference Generators
+#####################
+
+..  toctree::
+    :maxdepth: 1
+    :caption: Available Reference Generators:
+
+    subepisoded_reference_generator
+    wiener_process_reference_generator
+    sinusoidal_reference_generator
+    step_reference_generator
+    triangular_reference_generator
+    sawtooth_reference_generator
+    const_reference_generator
+    zero_reference_generator
+    multiple_ref_generator
+    switched_reference_generator
+
+
+Reference Generator Base Class
+''''''''''''''''''''''''''''''
+
+.. autoclass:: gym_electric_motor.core.ReferenceGenerator
+   :members:
+
+Sawtooth Reference Generator
+############################
+
+.. autoclass:: gym_electric_motor.reference_generators.SawtoothReferenceGenerator
+   :members:
+   :inherited-members:
+Multiple Reference Generator
+############################
+
+.. autoclass:: gym_electric_motor.reference_generators.MultipleReferenceGenerator
+   :members:
+   :inherited-members:
+Sinusoidal Reference Generator
+##############################
+
+.. autoclass:: gym_electric_motor.reference_generators.SinusoidalReferenceGenerator
+   :members:
+   :inherited-members:
+Zero Reference Generator
+##################################
+
+.. autoclass:: gym_electric_motor.reference_generators.ZeroReferenceGenerator
+    :members:
+    :inherited-members:Subepisoded Reference Generator
+###############################
+
+.. autoclass:: gym_electric_motor.reference_generators.subepisoded_reference_generator.SubepisodedReferenceGenerator
+   :members:
+   :inherited-members:
+Triangular Reference Generator
+##############################
+
+.. autoclass:: gym_electric_motor.reference_generators.TriangularReferenceGenerator
+   :members:
+   :inherited-members:
+Constant Reference Generator
+############################
+
+.. autoclass:: gym_electric_motor.reference_generators.ConstReferenceGenerator
+   :members:
+   :inherited-members:
+Switched Reference Generator
+#############################
+
+.. autoclass:: gym_electric_motor.reference_generators.SwitchedReferenceGenerator
+   :members:
+   :inherited-members:
+Step Reference Generator
+########################
+
+.. autoclass:: gym_electric_motor.reference_generators.StepReferenceGenerator
+   :members:
+   :inherited-members:
+Squared Constraint
+###################
+
+.. autoclass:: gym_electric_motor.constraints.SquaredConstraint
+   :members:
+
+Limit Constraint
+#################
+
+.. autoclass:: gym_electric_motor.constraints.LimitConstraint
+   :members:
+
+Constraint Base Class
+#####################
+
+How To: Define Your Own Constraints
+________________________________
+
+
+Constraint API Documentation
+____________________________
+
+.. autoclass:: gym_electric_motor.core.RewardFunction
+   :members:
+Environments
+############
+
+On this page, all environments with their environment-id are listed.
+In general, all environment-ids are structured as follows:
+
+``ControlType-ControlTask-MotorType-v0``
+
+- The ``ControlType`` is in ``{Finite / Cont}`` for all DC Motors and in ``{Finite / AbcCont / DqCont}`` for all AC Motors
+- The ``ControlTask`` is in ``{TC / SC / CC}`` (Torque / Speed / Current Control)
+- The ``MotorType`` is in ``{PermExDc / ExtExDc / SeriesDc / ShuntDc / PMSM / SynRM / DFIM / SCIM }``
+
+
+=================================================================== ==============================
+Environment                                                         environment-id
+=================================================================== ==============================
+**Permanently Excited DC Motor Environments**
+
+Discrete Torque Control Permanently Excited DC Motor Environment     ``'Finite-TC-PermExDc-v0'``
+Continuous Torque Control Permanently Excited DC Motor Environment   ``'Cont-TC-PermExDc-v0'``
+Discrete Speed Control Permanently Excited DC Motor Environment      ``'Finite-SC-PermExDc-v0'``
+Continuous Speed Control Permanently Excited DC Motor Environment    ``'Cont-SC-PermExDc-v0'``
+Discrete Current Control Permanently Excited DC Motor Environment    ``'Finite-CC-PermExDc-v0'``
+Continuous Current Control Permanently Excited DC Motor Environment  ``'Cont-CC-PermExDc-v0'``
+
+**Externally Excited DC Motor Environments**
+
+Discrete Torque Control Externally Excited DC Motor Environment      ``'Finite-TC-ExtExDc-v0'``
+Continuous Torque Control Externally Excited DC Motor Environment    ``'Cont-TC-ExtExDc-v0'``
+Discrete Speed Control Externally Excited DC Motor Environment       ``'Finite-SC-ExtExDc-v0'``
+Continuous Speed Control Externally Excited DC Motor Environment     ``'Cont-SC-ExtExDc-v0'``
+Discrete Current Control Externally Excited DC Motor Environment     ``'Finite-CC-ExtExDc-v0'``
+Continuous Current Control Externally Excited DC Motor Environment   ``'Cont-CC-ExtExDc-v0'``
+
+**Series DC Motor Environments**
+
+Discrete Torque Control Series DC Motor Environment                  ``'Finite-TC-SeriesDc-v0'``
+Discrete Torque Control Series DC Motor Environment                  ``'Cont-TC-SeriesDc-v0'``
+Discrete Speed Control  Series DC Motor Environment                  ``'Finite-SC-SeriesDc-v0'``
+Continuous Speed Control Series DC Motor Environment                 ``'Cont-SC-SeriesDc-v0'``
+Discrete Current Control Series DC Motor Environment                 ``'Finite-CC-SeriesDc-v0'``
+Continuous Current Control Series DC Motor Environment               ``'Cont-CC-SeriesDc-v0'``
+
+**Shunt DC Motor Environments**
+
+Discrete Torque Control Shunt DC Motor Environment                   ``'Finite-TC-ShuntDc-v0'``
+Continuous Torque Control Shunt DC Motor Environment                 ``'Cont-TC-ShuntDc-v0'``
+Discrete Speed Control Shunt DC Motor Environment                    ``'Finite-SC-ShuntDc-v0'``
+Continuous Speed Control Shunt DC Motor Environment                  ``'Cont-SC-ShuntDc-v0'``
+Discrete Current Control Shunt DC Motor Environment                  ``'Finite-CC-ShuntDc-v0'``
+Continuous Current Control Shunt DC Motor Environment                ``'Cont-CC-ShuntDc-v0'``
+
+**Permanent Magnet Synchronous Motor (PMSM) Environments**
+
+Finite Torque Control PMSM Environment                               ``'Finite-TC-PMSM-v0'``
+Abc-Continuous Torque Control PMSM Environment                       ``'AbcCont-TC-PMSM-v0'``
+Dq-Continuous Torque Control PMSM Environment                        ``'DqCont-TC-PMSM-v0'``
+Finite Speed Control PMSM Environment                                ``'Finite-SC-PMSM-v0'``
+Abc-Continuous Speed Control PMSM Environment                        ``'Abc-Cont-SC-PMSM-v0'``
+Dq-Continuous Speed Control PMSM Environment                         ``'Dq-Cont-SC-PMSM-v0'``
+Finite Current Control PMSM Environment                              ``'Finite-CC-PMSM-v0'``
+Abc-Continuous Current Control PMSM Environment                      ``'AbcCont-CC-PMSM-v0'``
+Dq-Continuous Current Control PMSM Environment                       ``'DqCont-CC-PMSM-v0'``
+
+**Synchronous Reluctance Motor (SynRM) Environments**
+
+Finite Torque Control SynRM Environment                              ``'Finite-TC-SynRM-v0'``
+Abc-Continuous Torque Control SynRM Environment                      ``'AbcCont-TC-SynRM-v0'``
+Dq-Continuous Torque Control SynRM Environment                       ``'DqCont-TC-SynRM-v0'``
+Finite Speed Control SynRM Environment                               ``'Finite-SC-SynRM-v0'``
+Abc-Continuous Speed Control SynRM Environment                       ``'Abc-Cont-SC-SynRM-v0'``
+Dq-Continuous Speed Control SynRM Environment                        ``'Dq-Cont-SC-SynRM-v0'``
+Finite Current Control SynRM Environment                             ``'Finite-CC-SynRM-v0'``
+Abc-Continuous Current Control SynRM Environment                     ``'AbcCont-CC-SynRM-v0'``
+Dq-Continuous Current Control SynRM Environment                      ``'DqCont-CC-SynRM-v0'``
+
+**Squirrel Cage Induction Motor (SCIM) Environments**
+
+Finite Torque Control SCIM Environment                               ``'Finite-TC-SCIM-v0'``
+Abc-Continuous Torque Control SCIM Environment                       ``'AbcCont-TC-SCIM-v0'``
+Dq-Continuous Torque Control SCIM Environment                        ``'DqCont-TC-SCIM-v0'``
+Finite Speed Control SCIM Environment                                ``'Finite-SC-SCIM-v0'``
+Abc-Continuous Speed Control SCIM Environment                        ``'Abc-Cont-SC-SCIM-v0'``
+Dq-Continuous Speed Control SCIM Environment                         ``'Dq-Cont-SC-SCIM-v0'``
+Finite Current Control SCIM Environment                              ``'Finite-CC-SCIM-v0'``
+Abc-Continuous Current Control SCIM Environment                      ``'AbcCont-CC-SCIM-v0'``
+Dq-Continuous Current Control SCIM Environment                       ``'DqCont-CC-SCIM-v0'``
+
+**Doubly Fed Induction Motor (DFIM) Environments**
+
+Finite Torque Control DFIM Environment                               ``'Finite-TC-DFIM-v0'``
+Abc-Continuous Torque Control DFIM Environment                       ``'AbcCont-TC-DFIM-v0'``
+Dq-Continuous Torque Control DFIM Environment                        ``'DqCont-TC-DFIM-v0'``
+Finite Speed Control DFIM Environment                                ``'Finite-SC-DFIM-v0'``
+Abc-Continuous Speed Control DFIM Environment                        ``'Abc-Cont-SC-DFIM-v0'``
+Dq-Continuous Speed Control DFIM Environment                         ``'Dq-Cont-SC-DFIM-v0'``
+Finite Current Control DFIM Environment                              ``'Finite-CC-DFIM-v0'``
+Abc-Continuous Current Control DFIM Environment                      ``'AbcCont-CC-DFIM-v0'``
+Dq-Continuous Current Control DFIM Environment                       ``'DqCont-CC-DFIM-v0'``
+=================================================================== ==============================
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Motor Environments:
+   :glob:
+
+   permex_dc/permex_dc_envs
+   extex_dc/extex_dc_envs
+   series_dc/series_dc_envs
+   shunt_dc/shunt_dc_envs
+   pmsm/pmsm_envs
+   synrm/synrm_envs
+   scim/scim_envs
+   dfim/dfim_envs
+
+
+Electric Motor Base Environment
+'''''''''''''''''''''''''''''''
+
+.. automodule:: gym_electric_motor.core
+
+.. figure:: ../../plots/TopLevelStructure.svg
+
+.. autoclass:: gym_electric_motor.core.ElectricMotorEnvironment
+   :members:
+Abc-Continuous Current Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContCurrentControlDoublyFedInductionMotorEnv
+   :members:
+Finite Control Set Current Control Doubly Fed Induction Motor Environment
+**************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlDoublyFedInductionMotorEnv
+   :members:
+Finite Control Set Torque Control Doubly Fed Induction Motor Environment
+**************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlDoublyFedInductionMotorEnv
+   :members:
+Abc-Continuous Speed Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContSpeedControlDoublyFedInductionMotorEnv
+   :members:
+Abc-Continuous Torque Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContTorqueControlDoublyFedInductionMotorEnv
+   :members:
+Dq-Continuous Current Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContCurrentControlDoublyFedInductionMotorEnv
+   :members:
+Finite Control Set Speed Control Doubly Fed Induction Motor Environment
+**************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlDoublyFedInductionMotorEnv
+   :members:
+Dq-Continuous Speed Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContSpeedControlDoublyFedInductionMotorEnv
+   :members:
+Doubly Fed Induction Motor Environments
+***************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Dq-Continuous Torque Control Doubly Fed Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContTorqueControlDoublyFedInductionMotorEnv
+   :members:
+Finite Control Set  Torque Control DC Externally Excited Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlDcExternallyExcitedMotorEnv
+   :members:
+Externally Excited DC Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Finite Control Set Speed Control DC Externally Excited Motor Environment
+*******************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlDcExternallyExcitedMotorEnv
+   :members:
+Continuous Current Control DC Externally Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContCurrentControlDcExternallyExcitedMotorEnv
+   :members:
+Continuous Torque Control DC Externally Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContTorqueControlDcExternallyExcitedMotorEnv
+   :members:
+Continuous Speed Control DC Externally Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContSpeedControlDcExternallyExcitedMotorEnv
+   :members:
+Finite Control Set Current Control DC Externally Excited Motor Environment
+*********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlDcExternallyExcitedMotorEnv
+   :members:
+Finite Control Set Speed Control Synchronous Reluctance Motor Environment
+********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlSynchronousReluctanceMotorEnv
+   :members:
+Dq-Continuous Speed Control Synchronous Reluctance Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContSpeedControlSynchronousReluctanceMotorEnv
+   :members:
+Abc-Continuous Torque Control Synchronous Reluctance Motor Environment
+******************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContTorqueControlSynchronousReluctanceMotorEnv
+   :members:
+Synchronous Reluctance Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Dq-Continuous Current Control Synchronous Reluctance Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContCurrentControlSynchronousReluctanceMotorEnv
+   :members:
+Abc-Continuous Speed Control Synchronous Reluctance Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContSpeedControlSynchronousReluctanceMotorEnv
+   :members:
+Finite Control Set Torque Control Synchronous Reluctance Motor Environment
+*********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlSynchronousReluctanceMotorEnv
+   :members:
+Dq-Continuous Torque Control Synchronous Reluctance Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContTorqueControlSynchronousReluctanceMotorEnv
+   :members:
+Abc-Continuous Current Control Synchronous Reluctance Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContCurrentControlSynchronousReluctanceMotorEnv
+   :members:
+Finite Control Set Current Control Synchronous Reluctance Motor Environment
+**********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlSynchronousReluctanceMotorEnv
+   :members:
+Dq-Continuous Torque Control Permanent Magnet Synchronous Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContTorqueControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Finite Control Set Speed Control Permanent Magnet Synchronous Motor Environment
+********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Permanent Magnet Synchronous Motor Environments
+************************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Abc-Continuous Torque Control Permanent Magnet Synchronous Motor Environment
+******************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContTorqueControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Dq-Continuous Speed Control Permanent Magnet Synchronous Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContSpeedControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Dq-Continuous Current Control Permanent Magnet Synchronous Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContCurrentControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Abc-Continuous Current Control Permanent Magnet Synchronous Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContCurrentControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Abc-Continuous Speed Control Permanent Magnet Synchronous Motor Environment
+****************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContSpeedControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Finite Control Set Torque Control Permanent Magnet Synchronous Motor Environment
+*********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Finite Control Set Current Control Permanent Magnet Synchronous Motor Environment
+**********************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlPermanentMagnetSynchronousMotorEnv
+   :members:
+Finite Control Set Speed Control Squirrel Cage Induction Motor Environment
+**************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlSquirrelCageInductionMotorEnv
+   :members:
+Finite Control Set Torque Control Squirrel Cage Induction Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlSquirrelCageInductionMotorEnv
+   :members:
+Dq-Continuous Torque Control Squirrel Cage Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContTorqueControlSquirrelCageInductionMotorEnv
+   :members:
+Abc-Continuous Current Control Squirrel Cage Induction Motor Environment
+*************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContCurrentControlSquirrelCageInductionMotorEnv
+   :members:
+Dq-Continuous Speed Control Squirrel Cage Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContSpeedControlSquirrelCageInductionMotorEnv
+   :members:
+Dq-Continuous Current Control Squirrel Cage Induction Motor Environment
+************************************************************************
+.. autoclass:: gym_electric_motor.envs.DqContCurrentControlSquirrelCageInductionMotorEnv
+   :members:
+Finite Control Set Current Control Squirrel Cage Induction Motor Environment
+*****************************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlSquirrelCageInductionMotorEnv
+   :members:
+Squirrel Cage Induction Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Abc-Continuous Torque Control Squirrel Cage Induction Motor Environment
+************************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContTorqueControlSquirrelCageInductionMotorEnv
+   :members:
+Abc-Continuous Speed Control Squirrel Cage Induction Motor Environment
+**********************************************************************
+.. autoclass:: gym_electric_motor.envs.AbcContSpeedControlSquirrelCageInductionMotorEnv
+   :members:
+Finite Control Set Current Control DC Permanently Excited Motor Environment
+*********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlDcPermanentlyExcitedMotorEnv
+   :members:
+Continuous Torque Control DC Permanently Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContTorqueControlDcPermanentlyExcitedMotorEnv
+   :members:
+Continuous Current Control DC Permanently Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContCurrentControlDcPermanentlyExcitedMotorEnv
+   :members:
+Permanently Excited DC Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Finite Control Set  Torque Control DC Permanently Excited Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlDcPermanentlyExcitedMotorEnv
+   :members:
+Finite Control Set Speed Control DC Permanently Excited Motor Environment
+*******************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlDcPermanentlyExcitedMotorEnv
+   :members:
+Continuous Speed Control DC Permanently Excited Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContSpeedControlDcPermanentlyExcitedMotorEnv
+   :members:
+Series DC Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Finite Control Set Speed Control Series DC Motor Environment
+*******************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlDcSeriesMotorEnv
+   :members:
+Finite Control Set Current Control Series DC Motor Environment
+*********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlDcSeriesMotorEnv
+   :members:
+Continuous Current Control Series DC Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.ContCurrentControlDcSeriesMotorEnv
+   :members:
+Finite Control Set  Torque Control Series DC Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlDcSeriesMotorEnv
+   :members:
+Continuous Torque Control Series DC Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContTorqueControlDcSeriesMotorEnv
+   :members:
+Continuous Speed Control Series DC Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContSpeedControlDcSeriesMotorEnv
+   :members:
+Finite Control Set Current Control Shunt DC Motor Environment
+*********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteCurrentControlDcShuntMotorEnv
+   :members:
+Continuous Speed Control Shunt DC Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContSpeedControlDcShuntMotorEnv
+   :members:
+Continuous Torque Control Shunt DC Motor Environment
+*******************************************************
+.. autoclass:: gym_electric_motor.envs.ContTorqueControlDcShuntMotorEnv
+   :members:
+Continuous Current Control Shunt DC Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.ContCurrentControlDcShuntMotorEnv
+   :members:
+Shunt DC Motor Environments
+******************************************
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Environments:
+   :glob:
+
+   *
+
+
+Finite Control Set Speed Control Shunt DC Motor Environment
+*******************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteSpeedControlDcShuntMotorEnv
+   :members:
+Finite Control Set  Torque Control Shunt DC Motor Environment
+********************************************************************
+.. autoclass:: gym_electric_motor.envs.FiniteTorqueControlDcShuntMotorEnv
+   :members:

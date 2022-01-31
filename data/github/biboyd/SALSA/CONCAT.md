@@ -227,3 +227,609 @@ features.
 
 If you are interested in contributing you can contact us directly at
 boyd.brendan@stonybrook.edu or add an issue on this Github page.
+.. _api-reference:
+
+API Reference
+=============
+
+.. automodapi:: salsa
+  :no-inheritance-diagram:
+
+.. automodapi:: salsa.utils
+  :no-inheritance-diagram:
+.. _installation:
+
+How To Install
+==============
+
+Installing Salsa
+^^^^^^^^^^^^^^^^^
+
+Salsa is built off of quite a few different packages so it is best to install
+these before installing salsa. Go to :ref:`dependencies-install` for more details
+on how best to do this.
+
+Stable Version
+--------------
+
+If you have the dependencies already installed then you can use pip to install
+the package: ::
+
+  $ pip install astro-salsa
+
+Development Version
+-------------------
+
+For the latest development version follow these instructions if you have the
+dependencies already installed. Next you need to `clone the repository
+<https://github.com/biboyd/SALSA>`_ then enter the main directory and use pip to
+install the package: ::
+
+  $ git clone https://github.com/biboyd/SALSA.git
+  $ cd SALSA
+  $ pip install -e .
+
+This will check that dependencies are installed and should install any that you
+might be missing. Again, since this is a somewhat complicated environment, it is
+best to install the dependencies beforehand.
+
+.. note::
+  To install some of the dependencies, the gcc compiler needs to be installed.
+  This is not a problem for most machines but can raise an error for some.
+
+Now you're all set to go! ::
+
+  $ python
+  >>> import salsa
+
+.. _dependencies-install:
+
+Installing Dependencies
+^^^^^^^^^^^^^^^^^^^^^^^
+You may install the dependencies on your own, and you may have some of them installed
+already (ie numpy, matplotlib) depending on your environment. To make installation
+easier, we advise using conda and a conda environment to install.
+
+.. _conda-install:
+
+Conda Environment
+-----------------
+
+One of the easiest ways to make sure you have all the right dependencies is to
+use a conda environment. In the repository there is an ``enivronment.yml`` file
+that has all the packages necessary to run ``salsa``. To create the enivronment
+you first need to
+`install conda <https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html>`_
+and then run the following: ::
+
+  $ git clone https://github.com/biboyd/SALSA.git
+  $ cd SALSA
+  $ conda env create --file environment.yml
+  $ conda activate salsa-env
+
+Now you should be able to painlessly install salsa as described above!
+
+.. note::
+  This installs mpi4py using conda. This may cause problems if you already have
+  an MPI Library already installed because conda will try to install one itself.
+  If you already have an MPI library it is best to use pip see
+  :ref:`install-mpi4py` for more details.
+
+.. _manual_install:
+
+Manually Installing Dependencies
+---------------------------------
+
+If you have a different, preferred method for installing dependencies you are more
+than welcome to go with that route. See the ``environment.yml`` and/or ``setup.py``
+in the `Github repo <https://github.com/biboyd/SALSA>`_ for specifics about what
+packages you need. Below is some advice/guides to installing a couple of the
+trickier packages.
+
+.. _install-yt:
+
+Install yt
+*************
+
+yt can be installed in a few different ways but one of the easier ways is by
+using conda. First
+`install conda <https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html>`_
+then run: ::
+
+  $ conda install -c http://use.yt/with_conda/ -c conda-forge yt
+
+For full details about the different ways you can install yt, see
+`yt's documentation <https://yt-project.org/doc/>`_ .
+
+.. _install-trident:
+
+Install Trident
+****************
+
+Trident can be installed via ``pip install trident``. The first time trident runs
+though, it downloads an ionization table. It is recommended that you run trident
+right after you pip install. This will also do some tests to make sure trident
+is running properly. ::
+
+  $ python
+  >>> import trident; trident.verify()
+
+For more details see `trident's documentation <https://trident.readthedocs.io/>`_
+
+.. _install-mpi4py:
+
+Install mpi4py
+**************
+
+`mpi4py <https://mpi4py.readthedocs.io/en/stable/index.html>`_ is a package that
+enables use of MPI parallelism with python. Salsa uses this to split up lightray
+creation and absorber extraction across multiple processors which becomes necessary
+for large numbers of lightrays.
+
+mpi4py can be installed either using pip or conda. If you want to pip install
+mpi4py, you need to have an MPI library already installed, like
+`OpenMPI <https://www.open-mpi.org/>`_ . Otherwise just: ::
+
+  $ pip install mpi4py
+
+If you want to use conda to install mpi4py, you need to be careful because there
+may be problems if you have an MPI library already installed. Otherwise just: ::
+
+  $ conda install mpi4py
+.. _absorber-extraction:
+
+Absorber Extraction
+====================
+
+The main purpose of salsa is to extract absorbers from lightrays. Doing this
+allows us to create synthetic absorption line catalogs/surveys in an analogous
+fashion as real observational surveys. There are two methods which salsa can
+extract absorbers: (1.) The SPICE method which looks directly at cell level data
+of the simulation.  (2.) Spectacle method which uses the python package
+`Spectacle <https://spectacle-py.readthedocs.io/>`_ to fit Voigt
+profiles to synthetic spectra that is generated by
+`Trident <https://trident.readthedocs.io/>`_, another open-source python package.
+
+.. _spice-method:
+
+SPICE Method
+-------------
+The SPICE (Simple Procedure for Iterative Cloud Extraction) method looks at a trident lightray and
+attempts to extract "absorbers" by identifying contiguous groups of cells along
+the ray that will contribute to observable features in the absorption spectra.
+
+The algorithm that does this is an iterative process and for a more detailed and
+likely easier to comprehend explanation see :ref:`detailed-spice-method`. But here is a
+rundown of how the algorithm functions to extract absorbers from a light ray
+
+Quick rundown of SPICE method:
+
+  1.) Find cutoff in number density such that 80% of the column density is
+  contained in cells with number density above this threshold.
+
+  2.) Define intervals that encompass the cells which meet this cutoff.
+
+  3.) Mask the intervals along the lightray that  were found in the previous step
+
+  4.) Repeat same step as (1.). Find the 80% cutoff based on the column density
+  *left over*.
+
+  5.) define intervals just as (3.)
+
+  6.) Take all the intervals that have been found and sensibly combine all of
+  them together. We do this by combining overlapping intervals **if** the average
+  velocity of each intervals are within a threshold (set by
+  :class:`~salsa.AbsorberExtractor.velocity_res` parameter. Default is 10 km/s)
+
+  7.) Now repeat process starting at step 3 until the total column density that
+  is *left over* in the lightray (ie not in an interval) is less than some
+  the lowest detectable column density (set by :class:`~salsa.AbsorberExtractor.min_absorber`
+  parameter. Default is Log(N)=13, though it can vary based on ion)
+
+  8.) Finally, we check whether each interval meets the detectable column density
+  threshold. We return only the intervals that are above the threshold and define
+  these to be our absorbers.
+
+.. _spectacle-method:
+
+Spectacle
+----------
+
+This method utilizes trident's feature of creating synthetic spectra from a
+light ray object as well as spectacle's ability to fit lines to these spectra.
+For more details about how Spectacle works and specifically how it runs fits see
+`Spectacle: Line Finding
+<https://spectacle-py.readthedocs.io/en/latest/line_finding.html>`_ and
+`Spectacle: Fitting <https://spectacle-py.readthedocs.io/en/latest/fitting.html>`_
+
+.. _detailed-spice-method:
+
+Detailed SPICE Example
+-----------------------------
+
+If you want a better understanding of how the SPICE method works, here is a real
+life example. We break down each step of the method so you can see the under
+workings and see how some of the parameters may impact the algorithm.
+
+Here is our lightray, looking at the number density of O VI along its
+length. Our goal is to find regions/intervals of cells along the lightray
+with the highest column density and thus will meaningfully contribute to the
+absorption spectra of the lightray.
+
+.. image:: /_static/annotated_schematic/01-ray.png
+
+The first step is to find a cutoff value in number density such that cells above
+this cutoff make up 80% of the column density. This isolates the regions with
+very high number density. Below we can see two main regions that will likely be
+the largest absorbers.
+
+
+.. note::
+  This 80% value is just the default value and can be tweak. We have found that
+  the algorithm is fairly insensitive to this value. To change it, change the
+  :class:`~salsa.AbsorberExtractor.frac` parameter in :class:`~salsa.AbsorberExtractor`
+
+.. image:: _static/annotated_schematic/02-cut.png
+
+
+Next we define intervals that cover each region based on the cut. This leads us
+to 4 different regions, 2 small ones right next to eachother, and the two large
+ones that we could spot pretty easily from just eye balling it.
+
+.. image:: _static/annotated_schematic/03-intervals.png
+
+Now we mask the intervals we found witht he first cutoff and check there is
+enough column density remaining in the lightray. We find there is LogN=13.3
+remaining in the lightray. We use a threshold for LogN=13 in this example so we
+continue to iterating through.
+
+.. note::
+  The LogN=13 threshold is set by the :class:`~salsa.AbsorberExtractor.absorber_min` 
+  parameter. This sets the minimum detectable columne density for an absorber
+  and so can vary based on ion and the research goals.
+
+.. image:: _static/annotated_schematic/04-mask.png
+
+Here we define a new cut based on what is "left over" of the lightray. This
+isolates some new regions that were at a lower column density but could still
+significantly contribute to the spectra, and so something we want to extract.
+
+.. image:: _static/annotated_schematic/05-mask_cut.png
+
+
+Again we extract intervals based on the cut. This time some of the intervals
+overlap masked regions. This is OK and will be dealt with in the "sensible
+combination" phase that comes next.
+
+Combining all of the intervals from the two sets of cuts we are left with a bit
+of a mess. The first step is to divide up any regions with overlapping intervals
+into smaller component parts and then we will recombine them into sensible
+intervals that capture observationally distinct absorbers.
+
+.. image:: _static/annotated_schematic/07-all_intervals.png
+
+Now that we have separated the overlapping regions we can decide on which
+intervals to combine. We do this by taking into account the line of sight
+velocity information.
+
+We calculate the average velocity of each interval and then combine two
+intervals if their velocities are with in a certain threshold, 10 km/s in this
+example.
+
+.. note::
+  The velocity threshold that defines whether intervals/regions are combined is
+  set by :class:`~salsa.AbsorberExtractor.velocity_res`. The value is motivated by the
+  resolution of observed spectra though we have found the algorithm to be fairly
+  insensitive to the precise value, especially when looking at a catalog of
+  absorbers.
+
+.. image:: _static/annotated_schematic/08-all_divided.png
+
+Here are the remaining intervals after our combining phase. You can see that
+some of the overlapping intervals were combined (like around 60 kpc) while
+others were separated/remained separated (like the two large absorbers at 100
+kpc were not combined and some small ones on either side where not combined).
+
+.. image:: _static/annotated_schematic/09-combined_intervals.png
+
+Now we again mask the regions with intervals and calculate how much column
+density is "left over". In this case we find that there is only LogN=12.7 which
+is beneath our minimum absorber threshold of LogN=13.
+
+So, we stop iterating through the ray and do a final cleanup of the intervals by
+throwing out all the intervals with "low column density" (based on
+:class:`~salsa.AbsorberExtractor.absorber_min`). This leaves us with the absorbers
+which can be further studied by extracting other information about them (e.g.
+temperature, radial velocity, metallicity, etc.).
+
+.. image:: _static/annotated_schematic/10-final_absorbers.png
+.. SALSA documentation master file, created by
+   sphinx-quickstart on Tue Jun 16 15:17:47 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to SALSA's documentation!
+=================================
+
+Salsa is an open-source python module that creates a streamlined process to
+generate synthetic absorber catalogs from galactic simulations. Multiple open-source software
+projects utilized to achieve this. Accessing simulation data is done using yt.
+Trident is used to generate synthetic sightlines/lightrays and generate synthetic
+spectra. Spectacle is used to fit voigt profiles to spectra and extract absorbers.
+
+Observational studies generate large absorber catalogs by studying the absorption
+line spectra of distant quasars, as their light passes through intervening galaxies.
+Salsa can generate similar catalogs from cosmological and galactic simulations,
+allowing research to study these simulations from an observers perspective. This
+can give new insights into the data as well as help facilitate comparisons and
+collaboration between simulations and observations
+
+In addition a novel method for extracting absorbers, the SPICE method. This uses
+cell level data to extract absorbers from a Trident lightray and returns a great
+deal of information that can be further analyzed.
+
+.. toctree::
+   :maxdepth: 2
+
+   installation.rst
+   annotated_example.rst
+   absorber_extraction.rst
+   reference.rst
+
+Index
+==================
+* :ref:`genindex`
+lightray_index.. _annotated-example:
+
+Annotated Example
+==================
+
+To understand how salsa works and what it can do, here is an annotated example
+to walk through a use case of salsa.
+
+.. _extract-absorbers-example:
+
+Extracting Absorbers
+---------------------
+
+One of the main goals of salsa is to make it easy to construct a catalog of
+absorbers that can then be further analyzed. The process of constructing absorbers
+takes two steps.
+
+Step 1: Generate Light Rays
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+trident is used to generate light rays that pass through your simulation. These
+are 1-Dimensional objects that connect a series of cells and save field information
+contained in those cells, ie density, temperature, line of sight velocity.
+From these we can then extract absorbers along these light rays. (for further
+information see `trident's documentation <https://trident.readthedocs.io/>`_)
+
+To aid in generating these light rays, salsa contains the
+:class:`~salsa.generate_lrays` function which can generate any number of lightrays
+which uniformly, randomly sample impact parameters. This gives us a sample that
+is consistent with what the sample of observational studies. This prevents any
+sampling bias when doing comparisons.
+
+To get started we need to get a dataset. The one used in this example can be
+found `here <https://yt-project.org/data/>`_
+
+To use this function first create a directory to save rays:::
+
+  $ mkdir my_rays
+
+Now we can load in a data set and define some of the parameters that we will
+look for.
+::
+
+  import yt
+  import salsa
+  import numpy as np
+  import pandas as pd
+
+  # load in the simulation dataset
+  ds_file = "HiresIsolatedGalaxy/DD0044/DD0044"
+  ds = yt.load(ds_file)
+
+  # define the center of the galaxy
+  center= [0.53, 0.53, 0.53]
+
+  # the directory where lightrays will be saved
+  ray_dir = 'my_rays'
+  n_rays=4
+
+  # Choose what absorption lines to add to the dataset as well as additional
+  # field data to save
+  ion_list=['H I', 'C IV', 'O VI']
+  other_fields = ['density', 'temperature', 'metallicity']
+
+  # the maximum distance a lightray will be created (minimum default to 0)
+  max_impact = 15 #kpc
+
+With the parameters set up we can now generate the lightrays. We will set the
+seed used to create the random light rays so we can reproduce these results.
+::
+
+  # set a seed so the function produces the same random rays
+  np.random.seed(18)
+
+  # Run the function and rays will be saved to my_rays directory
+  salsa.generate_lrays(ds, center, n_rays, max_impact,
+                       ion_list=ion_list, fields=other_fields, out_dir=ray_dir)
+
+
+Step 2: Extract Absorbers
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For more details on absorber extraction see :ref:`absorber-extraction`. But the
+quick synopsis is there is the SPICE method and the Spectacle method. SPICE looks at
+cell level data while Spectacle fits lines to a synthetic spectra that is generated
+by trident. The :class:`~salsa.AbsorberExtractor` class can use both methods.
+
+Now let's extract some absorbers from the Light rays we made
+::
+
+  ray_file = f"{ray_dir}/ray0.h5"
+
+  # construct absorber extractor
+  abs_ext = salsa.AbsorberExtractor(ds, ray_file, ion_name='H I')
+
+  # use SPICE method to extract absorbers into a pandas DataFrame
+  units_dict=dict(density='g/cm**3', metallicity='Zsun')
+  df_spice = abs_ext.get_spice_absorbers(other_fields, units_dict=units_dict)
+  df_spice.head()
+
+.. csv-table::
+  :header: name,wave,redshift,col_dens,delta_v,vel_dispersion,interval_start,interval_end,density,temperature,metallicity
+
+  H I,1215.670,0.000,12.787,14.187,0.384,201,204,0.000,96469.462,1.086
+  H I,1215.670,0.000,15.367,-0.264,4.846,204,216,0.000,48429.090,1.103
+
+Can also extract using Spectacle:
+::
+
+  # use spectacle now
+  df_spect = abs_ext.get_spectacle_absorbers()
+  df_spect.head()
+
+.. csv-table::
+  :header: name,wave,col_dens,v_dop,delta_v,delta_lambda,ew,dv90,fwhm,redshift
+
+  HI1216,1215.670,15.154,31.705,-5.915,0.000,7.759,40.000,0.217,0.000
+
+Notice that both of these methods contain different information. SPICE includes
+more details of the simulation data like the density and temperature of the
+absorber, something that is not easily detected from the spectra. Spectacle
+contains more information of the line like the equivalent width and the doppler
+b parameter.
+
+To extract absorbers from multiple ``LightRays`` you can use the
+:class:`~salsa.get_absorbers` function. This will loop through a list of rays and
+extract absorbers from each one. see:::
+
+  ray_list = [f"{ray_dir}/ray0.h5",
+              f"{ray_dir}/ray1.h5",
+              f"{ray_dir}/ray2.h5",
+              f"{ray_dir}/ray3.h5"]
+
+  # initialize a new AbsorberExtractor for looking at C IV
+  abs_ext_civ = salsa.AbsorberExtractor(ds, ray_file, ion_name='C IV')
+  df_civ = salsa.get_absorbers(abs_ext_civ, ray_list, method='spice',
+                         fields=other_fields, units_dict=units_dict)
+
+  df_civ.head()
+
+.. csv-table::
+  :header: name,wave,redshift,col_dens,delta_v,vel_dispersion,interval_start,interval_end,density,temperature,metallicity,lightray_index
+
+  C IV,1548.187,0.000,14.057,-2.221,13.672,201,224,0.000,53985.906,1.103,0
+  C IV,1548.187,0.000,13.596,116.462,6.576,110,125,0.000,29972.846,1.107,2
+  C IV,1548.187,0.000,13.625,115.329,3.075,139,155,0.000,34632.022,1.101,2
+
+Notice that the Spectacle method could also be used. Also, although the
+AbsorberExtractor takes a ray file at construction, new rays can be loaded into
+it.
+
+To retain information on where each absorber came from, an ``lightray_index`` is
+given. The number represents the ray it was extracted from. So all absorbers
+extracted from ray2.h5 would have an index of ``2``. This can be useful for
+comparing/analyzing absorbers on the same sightline.
+
+.. _catalog-generation-example:
+
+Catalog Generation
+-------------------
+To generate a full catalog of absorbers we can use the
+:class:`~salsa.generate_catalog` function to both generate a sample of
+``trident.LightRay`` objects and then :class:`~salsa.AbsorberExtractor` to extract
+absorbers of a list of ions.
+
+Here is what you need to setup and run:::
+
+  df_catalog = salsa.generate_catalog(ds, n_rays, ray_dir, ion_list,
+                                      fields=other_fields, center=center,
+                                      impact_param_lims=(0, max_impact),
+                                      method='spice', units_dict=units_dict)
+
+  df_catalog.head()
+
+.. csv-table::
+  :header: name,wave,redshift,col_dens,delta_v,vel_dispersion,interval_start,interval_end,density,temperature,metallicity,absorber_index
+
+  H I,1215.670,0.000,18.678,108.065,1.509,107,156,0.000,16302.538,1.096,2
+  H I,1215.670,0.000,12.787,14.187,0.384,201,204,0.000,96469.462,1.086,0
+  H I,1215.670,0.000,15.367,-0.264,4.846,204,216,0.000,48429.090,1.103,0
+  C IV,1548.187,0.000,13.596,116.462,6.576,110,125,0.000,29972.846,1.107,2
+  C IV,1548.187,0.000,13.625,115.329,3.075,139,155,0.000,34632.022,1.101,2
+  C IV,1548.187,0.000,14.057,-2.221,13.672,201,224,0.000,53985.906,1.103,0
+
+This function looks first to see if rays have been created in the given directory.
+If there are the right number of rays and they all contain the right ions and
+other fields that were specified (in this case that would be 'density',
+'temperature', 'radius'), then those rays will be used. Otherwise, new rays are
+created using :class:`~salsa.generate_lrays`.
+
+Next, :class:`~salsa.get_absorbers` is used to find the absorbers from each ion
+in ``ion_list`` and finally a catalog is returned as a ``pandas.DataFrame``. Note
+that the lighray index is unique only up to the ion/wavelength
+
+
+.. _visualizing-absorbers:
+
+Visualizing Absorbers
+---------------------
+To visualize what is actually be extracted from the ``LightRay`` objects and
+synthetic spectra, you can use the :class:`~salsa.AbsorberPlotter` class. This
+is built off of the :class:`~salsa.AbsorberExtractor` with added functionality
+to make plots.
+
+To get a full picture of what is happening at each level we can create a
+multi panel plot containing:
+
+    1. a slice of the simulation with the ray annotated
+    2. The number density profile along the ray's path
+    3. The line of sight velocity profile along the ray's path
+    4. The synthetic spectra created from the ray
+
+This figure gives you a good overview of what is happening and can give valuable
+context to the absorption extraction methods. Additionally, each plot can be made
+individually if you care less about the spectra, or don't want to plot a slice
+(which can be time consuming, depending on the detail in the simulation).
+
+To create the multi-panel plot:::
+
+  import salsa
+  import yt
+  import matplotlib.pyplot as plt
+
+  # set the dataset path and load the light ray
+  ds_file="HiresIsolatedGalaxy/DD0044/DD0044"
+  ray = yt.load("my_rays/ray0.h5")
+
+  # set the y limits for one of the plots
+  num_dense_min=1e-11
+  num_dense_max=1e-5
+  plotter = salsa.AbsorberPlotter(ds_file, ray, "H I",
+                                  center_gal=[0.53, 0.53, 0.53],
+                                  use_spectacle=True,
+                                  plot_spectacle=True,
+                                  plot_spice=True,
+                                  num_dense_max=num_dense_max,
+                                  num_dense_min=num_dense_min)
+
+  fig, axes = plotter.create_multi_plot(outfname='example_multiplot.png')
+
+.. image:: /_static/example_multiplot.png
+
+The grey regions on the middle two plots indicate the absorbers that the SPICE
+method finds. The three highest column densities are marked and displayed in a
+legend. In the last plot, the solid lines indicate the "raw" spectra while the
+dotted lines show the absorption lines that Spectacle fit (only the three largest
+lines are plotted with their column densities recorded in a legend).
+
+The total column density along the lightray, the total found via the SPICE method
+and the total found by Spectacle is recorded in a legend in the spectra plot.
+
+You can see there is a discrepancy between the SPICE and Spectacle method. Due to the
+changing velocity profile, the SPICE method extracts two absorbers. Spectacle
+only fits one absorber because the larger absorber drowns out the smaller one.

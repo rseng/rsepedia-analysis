@@ -266,3 +266,771 @@ i4health) (EP/S021930/1) and the Department of Health’s NIHR-funded Biomedical
 London Hospitals. HTW is supported by funds from la Fondation Courtois awarded to Dr. Pierre Bellec. 
 
 # References
+Tutorials and Examples Gallery
+================================
+
+Below is a gallery of examplesWelcome to cca-zoo's documentation!
+===================================
+
+
+Documentation
+=============
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Using cca-zoo
+
+   documentation/install
+   documentation/getting_started
+   documentation/maths
+   documentation/user_guide
+   auto_examples/index
+
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Reference
+
+   api/data
+   api/deepmodels
+   api/models
+   api/model_selection
+   api/probabilisticmodels
+   api/utils
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer Info
+
+   developer_info/contribute
+   developer_info/support
+   developer_info/license
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`search`
+
+
+
+
+Contribute
+==========
+
+Contributions are welcome, and they are greatly appreciated! Every little bit
+helps, and credit will always be given.
+
+You can contribute in many ways:
+
+Types of Contributions
+----------------------
+
+Report Bugs
+~~~~~~~~~~~
+
+Report bugs at https://github.com/jameschapman19/cca_zoo/issues
+
+If you are reporting a bug, please include:
+
+* Your operating system name and version.
+* Any details about your local setup that might be helpful in troubleshooting.
+* Detailed steps to reproduce the bug.
+
+Fix Bugs
+~~~~~~~~
+
+Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+wanted" is open to whoever wants to implement it.
+
+Implement Features
+~~~~~~~~~~~~~~~~~~
+
+Look through the GitHub issues for features. Anything tagged with "enhancement"
+and "help wanted" is open to whoever wants to implement it.
+
+Write Documentation
+~~~~~~~~~~~~~~~~~~~
+
+cca-zoo has documentation at cca-zoo.readthedocs.io/en/latest/ but feedback/corrections
+on areas that are unclear or incorrect would be really helpful. Also any example notebooks can be added in the
+tutorial notebooks folder.
+
+Submit Feedback
+~~~~~~~~~~~~~~~
+
+The best way to send feedback is to file an issue at https://github.com/jameschapman19/cca_zoo/issues
+
+If you are proposing a feature:
+
+* Explain in detail how it would work.
+* Keep the scope as narrow as possible, to make it easier to implement.
+* Remember that this is a volunteer-driven project, and that contributions
+  are welcome :)
+
+Get Started!
+------------
+
+Ready to contribute? Here's how to set up `cca-zoo` for local development.
+
+1. Fork the `cca-zoo` repo on GitHub.
+2. Clone your fork locally::
+
+    $ git clone git@github.com:your_name_here/cca_zoo.git
+
+3. Create a branch for local development::
+
+    $ git checkout -b name-of-your-bugfix-or-feature
+
+   Now you can make your changes locally.
+
+4. Commit your changes and push your branch to GitHub::
+
+    $ git add .
+    $ git commit -m "Your detailed description of your changes."
+    $ git push origin name-of-your-bugfix-or-feature
+
+5. Submit a pull request through the GitHub website.
+
+- Issue Tracker: https://github.com/jameschapman19/cca_zoo/issues
+- Source Code: https://github.com/jameschapman19/cca_zooSupport
+=========
+
+If you are having issues, please let me know. This is my first python package so I am open to all and any feedback!
+james.chapman.19@ucl.ac.ukUser Guide
+===========
+
+Model Fit
+----------
+
+.. sourcecode:: python
+
+   from cca_zoo.models import CCA
+   from cca_zoo.data import generate_covariance_data
+   # %%
+   (train_view_1,train_view_2),(true_weights_1,true_weights_2)=generate_covariance_data(n=200,view_features=[10,10],latent_dims=1,correlation=1)
+
+
+   linear_cca = CCA(latent_dims=latent_dims, max_iter=max_iter)
+
+   linear_cca.fit([train_view_1, train_view_2])
+
+Hyperparameter Tuning
+^^^^^^^^^^^^^^^^^^^^^^
+
+Some models require hyperparameters. We can either choose these manually when the model is instantiated or we can use the gridsearch_fit() method
+to use a data driven approach.
+
+.. sourcecode:: python
+
+   from cca_zoo.models import rCCA
+   from cca_zoo.model_selection import GridsearchCV
+
+    def scorer(estimator,X):
+      dim_corrs=estimator.score(X)
+      return dim_corrs.mean()
+
+    c1 = [0.1, 0.3, 0.7, 0.9]
+    c2 = [0.1, 0.3, 0.7, 0.9]
+    param_grid = {'c': [c1,c2]}
+
+    ridge = GridSearchCV(rCCA(latent_dims=latent_dims),param_grid=param_grid,
+        cv=cv,
+        verbose=True,scoring=scorer).fit([train_view_1,train_view_2]).best_estimator_
+
+Model Transforms
+-----------------
+
+Once models are fit we can transform the data to latent projections for each view
+
+.. sourcecode:: python
+
+   projection_1,projection_2=ridge.transform([train_view_1,train_view_2])
+
+In a similar way to scikit-learn we can also call fit_transform to complete both of these steps in one go:
+
+.. sourcecode:: python
+
+   projection_1,projection_2=ridge.fit_transform([train_view_1,train_view_2])
+
+Model Evaluation
+-----------------
+
+We can evaluate models by their correlation in the latent space
+
+.. sourcecode:: python
+
+   correlation=ridge.score([train_view_1,train_view_2])
+
+For most models this gives us the average pairwise correlation in each latent dimension. For tensor cca models this
+gives the higher order correlation in each dimension.
+
+Model Weights
+-----------------
+
+In applications of cca, we are often interested in the model weights. These can be easily accessed as arrays with
+#features x #latent_dimensions for each view.
+
+.. sourcecode:: python
+
+   view_1_weights=ridge.weights[0]
+   view_2_weights=ridge.weights[1]
+
+Model Loadings
+-----------------
+
+Similarly we can access the loadings for a given set of samples
+
+.. sourcecode:: python
+
+   view_1_loadings, view_2_loadings=ridge.get_loadings([train_view_1, train_view_2])
+
+
+Deep Models
+------------
+
+Deep models have a slightly more involved process. We first need to choose the architectures for our encoder models
+
+.. sourcecode:: python
+
+   from cca_zoo.deepmodels import architectures
+   encoder_1 = architectures.Encoder(latent_dims=latent_dims, feature_size=784)
+   encoder_2 = architectures.Encoder(latent_dims=latent_dims, feature_size=784)
+
+We build our deep cca model using these encoders as inputs:
+
+.. sourcecode:: python
+
+   from cca_zoo.deepmodels import DCCA
+   dcca_model = DCCA(latent_dims=latent_dims, encoders=[encoder_1, encoder_2])
+
+This produces a PyTorch.nn.Module object which can be updated in a customised training loop. We also provide a LightningModule
+class from pytorch-lightning which can be used to train any of these models.Tutorials
+=========
+
+Tutorial on CCA and PLS methods
+---------------------------------
+
+Introduces the CCA and PLS family of models in an interactive notebook that allows the user to vary parameters in models
+with live updates using ipython widgets submitted for MICCAI 2021 Educational Challenge
+
+https://github.com/jameschapman19/cca_zoo/blob/main/tutorial_notebooks/CCA_Tutorial.ipynb
+
+Tutorial running models on paired MNIST halves
+--------------------------------------------------
+
+Demonstrates the API for deep learning and multiview (more than 2 view) data
+
+https://github.com/jameschapman19/cca_zoo/blob/main/tutorial_notebooks/cca_zoo_mnist.ipynb
+
+Tutorial understanding how regularisation and sparsity affects model weights for different models
+----------------------------------------------------------------------------------------------------
+
+Demonstrates some of the state-of-the-art methods for modelling multiview data with sparse weights
+
+https://github.com/jameschapman19/cca_zoo/blob/main/tutorial_notebooks/cca_zoo_weights_and_sparsity.ipynbMathematical Foundations
+===========================
+
+Canonical Correlation Analysis (CCA) and Partial Least Squares (PLS) models
+are effective ways of finding associations between multiple views of data.
+
+PCA
+----
+
+It is helpful to start off by formulating PCA in its mathematical form.
+The first principle component can be written as the solution to the convex optimisation problem:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ w_1^TX_1^TX_1w_1  \}
+
+    \text{subject to:}
+
+    w_1^Tw_1=1
+
+WHich is optimized for the singular vectors of the covariance matrix :math:`X^TX`.
+
+PLS
+----
+
+Now consider two data matrices with the same number of samples :math:`X_1` and :math:`X_2`.
+It is tempting to write a slightly different optimisation problem:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ w_1^TX_1^TX_2w_2  \}
+
+    \text{subject to:}
+
+    w_1^Tw_1=1
+
+    w_2^Tw_2=1
+
+Which is optimised for the left and right singular vectors of the cross covariance matrix :math:`X_1^TX_2`
+
+
+CCA
+----
+
+To arrive at Canonical Correlation we change the constraints slightly so that they now depend on the variance
+in each view as well as the weights. This makes them data dependent.
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ w_1^TX_1^TX_2w_2  \}
+
+    \text{subject to:}
+
+    w_1^TX_1^TX_1w_1=1
+
+    w_2^TX_2^TX_2w_2=1
+
+Despite these more complex constraints, CCA is the solution to a generalized eigenvalue problem.
+
+Regularized CCA
+-----------------
+
+Notice that the constraints for PLS and CCA are identical in the case that :math:`X_i^TX_i=I`.
+This leads naturally to mixing the constraints and in particular the PLS constraint acts in a similar
+way to the 'ridge' regularisation in Ridge Regression.
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ w_1^TX_1^TX_2w_2  \}
+
+    \text{subject to:}
+
+    (1-c_1)w_1^TX_1^TX_1w_1+c_1w_1^Tw_1=1
+
+    (1-c_2)w_2^TX_2^TX_2w_2+c_2w_2^Tw_2=1
+
+Other regularized CCA and PLS
+--------------------------------
+
+There has been lots of research into more general forms of regularisation for CCA, in particular forms that induce
+sparsity on the weights. In general these can be written in a form somewhat similar to:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ w_1^TX_1^TX_2w_2 + \lambda_1f_1(w_1) + \lambda_2f_2(w_2)  \}
+
+    \text{subject to:}
+
+    (1-c_1)w_1^TX_1^TX_1w_1+c_1w_1^Tw_1=1
+
+    (1-c_2)w_2^TX_2^TX_2w_2+c_2w_2^Tw_2=1
+
+These problems usually have no closed form solution and are typically solved by alternately fixing :math:`w_1`
+and :math:`w_2`.
+
+Kernel CCA and PLS
+---------------------
+
+By expressing the weights as :math:`w_i=\alpha_iX_i` we can transform the CCA problem into its kernel form:
+
+.. math::
+
+    \alpha_{opt}=\underset{\alpha}{\mathrm{argmax}}\{ \alpha_1^TK_1^TK_2\alpha_2  \}
+
+    \text{subject to:}
+
+    \alpha_1^TK_1^TK_1\alpha_1=1
+
+    \alpha_2^TK_2^TK_2\alpha_2=1
+
+Finally we can also consider more general kernel matrices without loss of generalisation. A similar reparameterization
+exists for PLS and therefore for ridge regularized CCA.
+
+Multiset CCA
+----------------
+
+Ridge Regularized CCA can be generalized to find correlations between more than one view with the formulation:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{\sum_i\sum_{j\neq i} w_i^TX_i^TX_jw_j  \}\\
+
+    \text{subject to:}
+
+    (1-c_i)w_i^TX_i^TX_iw_i+c_iw_i^Tw_i=1
+
+This form is often referred to as SUMCOR CCA because it optimizes for the pairwise sum of . This can be formulated as a
+generalized eigenvalue problem and therefore solved efficiently.
+
+Generalized CCA
+-----------------
+
+Ridge Regularized CCA can be generalized to find correlations between more than one view with the formulation:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ \sum_iw_i^TX_i^TT  \}\\
+
+    \text{subject to:}
+
+    T^TT=1
+
+This form is often referred to as MAXVAR CCA since it finds an auxiliary vector :math:`T` with fixed unit norm that has
+maximum sum of variance with each view. This can also be formulated as a generalized eigenvalue problem and
+therefore solved efficiently.
+
+Deep CCA
+----------
+
+The ideas behind CCA can be extended to a general form where instead of linear weights, we consider functions
+:math:`f(X_i)`. Where these functions are parameterized by neural networks, we can consider a 'Deep' CCA:
+
+.. math::
+
+    w_{opt}=\underset{w}{\mathrm{argmax}}\{ f(X_1)^Tf(X_2)  \}
+
+    \text{subject to:}
+
+    f(X_1)^Tf(X_1)=1
+
+    f(X_2)^Tf(X_2)=1Getting Started
+===============
+
+cca-zoo is a collection of linear, kernel, and deep methods for canonical correlation analysis of multiview data.
+Where possible I have followed the scikit-learn/mvlearn APIs and models therefore have
+fit/transform/fit_transform methods as standard.
+
+Look how easy it is to use:
+
+.. sourcecode:: python
+
+   from cca_zoo.models import CCA
+   from cca_zoo.data import generate_covariance_data
+   # %%
+   n_samples=100
+   (train_view_1,train_view_2),(true_weights_1,true_weights_2)=generate_covariance_data(n=n_samples,view_features=[10,10],latent_dims=1,correlation=1)
+
+   linear_cca = CCA(latent_dims=latent_dims, max_iter=max_iter)
+
+   linear_cca.fit((train_view_1, train_view_2))
+
+Installation
+=============
+
+cca-zoo can be installed with python versions >=3.7. At the moment there are two options for installation:
+
+1. Clone `cca-zoo` and create a virtual environment using the requirements
+3. Install directly from PyPI release without cloning `cca-zoo`.
+
+Installing with pip
+----------------------------------------
+
+Install the current release of ``cca-zoo`` with ``pip``::
+
+    $ pip install cca-zoo
+
+To upgrade to a newer release use the ``--upgrade`` flag::
+
+    $ pip install --upgrade cca-zoo
+
+Optional dependencies
+----------------------------------------
+
+Since some of the functionality depends on PyTorch and Numpyro which are both large packages and may have difficulties
+with windows installation, we do not install them by default. To access these,
+
+* [deep]: ``Deep Learning Based Models``
+* [probabilistic]: ``Probabilistic Models``
+* [all]: ``Include both Probabilistic and Deep Learning Based Models``
+
+If you wish to use these functions, you must install their required dependencies. These are listed in the package requirements folder with corresponding keyword names for manual installation or can be installed from PyPI by simply calling::
+
+    $ pip install cca-zoo[keyword]
+
+where 'keyword' is from the list above, bracketed.
+To upgrade the package and torch requirements::
+
+    $ pip install --upgrade cca-zoo[keyword]
+
+Hardware requirements
+---------------------
+The ``cca-zoo`` package has no specific hardware requirements but some models may be RAM intensive and deep learning and probabilistic models may benefit from a dedicated GPU
+
+OS Requirements
+---------------
+This package is supported for *Linux* and *macOS* and can also be run on Windows machines.
+Probabilistic Models
+====================================
+
+Variational CCA
+----------------------------------------
+
+.. automodule:: cca_zoo.probabilisticmodels.probabilisticcca
+    :inherited-members:
+    :exclude-members: get_params, set_params
+Deep Models
+===========================
+
+DCCA
+-------------------------------
+
+.. automodule:: cca_zoo.deepmodels.dcca
+    :members:
+    :undoc-members:
+
+DCCA by Non-Linear Orthogonal Iterations
+-----------------------------------------
+
+.. automodule:: cca_zoo.deepmodels.dcca_noi
+    :members:
+    :undoc-members:
+
+Deep Canonically Correlated Autoencoders
+-----------------------------------------
+
+.. automodule:: cca_zoo.deepmodels.dccae
+    :members:
+    :undoc-members:
+
+Deep Tensor CCA
+--------------------------------
+
+.. automodule:: cca_zoo.deepmodels.dtcca
+    :members:
+    :undoc-members:
+
+Deep Variational CCA
+--------------------------------
+
+.. automodule:: cca_zoo.deepmodels.dvcca
+    :members:
+    :undoc-members:
+
+Split Autoencoders
+----------------------------------
+
+.. automodule:: cca_zoo.deepmodels.splitae
+    :members:
+    :undoc-members:
+
+CCALightning Module for training with pytorch-lightning
+---------------------------------------------------------
+
+.. automodule:: cca_zoo.deepmodels.CCALightning
+    :members:
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Deep Objectives
+-------------------------------------
+
+.. autoclass:: cca_zoo.deepmodels.objectives.CCA
+    :members:
+
+.. autoclass:: cca_zoo.deepmodels.objectives.MCCA
+    :members:
+
+.. autoclass:: cca_zoo.deepmodels.objectives.GCCA
+    :members:
+
+.. autoclass:: cca_zoo.deepmodels.objectives.TCCA
+    :members:
+
+
+Model Architectures
+----------------------------------------
+
+.. automodule:: cca_zoo.deepmodels.architectures
+Data
+=====================
+
+Simulated Data
+------------------------------
+
+.. automodule:: cca_zoo.data.simulated
+    :members:
+
+Toy Data
+------------------------
+
+.. automodule:: cca_zoo.data.toy
+    :members:
+
+Utils
+--------------------------
+
+.. automodule:: cca_zoo.data.utils
+    :members:
+
+Model Selection
+==========================
+
+GridSearchCV
+---------------------------------------
+
+.. automodule:: cca_zoo.model_selection.GridSearchCV
+    :inherited-members:
+
+
+RandomizedSearchCV
+---------------------------------------------
+
+.. automodule:: cca_zoo.model_selection.RandomizedSearchCV
+    :inherited-members:
+
+Models
+=======================
+
+
+Regularized Canonical Correlation Analysis and Partial Least Squares
+------------------------------------------------------------------------
+
+Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.rcca.CCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Partial Least Squares
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.rcca.PLS
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Ridge Regularized Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.rcca.rCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+GCCA and KGCCA
+---------------------------
+
+Generalized (MAXVAR) Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.gcca.GCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Kernel Generalized (MAXVAR) Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.gcca.KGCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+MCCA and KCCA
+---------------------------
+
+Multiset (SUMCOR) Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.mcca.MCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Kernel Multiset (SUMCOR) Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.mcca.KCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Tensor Canonical Correlation Analysis
+----------------------------------------
+
+Tensor Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.tcca.TCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Kernel Tensor Canonical Correlation Analysis
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.tcca.KTCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+More Complex Regularisation using Iterative Models
+-----------------------------------------------------
+
+Normal CCA and PLS by alternating least squares
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Quicker and more memory efficient for very large data
+
+
+CCA by Alternating Least Squares
+""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.CCA_ALS
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+PLS by Alternating Least Squares
+""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.PLS_ALS
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+
+Sparsity Inducing Models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Penalized Matrix Decomposition (Sparse PLS)
+"""""""""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.PMD
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Sparse CCA by iterative lasso regression
+"""""""""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.SCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Elastic CCA by MAXVAR
+"""""""""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.ElasticCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Span CCA
+"""""""""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.SpanCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Parkhomenko (penalized) CCA
+"""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.ParkhomenkoCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Sparse CCA by ADMM
+"""""""""""""""""""""""""""""""""""""""""""
+.. autoclass:: cca_zoo.models.SCCA_ADMM
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Miscellaneous
+-----------------------------------------------------
+
+Nonparametric CCA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.NCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Partial CCA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.PartialCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Sparse Weighted CCA
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. autoclass:: cca_zoo.models.SWCCA
+    :inherited-members:
+    :exclude-members: get_params, set_params
+
+Base Class
+--------------------------------
+
+.. automodule:: cca_zoo.models._cca_base
+    :members:
+    :private-members: _CCA_Base
+    :exclude-members: get_params, set_params

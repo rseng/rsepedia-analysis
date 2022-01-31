@@ -1188,4 +1188,507 @@ The latest release of the `rFBP` package can be installed using `pip`
 pip install ReplicatedFocusingBeliefPropagation
 ```
 
-The installation via `pip` requires to pre-install the `Cython` and `Numpy` packages, thus make sure to pre-install them!
+The installation via `pip` requires to pre-install the `Cython` and `Numpy` packages, thus make sure to pre-install them!Theory
+-------
+
+The `rFBP` algorithm derives from an out-of-equilibrium (non-Boltzmann) model of the learning process of binary neural networks DallAsta101103_.
+This model mimics a spin glass system whose realizations are equally likely to occur when sharing the same so-called entropy (not the same energy, i.e. out-of-equilibrium).
+This entropy basically counts the number of solutions (zero-energy realizations) around a realization below a fixed-distance.
+
+Within this out-of-equilibrium framework, the objective is to maximize the entropy instead of minimizing the energy.
+From a machine learning standpoint, we aim at those weights sets that perfectly solve the learning process (zero-errors) and that are mathematically closed to each other.
+To this end, the Belief Propagation method MézardMontanari_ can be adopted as the underlying learning rule, although it must be properly adjusted to take into account the out-of-equilibrium nature of the model.
+
+The *Replicated Focusing Belief Propagation* (`rFBP`) is an entropy-maximization based algorithm operating as the underlying learning rule of feed-forward binary neural networks.
+Here, the entropy is defined as:
+
+:math:`S(\vec{w},\beta,\gamma) = \frac{1}{N} log \bigg ( \sum_{\vec{w}'}  e^{-\beta E(\vec{w}')} e^{\gamma \vec{w}' \cdot \vec{w}}	\bigg)`
+
+where :math:`\vec{w}` is the whole weights set, N is its size and :math:`\beta` is the standard Boltzmann term.
+Further, :math:`E(\vec{w})` is the energy of such weights set, which is equal to the number of wrong predictions on the training set produced by :math:`\vec{w}`.
+When :math:`\beta \to inf`, only those :math:`\vec{w}` with null energy, i.e. perfect solutions, sum up in the entropy.
+At the time being, the rFBP only works with :math:`\beta \to inf`.
+
+The realization of the rFBP is equivalent to evolve a spin-glass system composed of several interacting replicas with the Belief Propagation algorithm. The density distribution of the system is modelled by:
+
+:math:`P(\vec{w} | \beta,y,\gamma) = \frac{e^{yN S(\vec{w},\beta,\gamma)}}{Z(\beta,y,\gamma)}`
+
+where Z is the partition function.
+
+Such spin-glass model depends necessarily on two parameters: y and :math:`\gamma`.
+The former is a temperature-alike related variable, similar to the one usually exploited by Gradient Descend approaches, but it can be also interpreted as the number of interacting replicas of the system.
+The latter is the penalization term associated to the distance between two weights sets. Indeed, the term :math:`e^{\gamma \vec{w}' \cdot \vec{w}}` in the entropy is larger, when :math:`\vec{w}` and :math:`\vec{w}` are closer.
+
+The Belief Propagation algorithm needs to be to adjusted by adding incoming extra messages for all weights, in order to involve the interacting replicas of the system.
+This extra term is represented by:
+
+:math:`\hat{m}^{t_1}_{\star \to w_i} = tanh \big[ (y-1) artanh ( m^{t_0}_{w_i \to \star} tanh \gamma ) \big] tanh \gamma`
+
+where :math:`w_i` and :math:`\star` stand respectively for the i-th weight and a representation of all i-th replicas.
+
+The `rFBP` is therefore an adjusted Belief Propagation algorithm, whose general procedure can be summarized as follows:
+
+- set :math:`\beta \to inf`
+- select protocols for y and :math:`\gamma`
+- set first values of y and :math:`\gamma` and run the adjusted-BP method until convergence (:math:`\epsilon` or up to a limited-number of iterations;
+- step to the next pair values of y and :math:`\gamma` with respect to the chosen protocols and re-run the adjusted-BP method;
+- keep it going until a solution is reached or protocols end.
+
+The `rFBP` algorithm focuses the replicated system to fall step by step into weights sets extremely closed to many perfect solutions (:math:`\vec{w}` such that :math:`E(\vec{w})=0`), which ables them to well generalize out of the training set `Zecchina et al`_.
+
+.. _`Zecchina et al`: https://www.pnas.org/content/113/48/E7655
+.. _MézardMontanari: https://web.stanford.edu/~montanar/RESEARCH/book.html
+.. _DallAsta101103 : https://journals.aps.org/pre/abstract/10.1103/PhysRevE.77.031118
+CMake C++ Installation
+======================
+
+We recommend to use `CMake` for the installation since it is the most automated way to reach your needs.
+First of all make sure you have a sufficient version of `CMake` installed (3.9 minimum version required).
+If you are working on a machine without root privileges and you need to upgrade your `CMake` version a valid solution to overcome your problems is provided shut_.
+
+With a valid `CMake` version installed first of all clone the project as:
+
+.. code-block:: bash
+
+	git clone https://github.com/Nico-Curti/rFBP
+	cd rFBP
+
+
+The you can build the `rFBP` package with
+
+.. code-block:: bash
+
+	mkdir -p build
+	cd build && cmake .. && cmake --build . --target install
+
+or more easily
+
+.. code-block:: bash
+
+	./build.sh
+
+if you are working on a Windows machine the right script to call is the `build.ps1`_.
+
+.. note::
+  If you want enable the OpenMP support (*4.5 version is required*) compile the library with `-DOMP=ON`.
+
+.. note::
+	If you want enable the Scorer support compile the library with `-DSCORER=ON`. If you want use a particular installation of the Scorer library or you have manually installed the library following the `README` instructions, we suggest to add the `-DScorer_DIR=/path/to/scorer/shared/scorer` in the command line.
+
+.. note::
+	If you want enable the Cython support compile the library with `-DPYWRAP=ON`. The Cython packages will be compiled and correctly positioned in the `rFBP` Python package **BUT** you need to run also the setup before use it.
+
+.. note::
+	If you use MagT configuration, please download the `atanherf coefficients` file before running any executable. You can find a downloader script inside the scripts_ folder. Enter in that folder and just run `python dowload_atanherf.py`.
+
+.. _shut: https://github.com/Nico-Curti/Shut
+.. _`build.ps1`: https://Nico-Curti/rFBP/blob/master/build.ps1
+.. _scripts: https://github.com/Nico-Curti/rFBP/tree/master/scriptsInstallation guide
+==================
+
+C++ supported compilers:
+
+|gcc version|
+
+|clang version|
+
+|msvc version|
+
+The `rFBP` project is written in `C++` using a large amount of c++17 features.
+To enlarge the usability of our package we provide also a retro-compatibility of all the c++17 modules reaching an usability (tested) of our code from gcc 4.8.5+.
+The package installation can be performed via `CMake` or `Makefile`.
+
+If you are using the `CMake` (recommended) installer the maximum version of C++ standard is automatic detected.
+The `CMake` installer provides also the export of the library: after the installation you can use this library into other `CMake` projects using a simple `find_package` function.
+The exported `CMake` library (`rFBP::rfbp`) is installed in the `share/rFBP` directory of the current project and the relative header files are available in the `rFBP_INCLUDE_DIR` variable.
+
+The `CMake` installer provides also a `rFBP.pc`, useful if you want link to the `rFBP` using `pkg-config`.
+
+You can also use the `rFBP` package in `Python` using the `Cython` wrap provided inside this project.
+The only requirements are the following:
+
+* numpy >= 1.15
+* cython >= 0.29
+* scipy >= 1.2.1
+* scikit-learn >= 0.20.3
+* requests >= 2.22.0
+
+The `Cython` version can be built and installed via `CMake` enabling the `-DPYWRAP` variable.
+The `Python` wrap guarantees also a good integration with the other common Machine Learning tools provided by `scikit-learn` `Python` package; in this way you can use the `rFBP` algorithm as an equivalent alternative also in other pipelines.
+Like other Machine Learning algorithm also the `rFBP` one depends on many parameters, i.e its hyper-parameters, which has to be tuned according to the given problem.
+The `Python` wrap of the library was written according to `scikit-optimize` `Python` package to allow an easy hyper-parameters optimization using the already implemented classical methods.
+
+
+.. |gcc version| image:: https://img.shields.io/badge/gcc-4.8.5%20|%204.9.*%20|%205.*%20|%206.*%20|%207.*%20|%208.*%20|%209.*-yellow.svg
+.. |clang version| image:: https://img.shields.io/badge/clang-3.6%20|3.9%20|5.*%20|%206.*%20|%207.*%20|-red.svg
+.. |msvc version| image:: https://img.shields.io/badge/msvc-vs2017%20x86%20|%20vs2017%20x64|%20vs2019%20x86%20|%20vs2019%20x64-blue.svg
+.. _CMake: https://github.com/Nico-Curti/rFBP/blob/master/CMakeLists.txt
+.. _Makefile: https://github.com/Nico-Curti/rFBP/blob/master/Makefile
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   CMake
+   Python
+Python Installation
+===================
+
+Python version supported : |Python version|
+
+The easiest way to install the package is using `pip`
+
+.. code-block:: bash
+
+	python -m pip install ReplicatedFocusingBeliefPropagation
+
+.. warning::
+
+	The setup file requires the `Cython` and `Numpy` packages, thus make sure to pre-install them!
+	We are working on some workarounds to solve this issue.
+
+The `Python` installation can be performed with or without the `C++` installation.
+The `Python` installation is always executed using `setup.py`_ script.
+
+If you have already built the `rFBP` `C++` library the installation is performed faster and the `Cython` wrap was already built using the `-DPYWRAP` definition.
+Otherwise the full list of dependencies is build.
+
+In both cases the installation steps are
+
+.. code-block:: bash
+
+	python -m pip install -r ./requirements.txt
+
+to install the prerequisites and then
+
+.. code-block:: bash
+
+	python setup.py install
+
+or for installing in development mode:
+
+.. code-block:: bash
+
+	python setup.py develop --user
+
+.. warning::
+
+	The current installation via pip has no requirements about the version of `setuptools` package.
+	If the already installed version of `setuptools` is `>= 50.*` you can find some troubles during the installation of our package (ref. issue_).
+	We suggest to temporary downgrade the `setuptools` version to `49.3.0` to workaround this `setuptools` issue.
+
+
+.. |Python version| image:: https://img.shields.io/badge/python-3.5|3.6|3.7|3.8-blue.svg
+.. _`setup.py`: https://github.com/Nico-Curti/blob/master/setup.py
+.. _issue: https://github.com/Nico-Curti/rFBP/issues/5.. Replicated Focusing Belief Propagation algorithm documentation master file, created by
+   sphinx-quickstart on Fri Oct  2 12:42:24 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to Replicated Focusing Belief Propagation's documentation!
+==================================================================
+
+The **Replicated Focusing Belief Propagation** package is inspired by the original BinaryCommitteeMachineFBP_ verion written in Julia.
+In our implementation we optimize and extend the original library inclu multi-threading support and an easy-to-use interface to the main algorithm.
+To further improve the usage of our code, we propose also a `Python` wrap of the library with a full compatibility with the `scikit-learn`_ and `scikit-optimize`_ packages.
+
+Overview
+========
+
+The learning problem could be faced through statistical mechanic models joined with the so-called Large Deviation Theory.
+In general, the learning problem can be split into two sub-parts: the classification problem and the generalization one.
+The first aims to completely store a pattern sample, i.e a prior known ensemble of input-output associations (*perfect learning*).
+The second one corresponds to compute a discriminant function based on a set of features of the input which guarantees a unique association of a pattern.
+
+From a statistical point-of-view many Neural Network models have been proposed and the most promising seems to be spin-glass models based.
+Starting from a balanced distribution of the system, generally based on Boltzmann distribution, and under proper conditions, we can prove that the classification problem becomes a NP-complete computational problem.
+A wide range of heuristic solutions to that type of problems were proposed.
+
+In this project we show one of these algorithms developed by `Zecchina et al`_ and called *Replicated Focusing Belief Propagation* (`rFBP`).
+The `rFBP` algorithm is a learning algorithm developed to justify the learning process of a binary neural network framework.
+The model is based on a spin-glass distribution of neurons put on a fully connected neural network architecture.
+In this way each neuron is identified by a spin and so only binary weights (-1 and 1) can be assumed by each entry.
+The learning rule which controls the weight updates is given by the Belief Propagation method.
+
+A first implementation of the algorithm was proposed in the original paper (`Zecchina et al`_) jointly with an open-source Github repository.
+The original version of the code was written in `Julia` language and despite it is a quite efficient implementation the `Julia` programming language stays on difficult and far from many users.
+To broaden the scope and use of the method, a `C++` implementation was developed with a joint `Cython` wrap for `Python` users.
+The `C++` language guarantees better computational performances against the `Julia` implementation and the `Python` version enhances its usability.
+This implementation is optimized for parallel computing and is endowed with a custom `C++` library called scorer_, which is able to compute a large number of statistical measurements based on a hierarchical graph scheme.
+With this optimized implementation and its `scikit-learn`_ compatibility we try to encourage researchers to approach these alternative algorithms and to use them more frequently on real context.
+
+As the `Julia` implementation also the `C++` one provides the entire `rFBP` framework in a single library callable via a command line interface.
+The library widely uses template syntaxes to perform dynamic specialization of the methods between two magnetization versions of the algorithm.
+The main object categories needed by the algorithm are wrapped in handy `C++` objects easy to use also from the `Python` interface.
+
+
+Usage example
+-------------
+
+The `rfbp` object is totally equivalent to a `scikit-learn` classifier and thus it provides the member functions `fit` (to train your model) and `predict` (to test a trained model on new samples).
+
+.. code-block:: python
+
+   import numpy as np
+   from sklearn.model_selection import train_test_split
+   from ReplicatedFocusingBeliefPropagation import MagT64
+   from ReplicatedFocusingBeliefPropagation import Pattern
+   from ReplicatedFocusingBeliefPropagation import ReplicatedFocusingBeliefPropagation as rFBP
+
+   N, M = (20, 101) # M must be odd
+   X = np.random.choice([-1, 1], p=[.5, .5], size=(N, M))
+   y = np.random.choice([-1, 1], p=[.5, .5], size=(N, ))
+
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
+
+   rfbp = rFBP(mag=MagT64,
+               hidden=3,
+               max_iter=1000,
+               seed=135,
+               damping=0.5,
+               accuracy=('accurate','exact'),
+               randfact=0.1,
+               epsil=0.5,
+               protocol='pseudo_reinforcement',
+               size=101,
+               nth=1)
+
+   rfbp.fit(X_train, y=y_train)
+   y_pred = rfbp.predict(X_test)
+
+The same code could be easily translated also in a pure C++ application as
+
+.. code-block:: c++
+
+   #include <rfbp.hpp>
+
+   int main ()
+   {
+     const int N = 20;
+     const int M = 101; // M must be odd
+     const int K = 3;
+
+     FocusingProtocol fp("pseudo_reinforcement", M);
+     Patterns patterns(N, M);
+
+     long int ** bin_weights = focusingBP < MagP64 >(K,          // hidden,
+                                                     patterns,   // patterns,
+                                                     1000,       // max_iters,
+                                                     101,        // max_steps,
+                                                     42,         // seed,
+                                                     0.5,        // damping,
+                                                     "accurate", // accuracy1,
+                                                     "exact",    // accuracy2,
+                                                     0.1,        // randfact,
+                                                     fp,         // fp,
+                                                     0.1,        // epsil,
+                                                     1,          // nth,
+                                                     "",         // outfile,
+                                                     "",         // outmess,
+                                                     "",         // inmess,
+                                                     false       // binmess
+                                                     );
+
+     // It is clearly an overfitting! But it works as example
+     long int ** y_pred = nonbayes_test(bin_weights, patterns, K);
+
+     return 0;
+   }
+
+
+.. _BinaryCommitteeMachineFBP: https://github.com/carlobaldassi/BinaryCommitteeMachineFBP.jl
+.. _`scikit-learn`: https://github.com/scikit-learn/scikit-learn
+.. _`scikit-optimize`: https://github.com/scikit-optimize/scikit-optimize
+.. _`Zecchina et al`: https://www.pnas.org/content/113/48/E7655
+.. _scorer: https://github.com/Nico-Curti/scorer
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   theory
+   installation
+   cppAPI/modules
+   pyAPI/modules
+   references
+
+References
+----------
+
+- D. Dall'Olio, N. Curti, G. Castellani, A. Bazzani, D. Remondini. "Classification of Genome Wide Association data by Belief Propagation Neural network", CCS Italy, 2019.
+- C. Baldassi, C. Borgs, J. T. Chayes, A. Ingrosso, C. Lucibello, L. Saglietti, and R. Zecchina. "Unreasonable effectiveness of learning neural networks: From accessible states and robust ensembles to basic algorithmic schemes", Proceedings of the National Academy of Sciences, 113(48):E7655-E7662, 2016
+- C. Baldassi, A. Braunstein, N. Brunel, R. Zecchina. "Efficient supervised learning in networks with binary synapses", Proceedings of the National Academy of Sciences, 104(26):11079-11084, 2007.
+- A., Braunstein, R. Zecchina. "Learning by message passing in networks of discrete synapses". Physical Review Letters 96(3), 2006.
+- C. Baldassi, F. Gerace, C. Lucibello, L. Saglietti, R. Zecchina. "Learning may need only a few bits of synaptic precision", Physical Review E, 93, 2016
+- A. Blum, R. L. Rivest. "Training a 3-node neural network is NP-complete", Neural Networks, 1992
+- W. Krauth, M. Mezard. "Storage capacity of memory networks with binary coupling", Journal of Physics (France), 1989
+- H. Huang, Y. Kabashima. "Origin of the computational hardness for learning with binary synapses", Physical Review E - Statistical, Nonlinear, and Soft Matter Physics, 2014
+- C. Baldassi, A. Ingrosso, C. Lucibello, L. Saglietti, R. Zecchina. "Local entropy as a measure for sampling solutions in constraint satisfaction problems", Journal of Statistical Mechanics: Theory and Experiment, 2016
+- R. Monasson, R. Zecchina. "Learning and Generalization Theories of Large Committee Machines", Modern Physics Letters B, 1995
+- R. Monasson, R. Zecchina. "Weight space structure and internal representations: A direct approach to learning and generalization in multilayer neural networks", Physical Review Letters, 1995
+- C. Baldassi, A. Braunstein. "A Max-Sum algorithm for training discrete neural networks", Journal of Statistical Mechanics: Theory and Experiment, 2015
+- G. Parisi. "Mean field theory of spin glasses: statics and dynamics", arXiv, 2007
+- L. Dall'Asta, A. Ramezanpour, R. Zecchina. "Entropy landscape and non-Gibbs solutions in constraint satisfaction problem", Physical Review E, 2008
+- M. Mézard, A. Montanari. "Information, Physics and Computation", Oxford Graduate Texts, 2009
+- C. Baldassi, A. Ingrosso, C. Lucibello, L. Saglietti, R. Zecchina. "Subdominant Dense Clusters Allow for Simple Learning and High Computational Performance in Neural Networks with Discrete Synapses", Physical Review Letters, 2015.
+MagT64
+------------------
+
+.. automodule:: rfbp.MagT64
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __mod__, __xor__
+Magnetization functions
+-----------------------
+
+.. automodule:: rfbp.magnetization
+   :members:
+   :undoc-members:
+   :show-inheritance:
+MagP64
+------------------
+
+.. automodule:: rfbp.MagP64
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __mod__, __xor__
+Atanherf
+--------------------
+
+.. automodule:: rfbp.atanherf
+   :members:
+   :undoc-members:
+   :show-inheritance:
+ReplicatedFocusingBeliefPropagation
+-----------------------------------------------
+
+.. automodule:: rfbp.ReplicatedFocusingBeliefPropagation
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Patterns
+--------------------
+
+.. automodule:: rfbp.Patterns
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Mag type
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   MagP64
+   MagT64
+   magnetization
+
+Mag
+---------------
+
+.. automodule:: rfbp.Mag
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :special-members: __add__, __truediv__, __mul__, __sub__, __neg__, __eq__, __ne__
+Python API
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   FocusingProtocol
+   Mag
+   ReplicatedFocusingBeliefPropagation
+   Patterns
+   atanherf
+FocusingProtocol
+----------------------------
+
+.. automodule:: rfbp.FocusingProtocol
+   :members:
+   :undoc-members:
+   :show-inheritance:
+Cavity Message
+--------------
+
+.. doxygenclass:: Cavity_Message
+   :project: Cavity_Message
+   :members:
+
+Params
+------
+
+.. doxygenclass:: Params
+   :project: Params
+   :members:
+
+MagT64
+------
+
+.. doxygenclass:: MagT64
+   :project: MagT64
+   :members:
+
+Magnetization functions
+-----------------------
+
+.. doxygennamespace:: mag
+   :project: magnetization
+
+MagP64
+------
+
+.. doxygenclass:: MagP64
+   :project: MagP64
+   :members:
+
+Atanherf
+--------------------
+
+.. doxygennamespace:: AtanhErf
+   :project: AtanhErf
+
+Replicated Focusing Belief Propagation
+--------------------------------------
+
+.. doxygenfile:: rfbp.h
+   :project: ReplicatedFocusingBeliefPropagation
+
+Patterns
+---------
+
+.. doxygenclass:: Patterns
+   :project: Patterns
+   :members:Mag type
+==========
+
+.. toctree::
+   :maxdepth: 4
+
+   MagP64
+   MagT64
+   magnetization
+C++ API
+-------
+
+.. toctree::
+   :maxdepth: 4
+
+   FocusingProtocol
+   Mag
+   ReplicatedFocusingBeliefPropagation
+   Patterns
+   params
+   cavity_message
+   atanherf
+FocusingProtocol
+----------------
+
+.. doxygenclass:: FocusingProtocol
+   :project: FocusingProtocol
+   :members:

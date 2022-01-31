@@ -5178,3 +5178,13681 @@ changelog: https://github.com/conda/conda/blob/master/CHANGELOG.md
 ```
 ```{include} ../../../CONTRIBUTING.md
 ```
+.. NOTE: This file serves both as the README on GitHub and the index.html for
+   conda.pydata.org. If you update this file, be sure to cd to the web
+   directory and run ``make html; make live``
+
+.. image:: https://s3.amazonaws.com/conda-dev/conda_logo.svg
+   :alt: Conda Logo
+
+----------------------------------------
+
+.. image:: https://github.com/conda/conda/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/conda/conda/actions/workflows/ci.yml
+    :alt: CI Tests (GitHub Actions)
+
+.. image:: https://github.com/conda/conda/actions/workflows/ci-images.yml/badge.svg
+    :target: https://github.com/conda/conda/actions/workflows/ci-images.yml
+    :alt: CI Images (GitHub Actions)
+
+.. image:: https://img.shields.io/codecov/c/github/conda/conda/master.svg?label=coverage
+   :alt: Codecov Status
+   :target: https://codecov.io/gh/conda/conda/branch/master
+
+.. image:: https://img.shields.io/github/release/conda/conda.svg
+   :alt: latest release version
+   :target: https://github.com/conda/conda/releases
+
+Conda is a cross-platform, language-agnostic binary package manager. It is the
+package manager used by `Anaconda
+<https://www.anaconda.com/distribution/>`_ installations, but it may be
+used for other systems as well.  Conda makes environments first-class
+citizens, making it easy to create independent environments even for C
+libraries. Conda is written entirely in Python, and is BSD licensed open
+source.
+
+Conda is enhanced by organizations, tools, and repositories created and managed by
+the amazing members of the conda community.  Some of them can be found
+`here <https://github.com/conda/conda/wiki/Conda-Community>`_.
+
+
+Installation
+------------
+
+Conda is a part of the `Anaconda Distribution <https://repo.anaconda.com>`_.
+Use `Miniconda <https://conda.io/en/latest/miniconda.html>`_ to bootstrap a minimal installation
+that only includes conda and its dependencies.
+
+
+Getting Started
+---------------
+
+If you install Anaconda, you will already have hundreds of packages
+installed.  You can see what packages are installed by running
+
+.. code-block:: bash
+
+   $ conda list
+
+to see all the packages that are available, use
+
+.. code-block:: bash
+
+   $ conda search
+
+and to install a package, use
+
+.. code-block:: bash
+
+   $ conda install <package-name>
+
+
+The real power of conda comes from its ability to manage environments. In
+conda, an environment can be thought of as a completely separate installation.
+Conda installs packages into environments efficiently using `hard links
+<https://en.wikipedia.org/wiki/Hard_link>`_ by default when it is possible, so
+environments are space efficient, and take seconds to create.
+
+The default environment, which ``conda`` itself is installed into is called
+``base``.  To create another environment, use the ``conda create``
+command. For instance, to create an environment with the IPython notebook and
+NumPy 1.6, which is older than the version that comes with Anaconda by
+default, you would run
+
+.. code-block:: bash
+
+   $ conda create -n numpy16 ipython-notebook numpy=1.6
+
+This creates an environment called ``numpy16`` with the latest version of
+the IPython notebook, NumPy 1.6, and their dependencies.
+
+We can now activate this environment, use
+
+.. code-block:: bash
+
+   # On Linux and Mac OS X
+   $ source activate numpy16
+
+   # On Windows
+   > activate numpy16
+
+This puts the bin directory of the ``numpy16`` environment in the front of the
+``PATH``, and sets it as the default environment for all subsequent conda commands.
+
+To go back to the base environment, use
+
+.. code-block:: bash
+
+   # On Linux and Mac OS X
+   $ source deactivate
+
+   # On Windows
+   > deactivate
+
+
+Building Your Own Packages
+--------------------------
+
+You can easily build your own packages for conda, and upload them
+to `anaconda.org <https://anaconda.org>`_, a free service for hosting
+packages for conda, as well as other package managers.
+To build a package, create a recipe. Package building documentation is available
+`here <https://conda.io/projects/conda-build/en/latest/>`_.
+See https://github.com/AnacondaRecipes for the recipes that make up the Anaconda Distribution
+and ``defaults`` channel. `Conda-forge <https://conda-forge.org/feedstocks/>`_ and
+`Bioconda <https://github.com/bioconda/bioconda-recipes>`_ are community-driven
+conda-based distributions.
+
+To upload to anaconda.org, create an account.  Then, install the
+anaconda-client and login
+
+.. code-block:: bash
+
+   $ conda install anaconda-client
+   $ anaconda login
+
+Then, after you build your recipe
+
+.. code-block:: bash
+
+   $ conda build <recipe-dir>
+
+you will be prompted to upload to anaconda.org.
+
+To add your anaconda.org channel, or the channel of others to conda so
+that ``conda install`` will find and install their packages, run
+
+.. code-block:: bash
+
+   $ conda config --add channels https://conda.anaconda.org/username
+
+(replacing ``username`` with the user name of the person whose channel you want
+to add).
+
+Getting Help
+------------
+
+The documentation for conda is at https://conda.io/en/latest/. You can
+subscribe to the `conda mailing list
+<https://groups.google.com/a/continuum.io/forum/#!forum/conda>`_.  The source
+code and issue tracker for conda are on `GitHub <https://github.com/conda/conda>`_.
+
+Contributing
+------------
+
+.. image:: https://gitpod.io/button/open-in-gitpod.svg
+   :alt: open in gitpod for one-click development
+   :target: https://gitpod.io/#https://github.com/conda/conda
+
+Contributions to conda are welcome. See the `contributing <CONTRIBUTING.md>`_ documentation
+for instructions on setting up a development environment.
+=========
+conda-env
+=========
+
+.. image:: https://travis-ci.org/conda/conda-env.svg
+    :target: https://travis-ci.org/conda/conda-env
+
+Provides the `conda env` interface to Conda environments.
+
+Installing
+----------
+
+To install `conda env` with conda, run the following command in your base environment:
+
+.. code-block:: bash
+
+    $ conda install -c conda conda-env
+
+
+Usage
+-----
+All of the usage is documented via the ``--help`` flag.
+
+.. code-block:: bash
+
+    $ conda env --help
+    usage: conda-env [-h] {create,export,list,remove} ...
+
+    positional arguments:
+      {attach,create,export,list,remove,upload,update}
+        attach              Embeds information describing your conda environment
+                            into the notebook metadata
+        create              Create an environment based on an environment file
+        export              Export a given environment
+        list                List the Conda environments
+        remove              Remove an environment
+        upload              Upload an environment to anaconda.org
+        update              Updates the current environment based on environment
+                            file
+
+    optional arguments:
+      -h, --help            show this help message and exit
+
+
+``environment.yml``
+-------------------
+conda-env allows creating environments using the ``environment.yml``
+specification file.  This allows you to specify a name, channels to use when
+creating the environment, and the dependencies.  For example, to create an
+environment named ``stats`` with numpy and pandas create an ``environment.yml``
+file with this as the contents:
+
+.. code-block:: yaml
+
+    name: stats
+    dependencies:
+      - numpy
+      - pandas
+
+Then run this from the command line:
+
+.. code-block:: bash
+
+    $ conda env create
+    Fetching package metadata: ...
+    Solving package specifications: .Linking packages ...
+    [      COMPLETE      ] |#################################################| 100%
+    #
+    # To activate this environment, use:
+    # $ source activate numpy
+    #
+    # To deactivate this environment, use:
+    # $ source deactivate
+    #
+
+Your output might vary a little bit depending on whether you have the packages
+in your local package cache.
+
+You can explicitly provide an environment spec file using ``-f`` or ``--file``
+and the name of the file you would like to use.
+
+The default channels can be excluded by adding ``nodefaults`` to the list of
+channels. This is equivalent to passing the ``--override-channels`` option
+to most ``conda`` commands, and is like ``defaults`` in the ``.condarc``
+channel configuration but with the reverse logic.
+
+Environment file example
+-----------------------
+
+.. code-block:: yaml
+
+    name: stats
+    channels:
+      - javascript
+    dependencies:
+      - python=3.4   # or 2.7 if you are feeling nostalgic
+      - bokeh=0.9.2
+      - numpy=1.9.*
+      - nodejs=0.10.*
+      - flask
+      - pip:
+        - Flask-Testing
+
+**Recommendation:** Always create your `environment.yml` file by hand.
+Constantly
+==========
+
+A library that provides symbolic constant support.
+It includes collections and constants with text, numeric, and bit flag values.
+Originally ``twisted.python.constants`` from the `Twisted <https://twistedmatrix.com/>`_ project.
+
+
+Tests
+-----
+
+To run tests::
+
+    $ tox
+
+This will run tests on Python 2.7, 3.3, 3.4, and PyPy, as well as doing coverage and pyflakes checks.
+
+
+Incremental
+===========
+
+|travis|
+|pypi|
+|coverage|
+
+Incremental is a small library that versions your Python projects.
+
+API documentation can be found `here <https://hawkowl.github.io/incremental/docs/>`_.
+
+
+Quick Start
+-----------
+
+Add this to your ``setup.py``\ 's ``setup()`` call, removing any other versioning arguments:
+
+.. code::
+
+   setup(
+       use_incremental=True,
+       setup_requires=['incremental'],
+       install_requires=['incremental'], # along with any other install dependencies
+       ...
+   }
+
+
+Then run ``python -m incremental.update <projectname> --create`` (you will need ``click`` installed from PyPI).
+It will create a file in your package named ``_version.py`` and look like this:
+
+.. code::
+
+   from incremental import Version
+
+   __version__ = Version("widgetbox", 17, 1, 0)
+   __all__ = ["__version__"]
+
+
+Then, so users of your project can find your version, in your root package's ``__init__.py`` add:
+
+.. code::
+
+   from ._version import __version__
+
+
+Subsequent installations of your project will then use Incremental for versioning.
+
+
+Incremental Versions
+--------------------
+
+``incremental.Version`` is a class that represents a version of a given project.
+It is made up of the following elements (which are given during instantiation):
+
+- ``package`` (required), the name of the package this ``Version`` represents.
+- ``major``, ``minor``, ``micro`` (all required), the X.Y.Z of your project's ``Version``.
+- ``release_candidate`` (optional), set to 0 or higher to mark this ``Version`` being of a release candidate (also sometimes called a "prerelease").
+- ``dev`` (optional), set to 0 or higher to mark this ``Version`` as a development release.
+
+You can extract a PEP-440 compatible version string by using the following methods:
+
+- ``.local()``, which returns a ``str`` containing the full version plus any Git or SVN information, if available. An example output would be ``"17.1.1rc1+r123"`` or ``"3.7.0+rb2e812003b5d5fcf08efd1dffed6afa98d44ac8c"``.
+- ``.public()``, which returns a ``str`` containing the full version, without any Git or SVN information. This is the version you should provide to users, or publicly use. An example output would be ``"13.2.0"``, ``"17.1.2dev1"``, or ``"18.8.0rc2"``.
+
+Calling ``repr()`` with a ``Version`` will give a Python-source-code representation of it, and calling ``str()`` with a ``Version`` will provide a string similar to ``'[Incremental, version 16.10.1]'``.
+
+
+Updating
+--------
+
+Incremental includes a tool to automate updating your Incremental-using project's version called ``incremental.update``.
+It updates the ``_version.py`` file and automatically updates some uses of Incremental versions from an indeterminate version to the current one.
+It requires ``click`` from PyPI.
+
+``python -m incremental.update <projectname>`` will perform updates on that package.
+The commands that can be given after that will determine what the next version is.
+
+- ``--newversion=<version>``, to set the project version to a fully-specified version (like 1.2.3, or 17.1.0dev1).
+- ``--rc``, to set the project version to ``<year-2000>.<month>.0rc1`` if the current version is not a release candidate, or bump the release candidate number by 1 if it is.
+- ``--dev``, to set the project development release number to 0 if it is not a development release, or bump the development release number by 1 if it is.
+- ``--patch``, to increment the patch number of the release. This will also reset the release candidate number, pass ``--rc`` at the same time to increment the patch number and make it a release candidate.
+
+If you give no arguments, it will strip the release candidate number, making it a "full release".
+
+Incremental supports "indeterminate" versions, as a stand-in for the next "full" version. This can be used when the version which will be displayed to the end-user is unknown (for example "introduced in" or "deprecated in"). Incremental supports the following indeterminate versions:
+
+- ``Version("<projectname>", "NEXT", 0, 0)``
+- ``<projectname> NEXT``
+
+When you run ``python -m incremental.update <projectname> --rc``, these will be updated to real versions (assuming the target final version is 17.1.0):
+
+- ``Version("<projectname>", 17, 1, 0, release_candidate=1)``
+- ``<projectname> 17.1.0rc1``
+
+Once the final version is made, it will become:
+
+- ``Version("<projectname>", 17, 1, 0)``
+- ``<projectname> 17.1.0``
+
+
+.. |coverage| image:: https://codecov.io/github/hawkowl/incremental/coverage.svg?branch=master
+.. _coverage: https://codecov.io/github/hawkowl/incremental
+
+.. |travis| image:: https://travis-ci.org/hawkowl/incremental.svg?branch=master
+.. _travis: http://travis-ci.org/hawkowl/incremental
+
+.. |pypi| image:: http://img.shields.io/pypi/v/incremental.svg
+.. _pypi: https://pypi.python.org/pypi/incremental
+
+
+Chardet: The Universal Character Encoding Detector
+--------------------------------------------------
+
+.. image:: https://img.shields.io/travis/chardet/chardet/stable.svg
+   :alt: Build status
+   :target: https://travis-ci.org/chardet/chardet
+
+.. image:: https://img.shields.io/coveralls/chardet/chardet/stable.svg
+   :target: https://coveralls.io/r/chardet/chardet
+
+.. image:: https://img.shields.io/pypi/v/chardet.svg
+   :target: https://warehouse.python.org/project/chardet/
+   :alt: Latest version on PyPI
+
+.. image:: https://img.shields.io/pypi/l/chardet.svg
+   :alt: License
+
+
+Detects
+ - ASCII, UTF-8, UTF-16 (2 variants), UTF-32 (4 variants)
+ - Big5, GB2312, EUC-TW, HZ-GB-2312, ISO-2022-CN (Traditional and Simplified Chinese)
+ - EUC-JP, SHIFT_JIS, CP932, ISO-2022-JP (Japanese)
+ - EUC-KR, ISO-2022-KR (Korean)
+ - KOI8-R, MacCyrillic, IBM855, IBM866, ISO-8859-5, windows-1251 (Cyrillic)
+ - ISO-8859-5, windows-1251 (Bulgarian)
+ - ISO-8859-1, windows-1252 (Western European languages)
+ - ISO-8859-7, windows-1253 (Greek)
+ - ISO-8859-8, windows-1255 (Visual and Logical Hebrew)
+ - TIS-620 (Thai)
+
+.. note::
+   Our ISO-8859-2 and windows-1250 (Hungarian) probers have been temporarily
+   disabled until we can retrain the models.
+
+Requires Python 2.6, 2.7, or 3.3+.
+
+Installation
+------------
+
+Install from `PyPI <https://pypi.python.org/pypi/chardet>`_::
+
+    pip install chardet
+
+Documentation
+-------------
+
+For users, docs are now available at https://chardet.readthedocs.io/.
+
+Command-line Tool
+-----------------
+
+chardet comes with a command-line script which reports on the encodings of one
+or more files::
+
+    % chardetect somefile someotherfile
+    somefile: windows-1252 with confidence 0.5
+    someotherfile: ascii with confidence 1.0
+
+About
+-----
+
+This is a continuation of Mark Pilgrim's excellent chardet. Previously, two
+versions needed to be maintained: one that supported python 2.x and one that
+supported python 3.x.  We've recently merged with `Ian Cordasco <https://github.com/sigmavirus24>`_'s
+`charade <https://github.com/sigmavirus24/charade>`_ fork, so now we have one
+coherent version that works for Python 2.6+.
+
+:maintainer: Dan Blanchard
+
+
+Docs for this project are maintained at https://github.com/wbond/asn1crypto#readme.
+
+
+
+Automat
+=======
+
+
+.. image:: https://readthedocs.org/projects/automat/badge/?version=stable
+   :target: http://automat.readthedocs.io/en/latest/
+   :alt: Documentation Status
+
+
+.. image:: https://travis-ci.org/glyph/automat.svg?branch=master
+   :target: https://travis-ci.org/glyph/automat
+   :alt: Build Status
+
+
+.. image:: https://coveralls.io/repos/glyph/automat/badge.png
+   :target: https://coveralls.io/r/glyph/automat
+   :alt: Coverage Status
+
+
+Self-service finite-state machines for the programmer on the go.
+----------------------------------------------------------------
+
+Automat is a library for concise, idiomatic Python expression of finite-state
+automata (particularly deterministic finite-state transducers).
+
+Read more here, or on `Read the Docs <https://automat.readthedocs.io/>`_\ , or watch the following videos for an overview and presentation
+
+Overview and presentation by **Glyph Lefkowitz** at the first talk of the first Pyninsula meetup, on February 21st, 2017:
+
+.. image:: https://img.youtube.com/vi/0wOZBpD1VVk/0.jpg
+   :target: https://www.youtube.com/watch?v=0wOZBpD1VVk
+   :alt: Glyph Lefkowitz - Automat - Pyninsula #0
+
+
+Presentation by **Clinton Roy** at PyCon Australia, on August 6th 2017:
+
+.. image:: https://img.youtube.com/vi/TedUKXhu9kE/0.jpg
+   :target: https://www.youtube.com/watch?v=TedUKXhu9kE
+   :alt: Clinton Roy - State Machines - Pycon Australia 2017
+
+
+Why use state machines?
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes you have to create an object whose behavior varies with its state,
+but still wishes to present a consistent interface to its callers.
+
+For example, let's say you're writing the software for a coffee machine.  It
+has a lid that can be opened or closed, a chamber for water, a chamber for
+coffee beans, and a button for "brew".
+
+There are a number of possible states for the coffee machine.  It might or
+might not have water.  It might or might not have beans.  The lid might be open
+or closed.  The "brew" button should only actually attempt to brew coffee in
+one of these configurations, and the "open lid" button should only work if the
+coffee is not, in fact, brewing.
+
+With diligence and attention to detail, you can implement this correctly using
+a collection of attributes on an object; ``has_water``\ , ``has_beans``\ ,
+``is_lid_open`` and so on.  However, you have to keep all these attributes
+consistent.  As the coffee maker becomes more complex - perhaps you add an
+additional chamber for flavorings so you can make hazelnut coffee, for
+example - you have to keep adding more and more checks and more and more
+reasoning about which combinations of states are allowed.
+
+Rather than adding tedious 'if' checks to every single method to make sure that
+each of these flags are exactly what you expect, you can use a state machine to
+ensure that if your code runs at all, it will be run with all the required
+values initialized, because they have to be called in the order you declare
+them.
+
+You can read about state machines and their advantages for Python programmers
+in considerably more detail
+`in this excellent series of articles from ClusterHQ <https://clusterhq.com/blog/what-is-a-state-machine/>`_.
+
+What makes Automat different?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are
+`dozens of libraries on PyPI implementing state machines <https://pypi.org/search/?q=finite+state+machine>`_.
+So it behooves me to say why yet another one would be a good idea.
+
+Automat is designed around this principle: while organizing your code around
+state machines is a good idea, your callers don't, and shouldn't have to, care
+that you've done so.  In Python, the "input" to a stateful system is a method
+call; the "output" may be a method call, if you need to invoke a side effect,
+or a return value, if you are just performing a computation in memory.  Most
+other state-machine libraries require you to explicitly create an input object,
+provide that object to a generic "input" method, and then receive results,
+sometimes in terms of that library's interfaces and sometimes in terms of
+classes you define yourself.
+
+For example, a snippet of the coffee-machine example above might be implemented
+as follows in naive Python:
+
+.. code-block:: python
+
+   class CoffeeMachine(object):
+       def brew_button(self):
+           if self.has_water and self.has_beans and not self.is_lid_open:
+               self.heat_the_heating_element()
+               # ...
+
+With Automat, you'd create a class with a ``MethodicalMachine`` attribute:
+
+.. code-block:: python
+
+   from automat import MethodicalMachine
+
+   class CoffeeBrewer(object):
+       _machine = MethodicalMachine()
+
+and then you would break the above logic into two pieces - the ``brew_button``
+*input*\ , declared like so:
+
+.. code-block:: python
+
+       @_machine.input()
+       def brew_button(self):
+           "The user pressed the 'brew' button."
+
+It wouldn't do any good to declare a method *body* on this, however, because
+input methods don't actually execute their bodies when called; doing actual
+work is the *output*\ 's job:
+
+.. code-block:: python
+
+       @_machine.output()
+       def _heat_the_heating_element(self):
+           "Heat up the heating element, which should cause coffee to happen."
+           self._heating_element.turn_on()
+
+As well as a couple of *states* - and for simplicity's sake let's say that the
+only two states are ``have_beans`` and ``dont_have_beans``\ :
+
+.. code-block:: python
+
+       @_machine.state()
+       def have_beans(self):
+           "In this state, you have some beans."
+       @_machine.state(initial=True)
+       def dont_have_beans(self):
+           "In this state, you don't have any beans."
+
+``dont_have_beans`` is the ``initial`` state because ``CoffeeBrewer`` starts without beans
+in it.
+
+(And another input to put some beans in:)
+
+.. code-block:: python
+
+       @_machine.input()
+       def put_in_beans(self):
+           "The user put in some beans."
+
+Finally, you hook everything together with the ``upon`` method of the functions
+decorated with ``_machine.state``\ :
+
+.. code-block:: python
+
+
+       # When we don't have beans, upon putting in beans, we will then have beans
+       # (and produce no output)
+       dont_have_beans.upon(put_in_beans, enter=have_beans, outputs=[])
+
+       # When we have beans, upon pressing the brew button, we will then not have
+       # beans any more (as they have been entered into the brewing chamber) and
+       # our output will be heating the heating element.
+       have_beans.upon(brew_button, enter=dont_have_beans,
+                       outputs=[_heat_the_heating_element])
+
+To *users* of this coffee machine class though, it still looks like a POPO
+(Plain Old Python Object):
+
+.. code-block:: python
+
+   >>> coffee_machine = CoffeeMachine()
+   >>> coffee_machine.put_in_beans()
+   >>> coffee_machine.brew_button()
+
+All of the *inputs* are provided by calling them like methods, all of the
+*outputs* are automatically invoked when they are produced according to the
+outputs specified to ``upon`` and all of the states are simply opaque tokens -
+although the fact that they're defined as methods like inputs and outputs
+allows you to put docstrings on them easily to document them.
+
+How do I get the current state of a state machine?
+--------------------------------------------------
+
+Don't do that.
+
+One major reason for having a state machine is that you want the callers of the
+state machine to just provide the appropriate input to the machine at the
+appropriate time, and *not have to check themselves* what state the machine is
+in.  So if you are tempted to write some code like this:
+
+.. code-block:: python
+
+   if connection_state_machine.state == "CONNECTED":
+       connection_state_machine.send_message()
+   else:
+       print("not connected")
+
+Instead, just make your calling code do this:
+
+.. code-block:: python
+
+   connection_state_machine.send_message()
+
+and then change your state machine to look like this:
+
+.. code-block:: python
+
+       @_machine.state()
+       def connected(self):
+           "connected"
+       @_machine.state()
+       def not_connected(self):
+           "not connected"
+       @_machine.input()
+       def send_message(self):
+           "send a message"
+       @_machine.output()
+       def _actually_send_message(self):
+           self._transport.send(b"message")
+       @_machine.output()
+       def _report_sending_failure(self):
+           print("not connected")
+       connected.upon(send_message, enter=connected, [_actually_send_message])
+       not_connected.upon(send_message, enter=not_connected, [_report_sending_failure])
+
+so that the responsibility for knowing which state the state machine is in
+remains within the state machine itself.
+
+Input for Inputs and Output for Outputs
+---------------------------------------
+
+Quite often you want to be able to pass parameters to your methods, as well as
+inspecting their results.  For example, when you brew the coffee, you might
+expect a cup of coffee to result, and you would like to see what kind of coffee
+it is.  And if you were to put delicious hand-roasted small-batch artisanal
+beans into the machine, you would expect a *better* cup of coffee than if you
+were to use mass-produced beans.  You would do this in plain old Python by
+adding a parameter, so that's how you do it in Automat as well.
+
+.. code-block:: python
+
+       @_machine.input()
+       def put_in_beans(self, beans):
+           "The user put in some beans."
+
+However, one important difference here is that *we can't add any
+implementation code to the input method*.  Inputs are purely a declaration of
+the interface; the behavior must all come from outputs.  Therefore, the change
+in the state of the coffee machine must be represented as an output.  We can
+add an output method like this:
+
+.. code-block:: python
+
+       @_machine.output()
+       def _save_beans(self, beans):
+           "The beans are now in the machine; save them."
+           self._beans = beans
+
+and then connect it to the ``put_in_beans`` by changing the transition from
+``dont_have_beans`` to ``have_beans`` like so:
+
+.. code-block:: python
+
+       dont_have_beans.upon(put_in_beans, enter=have_beans,
+                            outputs=[_save_beans])
+
+Now, when you call:
+
+.. code-block:: python
+
+   coffee_machine.put_in_beans("real good beans")
+
+the machine will remember the beans for later.
+
+So how do we get the beans back out again?  One of our outputs needs to have a
+return value.  It would make sense if our ``brew_button`` method returned the cup
+of coffee that it made, so we should add an output.  So, in addition to heating
+the heating element, let's add a return value that describes the coffee.  First
+a new output:
+
+.. code-block:: python
+
+       @_machine.output()
+       def _describe_coffee(self):
+           return "A cup of coffee made with {}.".format(self._beans)
+
+Note that we don't need to check first whether ``self._beans`` exists or not,
+because we can only reach this output method if the state machine says we've
+gone through a set of states that sets this attribute.
+
+Now, we need to hook up ``_describe_coffee`` to the process of brewing, so change
+the brewing transition to:
+
+.. code-block:: python
+
+       have_beans.upon(brew_button, enter=dont_have_beans,
+                       outputs=[_heat_the_heating_element,
+                                _describe_coffee])
+
+Now, we can call it:
+
+.. code-block:: python
+
+   >>> coffee_machine.brew_button()
+   [None, 'A cup of coffee made with real good beans.']
+
+Except... wait a second, what's that ``None`` doing there?
+
+Since every input can produce multiple outputs, in automat, the default return
+value from every input invocation is a ``list``.  In this case, we have both
+``_heat_the_heating_element`` and ``_describe_coffee`` outputs, so we're seeing
+both of their return values.  However, this can be customized, with the
+``collector`` argument to ``upon``\ ; the ``collector`` is a callable which takes an
+iterable of all the outputs' return values and "collects" a single return value
+to return to the caller of the state machine.
+
+In this case, we only care about the last output, so we can adjust the call to
+``upon`` like this:
+
+.. code-block:: python
+
+       have_beans.upon(brew_button, enter=dont_have_beans,
+                       outputs=[_heat_the_heating_element,
+                                _describe_coffee],
+                       collector=lambda iterable: list(iterable)[-1]
+       )
+
+And now, we'll get just the return value we want:
+
+.. code-block:: python
+
+   >>> coffee_machine.brew_button()
+   'A cup of coffee made with real good beans.'
+
+If I can't get the state of the state machine, how can I save it to (a database, an API response, a file on disk...)
+--------------------------------------------------------------------------------------------------------------------
+
+There are APIs for serializing the state machine.
+
+First, you have to decide on a persistent representation of each state, via the
+``serialized=`` argument to the ``MethodicalMachine.state()`` decorator.
+
+Let's take this very simple "light switch" state machine, which can be on or
+off, and flipped to reverse its state:
+
+.. code-block:: python
+
+   class LightSwitch(object):
+       _machine = MethodicalMachine()
+       @_machine.state(serialized="on")
+       def on_state(self):
+           "the switch is on"
+       @_machine.state(serialized="off", initial=True)
+       def off_state(self):
+           "the switch is off"
+       @_machine.input()
+       def flip(self):
+           "flip the switch"
+       on_state.upon(flip, enter=off_state, outputs=[])
+       off_state.upon(flip, enter=on_state, outputs=[])
+
+In this case, we've chosen a serialized representation for each state via the
+``serialized`` argument.  The on state is represented by the string ``"on"``\ , and
+the off state is represented by the string ``"off"``.
+
+Now, let's just add an input that lets us tell if the switch is on or not.
+
+.. code-block:: python
+
+       @_machine.input()
+       def query_power(self):
+           "return True if powered, False otherwise"
+       @_machine.output()
+       def _is_powered(self):
+           return True
+       @_machine.output()
+       def _not_powered(self):
+           return False
+       on_state.upon(query_power, enter=on_state, outputs=[_is_powered],
+                     collector=next)
+       off_state.upon(query_power, enter=off_state, outputs=[_not_powered],
+                      collector=next)
+
+To save the state, we have the ``MethodicalMachine.serializer()`` method.  A
+method decorated with ``@serializer()`` gets an extra argument injected at the
+beginning of its argument list: the serialized identifier for the state.  In
+this case, either ``"on"`` or ``"off"``.  Since state machine output methods can
+also affect other state on the object, a serializer method is expected to
+return *all* relevant state for serialization.
+
+For our simple light switch, such a method might look like this:
+
+.. code-block:: python
+
+       @_machine.serializer()
+       def save(self, state):
+           return {"is-it-on": state}
+
+Serializers can be public methods, and they can return whatever you like.  If
+necessary, you can have different serializers - just multiple methods decorated
+with ``@_machine.serializer()`` - for different formats; return one data-structure
+for JSON, one for XML, one for a database row, and so on.
+
+When it comes time to unserialize, though, you generally want a private method,
+because an unserializer has to take a not-fully-initialized instance and
+populate it with state.  It is expected to *return* the serialized machine
+state token that was passed to the serializer, but it can take whatever
+arguments you like.  Of course, in order to return that, it probably has to
+take it somewhere in its arguments, so it will generally take whatever a paired
+serializer has returned as an argument.
+
+So our unserializer would look like this:
+
+.. code-block:: python
+
+       @_machine.unserializer()
+       def _restore(self, blob):
+           return blob["is-it-on"]
+
+Generally you will want a classmethod deserialization constructor which you
+write yourself to call this, so that you know how to create an instance of your
+own object, like so:
+
+.. code-block:: python
+
+       @classmethod
+       def from_blob(cls, blob):
+           self = cls()
+           self._restore(blob)
+           return self
+
+Saving and loading our ``LightSwitch`` along with its state-machine state can now
+be accomplished as follows:
+
+.. code-block:: python
+
+   >>> switch1 = LightSwitch()
+   >>> switch1.query_power()
+   False
+   >>> switch1.flip()
+   []
+   >>> switch1.query_power()
+   True
+   >>> blob = switch1.save()
+   >>> switch2 = LightSwitch.from_blob(blob)
+   >>> switch2.query_power()
+   True
+
+More comprehensive (tested, working) examples are present in ``docs/examples``.
+
+Go forth and machine all the state!
+
+
+=============
+Django-Twilio
+=============
+
+
+Integrate Twilio into your Django apps with ease.
+
+.. image:: https://badge.fury.io/py/django-twilio.png
+    :target: http://badge.fury.io/py/django-twilio
+    :alt: PyPI version
+.. image:: https://travis-ci.org/rdegges/django-twilio.png?branch=master
+    :target: https://travis-ci.org/rdegges/django-twilio
+    :alt: CI build
+.. image:: https://readthedocs.org/projects/django-twilio/badge/?version=latest
+    :target: https://readthedocs.org/projects/django-twilio/badge/?version=latest
+    :alt: documentation build
+.. image:: https://img.shields.io/pypi/pyversions/django-twilio.svg
+    :target:  https://pypi.python.org/pypi/django-twilio/
+    :alt: Python versions supported
+
+
+Meta
+----
+
+* Author: Randall Degges
+* Email:  rdegges@gmail.com
+* Maintainer: Jason Held
+* Email: jasonsheld@gmail.com
+* Status: active development, stable, maintained
+
+
+Twilio makes it easy to send & receive SMS messages, and create & manage voice calls through software.
+
+Django-twilio makes it easy to use Twilio in your Django projects.
+
+Version 0.9.0 supports twilio 6.x and django 1.8-2.0.
+
+Version 0.9.2 has minimal py3.7 and also allows django 2.1
+
+For legacy twilio (5.x SDK), please see the 0.8 version.
+
+Documentation
+-------------
+
+The documentation is hosted at ReadTheDocs. You can check out the docs
+here - http://django-twilio.rtfd.org/
+
+
+========
+queuelib
+========
+
+.. image:: https://secure.travis-ci.org/scrapy/queuelib.png?branch=master
+   :target: http://travis-ci.org/scrapy/queuelib
+
+.. image:: https://img.shields.io/codecov/c/github/scrapy/queuelib/master.svg
+   :target: http://codecov.io/github/scrapy/queuelib?branch=master
+   :alt: Coverage report
+
+
+Queuelib is a collection of persistent (disk-based) queues for Python.
+
+Queuelib goals are speed and simplicity. It was originally part of the `Scrapy
+framework`_ and stripped out on its own library.
+
+Note: Queuelib isn't thread-safe.
+
+Requirements
+============
+
+* Python 2.7 or Python 3.3
+* no external library requirements
+
+Installation
+============
+
+You can install Queuelib either via the Python Package Index (PyPI) or from
+source.
+
+To install using pip::
+
+    $ pip install queuelib
+
+To install using easy_install::
+
+    $ easy_install queuelib
+
+If you have downloaded a source tarball you can install it by running the
+following (as root)::
+
+    # python setup.py install
+
+FIFO/LIFO disk queues
+=====================
+
+Queuelib provides FIFO and LIFO queue implementations.
+
+Here is an example usage of the FIFO queue::
+
+    >>> from queuelib import FifoDiskQueue
+    >>> q = FifoDiskQueue("queuefile")
+    >>> q.push(b'a')
+    >>> q.push(b'b')
+    >>> q.push(b'c')
+    >>> q.pop()
+    b'a'
+    >>> q.close()
+    >>> q = FifoDiskQueue("queuefile")
+    >>> q.pop()
+    b'b'
+    >>> q.pop()
+    b'c'
+    >>> q.pop()
+    >>>
+
+The LIFO queue is identical (API-wise), but importing ``LifoDiskQueue``
+instead.
+
+PriorityQueue
+=============
+
+A discrete-priority queue implemented by combining multiple FIFO/LIFO queues
+(one per priority).
+
+First, select the type of queue to be used per priority (FIFO or LIFO)::
+
+    >>> from queuelib import FifoDiskQueue
+    >>> qfactory = lambda priority: FifoDiskQueue('queue-dir-%s' % priority)
+
+Then instantiate the Priority Queue with it::
+
+    >>> from queuelib import PriorityQueue
+    >>> pq = PriorityQueue(qfactory)
+
+And use it::
+
+    >>> pq.push(b'a', 3)
+    >>> pq.push(b'b', 1)
+    >>> pq.push(b'c', 2)
+    >>> pq.push(b'd', 2)
+    >>> pq.pop()
+    b'b'
+    >>> pq.pop()
+    b'c'
+    >>> pq.pop()
+    b'd'
+    >>> pq.pop()
+    b'a'
+
+RoundRobinQueue
+===============
+
+Has nearly the same interface and implementation as a Priority Queue except
+that each element must be pushed with a (mandatory) key.  Popping from the
+queue cycles through the keys "round robin".
+
+Instantiate the Round Robin Queue similarly to the Priority Queue::
+
+    >>> from queuelib import RoundRobinQueue
+    >>> rr = RoundRobinQueue(qfactory)
+
+And use it::
+
+    >>> rr.push(b'a', '1')
+    >>> rr.push(b'b', '1')
+    >>> rr.push(b'c', '2')
+    >>> rr.push(b'd', '2')
+    >>> rr.pop()
+    b'a'
+    >>> rr.pop()
+    b'c'
+    >>> rr.pop()
+    b'b'
+    >>> rr.pop()
+    b'd'
+
+
+Mailing list
+============
+
+Use the `scrapy-users`_ mailing list for questions about Queuelib.
+
+Bug tracker
+===========
+
+If you have any suggestions, bug reports or annoyances please report them to
+our issue tracker at: http://github.com/scrapy/queuelib/issues/
+
+Contributing
+============
+
+Development of Queuelib happens at GitHub: http://github.com/scrapy/queuelib
+
+You are highly encouraged to participate in the development. If you don't like
+GitHub (for some reason) you're welcome to send regular patches.
+
+All changes require tests to be merged.
+
+Tests
+=====
+
+Tests are located in `queuelib/tests` directory. They can be run using
+`nosetests`_ with the following command::
+
+    nosetests
+
+The output should be something like the following::
+
+    $ nosetests
+    .............................................................................
+    ----------------------------------------------------------------------
+    Ran 77 tests in 0.145s
+
+    OK
+
+License
+=======
+
+This software is licensed under the BSD License. See the LICENSE file in the
+top distribution directory for the full license text.
+
+Versioning
+==========
+
+This software follows `Semantic Versioning`_
+
+.. _Scrapy framework: http://scrapy.org
+.. _scrapy-users: http://groups.google.com/group/scrapy-users
+.. _Semantic Versioning: http://semver.org/
+.. _nosetests: https://nose.readthedocs.org/en/latest/
+
+
+UNKNOWN
+
+
+PyJWT
+=====
+
+.. image:: https://secure.travis-ci.org/jpadilla/pyjwt.svg?branch=master
+   :target: http://travis-ci.org/jpadilla/pyjwt?branch=master
+
+.. image:: https://ci.appveyor.com/api/projects/status/h8nt70aqtwhht39t?svg=true
+   :target: https://ci.appveyor.com/project/jpadilla/pyjwt
+
+.. image:: https://img.shields.io/pypi/v/pyjwt.svg
+   :target: https://pypi.python.org/pypi/pyjwt
+
+.. image:: https://coveralls.io/repos/jpadilla/pyjwt/badge.svg?branch=master
+   :target: https://coveralls.io/r/jpadilla/pyjwt?branch=master
+
+.. image:: https://readthedocs.org/projects/pyjwt/badge/?version=latest
+   :target: https://pyjwt.readthedocs.io
+
+A Python implementation of `RFC 7519 <https://tools.ietf.org/html/rfc7519>`_. Original implementation was written by `@progrium <https://github.com/progrium>`_.
+
+Sponsor
+-------
+
++--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| |auth0-logo| | If you want to quickly add secure token-based authentication to Python projects, feel free to check Auth0's Python SDK and free plan at `auth0.com/overview <https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=pyjwt&utm_content=auth>`_. |
++--------------+-----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+.. |auth0-logo| image:: https://user-images.githubusercontent.com/83319/31722733-de95bbde-b3ea-11e7-96bf-4f4e8f915588.png
+
+Installing
+----------
+
+Install with **pip**:
+
+.. code-block:: sh
+
+    $ pip install PyJWT
+
+
+Usage
+-----
+
+.. code:: python
+
+    >>> import jwt
+    >>> encoded = jwt.encode({'some': 'payload'}, 'secret', algorithm='HS256')
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21lIjoicGF5bG9hZCJ9.4twFt5NiznN84AWoo1d7KO1T_yoc0Z6XOpOVswacPZg'
+
+    >>> jwt.decode(encoded, 'secret', algorithms=['HS256'])
+    {'some': 'payload'}
+
+
+Command line
+------------
+
+Usage::
+
+    pyjwt [options] INPUT
+
+Decoding examples::
+
+    pyjwt --key=secret TOKEN
+    pyjwt --no-verify TOKEN
+
+See more options executing ``pyjwt --help``.
+
+
+Documentation
+-------------
+
+View the full docs online at https://pyjwt.readthedocs.io/en/latest/
+
+
+Tests
+-----
+
+You can run tests from the project root after cloning with:
+
+.. code-block:: sh
+
+    $ python setup.py test
+
+
+PyHamcrest
+==========
+
+| |docs| |travis| |coveralls| |landscape| |scrutinizer| |codeclimate|
+| |version| |downloads| |wheel| |supported-versions| |supported-implementations|
+
+.. |docs| image:: https://readthedocs.org/projects/pyhamcrest/badge/?style=flat
+    :target: https://pyhamcrest.readthedocs.org/
+    :alt: Documentation Status
+
+.. |travis| image:: http://img.shields.io/travis/hamcrest/PyHamcrest/master.png?style=flat
+    :alt: Travis-CI Build Status
+    :target: https://travis-ci.org/hamcrest/PyHamcrest
+
+.. |appveyor| image:: https://ci.appveyor.com/api/projects/status/github/hamcrest/PyHamcrest?branch=master
+    :alt: AppVeyor Build Status
+    :target: https://ci.appveyor.com/project/hamcrest/PyHamcrest
+
+.. |coveralls| image:: http://img.shields.io/coveralls/hamcrest/PyHamcrest/master.png?style=flat
+    :alt: Coverage Status
+    :target: https://coveralls.io/r/hamcrest/PyHamcrest
+
+.. |landscape| image:: https://landscape.io/github/hamcrest/PyHamcrest/master/landscape.svg?style=flat
+    :target: https://landscape.io/github/hamcrest/PyHamcrest/master
+    :alt: Code Quality Status
+
+.. |codeclimate| image:: https://codeclimate.com/github/hamcrest/PyHamcrest/badges/gpa.svg
+   :target: https://codeclimate.com/github/hamcrest/PyHamcrest
+   :alt: Code Climate
+
+.. |version| image:: http://img.shields.io/pypi/v/PyHamcrest.png?style=flat
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/PyHamcrest
+
+.. |downloads| image:: http://img.shields.io/pypi/dm/PyHamcrest.png?style=flat
+    :alt: PyPI Package monthly downloads
+    :target: https://pypi.python.org/pypi/PyHamcrest
+
+.. |wheel| image:: https://pypip.in/wheel/PyHamcrest/badge.png?style=flat
+    :alt: PyPI Wheel
+    :target: https://pypi.python.org/pypi/PyHamcrest
+
+.. |supported-versions| image:: https://pypip.in/py_versions/PyHamcrest/badge.png?style=flat
+    :alt: Supported versions
+    :target: https://pypi.python.org/pypi/PyHamcrest
+
+.. |supported-implementations| image:: https://pypip.in/implementation/PyHamcrest/badge.png?style=flat
+    :alt: Supported imlementations
+    :target: https://pypi.python.org/pypi/PyHamcrest
+
+.. |scrutinizer| image:: https://img.shields.io/scrutinizer/g/hamcrest/PyHamcrest/master.png?style=flat
+    :alt: Scrtinizer Status
+    :target: https://scrutinizer-ci.com/g/hamcrest/PyHamcrest/
+
+
+Introduction
+============
+
+PyHamcrest is a framework for writing matcher objects, allowing you to
+declaratively define "match" rules. There are a number of situations where
+matchers are invaluable, such as UI validation, or data filtering, but it is in
+the area of writing flexible tests that matchers are most commonly used. This
+tutorial shows you how to use PyHamcrest for unit testing.
+
+When writing tests it is sometimes difficult to get the balance right between
+overspecifying the test (and making it brittle to changes), and not specifying
+enough (making the test less valuable since it continues to pass even when the
+thing being tested is broken). Having a tool that allows you to pick out
+precisely the aspect under test and describe the values it should have, to a
+controlled level of precision, helps greatly in writing tests that are "just
+right." Such tests fail when the behavior of the aspect under test deviates
+from the expected behavior, yet continue to pass when minor, unrelated changes
+to the behaviour are made.
+
+Installation
+============
+
+Hamcrest can be installed using the usual Python packaging tools. It depends on
+distribute, but as long as you have a network connection when you install, the
+installation process will take care of that for you.
+
+My first PyHamcrest test
+========================
+
+We'll start by writing a very simple PyUnit test, but instead of using PyUnit's
+``assertEqual`` method, we'll use PyHamcrest's ``assert_that`` construct and
+the standard set of matchers:
+
+.. code:: python
+
+ from hamcrest import *
+ import unittest
+
+ class BiscuitTest(unittest.TestCase):
+     def testEquals(self):
+         theBiscuit = Biscuit('Ginger')
+         myBiscuit = Biscuit('Ginger')
+         assert_that(theBiscuit, equal_to(myBiscuit))
+
+ if __name__ == '__main__':
+     unittest.main()
+
+The ``assert_that`` function is a stylized sentence for making a test
+assertion. In this example, the subject of the assertion is the object
+``theBiscuit``, which is the first method parameter. The second method
+parameter is a matcher for ``Biscuit`` objects, here a matcher that checks one
+object is equal to another using the Python ``==`` operator. The test passes
+since the ``Biscuit`` class defines an ``__eq__`` method.
+
+If you have more than one assertion in your test you can include an identifier
+for the tested value in the assertion:
+
+.. code:: python
+
+ assert_that(theBiscuit.getChocolateChipCount(), equal_to(10), 'chocolate chips')
+ assert_that(theBiscuit.getHazelnutCount(), equal_to(3), 'hazelnuts')
+
+As a convenience, assert_that can also be used to verify a boolean condition:
+
+.. code:: python
+
+ assert_that(theBiscuit.isCooked(), 'cooked')
+
+This is equivalent to the ``assert_`` method of unittest.TestCase, but because
+it's a standalone function, it offers greater flexibility in test writing.
+
+
+Predefined matchers
+===================
+
+PyHamcrest comes with a library of useful matchers:
+
+* Object
+
+  * ``equal_to`` - match equal object
+  * ``has_length`` - match ``len()``
+  * ``has_property`` - match value of property with given name
+  * ``has_properties`` - match an object that has all of the given properties.
+  * ``has_string`` - match ``str()``
+  * ``instance_of`` - match object type
+  * ``none``, ``not_none`` - match ``None``, or not ``None``
+  * ``same_instance`` - match same object
+  * ``calling, raises`` - wrap a method call and assert that it raises an exception
+
+* Number
+
+  * ``close_to`` - match number close to a given value
+  * ``greater_than``, ``greater_than_or_equal_to``, ``less_than``,
+    ``less_than_or_equal_to`` - match numeric ordering
+
+* Text
+
+  * ``contains_string`` - match part of a string
+  * ``ends_with`` - match the end of a string
+  * ``equal_to_ignoring_case`` - match the complete string but ignore case
+  * ``equal_to_ignoring_whitespace`` - match the complete string but ignore extra whitespace
+  * ``matches_regexp`` - match a regular expression in a string
+  * ``starts_with`` - match the beginning of a string
+  * ``string_contains_in_order`` - match parts of a string, in relative order
+
+* Logical
+
+  * ``all_of`` - ``and`` together all matchers
+  * ``any_of`` - ``or`` together all matchers
+  * ``anything`` - match anything, useful in composite matchers when you don't care about a particular value
+  * ``is_not`` - negate the matcher
+
+* Sequence
+
+  * ``contains`` - exactly match the entire sequence
+  * ``contains_inanyorder`` - match the entire sequence, but in any order
+  * ``has_item`` - match if given item appears in the sequence
+  * ``has_items`` - match if all given items appear in the sequence, in any order
+  * ``is_in`` - match if item appears in the given sequence
+  * ``only_contains`` - match if sequence's items appear in given list
+  * ``empty`` - match if the sequence is empty
+
+* Dictionary
+
+  * ``has_entries`` - match dictionary with list of key-value pairs
+  * ``has_entry`` - match dictionary containing a key-value pair
+  * ``has_key`` - match dictionary with a key
+  * ``has_value`` - match dictionary with a value
+
+* Decorator
+
+  * ``calling`` - wrap a callable in a deffered object, for subsequent matching on calling behaviour
+  * ``raises`` - Ensure that a deferred callable raises as expected
+  * ``described_as`` - give the matcher a custom failure description
+  * ``is_`` - decorator to improve readability - see `Syntactic sugar` below
+
+The arguments for many of these matchers accept not just a matching value, but
+another matcher, so matchers can be composed for greater flexibility. For
+example, ``only_contains(less_than(5))`` will match any sequence where every
+item is less than 5.
+
+
+Syntactic sugar
+===============
+
+PyHamcrest strives to make your tests as readable as possible. For example, the
+``is_`` matcher is a wrapper that doesn't add any extra behavior to the
+underlying matcher. The following assertions are all equivalent:
+
+.. code:: python
+
+ assert_that(theBiscuit, equal_to(myBiscuit))
+ assert_that(theBiscuit, is_(equal_to(myBiscuit)))
+ assert_that(theBiscuit, is_(myBiscuit))
+
+The last form is allowed since ``is_(value)`` wraps most non-matcher arguments
+with ``equal_to``. But if the argument is a type, it is wrapped with
+``instance_of``, so the following are also equivalent:
+
+.. code:: python
+
+ assert_that(theBiscuit, instance_of(Biscuit))
+ assert_that(theBiscuit, is_(instance_of(Biscuit)))
+ assert_that(theBiscuit, is_(Biscuit))
+
+*Note that PyHamcrest's ``is_`` matcher is unrelated to Python's ``is``
+operator. The matcher for object identity is ``same_instance``.*
+
+
+Writing custom matchers
+=======================
+
+PyHamcrest comes bundled with lots of useful matchers, but you'll probably find
+that you need to create your own from time to time to fit your testing needs.
+This commonly occurs when you find a fragment of code that tests the same set
+of properties over and over again (and in different tests), and you want to
+bundle the fragment into a single assertion. By writing your own matcher you'll
+eliminate code duplication and make your tests more readable!
+
+Let's write our own matcher for testing if a calendar date falls on a Saturday.
+This is the test we want to write:
+
+.. code:: python
+
+ def testDateIsOnASaturday(self):
+     d = datetime.date(2008, 04, 26)
+     assert_that(d, is_(on_a_saturday()))
+
+And here's the implementation:
+
+.. code:: python
+
+ from hamcrest.core.base_matcher import BaseMatcher
+ from hamcrest.core.helpers.hasmethod import hasmethod
+
+ class IsGivenDayOfWeek(BaseMatcher):
+
+     def __init__(self, day):
+         self.day = day  # Monday is 0, Sunday is 6
+
+     def _matches(self, item):
+         if not hasmethod(item, 'weekday'):
+             return False
+         return item.weekday() == self.day
+
+     def describe_to(self, description):
+         day_as_string = ['Monday', 'Tuesday', 'Wednesday', 'Thursday',
+                          'Friday', 'Saturday', 'Sunday']
+         description.append_text('calendar date falling on ')    \
+                    .append_text(day_as_string[self.day])
+
+ def on_a_saturday():
+     return IsGivenDayOfWeek(5)
+
+For our Matcher implementation we implement the ``_matches`` method - which
+calls the ``weekday`` method after confirming that the argument (which may not
+be a date) has such a method - and the ``describe_to`` method - which is used
+to produce a failure message when a test fails. Here's an example of how the
+failure message looks:
+
+.. code:: python
+
+ assert_that(datetime.date(2008, 04, 06), is_(on_a_saturday()))
+
+fails with the message::
+
+    AssertionError:
+    Expected: is calendar date falling on Saturday
+         got: <2008-04-06>
+
+Let's say this matcher is saved in a module named ``isgivendayofweek``. We
+could use it in our test by importing the factory function ``on_a_saturday``:
+
+.. code:: python
+
+ from hamcrest import *
+ import unittest
+ from isgivendayofweek import on_a_saturday
+
+ class DateTest(unittest.TestCase):
+     def testDateIsOnASaturday(self):
+         d = datetime.date(2008, 04, 26)
+         assert_that(d, is_(on_a_saturday()))
+
+ if __name__ == '__main__':
+     unittest.main()
+
+Even though the ``on_a_saturday`` function creates a new matcher each time it
+is called, you should not assume this is the only usage pattern for your
+matcher. Therefore you should make sure your matcher is stateless, so a single
+instance can be reused between matches.
+
+
+More resources
+==============
+
+* Documentation_
+* Package_
+* Sources_
+* Hamcrest_
+
+.. _Documentation: http://readthedocs.org/docs/pyhamcrest/en/V1.8.2/
+.. _Package: http://pypi.python.org/pypi/PyHamcrest
+.. _Sources: https://github.com/hamcrest/PyHamcrest
+.. _Hamcrest: http://hamcrest.org
+
+
+pytz - World Timezone Definitions for Python
+============================================
+
+:Author: Stuart Bishop <stuart@stuartbishop.net>
+
+Introduction
+~~~~~~~~~~~~
+
+pytz brings the Olson tz database into Python. This library allows
+accurate and cross platform timezone calculations using Python 2.4
+or higher. It also solves the issue of ambiguous times at the end
+of daylight saving time, which you can read more about in the Python
+Library Reference (``datetime.tzinfo``).
+
+Almost all of the Olson timezones are supported.
+
+.. note::
+
+    This library differs from the documented Python API for
+    tzinfo implementations; if you want to create local wallclock
+    times you need to use the ``localize()`` method documented in this
+    document. In addition, if you perform date arithmetic on local
+    times that cross DST boundaries, the result may be in an incorrect
+    timezone (ie. subtract 1 minute from 2002-10-27 1:00 EST and you get
+    2002-10-27 0:59 EST instead of the correct 2002-10-27 1:59 EDT). A
+    ``normalize()`` method is provided to correct this. Unfortunately these
+    issues cannot be resolved without modifying the Python datetime
+    implementation (see PEP-431).
+
+
+Installation
+~~~~~~~~~~~~
+
+This package can either be installed from a .egg file using setuptools,
+or from the tarball using the standard Python distutils.
+
+If you are installing from a tarball, run the following command as an
+administrative user::
+
+    python setup.py install
+
+If you are installing using setuptools, you don't even need to download
+anything as the latest version will be downloaded for you
+from the Python package index::
+
+    easy_install --upgrade pytz
+
+If you already have the .egg file, you can use that too::
+
+    easy_install pytz-2008g-py2.6.egg
+
+
+Example & Usage
+~~~~~~~~~~~~~~~
+
+Localized times and date arithmetic
+-----------------------------------
+
+>>> from datetime import datetime, timedelta
+>>> from pytz import timezone
+>>> import pytz
+>>> utc = pytz.utc
+>>> utc.zone
+'UTC'
+>>> eastern = timezone('US/Eastern')
+>>> eastern.zone
+'US/Eastern'
+>>> amsterdam = timezone('Europe/Amsterdam')
+>>> fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+
+This library only supports two ways of building a localized time. The
+first is to use the ``localize()`` method provided by the pytz library.
+This is used to localize a naive datetime (datetime with no timezone
+information):
+
+>>> loc_dt = eastern.localize(datetime(2002, 10, 27, 6, 0, 0))
+>>> print(loc_dt.strftime(fmt))
+2002-10-27 06:00:00 EST-0500
+
+The second way of building a localized time is by converting an existing
+localized time using the standard ``astimezone()`` method:
+
+>>> ams_dt = loc_dt.astimezone(amsterdam)
+>>> ams_dt.strftime(fmt)
+'2002-10-27 12:00:00 CET+0100'
+
+Unfortunately using the tzinfo argument of the standard datetime
+constructors ''does not work'' with pytz for many timezones.
+
+>>> datetime(2002, 10, 27, 12, 0, 0, tzinfo=amsterdam).strftime(fmt)
+'2002-10-27 12:00:00 LMT+0020'
+
+It is safe for timezones without daylight saving transitions though, such
+as UTC:
+
+>>> datetime(2002, 10, 27, 12, 0, 0, tzinfo=pytz.utc).strftime(fmt)
+'2002-10-27 12:00:00 UTC+0000'
+
+The preferred way of dealing with times is to always work in UTC,
+converting to localtime only when generating output to be read
+by humans.
+
+>>> utc_dt = datetime(2002, 10, 27, 6, 0, 0, tzinfo=utc)
+>>> loc_dt = utc_dt.astimezone(eastern)
+>>> loc_dt.strftime(fmt)
+'2002-10-27 01:00:00 EST-0500'
+
+This library also allows you to do date arithmetic using local
+times, although it is more complicated than working in UTC as you
+need to use the ``normalize()`` method to handle daylight saving time
+and other timezone transitions. In this example, ``loc_dt`` is set
+to the instant when daylight saving time ends in the US/Eastern
+timezone.
+
+>>> before = loc_dt - timedelta(minutes=10)
+>>> before.strftime(fmt)
+'2002-10-27 00:50:00 EST-0500'
+>>> eastern.normalize(before).strftime(fmt)
+'2002-10-27 01:50:00 EDT-0400'
+>>> after = eastern.normalize(before + timedelta(minutes=20))
+>>> after.strftime(fmt)
+'2002-10-27 01:10:00 EST-0500'
+
+Creating local times is also tricky, and the reason why working with
+local times is not recommended. Unfortunately, you cannot just pass
+a ``tzinfo`` argument when constructing a datetime (see the next
+section for more details)
+
+>>> dt = datetime(2002, 10, 27, 1, 30, 0)
+>>> dt1 = eastern.localize(dt, is_dst=True)
+>>> dt1.strftime(fmt)
+'2002-10-27 01:30:00 EDT-0400'
+>>> dt2 = eastern.localize(dt, is_dst=False)
+>>> dt2.strftime(fmt)
+'2002-10-27 01:30:00 EST-0500'
+
+Converting between timezones is more easily done, using the
+standard astimezone method.
+
+>>> utc_dt = utc.localize(datetime.utcfromtimestamp(1143408899))
+>>> utc_dt.strftime(fmt)
+'2006-03-26 21:34:59 UTC+0000'
+>>> au_tz = timezone('Australia/Sydney')
+>>> au_dt = utc_dt.astimezone(au_tz)
+>>> au_dt.strftime(fmt)
+'2006-03-27 08:34:59 AEDT+1100'
+>>> utc_dt2 = au_dt.astimezone(utc)
+>>> utc_dt2.strftime(fmt)
+'2006-03-26 21:34:59 UTC+0000'
+>>> utc_dt == utc_dt2
+True
+
+You can take shortcuts when dealing with the UTC side of timezone
+conversions. ``normalize()`` and ``localize()`` are not really
+necessary when there are no daylight saving time transitions to
+deal with.
+
+>>> utc_dt = datetime.utcfromtimestamp(1143408899).replace(tzinfo=utc)
+>>> utc_dt.strftime(fmt)
+'2006-03-26 21:34:59 UTC+0000'
+>>> au_tz = timezone('Australia/Sydney')
+>>> au_dt = au_tz.normalize(utc_dt.astimezone(au_tz))
+>>> au_dt.strftime(fmt)
+'2006-03-27 08:34:59 AEDT+1100'
+>>> utc_dt2 = au_dt.astimezone(utc)
+>>> utc_dt2.strftime(fmt)
+'2006-03-26 21:34:59 UTC+0000'
+
+
+``tzinfo`` API
+--------------
+
+The ``tzinfo`` instances returned by the ``timezone()`` function have
+been extended to cope with ambiguous times by adding an ``is_dst``
+parameter to the ``utcoffset()``, ``dst()`` && ``tzname()`` methods.
+
+>>> tz = timezone('America/St_Johns')
+
+>>> normal = datetime(2009, 9, 1)
+>>> ambiguous = datetime(2009, 10, 31, 23, 30)
+
+The ``is_dst`` parameter is ignored for most timestamps. It is only used
+during DST transition ambiguous periods to resolve that ambiguity.
+
+>>> tz.utcoffset(normal, is_dst=True)
+datetime.timedelta(-1, 77400)
+>>> tz.dst(normal, is_dst=True)
+datetime.timedelta(0, 3600)
+>>> tz.tzname(normal, is_dst=True)
+'NDT'
+
+>>> tz.utcoffset(ambiguous, is_dst=True)
+datetime.timedelta(-1, 77400)
+>>> tz.dst(ambiguous, is_dst=True)
+datetime.timedelta(0, 3600)
+>>> tz.tzname(ambiguous, is_dst=True)
+'NDT'
+
+>>> tz.utcoffset(normal, is_dst=False)
+datetime.timedelta(-1, 77400)
+>>> tz.dst(normal, is_dst=False)
+datetime.timedelta(0, 3600)
+>>> tz.tzname(normal, is_dst=False)
+'NDT'
+
+>>> tz.utcoffset(ambiguous, is_dst=False)
+datetime.timedelta(-1, 73800)
+>>> tz.dst(ambiguous, is_dst=False)
+datetime.timedelta(0)
+>>> tz.tzname(ambiguous, is_dst=False)
+'NST'
+
+If ``is_dst`` is not specified, ambiguous timestamps will raise
+an ``pytz.exceptions.AmbiguousTimeError`` exception.
+
+>>> tz.utcoffset(normal)
+datetime.timedelta(-1, 77400)
+>>> tz.dst(normal)
+datetime.timedelta(0, 3600)
+>>> tz.tzname(normal)
+'NDT'
+
+>>> import pytz.exceptions
+>>> try:
+...     tz.utcoffset(ambiguous)
+... except pytz.exceptions.AmbiguousTimeError:
+...     print('pytz.exceptions.AmbiguousTimeError: %s' % ambiguous)
+pytz.exceptions.AmbiguousTimeError: 2009-10-31 23:30:00
+>>> try:
+...     tz.dst(ambiguous)
+... except pytz.exceptions.AmbiguousTimeError:
+...     print('pytz.exceptions.AmbiguousTimeError: %s' % ambiguous)
+pytz.exceptions.AmbiguousTimeError: 2009-10-31 23:30:00
+>>> try:
+...     tz.tzname(ambiguous)
+... except pytz.exceptions.AmbiguousTimeError:
+...     print('pytz.exceptions.AmbiguousTimeError: %s' % ambiguous)
+pytz.exceptions.AmbiguousTimeError: 2009-10-31 23:30:00
+
+
+Problems with Localtime
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The major problem we have to deal with is that certain datetimes
+may occur twice in a year. For example, in the US/Eastern timezone
+on the last Sunday morning in October, the following sequence
+happens:
+
+    - 01:00 EDT occurs
+    - 1 hour later, instead of 2:00am the clock is turned back 1 hour
+      and 01:00 happens again (this time 01:00 EST)
+
+In fact, every instant between 01:00 and 02:00 occurs twice. This means
+that if you try and create a time in the 'US/Eastern' timezone
+the standard datetime syntax, there is no way to specify if you meant
+before of after the end-of-daylight-saving-time transition. Using the
+pytz custom syntax, the best you can do is make an educated guess:
+
+>>> loc_dt = eastern.localize(datetime(2002, 10, 27, 1, 30, 00))
+>>> loc_dt.strftime(fmt)
+'2002-10-27 01:30:00 EST-0500'
+
+As you can see, the system has chosen one for you and there is a 50%
+chance of it being out by one hour. For some applications, this does
+not matter. However, if you are trying to schedule meetings with people
+in different timezones or analyze log files it is not acceptable.
+
+The best and simplest solution is to stick with using UTC.  The pytz
+package encourages using UTC for internal timezone representation by
+including a special UTC implementation based on the standard Python
+reference implementation in the Python documentation.
+
+The UTC timezone unpickles to be the same instance, and pickles to a
+smaller size than other pytz tzinfo instances.  The UTC implementation
+can be obtained as pytz.utc, pytz.UTC, or pytz.timezone('UTC').
+
+>>> import pickle, pytz
+>>> dt = datetime(2005, 3, 1, 14, 13, 21, tzinfo=utc)
+>>> naive = dt.replace(tzinfo=None)
+>>> p = pickle.dumps(dt, 1)
+>>> naive_p = pickle.dumps(naive, 1)
+>>> len(p) - len(naive_p)
+17
+>>> new = pickle.loads(p)
+>>> new == dt
+True
+>>> new is dt
+False
+>>> new.tzinfo is dt.tzinfo
+True
+>>> pytz.utc is pytz.UTC is pytz.timezone('UTC')
+True
+
+Note that some other timezones are commonly thought of as the same (GMT,
+Greenwich, Universal, etc.). The definition of UTC is distinct from these
+other timezones, and they are not equivalent. For this reason, they will
+not compare the same in Python.
+
+>>> utc == pytz.timezone('GMT')
+False
+
+See the section `What is UTC`_, below.
+
+If you insist on working with local times, this library provides a
+facility for constructing them unambiguously:
+
+>>> loc_dt = datetime(2002, 10, 27, 1, 30, 00)
+>>> est_dt = eastern.localize(loc_dt, is_dst=True)
+>>> edt_dt = eastern.localize(loc_dt, is_dst=False)
+>>> print(est_dt.strftime(fmt) + ' / ' + edt_dt.strftime(fmt))
+2002-10-27 01:30:00 EDT-0400 / 2002-10-27 01:30:00 EST-0500
+
+If you pass None as the is_dst flag to localize(), pytz will refuse to
+guess and raise exceptions if you try to build ambiguous or non-existent
+times.
+
+For example, 1:30am on 27th Oct 2002 happened twice in the US/Eastern
+timezone when the clocks where put back at the end of Daylight Saving
+Time:
+
+>>> dt = datetime(2002, 10, 27, 1, 30, 00)
+>>> try:
+...     eastern.localize(dt, is_dst=None)
+... except pytz.exceptions.AmbiguousTimeError:
+...     print('pytz.exceptions.AmbiguousTimeError: %s' % dt)
+pytz.exceptions.AmbiguousTimeError: 2002-10-27 01:30:00
+
+Similarly, 2:30am on 7th April 2002 never happened at all in the
+US/Eastern timezone, as the clocks where put forward at 2:00am skipping
+the entire hour:
+
+>>> dt = datetime(2002, 4, 7, 2, 30, 00)
+>>> try:
+...     eastern.localize(dt, is_dst=None)
+... except pytz.exceptions.NonExistentTimeError:
+...     print('pytz.exceptions.NonExistentTimeError: %s' % dt)
+pytz.exceptions.NonExistentTimeError: 2002-04-07 02:30:00
+
+Both of these exceptions share a common base class to make error handling
+easier:
+
+>>> isinstance(pytz.AmbiguousTimeError(), pytz.InvalidTimeError)
+True
+>>> isinstance(pytz.NonExistentTimeError(), pytz.InvalidTimeError)
+True
+
+
+A special case is where countries change their timezone definitions
+with no daylight savings time switch. For example, in 1915 Warsaw
+switched from Warsaw time to Central European time with no daylight savings
+transition. So at the stroke of midnight on August 5th 1915 the clocks
+were wound back 24 minutes creating an ambiguous time period that cannot
+be specified without referring to the timezone abbreviation or the
+actual UTC offset. In this case midnight happened twice, neither time
+during a daylight saving time period. pytz handles this transition by
+treating the ambiguous period before the switch as daylight savings
+time, and the ambiguous period after as standard time.
+
+
+>>> warsaw = pytz.timezone('Europe/Warsaw')
+>>> amb_dt1 = warsaw.localize(datetime(1915, 8, 4, 23, 59, 59), is_dst=True)
+>>> amb_dt1.strftime(fmt)
+'1915-08-04 23:59:59 WMT+0124'
+>>> amb_dt2 = warsaw.localize(datetime(1915, 8, 4, 23, 59, 59), is_dst=False)
+>>> amb_dt2.strftime(fmt)
+'1915-08-04 23:59:59 CET+0100'
+>>> switch_dt = warsaw.localize(datetime(1915, 8, 5, 00, 00, 00), is_dst=False)
+>>> switch_dt.strftime(fmt)
+'1915-08-05 00:00:00 CET+0100'
+>>> str(switch_dt - amb_dt1)
+'0:24:01'
+>>> str(switch_dt - amb_dt2)
+'0:00:01'
+
+The best way of creating a time during an ambiguous time period is
+by converting from another timezone such as UTC:
+
+>>> utc_dt = datetime(1915, 8, 4, 22, 36, tzinfo=pytz.utc)
+>>> utc_dt.astimezone(warsaw).strftime(fmt)
+'1915-08-04 23:36:00 CET+0100'
+
+The standard Python way of handling all these ambiguities is not to
+handle them, such as demonstrated in this example using the US/Eastern
+timezone definition from the Python documentation (Note that this
+implementation only works for dates between 1987 and 2006 - it is
+included for tests only!):
+
+>>> from pytz.reference import Eastern # pytz.reference only for tests
+>>> dt = datetime(2002, 10, 27, 0, 30, tzinfo=Eastern)
+>>> str(dt)
+'2002-10-27 00:30:00-04:00'
+>>> str(dt + timedelta(hours=1))
+'2002-10-27 01:30:00-05:00'
+>>> str(dt + timedelta(hours=2))
+'2002-10-27 02:30:00-05:00'
+>>> str(dt + timedelta(hours=3))
+'2002-10-27 03:30:00-05:00'
+
+Notice the first two results? At first glance you might think they are
+correct, but taking the UTC offset into account you find that they are
+actually two hours appart instead of the 1 hour we asked for.
+
+>>> from pytz.reference import UTC # pytz.reference only for tests
+>>> str(dt.astimezone(UTC))
+'2002-10-27 04:30:00+00:00'
+>>> str((dt + timedelta(hours=1)).astimezone(UTC))
+'2002-10-27 06:30:00+00:00'
+
+
+Country Information
+~~~~~~~~~~~~~~~~~~~
+
+A mechanism is provided to access the timezones commonly in use
+for a particular country, looked up using the ISO 3166 country code.
+It returns a list of strings that can be used to retrieve the relevant
+tzinfo instance using ``pytz.timezone()``:
+
+>>> print(' '.join(pytz.country_timezones['nz']))
+Pacific/Auckland Pacific/Chatham
+
+The Olson database comes with a ISO 3166 country code to English country
+name mapping that pytz exposes as a dictionary:
+
+>>> print(pytz.country_names['nz'])
+New Zealand
+
+
+What is UTC
+~~~~~~~~~~~
+
+'UTC' is `Coordinated Universal Time`_. It is a successor to, but distinct
+from, Greenwich Mean Time (GMT) and the various definitions of Universal
+Time. UTC is now the worldwide standard for regulating clocks and time
+measurement.
+
+All other timezones are defined relative to UTC, and include offsets like
+UTC+0800 - hours to add or subtract from UTC to derive the local time. No
+daylight saving time occurs in UTC, making it a useful timezone to perform
+date arithmetic without worrying about the confusion and ambiguities caused
+by daylight saving time transitions, your country changing its timezone, or
+mobile computers that roam through multiple timezones.
+
+..  _Coordinated Universal Time: https://en.wikipedia.org/wiki/Coordinated_Universal_Time
+
+
+Helpers
+~~~~~~~
+
+There are two lists of timezones provided.
+
+``all_timezones`` is the exhaustive list of the timezone names that can
+be used.
+
+>>> from pytz import all_timezones
+>>> len(all_timezones) >= 500
+True
+>>> 'Etc/Greenwich' in all_timezones
+True
+
+``common_timezones`` is a list of useful, current timezones. It doesn't
+contain deprecated zones or historical zones, except for a few I've
+deemed in common usage, such as US/Eastern (open a bug report if you
+think other timezones are deserving of being included here). It is also
+a sequence of strings.
+
+>>> from pytz import common_timezones
+>>> len(common_timezones) < len(all_timezones)
+True
+>>> 'Etc/Greenwich' in common_timezones
+False
+>>> 'Australia/Melbourne' in common_timezones
+True
+>>> 'US/Eastern' in common_timezones
+True
+>>> 'Canada/Eastern' in common_timezones
+True
+>>> 'Australia/Yancowinna' in all_timezones
+True
+>>> 'Australia/Yancowinna' in common_timezones
+False
+
+Both ``common_timezones`` and ``all_timezones`` are alphabetically
+sorted:
+
+>>> common_timezones_dupe = common_timezones[:]
+>>> common_timezones_dupe.sort()
+>>> common_timezones == common_timezones_dupe
+True
+>>> all_timezones_dupe = all_timezones[:]
+>>> all_timezones_dupe.sort()
+>>> all_timezones == all_timezones_dupe
+True
+
+``all_timezones`` and ``common_timezones`` are also available as sets.
+
+>>> from pytz import all_timezones_set, common_timezones_set
+>>> 'US/Eastern' in all_timezones_set
+True
+>>> 'US/Eastern' in common_timezones_set
+True
+>>> 'Australia/Victoria' in common_timezones_set
+False
+
+You can also retrieve lists of timezones used by particular countries
+using the ``country_timezones()`` function. It requires an ISO-3166
+two letter country code.
+
+>>> from pytz import country_timezones
+>>> print(' '.join(country_timezones('ch')))
+Europe/Zurich
+>>> print(' '.join(country_timezones('CH')))
+Europe/Zurich
+
+
+Internationalization - i18n/l10n
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pytz is an interface to the IANA database, which uses ASCII names. The `Unicode  Consortium's Unicode Locales (CLDR) <http://cldr.unicode.org>`_
+project provides translations. Thomas Khyn's
+`l18n <https://pypi.org/project/l18n/>`_ package can be used to access
+these translations from Python.
+
+
+License
+~~~~~~~
+
+MIT license.
+
+This code is also available as part of Zope 3 under the Zope Public
+License,  Version 2.1 (ZPL).
+
+I'm happy to relicense this code if necessary for inclusion in other
+open source projects.
+
+
+Latest Versions
+~~~~~~~~~~~~~~~
+
+This package will be updated after releases of the Olson timezone
+database.  The latest version can be downloaded from the `Python Package
+Index <https://pypi.org/project/pytz/>`_.  The code that is used
+to generate this distribution is hosted on launchpad.net and available
+using git::
+
+    git clone https://git.launchpad.net/pytz
+
+A mirror on github is also available at https://github.com/stub42/pytz
+
+Announcements of new releases are made on
+`Launchpad <https://launchpad.net/pytz>`_, and the
+`Atom feed <http://feeds.launchpad.net/pytz/announcements.atom>`_
+hosted there.
+
+
+Bugs, Feature Requests & Patches
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bugs can be reported using `Launchpad <https://bugs.launchpad.net/pytz>`__.
+
+
+Issues & Limitations
+~~~~~~~~~~~~~~~~~~~~
+
+- Offsets from UTC are rounded to the nearest whole minute, so timezones
+  such as Europe/Amsterdam pre 1937 will be up to 30 seconds out. This
+  is a limitation of the Python datetime library.
+
+- If you think a timezone definition is incorrect, I probably can't fix
+  it. pytz is a direct translation of the Olson timezone database, and
+  changes to the timezone definitions need to be made to this source.
+  If you find errors they should be reported to the time zone mailing
+  list, linked from http://www.iana.org/time-zones.
+
+
+Further Reading
+~~~~~~~~~~~~~~~
+
+More info than you want to know about timezones:
+http://www.twinsun.com/tz/tz-link.htm
+
+
+Contact
+~~~~~~~
+
+Stuart Bishop <stuart@stuartbishop.net>
+
+
+
+
+Overview
+========
+
+This Python package provides high level utilities to read/write a
+variety of Python types to/from HDF5 (Heirarchal Data Format) formatted
+files. This package also provides support for MATLAB MAT v7.3 formatted
+files, which are just HDF5 files with a different extension and some
+extra meta-data.
+
+All of this is done without pickling data. Pickling is bad for security
+because it allows arbitrary code to be executed in the interpreter. One
+wants to be able to read possibly HDF5 and MAT files from untrusted
+sources, so pickling is avoided in this package.
+
+The package's documetation is found at
+http://pythonhosted.org/hdf5storage/
+
+The package's source code is found at
+https://github.com/frejanordsiek/hdf5storage
+
+The package is licensed under a 2-clause BSD license
+(https://github.com/frejanordsiek/hdf5storage/blob/master/COPYING.txt).
+
+Installation
+============
+
+Dependencies
+------------
+
+This package only supports Python >= 2.6.
+
+This package requires the numpy and h5py (>= 2.1) packages to run. Note
+that full functionality requires h5py >= 2.3. An optional dependency is
+the scipy package.
+
+Installing by pip
+-----------------
+
+This package is on `PyPI <https://pypi.python.org/pypi/hdf5storage>`_.
+To install hdf5storage using pip, run the command::
+
+    pip install hdf5storage
+
+Installing from Source
+----------------------
+
+To install hdf5storage from source, download the package and then
+install the dependencies ::
+
+    pip install -r requirements.txt
+
+Then to install the package, run the command with Python ::
+
+    python setup.py install
+
+Running Tests
+-------------
+
+For testing, the package nose (>= 1.0) is required as well as unittest2
+on Python 2.6. There are some tests that require Matlab and scipy to be
+installed and be in the executable path. Not having them means that
+those tests cannot be run (they will be skipped) but all the other
+tests will run. To install all testing dependencies, other than scipy,
+run ::
+
+    pip install -r requirements_tests.txt.
+
+To run the tests ::
+
+    python setup.py nosetests
+
+
+Building Documentation
+----------------------
+
+The documentation additionally requires sphinx (>= 1.7). The
+documentation dependencies can be installed by ::
+
+    pip install -r requirements_doc.txt
+
+To build the documentation ::
+
+    python setup.py build_sphinx
+
+Python 2
+========
+
+This package was designed and written for Python 3, with Python 2.7 and
+2.6 support added later. This does mean that a few things are a little
+clunky in Python 2. Examples include requiring ``unicode`` keys for
+dictionaries, the ``int`` and ``long`` types both being mapped to the
+Python 3 ``int`` type, etc. The storage format's metadata looks more
+familiar from a Python 3 standpoint as well.
+
+The documentation is written in terms of Python 3 syntax and types
+primarily. Important Python 2 information beyond direct translations of
+syntax and types will be pointed out.
+
+Hierarchal Data Format 5 (HDF5)
+===============================
+
+HDF5 files (see http://www.hdfgroup.org/HDF5/) are a commonly used file
+format for exchange of numerical data. It has built in support for a
+large variety of number formats (un/signed integers, floating point
+numbers, strings, etc.) as scalars and arrays, enums and compound types.
+It also handles differences in data representation on different hardware
+platforms (endianness, different floating point formats, etc.). As can
+be imagined from the name, data is represented in an HDF5 file in a
+hierarchal form modelling a Unix filesystem (Datasets are equivalent to
+files, Groups are equivalent to directories, and links are supported).
+
+This package interfaces HDF5 files using the h5py package
+(http://www.h5py.org/) as opposed to the PyTables package
+(http://www.pytables.org/).
+
+MATLAB MAT v7.3 file support
+============================
+
+MATLAB (http://www.mathworks.com/) MAT files version 7.3 and later are
+HDF5 files with a different file extension (``.mat``) and a very
+specific set of meta-data and storage conventions. This package provides
+read and write support for a limited set of Python and MATLAB types.
+
+SciPy (http://scipy.org/) has functions to read and write the older MAT
+file formats. This package has functions modeled after the
+``scipy.io.savemat`` and ``scipy.io.loadmat`` functions, that have the
+same names and similar arguments. The dispatch to the SciPy versions if
+the MAT file format is not an HDF5 based one.
+
+Supported Types
+===============
+
+The supported Python and MATLAB types are given in the tables below.
+The tables assume that one has imported collections and numpy as::
+
+    import collections as cl
+    import numpy as np
+
+The table gives which Python types can be read and written, the first
+version of this package to support it, the numpy type it gets
+converted to for storage (if type information is not written, that
+will be what it is read back as) the MATLAB class it becomes if
+targetting a MAT file, and the first version of this package to
+support writing it so MATlAB can read it.
+
+===============  =======  ==========================  ===========  ==============
+Python                                                MATLAB
+----------------------------------------------------  ---------------------------
+Type             Version  Converted to                Class        Version
+===============  =======  ==========================  ===========  ==============
+bool             0.1      np.bool\_ or np.uint8       logical      0.1 [1]_
+None             0.1      ``np.float64([])``          ``[]``       0.1
+int [2]_ [3]_    0.1      np.int64 [2]_               int64        0.1
+long [3]_ [4]_   0.1      np.int64                    int64        0.1
+float            0.1      np.float64                  double       0.1
+complex          0.1      np.complex128               double       0.1
+str              0.1      np.uint32/16                char         0.1 [5]_
+bytes            0.1      np.bytes\_ or np.uint16     char         0.1 [6]_
+bytearray        0.1      np.bytes\_ or np.uint16     char         0.1 [6]_
+list             0.1      np.object\_                 cell         0.1
+tuple            0.1      np.object\_                 cell         0.1
+set              0.1      np.object\_                 cell         0.1
+frozenset        0.1      np.object\_                 cell         0.1
+cl.deque         0.1      np.object\_                 cell         0.1
+dict             0.1                                  struct       0.1 [7]_
+np.bool\_        0.1                                  logical      0.1
+np.void          0.1
+np.uint8         0.1                                  uint8        0.1
+np.uint16        0.1                                  uint16       0.1
+np.uint32        0.1                                  uint32       0.1
+np.uint64        0.1                                  uint64       0.1
+np.uint8         0.1                                  int8         0.1
+np.int16         0.1                                  int16        0.1
+np.int32         0.1                                  int32        0.1
+np.int64         0.1                                  int64        0.1
+np.float16 [8]_  0.1
+np.float32       0.1                                  single       0.1
+np.float64       0.1                                  double       0.1
+np.complex64     0.1                                  single       0.1
+np.complex128    0.1                                  double       0.1
+np.str\_         0.1      np.uint32/16                char/uint32  0.1 [5]_
+np.bytes\_       0.1      np.bytes\_ or np.uint16     char         0.1 [6]_
+np.object\_      0.1                                  cell         0.1
+np.ndarray       0.1      [9]_ [10]_                  [9]_ [10]_   0.1 [9]_ [11]_
+np.matrix        0.1      [9]_                        [9]_         0.1 [9]_
+np.chararray     0.1      [9]_                        [9]_         0.1 [9]_
+np.recarray      0.1      structured np.ndarray       [9]_ [10]_   0.1 [9]_
+===============  =======  ==========================  ===========  ==============
+
+.. [1] Depends on the selected options. Always ``np.uint8`` when doing
+       MATLAB compatiblity, or if the option is explicitly set.
+.. [2] In Python 2.x, it may be read back as a ``long`` if it can't fit
+       in the size of an ``int``.
+.. [3] Must be small enough to fit into an ``np.int64``.
+.. [4] Type found only in Python 2.x. Python 2.x's ``long`` and ``int``
+       are unified into a single ``int`` type in Python 3.x. Read as an
+       ``int`` in Python 3.x.
+.. [5] Depends on the selected options and whether it can be converted
+       to UTF-16 without using doublets. If the option is explicity set
+       (or implicitly when doing MATLAB compatibility) and it can be
+       converted to UTF-16 without losing any characters that can't be
+       represented in UTF-16 or using UTF-16 doublets (MATLAB doesn't
+       support them), then it is written as ``np.uint16`` in UTF-16
+       encoding. Otherwise, it is stored at ``np.uint32`` in UTF-32
+       encoding.
+.. [6] Depends on the selected options. If the option is explicitly set
+       (or implicitly when doing MATLAB compatibility), it will be
+       stored as ``np.uint16`` in UTF-16 encoding unless it has
+       non-ASCII characters in which case a ``NotImplementedError`` is
+       thrown). Otherwise, it is just written as ``np.bytes_``.
+.. [7] All keys must be ``str`` in Python 3 or ``unicode`` in Python 2.
+       They cannot have null characters (``'\x00'``) or forward slashes
+       (``'/'``) in them.
+.. [8] ``np.float16`` are not supported for h5py versions before
+       ``2.2``.
+.. [9] Container types are only supported if their underlying dtype is
+       supported. Data conversions are done based on its dtype.
+.. [10] Structured ``np.ndarray`` s (have fields in their dtypes) can be
+        written as an HDF5 COMPOUND type or as an HDF5 Group with
+        Datasets holding its fields (either the values directly, or as
+        an HDF5 Reference array to the values for the different elements
+        of the data). Can only be written as an HDF5 COMPOUND type if
+        none of its field are of dtype ``'object'``. Field names cannot
+        have null characters (``'\x00'``) and, when writing as an HDF5
+        GROUP, forward slashes (``'/'``) in them.
+.. [11] Structured ``np.ndarray`` s with no elements, when written like a
+        structure, will not be read back with the right dtypes for their
+        fields (will all become 'object').
+
+This table gives the MATLAB classes that can be read from a MAT file,
+the first version of this package that can read them, and the Python
+type they are read as.
+
+===============  =======  =================================
+MATLAB Class     Version  Python Type
+===============  =======  =================================
+logical          0.1      np.bool\_
+single           0.1      np.float32 or np.complex64 [12]_
+double           0.1      np.float64 or np.complex128 [12]_
+uint8            0.1      np.uint8
+uint16           0.1      np.uint16
+uint32           0.1      np.uint32
+uint64           0.1      np.uint64
+int8             0.1      np.int8
+int16            0.1      np.int16
+int32            0.1      np.int32
+int64            0.1      np.int64
+char             0.1      np.str\_
+struct           0.1      structured np.ndarray
+cell             0.1      np.object\_
+canonical empty  0.1      ``np.float64([])``
+===============  =======  =================================
+
+.. [12] Depends on whether there is a complex part or not.
+
+
+Versions
+========
+
+0.1.15. Bugfix release that fixed the following bugs.
+        * Issue #68. Fixed bug where ``str`` and ``numpy.unicode_``
+          strings (but not ndarrays of them) were saved in
+          ``uint32`` format regardless of the value of
+          ``Options.convert_numpy_bytes_to_utf16``.
+        * Issue #70. Updated ``setup.py`` and ``requirements.txt`` to specify
+          the maximum versions of numpy and h5py that can be used for specific
+          python versions (avoid version with dropped support).
+        * Issue #71. Fixed bug where the ``'python_fields'`` attribute wouldn't
+          always be written when doing python metadata for data written in
+          a struct-like fashion. The bug caused the field order to not be
+          preserved when writing and reading.
+        * Fixed an assertion in the tests to handle field re-ordering when
+          no metadata is used for structured dtypes that only worked on
+          older versions of numpy.
+        * Issue #72. Fixed bug where python collections filled with ndarrays
+          that all have the same shape were converted to multi-dimensional
+          object ndarrays instead of a 1D object ndarray of the elements.
+
+0.1.14. Bugfix release that also added a couple features.
+        * Issue #45. Fixed syntax errors in unicode strings for Python
+          3.0 to 3.2.
+        * Issues #44 and #47. Fixed bugs in testing of conversion and
+          storage of string types.
+        * Issue #46. Fixed raising of ``RuntimeWarnings`` in tests due
+          to signalling NaNs.
+        * Added requirements files for building documentation and
+          running tests.
+        * Made it so that Matlab compatability tests are skipped if
+          Matlab is not found, instead of raising errors.
+
+0.1.13. Bugfix release fixing the following bug.
+        * Issue #36. Fixed bugs in writing ``int`` and ``long`` to HDF5
+          and their tests on 32 bit systems.
+
+0.1.12. Bugfix release fixing the following bugs. In addition, copyright years were also updated and notices put in the Matlab files used for testing.
+        * Issue #32. Fixed transposing before reshaping ``np.ndarray``
+          when reading from HDF5 files where python metadata was stored
+          but not Matlab metadata.
+        * Issue #33. Fixed the loss of the number of characters when
+          reading empty numpy string arrays.
+        * Issue #34. Fixed a conversion error when ``np.chararray`` are
+          written with Matlab metadata.
+
+0.1.11. Bugfix release fixing the following.
+        * Issue #30. Fixed ``loadmat`` not opening files in read mode.
+
+0.1.10. Minor feature/performance fix release doing the following.
+        * Issue #29. Added ``writes`` and ``reads`` functions to write
+          and read more than one piece of data at a time and made
+          ``savemat`` and ``loadmat`` use them to increase performance.
+          Previously, the HDF5 file was being opened and closed for
+          each piece of data, which impacted performance, especially
+	  for large files.
+
+0.1.9. Bugfix and minor feature release doing the following.
+       * Issue #23. Fixed bug where a structured ``np.ndarray`` with
+         a field name of ``'O'`` could never be written as an
+         HDF5 COMPOUND Dataset (falsely thought a field's dtype was
+         object).
+       * Issue #6. Added optional data compression and the storage of
+         data checksums. Controlled by several new options.
+
+0.1.8. Bugfix release fixing the following two bugs.
+       * Issue #21. Fixed bug where the ``'MATLAB_class'`` Attribute is
+         not set when writing ``dict`` types when writing MATLAB
+         metadata.
+       * Issue #22. Fixed bug where null characters (``'\x00'``) and
+         forward slashes (``'/'``) were allowed in ``dict`` keys and the
+         field names of structured ``np.ndarray`` (except that forward
+         slashes are allowed when the
+         ``structured_numpy_ndarray_as_struct`` is not set as is the
+         case when the ``matlab_compatible`` option is set). These
+         cause problems for the ``h5py`` package and the HDF5 library.
+         ``NotImplementedError`` is now thrown in these cases.
+
+0.1.7. Bugfix release with an added compatibility option and some added test code. Did the following.
+       * Fixed an issue reading variables larger than 2 GB in MATLAB
+         MAT v7.3 files when no explicit variable names to read are
+         given to ``hdf5storage.loadmat``. Fix also reduces memory
+         consumption and processing time a little bit by removing an
+         unneeded memory copy.
+       * ``Options`` now will accept any additional keyword arguments it
+         doesn't support, ignoring them, to be API compatible with future
+         package versions with added options.
+       * Added tests for reading data that has been compressed or had
+         other HDF5 filters applied.
+
+0.1.6. Bugfix release fixing a bug with determining the maximum size of a Python 2.x ``int`` on a 32-bit system.
+
+0.1.5. Bugfix release fixing the following bug.
+       * Fixed bug where an ``int`` could be stored that is too big to
+         fit into an ``int`` when read back in Python 2.x. When it is
+         too big, it is converted to a ``long``.
+       * Fixed a bug where an ``int`` or ``long`` that is too big to
+	 big to fit into an ``np.int64`` raised the wrong exception.
+       * Fixed bug where fields names for structured ``np.ndarray`` with
+         non-ASCII characters (assumed to be UTF-8 encoded in
+         Python 2.x) can't be read or written properly.
+       * Fixed bug where ``np.bytes_`` with non-ASCII characters can
+         were converted incorrectly to UTF-16 when that option is set
+         (set implicitly when doing MATLAB compatibility). Now, it throws
+         a ``NotImplementedError``.
+
+0.1.4. Bugfix release fixing the following bugs. Thanks goes to `mrdomino <https://github.com/mrdomino>`_ for writing the bug fixes.
+       * Fixed bug where ``dtype`` is used as a keyword parameter of
+         ``np.ndarray.astype`` when it is a positional argument.
+       * Fixed error caused by ``h5py.__version__`` being absent on
+         Ubuntu 12.04.
+
+0.1.3. Bugfix release fixing the following bug.
+       * Fixed broken ability to correctly read and write empty
+         structured ``np.ndarray`` (has fields).
+
+0.1.2. Bugfix release fixing the following bugs.
+       * Removed mistaken support for ``np.float16`` for h5py versions
+         before ``2.2`` since that was when support for it was
+         introduced.
+       * Structured ``np.ndarray`` where one or more fields is of the
+         ``'object'`` dtype can now be written without an error when
+         the ``structured_numpy_ndarray_as_struct`` option is not set.
+         They are written as an HDF5 Group, as if the option was set.
+       * Support for the ``'MATLAB_fields'`` Attribute for data types
+         that are structures in MATLAB has been added for when the
+         version of the h5py package being used is ``2.3`` or greater.
+         Support is still missing for earlier versions (this package
+         requires a minimum version of ``2.1``).
+       * The check for non-unicode string keys (``str`` in Python 3 and
+         ``unicode`` in Python 2) in the type ``dict`` is done right
+         before any changes are made to the HDF5 file instead of in the
+         middle so that no changes are applied if an invalid key is
+         present.
+       * HDF5 userblock set with the proper metadata for MATLAB support
+         right at the beginning of when data is being written to an HDF5
+         file instead of at the end, meaning the writing can crash and
+         the file will still be a valid MATLAB file.
+
+0.1.1. Bugfix release fixing the following bugs.
+       * ``str`` is now written like ``numpy.str_`` instead of
+         ``numpy.bytes_``.
+       * Complex numbers where the real or imaginary part are ``nan``
+         but the other part are not are now read correctly as opposed
+         to setting both parts to ``nan``.
+       * Fixed bugs in string conversions on Python 2 resulting from
+         ``str.decode()`` and ``unicode.encode()`` not taking the same
+         keyword arguments as in Python 3.
+       * MATLAB structure arrays can now be read without producing an
+         error on Python 2.
+       * ``numpy.str_`` now written as ``numpy.uint16`` on Python 2 if
+         the ``convert_numpy_str_to_utf16`` option is set and the
+         conversion can be done without using UTF-16 doublets, instead
+         of always writing them as ``numpy.uint32``.
+
+0.1. Initial version.
+
+
+Requests: HTTP for Humans
+=========================
+
+.. image:: https://img.shields.io/pypi/v/requests.svg
+    :target: https://pypi.org/project/requests/
+
+.. image:: https://img.shields.io/pypi/l/requests.svg
+    :target: https://pypi.org/project/requests/
+
+.. image:: https://img.shields.io/pypi/pyversions/requests.svg
+    :target: https://pypi.org/project/requests/
+
+.. image:: https://codecov.io/github/requests/requests/coverage.svg?branch=master
+    :target: https://codecov.io/github/requests/requests
+    :alt: codecov.io
+
+.. image:: https://img.shields.io/github/contributors/requests/requests.svg
+    :target: https://github.com/requests/requests/graphs/contributors
+
+.. image:: https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg
+    :target: https://saythanks.io/to/kennethreitz
+
+Requests is the only *Non-GMO* HTTP library for Python, safe for human
+consumption.
+
+.. image:: https://farm5.staticflickr.com/4317/35198386374_1939af3de6_k_d.jpg
+
+Behold, the power of Requests:
+
+.. code-block:: python
+
+    >>> r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
+    >>> r.status_code
+    200
+    >>> r.headers['content-type']
+    'application/json; charset=utf8'
+    >>> r.encoding
+    'utf-8'
+    >>> r.text
+    u'{"type":"User"...'
+    >>> r.json()
+    {u'disk_usage': 368627, u'private_gists': 484, ...}
+
+See `the similar code, sans Requests <https://gist.github.com/973705>`_.
+
+.. image:: https://raw.githubusercontent.com/requests/requests/master/docs/_static/requests-logo-small.png
+    :target: http://docs.python-requests.org/
+
+
+Requests allows you to send *organic, grass-fed* HTTP/1.1 requests, without the
+need for manual labor. There's no need to manually add query strings to your
+URLs, or to form-encode your POST data. Keep-alive and HTTP connection pooling
+are 100% automatic, thanks to `urllib3 <https://github.com/shazow/urllib3>`_.
+
+Besides, all the cool kids are doing it. Requests is one of the most
+downloaded Python packages of all time, pulling in over 11,000,000 downloads
+every month. You don't want to be left out!
+
+Feature Support
+---------------
+
+Requests is ready for today's web.
+
+- International Domains and URLs
+- Keep-Alive & Connection Pooling
+- Sessions with Cookie Persistence
+- Browser-style SSL Verification
+- Basic/Digest Authentication
+- Elegant Key/Value Cookies
+- Automatic Decompression
+- Automatic Content Decoding
+- Unicode Response Bodies
+- Multipart File Uploads
+- HTTP(S) Proxy Support
+- Connection Timeouts
+- Streaming Downloads
+- ``.netrc`` Support
+- Chunked Requests
+
+Requests officially supports Python 2.7 & 3.4–3.6, and runs great on PyPy.
+
+Installation
+------------
+
+To install Requests, simply use `pipenv <http://pipenv.org/>`_ (or pip, of course):
+
+.. code-block:: bash
+
+    $ pipenv install requests
+    ✨🍰✨
+
+Satisfaction guaranteed.
+
+Documentation
+-------------
+
+Fantastic documentation is available at http://docs.python-requests.org/, for a limited time only.
+
+
+How to Contribute
+-----------------
+
+#. Check for open issues or open a fresh issue to start a discussion around a feature idea or a bug. There is a `Contributor Friendly`_ tag for issues that should be ideal for people who are not very familiar with the codebase yet.
+#. Fork `the repository`_ on GitHub to start making your changes to the **master** branch (or branch off of it).
+#. Write a test which shows that the bug was fixed or that the feature works as expected.
+#. Send a pull request and bug the maintainer until it gets merged and published. :) Make sure to add yourself to AUTHORS_.
+
+.. _`the repository`: https://github.com/requests/requests
+.. _AUTHORS: https://github.com/requests/requests/blob/master/AUTHORS.rst
+.. _Contributor Friendly: https://github.com/requests/requests/issues?direction=desc&labels=Contributor+Friendly&page=1&sort=updated&state=open
+
+
+.. :changelog:
+
+Release History
+---------------
+
+dev
++++
+
+- [Short description of non-trivial change.]
+
+2.19.1 (2018-06-14)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed issue where status_codes.py's ``init`` function failed trying to append to
+  a ``__doc__`` value of ``None``.
+
+2.19.0 (2018-06-12)
++++++++++++++++++++
+
+**Improvements**
+
+- Warn user about possible slowdown when using cryptography version < 1.3.4
+- Check for invalid host in proxy URL, before forwarding request to adapter.
+- Fragments are now properly maintained across redirects. (RFC7231 7.1.2)
+- Removed use of cgi module to expedite library load time.
+- Added support for SHA-256 and SHA-512 digest auth algorithms.
+- Minor performance improvement to ``Request.content``.
+- Migrate to using collections.abc for 3.7 compatibility.
+
+**Bugfixes**
+
+- Parsing empty ``Link`` headers with ``parse_header_links()`` no longer return one bogus entry.
+- Fixed issue where loading the default certificate bundle from a zip archive
+  would raise an ``IOError``.
+- Fixed issue with unexpected ``ImportError`` on windows system which do not support ``winreg`` module.
+- DNS resolution in proxy bypass no longer includes the username and password in
+  the request. This also fixes the issue of DNS queries failing on macOS.
+- Properly normalize adapter prefixes for url comparison.
+- Passing ``None`` as a file pointer to the ``files`` param no longer raises an exception.
+- Calling ``copy`` on a ``RequestsCookieJar`` will now preserve the cookie policy correctly.
+
+**Dependencies**
+
+- We now support idna v2.7.
+- We now support urllib3 v1.23.
+
+2.18.4 (2017-08-15)
++++++++++++++++++++
+
+**Improvements**
+
+- Error messages for invalid headers now include the header name for easier debugging
+
+**Dependencies**
+
+- We now support idna v2.6.
+
+2.18.3 (2017-08-02)
++++++++++++++++++++
+
+**Improvements**
+
+- Running ``$ python -m requests.help`` now includes the installed version of idna.
+
+**Bugfixes**
+
+- Fixed issue where Requests would raise ``ConnectionError`` instead of
+  ``SSLError`` when encountering SSL problems when using urllib3 v1.22.
+
+2.18.2 (2017-07-25)
++++++++++++++++++++
+
+**Bugfixes**
+
+- ``requests.help`` no longer fails on Python 2.6 due to the absence of
+  ``ssl.OPENSSL_VERSION_NUMBER``.
+
+**Dependencies**
+
+- We now support urllib3 v1.22.
+
+2.18.1 (2017-06-14)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fix an error in the packaging whereby the ``*.whl`` contained incorrect data
+  that regressed the fix in v2.17.3.
+
+2.18.0 (2017-06-14)
++++++++++++++++++++
+
+**Improvements**
+
+- ``Response`` is now a context manager, so can be used directly in a ``with`` statement
+  without first having to be wrapped by ``contextlib.closing()``.
+
+**Bugfixes**
+
+- Resolve installation failure if multiprocessing is not available
+- Resolve tests crash if multiprocessing is not able to determine the number of CPU cores
+- Resolve error swallowing in utils set_environ generator
+
+
+2.17.3 (2017-05-29)
++++++++++++++++++++
+
+**Improvements**
+
+- Improved ``packages`` namespace identity support, for monkeypatching libraries.
+
+
+2.17.2 (2017-05-29)
++++++++++++++++++++
+
+**Improvements**
+
+- Improved ``packages`` namespace identity support, for monkeypatching libraries.
+
+
+2.17.1 (2017-05-29)
++++++++++++++++++++
+
+**Improvements**
+
+- Improved ``packages`` namespace identity support, for monkeypatching libraries.
+
+
+2.17.0 (2017-05-29)
++++++++++++++++++++
+
+**Improvements**
+
+- Removal of the 301 redirect cache. This improves thread-safety.
+
+
+2.16.5 (2017-05-28)
++++++++++++++++++++
+
+- Improvements to ``$ python -m requests.help``.
+
+2.16.4 (2017-05-27)
++++++++++++++++++++
+
+- Introduction of the ``$ python -m requests.help`` command, for debugging with maintainers!
+
+2.16.3 (2017-05-27)
++++++++++++++++++++
+
+- Further restored the ``requests.packages`` namespace for compatibility reasons.
+
+2.16.2 (2017-05-27)
++++++++++++++++++++
+
+- Further restored the ``requests.packages`` namespace for compatibility reasons.
+
+No code modification (noted below) should be necessary any longer.
+
+2.16.1 (2017-05-27)
++++++++++++++++++++
+
+- Restored the ``requests.packages`` namespace for compatibility reasons.
+- Bugfix for ``urllib3`` version parsing.
+
+**Note**: code that was written to import against the ``requests.packages``
+namespace previously will have to import code that rests at this module-level
+now.
+
+For example::
+
+    from requests.packages.urllib3.poolmanager import PoolManager
+
+Will need to be re-written to be::
+
+    from requests.packages import urllib3
+    urllib3.poolmanager.PoolManager
+
+Or, even better::
+
+    from urllib3.poolmanager import PoolManager
+
+2.16.0 (2017-05-26)
++++++++++++++++++++
+
+- Unvendor ALL the things!
+
+2.15.1 (2017-05-26)
++++++++++++++++++++
+
+- Everyone makes mistakes.
+
+2.15.0 (2017-05-26)
++++++++++++++++++++
+
+**Improvements**
+
+- Introduction of the ``Response.next`` property, for getting the next
+  ``PreparedResponse`` from a redirect chain (when ``allow_redirects=False``).
+- Internal refactoring of ``__version__`` module.
+
+**Bugfixes**
+
+- Restored once-optional parameter for ``requests.utils.get_environ_proxies()``.
+
+2.14.2 (2017-05-10)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Changed a less-than to an equal-to and an or in the dependency markers to
+  widen compatibility with older setuptools releases.
+
+2.14.1 (2017-05-09)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Changed the dependency markers to widen compatibility with older pip
+  releases.
+
+2.14.0 (2017-05-09)
++++++++++++++++++++
+
+**Improvements**
+
+- It is now possible to pass ``no_proxy`` as a key to the ``proxies``
+  dictionary to provide handling similar to the ``NO_PROXY`` environment
+  variable.
+- When users provide invalid paths to certificate bundle files or directories
+  Requests now raises ``IOError``, rather than failing at the time of the HTTPS
+  request with a fairly inscrutable certificate validation error.
+- The behavior of ``SessionRedirectMixin`` was slightly altered.
+  ``resolve_redirects`` will now detect a redirect by calling
+  ``get_redirect_target(response)`` instead of directly
+  querying ``Response.is_redirect`` and ``Response.headers['location']``.
+  Advanced users will be able to process malformed redirects more easily.
+- Changed the internal calculation of elapsed request time to have higher
+  resolution on Windows.
+- Added ``win_inet_pton`` as conditional dependency for the ``[socks]`` extra
+  on Windows with Python 2.7.
+- Changed the proxy bypass implementation on Windows: the proxy bypass
+  check doesn't use forward and reverse DNS requests anymore
+- URLs with schemes that begin with ``http`` but are not ``http`` or ``https``
+  no longer have their host parts forced to lowercase.
+
+**Bugfixes**
+
+- Much improved handling of non-ASCII ``Location`` header values in redirects.
+  Fewer ``UnicodeDecodeErrors`` are encountered on Python 2, and Python 3 now
+  correctly understands that Latin-1 is unlikely to be the correct encoding.
+- If an attempt to ``seek`` file to find out its length fails, we now
+  appropriately handle that by aborting our content-length calculations.
+- Restricted ``HTTPDigestAuth`` to only respond to auth challenges made on 4XX
+  responses, rather than to all auth challenges.
+- Fixed some code that was firing ``DeprecationWarning`` on Python 3.6.
+- The dismayed person emoticon (``/o\\``) no longer has a big head. I'm sure
+  this is what you were all worrying about most.
+
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to v1.21.1.
+- Updated bundled chardet to v3.0.2.
+- Updated bundled idna to v2.5.
+- Updated bundled certifi to 2017.4.17.
+
+2.13.0 (2017-01-24)
++++++++++++++++++++
+
+**Features**
+
+- Only load the ``idna`` library when we've determined we need it. This will
+  save some memory for users.
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.20.
+- Updated bundled idna to 2.2.
+
+2.12.5 (2017-01-18)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed an issue with JSON encoding detection, specifically detecting
+  big-endian UTF-32 with BOM.
+
+2.12.4 (2016-12-14)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed regression from 2.12.2 where non-string types were rejected in the
+  basic auth parameters. While support for this behaviour has been readded,
+  the behaviour is deprecated and will be removed in the future.
+
+2.12.3 (2016-12-01)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed regression from v2.12.1 for URLs with schemes that begin with "http".
+  These URLs have historically been processed as though they were HTTP-schemed
+  URLs, and so have had parameters added. This was removed in v2.12.2 in an
+  overzealous attempt to resolve problems with IDNA-encoding those URLs. This
+  change was reverted: the other fixes for IDNA-encoding have been judged to
+  be sufficient to return to the behaviour Requests had before v2.12.0.
+
+2.12.2 (2016-11-30)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed several issues with IDNA-encoding URLs that are technically invalid but
+  which are widely accepted. Requests will now attempt to IDNA-encode a URL if
+  it can but, if it fails, and the host contains only ASCII characters, it will
+  be passed through optimistically. This will allow users to opt-in to using
+  IDNA2003 themselves if they want to, and will also allow technically invalid
+  but still common hostnames.
+- Fixed an issue where URLs with leading whitespace would raise
+  ``InvalidSchema`` errors.
+- Fixed an issue where some URLs without the HTTP or HTTPS schemes would still
+  have HTTP URL preparation applied to them.
+- Fixed an issue where Unicode strings could not be used in basic auth.
+- Fixed an issue encountered by some Requests plugins where constructing a
+  Response object would cause ``Response.content`` to raise an
+  ``AttributeError``.
+
+2.12.1 (2016-11-16)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Updated setuptools 'security' extra for the new PyOpenSSL backend in urllib3.
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.19.1.
+
+2.12.0 (2016-11-15)
++++++++++++++++++++
+
+**Improvements**
+
+- Updated support for internationalized domain names from IDNA2003 to IDNA2008.
+  This updated support is required for several forms of IDNs and is mandatory
+  for .de domains.
+- Much improved heuristics for guessing content lengths: Requests will no
+  longer read an entire ``StringIO`` into memory.
+- Much improved logic for recalculating ``Content-Length`` headers for
+  ``PreparedRequest`` objects.
+- Improved tolerance for file-like objects that have no ``tell`` method but
+  do have a ``seek`` method.
+- Anything that is a subclass of ``Mapping`` is now treated like a dictionary
+  by the ``data=`` keyword argument.
+- Requests now tolerates empty passwords in proxy credentials, rather than
+  stripping the credentials.
+- If a request is made with a file-like object as the body and that request is
+  redirected with a 307 or 308 status code, Requests will now attempt to
+  rewind the body object so it can be replayed.
+
+**Bugfixes**
+
+- When calling ``response.close``, the call to ``close`` will be propagated
+  through to non-urllib3 backends.
+- Fixed issue where the ``ALL_PROXY`` environment variable would be preferred
+  over scheme-specific variables like ``HTTP_PROXY``.
+- Fixed issue where non-UTF8 reason phrases got severely mangled by falling
+  back to decoding using ISO 8859-1 instead.
+- Fixed a bug where Requests would not correctly correlate cookies set when
+  using custom Host headers if those Host headers did not use the native
+  string type for the platform.
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.19.
+- Updated bundled certifi certs to 2016.09.26.
+
+2.11.1 (2016-08-17)
++++++++++++++++++++
+
+**Bugfixes**
+
+- Fixed a bug when using ``iter_content`` with ``decode_unicode=True`` for
+  streamed bodies would raise ``AttributeError``. This bug was introduced in
+  2.11.
+- Strip Content-Type and Transfer-Encoding headers from the header block when
+  following a redirect that transforms the verb from POST/PUT to GET.
+
+2.11.0 (2016-08-08)
++++++++++++++++++++
+
+**Improvements**
+
+- Added support for the ``ALL_PROXY`` environment variable.
+- Reject header values that contain leading whitespace or newline characters to
+  reduce risk of header smuggling.
+
+**Bugfixes**
+
+- Fixed occasional ``TypeError`` when attempting to decode a JSON response that
+  occurred in an error case. Now correctly returns a ``ValueError``.
+- Requests would incorrectly ignore a non-CIDR IP address in the ``NO_PROXY``
+  environment variables: Requests now treats it as a specific IP.
+- Fixed a bug when sending JSON data that could cause us to encounter obscure
+  OpenSSL errors in certain network conditions (yes, really).
+- Added type checks to ensure that ``iter_content`` only accepts integers and
+  ``None`` for chunk sizes.
+- Fixed issue where responses whose body had not been fully consumed would have
+  the underlying connection closed but not returned to the connection pool,
+  which could cause Requests to hang in situations where the ``HTTPAdapter``
+  had been configured to use a blocking connection pool.
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.16.
+- Some previous releases accidentally accepted non-strings as acceptable header values. This release does not.
+
+2.10.0 (2016-04-29)
++++++++++++++++++++
+
+**New Features**
+
+- SOCKS Proxy Support! (requires PySocks; ``$ pip install requests[socks]``)
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.15.1.
+
+2.9.2 (2016-04-29)
+++++++++++++++++++
+
+**Improvements**
+
+- Change built-in CaseInsensitiveDict (used for headers) to use OrderedDict
+  as its underlying datastore.
+
+**Bugfixes**
+
+- Don't use redirect_cache if allow_redirects=False
+- When passed objects that throw exceptions from ``tell()``, send them via
+  chunked transfer encoding instead of failing.
+- Raise a ProxyError for proxy related connection issues.
+
+2.9.1 (2015-12-21)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Resolve regression introduced in 2.9.0 that made it impossible to send binary
+  strings as bodies in Python 3.
+- Fixed errors when calculating cookie expiration dates in certain locales.
+
+**Miscellaneous**
+
+- Updated bundled urllib3 to 1.13.1.
+
+2.9.0 (2015-12-15)
+++++++++++++++++++
+
+**Minor Improvements** (Backwards compatible)
+
+- The ``verify`` keyword argument now supports being passed a path to a
+  directory of CA certificates, not just a single-file bundle.
+- Warnings are now emitted when sending files opened in text mode.
+- Added the 511 Network Authentication Required status code to the status code
+  registry.
+
+**Bugfixes**
+
+- For file-like objects that are not seeked to the very beginning, we now
+  send the content length for the number of bytes we will actually read, rather
+  than the total size of the file, allowing partial file uploads.
+- When uploading file-like objects, if they are empty or have no obvious
+  content length we set ``Transfer-Encoding: chunked`` rather than
+  ``Content-Length: 0``.
+- We correctly receive the response in buffered mode when uploading chunked
+  bodies.
+- We now handle being passed a query string as a bytestring on Python 3, by
+  decoding it as UTF-8.
+- Sessions are now closed in all cases (exceptional and not) when using the
+  functional API rather than leaking and waiting for the garbage collector to
+  clean them up.
+- Correctly handle digest auth headers with a malformed ``qop`` directive that
+  contains no token, by treating it the same as if no ``qop`` directive was
+  provided at all.
+- Minor performance improvements when removing specific cookies by name.
+
+**Miscellaneous**
+
+- Updated urllib3 to 1.13.
+
+2.8.1 (2015-10-13)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Update certificate bundle to match ``certifi`` 2015.9.6.2's weak certificate
+  bundle.
+- Fix a bug in 2.8.0 where requests would raise ``ConnectTimeout`` instead of
+  ``ConnectionError``
+- When using the PreparedRequest flow, requests will now correctly respect the
+  ``json`` parameter. Broken in 2.8.0.
+- When using the PreparedRequest flow, requests will now correctly handle a
+  Unicode-string method name on Python 2. Broken in 2.8.0.
+
+2.8.0 (2015-10-05)
+++++++++++++++++++
+
+**Minor Improvements** (Backwards Compatible)
+
+- Requests now supports per-host proxies. This allows the ``proxies``
+  dictionary to have entries of the form
+  ``{'<scheme>://<hostname>': '<proxy>'}``. Host-specific proxies will be used
+  in preference to the previously-supported scheme-specific ones, but the
+  previous syntax will continue to work.
+- ``Response.raise_for_status`` now prints the URL that failed as part of the
+  exception message.
+- ``requests.utils.get_netrc_auth`` now takes an ``raise_errors`` kwarg,
+  defaulting to ``False``. When ``True``, errors parsing ``.netrc`` files cause
+  exceptions to be thrown.
+- Change to bundled projects import logic to make it easier to unbundle
+  requests downstream.
+- Changed the default User-Agent string to avoid leaking data on Linux: now
+  contains only the requests version.
+
+**Bugfixes**
+
+- The ``json`` parameter to ``post()`` and friends will now only be used if
+  neither ``data`` nor ``files`` are present, consistent with the
+  documentation.
+- We now ignore empty fields in the ``NO_PROXY`` environment variable.
+- Fixed problem where ``httplib.BadStatusLine`` would get raised if combining
+  ``stream=True`` with ``contextlib.closing``.
+- Prevented bugs where we would attempt to return the same connection back to
+  the connection pool twice when sending a Chunked body.
+- Miscellaneous minor internal changes.
+- Digest Auth support is now thread safe.
+
+**Updates**
+
+- Updated urllib3 to 1.12.
+
+2.7.0 (2015-05-03)
+++++++++++++++++++
+
+This is the first release that follows our new release process. For more, see
+`our documentation
+<http://docs.python-requests.org/en/latest/community/release-process/>`_.
+
+**Bugfixes**
+
+- Updated urllib3 to 1.10.4, resolving several bugs involving chunked transfer
+  encoding and response framing.
+
+2.6.2 (2015-04-23)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fix regression where compressed data that was sent as chunked data was not
+  properly decompressed. (#2561)
+
+2.6.1 (2015-04-22)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Remove VendorAlias import machinery introduced in v2.5.2.
+
+- Simplify the PreparedRequest.prepare API: We no longer require the user to
+  pass an empty list to the hooks keyword argument. (c.f. #2552)
+
+- Resolve redirects now receives and forwards all of the original arguments to
+  the adapter. (#2503)
+
+- Handle UnicodeDecodeErrors when trying to deal with a unicode URL that
+  cannot be encoded in ASCII. (#2540)
+
+- Populate the parsed path of the URI field when performing Digest
+  Authentication. (#2426)
+
+- Copy a PreparedRequest's CookieJar more reliably when it is not an instance
+  of RequestsCookieJar. (#2527)
+
+2.6.0 (2015-03-14)
+++++++++++++++++++
+
+**Bugfixes**
+
+- CVE-2015-2296: Fix handling of cookies on redirect. Previously a cookie
+  without a host value set would use the hostname for the redirected URL
+  exposing requests users to session fixation attacks and potentially cookie
+  stealing. This was disclosed privately by Matthew Daley of
+  `BugFuzz <https://bugfuzz.com>`_. This affects all versions of requests from
+  v2.1.0 to v2.5.3 (inclusive on both ends).
+
+- Fix error when requests is an ``install_requires`` dependency and ``python
+  setup.py test`` is run. (#2462)
+
+- Fix error when urllib3 is unbundled and requests continues to use the
+  vendored import location.
+
+- Include fixes to ``urllib3``'s header handling.
+
+- Requests' handling of unvendored dependencies is now more restrictive.
+
+**Features and Improvements**
+
+- Support bytearrays when passed as parameters in the ``files`` argument.
+  (#2468)
+
+- Avoid data duplication when creating a request with ``str``, ``bytes``, or
+  ``bytearray`` input to the ``files`` argument.
+
+2.5.3 (2015-02-24)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Revert changes to our vendored certificate bundle. For more context see
+  (#2455, #2456, and http://bugs.python.org/issue23476)
+
+2.5.2 (2015-02-23)
+++++++++++++++++++
+
+**Features and Improvements**
+
+- Add sha256 fingerprint support. (`shazow/urllib3#540`_)
+
+- Improve the performance of headers. (`shazow/urllib3#544`_)
+
+**Bugfixes**
+
+- Copy pip's import machinery. When downstream redistributors remove
+  requests.packages.urllib3 the import machinery will continue to let those
+  same symbols work. Example usage in requests' documentation and 3rd-party
+  libraries relying on the vendored copies of urllib3 will work without having
+  to fallback to the system urllib3.
+
+- Attempt to quote parts of the URL on redirect if unquoting and then quoting
+  fails. (#2356)
+
+- Fix filename type check for multipart form-data uploads. (#2411)
+
+- Properly handle the case where a server issuing digest authentication
+  challenges provides both auth and auth-int qop-values. (#2408)
+
+- Fix a socket leak. (`shazow/urllib3#549`_)
+
+- Fix multiple ``Set-Cookie`` headers properly. (`shazow/urllib3#534`_)
+
+- Disable the built-in hostname verification. (`shazow/urllib3#526`_)
+
+- Fix the behaviour of decoding an exhausted stream. (`shazow/urllib3#535`_)
+
+**Security**
+
+- Pulled in an updated ``cacert.pem``.
+
+- Drop RC4 from the default cipher list. (`shazow/urllib3#551`_)
+
+.. _shazow/urllib3#551: https://github.com/shazow/urllib3/pull/551
+.. _shazow/urllib3#549: https://github.com/shazow/urllib3/pull/549
+.. _shazow/urllib3#544: https://github.com/shazow/urllib3/pull/544
+.. _shazow/urllib3#540: https://github.com/shazow/urllib3/pull/540
+.. _shazow/urllib3#535: https://github.com/shazow/urllib3/pull/535
+.. _shazow/urllib3#534: https://github.com/shazow/urllib3/pull/534
+.. _shazow/urllib3#526: https://github.com/shazow/urllib3/pull/526
+
+2.5.1 (2014-12-23)
+++++++++++++++++++
+
+**Behavioural Changes**
+
+- Only catch HTTPErrors in raise_for_status (#2382)
+
+**Bugfixes**
+
+- Handle LocationParseError from urllib3 (#2344)
+- Handle file-like object filenames that are not strings (#2379)
+- Unbreak HTTPDigestAuth handler. Allow new nonces to be negotiated (#2389)
+
+2.5.0 (2014-12-01)
+++++++++++++++++++
+
+**Improvements**
+
+- Allow usage of urllib3's Retry object with HTTPAdapters (#2216)
+- The ``iter_lines`` method on a response now accepts a delimiter with which
+  to split the content (#2295)
+
+**Behavioural Changes**
+
+- Add deprecation warnings to functions in requests.utils that will be removed
+  in 3.0 (#2309)
+- Sessions used by the functional API are always closed (#2326)
+- Restrict requests to HTTP/1.1 and HTTP/1.0 (stop accepting HTTP/0.9) (#2323)
+
+**Bugfixes**
+
+- Only parse the URL once (#2353)
+- Allow Content-Length header to always be overridden (#2332)
+- Properly handle files in HTTPDigestAuth (#2333)
+- Cap redirect_cache size to prevent memory abuse (#2299)
+- Fix HTTPDigestAuth handling of redirects after authenticating successfully
+  (#2253)
+- Fix crash with custom method parameter to Session.request (#2317)
+- Fix how Link headers are parsed using the regular expression library (#2271)
+
+**Documentation**
+
+- Add more references for interlinking (#2348)
+- Update CSS for theme (#2290)
+- Update width of buttons and sidebar (#2289)
+- Replace references of Gittip with Gratipay (#2282)
+- Add link to changelog in sidebar (#2273)
+
+2.4.3 (2014-10-06)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Unicode URL improvements for Python 2.
+- Re-order JSON param for backwards compat.
+- Automatically defrag authentication schemes from host/pass URIs. (`#2249 <https://github.com/requests/requests/issues/2249>`_)
+
+
+2.4.2 (2014-10-05)
+++++++++++++++++++
+
+**Improvements**
+
+- FINALLY! Add json parameter for uploads! (`#2258 <https://github.com/requests/requests/pull/2258>`_)
+- Support for bytestring URLs on Python 3.x (`#2238 <https://github.com/requests/requests/pull/2238>`_)
+
+**Bugfixes**
+
+- Avoid getting stuck in a loop (`#2244 <https://github.com/requests/requests/pull/2244>`_)
+- Multiple calls to iter* fail with unhelpful error. (`#2240 <https://github.com/requests/requests/issues/2240>`_, `#2241 <https://github.com/requests/requests/issues/2241>`_)
+
+**Documentation**
+
+- Correct redirection introduction (`#2245 <https://github.com/requests/requests/pull/2245/>`_)
+- Added example of how to send multiple files in one request. (`#2227 <https://github.com/requests/requests/pull/2227/>`_)
+- Clarify how to pass a custom set of CAs (`#2248 <https://github.com/requests/requests/pull/2248/>`_)
+
+
+
+2.4.1 (2014-09-09)
+++++++++++++++++++
+
+- Now has a "security" package extras set, ``$ pip install requests[security]``
+- Requests will now use Certifi if it is available.
+- Capture and re-raise urllib3 ProtocolError
+- Bugfix for responses that attempt to redirect to themselves forever (wtf?).
+
+
+2.4.0 (2014-08-29)
+++++++++++++++++++
+
+**Behavioral Changes**
+
+- ``Connection: keep-alive`` header is now sent automatically.
+
+**Improvements**
+
+- Support for connect timeouts! Timeout now accepts a tuple (connect, read) which is used to set individual connect and read timeouts.
+- Allow copying of PreparedRequests without headers/cookies.
+- Updated bundled urllib3 version.
+- Refactored settings loading from environment -- new `Session.merge_environment_settings`.
+- Handle socket errors in iter_content.
+
+
+2.3.0 (2014-05-16)
+++++++++++++++++++
+
+**API Changes**
+
+- New ``Response`` property ``is_redirect``, which is true when the
+  library could have processed this response as a redirection (whether
+  or not it actually did).
+- The ``timeout`` parameter now affects requests with both ``stream=True`` and
+  ``stream=False`` equally.
+- The change in v2.0.0 to mandate explicit proxy schemes has been reverted.
+  Proxy schemes now default to ``http://``.
+- The ``CaseInsensitiveDict`` used for HTTP headers now behaves like a normal
+  dictionary when references as string or viewed in the interpreter.
+
+**Bugfixes**
+
+- No longer expose Authorization or Proxy-Authorization headers on redirect.
+  Fix CVE-2014-1829 and CVE-2014-1830 respectively.
+- Authorization is re-evaluated each redirect.
+- On redirect, pass url as native strings.
+- Fall-back to autodetected encoding for JSON when Unicode detection fails.
+- Headers set to ``None`` on the ``Session`` are now correctly not sent.
+- Correctly honor ``decode_unicode`` even if it wasn't used earlier in the same
+  response.
+- Stop advertising ``compress`` as a supported Content-Encoding.
+- The ``Response.history`` parameter is now always a list.
+- Many, many ``urllib3`` bugfixes.
+
+2.2.1 (2014-01-23)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fixes incorrect parsing of proxy credentials that contain a literal or encoded '#' character.
+- Assorted urllib3 fixes.
+
+2.2.0 (2014-01-09)
+++++++++++++++++++
+
+**API Changes**
+
+- New exception: ``ContentDecodingError``. Raised instead of ``urllib3``
+  ``DecodeError`` exceptions.
+
+**Bugfixes**
+
+- Avoid many many exceptions from the buggy implementation of ``proxy_bypass`` on OS X in Python 2.6.
+- Avoid crashing when attempting to get authentication credentials from ~/.netrc when running as a user without a home directory.
+- Use the correct pool size for pools of connections to proxies.
+- Fix iteration of ``CookieJar`` objects.
+- Ensure that cookies are persisted over redirect.
+- Switch back to using chardet, since it has merged with charade.
+
+2.1.0 (2013-12-05)
+++++++++++++++++++
+
+- Updated CA Bundle, of course.
+- Cookies set on individual Requests through a ``Session`` (e.g. via ``Session.get()``) are no longer persisted to the ``Session``.
+- Clean up connections when we hit problems during chunked upload, rather than leaking them.
+- Return connections to the pool when a chunked upload is successful, rather than leaking it.
+- Match the HTTPbis recommendation for HTTP 301 redirects.
+- Prevent hanging when using streaming uploads and Digest Auth when a 401 is received.
+- Values of headers set by Requests are now always the native string type.
+- Fix previously broken SNI support.
+- Fix accessing HTTP proxies using proxy authentication.
+- Unencode HTTP Basic usernames and passwords extracted from URLs.
+- Support for IP address ranges for no_proxy environment variable
+- Parse headers correctly when users override the default ``Host:`` header.
+- Avoid munging the URL in case of case-sensitive servers.
+- Looser URL handling for non-HTTP/HTTPS urls.
+- Accept unicode methods in Python 2.6 and 2.7.
+- More resilient cookie handling.
+- Make ``Response`` objects pickleable.
+- Actually added MD5-sess to Digest Auth instead of pretending to like last time.
+- Updated internal urllib3.
+- Fixed @Lukasa's lack of taste.
+
+2.0.1 (2013-10-24)
+++++++++++++++++++
+
+- Updated included CA Bundle with new mistrusts and automated process for the future
+- Added MD5-sess to Digest Auth
+- Accept per-file headers in multipart file POST messages.
+- Fixed: Don't send the full URL on CONNECT messages.
+- Fixed: Correctly lowercase a redirect scheme.
+- Fixed: Cookies not persisted when set via functional API.
+- Fixed: Translate urllib3 ProxyError into a requests ProxyError derived from ConnectionError.
+- Updated internal urllib3 and chardet.
+
+2.0.0 (2013-09-24)
+++++++++++++++++++
+
+**API Changes:**
+
+- Keys in the Headers dictionary are now native strings on all Python versions,
+  i.e. bytestrings on Python 2, unicode on Python 3.
+- Proxy URLs now *must* have an explicit scheme. A ``MissingSchema`` exception
+  will be raised if they don't.
+- Timeouts now apply to read time if ``Stream=False``.
+- ``RequestException`` is now a subclass of ``IOError``, not ``RuntimeError``.
+- Added new method to ``PreparedRequest`` objects: ``PreparedRequest.copy()``.
+- Added new method to ``Session`` objects: ``Session.update_request()``. This
+  method updates a ``Request`` object with the data (e.g. cookies) stored on
+  the ``Session``.
+- Added new method to ``Session`` objects: ``Session.prepare_request()``. This
+  method updates and prepares a ``Request`` object, and returns the
+  corresponding ``PreparedRequest`` object.
+- Added new method to ``HTTPAdapter`` objects: ``HTTPAdapter.proxy_headers()``.
+  This should not be called directly, but improves the subclass interface.
+- ``httplib.IncompleteRead`` exceptions caused by incorrect chunked encoding
+  will now raise a Requests ``ChunkedEncodingError`` instead.
+- Invalid percent-escape sequences now cause a Requests ``InvalidURL``
+  exception to be raised.
+- HTTP 208 no longer uses reason phrase ``"im_used"``. Correctly uses
+  ``"already_reported"``.
+- HTTP 226 reason added (``"im_used"``).
+
+**Bugfixes:**
+
+- Vastly improved proxy support, including the CONNECT verb. Special thanks to
+  the many contributors who worked towards this improvement.
+- Cookies are now properly managed when 401 authentication responses are
+  received.
+- Chunked encoding fixes.
+- Support for mixed case schemes.
+- Better handling of streaming downloads.
+- Retrieve environment proxies from more locations.
+- Minor cookies fixes.
+- Improved redirect behaviour.
+- Improved streaming behaviour, particularly for compressed data.
+- Miscellaneous small Python 3 text encoding bugs.
+- ``.netrc`` no longer overrides explicit auth.
+- Cookies set by hooks are now correctly persisted on Sessions.
+- Fix problem with cookies that specify port numbers in their host field.
+- ``BytesIO`` can be used to perform streaming uploads.
+- More generous parsing of the ``no_proxy`` environment variable.
+- Non-string objects can be passed in data values alongside files.
+
+1.2.3 (2013-05-25)
+++++++++++++++++++
+
+- Simple packaging fix
+
+
+1.2.2 (2013-05-23)
+++++++++++++++++++
+
+- Simple packaging fix
+
+
+1.2.1 (2013-05-20)
+++++++++++++++++++
+
+- 301 and 302 redirects now change the verb to GET for all verbs, not just
+  POST, improving browser compatibility.
+- Python 3.3.2 compatibility
+- Always percent-encode location headers
+- Fix connection adapter matching to be most-specific first
+- new argument to the default connection adapter for passing a block argument
+- prevent a KeyError when there's no link headers
+
+1.2.0 (2013-03-31)
+++++++++++++++++++
+
+- Fixed cookies on sessions and on requests
+- Significantly change how hooks are dispatched - hooks now receive all the
+  arguments specified by the user when making a request so hooks can make a
+  secondary request with the same parameters. This is especially necessary for
+  authentication handler authors
+- certifi support was removed
+- Fixed bug where using OAuth 1 with body ``signature_type`` sent no data
+- Major proxy work thanks to @Lukasa including parsing of proxy authentication
+  from the proxy url
+- Fix DigestAuth handling too many 401s
+- Update vendored urllib3 to include SSL bug fixes
+- Allow keyword arguments to be passed to ``json.loads()`` via the
+  ``Response.json()`` method
+- Don't send ``Content-Length`` header by default on ``GET`` or ``HEAD``
+  requests
+- Add ``elapsed`` attribute to ``Response`` objects to time how long a request
+  took.
+- Fix ``RequestsCookieJar``
+- Sessions and Adapters are now picklable, i.e., can be used with the
+  multiprocessing library
+- Update charade to version 1.0.3
+
+The change in how hooks are dispatched will likely cause a great deal of
+issues.
+
+1.1.0 (2013-01-10)
+++++++++++++++++++
+
+- CHUNKED REQUESTS
+- Support for iterable response bodies
+- Assume servers persist redirect params
+- Allow explicit content types to be specified for file data
+- Make merge_kwargs case-insensitive when looking up keys
+
+1.0.3 (2012-12-18)
+++++++++++++++++++
+
+- Fix file upload encoding bug
+- Fix cookie behavior
+
+1.0.2 (2012-12-17)
+++++++++++++++++++
+
+- Proxy fix for HTTPAdapter.
+
+1.0.1 (2012-12-17)
+++++++++++++++++++
+
+- Cert verification exception bug.
+- Proxy fix for HTTPAdapter.
+
+1.0.0 (2012-12-17)
+++++++++++++++++++
+
+- Massive Refactor and Simplification
+- Switch to Apache 2.0 license
+- Swappable Connection Adapters
+- Mountable Connection Adapters
+- Mutable ProcessedRequest chain
+- /s/prefetch/stream
+- Removal of all configuration
+- Standard library logging
+- Make Response.json() callable, not property.
+- Usage of new charade project, which provides python 2 and 3 simultaneous chardet.
+- Removal of all hooks except 'response'
+- Removal of all authentication helpers (OAuth, Kerberos)
+
+This is not a backwards compatible change.
+
+0.14.2 (2012-10-27)
++++++++++++++++++++
+
+- Improved mime-compatible JSON handling
+- Proxy fixes
+- Path hack fixes
+- Case-Insensitive Content-Encoding headers
+- Support for CJK parameters in form posts
+
+
+0.14.1 (2012-10-01)
++++++++++++++++++++
+
+- Python 3.3 Compatibility
+- Simply default accept-encoding
+- Bugfixes
+
+
+0.14.0 (2012-09-02)
+++++++++++++++++++++
+
+- No more iter_content errors if already downloaded.
+
+0.13.9 (2012-08-25)
++++++++++++++++++++
+
+- Fix for OAuth + POSTs
+- Remove exception eating from dispatch_hook
+- General bugfixes
+
+0.13.8 (2012-08-21)
++++++++++++++++++++
+
+- Incredible Link header support :)
+
+0.13.7 (2012-08-19)
++++++++++++++++++++
+
+- Support for (key, value) lists everywhere.
+- Digest Authentication improvements.
+- Ensure proxy exclusions work properly.
+- Clearer UnicodeError exceptions.
+- Automatic casting of URLs to strings (fURL and such)
+- Bugfixes.
+
+0.13.6 (2012-08-06)
++++++++++++++++++++
+
+- Long awaited fix for hanging connections!
+
+0.13.5 (2012-07-27)
++++++++++++++++++++
+
+- Packaging fix
+
+0.13.4 (2012-07-27)
++++++++++++++++++++
+
+- GSSAPI/Kerberos authentication!
+- App Engine 2.7 Fixes!
+- Fix leaking connections (from urllib3 update)
+- OAuthlib path hack fix
+- OAuthlib URL parameters fix.
+
+0.13.3 (2012-07-12)
++++++++++++++++++++
+
+- Use simplejson if available.
+- Do not hide SSLErrors behind Timeouts.
+- Fixed param handling with urls containing fragments.
+- Significantly improved information in User Agent.
+- client certificates are ignored when verify=False
+
+0.13.2 (2012-06-28)
++++++++++++++++++++
+
+- Zero dependencies (once again)!
+- New: Response.reason
+- Sign querystring parameters in OAuth 1.0
+- Client certificates no longer ignored when verify=False
+- Add openSUSE certificate support
+
+0.13.1 (2012-06-07)
++++++++++++++++++++
+
+- Allow passing a file or file-like object as data.
+- Allow hooks to return responses that indicate errors.
+- Fix Response.text and Response.json for body-less responses.
+
+0.13.0 (2012-05-29)
++++++++++++++++++++
+
+- Removal of Requests.async in favor of `grequests <https://github.com/kennethreitz/grequests>`_
+- Allow disabling of cookie persistence.
+- New implementation of safe_mode
+- cookies.get now supports default argument
+- Session cookies not saved when Session.request is called with return_response=False
+- Env: no_proxy support.
+- RequestsCookieJar improvements.
+- Various bug fixes.
+
+0.12.1 (2012-05-08)
++++++++++++++++++++
+
+- New ``Response.json`` property.
+- Ability to add string file uploads.
+- Fix out-of-range issue with iter_lines.
+- Fix iter_content default size.
+- Fix POST redirects containing files.
+
+0.12.0 (2012-05-02)
++++++++++++++++++++
+
+- EXPERIMENTAL OAUTH SUPPORT!
+- Proper CookieJar-backed cookies interface with awesome dict-like interface.
+- Speed fix for non-iterated content chunks.
+- Move ``pre_request`` to a more usable place.
+- New ``pre_send`` hook.
+- Lazily encode data, params, files.
+- Load system Certificate Bundle if ``certify`` isn't available.
+- Cleanups, fixes.
+
+0.11.2 (2012-04-22)
++++++++++++++++++++
+
+- Attempt to use the OS's certificate bundle if ``certifi`` isn't available.
+- Infinite digest auth redirect fix.
+- Multi-part file upload improvements.
+- Fix decoding of invalid %encodings in URLs.
+- If there is no content in a response don't throw an error the second time that content is attempted to be read.
+- Upload data on redirects.
+
+0.11.1 (2012-03-30)
++++++++++++++++++++
+
+* POST redirects now break RFC to do what browsers do: Follow up with a GET.
+* New ``strict_mode`` configuration to disable new redirect behavior.
+
+
+0.11.0 (2012-03-14)
++++++++++++++++++++
+
+* Private SSL Certificate support
+* Remove select.poll from Gevent monkeypatching
+* Remove redundant generator for chunked transfer encoding
+* Fix: Response.ok raises Timeout Exception in safe_mode
+
+0.10.8 (2012-03-09)
++++++++++++++++++++
+
+* Generate chunked ValueError fix
+* Proxy configuration by environment variables
+* Simplification of iter_lines.
+* New `trust_env` configuration for disabling system/environment hints.
+* Suppress cookie errors.
+
+0.10.7 (2012-03-07)
++++++++++++++++++++
+
+* `encode_uri` = False
+
+0.10.6 (2012-02-25)
++++++++++++++++++++
+
+* Allow '=' in cookies.
+
+0.10.5 (2012-02-25)
++++++++++++++++++++
+
+* Response body with 0 content-length fix.
+* New async.imap.
+* Don't fail on netrc.
+
+
+0.10.4 (2012-02-20)
++++++++++++++++++++
+
+* Honor netrc.
+
+0.10.3 (2012-02-20)
++++++++++++++++++++
+
+* HEAD requests don't follow redirects anymore.
+* raise_for_status() doesn't raise for 3xx anymore.
+* Make Session objects picklable.
+* ValueError for invalid schema URLs.
+
+0.10.2 (2012-01-15)
++++++++++++++++++++
+
+* Vastly improved URL quoting.
+* Additional allowed cookie key values.
+* Attempted fix for "Too many open files" Error
+* Replace unicode errors on first pass, no need for second pass.
+* Append '/' to bare-domain urls before query insertion.
+* Exceptions now inherit from RuntimeError.
+* Binary uploads + auth fix.
+* Bugfixes.
+
+
+0.10.1 (2012-01-23)
++++++++++++++++++++
+
+* PYTHON 3 SUPPORT!
+* Dropped 2.5 Support. (*Backwards Incompatible*)
+
+0.10.0 (2012-01-21)
++++++++++++++++++++
+
+* ``Response.content`` is now bytes-only. (*Backwards Incompatible*)
+* New ``Response.text`` is unicode-only.
+* If no ``Response.encoding`` is specified and ``chardet`` is available, ``Response.text`` will guess an encoding.
+* Default to ISO-8859-1 (Western) encoding for "text" subtypes.
+* Removal of `decode_unicode`. (*Backwards Incompatible*)
+* New multiple-hooks system.
+* New ``Response.register_hook`` for registering hooks within the pipeline.
+* ``Response.url`` is now Unicode.
+
+0.9.3 (2012-01-18)
+++++++++++++++++++
+
+* SSL verify=False bugfix (apparent on windows machines).
+
+0.9.2 (2012-01-18)
+++++++++++++++++++
+
+* Asynchronous async.send method.
+* Support for proper chunk streams with boundaries.
+* session argument for Session classes.
+* Print entire hook tracebacks, not just exception instance.
+* Fix response.iter_lines from pending next line.
+* Fix but in HTTP-digest auth w/ URI having query strings.
+* Fix in Event Hooks section.
+* Urllib3 update.
+
+
+0.9.1 (2012-01-06)
+++++++++++++++++++
+
+* danger_mode for automatic Response.raise_for_status()
+* Response.iter_lines refactor
+
+0.9.0 (2011-12-28)
+++++++++++++++++++
+
+* verify ssl is default.
+
+
+0.8.9 (2011-12-28)
+++++++++++++++++++
+
+* Packaging fix.
+
+
+0.8.8 (2011-12-28)
+++++++++++++++++++
+
+* SSL CERT VERIFICATION!
+* Release of Cerifi: Mozilla's cert list.
+* New 'verify' argument for SSL requests.
+* Urllib3 update.
+
+0.8.7 (2011-12-24)
+++++++++++++++++++
+
+* iter_lines last-line truncation fix
+* Force safe_mode for async requests
+* Handle safe_mode exceptions more consistently
+* Fix iteration on null responses in safe_mode
+
+0.8.6 (2011-12-18)
+++++++++++++++++++
+
+* Socket timeout fixes.
+* Proxy Authorization support.
+
+0.8.5 (2011-12-14)
+++++++++++++++++++
+
+* Response.iter_lines!
+
+0.8.4 (2011-12-11)
+++++++++++++++++++
+
+* Prefetch bugfix.
+* Added license to installed version.
+
+0.8.3 (2011-11-27)
+++++++++++++++++++
+
+* Converted auth system to use simpler callable objects.
+* New session parameter to API methods.
+* Display full URL while logging.
+
+0.8.2 (2011-11-19)
+++++++++++++++++++
+
+* New Unicode decoding system, based on over-ridable `Response.encoding`.
+* Proper URL slash-quote handling.
+* Cookies with ``[``, ``]``, and ``_`` allowed.
+
+0.8.1 (2011-11-15)
+++++++++++++++++++
+
+* URL Request path fix
+* Proxy fix.
+* Timeouts fix.
+
+0.8.0 (2011-11-13)
+++++++++++++++++++
+
+* Keep-alive support!
+* Complete removal of Urllib2
+* Complete removal of Poster
+* Complete removal of CookieJars
+* New ConnectionError raising
+* Safe_mode for error catching
+* prefetch parameter for request methods
+* OPTION method
+* Async pool size throttling
+* File uploads send real names
+* Vendored in urllib3
+
+0.7.6 (2011-11-07)
+++++++++++++++++++
+
+* Digest authentication bugfix (attach query data to path)
+
+0.7.5 (2011-11-04)
+++++++++++++++++++
+
+* Response.content = None if there was an invalid response.
+* Redirection auth handling.
+
+0.7.4 (2011-10-26)
+++++++++++++++++++
+
+* Session Hooks fix.
+
+0.7.3 (2011-10-23)
+++++++++++++++++++
+
+* Digest Auth fix.
+
+
+0.7.2 (2011-10-23)
+++++++++++++++++++
+
+* PATCH Fix.
+
+
+0.7.1 (2011-10-23)
+++++++++++++++++++
+
+* Move away from urllib2 authentication handling.
+* Fully Remove AuthManager, AuthObject, &c.
+* New tuple-based auth system with handler callbacks.
+
+
+0.7.0 (2011-10-22)
+++++++++++++++++++
+
+* Sessions are now the primary interface.
+* Deprecated InvalidMethodException.
+* PATCH fix.
+* New config system (no more global settings).
+
+
+0.6.6 (2011-10-19)
+++++++++++++++++++
+
+* Session parameter bugfix (params merging).
+
+
+0.6.5 (2011-10-18)
+++++++++++++++++++
+
+* Offline (fast) test suite.
+* Session dictionary argument merging.
+
+
+0.6.4 (2011-10-13)
+++++++++++++++++++
+
+* Automatic decoding of unicode, based on HTTP Headers.
+* New ``decode_unicode`` setting.
+* Removal of ``r.read/close`` methods.
+* New ``r.faw`` interface for advanced response usage.*
+* Automatic expansion of parameterized headers.
+
+
+0.6.3 (2011-10-13)
+++++++++++++++++++
+
+* Beautiful ``requests.async`` module, for making async requests w/ gevent.
+
+
+0.6.2 (2011-10-09)
+++++++++++++++++++
+
+* GET/HEAD obeys allow_redirects=False.
+
+
+0.6.1 (2011-08-20)
+++++++++++++++++++
+
+* Enhanced status codes experience ``\o/``
+* Set a maximum number of redirects (``settings.max_redirects``)
+* Full Unicode URL support
+* Support for protocol-less redirects.
+* Allow for arbitrary request types.
+* Bugfixes
+
+
+0.6.0 (2011-08-17)
+++++++++++++++++++
+
+* New callback hook system
+* New persistent sessions object and context manager
+* Transparent Dict-cookie handling
+* Status code reference object
+* Removed Response.cached
+* Added Response.request
+* All args are kwargs
+* Relative redirect support
+* HTTPError handling improvements
+* Improved https testing
+* Bugfixes
+
+
+0.5.1 (2011-07-23)
+++++++++++++++++++
+
+* International Domain Name Support!
+* Access headers without fetching entire body (``read()``)
+* Use lists as dicts for parameters
+* Add Forced Basic Authentication
+* Forced Basic is default authentication type
+* ``python-requests.org`` default User-Agent header
+* CaseInsensitiveDict lower-case caching
+* Response.history bugfix
+
+
+0.5.0 (2011-06-21)
+++++++++++++++++++
+
+* PATCH Support
+* Support for Proxies
+* HTTPBin Test Suite
+* Redirect Fixes
+* settings.verbose stream writing
+* Querystrings for all methods
+* URLErrors (Connection Refused, Timeout, Invalid URLs) are treated as explicitly raised
+  ``r.requests.get('hwe://blah'); r.raise_for_status()``
+
+
+0.4.1 (2011-05-22)
+++++++++++++++++++
+
+* Improved Redirection Handling
+* New 'allow_redirects' param for following non-GET/HEAD Redirects
+* Settings module refactoring
+
+
+0.4.0 (2011-05-15)
+++++++++++++++++++
+
+* Response.history: list of redirected responses
+* Case-Insensitive Header Dictionaries!
+* Unicode URLs
+
+
+0.3.4 (2011-05-14)
+++++++++++++++++++
+
+* Urllib2 HTTPAuthentication Recursion fix (Basic/Digest)
+* Internal Refactor
+* Bytes data upload Bugfix
+
+
+
+0.3.3 (2011-05-12)
+++++++++++++++++++
+
+* Request timeouts
+* Unicode url-encoded data
+* Settings context manager and module
+
+
+0.3.2 (2011-04-15)
+++++++++++++++++++
+
+* Automatic Decompression of GZip Encoded Content
+* AutoAuth Support for Tupled HTTP Auth
+
+
+0.3.1 (2011-04-01)
+++++++++++++++++++
+
+* Cookie Changes
+* Response.read()
+* Poster fix
+
+
+0.3.0 (2011-02-25)
+++++++++++++++++++
+
+* Automatic Authentication API Change
+* Smarter Query URL Parameterization
+* Allow file uploads and POST data together
+* New Authentication Manager System
+    - Simpler Basic HTTP System
+    - Supports all build-in urllib2 Auths
+    - Allows for custom Auth Handlers
+
+
+0.2.4 (2011-02-19)
+++++++++++++++++++
+
+* Python 2.5 Support
+* PyPy-c v1.4 Support
+* Auto-Authentication tests
+* Improved Request object constructor
+
+0.2.3 (2011-02-15)
+++++++++++++++++++
+
+* New HTTPHandling Methods
+    - Response.__nonzero__ (false if bad HTTP Status)
+    - Response.ok (True if expected HTTP Status)
+    - Response.error (Logged HTTPError if bad HTTP Status)
+    - Response.raise_for_status() (Raises stored HTTPError)
+
+
+0.2.2 (2011-02-14)
+++++++++++++++++++
+
+* Still handles request in the event of an HTTPError. (Issue #2)
+* Eventlet and Gevent Monkeypatch support.
+* Cookie Support (Issue #1)
+
+
+0.2.1 (2011-02-14)
+++++++++++++++++++
+
+* Added file attribute to POST and PUT requests for multipart-encode file uploads.
+* Added Request.url attribute for context and redirects
+
+
+0.2.0 (2011-02-14)
+++++++++++++++++++
+
+* Birth!
+
+
+0.0.1 (2011-02-13)
+++++++++++++++++++
+
+* Frustration
+* Conception
+
+
+Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)
+
+
+The humble, but powerful, URL runs everything around us. Chances
+are you've used several just to read this text.
+
+Hyperlink is a featureful, pure-Python implementation of the URL, with
+an emphasis on correctness. BSD licensed.
+
+See the docs at http://hyperlink.readthedocs.io.
+
+
+UNKNOWN
+
+
+===================================
+cssselect: CSS Selectors for Python
+===================================
+
+.. image:: https://img.shields.io/pypi/v/cssselect.svg
+   :target: https://pypi.python.org/pypi/cssselect
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/cssselect.svg
+   :target: https://pypi.python.org/pypi/cssselect
+   :alt: Supported Python Versions
+
+.. image:: https://img.shields.io/travis/scrapy/cssselect/master.svg
+   :target: https://travis-ci.org/scrapy/cssselect
+   :alt: Build Status
+
+.. image:: https://img.shields.io/codecov/c/github/scrapy/cssselect/master.svg
+   :target: https://codecov.io/github/scrapy/cssselect?branch=master
+   :alt: Coverage report
+
+*cssselect* parses `CSS3 Selectors`_ and translate them to `XPath 1.0`_
+expressions. Such expressions can be used in lxml_ or another XPath engine
+to find the matching elements in an XML or HTML document.
+
+This module used to live inside of lxml as ``lxml.cssselect`` before it was
+extracted as a stand-alone project.
+
+.. _CSS3 Selectors: https://www.w3.org/TR/css3-selectors/
+.. _XPath 1.0: https://www.w3.org/TR/xpath/
+.. _lxml: http://lxml.de/
+
+
+Quick facts:
+
+* Free software: BSD licensed
+* Compatible with Python 2.7 and 3.4+
+* Latest documentation `on Read the Docs <https://cssselect.readthedocs.io/>`_
+* Source, issues and pull requests `on GitHub
+  <https://github.com/scrapy/cssselect>`_
+* Releases `on PyPI <http://pypi.python.org/pypi/cssselect>`_
+* Install with ``pip install cssselect``
+
+
+A collection of ASN.1 modules expressed in form of pyasn1 classes. Includes protocols PDUs definition (SNMP, LDAP etc.) and various data structures (X.509, PKCS etc.).
+
+
+
+CFFI
+====
+
+Foreign Function Interface for Python calling C code.
+Please see the `Documentation <http://cffi.readthedocs.org/>`_.
+
+Contact
+-------
+
+`Mailing list <https://groups.google.com/forum/#!forum/python-cffi>`_
+
+
+.. image:: https://img.shields.io/pypi/v/backports.functools_lru_cache.svg
+   :target: https://pypi.org/project/backports.functools_lru_cache
+
+.. image:: https://img.shields.io/pypi/pyversions/backports.functools_lru_cache.svg
+
+.. image:: https://img.shields.io/travis/jaraco/backports.functools_lru_cache/master.svg
+   :target: https://travis-ci.org/jaraco/backports.functools_lru_cache
+
+.. .. image:: https://readthedocs.org/projects/backportsfunctools_lru_cache/badge/?version=latest
+..    :target: https://backportsfunctools_lru_cache.readthedocs.io/en/latest/?badge=latest
+
+Backport of functools.lru_cache from Python 3.3 as published at `ActiveState
+<http://code.activestate.com/recipes/578078/>`_.
+
+Usage
+=====
+
+Consider using this technique for importing the 'lru_cache' function::
+
+    try:
+        from functools import lru_cache
+    except ImportError:
+        from backports.functools_lru_cache import lru_cache
+
+
+=============================
+Service Identity Verification
+=============================
+
+.. image:: https://readthedocs.org/projects/service-identity/badge/?version=stable
+   :target: https://service-identity.readthedocs.io/en/stable/?badge=stable
+   :alt: Documentation Status
+
+.. image:: https://travis-ci.org/pyca/service_identity.svg?branch=master
+   :target: https://travis-ci.org/pyca/service_identity
+   :alt: CI status
+
+.. image:: https://codecov.io/github/pyca/service_identity/branch/master/graph/badge.svg
+   :target: https://codecov.io/github/pyca/service_identity
+   :alt: Test Coverage
+
+.. image:: https://www.irccloud.com/invite-svg?channel=%23cryptography-dev&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1
+    :target: https://www.irccloud.com/invite?channel=%23cryptography-dev&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1
+
+.. begin
+
+Use this package if:
+
+- you use pyOpenSSL_ and don’t want to be MITM_\ ed or
+- if you want to verify that a `PyCA cryptography`_ certificate is valid for a certain hostname.
+
+``service_identity`` aspires to give you all the tools you need for verifying whether a certificate is valid for the intended purposes.
+
+In the simplest case, this means *host name verification*.
+However, ``service_identity`` implements `RFC 6125`_ fully and plans to add other relevant RFCs too.
+
+``service_identity``\ ’s documentation lives at `Read the Docs <https://service-identity.readthedocs.io/>`_, the code on `GitHub <https://github.com/pyca/service_identity>`_.
+
+
+.. _Twisted: https://twistedmatrix.com/
+.. _pyOpenSSL: https://pypi.python.org/pypi/pyOpenSSL/
+.. _MITM: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
+.. _RFC 6125: http://www.rfc-editor.org/info/rfc6125
+.. _PyCA cryptography: https://cryptography.io/
+
+
+Release Information
+===================
+
+17.0.0 (2017-05-23)
+-------------------
+
+Deprecations:
+^^^^^^^^^^^^^
+
+- Since Chrome 58 and Firefox 48 both don't accept certificates that contain only a Common Name, its usage is hereby deprecated in ``service_identity`` too.
+  We have been raising a warning since 16.0.0 and the support will be removed in mid-2018 for good.
+
+
+Changes:
+^^^^^^^^
+
+- When ``service_identity.SubjectAltNameWarning`` is raised, the Common Name of the certificate is now included in the warning message.
+  `#17 <https://github.com/pyca/service_identity/pull/17>`_
+- Added ``cryptography.x509`` backend for verifying certificates.
+  `#18 <https://github.com/pyca/service_identity/pull/18>`_
+- Wildcards (``*``) are now only allowed if they are the leftmost label in a certificate.
+  This is common practice by all major browsers.
+  `#19 <https://github.com/pyca/service_identity/pull/19>`_
+
+`Full changelog <https://service-identity.readthedocs.io/en/stable/changelog.html>`_.
+
+Authors
+=======
+
+``service_identity`` is written and maintained by `Hynek Schlawack <https://hynek.me/>`_.
+
+The development is kindly supported by `Variomedia AG <https://www.variomedia.de/>`_.
+
+Other contributors can be found in `GitHub's overview <https://github.com/pyca/service_identity/graphs/contributors>`_.
+
+
+urllib3
+=======
+
+.. image:: https://travis-ci.org/urllib3/urllib3.svg?branch=master
+        :alt: Build status on Travis
+        :target: https://travis-ci.org/urllib3/urllib3
+
+.. image:: https://img.shields.io/appveyor/ci/urllib3/urllib3/master.svg
+        :alt: Build status on AppVeyor
+        :target: https://ci.appveyor.com/project/urllib3/urllib3
+
+.. image:: https://readthedocs.org/projects/urllib3/badge/?version=latest
+        :alt: Documentation Status
+        :target: https://urllib3.readthedocs.io/en/latest/
+
+.. image:: https://img.shields.io/codecov/c/github/urllib3/urllib3.svg
+        :alt: Coverage Status
+        :target: https://codecov.io/gh/urllib3/urllib3
+
+.. image:: https://img.shields.io/pypi/v/urllib3.svg?maxAge=86400
+        :alt: PyPI version
+        :target: https://pypi.org/project/urllib3/
+
+.. image:: https://www.bountysource.com/badge/tracker?tracker_id=192525
+        :alt: Bountysource
+        :target: https://www.bountysource.com/trackers/192525-urllib3?utm_source=192525&utm_medium=shield&utm_campaign=TRACKER_BADGE
+
+.. image:: https://badges.gitter.im/python-urllib3/Lobby.svg
+        :alt: Gitter
+        :target: https://gitter.im/python-urllib3/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
+urllib3 is a powerful, *sanity-friendly* HTTP client for Python. Much of the
+Python ecosystem already uses urllib3 and you should too.
+urllib3 brings many critical features that are missing from the Python
+standard libraries:
+
+- Thread safety.
+- Connection pooling.
+- Client-side SSL/TLS verification.
+- File uploads with multipart encoding.
+- Helpers for retrying requests and dealing with HTTP redirects.
+- Support for gzip and deflate encoding.
+- Proxy support for HTTP and SOCKS.
+- 100% test coverage.
+
+urllib3 is powerful and easy to use::
+
+    >>> import urllib3
+    >>> http = urllib3.PoolManager()
+    >>> r = http.request('GET', 'http://httpbin.org/robots.txt')
+    >>> r.status
+    200
+    >>> r.data
+    'User-agent: *\nDisallow: /deny\n'
+
+
+Installing
+----------
+
+urllib3 can be installed with `pip <https://pip.pypa.io>`_::
+
+    $ pip install urllib3
+
+Alternatively, you can grab the latest source code from `GitHub <https://github.com/urllib3/urllib3>`_::
+
+    $ git clone git://github.com/urllib3/urllib3.git
+    $ python setup.py install
+
+
+Documentation
+-------------
+
+urllib3 has usage and reference documentation at `urllib3.readthedocs.io <https://urllib3.readthedocs.io>`_.
+
+
+Contributing
+------------
+
+urllib3 happily accepts contributions. Please see our
+`contributing documentation <https://urllib3.readthedocs.io/en/latest/contributing.html>`_
+for some tips on getting started.
+
+
+Maintainers
+-----------
+
+- `@theacodes <https://github.com/theacodes>`_ (Thea Flowers)
+- `@SethMichaelLarson <https://github.com/SethMichaelLarson>`_ (Seth M. Larson)
+- `@haikuginger <https://github.com/haikuginger>`_ (Jesse Shapiro)
+- `@lukasa <https://github.com/lukasa>`_ (Cory Benfield)
+- `@sigmavirus24 <https://github.com/sigmavirus24>`_ (Ian Cordasco)
+- `@shazow <https://github.com/shazow>`_ (Andrey Petrov)
+
+👋
+
+
+Sponsorship
+-----------
+
+If your company benefits from this library, please consider `sponsoring its
+development <https://urllib3.readthedocs.io/en/latest/contributing.html#sponsorship>`_.
+
+Sponsors include:
+
+- Google Cloud Platform (2018-present), sponsors `@theacodes <https://github.com/theacodes>`_'s work on an ongoing basis
+- Abbott (2018-present), sponsors `@SethMichaelLarson <https://github.com/SethMichaelLarson>`_'s work on an ongoing basis
+- Akamai (2017-present), sponsors `@haikuginger <https://github.com/haikuginger>`_'s work on an ongoing basis
+- Hewlett Packard Enterprise (2016-2017), sponsored `@Lukasa’s <https://github.com/Lukasa>`_ work on urllib3
+
+
+Changes
+=======
+
+1.23 (2018-06-04)
+-----------------
+
+* Allow providing a list of headers to strip from requests when redirecting
+  to a different host. Defaults to the ``Authorization`` header. Different
+  headers can be set via ``Retry.remove_headers_on_redirect``. (Issue #1316)
+
+* Fix ``util.selectors._fileobj_to_fd`` to accept ``long`` (Issue #1247).
+
+* Dropped Python 3.3 support. (Pull #1242)
+
+* Put the connection back in the pool when calling stream() or read_chunked() on
+  a chunked HEAD response. (Issue #1234)
+
+* Fixed pyOpenSSL-specific ssl client authentication issue when clients
+  attempted to auth via certificate + chain (Issue #1060)
+
+* Add the port to the connectionpool connect print (Pull #1251)
+
+* Don't use the ``uuid`` module to create multipart data boundaries. (Pull #1380)
+
+* ``read_chunked()`` on a closed response returns no chunks. (Issue #1088)
+
+* Add Python 2.6 support to ``contrib.securetransport`` (Pull #1359)
+
+* Added support for auth info in url for SOCKS proxy (Pull #1363)
+
+
+1.22 (2017-07-20)
+-----------------
+
+* Fixed missing brackets in ``HTTP CONNECT`` when connecting to IPv6 address via
+  IPv6 proxy. (Issue #1222)
+
+* Made the connection pool retry on ``SSLError``.  The original ``SSLError``
+  is available on ``MaxRetryError.reason``. (Issue #1112)
+
+* Drain and release connection before recursing on retry/redirect.  Fixes
+  deadlocks with a blocking connectionpool. (Issue #1167)
+
+* Fixed compatibility for cookiejar. (Issue #1229)
+
+* pyopenssl: Use vendored version of ``six``. (Issue #1231)
+
+
+1.21.1 (2017-05-02)
+-------------------
+
+* Fixed SecureTransport issue that would cause long delays in response body
+  delivery. (Pull #1154)
+
+* Fixed regression in 1.21 that threw exceptions when users passed the
+  ``socket_options`` flag to the ``PoolManager``.  (Issue #1165)
+
+* Fixed regression in 1.21 that threw exceptions when users passed the
+  ``assert_hostname`` or ``assert_fingerprint`` flag to the ``PoolManager``.
+  (Pull #1157)
+
+
+1.21 (2017-04-25)
+-----------------
+
+* Improved performance of certain selector system calls on Python 3.5 and
+  later. (Pull #1095)
+
+* Resolved issue where the PyOpenSSL backend would not wrap SysCallError
+  exceptions appropriately when sending data. (Pull #1125)
+
+* Selectors now detects a monkey-patched select module after import for modules
+  that patch the select module like eventlet, greenlet. (Pull #1128)
+
+* Reduced memory consumption when streaming zlib-compressed responses
+  (as opposed to raw deflate streams). (Pull #1129)
+
+* Connection pools now use the entire request context when constructing the
+  pool key. (Pull #1016)
+
+* ``PoolManager.connection_from_*`` methods now accept a new keyword argument,
+  ``pool_kwargs``, which are merged with the existing ``connection_pool_kw``.
+  (Pull #1016)
+
+* Add retry counter for ``status_forcelist``. (Issue #1147)
+
+* Added ``contrib`` module for using SecureTransport on macOS:
+  ``urllib3.contrib.securetransport``.  (Pull #1122)
+
+* urllib3 now only normalizes the case of ``http://`` and ``https://`` schemes:
+  for schemes it does not recognise, it assumes they are case-sensitive and
+  leaves them unchanged.
+  (Issue #1080)
+
+
+1.20 (2017-01-19)
+-----------------
+
+* Added support for waiting for I/O using selectors other than select,
+  improving urllib3's behaviour with large numbers of concurrent connections.
+  (Pull #1001)
+
+* Updated the date for the system clock check. (Issue #1005)
+
+* ConnectionPools now correctly consider hostnames to be case-insensitive.
+  (Issue #1032)
+
+* Outdated versions of PyOpenSSL now cause the PyOpenSSL contrib module
+  to fail when it is injected, rather than at first use. (Pull #1063)
+
+* Outdated versions of cryptography now cause the PyOpenSSL contrib module
+  to fail when it is injected, rather than at first use. (Issue #1044)
+
+* Automatically attempt to rewind a file-like body object when a request is
+  retried or redirected. (Pull #1039)
+
+* Fix some bugs that occur when modules incautiously patch the queue module.
+  (Pull #1061)
+
+* Prevent retries from occurring on read timeouts for which the request method
+  was not in the method whitelist. (Issue #1059)
+
+* Changed the PyOpenSSL contrib module to lazily load idna to avoid
+  unnecessarily bloating the memory of programs that don't need it. (Pull
+  #1076)
+
+* Add support for IPv6 literals with zone identifiers. (Pull #1013)
+
+* Added support for socks5h:// and socks4a:// schemes when working with SOCKS
+  proxies, and controlled remote DNS appropriately. (Issue #1035)
+
+
+1.19.1 (2016-11-16)
+-------------------
+
+* Fixed AppEngine import that didn't function on Python 3.5. (Pull #1025)
+
+
+1.19 (2016-11-03)
+-----------------
+
+* urllib3 now respects Retry-After headers on 413, 429, and 503 responses when
+  using the default retry logic. (Pull #955)
+
+* Remove markers from setup.py to assist ancient setuptools versions. (Issue
+  #986)
+
+* Disallow superscripts and other integerish things in URL ports. (Issue #989)
+
+* Allow urllib3's HTTPResponse.stream() method to continue to work with
+  non-httplib underlying FPs. (Pull #990)
+
+* Empty filenames in multipart headers are now emitted as such, rather than
+  being suppressed. (Issue #1015)
+
+* Prefer user-supplied Host headers on chunked uploads. (Issue #1009)
+
+
+1.18.1 (2016-10-27)
+-------------------
+
+* CVE-2016-9015. Users who are using urllib3 version 1.17 or 1.18 along with
+  PyOpenSSL injection and OpenSSL 1.1.0 *must* upgrade to this version. This
+  release fixes a vulnerability whereby urllib3 in the above configuration
+  would silently fail to validate TLS certificates due to erroneously setting
+  invalid flags in OpenSSL's ``SSL_CTX_set_verify`` function. These erroneous
+  flags do not cause a problem in OpenSSL versions before 1.1.0, which
+  interprets the presence of any flag as requesting certificate validation.
+
+  There is no PR for this patch, as it was prepared for simultaneous disclosure
+  and release. The master branch received the same fix in PR #1010.
+
+
+1.18 (2016-09-26)
+-----------------
+
+* Fixed incorrect message for IncompleteRead exception. (PR #973)
+
+* Accept ``iPAddress`` subject alternative name fields in TLS certificates.
+  (Issue #258)
+
+* Fixed consistency of ``HTTPResponse.closed`` between Python 2 and 3.
+  (Issue #977)
+
+* Fixed handling of wildcard certificates when using PyOpenSSL. (Issue #979)
+
+
+1.17 (2016-09-06)
+-----------------
+
+* Accept ``SSLContext`` objects for use in SSL/TLS negotiation. (Issue #835)
+
+* ConnectionPool debug log now includes scheme, host, and port. (Issue #897)
+
+* Substantially refactored documentation. (Issue #887)
+
+* Used URLFetch default timeout on AppEngine, rather than hardcoding our own.
+  (Issue #858)
+
+* Normalize the scheme and host in the URL parser (Issue #833)
+
+* ``HTTPResponse`` contains the last ``Retry`` object, which now also
+  contains retries history. (Issue #848)
+
+* Timeout can no longer be set as boolean, and must be greater than zero.
+  (PR #924)
+
+* Removed pyasn1 and ndg-httpsclient from dependencies used for PyOpenSSL. We
+  now use cryptography and idna, both of which are already dependencies of
+  PyOpenSSL. (PR #930)
+
+* Fixed infinite loop in ``stream`` when amt=None. (Issue #928)
+
+* Try to use the operating system's certificates when we are using an
+  ``SSLContext``. (PR #941)
+
+* Updated cipher suite list to allow ChaCha20+Poly1305. AES-GCM is preferred to
+  ChaCha20, but ChaCha20 is then preferred to everything else. (PR #947)
+
+* Updated cipher suite list to remove 3DES-based cipher suites. (PR #958)
+
+* Removed the cipher suite fallback to allow HIGH ciphers. (PR #958)
+
+* Implemented ``length_remaining`` to determine remaining content
+  to be read. (PR #949)
+
+* Implemented ``enforce_content_length`` to enable exceptions when
+  incomplete data chunks are received. (PR #949)
+
+* Dropped connection start, dropped connection reset, redirect, forced retry,
+  and new HTTPS connection log levels to DEBUG, from INFO. (PR #967)
+
+
+1.16 (2016-06-11)
+-----------------
+
+* Disable IPv6 DNS when IPv6 connections are not possible. (Issue #840)
+
+* Provide ``key_fn_by_scheme`` pool keying mechanism that can be
+  overridden. (Issue #830)
+
+* Normalize scheme and host to lowercase for pool keys, and include
+  ``source_address``. (Issue #830)
+
+* Cleaner exception chain in Python 3 for ``_make_request``.
+  (Issue #861)
+
+* Fixed installing ``urllib3[socks]`` extra. (Issue #864)
+
+* Fixed signature of ``ConnectionPool.close`` so it can actually safely be
+  called by subclasses. (Issue #873)
+
+* Retain ``release_conn`` state across retries. (Issues #651, #866)
+
+* Add customizable ``HTTPConnectionPool.ResponseCls``, which defaults to
+  ``HTTPResponse`` but can be replaced with a subclass. (Issue #879)
+
+
+1.15.1 (2016-04-11)
+-------------------
+
+* Fix packaging to include backports module. (Issue #841)
+
+
+1.15 (2016-04-06)
+-----------------
+
+* Added Retry(raise_on_status=False). (Issue #720)
+
+* Always use setuptools, no more distutils fallback. (Issue #785)
+
+* Dropped support for Python 3.2. (Issue #786)
+
+* Chunked transfer encoding when requesting with ``chunked=True``.
+  (Issue #790)
+
+* Fixed regression with IPv6 port parsing. (Issue #801)
+
+* Append SNIMissingWarning messages to allow users to specify it in
+  the PYTHONWARNINGS environment variable. (Issue #816)
+
+* Handle unicode headers in Py2. (Issue #818)
+
+* Log certificate when there is a hostname mismatch. (Issue #820)
+
+* Preserve order of request/response headers. (Issue #821)
+
+
+1.14 (2015-12-29)
+-----------------
+
+* contrib: SOCKS proxy support! (Issue #762)
+
+* Fixed AppEngine handling of transfer-encoding header and bug
+  in Timeout defaults checking. (Issue #763)
+
+
+1.13.1 (2015-12-18)
+-------------------
+
+* Fixed regression in IPv6 + SSL for match_hostname. (Issue #761)
+
+
+1.13 (2015-12-14)
+-----------------
+
+* Fixed ``pip install urllib3[secure]`` on modern pip. (Issue #706)
+
+* pyopenssl: Fixed SSL3_WRITE_PENDING error. (Issue #717)
+
+* pyopenssl: Support for TLSv1.1 and TLSv1.2. (Issue #696)
+
+* Close connections more defensively on exception. (Issue #734)
+
+* Adjusted ``read_chunked`` to handle gzipped, chunk-encoded bodies without
+  repeatedly flushing the decoder, to function better on Jython. (Issue #743)
+
+* Accept ``ca_cert_dir`` for SSL-related PoolManager configuration. (Issue #758)
+
+
+1.12 (2015-09-03)
+-----------------
+
+* Rely on ``six`` for importing ``httplib`` to work around
+  conflicts with other Python 3 shims. (Issue #688)
+
+* Add support for directories of certificate authorities, as supported by
+  OpenSSL. (Issue #701)
+
+* New exception: ``NewConnectionError``, raised when we fail to establish
+  a new connection, usually ``ECONNREFUSED`` socket error.
+
+
+1.11 (2015-07-21)
+-----------------
+
+* When ``ca_certs`` is given, ``cert_reqs`` defaults to
+  ``'CERT_REQUIRED'``. (Issue #650)
+
+* ``pip install urllib3[secure]`` will install Certifi and
+  PyOpenSSL as dependencies. (Issue #678)
+
+* Made ``HTTPHeaderDict`` usable as a ``headers`` input value
+  (Issues #632, #679)
+
+* Added `urllib3.contrib.appengine <https://urllib3.readthedocs.io/en/latest/contrib.html#google-app-engine>`_
+  which has an ``AppEngineManager`` for using ``URLFetch`` in a
+  Google AppEngine environment. (Issue #664)
+
+* Dev: Added test suite for AppEngine. (Issue #631)
+
+* Fix performance regression when using PyOpenSSL. (Issue #626)
+
+* Passing incorrect scheme (e.g. ``foo://``) will raise
+  ``ValueError`` instead of ``AssertionError`` (backwards
+  compatible for now, but please migrate). (Issue #640)
+
+* Fix pools not getting replenished when an error occurs during a
+  request using ``release_conn=False``. (Issue #644)
+
+* Fix pool-default headers not applying for url-encoded requests
+  like GET. (Issue #657)
+
+* log.warning in Python 3 when headers are skipped due to parsing
+  errors. (Issue #642)
+
+* Close and discard connections if an error occurs during read.
+  (Issue #660)
+
+* Fix host parsing for IPv6 proxies. (Issue #668)
+
+* Separate warning type SubjectAltNameWarning, now issued once
+  per host. (Issue #671)
+
+* Fix ``httplib.IncompleteRead`` not getting converted to
+  ``ProtocolError`` when using ``HTTPResponse.stream()``
+  (Issue #674)
+
+1.10.4 (2015-05-03)
+-------------------
+
+* Migrate tests to Tornado 4. (Issue #594)
+
+* Append default warning configuration rather than overwrite.
+  (Issue #603)
+
+* Fix streaming decoding regression. (Issue #595)
+
+* Fix chunked requests losing state across keep-alive connections.
+  (Issue #599)
+
+* Fix hanging when chunked HEAD response has no body. (Issue #605)
+
+
+1.10.3 (2015-04-21)
+-------------------
+
+* Emit ``InsecurePlatformWarning`` when SSLContext object is missing.
+  (Issue #558)
+
+* Fix regression of duplicate header keys being discarded.
+  (Issue #563)
+
+* ``Response.stream()`` returns a generator for chunked responses.
+  (Issue #560)
+
+* Set upper-bound timeout when waiting for a socket in PyOpenSSL.
+  (Issue #585)
+
+* Work on platforms without `ssl` module for plain HTTP requests.
+  (Issue #587)
+
+* Stop relying on the stdlib's default cipher list. (Issue #588)
+
+
+1.10.2 (2015-02-25)
+-------------------
+
+* Fix file descriptor leakage on retries. (Issue #548)
+
+* Removed RC4 from default cipher list. (Issue #551)
+
+* Header performance improvements. (Issue #544)
+
+* Fix PoolManager not obeying redirect retry settings. (Issue #553)
+
+
+1.10.1 (2015-02-10)
+-------------------
+
+* Pools can be used as context managers. (Issue #545)
+
+* Don't re-use connections which experienced an SSLError. (Issue #529)
+
+* Don't fail when gzip decoding an empty stream. (Issue #535)
+
+* Add sha256 support for fingerprint verification. (Issue #540)
+
+* Fixed handling of header values containing commas. (Issue #533)
+
+
+1.10 (2014-12-14)
+-----------------
+
+* Disabled SSLv3. (Issue #473)
+
+* Add ``Url.url`` property to return the composed url string. (Issue #394)
+
+* Fixed PyOpenSSL + gevent ``WantWriteError``. (Issue #412)
+
+* ``MaxRetryError.reason`` will always be an exception, not string.
+  (Issue #481)
+
+* Fixed SSL-related timeouts not being detected as timeouts. (Issue #492)
+
+* Py3: Use ``ssl.create_default_context()`` when available. (Issue #473)
+
+* Emit ``InsecureRequestWarning`` for *every* insecure HTTPS request.
+  (Issue #496)
+
+* Emit ``SecurityWarning`` when certificate has no ``subjectAltName``.
+  (Issue #499)
+
+* Close and discard sockets which experienced SSL-related errors.
+  (Issue #501)
+
+* Handle ``body`` param in ``.request(...)``. (Issue #513)
+
+* Respect timeout with HTTPS proxy. (Issue #505)
+
+* PyOpenSSL: Handle ZeroReturnError exception. (Issue #520)
+
+
+1.9.1 (2014-09-13)
+------------------
+
+* Apply socket arguments before binding. (Issue #427)
+
+* More careful checks if fp-like object is closed. (Issue #435)
+
+* Fixed packaging issues of some development-related files not
+  getting included. (Issue #440)
+
+* Allow performing *only* fingerprint verification. (Issue #444)
+
+* Emit ``SecurityWarning`` if system clock is waaay off. (Issue #445)
+
+* Fixed PyOpenSSL compatibility with PyPy. (Issue #450)
+
+* Fixed ``BrokenPipeError`` and ``ConnectionError`` handling in Py3.
+  (Issue #443)
+
+
+
+1.9 (2014-07-04)
+----------------
+
+* Shuffled around development-related files. If you're maintaining a distro
+  package of urllib3, you may need to tweak things. (Issue #415)
+
+* Unverified HTTPS requests will trigger a warning on the first request. See
+  our new `security documentation
+  <https://urllib3.readthedocs.io/en/latest/security.html>`_ for details.
+  (Issue #426)
+
+* New retry logic and ``urllib3.util.retry.Retry`` configuration object.
+  (Issue #326)
+
+* All raised exceptions should now wrapped in a
+  ``urllib3.exceptions.HTTPException``-extending exception. (Issue #326)
+
+* All errors during a retry-enabled request should be wrapped in
+  ``urllib3.exceptions.MaxRetryError``, including timeout-related exceptions
+  which were previously exempt. Underlying error is accessible from the
+  ``.reason`` property. (Issue #326)
+
+* ``urllib3.exceptions.ConnectionError`` renamed to
+  ``urllib3.exceptions.ProtocolError``. (Issue #326)
+
+* Errors during response read (such as IncompleteRead) are now wrapped in
+  ``urllib3.exceptions.ProtocolError``. (Issue #418)
+
+* Requesting an empty host will raise ``urllib3.exceptions.LocationValueError``.
+  (Issue #417)
+
+* Catch read timeouts over SSL connections as
+  ``urllib3.exceptions.ReadTimeoutError``. (Issue #419)
+
+* Apply socket arguments before connecting. (Issue #427)
+
+
+1.8.3 (2014-06-23)
+------------------
+
+* Fix TLS verification when using a proxy in Python 3.4.1. (Issue #385)
+
+* Add ``disable_cache`` option to ``urllib3.util.make_headers``. (Issue #393)
+
+* Wrap ``socket.timeout`` exception with
+  ``urllib3.exceptions.ReadTimeoutError``. (Issue #399)
+
+* Fixed proxy-related bug where connections were being reused incorrectly.
+  (Issues #366, #369)
+
+* Added ``socket_options`` keyword parameter which allows to define
+  ``setsockopt`` configuration of new sockets. (Issue #397)
+
+* Removed ``HTTPConnection.tcp_nodelay`` in favor of
+  ``HTTPConnection.default_socket_options``. (Issue #397)
+
+* Fixed ``TypeError`` bug in Python 2.6.4. (Issue #411)
+
+
+1.8.2 (2014-04-17)
+------------------
+
+* Fix ``urllib3.util`` not being included in the package.
+
+
+1.8.1 (2014-04-17)
+------------------
+
+* Fix AppEngine bug of HTTPS requests going out as HTTP. (Issue #356)
+
+* Don't install ``dummyserver`` into ``site-packages`` as it's only needed
+  for the test suite. (Issue #362)
+
+* Added support for specifying ``source_address``. (Issue #352)
+
+
+1.8 (2014-03-04)
+----------------
+
+* Improved url parsing in ``urllib3.util.parse_url`` (properly parse '@' in
+  username, and blank ports like 'hostname:').
+
+* New ``urllib3.connection`` module which contains all the HTTPConnection
+  objects.
+
+* Several ``urllib3.util.Timeout``-related fixes. Also changed constructor
+  signature to a more sensible order. [Backwards incompatible]
+  (Issues #252, #262, #263)
+
+* Use ``backports.ssl_match_hostname`` if it's installed. (Issue #274)
+
+* Added ``.tell()`` method to ``urllib3.response.HTTPResponse`` which
+  returns the number of bytes read so far. (Issue #277)
+
+* Support for platforms without threading. (Issue #289)
+
+* Expand default-port comparison in ``HTTPConnectionPool.is_same_host``
+  to allow a pool with no specified port to be considered equal to to an
+  HTTP/HTTPS url with port 80/443 explicitly provided. (Issue #305)
+
+* Improved default SSL/TLS settings to avoid vulnerabilities.
+  (Issue #309)
+
+* Fixed ``urllib3.poolmanager.ProxyManager`` not retrying on connect errors.
+  (Issue #310)
+
+* Disable Nagle's Algorithm on the socket for non-proxies. A subset of requests
+  will send the entire HTTP request ~200 milliseconds faster; however, some of
+  the resulting TCP packets will be smaller. (Issue #254)
+
+* Increased maximum number of SubjectAltNames in ``urllib3.contrib.pyopenssl``
+  from the default 64 to 1024 in a single certificate. (Issue #318)
+
+* Headers are now passed and stored as a custom
+  ``urllib3.collections_.HTTPHeaderDict`` object rather than a plain ``dict``.
+  (Issue #329, #333)
+
+* Headers no longer lose their case on Python 3. (Issue #236)
+
+* ``urllib3.contrib.pyopenssl`` now uses the operating system's default CA
+  certificates on inject. (Issue #332)
+
+* Requests with ``retries=False`` will immediately raise any exceptions without
+  wrapping them in ``MaxRetryError``. (Issue #348)
+
+* Fixed open socket leak with SSL-related failures. (Issue #344, #348)
+
+
+1.7.1 (2013-09-25)
+------------------
+
+* Added granular timeout support with new ``urllib3.util.Timeout`` class.
+  (Issue #231)
+
+* Fixed Python 3.4 support. (Issue #238)
+
+
+1.7 (2013-08-14)
+----------------
+
+* More exceptions are now pickle-able, with tests. (Issue #174)
+
+* Fixed redirecting with relative URLs in Location header. (Issue #178)
+
+* Support for relative urls in ``Location: ...`` header. (Issue #179)
+
+* ``urllib3.response.HTTPResponse`` now inherits from ``io.IOBase`` for bonus
+  file-like functionality. (Issue #187)
+
+* Passing ``assert_hostname=False`` when creating a HTTPSConnectionPool will
+  skip hostname verification for SSL connections. (Issue #194)
+
+* New method ``urllib3.response.HTTPResponse.stream(...)`` which acts as a
+  generator wrapped around ``.read(...)``. (Issue #198)
+
+* IPv6 url parsing enforces brackets around the hostname. (Issue #199)
+
+* Fixed thread race condition in
+  ``urllib3.poolmanager.PoolManager.connection_from_host(...)`` (Issue #204)
+
+* ``ProxyManager`` requests now include non-default port in ``Host: ...``
+  header. (Issue #217)
+
+* Added HTTPS proxy support in ``ProxyManager``. (Issue #170 #139)
+
+* New ``RequestField`` object can be passed to the ``fields=...`` param which
+  can specify headers. (Issue #220)
+
+* Raise ``urllib3.exceptions.ProxyError`` when connecting to proxy fails.
+  (Issue #221)
+
+* Use international headers when posting file names. (Issue #119)
+
+* Improved IPv6 support. (Issue #203)
+
+
+1.6 (2013-04-25)
+----------------
+
+* Contrib: Optional SNI support for Py2 using PyOpenSSL. (Issue #156)
+
+* ``ProxyManager`` automatically adds ``Host: ...`` header if not given.
+
+* Improved SSL-related code. ``cert_req`` now optionally takes a string like
+  "REQUIRED" or "NONE". Same with ``ssl_version`` takes strings like "SSLv23"
+  The string values reflect the suffix of the respective constant variable.
+  (Issue #130)
+
+* Vendored ``socksipy`` now based on Anorov's fork which handles unexpectedly
+  closed proxy connections and larger read buffers. (Issue #135)
+
+* Ensure the connection is closed if no data is received, fixes connection leak
+  on some platforms. (Issue #133)
+
+* Added SNI support for SSL/TLS connections on Py32+. (Issue #89)
+
+* Tests fixed to be compatible with Py26 again. (Issue #125)
+
+* Added ability to choose SSL version by passing an ``ssl.PROTOCOL_*`` constant
+  to the ``ssl_version`` parameter of ``HTTPSConnectionPool``. (Issue #109)
+
+* Allow an explicit content type to be specified when encoding file fields.
+  (Issue #126)
+
+* Exceptions are now pickleable, with tests. (Issue #101)
+
+* Fixed default headers not getting passed in some cases. (Issue #99)
+
+* Treat "content-encoding" header value as case-insensitive, per RFC 2616
+  Section 3.5. (Issue #110)
+
+* "Connection Refused" SocketErrors will get retried rather than raised.
+  (Issue #92)
+
+* Updated vendored ``six``, no longer overrides the global ``six`` module
+  namespace. (Issue #113)
+
+* ``urllib3.exceptions.MaxRetryError`` contains a ``reason`` property holding
+  the exception that prompted the final retry. If ``reason is None`` then it
+  was due to a redirect. (Issue #92, #114)
+
+* Fixed ``PoolManager.urlopen()`` from not redirecting more than once.
+  (Issue #149)
+
+* Don't assume ``Content-Type: text/plain`` for multi-part encoding parameters
+  that are not files. (Issue #111)
+
+* Pass `strict` param down to ``httplib.HTTPConnection``. (Issue #122)
+
+* Added mechanism to verify SSL certificates by fingerprint (md5, sha1) or
+  against an arbitrary hostname (when connecting by IP or for misconfigured
+  servers). (Issue #140)
+
+* Streaming decompression support. (Issue #159)
+
+
+1.5 (2012-08-02)
+----------------
+
+* Added ``urllib3.add_stderr_logger()`` for quickly enabling STDERR debug
+  logging in urllib3.
+
+* Native full URL parsing (including auth, path, query, fragment) available in
+  ``urllib3.util.parse_url(url)``.
+
+* Built-in redirect will switch method to 'GET' if status code is 303.
+  (Issue #11)
+
+* ``urllib3.PoolManager`` strips the scheme and host before sending the request
+  uri. (Issue #8)
+
+* New ``urllib3.exceptions.DecodeError`` exception for when automatic decoding,
+  based on the Content-Type header, fails.
+
+* Fixed bug with pool depletion and leaking connections (Issue #76). Added
+  explicit connection closing on pool eviction. Added
+  ``urllib3.PoolManager.clear()``.
+
+* 99% -> 100% unit test coverage.
+
+
+1.4 (2012-06-16)
+----------------
+
+* Minor AppEngine-related fixes.
+
+* Switched from ``mimetools.choose_boundary`` to ``uuid.uuid4()``.
+
+* Improved url parsing. (Issue #73)
+
+* IPv6 url support. (Issue #72)
+
+
+1.3 (2012-03-25)
+----------------
+
+* Removed pre-1.0 deprecated API.
+
+* Refactored helpers into a ``urllib3.util`` submodule.
+
+* Fixed multipart encoding to support list-of-tuples for keys with multiple
+  values. (Issue #48)
+
+* Fixed multiple Set-Cookie headers in response not getting merged properly in
+  Python 3. (Issue #53)
+
+* AppEngine support with Py27. (Issue #61)
+
+* Minor ``encode_multipart_formdata`` fixes related to Python 3 strings vs
+  bytes.
+
+
+1.2.2 (2012-02-06)
+------------------
+
+* Fixed packaging bug of not shipping ``test-requirements.txt``. (Issue #47)
+
+
+1.2.1 (2012-02-05)
+------------------
+
+* Fixed another bug related to when ``ssl`` module is not available. (Issue #41)
+
+* Location parsing errors now raise ``urllib3.exceptions.LocationParseError``
+  which inherits from ``ValueError``.
+
+
+1.2 (2012-01-29)
+----------------
+
+* Added Python 3 support (tested on 3.2.2)
+
+* Dropped Python 2.5 support (tested on 2.6.7, 2.7.2)
+
+* Use ``select.poll`` instead of ``select.select`` for platforms that support
+  it.
+
+* Use ``Queue.LifoQueue`` instead of ``Queue.Queue`` for more aggressive
+  connection reusing. Configurable by overriding ``ConnectionPool.QueueCls``.
+
+* Fixed ``ImportError`` during install when ``ssl`` module is not available.
+  (Issue #41)
+
+* Fixed ``PoolManager`` redirects between schemes (such as HTTP -> HTTPS) not
+  completing properly. (Issue #28, uncovered by Issue #10 in v1.1)
+
+* Ported ``dummyserver`` to use ``tornado`` instead of ``webob`` +
+  ``eventlet``. Removed extraneous unsupported dummyserver testing backends.
+  Added socket-level tests.
+
+* More tests. Achievement Unlocked: 99% Coverage.
+
+
+1.1 (2012-01-07)
+----------------
+
+* Refactored ``dummyserver`` to its own root namespace module (used for
+  testing).
+
+* Added hostname verification for ``VerifiedHTTPSConnection`` by vendoring in
+  Py32's ``ssl_match_hostname``. (Issue #25)
+
+* Fixed cross-host HTTP redirects when using ``PoolManager``. (Issue #10)
+
+* Fixed ``decode_content`` being ignored when set through ``urlopen``. (Issue
+  #27)
+
+* Fixed timeout-related bugs. (Issues #17, #23)
+
+
+1.0.2 (2011-11-04)
+------------------
+
+* Fixed typo in ``VerifiedHTTPSConnection`` which would only present as a bug if
+  you're using the object manually. (Thanks pyos)
+
+* Made RecentlyUsedContainer (and consequently PoolManager) more thread-safe by
+  wrapping the access log in a mutex. (Thanks @christer)
+
+* Made RecentlyUsedContainer more dict-like (corrected ``__delitem__`` and
+  ``__getitem__`` behaviour), with tests. Shouldn't affect core urllib3 code.
+
+
+1.0.1 (2011-10-10)
+------------------
+
+* Fixed a bug where the same connection would get returned into the pool twice,
+  causing extraneous "HttpConnectionPool is full" log warnings.
+
+
+1.0 (2011-10-08)
+----------------
+
+* Added ``PoolManager`` with LRU expiration of connections (tested and
+  documented).
+* Added ``ProxyManager`` (needs tests, docs, and confirmation that it works
+  with HTTPS proxies).
+* Added optional partial-read support for responses when
+  ``preload_content=False``. You can now make requests and just read the headers
+  without loading the content.
+* Made response decoding optional (default on, same as before).
+* Added optional explicit boundary string for ``encode_multipart_formdata``.
+* Convenience request methods are now inherited from ``RequestMethods``. Old
+  helpers like ``get_url`` and ``post_url`` should be abandoned in favour of
+  the new ``request(method, url, ...)``.
+* Refactored code to be even more decoupled, reusable, and extendable.
+* License header added to ``.py`` files.
+* Embiggened the documentation: Lots of Sphinx-friendly docstrings in the code
+  and docs in ``docs/`` and on https://urllib3.readthedocs.io/.
+* Embettered all the things!
+* Started writing this file.
+
+
+0.4.1 (2011-07-17)
+------------------
+
+* Minor bug fixes, code cleanup.
+
+
+0.4 (2011-03-01)
+----------------
+
+* Better unicode support.
+* Added ``VerifiedHTTPSConnection``.
+* Added ``NTLMConnectionPool`` in contrib.
+* Minor improvements.
+
+
+0.3.1 (2010-07-13)
+------------------
+
+* Added ``assert_host_name`` optional parameter. Now compatible with proxies.
+
+
+0.3 (2009-12-10)
+----------------
+
+* Added HTTPS support.
+* Minor bug fixes.
+* Refactored, broken backwards compatibility with 0.2.
+* API to be treated as stable from this version forward.
+
+
+0.2 (2008-11-17)
+----------------
+
+* Added unit tests.
+* Bug fixes.
+
+
+0.1 (2008-11-16)
+----------------
+
+* First release.
+
+
+conda.gateways
+--------------
+
+Gateways isolate interaction of conda code with the outside world.  Disk manipulation,
+database interaction, and remote requests should all be through various gateways.  Functions
+and methods in ``conda.gateways`` must use ``conda.models`` for arguments and return values.
+
+Conda modules importable from ``conda.gateways`` are
+
+- ``conda._vendor``
+- ``conda.common``
+- ``conda.models``
+- ``conda.gateways``
+
+Conda modules off limits for import within ``conda.gateways`` are
+
+- ``conda.api``
+- ``conda.cli``
+- ``conda.client``
+- ``conda.core``
+
+Conda modules strictly prohibited from importing ``conda.gateways`` are
+
+- ``conda.api``
+- ``conda.cli``
+- ``conda.client``
+conda.common
+------------
+
+Code in ``conda.common`` is not conda-specific.  Technically, it sits *aside* the application
+stack and not *within* the stack.  It is able to stand independently on its own.
+The *only* allowed imports of conda code in ``conda.common`` modules are imports of other
+``conda.common`` modules and imports from ``conda._vendor``.
+
+If objects are needed from other parts of conda, they should be passed directly as arguments to
+functions and methods.
+conda.models
+------------
+
+Models are data transfer objects or "light-weight" domain objects with no appreciable logic
+other than their own validation. Models are used to pass data between layers of the stack. In
+many ways they are similar to ORM objects.  Unlike ORM objects, they are NOT themselves allowed
+to load data from a remote resource.  Thought of another way, they cannot import from
+``conda.gateways``, but rather ``conda.gateways`` imports from ``conda.models`` as appropriate
+to create model objects from remote resources.
+
+Conda modules importable from ``conda.models`` are
+
+- ``conda._vendor``
+- ``conda.common``
+- ``conda.models``
+conda.base
+----------
+
+Code in ``conda.base`` is the lowest level of the application stack.  It is loaded and executed
+virtually every time the application is executed. Any code within, and any of its imports, must
+be highly performant.
+
+Conda modules importable from ``conda.base`` are
+
+- ``conda._vendor``
+- ``conda.base``
+- ``conda.common``
+
+Modules prohibited from importing ``conda.base`` are:
+
+- ``conda._vendor``
+- ``conda.common``
+
+All other ``conda`` modules may import from ``conda.base``.
+conda._vendor
+-------------
+
+Conda's pure-python dependencies will be
+`vendored <http://stackoverflow.com/questions/26217488/what-is-vendoring>`_
+until conda 5.0 when conda will be isolated in its own private environment.
+
+Introduction of dependencies for the 4.x series is discussed in
+https://github.com/conda/conda/issues/2825.
+conda.core
+----------
+
+Code in ``conda.core`` is the core logic.  It is strictly forbidden from having side effects.
+No printing to stdout or stderr, no disk manipulation, no http requests.
+All side effects should be implemented through ``conda.gateways``.  Objects defined in
+``conda.models`` should be heavily preferred for ``conda.core`` function/method arguments
+and return values.
+
+Conda modules importable from ``conda.core`` are
+
+- ``conda._vendor``
+- ``conda.common``
+- ``conda.core``
+- ``conda.models``
+- ``conda.gateways``
+
+Conda modules strictly off limits for import within ``conda.core`` are
+
+- ``conda.api``
+- ``conda.cli``
+- ``conda.client``
+admin
+=====
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/configuration/admin-multi-user-install.html'" /></head><body></body></html>
+travis
+======
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/use-conda-with-travis-ci.html'" /></head><body></body></html>
+:orphan:
+
+Redirects
+=========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='index.html'" /></head><body></body></html>
+
+.. toctree::
+   :hidden:
+
+   admin
+   changelog
+   channels
+   config
+   custom-channels
+   download
+   env-commands
+   faq
+   general-commands
+   get-started
+   installation
+   intro
+   mro
+   py2or3
+   r-with-conda
+   test-drive
+   travis
+   troubleshooting
+   winxp-proxy
+   help/conda-pip-virtualenv-translator
+   help/silent
+   install/central
+   install/full
+   install/quick
+   install/sample-condarc
+   install/tab-completion
+   user-guide/tasks/use-mro-with-conda
+   user-guide/tasks/use-r-with-conda
+   using/cheatsheet
+   using/envs
+   using/index
+   using/pkgs
+   using/test-drive
+   using/using
+   configuration
+   api/index
+config
+======
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/configuration/index.html'" /></head><body></body></html>
+r-with-conda
+============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/use-r-with-conda.html'" /></head><body></body></html>
+custom-channels
+===============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/create-custom-channels.html'" /></head><body></body></html>
+Architecture
+============
+
+Conda is a complex system of many components and can be hard to
+understand for users and developers alike. The following
+`C4 model`_ based architecture diagrams should help in that regard.
+As a refresher, the C4 model tries to visualize complex software
+systems at different levels of detail, and explaining the functionality
+to different types of audience.
+
+.. note::
+
+   These diagrams represent the state of conda at the time
+   when the documentation was automatically build as part of the
+   development process for conda |version| (|today|).
+
+C4 stands for the for levels:
+
+1. :ref:`Context <context>`
+2. :ref:`Container <container>`
+3. :ref:`Component <component>`
+4. :ref:`Code <code>`
+
+.. _context:
+
+Level 1: Context
+----------------
+
+This is the overview, 30,000 feet view on conda, to better understand
+how conda in the center of the diagram interacts with other
+systems and how users relate to it.
+
+More information about how to interpret this diagram can be found in
+the `C4 model`_ documentation about the `System Context diagram`_.
+
+.. uml:: umls/context/context.puml
+   :width: 80%
+
+.. _container:
+
+Level 2: Container
+------------------
+
+This level is zooming in to conda on a system level, which was
+in the center of the Level 1 diagram, to show the high-level shape
+of the software architecture of and the various responsibilities
+in conda, including major technology choices and communication
+patterns between the various containers.
+
+More information about how to interpret the following diagrams can be found
+in the `C4 model`_ documentation about the `Container diagram`_.
+
+Channels
+^^^^^^^^
+
+The following diagram focuses on the channels container from the level 1
+diagram.
+
+.. uml:: umls/container/channels.puml
+
+Conda
+^^^^^
+
+The following diagram focuses on the conda container from the level 1 diagram.
+
+.. uml:: umls/container/conda.puml
+
+.. _component:
+
+Level 3: Component
+------------------
+
+Yet another zoom-in, in which individual containers from Level 2
+are decomposed to show major building blocks in conda and their
+interactions. Those building blocks are called components in
+the sense that they each have a higher function and relate to
+an identifiable responsibility and implementation details.
+
+.. uml:: umls/packages_conda.puml
+
+More information about how to interpret this diagram can be found in
+the `C4 model`_ documentation about the `Component diagram`_.
+
+.. _code:
+
+Level 4: Code
+-------------
+
+This part is auto-generated based on the current code and shows
+how the code is structured and how it interacts. For brevity this
+ignores a number of subsystems like the public API and exports modules,
+utility and vendor packages.
+
+More information about how to interpret this diagram can be found in
+the `C4 model`_ documentation about the `Code diagram`_.
+
+.. uml:: umls/classes_conda.puml
+
+.. _`C4 model`: https://c4model.com/
+.. _`System Context diagram`: https://c4model.com/#SystemContextDiagram
+.. _`Container diagram`: https://c4model.com/#ContainerDiagram
+.. _`Component diagram`: https://c4model.com/#ComponentDiagram
+.. _`Code diagram`: https://c4model.com/#CodeDiagram
+get-started
+===========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/index.html'" /></head><body></body></html>
+winxp-proxy
+===========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/configuration/use-winxp-with-proxy.html'" /></head><body></body></html>
+=================
+Command reference
+=================
+
+.. contents::
+   :local:
+   :depth: 1
+
+Conda provides many commands for managing packages and environments.
+The links on this page provide help for each command.
+You can also access help from the command line with the
+``--help`` flag:
+
+.. code-block:: bash
+
+   conda install --help
+
+The following commands are part of conda:
+
+.. toctree::
+   :glob:
+   :maxdepth: 2
+
+   commands/*
+
+Conda vs. pip vs. virtualenv commands
+=====================================
+
+If you have used pip and virtualenv in the past, you can use
+conda to perform all of the same operations. Pip is a package
+manager and virtualenv is an environment manager. Conda is both.
+
+Scroll to the right to see the entire table.
+
+.. list-table::
+   :widths: 5 15 15 15
+   :header-rows: 1
+
+   * - Task
+     - Conda package and environment manager command
+     - Pip package manager command
+     - Virtualenv environment manager command
+   * - Install a package
+     - ``conda install $PACKAGE_NAME``
+     - ``pip install $PACKAGE_NAME``
+     - X
+   * - Update a package
+     - ``conda update --name $ENVIRONMENT_NAME $PACKAGE_NAME``
+     - ``pip install --upgrade $PACKAGE_NAME``
+     - X
+   * - Update package manager
+     - ``conda update conda``
+     - Linux/macOS: ``pip install -U pip`` Win: ``python -m pip install -U pip``
+     - X
+   * - Uninstall a package
+     - ``conda remove --name $ENVIRONMENT_NAME $PACKAGE_NAME``
+     - ``pip uninstall $PACKAGE_NAME``
+     - X
+   * - Create an environment
+     - ``conda create --name $ENVIRONMENT_NAME python``
+     - X
+     - ``cd $ENV_BASE_DIR; virtualenv $ENVIRONMENT_NAME``
+   * - Activate an environment
+     - ``conda activate $ENVIRONMENT_NAME``\*
+     - X
+     - ``source $ENV_BASE_DIR/$ENVIRONMENT_NAME/bin/activate``
+   * - Deactivate an environment
+     - ``conda deactivate``
+     - X
+     - ``deactivate``
+   * - Search available packages
+     - ``conda search $SEARCH_TERM``
+     - ``pip search $SEARCH_TERM``
+     - X
+   * - Install package from specific source
+     - ``conda install --channel $URL $PACKAGE_NAME``
+     - ``pip install --index-url $URL $PACKAGE_NAME``
+     - X
+   * - List installed packages
+     - ``conda list --name $ENVIRONMENT_NAME``
+     - ``pip list``
+     - X
+   * - Create requirements file
+     - ``conda list --export``
+     - ``pip freeze``
+     - X
+   * - List all environments
+     - ``conda info --envs``
+     - X
+     - Install virtualenv wrapper, then ``lsvirtualenv``
+   * - Install other package manager
+     - ``conda install pip``
+     - ``pip install conda``
+     - X
+   * - Install Python
+     - ``conda install python=x.x``
+     - X
+     - X
+   * - Update Python
+     - ``conda update python``\*
+     - X
+     - X
+
+
+\* ``conda activate`` only works on conda 4.6 and later versions.
+For conda versions prior to 4.6, type:
+
+   * Windows: ``activate``
+   * Linux and macOS: ``source activate``
+
+\* ``conda update python`` updates to the most recent in the series,
+so any Python 2.x would update to the latest 2.x and any Python 3.x
+to the latest 3.x.
+
+
+.. Show what files a package has installed ``pip show --files $PACKAGE_NAME``  not possible
+.. Print details on an individual package ``pip show $PACKAGE_NAME``  not possible
+.. List available environments   not possible   ``conda info -e``
+.. #user will want to pass that through ``tail -n +3 | awk '{print $1;}'``
+troubleshooting
+===============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/troubleshooting.html'" /></head><body></body></html>
+========
+Glossary
+========
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. _condarc-glossary:
+
+.condarc
+========
+
+The Conda Runtime Configuration file, an optional ``.yaml`` file
+that allows you to configure many aspects of conda, such as which
+channels it searches for packages, proxy settings, and environment
+directories. A ``.condarc`` file is not included by default, but
+it is automatically created in your home directory
+when you use the ``conda config`` command. The ``.condarc`` file
+can also be located in a root environment, in which case it
+overrides any ``.condarc`` in the home directory. For more
+information, see :doc:`user-guide/configuration/use-condarc`
+and :doc:`user-guide/configuration/admin-multi-user-install`.
+Pronounced "conda r-c".
+
+.. _activate-deactivate-glossary:
+
+Activate/Deactivate environment
+===============================
+
+Conda commands used to switch or move between installed
+environments. The ``conda activate`` command prepends the path of your
+current environment to the PATH environment variable so that you
+do not need to type it each time. ``deactivate`` removes it.
+Even when an environment is deactivated, you can still execute
+programs in that environment by specifying their paths directly,
+as in ``~/anaconda/envs/envname/bin/program_name``. When an
+environment is activated, you can execute the program in that
+environment with just ``program_name``.
+
+.. note::
+   Replace ``envname`` with the name of the environment and
+   replace ``program_name`` with the name of the program.
+
+
+.. _anaconda-glossary:
+
+Anaconda
+========
+
+A downloadable, free, open-source, high-performance, and optimized
+Python and R distribution. Anaconda includes
+:ref:`conda <conda-glossary>`, conda-build, Python, and 250+
+automatically installed, open-source scientific packages and
+their dependencies that have been tested to work well together,
+including SciPy, NumPy, and many others. Use the ``conda install`` command
+to easily install 7,500+ popular open-source packages
+for data science--including advanced and scientific
+analytics--from the Anaconda repository. Use the ``conda``
+command to install thousands more open-source packages.
+
+Because Anaconda is a Python distribution, it can make
+installing Python quick and easy even for new users.
+
+Available for Windows, macOS, and Linux, all versions of
+Anaconda are supported by the community.
+
+See also :ref:`miniconda-glossary` and :ref:`conda-glossary`.
+
+
+.. _anaconda-cloud-glossary:
+
+Anaconda Cloud
+==============
+
+A web-based, repository hosting service in the cloud. Packages
+created locally can be published to the cloud to be shared with
+others. `Anaconda Cloud <https://docs.anaconda.com/anaconda-cloud/>`_
+is a public version of Anaconda Repository.
+
+
+.. _navigator-glossary:
+
+Anaconda Navigator
+==================
+
+A desktop graphical user interface (GUI) included in all versions
+of Anaconda that allows you to easily manage conda packages,
+environments, channels, and notebooks without a command line
+interface (CLI). See more about `Navigator <https://docs.anaconda.com/anaconda/navigator/>`_.
+
+.. _channels-glossary:
+
+Channels
+========
+
+The locations of the repositories where conda looks for packages.
+Channels may point to a Cloud repository or a private
+location on a remote or local repository that you or your organization
+created. The ``conda channel`` command has a default set of channels to
+search, beginning with https://repo.anaconda.com/pkgs/, which you may
+override, for example, to maintain a private or internal channel.
+These default channels are referred to in conda commands and in
+the ``.condarc`` file by the channel name "defaults."
+
+
+.. _conda-glossary:
+
+conda
+=====
+
+The package and environment manager program bundled with Anaconda
+that installs and updates conda packages and their dependencies.
+Conda also lets you easily switch between conda environments on
+your local computer.
+
+
+.. _conda-environment-glossary:
+
+conda environment
+=================
+
+A folder or directory that contains a specific collection of
+conda packages and their dependencies, so they can be maintained
+and run separately without interference from each other. For
+example, you may use a conda environment for only Python 2 and
+Python 2 packages, maintain another conda environment with only
+Python 3 and Python 3 packages, and maintain another for R
+language packages. Environments can be created from:
+
+* The Navigator GUI
+* The command line
+* An environment specification file with the name
+  ``your-environment-name.yml``
+
+
+.. _conda-package-glossary:
+
+conda package
+=============
+
+A compressed file that contains everything that a software
+program needs in order to be installed and run, so that you do
+not have to manually find and install each dependency separately.
+A conda package includes system-level libraries, Python or R
+language modules, executable programs, and other components. You
+manage conda packages with conda.
+
+.. _conda-repository-glossary:
+
+conda repository
+================
+
+A cloud-based repository that contains 7,500+ open-source certified
+packages that are easily installed locally with the
+``conda install`` command. Anyone can access the repository from:
+
+* The Navigator GUI
+
+* A terminal or Anaconda Prompt using conda commands
+
+*  https://repo.anaconda.com/pkgs/
+
+
+.. _metapackage-glossary:
+
+Metapackage
+===========
+
+A metapackage is a very simple package that has at least a name
+and a version. It need not have any dependencies or build steps.
+:ref:`meta-package` may list dependencies to several core,
+low-level libraries and may contain links to software files
+that are automatically downloaded when executed.
+
+.. _miniconda-glossary:
+
+Miniconda
+=========
+
+A free minimal installer for conda. `Miniconda <https://docs.conda.io/en/latest/miniconda.html>`_
+is a small, bootstrap version of Anaconda that includes only conda,
+Python, the packages they depend on, and a small number of other useful
+packages, including pip, zlib, and a few others. Use the
+``conda install`` command to install 7,500+ additional conda
+packages from the Anaconda repository.
+
+Miniconda is a Python distribution that can make
+installing Python quick and easy even for new users.
+
+See also :ref:`anaconda-glossary` and :ref:`conda-glossary`.
+
+.. _noarch-glossary:
+
+Noarch package
+==============
+
+A conda package that contains nothing specific to any system
+architecture, so it may be installed from any system. When conda
+searches for packages on any system in a channel, conda checks
+both the system-specific subdirectory, such as ``linux-64``, and
+the ``noarch`` directory. Noarch is a contraction of "no architecture".
+
+.. _package-manager-glossary:
+
+Package manager
+===============
+
+A collection of software tools that automates the process of
+installing, updating, configuring, and removing computer programs
+for a computer's operating system. Also known as a package management
+system. Conda is a package manager.
+
+.. _packages-glossary:
+
+Packages
+========
+
+Software files and information about the software, such as its
+name, the specific version, and a description, bundled into a
+file that can be installed and managed by a package manager.
+
+.. _repository-glossary:
+
+Repository
+==========
+
+Any storage location from which software assets may be retrieved
+and installed on a local computer. See also
+:ref:`anaconda-cloud-glossary` and
+:ref:`conda-repository-glossary`.
+
+.. _silent-mode-glossary:
+
+Silent mode installation
+========================
+
+When installing Miniconda or Anaconda in silent mode, screen
+prompts are not shown on screen and default settings are
+automatically accepted.
+download
+========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/install/download.html'" /></head><body></body></html>
+Conda configuration
+===================
+
+.. program-output:: cd .. && python -c 'import os; import sys; src_dir = here = os.path.abspath(os.path.dirname("../setup.py")); sys.path.insert(0, src_dir); import conda.cli.main_config; print(conda.cli.main_config.describe_all_parameters())'
+   :shell:
+py2or3
+======
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/manage-python.html'" /></head><body></body></html>
+general-commands
+================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='commands.html'" /></head><body></body></html>
+installation
+============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/install/index.html'" /></head><body></body></html>
+faq
+===
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/index.html'" /></head><body></body></html>
+=====
+Conda
+=====
+
+.. figure::  /img/conda_logo.svg
+   :align: center
+   :width: 50%
+
+   ..
+
+|
+
+:emphasis:`Package, dependency and environment management for any
+language---Python, R, Ruby, Lua, Scala, Java, JavaScript, C/ C++,
+FORTRAN`
+
+Conda is an open-source package management system and environment
+management system that runs on Windows, macOS, and Linux. Conda
+quickly installs, runs, and updates packages and their dependencies.
+Conda easily creates, saves, loads, and switches between environments
+on your local computer. It was created for Python programs but it
+can package and distribute software for any language.
+
+Conda as a package manager helps you find and install packages.
+If you need a package that requires a different version of
+Python, you do not need to switch to a different environment
+manager because conda is also an environment manager. With just
+a few commands, you can set up a totally separate environment to
+run that different version of Python, while continuing to run
+your usual version of Python in your normal environment.
+
+In its default configuration, conda can install and manage the
+over 7,500 packages at repo.anaconda.com that are built, reviewed,
+and maintained by Anaconda\ |reg|.
+
+Conda can be combined with continuous integration systems such
+as Travis CI and AppVeyor to provide frequent, automated testing
+of your code.
+
+The conda package and environment manager is included in all versions of
+:ref:`Anaconda <anaconda-glossary>`\ |reg|,
+:ref:`Miniconda <miniconda-glossary>`, and
+`Anaconda Repository <https://docs.continuum.io/anaconda-repository/>`_.
+Conda is also included in `Anaconda Enterprise
+<https://www.anaconda.com/enterprise/>`_, which provides on-site enterprise
+package and environment management for Python, R, Node.js, Java, and other
+application stacks. Conda is also available on
+`conda-forge <https://anaconda.org/conda-forge/conda>`_, a community channel.
+You may also get conda on `PyPI <https://pypi.org/>`_, but
+that approach may not be as up to date.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+
+   user-guide/index
+   configuration
+   api/index
+   commands
+   glossary
+   dev-guide/index
+   release-notes
+
+.. |reg|    unicode:: U+000AE .. REGISTERED SIGN
+mro
+===
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/use-mro-with-conda.html'" /></head><body></body></html>
+test-drive
+==========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/getting-started.html'" /></head><body></body></html>
+env-commands
+============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='commands.html'" /></head><body></body></html>
+intro
+=====
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='index.html'" /></head><body></body></html>
+channels
+========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='user-guide/tasks/manage-channels.html'" /></head><body></body></html>
+changelog
+=========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='release-notes.html'" /></head><body></body></html>
+``conda config``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: config
+   :nodefault:
+   :nodefaultconst:
+``conda list``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: list
+   :nodefault:
+   :nodefaultconst:
+``conda search``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: search
+   :nodefault:
+   :nodefaultconst:
+``conda info``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: info
+   :nodefault:
+   :nodefaultconst:
+``conda package``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: package
+   :nodefault:
+   :nodefaultconst:
+``conda update``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: update
+   :nodefault:
+   :nodefaultconst:
+``conda create``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: create
+   :nodefault:
+   :nodefaultconst:
+``conda remove``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: remove
+   :nodefault:
+   :nodefaultconst:
+``conda clean``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: clean
+   :nodefault:
+   :nodefaultconst:
+``conda install``
+*****************
+
+.. argparse::
+   :module: conda.cli.conda_argparse
+   :func: generate_parser
+   :prog: conda
+   :path: install
+   :nodefault:
+   :nodefaultconst:
+help/silent
+===========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/install/index.html'" /></head><body></body></html>
+help/conda-pip-virtualenv-translator
+====================================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../commands.html'" /></head><body></body></html>
+==========================
+Getting started with conda
+==========================
+
+.. _navigator-starting:
+
+Conda is a powerful package manager and environment manager that
+you use with command line commands at the Anaconda Prompt for Windows,
+or in a terminal window for macOS or Linux.
+
+This 20-minute guide to getting started with conda lets you try out
+the major features of conda. You should understand how conda works
+when you finish this guide.
+
+SEE ALSO: `Getting started with Anaconda Navigator
+<https://docs.anaconda.com/anaconda/navigator/getting-started>`_, a
+graphical user interface that lets you use conda in a web-like interface
+without having to enter manual commands. Compare the Getting started
+guides for each to see which program you prefer.
+
+Before you start
+================
+
+You should have already `installed
+Anaconda <https://docs.anaconda.com/anaconda/install/>`_.
+
+Contents
+========
+
+ - :ref:`Starting conda <starting-conda>` on Windows, macOS, or Linux. 2 MINUTES
+
+ - :ref:`Managing conda <managing-conda>`. Verify that Anaconda is installed and check that conda is updated to the current version. 3 MINUTES
+
+ - :ref:`Managing environments <managing-envs>`. Create :doc:`environments <../user-guide/concepts/environments>` and move easily between them.  5 MINUTES
+
+ - :ref:`Managing Python <managing-python>`. Create an environment that has a different version of Python. 5 MINUTES
+
+ - :ref:`Managing packages <managing-pkgs>`. Find packages available for you to install. Install packages. 5 MINUTES
+
+TOTAL TIME: 20 MINUTES
+
+
+.. _starting-conda:
+
+Starting conda
+==============
+
+**Windows**
+
+* From the Start menu, search for and open "Anaconda Prompt."
+
+.. figure:: /img/anaconda-prompt.png
+   :width: 50%
+
+   ..
+
+|
+
+On Windows, all commands below are typed into the Anaconda Prompt window.
+
+**MacOS**
+
+* Open Launchpad, then click the terminal icon.
+
+On macOS, all commands below are typed into the terminal window.
+
+**Linux**
+
+* Open a terminal window.
+
+On Linux, all commands below are typed into the terminal window.
+
+.. _managing-conda:
+
+Managing conda
+===============
+
+Verify that conda is installed and running on your system by typing:
+
+ .. code::
+
+    conda --version
+
+Conda displays the number of the version that you have installed. You do not
+need to navigate to the Anaconda directory.
+
+EXAMPLE: ``conda 4.7.12``
+
+.. note::
+   If you get an error message, make sure you closed and re-opened the
+   terminal window after installing, or do it now. Then verify that you are logged
+   into the same user account that you used to install Anaconda or Miniconda.
+
+Update conda to the current version. Type the following:
+
+ .. code::
+
+     conda update conda
+
+Conda compares versions and then displays what is available to install.
+
+If a newer version of conda is available, type ``y`` to update:
+
+ .. code::
+
+    Proceed ([y]/n)? y
+
+.. tip::
+   We recommend that you always keep conda updated to the latest version.
+
+.. _managing-envs:
+
+Managing environments
+=====================
+
+Conda allows you to create separate environments containing files, packages,
+and their dependencies that will not interact with other environments.
+
+When you begin using conda, you already have a default environment named
+``base``. You don't want to put programs into your base environment, though.
+Create separate environments to keep your programs isolated from each other.
+
+#. Create a new environment and install a package in it.
+
+   We will name the environment ``snowflakes`` and install the package
+   BioPython. At the Anaconda Prompt or in your terminal window, type
+   the following:
+
+   .. code::
+
+      conda create --name snowflakes biopython
+
+   Conda checks to see what additional packages ("dependencies")
+   BioPython will need, and asks if you want to proceed:
+
+   .. code::
+
+      Proceed ([y]/n)? y
+
+   Type "y" and press Enter to proceed.
+
+#. To use, or "activate" the new environment, type the following:
+
+   * Windows: ``conda activate snowflakes``
+   * macOS and Linux: ``conda activate snowflakes``
+
+   .. note::
+      ``conda activate`` only works on conda 4.6 and later versions.
+
+   For conda versions prior to 4.6, type:
+
+   * Windows: ``activate snowflakes``
+   * macOS and Linux: ``source activate snowflakes``
+
+   Now that you are in your ``snowflakes`` environment, any conda
+   commands you type will go to that environment until
+   you deactivate it.
+
+#. To see a list of all your environments, type:
+
+   .. code::
+
+      conda info --envs
+
+   A list of environments appears, similar to the following:
+
+   .. code::
+
+      conda environments:
+
+          base           /home/username/Anaconda3
+          snowflakes   * /home/username/Anaconda3/envs/snowflakes
+
+   .. tip::
+      The active environment is the one with an asterisk (*).
+
+#. Change your current environment back to the default (base):
+   ``conda activate``
+
+   .. note::
+      For versions prior to conda 4.6, use:
+
+        * Windows:  ``activate``
+        * macOS, Linux: ``source activate``
+
+   .. tip::
+      When the environment is deactivated, its name is no
+      longer shown in your prompt, and the asterisk (*) returns to base.
+      To verify, you can repeat the  ``conda info --envs`` command.
+
+
+.. _managing-python:
+
+Managing Python
+===============
+
+When you create a new environment, conda installs the same Python version you
+used when you downloaded and installed Anaconda. If you want to use a different
+version of Python, for example Python 3.5, simply create a new environment and
+specify the version of Python that you want.
+
+#. Create a new environment named "snakes" that contains Python 3.9:
+
+   .. code::
+
+      conda create --name snakes python=3.9
+
+   When conda asks if you want to proceed, type "y" and press Enter.
+
+#. Activate the new environment:
+
+   * Windows: ``conda activate snakes``
+   * macOS and Linux: ``conda activate snakes``
+
+   .. note::
+      ``conda activate`` only works on conda 4.6 and later versions.
+
+   For conda versions prior to 4.6, type:
+
+   * Windows: ``activate snakes``
+   * macOS and Linux: ``source activate snakes``
+
+#. Verify that the snakes environment has been added and is active:
+
+   .. code::
+
+      conda info --envs
+
+   Conda displays the list of all environments with an asterisk (*)
+   after the name of the active environment:
+
+   .. code::
+
+     # conda environments:
+     #
+     base                     /home/username/anaconda3
+     snakes                *  /home/username/anaconda3/envs/snakes
+     snowflakes               /home/username/anaconda3/envs/snowflakes
+
+   The active environment is also displayed in front of your prompt in
+   (parentheses) or [brackets] like this:
+
+   .. code::
+
+     (snakes) $
+
+#. Verify which version of Python is in your current
+   environment:
+
+   .. code::
+
+      python --version
+
+#. Deactivate the snakes environment and return to base environment:
+   ``conda activate``
+
+   .. note::
+      For versions prior to conda 4.6, use:
+
+        * Windows:  ``activate``
+        * macOS, Linux: ``source activate``
+
+
+.. _managing-pkgs:
+
+Managing packages
+=================
+
+In this section, you check which packages you have installed,
+check which are available and look for a specific package and
+install it.
+
+#. To find a package you have already installed, first activate the environment
+   you want to search. Look above for the commands to
+   :ref:`activate your snakes environment <managing-envs>`.
+
+#. Check to see if a package you have not installed named
+   "beautifulsoup4" is available from the Anaconda repository
+   (must be connected to the Internet):
+
+   .. code::
+
+      conda search beautifulsoup4
+
+   Conda displays a list of all packages with that name on the Anaconda
+   repository, so we know it is available.
+
+#. Install this package into the current environment:
+
+   .. code::
+
+      conda install beautifulsoup4
+
+#. Check to see if the newly installed program is in this environment:
+
+   .. code::
+
+      conda list
+
+
+More information
+================
+
+* :doc:`Conda cheat sheet <cheatsheet>`
+* Full documentation--- https://conda.io/docs/
+* Free community support--- https://groups.google.com/a/anaconda.com/forum/#!forum/anaconda
+* Paid support options--- https://www.anaconda.com/support/
+===============
+Troubleshooting
+===============
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+Using conda in Windows Batch script exits early
+===============================================
+
+In conda 4.6+, the way that you interact with conda goes through a batch script (``%PREFIX%\condabin\conda.bat``).
+Unfortunately, this means it's a little complicated to use conda from other batch scripts. When using batch
+scripts from within batch scripts, you must prefix your command with ``CALL``. If you do not do this, your batch
+script that calls conda will exit immediately after the conda usage. In other words, if you write this in a .bat file:
+
+   .. code-block:: bash
+
+      conda create myenv python
+      conda activate myenv
+      echo test
+
+Neither the activation, nor the echo will happen. You must write this in your batch script:
+
+   .. code-block:: bash
+
+      CALL conda create myenv python
+      CALL conda activate myenv
+      echo test
+
+This is known behavior with cmd.exe, and we have not found any way to change it.
+https://stackoverflow.com/questions/4798879/how-do-i-run-a-batch-script-from-within-a-batch-script/4798965
+
+.. _mkl_library:
+
+NumPy MKL library load failed
+=============================
+
+Error messages like
+
+.. code-block::
+
+    Intel MKL FATAL ERROR: Cannot load mkl_intel_thread.dll
+
+or
+
+.. code-block::
+
+    The ordinal 241 could not be located in the the dynamic link library
+
+Cause
+-----
+
+NumPy is unable to load the correct MKL or Intel OpenMP runtime libraries. This
+is almost always caused by one of two things:
+
+  1. The environment with NumPy has not been activated.
+  2. Another software vendor has installed MKL or Intel OpenMP (libiomp5md.dll)
+     files into the C:\\Windows\\System32 folder. These files are being loaded
+     before Anaconda's and they're not compatible.
+
+Solution
+--------
+
+If you are not activating your environments, start with doing that. There's more
+info at :ref:`Activating environments <activate-env>`. If you are still stuck, you may need to consider
+more drastic measures.
+
+  #. Remove any MKL-related files from C:\\Windows\\System32. We recommend
+     renaming them to add .bak to the filename to effectively hide them. Observe
+     if any other software breaks. Try moving the DLL files alongside the .exe of
+     the software that broke. If it works again, you can keep things in the
+     moved state - Anaconda doesn't need MKL in System32, and no other software should need it either. If
+     you identify software that is installing software here, please contact the
+     creators of that software. Inform them that their practice of installing
+     MKL to a global location is fragile and is breaking other people's software
+     and wasting a lot of time. See the list of guilty parties below.
+  #. You may try a special DLL loading mode that Anaconda builds into Python.
+     This changes the DLL search path from System32 first to System32 as another
+     entry on PATH, allowing libraries in your conda environment to be found
+     before the libraries in System32. Control of this feature is done with
+     environment variables. Only Python builds beyond these builds will react to
+     these environment variables:
+
+       * Python 2.7.15 build 14
+       * Python 3.6.8 build 7
+       * Python 3.7.2 build 8
+
+     To update Python from the defaults channel::
+
+       conda update -c defaults python
+
+     .. note::
+        Anaconda has built special patches into its builds of Python to enable
+        this functionality. If you get your Python package from somewhere else
+        (e.g. conda-forge), these flags may not do anything.
+
+     Control environment variables:
+
+       * ``CONDA_DLL_SEARCH_MODIFICATION_ENABLE``
+       * ``CONDA_DLL_SEARCH_MODIFICATION_DEBUG``
+       * ``CONDA_DLL_SEARCH_MODIFICATION_NEVER_ADD_WINDOWS_DIRECTORY``
+       * ``CONDA_DLL_SEARCH_MODIFICATION_NEVER_ADD_CWD``
+
+     To set variables on Windows, you may use either the CLI (Anaconda Prompt, for example) or a Windows GUI.
+
+       * CLI: https://superuser.com/questions/79612/setting-and-getting-windows-environment-variables-from-the-command-prompt/79614
+       * GUI: http://www.dowdandassociates.com/blog/content/howto-set-an-environment-variable-in-windows-gui/
+
+     These should be set to a value of ``1`` to enable them.  For example, in an Anaconda Prompt terminal::
+
+       set CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
+
+    .. note::
+       Only ``CONDA_DLL_SEARCH_MODIFICATION_ENABLE`` should be set finally.
+
+List of known software that installs Intel libraries to C:\\Windows\\System32:
+
+* Amplitube, by IK Multimedia
+* ASIO4ALL, by Michael Tippach
+
+If you find others, please let us know. If you're on this list and you want to
+fix things, let us know. In either case, the conda issue tracker at
+https://github.com/conda/conda/issues is the best way to reach us.
+
+SSL connection errors
+=====================
+
+This is a broad umbrella of errors with many causes. Here are some we've seen.
+
+CondaHTTPError: HTTP 000 CONNECTION FAILED
+------------------------------------------
+
+If you're on Windows and you see this error, look a little further down in the
+error text. Do you see something like this?::
+
+    SSLError(MaxRetryError('HTTPSConnectionPool(host=\'repo.anaconda.com\', port=443): Max retries exceeded with url: /pkgs/r/win-32/repodata.json.bz2 (Caused by SSLError("Can\'t connect to HTTPS URL because the SSL module is not available."))'))
+
+The key part there is the last bit::
+
+    Caused by SSLError("Can\'t connect to HTTPS URL because the SSL module is not available.")
+
+Conda is having problems because it can't find the OpenSSL libraries that it needs.
+
+Cause
+~~~~~
+
+You may observe this error cropping up after a conda update. More recent
+versions of conda and more recent builds of Python are more strict about
+requiring activation of environments. We're working on better error messages for
+them, but here's the story for now. Windows relies on the PATH environment
+variable as the way to locate libraries that are not in the immediate folder,
+and also not in the C:\\Windows\\System32 folder. Searching for libraries in the
+PATH folders goes from left to right. If you choose to put Anaconda's folders on
+PATH, there are several of them:
+
+  * (install root)
+  * (install root)/Library/mingw-w64/bin
+  * (install root)/Library/usr/bin
+  * (install root)/Library/bin
+  * (install root)/Scripts
+  * (install root)/bin
+  * (install root)/condabin
+
+Early installers for Anaconda put these on PATH. That was ultimately fragile
+because Anaconda isn't the only software on the system. If other software had
+similarly named executables or libraries, and came earlier on PATH, Anaconda
+could break. On the flip side, Anaconda could break other software if Anaconda
+were earlier in the PATH order and shadowed any other executables or libraries.
+To make this easier, we began recommending "activation" instead of modifying
+PATH. Activation is a tool where conda sets your PATH, and also runs any custom
+package scripts which are often used to set additional environment variables
+that are necessary for software to run (e.g. ``JAVA_HOME``). Because activation runs
+only in a local terminal session (as opposed to the permanent PATH entry), it is
+safe to put Anaconda's PATH entries first. That means that Anaconda's libraries
+get higher priority when you're running Anaconda but Anaconda doesn't interfere
+with other software when you're not running Anaconda.
+
+Anaconda's Python interpreter included a patch for a long time that added the
+(install root)/Library/bin folder to that Python's PATH. Unfortunately, this
+interfered with reasoning about PATH at all when using that Python interpreter.
+We removed that patch in Python 3.7.0, and we regret that this has caused
+problems for people who are not activating their environments and who otherwise
+do not have the proper entries on PATH. We're experimenting with approaches that
+will allow our executables to be less dependent on PATH and more self-aware of
+their needed library load paths. For now, though, the only solutions to this
+problem are to manage PATH properly.
+
+Our humble opinion is that activation is the easiest way to ensure that things
+work. See more information on activation in :ref:`Activating environments
+<activate-env>`.
+
+Solution
+~~~~~~~~
+
+Use "Anaconda Prompt" or shells opened from Anaconda Navigator. If you use a GUI
+IDE and you see this error, ask the developers of your IDE to add activation for
+conda environments.
+
+SSL certificate errors
+----------------------
+
+Cause
+~~~~~
+
+Installing packages may produce a "connection failed" error if you do not have
+the certificates for a secure connection to the package repository.
+
+Solution
+~~~~~~~~
+
+Pip can use the ``--trusted-host`` option to indicate that the URL of the
+repository is trusted::
+
+    pip install --trusted-host pypi.org
+
+Conda has three similar options.
+
+#. The option ``--insecure`` or ``-k`` ignores certificate validation errors for all hosts.
+
+   Running ``conda create --help`` shows::
+
+       Networking Options:
+         -k, --insecure        Allow conda to perform "insecure" SSL connections and
+                               transfers. Equivalent to setting 'ssl_verify' to
+                               'False'.
+
+#. The configuration option ``ssl_verify`` can be set to ``False``.
+
+   Running ``conda config --describe ssl_verify`` shows::
+
+       # # ssl_verify (bool, str)
+       # #   aliases: verify_ssl
+       # #   conda verifies SSL certificates for HTTPS requests, just like a web
+       # #   browser. By default, SSL verification is enabled and conda operations
+       # #   will fail if a required URL's certificate cannot be verified. Setting
+       # #   ssl_verify to False disables certification verification. The value for
+       # #   ssl_verify can also be (1) a path to a CA bundle file, or (2) a path
+       # #   to a directory containing certificates of trusted CA.
+       # #
+       # ssl_verify: true
+
+   Running ``conda config --set ssl_verify false`` modifies ``~/.condarc`` and
+   sets the ``-k`` flag for all future conda operations performed by that user.
+   Running ``conda config --help`` shows other configuration scope options.
+
+   When using ``conda config``, the user's conda configuration file at
+   ``~/.condarc`` is used by default. The flag ``--system`` will instead write
+   to the system configuration file for all users at
+   ``<CONDA_BASE_ENV>/.condarc``. The flag ``--env`` will instead write to the
+   active conda environment's configuration file at
+   ``<PATH_TO_ACTIVE_CONDA_ENV>/.condarc``. If ``--env`` is used and no
+   environment is active, the user configuration file is used.
+
+#. The configuration option ``ssl_verify`` can be used to install new certificates.
+
+   Running ``conda config --describe ssl_verify`` shows::
+
+       # # ssl_verify (bool, str)
+       # #   aliases: verify_ssl
+       # #   conda verifies SSL certificates for HTTPS requests, just like a web
+       # #   browser. By default, SSL verification is enabled, and conda operations
+       # #   will fail if a required URL's certificate cannot be verified. Setting
+       # #   ssl_verify to False disables certification verification. The value for
+       # #   ssl_verify can also be (1) a path to a CA bundle file, or (2) a path
+       # #   to a directory containing certificates of trusted CA.
+       # #
+       # ssl_verify: true
+
+   Your network administrator can give you a certificate bundle for your
+   network's firewall. Then ``ssl_verify`` can be set to the path of that
+   certificate authority (CA) bundle and package installation operations will
+   complete without connection errors.
+
+   When using ``conda config``, the user's conda configuration file at
+   ``~/.condarc`` is used by default. The flag ``--system`` will instead write
+   to the system configuration file for all users at
+   ``<CONDA_BASE_ENV>/.condarc``. The flag ``--env`` will instead write to the
+   active conda environment's configuration file at
+   ``<PATH_TO_ACTIVE_CONDA_ENV>/.condarc``. If ``--env`` is used and no
+   environment is active, the user configuration file is used.
+
+SSL verification errors
+-----------------------
+
+Cause
+~~~~~
+
+This error may be caused by lack of activation on Windows or expired
+certifications::
+
+    SSL verification error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:590)
+
+Solution
+~~~~~~~~
+Make sure your conda is up-to-date: ``conda --version``
+
+If not, run: ``conda update conda``
+
+Temporarily set your ``ssl_verify`` variable to false, upgrade the requests package, and then
+set ``ssl_verify`` back to ``true`` using the following commands::
+
+    conda config --set ssl_verify false
+    conda update requests
+    conda config --set ssl_verify true
+
+You can also set ``ssl_verify`` to a string path to a certificate, which can be used to verify
+SSL connections. Modify your ``.condarc`` and include the following::
+
+    ssl_verify: path-to-cert/chain/filename.ext
+
+If the repository uses a self-signed certificate, use the actual path to the certificate.
+If the repository is signed by a private certificate authority (CA), the file needs to include
+the root certificate and any intermediate certificates.
+
+
+.. _permission-denied:
+
+Permission denied errors during installation
+============================================
+
+Cause
+-----
+
+The ``umask`` command  determines the mask settings that control
+how file permissions are set for newly created files. If you
+have a very restrictive ``umask``, such as ``077``, you get
+"permission denied" errors.
+
+Solution
+--------
+
+Set a less restrictive ``umask`` before calling conda commands.
+Conda was intended as a user space tool, but often users need to
+use it in a global environment. One place this can go awry is
+with restrictive file permissions. Conda creates links when you
+install files that have to be read by others on the system.
+
+To give yourself full permissions for files and directories but
+prevent the group and other users from having access:
+
+#. Before installing, set the ``umask`` to ``007``.
+
+#. Install conda.
+
+#. Return the ``umask`` to the original setting:
+
+   .. code-block:: bash
+
+      umask 007
+      conda install
+      umask 077
+
+
+For more information on ``umask``, see
+`http://en.wikipedia.org/wiki/Umask <http://en.wikipedia.org/wiki/Umask>`_.
+
+.. _permission-denied-sudo:
+
+Permission denied errors after using sudo conda command
+=======================================================
+
+Solution
+--------
+
+Once you run conda with sudo, you must use sudo forever. We recommend that you NEVER run conda with sudo.
+
+
+.. _fix-broken-conda:
+
+Already installed error message
+===============================
+
+Cause
+-----
+
+If you are trying to fix conda problems without removing the
+current installation and you try to reinstall Miniconda or
+Anaconda to fix it, you get an error message that Miniconda
+or Anaconda is already installed and you cannot continue.
+
+Solution
+--------
+
+Install using the ``--force`` option.
+
+
+Download and install the appropriate Miniconda
+for your operating system from the `Miniconda download page
+<https://docs.conda.io/en/latest/miniconda.html>`_ using the force option
+``--force`` or ``-f``:
+
+.. code-block:: bash
+
+    bash Miniconda3-latest-MacOSX-x86_64.sh -f
+
+.. note::
+   Substitute the appropriate filename and version for your
+   operating system.
+
+.. note::
+   Be sure that you install to the same location as
+   your existing install so it overwrites the core conda files and
+   does not install a duplicate in a new folder.
+
+
+.. _conda-claims-installed:
+
+Conda reports that a package is installed, but it appears not to be
+===================================================================
+
+Sometimes conda claims that a package is already installed but
+it does not appear to be, for example, a Python package that
+gives ImportError.
+
+There are several possible causes for this problem, each with its
+own solution.
+
+Cause
+-----
+
+You are not in the same conda environment as your package.
+
+Solution
+--------
+
+#. Make sure that you are in the same conda environment as your
+   package. The ``conda info`` command tells you what environment
+   is currently active under ``default environment``.
+
+#. Verify that you are using the Python from the correct
+   environment by running:
+
+   .. code:: python
+
+      import sys
+
+      print(sys.prefix)
+
+
+Cause
+-----
+For Python packages, you have set the ``PYTHONPATH`` or ``PYTHONHOME``
+variable. These environment variables cause Python to load files
+from locations other than the standard ones. Conda works best
+when these environment variables are not set, as their typical
+use cases are obviated by conda environments and a common issue
+is that they cause Python to pick up the wrong or broken
+versions of a library.
+
+
+Solution
+--------
+
+For Python packages, make sure you have not set the ``PYTHONPATH``
+or ``PYTHONHOME`` variables. The command ``conda info -a`` displays
+the values of these environment variables.
+
+* To unset these environment variables temporarily for the
+  current terminal session, run ``unset PYTHONPATH``.
+
+* To unset them permanently, check for lines in the files:
+
+  * If you use bash---``~/.bashrc``, ``~/.bash_profile``,
+    ``~/.profile``.
+
+  * If you use zsh---``~/.zshrc``.
+
+  * If you use PowerShell on Windows, the file output by
+    ``$PROFILE``.
+
+
+Cause
+-----
+
+You have site-specific directories or, for Python, you have
+so-called site-specific files. These are typically located in
+``~/.local`` on macOS and Linux. For a full description of the locations of
+site-specific packages, see `PEP 370
+<http://legacy.python.org/dev/peps/pep-0370/>`_. As with
+``PYTHONPATH``, Python may try importing packages from this
+directory, which can cause issues.
+
+Solution
+--------
+
+For Python packages, remove site-specific directories and
+site-specific files.
+
+Cause
+-----
+
+For C libraries, the following environment variables have been
+set:
+
+* macOS---``DYLD_LIBRARY_PATH``.
+* Linux---``LD_LIBRARY_PATH``.
+
+These act similarly to ``PYTHONPATH`` for Python. If they are
+set, they can cause libraries to be loaded from locations other
+than the conda environment. Conda environments obviate most use
+cases for these variables. The command ``conda info -a`` shows
+what these are set to.
+
+Solution
+--------
+
+Unset ``DYLD_LIBRARY_PATH`` or ``LD_LIBRARY_PATH``.
+
+
+Cause
+-----
+
+Occasionally, an installed package becomes corrupted. Conda works
+by unpacking the packages in the ``pkgs`` directory and then
+hard-linking them to the environment. Sometimes these get
+corrupted, breaking all environments that use them. They
+also break any additional environments since the same files are hard-linked
+each time.
+
+
+Solution
+--------
+
+Run the command ``conda install -f`` to unarchive the package
+again and relink it. It also does an MD5 verification on the
+package. Usually if this is different it is because your
+channels have changed and there is a different package with the
+same name, version, and build number.
+
+.. note::
+   This breaks the links to any other environments that
+   already had this package installed, so you have to reinstall it
+   there, too. It also means that running ``conda install -f`` a lot
+   can use up significant disk space if you have many environments.
+
+.. note::
+   The ``-f`` flag to ``conda install`` (``--force``) implies
+   ``--no-deps``, so ``conda install -f package`` does not reinstall
+   any of the dependencies of ``package``.
+
+
+.. _DistributionNotFound:
+
+pkg_resources.DistributionNotFound: conda==3.6.1-6-gb31b0d4-dirty
+=================================================================
+
+Cause
+-----
+
+The local version of conda needs updating.
+
+Solution
+--------
+
+Force reinstall conda. A useful way to work off the development
+version of conda is to run ``python setup.py develop`` on a
+checkout of the `conda GitHub repository
+<https://github.com/conda/conda>`_. However, if you are not
+regularly running ``git pull``, it is a good idea to un-develop,
+as you will otherwise not get any regular updates to conda. The
+normal way to do this is to run ``python setup.py develop -u``.
+
+However, this command does not replace the ``conda`` script
+itself. With other packages, this is not an issue, as you can
+just reinstall them with ``conda``, but conda cannot be used if
+conda is installed.
+
+The fix is to use the ``./bin/conda`` executable in the conda
+git repository to force reinstall conda. That is, run
+``./bin/conda install -f conda``. You can then verify with
+``conda info`` that you have the latest version of conda, and not
+a git checkout. The version should not include any hashes.
+
+
+.. _unknown-locale:
+
+macOS error "ValueError unknown locale: UTF-8"
+==============================================
+
+Cause
+-----
+
+This is a bug in the macOS Terminal app that shows up only in
+certain locales. Locales are country-language combinations.
+
+
+Solution
+--------
+
+#. Open Terminal in ``/Applications/Utilities``
+
+#. Clear the Set locale environment variables on startup checkbox.
+
+   .. figure:: /img/conda_locale.jpg
+
+      ..
+
+   |
+
+This sets your ``LANG`` environment variable to be empty. This may
+cause Terminal to use incorrect settings for your locale. The
+``locale`` command in Terminal tells you what settings are used.
+
+To use the correct language, add a line to your bash profile,
+which is typically ``~/.profile``:
+
+.. code-block:: bash
+
+   export LANG=your-lang
+
+.. note::
+   Replace ``your-lang`` with the correct locale specifier for
+   your language.
+
+The command ``locale -a`` displays all the specifiers. For
+example, the language code for US English is ``en_US.UTF-8``. The
+locale affects what translations are used when they are available
+and also how dates, currencies, and decimals are formatted.
+
+
+.. _AttributeError-getproxies:
+
+AttributeError or missing getproxies
+====================================
+
+When running a command such as ``conda update ipython``, you may
+get an ``AttributeError: 'module' object has no attribute
+'getproxies'``.
+
+Cause
+-----
+
+This can be caused by an old version of ``requests`` or by having
+the ``PYTHONPATH`` environment variable set.
+
+Solution
+--------
+
+Update ``requests`` and be sure ``PYTHONPATH`` is not set:
+
+#. Run ``conda info -a`` to show the ``requests`` version and
+   various environment variables such as ``PYTHONPATH``.
+
+#. Update the ``requests`` version with
+   ``pip install -U requests``.
+
+#. Clear ``PYTHONPATH``:
+
+   * On Windows, clear it the environment variable settings.
+
+   * On macOS and Linux, clear it by removing it from the bash
+     profile and restarting the shell.
+
+
+.. _shell-command-location:
+
+Shell commands open from the wrong location
+===========================================
+
+When you run a command within a conda environment, conda does not
+access the correct package executable.
+
+Cause
+-----
+
+In both bash and zsh, when you enter a command, the shell
+searches the paths in PATH one by one until it finds the command.
+The shell then caches the location, which is called hashing in
+shell terminology. When you run command again, the shell does not
+have to search the PATH again.
+
+The problem is that before you installed the program, you ran a command which
+loaded and hashed another version of that program in some other location on
+the PATH, such as ``/usr/bin``. Then you installed the program
+using ``conda install``, but the shell still had the old instance
+hashed.
+
+
+Solution
+--------
+
+Reactivate the environment or run ``hash -r`` (in bash) or
+``rehash`` (in zsh).
+
+When you run ``conda activate``, conda automatically runs
+``hash -r`` in bash and ``rehash`` in zsh to clear the hashed
+commands, so conda finds things in the new path on the PATH. But
+there is no way to do this when ``conda install`` is run because
+the command must be run inside the shell itself, meaning either
+you have to run the command yourself or used a source file that
+contains the command.
+
+This is a relatively rare problem, since this happens only in the
+following circumstances:
+
+#. You activate an environment or use the root environment, and
+   then run a command from somewhere else.
+
+#. Then you ``conda install`` a program, and then try to run the
+   program again without running ``activate`` or
+   ``deactivate``.
+
+The command ``type command_name`` always tells you exactly what
+is being run. This is better than ``which command_name``, which
+ignores hashed commands and searches the PATH directly.
+The hash is reset by ``conda activate`` or by ``hash -r`` in bash or
+``rehash`` in zsh.
+
+
+.. _wrong-python:
+
+Programs fail due to invoking conda Python instead of system Python
+===================================================================
+
+Cause
+-----
+
+After installing Anaconda or Miniconda, programs that run
+``python`` switch from invoking the system Python to invoking the
+Python in the root conda environment. If these programs rely on
+the system Python to have certain configurations or dependencies
+that are not in the root conda environment Python, the programs
+may crash. For example, some users of the Cinnamon desktop
+environment on Linux Mint have reported these crashes.
+
+
+Solution
+--------
+
+Edit your ``.bash_profile`` and ``.bashrc`` files so that the
+conda binary directory, such as ``~/miniconda3/bin``, is no
+longer added to the PATH environment variable. You can still run
+``conda activate`` and ``conda deactivate`` by using their full
+path names, such as ``~/miniconda3/bin/conda``.
+
+You may also create a folder with symbolic links to ``conda activate``
+and ``conda deactivate`` and then edit your
+``.bash_profile`` or ``.bashrc`` file to add this folder to your
+PATH. If you do this, running ``python`` will invoke the system
+Python, but running ``conda`` commands, ``conda activate MyEnv``,
+``conda activate root``, or ``conda deactivate`` will work
+normally.
+
+After running ``conda activate`` to activate any environment,
+including after running ``conda activate root``, running
+``python`` will invoke the Python in the active conda environment.
+
+
+.. _unsatisfiable:
+
+UnsatisfiableSpecifications error
+=================================
+
+Cause
+-----
+
+Some conda package installation specifications are impossible to
+satisfy. For example, ``conda create -n tmp python=3 wxpython=3``
+produces an "Unsatisfiable Specifications" error because wxPython
+3 depends on Python 2.7, so the specification to install Python 3
+conflicts with the specification to install wxPython 3.
+
+When an unsatisfiable request is made to conda, conda shows a
+message such as this one::
+
+    The following specifications were found to be in conflict:
+    - python 3*
+    - wxpython 3* -> python 2.7*
+    Use ``conda search <package> --info`` to see the dependencies
+    for each package.
+
+This indicates that the specification to install wxpython 3
+depends on installing Python 2.7, which conflicts with the
+specification to install Python 3.
+
+Solution
+--------
+
+Use ``conda search wxpython --info`` or ``conda search 'wxpython=3' --info``
+to show information about this package and its dependencies::
+
+    wxpython 3.0 py27_0
+    -------------------
+    file name   : wxpython-3.0-py27_0.tar.bz2
+    name        : wxpython
+    version     : 3.0
+    build number: 0
+    build string: py27_0
+    channel     : defaults
+    size        : 34.1 MB
+    date        : 2014-01-10
+    fn          : wxpython-3.0-py27_0.tar.bz2
+    license_family: Other
+    md5         : adc6285edfd29a28224c410a39d4bdad
+    priority    : 2
+    schannel    : defaults
+    url         : https://repo.continuum.io/pkgs/free/osx-64/wxpython-3.0-py27_0.tar.bz2
+    dependencies:
+        python 2.7*
+        python.app
+
+
+By examining the dependencies of each package, you should be able
+to determine why the installation request produced a conflict and
+modify the request so it can be satisfied without conflicts. In
+this example, you could install wxPython with Python 2.7::
+
+    conda create -n tmp python=2.7 wxpython=3
+
+
+.. _version-from-channel:
+
+Package installation fails from a specific channel
+==================================================
+
+Cause
+-----
+
+Sometimes it is necessary to install a specific version from a
+specific channel because that version is not available from the
+default channel.
+
+
+Solution
+--------
+
+The following example describes the problem in detail and its
+solution.
+
+Suppose you have a specific need to install the Python
+``cx_freeze`` module with Python 3.4. A first step is to create a
+Python 3.4 environment:
+
+.. code-block:: bash
+
+   conda create -n py34 python=3.4
+
+Using this environment you should first attempt:
+
+.. code-block:: bash
+
+   conda install -n py34 cx_freeze
+
+However, when you do this you get the following error::
+
+   Using Anaconda Cloud api site https://api.anaconda.org
+   Fetching package metadata .........
+   Solving package specifications: .
+   Error: Package missing in current osx-64 channels:
+   - cx_freeze
+
+   You can search for packages on anaconda.org with
+
+     anaconda search -t conda cx_freeze
+
+The message indicates that ``cx_freeze`` cannot be found in the
+default package channels. However, there may be a
+community-created version available and you can search for it by
+running the following command:
+
+.. code-block:: bash
+
+   $ anaconda search -t conda cx_freeze
+   Using Anaconda Cloud api site https://api.anaconda.org
+   Run 'anaconda show <USER/PACKAGE>' to get more details:
+   Packages:
+        Name                      |  Version | Package Types   | Platforms
+        ------------------------- |   ------ | --------------- | ---------------
+        inso/cx_freeze            |    4.3.3 | conda           | linux-64
+        pyzo/cx_freeze            |    4.3.3 | conda           | linux-64, win-32, win-64, linux-32, osx-64
+                                             : http://cx-freeze.sourceforge.net/
+        silg2/cx_freeze           |    4.3.4 | conda           | linux-64
+                                             : create standalone executables from Python scripts
+        takluyver/cx_freeze       |    4.3.3 | conda           | linux-64
+   Found 4 packages
+
+
+In this example, there are 4 different places that you could try
+to get the package. None of them are officially supported or
+endorsed by Anaconda, but members of the conda community have
+provided many valuable packages. If you want to go with public
+opinion, then `the web interface
+<https://anaconda.org/search?q=cx_freeze>`_ provides more
+information:
+
+.. figure:: /img/conda_package-popularity.png
+   :alt: cx_freeze packages on anaconda.org
+
+   ..
+
+|
+
+Notice that the ``pyzo`` organization has by far the most
+downloads, so you might choose to use their package. If so, you
+can add their organization's channel by specifying it on the
+command line:
+
+.. code-block:: bash
+
+   $ conda create -c pyzo -n cxfreeze_py34 cx_freeze python=3.4
+   Using Anaconda Cloud api site https://api.anaconda.org
+   Fetching package metadata: ..........
+   Solving package specifications: .........
+
+   Package plan for installation in environment /Users/username/anaconda/envs/cxfreeze_py34:
+
+   The following packages will be downloaded:
+
+       package                    |            build
+       ---------------------------|-----------------
+       cx_freeze-4.3.3            |           py34_4         1.8 MB
+       setuptools-20.7.0          |           py34_0         459 KB
+       ------------------------------------------------------------
+                                              Total:         2.3 MB
+
+   The following NEW packages will be INSTALLED:
+
+       cx_freeze:  4.3.3-py34_4
+       openssl:    1.0.2h-0
+       pip:        8.1.1-py34_1
+       python:     3.4.4-0
+       readline:   6.2-2
+       setuptools: 20.7.0-py34_0
+       sqlite:     3.9.2-0
+       tk:         8.5.18-0
+       wheel:      0.29.0-py34_0
+       xz:         5.0.5-1
+       zlib:       1.2.8-0
+
+
+Now you have a software environment sandbox created with Python
+3.4 and ``cx_freeze``.
+
+
+.. _auto-upgrade:
+
+Conda automatically upgrades to unwanted version
+================================================
+
+When making a Python package for an app, you create an
+environment for the app from a file ``req.txt`` that sets a
+certain version, such as ``python=2.7.9``. However, when you
+``conda install`` your package, it automatically upgrades to a
+later version, such as ``2.7.10``.
+
+Cause
+-----
+
+If you make a conda package for the app using conda-build, you
+can set dependencies with specific version numbers. The
+requirements lines that say ``- python`` could be
+``- python ==2.7.9`` instead. It is important to have 1 space
+before the == operator and no space after.
+
+Solution
+--------
+
+Exercise caution when coding version requirements.
+
+.. _upgrade-error:
+
+Conda upgrade error
+===================
+
+Cause
+-----
+Downgrading conda from 4.6.1 to 4.5.x and then trying to ``conda install conda`` or  ``conda upgrade conda`` will produce a solving and upgrade error similar to the following:
+
+.. code-block:: bash
+
+   Solving environment: failed
+   CondaUpgradeError: This environment has previously been operated on by a conda version that's newer than the conda currently being used. A newer version of conda is required.
+   target environment location: /opt/conda
+   current conda version: 4.5.9
+   minimum conda version: 4.6
+
+Solution
+--------
+
+Change the ``.condarc`` file. Set the parameter by editing the ``.condarc`` file directly:
+``allow_conda_downgrades: true`` in conda version 4.5.12. This will then let you upgrade. If you have something older than 4.5.12, install conda 4.6.1 again from the package cache.
+
+EXAMPLE: If my conda info says package cache : /opt/conda/pkgs and my Python version is 3.7, then on the command line, type ``conda install /opt/conda/pkgs/conda-4.6.1-py37_0.tar.bz2`` to resolve the issue.
+
+
+
+ValidationError: Invalid value for timestamp
+============================================
+
+Cause
+-----
+
+This happens when certain packages are installed with conda 4.3.28, and then
+conda is downgraded to 4.3.27 or earlier.
+
+Solution
+--------
+
+See https://github.com/conda/conda/issues/6096.
+
+
+
+Unicode error after installing Python 2
+=======================================
+
+Example: UnicodeDecodeError: 'ascii' codec can't decode byte 0xd3 in position 1: ordinal not in range(128)
+
+Cause
+-----
+
+Python 2 is incapable of handling unicode properly, especially on Windows. In this case, if any character in your PATH env. var contains anything that is not ASCII then you see this exception.
+
+Solution
+--------
+
+Remove all non-ASCII from PATH or switch to Python 3.
+
+
+Windows environment has not been activated
+==========================================
+
+Cause
+-----
+You may receive a warning message if you have not activated your environment:
+
+.. code-block::
+
+   Warning:
+   This Python interpreter is in a conda environment, but the environment has
+   not been activated. Libraries may fail to load. To activate this environment
+   please see https://conda.io/activation
+
+Solution
+--------
+
+If you receive this warning, you need to activate your environment.
+To do so on Windows, use the Anaconda Prompt shortcut in your Windows
+start menu. If you have an existing cmd.exe session that you’d like to
+activate conda in, run:
+``call <your anaconda/miniconda install location>\Scripts\activate base``.
+
+
+.. _path-error:
+
+The system cannot find the path specified on Windows
+====================================================
+
+Cause
+-----
+PATH does not contain entries for all of the necessary conda directories.
+PATH may have too many entries from 3rd party software adding itself to
+PATH at install time, despite the user not needing to run the software via PATH lookup.
+
+Solution
+--------
+
+Strip PATH to have fewer entries and activate your environment.
+
+If there's some software that needs to be found on PATH (you run it via
+the CLI), we recommend that you create your own batch files to set PATH
+dynamically within a console session, rather than permanently modifying
+PATH in the system settings.
+
+For example, a new conda prompt batch file that first strips PATH, then
+calls the correct activation procedure could look like:
+
+.. code-block:: console
+
+   set
+   PATH=”%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;<3rd-party-entries>”
+   call “<miniconda/anaconda root>\Scripts\activate”
+
+If you need to run 3rd party software (software other than Windows
+built-ins and Anaconda) from this custom conda prompt, then you should add
+those entries (and only those strictly necessary) to the set PATH entry
+above. Note that only the quotes wrapping the entire expression should be
+there. That is how variables are properly set in batch scripts, and these
+account for any spaces in any entries in PATH. No additional quotes should
+be within the value assigned to PATH.
+
+To make 3rd party software take precedence over the same-named programs
+as supplied by conda, add it to PATH after activating conda:
+
+.. code-block:: console
+
+   set
+   “PATH=%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\”
+   call “<miniconda/anaconda root>\Scripts\activate”
+   set “PATH=<3rd-party-entries>;%PATH%”
+
+
+To make conda software take precedence, call the activation script last.
+Because activation prepends the conda environment PATH entries,
+they have priority.
+
+.. code-block:: console
+
+   set
+   PATH=”%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0\;<3rd-party-entries>”
+   call “<miniconda/anaconda root>\Scripts\activate”
+==========
+User guide
+==========
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   concepts/index
+   getting-started
+   install/index
+   configuration/index
+   tasks/index
+   cheatsheet
+   troubleshooting
+
+:doc:`Home <../index>` | :doc:`Concepts <concepts/index>` | :doc:`Getting started <getting-started>` | :doc:`Installation <install/index>` | :doc:`Configuration <configuration/index>` | :doc:`Tasks <tasks/index>` | :ref:`Additional resources <addl-resources>`
+
+**Get started**
+
+* :doc:`See what conda is and what it does <../index>`.
+* :doc:`Learn conda concepts and fundamentals <concepts/index>`.
+* :doc:`Create your first conda project in 20 minutes <getting-started>`.
+* :doc:`View system requirements and installation directions <install/index>`.
+
+
+**Dive deeper**
+
+* :doc:`Configure your conda files <configuration/index>`.
+* Follow the :doc:`tasks <tasks/index>` to :doc:`manage conda environments <tasks/manage-environments>`, :doc:`channels <tasks/manage-channels>`, :doc:`packages<tasks/manage-pkgs>`, and more.
+
+
+.. _addl-resources:
+
+**Additional resources**
+
+* :doc:`Cheat sheet <cheatsheet>`.
+* :doc:`Troubleshooting <troubleshooting>`.
+===========
+Cheat sheet
+===========
+
+See the :download:`conda cheat sheet <conda-cheatsheet.pdf>` PDF
+(1 MB) for a single-page summary of the most important
+information about using conda.
+===========================================
+Using the .condarc conda configuration file
+===========================================
+
+.. toctree::
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. _config-overview:
+
+Overview
+========
+
+The conda configuration file, ``.condarc``, is an optional
+runtime configuration file that allows advanced users to
+configure various aspects of conda, such as which channels it
+searches for packages, proxy settings, and environment
+directories. For all of the conda configuration options,
+see the :doc:`configuration page <../../configuration>`.
+
+
+.. note::
+
+   A ``.condarc`` file can also be used in an
+   administrator-controlled installation to override the users’
+   configuration. See :doc:`admin-multi-user-install`.
+
+The ``.condarc`` file can change many parameters, including:
+
+* Where conda looks for packages.
+
+* If and how conda uses a proxy server.
+
+* Where conda lists known environments.
+
+* Whether to update the Bash prompt with the currently activated
+  environment name.
+
+* Whether user-built packages should be uploaded to
+  `Anaconda.org <http://anaconda.org>`_.
+
+* What default packages or features to include in new environments.
+
+Creating and editing
+====================
+
+The ``.condarc`` file is not included by default, but it is
+automatically created in your home directory the first time you
+run the ``conda config`` command. To create or modify a ``.condarc``
+file, open Anaconda Prompt or a terminal and enter the
+``conda config`` command.
+
+The ``.condarc`` configuration file follows simple
+`YAML syntax <http://docs.ansible.com/YAMLSyntax.html>`_.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  conda config --add channels conda-forge
+
+Alternatively, you can open a text editor such as Notepad
+on Windows, TextEdit on macOS, or VS Code. Name the new file
+``.condarc`` and save it to your user home directory or root
+directory. To edit the ``.condarc`` file, open it from your
+home or root directory and make edits in the same way you would
+with any other text file. If the ``.condarc`` file is in the root
+environment, it will override any in the home directory.
+
+You can find information about your ``.condarc`` file by typing
+``conda info`` in your terminal or Anaconda Prompt.
+This will give you information about your ``.condarc`` file,
+including where it is located.
+
+You can also download a :doc:`sample .condarc file
+<sample-condarc>` to edit in your editor and save to your user
+home directory or root directory.
+
+To set configuration options, edit the ``.condarc`` file directly
+or use the ``conda config --set`` command.
+
+EXAMPLE: To set the ``auto_update_conda option`` to ``False``, run::
+
+  conda config --set auto_update_conda False
+
+For a complete list of conda config commands, see the
+:doc:`command reference <../../commands/config>`. The same list
+is available at the terminal or Anaconda Prompt by running
+``conda config --help``. You can also see the `conda channel
+configuration <https://conda.io/projects/conda/en/latest/configuration.html>`_ for more information.
+
+.. tip::
+
+   Conda supports :doc:`tab completion <enable-tab-completion>`
+   with external packages instead of internal configuration.
+
+Conda supports a wide range of configuration options. This page
+gives a non-exhaustive list of the most frequently used options and
+their usage. For a complete list of all available options for your
+version of conda, use the ``conda config --describe`` command.
+
+Searching for .condarc
+======================
+
+Conda looks in the following locations for a ``.condarc`` file:
+
+.. code-block:: python
+
+  if on_win:
+      SEARCH_PATH = (
+          "C:/ProgramData/conda/.condarc",
+          "C:/ProgramData/conda/condarc",
+          "C:/ProgramData/conda/condarc.d",
+      )
+  else:
+      SEARCH_PATH = (
+          "/etc/conda/.condarc",
+          "/etc/conda/condarc",
+          "/etc/conda/condarc.d/",
+          "/var/lib/conda/.condarc",
+          "/var/lib/conda/condarc",
+          "/var/lib/conda/condarc.d/",
+      )
+
+  SEARCH_PATH += (
+      "$CONDA_ROOT/.condarc",
+      "$CONDA_ROOT/condarc",
+      "$CONDA_ROOT/condarc.d/",
+      "$XDG_CONFIG_HOME/conda/.condarc",
+      "$XDG_CONFIG_HOME/conda/condarc",
+      "$XDG_CONFIG_HOME/conda/condarc.d/",
+      "~/.config/conda/.condarc",
+      "~/.config/conda/condarc",
+      "~/.config/conda/condarc.d/",
+      "~/.conda/.condarc",
+      "~/.conda/condarc",
+      "~/.conda/condarc.d/",
+      "~/.condarc",
+      "$CONDA_PREFIX/.condarc",
+      "$CONDA_PREFIX/condarc",
+      "$CONDA_PREFIX/condarc.d/",
+      "$CONDARC",
+  )
+
+``XDG_CONFIG_HOME`` is the path to where user-specific configuration files should
+be stored defined following The XDG Base Directory Specification (XDGBDS). Default
+to $HOME/.config should be used.
+``CONDA_ROOT`` is the path for your base conda install.
+``CONDA_PREFIX`` is the path to the current active environment.
+
+Conflict merging strategy
+-------------------------
+When conflicts between configurations arise, the following strategies are employed:
+
+* Lists - merge
+* Dictionaries - merge
+* Primitive - clobber
+
+Precedence
+----------
+
+The precedence by which the conda configuration is built out is shown below.
+Each new arrow takes precedence over the ones before it. For example, config
+files (by parse order) will be superceded by any of the other configuration
+options. Configuration environment variables (formatted like ``CONDA_<CONFIG NAME>``)
+will always take precedence over the other 3.
+
+.. figure:: /img/config-precedence.png
+
+   ..
+
+
+General configuration
+=====================
+
+* :ref:`config-channels`
+* :ref:`allow-other-channels`
+* :ref:`default-channels`
+* :ref:`auto-update-conda`
+* :ref:`always-yes`
+* :ref:`show-channel-urls`
+* :ref:`change-command-prompt`
+* :ref:`add-pip-python-dependency`
+* :ref:`use-pip`
+* :ref:`config-proxy`
+* :ref:`SSL_verification`
+* :ref:`offline-mode-only`
+
+.. _config-channels:
+
+Channel locations (channels)
+----------------------------
+
+Listing channel locations in the ``.condarc`` file overrides
+conda defaults, causing conda to search only the channels listed
+here, in the order given.
+
+Use ``defaults`` to automatically include all default channels.
+Non-URL channels are interpreted as Anaconda.org user names. You
+can change this by modifying the ``channel_alias`` as described
+in :ref:`set-ch-alias`. The default is just ``defaults``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  channels:
+    - <anaconda_dot_org_username>
+    - http://some.custom/channel
+    - file:///some/local/directory
+    - defaults
+
+To select channels for a single environment, put a ``.condarc``
+file in the root directory of that environment (or use the
+``--env`` option when using ``conda config``).
+
+EXAMPLE: If you have installed Miniconda with Python 3 in your
+home directory and the environment is named "flowers", the
+path may be::
+
+  ~/miniconda3/envs/flowers/.condarc
+
+.. _allow-other-channels:
+
+Allow other channels (allow_other_channels)
+-------------------------------------------
+
+The system-level ``.condarc`` file may specify a set of allowed
+channels, and it may allow users to install packages from other
+channels with the boolean flag ``allow_other_channels``. The default
+is ``True``.
+
+If ``allow_other_channels`` is set to ``False``, only those channels
+explicitly specified in the system ``.condarc`` file are allowed:
+
+.. code-block:: yaml
+
+  allow_other_channels: False
+
+When ``allow_other_channels`` is set to ``True`` or not specified,
+each user has access to the default channels and to any channels
+that the user specifies in their local ``.condarc`` file. When
+``allow_other_channels`` is set to ``false``, if the user specifies
+other channels, the other channels are blocked and the user
+receives a message reporting that channels are blocked. For more
+information, see :ref:`admin-inst`.
+
+If the system ``.condarc`` file specifies a ``channel_alias``,
+it overrides any channel aliases set in a user's ``.condarc``
+file. See :ref:`channel-alias`.
+
+
+.. _default-channels:
+
+Default channels (default_channels)
+-----------------------------------
+
+Normally the defaults channel points to several channels at the
+`repo.anaconda.com <https://repo.anaconda.com/>`_ repository, but if
+``default_channels`` is defined, it sets the new list of default channels.
+This is especially useful for airgapped and enterprise installations:
+
+To ensure that all users only pull packages from an on-premises
+repository, an administrator can set both :ref:`channel alias <channel-alias>` and
+``default_channels``.
+
+.. code-block:: yaml
+
+  default_channels:
+    - http://some.custom/channel
+    - file:///some/local/directory
+
+.. _auto-update-conda:
+
+Update conda automatically (auto_update_conda)
+----------------------------------------------
+
+When ``True``, conda updates itself any time a user updates or
+installs a package in the root environment. When ``False``,
+conda updates itself only if the user manually issues a
+``conda update`` command. The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  auto_update_conda: False
+
+.. _always-yes:
+
+Always yes (always_yes)
+-----------------------
+
+Choose the ``yes`` option whenever asked to proceed, such as
+when installing. Same as using the ``--yes`` flag at the
+command line. The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  always_yes: True
+
+.. _show-channel-urls:
+
+Show channel URLs (show_channel_urls)
+-------------------------------------
+
+Show channel URLs when displaying what is going to be downloaded
+and in ``conda list``. The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  show_channel_urls: True
+
+.. _change-command-prompt:
+
+Change command prompt (changeps1)
+---------------------------------
+
+When using ``conda activate``, change the command prompt from ``$PS1``
+to include the activated environment. The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  changeps1: False
+
+.. _add-pip-python-dependency:
+
+Add pip as Python dependency (add_pip_as_python_dependency)
+-----------------------------------------------------------
+
+Add pip, wheel, and setuptools as dependencies of Python. This
+ensures that pip, wheel, and setuptools are always installed any
+time Python is installed. The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  add_pip_as_python_dependency: False
+
+.. _use-pip:
+
+Use pip (use_pip)
+-----------------
+
+Use pip when listing packages with ``conda list``. This does not
+affect any conda command or functionality other than the output
+of the command ``conda list``. The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  use_pip: False
+
+
+.. _config-proxy:
+
+Configure conda for use behind a proxy server (proxy_servers)
+-------------------------------------------------------------
+
+By default, proxy settings are pulled from the HTTP_PROXY and
+HTTPS_PROXY environment variables or the system. Setting them
+here overrides that default:
+
+.. code-block:: yaml
+
+  proxy_servers:
+      http: http://user:pass@corp.com:8080
+      https: https://user:pass@corp.com:8080
+
+To give a proxy for a specific scheme and host, use the
+scheme://hostname form for the key. This matches for any request
+to the given scheme and exact host name:
+
+.. code-block:: yaml
+
+  proxy_servers:
+    'http://10.20.1.128': 'http://10.10.1.10:5323'
+
+If you do not include the username and password or if
+authentication fails, conda prompts for a username and password.
+
+If your password contains special characters, you need escape
+them as described in `Percent-encoding reserved characters
+<https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters>`_
+on Wikipedia.
+
+Be careful not to use ``http`` when you mean https or
+``https`` when you mean http.
+
+
+.. _SSL_verification:
+
+SSL verification (ssl_verify)
+-----------------------------
+
+If you are behind a proxy that does SSL inspection such as a
+Cisco IronPort Web Security Appliance (WSA), you may need to use
+``ssl_verify`` to override the SSL verification settings.
+
+By default this variable is ``True``, which means that SSL
+verification is used and conda verifies certificates for SSL
+connections. Setting this variable to ``False`` disables the
+connection's normal security and is not recommended:
+
+.. code-block:: yaml
+
+  ssl_verify: False
+
+You can also set ``ssl_verify`` to a string path to a certificate,
+which can be used to verify SSL connections:
+
+.. code-block:: yaml
+
+  ssl_verify: corp.crt
+
+.. _offline-mode-only:
+
+Offline mode only (offline)
+---------------------------
+
+Filters out all channel URLs that do not use the ``file://``
+protocol. The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  offline: True
+
+
+Advanced configuration
+======================
+* :ref:`disallow-soft-linking`
+* :ref:`set-ch-alias`
+* :ref:`config-add-default-pkgs`
+* :ref:`track-features`
+* :ref:`disable-updating`
+* :ref:`disallow-install`
+* :ref:`add-anaconda-token`
+* :ref:`specify-env-directories`
+* :ref:`specify-pkg-directories`
+* :ref:`use-only-tar-bz2`
+
+.. _disallow-soft-linking:
+
+Disallow soft-linking (allow_softlinks)
+---------------------------------------
+
+When ``allow_softlinks`` is ``True``, conda uses hard-links when
+possible and soft-links---symlinks---when hard-links are not
+possible, such as when installing on a different file system
+than the one that the package cache is on.
+
+When ``allow_softlinks`` is ``False``, conda still uses
+hard-links when possible, but when it is not possible, conda
+copies files. Individual packages can override this option,
+specifying that certain files should never be soft-linked.
+
+The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  allow_softlinks: False
+
+
+.. _set-ch-alias:
+
+.. _channel-alias:
+
+Set a channel alias (channel_alias)
+-----------------------------------
+
+Whenever you use the ``-c`` or ``--channel`` flag to give conda a
+channel name that is not a URL, conda prepends the ``channel_alias``
+to the name that it was given. The default ``channel_alias`` is
+https://conda.anaconda.org.
+
+If ``channel_alias`` is set
+to ``https://my.anaconda.repo:8080/conda/``, then a user who runs the
+command ``conda install -c conda-forge some-package`` will install the
+package some-package from https://my.anaconda.repo:8080/conda/conda-forge.
+
+For example, the command::
+
+  conda install --channel asmeurer <package>
+
+is the same as::
+
+  conda install --channel https://conda.anaconda.org/asmeurer <package>
+
+You can set ``channel_alias`` to your own repository.
+
+EXAMPLE: To set ``channel_alias`` to your repository at
+https://your.repo.com:
+
+.. code-block:: yaml
+
+  channel_alias: https://your.repo/
+
+On Windows, you must include a slash ("/") at the end of the URL:
+
+EXAMPLE: https://your.repo/conda/
+
+When ``channel_alias`` set to your repository at
+https://your.repo.com::
+
+  conda install --channel jsmith <package>
+
+is the same as::
+
+  conda install --channel https://your.repo.com/jsmith <package>
+
+
+.. _config-add-default-pkgs:
+
+Always add packages by default (create_default_packages)
+--------------------------------------------------------
+
+When creating new environments, add the specified packages by
+default. The default packages are installed in every environment
+you create. You can override this option at the command prompt
+with the ``--no-default-packages`` flag. The default is to not
+include any packages.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  create_default_packages:
+    - pip
+    - ipython
+    - scipy=0.15.0
+
+.. _track-features:
+
+Track features (track_features)
+-------------------------------
+
+Enable certain features to be tracked by default. The default is
+to not track any features. This is similar to adding MKL to
+the ``create_default_packages`` list.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  track_features:
+    - mkl
+
+.. _disable-updating:
+
+Disable updating of dependencies (update_dependencies)
+------------------------------------------------------
+
+By default, ``conda install`` updates the given package to the
+latest version and installs any dependencies necessary for
+that package. However, if dependencies that satisfy the package's
+requirements are already installed, conda will not update those
+packages to the latest version.
+
+In this case, if you would prefer that conda update all dependencies
+to the latest version that is compatible with the environment,
+set ``update_dependencies`` to ``True``.
+
+The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+   update_dependencies: True
+
+.. note::
+
+   Conda still ensures that dependency specifications are
+   satisfied. Thus, some dependencies may still be updated or,
+   conversely, this may prevent packages given at the command line
+   from being updated to their latest versions. You can always
+   specify versions at the command line to force conda to install a
+   given version, such as ``conda install numpy=1.9.3``.
+
+To avoid updating only specific packages in an environment, a
+better option may be to pin them. For more information, see
+:ref:`pinning-packages`.
+
+.. _disallow-install:
+
+Disallow installation of specific packages (disallow)
+-----------------------------------------------------
+
+Disallow the installation of certain packages. The default is to
+allow installation of all packages.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  disallow:
+    - anaconda
+
+.. _add-anaconda-token:
+
+Add Anaconda.org token to automatically see private packages (add_anaconda_token)
+---------------------------------------------------------------------------------
+
+When the channel alias is Anaconda.org or an Anaconda Server GUI,
+you can set the system configuration so that users automatically
+see private packages. Anaconda.org was formerly known as
+binstar.org. This uses the Anaconda command-line client, which
+you can install with ``conda install anaconda-client``, to
+automatically add the token to the channel URLs.
+
+The default is ``True``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  add_anaconda_token: False
+
+.. note::
+
+   Even when set to ``True``, this setting is enabled only if
+   the Anaconda command-line client is installed and you are
+   logged in with the ``anaconda login`` command.
+
+.. _specify-env-directories:
+
+Specify environment directories (envs_dirs)
+-------------------------------------------
+
+Specify directories in which environments are located. If this
+key is set, the root prefix ``envs_dir`` is not used unless
+explicitly included. This key also determines where the package
+caches are located.
+
+For each envs here, ``envs/pkgs`` is used as the pkgs cache,
+except for the standard ``envs`` directory in the root
+directory, for which the normal ``root_dir/pkgs`` is used.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  envs_dirs:
+    - ~/my-envs
+    - /opt/anaconda/envs
+
+The ``CONDA_ENVS_PATH`` environment variable overwrites the ``envs_dirs`` setting:
+
+* For macOS and Linux:
+  ``CONDA_ENVS_PATH=~/my-envs:/opt/anaconda/envs``
+
+* For Windows:
+  ``set CONDA_ENVS_PATH=C:\Users\joe\envs;C:\Anaconda\envs``
+
+.. _specify-pkg-directories:
+
+Specify package directories (pkgs_dirs)
+---------------------------------------
+
+Specify directories in which packages are located. If this
+key is set, the root prefix ``pkgs_dirs`` is not used unless
+explicitly included.
+
+If the ``pkgs_dirs`` key is not set, then ``envs/pkgs`` is used
+as the pkgs cache, except for the standard ``envs`` directory in the root
+directory, for which the normal ``root_dir/pkgs`` is used.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  pkgs_dirs:
+    - /opt/anaconda/pkgs
+
+The ``CONDA_PKGS_DIRS`` environment variable overwrites the
+``pkgs_dirs`` setting:
+
+* For macOS and Linux:
+  ``CONDA_PKGS_DIRS=/opt/anaconda/pkgs``
+
+* For Windows:
+  ``set CONDA_PKGS_DIRS=C:\Anaconda\pkgs``
+
+.. _use-only-tar-bz2:
+
+Force conda to download only .tar.bz2 packages (use_only_tar_bz2)
+-----------------------------------------------------------------
+
+Conda 4.7 introduced a new ``.conda`` package file format.
+``.conda`` is a more compact and faster alternative to ``.tar.bz2`` packages.
+It's thus the preferred file format to use where available.
+
+Nevertheless, it's possible to force conda to only download ``.tar.bz2`` packages
+by setting the ``use_only_tar_bz2`` boolean to ``True``.
+
+The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  use_only_tar_bz2: True
+
+.. note::
+
+   This is forced to ``True`` if conda-build is installed and older than 3.18.3,
+   because older versions of conda break when conda feeds it the new file format.
+
+Conda-build configuration
+=========================
+
+* :ref:`specify-root-dir`
+* :ref:`specify-output-folder`
+* :ref:`auto-upload`
+* :ref:`anaconda-token`
+* :ref:`quiet`
+* :ref:`filename-hashing`
+* :ref:`no-verify`
+* :ref:`set-build-id`
+* :ref:`skip-existing`
+* :ref:`include-recipe`
+* :ref:`disable-activation`
+* :ref:`long-test-prefix`
+* :ref:`pypi-upload-settings`
+* :ref:`pypi-repository`
+* :ref:`threads`
+
+
+.. _specify-root-dir:
+
+Specify conda-build output root directory (root-dir)
+----------------------------------------------------
+
+Build output root directory. You can also set this with the
+``CONDA_BLD_PATH`` environment variable. The default is
+``<CONDA_PREFIX>/conda-bld/``. If you do not have write
+permissions to ``<CONDA_PREFIX>/conda-bld/``, the default is
+``~/conda-bld/``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  conda-build:
+      root-dir: ~/conda-builds
+
+
+.. _specify-output-folder:
+
+Specify conda-build build folder (conda-build 3.16.3+) (output_folder)
+----------------------------------------------------------------------
+
+Folder to dump output package to. Packages are moved here if build or test
+succeeds. If unset, the output folder corresponds to the same directory as
+the root build directory (``root-dir``).
+
+.. code-block:: yaml
+
+   conda-build:
+       output_folder: conda-bld
+
+.. _auto-upload:
+
+Automatically upload conda-build packages to Anaconda.org (anaconda_upload)
+---------------------------------------------------------------------------
+
+Automatically upload packages built with conda-build to
+`Anaconda.org <http://anaconda.org>`_. The default is ``False``.
+
+EXAMPLE:
+
+.. code-block:: yaml
+
+  anaconda_upload: True
+
+.. _anaconda-token:
+
+Token to be used for Anaconda.org uploads (conda-build 3.0+) (anaconda_token)
+-----------------------------------------------------------------------------
+
+Tokens are a means of authenticating with Anaconda.org without logging in.
+You can pass your token to conda-build with this condarc setting, or with a CLI
+argument. This is unset by default. Setting it implicitly enables
+``anaconda_upload``.
+
+  .. code-block:: yaml
+
+     conda-build:
+         anaconda_token: gobbledygook
+
+.. _quiet:
+
+Limit build output verbosity (conda-build 3.0+) (quiet)
+-------------------------------------------------------
+
+Conda-build's output verbosity can be reduced with the ``quiet`` setting. For
+more verbosity use the CLI flag ``--debug``.
+
+.. code-block:: yaml
+
+   conda-build:
+       quiet: true
+
+.. _filename-hashing:
+
+Disable filename hashing (conda-build 3.0+) (filename_hashing)
+--------------------------------------------------------------
+
+Conda-build 3 adds hashes to filenames to allow greater customization of
+dependency versions. If you find this disruptive, you can disable the hashing
+with the following config entry:
+
+.. code-block:: yaml
+
+   conda-build:
+       filename_hashing: false
+
+.. warning::
+
+   Conda-build does not check when clobbering packages. If you
+   utilize conda-build 3's build matrices with a build configuration that is not
+   reflected in the build string, packages will be missing due to clobbering.
+
+.. _no-verify:
+
+Disable recipe and package verification (conda-build 3.0+) (no_verify)
+----------------------------------------------------------------------
+
+By default, conda-build uses conda-verify to ensure that your recipe
+and package meet some minimum sanity checks. You can disable these:
+
+.. code-block:: yaml
+
+   conda-build:
+       no_verify: true
+
+
+.. _set-build-id:
+
+Disable per-build folder creation (conda-build 3.0+) (set_build_id)
+-------------------------------------------------------------------
+
+By default, conda-build creates a new folder for each build, named for the
+package name plus a timestamp. This allows you to do multiple builds at once.
+If you have issues with long paths, you may need to disable this behavior.
+You should first try to change the build output root directory with the
+``root-dir`` setting described above, but fall back to this as necessary:
+
+.. code-block:: yaml
+
+   conda-build:
+       set_build_id: false
+
+.. _skip-existing:
+
+Skip building packages that already exist (conda-build 3.0+) (skip_existing)
+----------------------------------------------------------------------------
+
+By default, conda-build builds all recipes that you specify. You can instead
+skip recipes that are already built. A recipe is skipped if and only if *all* of
+its outputs are available on your currently configured channels.
+
+.. code-block:: yaml
+
+   conda-build:
+       skip_existing: true
+
+.. _include-recipe:
+
+Omit recipe from package (conda-build 3.0+) (include_recipe)
+------------------------------------------------------------
+
+By default, conda-build includes the recipe that was used to build the package.
+If this contains sensitive or proprietary information, you can omit the recipe.
+
+.. code-block:: yaml
+
+   conda-build:
+       include_recipe: false
+
+.. note::
+
+   If you do not include the recipe, you cannot use conda-build to test
+   the package after the build completes. This means that you cannot split your
+   build and test steps across two distinct CLI commands (``conda build --notest
+   recipe`` and ``conda build -t recipe``). If you need to omit the recipe and
+   split your steps, your only option is to remove the recipe files from the
+   tarball artifacts after your test step. Conda-build does not provide tools for
+   doing that.
+
+.. _disable-activation:
+
+Disable activation of environments during build/test (conda-build 3.0+) (activate)
+----------------------------------------------------------------------------------
+
+By default, conda-build activates the build and test environments prior to
+executing the build or test scripts. This adds necessary PATH entries, and also
+runs any activate.d scripts you may have. If you disable activation, the PATH
+will still be modified, but the activate.d scripts will not run. This is not
+recommended, but some people prefer this.
+
+.. code-block:: yaml
+
+   conda-build:
+       activate: false
+
+.. _long-test-prefix:
+
+Disable long prefix during test (conda-build 3.16.3+) (long_test_prefix)
+------------------------------------------------------------------------
+
+By default, conda-build uses a long prefix for the test prefix. If you have recipes
+that fail in long prefixes but would still like to test them in short prefixes, you
+can disable the long test prefix. This is not recommended.
+
+.. code-block:: yaml
+
+   conda-build:
+       long_test_prefix: false
+
+The default is ``true``.
+
+.. _pypi-upload-settings:
+
+PyPI upload settings (conda-build 3.0+) (pypirc)
+------------------------------------------------
+
+Unset by default. If you have wheel outputs in your recipe, conda-build will
+try to upload them to the PyPI repository specified by the ``pypi_repository``
+setting using credentials from this file path.
+
+.. code-block:: yaml
+
+   conda-build:
+       pypirc: ~/.pypirc
+
+.. _pypi-repository:
+
+PyPI repository to upload to (conda-build 3.0+) (pypi_repository)
+-----------------------------------------------------------------
+
+Unset by default. If you have wheel outputs in your recipe, conda-build will
+try to upload them to this PyPI repository using credentials from the file
+specified by the ``pypirc`` setting.
+
+.. code-block:: yaml
+
+   conda-build:
+       pypi_repository: pypi
+
+
+Expansion of environment variables
+==================================
+
+Conda expands environment variables in a subset of configuration settings.
+These are:
+
+- ``envs_dirs``
+- ``pkgs_dirs``
+- ``ssl_verify``
+- ``client_cert``
+- ``client_cert_key``
+- ``proxy_servers``
+- ``channels``
+- ``custom_channels``
+- ``custom_multichannels``
+- ``default_channels``
+- ``migrated_custom_channels``
+- ``whitelist_channels``
+
+This allows you to store the credentials of a private repository in an
+environment variable, like so:
+
+.. code-block:: yaml
+
+  channels:
+    - https://${USERNAME}:${PASSWORD}@my.private.conda.channel
+
+
+Obtaining information from the .condarc file
+============================================
+
+.. note::
+   It may be necessary to add the "force" option ``-f`` to
+   the following commands.
+
+To get all keys and their values:
+
+.. code-block:: bash
+
+   conda config --get
+
+To get the value of a specific key, such as channels:
+
+.. code-block:: bash
+
+   conda config --get channels
+
+To add a new value, such as
+http://conda.anaconda.org/mutirri, to a specific key, such as
+channels:
+
+.. code-block:: bash
+
+   conda config --add channels http://conda.anaconda.org/mutirri
+
+To remove an existing value, such as
+http://conda.anaconda.org/mutirri from a specific key, such as
+channels:
+
+.. code-block:: bash
+
+   conda config --remove channels http://conda.anaconda.org/mutirri
+
+To remove a key, such as channels, and all of its values:
+
+.. code-block:: bash
+
+   conda config --remove-key channels
+
+To configure channels and their priority for a single
+environment, make a ``.condarc`` file in the :ref:`root directory
+of that environment <config-channels>`.
+
+.. _threads:
+
+Configuring number of threads
+=============================
+
+You can use your ``.condarc`` file or environment variables to
+add configuration to control the number of threads. You may
+want to do this to tweak conda to better utilize your system.
+If you have a very fast SSD, you might increase the number
+of threads to shorten the time it takes for conda to create
+environments and install/remove packages.
+
+**repodata_threads**
+
+* Default number of threads: None
+* Threads used when downloading, parsing, and creating repodata
+  structures from repodata.json files. Multiple downloads from
+  different channels may occur simultaneously. This speeds up the
+  time it takes to start solving.
+
+**verify_threads**
+
+* Default number of threads: 1
+* Threads used when verifying the integrity of packages and files
+  to be installed in your environment. Defaults to 1, as using
+  multiple threads here can run into problems with slower hard
+  drives.
+
+**execute_threads**
+
+* Default number of threads: 1
+* Threads used to unlink, remove, link, or copy files into your
+  environment. Defaults to 1, as using multiple threads here can
+  run into problems with slower hard drives.
+
+**default_threads**
+
+* Default number of threads: None
+* When set, this value is used for all of the above thread
+  settings. With its default setting (None), it does not affect
+  the other settings.
+
+Setting any of the above can be done in ``.condarc`` or with
+conda config:
+
+At your terminal::
+
+  conda config --set repodata_threads 2
+
+In ``.condarc``::
+
+  verify_threads: 4
+==========================
+Disabling SSL verification
+==========================
+
+Using conda with SSL is strongly recommended, but it is possible to disable SSL
+and it may be necessary to disable SSL in certain cases.
+
+Some corporate environments use proxy services that use Man-In-The-Middle
+(MITM) attacks to sniff encrypted traffic. These services can interfere with
+SSL connections such as those used by conda and pip to download packages from
+repositories such as PyPI.
+
+If you encounter this interference, you should set up the proxy service's
+certificates so that the ``requests`` package used by conda can recognize and
+use the certificates.
+
+For cases where this is not possible, conda-build versions 3.0.31 and higher
+have an option that disables SSL certificate verification and allows this
+traffic to continue.
+
+``conda skeleton pypi`` can disable SSL verification when pulling packages
+from a PyPI server over HTTPS.
+
+.. warning::
+   This option causes your computer to download and execute arbitrary
+   code over a connection that it cannot verify as secure. This is not
+   recommended and should only be used if necessary. Use this option at your own
+   risk.
+
+To disable SSL verification when using ``conda skeleton pypi``, set the
+``SSL_NO_VERIFY`` environment variable to either ``1`` or ``True`` (case
+insensitive).
+
+On \*nix systems:
+
+.. code-block:: bash
+
+    SSL_NO_VERIFY=1 conda skeleton pypi a_package
+
+And on Windows systems:
+
+.. code-block:: batch
+
+    set SSL_NO_VERIFY=1
+    conda skeleton pypi a_package
+    set SSL_NO_VERIFY=
+
+We recommend that you unset this environment variable immediately after use.
+If it is not unset, some other tools may recognize it and incorrectly use
+unverified SSL connections.
+
+Using this option will cause ``requests`` to emit warnings to STDERR about
+insecure settings. If you know that what you're doing is safe, or have been
+advised by your IT department that what you're doing is safe, you may ignore
+these warnings.
+=============================================
+Administering a multi-user conda installation
+=============================================
+
+By default, conda and all packages it installs, including
+Anaconda, are installed locally with a user-specific
+configuration. Administrative privileges are not required, and
+no upstream files or other users are affected by
+the installation.
+
+You can make conda and any number of packages available to a
+group of 1 or more users, while preventing these users
+from installing unwanted packages with conda:
+
+#. Install conda and the allowed packages, if any, in a
+   location that is under administrator control and
+   accessible to users.
+
+#. Create a
+   :doc:`.condarc system configuration file <use-condarc>` in
+   the root directory of the installation. This system-level
+   configuration file will override any user-level configuration
+   files installed by the user.
+
+Each user accesses the central conda installation, which reads
+settings from the user ``.condarc`` configuration file located
+in their home directory. The path to the user file is the same
+as the root environment prefix displayed by ``conda info``,
+as shown in :ref:`admin-inst-user` below. The user
+``.condarc`` file is limited by the system ``.condarc`` file.
+
+System configuration settings are commonly used in a
+system ``.condarc`` file but may also be used in a
+user ``.condarc`` file. All user configuration settings may
+also be used in a system ``.condarc`` file.
+
+For information about settings in the ``.condarc`` file,
+see :doc:`use-condarc`.
+
+
+.. _admin-inst:
+
+Example administrator-controlled installation
+=============================================
+
+The following example describes how to view the system
+configuration file, review the settings, compare it to a user's
+configuration file, and determine what happens when the user
+attempts to access a file from a blocked channel. It then
+describes how the user must modify their configuration file to
+access the channels allowed by the administrator.
+
+
+System configuration file
+-------------------------
+
+#. The system configuration file must be in the top-level conda
+   installation directory. Check the path where conda is located:
+
+   .. code-block:: bash
+
+      $ which conda
+      /tmp/miniconda/bin/conda
+
+#. View the contents of the ``.condarc`` file in the
+   administrator's directory:
+
+   .. code-block:: bash
+
+      cat /tmp/miniconda/.condarc
+
+   The following administrative ``.condarc`` file
+   sets ``allow_other_channels`` to ``False``, and it specifies
+   that users may download packages only from the ``admin``
+   channel:
+
+   .. code-block:: bash
+
+     $ cat /tmp/miniconda/.condarc
+     allow_other_channels : false
+     channel_alias: https://conda.anaconda.org/
+     channels:
+       - admin
+
+   .. note::
+      The admin channel can also be expressed as
+      https://conda.anaconda.org/admin/
+
+   Because ``allow_other_channels`` is ``False`` and the
+   channel defaults are not explicitly specified, users are
+   disallowed from downloading packages from the default
+   channels. You can check this in the next procedure.
+
+.. _admin-inst-user:
+
+User configuration file
+-----------------------
+
+#. Check the location of the user's conda installation:
+
+   .. code-block:: bash
+
+     $ conda info
+     Current conda install:
+     . . .
+            channel URLs : https://repo.anaconda.com/pkgs/free/osx-64/
+                           https://repo.anaconda.com/pkgs/pro/osx-64/
+            config file : /Users/username/.condarc
+
+   The ``conda info`` command shows that conda is using the
+   user's ``.condarc`` file, located at
+   ``/Users/username/.condarc`` and that the default channels
+   such as ``repo.anaconda.com`` are listed as channel URLs.
+
+#. View the contents of the administrative ``.condarc`` file in
+   the directory that was located in step 1:
+
+   .. code-block:: bash
+
+     $ cat ~/.condarc
+     channels:
+       - defaults
+
+   This user's ``.condarc`` file specifies only the default
+   channels, but the administrator config file has blocked
+   default channels by specifying that only ``admin`` is
+   allowed. If this user attempts to search for a package in the
+   default channels, they get a message telling them what
+   channels are allowed:
+
+   .. code-block:: bash
+
+      $ conda search flask
+      Fetching package metadata:
+      Error: URL 'http://repo.anaconda.com/pkgs/pro/osx-64/' not
+      in allowed channels.
+      Allowed channels are:
+       - https://conda.anaconda.org/admin/osx-64/
+
+   This error message tells the user to add the ``admin`` channel
+   to their configuration file.
+
+#. The user must edit their local ``.condarc`` configuration file
+   to access the package through the admin channel:
+
+   .. code-block:: yaml
+
+     channels:
+       - admin
+
+   The user can now search for packages in the allowed
+   ``admin`` channel.
+======================
+Using the free channel
+======================
+
+.. contents::
+   :local:
+   :depth: 2
+
+The free channel contains packages created prior to
+September 26, 2017. Prior to conda 4.7, the free
+channel was part of the ``defaults`` channel.
+Read more about the :ref:`defaults channel <default-channels>`.
+
+Removing the ``free`` channel reduced conda's search space
+and hid old software. That old software could have incompatible
+constraint information. Read more about `why we made this change
+<https://www.anaconda.com/why-we-removed-the-free-channel-in-conda-4-7/>`_.
+
+
+If you still need the content from the ``free`` channel to reproduce
+old environments, you can re-add the channel following the directions below.
+
+.. _free-channel-default:
+
+Adding the free channel to defaults
+===================================
+
+If you want to add the ``free`` channel back into your default list,
+use the command::
+
+   conda config --set restore_free_channel true
+
+The order of the channels is important. Using the above
+command will restore the ``free`` channel in the correct order.
+
+Changing .condarc
+=================
+
+You can also add the ``free`` channel back into your defaults by
+changing the ``.condarc`` file itself.
+
+Add the following to the conda section of your ``.condarc`` file::
+
+   restore_free_channel: true
+
+Read more about :doc:`use-condarc`.
+
+Package name changes
+====================
+
+Some packages that are available in the ``free`` channel
+have different names in the ``main`` channel.
+
+.. list-table::
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Package name in ``free``
+     - Package name in ``main``
+   * - dateutil
+     - python-dateutil
+   * - gcc
+     - gcc_linux-64 and similar
+   * - pil
+     - pillow
+   * - ipython-notebook
+     - now installable via notebook, a metapackage could be created
+   * - Ipython-qtconsole
+     - now installable via qtconsole, a metapackage could be created
+   * - beautiful-soup
+     - beautifulsoup4
+   * - pydot-ng
+     - pydot
+
+
+Troubleshooting
+===============
+
+You may encounter some errors, such as UnsatisfiableError
+or a PackagesNotFoundError.
+
+An example of this error is::
+
+   $ conda create -n test -c file:///Users/jsmith/anaconda/conda-bld bad_pkg
+   Collecting package metadata: done
+   Solving environment: failed
+
+   UnsatisfiableError: The following specifications were found to be in conflict:
+     - cryptography=2.6.1 -> openssl[version='>=1.1.1b,<1.1.2a']
+     - python=3.7.0 -> openssl[version='>=1.0.2o,<1.0.3a']
+   Use "conda search <package> --info" to see the dependencies for each package.
+
+This can occur if:
+
+- you’re trying to install a package that is only available in
+  ``free`` and not in ``main``.
+- you have older environments in files you want to recreate.
+  If those spec files reference packages that are in ``free``,
+  they will not show up.
+- a package is dependent upon files found only in the free
+  channel. Conda will not let you install the package if it cannot
+  install the dependency, which the package requires to work.
+
+If you encounter these errors, consider using a newer package than
+the one in ``free``. If you want those older versions, you can
+:ref:`add the free channel back into your defaults
+<free-channel-default>`.
+===================================
+Improving interoperability with pip
+===================================
+
+The conda 4.6.0 release added improved support for interoperability between conda and pip.
+This feature is still experimental and is therefore off by default.
+
+With this interoperability,
+conda can use pip-installed packages to satisfy dependencies,
+cleanly remove pip-installed software, and replace them with
+conda packages when appropriate.
+
+If you’d like to try the feature, you can set this ``.condarc`` setting::
+
+   conda config --set pip_interop_enabled True
+
+.. note::
+
+   Setting ``pip_interop_enabled`` to ``True`` may slow down conda.
+
+Even without activating this feature, conda now understands pip metadata
+more intelligently. For example, if we create an environment with conda::
+
+   conda create -y -n some_pip_test python=3.7 imagesize=1.0
+
+Then we update imagesize in that environment using pip::
+
+   conda activate some_pip_test
+   pip install -U imagesize
+
+Prior to conda 4.6.0, the ``conda list`` command returned ambiguous results::
+
+   imagesize                 1.1.0
+
+   imagesize                 1.0.0 py37_0
+
+Conda 4.6.0 now shows only one entry for imagesize (the newer pip entry)::
+
+   imagesize                 1.1.0 pypi_0    pypi
+=======================
+Enabling tab completion
+=======================
+
+Conda versions up to 4.3 supports tab completion in Bash shells via the argcomplete
+package. Bash tab completion is deprecated starting with version 4.4.
+
+To enable tab completion in your Bash shell:
+
+#. Make sure that argcomplete is installed:
+
+   .. code-block:: bash
+
+      conda install argcomplete
+
+#. Add the following code to your bash profile:
+
+   .. code-block:: bash
+
+      eval "$(register-python-argcomplete conda)"
+
+#. Test it:
+
+   #. Open a new terminal window or an Anaconda Prompt.
+
+   #. Type: ``conda ins``, and then press the Tab key.
+
+      The command completes to:
+
+      .. code-block:: bash
+
+         conda install
+
+To get tab completion in Zsh, see `conda-zsh-completion
+<https://github.com/esc/conda-zsh-completion>`_.
+=================================================
+Using conda on Windows XP with or without a proxy
+=================================================
+
+Although Windows XP mainstream support and Extended Support from
+Microsoft have ended, and Windows XP is no longer one of the
+target systems supported by Anaconda, some users have had success
+using Anaconda on Windows XP with the methods described on this
+page.
+
+Anaconda 2.3.0 is the last version of Python 3-based Anaconda
+to support Windows XP. Anaconda 2.4 and later have a version of
+Python 3 built with Visual Studio 2015, which by default does not
+support Windows XP.
+
+You can install Anaconda 2.3.0 and then update it with
+``conda update conda`` and ``conda update --all``. Download
+``Anaconda3-2.3.0-Windows-x86.exe`` at
+https://repo.anaconda.com/archive/. Install it in any location,
+such as ``C:\Anaconda``.
+
+Using a proxy with Windows XP
+=============================
+
+To configure conda for use behind a corporate proxy that uses
+proxy auto-config (PAC) files and SSL certificates for secure
+connections:
+
+#. Find a proxy server address from the PAC file:
+
+   #. Open Internet Explorer.
+
+   #. From the **Tools** menu, select Internet Options, and then
+      click the **Connections** tab.
+
+   #. On the **Connections** tab, click the LAN Settings button.
+
+   #. In the LAN Settings dialog box, copy the address under
+      the Use automatic configuration script checkbox.
+
+   #. Click the Cancel button to close the LAN settings.
+
+   #. Click the Cancel button to close the Internet Options.
+
+   #. Paste the address into the Internet Explorer address bar,
+      then press the Enter key.
+
+   #. In the PAC file that opens, search for ``return`` until you
+      find what looks like a proxy IP or DNS address with the
+      port number, which may take some time in a long file.
+
+   #. Copy the address and port number.
+
+#. Follow the :ref:`.condarc instructions <config-overview>`
+   to create a file named ``.condarc`` in your home directory or
+   the installation directory, such as ``C:\Anaconda\.condarc``.
+
+#. Follow the :ref:`.condarc proxy server instructions
+   <config-proxy>` to add proxy information to the ``.condarc``
+   file.
+
+If you decide to include any passwords, be aware of
+transformations that can affect special characters.
+
+EXAMPLE: This example shows proxy information with passwords::
+
+  proxy_servers:
+    http: http://user:pass@corp.com:8080
+    https: https://user:pass@corp.com:8080
+
+  ssl_verify: False
+
+If you include proxy information without passwords, you will be
+asked to answer authentication prompts at the command line.
+
+EXAMPLE: This example shows proxy information without passwords::
+
+  proxy_servers:
+    http: http://corp.com:8080
+    https: https://corp.com:8080
+
+  ssl_verify: False
+
+Once the proxy is configured, you can run ``conda update conda``
+and then create and manage environments with the `Anaconda
+Navigator <https://docs.anaconda.com/anaconda/navigator/>`_.
+
+Some packages such as ``flask-login`` may not be available
+through conda, so you may need to use pip to install them:
+
+#. To use pip securely over https::
+
+     pip install --trusted-host pypi.python.org package-name
+
+#. If the secure https proxy fails, you can force pip to use an
+   insecure http proxy instead::
+
+     pip install --index-url=http://pypi.python.org/simple/ --trusted-host pypi.python.org package-name
+=============
+Configuration
+=============
+
+.. toctree::
+   :maxdepth: 1
+
+   use-condarc
+   sample-condarc
+   free-channel
+   admin-multi-user-install
+   enable-tab-completion
+   pip-interoperability
+   use-winxp-with-proxy
+   disable-ssl-verification
+   non-standard-certs
+===============================
+Using non-standard certificates
+===============================
+
+Using conda behind a firewall may require using a non-standard
+set of certificates, which requires custom settings.
+
+If you are using a non-standard set of certificates, then the
+requests package requires the setting of ``REQUESTS_CA_BUNDLE``.
+If you receive an error with self-signed certifications, you may
+consider unsetting ``REQUESTS_CA_BUNDLE`` as well as ``CURL_CA_BUNDLE`` and `disabling SSL verification <https://conda.io/projects/conda/en/latest/user-guide/configuration/disable-ssl-verification.html>`_
+to create a conda environment over HTTP.
+
+You may need to set the conda environment to use the root certificate
+provided by your company rather than conda’s generic ones.
+
+One workflow to resolve this on macOS is:
+
+* Open Chrome, got to any website, click on the lock icon on the left
+  of the URL. Click on «Certificate» on the dropdown. In the next window
+  you see a stack of certificates. The uppermost (aka top line in window)
+  is the root certificate (e.g. Zscaler Root CA).
+* Open macOS keychain, click on «Certificates» and choose among the
+  many certificates the root certificate that you just identified.
+  Export this to any folder of your choosing.
+* Convert this certificate with OpenSSL: ``openssl x509 -inform der -in /path/to/your/certificate.cer -out /path/to/converted/certificate.pem``
+* For a quick check, set your shell to acknowledge the certificate: ``export REQUESTS_CA_BUNDLE=/path/to/converted/certificate.pem``
+* To set this permanently, open your shell profile (.bshrs or e.g. .zshrc) and add this line: ``export REQUESTS_CA_BUNDLE=/path/to/converted/certificate.pem.``
+  Now exit your terminal/shell and reopen. Check again.
+====================
+Sample .condarc file
+====================
+
+.. code-block:: yaml
+
+  # This is a sample .condarc file.
+  # It adds the r Anaconda.org channel and enables
+  # the show_channel_urls option.
+
+  # channel locations. These override conda defaults, i.e., conda will
+  # search *only* the channels listed here, in the order given.
+  # Use "defaults" to automatically include all default channels.
+  # Non-url channels will be interpreted as Anaconda.org usernames
+  # (this can be changed by modifying the channel_alias key; see below).
+  # The default is just 'defaults'.
+  channels:
+    - r
+    - defaults
+
+  # Show channel URLs when displaying what is going to be downloaded
+  # and in 'conda list'. The default is False.
+  show_channel_urls: True
+
+  # For more information about this file see:
+  # https://conda.io/docs/user-guide/configuration/use-condarc.html
+=================
+Managing channels
+=================
+
+Conda channels are the locations where packages are stored.
+They serve as the base for hosting and managing packages.
+Conda packages are downloaded from remote channels, which are URLs to
+directories containing conda packages. The conda command searches a default
+set of channels and packages are automatically downloaded and updated
+from https://repo.anaconda.com/pkgs/. Read more about
+:doc:`conda channels <../concepts/channels>` and the various terms of service
+for their use.
+
+Different channels can have the same package, so conda must handle these
+channel collisions.
+
+There will be no channel collisions if you use only the defaults channel.
+There will also be no channel collisions if all of the channels you use only
+contain packages that do not exist in any of the other channels in your list.
+The way conda resolves these collisions matters only when you have multiple
+channels in your channel list that host the same package.
+
+By default, conda prefers packages from a higher priority
+channel over any version from a lower priority channel.
+Therefore, you can now safely put channels at the bottom of your
+channel list to provide additional packages that are not in the
+default channels and still be confident that these channels will
+not override the core package set.
+
+Conda collects all of the packages with the same name across all
+listed channels and processes them as follows:
+
+#. Sorts packages from highest to lowest channel priority.
+
+#. Sorts tied packages---packages with the same channel priority---from highest to
+   lowest version number. For example, if channelA contains NumPy 1.12.0
+   and 1.13.1, NumPy 1.13.1 will be sorted higher.
+
+#. Sorts still-tied packages---packages with the same channel priority and same
+   version---from highest to lowest build number. For example, if channelA contains
+   both NumPy 1.12.0 build 1 and build 2, build 2 is sorted first. Any packages
+   in channelB would be sorted below those in channelA.
+
+#. Installs the first package on the sorted list that satisfies
+   the installation specifications.
+
+Essentially, the order goes:
+channelA::numpy-1.13_1 > channelA::numpy-1.12.1_1 > channelA::numpy-1.12.1_0 > channelB::numpy-1.13_1
+
+.. note::
+   If strict channel priority is turned on then channelB::numpy-1.13_1 isn't
+   included in the list at all.
+
+
+To make conda install the newest version
+of a package in any listed channel:
+
+* Add ``channel_priority: false`` to your ``.condarc`` file.
+
+  OR
+
+* Run the equivalent command::
+
+    conda config --set channel_priority false
+
+Conda then sorts as follows:
+
+#. Sorts the package list from highest to lowest version number.
+
+#. Sorts tied packages from highest to lowest channel priority.
+
+#. Sorts tied packages from highest to lowest build number.
+
+Because build numbers from different channels are not
+comparable, build number still comes after channel priority.
+
+The following command adds the channel "new_channel" to the top
+of the channel list, making it the highest priority::
+
+  conda config --add channels new_channel
+
+Conda has an equivalent command::
+
+  conda config --prepend channels new_channel
+
+Conda also has a command that adds the new channel to the
+bottom of the channel list, making it the lowest priority::
+
+  conda config --append channels new_channel
+
+.. _strict:
+
+Strict channel priority
+=======================
+
+As of version 4.6.0, Conda has a strict channel priority feature.
+Strict channel priority can dramatically speed up conda operations and
+also reduce package incompatibility problems. We recommend it as a default.
+However, it may break old environment files, so we plan to delay making it
+conda's out-of-the-box default until the next major version bump, conda 5.0.
+
+Details about it can be seen by typing ``conda config --describe channel_priority``.
+
+.. code-block:: none
+
+    channel_priority (ChannelPriority)
+    Accepts values of 'strict', 'flexible', and 'disabled'. The default
+    value is 'flexible'. With strict channel priority, packages in lower
+    priority channels are not considered if a package with the same name
+    appears in a higher priority channel. With flexible channel priority,
+    the solver may reach into lower priority channels to fulfill
+    dependencies, rather than raising an unsatisfiable error. With channel
+    priority disabled, package version takes precedence, and the
+    configured priority of channels is used only to break ties. In
+    previous versions of conda, this parameter was configured as either
+    True or False. True is now an alias to 'flexible'.
+
+    channel_priority: flexible
+use-r-with-conda
+================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='https://docs.anaconda.com/anaconda/user-guide/tasks/use-r-language'" /></head><body></body></html>
+=====================
+Managing environments
+=====================
+
+.. contents::
+   :local:
+   :depth: 1
+
+With conda, you can create, export, list, remove, and update
+environments that have different versions of Python and/or
+packages installed in them. Switching or moving between
+environments is called activating the environment. You can also
+share an environment file.
+
+.. note::
+   There are many options available for the commands described
+   on this page. For details, see :doc:`../../commands`.
+
+.. note::
+   ``conda activate`` and ``conda deactivate`` only work on conda 4.6 and later versions.
+   For conda versions prior to 4.6, run:
+
+      * Windows: ``activate`` or ``deactivate``
+      * Linux and macOS: ``source activate`` or ``source deactivate``
+
+Creating an environment with commands
+=====================================
+
+.. tip::
+   By default, environments are installed into the ``envs``
+   directory in your conda directory. See :ref:`specifying-location`
+   or run ``conda create --help`` for information on specifying
+   a different path.
+
+Use the terminal or an Anaconda Prompt for the following steps:
+
+#. To create an environment:
+
+   .. code::
+
+      conda create --name myenv
+
+   .. note::
+      Replace ``myenv`` with the environment name.
+
+#. When conda asks you to proceed, type ``y``:
+
+   .. code::
+
+      proceed ([y]/n)?
+
+  This creates the myenv environment in ``/envs/``. No
+  packages will be installed in this environment.
+
+3. To create an environment with a specific version of Python:
+
+   .. code-block:: bash
+
+      conda create -n myenv python=3.6
+
+4. To create an environment with a specific package:
+
+   .. code-block:: bash
+
+      conda create -n myenv scipy
+
+   OR:
+
+   .. code-block:: bash
+
+      conda create -n myenv python
+      conda install -n myenv scipy
+
+5. To create an environment with a specific version of a package:
+
+   .. code-block:: bash
+
+      conda create -n myenv scipy=0.15.0
+
+   OR:
+
+   .. code-block:: bash
+
+      conda create -n myenv python
+      conda install -n myenv scipy=0.15.0
+
+6. To create an environment with a specific version of Python and
+   multiple packages:
+
+  .. code-block:: bash
+
+     conda create -n myenv python=3.6 scipy=0.15.0 astroid babel
+
+  .. tip::
+     Install all the programs that you want in this environment
+     at the same time. Installing 1 program at a time can lead to
+     dependency conflicts.
+
+To automatically install pip or another program every time a new
+environment is created, add the default programs to the
+:ref:`create_default_packages <config-add-default-pkgs>` section
+of your ``.condarc`` configuration file. The default packages are
+installed every time you create a new environment. If you do not
+want the default packages installed in a particular environment,
+use the ``--no-default-packages`` flag:
+
+.. code-block:: bash
+
+  conda create --no-default-packages -n myenv python
+
+.. tip::
+   You can add much more to the ``conda create`` command.
+   For details, run ``conda create --help``.
+
+
+.. _create-env-from-file:
+
+Creating an environment from an environment.yml file
+====================================================
+
+Use the terminal or an Anaconda Prompt for the following steps:
+
+#. Create the environment from the ``environment.yml`` file:
+
+   .. code::
+
+      conda env create -f environment.yml
+
+   The first line of the ``yml`` file sets the new environment's
+   name. For details see :ref:`Creating an environment file manually
+   <create-env-file-manually>`.
+
+
+#. Activate the new environment: ``conda activate myenv``
+
+#. Verify that the new environment was installed correctly:
+
+   .. code::
+
+      conda env list
+
+  You can also use ``conda info --envs``.
+
+
+.. _specifying-location:
+
+Specifying a location for an environment
+========================================
+
+You can control where a conda environment lives by providing a path
+to a target directory when creating the environment. For example,
+the following command will create a new environment in a subdirectory
+of the current working directory called ``envs``::
+
+  conda create --prefix ./envs jupyterlab=0.35 matplotlib=3.1 numpy=1.16
+
+You then activate an environment created with a prefix using the same
+command used to activate environments created by name::
+
+  conda activate ./envs
+
+Specifying a path to a subdirectory of your project directory when
+creating an environment has the following benefits:
+
+  * It makes it easy to tell if your project uses an isolated environment
+    by including the environment as a subdirectory.
+  * It makes your project more self-contained as everything, including
+    the required software, is contained in a single project directory.
+
+An additional benefit of creating your project’s environment inside a
+subdirectory is that you can then use the same name for all your
+environments. If you keep all of your environments in your ``envs``
+folder, you’ll have to give each environment a different name.
+
+There are a few things to be aware of when placing conda environments
+outside of the default ``envs`` folder.
+
+#. Conda can no longer find your environment with the ``--name`` flag.
+   You’ll generally need to pass the ``--prefix`` flag along with the
+   environment’s full path to find the environment.
+#. Specifying an install path when creating your conda environments
+   makes it so that your command prompt is now prefixed with the active
+   environment’s absolute path rather than the environment’s name.
+
+After activating an environment using its prefix, your prompt will
+look similar to the following::
+
+(/absolute/path/to/envs) $
+
+This can result in long prefixes::
+
+(/Users/USER_NAME/research/data-science/PROJECT_NAME/envs) $
+
+To remove this long prefix in your shell prompt, modify the env_prompt
+setting in your ``.condarc`` file::
+
+$ conda config --set env_prompt '({name})'
+
+This will edit your ``.condarc`` file if you already have one
+or create a ``.condarc`` file if you do not.
+
+Now your command prompt will display the active environment’s
+generic name, which is the name of the environment's root folder:
+
+.. code-block::
+
+  $ cd project-directory
+  $ conda activate ./env
+  (env) project-directory $
+
+.. _update-env:
+
+Updating an environment
+=======================
+You may need to update your environment for a variety of reasons.
+For example, it may be the case that:
+
+* one of your core dependencies just released a new version
+  (dependency version number update).
+* you need an additional package for data analysis
+  (add a new dependency).
+* you have found a better package and no longer need the older
+  package (add new dependency and remove old dependency).
+
+If any of these occur, all you need to do is update the contents of
+your ``environment.yml`` file accordingly and then run the following
+command::
+
+$ conda env update --prefix ./env --file environment.yml  --prune
+
+.. note::
+   The ``--prune`` option causes conda to remove any dependencies
+   that are no longer required from the environment.
+
+
+Cloning an environment
+======================
+
+Use the terminal or an Anaconda Prompt for the following steps:
+
+You can make an exact copy of an environment by creating a clone
+of it:
+
+.. code::
+
+   conda create --name myclone --clone myenv
+
+.. note::
+   Replace ``myclone`` with the name of the new environment.
+   Replace ``myenv`` with the name of the existing environment that
+   you want to copy.
+
+To verify that the copy was made:
+
+.. code::
+
+   conda info --envs
+
+In the environments list that displays, you should see both the
+source environment and the new copy.
+
+
+Building identical conda environments
+=====================================
+
+You can use explicit specification files to build an identical
+conda environment on the same operating system platform, either
+on the same machine or on a different machine.
+
+Use the terminal or an Anaconda Prompt for the following steps:
+
+#. Run ``conda list --explicit`` to produce a spec list such as:
+
+   .. code::
+
+      # This file may be used to create an environment using:
+      # $ conda create --name <env> --file <this file>
+      # platform: osx-64
+      @EXPLICIT
+      https://repo.anaconda.com/pkgs/free/osx-64/mkl-11.3.3-0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/numpy-1.11.1-py35_0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/openssl-1.0.2h-1.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/pip-8.1.2-py35_0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/python-3.5.2-0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/readline-6.2-2.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/setuptools-25.1.6-py35_0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/sqlite-3.13.0-0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/tk-8.5.18-0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/wheel-0.29.0-py35_0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/xz-5.2.2-0.tar.bz2
+      https://repo.anaconda.com/pkgs/free/osx-64/zlib-1.2.8-3.tar.bz2
+
+
+#. To create this spec list as a file in the current working
+   directory, run::
+
+     conda list --explicit > spec-file.txt
+
+   .. note::
+      You can use ``spec-file.txt`` as the filename or replace
+      it with a filename of your choice.
+
+   An explicit spec file is not usually cross platform, and
+   therefore has a comment at the top such as ``# platform: osx-64``
+   showing the platform where it was created. This platform is the
+   one where this spec file is known to work. On other platforms,
+   the packages specified might not be available or dependencies
+   might be missing for some of the key packages already in the
+   spec.
+
+   To use the spec file to create an identical environment on the
+   same machine or another machine::
+
+     conda create --name myenv --file spec-file.txt
+
+   To use the spec file to install its listed packages into an
+   existing environment::
+
+     conda install --name myenv --file spec-file.txt
+
+   Conda does not check architecture or dependencies when installing
+   from a spec file. To ensure that the packages work correctly,
+   make sure that the file was created from a working environment,
+   and use it on the same architecture, operating system, and
+   platform, such as linux-64 or osx-64.
+
+
+.. _activate-env:
+
+Activating an environment
+=========================
+
+Activating environments is essential to making the software in the environments
+work well. Activation entails two primary functions: adding entries to PATH for
+the environment and running any activation scripts that the environment may
+contain. These activation scripts are how packages can set arbitrary
+environment variables that may be necessary for their operation. You can also
+:ref:`use the config API to set environment variables <set-env-vars>`.
+
+When `installing Anaconda <http://docs.anaconda.com/anaconda/install.html>`_,
+you have the option to “Add Anaconda
+to my PATH environment variable.” This is not recommended because the
+add to PATH option appends Anaconda to PATH. When the installer appends
+to PATH, it does not call the activation scripts.
+
+On Windows, PATH is composed of two parts, the system PATH and the
+user PATH. The system PATH always comes first. When you install
+Anaconda for Just Me, we add it to the user PATH. When you install
+for All Users, we add it to the system PATH. In the former case,
+you can end up with system PATH values taking precedence over
+our entries. In the latter case, you do not. We do not recommend
+`multi-user installs <https://docs.anaconda.com/anaconda/install/multi-user/>`_.
+
+Activation prepends to PATH. This only takes effect
+when you have the environment active so it is local to a terminal session,
+not global.
+
+To activate an environment: ``conda activate myenv``
+
+.. note::
+   Replace ``myenv`` with the environment name or directory path.
+
+Conda prepends the path name ``myenv`` onto your system command.
+
+You may receive a warning message if you have not activated your environment:
+
+.. code-block:: Python
+
+   Warning:
+   This Python interpreter is in a conda environment, but the environment has
+   not been activated. Libraries may fail to load. To activate this environment
+   please see https://conda.io/activation.
+
+If you receive this warning, you need to activate your environment. To do
+so on Windows, run: ``c:\Anaconda3\Scripts\activate base`` in
+Anaconda Prompt.
+
+Windows is extremely sensitive to proper activation. This is because
+the Windows library loader does not support the concept of libraries
+and executables that know where to search for their dependencies
+(RPATH). Instead, Windows relies on a `dynamic-link library search order <https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order>`_.
+
+If environments are not active, libraries won't be found and there
+will be lots of errors. HTTP or SSL errors are common errors when the
+Python in a child environment can't find the necessary OpenSSL library.
+
+Conda itself includes some special workarounds to add its necessary PATH
+entries. This makes it so that it can be called without activation or
+with any child environment active. In general, calling any executable in
+an environment without first activating that environment will likely not work.
+For the ability to run executables in activated environments, you may be
+interested in the ``conda run`` command.
+
+If you experience errors with PATH, review our :ref:`troubleshooting <path-error>`.
+
+Conda init
+----------
+
+Earlier versions of conda introduced scripts to make activation
+behavior uniform across operating systems. Conda 4.4 allowed
+``conda activate myenv``. Conda 4.6 added extensive initialization
+support so that conda works faster and less disruptively on
+a wide variety of shells (bash, zsh, csh, fish, xonsh, and more).
+Now these shells can use the ``conda activate`` command.
+Removing the need to modify PATH makes conda less disruptive to
+other software on your system. For more information, read the
+output from ``conda init --help``.
+
+One setting may be useful to you when using ``conda init`` is::
+
+  auto_activate_base: bool
+
+This setting controls whether or not conda activates your base
+environment when it first starts up. You'll have the ``conda``
+command available either way, but without activating the environment,
+none of the other programs in the environment will be available until
+the environment is activated with ``conda activate base``. People
+sometimes choose this setting to speed up the time their shell takes
+to start up or to keep conda-installed software from automatically
+hiding their other software.
+
+Nested activation
+-----------------
+
+By default, ``conda activate`` will deactivate the current environment
+before activating the new environment and reactivate it when
+deactivating the new environment. Sometimes you may want to leave
+the current environment PATH entries in place so that you can continue
+to easily access command-line programs from the first environment.
+This is most commonly encountered when common command-line utilities
+are installed in the base environment. To retain the current environment
+in the PATH, you can activate the new environment using::
+
+  conda activate --stack myenv
+
+If you wish to always stack when going from the outermost environment,
+which is typically the base environment, you can set the ``auto_stack``
+configuration option::
+
+  conda config --set auto_stack 1
+
+You may specify a larger number for a deeper level of automatic stacking,
+but this is not recommended since deeper levels of stacking are more likely
+to lead to confusion.
+
+Environment variable for DLL loading verification
+-------------------------------------------------
+
+If you don't want to activate your environment and you want Python
+to work for DLL loading verification, then follow the
+:ref:`troubleshooting directions <mkl_library>`.
+
+.. warning::
+   If you choose not to activate your environment, then
+   loading and setting environment variables to activate
+   scripts will not happen. We only support activation.
+
+Deactivating an environment
+===========================
+
+To deactivate an environment, type: ``conda deactivate``
+
+Conda removes the path name for the currently active environment from
+your system command.
+
+.. note::
+   To simply return to the base environment, it's better to call ``conda
+   activate`` with no environment specified, rather than to try to deactivate. If
+   you run ``conda deactivate`` from your base environment, you may lose the
+   ability to run conda at all. Don't worry, that's local to this shell - you can
+   start a new one. However, if the environment was activated using ``--stack``
+   (or was automatically stacked) then it is better to use ``conda deactivate``.
+
+
+.. _determine-current-env:
+
+Determining your current environment
+====================================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+By default, the active environment---the one you are currently
+using---is shown in parentheses () or brackets [] at the
+beginning of your command prompt::
+
+  (myenv) $
+
+If you do not see this, run:
+
+.. code::
+
+   conda info --envs
+
+In the environments list that displays, your current environment
+is highlighted with an asterisk (*).
+
+By default, the command prompt is set to show the name of the
+active environment. To disable this option::
+
+  conda config --set changeps1 false
+
+To re-enable this option::
+
+  conda config --set changeps1 true
+
+
+Viewing a list of your environments
+===================================
+
+To see a list of all of your environments, in your terminal window or an
+Anaconda Prompt, run:
+
+.. code::
+
+   conda info --envs
+
+OR
+
+.. code::
+
+   conda env list
+
+A list similar to the following is displayed:
+
+.. code::
+
+   conda environments:
+   myenv                 /home/username/miniconda/envs/myenv
+   snowflakes            /home/username/miniconda/envs/snowflakes
+   bunnies               /home/username/miniconda/envs/bunnies
+
+If this command is run by an administrator, a list of all environments
+belonging to all users will be displayed.
+
+Viewing a list of the packages in an environment
+================================================
+
+To see a list of all packages installed in a specific environment:
+
+* If the environment is not activated, in your terminal window or an
+  Anaconda Prompt, run:
+
+  .. code-block:: bash
+
+     conda list -n myenv
+
+* If the environment is activated, in your terminal window or an
+  Anaconda Prompt, run:
+
+  .. code-block:: bash
+
+     conda list
+
+* To see if a specific package is installed in an environment, in your
+  terminal window or an Anaconda Prompt, run:
+
+  .. code-block:: bash
+
+    conda list -n myenv scipy
+
+
+.. _pip-in-env:
+
+Using pip in an environment
+===========================
+
+To use pip in your environment, in your terminal window or an
+Anaconda Prompt, run:
+
+.. code-block:: bash
+
+   conda install -n myenv pip
+   conda activate myenv
+   pip <pip_subcommand>
+
+Issues may arise when using pip and conda together. When combining conda and pip,
+it is best to use an isolated conda environment. Only after conda has been used to
+install as many packages as possible should pip be used to install any remaining
+software. If modifications are needed to the environment, it is best to create a
+new environment rather than running conda after pip. When appropriate, conda and
+pip requirements should be stored in text files.
+
+We recommend that you:
+
+**Use pip only after conda**
+  - Install as many requirements as possible with conda then use pip.
+  - Pip should be run with ``--upgrade-strategy only-if-needed`` (the default).
+  - Do not use pip with the ``--user`` argument, avoid all users installs.
+
+**Use conda environments for isolation**
+  - Create a conda environment to isolate any changes pip makes.
+  - Environments take up little space thanks to hard links.
+  - Care should be taken to avoid running pip in the root environment.
+
+**Recreate the environment if changes are needed**
+  - Once pip has been used, conda will be unaware of the changes.
+  - To install additional conda packages, it is best to recreate
+    the environment.
+
+**Store conda and pip requirements in text files**
+  - Package requirements can be passed to conda via the ``--file`` argument.
+  - Pip accepts a list of Python packages with ``-r`` or ``--requirements``.
+  - Conda env will export or create environments based on a file with
+    conda and pip requirements.
+
+.. _set-env-vars:
+
+Setting environment variables
+=============================
+
+If you want to associate environment variables with an environment,
+you can use the config API. This is recommended as an alternative to
+using activate and deactivate scripts since those are an execution of
+arbitrary code that may not be safe.
+
+First, create your environment and activate it::
+
+  conda create -n test-env
+  conda activate test-env
+
+To list any variables you may have, run ``conda env config vars list``.
+
+To set environment variables, run ``conda env config vars set my_var=value``.
+
+Once you have set an environment variable, you have to reactivate your environment:
+``conda activate test-env``.
+
+To check if the environment variable has been set, run
+``echo my_var`` or ``conda env config vars list``.
+
+When you deactivate your environment, you can use those same commands to see that
+the environment variable goes away.
+
+You can specify the environment you want to affect using the ``-n`` and ``-p`` flags. The ``-n`` flag allows you to name the environment and ``-p`` allows you to specify the path to the environment.
+
+To unset the environment variable, run ``conda env config vars unset my_var -n test-env``.
+
+When you deactivate your environment, you can see that environment variable goes away by rerunning
+``echo my_var`` or ``conda env config vars list`` to show that the variable name
+is no longer present.
+
+Environment variables set using ``conda env config vars`` will be retained in the output of
+``conda env export``. Further, you can declare environment variables in the environment.yml file
+as shown here::
+
+    name: env-name
+    channels:
+      - conda-forge
+      - defaults
+    dependencies:
+      - python=3.7
+      - codecov
+    variables:
+      VAR1: valueA
+      VAR2: valueB
+
+
+Saving environment variables
+============================
+
+Conda environments can include saved environment variables.
+
+Suppose you want an environment "analytics" to store both a
+secret key needed to log in to a server and a path to a
+configuration file. The sections below explain how to write a
+script named ``env_vars`` to do this on :ref:`Windows
+<win-save-env-variables>` and :ref:`macOS or Linux
+<macos-linux-save-env-variables>`.
+
+This type of script file can be part of a conda package, in
+which case these environment variables become active when an
+environment containing that package is activated.
+
+You can name these scripts anything you like. However, multiple
+packages may create script files, so be sure to use descriptive
+names that are not used by other packages. One popular option is
+to give the script a name in the form
+``packagename-scriptname.sh``, or on Windows,
+``packagename-scriptname.bat``.
+
+.. _win-save-env-variables:
+
+Windows
+-------
+
+#. Locate the directory for the conda environment in your
+   Anaconda Prompt by running in the command shell ``%CONDA_PREFIX%``.
+
+#. Enter that directory and create these subdirectories and
+   files::
+
+    cd %CONDA_PREFIX%
+    mkdir .\etc\conda\activate.d
+    mkdir .\etc\conda\deactivate.d
+    type NUL > .\etc\conda\activate.d\env_vars.bat
+    type NUL > .\etc\conda\deactivate.d\env_vars.bat
+
+#. Edit ``.\etc\conda\activate.d\env_vars.bat`` as follows::
+
+     set MY_KEY='secret-key-value'
+     set MY_FILE=C:\path\to\my\file
+
+#. Edit ``.\etc\conda\deactivate.d\env_vars.bat`` as follows::
+
+     set MY_KEY=
+     set MY_FILE=
+
+When you run ``conda activate analytics``, the environment variables
+``MY_KEY`` and ``MY_FILE`` are set to the values you wrote into the file.
+When you run ``conda deactivate``, those variables are erased.
+
+.. _macos-linux-save-env-variables:
+
+macOS and Linux
+---------------
+
+#. Locate the directory for the conda environment in your terminal window by running in the terminal ``echo $CONDA_PREFIX``.
+
+#. Enter that directory and create these subdirectories and
+   files::
+
+     cd $CONDA_PREFIX
+     mkdir -p ./etc/conda/activate.d
+     mkdir -p ./etc/conda/deactivate.d
+     touch ./etc/conda/activate.d/env_vars.sh
+     touch ./etc/conda/deactivate.d/env_vars.sh
+
+#. Edit ``./etc/conda/activate.d/env_vars.sh`` as follows::
+
+     #!/bin/sh
+
+     export MY_KEY='secret-key-value'
+     export MY_FILE=/path/to/my/file/
+
+#. Edit ``./etc/conda/deactivate.d/env_vars.sh`` as follows::
+
+     #!/bin/sh
+
+     unset MY_KEY
+     unset MY_FILE
+
+When you run ``conda activate analytics``, the environment
+variables ``MY_KEY`` and ``MY_FILE`` are set to the values you wrote into
+the file. When you run ``conda deactivate``, those variables are
+erased.
+
+
+Sharing an environment
+=======================
+
+You may want to share your environment with someone else---for
+example, so they can re-create a test that you have done. To
+allow them to quickly reproduce your environment, with all of its
+packages and versions, give them a copy of your
+``environment.yml`` file.
+
+Exporting the environment.yml file
+----------------------------------
+
+.. note::
+   If you already have an ``environment.yml`` file in your
+   current directory, it will be overwritten during this task.
+
+#. Activate the environment to export: ``conda activate myenv``
+
+   .. note::
+      Replace ``myenv`` with the name of the environment.
+
+#. Export your active environment to a new file::
+
+     conda env export > environment.yml
+
+   .. note::
+      This file handles both the environment's pip packages
+      and conda packages.
+
+#. Email or copy the exported ``environment.yml`` file to the
+   other person.
+
+.. _export-platform:
+
+Exporting an environment file across platforms
+----------------------------------------------
+
+If you want to make your environment file work across platforms,
+you can use the ``conda env export --from-history`` flag. This
+will only include packages that you’ve explicitly asked for,
+as opposed to including every package in your environment.
+
+For example, if you create an environment and install Python and a package::
+
+  conda install python=3.7 codecov
+
+This will download and install numerous additional packages to solve
+for dependencies. This will introduce packages that may not be compatible
+across platforms.
+
+If you use ``conda env export``, it will export all of those packages.
+However, if you use ``conda env export --from-history``, it will
+only export those you specifically chose:
+
+.. code-block::
+
+   (env-name) ➜  ~ conda env export --from-history
+   name: env-name
+   channels:
+     - conda-forge
+     - defaults
+   dependencies:
+     - python=3.7
+     - codecov
+   prefix: /Users/username/anaconda3/envs/env-name
+
+.. note::
+   If you installed Anaconda 2019.10 on macOS, your prefix may be
+   ``/Users/username/opt/envs/env-name``.
+
+.. _create-env-file-manually:
+
+Creating an environment file manually
+-------------------------------------
+
+You can create an environment file (``environment.yml``) manually
+to share with others.
+
+EXAMPLE: A simple environment file:
+
+.. code::
+
+    name: stats
+    dependencies:
+      - numpy
+      - pandas
+
+EXAMPLE: A more complex environment file:
+
+.. code::
+
+   name: stats2
+   channels:
+     - javascript
+   dependencies:
+     - python=3.6   # or 2.7
+     - bokeh=0.9.2
+     - numpy=1.9.*
+     - nodejs=0.10.*
+     - flask
+     - pip:
+       - Flask-Testing
+
+.. note::
+   Note the use of the wildcard * when defining the patch version
+   number. Defining the version number by fixing the major and minor
+   version numbers while allowing the patch version number to vary
+   allows us to use our environment file to update our environment
+   to get any bug fixes whilst still maintaining consistency of
+   software environment.
+
+You can exclude the default channels by adding ``nodefaults``
+to the channels list.
+
+.. code::
+
+   channels:
+     - javascript
+     - nodefaults
+
+This is equivalent to passing the ``--override-channels`` option
+to most ``conda`` commands.
+
+Adding ``nodefaults`` to the channels list in ``environment.yml``
+is similar to removing ``defaults`` from the :ref:`channels
+list <config-channels>` in the ``.condarc`` file. However,
+changing ``environment.yml`` affects only one of your conda
+environments while changing ``.condarc`` affects them all.
+
+For details on creating an environment from this
+``environment.yml`` file, see :ref:`create-env-from-file`.
+
+Restoring an environment
+========================
+
+Conda keeps a history of all the changes made to your environment,
+so you can easily "roll back" to a previous version. To list the history of each change to the current environment:
+``conda list --revisions``
+
+To restore environment to a previous revision: ``conda install --revision=REVNUM``
+or ``conda install --rev REVNUM``.
+
+.. note::
+   Replace REVNUM with the revision number.
+
+Example:
+If you want to restore your environment to revision 8, run ``conda install --rev 8``.
+
+Removing an environment
+=======================
+
+To remove an environment, in your terminal window or an
+Anaconda Prompt, run:
+
+.. code::
+
+   conda remove --name myenv --all
+
+You may instead use ``conda env remove --name myenv``.
+
+To verify that the environment was removed, in your terminal window or an
+Anaconda Prompt, run:
+
+.. code::
+
+   conda info --envs
+
+The environments list that displays should not show the removed
+environment.
+===============
+Managing Python
+===============
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+Conda treats Python the same as any other package, so it is easy
+to manage and update multiple installations.
+
+Anaconda supports Python 2.7, 3.6, 3.7, and 3.8. The default is Python
+2.7 or 3.8, depending on which installer you used:
+
+* For the installers "Anaconda" and "Miniconda," the default is
+  2.7.
+
+* For the installers "Anaconda3" or "Miniconda3," the default is
+  3.8.
+
+
+Viewing a list of available Python versions
+===========================================
+
+To list the versions of Python that are available to install,
+in your terminal window or an Anaconda Prompt, run:
+
+.. code::
+
+   conda search python
+
+This lists all packages whose names contain the text ``python``.
+
+To list only the packages whose full name is exactly ``python``,
+add the ``--full-name`` option. In your terminal window or an Anaconda Prompt,
+run:
+
+.. code::
+
+   conda search --full-name python
+
+
+Installing a different version of Python
+=========================================
+
+To install a different version of Python without overwriting the
+current version, create a new environment and install the second
+Python version into it:
+
+#. Create the new environment:
+
+   * To create the new environment for Python 3.9, in your terminal
+     window or an Anaconda Prompt, run:
+
+     .. code-block:: bash
+
+        conda create -n py39 python=3.9 anaconda
+
+     .. note::
+        Replace ``py39`` with the name of the environment you
+        want to create. ``anaconda`` is the metapackage that
+        includes all of the Python packages comprising the Anaconda
+        distribution. ``python=3.9`` is the package and version you
+        want to install in this new environment. This could be any
+        package, such as ``numpy=1.19``, or :ref:`multiple packages
+        <installing multiple packages>`.
+
+   * To create the new environment for Python 2.7, in your terminal window
+     or an Anaconda Prompt, run:
+
+     .. code-block:: bash
+
+        conda create -n py27 python=2.7 anaconda
+
+#. :ref:`Activate the new environment <activate-env>`.
+
+#. Verify that the new environment is your :ref:`current
+   environment <determine-current-env>`.
+
+#. To verify that the current environment uses the new Python
+   version, in your terminal window or an Anaconda Prompt, run:
+
+   .. code::
+
+      python --version
+
+Installing PyPy
+===============
+
+To use the PyPy builds you can do the following::
+
+    conda config conda config --add channels conda-forge
+    conda config --set channel_priority strict
+    conda create -n pypy pypy
+    conda activate pypy
+
+
+Using a different version of Python
+====================================
+
+To switch to an environment that has different version of Python,
+:ref:`activate the environment <activate-env>`.
+
+
+Updating or upgrading Python
+=============================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+If you are in an environment with Python version 3.4.2, the
+following command updates Python to the latest
+version in the 3.4 branch:
+
+.. code-block:: bash
+
+    conda update python
+
+The following command upgrades Python to another
+branch---3.8---by installing that version of Python. It is not recommended,
+rather it is preferable to create a new environment. The resolver has to work
+very hard to determine exactly which packages to upgrade. But it is possible,
+and the command is:
+
+.. code-block:: bash
+
+    conda install python=3.8
+==========================
+Using conda with Travis CI
+==========================
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+If you are already using Travis CI, using conda is a preferable
+alternative to using apt and pip to install packages. The
+Debian repos provided by Travis may not include packages for all
+versions of Python or may not be updated as quickly. Installing
+such packages with pip may also be undesirable, as this can take
+a long time, which can consume a large portion of the 50 minutes
+that Travis allows for each build. Using conda also lets you test
+the building of conda recipes on Travis.
+
+This page describes how to use conda to test a Python package
+on Travis CI. However, you can use conda with any language, not
+just Python.
+
+
+The .travis.yml file
+====================
+
+The following code sample shows how to modify the ``.travis.yml``
+file to use `Miniconda <https://conda.io/miniconda.html>`_ for a
+project that supports Python 2.7, 3.5, and 3.6:
+
+.. code-block:: yaml
+
+   language: python
+   python:
+     # We don't actually use the Travis Python, but this keeps it organized.
+     - "2.7"
+     - "3.5"
+     - "3.6"
+   install:
+     # We do this conditionally because it saves us some downloading if the
+     # version is the same.
+     - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+         wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+       else
+         wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+       fi
+     - bash miniconda.sh -b -p $HOME/miniconda
+     - source "$HOME/miniconda/etc/profile.d/conda.sh"
+     - hash -r
+     - conda config --set always_yes yes --set changeps1 no
+     - conda update -q conda
+     # Useful for debugging any issues with conda
+     - conda info -a
+
+     # Replace dep1 dep2 ... with your dependencies
+     - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION dep1 dep2 ...
+     - conda activate test-environment
+     - python -m pip install .
+
+   script:
+     # Your test script goes here
+
+.. note::
+   For information about the basic configuration for Travis CI,
+   see `Building a Python Project
+   <http://docs.travis-ci.com/user/languages/python/#Examples>`_.
+
+
+Supporting packages that do not have official builds
+====================================================
+
+To support a package that does not have official Anaconda builds:
+
+#. Build the package yourself.
+
+#. Add it to an `Anaconda.org <http://Anaconda.org>`_ channel.
+
+#. Add the following line to the install steps in ``.travis.yml``
+   so that it finds the packages on that channel:
+
+   .. code-block:: yaml
+
+      - conda config --add channels your_Anaconda_dot_org_username
+
+
+   .. note::
+      Replace ``your_Anaconda_dot_org_username`` with your
+      user name.
+
+
+Building a conda recipe
+=======================
+
+If you support official conda packages for your project, you may
+want to use conda-build in Travis, so the building of your
+recipe is tested as well.
+
+#. Include the conda recipe in the same directory as your source
+   code.
+
+#. In your ``.travis.yml`` file, replace the following line:
+
+   .. code-block:: yaml
+
+      - python setup.py install
+
+   with these lines:
+
+   .. code-block:: yaml
+
+      - conda build your-conda-recipe
+      - conda install your-package --use-local
+
+
+AppVeyor
+========
+
+`AppVeyor <http://www.appveyor.com/>`_ is a continuous build
+service for Windows built on Azure and is an alternative to using
+Travis CI with conda.
+
+For an example project building conda packages on AppVeyor, see
+https://github.com/rmcgibbo/python-appveyor-conda-example.
+
+Bootstrap your environment
+==========================
+
+To bootstrap your environment, use the standalone conda
+approach in your ``appveyor.yml``:
+
+.. code-block:: yaml
+
+   # Config file for automatic testing at travis-ci.org
+
+   language: python
+   python:
+     - "2.7"
+     - "3.7"
+
+   install:
+     - wget https://repo.anaconda.com/pkgs/misc/conda-execs/conda-latest-linux-64.exe -O conda.exe
+     - chmod +x conda.exe
+     - export CONDA_ALWAYS_YES=1
+     # This is where you put any extra dependencies you may have.
+     - ./conda.exe create -p $HOME/miniconda python=$TRAVIS_PYTHON_VERSION conda conda-build pytest six pytest-cov pytest-mock
+     - export PATH="$HOME/miniconda/bin:$PATH"
+     - hash -r
+     # Install your code here.
+   script:
+     - pytest -v --color=yes --cov=cpr tests
+   after_success:
+     - conda install codecov
+     - codecov
+==============
+Managing conda
+==============
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+Verifying that conda is installed
+=================================
+
+To verify that conda is installed, in your terminal window or an Anaconda Prompt, run:
+
+.. code::
+
+   conda --version
+
+Conda responds with the version number that you have installed,
+such as ``conda 4.7.12``.
+
+If you get an error message, make sure of the following:
+
+* You are logged into the same user account that you used to
+  install Anaconda or Miniconda.
+
+* You are in a directory that Anaconda or Miniconda can find.
+
+* You have closed and re-opened the terminal window after
+  installing conda.
+
+
+Determining your conda version
+==============================
+
+In addition to the ``conda --version`` command explained above,
+you can determine what conda version is installed by running
+one of the following commands in your terminal window or an Anaconda Prompt:
+
+.. code-block:: bash
+
+   conda info
+
+OR
+
+.. code-block:: bash
+
+   conda -V
+
+
+Updating conda to the current version
+=====================================
+
+To update conda, in your terminal window or an Anaconda Prompt, run:
+
+.. code::
+
+   conda update conda
+
+Conda compares versions and reports what is available to install.
+It also tells you about other packages that will be automatically
+updated or changed with the update. If conda reports that a newer
+version is available, type ``y`` to update:
+
+.. code::
+
+   Proceed ([y]/n)? y
+
+
+Suppressing warning message about updating conda
+================================================
+
+To suppress the following warning message when you do not want
+to update conda to the latest version:
+
+.. code-block::
+
+    ==> WARNING: A newer version of conda exists. <==
+    current version: 4.6.13
+    latest version: 4.8.0
+
+Update conda by running: ``conda update -n base conda``
+
+Run the following command from your terminal or Anaconda Prompt:
+``conda config --set notify_outdated_conda false``
+
+Or add the following line in your ``.condarc`` file:
+``notify_outdated_conda: false``
+=========================
+Managing virtual packages
+=========================
+
+.. contents::
+   :local:
+   :depth: 1
+
+"Virtual" packages are injected into the conda solver to allow real packages
+to depend on features present on the system that cannot be managed directly by
+conda, like system driver versions or CPU features. Virtual packages are not
+real packages and not displayed by ``conda list``. Instead ``conda`` runs a
+small bit of code to detect the presence or absence of the system feature that
+corresponds to the package. The currently supported list of virtual packages includes:
+
+  * ``__cuda``: Maximum version of CUDA supported by the display driver.
+  * ``__osx``: OSX version if applicable.
+  * ``__glibc``: Version of glibc supported by the OS.
+  * ``__linux``: Available when running on Linux.
+  * ``__unix``: Available when running on OSX or Linux.
+  * ``__win``: Available when running on Win.
+
+Other virtual packages will be added in future conda releases. These are denoted
+by a leading double-underscore in the package name.
+
+
+Listing detected virtual packages
+=================================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+To see the list of detected virtual packages, run:
+
+.. code-block:: bash
+
+   conda info
+
+If a package is detected, you will see it listed in the ``virtual packages``
+section, as shown in this example::
+
+         active environment : base
+        active env location : /Users/demo/dev/conda/devenv
+                shell level : 1
+           user config file : /Users/demo/.condarc
+     populated config files : /Users/demo/.condarc
+              conda version : 4.6.3.post8+8f640d35a
+        conda-build version : 3.17.8
+             python version : 3.7.2.final.0
+           virtual packages : __cuda=10.0
+           base environment : /Users/demo/dev/conda/devenv (writable)
+               channel URLs : https://repo.anaconda.com/pkgs/main/osx-64
+                              https://repo.anaconda.com/pkgs/main/noarch
+                              https://repo.anaconda.com/pkgs/free/osx-64
+                              https://repo.anaconda.com/pkgs/free/noarch
+                              https://repo.anaconda.com/pkgs/r/osx-64
+                              https://repo.anaconda.com/pkgs/r/noarch
+              package cache : /Users/demo/dev/conda/devenv/pkgs
+                              /Users/demo/.conda/pkgs
+           envs directories : /Users/demo/dev/conda/devenv/envs
+                              /Users/demo/.conda/envs
+                   platform : osx-64
+                 user-agent : conda/4.6.3.post8+8f640d35a requests/2.21.0 CPython/3.7.2 Darwin/17.7.0 OSX/10.13.6
+                    UID:GID : 502:20
+                 netrc file : None
+               offline mode : False
+
+
+Overriding detected packages
+============================
+
+For troubleshooting, it is possible to override virtual package detection
+using an environment variable. Supported variables include:
+
+* ``CONDA_OVERRIDE_CUDA`` - CUDA version number or set to ``""`` for no CUDA
+  detected.
+* ``CONDA_OVERRIDE_OSX`` - OSX version number or set to ``""`` for no OSX
+  detected.
+* ``CONDA_OVERRIDE_GLIBC`` - GLIBC version number or set to ``""`` for no GLIBC.
+  This only applies on Linux.
+=================
+Managing packages
+=================
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. note::
+   There are many options available for the commands described
+   on this page. For details, see :doc:`../../commands`.
+
+
+Searching for packages
+======================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+To see if a specific package, such as SciPy, is available for
+installation:
+
+.. code-block:: bash
+
+   conda search scipy
+
+To see if a specific package, such as SciPy, is available for
+installation from Anaconda.org:
+
+.. code-block:: bash
+
+   conda search --override-channels --channel defaults scipy
+
+To see if a specific package, such as iminuit, exists in a
+specific channel, such as http://conda.anaconda.org/mutirri,
+and is available for installation:
+
+.. code-block:: bash
+
+   conda search --override-channels --channel http://conda.anaconda.org/mutirri iminuit
+
+
+Installing packages
+===================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+To install a specific package such as SciPy into an existing
+environment "myenv":
+
+.. code-block:: bash
+
+   conda install --name myenv scipy
+
+If you do not specify the environment name, which in this
+example is done by ``--name myenv``, the package installs
+into the current environment:
+
+.. code-block:: bash
+
+   conda install scipy
+
+To install a specific version of a package such as SciPy:
+
+.. code-block:: bash
+
+   conda install scipy=0.15.0
+
+.. _`installing multiple packages`:
+
+To install multiple packages at once, such as SciPy and cURL:
+
+.. code-block:: bash
+
+   conda install scipy curl
+
+.. note::
+   It is best to install all packages at once, so that all of
+   the dependencies are installed at the same time.
+
+To install multiple packages at once and specify the version of
+the package:
+
+.. code-block:: bash
+
+   conda install scipy=0.15.0 curl=7.26.0
+
+To install a package for a specific Python version:
+
+.. code-block:: bash
+
+   conda install scipy=0.15.0 curl=7.26.0 -n py34_env
+
+If you want to use a specific Python version, it is best to use
+an environment with that version. For more information,
+see :doc:`../troubleshooting`.
+
+Installing similar packages
+===========================
+Installing packages that have similar filenames and serve similar
+purposes may return unexpected results. The package last installed
+will likely determine the outcome, which may be undesirable.
+If the two packages have different names, or if you're building
+variants of packages and need to line up other software in the stack,
+we recommend using :ref:`mutex-metapackages`.
+
+Installing packages from Anaconda.org
+=====================================
+
+Packages that are not available using ``conda install`` can be
+obtained from Anaconda.org, a package management service for
+both public and private package repositories. Anaconda.org
+is an Anaconda product, just like Anaconda and Miniconda.
+
+To install a package from Anaconda.org:
+
+#. In a browser, go to http://anaconda.org.
+
+#. To find the package named bottleneck, type ``bottleneck``
+   in the top-left box named Search Packages.
+
+#. Find the package that you want and click it to go to the
+   detail page.
+
+   The detail page displays the name of the channel. In this
+   example it is the "pandas" channel.
+
+#. Now that you know the channel name, use the ``conda install``
+   command to install the package. In your terminal window or
+   an Anaconda Prompt, run:
+
+   .. code::
+
+      conda install -c pandas bottleneck
+
+   This command tells conda to install the bottleneck package
+   from the pandas channel on Anaconda.org.
+
+#. To check that the package is installed, in your terminal window
+   or an Anaconda Prompt, run:
+
+   .. code::
+
+      conda list
+
+   A list of packages appears, including bottleneck.
+
+.. note::
+   For information on installing packages from multiple
+   channels, see :doc:`manage-channels`.
+
+
+Installing non-conda packages
+=============================
+
+If a package is not available from conda or Anaconda.org, you may be able to
+find and install the package via conda-forge or with another package manager
+like pip.
+
+Pip packages do not have all the features of conda packages and we recommend
+first trying to install any package with conda. If the package is unavailable
+through conda, try finding and installing it with
+`conda-forge <https://conda-forge.org/search.html>`_.
+
+If you still cannot install the package, you can try
+installing it with pip. The differences between pip and
+conda packages cause certain unavoidable limits in compatibility but conda
+works hard to be as compatible with pip as possible.
+
+.. note::
+   Both pip and conda are included in Anaconda and Miniconda, so you do not
+   need to install them separately.
+
+   Conda environments replace virtualenv, so there is no need to activate a
+   virtualenv before using pip.
+
+It is possible to have pip installed outside a conda environment or inside a
+conda environment.
+
+To gain the benefits of conda integration, be sure to install pip inside the
+currently active conda environment and then install packages with that
+instance of pip. The command ``conda list`` shows packages installed this way,
+with a label showing that they were installed with pip.
+
+You can install pip in the current conda environment with the command
+``conda install pip``, as discussed in :ref:`pip-in-env`.
+
+If there are instances of pip installed both inside and outside the current
+conda environment, the instance of pip installed inside the current conda
+environment is used.
+
+To install a non-conda package:
+
+#. Activate the environment where you want to put the program:
+
+   * On Windows, in your Anaconda Prompt, run ``activate myenv``.
+   * On macOS and Linux, in your terminal window, run ``conda activate myenv``.
+
+#. To use pip to install a program such as See, in your terminal window or an Anaconda Prompt,
+   run::
+
+     pip install see
+
+#. To verify the package was installed, in your terminal window or an Anaconda Prompt,
+   run:
+
+   .. code::
+
+      conda list
+
+   If the package is not shown, install pip as described in :ref:`pip-in-env`
+   and try these commands again.
+
+
+Installing commercial packages
+==============================
+
+Installing a commercial package such as IOPro is the same as
+installing any other package. In your terminal window or an Anaconda Prompt,
+run:
+
+.. code-block:: bash
+
+   conda install --name myenv iopro
+
+This command installs a free trial of one of Anaconda's
+commercial packages called `IOPro
+<https://docs.continuum.io/iopro/>`_, which can speed up your
+Python processing. Except for academic use, this free trial
+expires after 30 days.
+
+
+Viewing a list of installed packages
+====================================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+To list all of the packages in the active environment:
+
+.. code::
+
+   conda list
+
+To list all of the packages in a deactivated environment:
+
+.. code::
+
+   conda list -n myenv
+
+Listing package dependencies
+============================
+
+To find what packages are depending on a specific package in
+your environment, there is not one specific conda command.
+It requires a series of steps:
+
+#. List the dependencies that a specific package requires to run:
+   ``conda search package_name --info``
+
+#. Find your installation’s package cache directory:
+   ``conda info``
+
+#. Find package dependencies. By default, Anaconda/Miniconda stores packages in ~/anaconda/pkgs/ (or ~/opt/pkgs/ on macOS Catalina).
+   Each package has an index.json file which lists the package’s dependencies.
+   This file resides in ~anaconda/pkgs/package_name/info/index.json.
+
+#. Now you can find what packages depend on a specific package. Use grep to search all index.json files
+   as follows: ``grep package_name ~/anaconda/pkgs/*/info/index.json``
+
+The result will be the full package path and version of anything containing the <package_name>.
+
+Example:
+``grep numpy ~/anaconda3/pkgs/*/info/index.json``
+
+Output from the above command::
+
+  /Users/testuser/anaconda3/pkgs/anaconda-4.3.0-np111py36_0/info/index.json: numpy 1.11.3 py36_0
+  /Users/testuser/anaconda3/pkgs/anaconda-4.3.0-np111py36_0/info/index.json: numpydoc 0.6.0 py36_0
+  /Users/testuser/anaconda3/pkgs/anaconda-4.3.0-np111py36_0/info/index.json: numpy 1.11.3 py36_0
+
+Note this also returned “numpydoc” as it contains the string “numpy”. To get a more specific result
+set you can add \< and \>.
+
+Updating packages
+=================
+
+Use ``conda update`` command to check to see if a new update is
+available. If conda tells you an update is available, you can
+then choose whether or not to install it.
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+* To update a specific package:
+
+  .. code::
+
+    conda update biopython
+
+* To update Python:
+
+  .. code::
+
+    conda update python
+
+* To update conda itself:
+
+  .. code::
+
+    conda update conda
+
+.. note::
+   Conda updates to the highest version in its series, so
+   Python 2.7 updates to the highest available in the 2.x series and
+   3.6 updates to the highest available in the 3.x series.
+
+To update the Anaconda metapackage:
+
+.. code-block:: bash
+
+   conda update conda
+   conda update anaconda
+
+Regardless of what package you are updating, conda compares
+versions and then reports what is available to install. If no
+updates are available, conda reports "All requested packages are
+already installed."
+
+If a newer version of your package is available and you wish to
+update it, type ``y`` to update:
+
+.. code::
+
+   Proceed ([y]/n)? y
+
+
+.. _pinning-packages:
+
+Preventing packages from updating (pinning)
+===========================================
+
+Pinning a package specification in an environment prevents
+packages listed in the ``pinned`` file from being updated.
+
+In the environment's ``conda-meta`` directory, add a file
+named ``pinned`` that includes a list of the packages that you
+do not want updated.
+
+EXAMPLE: The file below forces NumPy to stay on the 1.7 series,
+which is any version that starts with 1.7. This also forces SciPy to
+stay at exactly version 0.14.2::
+
+  numpy 1.7.*
+  scipy ==0.14.2
+
+With this ``pinned`` file, ``conda update numpy`` keeps NumPy at
+1.7.1, and ``conda install scipy=0.15.0`` causes an error.
+
+Use the ``--no-pin`` flag to override the update restriction on
+a package. In the terminal or an Anaconda Prompt, run:
+
+.. code-block:: bash
+
+   conda update numpy --no-pin
+
+Because the ``pinned`` specs are included with each conda
+install, subsequent ``conda update`` commands without
+``--no-pin`` will revert NumPy back to the 1.7 series.
+
+
+Adding default packages to new environments automatically
+=========================================================
+
+To automatically add default packages to each new environment that you create:
+
+#. Open Anaconda Prompt or terminal and run:
+   ``conda config --add create_default_packages PACKAGENAME1 PACKAGENAME2``
+
+#. Now, you can create new environments and the default packages will be installed in all of them.
+
+You can also :ref:`edit the .condarc file <config-add-default-pkgs>` with a list of packages to create
+by default.
+
+You can override this option at the command prompt with the ``--no-default-packages`` flag.
+
+Removing packages
+=================
+
+Use the terminal or an Anaconda Prompt for the following steps.
+
+* To remove a package such as SciPy in an environment such as
+  myenv:
+
+  .. code-block:: bash
+
+    conda remove -n myenv scipy
+
+* To remove a package such as SciPy in the current environment:
+
+  .. code-block:: bash
+
+    conda remove scipy
+
+* To remove multiple packages at once, such as SciPy and cURL:
+
+  .. code-block:: bash
+
+    conda remove scipy curl
+
+* To confirm that a package has been removed:
+
+  .. code::
+
+    conda list
+===========
+Tasks
+===========
+
+.. toctree::
+   :maxdepth: 1
+
+   manage-conda
+   manage-environments
+   manage-channels
+   create-custom-channels
+   manage-pkgs
+   manage-python
+   manage-virtual
+   use-conda-with-travis-ci
+   view-command-line-help
+=========================
+Viewing command-line help
+=========================
+
+To see a list of supported conda commands, in your terminal window or an Anaconda Prompt, run:
+
+.. code-block:: bash
+
+   conda --help
+
+OR
+
+.. code-block:: bash
+
+   conda -h
+
+To get help for a specific command, type the command name
+followed by ``--help``.
+
+EXAMPLE: To see help for the ``create`` command, in your terminal window or an Anaconda Prompt, run:
+
+.. code-block:: bash
+
+   conda create -h
+
+.. note::
+   You can see the same command help in :doc:`../../commands`.
+========================
+Creating custom channels
+========================
+
+Channels are the path that conda takes to look for packages. The
+easiest way to use and manage custom channels is to use a private
+or public repository on `Anaconda.org <https://anaconda.org/>`_.
+If you designate your Anaconda.org
+repository as private, then only you and those you grant access to
+can access your private repository.
+
+If you do not wish to upload your packages to the Internet, you
+can build a custom repository served either through a web server
+or locally using a ``file://`` URL.
+
+To create a custom channel:
+
+#. If you have not yet used conda-build, install conda-build:
+
+   .. code::
+
+      conda install conda-build
+
+#. Organize all the packages in subdirectories for the platforms
+   you wish to serve:
+
+   .. code::
+
+      channel/
+     linux-64/
+      package-1.0-0.tar.bz2
+     linux-32/
+      package-1.0-0.tar.bz2
+     osx-64/
+      package-1.0-0.tar.bz2
+     win-64/
+      package-1.0-0.tar.bz2
+     win-32/
+      package-1.0-0.tar.bz2
+
+#. Run ``conda index`` on the channel root directory:
+
+   .. code::
+
+      conda index channel/
+
+   The conda index command generates a file ``repodata.json``,
+   saved to each repository directory, which conda uses to get
+   the metadata for the packages in the channel.
+
+   .. note::
+      Each time you add or modify a package in the channel,
+      you must rerun ``conda index`` for conda to see the update.
+
+#. To test custom channels, serve the custom channel using a web
+   server or using a ``file://`` URL to the channel directory.
+   Test by sending a search command to the custom channel.
+
+   EXAMPLE: If you want a file in the custom channel location
+   ``/opt/channel/linux-64/``, search for files in that location:
+
+   .. code::
+
+      conda search -c file:///opt/channel/ --override-channels
+
+   .. note::
+      The channel URL does not include the platform, as conda
+      automatically detects and adds the platform.
+
+   .. note::
+      The option  ``--override-channels`` ensures that conda
+      searches only your specified channel and no other channels,
+      such as default channels or any other channels you may have
+      listed in your ``.condarc`` file.
+
+   If you have set up your private repository correctly, you
+   get the following output:
+
+   .. code::
+
+      Fetching package metadata: . . . .
+
+   This is followed by a list of the conda packages found. This
+   verifies that you have set up and indexed your private
+   repository successfully.
+use-mro-with-conda
+==================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='https://docs.anaconda.com/anaconda/user-guide/tasks/use-r-language'" /></head><body></body></html>
+===========================
+Conda package specification
+===========================
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+.. _package_metadata:
+
+Package metadata
+================
+
+The ``info/`` directory contains all metadata about a package.
+Files in this location are not installed under the install
+prefix. Although you are free to add any file to this directory,
+conda only inspects the content of the files discussed below.
+
+Info
+----
+
+* files
+
+  * a list of all the files in the package (not included in ``info/``)
+
+* ``index.json``
+
+  * metadata about the package including platform, version,
+    dependencies, and build info
+
+.. code-block:: bash
+
+  {
+    "arch": "x86_64",
+    "build": "py37hfa4b5c9_1",
+    "build_number": 1,
+    "depends": [
+      "depend > 1.1.1"
+    ],
+    "license": "BSD 3-Clause",
+    "name": "fun-packge",
+    "platform": "linux",
+    "subdir": "linux-64",
+    "timestamp": 1535416612069,
+    "version": "0.0.0"
+  }
+
+* ``paths.json``
+
+  * a list of files in the package, along with their associated SHA-256, size in bytes,
+    and the type of path (eg. hardlink vs. softlink)
+
+.. code-block:: bash
+
+  {
+    "paths": [
+      {
+        "_path": "lib/python3.7/site-packages/fun-packge/__init__.py",
+        "path_type": "hardlink",
+        "sha256": "76f3b6e34feeb651aff33ca59e0279c4eadce5a50c6ad93b961c846f7ba717e9",
+        "size_in_bytes": 2067
+      },
+      {
+        "_path": "lib/python3.7/site-packages/fun-packge/__config__.py",
+        "path_type": "hardlink",
+        "sha256": "348e3602616c1fe4c84502b1d8cf97c740d886002c78edab176759610d287f06",
+        "size_in_bytes": 87519
+      },
+      ...
+  }
+
+
+info/index.json
+---------------
+
+This file contains basic information about the package, such as
+name, version, build string, and dependencies. The content of this
+file is stored in ``repodata.json``, which is the repository
+index file, hence the name ``index.json``. The JSON object is a
+dictionary containing the keys shown below. The filename of the
+conda package is composed of the first 3 values, as in:
+``<name>-<version>-<build>.tar.bz2``.
+
+.. list-table::
+   :widths: 15 15 50
+
+   * - **Key**
+     - **Type**
+     - **Description**
+
+   * - name
+     - string
+     - The lowercase name of the package. May contain the "-"
+       character.
+
+   * - version
+     - string
+     - The package version. May not contain "-". Conda
+       acknowledges `PEP 440
+       <https://www.python.org/dev/peps/pep-0440/>`_.
+
+   * - build
+     - string
+     - The build string. May not contain "-". Differentiates
+       builds of packages with otherwise identical names and
+       versions, such as:
+
+       * A build with other dependencies, such as Python 3.4
+         instead of Python 2.7.
+       * A bug fix in the build process.
+       * Some different optional dependencies, such as MKL versus
+         ATLAS linkage. Nothing in conda actually inspects the
+         build string. Strings such as ``np18py34_1`` are
+         designed only for human readability and conda never
+         parses them.
+
+   * - build_number
+     - integer
+     - A non-negative integer representing the build number of
+       the package.
+
+       Unlike the build string, the build_number is inspected by
+       conda. Conda uses it to sort packages that have otherwise
+       identical names and versions to determine the latest one.
+       This is important because new builds that contain bug
+       fixes for the way a package is built may be added to a
+       repository.
+
+   * - depends
+     - list of strings
+     - A list of dependency specifications, where each element
+       is a string, as outlined in :ref:`build-version-spec`.
+
+   * - arch
+     - string
+     - Optional. The architecture the package is built for.
+
+       EXAMPLE: ``x86_64``
+
+       Conda currently does not use this key.
+
+   * - platform
+     - string
+     - Optional. The OS that the package is built for.
+
+       EXAMPLE: ``osx``
+
+       Conda currently does not use this key. Packages for a
+       specific architecture and platform are usually
+       distinguished by the repository subdirectory that contains
+       them---see :ref:`repo-si`.
+
+info/files
+----------
+
+Lists all files that are part of the package itself, 1 per line.
+All of these files need to get linked into the environment. Any
+files in the package that are not listed in this file are not
+linked when the package is installed. The directory delimiter for
+the files in ``info/files`` should always be "/", even on
+Windows. This matches the directory delimiter used in the
+tarball.
+
+
+info/has_prefix
+---------------
+
+Optional file. Lists all files that contain a hard-coded build
+prefix or placeholder prefix, which needs to be replaced by the
+install prefix at installation time.
+
+.. note::
+   Due to the way the binary replacement works, the
+   placeholder prefix must be longer than the install prefix.
+
+Each line of this file should be either a path, in which case it
+is considered a text file with the default placeholder
+``/opt/anaconda1anaconda2anaconda3``, or a space-separated list
+of placeholder, mode, and path, where:
+
+* Placeholder is the build or placeholder prefix.
+* Mode is either ``text`` or ``binary``.
+* Path is the relative path of the file to be updated.
+
+EXAMPLE: On Windows::
+
+  "Scripts/script1.py"
+  "C:\Users\username\anaconda\envs\_build" text "Scripts/script2.bat"
+  "C:/Users/username/anaconda/envs/_build" binary "Scripts/binary"
+
+EXAMPLE: On macOS or Linux::
+
+  bin/script.sh
+  /Users/username/anaconda/envs/_build binary bin/binary
+  /Users/username/anaconda/envs/_build text share/text
+
+.. note::
+   The directory delimiter for the relative path must always
+   be "/", even on Windows. The placeholder may contain either "\\"
+   or "/" on Windows, but the replacement prefix will match the
+   delimiter used in the placeholder. The default placeholder
+   ``/opt/anaconda1anaconda2anaconda3`` is an exception, being
+   replaced with the install prefix using the native path
+   delimiter. On Windows, the placeholder and path always appear
+   in quotes to support paths with spaces.
+
+info/license.txt
+----------------
+
+Optional file. The software license for the package.
+
+info/no_link
+------------
+
+Optional file. Lists all files that cannot be linked - either
+soft-linked or hard-linked - into environments and are copied
+instead.
+
+info/about.json
+---------------
+
+Optional file. Contains the entries in the `about section <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#about-section>`_
+of the ``meta.yaml`` file. The following keys are
+added to ``info/about.json`` if present in the build recipe:
+
+* home
+* dev_url
+* doc_url
+* license_url
+* license
+* summary
+* description
+* license_family
+
+info/recipe
+-----------
+
+A directory containing the full contents of the build recipe.
+
+meta.yaml.rendered
+------------------
+
+The fully rendered build recipe. See
+`conda render <https://docs.conda.io/projects/conda-build/en/latest/resources/commands/conda-render.html>`_.
+
+This directory is present only when the the include_recipe flag
+is ``True`` in the `build section <https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-section>`_.
+
+
+.. _repo-si:
+
+Repository structure and index
+==============================
+
+A conda repository - or channel - is a directory tree, usually
+served over HTTPS, which has platform subdirectories, each of
+which contain conda packages and a repository index. The index
+file ``repodata.json`` lists all conda packages in the platform
+subdirectory. Use ``conda index`` to create such an index from
+the conda packages within a directory. It is simple mapping of
+the full conda package filename to the dictionary object in
+``info/index.json`` described in `link scripts <https://docs.conda.io/projects/conda-build/en/latest/resources/link-scripts.html>`_.
+
+In the following example, a repository provides the conda package
+``misc-1.0-np17py27_0.tar.bz2`` on 64-bit Linux and 32-bit
+Windows::
+
+  <some path>/linux-64/repodata.json
+                       repodata.json.bz2
+                       misc-1.0-np17py27_0.tar.bz2
+             /win-32/repodata.json
+                     repodata.json.bz2
+                     misc-1.0-np17py27_0.tar.bz2
+
+.. note::
+   Both conda packages have identical filenames and are
+   distinguished only by the repository subdirectory that contains
+   them.
+
+
+.. _build-version-spec:
+
+Package match specifications
+============================
+
+This match specification is not the same as the syntax used at
+the command line with ``conda install``, such as
+``conda install python=3.9``. Internally, conda translates the
+command line syntax to the spec defined in this section.
+
+EXAMPLE: python=3.9 is translated to python 3.9*.
+
+Package dependencies are specified using a match specification.
+A match specification is a space-separated string of 1, 2, or 3
+parts:
+
+* The first part is always the exact name of the package.
+
+* The second part refers to the version and may contain special
+  characters:
+
+  * \| means OR.
+
+    EXAMPLE: ``1.0|1.2`` matches version 1.0 or 1.2
+
+  * \* matches 0 or more characters in the version string. In
+    terms of regular expressions, it is the same as ``r``.*````.
+
+    EXAMPLE: 1.0|1.4* matches 1.0, 1.4 and 1.4.1b2, but not 1.2.
+
+  * <, >, <=, >=, == and != are relational operators on versions,
+    which are compared using
+    `PEP-440 <https://www.python.org/dev/peps/pep-0440/>`_.  For example,
+    ``<=1.0`` matches ``0.9``, ``0.9.1``, and ``1.0``, but not ``1.0.1``.
+    ``==`` and ``!=`` are exact equality.
+
+    Pre-release versioning is also supported such that ``>1.0b4`` will match
+    ``1.0b5`` and ``1.0rc1`` but not ``1.0b4`` or ``1.0a5``.
+
+    EXAMPLE: <=1.0 matches 0.9, 0.9.1, and 1.0, but not 1.0.1.
+
+  * , means AND.
+
+    EXAMPLE: >=2,<3 matches all packages in the 2 series. 2.0,
+    2.1 and 2.9 all match, but 3.0 and 1.0 do not.
+
+  * , has higher precedence than \|, so >=1,<2|>3 means greater
+    than or equal to 1 AND less than 2 or greater than 3, which
+    matches 1, 1.3 and 3.0, but not 2.2.
+
+  Conda parses the version by splitting it into parts separated
+  by \|. If the part begins with <, >, =, or !, it is parsed as a
+  relational operator. Otherwise, it is parsed as a version,
+  possibly containing the "*" operator.
+
+* The third part is always the exact build string. When there are
+  3 parts, the second part must be the exact version.
+
+Remember that the version specification cannot contain spaces,
+as spaces are used to delimit the package, version, and build
+string in the whole match specification. ``python >= 2.7`` is an
+invalid match specification. Furthermore, ``python>=2.7`` is
+matched as any version of a package named ``python>=2.7``.
+
+When using the command line, put double quotes around any package
+version specification that contains the space character or any of
+the following characters: <, >, \*, or \|.
+
+EXAMPLE::
+
+  conda install numpy=1.11
+  conda install numpy==1.11
+  conda install "numpy>1.11"
+  conda install "numpy=1.11.1|1.11.3"
+  conda install "numpy>=1.8,<2"
+
+
+Examples
+--------
+
+The OR constraint "numpy=1.11.1|1.11.3" matches with 1.11.1 or
+1.11.3.
+
+The AND constraint "numpy>=1.8,<2" matches with 1.8 and 1.9 but
+not 2.0.
+
+The fuzzy constraint numpy=1.11 matches 1.11, 1.11.0, 1.11.1,
+1.11.2, 1.11.18, and so on.
+
+The exact constraint numpy==1.11 matches 1.11, 1.11.0, 1.11.0.0,
+and so on.
+
+The build string constraint "numpy=1.11.2=*nomkl*" matches the
+NumPy 1.11.2 packages without MKL but not the normal MKL NumPy
+1.11.2 packages.
+
+The build string constraint "numpy=1.11.1|1.11.3=py36_0" matches
+NumPy 1.11.1 or 1.11.3 built for Python 3.6 but not any versions
+of NumPy built for Python 3.5 or Python 2.7.
+
+The following are all valid match specifications for
+numpy-1.8.1-py27_0:
+
+* numpy
+* numpy 1.8*
+* numpy 1.8.1
+* numpy >=1.8
+* numpy ==1.8.1
+* numpy 1.8|1.8*
+* numpy >=1.8,<2
+* numpy >=1.8,<2|1.9
+* numpy 1.8.1 py27_0
+* numpy=1.8.1=py27_0
+
+Version ordering
+================
+
+The ``class VersionOrder(object)`` implements an order relation
+between version strings.
+
+Version strings can contain the usual alphanumeric characters
+(A-Za-z0-9), separated into components by dots and underscores. Empty
+segments (i.e. two consecutive dots, a leading/trailing underscore)
+are not permitted. An optional epoch number - an integer
+followed by ``!`` - can precede the actual version string
+(this is useful to indicate a change in the versioning
+scheme itself). Version comparison is case-insensitive.
+
+Supported version strings
+-------------------------
+
+Conda supports six types of version strings:
+
+   * Release versions contain only integers, e.g. ``1.0``, ``2.3.5``.
+   * Pre-release versions use additional letters such as ``a`` or ``rc``,
+     for example ``1.0a1``, ``1.2.beta3``, ``2.3.5rc3``.
+   * Development versions are indicated by the string ``dev``,
+     for example ``1.0dev42``, ``2.3.5.dev12``.
+   * Post-release versions are indicated by the string ``post``,
+     for example ``1.0post1``, ``2.3.5.post2``.
+   * Tagged versions have a suffix that specifies a particular
+     property of interest, e.g. ``1.1.parallel``. Tags can be added
+     to any of the preceding 4 types. As far as sorting is concerned,
+     tags are treated like strings in pre-release versions.
+   * An optional local version string separated by ``+`` can be appended
+     to the main (upstream) version string. It is only considered
+     in comparisons when the main versions are equal, but otherwise
+     handled in exactly the same manner.
+
+
+Predictable version ordering
+----------------------------
+
+To obtain a predictable version ordering, it is crucial to keep the
+version number scheme of a given package consistent over time.
+Conda considers prerelease versions as less than release versions.
+
+* Version strings should always have the same number of components
+  (except for an optional tag suffix or local version string).
+
+* Letters/Strings indicating non-release versions should always
+  occur at the same position.
+
+Before comparison, version strings are parsed as follows:
+
+  * They are first split into epoch, version number, and local version
+    number at ``!`` and ``+`` respectively. If there is no ``!``,
+    the epoch is set to 0. If there is no ``+``, the local version is
+    empty.
+  * The version part is then split into components at ``.`` and ``_``.
+  * Each component is split again into runs of numerals and non-numerals
+  * Subcomponents containing only numerals are converted to integers.
+  * Strings are converted to lowercase, with special treatment for ``dev``
+    and ``post``.
+  * When a component starts with a letter, the fillvalue 0 is inserted
+    to keep numbers and strings in phase, resulting in ``1.1.a1' == 1.1.0a1'``.
+  * The same is repeated for the local version part.
+
+Examples:
+
+  ``1.2g.beta15.rc  =>  [[0], [1], [2, 'g'], [0, 'beta', 15], [0, 'rc']]``
+
+  ``1!2.15.1_ALPHA  =>  [[1], [2], [15], [1, '_alpha']]``
+
+The resulting lists are compared lexicographically, where the following
+rules are applied to each pair of corresponding subcomponents:
+
+  * Integers are compared numerically.
+  * Strings are compared lexicographically, case-insensitive.
+  * Strings are smaller than integers, except
+
+      * ``dev`` versions are smaller than all corresponding versions of other types.
+
+      * ``post`` versions are greater than all corresponding versions of other types.
+  * If a subcomponent has no correspondent, the missing correspondent is
+    treated as integer 0 to ensure ``'1.1' == 1.1.0'``.
+
+The resulting order is::
+
+   0.4
+ < 0.4.0
+ < 0.4.1.rc
+ == 0.4.1.RC   # case-insensitive comparison
+ < 0.4.1
+ < 0.5a1
+ < 0.5b3
+ < 0.5C1      # case-insensitive comparison
+ < 0.5
+ < 0.9.6
+ < 0.960923
+ < 1.0
+ < 1.1dev1    # special case ``dev``
+ < 1.1a1
+ < 1.1.0dev1  # special case ``dev``
+ == 1.1.dev1   # 0 is inserted before string
+ < 1.1.a1
+ < 1.1.0rc1
+ < 1.1.0
+ == 1.1
+ < 1.1.0post1 # special case ``post``
+ == 1.1.post1  # 0 is inserted before string
+ < 1.1post1   # special case ``post``
+ < 1996.07.12
+ < 1!0.4.1    # epoch increased
+ < 1!3.1.1.6
+ < 2!0.4.1    # epoch increased again
+
+Some packages (most notably OpenSSL) have incompatible version conventions.
+In particular, OpenSSL interprets letters as version counters rather than
+pre-release identifiers. For OpenSSL, the relation ``1.0.1 < 1.0.1a   =>   True   # for OpenSSL``
+holds, whereas conda packages use the opposite ordering.
+You can work around this problem by appending a dash to plain
+version numbers:
+
+``1.0.1a  =>  1.0.1post.a      # ensure correct ordering for OpenSSL``
+=================
+Conda performance
+=================
+
+Conda's performance can be affected by a variety of things.
+Unlike many package managers, Anaconda’s repositories generally
+don’t filter or remove old packages from the index. This allows old
+environments to be easily recreated. However, it does mean that the
+index metadata is always growing, and thus conda becomes slower as the
+number of packages increases.
+
+How a package is installed
+==========================
+
+While you are waiting, conda is doing a lot of work installing the
+packages. At any point along these steps, performance issues may arise.
+
+Conda follows these steps when installing a package:
+
+#. Downloading and processing index metadata.
+#. Reducing the index.
+#. Expressing the package data and constraints as a SAT problem.
+#. Running the solver.
+#. Downloading and extracting packages.
+#. Verifying package contents.
+#. Linking packages from package cache into environments.
+
+Therefore, if you're experiencing a slowdown, evaluate the following questions
+to identify potential causes:
+
+* Are you creating a new environment or installing into an existing one?
+* Does your environment have pip-installed dependencies in it?
+* What channels are you using?
+* What packages are you installing?
+* Is the channel metadata sane?
+* Are channels interacting in bad ways?
+
+
+Improving conda performance
+===========================
+
+To address these challenges, you can move packages to archive
+channels and follow the methods below to present conda with a smaller, simpler view than
+all available packages.
+
+To speed up conda, we offer the following recommendations.
+
+Are you:
+    * Using conda-forge?
+        * Use conda-metachannel to reduce conda’s problem size.
+    * Using bioconda?
+        * Use conda-metachannel to reduce conda’s problem size.
+        * `Read more about docker images <https://github.com/bioconda/bioconda-recipes/issues/13774>`_.
+    * Specifying very broad package specs?
+        * Be more specific. Letting conda filter more candidates makes it faster.
+          For example, instead of ``numpy``, we recommend ``numpy=1.15`` or, even better, ``numpy=1.15.4``.
+        * If you are using R, instead of specifying only ``r-essentials``, specify ``r-base=3.5 r-essentials``.
+    * Feeling frustrated with “verifying transaction” and also feeling lucky?
+        * Run ``conda config --set safety_checks disabled``.
+    * Getting strange mixtures of defaults and conda-forge?
+        * Run ``conda config --set channel_priority strict``.
+        * This also makes things go faster by eliminating possible mixed solutions.
+    * Observing that an Anaconda or Miniconda installation is getting slower over time?
+        * Create a fresh environment. As environments grow, they become harder
+          and harder to solve. Working with small, dedicated environments can
+          be much faster.
+
+Read more about `how we made conda faster <https://www.anaconda.com/how-we-made-conda-faster-4-7/>`_.
+
+Set strict channel priority
+---------------------------
+
+Setting strict channel priority makes it so that if a package exists on
+a channel, conda will ignore all packages with the same name on lower
+priority channels.
+
+.. figure:: ../../img/strict-disabled.png
+    :width: 50%
+.. figure:: ../../img/strict-enabled.png
+    :width: 50%
+
+This can dramatically reduce package search space and reduces the use of
+improperly constrained packages.
+
+One thing to consider is that setting strict channel priority may make
+environments unsatisfiable. Learn more about :ref:`strict`.
+
+
+Reduce the index
+----------------
+One option for speeding up conda is to reduce the index. The index is
+reduced by conda based upon the user's input specs. It's likely that
+your repodata contains package data that is not used in the solving stage.
+Filtering out these unnecessary packages before solving can save time.
+
+Making your input specifications more specific improves
+the effectiveness of the index reduction and, thus, speeds up the
+process. Listing a version and build string for each of your specs can
+dramatically reduce the number of packages that are considered when solving
+so that the SAT doesn’t have as much work to do.
+
+Reducing the index:
+  * Reduces unnecessary input into generating solver clauses.
+  * Reduces solve complexity.
+  * Prefers newer packages that apply constraints.
+
+Read more on `Understanding and Improving Conda's Performance
+<https://www.anaconda.com/understanding-and-improving-condas-performance/>`_.
+==============
+Conda commands
+==============
+
+The ``conda`` command is the primary interface for managing
+installations of various packages. It can:
+
+* Query and search the Anaconda package index and current
+  Anaconda installation.
+
+* Create new conda environments.
+
+* Install and update packages into existing conda environments.
+
+.. tip::
+   You can abbreviate many frequently used command options that
+   are preceded by 2 dashes (``--``) to just 1 dash and the first
+   letter of the option. So ``--name`` and ``-n`` are the same, and
+   ``--envs`` and ``-e`` are the same.
+
+For full usage of each command, including abbreviations, see
+:doc:`../../commands`. You can see the same information at the
+command line by :doc:`viewing the command-line help
+<../tasks/view-command-line-help>`.
+=====================
+Installing with conda
+=====================
+
+.. image:: /img/installing-with-conda.png
+    :align: right
+
+.. _installing-with-conda:
+
+
+To install conda packages, in the terminal or an Anaconda Prompt, run::
+
+  conda install [packagename]
+
+
+During the install process, files are extracted into the specified
+environment, defaulting to the current environment if none is specified.
+Installing the files of a conda package into an
+environment can be thought of as changing the directory to an
+environment, and then downloading and extracting the artifact
+and its dependencies---all with the single
+``conda install [packagename]`` command.
+
+Read more about :doc:`conda environments and directory structure <../concepts/environments>`.
+
+* When you ``conda install`` a package that exists in a channel and has no dependencies, conda:
+
+  * Looks at your configured channels (in priority).
+
+  * Reaches out to the repodata associated with your channels/platform.
+
+  * Parses repodata to search for the package.
+
+  * Once the package is found, conda pulls it down and installs.
+
+Conda update versus conda install
+=================================
+
+``conda update`` is used to update to the latest compatible version.
+``conda install`` can be used to install any version.
+
+Example:
+
+* If Python 2.7.0 is currently installed, and the latest version of Python 2 is 2.7.5, then ``conda update python`` installs Python 2.7.5. It does not install Python 3.
+
+* If Python 3.7.0 is currently installed, and the latest version of Python is 3.9.0, then ``conda install python=3`` installs Python 3.9.0.
+
+Conda uses the same rules for other packages. ``conda update`` always installs the highest version with the same major version number, whereas ``conda install`` always installs the highest version.
+
+
+Installing conda packages offline
+=================================
+
+To install conda packages offline, run:
+``conda install /path-to-package/package-filename.tar.bz2/``
+
+If you prefer, you can create a /tar/ archive file containing
+many conda packages and install them all with one command:
+``conda install /packages-path/packages-filename.tar``
+
+.. note::
+   If an installed package does not work, it may be missing
+   dependencies that need to be resolved manually.
+
+Installing packages directly from the file does not resolve
+dependencies.
+
+
+Installing conda packages with a specific build number
+======================================================
+
+If you want to install conda packages with the correct package specification, try
+``pkg_name=version=build_string``. Read more about `build strings and package naming conventions <https://docs.conda.io/projects/conda-build/en/latest/concepts/package-naming-conv.html#index-2>`_.
+Learn more about `package specifications and metadata <https://docs.conda.io/projects/conda-build/en/latest/resources/package-spec.html#package-metadata>`_.
+
+For example, if you want to install llvmlite 0.31.0dev0 on Python 3.7.8, you
+would enter::
+
+    conda install  -c numba/label/dev llvmlite=0.31.0dev0=py37_8
+==================
+Conda environments
+==================
+
+A conda environment is a directory that contains a specific
+collection of conda packages that you have installed. For
+example, you may have one environment with NumPy 1.7 and its
+dependencies, and another environment with NumPy 1.6 for legacy
+testing. If you change one environment, your other environments
+are not affected. You can easily activate or deactivate
+environments, which is how you switch between them. You can also
+share your environment with someone by giving them a copy of your
+``environment.yaml`` file. For more information, see
+:doc:`../tasks/manage-environments`.
+
+
+Conda directory structure
+=========================
+
+``ROOT_DIR``
+------------
+The directory that Anaconda or Miniconda was installed into.
+
+EXAMPLES:
+
+.. code-block:: shell
+
+   /opt/Anaconda  #Linux
+   C:\Anaconda    #Windows
+
+``/pkgs``
+---------
+
+Also referred to as PKGS_DIR. This directory contains
+decompressed packages, ready to be linked in conda environments.
+Each package resides in a subdirectory corresponding to its
+canonical name.
+
+``/envs``
+---------
+
+The system location for additional conda environments to be
+created.
+
+The following subdirectories comprise the default Anaconda
+environment:
+
+| ``/bin``
+| ``/include``
+| ``/lib``
+| ``/share``
+|
+
+Other conda environments usually contain the same subdirectories
+as the default environment.
+
+Virtual environments
+====================
+
+A virtual environment is a tool that helps to
+keep dependencies required by different projects
+separate by creating isolated spaces for them that
+contain per-project dependencies for them.
+
+Users can create virtual environments
+using one of several tools such as
+Pipenv or Poetry, or a conda virtual
+environment. Pipenv and Poetry are based around Python's
+built-in venv library, whereas conda has its own notion of virtual
+environments that is lower-level (Python itself is a dependency provided
+in conda environments).
+
+Scroll to the right in the table below.
+
+Some other traits are:
+
+.. list-table::
+   :widths: 20 40 40
+   :header-rows: 1
+
+   * -
+     - Python virtual environment
+     - Conda virtual environment
+   * - **Libraries**
+     - Statically link, vendor libraries in wheels,
+       or use apt/yum/brew/etc.
+     - Install system-level libraries as conda dependencies.
+   * - **System**
+     - Depend on base system install of Python.
+     - Python is independent from system.
+   * - **Extending environment**
+     - Extend environment with pip.
+     - Extended environment with conda or pip.
+   * - **Non-Python dependencies**
+     -
+     - Manages non-Python dependencies (R, Perl,
+       arbitrary executables).
+   * - **Tracking dependencies**
+     -
+     - Tracks binary dependencies explicitly.
+
+|
+
+Why use venv-based virtual environments
+---------------------------------------
+
+- You prefer their workflow or spec formats.
+- You prefer to use the system Python and libraries.
+- Your project maintainers only publish to PyPI, and
+  you prefer packages that come more directly from the
+  project maintainers, rather than someone else providing
+  builds based on the same code.
+
+Why use conda virtual environments?
+-----------------------------------
+
+- You want control over binary compatibility choices.
+- You want to utilize newer language standards, such as C++ 17.
+- You need libraries beyond what the system Python offers.
+- You want to manage packages from languages other than Python
+  in the same space.
+
+Workflow differentiators
+========================
+
+Some questions to consider as you determine your preferred
+workflow and virtual environment:
+
+- Is your environment shared across multiple code projects?
+- Does your environment live alongside your code or in a separate place?
+- Do your install steps involve installing any external libraries?
+- Do you want to ship your environment as an archive of some sort
+  containing the actual files of the environment?
+
+Package system differentiators
+==============================
+
+There are potential benefits for choosing PyPI or conda.
+
+PyPI has one global namespace and distributed ownership of that namespace.
+Because of this, it is easier within PyPI to have single sources for a package
+directly from package maintainers.
+
+Conda has unlimited namespaces (channels) and distributed ownership of a
+given channel.
+As such, it is easier to ensure binary compatibility within a channel using
+conda.
+=========================
+Conda for data scientists
+=========================
+
+Conda is useful for any packaging process but it stands out from other
+package and environment management systems through its utility for data
+science.
+
+Conda’s benefits include:
+
+* Providing prebuilt packages which avoid the need to deal with compilers or
+  figuring out how to set up a specific tool.
+* Managing one-step installation of tools that
+  are more challenging to install (such as TensorFlow or IRAF).
+* Allowing you to provide your environment to other people across different
+  platforms, which supports the reproducibility of research workflows.
+* Allowing the use of other package management tools, such as pip, inside
+  conda environments where a library or tools are not already packaged for
+  conda.
+* Providing commonly used data science libraries and tools, such as R, NumPy,
+  SciPy, and TensorFlow. These are built using optimized, hardware-specific
+  libraries (such as Intel’s MKL or NVIDIA’s CUDA) which speed up performance
+  without code changes.
+
+`Read more about how conda supports data scientists
+<https://kaust-vislab.github.io/introduction-to-conda-for-data-scientists>`_.
+========
+Concepts
+========
+
+Explore the links to learn more about conda foundations.
+
+.. toctree::
+   :maxdepth: 1
+
+   conda-commands
+   packages
+   pkg-specs
+   channels
+   environments
+   installing-with-conda
+   conda-performance
+   data-science
+
+When you're comfortable with the conda concepts, learn how to :doc:`get started using conda <../getting-started>`.
+==============
+Conda packages
+==============
+
+.. contents::
+   :local:
+   :depth: 2
+
+.. _concept-conda-package:
+
+What is a conda package?
+========================
+
+A conda package is a compressed tarball file (.tar.bz2) or
+.conda file that contains:
+
+* system-level libraries.
+* Python or other modules.
+* executable programs and other components.
+* metadata under the ``info/`` directory.
+* a collection of files that are installed directly into an ``install`` prefix.
+
+Conda keeps track of the dependencies between packages and platforms.
+The conda package format is identical across platforms and
+operating systems.
+
+Only files, including symbolic links, are part of a conda
+package. Directories are not included. Directories are created
+and removed as needed, but you cannot create an empty directory
+from the tar archive directly.
+
+.conda file format
+==================
+
+The .conda file format was introduced in conda 4.7 as a more
+compact, and thus faster, alternative to a tarball.
+
+The .conda file format consists of an outer, uncompressed
+ZIP-format container, with 2 inner compressed .tar files.
+
+For the .conda format's initial internal compression format support,
+we chose Zstandard (zstd). The actual compression format used does not
+matter, as long as the format is supported by libarchive. The compression
+format may change in the future as more advanced compression algorithms are
+developed and no change to the .conda format is necessary. Only an updated
+libarchive would be required to add a new compression format to .conda files.
+
+These compressed files can be significantly smaller than their
+bzip2 equivalents. In addition, they decompress much more quickly.
+.conda is the preferred file format to use where available,
+although we continue to provide .tar.bz2 files in tandem.
+
+Read more about the `introduction of the .conda file format <https://www.anaconda.com/understanding-and-improving-condas-performance/>`_.
+
+.. note::
+
+  In conda 4.7 and later, you cannot use package names that
+  end in “.conda” as they conflict with the .conda file format
+  for packages.
+
+
+Using packages
+==============
+
+* You may search for packages
+
+.. code-block:: bash
+
+  conda search scipy
+
+
+* You may install a package
+
+.. code-block:: bash
+
+  conda install scipy
+
+
+* You may build a package after `installing conda-build <https://docs.conda.io/projects/conda-build/en/latest/index.html>`_
+
+.. code-block:: bash
+
+  conda build my_fun_package
+
+
+
+Package structure
+=================
+
+.. code-block:: bash
+
+  .
+  ├── bin
+  │   └── pyflakes
+  ├── info
+  │   ├── LICENSE.txt
+  │   ├── files
+  │   ├── index.json
+  │   ├── paths.json
+  │   └── recipe
+  └── lib
+      └── python3.5
+
+* bin contains relevant binaries for the package.
+
+* lib contains the relevant library files (eg. the .py files).
+
+* info contains package metadata.
+
+
+.. _meta-package:
+
+Metapackages
+============
+
+When a conda package is used for metadata alone and does not contain
+any files, it is referred to as a metapackage.
+The metapackage may contain dependencies to several core, low-level libraries
+and can contain links to software files that are
+automatically downloaded when executed.
+Metapackages are used to capture metadata and make complicated package
+specifications simpler.
+
+
+An example of a metapackage is "anaconda," which
+collects together all the packages in the Anaconda installer.
+The command ``conda create -n envname anaconda`` creates an
+environment that exactly matches what would be created from the
+Anaconda installer. You can create metapackages with the
+``conda metapackage`` command. Include the name and version
+in the command.
+
+Anaconda metapackage
+--------------------
+
+The Anaconda metapackage is used in the creation of the
+`Anaconda Distribution <https://docs.anaconda.com/anaconda/>`_
+installers so that they have a set of packages associated with them.
+Each installer release has a version number, which corresponds
+to a particular collection of packages at specific versions.
+That collection of packages at specific versions is encapsulated
+in the Anaconda metapackage.
+
+The Anaconda metapackage contains several core, low-level
+libraries, including compression, encryption, linear algebra, and
+some GUI libraries.
+
+`Read more about the Anaconda metapackage and Anaconda Distribution
+<https://www.anaconda.com/whats-in-a-name-clarifying-the-anaconda-metapackage/>`_.
+
+.. _mutex-metapackages:
+
+Mutex metapackages
+------------------
+A mutex metapackage is a very simple package that has a
+name. It need not have any dependencies or build steps.
+Mutex metapackages are frequently an "output" in a recipe
+that builds some variant of another package.
+Mutex metapackages function as a tool to help achieve mutual
+exclusivity among packages with different names.
+
+Let's look at some examples for how to use mutex metapackages
+to build NumPy against different BLAS implementations.
+
+Building NumPy with BLAS variants
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you build NumPy with MKL, you also need to build
+SciPy, scikit-learn, and anything else using BLAS
+also with MKL. It is important to ensure that these
+“variants” (packages built with a particular set of options)
+are installed together and never with an alternate BLAS
+implementation. This is to avoid crashes, slowness, or numerical problems.
+Lining up these libraries is both a build-time and an install-time concern.
+We’ll show how to use metapackages to achieve this need.
+
+Let's start with the metapackage ``blas=1.0=mkl``:
+https://github.com/AnacondaRecipes/intel_repack-feedstock/blob/e699b12/recipe/meta.yaml#L108-L112
+
+Note that ``mkl`` is a string of ``blas``.
+
+That metapackage is automatically added as a dependency
+using ``run_exports`` when someone uses the mkl-devel
+package as a build-time dependency:
+https://github.com/AnacondaRecipes/intel_repack-feedstock/blob/e699b12/recipe/meta.yaml#L124
+
+By the same token, here’s the metapackage for OpenBLAS:
+https://github.com/AnacondaRecipes/openblas-feedstock/blob/ae5af5e/recipe/meta.yaml#L127-L131
+
+And the ``run_exports`` for OpenBLAS, as part of
+openblas-devel:
+https://github.com/AnacondaRecipes/openblas-feedstock/blob/ae5af5e/recipe/meta.yaml#L100
+
+Fundamentally, conda’s model of mutual exclusivity relies on the package name.
+OpenBLAS and MKL are obviously not the same package name, and thus are not
+mutually exclusive. There’s nothing stopping conda from installing both at
+once. There’s nothing stopping conda from installing NumPy with MKL and SciPy
+with OpenBLAS. The metapackage is what allows us to achieve the mutual
+exclusivity. It unifies the options on a single package name,
+but with a different build string. Automating the addition of the
+metapackage with ``run_exports`` helps ensure the library consumers
+(package builders who depend on libraries) will have correct dependency
+information to achieve the unified runtime library collection.
+
+Installing NumPy with BLAS variants
+***********************************
+
+To specify which variant of NumPy that you want, you could potentially
+specify the BLAS library you want::
+
+  conda install numpy mkl
+
+However, that doesn’t actually preclude OpenBLAS from being chosen.
+Neither MKL nor its dependencies are mutually exclusive (meaning they
+do not have similar names and different version/build-string).
+
+This pathway may lead to some ambiguity and solutions with mixed BLAS,
+so using the metapackage is recommended. To specify MKL-powered NumPy
+in a non-ambiguous way, you can specify the mutex package (either directly
+or indirectly)::
+
+  conda install numpy “blas=*=mkl”
+
+There is a simpler way to address this, however. For example, you may want to
+try another package that has the desired mutex package as a dependency.
+
+OpenBLAS has this with its “nomkl” package:
+https://github.com/AnacondaRecipes/openblas-feedstock/blob/ae5af5e/recipe/meta.yaml#L133-L147
+
+Nothing should use “nomkl” as a dependency. It is strictly a utility for users
+to facilitate switching from MKL (which is the default) to OpenBLAS.
+
+How did MKL become the default? The solver needs a way to prioritize some packages
+over others. We achieve that with an older conda feature called track_features that originally
+served a different purpose.
+
+Track_features
+**************
+One of conda’s optimization goals is to minimize the number of track_features needed
+to specify the desired specs. By adding track_features to one or more of the options,
+conda will de-prioritize it or “weigh it down.” The lowest priority package is the one
+that would cause the most track_features to be activated in the environment. The default
+package among many variants is the one that would cause the least track_features to be activated.
+
+There is a catch, though: any track_features must be unique. No two packages can provide the
+same track_feature. For this reason, our standard practice is to attach track_features to
+the metapackage associated with what we want to be non-default.
+
+Take another look at the OpenBLAS recipe: https://github.com/AnacondaRecipes/openblas-feedstock/blob/ae5af5e/recipe/meta.yaml#L127-L137
+
+This attached track_features entry is why MKL is chosen over OpenBLAS.
+MKL does not have any track_features associated with it. If there are 3 options,
+you would attach 0 track_features to the default, then 1 track_features for the next preferred
+option, and finally 2 for the least preferred option. However, since you generally only care
+about the one default, it is usually sufficient to add 1 track_feature to all options other
+than the default option.
+
+More info
+*********
+
+For reference, the Visual Studio version alignment on Windows also uses mutex metapackages.
+https://github.com/AnacondaRecipes/aggregate/blob/9635228/vs2017/meta.yaml#L24
+
+
+.. _noarch:
+
+Noarch packages
+===============
+Noarch packages are packages that are not architecture specific
+and therefore only have to be built once. Noarch packages are
+either generic or Python. Noarch generic packages allow users to
+distribute docs, datasets, and source code in conda packages.
+Noarch Python packages are described below.
+
+Declaring these packages as ``noarch`` in the ``build`` section of
+the ``meta.yaml`` reduces shared CI resources. Therefore, all packages
+that qualify to be noarch packages should be declared as such.
+
+Noarch Python
+-------------
+The ``noarch: python`` directive in the build section
+makes pure-Python packages that only need to be built once.
+
+Noarch Python packages cut down on the overhead of building multiple
+different pure Python packages on different architectures and Python
+versions by sorting out platform and Python version-specific differences
+at install time.
+
+In order to qualify as a noarch Python package, all of the following
+criteria must be fulfilled:
+
+* No compiled extensions.
+
+* No post-link, pre-link, or pre-unlink scripts.
+
+* No OS-specific build scripts.
+
+* No Python version-specific requirements.
+
+* No skips except for Python version. If the recipe is py3 only,
+  remove skip statement and add version constraint on Python in host
+  and run section.
+
+* 2to3 is not used.
+
+* Scripts argument in setup.py is not used.
+
+* If ``console_script`` entrypoints are in setup.py,
+  they are listed in ``meta.yaml``.
+
+* No activate scripts.
+
+* Not a dependency of conda.
+
+.. note::
+   While ``noarch: python`` does not work with selectors, it does
+   work with version constraints. ``skip: True  # [py2k]`` can sometimes
+   be replaced with a constrained Python version in the host and run
+   subsections, for example: ``python >=3`` instead of just ``python``.
+
+.. note::
+   Only ``console_script`` entry points have to be listed in ``meta.yaml``.
+   Other entry points do not conflict with ``noarch`` and therefore do
+   not require extra treatment.
+
+Read more about `conda's noarch packages <https://www.anaconda.com/condas-new-noarch-packages/>`_.
+
+.. _link_unlink:
+
+Link and unlink scripts
+=======================
+
+You may optionally execute scripts before and after the link
+and unlink steps. For more information, see `Adding pre-link, post-link, and pre-unlink scripts <https://docs.conda.io/projects/conda-build/en/latest/resources/link-scripts.html>`_.
+
+.. _package_specs:
+
+More information
+================
+
+Go deeper on how to :ref:`manage packages <managing-pkgs>`.
+Learn more about package metadata, repository structure and index,
+and package match specifications at :doc:`Package specifications <../concepts/pkg-specs>`.
+==============
+Conda channels
+==============
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. _concepts-channels:
+
+What is a "conda channel"?
+==========================
+
+Conda channels are the locations where packages are stored.
+They serve as the base for hosting and managing packages.
+Conda :doc:`packages <../concepts/packages>` are downloaded
+from remote channels, which are URLs to directories
+containing conda packages.
+The ``conda`` command searches a set of channels. By default,
+packages are automatically downloaded and updated from
+the ``default`` channel https://repo.anaconda.com/pkgs/ which may require a
+paid license, as described in the `repository terms of service`_
+a commercial license. The ``conda-forge`` channel is free for all to use.
+You can modify what remote channels are automatically searched.
+You might want to do this to maintain a private or internal channel.
+For details, see how to :ref:`modify your channel lists <config-channels>`.
+
+We use conda-forge as an example channel.
+`Conda-forge <https://conda-forge.org/>`_ is a community channel
+made up of thousands of contributors. Conda-forge itself is
+analogous to PyPI but with a unified,
+automated build infrastructure and more peer review of
+recipes.
+
+.. _`repository terms of service`: https://www.anaconda.com/terms-of-service
+
+.. _specifying-channels:
+
+Specifying channels when installing packages
+============================================
+
+* From the command line use `--channel`
+
+.. code-block:: bash
+
+  $ conda install scipy --channel conda-forge
+
+You may specify multiple channels by passing the argument multiple times:
+
+.. code-block:: bash
+
+  $ conda install scipy --channel conda-forge --channel bioconda
+
+Priority decreases from left to right - the first argument is higher priority than the second.
+
+* From the command line use `--override-channels` to only search the specified channel(s), rather than any channels configured in .condarc. This also ignores conda's default channels.
+
+.. code-block:: bash
+
+  $ conda search scipy --channel file:/<path to>/local-channel --override-channels
+
+* In .condarc, use the key ``channels`` to see a list of channels for conda to search for packages.
+
+Learn more about :doc:`managing channels <../tasks/manage-channels>`.
+
+.. _rss-feed:
+
+Conda clone channel RSS feed
+============================
+
+We offer a RSS feed that represents all the things
+that have been cloned by the channel clone and are
+now available behind the CDN (content delivery network).
+The RSS feed shows what has happened on a rolling,
+two-week time frame and is useful for seeing where
+packages are or if a sync has been run.
+
+Let's look at the `conda-forge channel RSS feed <https://conda-static.anaconda.org/conda-forge/rss.xml>`_
+as an example.
+
+In that feed, it will tell you every time that it runs a sync.
+The feed includes other entries for packages that were added or
+removed. Each entry is formatted to show the subdirectory
+the package is from, the action that was taken (addition or removal),
+and the name of the package. Everything has a publishing date,
+per standard RSS practice.
+
+.. code-block:: xml
+
+  <rss version="0.91">
+    <channel>
+      <title>conda-forge updates</title>
+      <link>https://anaconda.org</link>
+      <description>Updates in the last two weeks</description>
+      <language>en</language>
+      <copyright>Copyright 2019, Anaconda, Inc.</copyright>
+      <pubDate>30 Jul 2019 19:45:47 UTC</pubDate>
+        <item>
+          <title>running sync</title>
+          <pubDate>26 Jul 2019 19:26:36 UTC</pubDate>
+        </item>
+        <item>
+          <title>linux-64:add:jupyterlab-1.0.4-py36_0.tar.bz2</title>
+          <pubDate>26 Jul 2019 19:26:36 UTC</pubDate>
+        </item>
+        <item>
+          <title>linux-64:add:jupyterlab-1.0.4-py37_0.tar.bz2</title>
+          <pubDate>26 Jul 2019 19:26:36 UTC</pubDate>
+        </item>
+===================
+Installing on macOS
+===================
+
+#. Download the installer:
+
+   * `Miniconda installer for macOS <https://conda.io/miniconda.html>`_.
+
+   * `Anaconda installer for macOS <https://www.anaconda.com/download/>`_.
+
+#. :ref:`Verify your installer hashes <hash-verification>`.
+
+#. Install:
+
+   * Miniconda---In your terminal window, run:
+
+     .. code::
+
+        bash Miniconda3-latest-MacOSX-x86_64.sh
+
+   * Anaconda---Double-click the ``.pkg`` file.
+
+#. Follow the prompts on the installer screens.
+
+   If you are unsure about any setting, accept the defaults. You
+   can change them later.
+
+#. To make the changes take effect, close and then re-open your
+   terminal window.
+
+#. Test your installation. In your terminal window or
+   Anaconda Prompt, run the command ``conda list``. A list of installed packages appears
+   if it has been installed correctly.
+
+
+.. _install-macos-silent:
+
+Installing in silent mode
+=========================
+
+.. note::
+   The following instructions are for Miniconda. For Anaconda,
+   substitute ``Anaconda`` for ``Miniconda`` in all of the commands.
+
+To run the :ref:`silent installation <silent-mode-glossary>` of
+Miniconda for macOS or Linux, specify the -b and -p arguments of
+the bash installer. The following arguments are supported:
+
+* ``-b``: Batch mode with no PATH modifications to shell scripts.
+  Assumes that you agree to the license agreement. Does not edit
+  shell scripts such as ``.bashrc``, ``.bash_profile``, ``.zshrc``, etc.
+* ``-p``: Installation prefix/path.
+* ``-f``: Force installation even if prefix ``-p`` already exists.
+
+EXAMPLE:
+
+.. code-block:: bash
+
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O ~/miniconda.sh
+    bash ~/miniconda.sh -b -p $HOME/miniconda
+
+The installer prompts “Do you wish the installer to initialize Miniconda3 by running ``conda init``?” We recommend “yes”.
+
+.. note::
+   If you enter “no”, then conda will not modify your shell scripts at all. In order to initialize after the installation process is done, first run ``source <path to conda>/bin/activate`` and then run ``conda init``.
+
+   **macOS Catalina (and later)**
+
+   If you are on macOS Catalina (or later versions), the default shell is zsh. You will instead need to run ``source <path to conda>/bin/activate`` followed by ``conda init zsh`` (to explicitly select the type of shell to initialize).
+
+Updating Anaconda or Miniconda
+==============================
+
+#. Open a terminal window.
+
+#. Navigate to the ``anaconda`` directory.
+
+#. Run ``conda update conda``.
+
+
+Uninstalling Anaconda or Miniconda
+==================================
+
+#. Open a terminal window.
+
+#. Remove the entire Miniconda install directory with::
+
+     rm -rf ~/miniconda
+
+#. OPTIONAL: Edit ``~/.bash_profile`` to remove the Miniconda
+   directory from your PATH environment variable.
+
+#. Remove the following hidden file and folders that may have
+   been created in the home directory:
+
+   * ``.condarc`` file
+   * ``.conda`` directory
+   * ``.continuum`` directory
+
+   By running::
+
+     rm -rf ~/.condarc ~/.conda ~/.continuum
+=================
+Downloading conda
+=================
+
+.. contents::
+   :local:
+   :depth: 1
+
+
+You have 3 conda download options:
+
+* `Download Anaconda <https://www.anaconda.com/download/>`_---free.
+
+* `Download Miniconda <https://conda.io/miniconda.html>`_---free.
+
+* Purchase `Anaconda Enterprise <https://www.anaconda.com/enterprise/>`_.
+
+You can download any of these 3 options with legacy Python 2.7 or
+current Python 3.
+
+You can also choose a version with a GUI or a command line
+installer.
+
+.. tip::
+   If you are unsure which option to download, choose the
+   most recent version of Anaconda3.
+   If you are on Windows or macOS, choose the version with the
+   GUI installer.
+
+
+Anaconda or Miniconda?
+======================
+
+Choose Anaconda if you:
+
+* Are new to conda or Python.
+
+* Like the convenience of having Python and over 1,500 scientific
+  packages automatically installed at once.
+
+* Have the time and disk space---a few minutes and 3 GB.
+
+* Do not want to individually install each of the packages you
+  want to use.
+
+* Wish to use a curated and vetted set of packages.
+
+Choose Miniconda if you:
+
+* Do not mind installing each of the packages you want to use
+  individually.
+
+* Do not have time or disk space to install over 1,500 packages at
+  once.
+
+* Want fast access to Python and the conda commands and you wish
+  to sort out the other programs later.
+
+
+Choosing a version of Anaconda or Miniconda
+===========================================
+
+* Whether you use Anaconda or Miniconda, select the most recent
+  version.
+
+* Select an older version from the `archive
+  <https://repo.continuum.io/archive/>`_ only if you are testing
+  or need an older version for a specific purpose.
+
+* To use conda on Windows XP, select Anaconda 2.3.0 and see
+  :doc:`../configuration/use-winxp-with-proxy`.
+
+
+GUI versus command line installer
+=================================
+
+Both GUI and command line installers are available for Windows,
+macOS, and Linux:
+
+* If you do not wish to enter commands in a terminal window,
+  choose the GUI installer.
+
+* If GUIs slow you down, choose the command line version.
+
+
+Choosing a version of Python
+============================
+
+* The last version of Python 2 is 2.7, which is included with
+  Anaconda and Miniconda.
+* The newest stable version of Python is quickly included
+  with Anaconda3 and Miniconda3.
+* You can easily set up additional versions of Python such as 3.9
+  by downloading any version and creating a new environment with
+  just a few clicks. See :doc:`../getting-started`.
+
+.. _hash-verification:
+
+Cryptographic hash verification
+===============================
+
+SHA-256 checksums are available for
+`Miniconda <https://conda.io/en/latest/miniconda_hashes.html>`_ and
+`Anaconda <https://docs.continuum.io/anaconda/install/hashes/all>`_.
+We do not recommend using MD5 verification as SHA-256 is more secure.
+
+Download the installer file and before installing verify it as follows:
+
+* Windows:
+
+  * If you have PowerShell V4 or later:
+
+    Open a PowerShell console and verify the file as follows::
+
+      Get-FileHash filename -Algorithm SHA256
+
+  * If you don't have PowerShell V4 or later:
+
+    Use the free `online verifier tool
+    <https://gallery.technet.microsoft.com/PowerShell-File-Checksum-e57dcd67>`_
+    on the Microsoft website.
+
+    #. Download the file and extract it.
+
+    #. Open a Command Prompt window.
+
+    #. Navigate to the file.
+
+    #. Run the following command::
+
+        Start-PsFCIV -Path C:\path\to\file.ext -HashAlgorithm SHA256 -Online
+
+* macOS: In iTerm or a terminal window enter ``shasum -a 256 filename``.
+
+* Linux: In a terminal window enter ``sha256sum filename``.
+-----------------------------------------
+RPM and Debian Repositories for Miniconda
+-----------------------------------------
+Conda, the package manager from Anaconda, is available as either a RedHat RPM or as a Debian package. The packages are the equivalent to the Miniconda installer which only contains conda and its dependencies. You can use yum or apt to install, uninstall and manage conda on your system. To install conda, follow the instructions for your Linux distribution.
+
+To install the RPM on RedHat, CentOS, Fedora distributions, and other RPM-based distributions such as openSUSE, download the GPG key and add a repository configuration file for conda.
+
+.. code-block:: none
+
+   # Import our GPG public key
+   rpm --import https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc
+
+   # Add the Anaconda repository
+   cat <<EOF > /etc/yum.repos.d/conda.repo
+   [conda]
+   name=Conda
+   baseurl=https://repo.anaconda.com/pkgs/misc/rpmrepo/conda
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc
+   EOF
+
+Conda is ready to install on your RPM-based distribution.
+
+.. code-block:: none
+
+   # Install it!
+   yum install conda
+   Loaded plugins: fastestmirror, ovl
+   Setting up Install Process
+   Loading mirror speeds from cached hostfile
+    * base: repo1.dal.innoscale.net
+    * extras: mirrordenver.fdcservers.net
+    * updates: mirror.tzulo.com
+   Resolving Dependencies
+   --> Running transaction check
+   ---> Package conda.x86_64 0:4.5.11-0 will be installed
+   --> Finished Dependency Resolution
+
+   Dependencies Resolved
+
+
+ ===============================================================================
+   Package         Arch        Version             Repository            Size
+
+ ===============================================================================
+   Installing:
+   conda           x86_64      4.5.11-0            conda                 73 M
+
+   Transaction Summary
+
+ ===============================================================================
+   Install   	1 Package(s)
+
+   Total download size: 73 M
+   Installed size: 210 M
+   Is this ok [y/N]:
+
+To install on Debian-based Linux distributions such as Ubuntu, download the public GPG key and add the conda repository to the sources list.
+
+.. code-block:: none
+
+   # Install our public GPG key to trusted store
+   curl https://repo.anaconda.com/pkgs/misc/gpgkeys/anaconda.asc | gpg --dearmor > conda.gpg
+   install -o root -g root -m 644 conda.gpg /usr/share/keyrings/conda-archive-keyring.gpg
+
+   # Check whether fingerprint is correct (will output an error message otherwise)
+   gpg --keyring /usr/share/keyrings/conda-archive-keyring.gpg --no-default-keyring --fingerprint 34161F5BF5EB1D4BFBBB8F0A8AEB4F8B29D82806
+
+   # Add our Debian repo
+   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/conda-archive-keyring.gpg] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main" > /etc/apt/sources.list.d/conda.list
+
+   **NB:** If you receive a Permission denied error when trying to run the above command (because `/etc/apt/sources.list.d/conda.list` is write protected), try using the following command instead:
+   echo "deb [arch=amd64 signed-by=/usr/share/keyrings/conda-archive-keyring.gpg] https://repo.anaconda.com/pkgs/misc/debrepo/conda stable main" | sudo tee -a /etc/apt/sources.list.d/conda.list
+
+Conda is ready to install on your Debian-based distribution.
+
+.. code-block:: none
+
+   # Install it!
+   apt update
+   apt install conda
+   Reading package lists... Done
+   Building dependency tree
+   Reading state information... Done
+   The following NEW packages will be installed:
+   conda
+   0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+   Need to get 76.3 MB of archives.
+   After this operation, 221 MB of additional disk space will be used.
+   Get:1 https://repo.anaconda.com/pkgs/misc/debrepo/conda stable/main amd64
+   conda amd64 4.5.11-0 [76.3 MB]
+   Fetched 76.3 MB in 10s (7733 kB/s)
+   debconf: delaying package configuration, since apt-utils is not installed
+   Selecting previously unselected package conda.
+   (Reading database ... 4799 files and directories currently installed.)
+   Preparing to unpack .../conda_4.5.11-0_amd64.deb ...
+   Unpacking conda (4.5.11-0) ...
+   Setting up conda (4.5.11-0) …
+
+Check to see if the installation is successful by typing:
+
+.. code-block:: none
+
+   source /opt/conda/etc/profile.d/conda.sh
+   conda -V
+   conda 4.5.11
+
+
+Installing conda packages with the system package manager makes it very easy
+to distribute conda across a cluster of machines running Linux without having
+to worry about any non-privileged user modifying the installation.
+Any non-privileged user simply needs to run ``source /opt/conda/etc/profile.d/conda.sh`` to use conda.
+
+Administrators can also distribute a .condarc file at /opt/conda/.condarc so that a
+predefined configuration for channels, package cache directory, and environment locations
+is pre-seeded to all users in a large organization. A sample configuration could look like:
+
+.. code-block:: none
+
+   channels:
+   defaults
+   pkg_dirs:
+   /shared/conda/pkgs
+   $HOME/.conda/pkgs
+   envs_dirs:
+   /shared/conda/envs
+   $HOME/.conda/envs
+
+These RPM and Debian packages provide another way to set up conda inside a Docker container.
+
+It is recommended to use this installation in a read-only manner and upgrade conda using the respective package manager only.
+
+If you’re new to conda, check out the documentation at https://conda.io/docs/
+===================
+Installing on Linux
+===================
+
+#. Download the installer:
+
+   * `Miniconda installer for Linux <https://docs.conda.io/en/latest/miniconda.html#linux-installers>`_.
+
+   * `Anaconda installer for Linux <https://www.anaconda.com/download/>`_.
+
+#. :ref:`Verify your installer hashes <hash-verification>`.
+
+#. In your terminal window, run:
+
+   * Miniconda:
+
+     .. code::
+
+        bash Miniconda3-latest-Linux-x86_64.sh
+
+   * Anaconda:
+
+     .. code::
+
+        bash Anaconda-latest-Linux-x86_64.sh
+
+#. Follow the prompts on the installer screens.
+
+   If you are unsure about any setting, accept the defaults. You
+   can change them later.
+
+#. To make the changes take effect, close and then re-open your
+   terminal window.
+
+#.  Test your installation. In your terminal window or
+    Anaconda Prompt, run the command ``conda list``. A list of installed packages appears
+    if it has been installed correctly.
+
+
+.. _install-linux-silent:
+
+Using with fish shell
+=========================
+
+To use conda with fish shell, run the following in your terminal:
+
+  ``conda init fish``
+
+Installing in silent mode
+=========================
+
+See the instructions for
+:ref:`installing in silent mode on macOS <install-macos-silent>`.
+
+
+Updating Anaconda or Miniconda
+==============================
+
+#. Open a terminal window.
+
+#. Run ``conda update conda``.
+
+
+Uninstalling Anaconda or Miniconda
+==================================
+
+#. Open a terminal window.
+
+#. Remove the entire Miniconda install directory with::
+
+     rm -rf ~/miniconda
+
+#. OPTIONAL: Edit ``~/.bash_profile`` to remove the Miniconda
+   directory from your PATH environment variable.
+
+#. OPTIONAL: Remove the following hidden file and folders that
+   may have been created in the home directory:
+
+   * ``.condarc`` file
+   * ``.conda`` directory
+   * ``.continuum`` directory
+
+   By running::
+
+     rm -rf ~/.condarc ~/.conda ~/.continuum
+============
+Installation
+============
+
+.. contents::
+   :local:
+   :depth: 1
+
+The fastest way to :doc:`obtain <download>` conda is to install
+:ref:`Miniconda <miniconda-glossary>`, a mini version of
+:ref:`Anaconda <anaconda-glossary>` that includes only conda and
+its dependencies. If you prefer to have conda plus over 7,500 open-source
+packages, install Anaconda.
+
+We recommend you install Anaconda for the local user, which does
+not require administrator permissions and is the most robust
+type of installation. You can also install Anaconda system wide,
+which does require administrator permissions.
+
+For information on using our graphical installers for
+Windows or macOS, see the instructions for
+`installing Anaconda <http://docs.continuum.io/anaconda/install.html>`_.
+
+.. _system-reqs:
+
+System requirements
+===================
+
+* 32- or 64-bit computer.
+
+* For Miniconda---400 MB disk space.
+
+* For Anaconda---Minimum 3 GB disk space to download and install.
+
+
+* Windows, macOS, or Linux.
+
+* For Windows: Windows 8.1 or newer for Python 3.9, or Windows Vista or newer for Python 3.8.
+
+
+.. note::
+   You do not need administrative or root permissions to
+   install Anaconda if you select a user-writable install
+   location.
+
+
+Regular installation
+====================
+
+Follow the instructions for your operating system:
+
+* :doc:`Windows <windows>`.
+* :doc:`macOS <macos>`.
+* :doc:`Linux <linux>`.
+
+
+Installing in silent mode
+=========================
+
+You can use :ref:`silent installation <silent-mode-glossary>` of
+Miniconda or Anaconda for deployment or testing or building
+services such as Travis CI and AppVeyor.
+
+Follow the silent-mode instructions for your operating system:
+
+* :ref:`Windows <install-win-silent>`.
+* :ref:`macOS <install-macos-silent>`.
+* :ref:`Linux <install-linux-silent>`.
+
+
+Installing conda on a system that has other Python installations or packages
+============================================================================
+
+You do not need to uninstall other Python installations or
+packages in order to use conda. Even if you already have a
+system Python, another Python installation from a source such as
+the macOS Homebrew package manager and globally installed
+packages from pip such as pandas and NumPy, you do not need to
+uninstall, remove, or change any of them before using conda.
+
+Install Anaconda or Miniconda normally, and let the installer
+add the conda installation of Python to your PATH environment
+variable. There is no need to set the PYTHONPATH environment
+variable.
+
+To see if the conda installation of Python is in your PATH
+variable:
+
+* On Windows, open an Anaconda Prompt and run---``echo %PATH%``.
+
+* On macOS and Linux, open the terminal and run---``echo $PATH``.
+
+To see which Python installation is currently set as the default:
+
+* On Windows, open an Anaconda Prompt and run---``where python``.
+
+* On macOS and Linux, open the terminal and run---``which python``.
+
+To see which packages are installed in your current conda
+environment and their version numbers, in your terminal window
+or an Anaconda Prompt, run ``conda list``.
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   download
+   windows
+   macos
+   linux
+   rpm-debian
+=====================
+Installing on Windows
+=====================
+
+#. Download the installer:
+
+   * `Miniconda installer for
+     Windows <https://conda.io/miniconda.html>`_.
+
+   * `Anaconda installer for
+     Windows <https://www.anaconda.com/download/>`_.
+
+#. :ref:`Verify your installer hashes <hash-verification>`.
+
+#. Double-click the ``.exe`` file.
+
+#. Follow the instructions on the screen.
+
+   If you are unsure about any setting, accept the defaults. You
+   can change them later.
+
+   When installation is finished, from the **Start** menu, open the
+   Anaconda Prompt.
+
+#. Test your installation. In your terminal window or
+   Anaconda Prompt, run the command ``conda list``. A list of installed packages appears
+   if it has been installed correctly.
+
+
+.. _install-win-silent:
+
+Installing in silent mode
+=========================
+
+.. note::
+   The following instructions are for Miniconda. For Anaconda,
+   substitute ``Anaconda`` for ``Miniconda`` in all of the commands.
+
+To run the the Windows installer for Miniconda in
+:ref:`silent mode <silent-mode-glossary>`, use the ``/S``
+argument. The following optional arguments are supported:
+
+* ``/InstallationType=[JustMe|AllUsers]``---Default is ``JustMe``.
+* ``/AddToPath=[0|1]``---Default is ``0``
+* ``/RegisterPython=[0|1]``---Make this the system's default
+  Python.
+  ``0`` indicates ``JustMe``, which is the default. ``1``
+  indicates ``AllUsers``.
+* ``/S``---Install in silent mode.
+* ``/D=<installation path>``---Destination installation path.
+  Must be the last argument. Do not wrap in quotation marks.
+  Required if you use ``/S``.
+
+All arguments are case-sensitive.
+
+EXAMPLE: The following command installs Miniconda for the
+current user without registering Python as the system's default:
+
+.. code-block:: bat
+
+   start /wait "" Miniconda3-latest-Windows-x86_64.exe /InstallationType=JustMe /RegisterPython=0 /S /D=%UserProfile%\Miniconda3
+
+
+Updating conda
+==============
+
+#. Open your Anaconda Prompt from the start menu.
+
+#. Navigate to the ``anaconda`` directory.
+
+#. Run ``conda update conda``.
+
+
+Uninstalling conda
+==================
+
+#. In the Windows Control Panel, click Add or Remove Program.
+
+#. Select Python X.X (Miniconda), where X.X is your version of Python.
+
+#. Click Remove Program.
+
+.. note::
+   Removing a program is different in Windows 10.
+using/pkgs
+==========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/tasks/manage-pkgs.html'" /></head><body></body></html>
+using/using
+===========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/tasks/manage-conda.html'" /></head><body></body></html>
+using/index
+===========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/tasks/index.html'" /></head><body></body></html>
+using/test-drive
+================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/getting-started.html'" /></head><body></body></html>
+using/envs
+==========
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/tasks/manage-environments.html'" /></head><body></body></html>
+using/cheatsheet
+================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/cheatsheet.html'" /></head><body></body></html>
+install/full
+============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/install/index.html'" /></head><body></body></html>
+install/central
+===============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/configuration/admin-multi-user-install.html'" /></head><body></body></html>
+install/quick
+=============
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/install/index.html'" /></head><body></body></html>
+install/tab-completion
+======================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/configuration/enable-tab-completion.html'" /></head><body></body></html>
+install/sample-condarc
+======================
+
+.. raw:: html
+
+        <html><head><meta http-equiv="refresh" content="0; URL='../user-guide/configuration/sample-condarc.html'" /></head><body></body></html>
+``conda.api.Solver``
+====================
+
+.. py:module:: conda.core.solve
+
+.. autoclass:: DepsModifier
+   :members:
+   :undoc-members:
+
+.. autoclass:: Solver
+   :members:
+Conda Python API
+================
+
+As of conda 4.4, conda can be installed in any environment, not just environments with names starting with _ (underscore). That change was made, in part, so that conda can be used as a Python library.
+
+There are 3 supported public modules. We support:
+
+#. import conda.cli.python_api
+#. import conda.api
+#. import conda.exports
+
+The first 2 should have very long-term stability. The third is guaranteed to be stable throughout the lifetime of a feature release series--i.e. minor version number.
+
+As of conda 4.5, we do not support ``pip install conda``. However, we are considering that as a supported bootstrap method in the future.
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents
+
+   solver
+   python_api
+   api
+``conda.cli.python_api``
+========================
+
+.. py:module:: conda.cli.python_api
+
+.. autoclass:: Commands
+   :members:
+   :undoc-members:
+
+.. autofunction:: run_command
+``conda.api``
+==============
+
+.. py:module:: conda.api
+
+.. autoclass:: Solver
+   :members:
+   :undoc-members:
+
+.. autoclass:: SubdirData
+  :members:
+  :undoc-members:
+
+.. autoclass:: PackageCacheData
+  :members:
+  :undoc-members:
+
+.. autoclass:: PrefixData
+  :members:
+  :undoc-members:
+===============
+Developer guide
+===============
+
+.. toctree::
+   :maxdepth: 2
+
+   contributing
+   ../architecture

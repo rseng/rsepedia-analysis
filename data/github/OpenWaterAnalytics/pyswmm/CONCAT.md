@@ -428,3 +428,1023 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+PYSWMM
+======
+
+*Python Wrapper for Stormwater Management Model (SWMM5)*
+
+Documentation
+	http://pyswmm.readthedocs.io/en/latest/
+Development
+	https://github.com/OpenWaterAnalytics/pyswmm/
+PySWMM Wiki
+	https://github.com/OpenWaterAnalytics/pyswmm/wiki/
+Cite our Paper
+	McDonnell, Bryant E., Ratliff, Katherine M., Tryby, Michael E., Wu, Jennifer Jia Xin, & Mullapudi, Abhiram. (2020). PySWMM: The Python Interface to Stormwater Management Model (SWMM). *Journal of Open Source Software, 5*\ (52), 2292, https://doi.org/10.21105/joss.02292
+
+Build status
+------------
+|appveyor status| |travisci status|
+
+Project information
+-------------------
+|docs| |license| |pypi version| |downloads| |cite|
+
+.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/gm3ci07gmkoyaeol/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/bemcdonnell/pyswmm
+   :alt: Appveyor build status
+.. |travisci status| image:: https://travis-ci.org/OpenWaterAnalytics/pyswmm.svg?branch=master
+   :target: https://travis-ci.org/OpenWaterAnalytics/pyswmm
+   :alt: Travis-CI build status
+.. |downloads| image:: https://img.shields.io/badge/dynamic/json.svg?label=Downloads&url=https%3A%2F%2Fpypistats.org%2Fapi%2Fpackages%2Fpyswmm%2Frecent&query=%24.data.last_month&colorB=green&suffix=%20last%20month
+   :target: https://pypi.python.org/pypi/pyswmm/
+   :alt: PyPI Monthly Downloads
+.. |license| image:: https://img.shields.io/pypi/l/pyswmm.svg
+   :target: LICENSE.txt
+   :alt: License
+.. |pypi version| image:: https://img.shields.io/pypi/v/pyswmm.svg
+   :target: https://pypi.python.org/pypi/pyswmm/
+   :alt: Latest PyPI version
+.. |docs| image:: https://readthedocs.org/projects/pyswmm/badge/?version=latest
+   :target: http://pyswmm.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+.. |cite| image:: https://joss.theoj.org/papers/10.21105/joss.02292/status.svg
+   :target: https://doi.org/10.21105/joss.02292
+   :alt: Cite our Paper
+
+
+YouTube Examples
+----------------
+Stream Results and Adjust Weir Setting
+	.. image:: http://img.youtube.com/vi/U5Z0NXTEjHE/0.jpg
+	  :target: http://www.youtube.com/watch?v=U5Z0NXTEjHE
+
+Overview
+--------
+
+PySWMM is a Python language software package for the creation,
+manipulation, and study of the structure, dynamics, and function of complex networks.
+
+With PySWMM you can load and manipulate USEPA Stormwater Management Models.
+With the development of PySWMM, control algorithms can now be developed exclusively
+in Python which allows the use of functions and objects as well as storing and
+tracking hydraulic trends for control actions.
+
+As of version v1.1.0, PySWMM includes new features to proccess metadata and timeseries
+stored in SWMM binary output file.
+
+Who uses PySWMM?
+----------------
+
+PySWMM is used by engineers, modelers, and researchers who want to streamline
+stormwater modeling optimization, controls, and post-processing results.
+
+Goals
+-----
+PySWMM is intended to provide
+
+-  tools for the study of the structure and
+   dynamics within USEPA SWMM5,
+
+-  a standard programming interface and graph implementation that is suitable
+   for many applications,
+
+-  a rapid development environment for collaborative, multidisciplinary
+   projects,
+
+-  an interface to USEPA SWMM5,
+
+-  development and implementation of control logic outside of native EPA-SWMM Controls,
+
+-  methods for users to establish their own node inflows,
+
+-  a coding interface to binary output files,
+
+-  new modeling possibilities for the SWMM5 Community.
+
+Download
+--------
+
+Get the latest version of PySWMM from
+https://pypi.python.org/pypi/pyswmm/
+
+::
+
+	$ pip install pyswmm
+
+To get the git version do
+
+::
+
+	$ git clone https://github.com/OpenWaterAnalytics/pyswmm.git
+
+
+Usage
+-----
+
+A quick example that steps through a simulation:
+
+Examples:
+
+Intialize using with statement.  This automatically cleans up
+after a simulation
+
+>>> from pyswmm import Simulation
+>>>
+>>> with Simulation('model.inp') as sim:
+...     for ind in sim:
+...         pass
+
+
+Initialize the simulation and execute.  This style does not allow
+the user to interact with the simulation.  However, this approach
+tends to be the fastest.
+
+>>> from pyswmm import Simulation
+>>>
+>>> sim = Simulation('model.inp')
+>>> sim.execute()
+
+
+Intialize a simulation and iterate through a simulation. This
+approach requires some clean up.
+
+>>> from pyswmm import Simulation
+>>>
+>>> sim = Simulation('model.inp')
+>>> for ind in sim:
+...     pass
+>>>
+>>> sim.close()
+
+Opening a SWMM binary output file and accessing model metadata and 
+timeseries.
+
+>>> from swmm.toolkit.shared_enum import SubcatchAttribute, NodeAttribute, LinkAttribute
+>>> from pyswmm import Output
+>>>
+>>> with Output('model.out') as out:
+...     print(len(out.subcatchments))
+...     print(len(out.nodes))
+...     print(len(out.links))
+...     print(out.version)
+...     sub_ts = out.subcatch_series('S1', SubcatchAttribute.RUNOFF_RATE)
+...     node_ts = out.node_series('J1', NodeAttribute.INVERT_DEPTH)
+...     link_ts = out.link_series('C2', LinkAttribute.FLOW_RATE)
+
+Bugs
+----
+
+Our issue tracker is at https://github.com/OpenWaterAnalytics/pyswmm/issues.
+Please report any bugs that you find.  Or, even better, fork the repository on
+GitHub and create a pull request.  All changes are welcome, big or small, and we
+will help you make the pull request if you are new to git
+(just ask on the issue).
+
+Contributing
+------------
+Please check out our Wiki https://github.com/OpenWaterAnalytics/pyswmm/wiki
+for more information on contributing, including an Author Contribution Checklist.
+
+License
+-------
+
+Distributed with a BSD2 license; see LICENSE.txt::
+
+   Copyright (C) 2014 PySWMM Developers
+   Bryant E. McDonnell <bemcdonnell@gmail.com>
+
+Powered By
+----------
+
+EmNet, a Xylem Brand:
+	.. image:: https://media-exp1.licdn.com/dms/image/C4D0BAQHaKTsKSWX1_w/company-logo_200_200/0/1519922058017?e=2159024400&v=beta&t=qYRoPhFhmfiuNBU36Y_Qxwy3Kcg1ZF_ud0YeUCz0VT4
+	  :target: http://emnet.net/
+
+Open Storm:
+    .. image:: https://avatars2.githubusercontent.com/u/28744644?v=3&s=200
+      :target: http://open-storm.org/
+
+Acknowledgements
+----------------
+
+- Tim Cera
+- Assela Pathirana
+--------
+Download
+--------
+
+Software
+~~~~~~~~
+
+Source and binary releases: http://pypi.python.org/pypi/pyswmm/
+
+Github (latest development): https://github.com/OpenWaterAnalytics/pyswmm
+
+*******
+Authors
+*******
+
+Maintainers
+===========
+
+- Bryant E. McDonnell
+- Katherine Ratliff
+- Jennifer Wu
+
+
+Authors with Copyrighted Contributions
+======================================
+
+- Bryant E. McDonnell
+- Jennifer Wu
+- Gonzalo Peña-Castellanos
+- Stephen Roberts
+- Abhiram Mullapudi
+- Jiada Li
+
+
+Authors with Contributions in the Public Domain
+===============================================
+
+- Michael Tryby
+- Katherine Ratliff
+..  -*- coding: utf-8 -*-
+
+Overview
+========
+
+PySWMM is a Python language software package for the creation, 
+manipulation, and study of the structure, dynamics, and function of complex networks.  
+
+With PySWMM you can load and manipulate USEPA Stormwater Management Models. 
+With the development of PySWMM, control algorithms can now be developed exclusively 
+in Python which allows the use of functions and objects as well as storing and 
+tracking hydraulic trends for control actions.
+
+
+Who uses PySWMM?
+----------------
+
+PySWMM is used by engineers, modelers, and researchers who want to streamline 
+stormwater modeling optimization, controls, and post-processing results. 
+  
+Goals
+-----
+PySWMM is intended to provide
+
+-  tools for the study of the structure and
+   dynamics within USEPA SWMM5,
+
+-  a standard programming interface and graph implementation that is suitable
+   for many applications, 
+
+-  a rapid development environment for collaborative, multidisciplinary
+   projects,
+
+-  an interface to USEPA SWMM5, 
+
+-  development and implementation of control logic outside of native EPA-SWMM Controls,
+
+-  methods for users to establish their own node inflows,
+
+-  a coding interface to binary output files, 
+
+-  new modeling possibilities for the SWMM5 Community.
+
+Powered By
+----------
+
+.. |emnet| image:: https://media-exp1.licdn.com/dms/image/C4D0BAQHaKTsKSWX1_w/company-logo_200_200/0/1519922058017?e=2159024400&v=beta&t=qYRoPhFhmfiuNBU36Y_Qxwy3Kcg1ZF_ud0YeUCz0VT4
+  :target: http://emnet.net/
+  
+
+.. |openstorm| image:: https://avatars2.githubusercontent.com/u/28744644?v=3&s=200
+  :target: http://open-storm.org/
+
++---------+-------------+
+| |emnet| | |openstorm| |
++---------+-------------+  
+ 
+Free software
+-------------
+
+PySWMM is free software; you can redistribute it and/or
+modify it under the terms of the :doc:`BSD License </reference/legal>`.
+We welcome contributions from the community.  Information on
+PySWMM development is found at the PySWMM Github Page
+https://github.com/OpenWaterAnalytics/pyswmm
+
+
+What Next
+^^^^^^^^^
+
+ - :doc:`A Brief Tour </tutorial/tutorial>`
+
+ - :doc:`Installing </install>`
+
+ - :doc:`Reference </reference/index>`
+
+ - :doc:`Examples </examples/index>`
+.. _contents
+
+PySWMM documentation
+====================
+
+.. only:: html
+
+    :Release: |version|
+    :Date: |today|
+
+
+
+.. toctree::
+   :maxdepth: 2
+
+   overview
+   download
+   authors
+   install
+   tutorial/index
+   reference/index
+   examples/index
+   cite
+
+.. only:: html
+
+Powered By
+==========
+.. |emnet| image:: https://ideacenter.nd.edu/assets/269492/1200x630/emnet_xylem.png
+  :target: http://emnet.net/
+
+
+.. |openstorm| image:: https://avatars2.githubusercontent.com/u/28744644?v=3&s=200
+  :target: http://open-storm.org/
+
++---------+-------------+
+| |emnet| | |openstorm| |
++---------+-------------+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+* :ref:`glossary`
+**********
+Installing
+**********
+
+Installing with pip
+===================
+Try to install it with
+
+::
+
+   pip install pyswmm
+
+and an attempt will be made to find and install an appropriate version
+that matches your operating system and Python version.
+
+You can also get pyswmm from the Python Package Index manually
+at http://pypi.python.org/pypi/pyswmm
+To use pip, you need to have `setuptools <https://pypi.python.org/pypi/setuptools>`_ installed.
+
+Requirements
+============
+
+Python
+------
+
+To use PySWMM you need Python 3.6 or greater.
+***********
+How to Cite
+***********
+
+Cite our Paper
+==============
+
+Please acknowledge use of PySWMM by citing our paper:
+
+- McDonnell, Bryant E., Ratliff, Katherine M., Tryby, Michael E., Wu, Jennifer Jia Xin, & Mullapudi, Abhiram. (2020). PySWMM: The Python Interface to Stormwater Management Model (SWMM). *Journal of Open Source Software, 5*\ (52), 2292, https://doi.org/10.21105/joss.02292
+
+Projects using PySWMM (Newest on top)
+=====================================
+- Oberascher, M., Kinzel, C., Kastlunger, U., Kleidorfer, M., Zingerle, C., Rauch, W., Sitzenfrei, R., 2021. Integrated urban water management with micro storages developed as an IoT-based solution – the smart rain barrel. Environmental Modelling & Software, 105028. https://doi.org/10.1016/j.envsoft.2021.105028.
+- Li, J., Burian, S., & Oroza, C. (2019). Exploring the Potential for Simulating System-Level Controlled Smart Stormwater System. In *World Environmental and Water Resources Congress 2019: Water, Wastewater, and Stormwater; Urban Water Resources; and Municipal Water Infrastructure* (pp. 46-56). Reston, VA: American Society of Civil Engineers. https://ascelibrary.org/doi/abs/10.1061/9780784482360.006
+- Sadler, J. M., Goodall, J. L., Behl, M., Morsy, M. M., Culver, T. B., & Bowes, B. D. (2019). Leveraging open source software and parallel computing for model predictive control of urban drainage systems using EPA-SWMM5. *Environmental Modelling & Software*, 120, 104484. https://doi.org/10.1016/j.envsoft.2019.07.009
+- Ratliff, K. M., McDonnell, B., Tryby, M., & Mikelonis, A. (2018). Expanding the EPA Storm Water Management Model (SWMM5) API for Tracking Contamination in Urban Environments. In *AGU Fall Meeting Abstracts*.
+..  -*- coding: utf-8 -*-
+
+
+Start here to begin working with pyswmm.
+
+The pyswmm package allows seamless interaction with the USEPA-SWMM5
+data model.  Parameter getters/setters and results getters have been
+exposed, allowing the user to see results while a simulation is
+running as well as update link settings.
+
+Loading a Model
+---------------
+
+There are three options to load a model. If there is no desire to
+interact with the simulation then the simplest way to run the
+model is the following:
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation
+	>>>
+	>>> sim = Simulation('./testmodel.inp')
+	>>> sim.execute()
+
+
+The following method allows the user to read in a model and
+manually step through the simulation and get/set parameters and
+results.  This scenario is the cleanest solution using a
+with statement. It automatically cleans up after the
+simulation is complete.
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation
+	>>>
+	>>> with Simulation('./testmodel.inp') as sim:
+	... 	for step in sim:
+	... 		pass
+
+One feature that pyswmm adds to the modeling world is the simulation
+stride function ``step_advance``.  Assuming a user has developed all
+of their control rules in in a Python script, to reduce simulation
+time a user can specify how often Python controls should be evaluated.
+
+For example, let's assume ``testmodel.inp`` has a 30 second routing step
+(using the dynamic wave solver, this step could vary significantly).  If
+complex control scenarios are developed, evaluating rules could add
+significant time to the simulation.
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation
+	>>>
+	>>> with Simulation('testmodel.inp') as sim:
+	... 	sim.step_advance(300)
+	... 	for step in sim:
+	... 		print(sim.current_time)
+	... 		# or here! sim.step_advance(newvalue)
+
+	2015-11-01 14:05:00
+	2015-11-01 14:10:00
+	2015-11-01 14:15:00
+	2015-11-01 14:20:00
+
+Nodes
+-----
+
+For interacting with nodes a :py:class:`pyswmm.nodes.Nodes` object must be initialized.
+See the following example. Once the ``Nodes`` object is initialized,
+you can then initialize a :py:class:`pyswmm.nodes.Node`
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, Nodes
+	>>>
+	>>> with Simulation('./testmodel.inp') as sim:
+	... 	node_object = Nodes(sim)
+	...
+	... 	#J1 node instantiation
+	... 	J1 = node_object["J1"]
+	... 	print(J1.invert_elevation)
+	... 	print(J1.is_junction())
+	...
+	... 	#Step through a simulation
+	... 	for step in sim:
+	... 		print(J1.total_inflow)
+	...
+
+
+Links
+-----
+
+For interacting with links a :py:class:`pyswmm.links.Links` object must be initialized.
+See the following example. Once the ``Links`` object is initialized,
+you can then initialize a :py:class:`pyswmm.links.Link`
+
+.. code-block:: python
+
+
+	>>> from pyswmm import Simulation, Links
+	>>>
+	>>> with Simulation('./testmodel.inp') as sim:
+	... 	link_object = Links(sim)
+	...
+	... 	#C1:C2 link instantiation
+	... 	c1c2 = link_object["C1:C2"]
+	... 	print(c1c2.flow_limit)
+	... 	print(c1c2.is_conduit())
+	...
+	... 	#Step through a simulation
+	... 	for step in sim:
+	... 		print(c1c2.flow)
+	... 		if c1c2.flow > 10.0:
+	... 			c1c2.target_setting = 0.5
+	...
+
+
+Subcatchments
+-------------
+
+For interacting with subcatchments a :py:class:`pyswmm.subcatchments.Subcatchments`
+object must be initialized. See the following example. Once the ``Subcatchments`` object is initialized,
+you can then initialize a :py:class:`pyswmm.subcatchments.Subcatchment`
+
+.. code-block:: python
+
+
+	>>> from pyswmm import Simulation, Subcatchments
+	>>>
+	>>> with Simulation('./testmodel.inp') as sim:
+	... 	subcatch_object = Subcatchments(sim)
+	...
+	... 	#SC1 subcatchment instantiation
+	... 	SC1 = subcatch_object["S1"]
+	... 	print(SC1.area)
+	...
+	... 	#Step through a simulation
+	... 	for step in sim:
+	... 		print(SC1.runoff)
+	...
+
+
+In the example above we introduce the option to change a link's settings.
+
+PySWMM Controls
+---------------
+
+The pyswmm package exposes new possibility in interfacing with models.  All control
+rules can now be removed from USEPA SWMM5 and brought into Python.  Now that this
+functionality exists, open-source Python packages can now be used in conjunction
+with pyswmm to bring even more complex control routines.
+
+The following example illustrates the use of functions for
+comparing two depths.
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, Links, Nodes
+	>>>
+	>>> def TestDepth(node, node2):
+	>>> 	if node > node2:
+	>>> 		return True
+	>>> 	else:
+	>>> 		return False
+	>>>
+	>>> with Simulation('./testmodel.inp') as sim:
+	... 	link_object = Links(sim)
+	...
+	... 	#C1:C2 link instantiation
+	... 	c1c2 = link_object["C1:C2"]
+	...
+	... 	node_object = Nodes(sim)
+	... 	#J1 node instantiation
+	... 	J1 = node_object["J1"]
+	... 	#J2 node instantiation
+	... 	J2 = node_object["J2"]
+	...
+	... 	#Step through a simulation
+	... 	for step in sim:
+	... 		if TestDepth(J1.depth, J2.depth):
+	... 			c1c2.target_setting = 0.5
+	...
+
+If an EPA-SWMM5 Model has existing control actions within, any control
+rules developed using pyswmm will have the highest priority.  All pyswmm
+control actions are evaluated at the end of each simulation step, after
+EPA-SWMM native controls have been evaluated.  If control actions are reported,
+any control action updated by pyswmm will be output to the *.rpt file.
+
+
+Generate Node Inflows
+---------------------
+
+Among the newest features pyswmm brings to SWMM5 modeling is the ability to
+set a node's inflow.  This can enable the user to model different behavior such as
+runoff or seasonality.
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, Nodes
+	>>>
+	>>> with Simulation('/testmodel.inp') as sim:
+	... 	j1 = Nodes(sim)["J1"]
+	... 	for step in sim:
+	... 		j1.generated_inflow(9)
+    
+    
+Access SWMM Output Binary File
+---------------------
+As of pyswmm version v1.1.0, the Output module provides the ability to process 
+timeseries and metadata in the SWMM output binary file. This feature enables the user to 
+access data in the binary file without re-running the simulation.
+
+To access a SWMM outfile, you need to initialize a :py:class:`pyswmm.output.Output` object.
+Once the ``Output`` object is initialized, you can use pre-defined methods to access data in the binary file.
+
+The following example opens a SWMM output binary file and identifies the number of subcatchments, nodes,
+and links and the SWMM engine used to generate the binary file. 
+
+.. code-block:: python
+
+    >>> from pyswmm import Output
+    >>>
+    >>> with Output('tests/data/model_full_features.out') as out:
+    ...     print(len(out.subcatchments))
+    ...     print(len(out.nodes))
+    ...     print(len(out.links))
+    ...     print(out.version)
+
+The next example opens a SWMM output binary file and gets the entire depth timeseries for node `J1` stored in the 
+binary file using :py:class:`pyswmm.output.Output.node_series` method.
+
+.. code-block:: python
+
+        >>> from swmm.toolkit.shared_enum import NodeAttribute
+        >>> from pyswmm import Output
+        >>>
+        >>> with Output('tests/data/model_full_features.out') as out:
+        ...     ts = out.node_series('J1', NodeAttribute.INVERT_DEPTH, datetime(2015, 11, 1, 15), datetime(2015, 11, 1, 16))
+        ...     for index in ts:
+        ...         print(index, ts[index])
+        >>> 2015-11-01 15:00:00 15.0
+        >>> 2015-11-01 15:01:00 15.0
+        >>> 2015-11-01 15:02:00 15.0
+        >>> 2015-11-01 15:03:00 15.0
+
+The :py:class:`pyswmm.output.Output.node_series` method allows the user to access all timeseries types for node objects such as INVERT_DEPTH, HYDRAULIC_HEAD, 
+PONDED_VOLUME, LATERAL_INFLOW, TOTAL_INFLOW, and FLOODING_LOSSES. If pollutants are defined in the simulation, the concentration 
+timeseries can be accessed using POLLUT_CONC_0.
+
+Lid Controls
+---------------------
+For interacting with lid controls a :py:class:`pyswmm.lidcontrols.LidControls`
+object must be initialized. See the following example. Once the ``LidControls`` object is initialized,
+you can then initialize a :py:class:`pyswmm.lidcontrols.LidControl`. Once the ``LidControl`` object is initialized, 
+you can then interact with the parameters defined in each layers within an Lid Control: ``Surface``, ``Soil``, 
+``Storage``, ``Pavement``, ``Drain``, ``DrainMat``. 
+
+The layers parameters that can be accessed using PySWMM are listed in the table below.
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, LidControls
+	>>>
+	>>> with Simulation('/testmodel.inp') as sim:
+	... 	rain_barrel = LidControls(sim)["rain_barrel"]
+	... 	print(rain_barrel.drain.coefficient)
+	... 	rain_barrel.drain.coefficient = 0.60
+	... 	print(rain_barrel.drain.coefficient)    
+    
+All LidControl parameters can be accessed before and during model simulations. 
+All LidControl parameters can be set before model simulation. Only some LidControl parameters can be set 
+during model simulation.
+
+
+Lid Groups
+---------------------
+For interacting with group of lids defined on a subcatchment :py:class:`pyswmm.lidgroups.LidGroups`
+object must be initialized. See the following example. Once the ``LidGroups`` object is initialized,
+you can then initialize a :py:class:`pyswmm.lidgroups.LidGroup`. Once the ``LidGroup`` object is initialized, 
+you can then interact with the lid units defined on the subcatchment. You can iterate through the list of lid units 
+using the LidGroup object. 
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, LidGroups
+	>>>
+	>>> with Simulation('/testmodel.inp') as sim:
+	... 	lid_on_sub = LidGroups(sim)["subcatch_id"]
+	... 	for lid in lid_on_sub:
+	... 		print(lid)
+	... 	print(lid_on_sub[0])
+	... 	for step in sim:
+	... 		print(lid_on_sub.old_drain_flow)
+    
+
+Lid Units
+---------------------
+For interacting with group of lids defined on a subcatchment :py:class:`pyswmm.lidgroups.LidGroups`
+object must be initialized. See the example above. Once the ``LidGroups`` object is initialized,
+you can then initialize a :py:class:`pyswmm.lidgroups.LidGroup`. Once the ``LidGroup`` object is initialized, 
+you can then interact with the lid units defined on the subcatchment. You can iterate through the list of lid units 
+using the LidGroup object. 
+
+.. code-block:: python
+
+	>>> from pyswmm import Simulation, LidGroups
+	>>>
+	>>> with Simulation('/testmodel.inp') as sim:
+	... 	lid_on_sub = LidGroups(sim)["subcatch_id"]
+	... 	for lid in lid_on_sub:
+	... 		print(lid)
+	... 	print(lid_on_sub[0])
+	... 	for step in sim:
+	... 		print(lid_on_sub.WaterBalance.inflow)
+	... 		print(lid_on_sub.WaterBalance.evaporation)
+    
+All LidUnits parameters can be accessed before and during model simulations. 
+All LidUnits parameters can be set before model simulation. Only some LidUnits parameters can be set 
+during model simulation.
+..  -*- coding: utf-8 -*-
+
+********
+Tutorial
+********
+
+.. toctree::
+   :maxdepth: 2
+
+   tutorial
+
+**What Next**
+
+
+Now that you have an idea of what the PySWMM package provides,
+you should investigate the parts of the package most useful for
+you.  
+
+:doc:`Reference Section</reference/index>` provides details on PySWMM.
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.raingages
+
+raingages module
+================
+
+.. automodule:: pyswmm.raingages
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.system
+
+system module
+=============
+
+.. automodule:: pyswmm.system
+    :members: SystemStats
+    :undoc-members:
+    :show-inheritance:..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.lidcontrols
+
+lidcontrols module
+==================
+
+.. automodule:: pyswmm.lidcontrols
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.lidunits
+
+lidunits module
+===============
+
+.. automodule:: pyswmm.lidunits
+    :members:
+    :undoc-members:
+    :show-inheritance:
+toolkitapi module
+=================
+
+.. automodule:: toolkitapi
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.output
+
+output module
+=================
+
+.. automodule:: pyswmm.output
+    :members: 
+    :undoc-members:
+    :show-inheritance:License
+=======
+PySWMM is distributed with the BSD-2 license.
+
+::
+
+   Copyright (C) 2014-, See AUTHORS
+   Bryant E. McDonnell <bemcdonnell@gmail.com>
+   All rights reserved.
+
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are
+   met:
+
+     * Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+
+     * Redistributions in binary form must reproduce the above
+       copyright notice, this list of conditions and the following
+       disclaimer in the documentation and/or other materials provided
+       with the distribution.
+
+   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+   "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+   LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+   A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+   OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+   LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.lidgroups
+
+lidgroups module
+================
+
+.. automodule:: pyswmm.lidgroups
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.nodes
+
+nodes module
+============
+
+.. automodule:: pyswmm.nodes
+    :members: Nodes, Node, Outfall, Storage
+    :undoc-members:
+    :show-inheritance:swmm5 module
+============
+
+.. automodule:: swmm5
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.links
+
+links module
+============
+
+.. automodule:: pyswmm.links
+    :members: Links, Link, Conduit, Pump
+    :undoc-members:
+    :show-inheritance:..  -*- coding: utf-8 -*-
+
+Reference
+*********
+.. only:: html
+
+   :Release: |release|
+   :Date: |today|
+
+
+.. toctree::
+   :maxdepth: 2
+
+   introduction
+   simulation
+   nodes
+   links
+   lidcontrols
+   lidgroups
+   lidlayers
+   lidunits
+   raingages
+   subcatchments
+   system
+   output
+   lib
+   legal
+
+.. only:: html
+lib module
+============
+
+.. automodule:: lib
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..  -*- coding: utf-8 -*-
+
+Introduction
+~~~~~~~~~~~~
+.. currentmodule:: pyswmm
+
+.. only:: html
+
+
+
+
+PySWMM Basics
+-------------
+
+After starting Python, import the pyswmm module with
+
+>>> from pyswmm import Simulation
+
+To save repetition, in the documentation we assume that 
+PySWMM has been imported this way.
+
+If importing pyswmm fails, it means that Python cannot find the installed
+module. Check your installation and your PYTHONPATH.
+
+The following simulation classes are available:
+
+:class:`Simulation`
+   This class initializes a simulation object from a SWMM input file (*.inp).
+
+Initialize a SWMM Model with
+
+>>> sim = Simulation(r"./example.inp")
+
+Once a model is initialized, there are several options available to 
+run a simulation as well as edit the simulation. 
+..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.simulation
+
+simulation module
+=================
+
+.. automodule:: pyswmm.simulation
+    :members: 
+    :undoc-members:
+    :show-inheritance:..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.subcatchments
+
+subcatchments module
+====================
+
+.. automodule:: pyswmm.subcatchments
+    :members: Subcatchments, Subcatchment
+    :undoc-members:
+    :show-inheritance:..  -*- coding: utf-8 -*-
+
+.. currentmodule:: pyswmm.lidlayers
+
+lidlayers module
+================
+
+.. automodule:: pyswmm.lidlayers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+..	-*- coding: utf-8 -*-
+
+
+Be sure to download the :download:`SWMM5 model 
+</examples/swmm_example.inp>` before running the examples.
+
+
+Printing Subcatchment Runoff
+----------------------------
+
+The following example prints subcatchment runoff values throughout
+a simulation.
+
+.. literalinclude:: print_runoff.py
+
+Download this example file :download:`here</examples/print_runoff.py>`.
+
+Saving to a CSV File
+--------------------
+
+The following example saves subcatchment pollutant buildup to a
+CSV file within a subdirectory at specified saving times.
+
+.. literalinclude:: save_buildup.py
+
+Download this example file :download:`here</examples/save_buildup.py>`.
+..  -*- coding: utf-8 -*-
+
+Examples
+*********
+
+.. toctree::
+   :maxdepth: 2
+
+   examples
+
+See the :doc:`Tutorial </tutorial/tutorial>` for a guided tour
+on using PySWMM.
+
+The :doc:`Reference Section </reference/index>` provides details on PySWMM.

@@ -2371,3 +2371,238 @@ It emulates the scenario of the metaphysiological model by Norman Owen-Smith \ci
 \copyright <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a> This software documentation is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 \author Wolfgang Traylor, Senckenberg BiK-F
 \date 2019
+<!--
+SPDX-FileCopyrightText: 2020 Wolfgang Traylor <wolfgang.traylor@senckenberg.de>
+
+SPDX-License-Identifier: CC0-1.0
+-->
+
+# Modular Megafauna Output
+
+```{r setup, include = FALSE}
+# Installing packages non-interactively is generally not a good practice.
+# However, this file is intended to be run by first-time users as a quickstart.
+# We don’t want to elaborate on R package installation in the quicksart guide.
+cran_mirror <- "http://cran.us.r-project.org"
+if (!require("ggplot2"))
+  install.packages("ggplot2", repos = cran_mirror)
+if (!require("tidyr"))
+  install.packages("tidyr", repos = cran_mirror)
+
+library(ggplot2)
+library(tidyr)
+
+# "timestep" is the output interval: a day, a year, (roughly) a month, or a decade.
+get_timestep <- function(df){
+  unique_years.v <- sort(unique(df$year))
+  timestep <- abs(unique_years.v[2] - unique_years.v[1])
+}
+
+# READ TABLES
+
+read_generic_table <- function(filename){
+  if (!file.exists(filename))
+    stop("File does not exist: ", filename)
+  tbl <- read.delim(filename)
+  return(tbl)
+}
+
+read_per_forage_type_table <- function(filename){
+  fixed_vars <- c("year", "agg_unit")
+  tbl <- read_generic_table(filename)
+  if ("day" %in% names(tbl))
+    fixed_vars <- c(fixed_vars, "day")
+  gather(tbl, key = forage_type, value = VALUE, !all_of(fixed_vars))
+}
+
+read_per_hft_table <- function(filename){
+  fixed_vars <- c("year", "agg_unit")
+  tbl <- read_generic_table(filename)
+  if ("day" %in% names(tbl))
+    fixed_vars <- c(fixed_vars, "day")
+  gather(tbl, key = HFT, value = VALUE, !all_of(fixed_vars))
+}
+
+read_per_hft_per_forage_table <- function(filename){
+  fixed_vars <- c("year", "agg_unit", "forage_type")
+  tbl <- read_generic_table(filename)
+  if ("day" %in% names(tbl))
+    fixed_vars <- c(fixed_vars, "day")
+  gather(tbl, key = HFT, value = VALUE, !all_of(fixed_vars))
+}
+
+# The first of each month as Julian day: for drawing month axis labels.
+julian_month_days <- julian(as.Date(paste(1:12, "1 1970"), "%m %d %Y"))
+```
+
+```{r mass_density, echo = FALSE, eval = file.exists("mass_density.tsv")}
+mass.tbl <- read_per_hft_table("mass_density.tsv")
+mass.tbl$VALUE <- mass.tbl$VALUE / 100 # convert kg/km² to kg/ha
+# We plot the points not in the beginning of each time step, but in the middle.
+timestep <- get_timestep(mass.tbl)
+ggplot(mass.tbl, aes(x = year + timestep / 2, y = VALUE, color = HFT)) +
+  stat_summary(fun = mean, geom = "line") +
+  coord_cartesian(xlim = c(min(mass.tbl$year), max(mass.tbl$year) + timestep)) +
+  facet_wrap(~agg_unit) +
+  expand_limits(y = 0) +
+  labs(
+    x = "Simulation Year",
+    y = "Mean Mass Density [kg/ha]",
+    title = "Mass Density per Habitat Group"
+  ) +
+  annotate(
+    geom = "text",
+    x = 0,
+    hjust = 0,
+    y = max(mass.tbl$VALUE),
+    vjust = 0,
+    label = paste("Mean =", round(mean(mass.tbl$VALUE)), "kg/ha")
+  )
+```
+
+```{r individual_density, echo = FALSE, eval = file.exists("individual_density.tsv")}
+inddens.tbl <- read_per_hft_table("individual_density.tsv")
+inddens.tbl$VALUE <- inddens.tbl$VALUE / 100 # convert ind/km² to ind/ha
+# We plot the points not in the beginning of each time step, but in the middle.
+timestep <- get_timestep(inddens.tbl)
+ggplot(inddens.tbl, aes(x = year + timestep / 2, y = VALUE, color = HFT)) +
+  stat_summary(fun = mean, geom = "line") +
+  coord_cartesian(
+    xlim = c(min(inddens.tbl$year), max(inddens.tbl$year) + timestep)
+  ) +
+  facet_wrap(~agg_unit) +
+  expand_limits(y = 0) +
+  labs(
+    x = "Simulation Year",
+    y = "Mean Individual Density [ind/ha]",
+    title = "Individual Density per Habitat Group"
+  ) +
+  annotate(
+    geom = "text",
+    x = 0,
+    hjust = 0,
+    y = max(inddens.tbl$VALUE),
+    vjust = 0,
+    label = paste("Mean =", round(mean(inddens.tbl$VALUE), digits = 2), "ind/ha")
+  )
+```
+
+```{r eaten_forage, echo = FALSE, eval = file.exists("eaten_forage_per_ind.tsv")}
+# Timeline with annual means
+eaten.tbl <- read_per_hft_per_forage_table("eaten_forage_per_ind.tsv")
+timestep <- get_timestep(eaten.tbl)
+ggplot(
+  eaten.tbl,
+  aes(x = year + timestep / 2, y = VALUE, color = HFT, linetype = forage_type)
+) +
+  stat_summary(fun = mean, geom = "line") +
+  coord_cartesian(xlim = c(min(eaten.tbl$year), max(eaten.tbl$year) + timestep)) +
+  facet_wrap(~agg_unit) +
+  expand_limits(y = 0) +
+  labs(
+    x = "Simulation Year",
+    y = "Eaten Forage per Individual [kgDM/ind/day]",
+    title = "Eaten Forage per Individual"
+  )
+# Seasonal plot
+if ("day" %in% names(eaten.tbl)) {
+  eaten.tbl %>%
+  ggplot(aes(x = day, y = VALUE, color = HFT, linetype = forage_type)) +
+    stat_summary(fun = mean, geom = "line", size = 2) +
+    geom_line(aes(group = year), alpha = 5 / length(unique(eaten.tbl$year))) +
+    facet_wrap(~agg_unit) +
+    expand_limits(y = 0) +
+    scale_x_continuous(
+      labels = month.abb[seq(1, 12, 2)],
+      breaks = julian_month_days[seq(1, 12, 2)]
+    ) +
+    labs(
+      x = "Month",
+      y = "Eaten Forage per Individual [kgDM/ind/day]",
+      title = "Eaten Forage per Individual",
+      caption = "Thick line is the mean"
+    )
+}
+```
+
+```{r available_forage, echo = FALSE, eval = file.exists("available_forage.tsv")}
+# Timeline with annual means
+available.tbl <- read_per_forage_type_table("available_forage.tsv")
+available.tbl$VALUE <- available.tbl$VALUE * 10^-6 # convert kg/km² to kg/m²
+timestep <- get_timestep(available.tbl)
+ggplot(available.tbl, aes(x = year + timestep / 2, y = VALUE, color = forage_type)) +
+  stat_summary(fun = mean, geom = "line") +
+  coord_cartesian(xlim = c(min(available.tbl$year), max(available.tbl$year) + timestep)) +
+  facet_wrap(~agg_unit) +
+  expand_limits(y = 0) +
+  labs(
+    x = "Simulation Year",
+    y = "Available Forage [kgDM/m²]",
+    title = "Edible Forage Available to Herbivores"
+  )
+# Seasonal plot
+if ("day" %in% names(available.tbl)) {
+  available.tbl %>%
+  ggplot(aes(x = day, y = VALUE, color = forage_type)) +
+    stat_summary(fun = mean, geom = "line", size = 2) +
+    geom_line(aes(group = year), alpha = 5 / length(unique(available.tbl$year))) +
+    facet_wrap(~agg_unit) +
+    expand_limits(y = 0) +
+    labs(
+      x = "Julian Day",
+      y = "Available Forage [kgDM/m²]",
+      title = "Edible Forage Available to Herbivores",
+      caption = "Thick line is the mean"
+    )
+}
+
+```
+
+```{r body_fat, echo = FALSE, eval = file.exists("body_fat.tsv")}
+bodyfat.tbl <- read_per_hft_table("body_fat.tsv")
+if ("day" %in% names(bodyfat.tbl)) {
+  bodyfat.tbl %>%
+  ggplot(aes(x = day, y = VALUE, color = HFT)) +
+    stat_summary(fun = mean, geom = "line", size = 2) +
+    geom_line(aes(group = year), alpha = 5 / length(unique(bodyfat.tbl$year))) +
+    facet_wrap(~agg_unit) +
+    scale_y_continuous(labels = scales::percent) +
+    scale_x_continuous(
+      labels = month.abb[seq(1, 12, 2)],
+      breaks = julian_month_days[seq(1, 12, 2)]
+    ) +
+    expand_limits(y = 0) +
+    labs(
+      x = "Month",
+      y = "Body Fat [kg/kg]",
+      title = "Body Fat",
+      caption = "Thick line is the mean"
+    ) +
+  annotate(
+    geom = "text",
+    x = 0,
+    hjust = 0,
+    y = 0,
+    vjust = 0,
+    label = paste0("Mean = ", round(mean(bodyfat.tbl$VALUE) * 100), "%")
+  )
+}
+```
+
+```{r eaten_nitrogen, echo = FALSE, eval = file.exists("eaten_nitrogen_per_ind.tsv")}
+eaten_nitrogen.tbl <- read_per_hft_table("eaten_nitrogen_per_ind.tsv")
+timestep <- get_timestep(eaten_nitrogen.tbl)
+ggplot(eaten_nitrogen.tbl, aes(x = year + timestep / 2, y = VALUE, color = HFT)) +
+  stat_summary(fun = mean, geom = "line") +
+  coord_cartesian(
+    xlim = c(min(eaten_nitrogen.tbl$year), max(eaten_nitrogen.tbl$year) + timestep)
+  ) +
+  facet_wrap(~agg_unit) +
+  expand_limits(y = 0) +
+  labs(
+    x = "Simulation Year",
+    y = "Eaten Nitrogen [mgN/ind/day]",
+    title = "Eaten Nitrogen per Individual"
+  )
+```
+

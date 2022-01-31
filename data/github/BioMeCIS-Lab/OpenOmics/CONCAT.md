@@ -1575,3 +1575,1260 @@ directory at a `~/.openomics/conf.json` to persist the setting for each user.
 ```{eval-rst}
 .. automodapi:: openomics.database.ontology
 ```
+{{ fullname | escape | underline}}
+
+.. automodule:: {{ fullname }}
+
+   {% block attributes %}
+   {% if attributes %}
+   .. rubric:: Module Attributes
+
+   .. autosummary::
+      :toctree:                                          <-- add this line
+   {% for item in attributes %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block functions %}
+   {% if functions %}
+   .. rubric:: {{ _('Functions') }}
+
+   .. autosummary::
+      :toctree:                                          <-- add this line
+   {% for item in functions %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block classes %}
+   {% if classes %}
+   .. rubric:: {{ _('Classes') }}
+
+   .. autosummary::
+      :toctree:                                          <-- add this line
+      :template: custom-class-template.rst               <-- add this line
+   {% for item in classes %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block exceptions %}
+   {% if exceptions %}
+   .. rubric:: {{ _('Exceptions') }}
+
+   .. autosummary::
+      :toctree:                                          <-- add this line
+   {% for item in exceptions %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+{% block modules %}
+{% if modules %}
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst                 <-- add this line
+   :recursive:
+{% for item in modules %}
+   {{ item }}
+{%- endfor %}
+{% endif %}
+{% endblock %}
+{{ fullname | escape | underline}}
+
+.. currentmodule:: {{ module }}
+
+.. autoclass:: {{ objname }}
+   :members:                                    <-- add at least this line
+   :show-inheritance:                           <-- plus I want to show inheritance...
+   :inherited-members:                          <-- ...and inherited members too
+
+   {% block methods %}
+   .. automethod:: __init__
+
+   {% if methods %}
+   .. rubric:: {{ _('Methods') }}
+
+   .. autosummary::
+   {% for item in methods %}
+      ~{{ name }}.{{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block attributes %}
+   {% if attributes %}
+   .. rubric:: {{ _('Attributes') }}
+
+   .. autosummary::
+   {% for item in attributes %}
+      ~{{ name }}.{{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+MirBase
+=======
+
+.. currentmodule:: openomics.database.sequence
+
+.. autoclass:: MirBase
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MirBase.get_sequences
+      ~MirBase.load_dataframe
+      ~MirBase.read_fasta
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_sequences
+   .. automethod:: load_dataframe
+   .. automethod:: read_fasta
+LncRNA
+======
+
+.. currentmodule:: openomics
+
+.. autoclass:: LncRNA
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~LncRNA.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+ProteinAtlas
+============
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: ProteinAtlas
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ProteinAtlas.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ProteinAtlas.get_expressions
+      ~ProteinAtlas.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_expressions
+   .. automethod:: load_dataframe
+SomaticMutation
+===============
+
+.. currentmodule:: openomics
+
+.. autoclass:: SomaticMutation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~SomaticMutation.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+lncRNome
+========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: lncRNome
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~lncRNome.load_dataframe
+      ~lncRNome.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+   .. automethod:: load_network
+write_taxonomy
+==============
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: write_taxonomy
+GeneMania
+=========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: GeneMania
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~GeneMania.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+MicroRNA
+========
+
+.. currentmodule:: openomics
+
+.. autoclass:: MicroRNA
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MicroRNA.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+Interactions
+============
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: Interactions
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Interactions.filter_values
+      ~Interactions.get_interactions
+      ~Interactions.info
+      ~Interactions.load_network
+      ~Interactions.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: filter_values
+   .. automethod:: get_interactions
+   .. automethod:: info
+   .. automethod:: load_network
+   .. automethod:: name
+read_gtf
+========
+
+.. currentmodule:: openomics.utils
+
+.. autofunction:: read_gtf
+GeneOntology
+============
+
+.. currentmodule:: openomics.database.ontology
+
+.. autoclass:: GeneOntology
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~GeneOntology.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~GeneOntology.add_predecessor_terms
+      ~GeneOntology.filter_network
+      ~GeneOntology.get_predecessor_terms
+      ~GeneOntology.info
+      ~GeneOntology.load_dataframe
+      ~GeneOntology.load_network
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: add_predecessor_terms
+   .. automethod:: filter_network
+   .. automethod:: get_predecessor_terms
+   .. automethod:: info
+   .. automethod:: load_dataframe
+   .. automethod:: load_network
+LncBase
+=======
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: LncBase
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~LncBase.get_rename_dict
+      ~LncBase.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_rename_dict
+   .. automethod:: load_network
+Database
+========
+
+.. currentmodule:: openomics.database.base
+
+.. autoclass:: Database
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Database.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Database.close
+      ~Database.get_annotations
+      ~Database.get_expressions
+      ~Database.info
+      ~Database.list_databases
+      ~Database.load_dataframe
+      ~Database.name
+      ~Database.validate_file_resources
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: close
+   .. automethod:: get_annotations
+   .. automethod:: get_expressions
+   .. automethod:: info
+   .. automethod:: list_databases
+   .. automethod:: load_dataframe
+   .. automethod:: name
+   .. automethod:: validate_file_resources
+MiRTarBase
+==========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: MiRTarBase
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MiRTarBase.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+MalaCards
+=========
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: MalaCards
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~MalaCards.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MalaCards.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+ClinicalData
+============
+
+.. currentmodule:: openomics
+
+.. autoclass:: ClinicalData
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~ClinicalData.pathologic_stage_map
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~ClinicalData.add_biospecimen_data
+      ~ClinicalData.add_drug_response_data
+      ~ClinicalData.build_clinical_samples
+      ~ClinicalData.get_patient_barcodes
+      ~ClinicalData.get_sample_barcodes
+      ~ClinicalData.name
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: pathologic_stage_map
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: add_biospecimen_data
+   .. automethod:: add_drug_response_data
+   .. automethod:: build_clinical_samples
+   .. automethod:: get_patient_barcodes
+   .. automethod:: get_sample_barcodes
+   .. automethod:: name
+DNAMethylation
+==============
+
+.. currentmodule:: openomics
+
+.. autoclass:: DNAMethylation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~DNAMethylation.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+TargetScan
+==========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: TargetScan
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~TargetScan.load_network
+      ~TargetScan.process_interactions_table
+      ~TargetScan.process_miR_family_info_table
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+   .. automethod:: process_interactions_table
+   .. automethod:: process_miR_family_info_table
+EnsemblGeneSequences
+====================
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: EnsemblGeneSequences
+   :show-inheritance:
+MultiOmics
+==========
+
+.. currentmodule:: openomics
+
+.. autoclass:: MultiOmics
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MultiOmics.add_clinical_data
+      ~MultiOmics.add_omic
+      ~MultiOmics.annotate_patients
+      ~MultiOmics.build_samples
+      ~MultiOmics.get_omics_list
+      ~MultiOmics.get_patients_clinical
+      ~MultiOmics.load_data
+      ~MultiOmics.match_samples
+      ~MultiOmics.print_sample_sizes
+      ~MultiOmics.remove_duplicate_genes
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: add_clinical_data
+   .. automethod:: add_omic
+   .. automethod:: annotate_patients
+   .. automethod:: build_samples
+   .. automethod:: get_omics_list
+   .. automethod:: get_patients_clinical
+   .. automethod:: load_data
+   .. automethod:: match_samples
+   .. automethod:: print_sample_sizes
+   .. automethod:: remove_duplicate_genes
+STRING
+======
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: STRING
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~STRING.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~STRING.get_sequences
+      ~STRING.load_network
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_sequences
+   .. automethod:: load_network
+DisGeNet
+========
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: DisGeNet
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~DisGeNet.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~DisGeNet.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+set_cache_dir
+=============
+
+.. currentmodule:: openomics
+
+.. autofunction:: set_cache_dir
+SequenceDatabase
+================
+
+.. currentmodule:: openomics.database.sequence
+
+.. autoclass:: SequenceDatabase
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~SequenceDatabase.get_aggregator
+      ~SequenceDatabase.get_sequences
+      ~SequenceDatabase.read_fasta
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_aggregator
+   .. automethod:: get_sequences
+   .. automethod:: read_fasta
+NPInter
+=======
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: NPInter
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~NPInter.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+LncReg
+======
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: LncReg
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~LncReg.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+RNAcentral
+==========
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: RNAcentral
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~RNAcentral.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~RNAcentral.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+lncRInter
+=========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: lncRInter
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~lncRInter.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+flatten_list
+============
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: flatten_list
+dfs_path
+========
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: dfs_path
+GTEx
+====
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: GTEx
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~GTEx.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~GTEx.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+OMIM
+====
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: OMIM
+   :show-inheritance:
+Annotatable
+===========
+
+.. currentmodule:: openomics.database.base
+
+.. autoclass:: Annotatable
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Annotatable.DISEASE_ASSOCIATIONS_COL
+      ~Annotatable.SEQUENCE_COL_NAME
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Annotatable.annotate_attributes
+      ~Annotatable.annotate_diseases
+      ~Annotatable.annotate_expressions
+      ~Annotatable.annotate_interactions
+      ~Annotatable.annotate_sequences
+      ~Annotatable.get_annotation_expressions
+      ~Annotatable.get_annotations
+      ~Annotatable.get_rename_dict
+      ~Annotatable.initialize_annotations
+      ~Annotatable.set_index
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: DISEASE_ASSOCIATIONS_COL
+   .. autoattribute:: SEQUENCE_COL_NAME
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: annotate_attributes
+   .. automethod:: annotate_diseases
+   .. automethod:: annotate_expressions
+   .. automethod:: annotate_interactions
+   .. automethod:: annotate_sequences
+   .. automethod:: get_annotation_expressions
+   .. automethod:: get_annotations
+   .. automethod:: get_rename_dict
+   .. automethod:: initialize_annotations
+   .. automethod:: set_index
+BioGRID
+=======
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: BioGRID
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~BioGRID.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+MessengerRNA
+============
+
+.. currentmodule:: openomics
+
+.. autoclass:: MessengerRNA
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MessengerRNA.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+filter_dfs_paths
+================
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: filter_dfs_paths
+GENCODE
+=======
+
+.. currentmodule:: openomics.database.sequence
+
+.. autoclass:: GENCODE
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~GENCODE.get_rename_dict
+      ~GENCODE.get_sequences
+      ~GENCODE.load_dataframe
+      ~GENCODE.read_fasta
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_rename_dict
+   .. automethod:: get_sequences
+   .. automethod:: load_dataframe
+   .. automethod:: read_fasta
+traverse_predecessors
+=====================
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: traverse_predecessors
+Expression
+==========
+
+.. currentmodule:: openomics
+
+.. autoclass:: Expression
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Expression.features
+      ~Expression.gene_index
+      ~Expression.samples
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Expression.drop_genes
+      ~Expression.drop_samples
+      ~Expression.get_genes_list
+      ~Expression.get_samples_list
+      ~Expression.load_dataframe
+      ~Expression.load_dataframe_glob
+      ~Expression.name
+      ~Expression.preprocess_table
+      ~Expression.set_genes_index
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: features
+   .. autoattribute:: gene_index
+   .. autoattribute:: samples
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: drop_genes
+   .. automethod:: drop_samples
+   .. automethod:: get_genes_list
+   .. automethod:: get_samples_list
+   .. automethod:: load_dataframe
+   .. automethod:: load_dataframe_glob
+   .. automethod:: name
+   .. automethod:: preprocess_table
+   .. automethod:: set_genes_index
+set_backend
+===========
+
+.. currentmodule:: openomics
+
+.. autofunction:: set_backend
+flatten
+=======
+
+.. currentmodule:: openomics.database.ontology
+
+.. autofunction:: flatten
+Ontology
+========
+
+.. currentmodule:: openomics.database.ontology
+
+.. autoclass:: Ontology
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~Ontology.DELIM
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Ontology.filter_annotation
+      ~Ontology.filter_network
+      ~Ontology.get_adjacency_matrix
+      ~Ontology.get_child_nodes
+      ~Ontology.get_dfs_paths
+      ~Ontology.get_node_color
+      ~Ontology.get_root_nodes
+      ~Ontology.load_network
+      ~Ontology.remove_predecessor_terms
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: DELIM
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: filter_annotation
+   .. automethod:: filter_network
+   .. automethod:: get_adjacency_matrix
+   .. automethod:: get_child_nodes
+   .. automethod:: get_dfs_paths
+   .. automethod:: get_node_color
+   .. automethod:: get_root_nodes
+   .. automethod:: load_network
+   .. automethod:: remove_predecessor_terms
+get_pkg_data_filename
+=====================
+
+.. currentmodule:: openomics.utils
+
+.. autofunction:: get_pkg_data_filename
+EnsemblGenes
+============
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: EnsemblGenes
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~EnsemblGenes.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~EnsemblGenes.get_functional_annotations
+      ~EnsemblGenes.get_rename_dict
+      ~EnsemblGenes.load_data
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_functional_annotations
+   .. automethod:: get_rename_dict
+   .. automethod:: load_data
+CopyNumberVariation
+===================
+
+.. currentmodule:: openomics
+
+.. autoclass:: CopyNumberVariation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~CopyNumberVariation.name
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+BioMartManager
+==============
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: BioMartManager
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~BioMartManager.cache_dataset
+      ~BioMartManager.query_biomart
+      ~BioMartManager.retrieve_dataset
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: cache_dataset
+   .. automethod:: query_biomart
+   .. automethod:: retrieve_dataset
+DiseaseAssociation
+==================
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: DiseaseAssociation
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~DiseaseAssociation.get_disease_assocs
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_disease_assocs
+EnsemblSomaticVariation
+=======================
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: EnsemblSomaticVariation
+   :show-inheritance:
+EnsemblTranscriptSequences
+==========================
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: EnsemblTranscriptSequences
+   :show-inheritance:
+HMDD
+====
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: HMDD
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~HMDD.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~HMDD.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+LncRNADisease
+=============
+
+.. currentmodule:: openomics.database.disease
+
+.. autoclass:: LncRNADisease
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~LncRNADisease.COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~LncRNADisease.load_dataframe
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: COLUMNS_RENAME_DICT
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+Protein
+=======
+
+.. currentmodule:: openomics
+
+.. autoclass:: Protein
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~Protein.name
+      ~Protein.process_HPRD_PPI_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: name
+   .. automethod:: process_HPRD_PPI_network
+EnsemblSNP
+==========
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: EnsemblSNP
+   :show-inheritance:
+StarBase
+========
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: StarBase
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~StarBase.load_network
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+NONCODE
+=======
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: NONCODE
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~NONCODE.load_dataframe
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_dataframe
+TANRIC
+======
+
+.. currentmodule:: openomics.database.annotation
+
+.. autoclass:: TANRIC
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~TANRIC.get_expressions
+      ~TANRIC.load_dataframe
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: get_expressions
+   .. automethod:: load_dataframe
+HumanPhenotypeOntology
+======================
+
+.. currentmodule:: openomics.database.ontology
+
+.. autoclass:: HumanPhenotypeOntology
+   :show-inheritance:
+MultiOmics
+==========
+
+.. currentmodule:: openomics.multiomics
+
+.. autoclass:: MultiOmics
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~MultiOmics.add_clinical_data
+      ~MultiOmics.add_omic
+      ~MultiOmics.annotate_samples
+      ~MultiOmics.build_samples
+      ~MultiOmics.get_omics_list
+      ~MultiOmics.get_sample_attributes
+      ~MultiOmics.load_data
+      ~MultiOmics.match_samples
+      ~MultiOmics.print_sample_sizes
+      ~MultiOmics.remove_duplicate_genes
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: add_clinical_data
+   .. automethod:: add_omic
+   .. automethod:: annotate_samples
+   .. automethod:: build_samples
+   .. automethod:: get_omics_list
+   .. automethod:: get_sample_attributes
+   .. automethod:: load_data
+   .. automethod:: match_samples
+   .. automethod:: print_sample_sizes
+   .. automethod:: remove_duplicate_genes
+LncRNA2Target
+=============
+
+.. currentmodule:: openomics.database.interaction
+
+.. autoclass:: LncRNA2Target
+   :show-inheritance:
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~LncRNA2Target.load_network
+      ~LncRNA2Target.load_network_high_throughput
+      ~LncRNA2Target.load_network_low_throughput
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: load_network
+   .. automethod:: load_network_high_throughput
+   .. automethod:: load_network_low_throughput

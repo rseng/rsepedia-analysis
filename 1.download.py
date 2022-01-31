@@ -73,9 +73,9 @@ def main():
 
     for i, reponame in enumerate(repos):
         repo = pedia.get(reponame[0])
-        meta['topics'][repo.uid] = repo.data["data"].get("topics", [])
-        meta['language'][repo.uid] = repo.data["data"].get("language", "unknown")
-        meta['url'][repo.uid] = repo.url
+        meta["topics"][repo.uid] = repo.data["data"].get("topics", [])
+        meta["language"][repo.uid] = repo.data["data"].get("language", "unknown")
+        meta["url"][repo.uid] = repo.url
 
         datadir = os.path.join(outdir, repo.uid)
         destfile = os.path.join(datadir, "CONCAT.md")
@@ -88,16 +88,17 @@ def main():
         if not dest:
             continue
 
-        # Concat markdown for the repository
+        # Concat markdown, Rmarkdown, restructured syntax for the repository
         text = ""
-        for md in recursive_find(dest, "*.md"):
-            if re.search("LICENSE", md, re.IGNORECASE):
-                continue
-            try:
-                text += "".join(read_file(md))
-            except:
-                print("Issue parsing file %s" % md)
-                continue
+        for ext in ["*.md", "*.Rmd", "*.Rd", "*.rst"]:
+            for md in recursive_find(dest, ext):
+                if re.search("LICENSE", md, re.IGNORECASE):
+                    continue
+                try:
+                    text += "".join(read_file(md))
+                except:
+                    print("Issue parsing file %s" % md)
+                    continue
 
         # Don't include empty repos
         if not text:

@@ -154,3 +154,37 @@ url    = {https://github.com/Filter-Bubble/e2e-Dutch}
 }
 ```
 As the code is largely based on [original e2e model for English](https://github.com/kentonl/e2e-coref), please make sure to also cite [the original e2e paper](https://arxiv.org/abs/1804.05392).
+Reference documentation
+=======================
+
+.. automodule:: e2edutch
+    :members:
+    :undoc-members:
+
+predictor
+---------
+.. automodule:: e2edutch.predict
+    :members:
+
+stanza
+---------
+.. automodule:: e2edutch.stanza
+    :members:
+.. e2e-Dutch documentation master file, created by
+   sphinx-quickstart on Mon Feb  1 13:47:38 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to e2e-Dutch's documentation!
+=====================================
+
+.. mdinclude:: ../README.md
+
+
+Reference documentation
+-----------------------
+
+.. toctree::
+  :maxdepth: 2
+
+  reference

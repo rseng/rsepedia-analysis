@@ -7403,3 +7403,4953 @@ plt.show()
 It is possible to modify certain parameters of a plot without digging into the code. Click on the Palette icon to open visual settings. One can change various attributes of the plot, such as fonts, font sizes, titles and so on.
 
 ![](plot-options.png)
+.. currentmodule:: Orange.widgets.gui
+
+###################################
+Library of Common GUI Controls
+###################################
+
+:obj:`gui` is a library of functions which allow constructing a control (like
+check box, line edit or a combo), inserting it into the parent's layout,
+setting tooltips, callbacks and so forth, establishing synchronization with a
+Python object's attribute (including saving and retrieving when the widgets is
+closed and reopened) ... in a single call.
+
+Almost all functions need three arguments:
+
+* the `widget` into which the control is inserted,
+* the `master` widget with one whose attributes the control's value is
+  synchronized,
+* the name of that attribute (`value`).
+
+All other arguments should be given as keyword arguments for clarity and also
+for allowing the potential future compatibility-breaking changes in the module.
+Several arguments that are common to all functions must always be given as
+keyword arguments.
+
+
+**************
+Common options
+**************
+
+All controls accept the following arguments that can only be given as
+keyword arguments.
+
+:tooltip:
+    A string for a tooltip that appears when mouse is over the control.
+
+:disabled:
+    Tells whether the control be disabled upon the initialization.
+
+:addSpace:
+    Gives the amount of space that is inserted after the control (or the box
+    that encloses it). If `True`, a space of 8 pixels is inserted. Default is
+    0.
+
+:addToLayout:
+
+    The control is added to the parent's layout unless this flag is set to
+    `False`.
+
+:stretch:
+
+    The stretch factor for this widget, used when adding to the layout.
+    Default is 0.
+
+:sizePolicy:
+
+    The size policy for the box or the control.
+
+
+****************
+Common Arguments
+****************
+
+Many functions share common arguments.
+
+:widget:
+    Widget on which control will be drawn.
+
+:master:
+    Object which includes the attribute that is used to store the control's
+    value; most often the `self` of the widget into which the control is
+    inserted.
+
+:value:
+    String with the name of the master's attribute that synchronizes with the
+    the control's value..
+
+:box:
+    Indicates if there should be a box that around the control. If :obj:`box`
+    is `False` (default), no box is drawn; if it is a string, it is also used
+    as the label for the box's name; if :obj:`box` is any other true value
+    (such as :obj:`True` :), an unlabeled box is drawn.
+
+:callback:
+    A function that is called when the state of the control is changed. This
+    can be a single function or a list of functions that will be called in the
+    given order. The callback function should not change the value of the
+    controlled attribute (the one given as the :obj:`value` argument described
+    above) to avoid a cycle (a workaround is shown in the description of
+    :obj:`listBox` function.
+
+:label:
+    A string that is displayed as control's label.
+
+:labelWidth:
+    The width of the label. This is useful for aligning the controls.
+
+:orientation:
+    When the label is given used, this argument determines the relative
+    placement of the label and the control. Label can be above the control,
+    (`"vertical"` or `True` - this is the default) or in the same line with
+    control, (`"horizontal"` or `False`). Orientation can also be an instance
+    of :obj:`~PyQt4.QtGui.QLayout`.
+
+
+**********
+Properties
+**********
+
+PyQt support settings of properties using keyword arguments. Functions in this
+module mimic this functionality. For instance, calling
+
+    cb = gui.comboBox(..., editable=True)
+
+has the same effect as
+
+    cb = gui.comboBox(...)
+    cb.setEditable(True)
+
+Any properties that have the corresponding setter in the underlying Qt control
+can be set by using keyword arguments.
+
+*****************
+Common Attributes
+*****************
+
+:box:
+    If the constructed widget is enclosed into a box, the attribute `box`
+    refers to the box.
+
+*******
+Widgets
+*******
+
+This section describes the wrappers for controls like check boxes, buttons
+and similar. Using them is preferred over calling Qt directly, for convenience,
+readability, ease of porting to newer versions of Qt and, in particular,
+because they set up a lot of things that happen in behind.
+
+.. autofunction:: checkBox
+.. autofunction:: lineEdit
+.. autofunction:: listBox
+.. autofunction:: comboBox
+.. autofunction:: radioButtonsInBox
+.. autofunction:: appendRadioButton
+.. autofunction:: spin
+.. autofunction:: doubleSpin
+.. autofunction:: hSlider
+.. autofunction:: button
+.. autofunction:: toolButton
+.. autofunction:: widgetLabel
+.. autofunction:: label
+
+*************
+Other widgets
+*************
+
+.. autofunction:: widgetBox
+.. autofunction:: indentedBox
+.. autofunction:: separator
+.. autofunction:: rubber
+
+*****************
+Utility functions
+*****************
+
+.. autodata:: attributeIconDict
+.. autofunction:: attributeItem
+
+******************************
+Internal functions and classes
+******************************
+
+This part of documentation describes some classes and functions that are used
+internally. The classes will likely maintain compatibility in the future,
+while the functions may be changed.
+
+Wrappers for Python classes
+===========================
+
+.. autoclass:: ControlledList
+
+Other functions
+===============
+
+.. autofunction:: miscellanea
+.. autofunction:: setLayout
+.. autofunction:: createAttributePixmap
+################################
+Tutorial (Settings and Controls)
+################################
+
+In the :doc:`previous section <tutorial-cont>` of our tutorial we
+have just built a simple sampling widget. Let us now make this widget
+a bit more useful, by allowing a user to set the proportion of data
+instances to be retained in the sample. Say we want to design a widget
+that looks something like this:
+
+.. image:: images/dataSamplerBWidget.png
+
+
+What we added is an Options box, with a spin entry box to set the
+sample size, and a check box and button to commit (send out) any
+change we made in setting. If the check box with "Commit data on
+selection change" is checked, than any change in the sample size will
+make the widget send out the sampled dataset. If datasets are large
+(say of several thousands or more) instances, we may want to send out
+the sample data only after we are done setting the sample size, hence
+we left the commit check box unchecked and press "Commit" when we are
+ready for it.
+
+This is a very simple interface, but there is something more to
+it. We want the settings (the sample size and the state of the commit
+button) to be saved. That is, any change we made, we want to save it so
+that the next time we open the widget the settings is there as we have left
+it
+
+..
+   There is some complication to it, as widget can be part of an
+   application, or part of some schema in the Canvas, and we would like
+   to have the settings application- or schema-specific.
+
+
+Widgets Settings
+****************
+
+Luckily, since we use the base class :class:`~Orange.widgets.widget.OWWidget`,
+the settings will be handled just fine. We only need to tell which variables
+we want to use for persistent settings.
+
+..
+   For Python inspired readers: these
+   variables can store any complex object, as long as it is
+   picklable.
+
+In our widget, we will use two settings variables, and we declare this
+in the widget class definition (after the `inputs`, `outputs` definitions).
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerB.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+
+All settings have to specify their default value. When a widget is
+created the widget's members are already restored and ready to use
+in its `__init__` method.
+The contents of the two variables (:obj:`self.proportion` and
+:obj:`self.commitOnChange`) will be saved upon closing our widget.
+In our widget, we won't be setting these variables directly,
+but will instead use them in conjunction with GUI controls.
+
+
+Controls and module `gui`
+*************************
+
+We will use the :mod:`Orange.widgets.gui` to create/define the gui.
+With this library, the GUI definition part of the options box is a bit
+dense but rather very short
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerB.py
+   :start-after: start-snippet-3
+   :end-before: end-snippet-3
+
+
+We are already familiar with the first part - the Info group
+box. To make widget nicer, we put a separator between this and Options
+box. After defining the option box, here is our first serious
+:mod:`~Orange.widgets.gui` control: a :func:`Orange.widgets.gui.spin`.
+The first parameter specifies its parent widget/layout, in this case
+:obj:`self.optionsBox` (the resulting widget object will automatically
+append itself to the parent's layout). The second (:obj:`self`) and
+third (``'proportion'``) define the *property binding* for the spin box.
+I.e. any change in the spin box control will automatically be propagated
+to the :obj:`self.proportions` and vice versa - changing the value of
+`self.proprotions` in the widget code by assignment
+(e.g. ``self.proprotions = 30``) will update the spin box's state to match.
+
+The rest of the spin box call gives some parameters for the
+control (minimum and maximum value and the step size), tells about the
+label which will be placed on the top, and tells it which functions to
+call when the value in the spin box is changed. We need the first
+callback to make a data sample and report in the Info box what is the
+size of the sample, and a second callback to check if we can send this
+data out. In :mod:`Orange.widgets.gui`, callbacks are either references
+to functions, or a list with references, just like in our case.
+
+With all of the above, the parameters for the call of
+:func:`Orange.widgets.gui.checkBox` should be clear as well. Notice that
+this and a call to :func:`Orange.widgets.gui.spin` do not need a parameter
+which would tell the control the value for initialization: upon
+construction, both controls will be set to the value that is
+pertained in the associated setting variable.
+
+That's it. Notice though that we have, as a default, disabled all
+the controls in the Options box. This is because at the start of the
+widget, there is no data to sample from. But this also means that when
+process the input tokens, we should take care for enabling and
+disabling. The data processing and token sending part of our widget
+now is
+
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerB.py
+   :start-after: start-snippet-4
+   :end-before: end-snippet-4
+
+
+You can now also inspect the :download:`complete code <orange-demo/orangedemo/OWDataSamplerB.py>`
+of this widget. To distinguish it with a widget we have developed in the
+previous section, we have designed a special
+:download:`icon <orange-demo/orangedemo/icons/DataSamplerB.svg>` for it.
+If you wish to test this widget in the Orange Canvas, put its code in
+the `orangedemo` directory we have created for the previous widget and try
+it out using a schema with a File and Data Table widget.
+
+.. image:: images/schemawithdatasamplerB.png
+
+Well-behaved widgets remember their settings - the state of their
+checkboxes and radio-buttons, the text in their line edits, the
+selections in their combo boxes and similar.
+
+Persisting defaults
+*******************
+When a widget is removed, its settings are stored to be used as defaults
+for future instances of this widget.
+
+Updated defaults are stored in user's profile. It's location depends
+on the operating system:
+(%APPDATA%\Orange\<version>\widgets on windows,
+~/Library/Application\ Support/orange/<version>/widgets on macOS,
+~/.local/share/Orange/<version>/widgets on linux)
+Original default values can be restored by deleting files from this folder,
+by running Orange from command line with `--clear-widget-settings` option,
+or through Options/Reset Widget Settings menu action.
+
+Schema-only settings
+--------------------
+Some settings have defaults that should not change. For instance, when using
+a Paint Data widget, drawn points should be saved in a workflow, but a new
+widget should always start with a blank page - modified value should not
+be remembered.
+
+This can be achieved by declaring a setting with a `schema_only` flag. Such
+setting is saved with a workflow, but its default value never changes.
+
+Context dependent settings
+**************************
+
+Context dependent settings are settings which depend on the widget's
+input. For instance, the scatter plot widget contains settings that
+specify the attributes for x and y axis, and the settings that
+define the color, shape and size of the examples in the graph.
+
+An even more complicated case is the widget for data
+selection with which one can select the examples based on values of
+certain attributes. Before applying the saved settings, these widgets
+needs to check their compliance with the domain of the actual data
+set. To be truly useful, context dependent settings needs to save a
+setting configuration for each particular dataset used. That is, when
+given a particular dataset, it has to select the saved settings that
+is applicable and matches best currently used dataset.
+
+Saving, loading and matching contexts is taken care of by context
+handlers. Currently, there are only two classes of context handlers
+implemented. The first one is the abstract :class:`ContextHandler`
+and the second one is :class:`DomainContextHandler` in which the
+context is defined by the dataset domain and where the settings
+contain attribute names. The latter should cover most of your needs,
+while for more complicated widgets you will need to derive a new
+classes from it. There may even be some cases in which the context is
+not defined by the domain, in which case the
+:class:`ContextHandler` will be used as a base for your new
+handler.
+
+Contexts need to be declared, opened and closed. Opening and
+closing usually takes place (in the opposite order) in the function
+that handles the data signal. This is how it looks in the scatter plot
+(the code is somewhat simplified for clarity).
+
+.. code-block:: python
+
+    @Input.data
+    def set_data(self, data):
+        self.closeContext()
+        self.data = data
+        self.graph.setData(data)
+
+        self.initAttrValues()
+
+        if data is not None:
+            self.openContext(data.domain)
+
+        self.updateGraph()
+        self.sendSelections()
+
+In general, the function should go like this:
+
+* Do any clean-up you need, but without clearing any of the settings that need
+  to be saved. Scatter plot needs none.
+* Call ``self.closeContext()``; this ensures that all the context dependent
+  settings (e.g. attribute names from the list boxes) are remembered.
+* Initialize the widget state and set the controls to some defaults as
+  if there were no context retrieving mechanism. Scatter plot does it by
+  calling ``self.initAttrValues()`` which assigns the first two attributes to
+  the x and y axis and the class attribute to the color. At this phase, you
+  shouldn't call any functions that depend on the settings, such as drawing
+  the graph.
+* Call ``self.openContext(data.domain)`` (more about the arguments later).
+  This will search for a suitable context and assign the controls new values
+  if one is found. If there is no saved context that can be used, a new
+  context is created and filled with the default values that were assigned
+  at the previous point.
+* Finally, adjust the widget according to the retrieved controls. Scatter plot
+  now plots the graph by calling ``self.updateGraph()``.
+
+When opening the context, we provide the arguments on which the context
+depends. In case of :class:`DomainContextHandler`, which scatter plot uses, we
+can give it a :class:`Orange.data.Domain`. Whether a saved context can be
+reused is judged upon the presence of attributes in the domain.
+
+If the widget is constructed appropriately (that is, if it strictly uses
+:mod:`Orange.widgets.gui` controls instead of the Qt's), no other
+administration is needed to switch the context.
+
+Except for declaring the context settings, that is. Scatter plot has this in
+its class definition
+
+.. code-block:: python
+
+    settingsHandler = DomainContextHandler()
+    attr_x = ContextSetting("")
+    attr_y = ContextSetting("")
+
+    auto_send_selection = Setting(True)
+    toolbar_selection = Setting(0)
+    color_settings = Setting(None)
+    selected_schema_index = Setting(0)
+
+
+``settingsHandler = DomainContextHandler()`` declares that Scatter plot uses
+:class:`DomainContextHandler`. The :obj:`attr_x` and :obj:`attr_y` are
+declared as :class:`~Orange.widgets.settings.ContextSetting`.
+
+
+Migrations
+**********
+
+At the beginning of this section of the tutorial, we created a widget with
+a setting called proportion, which contains a value between 0 and 100. But
+imagine that for some reason, we are not satisfied with the value any more
+and decide that the setting should hold a value between 0 and 1.
+
+We update the setting's default value, modify the appropriate code and we
+are done. That is, until someone that has already used the old version of
+the widget open the new one and the widget crashes. Remember, when the
+widget is opened, it has the same settings that were used the last time.
+
+Is there anything we can do, as settings are replaced with saved before
+the __init__ function is called? There is! Migrations to the rescue.
+
+Widget has a special attribute called `settings_version`. All widgets start
+with a settings_version of 1. When incompatible changes are done to the
+widget's settings, its settings_version should be increased. But increasing
+the version by it self does not solve our problems. While the widget now
+knows that it uses different settings, the old ones are still broken and
+need to be updated before they can be used with the new widget. This can be
+accomplished by reimplementing widget's methods `migrate_settings`
+(for ordinary settings) and `migrate_context` (for context settings).
+Both method are called with the old object and the version of the settings
+stored with it.
+
+If we bumped settings_version from 1 to 2 when we did the above mentioned
+change, our migrate_settings method would look like this:
+
+.. code-block:: python
+
+    def migrate_settings(settings, version):
+       if version < 2:
+         if "proportion" in settings:
+            settings["proportion"] = settings["proportion"] / 100
+
+Your migration rules can be simple or complex, but try to avoid simply
+forgetting the values, as settings are also used in saved workflows.
+Imagine opening a complex workflow you have designed a year ago with the
+new version of Orange and finding out that all the settings are back to
+default. Not fun!
+
+.. warning::
+
+   If you change the format of an existing setting in a backwards-incompatible
+   way, you will also want to *change the name* of that setting. Otherwise,
+   older versions of Orange won't be able to load workflows with the new
+   setting format.
+
+There are two helper functions you can use.
+:obj:`Orange.widget.settings.rename_settings(settings, old_name, new_name)`
+does the obvious operation on `settings`, which can be either a dictionary
+or a context, thus it can be called from `migrate_settings` or
+`migrate_context`.
+
+Another common operation may be upgrading your widget from storing variable
+names (as `str`) to storing variables (instances of classes derived from
+`Variable`). In a typical scenario, this happens when combo boxes are upgraded to
+using models. Function
+:obj:`Orange.widget.settings.migrate_str_to_variable(settings, names=None)`
+makes the necessary changes to the settings listed in `names`. `names` can be
+a list of setting names, a single string or `None`. In the latter case, all
+settings that may refer to variables (that is two-elements tuples consisting
+of a string and an int) are migrated.
+
+What about situations in which some context settings become inapplicable due
+to some changes in the widget? For instance, a widget that used to accept any
+kind of variables is modified so that it requires a numeric variable?
+Context with categorical variables will match and be reused ... and crash the
+widget. In these (rare) cases, `migrate_context` must raise exception
+:obj:`Orange.widget.settings.IncompatibleContext` and the context will be
+removed.
+
+So take some time, write the migrations and do not forget to bump the
+`settings_version` when you do breaking changes.
+Utilities
+*********
+
+Progress Bar
+------------
+
+Operations that take more than a split second indicate their
+progress with a progress bar
+
+.. image:: images/progressbar.png
+
+and in the title bar of the widget's window.
+
+.. image:: images/progressbar-title.png
+
+There are two mechanisms for implementing this.
+
+Progress bar class
+..................
+
+Class `Orange.widgets.gui.ProgressBar` is initialized with a widget and the
+number of iterations::
+
+    progress = Orange.widgets.gui.ProgressBar(self, n)
+
+Direct manipulation of progress bar
+...................................
+
+The progress bar can be manipulated directly through functions
+
+* :obj:`~Orange.widgets.widget.OWWidget.progressBarInit(self)`
+* :obj:`~Orange.widgets.widget.OWWidget.progressBarSet(self, p)`
+* :obj:`~Orange.widgets.widget.OWWidget.progressBarFinished(self)`
+
+`progressBarInit` initializes the progress bar, `progressBarSet` sets it
+to `p` percents (from 0 to 100), and `progressBarFinished` closes it.
+
+The code that uses these methods must use a try-except or try-finally block
+to ensure that the progress bar is removed if the exception is raised.
+
+
+Issuing warning and errors
+--------------------------
+
+Widgets can show information messages, warnings and errors. These are
+displayed in the top row of the widget and also indicated in the schema.
+
+.. image:: images/warningmessage.png
+
+Simple messages
+...............
+
+If the widget only issues a single error, warning and/or information at a time,
+it can do so by calling `self.error(text, shown=True)`,
+`self.warning(text, shown=True)` or `self.information(text, shown=True)`.
+Multiple messages - but just one of each kind - can be present at the same
+time::
+
+    self.warning("Discrete features are ignored.")
+    self.error("Fitting failed due to missing data.")
+
+At this point, the widget has a warning and an error message.
+
+    self.error("Fitting failed due to weird data.")
+
+This replaces the old error message, but the warning remains.
+
+The message is removed by setting an empty message, e.g. `self.error()`.
+To remove all messages, call `self.clear_messages()`.
+
+If the argument `shown` is set to `False`, the message is removed::
+
+    self.error("No suitable features", shown=not self.suitable_features)
+
+"Not showing" a message in this way also remove any existing messages.
+
+Multiple messages
+.................
+
+Widget that issue multiple independent messages that can appear simultaneously,
+need to declare them within local classes within the widget class, and derive
+them from the corresponding `OWWidget` classes for a particular kind of a
+message. For instance, a widget class can contain the following classes::
+
+    class Error(OWWidget.Error):
+        no_continuous_features = Msg("No continuous features")
+
+    class Warning(OWWidget.Warning):
+        empty_data = Msg("Comtrongling does not work on meta data")
+        no_scissors_run = Msg("Do not run with scissors")
+        ignoring_discrete = Msg("Ignoring {n} discrete features: {}")
+
+Within the widget, errors are raised via calls like::
+
+    self.Error.no_continuous_features()
+    self.Warning.no_scissors_run()
+
+As for the simpler messages, the `shown` argument can be added::
+
+    self.Warning.no_scissors_run(shown=self.scissors_are_available)
+
+If the message includes formatting, the call must include the necessary data
+for the `format` method::
+
+    self.Warning.ignoring_discrete(", ".join(attrs), n=len(attr))
+
+Message is cleared by::
+
+    self.Warning.ignoring_discrete.clear()
+
+Multiple messages can be removed as in the simpler schema, with::
+
+    self.Warning.clear()
+
+or::
+
+    self.clear_messages()
+
+Messages of both kinds - those from messages classes and those issued by,
+for instance, `self.error` - can coexist. Note, though, that methods for
+removing all messages of certain type (e.g. `self.Error.clear()`) or all
+messags (`self.clear_message()`) apply to all messages of this type.
+
+**Note**: handling multiple messages through ids, that is, using
+`self.information(id, text)`, `self.warning(id, text)` and
+`self.error(id, text)` is deprecated and will be removed in the future.
+
+
+I/O Summaries
+-------------
+
+.. versionadded:: 3.19
+
+Widgets can optionally summarize their inputs/outputs via the
+:attr:`~Orange.widgets.widget.OWWidget.info` namespace using the
+:func:`~Orange.widgets.widget.StateInfo.set_input_summary` and
+:func:`~Orange.widgets.widget.StateInfo.set_output_summary` methods.
+::
+
+   self.info.set_input_summary("foo")
+   self.info.set_output_summary("bar")
+
+Summaries are then displayed in the widget's status bar:
+
+.. image:: images/io-summary.png
+   :scale: 50 %
+   :alt: Inline status bar summary
+
+Predefined constants indicating no input/output are available as
+``self.info.NoInput`` and ``self.info.NoOutput`` respectively
+::
+
+   self.info.set_input_summary(self.info.NoInput)
+   self.info.set_output_summary(self.info.NoOutput)
+
+.. image:: images/io-summary-empty.png
+   :scale: 50 %
+   :alt: Empty summary
+
+The summaries can also contain more detailed information to be displayed
+in tool tip or popup::
+
+   self.info.set_output_summary("2 animals", "• 1 cat\n• 1 dog")
+
+
+.. image:: images/io-summary-popup.png
+   :scale: 50 %
+   :alt: Detailed summary popup
+
+
+.. seealso::
+   :func:`~Orange.widgets.widget.StateInfo.set_input_summary`,
+   :func:`~Orange.widgets.widget.StateInfo.set_output_summary`
+
+
+.. note::
+   No I/O summary messages are displayed initially. Widget authors should
+   initialize them (to empty state) in the widget's ``__init__`` method.
+
+
+Tips
+----
+
+Widgets can provide tips about features that are not be obvious or
+exposed in the GUI.
+
+.. image:: images/usertips.png
+
+Such messages are stored in widget's class attribute `UserAdviceMessages`.
+When a widget is first shown, a message from this list is selected for display.
+If a user accepts (clicks 'Ok. Got it') the choice is recorded and the message
+is never shown again; just closing the message will not mark it as seen.
+Messages can be displayed again by pressing Shift + F1.
+
+`UserAdviceMessages` contains instances of
+:obj:`~Orange.widgets.widget.Message`. The messages contains a text and an
+id (also a string), and, optionally, an icon and an URL with further
+information.
+
+The confusion matrix widget sets up the following list::
+
+    UserAdviceMessages = [
+        widget.Message("Clicking on cells or in headers outputs the "
+                           "corresponding data instances",
+                       "click_cell")]
+
+.. _getting started:
+
+###############
+Getting Started
+###############
+
+Orange Widgets are components in Orange Canvas, a visual programming
+environment of Orange. They represent some self contained functionalities and
+provide a graphical user interface (GUI). Widgets communicate with each other and
+pass objects through communication channels to interact with other
+widgets.
+
+On this page, we will start with some simple essentials, and then
+show you how to build a simple widget that will be ready to run within
+Orange Canvas.
+
+Prerequisites
+*************
+
+Each Orange widget belongs to a category and has an associated priority
+within that category. When opening Orange Canvas, a visual
+programming environment that comes with Orange, widgets are listed in
+a toolbox on the left:
+
+.. image:: images/widgettoolbox.png
+
+Each widget has a name description and a set of input/outputs
+(referred to as the widget's meta description).
+
+This meta data is discovered at Orange Canvas application startup
+leveraging setuptools/distribute and its `entry points`_ protocol.
+Orange Canvas looks for widgets using an ``orange.widgets`` entry point.
+
+.. _`entry points`: https://pythonhosted.org/setuptools/setuptools.html#dynamic-discovery-of-services-and-plugins
+
+Defining a widget
+*****************
+
+:class:`~Orange.widgets.widget.OWWidget` is the base class of a widget
+in the Orange Canvas workflow.
+
+Every widget in the canvas framework needs to define its meta data.
+This includes the widget's name and text descriptions and more
+importantly its input/output specification. This is done by
+defining constants in the widget's class namespace.
+
+We will start with a very simple example. A widget that will output
+a single integer specified by the user.
+
+.. code-block:: python
+
+    from Orange.widgets.widget import OWWidget, Output
+    from Orange.widgets.settings import Setting
+    from Orange.widgets import gui
+
+    class IntNumber(OWWidget):
+        # Widget's name as displayed in the canvas
+        name = "Integer Number"
+        # Short widget description
+        description = "Lets the user input a number"
+
+        # An icon resource file path for this widget
+        # (a path relative to the module where this widget is defined)
+        icon = "icons/number.svg"
+
+        # Widget's outputs; here, a single output named "Number", of type int
+        class Outputs:
+            number = Output("Number", int)
+
+
+By design principle, Orange widgets in an interface are most
+often split to control and main area. Control area appears on the left
+and should include any controls for settings or options that your widget
+will use. Main area would most often include a graph, table or some
+drawing that will be based on the inputs to the widget and current
+options/setting in the control area.
+:class:`~Orange.widgets.widget.OWWidget` makes these two areas available
+through its attributes :obj:`self.controlArea` and :obj:`self.mainArea`.
+Notice that while it would be nice for all widgets to have this common
+visual look, you can use these areas in any way you want, even
+disregarding one and composing your widget completely unlike the
+others in Orange.
+
+We specify the default layout with class attribute flags.
+Here we will only be using a single column (controlArea) GUI.
+
+.. code-block:: python
+
+       # Basic (convenience) GUI definition:
+       #   a simple 'single column' GUI layout
+       want_main_area = False
+       #   with a fixed non resizable geometry.
+       resizing_enabled = False
+
+We want the current number entered by the user to be saved and restored
+when saving/loading a workflow. We can achieve this by declaring a
+special property/member in the widget's class definition like so:
+
+.. code-block:: python
+
+       number = Setting(42)
+
+And finally the actual code to define the GUI and the associated
+widget functionality:
+
+.. code-block:: python
+
+       def __init__(self):
+           super().__init__()
+
+           from AnyQt.QtGui import QIntValidator
+           gui.lineEdit(self.controlArea, self, "number", "Enter a number",
+                        box="Number",
+                        callback=self.number_changed,
+                        valueType=int, validator=QIntValidator())
+           self.number_changed()
+
+       def number_changed(self):
+           # Send the entered number on "Number" output
+           self.Outputs.number.send(self.number)
+
+.. seealso::
+   :func:`Orange.widgets.gui.lineEdit`,
+
+By itself this widget is useless because no widget accepts its output.
+So let us define a widget that displays a number.
+
+.. code-block:: python
+
+   from Orange.widgets.widget import OWWidget, Input
+   from Orange.widgets import gui
+
+   class Print(OWWidget):
+       name = "Print"
+       description = "Print out a number"
+       icon = "icons/print.svg"
+
+       class Inputs:
+           number = Input("Number", int)
+
+       want_main_area = False
+
+       def __init__(self):
+           super().__init__()
+           self.number = None
+
+           self.label = gui.widgetLabel(self.controlArea, "The number is: ??")
+
+       @Inputs.number
+       def set_number(self, number):
+           """Set the input number."""
+           self.number = number
+           if self.number is None:
+               self.label.setText("The number is: ??")
+           else:
+               self.label.setText("The number is {}".format(self.number))
+
+We define inputs with a class `Inputs`, just like outputs are defined by
+`Outputs`. However, each input must be handled by a class methods. We mark
+the handlers by decorating them; in above case by putting `@Inputs.number`
+before the method's definition.
+
+Notice how in the `set_number` method we check whether the number is `None`.
+`None` is sent to the widget when a connection between the widgets is removed
+or if the sending widget to which we are connected intentionally emptied
+the channel.
+
+Now we can use one widget to input a number and another to display it.
+
+One more:
+
+.. code-block:: python
+
+   from Orange.widgets.widget import OWWidget, Input, Output
+
+   class Adder(OWWidget):
+       name = "Add two integers"
+       description = "Add two numbers"
+       icon = "icons/add.svg"
+
+       class Inputs:
+           a = Input("A", int)
+           b = Input("B", int)
+
+       class Outputs:
+           sum = Output("A + B", int)
+
+       want_main_area = False
+
+       def __init__(self):
+           super().__init__()
+           self.a = None
+           self.b = None
+
+       @Inputs.a
+       def set_A(self, a):
+           """Set input 'A'."""
+           self.a = a
+
+       @Inputs.b
+       def set_B(self, b):
+           """Set input 'B'."""
+           self.b = b
+
+       def handleNewSignals(self):
+           """Reimplemeted from OWWidget."""
+           if self.a is not None and self.b is not None:
+               self.Outputs.sum.send(self.a + self.b)
+           else:
+               # Clear the channel by sending `None`
+               self.Outputs.sum.send(None)
+
+.. seealso:: :func:`~Orange.widgets.widget.OWWidget.handleNewSignals`
+
+A 'Demo' package
+****************
+
+After learning what an Orange Widget is and how to define them on
+a toy example, we will build an semi-useful widgets that can
+work together with the existing Orange Widgets.
+
+We will start with a very simple one, that will receive a dataset
+on the input and will output a dataset with 10% of the data instances.
+We will call this widget `OWDataSamplerA` (OW for Orange Widget,
+DataSampler since this is what widget will be doing, and A since we
+prototype a number of this widgets in our tutorial).
+
+First in order to include our new widgets in the Orange Canvas's
+toolbox we will create a dummy `python project
+<https://python-packaging-user-guide.readthedocs.org/>`_
+named *orange-demo*
+
+The layout should be::
+
+   orange-demo/
+         setup.py
+         orangedemo/
+                     __init__.py
+                     OWDataSamplerA.py
+
+and the :download:`orange-demo/setup.py` should contain
+
+.. literalinclude:: orange-demo/setup.py
+
+Note that we declare our *orangedemo* package as containing widgets
+from an ad hoc defined category *Demo*.
+
+.. seealso::
+   https://github.com/biolab/orange3/wiki/Add-Ons
+
+..
+   TODO: Additional tutorial for Add-on declaration
+
+Following the previous examples, our module defining the OWDataSamplerA
+widget starts out as:
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerA.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+The widget defines an input channel "Data" and an output channel called
+"Sampled Data". Both will carry tokens of the type :class:`Orange.data.Table`.
+In the code, we will refer to the signals as `Inputs.data` and `Outputs.sample`.
+
+Channels can carry tokens of arbitrary types. However, the purpose of widgets
+is to talk with other widgets, so as one of the main design principles we try
+to maximize the flexibility of widgets by minimizing the number of different
+channel types. Do not invent new signal types before checking whether you cannot
+reuse the existing.
+
+As our widget won't display anything apart from some info, we will
+place the two labels in the control area and surround it with the box
+"Info".
+
+The next four lines specify the GUI of our widget. This will be
+simple, and will include only two lines of text of which, if nothing
+will happen, the first line will report on "no data yet", and second
+line will be empty.
+
+In order to complete our widget, we now need to define a method that will
+handle the input data. We will call it :func:`set_data`; the name is arbitrary,
+but calling the method `set_<the name of the input>` seems like a good practice.
+To designate it as the method that accepts the signal defined in `Inputs.data`,
+we decorate it with `@Inputs.data`.
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerA.py
+   :start-after: start-snippet-2
+   :end-before: end-snippet-2
+
+The :obj:`dataset` argument is the token sent through the input
+channel which our method needs to handle.
+
+To handle a non-empty token, the widget updates the interface
+reporting on number of data items on the input, then does the data
+sampling using Orange's routines for these, and updates the
+interface reporting on the number of sampled instances. Finally, the
+sampled data is sent as a token to the output channel defined as
+`Output.sample`.
+
+Although our widget is now ready to test, for a final touch, let's
+design an icon for our widget. As specified in the widget header, we
+will call it
+:download:`DataSamplerA.svg <orange-demo/orangedemo/icons/DataSamplerA.svg>`
+and put it in `icons` subdirectory of `orangedemo` directory.
+
+With this we can now go ahead and install the orangedemo package. We
+will do this by running ``pip install -e .`` command from
+within the `orange-demo` directory.
+
+.. note::
+   Depending on your python installation you might need
+   administrator/superuser privileges.
+
+For a test, we now open Orange Canvas. There should be a new pane in a
+widget toolbox called Demo. If we click on this pane, it displays an
+icon of our widget. Try to hover on it to see if the header and channel
+info was processed correctly:
+
+.. image:: images/samplewidgetontoolbox.png
+
+Now for the real test. We put the File widget on the schema (from
+Data pane) and load the iris.tab dataset. We also put our Data
+Sampler widget on the scheme and open it (double click on the icon,
+or right-click and choose Open):
+
+.. image:: images/datasamplerAempty.png
+
+Now connect the File and Data Sampler widget (click on an output
+connector of the File widget, and drag the line to the input connector
+of the Data Sampler). If everything is ok, as soon as you release the
+mouse, the connection is established and, the token that was waiting
+on the output of the file widget was sent to the Data Sampler widget,
+which in turn updated its window:
+
+.. image:: images/datasamplerAupdated.png
+
+To see if the Data Sampler indeed sent some data to the output,
+connect it to the Data Table widget:
+
+.. image:: images/schemawithdatatable.png
+
+Try opening different data files (the change should propagate
+through your widgets and with Data Table window open, you should
+immediately see the result of sampling). Try also removing the
+connection between File and Data Sampler (right click on the
+connection, choose Remove). What happens to the data displayed in the
+Data Table?
+
+Testing Your Widget Outside Orange Canvas
+*****************************************
+
+For debugging purposes, we want to be able to run widgets standalone: if the
+file with the widget code is executed as a main script, it should show the
+widget and feed it some suitable data. The simplest way to do so is to use
+:obj:`Orange.widgets.utils.WidgetPreview` and pass it the data for the
+default signal.
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerA.py
+   :start-after: start-snippet-3
+   :end-before: end-snippet-3
+Widget Development
+==================
+
+.. toctree::
+    :maxdepth: 2
+
+    tutorial
+    tutorial-settings
+    tutorial-channels
+    tutorial-responsive-gui
+    tutorial-utilities
+    widget
+    gui
+    testing
+.. currentmodule:: Orange.widgets.widget
+
+OWWidget
+########
+
+
+The :class:`~OWWidget` is the main component for implementing a widget in
+the Orange Canvas workflow. It both defines the widget input/output
+capabilities and implements it's functionality within the canvas.
+
+
+Widget Meta Description
+-----------------------
+
+Every widget in the canvas framework needs to define it's meta definition.
+This includes the widget's name and text descriptions but more
+importantly also its input/output specification.
+
+.. code-block:: python
+
+    class IntConstant(OWWidget):
+        name = "Integer Constant"
+        description = "A simple integer constant"
+
+        class Outputs:
+            constant = Output("Constant", int)
+
+        ...
+
+        def commit(self):
+            """Commit/send the outputs."""
+            self.Outputs.constant.send(42)
+
+Omitting the implementation details, this defines a simple node named
+*Integer Constant* which outputs (on a signal called *Constant*) a single
+object of type :class:`int`.
+
+The node's inputs are defined similarly. Each input is then used as a decorator
+of its corresponding handler method, which accepts the inputs at runtime:
+
+.. code-block:: python
+
+    class Adder(OWWidget):
+        name = "Add two integers"
+        description = "Add two numbers"
+
+        class Inputs:
+            a = Input("A", int)
+            b = Input("B", int)
+
+        class Outputs:
+            sum = Input("A + B", int)
+
+        ...
+
+        @Inputs.a
+        def set_A(self, a):
+            """Set the `A` input."""
+            self.A = a
+
+        @Inputs.b
+        def set_B(self, b):
+            """Set the `B` input."""
+            self.B = b
+
+        def handleNewSignals(self):
+            """Coalescing update."""
+            self.commit()
+
+        def commit(self):
+            """Commit/send the outputs"""
+            sef.Outputs.sum.send("self.A + self.B)
+
+
+.. seealso:: :doc:`Getting Started Tutorial <tutorial>`
+
+
+Input/Output Signal Definitions
+-------------------------------
+
+Widgets specify their input/output capabilities in their class definitions
+by defining classes named `Inputs` and `Outputs`, which contain class
+attributes of type `Input` and `Output`, correspondingly. `Input` and `Output`
+require at least two arguments, the signal's name (as shown in canvas) and
+type. Optional arguments further define the behaviour of the signal.
+
+**Note**: old-style signals define the input and output signals using class
+attributes `inputs` and `outputs` instead of classes `Input` and `Output`.
+The two attributes contain a list of tuples with the name and type and,
+for inputs, the name of the handler method. The optional last argument
+is an integer constant giving the flags. This style of signal definition
+is deprecated.
+
+.. autoclass:: Input
+
+.. autoclass:: Output
+
+Sending/Receiving
+-----------------
+
+The widgets receive inputs at runtime with the handler method decorated with
+the signal, as shown in the above examples.
+
+If an input is defined with the flag `multiple` set, the input handler
+method also receives a connection `id` uniquely identifying a
+connection/link on which the value was sent (see also :doc:`tutorial-channels`)
+
+The widget sends an output by calling the signal's `send` method, as shown
+above.
+
+Accessing Controls though Attribute Names
+-----------------------------------------
+
+The preferred way for constructing the user interface is to use functions from
+module :obj:`Orange.widgets.gui` that insert a Qt widget and establish the
+signals for synchronization with the widget's attributes.
+
+     gui.checkBox(box, self, "binary_trees", "Induce binary tree")
+
+This inserts a `QCheckBox` into the layout of `box`, and make it reflect and
+changes the attriubte `self.binary_trees`. The instance of `QCheckbox`
+can be accessed through the name it controls. E.g. we can disable the check box
+by calling
+
+   self.controls.binary_trees.setDisabled(True)
+
+This may be more practical than having to store the attribute and the Qt
+widget that controls it, e.g. with
+
+     self.binarization_cb = gui.checkBox(
+         box, self, "binary_trees", "Induce binary tree")
+
+Class Member Documentation
+--------------------------
+
+.. autoclass:: Orange.widgets.widget.OWWidget
+   :members:
+   :member-order: bysource
+
+
+.. autoclass:: Orange.widgets.widget.Message
+
+
+.. autoclass:: Orange.widgets.widget.StateInfo
+   :members: Summary, Empty, Partial, input_summary_changed,
+       output_summary_changed
+   :exclude-members: Summary, Empty, Partial,
+      input_summary_changed, output_summary_changed,
+      set_input_summary, set_output_summary,
+      NoInput, NoOutput
+
+   .. autoclass:: Orange.widgets.widget::StateInfo.Summary
+      :members:
+
+   .. autoclass:: Orange.widgets.widget::StateInfo.Empty
+      :show-inheritance:
+
+   .. autoclass:: Orange.widgets.widget::StateInfo.Partial
+      :show-inheritance:
+
+   .. autoattribute:: NoInput
+      :annotation: Empty()
+
+   .. autoattribute:: NoOutput
+      :annotation: Empty()
+
+   .. function:: set_input_summary(summary: Optional[StateInfo.Summary]])
+
+      Set the input summary description.
+
+      :parameter summary:
+      :type summary: Optional[StateInfo.Summary]
+
+   .. function:: set_input_summary(brief:str, detailed:str="", \
+                    icon:QIcon=QIcon, format:Qt.TextFormat=Qt.PlainText)
+
+   .. function:: set_output_summary(summary: Optional[StateInfo.Summary]])
+
+      Set the output summary description.
+
+      :parameter summary:
+      :type summary: Optional[StateInfo.Summary]
+
+   .. function:: set_output_summary(brief:str, detailed:str="", \
+                    icon:QIcon=QIcon, format:Qt.TextFormat=Qt.PlainText)
+
+   .. autoattribute:: input_summary_changed(message: StateInfo.Message)
+
+   .. autoattribute:: output_summary_changed(message: StateInfo.Message)###################
+Channels and Tokens
+###################
+
+
+Our data sampler widget was, regarding the channels, rather simple
+and linear: the widget was designed to receive the token from one
+widget, and send an output token to another widget. Just like in an
+example schema below:
+
+.. image:: images/schemawithdatasamplerB.png
+
+There's quite a bit more to channels and management of tokens, and
+we will overview most of the stuff you need to know to make your more
+complex widgets in this section.
+
+********************
+Multi-Input Channels
+********************
+
+In essence, the basic idea about "multi-input" channels is that they can
+be used to connect them with several output channels. That is, if a
+widget supports such a channel, several widgets can feed their input
+to that widget simultaneously.
+
+Say we want to build a widget that takes a dataset and test
+various predictive modeling techniques on it. A widget has to have an
+input data channel, and this we know how to deal with from our
+:doc:`previous <tutorial-settings>` lesson. But, somehow differently, we
+want to connect any number of widgets which define learners to our
+testing widget. Just like in a schema below, where three different
+learners are used:
+
+.. image:: images/learningcurve.png
+
+We will here take a look at how we define the channels for a learning
+curve widget, and how we manage its input tokens. But before we do it,
+just in brief: learning curve is something that you can use to test
+some machine learning algorithm in trying to see how its performance
+depends on the size of the training set size. For this, one can draw a
+smaller subset of data, learn the classifier, and test it on remaining
+dataset. To do this in a just way (by Salzberg, 1997), we perform
+k-fold cross validation but use only a proportion of the data for
+training. The output widget should then look something like:
+
+.. image:: images/learningcurve-output.png
+
+
+Now back to channels and tokens. Input and output channels for our
+widget are defined by
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveA.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+
+Notice that everything is pretty much the same as it was with
+widgets from previous lessons, the only difference being the additional argument
+``multiple=True``, which says that this input can be connected to outputs of
+multiple widgets.
+
+Handlers of multiple-input signals must accept two arguments: the sent object
+and the id of the sending widget.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveA.py
+   :pyobject: OWLearningCurveA.set_learner
+
+OK, this looks like one long and complicated function. But be
+patient! Learning curve is not the simplest widget there is, so
+there's some extra code in the function above to manage the
+information it handles in the appropriate way. To understand the
+signals, though, you should only understand the following. We store
+the learners (objects that learn from data) in an
+:class:`~collections.OrderedDict` :obj:`self.learners`. This dictionary
+is a mapping of input *id* to the input value (the input learner itself).
+The reason this is an :class:`~collections.OrderedDict` is that the order
+of the input learners is important as we want to maintain a consistent column
+order in the table view of the learning curve point scores.
+
+The function above first checks if the channel `id` is already in
+:obj:`self.learners` and if so either deletes the corresponding entry if
+``learner`` is ``None`` (remember receiving a ``None`` value means the
+link was removed/closed) or invalidates the cross validation results
+and curve point for that channel id, marking for update in
+:func:`~Orange.widgets.widget.OWWidget.handleNewSignals`. A similar case is
+when we receive a learner for a new channel id.
+
+Note that in this widget the evaluation (k-fold cross
+validation) is carried out just once given the learner, dataset and
+evaluation parameters, and scores are then derived from class
+probability estimates as obtained from the evaluation procedure. Which
+essentially means that switching from one to another scoring function
+(and displaying the result in the table) takes only a split of a
+second. To see the rest of the widget, check out
+:download:`its code <orange-demo/orangedemo/OWLearningCurveA.py>`.
+
+
+*****************************
+Using Several Output Channels
+*****************************
+
+There's nothing new here, only that we need a widget that has
+several output channels of the same type to illustrate the idea of the
+default channels in the next section. For this purpose, we will modify
+our sampling widget as defined in previous lessons such that it will
+send out the sampled data to one channel, and all other data to
+another channel. The corresponding channel definition of this widget
+is
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerC.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+
+We used this in the third incarnation of :download:`data sampler widget
+<orange-demo/orangedemo/OWDataSamplerC.py>`, with essentially the only
+other change in the code in the :func:`selection` and :func:`commit`
+functions
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerC.py
+   :pyobject: OWDataSamplerC.selection
+
+.. literalinclude:: orange-demo/orangedemo/OWDataSamplerC.py
+   :pyobject: OWDataSamplerC.commit
+
+
+If a widget that has multiple channels of the same type is
+connected to a widget that accepts such tokens, Orange Canvas opens a
+window asking the user to confirm which channels to connect. Hence,
+if we have just connected *Data Sampler (C)* widget to a Data Table
+widget in a schema below:
+
+.. image:: images/datasampler-totable.png
+
+we would get a following window querying users for information on
+which channels to connect:
+
+.. image:: images/datasampler-channelquerry.png
+
+
+*************************************************************
+Default Channels (When Using Input Channels of the Same Type)
+*************************************************************
+
+Now, let's say we want to extend our learning curve widget such
+that it does the learning the same way as it used to, but can -
+provided that such dataset is defined - test the
+learners (always) on the same, external dataset. That is, besides the
+training dataset, we need another channel of the same type but used
+for training dataset. Notice, however, that most often we will only
+provide the training dataset, so we would not like to be bothered (in
+Orange Canvas) with the dialog which channel to connect to, as the
+training dataset channel will be the default one.
+
+When enlisting the input channel of the same type, the default
+channels have a special flag in the channel specification list. So for
+our new :download:`learning curve <orange-demo/orangedemo/OWLearningCurveB.py>`
+widget, the channel specification is
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveB.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+That is, the :obj:`Train Data` channel is a single-token
+channel which is a default one (third parameter). Note that the flags can
+be added (or OR-d) together so ``Default + Multiple`` is a valid flag.
+To test how this works, connect a file widget to a learning curve widget
+and - nothing will really happen:
+
+.. image:: images/file-to-learningcurveb.png
+
+That is, no window with a query on which channels to connect to will
+open, as the default *"Train Data"* was selected.
+
+
+*****************
+Explicit Channels
+*****************
+
+Sometimes when a widget has multiple outputs of different types, some
+of them should not be subject to this automatic default connection selection.
+An example of this is in Orange's `Logistic Regression` widget that outputs
+a supplementary 'Coefficients' data table. Such outputs can be marked with
+and :attr:`~Orange.widgets.widget.Explicit` flag, which ensures they are never
+selected for a default connection.
+.. currentmodule:: Orange.widgets.tests.base
+
+
+Debugging and testing
+=====================
+
+Running widgets as scripts
+--------------------------
+
+To run a widget without canvas - for debugging and for nitpicking about the GUI
+- the widget module must be executable as a script. This is handled by
+:obj:`~Orange.widgets.utils.widgetpreview.WidgetPreview`. It is typically
+used as follows ::
+
+    if __name__ == "__main__":
+        WidgetPreview(OWMyWidgetName).run()
+
+where :obj:`OWMyWidgetName` is the widget's class.
+
+We can also pass the data to the widget. For instance, ::
+
+   if __name__ == "__main__":
+       WidgetPreview(OWMyWidgetName).run(Orange.data.Table("iris"))
+
+passes the Iris data set to the widget. Passing data in this way requires
+that there is a single or default signal for the argument's data type. Multiple
+signals can be passed as keyword arguments in which the names correspond to
+signal handlers::
+
+    if __name__ == "__main__":
+        data = Orange.data.Table("iris")
+        WidgetPreview(OWScatterPlot).run(
+            set_data=data,
+            set_subset_data=data[:30]
+        )
+
+If the signal handler accepts multiple inputs, they can be passed as a list,
+like in the following method in the Table widget. ::
+
+    if __name__ == "__main__":
+        WidgetPreview(OWDataTable).run(
+            [(Table("iris"), "iris"),
+            (Table("brown-selected"), "brown-selected"),
+            (Table("housing"), "housing")
+            ]
+        )
+
+Preview ends by tearing down the widget and calling :obj:`sys.exit` with the
+widget's exit code. This can be prevented by adding a `no_exit=True` argument.
+We can also prevent showing the widget and starting the event loop by using
+`no_exec=True`. This, together with some previewers method described below,
+can be used for debugging the widget. For example, `OWRank`'s preview, ::
+
+    if __name__ == "__main__":
+        from Orange.classification import RandomForestLearner
+        WidgetPreview(OWRank).run(
+            set_learner=(RandomForestLearner(), (3, 'Learner', None)),
+            set_data=Table("heart_disease.tab"))
+
+can be temporarily modified to ::
+
+    if __name__ == "__main__":
+        from Orange.classification import RandomForestLearner
+        previewer = WidgetPreview(OWRank)
+        previewer.run(Table("heart_disease.tab"), no_exit=True)
+        previewer.send_signals(
+            set_learner=(RandomForestLearner(), (3, 'Learner', None)))
+        previewer.run()
+
+which shows the widget twice, allows us a finer control of signal passing,
+and offers adding some breakpoints.
+
+.. autoclass:: Orange.widgets.utils.widgetpreview.WidgetPreview
+   :members:
+   :member-order: bysource
+
+Unit-testing Widgets
+--------------------
+
+Orange provides a base class :class:`WidgetTest` with helper methods for unit
+testing.
+
+
+.. autoclass:: WidgetTest
+   :members:
+   :member-order: bysource
+##############
+Responsive GUI
+##############
+
+And now for the hard part of making the widget responsive. We will do this
+by offloading the learner evaluations into a separate thread.
+
+First read up on `threading basics`_ in Qt and in particular the subject
+of `threads and qobjects`_ and how they interact with the Qt's event loop.
+
+.. _threading basics:
+    http://doc.qt.io/qt-5/thread-basics.html
+
+.. _threads and qobjects:
+    http://doc.qt.io/qt-5/threads-qobject.html
+
+We must also take special care that we can cancel/interrupt our task when
+the user changes algorithm parameters or removes the widget from the canvas.
+For that we use a strategy known as cooperative cancellation where we 'ask'
+the pending task to stop executing (in the GUI thread), then in the worker
+thread periodically check (at known predetermined points) whether we should
+continue, and if not return early (in our case by raising an exception).
+
+
+**********
+Setting up
+**********
+
+We use :class:`Orange.widgets.utils.concurrent.ThreadExecutor` for thread
+allocation/management (but could easily replace it with stdlib's
+:class:`concurrent.futures.ThreadPoolExecutor`).
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-1
+   :end-before: end-snippet-1
+
+
+We will reorganize our code to make the learner evaluation an explicit
+task as we will need to track its progress and state. For this we define
+a `Task` class.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-2
+   :end-before: end-snippet-2
+
+
+In the widget's ``__init__`` we create an instance of the `ThreadExector`
+and initialize the task field.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-3
+   :end-before: end-snippet-3
+
+All code snippets are from :download:`OWLearningCurveC.py <orange-demo/orangedemo/OWLearningCurveC.py>`.
+
+
+***************************
+Starting a task in a thread
+***************************
+
+In `handleNewSignals` we call `_update`.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-4
+   :end-before: end-snippet-4
+
+
+And finally the `_update` function (from :download:`OWLearningCurveC.py <orange-demo/orangedemo/OWLearningCurveC.py>`)
+that will start/schedule all updates.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-5
+   :end-before: end-snippet-5
+
+
+At the start we cancel pending tasks if they are not yet completed. It is
+important to do this, we cannot allow the widget to schedule tasks and
+then just forget about them. Next we make some checks and return early if
+there is nothing to be done.
+
+Continue by setting up the learner evaluations as a partial function
+capturing the necessary arguments:
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-6
+   :end-before: end-snippet-6
+
+
+Setup the task state and the communication between the main and worker thread.
+The only `state` flowing from the GUI to the worker thread is the
+`task.cancelled` field which is a simple trip wire causing the
+`learning_curve`'s callback argument to raise an exception. In the other
+direction we report the `percent` of work done.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-7
+   :end-before: end-snippet-7
+
+.. seealso::
+   :func:`~Orange.widgets.widget.OWWidget.progressBarInit`,
+   :func:`~Orange.widgets.widget.OWWidget.progressBarSet`,
+   :func:`~Orange.widgets.widget.OWWidget.progressBarFinished`
+
+
+Next, we submit the function to be run in a worker thread and instrument
+a FutureWatcher instance to notify us when the task completes (via a
+`_task_finished` slot).
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-8
+   :end-before: end-snippet-8
+
+For the above code to work, the `setProgressValue` needs defined as a pyqtSlot.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-progress
+   :end-before: end-snippet-progress
+
+
+******************
+Collecting results
+******************
+
+In `_task_finished` (from :download:`OWLearningCurveC.py <orange-demo/orangedemo/OWLearningCurveC.py>`)
+we handle the completed task (either success or failure) and then update the displayed score table.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-9
+   :end-before: end-snippet-9
+
+
+********
+Stopping
+********
+
+Also of interest is the `cancel` method. Note that we also disconnect the
+`_task_finished` slot so that `_task_finished` does not receive stale
+results.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-10
+   :end-before: end-snippet-10
+
+We also use cancel in :func:`~Orange.widgets.widget.OWWidget.onDeleteWidget`
+to stop if/when the widget is removed from the canvas.
+
+.. literalinclude:: orange-demo/orangedemo/OWLearningCurveC.py
+   :start-after: start-snippet-11
+   :end-before: end-snippet-11
+=========================
+Orange Visual Programming
+=========================
+
+Getting Started
+===============
+
+Here we need to copy the getting started guide.
+
+.. toctree::
+   :maxdepth: 1
+
+   loading-your-data/index
+   building-workflows/index
+   exporting-models/index
+   exporting-visualizations/index
+   learners-as-scorers/index
+   report/index
+
+Widgets
+=======
+
+Data
+----
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/data/file
+   widgets/data/csvfileimport
+   widgets/data/datasets
+   widgets/data/sqltable
+   widgets/data/save
+   widgets/data/datainfo
+   widgets/data/aggregatecolumns
+   widgets/data/datatable
+   widgets/data/selectcolumns
+   widgets/data/selectrows
+   widgets/data/datasampler
+   widgets/data/transpose
+   widgets/data/discretize
+   widgets/data/continuize
+   widgets/data/createinstance
+   widgets/data/createclass
+   widgets/data/randomize
+   widgets/data/concatenate
+   widgets/data/select-by-data-index
+   widgets/data/paintdata
+   widgets/data/pivot
+   widgets/data/pythonscript
+   widgets/data/featureconstructor
+   widgets/data/editdomain
+   widgets/data/impute
+   widgets/data/mergedata
+   widgets/data/outliers
+   widgets/data/preprocess
+   widgets/data/applydomain
+   widgets/data/purgedomain
+   widgets/data/rank
+   widgets/data/correlations
+   widgets/data/color
+   widgets/data/featurestatistics
+   widgets/data/melt
+   widgets/data/neighbors
+   widgets/data/unique
+   widgets/data/groupby
+
+
+Visualize
+---------
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/visualize/boxplot
+   widgets/visualize/violinplot
+   widgets/visualize/distributions
+   widgets/visualize/heatmap
+   widgets/visualize/scatterplot
+   widgets/visualize/lineplot
+   widgets/visualize/barplot
+   widgets/visualize/venndiagram
+   widgets/visualize/linearprojection
+   widgets/visualize/sievediagram
+   widgets/visualize/pythagoreantree
+   widgets/visualize/pythagoreanforest
+   widgets/visualize/cn2ruleviewer
+   widgets/visualize/mosaicdisplay
+   widgets/visualize/silhouetteplot
+   widgets/visualize/treeviewer
+   widgets/visualize/nomogram
+   widgets/visualize/freeviz
+   widgets/visualize/radviz
+
+
+Model
+-----
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/model/constant
+   widgets/model/cn2ruleinduction
+   widgets/model/calibratedlearner
+   widgets/model/knn
+   widgets/model/tree
+   widgets/model/randomforest
+   widgets/model/gradientboosting
+   widgets/model/svm
+   widgets/model/linearregression
+   widgets/model/logisticregression
+   widgets/model/naivebayes
+   widgets/model/adaboost
+   widgets/model/curvefit
+   widgets/model/neuralnetwork
+   widgets/model/stochasticgradient
+   widgets/model/stacking
+   widgets/model/loadmodel
+   widgets/model/savemodel
+
+
+Evaluate
+--------
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/evaluate/calibrationplot
+   widgets/evaluate/confusionmatrix
+   widgets/evaluate/liftcurve
+   widgets/evaluate/predictions
+   widgets/evaluate/rocanalysis
+   widgets/evaluate/testandscore
+
+
+.. toctree::
+   :maxdepth: 1
+
+
+Unsupervised
+------------
+
+.. toctree::
+   :maxdepth: 1
+
+   widgets/unsupervised/PCA
+   widgets/unsupervised/correspondenceanalysis
+   widgets/unsupervised/distancemap
+   widgets/unsupervised/distances
+   widgets/unsupervised/distancematrix
+   widgets/unsupervised/distancetransformation
+   widgets/unsupervised/distancefile
+   widgets/unsupervised/savedistancematrix
+   widgets/unsupervised/hierarchicalclustering
+   widgets/unsupervised/kmeans
+   widgets/unsupervised/louvainclustering
+   widgets/unsupervised/DBSCAN
+   widgets/unsupervised/mds
+   widgets/unsupervised/tsne
+   widgets/unsupervised/manifoldlearning
+   widgets/unsupervised/selforganizingmap
+
+Orange Data Mining Library
+==========================
+
+Tutorial
+--------
+
+This is a gentle introduction on scripting in `Orange <http://orange.biolab.si>`_ , a Python 3 data mining library. We here assume you have already downloaded and installed Orange from its `github repository <https://github.com/biolab/orange3>`_ and have a working version of Python. In the command line or any Python environment, try to import Orange. Below, we used a Python shell::
+
+   % python
+   >>> import Orange
+   >>> Orange.version.version
+   '3.25.0.dev0+3bdef92'
+   >>>
+
+If this leaves no error and warning, Orange and Python are properly installed and you are ready to continue with the tutorial.
+
+.. toctree::
+   :maxdepth: 3
+
+   tutorial/data
+   tutorial/classification
+   tutorial/regression
+..   ensembles
+..   python-learners
+
+
+
+Reference
+---------
+
+Available classes and methods.
+
+.. toctree::
+   :maxdepth: 2
+
+   reference/data
+   reference/preprocess
+   reference/outliers
+   reference/classification
+   reference/regression
+   reference/clustering
+   reference/distance
+   reference/evaluation
+   reference/projection
+   reference/misc
+
+The Data
+========
+
+.. index: data
+
+This section describes how to load the data in Orange. We also show how to explore the data, perform some basic statistics, and how to sample the data.
+
+Data Input
+----------
+
+..  index::
+    single: data; input
+
+Orange can read files in proprietary tab-delimited format, or can load data from any of the major standard spreadsheet file types, like CSV and Excel. Native format starts with a header row with feature (column) names. The second header row gives the attribute type, which can be numeric, categorical, time, or string. The third header line contains meta information to identify dependent features (class), irrelevant features (ignore) or meta features (meta).
+More detailed specification is available in :doc:`../reference/data.io`.
+Here are the first few lines from a dataset :download:`lenses.tab <code/lenses.tab>`::
+
+    age       prescription  astigmatic    tear_rate     lenses
+    discrete  discrete      discrete      discrete      discrete
+                                                        class
+    young     myope         no            reduced       none
+    young     myope         no            normal        soft
+    young     myope         yes           reduced       none
+    young     myope         yes           normal        hard
+    young     hypermetrope  no            reduced       none
+
+
+Values are tab-limited. This dataset has four attributes (age of the patient, spectacle prescription, notion on astigmatism, and information on tear production rate) and an associated three-valued dependent variable encoding lens prescription for the patient (hard contact lenses, soft contact lenses, no lenses). Feature descriptions could use one letter only, so the header of this dataset could also read::
+
+    age       prescription  astigmatic    tear_rate     lenses
+    d         d             d             d             d
+                                                        c
+
+The rest of the table gives the data. Note that there are 5 instances in our table above. For the full dataset, check out or download :download:`lenses.tab <code/lenses.tab>`) to a target directory. You can also skip this step as Orange comes preloaded with several demo datasets, lenses being one of them. Now, open a python shell, import Orange and load the data:
+
+    >>> import Orange
+    >>> data = Orange.data.Table("lenses")
+    >>>
+
+Note that for the file name no suffix is needed, as Orange checks if any files in the current directory are of a readable type. The call to ``Orange.data.Table`` creates an object called ``data`` that holds your dataset and information about the lenses domain:
+
+    >>> data.domain.attributes
+    (DiscreteVariable('age', values=('pre-presbyopic', 'presbyopic', 'young')),
+     DiscreteVariable('prescription', values=('hypermetrope', 'myope')),
+     DiscreteVariable('astigmatic', values=('no', 'yes')),
+     DiscreteVariable('tear_rate', values=('normal', 'reduced')))
+    >>> data.domain.class_var
+    DiscreteVariable('lenses', values=('hard', 'none', 'soft'))
+    >>> for d in data[:3]:
+       ...:     print(d)
+       ...:
+    [young, myope, no, reduced | none]
+    [young, myope, no, normal | soft]
+    [young, myope, yes, reduced | none]
+    >>>
+
+The following script wraps-up everything we have done so far and lists first 5 data instances with ``soft`` prescription:
+
+.. literalinclude:: code/data-lenses.py
+
+Note that data is an object that holds both the data and information on the domain. We show above how to access attribute and class names, but there is much more information there, including that on feature type, set of values for categorical features, and other.
+
+Creating a Data Table
+---------------------
+
+To create a data table from scratch, one needs two things, a `domain <../reference/data.domain.html>`_ and the data. The domain is the description of the variables, i.e. column names, types, roles, etc.
+
+First, we create the said domain. We will create three types of variables, numeric (ContiniousVariable), categorical (DiscreteVariable) and text (StringVariable). Numeric and categorical variables will be used a features (also known as X), while the text variable will be used as a meta variable.
+
+    >>> from Orange.data import Domain, ContinuousVariable, 
+        DiscreteVariable, StringVariable
+    >>>
+    >>> domain = Domain([ContinuousVariable("col1"),
+                         DiscreteVariable("col2", values=["red", "blue"])], 
+                         metas=[StringVariable("col3")])
+
+Now, we will build the data with numpy.
+
+    >>> import numpy as np
+    >>>
+    >>> column1 = np.array([1.2, 1.4, 1.5, 1.1, 1.2])
+    >>> column2 = np.array([0, 1, 1, 1, 0])
+    >>> column3 = np.array(["U13", "U14", "U15", "U16", "U17"], dtype=object)
+
+Two things to note here. column2 has values 0 and 1, even though we specified it will be a categorical variable with values "red" and "blue". X (features in the data) can only be numbers, so the numpy matrix will contain numbers, while Orange will handle the categorical representation internally. 0 will be mapped to the value "red" and 1 to "blue" (in the order, specified in the domain).
+
+Text variable requires ``dtype=object`` for numpy to handle it correctly.
+
+Next, variables have to be transformed to a matrix.
+
+    >>> X = np.column_stack((column1, column2))
+    >>> M = column3.reshape(-1, 1)
+
+Finally, we create a table. We need a domain and variables, which can be passed as X (features), Y (class variable) or metas.
+
+    >>> table = Table.from_numpy(domain, X=X, metas=M)
+    >>> print(table)
+    >>> [[1.2, red] {U13},
+    [1.4, blue] {U14},
+    [1.5, blue] {U15},
+    [1.1, blue] {U16},
+    [1.2, red] {U17}]
+
+To add a class variable to the table, the procedure would be the same, with the class variable passed as Y (e.g. ``table = Table.from_numpy(domain, X=X, Y=Y, metas=M)``).
+
+To add a single column to the table, one can use the ``Table.add_column()`` method.
+
+    >>> new_var = DiscreteVariable("var4", values=["one", "two"])
+    >>> var4 = np.array([0, 1, 0, 0, 1]) # no reshaping necessary
+    >>> table = table.add_column(new_var, var4)
+    >>> print(table)
+    >>> [[1.2, red, one] {U13},
+    [1.4, blue, two] {U14},
+    [1.5, blue, one] {U15},
+    [1.1, blue, one] {U16},
+    [1.2, red, two] {U17}]
+
+Saving the Data
+---------------
+
+Data objects can be saved to a file:
+
+    >>> data.save("new_data.tab")
+    >>>
+
+This time, we have to provide the file extension to specify the output format. An extension for native Orange's data format is ".tab". The following code saves only the data items with myope perscription:
+
+.. literalinclude:: code/data-save.py
+
+We have created a new data table by passing the information on the structure of the data (``data.domain``) and a subset of data instances.
+
+Exploration of the Data Domain
+------------------------------
+
+..  index::
+    single: data; attributes
+..  index::
+    single: data; domain
+..  index::
+    single: data; class
+
+Data table stores information on data instances as well as on data domain. Domain holds the names of attributes, optional classes, their types and, and if categorical, the value names. The following code:
+
+..  literalinclude:: code/data-domain1.py
+
+outputs::
+
+    25 attributes: 14 continuous, 11 discrete
+    First three attributes: symboling, normalized-losses, make
+    Class: price
+
+Orange's objects often behave like Python lists and dictionaries, and can be indexed or accessed through feature names:
+
+..  literalinclude:: code/data-domain2.py
+    :lines: 5-
+
+The output of the above code is::
+
+    First attribute: symboling
+    Values of attribute 'fuel-type': diesel, gas
+
+Data Instances
+--------------
+
+..  index::
+    single: data; instances
+..  index::
+    single: data; examples
+
+Data table stores data instances (or examples). These can be indexed or traversed as any Python list. Data instances can be considered as vectors, accessed through element index, or through feature name.
+
+..  literalinclude:: code/data-instances1.py
+
+The script above displays the following output::
+
+    First three data instances:
+    [5.100, 3.500, 1.400, 0.200 | Iris-setosa]
+    [4.900, 3.000, 1.400, 0.200 | Iris-setosa]
+    [4.700, 3.200, 1.300, 0.200 | Iris-setosa]
+    25-th data instance:
+    [4.800, 3.400, 1.900, 0.200 | Iris-setosa]
+    Value of 'sepal width' for the first instance: 3.500
+    The 3rd value of the 25th data instance: 1.900
+
+The Iris dataset we have used above has four continuous attributes. Here's a script that computes their mean:
+
+..  literalinclude:: code/data-instances2.py
+    :lines: 3-
+
+The above script also illustrates indexing of data instances with objects that store features; in ``d[x]`` variable ``x`` is an Orange object. Here's the output::
+
+    Feature         Mean
+    sepal length    5.84
+    sepal width     3.05
+    petal length    3.76
+    petal width     1.20
+
+
+A slightly more complicated, but also more interesting, code that computes per-class averages:
+
+..  literalinclude:: code/data-instances3.py
+    :lines: 3-
+
+Of the four features, petal width and length look quite discriminative for the type of iris::
+
+    Feature             Iris-setosa Iris-versicolor  Iris-virginica
+    sepal length               5.01            5.94            6.59
+    sepal width                3.42            2.77            2.97
+    petal length               1.46            4.26            5.55
+    petal width                0.24            1.33            2.03
+
+Finally, here is a quick code that computes the class distribution for another dataset:
+
+..  literalinclude:: code/data-instances4.py
+
+Orange Datasets and NumPy
+-------------------------
+Orange datasets are actually wrapped `NumPy <http://www.numpy.org>`_ arrays. Wrapping is performed to retain the information about the feature names and values, and NumPy arrays are used for speed and compatibility with different machine learning toolboxes, like `scikit-learn <http://scikit-learn.org>`_, on which Orange relies. Let us display the values of these arrays for the first three data instances of the iris dataset::
+
+    >>> data = Orange.data.Table("iris")
+    >>> data.X[:3]
+    array([[ 5.1,  3.5,  1.4,  0.2],
+           [ 4.9,  3. ,  1.4,  0.2],
+           [ 4.7,  3.2,  1.3,  0.2]])
+    >>> data.Y[:3]
+    array([ 0.,  0.,  0.])
+
+Notice that we access the arrays for attributes and class separately, using ``data.X`` and ``data.Y``. Average values of attributes can then be computed efficiently by::
+
+    >>> import np as numpy
+    >>> np.mean(data.X, axis=0)
+    array([ 5.84333333,  3.054     ,  3.75866667,  1.19866667])
+
+We can also construct a (classless) dataset from a numpy array::
+
+    >>> X = np.array([[1,2], [4,5]])
+    >>> data = Orange.data.Table(X)
+    >>> data.domain
+    [Feature 1, Feature 2]
+
+If we want to provide meaninful names to attributes, we need to construct an appropriate data domain::
+
+    >>> domain = Orange.data.Domain([Orange.data.ContinuousVariable("lenght"),
+                                     Orange.data.ContinuousVariable("width")])
+    >>> data = Orange.data.Table(domain, X)
+    >>> data.domain
+    [lenght, width]
+
+Here is another example, this time with the construction of a dataset that includes a numerical class and different types of attributes:
+
+..  literalinclude:: code/data-domain-numpy.py
+    :lines: 4-
+
+Running of this scripts yields::
+
+    [[big, 3.400, circle | 42.000],
+     [small, 2.700, oval | 52.200],
+     [big, 1.400, square | 13.400]
+
+Meta Attributes
+---------------
+
+Often, we wish to include descriptive fields in the data that will not be used in any computation (distance estimation, modeling), but will serve for identification or additional information. These are called meta attributes, and are marked with ``meta`` in the third header row:
+
+..  literalinclude:: code/zoo.tab
+
+Values of meta attributes and all other (non-meta) attributes are treated similarly in Orange, but stored in separate numpy arrays:
+
+    >>> data = Orange.data.Table("zoo")
+    >>> data[0]["name"]
+    >>> data[0]["type"]
+    >>> for d in data:
+        ...:     print("{}/{}: {}".format(d["name"], d["type"], d["legs"]))
+        ...:
+    aardvark/mammal: 4
+    antelope/mammal: 4
+    bass/fish: 0
+    bear/mammal: 4
+    >>> data.X
+    array([[ 1.,  0.,  1.,  1.,  2.],
+           [ 1.,  0.,  1.,  1.,  2.],
+           [ 0.,  1.,  0.,  1.,  0.],
+           [ 1.,  0.,  1.,  1.,  2.]]))
+    >>> data.metas
+    array([['aardvark'],
+           ['antelope'],
+           ['bass'],
+           ['bear']], dtype=object))
+
+Meta attributes may be passed to ``Orange.data.Table`` after providing arrays for attribute and class values:
+
+..   literalinclude:: code/data-metas.py
+
+The script outputs::
+
+    [[2.200, 1625.000 | no] {houston, 10},
+     [0.300, 163.000 | yes] {ljubljana, -1}
+
+To construct a classless domain we could pass ``None`` for the class values.
+
+Missing Values
+--------------
+
+..  index::
+    single: data; missing values
+
+Consider the following exploration of the dataset on votes of the US senate::
+
+    >>> import numpy as np
+    >>> data = Orange.data.Table("voting.tab")
+    >>> data[2]
+    [?, y, y, ?, y, ... | democrat]
+    >>> np.isnan(data[2][0])
+    True
+    >>> np.isnan(data[2][1])
+    False
+
+The particular data instance included missing data (represented with '?') for the first and the fourth attribute. In the original dataset file, the missing values are, by default, represented with a blank space. We can now examine each attribute and report on proportion of data instances for which this feature was undefined:
+
+..  literalinclude:: code/data-missing.py
+    :lines: 4-
+
+First three lines of the output of this script are::
+
+     2.8% handicapped-infants
+    11.0% water-project-cost-sharing
+     2.5% adoption-of-the-budget-resolution
+
+A single-liner that reports on number of data instances with at least one missing value is::
+
+    >>> sum(any(np.isnan(d[x]) for x in data.domain.attributes) for d in data)
+    203
+
+.. sum([np.any(np.isnan(x)) for x in data.X])
+
+Data Selection and Sampling
+---------------------------
+
+..  index::
+    single: data; sampling
+
+Besides the name of the data file, ``Orange.data.Table`` can accept the data domain and a list of data items and returns a new dataset. This is useful for any data subsetting:
+
+..  literalinclude:: code/data-subsetting.py
+    :lines: 3-
+
+The code outputs::
+
+    Dataset instances: 150
+    Subset size: 99
+
+and inherits the data description (domain) from the original dataset. Changing the domain requires setting up a new domain descriptor. This feature is useful for any kind of feature selection:
+
+..  literalinclude:: code/data-feature-selection.py
+    :lines: 3-
+
+..  index::
+    single: feature; selection
+
+We could also construct a random sample of the dataset::
+
+    >>> sample = Orange.data.Table(data.domain, random.sample(data, 3))
+    >>> sample
+    [[6.000, 2.200, 4.000, 1.000 | Iris-versicolor],
+     [4.800, 3.100, 1.600, 0.200 | Iris-setosa],
+     [6.300, 3.400, 5.600, 2.400 | Iris-virginica]
+    ]
+
+or randomly sample the attributes:
+
+    >>> atts = random.sample(data.domain.attributes, 2)
+    >>> domain = Orange.data.Domain(atts, data.domain.class_var)
+    >>> new_data = Orange.data.Table(domain, data)
+    >>> new_data[0]
+    [5.100, 1.400 | Iris-setosa]
+Regression
+==========
+
+.. index:: regression
+
+Regression in Orange is, from the interface, very similar to classification. These both require class-labeled data. Just like in classification, regression is implemented with learners and regression models (regressors). Regression learners are objects that accept data and return regressors. Regression models are given data items to predict the value of continuous class:
+
+.. literalinclude:: code/regression.py
+
+
+Handful of Regressors
+---------------------
+
+.. index::
+   single: regression; tree
+
+Let us start with regression trees. Below is an example script that builds a tree from data on housing prices and prints out the tree in textual form:
+
+.. literalinclude:: code/regression-tree.py
+   :lines: 3-
+
+The script outputs the tree::
+
+   RM<=6.941: 19.9
+   RM>6.941
+   |    RM<=7.437
+   |    |    CRIM>7.393: 14.4
+   |    |    CRIM<=7.393
+   |    |    |    DIS<=1.886: 45.7
+   |    |    |    DIS>1.886: 32.7
+   |    RM>7.437
+   |    |    TAX<=534.500: 45.9
+   |    |    TAX>534.500: 21.9
+
+Following is the initialization of a few other regressors and their prediction of the first five data instances in the housing price dataset:
+
+.. index::
+   single: regression; linear
+
+.. literalinclude:: code/regression-other.py
+   :lines: 3-
+
+Looks like the housing prices are not that hard to predict::
+
+      y    linreg    rf ridge
+      22.2   19.3  21.8  19.5
+      31.6   33.2  26.5  33.2
+      21.7   20.9  17.0  21.0
+      10.2   16.9  14.3  16.8
+      14.0   13.6  14.9  13.5
+
+
+Cross Validation
+----------------
+
+Evaluation and scoring methods are available at ``Orange.evaluation``:
+
+.. literalinclude:: code/regression-cv.py
+   :lines: 3-
+
+.. index:
+   single: regression; root mean squared error
+
+.. index:
+   single: regression; R2
+
+We have scored the regression with two measures for goodness of fit: `root-mean-square error <https://en.wikipedia.org/wiki/Root-mean-square_deviation>`_ and `coefficient of determination <https://en.wikipedia.org/wiki/Coefficient_of_determination>`_, or R squared. Random forest has the lowest root mean squared error::
+
+      Learner  RMSE  R2
+      linreg   4.88  0.72
+      rf       4.70  0.74
+      ridge    4.91  0.71
+      mean     9.20 -0.00
+
+Not much difference here. Each regression method has a set of parameters. We have been running them with default parameters, and parameter fitting would help. Also, we have included ``MeanLearner`` in the list of our regressors; this regressor simply predicts the mean value from the training set, and is used as a baseline.Classification
+==============
+
+.. index:: classification
+.. index::
+   single: data mining; supervised
+
+Much of Orange is devoted to machine learning methods for classification, or supervised data mining. These methods rely on data with class-labeled instances, like that of senate voting. Here is a code that loads this dataset, displays the first data instance and shows its predicted class (``republican``)::
+
+   >>> import Orange
+   >>> data = Orange.data.Table("voting")
+   >>> data[0]
+   [n, y, n, y, y, ... | republican]
+
+Orange implements functions for construction of classification models, their evaluation and scoring. In a nutshell, here is the code that reports on cross-validated accuracy and AUC for logistic regression and random forests:
+
+.. literalinclude:: code/classification-cv3.py
+
+It turns out that for this domain logistic regression does well::
+
+    Accuracy: [ 0.96321839  0.95632184]
+    AUC: [ 0.96233796  0.95671252]
+
+For supervised learning, Orange uses learners. These are objects that receive the data and return classifiers. Learners are passed to evaluation routines, such as cross-validation above.
+
+Learners and Classifiers
+------------------------
+
+.. index::
+   single: classification; learner
+.. index::
+   single: classification; classifier
+.. index::
+   single: classification; logistic regression
+
+Classification uses two types of objects: learners and classifiers. Learners consider class-labeled data and return a classifier. Given the first three data instances, classifiers return the indexes of predicted class::
+
+    >>> import Orange
+    >>> data = Orange.data.Table("voting")
+    >>> learner = Orange.classification.LogisticRegressionLearner()
+    >>> classifier = learner(data)
+    >>> classifier(data[:3])
+    array([ 0.,  0.,  1.])
+
+Above, we read the data, constructed a logistic regression learner, gave it the dataset to construct a classifier, and used it to predict the class of the first three data instances. We also use these concepts in the following code that predicts the classes of the selected three instances in the dataset:
+
+..  literalinclude:: code/classification-classifier1.py
+    :lines: 4-
+
+The script outputs::
+
+    democrat, originally democrat
+    republican, originally democrat
+    republican, originally republican
+
+Logistic regression has made a mistake in the second case, but otherwise predicted correctly. No wonder, since this was also the data it trained from. The following code counts the number of such mistakes in the entire dataset:
+
+..  literalinclude:: code/classification-accuracy-train.py
+    :lines: 4-
+
+Probabilistic Classification
+----------------------------
+
+To find out what is the probability that the classifier assigns to, say, democrat class, we need to call the classifier with an additional parameter that specifies the classification output type.
+
+..  literalinclude:: code/classification-classifier2.py
+    :lines: 3-
+
+The output of the script also shows how badly the logistic regression missed the class in the second case::
+
+    Probabilities for democrat:
+    0.999506847581 democrat
+    0.201139534658 democrat
+    0.042347504805 republican
+
+Cross-Validation
+----------------
+
+.. index:: cross-validation
+
+Validating the accuracy of classifiers on the training data, as we did above, serves demonstration purposes only. Any performance measure that assesses accuracy should be estimated on the independent test set. Such is also a procedure called `cross-validation <http://en.wikipedia.org/wiki/Cross-validation_(statistics)>`_, which averages the evaluation scores across several runs, each time considering a different training and test subsets as sampled from the original dataset:
+
+.. literalinclude:: code/classification-cv.py
+   :lines: 3-
+
+.. index::
+   single: classification; scoring
+.. index::
+   single: classification; area under ROC
+.. index::
+   single: classification; accuracy
+
+Cross-validation is expecting a list of learners. The performance estimators also return a list of scores, one for every learner. There was just one learner (`lr`) in the script above, hence an array of length one was returned. The script estimates classification accuracy and area under ROC curve::
+
+    Accuracy: 0.779
+    AUC:      0.704
+
+
+Handful of Classifiers
+----------------------
+
+Orange includes a variety of classification algorithms, most of them wrapped from `scikit-learn <http://scikit-learn.org>`_, including:
+
+- logistic regression (``Orange.classification.LogisticRegressionLearner``)
+- k-nearest neighbors (``Orange.classification.knn.KNNLearner``)
+- support vector machines (say, ``Orange.classification.svm.LinearSVMLearner``)
+- classification trees (``Orange.classification.tree.SklTreeLearner``)
+- random forest (``Orange.classification.RandomForestLearner``)
+
+Some of these are included in the code that estimates the probability of a target class on a testing data. This time, training and test datasets are disjoint:
+
+.. index::
+   single: classification; logistic regression
+.. index::
+   single: classification; trees
+.. index::
+   single: classification; k-nearest neighbors
+
+.. literalinclude:: code/classification-other.py
+
+For these five data items, there are no major differences between predictions of observed classification algorithms::
+
+    Probabilities for republican:
+    original class  tree  knn   logreg
+    republican      0.991 1.000 0.966
+    republican      0.991 1.000 0.985
+    democrat        0.000 0.000 0.021
+    republican      0.991 1.000 0.979
+    republican      0.991 0.667 0.963
+
+The following code cross-validates these learners on the titanic dataset.
+
+.. literalinclude:: code/classification-cv2.py
+
+Logistic regression wins in area under ROC curve::
+
+             tree knn  logreg
+    Accuracy 0.79 0.47 0.78
+    AUC      0.68 0.56 0.70
+###########################
+Clustering (``clustering``)
+###########################
+
+.. automodule:: Orange.clustering
+
+.. toctree::
+   :maxdepth: 2
+
+   clustering.hierarchical########################
+Miscellaneous (``misc``)
+########################
+
+.. automodule:: Orange.misc
+
+.. toctree::
+   :maxdepth: 2
+
+   misc.distmatrix
+###########################
+Evaluation (``evaluation``)
+###########################
+
+.. automodule:: Orange.evaluation
+
+.. toctree::
+   :maxdepth: 2
+
+   evaluation.testing
+   evaluation.cd
+   evaluation.performance_curves
+.. py:currentmodule:: Orange.data.io
+
+################################
+Loading and saving data (``io``)
+################################
+
+:obj:`Orange.data.Table` supports loading from several file formats:
+
+* Comma-separated values (\*.csv) file,
+* Tab-separated values (\*.tab, \*.tsv) file,
+* Excel spreadsheet (\*.xls, \*.xlsx),
+* Python pickle.
+
+In addition, the text-based files (CSV, TSV) can be compressed with gzip,
+bzip2 or xz (e.g. \*.csv.gz).
+
+
+Header Format
+=============
+
+The data in CSV, TSV, and Excel files can be described in an extended
+three-line header format, or a condensed single-line header format.
+
+
+Three-line header format
+------------------------
+
+A three-line header consists of:
+
+1. **Feature names** on the first line. Feature names can include any combination
+   of characters.
+
+2. **Feature types** on the second line. The type is determined automatically,
+   or, if set, can be any of the following:
+
+   * ``discrete`` (or ``d``) — imported as :obj:`Orange.data.DiscreteVariable`,
+   * a space-separated **list of discrete values**, like "``male female``",
+     which will result in :obj:`Orange.data.DiscreteVariable` with those values
+     and in that order. If the individual values contain a space character, it
+     needs to be escaped (prefixed) with, as common, a backslash ('\\') character.
+   * ``continuous`` (or ``c``) — imported as :obj:`Orange.data.ContinuousVariable`,
+   * ``string`` (or ``s``, or ``text``) — imported as :obj:`Orange.data.StringVariable`,
+   * ``time`` (or ``t``) — imported as :obj:`Orange.data.TimeVariable`, if the
+     values parse as `ISO 8601 <https://en.wikipedia.org/wiki/ISO_8601>`_ date/time formats,
+
+3. **Flags** (optional) on the third header line. Feature's flag can be empty,
+   or it can contain, space-separated, a consistent combination of:
+
+   * ``class`` (or ``c``) — feature will be imported as a class variable.
+     Most algorithms expect a single class variable.
+   * ``meta`` (or ``m``) — feature will be imported as a meta-attribute, just
+     describing the data instance but not actually used for learning,
+   * ``weight`` (or ``w``) — the feature marks the weight of examples (in
+     algorithms that support weighted examples),
+   * ``ignore`` (or ``i``) — feature will not be imported,
+   * ``<key>=<value>`` are custom attributes recognized in specific contexts, for instance ``color``, which defines the color palette when the variable is visualized, or ``type=image`` which signals that the variable contains a path to an image.
+
+Example of iris dataset in Orange's three-line format
+(:download:`iris.tab <../../../../Orange/datasets/iris.tab>`).
+
+.. literalinclude:: ../../../../Orange/datasets/iris.tab
+   :lines: 1-7
+
+
+Single-line header format
+-------------------------
+
+Single-line header consists of feature names prefixed by an optional "``<flags>#``"
+string, i.e. flags followed by a hash ('#') sign. The flags can be a consistent
+combination of:
+
+* ``c`` for class feature (also known as a target variable or dependent variable),
+* ``i`` for feature to be ignored,
+* ``m`` for meta attributes (not used in learning),
+* ``C`` for features that are continuous (numeric),
+* ``D`` for features that are discrete (categorical),
+* ``T`` for features that represent date and/or time in one of the ISO 8601
+  formats,
+* ``S`` for string features.
+
+If some (all) names or flags are omitted, the names, types, and flags are
+discerned automatically, and correctly (most of the time).
+.. py:currentmodule:: Orange.evaluation.testing
+
+####################################################
+Sampling procedures for testing models (``testing``)
+####################################################
+
+.. automodule:: Orange.evaluation.testing
+    :members:
+################################
+Distance Matrix (``distmatrix``)
+################################
+
+.. automodule:: Orange.misc.distmatrix
+    :members:#########################################
+Outlier detection (``classification``)
+#########################################
+
+.. automodule:: Orange.classification
+   :noindex:
+
+.. index:: one class SVM
+   pair: classification; one class SVM
+
+One Class Support Vector Machines
+---------------------------------
+
+.. autoclass:: OneClassSVMLearner
+   :members:
+
+
+
+.. index:: elliptic envelope
+   pair: classification; elliptic envelope
+
+Elliptic Envelope
+-----------------
+
+.. autoclass:: EllipticEnvelopeLearner
+   :members:
+
+
+.. index:: local outlier factor
+   pair: classification; local outlier factor
+
+Local Outlier Factor
+--------------------
+
+.. autoclass:: LocalOutlierFactorLearner
+   :members:
+
+
+.. index:: isolation forest
+   pair: classification; isolation forest
+
+Isolation Forest
+----------------
+
+.. autoclass:: IsolationForestLearner
+   :members:
+.. currentmodule:: Orange.data.sql.table
+
+########################
+SQL table (``data.sql``)
+########################
+
+.. autoclass:: Orange.data.sql.table.SqlTable
+    :members:
+    :special-members:
+
+    :obj:`SqlTable` represents a table with the data which is stored in the
+    database. Besides the inherited attributes, the object stores a connection
+    to the database and row filters.
+
+    Constructor connects to the database, infers the variable types from the
+    types of the columns in the database and constructs the corresponding
+    domain description. Discrete and continuous variables are put among
+    attributes, and string variables are meta attributes. The domain does not
+    have a class.
+
+    :obj:`SqlTable` overloads the data access methods for random access to
+    rows and for iteration (`__getitem__` and `__iter__`). It also provides
+    methods for fast computation of basic statistics, distributions and
+    contingency matrices, as well as for filtering the data. Filtering the
+    data returns a new instance of :obj:`SqlTable`. The new instances however
+    differs only in that an additional filter is added to the row_filter.
+
+    All evaluation is lazy in the sense that most operations just modify the
+    domain and the list of filters. These are used to construct an SQL query
+    when the data is actually needed, for instance to retrieve a data row or
+    compute a distribution of values for a certain column.
+
+    .. attribute:: connection
+
+        The object that holds the database connection. An instance of a class
+        compatible with Python DB API 2.0.
+
+    .. attribute:: host
+
+        The host name of the database server
+
+    .. attribute:: database
+
+        The name of the database
+
+    .. attribute:: table_name
+
+        The name of the table in the database
+
+    .. attribute:: row_filters
+
+        A list of filters that are applied when constructing the query. The
+        filters in the should have a method `to_sql`. Module
+        :obj:`Orange.data.sql.filter` contains classes derived from filters in
+        :obj:`Orange.data.filter` with the appropriate implementation of the
+        method.
+.. currentmodule:: Orange.data
+
+#####################
+Data model (``data``)
+#####################
+
+Orange stores data in :obj:`Orange.data.Storage` classes. The most commonly used
+storage is :obj:`Orange.data.Table`, which stores all data in two-dimensional
+numpy arrays. Each row of the data represents a data instance.
+
+Individual data instances are represented as instances of
+:obj:`Orange.data.Instance`. Different storage classes may derive subclasses
+of :obj:`~Orange.data.Instance` to represent the retrieved rows in the data
+more efficiently and to allow modifying the data through modifying data
+instance. For example, if `table` is :obj:`Orange.data.Table`, `table[0]`
+returns the row as :obj:`Orange.data.RowInstance`.
+
+Every storage class and data instance has an associated domain description
+`domain` (an instance of :obj:`Orange.data.Domain`) that stores descriptions of
+data columns. Every column is described by an instance of a class derived from
+:obj:`Orange.data.Variable`. The subclasses correspond to continuous variables
+(:obj:`Orange.data.ContinuousVariable`), discrete variables
+(:obj:`Orange.data.DiscreteVariable`) and string variables
+(:obj:`Orange.data.StringVariable`). These descriptors contain the
+variable's name, symbolic values, number of decimals in printouts and similar.
+
+The data is divided into attributes (features, independent variables), class
+variables (classes, targets, outcomes, dependent variables) and meta
+attributes. This division applies to domain descriptions, data storages that
+contain separate arrays for each of the three parts of the data and data
+instances.
+
+Attributes and classes are represented with numeric values and are used in
+modelling. Meta attributes contain additional data which may be of any type.
+(Currently, only string values are supported in addition to continuous and
+numeric.)
+
+In indexing, columns can be referred to by their names,
+descriptors or an integer index. For example, if `inst` is a data instance
+and `var` is a descriptor of type :obj:`~Orange.data.Continuous`, referring to
+the first column in the data, which is also names "petal length", then
+`inst[var]`, `inst[0]` and `inst["petal length"]` refer to the first value
+of the instance. Negative indices are used for meta attributes, starting with
+-1.
+
+Continuous and discrete values can be represented by any numerical type; by
+default, Orange uses double precision (64-bit) floats. Discrete values are
+represented by whole numbers.
+
+.. toctree::
+    :maxdepth: 2
+
+    data.storage
+    data.table
+    data.sql
+    data.domain
+    data.variable
+    data.value
+    data.instance
+    data.filters
+    data.io
+
+.. index:: Data
+#######################
+Distance (``distance``)
+#######################
+
+The following example demonstrates how to compute distances between all data
+instances from Iris:
+
+    >>> from Orange.data import Table
+    >>> from Orange.distance import Euclidean
+    >>> iris = Table('iris')
+    >>> dist_matrix = Euclidean(iris)
+    >>> # Distance between first two examples
+    >>> dist_matrix.X[0, 1]
+    0.53851648
+
+To compute distances between all columns, we set `axis` to 0.
+
+    >>> Euclidean(iris, axis=0)
+    DistMatrix([[  0.        ,  36.17927584,  28.9542743 ,  57.1913455 ],
+                [ 36.17927584,   0.        ,  25.73382987,  25.81259383],
+                [ 28.9542743 ,  25.73382987,   0.        ,  33.87270287],
+                [ 57.1913455 ,  25.81259383,  33.87270287,   0.        ]])
+
+Finally, we can compute distances between all pairs of rows from two tables.
+
+    >>> iris1 = iris[:100]
+    >>> iris2 = iris[100:]
+    >>> dist = Euclidean(iris_even, iris_odd)
+    >>> dist.shape
+    (75, 100)
+
+Most metrics can be fit on training data to normalize values and handle missing
+data. We do so by calling the constructor without arguments or with parameters,
+such as `normalize`, and then pass the data to method `fit`.
+
+    >>> dist_model = Euclidean(normalize=True).fit(iris1)
+    >>> dist = dist_model(iris2[:3])
+    >>> dist
+    DistMatrix([[ 0.        ,  1.36778277,  1.11352233],
+                [ 1.36778277,  0.        ,  1.57810546],
+                [ 1.11352233,  1.57810546,  0.        ]])
+
+The above distances are computed on the first three rows of `iris2`, normalized
+by means and variances computed from `iris1`.
+
+Here are five closest neighbors of `iris2[0]` from `iris1`::
+
+   >>> dist0 = dist_model(iris1, iris2[0])
+   >>> neigh_idx = np.argsort(dist0.flatten())[:5]
+   >>> iris1[neigh_idx]
+   [[5.900, 3.200, 4.800, 1.800 | Iris-versicolor],
+    [6.700, 3.000, 5.000, 1.700 | Iris-versicolor],
+    [6.300, 3.300, 4.700, 1.600 | Iris-versicolor],
+    [6.000, 3.400, 4.500, 1.600 | Iris-versicolor],
+    [6.400, 3.200, 4.500, 1.500 | Iris-versicolor]
+   ]
+
+All distances share a common interface.
+
+.. autoclass:: Orange.distance.Distance
+
+Handling discrete and missing data
+==================================
+
+Discrete data is handled as appropriate for the particular distance. For
+instance, the Euclidean distance treats a pair of values as either the same or
+different, contributing either 0 or 1 to the squared sum of differences. In
+other cases -- particularly in Jaccard and cosine distance, discrete values
+are treated as zero or non-zero.
+
+Missing data is not simply imputed. We assume that values of each variable are
+distributed by some unknown distribution and compute - without assuming a
+particular distribution shape - the expected distance.
+For instance, for the Euclidean distance it turns out that the expected
+squared distance between a known and a missing value equals the square of
+the known value's distance from the mean of the missing variable, plus its
+variance.
+
+
+Supported distances
+===================
+
+Euclidean distance
+------------------
+
+For numeric values, the Euclidean distance is the square root of sums of
+squares of pairs of values from rows or columns. For discrete values, 1
+is added if the two values are different.
+
+To put all numeric data on the same scale, and in particular when working
+with a mixture of numeric and discrete data, it is recommended to enable
+normalization by adding `normalize=True` to the constructor. With this,
+numeric values are normalized by subtracting their mean and divided by
+deviation multiplied by the square root of two. The mean and deviation are
+computed on the training data, if the `fit` method is used. When computing
+distances between two tables and without explicitly calling `fit`, means
+and variances are computed from the first table only. Means and variances
+are always computed from columns, disregarding the axis over which we
+compute the distances, since columns represent variables and hence come from
+a certain distribution.
+
+As described above, the expected squared difference between a known and a
+missing value equals the squared difference between the known value and the
+mean, plus the variance. The squared difference between two unknown values
+equals twice the variance.
+
+For normalized data, the difference between a known and missing numeric value
+equals the square of the known value + 0.5. The difference between two
+missing values is 1.
+
+For discrete data, the expected difference between a known and a missing value
+equals the probablity that the two values are different, which is 1 minus the
+probability of the known value. If both values are missing, the probability
+of them being different equals 1 minus the sum of squares of all probabilities
+(also known as the Gini index).
+
+
+Manhattan distance
+------------------
+
+Manhattan distance is the sum of absolute pairwise distances.
+
+Normalization and treatment of missing values is similar as in the Euclidean
+distance, except that medians and median absolute distance from the median
+(MAD) are used instead of means and deviations.
+
+For discrete values, distances are again 0 or 1, hence the Manhattan distance
+for discrete columns is the same as the Euclidean.
+
+Cosine distance
+---------------
+
+Cosine similarity is the dot product divided by the product
+of lengths (where the length is the square of dot product of a row/column with
+itself). Cosine distance is computed by subtracting the similarity from one.
+
+In calculation of dot products, missing values are replaced by means. In
+calculation of lengths, the contribution of a missing value equals the square
+of the mean plus the variance. (The difference comes from the fact that in
+the former case the missing values are independent.)
+
+Non-zero discrete values are replaced by 1. This introduces the notion of a
+"base value", which is the first in the list of possible values. In most cases,
+this will only make sense for indicator (i.e. two-valued, boolean attributes).
+
+Cosine distance does not support any column-wise normalization.
+
+Jaccard distance
+----------------
+
+Jaccard similarity between two sets is defined as the size of their
+intersection divided by the size of the union. Jaccard distance is computed
+by subtracting the similarity from one.
+
+In Orange, attribute values are interpreted as membership indicator. In
+row-wise distances, columns are interpreted as sets, and non-zero
+values in a row (including negative values of numeric features) indicate that
+the row belongs to the particular sets. In column-wise distances, rows are sets
+and values indicate the sets to which the column belongs.
+
+For missing values, relative frequencies from the training data are used as
+probabilities for belonging to a set. That is, for row-wise distances, we
+compute the relative frequency of non-zero values in each column, and vice-versa
+for column-wise distances. For intersection (union) of sets, we then add the
+probability of belonging to both (any of) the two sets instead of adding a
+0 or 1.
+
+SpearmanR, AbsoluteSpearmanR, PearsonR, AbsolutePearsonR
+--------------------------------------------------------
+
+The four correlation-based distance measure equal (1 - the
+correlation coefficient) / 2. For `AbsoluteSpearmanR` and `AbsolutePearsonR`, the
+absolute value of the coefficient is used.
+
+These distances do not handle missing or discrete values.
+
+Mahalanobis distance
+--------------------
+
+Mahalanobis distance is similar to cosine distance, except that the data is
+projected into the PCA space.
+
+Mahalanobis distance does not handle missing or discrete values.
+.. py:currentmodule:: Orange.preprocess
+
+###################################
+Data Preprocessing (``preprocess``)
+###################################
+
+.. index:: preprocessing
+
+.. index::
+   single: data; preprocessing
+
+Preprocessing module contains data processing utilities like data
+discretization, continuization, imputation and transformation.
+
+Impute
+======
+
+Imputation replaces missing values with new values (or omits such features).
+
+.. literalinclude:: code/imputation-default.py
+
+There are several imputation methods one can use.
+
+.. literalinclude:: code/imputation-average.py
+
+
+.. autoclass::Orange.preprocess.Impute
+
+.. index:: discretize data
+   single: feature; discretize
+
+Discretization
+==============
+
+Discretization replaces continuous features with the corresponding categorical
+features:
+
+.. literalinclude:: code/discretization-table.py
+
+The variable in the new data table indicate the bins to which the original
+values belong. ::
+
+    Original dataset:
+    [5.1, 3.5, 1.4, 0.2 | Iris-setosa]
+    [4.9, 3.0, 1.4, 0.2 | Iris-setosa]
+    [4.7, 3.2, 1.3, 0.2 | Iris-setosa]
+    Discretized dataset:
+    [<5.5, >=3.2, <2.5, <0.8 | Iris-setosa]
+    [<5.5, [2.8, 3.2), <2.5, <0.8 | Iris-setosa]
+    [<5.5, >=3.2, <2.5, <0.8 | Iris-setosa]
+
+
+Default discretization method (four bins with approximatelly equal number of
+data instances) can be replaced with other methods.
+
+.. literalinclude:: code/discretization-table-method.py
+    :lines: 3-5
+
+.. autoclass::Orange.preprocess.Discretize
+
+..
+    Transformation procedure
+    ------------------------
+
+    `Discretization Algorithms`_ return a discretized variable (with fixed
+    parameters) that can transform either the learning or the testing data.
+    Parameter learning is separate to the transformation, as in machine
+    learning only the training set should be used to induce parameters.
+
+    To obtain discretized features, call a discretization algorithm with
+    with the data and the feature to discretize. The feature can be given
+    either as an index name or :obj:`Orange.data.Variable`. The following
+    example creates a discretized feature::
+
+        import Orange
+        data = Orange.data.Table("iris.tab")
+        disc = Orange.feature.discretization.EqualFreq(n=4)
+        disc_var = disc(data, 0)
+
+    The values of the first attribute will be discretized the data is
+    transformed to the  :obj:`Orange.data.Domain` domain that includes
+    ``disc_var``.  In the example below we add the discretized first attribute
+    to the original domain::
+
+      ndomain = Orange.data.Domain([disc_var] + list(data.domain.attributes),
+          data.domain.class_vars)
+      ndata = Orange.data.Table(ndomain, data)
+      print(ndata)
+
+    The printout::
+
+      [[<5.150000, 5.1, 3.5, 1.4, 0.2 | Iris-setosa],
+       [<5.150000, 4.9, 3.0, 1.4, 0.2 | Iris-setosa],
+       [<5.150000, 4.7, 3.2, 1.3, 0.2 | Iris-setosa],
+       [<5.150000, 4.6, 3.1, 1.5, 0.2 | Iris-setosa],
+       [<5.150000, 5.0, 3.6, 1.4, 0.2 | Iris-setosa],
+       ...
+      ]
+
+_`Discretization Algorithms`
+----------------------------
+
+.. autoclass:: Orange.preprocess.discretize.EqualWidth
+
+.. autoclass:: Orange.preprocess.discretize.EqualFreq
+
+.. autoclass:: Orange.preprocess.discretize.EntropyMDL
+
+To add a new discretization, derive it from ``Discretization``.
+
+.. autoclass:: Orange.preprocess.discretize.Discretization
+
+Continuization
+==============
+
+.. class:: Orange.preprocess.Continuize
+
+    Given a data table, return a new table in which the discretize attributes
+    are replaced with continuous or removed.
+
+    * binary variables are transformed into 0.0/1.0 or -1.0/1.0
+      indicator variables, depending upon the argument ``zero_based``.
+
+    * multinomial variables are treated according to the argument
+      ``multinomial_treatment``.
+
+    * discrete attribute with only one possible value are removed;
+
+    ::
+
+        import Orange
+        titanic = Orange.data.Table("titanic")
+        continuizer = Orange.preprocess.Continuize()
+        titanic1 = continuizer(titanic)
+
+    The class has a number of attributes that can be set either in constructor
+    or, later, as attributes.
+
+    .. attribute:: zero_based
+
+        Determines the value used as the "low" value of the variable. When
+        binary variables are transformed into continuous or when multivalued
+        variable is transformed into multiple variables, the transformed
+        variable can either have values 0.0 and 1.0 (default,
+        ``zero_based=True``) or -1.0 and 1.0 (``zero_based=False``).
+
+    .. attribute:: multinomial_treatment
+
+       Defines the treatment of multinomial variables.
+
+       ``Continuize.Indicators``
+
+           The variable is replaced by indicator variables, each
+           corresponding to one value of the original variable.
+           For each value of the original attribute, only the
+           corresponding new attribute will have a value of one and others
+           will be zero. This is the default behaviour.
+
+           Note that these variables are not independent, so they cannot be
+           used (directly) in, for instance, linear or logistic regression.
+
+           For example, dataset "titanic" has feature "status" with
+           values "crew", "first", "second" and "third", in that order. Its
+           value for the 15th row is "first". Continuization replaces the
+           variable with variables "status=crew", "status=first",
+           "status=second" and "status=third". After ::
+
+               continuizer = Orange.preprocess.Continuize()
+               titanic1 = continuizer(titanic)
+
+           we have ::
+
+               >>> titanic.domain
+               [status, age, sex | survived]
+               >>> titanic1.domain
+               [status=crew, status=first, status=second, status=third,
+                age=adult, age=child, sex=female, sex=male | survived]
+
+           For the 15th row, the variable "status=first" has value 1 and the
+           values of the other three variables are 0::
+
+               >>> print(titanic[15])
+               [first, adult, male | yes]
+               >>> print(titanic1[15])
+               [0.000, 1.000, 0.000, 0.000, 1.000, 0.000, 0.000, 1.000 | yes]
+
+
+       ``Continuize.FirstAsBase``
+           Similar to the above, except that it creates indicators for all
+           values except the first one, according to the order in the variable's
+           :obj:`~Orange.data.DiscreteVariable.values` attribute. If all
+           indicators in the transformed data instance are 0, the original
+           instance had the first value of the corresponding variable.
+
+           Continuizing the variable "status" with this setting gives variables
+           "status=first", "status=second" and "status=third". If all of them
+           were 0, the status of the original data instance was "crew".
+
+               >>> continuizer.multinomial_treatment = continuizer.FirstAsBase
+               >>> continuizer(titanic).domain
+               [status=first, status=second, status=third, age=child, sex=male | survived]
+
+       ``Continuize.FrequentAsBase``
+           Like above, except that the most frequent value is used as the
+           base. If there are multiple most frequent values, the
+           one with the lowest index in
+           :obj:`~Orange.data.DiscreteVariable.values` is used. The frequency
+           of values is extracted from data, so this option does not work if
+           only the domain is given.
+
+           Continuizing the Titanic data in this way differs from the above by
+           the attributes sex: instead of "sex=male" it constructs "sex=female"
+           since there were more females than males on Titanic. ::
+
+                >>> continuizer.multinomial_treatment = continuizer.FrequentAsBase
+                >>> continuizer(titanic).domain
+                [status=first, status=second, status=third, age=child, sex=female | survived]
+
+       ``Continuize.Remove``
+           Discrete variables are removed. ::
+
+               >>> continuizer.multinomial_treatment = continuizer.Remove
+               >>> continuizer(titanic).domain
+               [ | survived]
+
+       ``Continuize.RemoveMultinomial``
+           Discrete variables with more than two values are removed. Binary
+           variables are treated the same as in `FirstAsBase`.
+
+            >>> continuizer.multinomial_treatment = continuizer.RemoveMultinomial
+            >>> continuizer(titanic).domain
+            [age=child, sex=male | survived]
+
+       ``Continuize.ReportError``
+           Raise an error if there are any multinomial variables in the data.
+
+       ``Continuize.AsOrdinal``
+           Multinomial variables are treated as ordinal and replaced by
+           continuous variables with indices within
+           :obj:`~Orange.data.DiscreteVariable.values`, e.g. 0, 1, 2, 3...
+
+                >>> continuizer.multinomial_treatment = continuizer.AsOrdinal
+                >>> titanic1 = continuizer(titanic)
+                >>> titanic[700]
+                [third, adult, male | no]
+                >>> titanic1[700]
+                [3.000, 0.000, 1.000 | no]
+
+       ``Continuize.AsNormalizedOrdinal``
+           As above, except that the resulting continuous value will be from
+           range 0 to 1, e.g. 0, 0.333, 0.667, 1 for a four-valued variable::
+
+                >>> continuizer.multinomial_treatment = continuizer.AsNormalizedOrdinal
+                >>> titanic1 = continuizer(titanic)
+                >>> titanic1[700]
+                [1.000, 0.000, 1.000 | no]
+                >>> titanic1[15]
+                [0.333, 0.000, 1.000 | yes]
+
+    .. attribute:: transform_class
+
+        If ``True`` the class is replaced by continuous
+        attributes or normalized as well. Multiclass problems are thus
+        transformed to multitarget ones. (Default: ``False``)
+
+
+
+.. class:: Orange.preprocess.DomainContinuizer
+
+    Construct a domain in which discrete attributes are replaced by
+    continuous. ::
+
+        domain_continuizer = Orange.preprocess.DomainContinuizer()
+        domain1 = domain_continuizer(titanic)
+
+    :obj:`Orange.preprocess.Continuize` calls `DomainContinuizer` to construct
+    the domain.
+
+    Domain continuizers can be given either a dataset or a domain, and return
+    a new domain. When given only the domain, use the most frequent value as
+    the base value.
+
+    By default, the class does not change continuous and class attributes,
+    discrete attributes are replaced with N attributes (``Indicators``) with
+    values 0 and 1.
+
+Normalization
+=============
+
+.. autoclass:: Orange.preprocess.Normalize
+
+
+Randomization
+=============
+
+.. autoclass:: Orange.preprocess.Randomize
+
+
+Remove
+======
+
+.. autoclass:: Orange.preprocess.Remove
+
+Feature selection
+=================
+
+`Feature scoring`
+-----------------
+
+Feature scoring is an assessment of the usefulness of features for
+prediction of the dependant (class) variable. Orange provides classes
+that compute the common feature scores for classification and regression.
+
+The code below computes the information gain of feature "tear_rate"
+in the Lenses dataset:
+
+    >>> data = Orange.data.Table("lenses")
+    >>> Orange.preprocess.score.InfoGain(data, "tear_rate")
+    0.54879494069539858
+
+An alternative way of invoking the scorers is to construct the scoring
+object and calculate the scores for all the features at once, like in the
+following example:
+
+    >>> gain = Orange.preprocess.score.InfoGain()
+    >>> scores = gain(data)
+    >>> for attr, score in zip(data.domain.attributes, scores):
+    ...     print('%.3f' % score, attr.name)
+    0.039 age
+    0.040 prescription
+    0.377 astigmatic
+    0.549 tear_rate
+
+Feature scoring methods work on different feature types (continuous or discrete)
+and different types of target variables (i.e. in classification or regression
+problems).
+Refer to method's `feature_type` and `class_type` attributes for intended type
+or employ preprocessing methods (e.g. discretization) for conversion between
+data types.
+
+.. autoclass:: Orange.preprocess.score.ANOVA
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.Chi2
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.GainRatio
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.Gini
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.InfoGain
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.UnivariateLinearRegression
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.FCBF
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.ReliefF
+   :members: feature_type, class_type
+
+.. autoclass:: Orange.preprocess.score.RReliefF
+   :members: feature_type, class_type
+
+Additionally, you can use the ``score_data()`` method of some learners (\
+:obj:`Orange.classification.LinearRegressionLearner`,
+:obj:`Orange.regression.LogisticRegressionLearner`,
+:obj:`Orange.classification.RandomForestLearner`, and
+:obj:`Orange.regression.RandomForestRegressionLearner`)
+to obtain the feature scores as calculated by these learners. For example:
+
+    >>> learner = Orange.classification.LogisticRegressionLearner()
+    >>> learner.score_data(data)
+    [0.31571299907366146,
+     0.28286199971877485,
+     0.67496525667835794,
+     0.99930286901257692]
+
+
+`Feature selection`
+-------------------
+
+We can use feature selection to limit the analysis to only the most relevant
+or informative features in the dataset.
+
+Feature selection with a scoring method that works on continuous features will
+retain all discrete features and vice versa.
+
+The code below constructs a new dataset consisting of two best features
+according to the ANOVA method:
+
+    >>> data = Orange.data.Table("wine")
+    >>> anova = Orange.preprocess.score.ANOVA()
+    >>> selector = Orange.preprocess.SelectBestFeatures(method=anova, k=2)
+    >>> data2 = selector(data)
+    >>> data2.domain
+    [Flavanoids, Proline | Wine]
+
+.. autoclass:: Orange.preprocess.SelectBestFeatures
+
+Preprocessors
+=============
+##################
+Values (``value``)
+##################
+
+.. automodule:: Orange.data.variable
+    :members: Value
+.. py:currentmodule:: Orange.clustering.hierarchical
+
+###############################
+Hierarchical (``hierarchical``)
+###############################
+
+.. index:: hierarchical clustering
+   pair: clustering; hierarchical clustering
+
+Example
+=======
+
+The following example shows clustering of the Iris data with distance
+matrix computed with the :obj:`Orange.distance.Euclidean` distance
+and clustering using average linkage.
+
+    >>> from Orange import data, distance
+    >>> from Orange.clustering import hierarchical
+    >>> data = data.Table('iris')
+    >>> dist_matrix = distance.Euclidean(data)
+    >>> hierar = hierarchical.HierarchicalClustering(n_clusters=3)
+    >>> hierar.linkage = hierarchical.AVERAGE
+    >>> hierar.fit(dist_matrix)
+    >>> hierar.labels
+    array([ 1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
+            1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
+            1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,
+            1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  1.,  0.,  0.,
+            0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,
+            0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,
+            0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,
+            0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  2.,  0.,  2.,  2.,
+            2.,  2.,  0.,  2.,  2.,  2.,  2.,  2.,  2.,  0.,  0.,  2.,  2.,
+            2.,  2.,  0.,  2.,  0.,  2.,  0.,  2.,  2.,  0.,  0.,  2.,  2.,
+            2.,  2.,  2.,  0.,  2.,  2.,  2.,  2.,  0.,  2.,  2.,  2.,  0.,
+            2.,  2.,  2.,  0.,  2.,  2.,  0.])
+
+
+Hierarchical Clustering
+-----------------------
+
+.. autoclass:: HierarchicalClustering
+   :members:
+.. currentmodule:: Orange.data
+
+############################
+Data Instance (``instance``)
+############################
+
+Class :obj:`Instance` represents a data instance, typically retrieved from a
+:obj:`Orange.data.Table` or :obj:`Orange.data.sql.SqlTable`. The base class
+contains a copy of the data; modifying does not change the data in the storage
+from which the instance was retrieved. Derived classes
+(e.g. :obj:`Orange.data.table.RowInstance`) can represent views into various
+data storages, therefore changing them actually changes the data.
+
+Like data tables, every data instance is associated with a domain and its
+data is split into attributes, classes, meta attributes and the weight. Its
+constructor thus requires a domain and, optionally, data. For the following
+example, we borrow the domain from the Iris dataset. ::
+
+    >>> from Orange.data import Table, Instance
+    >>> iris = Table("iris")
+    >>> inst = Instance(iris.domain, [5.2, 3.8, 1.4, 0.5, "Iris-virginica"])
+    >>> inst
+    [5.2, 3.8, 1.4, 0.5 | Iris-virginica]
+    >>> inst0 = Instance(iris.domain)
+    >>> inst0
+    [?, ?, ?, ? | ?]
+
+The instance's data can be retrieved through attributes :obj:`x`, :obj:`y` and
+:obj:`metas`. ::
+
+    >>> inst.x
+    array([ 5.2,  3.8,  1.4,  0.5])
+    >>> inst.y
+    array([ 2.])
+    >>> inst.metas
+    array([], dtype=object)
+
+Other utility functions provide for easier access to the instances data. ::
+
+    >>> inst.get_class()
+    Value('iris', Iris-virginica)
+    >>> for e in inst.attributes():
+    ...     print(e)
+    ...
+    5.2
+    3.8
+    1.4
+    0.5
+
+.. autoclass:: Instance
+    :members:
+
+    Constructor requires a domain and the data as numpy array, an existing
+    instance from the same or another domain or any Python iterable.
+
+    Domain can be omitted it the data is given as an existing data instances.
+
+    When the instance is not from the given domain, Orange converts it.
+
+        >>> from Orange.preprocess import DomainDiscretizer
+        >>> discretizer = DomainDiscretizer()
+        >>> d_iris = discretizer(iris)
+        >>> d_inst = Instance(d_iris, inst)
+
+
+
+Rows of Data Tables
+-------------------
+
+.. autoclass:: RowInstance
+    :members:
+
+    `RowInstance` is a specialization of :obj:`~Orange.data.Instance` that
+    represents a row of :obj:`Orange.data.Table`. `RowInstance` is returned
+    by indexing a `Table`.
+
+    The difference between `Instance` and `RowInstance` is that the latter
+    represents a view into the table: changing the `RowInstance` changes the
+    data in the table::
+
+        >>> iris[42]
+        [4.4, 3.2, 1.3, 0.2 | Iris-setosa]
+        >>> inst = iris[42]
+        >>> inst.set_class("Iris-virginica")
+        >>> iris[42]
+        [4.4, 3.2, 1.3, 0.2 | Iris-virginica]
+
+    Dense tables can also be modified directly through :obj:`x`, :obj:`y` and
+    :obj:`metas`. ::
+
+        >>> inst.x[0] = 5
+        >>> iris[42]
+        [5.0, 3.2, 1.3, 0.2 | Iris-virginica]
+
+    Sparse tables cannot be changed in this way.
+.. currentmodule:: Orange.data
+
+######################
+Data Table (``table``)
+######################
+
+.. autoclass:: Orange.data.Table
+    :members: columns
+
+    Stores data instances as a set of 2d tables representing the independent
+    variables (attributes, features) and dependent variables
+    (classes, targets), and the corresponding weights and meta attributes.
+
+    The data is stored in 2d numpy arrays :obj:`X`, :obj:`Y`, :obj:`W`,
+    :obj:`metas`. The arrays may be dense or sparse. All arrays have the same
+    number of rows. If certain data is missing, the corresponding array has
+    zero columns.
+
+    Arrays can be of any type; default is `float` (that is, double precision).
+    Values of discrete variables are stored as whole numbers.
+    Arrays for meta attributes usually contain instances of `object`.
+
+    The table also stores the associated information about the variables
+    as an instance of :obj:`Domain`. The number of columns must match the
+    corresponding number of variables in the description.
+
+    There are multiple ways to get values or entire rows of the table.
+
+    - The index can be an int, e.g. `table[7]`; the corresponding row is
+      returned as an instance of :obj:`RowInstance`.
+
+    - The index can be a slice or a sequence of ints (e.g. `table[7:10]` or
+      `table[[7, 42, 15]]`, indexing returns a new data table with the
+      selected rows.
+
+    - If there are two indices, where the first is an int (a row number) and
+      the second can be interpreted as columns, e.g. `table[3, 5]` or
+      `table[3, 'gender']` or `table[3, y]` (where `y` is an instance of
+      :obj:`~Orange.data.Variable`), a single value is returned as an instance
+      of :obj:`~Orange.data.Value`.
+
+    - In all other cases, the first index should be a row index, a slice or
+      a sequence, and the second index, which represent a set of columns,
+      should be an int, a slice, a sequence or a numpy array. The result is
+      a new table with a new domain.
+
+    Rules for setting the data are as follows.
+
+    - If there is a single index (an `int`, `slice`, or a sequence of row
+      indices) and the value being set is a single scalar, all
+      attributes (not including the classes) are set to that value. That
+      is, `table[r] = v` is equivalent to `table.X[r] = v`.
+
+    - If there is a single index and the value is a data instance
+      (:obj:`Orange.data.Instance`), it is converted into the table's domain
+      and set to the corresponding rows.
+
+    - Final option for a single index is that the value is a sequence whose
+      length equals the number of attributes and target variables. The
+      corresponding rows are set; meta attributes are set to unknowns.
+
+    - For two indices, the row can again be given as a single `int`, a
+       `slice` or a sequence of indices. Column indices can be a single
+       `int`, `str` or :obj:`Orange.data.Variable`, a sequence of them,
+       a `slice` or any iterable. The value can be a single value, or a
+       sequence of appropriate length.
+
+    .. attribute:: domain
+
+        Description of the variables corresponding to the table's columns.
+        The domain is used for determining the variable types, printing the
+        data in human-readable form, conversions between data tables and
+        similar.
+
+Constructors
+------------
+
+The preferred way to construct a table is to invoke a named constructor.
+
+.. automethod:: Table.from_domain
+.. automethod:: Table.from_table
+.. automethod:: Table.from_table_rows
+.. automethod:: Table.from_numpy
+.. automethod:: Table.from_file
+
+Inspection
+----------
+
+.. automethod:: Table.is_view
+.. automethod:: Table.is_copy
+.. automethod:: Table.ensure_copy
+.. automethod:: Table.has_missing
+.. automethod:: Table.has_missing_class
+.. automethod:: Table.checksum
+
+Row manipulation
+----------------
+
+.. note::
+   Methods that change the table length (`append`, `extend`, `insert`, `clear`,
+   and resizing through deleting, slicing or by other means), were deprecated
+   and removed in Orange 3.24.
+
+.. automethod:: Table.shuffle
+
+Weights
+-------
+
+.. automethod:: Table.has_weights
+.. automethod:: Table.set_weights
+.. automethod:: Table.total_weight
+.. currentmodule:: Orange.data
+
+###################################
+Variable Descriptors (``variable``)
+###################################
+
+Every variable is associated with a descriptor that stores its name
+and other properties. Descriptors serve three main purposes:
+
+- conversion of values from textual format (e.g. when reading files) to
+  the internal representation and back (e.g. when writing files or printing
+  out);
+
+- identification of variables: two variables from different datasets are
+  considered to be the same if they have the same descriptor;
+
+- conversion of values between domains or datasets, for instance from
+  continuous to discrete data, using a pre-computed transformation.
+
+Descriptors are most often constructed when loading the data from files. ::
+
+    >>> from Orange.data import Table
+    >>> iris = Table("iris")
+
+    >>> iris.domain.class_var
+    DiscreteVariable('iris')
+    >>> iris.domain.class_var.values
+    ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+
+    >>> iris.domain[0]
+    ContinuousVariable('sepal length')
+    >>> iris.domain[0].number_of_decimals
+    1
+
+Some variables are derived from others. For instance, discretizing a continuous
+variable gives a new, discrete variable. The new variable can compute its
+values from the original one.
+
+    >>> from Orange.preprocess import DomainDiscretizer
+    >>> discretizer = DomainDiscretizer()
+    >>> d_iris = discretizer(iris)
+    >>> d_iris[0]
+    DiscreteVariable('D_sepal length')
+    >>> d_iris[0].values
+    ['<5.2', '[5.2, 5.8)', '[5.8, 6.5)', '>=6.5']
+
+See `Derived variables`_ for a detailed explanation.
+
+Constructors
+------------
+
+Orange maintains lists of existing descriptors for variables. This facilitates
+the reuse of descriptors: if two datasets refer to the same variables, they
+should be assigned the same descriptors so that, for instance, a model
+trained on one dataset can make predictions for the other.
+
+Variable descriptors are seldom constructed in user scripts. When needed,
+this can be done by calling the constructor directly or by calling the class
+method `make`. The difference is that the latter returns an existing
+descriptor if there is one with the same name and which matches the other
+conditions, such as having the prescribed list of discrete values for
+:obj:`~Orange.data.DiscreteVariable`::
+
+    >>> from Orange.data import ContinuousVariable
+    >>> age = ContinuousVariable.make("age")
+    >>> age1 = ContinuousVariable.make("age")
+    >>> age2 = ContinuousVariable("age")
+    >>> age is age1
+    True
+    >>> age is age2
+    False
+
+The first line returns a new descriptor after not finding an existing desciptor
+for a continuous variable named "age". The second reuses the first descriptor.
+The last creates a new one since the constructor is invoked directly.
+
+The distinction does not matter in most cases, but it is important when
+loading the data from different files. Orange uses the `make` constructor
+when loading data.
+
+Base class
+----------
+
+.. autoclass:: Variable
+
+    .. automethod:: is_primitive
+    .. automethod:: str_val
+    .. automethod:: to_val
+    .. automethod:: val_from_str_add
+
+Continuous variables
+--------------------
+
+.. autoclass:: ContinuousVariable
+
+
+    .. automethod:: make
+    .. automethod:: is_primitive
+    .. automethod:: str_val
+    .. automethod:: to_val
+    .. automethod:: val_from_str_add
+
+Discrete variables
+------------------
+
+.. autoclass:: DiscreteVariable
+
+    .. automethod:: make
+    .. automethod:: is_primitive
+    .. automethod:: str_val
+    .. automethod:: to_val
+    .. automethod:: val_from_str_add
+
+String variables
+----------------
+
+.. autoclass:: StringVariable
+
+    .. automethod:: make
+    .. automethod:: is_primitive
+    .. automethod:: str_val
+    .. automethod:: to_val
+    .. automethod:: val_from_str_add
+
+Time variables
+--------------
+Time variables are continuous variables with value 0 on the Unix epoch,
+1 January 1970 00:00:00.0 UTC. Positive numbers are dates beyond this date,
+and negative dates before. Due to limitation of Python :py:mod:`datetime` module,
+only dates in 1 A.D. or later are supported.
+
+.. autoclass:: TimeVariable
+
+    .. automethod:: parse
+
+Derived variables
+-----------------
+
+The :obj:`~Variable.compute_value` mechanism is used throughout Orange to
+compute all preprocessing on training data and applying the same
+transformations to the testing data without hassle.
+
+Method `compute_value` is usually invoked behind the scenes in
+conversion of domains. Such conversions are are typically implemented
+within the provided wrappers and cross-validation schemes.
+
+
+Derived variables in Orange
+```````````````````````````
+
+Orange saves variable transformations into the domain as
+:obj:`~Variable.compute_value` functions. If Orange was not using
+:obj:`~Variable.compute_value`, we would have to manually transform
+the data::
+
+    >>> from Orange.data import Domain, ContinuousVariable
+    >>> data = Orange.data.Table("iris")
+    >>> train = data[::2]  # every second row
+    >>> test = data[1::2]  # every other second instance
+
+We will create a new data set with a single feature, "petals", that will be a
+sum of petal lengths and widths::
+
+    >>> petals = ContinuousVariable("petals")
+    >>> derived_train = train.transform(Domain([petals],
+    ...                                 data.domain.class_vars))
+    >>> derived_train.X = train[:, "petal width"].X + \
+    ...                   train[:, "petal length"].X
+
+We have set :obj:`~Orange.data.Table`'s `X` directly. Next, we build and evaluate
+a classification tree::
+
+    >>> learner = Orange.classification.TreeLearner()
+    >>> from Orange.evaluation import CrossValidation, TestOnTestData
+    >>> res = CrossValidation(derived_train, [learner], k=5)
+    >>> Orange.evaluation.scoring.CA(res)[0]
+    0.88
+    >>> res = TestOnTestData(derived_train, test, [learner])
+    >>> Orange.evaluation.scoring.CA(res)[0]
+    0.3333333333333333
+
+A classification tree shows good accuracy with cross validation, but not on
+separate test data, because Orange can not reconstruct the "petals"
+feature for test data---we would have to reconstruct it ourselves.
+But if we define :obj:`~Variable.compute_value` and therefore store the
+transformation in the domain, Orange could transform both training and test data::
+
+    >>> petals = ContinuousVariable("petals",
+    ...    compute_value=lambda data: data[:, "petal width"].X + \
+    ...                               data[:, "petal length"].X)
+    >>> derived_train = train.transform(Domain([petals],
+                                        data.domain.class_vars))
+    >>> res = TestOnTestData(derived_train, test, [learner])
+    >>> Orange.evaluation.scoring.CA(res)[0]
+    0.9733333333333334
+
+All preprocessors in Orange use :obj:`~Variable.compute_value`.
+
+Example with discretization
+```````````````````````````
+
+The following example converts features to discrete::
+
+    >>> iris = Orange.data.Table("iris")
+    >>> iris_1 = iris[::2]
+    >>> discretizer = Orange.preprocess.DomainDiscretizer()
+    >>> d_iris_1 = discretizer(iris_1)
+
+A dataset is loaded and a new table with every second instance is created.
+On this dataset, we compute discretized data, which uses the same data
+to set proper discretization intervals.
+
+The discretized variable "D_sepal length" stores a function that can derive
+continous values into discrete::
+
+    >>> d_iris_1[0]
+    DiscreteVariable('D_sepal length')
+    >>> d_iris_1[0].compute_value
+    <Orange.feature.discretization.Discretizer at 0x10d5108d0>
+
+The function is used for converting the remaining data (as automatically
+happens within model validation in Orange)::
+
+    >>> iris_2 = iris[1::2]  # previously unselected
+    >>> d_iris_2 = iris_2.transform(d_iris_1.domain)
+    >>> d_iris_2[0]
+    [<5.2, [2.8, 3), <1.6, <0.2 | Iris-setosa]
+
+The code transforms previously unused data into the discrete domain
+`d_iris_1.domain`. Behind the scenes, the values for the destination
+domain that are not yet in the source domain (`iris_2.domain`) are computed
+with the destination variables' :obj:`~Variable.compute_value`.
+
+Optimization for repeated computation
+`````````````````````````````````````
+
+Some transformations share parts of computation across variables. For
+example, :obj:`~Orange.projection.pca.PCA` uses all input features to
+compute the PCA transform. If each output PCA component was implemented with
+ordinary :obj:`~Variable.compute_value`, the PCA transform would be repeatedly
+computed for each PCA component. To avoid repeated computation,
+set :obj:`~Variable.compute_value` to a subclass of
+:obj:`~Orange.data.util.SharedComputeValue`.
+
+.. autoclass:: Orange.data.util.SharedComputeValue
+
+    .. automethod:: compute
+
+The following example creates normalized features that divide values
+by row sums and then tranforms the data. In the example the function
+`row_sum` is called only once; if we did not use
+:obj:`~Orange.data.util.SharedComputeValue`, `row_sum` would be called
+four times, once for each feature.
+
+::
+
+    iris = Orange.data.Table("iris")
+
+    def row_sum(data):
+        return data.X.sum(axis=1, keepdims=True)
+
+    class DivideWithMean(Orange.data.util.SharedComputeValue):
+
+        def __init__(self, var, fn):
+            super().__init__(fn)
+            self.var = var
+
+        def compute(self, data, shared_data):
+            return data[:, self.var].X / shared_data
+
+    divided_attributes = [
+        Orange.data.ContinuousVariable(
+            "Divided " + attr.name,
+            compute_value=DivideWithMean(attr, row_sum)
+        ) for attr in iris.domain.attributes]
+
+    divided_domain = Orange.data.Domain(
+        divided_attributes,
+        iris.domain.class_vars
+    )
+
+    divided_iris = iris.transform(divided_domain)
+
+###########################
+Projection (``projection``)
+###########################
+
+.. automodule:: Orange.projection
+
+
+
+PCA
+---
+
+Principal component analysis is a statistical procedure that uses
+an orthogonal transformation to convert a set of observations of possibly
+correlated variables into a set of values of linearly uncorrelated variables
+called principal components.
+
+
+Example
+=======
+
+    >>> from Orange.projection import PCA
+    >>> from Orange.data import Table
+    >>> iris = Table('iris')
+    >>> pca = PCA()
+    >>> model = pca(iris)
+    >>> model.components_    # PCA components
+    array([[ 0.36158968, -0.08226889,  0.85657211,  0.35884393],
+        [ 0.65653988,  0.72971237, -0.1757674 , -0.07470647],
+        [-0.58099728,  0.59641809,  0.07252408,  0.54906091],
+        [ 0.31725455, -0.32409435, -0.47971899,  0.75112056]])
+    >>> transformed_data = model(iris)    # transformed data
+    >>> transformed_data
+    [[-2.684, 0.327, -0.022, 0.001 | Iris-setosa],
+    [-2.715, -0.170, -0.204, 0.100 | Iris-setosa],
+    [-2.890, -0.137, 0.025, 0.019 | Iris-setosa],
+    [-2.746, -0.311, 0.038, -0.076 | Iris-setosa],
+    [-2.729, 0.334, 0.096, -0.063 | Iris-setosa],
+    ...
+    ]
+
+
+
+.. autoclass:: Orange.projection.pca.PCA
+.. autoclass:: Orange.projection.pca.SparsePCA
+.. autoclass:: Orange.projection.pca.IncrementalPCA
+
+
+
+FreeViz
+-------
+
+FreeViz uses a paradigm borrowed from particle physics: points in the same class attract each
+other, those from different class repel each other, and the resulting forces are exerted on the
+anchors of the attributes, that is, on unit vectors of each of the dimensional axis. The points
+cannot move (are projected in the projection space), but the attribute anchors can, so the
+optimization process is a hill-climbing optimization where at the end the anchors are placed such
+that forces are in equilibrium.
+
+
+Example
+=======
+
+    >>> from Orange.projection import FreeViz
+    >>> from Orange.data import Table
+    >>> iris = Table('iris')
+    >>> freeviz = FreeViz()
+    >>> model = freeviz(iris)
+    >>> model.components_    # FreeViz components
+    array([[  3.83487853e-01,   1.38777878e-17],
+       [ -6.95058218e-01,   7.18953457e-01],
+       [  2.16525357e-01,  -2.65741729e-01],
+       [  9.50450079e-02,  -4.53211728e-01]])
+    >>> transformed_data = model(iris)    # transformed data
+    >>> transformed_data
+    [[-0.157, 2.053 | Iris-setosa],
+    [0.114, 1.694 | Iris-setosa],
+    [-0.123, 1.864 | Iris-setosa],
+    [-0.048, 1.740 | Iris-setosa],
+    [-0.265, 2.125 | Iris-setosa],
+    ...
+    ]
+
+
+
+.. autoclass:: Orange.projection.freeviz.FreeViz
+
+
+
+
+LDA
+---
+
+Linear discriminant analysis is another way of finding a linear transformation of
+data that reduces the number of dimensions required to represent it. It is often
+used for dimensionality reduction prior to classification, but can also be used as a
+classification technique itself ([1]_).
+
+
+Example
+=======
+
+    >>> from Orange.projection import LDA
+    >>> from Orange.data import Table
+    >>> iris = Table('iris')
+    >>> lda = LDA()
+    >>> model = LDA(iris)
+    >>> model.components_    # LDA components
+    array([[ 0.20490976,  0.38714331, -0.54648218, -0.71378517],
+       [ 0.00898234,  0.58899857, -0.25428655,  0.76703217],
+       [-0.71507172,  0.43568045,  0.45568731, -0.30200008],
+       [ 0.06449913, -0.35780501, -0.42514529,  0.828895  ]])
+    >>> transformed_data = model(iris)    # transformed data
+    >>> transformed_data
+    [[1.492, 1.905 | Iris-setosa],
+    [1.258, 1.608 | Iris-setosa],
+    [1.349, 1.750 | Iris-setosa],
+    [1.180, 1.639 | Iris-setosa],
+    [1.510, 1.963 | Iris-setosa],
+    ...
+    ]
+
+
+
+.. autoclass:: Orange.projection.lda.LDA
+
+
+
+References
+----------
+
+.. [1] Witten, I.H., Frank, E., Hall, M.A. and Pal, C.J., 2016.
+   Data Mining: Practical machine learning tools and techniques. Morgan Kaufmann.
+
+###########################
+Regression (``regression``)
+###########################
+
+.. automodule:: Orange.regression
+
+
+.. index:: .. index:: linear fitter
+   pair: regression; linear fitter
+
+Linear Regression
+-----------------
+
+Linear regression is a statistical regression method which tries to
+predict a value of a continuous response (class) variable based on
+the values of several predictors. The model assumes that the response
+variable is a linear combination of the predictors, the task of
+linear regression is therefore to fit the unknown coefficients.
+
+
+Example
+=======
+
+    >>> from Orange.regression.linear import LinearRegressionLearner
+    >>> mpg = Orange.data.Table('auto-mpg')
+    >>> mean_ = LinearRegressionLearner()
+    >>> model = mean_(mpg[40:110])
+    >>> print(model)
+    LinearModel LinearRegression(copy_X=True, fit_intercept=True, normalize=False)
+    >>> mpg[20]
+    Value('mpg', 25.0)
+    >>> model(mpg[0])
+    Value('mpg', 24.6)
+
+.. autoclass:: Orange.regression.linear.LinearRegressionLearner
+.. autoclass:: Orange.regression.linear.RidgeRegressionLearner
+.. autoclass:: Orange.regression.linear.LassoRegressionLearner
+.. autoclass:: Orange.regression.linear.SGDRegressionLearner
+.. autoclass:: Orange.regression.linear.LinearModel
+
+
+
+.. index:: mean fitter
+   pair: regression; mean fitter
+
+
+Polynomial
+----------
+
+*Polynomial model* is a wrapper that constructs polynomial features of
+a specified degree and learns a model on them.
+
+.. autoclass:: Orange.regression.linear.PolynomialLearner
+
+
+Mean
+----
+
+*Mean model* predicts the same value (usually the distribution mean) for all
+data instances. Its accuracy can serve as a baseline for other regression
+models.
+
+The model learner (:class:`MeanLearner`) computes the mean of the given data or
+distribution. The model is stored as an instance of :class:`MeanModel`.
+
+Example
+=======
+
+    >>> from Orange.data import Table
+    >>> from Orange.regression import MeanLearner
+    >>> data = Table('auto-mpg')
+    >>> learner = MeanLearner()
+    >>> model = learner(data)
+    >>> print(model)
+    MeanModel(23.51457286432161)
+    >>> model(data[:4])
+    array([ 23.51457286,  23.51457286,  23.51457286,  23.51457286])
+
+.. autoclass:: MeanLearner
+   :members:
+
+
+
+.. index:: random forest
+   pair: regression; random forest
+
+Random Forest
+-------------
+.. autoclass:: RandomForestRegressionLearner
+   :members:
+
+
+
+.. index:: random forest (simple)
+   pair: regression; simple random forest
+
+Simple Random Forest
+--------------------
+
+.. autoclass:: SimpleRandomForestLearner
+   :members:
+
+
+
+.. index:: regression tree
+   pair: regression; tree
+
+Regression Tree
+-------------------
+
+Orange includes two implemenations of regression tres: a home-grown one, and one
+from scikit-learn. The former properly handles multinominal and missing values,
+and the latter is faster.
+
+.. autoclass:: TreeLearner
+   :members:
+
+.. autoclass:: SklTreeRegressionLearner
+   :members:
+
+
+.. index:: neural network
+   pair: regression; neural network
+
+Neural Network
+--------------
+.. autoclass:: NNRegressionLearner
+   :members:
+
+
+Gradient Boosted Trees
+----------------------
+
+.. automodule:: Orange.regression.gb
+
+.. autoclass:: GBRegressor
+   :members:
+
+.. automodule:: Orange.regression.catgb
+
+.. autoclass:: CatGBRegressor
+   :members:
+
+.. automodule:: Orange.regression.xgb
+
+.. autoclass:: XGBRegressor
+   :members:
+
+.. autoclass:: XGBRFRegressor
+   :members:
+
+
+Curve Fit
+----------------------
+
+.. automodule:: Orange.regression.curvefit
+
+.. autoclass:: CurveFitLearner
+   :members:
+.. py:currentmodule:: Orange.evaluation.scoring
+
+#############################
+Scoring methods (``scoring``)
+#############################
+
+CA
+--
+
+.. index:: CA
+.. autofunction:: Orange.evaluation.CA
+
+
+Precision
+---------
+
+.. index:: Precision
+.. autofunction:: Orange.evaluation.Precision
+
+
+Recall
+------
+
+.. index:: Recall
+.. autofunction:: Orange.evaluation.Recall
+
+
+F1
+--
+
+.. index:: F1
+.. autofunction:: Orange.evaluation.F1
+
+
+PrecisionRecallFSupport
+-----------------------
+
+.. index:: PrecisionRecallFSupport
+.. autofunction:: Orange.evaluation.PrecisionRecallFSupport
+
+
+AUC
+--------
+
+.. index:: AUC
+.. autofunction:: Orange.evaluation.AUC
+
+
+Log Loss
+--------
+
+.. index:: Log loss
+.. autofunction:: Orange.evaluation.LogLoss
+
+
+MSE
+---
+
+.. index:: MSE
+.. autofunction:: Orange.evaluation.MSE
+
+
+MAE
+---
+
+.. index:: MAE
+.. autofunction:: Orange.evaluation.MAE
+
+
+R2
+--
+
+.. index:: R2
+.. autofunction:: Orange.evaluation.R2
+
+
+CD diagram
+----------
+
+.. index:: CD diagram
+
+.. autofunction:: Orange.evaluation.compute_CD
+.. autofunction:: Orange.evaluation.graph_ranks
+
+Example
+=======
+
+    >>> import Orange
+    >>> import matplotlib.pyplot as plt
+    >>> names = ["first", "third", "second", "fourth" ]
+    >>> avranks =  [1.9, 3.2, 2.8, 3.3 ]
+    >>> cd = Orange.evaluation.compute_CD(avranks, 30) #tested on 30 datasets
+    >>> Orange.evaluation.graph_ranks(avranks, names, cd=cd, width=6, textspace=1.5)
+    >>> plt.show()
+
+The code produces the following graph:
+
+.. image:: images/statExamples-graph_ranks1.png
+.. py:currentmodule:: Orange.evaluation.performance_curves
+
+##################
+Performance curves
+##################
+
+.. autoclass:: Orange.evaluation.performance_curves.Curves
+    :members:
+###################################
+Classification (``classification``)
+###################################
+
+.. automodule:: Orange.classification
+
+.. index:: logistic regression
+   pair: classification; logistic regression
+
+Logistic Regression
+-------------------
+.. autoclass:: LogisticRegressionLearner
+   :members:
+
+
+
+.. index:: random forest
+   pair: classification; random forest
+
+Random Forest
+-------------
+.. autoclass:: RandomForestLearner
+   :members:
+
+
+
+.. index:: random forest (simple)
+   pair: classification; simple random forest
+
+Simple Random Forest
+--------------------
+
+.. autoclass:: SimpleRandomForestLearner
+   :members:
+
+
+
+.. index:: softmax regression classifier
+   pair: classification; softmax regression
+
+Softmax Regression
+------------------
+
+.. autoclass:: SoftmaxRegressionLearner
+   :members:
+
+
+.. index:: k-nearest neighbors classifier
+   pair: classification; k-nearest neighbors
+
+k-Nearest Neighbors
+-------------------
+.. autoclass:: KNNLearner
+   :members:
+
+
+.. index:: naive Bayes classifier
+   pair: classification; naive Bayes
+
+Naive Bayes
+-----------
+.. autoclass:: NaiveBayesLearner
+   :members:
+
+The following code loads lenses dataset (four discrete attributes and discrete
+class), constructs naive Bayesian learner, uses it on the entire dataset
+to construct a classifier, and then applies classifier to the first three
+data instances:
+
+    >>> import Orange
+    >>> lenses = Orange.data.Table('lenses')
+    >>> nb = Orange.classification.NaiveBayesLearner()
+    >>> classifier = nb(lenses)
+    >>> classifier(lenses[0:3], True)
+    array([[ 0.04358755,  0.82671726,  0.12969519],
+           [ 0.17428279,  0.20342097,  0.62229625],
+           [ 0.18633359,  0.79518516,  0.01848125]])
+
+.. _`Naive Bayes`: http://en.wikipedia.org/wiki/Naive_Bayes_classifier
+.. _`scikit-learn`: http://scikit-learn.org
+
+.. index:: SVM
+   pair: classification; SVM
+
+Support Vector Machines
+-----------------------
+.. autoclass:: SVMLearner
+   :members:
+
+
+.. index:: SVM, linear
+   pair: classification; linear SVM
+
+Linear Support Vector Machines
+------------------------------
+.. autoclass:: LinearSVMLearner
+   :members:
+
+
+
+.. index:: Nu-SVM
+   pair: classification; Nu-SVM
+
+Nu-Support Vector Machines
+--------------------------
+.. autoclass:: NuSVMLearner
+   :members:
+
+
+.. index:: classification tree
+   pair: classification; tree
+
+Classification Tree
+-------------------
+
+Orange includes three implemenations of classification trees. `TreeLearner`
+is home-grown and properly handles multinominal and missing values.
+The one from scikit-learn, `SklTreeLearner`, is faster. Another home-grown,
+`SimpleTreeLearner`, is simpler and still faster.
+
+The following code loads iris dataset (four numeric attributes and discrete
+class), constructs a decision tree learner, uses it on the entire dataset
+to construct a classifier, and then prints the tree:
+
+    >>> import Orange
+    >>> iris = Orange.data.Table('iris')
+    >>> tr = Orange.classification.TreeLearner()
+    >>> classifier = tr(data)
+    >>> printed_tree = classifier.print_tree()
+    >>> for i in printed_tree.split('\n'):
+    >>>     print(i)
+    [50.  0.  0.] petal length ≤ 1.9
+    [ 0. 50. 50.] petal length > 1.9
+    [ 0. 49.  5.]     petal width ≤ 1.7
+    [ 0. 47.  1.]         petal length ≤ 4.9
+       [0. 2. 4.]         petal length > 4.9
+       [0. 0. 3.]             petal width ≤ 1.5
+       [0. 2. 1.]             petal width > 1.5
+       [0. 2. 0.]                 sepal length ≤ 6.7
+       [0. 0. 1.]                 sepal length > 6.7
+    [ 0.  1. 45.]     petal width > 1.7
+
+.. autoclass:: TreeLearner
+   :members:
+
+.. autoclass:: SklTreeLearner
+   :members:
+
+.. index:: classification tree (simple)
+   pair: classification; simple tree
+
+Simple Tree
+-----------
+.. autoclass:: SimpleTreeLearner
+   :members:
+
+
+
+.. index:: majority classifier
+   pair: classification; majority
+
+Majority Classifier
+-------------------
+
+.. autoclass:: MajorityLearner
+   :members:
+
+
+.. index:: neural network
+   pair: classification; neural network
+
+Neural Network
+--------------
+.. autoclass:: NNClassificationLearner
+   :members:
+
+
+.. index:: Rule induction
+   pair: classification; rules
+
+CN2 Rule Induction
+------------------
+
+.. automodule:: Orange.classification.rules
+
+.. autoclass:: CN2Learner
+   :members:
+
+.. autoclass:: CN2UnorderedLearner
+   :members:
+
+.. autoclass:: CN2SDLearner
+   :members:
+
+.. autoclass:: CN2SDUnorderedLearner
+   :members:
+
+
+Calibration and threshold optimization
+--------------------------------------
+
+.. automodule:: Orange.classification.calibration
+
+.. autoclass:: ThresholdClassifier
+   :members:
+
+.. autoclass:: ThresholdLearner
+   :members:
+
+.. autoclass:: CalibratedClassifier
+   :members:
+
+.. autoclass:: CalibratedLearner
+   :members:
+
+
+Gradient Boosted Trees
+----------------------
+
+.. automodule:: Orange.classification.gb
+
+.. autoclass:: GBClassifier
+   :members:
+
+.. automodule:: Orange.classification.catgb
+
+.. autoclass:: CatGBClassifier
+   :members:
+
+.. automodule:: Orange.classification.xgb
+
+.. autoclass:: XGBClassifier
+   :members:
+
+.. autoclass:: XGBRFClassifier
+   :members:
+.. currentmodule:: Orange.data
+
+#########################
+Data Filters (``filter``)
+#########################
+
+Instances of classes derived from `Filter` are used for filtering the data.
+
+When called with an individual data instance (:obj:`Orange.data.Instance`),
+they accept or reject the instance by returning either `True` or `False`.
+
+When called with a data storage (e.g. an instance of
+:obj:`Orange.data.Table`) they check whether the corresponding class
+provides the method that implements the particular filter. If so, the
+method is called and the result should be of the same type as the
+storage; e.g., filter methods of :obj:`Orange.data.Table` return new
+instances of :obj:`Orange.data.Table`, and filter methods of SQL proxies
+return new SQL proxies.
+
+If the class corresponding to the storage does not implement a particular
+filter, the fallback computes the indices of the rows to be selected and
+returns `data[indices]`.
+
+
+.. automodule:: Orange.data.filter
+    :members:.. currentmodule:: Orange.data
+
+###############################
+Domain description (``domain``)
+###############################
+
+Description of a domain stores a list of features, class(es) and meta
+attribute descriptors. A domain descriptor is attached to all tables in
+Orange to assign names and types to the corresponding columns. Columns in
+the :obj:`Orange.data.Table` have the roles of attributes (features,
+independent variables), class(es) (targets, outcomes, dependent variables)
+and meta attributes; in parallel to that, the domain descriptor stores
+their corresponding
+descriptions in collections of variable descriptors of type
+:obj:`Orange.data.Variable`.
+
+Domain descriptors are also stored in predictive models and other objects to
+facilitate automated conversions between domains, as described below.
+
+Domains are most often constructed automatically when loading the data or
+wrapping the numpy arrays into Orange's :obj:`~Orange.data.Table`. ::
+
+    >>> from Orange.data import Table
+    >>> iris = Table("iris")
+    >>> iris.domain
+    [sepal length, sepal width, petal length, petal width | iris]
+
+.. autoclass:: Orange.data.Domain
+
+    .. attribute:: attributes
+
+        A tuple of descriptors (instances of :class:`Orange.data.Variable`)
+        for attributes (features, independent variables). ::
+
+            >>> iris.domain.attributes
+            (ContinuousVariable('sepal length'), ContinuousVariable('sepal width'),
+            ContinuousVariable('petal length'), ContinuousVariable('petal width'))
+
+    .. attribute:: class_var
+
+        Class variable if the domain has a single class; `None` otherwise. ::
+
+            >>> iris.domain.class_var
+            DiscreteVariable('iris')
+
+    .. attribute:: class_vars
+
+        A tuple of descriptors for class attributes (outcomes, dependent
+        variables). ::
+
+            >>> iris.domain.class_vars
+            (DiscreteVariable('iris'),)
+
+    .. attribute:: variables
+
+        A list of attributes and class attributes (the concatenation of
+        the above). ::
+
+            >>> iris.domain.variables
+            (ContinuousVariable('sepal length'), ContinuousVariable('sepal width'),
+            ContinuousVariable('petal length'), ContinuousVariable('petal width'),
+            DiscreteVariable('iris'))
+
+    .. attribute:: metas
+
+        List of meta attributes.
+
+    .. attribute:: anonymous
+
+        `True` if the domain was constructed when converting numpy array to
+        :class:`Orange.data.Table`. Such domains can be converted to and
+        from other domains even if they consist of different variable
+        descriptors for as long as their number and types match.
+
+    .. automethod:: Domain.__init__
+
+        The following script constructs a domain with a discrete feature
+        *gender* and continuous feature *age*, and a continuous target *salary*.
+        ::
+
+            >>> from Orange.data import Domain, DiscreteVariable, ContinuousVariable
+            >>> domain = Domain([DiscreteVariable.make("gender"),
+            ...                  ContinuousVariable.make("age")],
+            ...                 ContinuousVariable.make("salary"))
+            >>> domain
+            [gender, age | salary]
+
+        This constructs a new domain with some features from the Iris dataset
+        and a new feature *color*. ::
+
+            >>> new_domain = Domain(["sepal length",
+            ...                      "petal length",
+            ...                      DiscreteVariable.make("color")],
+            ...                     iris.domain.class_var,
+            ...                     source=iris.domain)
+            >>> new_domain
+            [sepal length, petal length, color | iris]
+
+    .. automethod:: from_numpy
+
+        ::
+
+            >>> import numpy as np
+            >>> from Orange.data import Domain
+            >>> X = np.arange(20, dtype=float).reshape(5, 4)
+            >>> Y = np.arange(5, dtype=int)
+            >>> domain = Domain.from_numpy(X, Y)
+            >>> domain
+            [Feature 1, Feature 2, Feature 3, Feature 4 | Class 1]
+
+    .. automethod:: __getitem__
+
+        ::
+
+            >>> iris.domain[1:3]
+            (ContinuousVariable('sepal width'), ContinuousVariable('petal length'))
+
+    .. automethod:: __len__
+    .. automethod:: __contains__
+
+        ::
+
+            >>> "petal length" in iris.domain
+            True
+            >>> "age" in iris.domain
+            False
+
+    .. automethod:: index
+
+        ::
+
+            >>> iris.domain.index("petal length")
+            2
+
+    .. automethod:: has_discrete_attributes
+
+        ::
+
+            >>> iris.domain.has_discrete_attributes()
+            False
+            >>> iris.domain.has_discrete_attributes(include_class=True)
+            True
+
+
+    .. automethod:: has_continuous_attributes
+
+        ::
+
+            >>> iris.domain.has_continuous_attributes()
+            True
+
+Domain conversion
+#################
+
+    Domain descriptors also convert data instances between different domains.
+
+    In a typical scenario, we may want to discretize some continuous data before
+    inducing a model. Discretizers (:mod:`Orange.preprocess`)
+    construct a new data table with attribute descriptors
+    (:class:`Orange.data.variable`), that include the corresponding functions
+    for conversion from continuous to discrete values. The trained model stores
+    this domain descriptor and uses it to convert instances from the original
+    domain to the discretized one at prediction phase.
+
+    In general, instances are converted between domains as follows.
+
+    - If the target attribute appears in the source domain, the value is
+      copied; two attributes are considered the same if they have the same
+      descriptor.
+    - If the target attribute descriptor defines a function for value
+      transformation, the value is transformed.
+    - Otherwise, the value is marked as missing.
+
+    An exception to this rule are domains in which the anonymous flag is set.
+    When the source or the target domain is anonymous, they match if they have
+    the same number of variables and types. In this case, the data is copied
+    without considering the attribute descriptors.
+.. currentmodule:: Orange.data.storage
+
+##########################
+Data Storage (``storage``)
+##########################
+
+:obj:`Orange.data.storage.Storage` is an abstract class representing a data object
+in which rows represent data instances (examples, in machine learning
+terminology) and columns represent variables (features, attributes, classes,
+targets, meta attributes).
+
+Data is divided into three parts that represent independent variables (`X`),
+dependent variables (`Y`) and meta data (`metas`). If practical, the class
+should expose those parts as properties. In the associated domain
+(:obj:`Orange.data.Domain`), the three parts correspond to lists of variable
+descriptors `attributes`, `class_vars` and `metas`.
+
+Any of those parts may be missing, dense, sparse or sparse boolean. The
+difference between the later two is that the sparse data can be seen as a list
+of pairs (variable, value), while in the latter the variable (item) is present
+or absent, like in market basket analysis. The actual storage of sparse data
+depends upon the storage type.
+
+There is no uniform constructor signature: every derived class provides one or
+more specific constructors.
+
+There are currently two derived classes :obj:`Orange.data.Table` and
+:obj:`Orange.data.sql.Table`, the former storing the data in-memory, in numpy
+objects, and the latter in SQL (currently, only PostreSQL is supported).
+
+Derived classes must implement at least the methods for getting rows and the
+number of instances (`__getitem__` and `__len__`). To make storage fast enough
+to be practically useful, it must also reimplement a number of filters,
+preprocessors and aggregators. For instance, method
+`_filter_values(self, filter)` returns a new storage which only contains the
+rows that match the criteria given in the filter. :obj:`Orange.data.Table`
+implements an efficient method based on numpy indexing, and
+:obj:`Orange.data.sql.Table`, which "stores" a table as an SQL query, converts
+the filter into a WHERE clause.
+
+.. attribute:: domain (:obj:`Orange.data.Domain`)
+
+    The domain describing the columns of the data
+
+
+Data access
+-----------
+
+.. method:: __getitem__(self, index)
+
+    Return one or more rows of the data.
+
+    - If the index is an int, e.g. `data[7]`; the corresponding row is
+      returned as an instance of :obj:`~Orange.data.instance.Instance`. Concrete
+      implementations of `Storage` use specific derived classes for instances.
+
+    - If the index is a slice or a sequence of ints (e.g. `data[7:10]` or
+      `data[[7, 42, 15]]`, indexing returns a new storage with the selected
+      rows.
+
+    - If there are two indices, where the first is an int (a row number) and
+      the second can be interpreted as columns, e.g. `data[3, 5]` or
+      `data[3, 'gender']` or `data[3, y]` (where `y` is an instance of
+      :obj:`~Orange.data.Variable`), a single value is returned as an instance
+      of :obj:`~Orange.data.Value`.
+
+    - In all other cases, the first index should be a row index, a slice or
+      a sequence, and the second index, which represent a set of columns,
+      should be an int, a slice, a sequence or a numpy array. The result is
+      a new storage with a new domain.
+
+.. method:: .__len__(self)
+
+    Return the number of data instances (rows)
+
+
+Inspection
+----------
+
+.. method:: Storage.X_density, Storage.Y_density, Storage.metas_density
+
+    Indicates whether the attributes, classes and meta attributes are dense
+    (`Storage.DENSE`) or sparse (`Storage.SPARSE`). If they are sparse and
+    all values are 0 or 1, it is marked as (`Storage.SPARSE_BOOL`). The
+    Storage class provides a default DENSE. If the data has no attibutes,
+    classes or meta attributes, the corresponding method should re
+
+
+Filters
+-------
+
+Storage should define the following methods to optimize the filtering
+operations as allowed by the underlying data structure.
+:obj:`Orange.data.Table` executes them directly through numpy (or bottleneck
+or related) methods, while :obj:`Orange.data.sql.Table` appends them to the
+WHERE clause of the query that defines the data.
+
+These methods should not be called directly but through the classes defined in
+:obj:`Orange.data.filter`. Methods in :obj:`Orange.data.filter` also provide
+the slower fallback functions for the functions not defined in the storage.
+
+.. method:: _filter_is_defined(self, columns=None, negate=False)
+
+    Extract rows without undefined values.
+
+    :param columns: optional list of columns that are checked for unknowns
+    :type columns: sequence of ints, variable names or descriptors
+    :param negate: invert the selection
+    :type negate: bool
+    :return: a new storage of the same type or :obj:`~Orange.data.Table`
+    :rtype: Orange.data.storage.Storage
+
+
+.. method:: _filter_has_class(self, negate=False)
+
+    Return rows with known value of the target attribute. If there are multiple
+    classes, all must be defined.
+
+    :param negate: invert the selection
+    :type negate: bool
+    :return: a new storage of the same type or :obj:`~Orange.data.Table`
+    :rtype: Orange.data.storage.Storage
+
+
+.. method:: _filter_same_value(self, column, value, negate=False)
+
+    Select rows based on a value of the given variable.
+
+    :param column: the column that is checked
+    :type column: int, str or Orange.data.Variable
+    :param value: the value of the variable
+    :type value: int, float or str
+    :param negate: invert the selection
+    :type negate: bool
+    :return: a new storage of the same type or :obj:`~Orange.data.Table`
+    :rtype: Orange.data.storage.Storage
+
+
+.. method:: _filter_values(self, filter)
+
+    Apply a the given filter to the data.
+
+    :param filter: A filter for selecting the rows
+    :type filter: Orange.data.Filter
+    :return: a new storage of the same type or :obj:`~Orange.data.Table`
+    :rtype: Orange.data.storage.Storage
+
+
+Aggregators
+-----------
+
+Similarly to filters, storage classes should provide several methods for fast
+computation of statistics. These methods are not called directly but by modules
+within :obj:`Orange.statistics`.
+
+.. method:: _compute_basic_stats(
+    self, columns=None, include_metas=False, compute_variance=False)
+
+    Compute basic statistics for the specified variables: minimal and maximal
+    value, the mean and a varianca (or a zero placeholder), the number
+    of missing and defined values.
+
+    :param columns: a list of columns for which the statistics is computed;
+        if `None`, the function computes the data for all variables
+    :type columns: list of ints, variable names or descriptors of type
+        :obj:`Orange.data.Variable`
+    :param include_metas: a flag which tells whether to include meta attributes
+        (applicable only if `columns` is `None`)
+    :type include_metas: bool
+    :param compute_variance: a flag which tells whether to compute the variance
+    :type compute_variance: bool
+    :return: a list with tuple (min, max, mean, variance, #nans, #non-nans)
+        for each variable
+    :rtype: list
+
+.. method:: _compute_distributions(self, columns=None)
+
+    Compute the distribution for the specified variables. The result is a list
+    of pairs containing the distribution and the number of rows for which the
+    variable value was missing.
+
+    For discrete variables, the distribution is represented as a vector with
+    absolute frequency of each value. For continuous variables, the result is
+    a 2-d array of shape (2, number-of-distinct-values); the first row contains
+    (distinct) values of the variables and the second has their absolute
+    frequencies.
+
+    :param columns: a list of columns for which the distributions are computed;
+        if `None`, the function runs over all variables
+    :type columns: list of ints, variable names or descriptors of type
+        :obj:`Orange.data.Variable`
+    :return: a list of distributions
+    :rtype: list of numpy arrays
+
+.. automethod:: Orange.data.storage.Storage._compute_contingency

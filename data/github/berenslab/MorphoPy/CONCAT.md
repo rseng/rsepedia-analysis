@@ -443,3 +443,87 @@ under Germany’s Excellence Strategy (EXC2064/1 – 390727645; BE5601/4-1, SFB 
 and the National Institute of Mental Health (U19MH114830).
 
 # References
+Computation
+-----------
+.. toctree::
+   :maxdepth: 2
+
+   feature_presentation.rst
+   file_manager.rst
+   persistence_functions.rstCommand line script
+-------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   morphopy.rstUtils
+=====
+
+.. automodule:: morphopy.neurontree.utils
+    :members:
+Feature Presentation
+====================
+
+.. automodule:: morphopy.computation.feature_presentation
+    :members:
+NeuronTree
+----------
+.. toctree::
+   :maxdepth: 2
+
+   neurontree.rst
+   plotting.rst
+   utils.rst
+NeuronTree
+==========
+
+.. autoclass:: morphopy.neurontree.NeuronTree.NeuronTree
+    :members:
+    
+    .. automethod:: __init__
+Welcome to Morphopy's documentation!
+====================================
+
+MorphoPy is a Python3 package that uses networkX to compute and show information
+about neurites. The input can be passed with single swc-files or it can handle
+whole directories with multiple files at once. You can use MorphoPy imported in
+Python or from command line as batch-tool as well.
+
+You can find MorphoPy with more information `here... <https://github.com/berenslab/MorphoPy>`_
+
+Contents:
+=========
+
+.. toctree::
+   :maxdepth: 2
+
+   command.rst
+   computation.rst
+   neuron.rst
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+Morphopy
+==========
+
+.. automodule:: morphopy.MorphoPy
+    :members:
+File Manager
+============
+
+.. automodule:: morphopy.computation.file_manager
+    :members:
+Plotting
+========
+
+.. automodule:: morphopy.neurontree.plotting
+    :members:
+Persistence Functions
+=====================
+
+.. automodule:: morphopy.computation.persistence_functions
+    :members:

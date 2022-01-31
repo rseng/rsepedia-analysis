@@ -4190,3 +4190,2654 @@ _Peader Coyle_
 # Testimonials
 
 TODO: move testimonials from wiki to here
+.. image:: https://cdn.rawgit.com/pymc-devs/pymc/main/docs/logos/svg/PyMC_banner.svg
+    :height: 100px
+    :alt: PyMC logo
+    :align: center
+
+|Build Status| |Coverage| |NumFOCUS_badge| |Binder| |Dockerhub| |DOIzenodo|
+
+PyMC (formerly PyMC3) is a Python package for Bayesian statistical modeling
+focusing on advanced Markov chain Monte Carlo (MCMC) and variational inference (VI)
+algorithms. Its flexibility and extensibility make it applicable to a
+large suite of problems.
+
+Check out the `PyMC overview <https://docs.pymc.io/en/latest/learn/examples/pymc_overview.html>`__,  or
+`interact with live examples <https://mybinder.org/v2/gh/pymc-devs/pymc/main?filepath=%2Fdocs%2Fsource%2Fnotebooks>`__
+using Binder!
+For questions on PyMC, head on over to our `PyMC Discourse <https://discourse.pymc.io/>`__ forum.
+
+Features
+========
+
+-  Intuitive model specification syntax, for example, ``x ~ N(0,1)``
+   translates to ``x = Normal('x',0,1)``
+-  **Powerful sampling algorithms**, such as the `No U-Turn
+   Sampler <http://www.jmlr.org/papers/v15/hoffman14a.html>`__, allow complex models
+   with thousands of parameters with little specialized knowledge of
+   fitting algorithms.
+-  **Variational inference**: `ADVI <http://www.jmlr.org/papers/v18/16-107.html>`__
+   for fast approximate posterior estimation as well as mini-batch ADVI
+   for large data sets.
+-  Relies on `Aesara <https://aesara.readthedocs.io/en/latest/>`__ which provides:
+    *  Computation optimization and dynamic C or JAX compilation
+    *  NumPy broadcasting and advanced indexing
+    *  Linear algebra operators
+    *  Simple extensibility
+-  Transparent support for missing value imputation
+
+Getting started
+===============
+
+If you already know about Bayesian statistics:
+----------------------------------------------
+
+-  `API quickstart guide <https://docs.pymc.io/en/stable/pymc-examples/examples/pymc3_howto/api_quickstart.html>`__
+-  The `PyMC tutorial <https://docs.pymc.io/en/latest/learn/examples/pymc_overview.html>`__
+-  `PyMC examples <https://docs.pymc.io/projects/examples/en/latest/>`__ and the `API reference <https://docs.pymc.io/en/stable/api.html>`__
+
+Learn Bayesian statistics with a book together with PyMC
+--------------------------------------------------------
+
+-  `Probabilistic Programming and Bayesian Methods for Hackers <https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers>`__: Fantastic book with many applied code examples.
+-  `PyMC port of the book "Doing Bayesian Data Analysis" by John Kruschke <https://github.com/aloctavodia/Doing_bayesian_data_analysis>`__ as well as the `second edition <https://github.com/JWarmenhoven/DBDA-python>`__: Principled introduction to Bayesian data analysis.
+-  `PyMC port of the book "Statistical Rethinking A Bayesian Course with Examples in R and Stan" by Richard McElreath <https://github.com/pymc-devs/resources/tree/master/Rethinking>`__
+-  `PyMC port of the book "Bayesian Cognitive Modeling" by Michael Lee and EJ Wagenmakers <https://github.com/pymc-devs/resources/tree/master/BCM>`__: Focused on using Bayesian statistics in cognitive modeling.
+-  `Bayesian Analysis with Python  <https://www.packtpub.com/big-data-and-business-intelligence/bayesian-analysis-python-second-edition>`__ (second edition) by Osvaldo Martin: Great introductory book. (`code <https://github.com/aloctavodia/BAP>`__ and errata).
+
+Audio & Video
+-------------
+
+- Here is a `YouTube playlist <https://www.youtube.com/playlist?list=PL1Ma_1DBbE82OVW8Fz_6Ts1oOeyOAiovy>`__ gathering several talks on PyMC.
+- You can also find all the talks given at **PyMCon 2020** `here <https://discourse.pymc.io/c/pymcon/2020talks/15>`__.
+- The `"Learning Bayesian Statistics" podcast <https://www.learnbayesstats.com/>`__ helps you discover and stay up-to-date with the vast Bayesian community. Bonus: it's hosted by Alex Andorra, one of the PyMC core devs!
+
+Installation
+============
+
+To install PyMC on your system, follow the instructions on the appropriate installation guide:
+
+-  `Installing PyMC on MacOS <https://github.com/pymc-devs/pymc/wiki/Installation-Guide-(MacOS)>`__
+-  `Installing PyMC on Linux <https://github.com/pymc-devs/pymc/wiki/Installation-Guide-(Linux)>`__
+-  `Installing PyMC on Windows <https://github.com/pymc-devs/pymc/wiki/Installation-Guide-(Windows)>`__
+
+
+Citing PyMC
+===========
+Please choose from the following:
+
+- |DOIpaper| *Probabilistic programming in Python using PyMC3*, Salvatier J., Wiecki T.V., Fonnesbeck C. (2016)
+- |DOIzenodo| A DOI for all versions.
+- DOIs for specific versions are shown on Zenodo and under `Releases <https://github.com/pymc-devs/pymc/releases>`_
+
+.. |DOIpaper| image:: https://img.shields.io/badge/DOI-10.7717%2Fpeerj--cs.55-blue
+     :target: https://doi.org/10.7717/peerj-cs.55
+.. |DOIzenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4603970.svg
+   :target: https://doi.org/10.5281/zenodo.4603970
+
+Contact
+=======
+
+We are using `discourse.pymc.io <https://discourse.pymc.io/>`__ as our main communication channel. You can also follow us on `Twitter @pymc_devs <https://twitter.com/pymc_devs>`__ for updates and other announcements.
+
+To ask a question regarding modeling or usage of PyMC we encourage posting to our Discourse forum under the `“Questions” Category <https://discourse.pymc.io/c/questions>`__. You can also suggest feature in the `“Development” Category <https://discourse.pymc.io/c/development>`__.
+
+To report an issue with PyMC please use the `issue tracker <https://github.com/pymc-devs/pymc/issues>`__.
+
+Finally, if you need to get in touch for non-technical information about the project, `send us an e-mail <pymc.devs@gmail.com>`__.
+
+License
+=======
+
+`Apache License, Version
+2.0 <https://github.com/pymc-devs/pymc/blob/main/LICENSE>`__
+
+
+Software using PyMC
+===================
+
+General purpose
+---------------
+
+- `Bambi <https://github.com/bambinos/bambi>`__: BAyesian Model-Building Interface (BAMBI) in Python.
+- `SunODE <https://github.com/aseyboldt/sunode>`__: Fast ODE solver, much faster than the one that comes with PyMC.
+- `pymc-learn <https://github.com/pymc-learn/pymc-learn>`__: Custom PyMC models built on top of pymc3_models/scikit-learn API
+- `fenics-pymc3 <https://github.com/IvanYashchuk/fenics-pymc3>`__: Differentiable interface to FEniCS, a library for solving partial differential equations.
+
+Domain specific
+---------------
+
+- `Exoplanet <https://github.com/dfm/exoplanet>`__: a toolkit for modeling of transit and/or radial velocity observations of exoplanets and other astronomical time series.
+- `NiPyMC <https://github.com/PsychoinformaticsLab/nipymc>`__: Bayesian mixed-effects modeling of fMRI data in Python.
+- `beat <https://github.com/hvasbath/beat>`__: Bayesian Earthquake Analysis Tool.
+- `cell2location <https://github.com/BayraktarLab/cell2location>`__: Comprehensive mapping of tissue cell architecture via integrated single cell and spatial transcriptomics.
+
+Please contact us if your software is not listed here.
+
+Papers citing PyMC
+==================
+
+See `Google Scholar <https://scholar.google.de/scholar?oi=bibs&hl=en&authuser=1&cites=6936955228135731011>`__ for a continuously updated list.
+
+Contributors
+============
+
+See the `GitHub contributor
+page <https://github.com/pymc-devs/pymc/graphs/contributors>`__. Also read our `Code of Conduct <https://github.com/pymc-devs/pymc/blob/main/CODE_OF_CONDUCT.md>`__ guidelines for a better contributing experience.
+
+Support
+=======
+
+PyMC is a non-profit project under NumFOCUS umbrella. If you want to support PyMC financially, you can donate `here <https://numfocus.salsalabs.org/donate-to-pymc3/index.html>`__.
+
+PyMC for enterprise
+===================
+`PyMC is now available as part of the Tidelift Subscription!`
+
+Tidelift is working with PyMC and the maintainers of thousands of other open source
+projects to deliver commercial support and maintenance for the open source dependencies
+you use to build your applications. Save time, reduce risk, and improve code health,
+while contributing financially to PyMC -- making it even more robust, reliable and,
+let's face it, amazing!
+
+|tidelift_learn| |tidelift_demo|
+
+You can also get professional consulting support from `PyMC Labs <https://www.pymc-labs.io>`__.
+
+Sponsors
+========
+
+|NumFOCUS|
+
+|PyMCLabs|
+
+.. |Binder| image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/pymc-devs/pymc/main?filepath=%2Fdocs%2Fsource%2Fnotebooks
+.. |Build Status| image:: https://github.com/pymc-devs/pymc/workflows/pytest/badge.svg
+   :target: https://github.com/pymc-devs/pymc/actions
+.. |Coverage| image:: https://codecov.io/gh/pymc-devs/pymc/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/pymc-devs/pymc
+.. |Dockerhub| image:: https://img.shields.io/docker/automated/pymc/pymc.svg
+   :target: https://hub.docker.com/r/pymc/pymc
+.. |NumFOCUS| image:: https://www.numfocus.org/wp-content/uploads/2017/03/1457562110.png
+   :target: http://www.numfocus.org/
+.. |NumFOCUS_badge| image:: https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A
+   :target: http://www.numfocus.org/
+.. |PyMCLabs| image:: https://raw.githubusercontent.com/pymc-devs/pymc/main/docs/logos/sponsors/pymc-labs.png
+   :target: https://pymc-labs.io
+.. |tidelift| image:: https://img.shields.io/badge/-lifted!-2dd160.svg?colorA=58595b&style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAVhJREFUKBV1kj0vBFEUhmd2sdZHh2IlGhKFQuOviEYiNlFodCqtUqPxA%2FwCjUTnDygkGoVERFQaZFlE9nreO%2BdM5u5wkifvuee892Pu3CyEcA0DeIc%2B9IwftJsR6Cko3uCjguZdjuBZhhwmYDjGrOC96WED41UtsgEdGEAPlmAfpuAbFF%2BFZLfoMfRBGzThDtLgePPwBIpdddGzOArhPHUXowbNptE2www6a%2Fm96Y3pHN7oQ1s%2B13pxt1ENaKzBFWyWzaJ%2BRO0C9Jny6VPSoKjLVbMDC5bn5OPuJF%2BBSe95PVEMuugY5AegS9fCh7BedP45hRnj8TC34QQUe9bTZyh2KgvFk2vc8GIlXyTfsvqr6bPpNgv52ynnlomZJNpB70Xhl%2Bf6Sa02p1bApEfnETwxVa%2Faj%2BW%2FFtHltmxS%2FO3krvpTtTnVgu%2F6gvHRFvG78Ef3kOe5PimJXycY74blT5R%2BAAAAAElFTkSuQmCC
+   :target: https://tidelift.com/subscription/pkg/pypi-pymc3?utm_source=pypi-pymc3&utm_medium=referral&utm_campaign=enterprise
+.. |tidelift_learn| image:: https://img.shields.io/badge/-learn%20more-2dd160.svg?color=orange&labelColor=58595b&style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAVhJREFUKBV1kj0vBFEUhmd2sdZHh2IlGhKFQuOviEYiNlFodCqtUqPxA%2FwCjUTnDygkGoVERFQaZFlE9nreO%2BdM5u5wkifvuee892Pu3CyEcA0DeIc%2B9IwftJsR6Cko3uCjguZdjuBZhhwmYDjGrOC96WED41UtsgEdGEAPlmAfpuAbFF%2BFZLfoMfRBGzThDtLgePPwBIpdddGzOArhPHUXowbNptE2www6a%2Fm96Y3pHN7oQ1s%2B13pxt1ENaKzBFWyWzaJ%2BRO0C9Jny6VPSoKjLVbMDC5bn5OPuJF%2BBSe95PVEMuugY5AegS9fCh7BedP45hRnj8TC34QQUe9bTZyh2KgvFk2vc8GIlXyTfsvqr6bPpNgv52ynnlomZJNpB70Xhl%2Bf6Sa02p1bApEfnETwxVa%2Faj%2BW%2FFtHltmxS%2FO3krvpTtTnVgu%2F6gvHRFvG78Ef3kOe5PimJXycY74blT5R%2BAAAAAElFTkSuQmCC
+   :target: https://tidelift.com/subscription/pkg/pypi-pymc3?utm_source=pypi-pymc3&utm_medium=referral&utm_campaign=enterprise
+.. |tidelift_demo| image:: https://img.shields.io/badge/-request%20a%20demo-2dd160.svg?color=orange&labelColor=58595b&style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAOCAYAAADJ7fe0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAAWJQAAFiUBSVIk8AAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAVhJREFUKBV1kj0vBFEUhmd2sdZHh2IlGhKFQuOviEYiNlFodCqtUqPxA%2FwCjUTnDygkGoVERFQaZFlE9nreO%2BdM5u5wkifvuee892Pu3CyEcA0DeIc%2B9IwftJsR6Cko3uCjguZdjuBZhhwmYDjGrOC96WED41UtsgEdGEAPlmAfpuAbFF%2BFZLfoMfRBGzThDtLgePPwBIpdddGzOArhPHUXowbNptE2www6a%2Fm96Y3pHN7oQ1s%2B13pxt1ENaKzBFWyWzaJ%2BRO0C9Jny6VPSoKjLVbMDC5bn5OPuJF%2BBSe95PVEMuugY5AegS9fCh7BedP45hRnj8TC34QQUe9bTZyh2KgvFk2vc8GIlXyTfsvqr6bPpNgv52ynnlomZJNpB70Xhl%2Bf6Sa02p1bApEfnETwxVa%2Faj%2BW%2FFtHltmxS%2FO3krvpTtTnVgu%2F6gvHRFvG78Ef3kOe5PimJXycY74blT5R%2BAAAAAElFTkSuQmCC
+   :target: https://tidelift.com/subscription/request-a-demo?utm_source=pypi-pymc3&utm_medium=referral&utm_campaign=enterprise
+:orphan:
+
+..
+    _href from docs/source/index.rst
+
+===============
+PyMC and Aesara
+===============
+
+What is Aesara
+==============
+
+Aesara is a package that allows us to define functions involving array
+operations and linear algebra. When we define a PyMC model, we implicitly
+build up an Aesara function from the space of our parameters to
+their posterior probability density up to a constant factor. We then use
+symbolic manipulations of this function to also get access to its gradient.
+
+For a thorough introduction to Aesara see the
+`aesara docs <https://aesara.readthedocs.io/en/latest/>`_,
+but for the most part you don't need detailed knowledge about it as long
+as you are not trying to define new distributions or other extensions
+of PyMC. But let's look at a simple example to get a rough
+idea about how it works. Say, we'd like to define the (completely
+arbitrarily chosen) function
+
+.. math::
+
+  f\colon \mathbb{R} \times \mathbb{R}^n \times \mathbb{N}^n \to \mathbb{R}\\
+  (a, x, y) \mapsto \sum_{i=0}^{n} \exp(ax_i^3 + y_i^2).
+
+
+First, we need to define symbolic variables for our inputs (this
+is similar to eg SymPy's `Symbol`)::
+
+    import aesara
+    import aesara.tensor as at
+    # We don't specify the dtype of our input variables, so it
+    # defaults to using float64 without any special config.
+    a = at.scalar('a')
+    x = at.vector('x')
+    # `at.ivector` creates a symbolic vector of integers.
+    y = at.ivector('y')
+
+Next, we use those variables to build up a symbolic representation
+of the output of our function. Note that no computation is actually
+being done at this point. We only record what operations we need to
+do to compute the output::
+
+    inner = a * x**3 + y**2
+    out = at.exp(inner).sum()
+
+.. note::
+
+   In this example we use `at.exp` to create a symbolic representation
+   of the exponential of `inner`. Somewhat surprisingly, it
+   would also have worked if we used `np.exp`. This is because numpy
+   gives objects it operates on a chance to define the results of
+   operations themselves. Aesara variables do this for a large number
+   of operations. We usually still prefer the Aesara
+   functions instead of the numpy versions, as that makes it clear that
+   we are working with symbolic input instead of plain arrays.
+
+Now we can tell Aesara to build a function that does this computation.
+With a typical configuration, Aesara generates C code, compiles it,
+and creates a python function which wraps the C function::
+
+    func = aesara.function([a, x, y], [out])
+
+We can call this function with actual arrays as many times as we want::
+
+    a_val = 1.2
+    x_vals = np.random.randn(10)
+    y_vals = np.random.randn(10)
+
+    out = func(a_val, x_vals, y_vals)
+
+For the most part the symbolic Aesara variables can be operated on
+like NumPy arrays. Most NumPy functions are available in `aesara.tensor`
+(which is typically imported as `at`). A lot of linear algebra operations
+can be found in `at.nlinalg` and `at.slinalg` (the NumPy and SciPy
+operations respectively). Some support for sparse matrices is available
+in `aesara.sparse`. For a detailed overview of available operations,
+see `the aesara api docs <https://aesara.readthedocs.io/en/latest/library/tensor/index.html>`_.
+
+A notable exception where Aesara variables do *not* behave like
+NumPy arrays are operations involving conditional execution.
+
+Code like this won't work as expected::
+
+    a = at.vector('a')
+    if (a > 0).all():
+        b = at.sqrt(a)
+    else:
+        b = -a
+
+`(a > 0).all()` isn't actually a boolean as it would be in NumPy, but
+still a symbolic variable. Python will convert this object to a boolean
+and according to the rules for this conversion, things that aren't empty
+containers or zero are converted to `True`. So the code is equivalent
+to this::
+
+    a = at.vector('a')
+    b = at.sqrt(a)
+
+To get the desired behaviour, we can use `at.switch`::
+
+    a = at.vector('a')
+    b = at.switch((a > 0).all(), at.sqrt(a), -a)
+
+Indexing also works similarly to NumPy::
+
+    a = at.vector('a')
+    # Access the 10th element. This will fail when a function build
+    # from this expression is executed with an array that is too short.
+    b = a[10]
+
+    # Extract a subvector
+    b = a[[1, 2, 10]]
+
+Changing elements of an array is possible using `at.set_subtensor`::
+
+    a = at.vector('a')
+    b = at.set_subtensor(a[:10], 1)
+
+    # is roughly equivalent to this (although aesara avoids
+    # the copy if `a` isn't used anymore)
+    a = np.random.randn(10)
+    b = a.copy()
+    b[:10] = 1
+
+How PyMC uses Aesara
+====================
+
+Now that we have a basic understanding of Aesara we can look at what
+happens if we define a PyMC model. Let's look at a simple example::
+
+    true_mu = 0.1
+    data = true_mu + np.random.randn(50)
+
+    with pm.Model() as model:
+        mu = pm.Normal('mu', mu=0, sigma=1)
+        y = pm.Normal('y', mu=mu, sigma=1, observed=data)
+
+In this model we define two variables: `mu` and `y`. The first is
+a free variable that we want to infer, the second is an observed
+variable. To sample from the posterior we need to build the function
+
+.. math::
+
+   \log P(μ|y) + C = \log P(y|μ) + \log P(μ) =: \text{logp}(μ)\\
+
+where with the normal likelihood :math:`N(x|μ,σ^2)`
+
+.. math::
+
+    \text{logp}\colon \mathbb{R} \to \mathbb{R}\\
+    μ \mapsto \log N(μ|0, 1) + \log N(y|μ, 1),
+
+To build that function we need to keep track of two things: The parameter
+space (the *free variables*) and the logp function. For each free variable
+we generate an Aesara variable. And for each variable (observed or otherwise)
+we add a term to the global logp. In the background something similar to
+this is happening::
+
+    # For illustration only, those functions don't actually exist
+    # in exactly this way!
+    model = pm.Model()
+
+    mu = at.scalar('mu')
+    model.add_free_variable(mu)
+    model.add_logp_term(pm.Normal.dist(0, 1).logp(mu))
+
+    model.add_logp_term(pm.Normal.dist(mu, 1).logp(data))
+
+So calling `pm.Normal()` modifies the model: It changes the logp function
+of the model. If the `observed` keyword isn't set it also creates a new
+free variable. In contrast, `pm.Normal.dist()` doesn't care about the model,
+it just creates an object that represents the normal distribution. Calling
+`logp` on this object creates an Aesara variable for the logp probability
+or log probability density of the distribution, but again without changing
+the model in any way.
+
+Continuous variables with support only on a subset of the real numbers
+are treated a bit differently. We create a transformed variable
+that has support on the reals and then modify this variable. For
+example::
+
+    with pm.Model() as model:
+        mu = pm.Normal('mu', 0, 1)
+        sd = pm.HalfNormal('sd', 1)
+        y = pm.Normal('y', mu=mu, sigma=sd, observed=data)
+
+is roughly equivalent to this::
+
+    # For illustration only, not real code!
+    model = pm.Model()
+    mu = at.scalar('mu')
+    model.add_free_variable(mu)
+    model.add_logp_term(pm.Normal.dist(0, 1).logp(mu))
+
+    sd_log__ = at.scalar('sd_log__')
+    model.add_free_variable(sd_log__)
+    model.add_logp_term(corrected_logp_half_normal(sd_log__))
+
+    sd = at.exp(sd_log__)
+    model.add_deterministic_variable(sd)
+
+    model.add_logp_term(pm.Normal.dist(mu, sd).logp(data))
+
+The return values of the variable constructors are subclasses
+of Aesara variables, so when we define a variable we can use any
+Aesara operation on them::
+
+    design_matrix = np.array([[...]])
+    with pm.Model() as model:
+        # beta is a at.dvector
+        beta = pm.Normal('beta', 0, 1, shape=len(design_matrix))
+        predict = at.dot(design_matrix, beta)
+        sd = pm.HalfCauchy('sd', beta=2.5)
+        pm.Normal('y', mu=predict, sigma=sd, observed=data)
+:orphan:
+(Advanced_usage_of_Aesara_in_PyMC)=
+..
+    _referenced in docs/source/notebooks/table_of_contents_tutorials.js
+
+=================================
+Advanced usage of Aesara in PyMC
+=================================
+
+Using shared variables
+======================
+
+Shared variables allow us to use values in Aesara functions that are
+not considered an input to the function, but can still be changed
+later. They are very similar to global variables in may ways::
+
+    a = at.scalar('a')
+    # Create a new shared variable with initial value of 0.1
+    b = aesara.shared(0.1)
+    func = aesara.function([a], a * b)
+    assert func(2.) == 0.2
+
+    b.set_value(10.)
+    assert func(2.) == 20.
+
+Shared variables can also contain arrays, and are allowed to change
+their shape as long as the number of dimensions stays the same.
+
+We can use shared variables in PyMC to fit the same model to several
+datasets without the need to recreate the model each time (which can
+be time consuming if the number of datasets is large)::
+
+    # We generate 10 datasets
+    true_mu = [np.random.randn() for _ in range(10)]
+    observed_data = [mu + np.random.randn(20) for mu in true_mu]
+
+    data = aesara.shared(observed_data[0])
+    with pm.Model() as model:
+        mu = pm.Normal('mu', 0, 10)
+        pm.Normal('y', mu=mu, sigma=1, observed=data)
+
+    # Generate one trace for each dataset
+    idatas = []
+    for data_vals in observed_data:
+        # Switch out the observed dataset
+        data.set_value(data_vals)
+        with model:
+            idatas.append(pm.sample())
+
+We can also sometimes use shared variables to work around limitations
+in the current PyMC api. A common task in Machine Learning is to predict
+values for unseen data, and one way to achieve this is to use a shared
+variable for our observations::
+
+    x = np.random.randn(100)
+    y = x > 0
+
+    x_shared = aesara.shared(x)
+
+    with pm.Model() as model:
+      coeff = pm.Normal('x', mu=0, sigma=1)
+      logistic = pm.math.sigmoid(coeff * x_shared)
+      pm.Bernoulli('obs', p=logistic, observed=y)
+
+      # fit the model
+      idata = pm.sample()
+
+      # Switch out the observations and use `sample_posterior_predictive` to predict
+      x_shared.set_value([-1, 0, 1.])
+      post_pred = pm.sample_posterior_predictive(trace, samples=500)
+
+However, due to the way we handle shapes at the moment, it is
+not possible to change the shape of a shared variable if that would
+also change the shape of one of the variables.
+
+
+Writing custom Aesara Ops
+=========================
+
+While Aesara includes a wide range of operations, there are cases where
+it makes sense to write your own. But before doing this it is a good
+idea to think hard if it is actually necessary. Especially if you want
+to use algorithms that need gradient information — this includes NUTS and
+all variational methods, and you probably *should* want to use those —
+this is often quite a bit of work and also requires some math and
+debugging skills for the gradients.
+
+Good reasons for defining a custom `Op` might be the following:
+
+- You require an operation that is not available in Aesara and can't
+  be build up out of existing Aesara operations. This could for example
+  include models where you need to solve differential equations or
+  integrals, or find a root or minimum of a function that depends
+  on your parameters.
+- You want to connect your PyMC model to some existing external code.
+- After carefully considering different parametrizations and a lot
+  of profiling your model is still too slow, but you know of a faster
+  way to compute the gradient than what Aesara is doing. This faster
+  way might be anything from clever maths to using more hardware.
+  There is nothing stopping anyone from using a cluster via MPI in
+  a custom node, if a part of the gradient computation is slow enough
+  and sufficiently parallelizable to make the cost worth it.
+  We would definitely like to hear about any such examples.
+
+Aesara has extensive `documentation, <https://aesara.readthedocs.io/en/latest/extending/index.html>`_
+about how to write new Ops.
+
+
+Finding the root of a function
+------------------------------
+
+We'll use finding the root of a function as a simple example.
+Let's say we want to define a model where a parameter is defined
+implicitly as the root of a function, that depends on another
+parameter:
+
+.. math::
+
+   \theta \sim N^+(0, 1)\\
+   \text{$\mu\in \mathbb{R}^+$ such that $R(\mu, \theta)
+         = \mu + \mu e^{\theta \mu} - 1= 0$}\\
+   y \sim N(\mu, 0.1^2)
+
+First, we observe that this problem is well-defined, because
+:math:`R(\cdot, \theta)` is monotone and has the image :math:`(-1, \infty)`
+for :math:`\mu, \theta \in \mathbb{R}^+`. To avoid overflows in
+:math:`\exp(\mu \theta)` for large
+values of :math:`\mu\theta` we instead find the root of
+
+.. math::
+
+    R'(\mu, \theta)
+        = \log(R(\mu, \theta) + 1)
+        = \log(\mu) + \log(1 + e^{\theta\mu}).
+
+Also, we have
+
+.. math::
+
+    \frac{\partial}{\partial\mu}R'(\mu, \theta)
+        = \theta\, \text{logit}^{-1}(\theta\mu) + \mu^{-1}.
+
+We can now use `scipy.optimize.newton` to find the root::
+
+    from scipy import optimize, special
+    import numpy as np
+
+    def func(mu, theta):
+        thetamu = theta * mu
+        value = np.log(mu) + np.logaddexp(0, thetamu)
+        return value
+
+    def jac(mu, theta):
+        thetamu = theta * mu
+        jac = theta * special.expit(thetamu) + 1 / mu
+        return jac
+
+    def mu_from_theta(theta):
+        return optimize.newton(func, 1, fprime=jac, args=(theta,))
+
+We could wrap `mu_from_theta` with `aesara.compile.ops.as_op` and use gradient-free
+methods like Metropolis, but to get NUTS and ADVI working, we also
+need to define the derivative of `mu_from_theta`. We can find this
+derivative using the implicit function theorem, or equivalently we
+take the derivative with respect of :math:`\theta` for both sides of
+:math:`R(\mu(\theta), \theta) = 0` and solve for :math:`\frac{d\mu}{d\theta}`.
+This isn't hard to do by hand, but for the fun of it, let's do it using
+sympy::
+
+    import sympy
+
+    mu = sympy.Function('mu')
+    theta = sympy.Symbol('theta')
+    R = mu(theta) + mu(theta) * sympy.exp(theta * mu(theta)) - 1
+    solution = sympy.solve(R.diff(theta), mu(theta).diff(theta))[0]
+
+We get
+
+.. math::
+
+    \frac{d}{d\theta}\mu(\theta)
+        = - \frac{\mu(\theta)^2}{1 + \theta\mu(\theta) + e^{-\theta\mu(\theta)}}
+
+Now, we use this to define a Aesara `Op`, that also computes the gradient::
+
+    import aesara
+    import aesara.tensor as at
+    import aesara.tests.unittest_tools
+    from aesara.graph.op import Op
+
+    class MuFromTheta(Op):
+        itypes = [at.dscalar]
+        otypes = [at.dscalar]
+
+        def perform(self, node, inputs, outputs):
+            theta, = inputs
+            mu = mu_from_theta(theta)
+            outputs[0][0] = np.array(mu)
+
+        def grad(self, inputs, g):
+            theta, = inputs
+            mu = self(theta)
+            thetamu = theta * mu
+            return [- g[0] * mu ** 2 / (1 + thetamu + at.exp(-thetamu))]
+
+If you value your sanity, always check that the gradient is ok::
+
+    aesara.gradient.verify_grad(MuFromTheta(), [np.array(0.2)])
+    aesara.gradient.verify_grad(MuFromTheta(), [np.array(1e-5)])
+    aesara.gradient.verify_grad(MuFromTheta(), [np.array(1e5)])
+
+We can now define our model using this new `Op`::
+
+    import pymc as pm
+
+    at_mu_from_theta = MuFromTheta()
+
+    with pm.Model() as model:
+        theta = pm.HalfNormal('theta', sigma=1)
+        mu = pm.Deterministic('mu', at_mu_from_theta(theta))
+        pm.Normal('y', mu=mu, sigma=0.1, observed=[0.2, 0.21, 0.3])
+
+        idata = pm.sample()
+.. _api:
+
+*************
+API Reference
+*************
+
+.. toctree::
+   :maxdepth: 2
+
+   api/distributions
+   api/gp
+   api/model
+   api/ode
+   api/samplers
+   api/smc
+   api/step_methods
+   api/inference
+
+--------------
+API extensions
+--------------
+
+Plots, stats and diagnostics
+----------------------------
+Plots, stats and diagnostics are delegated to the
+:doc:`ArviZ <arviz:index>`.
+library, a general purpose library for
+"exploratory analysis of Bayesian models".
+
+* Functions from the `arviz.plots` module are available through ``pymc.<function>`` or ``pymc.plots.<function>``,
+but for their API documentation please refer to the :ref:`ArviZ documentation <arviz:plot_api>`.
+
+* Functions from the `arviz.stats` module are available through ``pymc.<function>`` or ``pymc.stats.<function>``,
+but for their API documentation please refer to the :ref:`ArviZ documentation <arviz:stats_api>`.
+
+ArviZ is a dependency of PyMC and so, in addition to the locations described above,
+importing ArviZ and using ``arviz.<function>`` will also work without any extra installation.
+
+Generalized Linear Models (GLMs)
+--------------------------------
+
+Generalized Linear Models are delegated to the
+`Bambi <https://bambinos.github.io/bambi>`_.
+library, a high-level Bayesian model-building
+interface built on top of PyMC.
+
+Bambi is not a dependency of PyMC and should be installed in addition to PyMC
+to use it to generate PyMC models via formula syntax.
+:orphan:
+
+..
+    _href from docs/source/index.rst
+
+.. _prob_dists:
+
+*********************************
+Probability Distributions in PyMC
+*********************************
+
+The most fundamental step in building Bayesian models is the specification of a full probability model for the problem at hand. This primarily involves assigning parametric statistical distributions to unknown quantities in the model, in addition to appropriate functional forms for likelihoods to represent the information from the data. To this end, PyMC includes a comprehensive set of pre-defined statistical distributions that can be used as model building blocks.
+
+For example, if we wish to define a particular variable as having a normal prior, we can specify that using an instance of the ``Normal`` class.
+
+::
+
+    with pm.Model():
+
+        x = pm.Normal('x', mu=0, sigma=1)
+
+A variable requires at least a ``name`` argument, and zero or more model parameters, depending on the distribution. Parameter names vary by distribution, using conventional names wherever possible. The example above defines a scalar variable. To make a vector-valued variable, a ``shape`` argument should be provided; for example, a 3x3 matrix of beta random variables could be defined with:
+
+::
+
+    with pm.Model():
+
+        p = pm.Beta('p', 1, 1, shape=(3, 3))
+
+Probability distributions are all subclasses of ``Distribution``, which in turn has two major subclasses: ``Discrete`` and ``Continuous``. In terms of data types, a ``Continuous`` random variable is given whichever floating point type is defined by ``aesara.config.floatX``, while ``Discrete`` variables are given ``int16`` types when ``aesara.config.floatX`` is ``float32``, and ``int64`` otherwise.
+
+All distributions in ``pm.distributions`` will have two important methods: ``random()`` and ``logp()`` with the following signatures:
+
+::
+
+    class SomeDistribution(Continuous):
+
+        def random(self, point=None, size=None):
+            ...
+            return random_samples
+
+        def logp(self, value):
+            ...
+            return total_log_prob
+
+PyMC expects the ``logp()`` method to return a log-probability evaluated at the passed ``value`` argument. This method is used internally by all of the inference methods to calculate the model log-probability that is used for fitting models. The ``random()`` method is used to simulate values from the variable, and is used internally for posterior predictive checks.
+
+
+Custom distributions
+====================
+
+Despite the fact that PyMC ships with a large set of the most common probability distributions, some problems may require the use of functional forms that are less common, and not available in ``pm.distributions``. One example of this is in survival analysis, where time-to-event data is modeled using probability densities that are designed to accommodate censored data.
+
+An exponential survival function, where :math:`c=0` denotes failure (or non-survival), is defined by:
+
+.. math::
+
+    f(c, t) = \left\{ \begin{array}{l} \exp(-\lambda t), \text{if c=1} \\
+               \lambda \exp(-\lambda t), \text{if c=0}  \end{array} \right.
+
+Such a function can be implemented as a PyMC distribution by writing a function that specifies the log-probability, then passing that function as a keyword argument to the ``DensityDist`` function, which creates an instance of a PyMC distribution with the custom function as its log-probability.
+
+For the exponential survival function, this is:
+
+::
+
+    def logp(value, t, lam):
+        return (value * log(lam) - lam * t).sum()
+
+    exp_surv = pm.DensityDist('exp_surv', t, lam, logp=logp, observed=failure)
+
+Similarly, if a random number generator is required, a function returning random numbers corresponding to the probability distribution can be passed as the ``random`` argument.
+
+
+Using PyMC distributions without a Model
+========================================
+
+Distribution objects, as we have defined them so far, are only usable inside of a ``Model`` context. If they are created outside of the model context manager, it raises an error.
+
+::
+
+    y = Binomial('y', n=10, p=0.5)
+
+
+::
+
+    TypeError: No context on context stack
+
+This is because the distribution classes are designed to integrate themselves automatically inside of a PyMC model. When a model cannot be found, it fails. However, each ``Distribution`` has a ``dist`` class method that returns a stripped-down distribution object that can be used outside of a PyMC model.
+
+For example, a standalone binomial distribution can be created by:
+
+::
+
+    y = pm.Binomial.dist(n=10, p=0.5)
+
+This allows for probabilities to be calculated and random numbers to be drawn.
+
+::
+
+    >>> y.logp(4).eval()
+    array(-1.5843639373779297, dtype=float32)
+
+    >>> y.random(size=3)
+    array([5, 4, 3])
+
+
+Auto-transformation
+===================
+
+To aid efficient MCMC sampling, any continuous variables that are constrained to a sub-interval of the real line are automatically transformed so that their support is unconstrained. This frees sampling algorithms from having to deal with boundary constraints.
+
+For example, the gamma distribution is positive-valued. If we define one for a model:
+
+::
+
+    with pm.Model() as model:
+        g = pm.Gamma('g', 1, 1)
+
+We notice a modified variable inside the model ``value_vars`` attribute.  These variables represent the values of each random variable in the model's log-likelihood.
+
+::
+
+    >>> model.value_vars
+    [g_log__]
+
+As the name suggests, the variable ``g`` has been log-transformed, and this is the space over which posterior sampling takes place.
+
+The value of the transformed variable is simply back-transformed when a sample is drawn in order to recover the original variable.
+
+By default, auto-transformed variables are ignored when summarizing and plotting model output.
+:orphan:
+
+..
+    _href from docs/source/index.rst
+
+******************
+Gaussian Processes
+******************
+
+GP Basics
+=========
+
+Sometimes an unknown parameter or variable in a model is not a scalar value or
+a fixed-length vector, but a *function*.  A Gaussian process (GP) can be used
+as a prior probability distribution whose support is over the space of
+continuous functions.  A GP prior on the function :math:`f(x)` is usually written,
+
+.. math::
+
+  f(x) \sim \mathcal{GP}(m(x), \, k(x, x')) \,.
+
+The function values are modeled as a draw from a multivariate normal
+distribution that is parameterized by the mean function, :math:`m(x)`, and the
+covariance function, :math:`k(x, x')`.  Gaussian processes are a convenient
+choice as priors over functions due to the marginalization and conditioning
+properties of the multivariate normal distribution.  Usually, the marginal
+distribution over :math:`f(x)` is evaluated during the inference step.  The
+conditional distribution is then used for predicting the function values
+:math:`f(x_*)` at new points, :math:`x_*`.
+
+The joint distribution of :math:`f(x)` and :math:`f(x_*)` is multivariate
+normal,
+
+.. math::
+
+  \begin{bmatrix} f(x) \\ f(x_*) \\ \end{bmatrix} \sim
+  \text{N}\left(
+    \begin{bmatrix} m(x)  \\ m(x_*)    \\ \end{bmatrix} \,,
+    \begin{bmatrix} k(x,x')    & k(x_*, x)    \\
+                    k(x_*, x) &  k(x_*, x_*')  \\ \end{bmatrix}
+          \right) \,.
+
+Starting from the joint distribution, one obtains the marginal distribution
+of :math:`f(x)`, as :math:`\text{N}(m(x),\, k(x, x'))`.  The conditional
+distribution is
+
+.. math::
+
+  f(x_*) \mid f(x) \sim \text{N}\left( k(x_*, x) k(x, x)^{-1} [f(x) - m(x)] + m(x_*) ,\,
+    k(x_*, x_*) - k(x, x_*) k(x, x)^{-1} k(x, x_*) \right) \,.
+
+.. note::
+
+  For more information on GPs, check out the book `Gaussian Processes for
+  Machine Learning <http://www.gaussianprocess.org/gpml/>`_ by Rasmussen &
+  Williams, or `this introduction <https://www.ics.uci.edu/~welling/teaching/KernelsICS273B/gpB.pdf>`_
+  by D. Mackay.
+
+PyMC is a great environment for working with fully Bayesian Gaussian Process
+models.  GPs in PyMC have a clear syntax and are highly composable, and many
+predefined covariance functions (or kernels), mean functions, and several GP
+implementations are included.  GPs are treated as distributions that can be
+used within larger or hierarchical models, not just as standalone regression
+models.
+
+Mean and covariance functions
+=============================
+
+Those who have used the GPy or GPflow Python packages will find the syntax for
+construction mean and covariance functions somewhat familiar.  When first
+instantiated, the mean and covariance functions are parameterized, but not
+given their inputs yet.  The covariance functions must additionally be provided
+with the number of dimensions of the input matrix, and a list that indexes
+which of those dimensions they are to operate on.  The reason for this design
+is so that covariance functions can be constructed that are combinations of
+other covariance functions.
+
+For example, to construct an exponentiated quadratic covariance function that
+operates on the second and third column of a three column matrix representing
+three predictor variables::
+
+    ls = [2, 5] # the lengthscales
+    cov_func = pm.gp.cov.ExpQuad(input_dim=3, ls=ls, active_dims=[1, 2])
+
+Here the :code:`ls`, or lengthscale, parameter is two dimensional, allowing the second
+and third dimension to have a different lengthscale.  The reason we have to
+specify :code:`input_dim`, the total number of columns of :code:`X`, and
+:code:`active_dims`, which of those columns or dimensions the covariance
+function will act on, is because :code:`cov_func` hasn't actually seen the
+input data yet.  The :code:`active_dims` argument is optional, and defaults to
+all columns of the matrix of inputs.
+
+Covariance functions in PyMC closely follow the algebraic rules for kernels,
+which allows users to combine covariance functions into new ones, for example:
+
+- The sum of two covariance functions is also a covariance function::
+
+
+    cov_func = pm.gp.cov.ExpQuad(...) + pm.gp.cov.ExpQuad(...)
+
+- The product of two covariance functions is also a covariance function::
+
+
+    cov_func = pm.gp.cov.ExpQuad(...) * pm.gp.cov.Periodic(...)
+
+- The product (or sum) of a covariance function with a scalar is a
+  covariance function::
+
+
+    cov_func = eta**2 * pm.gp.cov.Matern32(...)
+
+
+
+After the covariance function is defined, it is now a function that is
+evaluated by calling :code:`cov_func(x, x)` (or :code:`mean_func(x)`).  Since
+PyMC is built on top of Aesara, it is relatively easy to define and experiment
+with non-standard covariance and mean functons.  For more information check out
+the tutorial on covariance functions.
+
+
+GP Implementations
+==================
+
+PyMC includes several GP implementations, including marginal and latent
+variable models and also some fast approximations.  Their usage all follows a
+similar pattern:  First, a GP is instantiated with a mean function and a
+covariance function.  Then, GP objects can be added together, allowing for
+function characteristics to be carefully modeled and separated.  Finally, one
+of `prior`, `marginal_likelihood` or `conditional` methods is called on the GP
+object to actually construct the PyMC random variable that represents the
+function prior.
+
+Using :code:`gp.Latent` for the example, the syntax to first specify the GP
+is::
+
+    gp = pm.gp.Latent(mean_func, cov_func)
+
+The first argument is the mean function and the second is the covariance
+function.  We've made the GP object, but we haven't made clear which function
+it is to be a prior for, what the inputs are, or what parameters it will be
+conditioned on.
+
+.. note::
+
+  The :code:`gp.Marginal` class and similar don't have a :code:`prior` method.
+  Instead they have a :code:`marginal_likelihood` method that is used similarly,
+  but has additional required arguments, such as the observed data, noise,
+  or other, depending on the implementation.  See the notebooks for examples.
+  The :code:`conditional` method works similarly.
+
+Calling the `prior` method will create a PyMC random variable that represents
+the latent function :math:`f(x) = \mathbf{f}`::
+
+	f = gp.prior("f", X)
+
+:code:`f` is a random variable that can be used within a PyMC model like any
+other type of random variable.  The first argument is the name of the random
+variable representing the function we are placing the prior over.
+The second argument is the inputs to the function that the prior is over,
+:code:`X`.  The inputs are usually known and present in the data, but they can
+also be PyMC random variables.  If the inputs are an Aesara tensor or a
+PyMC random variable, the :code:`shape` needs to be given.
+
+Usually at this point, inference is performed on the model.  The
+:code:`conditional` method creates the conditional, or predictive,
+distribution over the latent function at arbitrary :math:`x_*` input points,
+:math:`f(x_*)`.  To construct the conditional distribution we write::
+
+	f_star = gp.conditional("f_star", X_star)
+
+Additive GPs
+============
+
+The GP implementation in PyMC is constructed so that it is easy to define
+additive GPs and sample from individual GP components.  We can write::
+
+    gp1 = pm.gp.Marginal(mean_func1, cov_func1)
+    gp2 = pm.gp.Marginal(mean_func2, cov_func2)
+    gp3 = gp1 + gp2
+
+The GP objects have to have the same type, :code:`gp.Marginal` cannot
+be added to :code:`gp.Latent`.
+
+Consider two independent GP distributed functions, :math:`f_1(x) \sim
+\mathcal{GP}\left(m_1(x),\, k_1(x, x')\right)` and :math:`f_2(x) \sim
+\mathcal{GP}\left( m_2(x),\, k_2(x, x')\right)`.  The joint distribution of
+:math:`f_1,\, f_1^*,\, f_2,\, f_2^*,\, f_1 + f_2 and f_1^* + f_2^*` is
+
+.. math::
+
+  \begin{bmatrix} f_1 \\ f_1^* \\ f_2 \\ f_2^*
+               \\ f_1 + f_2    \\ f_1^* + f_2^* \end{bmatrix} \sim
+  \text{N}\left(
+    \begin{bmatrix} m_1 \\ m_1^* \\ m_2 \\ m_2^* \\
+                    m_1 + m_2    \\ m_1^* + m_2^*   \\ \end{bmatrix} \,,\,
+    \begin{bmatrix}
+      K_1       &  K_1^*     &   0       &    0      & K_1        & K_1^*              \\
+      K_1^{*^T} &  K_1^{**}  &   0       &    0      & K_1^*      & K_1^{**}           \\
+      0         &  0         & K_2       & K_2^*     & K_2        & K_2^{*}            \\
+      0         &  0         & K_2^{*^T} & K_2^{**}  & K_2^{*}    & K_2^{**}           \\
+      K_1       &  K_1^{*}   & K_2       & K_2^{*}   & K_1 + K_2  & K_1^{*} + K_2^{*}  \\
+      K_1^{*^T} & K_1^{**} & K_2^{*^T} & K_2^{**} & K_1^{*^T}+K_2^{*^T} & K_1^{**}+K_2^{**}
+    \end{bmatrix}
+  \right) \,.
+
+Using the joint distribution to obtain the conditional distribution of :math:`f_1^*`
+with the contribution due to :math:`f_1 + f_2` factored out, we get
+
+.. math::
+  f_1^* \mid f_1 + f_2 \sim \text{N}\left(
+    m_1^* + K_1^{*^T}(K_1 + K_2)^{-1}\left[f_1 + f_2 - m_1 - m_2\right] \,,\,
+    K_1^{**} - K_1^{*^T}(K_1 + K_2)^{-1}K_1^* \right) \,.
+
+
+These equations show how to break down GP models into individual components to see how each
+contributes to the data.  For more information, check out `David Duvenaud's PhD
+thesis <https://www.cs.toronto.edu/~duvenaud/thesis.pdf>`_.
+
+The GP objects in PyMC keeps track of these marginals automatically.  The
+following code sketch shows how to define the conditional distribution of
+:math:`f_2^*`.  We use `gp.Marginal` in the example, but the same works for
+other implementations.  The first block fits the GP prior.  We denote
+:math:`f_1 + f_2` as just :math:`f` for brevity::
+
+    with pm.Model() as model:
+        gp1 = pm.gp.Marginal(mean_func1, cov_func1)
+        gp2 = pm.gp.Marginal(mean_func2, cov_func2)
+
+        # gp represents f1 + f2.
+        gp = gp1 + gp2
+
+        f = gp.marginal_likelihood("f", X, y, noise)
+
+        idata = pm.sample(1000)
+
+
+To construct the conditional distribution of :code:`gp1` or :code:`gp2`, we
+also need to include the additional arguments, :code:`X`, :code:`y`, and
+:code:`noise`::
+
+    with model:
+        # conditional distributions of f1 and f2
+        f1_star = gp1.conditional("f1_star", X_star,
+                                  given={"X": X, "y": y, "noise": noise, "gp": gp})
+        f2_star = gp2.conditional("f2_star", X_star,
+                                  given={"X": X, "y": y, "noise": noise, "gp": gp})
+
+        # conditional of f1 + f2, `given` not required
+        f_star = gp.conditional("f_star", X_star)
+
+This second block produces the conditional distributions.  Notice that extra
+arguments are required for conditionals of :math:`f1` and :math:`f2`, but not
+:math:`f`.  This is because those arguments are cached when
+:code:`.marginal_likelihood` is called on :code:`gp`.
+
+.. note::
+  When constructing conditionals, the additional arguments :code:`X`, :code:`y`,
+  :code:`noise` and :code:`gp` must be provided as a dict called `given`!
+
+Since the marginal likelihoood method of :code:`gp1` or :code:`gp2` weren't called,
+their conditionals need to be provided with the required inputs.  In the same
+fashion as the prior, :code:`f_star`, :code:`f1_star` and :code:`f2_star` are random
+variables that can now be used like any other random variable in PyMC.
+
+Check the notebooks for detailed demonstrations of the usage of GP functionality
+in PyMC.
+{{ fullname | escape | underline}}
+
+.. currentmodule:: {{ module }}
+
+.. autoclass:: {{ objname }}
+
+   {% block methods %}
+   {% if methods %}
+
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree: classmethods
+
+   {% for item in methods %}
+      {{ objname }}.{{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   {% block attributes %}
+   {% if attributes %}
+   .. rubric:: Attributes
+
+   .. autosummary::
+   {% for item in attributes %}
+      ~{{ name }}.{{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+TODO: incorporate the useful bits of this page into the learning section
+
+**************
+Usage Overview
+**************
+
+For a detailed overview of building models in PyMC, please read the appropriate sections in the rest of the documentation. For a flavor of what PyMC models look like, here is a quick example.
+
+First, let's import PyMC and `ArviZ <https://arviz-devs.github.io/arviz/>`__ (which handles plotting and diagnostics):
+
+::
+
+    import arviz as az
+    import numpy as np
+    import pymc as pm
+
+Models are defined using a context manager (``with`` statement). The model is specified declaratively inside the context manager, instantiating model variables and transforming them as necessary. Here is an example of a model for a bioassay experiment:
+
+::
+
+    # Set style
+    az.style.use("arviz-darkgrid")
+
+    # Data
+    n = np.ones(4)*5
+    y = np.array([0, 1, 3, 5])
+    dose = np.array([-.86,-.3,-.05,.73])
+
+    with pm.Model() as bioassay_model:
+
+        # Prior distributions for latent variables
+        alpha = pm.Normal('alpha', 0, sigma=10)
+        beta = pm.Normal('beta', 0, sigma=1)
+
+        # Linear combination of parameters
+        theta = pm.invlogit(alpha + beta * dose)
+
+        # Model likelihood
+        deaths = pm.Binomial('deaths', n=n, p=theta, observed=y)
+
+Save this file, then from a python shell (or another file in the same directory), call:
+
+::
+
+    with bioassay_model:
+
+        # Draw samples
+        idata = pm.sample(1000, tune=2000, cores=2)
+        # Plot two parameters
+        az.plot_forest(idata, var_names=['alpha', 'beta'], r_hat=True)
+
+This example will generate 1000 posterior samples on each of two cores using the NUTS algorithm, preceded by 2000 tuning samples (these are good default numbers for most models).
+
+::
+
+    Auto-assigning NUTS sampler...
+    Initializing NUTS using jitter+adapt_diag...
+    Multiprocess sampling (2 chains in 2 jobs)
+    NUTS: [beta, alpha]
+    |██████████████████████████████████████| 100.00% [6000/6000 00:04<00:00 Sampling 2 chains, 0 divergences]
+
+The sample is returned as arrays inside a ``MultiTrace`` object, which is then passed to the plotting function. The resulting graph shows a forest plot of the random variables in the model, along with a convergence diagnostic (R-hat) that indicates our model has converged.
+
+.. image:: ./images/forestplot.png
+   :width: 1000px
+
+See also
+========
+
+* `Tutorials <nb_tutorials/index.html>`__
+* `Examples <nb_examples/index.html>`__
+
+
+.. |NumFOCUS| image:: https://numfocus.org/wp-content/uploads/2017/07/NumFocus_LRG.png
+   :target: http://www.numfocus.org/
+   :height: 120px
+.. |PyMCLabs| image:: https://raw.githubusercontent.com/pymc-devs/pymc/main/docs/pymc-labs-logo.png
+   :target: https://pymc-labs.io
+   :height: 120px
+:orphan:
+
+..
+    _referenced in html_theme_options docs/source/conf.py
+
+====================
+PyMC Developer Guide
+====================
+
+`PyMC <https://docs.pymc.io/>`__ is a Python package for Bayesian
+statistical modeling built on top of
+`Aesara <https://aesara.readthedocs.io/en/latest/index.html>`__. This
+document aims to explain the design and implementation of probabilistic
+programming in PyMC, with comparisons to other PPL like TensorFlow Probability (TFP)
+and Pyro in mind. A user-facing API
+introduction can be found in the `API
+quickstart <https://docs.pymc.io/notebooks/api_quickstart.html>`__. A more accessible, user facing deep introduction can be found in
+`Peadar Coyle's probabilistic programming primer <https://github.com/springcoil/probabilisticprogrammingprimer>`__
+
+Distribution
+------------
+
+A high-level introduction of ``Distribution`` in PyMC can be found in
+the `documentation <https://docs.pymc.io/Probability_Distributions.html>`__. The source
+code of the probability distributions is nested under
+`pymc/distributions <https://github.com/pymc-devs/pymc/blob/main/pymc/distributions/>`__,
+with the ``Distribution`` class defined in `distribution.py
+<https://github.com/pymc-devs/pymc/blob/main/pymc/distributions/distribution.py#L23-L44>`__.
+A few important points to highlight in the Distribution Class:
+
+.. code:: python
+
+    class Distribution:
+        """Statistical distribution"""
+        def __new__(cls, name, *args, **kwargs):
+            ...
+            try:
+                model = Model.get_context()
+            except TypeError:
+                raise TypeError(...
+
+            if isinstance(name, string_types):
+                ...
+                dist = cls.dist(*args, **kwargs)
+                return model.Var(name, dist, ...)
+            ...
+
+In a way, the snippet above represents the unique features of pymc's
+``Distribution`` class:
+
+- Distribution objects are only usable inside of a ``Model`` context. If they are created outside of the model context manager, it raises an error.
+
+- A ``Distribution`` requires at least a name argument, and other parameters that defines the Distribution.
+
+- When a ``Distribution`` is initialized inside of a Model context, two things happen:
+
+  1. a stateless distribution is initialized ``dist = {DISTRIBUTION_cls}.dist(*args, **kwargs)``;
+  2. a random variable following the said distribution is added to the model ``model.Var(name, dist, ...)``
+
+Thus, users who are building models using ``with pm.Model() ...`` should
+be aware that they are never directly exposed to static and stateless
+distributions, but rather random variables that follow some density
+functions. Instead, to access a stateless distribution, you need to call
+``pm.SomeDistribution.dist(...)`` or ``RV.dist`` *after* you initialized
+``RV`` in a model context (see
+https://docs.pymc.io/Probability\_Distributions.html#using-pymc-distributions-without-a-model).
+
+With this distinction in mind, we can take a closer look at the
+stateless distribution part of pymc (see distribution api in `doc
+<https://docs.pymc.io/api/distributions.html>`__), which divided into:
+
+- Continuous
+
+- Discrete
+
+- Multivariate
+
+- Mixture
+
+- Timeseries
+
+Quote from the doc:
+
+    All distributions in ``pm.distributions`` will have two important
+    methods: ``random()`` and ``logp()`` with the following signatures:
+
+.. code:: python
+
+    class SomeDistribution(Continuous):
+        def __init__(...):
+            ...
+
+        def random(self, point=None, size=None):
+            ...
+            return random_samples
+
+        def logp(self, value):
+            ...
+            return total_log_prob
+
+PyMC expects the ``logp()`` method to return a log-probability
+evaluated at the passed value argument. This method is used internally
+by all of the inference methods to calculate the model log-probability,
+which is then used for fitting models. The ``random()`` method is
+used to simulate values from the variable, and is used internally for
+posterior predictive checks.
+
+In the PyMC ``Distribution`` class, the ``logp()`` method is the most
+elementary. As long as you have a well-behaved density function, we can
+use it in the model to build the model log-likelihood function. Random
+number generation is great to have, but sometimes there might not be
+efficient random number generator for some densities. Since a function
+is all you need, you can wrap almost any Aesara function into a
+distribution using ``pm.DensityDist``
+https://docs.pymc.io/Probability\_Distributions.html#custom-distributions
+
+Thus, distributions that are defined in the ``distributions`` submodule
+(e.g. look at ``pm.Normal`` in ``pymc.distributions.continuous``), each
+describes a *family* of probabilistic distribution (no different from
+distribution in other PPL library). Once it is initialised within a
+model context, it contains properties that are related to the random
+variable (*e.g.* mean/expectation). Note that if the parameters are
+constants, these properties could be the same as the distribution
+properties.
+
+Reflection
+~~~~~~~~~~
+
+How tensor/value semantics for probability distributions is enabled in pymc:
+
+In PyMC, we treat ``x = Normal('x', 0, 1)`` as defining a random
+variable (intercepted and collected under a model context, more on that
+below), and x.dist() as the associated density/mass function
+(distribution in the mathematical sense). It is not perfect, and now
+after a few years learning Bayesian statistics I also realized these
+subtleties (i.e., the distinction between *random variable* and
+*distribution*).
+
+But when I was learning probabilistic modelling as a
+beginner, I did find this approach to be the easiest and most
+straightforward. In a perfect world, we should have
+:math:`x \sim \text{Normal}(0, 1)` which defines a random variable that
+follows a Gaussian distribution, and
+:math:`\chi = \text{Normal}(0, 1), x \sim \chi` which define a `probability
+density function <https://en.wikipedia.org/wiki/Probability_density_function>`__ that takes input :math:`x`
+
+.. math::
+    X:=f(x) = \frac{1}{\sigma \sqrt{2 \pi}} \exp^{- 0.5 (\frac{x - \mu}{\sigma})^2}\vert_{\mu = 0, \sigma=1} = \frac{1}{\sqrt{2 \pi}} \exp^{- 0.5 x^2}
+
+Within a model context, RVs are essentially Aesara tensors (more on that
+below). This is different than TFP and pyro, where you need to be more
+explicit about the conversion. For example:
+
+**PyMC**
+
+.. code:: python
+
+    with pm.Model() as model:
+        z = pm.Normal('z', mu=0., sigma=5.)             # ==> aesara.tensor.var.TensorVariable
+        x = pm.Normal('x', mu=z, sigma=1., observed=5.) # ==> aesara.tensor.var.TensorVariable
+    x.logp({'z': 2.5})                                  # ==> -4.0439386
+    model.logp({'z': 2.5})                              # ==> -6.6973152
+
+**TFP**
+
+.. code:: python
+
+    import tensorflow.compat.v1 as tf
+    from tensorflow_probability import distributions as tfd
+
+    with tf.Session() as sess:
+        z_dist = tfd.Normal(loc=0., scale=5.)            # ==> <class 'tfp.python.distributions.normal.Normal'>
+        z = z_dist.sample()                              # ==> <class 'tensorflow.python.framework.ops.Tensor'>
+        x = tfd.Normal(loc=z, scale=1.).log_prob(5.)     # ==> <class 'tensorflow.python.framework.ops.Tensor'>
+        model_logp = z_dist.log_prob(z) + x
+        print(sess.run(x, feed_dict={z: 2.5}))           # ==> -4.0439386
+        print(sess.run(model_logp, feed_dict={z: 2.5}))  # ==> -6.6973152
+
+**pyro**
+
+.. code:: python
+
+    z_dist = dist.Normal(loc=0., scale=5.)           # ==> <class 'pyro.distributions.torch.Normal'>
+    z = pyro.sample("z", z_dist)                     # ==> <class 'torch.Tensor'>
+    # reset/specify value of z
+    z.data = torch.tensor(2.5)
+    x = dist.Normal(loc=z, scale=1.).log_prob(5.)    # ==> <class 'torch.Tensor'>
+    model_logp = z_dist.log_prob(z) + x
+    x                                                # ==> -4.0439386
+    model_logp                                       # ==> -6.6973152
+
+
+``logp`` method, very different behind the curtain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``logp`` method is straightforward - it is an Aesara function within each
+distribution. It has the following signature:
+
+.. code:: python
+
+    def logp(self, value):
+        # GET PARAMETERS
+        param1, param2, ... = self.params1, self.params2, ...
+        # EVALUATE LOG-LIKELIHOOD FUNCTION, all inputs are (or array that could be convert to) Aesara tensor
+        total_log_prob = f(param1, param2, ..., value)
+        return total_log_prob
+
+In the ``logp`` method, parameters and values are either Aesara tensors,
+or could be converted to tensors. It is rather convenient as the
+evaluation of logp is represented as a tensor (``RV.logpt``), and when
+we linked different ``logp`` together (e.g., summing all ``RVs.logpt``
+to get the model totall logp) the dependence is taken care of by Aesara
+when the graph is built and compiled. Again, since the compiled function
+depends on the nodes that already in the graph, whenever you want to generate
+a new function that takes new input tensors you either need to regenerate the graph
+with the appropriate dependencies, or replace the node by editing the existing graph.
+In PyMC we use the second approach by using ``aesara.clone_replace()`` when it is needed.
+
+As explained above, distribution in a ``pm.Model()`` context
+automatically turn into a tensor with distribution property (pymc
+random variable). To get the logp of a free\_RV is just evaluating the
+``logp()`` `on
+itself <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/model.py#L1212-L1213>`__:
+
+.. code:: python
+
+        # self is a aesara.tensor with a distribution attached
+        self.logp_sum_unscaledt = distribution.logp_sum(self)
+        self.logp_nojac_unscaledt = distribution.logp_nojac(self)
+
+Or for an observed RV. it evaluate the logp on the data:
+
+.. code:: python
+
+        self.logp_sum_unscaledt = distribution.logp_sum(data)
+        self.logp_nojac_unscaledt = distribution.logp_nojac(data)
+
+Model context and Random Variable
+---------------------------------
+
+I like to think that the ``with pm.Model() ...`` is a key syntax feature
+and *the* signature of PyMC model language, and in general a great
+out-of-the-box thinking/usage of the context manager in Python (with
+`some
+critics <https://twitter.com/_szhang/status/890793373740617729>`__, of
+course).
+
+Essentially `what a context manager
+does <https://www.python.org/dev/peps/pep-0343/>`__ is:
+
+.. code:: python
+
+    with EXPR as VAR:
+        USERCODE
+
+which roughly translates into this:
+
+.. code:: python
+
+    VAR = EXPR
+    VAR.__enter__()
+    try:
+        USERCODE
+    finally:
+        VAR.__exit__()
+
+or conceptually:
+
+.. code:: python
+
+    with EXPR as VAR:
+        # DO SOMETHING
+        USERCODE
+        # DO SOME ADDITIONAL THINGS
+
+So what happened within the ``with pm.Model() as model: ...`` block,
+besides the initial set up ``model = pm.Model()``? Starting from the
+most elementary:
+
+Random Variable
+~~~~~~~~~~~~~~~
+
+From the above session, we know that when we call eg
+``pm.Normal('x', ...)`` within a Model context, it returns a random
+variable. Thus, we have two equivalent ways of adding random variable to
+a model:
+
+
+.. code:: python
+
+    with pm.Model() as m:
+        x = pm.Normal('x', mu=0., sigma=1.)
+
+
+.. parsed-literal::
+
+    print(type(x))                              # ==> <class 'aesara.tensor.var.TensorVariable'>
+    print(m.free_RVs)                           # ==> [x]
+    print(logpt(x, 5.0))                        # ==> Elemwise{switch,no_inplace}.0
+    print(logpt(x, 5.).eval({}))                # ==> -13.418938533204672
+    print(m.logp({'x': 5.}))                    # ==> -13.418938533204672
+
+
+In general, if a variable has observations (``observed`` parameter), the RV is
+an observed RV, otherwise if it has a ``transformed`` (``transform`` parameter)
+attribute, it is a transformed RV otherwise, it will be the most elementary
+form: a free RV.  Note that this means that random variables with observations
+cannot be transformed.
+
+..
+   Below, I will take a deeper look into transformed RV. A normal user
+   might not necessarily come in contact with the concept, since a
+   transformed RV and ``TransformedDistribution`` are intentionally not
+   user facing.
+
+   Because in PyMC there is no bijector class like in TFP or pyro, we only
+   have a partial implementation called ``Transform``, which implements
+   Jacobian correction for forward mapping only (there is no Jacobian
+   correction for inverse mapping). The use cases we considered are limited
+   to the set of distributions that are bounded, and the transformation
+   maps the bounded set to the real line - see
+   `doc
+   <https://docs.pymc.io/notebooks/api_quickstart.html#Automatic-transforms-of-bounded-RVs>`__.
+   However, other transformations are possible.
+   In general, PyMC does not provide explicit functionality to transform
+   one distribution to another. Instead, a dedicated distribution is
+   usually created in order to optimise performance. But getting a
+   ``TransformedDistribution`` is also possible (see also in
+   `doc <https://docs.pymc.io/notebooks/api_quickstart.html#Transformed-distributions-and-changes-of-variables>`__):
+
+   .. code:: python
+
+
+       lognorm = Exp().apply(pm.Normal.dist(0., 1.))
+       lognorm
+
+
+   .. parsed-literal::
+
+       <pymc.distributions.transforms.TransformedDistribution at 0x7f1536749b00>
+
+
+
+   Now, back to ``model.RV(...)`` - things returned from ``model.RV(...)``
+   are Aesara tensor variables, and it is clear from looking at
+   ``TransformedRV``:
+
+   .. code:: python
+
+       class TransformedRV(TensorVariable):
+           ...
+
+   as for ``FreeRV`` and ``ObservedRV``, they are ``TensorVariable``\s with
+   ``Factor`` as mixin:
+
+   .. code:: python
+
+       class FreeRV(Factor, TensorVariable):
+           ...
+
+   ``Factor`` basically `enable and assign the
+   logp <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/model.py#L195-L276>`__
+   (representated as a tensor also) property to an Aesara tensor (thus
+   making it a random variable). For a ``TransformedRV``, it transforms the
+   distribution into a ``TransformedDistribution``, and then ``model.Var`` is
+   called again to added the RV associated with the
+   ``TransformedDistribution`` as a ``FreeRV``:
+
+   .. code:: python
+
+           ...
+           self.transformed = model.Var(
+                       transformed_name, transform.apply(distribution), total_size=total_size)
+
+   note: after ``transform.apply(distribution)`` its ``.transform``
+   porperty is set to ``None``, thus making sure that the above call will
+   only add one ``FreeRV``. In another word, you *cannot* do chain
+   transformation by nested applying multiple transforms to a Distribution
+   (however, you can use `Chain
+   transformation <https://docs.pymc.io/notebooks/api_quickstart.html?highlight=chain%20transformation>`__).
+
+   .. code:: python
+
+       z = pm.LogNormal.dist(mu=0., sigma=1., transform=tr.Log)
+       z.transform           # ==> pymc.distributions.transforms.Log
+
+
+   .. code:: python
+
+       z2 = Exp().apply(z)
+       z2.transform is None  # ==> True
+
+
+
+Additional things that ``pm.Model`` does
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a way, ``pm.Model`` is a tape machine that records what is being
+added to the model, it keeps track the random variables (observed or
+unobserved) and potential term (additional tensor that to be added to
+the model logp), and also deterministic transformation (as bookkeeping):
+named\_vars, free\_RVs, observed\_RVs, deterministics, potentials,
+missing\_values. The model context then computes some simple model
+properties, builds a bijection mapping that transforms between
+dictionary and numpy/Aesara ndarray, thus allowing the ``logp``/``dlogp`` functions
+to have two equivalent versions: one takes a ``dict`` as input and the other
+takes an ``ndarray`` as input. More importantly, a ``pm.Model()`` contains methods
+to compile Aesara functions that take Random Variables (that are also
+initialised within the same model) as input, for example:
+
+.. code:: python
+
+    with pm.Model() as m:
+        z = pm.Normal('z', 0., 10., shape=10)
+        x = pm.Normal('x', z, 1., shape=10)
+
+    print(m.initial_point)
+    print(m.dict_to_array(m.initial_point))  # ==> m.bijection.map(m.initial_point)
+    print(m.bijection.rmap(np.arange(20)))
+
+
+.. parsed-literal::
+
+    {'z': array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), 'x': array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])}
+    [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+    {'z': array([10., 11., 12., 13., 14., 15., 16., 17., 18., 19.]), 'x': array([0., 1., 2., 3., 4., 5., 6., 7., 8., 9.])}
+
+
+.. code:: python
+
+    list(filter(lambda x: "logp" in x, dir(pm.Model)))
+
+
+.. parsed-literal::
+
+    ['d2logp',
+     'd2logp_nojac',
+     'datalogpt',
+     'dlogp',
+     'dlogp_array',
+     'dlogp_nojac',
+     'fastd2logp',
+     'fastd2logp_nojac',
+     'fastdlogp',
+     'fastdlogp_nojac',
+     'fastlogp',
+     'fastlogp_nojac',
+     'logp',
+     'logp_array',
+     'logp_dlogp_function',
+     'logp_elemwise',
+     'logp_nojac',
+     'logp_nojact',
+     'logpt',
+     'varlogpt']
+
+
+
+Logp and dlogp
+--------------
+
+The model collects all the random variables (everything in
+``model.free_RVs`` and ``model.observed_RVs``) and potential term, and
+sum them together to get the model logp:
+
+.. code:: python
+
+    @property
+    def logpt(self):
+        """Aesara scalar of log-probability of the model"""
+        with self:
+            factors = [var.logpt for var in self.basic_RVs] + self.potentials
+            logp = at.sum([at.sum(factor) for factor in factors])
+            ...
+            return logp
+
+which returns an Aesara tensor that its value depends on the free
+parameters in the model (i.e., its parent nodes from the Aesara
+graph).You can evaluate or compile into a python callable (that you can
+pass numpy as input args). Note that the logp tensor depends on its
+input in the Aesara graph, thus you cannot pass new tensor to generate a
+logp function. For similar reason, in PyMC we do graph copying a lot
+using aesara.clone_replace to replace the inputs to a tensor.
+
+.. code:: python
+
+    with pm.Model() as m:
+        z = pm.Normal('z', 0., 10., shape=10)
+        x = pm.Normal('x', z, 1., shape=10)
+        y = pm.Normal('y', x.sum(), 1., observed=2.5)
+
+    print(m.basic_RVs)    # ==> [z, x, y]
+    print(m.free_RVs)     # ==> [z, x]
+
+
+.. code:: python
+
+    type(m.logpt)         # ==> aesara.tensor.var.TensorVariable
+
+
+.. code:: python
+
+    m.logpt.eval({x: np.random.randn(*x.tag.test_value.shape) for x in m.free_RVs})
+
+output:
+
+.. parsed-literal::
+
+    array(-51.25369126)
+
+
+
+PyMC then compiles a logp function with gradient that takes
+``model.free_RVs`` as input and ``model.logpt`` as output. It could be a
+subset of tensors in ``model.free_RVs`` if we want a conditional
+logp/dlogp function:
+
+.. code:: python
+
+    def logp_dlogp_function(self, grad_vars=None, **kwargs):
+        if grad_vars is None:
+            grad_vars = list(typefilter(self.free_RVs, continuous_types))
+        else:
+            ...
+        varnames = [var.name for var in grad_vars]  # In a simple case with only continous RVs,
+                                                    # this is all the free_RVs
+        extra_vars = [var for var in self.free_RVs if var.name not in varnames]
+        return ValueGradFunction(self.logpt, grad_vars, extra_vars, **kwargs)
+
+``ValueGradFunction`` is a callable class which isolates part of the
+Aesara graph to compile additional Aesara functions. PyMC relies on
+``aesara.clone_replace`` to copy the ``model.logpt`` and replace its input. It
+does not edit or rewrite the graph directly.
+
+The important parts of the above function is highlighted and commented.
+On a high level, it allows us to build conditional logp function and its
+gradient easily. Here is a taste of how it works in action:
+
+.. code:: python
+
+    inputlist = [np.random.randn(*x.tag.test_value.shape) for x in m.free_RVs]
+
+    func = m.logp_dlogp_function()
+    func.set_extra_values({})
+    input_dict = {x.name: y for x, y in zip(m.free_RVs, inputlist)}
+    print(input_dict)
+    input_array = func.dict_to_array(input_dict)
+    print(input_array)
+    print(" ===== ")
+    func(input_array)
+
+
+.. parsed-literal::
+
+    {'z': array([-0.7202002 ,  0.58712205, -1.44120196, -0.53153001, -0.36028732,
+           -1.49098414, -0.80046792, -0.26351819,  1.91841949,  1.60004128]), 'x': array([ 0.01490006,  0.60958275, -0.06955203, -0.42430833, -1.43392303,
+            1.13713493,  0.31650495, -0.62582879,  0.75642811,  0.50114527])}
+    [-0.7202002   0.58712205 -1.44120196 -0.53153001 -0.36028732 -1.49098414
+     -0.80046792 -0.26351819  1.91841949  1.60004128  0.01490006  0.60958275
+     -0.06955203 -0.42430833 -1.43392303  1.13713493  0.31650495 -0.62582879
+      0.75642811  0.50114527]
+     =====
+    (array(-51.0769075),
+     array([ 0.74230226,  0.01658948,  1.38606194,  0.11253699, -1.07003284,
+             2.64302891,  1.12497754, -0.35967542, -1.18117557, -1.11489642,
+             0.98281586,  1.69545542,  0.34626619,  1.61069443,  2.79155183,
+            -0.91020295,  0.60094326,  2.08022672,  2.8799075 ,  2.81681213]))
+
+
+
+.. code:: python
+
+    irv = 1
+    print("Condition Logp: take %s as input and conditioned on the rest."%(m.free_RVs[irv].name))
+    func_conditional = m.logp_dlogp_function(grad_vars=[m.free_RVs[irv]])
+    func_conditional.set_extra_values(input_dict)
+    input_array2 = func_conditional.dict_to_array(input_dict)
+    print(input_array2)
+    print(" ===== ")
+    func_conditional(input_array2)
+
+
+.. parsed-literal::
+
+    Condition Logp: take x as input and conditioned on the rest.
+    [ 0.01490006  0.60958275 -0.06955203 -0.42430833 -1.43392303  1.13713493
+      0.31650495 -0.62582879  0.75642811  0.50114527]
+     =====
+    (array(-51.0769075),
+     array([ 0.98281586,  1.69545542,  0.34626619,  1.61069443,  2.79155183,
+            -0.91020295,  0.60094326,  2.08022672,  2.8799075 ,  2.81681213]))
+
+
+
+So why is this necessary? One can imagine that we just compile one logp
+function, and do bookkeeping ourselves. For example, we can build the
+logp function in Aesara directly:
+
+.. code:: python
+
+    import aesara
+    func = aesara.function(m.free_RVs, m.logpt)
+    func(*inputlist)
+
+
+.. parsed-literal::
+
+    array(-51.0769075)
+
+
+
+.. code:: python
+
+    logpt_grad = aesara.grad(m.logpt, m.free_RVs)
+    func_d = aesara.function(m.free_RVs, logpt_grad)
+    func_d(*inputlist)
+
+
+.. parsed-literal::
+
+    [array([ 0.74230226,  0.01658948,  1.38606194,  0.11253699, -1.07003284,
+             2.64302891,  1.12497754, -0.35967542, -1.18117557, -1.11489642]),
+     array([ 0.98281586,  1.69545542,  0.34626619,  1.61069443,  2.79155183,
+            -0.91020295,  0.60094326,  2.08022672,  2.8799075 ,  2.81681213])]
+
+
+
+Similarly, build a conditional logp:
+
+.. code:: python
+
+    shared = aesara.shared(inputlist[1])
+    func2 = aesara.function([m.free_RVs[0]], m.logpt, givens=[(m.free_RVs[1], shared)])
+    print(func2(inputlist[0]))
+
+    logpt_grad2 = aesara.grad(m.logpt, m.free_RVs[0])
+    func_d2 = aesara.function([m.free_RVs[0]], logpt_grad2, givens=[(m.free_RVs[1], shared)])
+    print(func_d2(inputlist[0]))
+
+
+.. parsed-literal::
+
+    -51.07690750130328
+    [ 0.74230226  0.01658948  1.38606194  0.11253699 -1.07003284  2.64302891
+      1.12497754 -0.35967542 -1.18117557 -1.11489642]
+
+
+The above also gives the same logp and gradient as the output from
+``model.logp_dlogp_function``. But the difficulty is to compile
+everything into a single function:
+
+.. code:: python
+
+    func_logp_and_grad = aesara.function(m.free_RVs, [m.logpt, logpt_grad])  # ==> ERROR
+
+
+We want to have a function that return the evaluation and its gradient
+re each input: ``value, grad = f(x)``, but the naive implementation does
+not work. We can of course wrap 2 functions - one for logp one for dlogp
+- and output a list. But that would mean we need to call 2 functions. In
+addition, when we write code using python logic to do bookkeeping when
+we build our conditional logp. Using ``aesara.clone_replace``, we always have
+the input to the Aesara function being a 1d vector (instead of a list of
+RV that each can have very different shape), thus it is very easy to do
+matrix operation like rotation etc.
+
+Notes
+~~~~~
+
+| The current setup is quite powerful, as the Aesara compiled function
+  is fairly fast to compile and to call. Also, when we are repeatedly
+  calling a conditional logp function, external RV only need to reset
+  once. However, there are still significant overheads when we are
+  passing values between Aesara graph and numpy. That is the reason we
+  often see no advantage in using GPU, because the data is copying
+  between GPU and CPU at each function call - and for a small model, the
+  result is a slower inference under GPU than CPU.
+| Also, ``aesara.clone_replace`` is too convenient (pymc internal joke is that
+  it is like a drug - very addictive). If all the operation happens in
+  the graph (including the conditioning and setting value), I see no
+  need to isolate part of the graph (via graph copying or graph
+  rewriting) for building model and running inference.
+| Moreover, if we are limiting to the problem that we can solved most
+  confidently - model with all continous unknown parameters that could
+  be sampled with dynamic HMC, there is even less need to think about
+  graph cloning/rewriting.
+
+Inference
+---------
+
+MCMC
+~~~~
+
+The ability for model instance to generate conditional logp and dlogp
+function enable one of the unique feature of PyMC - `CompoundStep
+method <https://docs.pymc.io/notebooks/sampling_compound_step.html>`__.
+On a conceptual level it is a Metropolis-within-Gibbs sampler. User can
+`specify different sampler of different
+RVs <https://docs.pymc.io/notebooks/sampling_compound_step.html?highlight=compoundstep#Specify-compound-steps>`__.
+Alternatively, it is implemented as yet another interceptor: the
+``pm.sample(...)`` call will try to `assign the best step methods to
+different
+free\_RVs <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/sampling.py#L86-L152>`__
+(e.g., NUTS if all free\_RVs are continous). Then, (conditional) logp
+function(s) are compiled, and the sampler called each sampler within the
+list of CompoundStep in a for-loop for one sample circle.
+
+For each sampler, it implements a ``step.step`` method to perform MH
+updates. Each time a dictionary (``point`` in ``PyMC`` land, same
+structure as ``model.initial_point``) is passed as input and output a new
+dictionary with the free\_RVs being sampled now has a new value (if
+accepted, see
+`here <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/step_methods/compound.py#L27>`__
+and
+`here <https://github.com/pymc-devs/pymc/blob/main/pymc/step_methods/compound.py>`__).
+There are some example in the `CompoundStep
+doc <https://docs.pymc.io/notebooks/sampling_compound_step.html#Specify-compound-steps>`__.
+
+Transition kernel
+^^^^^^^^^^^^^^^^^
+
+The base class for most MCMC sampler (except SMC) is in
+`ArrayStep <https://github.com/pymc-devs/pymc/blob/main/pymc/step_methods/arraystep.py>`__.
+You can see that the ``step.step()`` is mapping the ``point`` into an
+array, and call ``self.astep()``, which is an array in, array out
+function. A pymc model compile a conditional logp/dlogp function that
+replace the input RVs with a shared 1D tensor (flatten and stack view of
+the original RVs). And the transition kernel (i.e., ``.astep()``) takes
+array as input and output an array. See for example in the `MH
+sampler <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/step_methods/metropolis.py#L139-L173>`__.
+
+This is of course very different compare to the transition kernel in eg
+TFP, which is a tenor in tensor out function. Moreover, transition
+kernels in TFP do not flatten the tensors, see eg docstring of
+`tensorflow\_probability/python/mcmc/random\_walk\_metropolis.py <https://github.com/tensorflow/probability/blob/master/tensorflow_probability/python/mcmc/random_walk_metropolis.py>`__:
+
+.. code::
+
+          new_state_fn: Python callable which takes a list of state parts and a
+            seed; returns a same-type `list` of `Tensor`s, each being a perturbation
+            of the input state parts. The perturbation distribution is assumed to be
+            a symmetric distribution centered at the input state part.
+            Default value: `None` which is mapped to
+              `tfp.mcmc.random_walk_normal_fn()`.
+
+
+Dynamic HMC
+^^^^^^^^^^^
+
+We love NUTS, or to be more precise Dynamic HMC with complex stopping
+rules. This part is actually all done outside of Aesara, for NUTS, it
+includes: the leapfrog, dual averaging, tunning of mass matrix and step
+size, the tree building, sampler related statistics like divergence and
+energy checking. We actually have an Aesara version of HMC, but it has never
+been used, and has been removed from the main repository. It can still be
+found in the `git history
+<https://github.com/pymc-devs/pymc/pull/3734/commits/0fdae8207fd14f66635f3673ef267b2b8817aa68>`__,
+though.
+
+Variational Inference (VI)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The design of the VI module takes a different approach than
+MCMC - it has a functional design, and everything is done within Aesara
+(i.e., Optimization and building the variational objective). The base
+class of variational inference is
+`pymc.variational.Inference <https://github.com/pymc-devs/pymc/blob/main/pymc/variational/inference.py>`__,
+where it builds the objective function by calling:
+
+.. code:: python
+
+        ...
+        self.objective = op(approx, **kwargs)(tf)
+        ...
+
+Where:
+
+.. code::
+
+        op     : Operator class
+        approx : Approximation class or instance
+        tf     : TestFunction instance
+        kwargs : kwargs passed to :class:`Operator`
+
+The design is inspired by the great work `Operator Variational
+Inference <https://arxiv.org/abs/1610.09033>`__. ``Inference`` object is
+a very high level of VI implementation. It uses primitives: Operator,
+Approximation, and Test functions to combine them into single objective
+function. Currently we do not care too much about the test function, it
+is usually not required (and not implemented). The other primitives are
+defined as base classes in `this
+file <https://github.com/pymc-devs/pymc/blob/main/pymc/variational/opvi.py>`__.
+We use inheritance to easily implement a broad class of VI methods
+leaving a lot of flexibility for further extensions.
+
+For example, consider ADVI. We know that in the high-level, we are
+approximating the posterior in the latent space with a diagonal
+Multivariate Gaussian. In another word, we are approximating each elements in
+``model.free_RVs`` with a Gaussian. Below is what happen in the set up:
+
+.. code:: python
+
+    def __init__(self, *args, **kwargs):
+        super(ADVI, self).__init__(MeanField(*args, **kwargs))
+    # ==> In the super class KLqp
+        super(KLqp, self).__init__(KL, MeanField(*args, **kwargs), None, beta=beta)
+    # ==> In the super class Inference
+        ...
+        self.objective = KL(MeanField(*args, **kwargs))(None)
+        ...
+
+where ``KL`` is Operator based on Kullback Leibler Divergence (it does
+not need any test function).
+
+.. code:: python
+
+        ...
+        def apply(self, f):
+            return -self.datalogp_norm + self.beta * (self.logq_norm - self.varlogp_norm)
+
+Since the logp and logq are from the approximation, let's dive in
+further on it (there is another abstraction here - ``Group`` - that
+allows you to combine approximation into new approximation, but we will
+skip this for now and only consider ``SingleGroupApproximation`` like
+``MeanField``): The definition of ``datalogp_norm``, ``logq_norm``,
+``varlogp_norm`` are in
+`variational/opvi <https://github.com/pymc-devs/pymc/blob/main/pymc/variational/opvi.py>`__,
+strip away the normalizing term, ``datalogp`` and ``varlogp`` are
+expectation of the variational free\_RVs and data logp - we clone the
+datalogp and varlogp from the model, replace its input with Aesara
+tensor that `samples from the variational
+posterior <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/variational/opvi.py#L1098-L1111>`__.
+For ADVI, these samples are from `a
+Gaussian <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/variational/approximations.py#L84-L89>`__.
+Note that the samples from the posterior approximations are usually 1
+dimension more, so that we can compute the expectation and get the
+gradient of the expectation (by computing the `expectation of the
+gradient! <http://blog.shakirm.com/2015/10/machine-learning-trick-of-the-day-4-reparameterisation-tricks/>`__).
+As for the ``logq`` since it is a Gaussian `it is pretty
+straightforward to evaluate <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/variational/approximations.py#L91-L97>`__.
+
+Some challenges and insights from implementing VI.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+-  Graph based approach was helpful, but Aesara had no direct access to
+   previously created nodes in the computational graph. you can find a
+   lot of ``@node_property`` usages in implementation. This is done to
+   cache nodes. TensorFlow has graph utils for that that could
+   potentially help in doing this. On the other hand graph management in
+   Tensorflow seemed to more tricky than expected. The high level reason
+   is that graph is an add only container
+
+-  There were few fixed bugs not obvoius in the first place. Aesara has
+   a tool to manipulate the graph (``aesara.clone_replace``) and this tool
+   requires extremely careful treatment when doing a lot of graph
+   replacements at different level.
+
+-  We coined a term ``aesara.clone_replace`` curse. We got extremely dependent
+   on this feature. Internal usages are uncountable:
+
+   -  we use this to `vectorize the
+      model <https://github.com/pymc-devs/pymc/blob/main/pymc/model.py#L972>`__
+      for both MCMC and VI to speed up computations
+   -  we use this to `create sampling
+      graph <https://github.com/pymc-devs/pymc/blob/main/pymc/variational/opvi.py#L1483>`__
+      for VI. This is the case you want posterior predictive as a part
+      of computational graph.
+
+As this is the core of the VI process, we were trying to replicate this pattern
+in TF. However, when ``aesara.clone_replace`` is called, Aesara creates a new part of the graph that can
+be collected by garbage collector, but TF's graph is add only. So we
+should solve the problem of replacing input in a different way.
+
+Forward sampling
+----------------
+
+As explained above, in distribution we have method to walk the model
+dependence graph and generate forward random sample in scipy/numpy. This
+allows us to do prior predictive samples using
+``pymc.sampling.sample_prior_predictive`` see `code <https://github.com/pymc-devs/pymc/blob/6d07591962a6c135640a3c31903eba66b34e71d8/pymc/sampling.py#L1303-L1345>`__.
+It is a fairly fast batch operation, but we have quite a lot of bugs and
+edge case especially in high dimensions. The biggest pain point is the
+automatic broadcasting. As in the batch random generation, we want to
+generate (n\_sample, ) + RV.shape random samples. In some cases, where
+we broadcast RV1 and RV2 to create a RV3 that has one more batch shape,
+we get error (even worse, wrong answer with silent error).
+
+The good news is, we are fixing these errors with the amazing works from [lucianopaz](https://github.com/lucianopaz) and
+others. The challenge and some summary of the solution could be found in Luciano's [blog post](https://lucianopaz.github.io/2019/08/19/pymc-shape-handling/)
+
+.. code:: python
+
+    with pm.Model() as m:
+        mu = pm.Normal('mu', 0., 1., shape=(5, 1))
+        sd = pm.HalfNormal('sd', 5., shape=(1, 10))
+        pm.Normal('x', mu=mu, sigma=sd, observed=np.random.randn(2, 5, 10))
+        trace = pm.sample_prior_predictive(100)
+
+    trace['x'].shape # ==> should be (100, 2, 5, 10)
+
+.. code:: python
+
+    pm.Normal.dist(mu=np.zeros(2), sigma=1).random(size=(10, 4))
+
+There are also other error related random sample generation (e.g.,
+`Mixture is currently
+broken <https://github.com/pymc-devs/pymc/issues/3270>`__).
+
+Extending PyMC
+--------------
+
+-  Custom Inference method
+    -  `Inferencing Linear Mixed Model with EM.ipynb <https://github.com/junpenglao/Planet_Sakaar_Data_Science/blob/master/Ports/Inferencing%20Linear%20Mixed%20Model%20with%20EM.ipynb>`__
+    -  `Laplace approximation in  pymc.ipynb <https://github.com/junpenglao/Planet_Sakaar_Data_Science/blob/master/Ports/Laplace%20approximation%20in%20pymc.ipynb>`__
+-  Connecting it to other library within a model
+    -  `Using “black box” likelihood function by creating a custom Aesara Op <https://docs.pymc.io/notebooks/blackbox_external_likelihood.html>`__
+    -  Using emcee
+-  Using other library for inference
+    -  Connecting to Julia for solving ODE (with gradient for solution that can be used in NUTS)
+
+What we got wrong
+-----------------
+
+Shape
+~~~~~
+
+One of the pain point we often face is the issue of shape. The approach
+in TFP and pyro is currently much more rigorous. Adrian’s PR
+(https://github.com/pymc-devs/pymc/pull/2833) might fix this problem,
+but likely it is a huge effort of refactoring. I implemented quite a lot
+of patches for mixture distribution, but still they are not done very
+naturally.
+
+Random methods in numpy
+~~~~~~~~~~~~~~~~~~~~~~~
+
+There is a lot of complex logic for sampling from random variables, and
+because it is all in Python, we can't transform a sampling graph
+further. Unfortunately, Aesara does not have code to sample from various
+distributions and we didn't want to write that our own.
+
+Samplers are in Python
+~~~~~~~~~~~~~~~~~~~~~~
+
+While having the samplers be written in Python allows for a lot of
+flexibility and intuitive for experiment (writing e.g. NUTS in Aesara is
+also very difficult), it comes at a performance penalty and makes
+sampling on the GPU very inefficient because memory needs to be copied
+for every logp evaluation.
+Gaussian Processes
+------------------
+
+.. automodule:: pymc.gp
+
+.. toctree::
+
+   gp/implementations
+   gp/mean
+   gp/cov
+***********
+shape_utils
+***********
+
+This submodule contains various functions that apply numpy's broadcasting rules to shape tuples, and also to samples drawn from probability distributions.
+
+The main challenge when broadcasting samples drawn from a generative model, is that each random variate has a core shape. When we draw many i.i.d samples from a given RV, for example if we ask for `size_tuple` i.i.d draws, the result usually is a `size_tuple + RV_core_shape`. In the generative model's hierarchy, the downstream RVs that are conditionally dependent on our above sampled values, will get an array with a shape that is incosistent with the core shape they expect to see for their parameters. This is a problem sometimes because it prevents regular broadcasting in complex hierachical models, and thus make prior and posterior predictive sampling difficult.
+
+This module introduces functions that are made aware of the requested `size_tuple` of i.i.d samples, and does the broadcasting on the core shapes, transparently ignoring or moving the i.i.d `size_tuple` prepended axes around.
+
+.. currentmodule:: pymc.distributions.shape_utils
+
+.. autosummary::
+
+   to_tuple
+   shapes_broadcasting
+   broadcast_dist_samples_shape
+   get_broadcastable_dist_samples
+   broadcast_distribution_samples
+   broadcast_dist_samples_to
+
+.. automodule:: pymc.distributions.shape_utils
+   :members:
+*************
+Distributions
+*************
+
+.. toctree::
+
+   distributions/continuous
+   distributions/discrete
+   distributions/multivariate
+   distributions/mixture
+   distributions/timeseries
+   distributions/censored
+   distributions/simulator
+   distributions/transforms
+   distributions/logprob
+   distributions/utilities
+*************
+Sequential Monte Carlo
+*************
+
+.. toctree::
+
+   smc/sample_smc
+   smc/smc
+*********
+Inference
+*********
+
+Sampling
+--------
+
+.. currentmodule:: pymc.sampling
+
+.. automodule:: pymc.sampling
+   :members:
+
+
+Step-methods
+^^^^^^^^^^^^
+
+.. currentmodule:: pymc.sampling
+
+.. autofunction:: pymc.sampling.assign_step_methods
+
+
+NUTS
+~~~~
+
+.. currentmodule:: pymc.step_methods.hmc.nuts
+
+.. automodule:: pymc.step_methods.hmc.nuts
+   :members:
+
+Metropolis
+~~~~~~~~~~
+
+.. currentmodule:: pymc.step_methods.metropolis
+odule:: pymc.step_methods.metropolis
+   :members:
+.. autom
+
+Slice
+~~~~~
+
+.. currentmodule:: pymc.step_methods.slicer
+
+.. automodule:: pymc.step_methods.slicer
+   :members:
+
+Hamiltonian Monte Carlo
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. currentmodule:: pymc.step_methods.hmc.hmc
+
+.. autoclass:: pymc.step_methods.hmc.hmc.HamiltonianMC
+   :members:
+
+MultiTrace
+^^^^^^^^^^
+
+.. currentmodule:: pymc.backends.base
+.. autoclass:: pymc.backends.base.MultiTrace
+    :members:
+
+.. autoclass:: pymc.backends.base.BaseTrace
+
+Variational Inference
+---------------------
+
+OPVI
+^^^^
+
+.. currentmodule:: pymc.variational.opvi
+
+.. automodule:: pymc.variational.opvi
+   :members:
+
+VI Inference API
+^^^^^^^^^^^^^^^^
+
+.. currentmodule:: pymc.variational.inference
+
+.. automodule:: pymc.variational.inference
+   :members:
+
+Approximations
+^^^^^^^^^^^^^^
+
+.. currentmodule:: pymc.variational.approximations
+
+.. automodule:: pymc.variational.approximations
+   :members:
+
+Operators
+^^^^^^^^^
+
+.. currentmodule:: pymc.variational.operators
+
+.. automodule:: pymc.variational.operators
+   :members:
+
+
+Sequential Monte Carlo
+----------------------
+
+.. currentmodule:: pymc.smc.sample_smc
+
+.. automodule:: pymc.smc.sample_smc
+   :members:
+
+Kernels
+^^^^^^^
+
+.. currentmodule:: pymc.smc.smc
+
+.. automodule:: pymc.smc.smc
+   :members:
+====
+Samplers
+====
+
+This submodule contains functions for MCMC sampling.
+
+
+.. currentmodule:: pymc.sampling
+
+.. autosummary::
+
+.. automodule:: pymc.sampling
+   :members:
+**************************************
+Ordinary differential equations (ODEs)
+**************************************
+
+This submodule contains tools used to perform inference on ordinary differential equations.
+
+.. currentmodule:: pymc.ode
+
+.. autosummary::
+
+.. automodule:: pymc.ode
+   :members: DifferentialEquation
+Model
+-----
+
+.. currentmodule:: pymc.model
+.. automodule:: pymc.model
+   :members:
+====
+Math
+====
+
+This submodule contains various mathematical functions. Most of them are imported directly
+from aesara.tensor (see there for more details). Doing any kind of math with PyMC random
+variables, or defining custom likelihoods or priors requires you to use these Aesara
+expressions rather than NumPy or Python code.
+
+.. currentmodule:: pymc.math
+
+.. autosummary::
+   dot
+   constant
+   flatten
+   zeros_like
+   ones_like
+   stack
+   concatenate
+   sum
+   prod
+   lt
+   gt
+   le
+   ge
+   eq
+   neq
+   switch
+   clip
+   where
+   and_
+   or_
+   abs_
+   exp
+   log
+   cos
+   sin
+   tan
+   cosh
+   sinh
+   tanh
+   sqr
+   sqrt
+   erf
+   erfinv
+   dot
+   maximum
+   minimum
+   sgn
+   ceil
+   floor
+   det
+   matrix_inverse
+   extract_diag
+   matrix_dot
+   trace
+   sigmoid
+   logsumexp
+   invlogit
+   logit
+
+.. automodule:: pymc.math
+   :members:
+**********
+Timeseries
+**********
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+    AR1
+    AR
+    GaussianRandomWalk
+    GARCH11
+    EulerMaruyama
+    MvGaussianRandomWalk
+    MvStudentTRandomWalk
+*******
+Mixture
+*******
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+   Mixture
+   NormalMixture
+   MixtureSameFamily
+********
+Censored
+********
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+   Censored
+************
+Multivariate
+************
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+   MvNormal
+   MvStudentT
+   Dirichlet
+   Multinomial
+   DirichletMultinomial
+   OrderedMultinomial
+   Wishart
+   WishartBartlett
+   LKJCorr
+   LKJCholeskyCov
+   MatrixNormal
+   KroneckerNormal
+   CAR
+   StickBreakingWeights
+**********************
+Distribution utilities
+**********************
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated/
+
+    Distribution
+    SymbolicDistribution
+    Discrete
+    Continuous
+    NoDistribution
+    DensityDist
+********
+Discrete
+********
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+   Binomial
+   BetaBinomial
+   Bernoulli
+   DiscreteWeibull
+   Poisson
+   NegativeBinomial
+   Constant
+   ZeroInflatedPoisson
+   ZeroInflatedBinomial
+   ZeroInflatedNegativeBinomial
+   DiscreteUniform
+   Geometric
+   HyperGeometric
+   Categorical
+   OrderedLogistic
+   OrderedProbit
+***************
+Transformations
+***************
+
+.. currentmodule:: pymc.transforms
+
+Transform Instances
+~~~~~~~~~~~~~~~~~~~
+
+Transform instances are the entities that should be used in the
+``transform`` parameter to a random variable constructor.
+
+.. autosummary::
+   :toctree: generated
+
+    simplex
+    logodds
+    interval
+    log_exp_m1
+    ordered
+    log
+    sum_to_1
+    circular
+
+Transform Composition Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autosummary::
+   :toctree: generated
+
+    Chain
+    CholeskyCovPacked
+
+Specific Transform Classes
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autosummary::
+   :toctree: generated
+
+    LogExpM1
+    Ordered
+    SumTo1
+**********
+Simulator
+**********
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated
+
+   SimulatorRV
+   Simulator
+   KullbackLiebler
+**********
+Continuous
+**********
+
+.. currentmodule:: pymc
+.. autosummary::
+   :toctree: generated/
+
+   Uniform
+   Flat
+   HalfFlat
+   Normal
+   TruncatedNormal
+   Beta
+   Kumaraswamy
+   Exponential
+   Laplace
+   StudentT
+   Cauchy
+   HalfCauchy
+   Gamma
+   Weibull
+   HalfStudentT
+   LogNormal
+   ChiSquared
+   HalfNormal
+   Wald
+   Pareto
+   InverseGamma
+   ExGaussian
+   VonMises
+   SkewNormal
+   Triangular
+   Gumbel
+   Logistic
+   LogitNormal
+   Interpolated
+   Rice
+   Moyal
+   AsymmetricLaplace
+   PolyaGamma
+****************************
+Sequential Monte Carlo (SMC)
+****************************
+
+.. currentmodule:: pymc.smc.smc
+.. autosummary::
+   SMC_KERNEL
+   IMH
+   MH
+
+.. automodule:: pymc.smc.smc
+   :members:
+***********************************
+Sample Sequential Monte Carlo (SMC)
+***********************************
+
+.. currentmodule:: pymc.smc.sample_smc
+.. autosummary::
+   sample_smc
+
+.. autofunction:: pymc.smc.sample_smc
+**************
+Mean Functions
+**************
+
+.. automodule:: pymc.gp.mean
+.. autosummary::
+   :toctree: generated
+
+   Zero
+   Constant
+   Linear
+***************
+Implementations
+***************
+
+.. currentmodule:: pymc.gp
+.. autosummary::
+   :toctree: generated
+
+   Latent
+   LatentKron
+   Marginal
+   MarginalKron
+   MarginalApprox
+   TP
+********************
+Covariance Functions
+********************
+
+.. automodule:: pymc.gp.cov
+.. autosummary::
+   :toctree: generated
+
+    Constant
+    WhiteNoise
+    ExpQuad
+    RatQuad
+    Exponential
+    Matern52
+    Matern32
+    Linear
+    Polynomial
+    Cosine
+    Periodic
+    WarpedInput
+    Gibbs
+    Coregion
+    ScaledCov
+    Kron

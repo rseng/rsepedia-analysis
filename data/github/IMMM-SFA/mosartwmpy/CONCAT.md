@@ -491,3 +491,133 @@ To execute the tests, run `./test.sh` or `python -m unittest discover mosartwmpy
 To execute the validation, run a model simulation that includes the years 1981 - 1982, note your output directory, and then run `python -m mosartwmpy.validate` from the repository root. This will ask you for the simulation output directory, think for a moment, and then open a figure with several plots representing the NMAE (Normalized Mean Absolute Error) as a percentage and the spatial sums of several key variables compared between your simulation and the validation scenario. Use these plots to assist you in determining if the changes you have made to the code have caused unintended deviation from the validation scenario. The NMAE should be 0% across time if you have caused no deviations. A non-zero NMAE indicates numerical difference between your simulation and the validation scenario. This might be caused by changes you have made to the code, or alternatively by running a simulation with different configuration or parameters (i.e. larger timestep, fewer iterations, etc). The plots of the spatial sums can assist you in determining what changed and the overall magnitude of the changes.
 
 If you wish to merge code changes that intentionally cause significant deviation from the validation scenario, please work with the maintainers to create a new validation dataset.
+Python Virtual Environments
+===========================
+
+Maintaining different versions of Python can be a chore. Thankfully, there are many tools for managing Python environments; here are a few recommendations:
+
+* `PyCharm <https://www.jetbrains.com/pycharm/>`_ IDE -- great for developing code in Python, and can automatically create virtual environments for a codebase by detecting versions and dependencies from the ``setup.py`` or ``setup.cfg``.
+* `Conda <https://docs.conda.io>`_ package manager -- a Python package manager focused on scientific computing that can also manage virtual environments.
+* `pyenv <https://github.com/pyenv/pyenv>`_ CLI -- a shell based tool for installing and switching between different versions of Python and dependencies. I will give a brief tutorial of using ``pyenv`` below, but recognize that the instructions may change over time so the ``pyenv`` documentation is the best place to look.
+
+To create a Python 3.9 virtual environment, try the following steps:
+
+* Install pyenv:
+
+  - if on Mac, use `brew <https://brew.sh/>`_: brew install pyenv
+  - if on a linux system, try `pyenv-installer <https://github.com/pyenv/pyenv-installer>`_
+  - if on Windows, try `pyenv-win <https://github.com/pyenv-win/pyenv-win>`_
+
+* Install Python 3.9:
+
+  - in a shell, run ``pyenv install 3.9.1``
+
+* Activate Python 3.9 in the current shell
+
+  - in the shell, run ``pyenv shell 3.9.1``
+
+* Proceed with the install of mosartwmpy:
+
+  - in the same shell, run ``pip install mosartwmpy``
+
+* Now you can interact with ``mosartwmpy`` in this current shell session
+
+  - if you start a new shell session you will need to run ``pyenv shell 3.9.1`` again before proceeding
+  - this new shell session should maintain all previously pip installed modules for Python 3.9.1mosartwmpy Python API
+=====================
+
+mosartwmpy.model module
+-----------------------
+
+.. automodule:: mosartwmpy.model
+   :members:
+   :undoc-members:
+   :show-inheritance::notoc:
+
+.. mosartwmpy documentation master file, created by
+
+.. module:: mosartwmpy
+
+************************
+mosartwmpy documentation
+************************
+
+**Date**: |today| **Version**: |version|
+
+**Useful links**:
+`Source Repository <https://github.com/immm-sfa/mosartwmpy>`__ |
+`Issues & Ideas <https://github.com/immm-sfa/mosartwmpy/issues>`__
+
+`mosartwmpy` is a Python translation of MOSART-WM, a water routing and reservoir management model written in Fortran.
+
+
+.. panels::
+    :card: + intro-card text-center
+    :column: col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex
+
+    >>>
+    :img-top: _static/cognitive.svg
+
+    Getting started
+    ^^^
+
+    Get to know the *mosartwmpy* model.
+
+    +++
+    .. link-button:: README
+            :type: ref
+            :text: Getting started
+            :classes: btn-block btn-secondary stretched-link
+
+    >>>
+    :img-top: _static/education.svg
+
+    Tutorial
+    ^^^
+
+    Follow along with this Jupyter notebook to learn the ropes of *mosartwmpy*.
+
+    +++
+    .. link-button:: tutorial
+            :type: ref
+            :text: Tutorial
+            :classes: btn-block btn-secondary stretched-link
+
+    >>>
+    :img-top: _static/soccer.svg
+
+    Tips & tricks
+    ^^^
+
+    Learn about ways to manage Python virtual environments.
+
+    +++
+    .. link-button:: virtualenv
+            :type: ref
+            :text: Virtual environments
+            :classes: btn-block btn-secondary stretched-link
+
+    >>>
+    :img-top: _static/api.svg
+
+    API reference
+    ^^^
+
+    A detailed description of the *mosartwmpy* API.
+
+    +++
+    .. link-button:: mosartwmpy
+            :type: ref
+            :text: API
+            :classes: btn-block btn-secondary stretched-link
+
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+    :titlesonly:
+
+    README.md
+    tutorial.ipynb
+    virtualenv
+    mosartwmpy

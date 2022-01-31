@@ -96,3 +96,128 @@ The code for this toolbox is published under an MIT licence. This does not apply
 ## Acknowledgements
 
 The synctoolbox package builds on results, material, and insights that have been obtained in close collaboration with different people. We would like to express our gratitude to former and current students, collaborators, and colleagues who have influenced and supported us in creating this package, including Vlora Arifi-Müller, Michael Clausen, Sebastian Ewert, Christian Fremerey, and Frank Kurth. The main authors of Sync Toolbox are associated with the International Audio Laboratories Erlangen, which are a joint institution of the Friedrich-Alexander-Universität Erlangen-Nürnberg (FAU) and Fraunhofer Institute for Integrated Circuits IIS. We also thank the German Research Foundation (DFG) for various research grants that allowed us for conducting fundamental research in music processing (in particular, MU 2686/7-2, DFG-MU 2686/14-1).
+Dynamic Time Warping (synctoolbox.dtw)
+======================================
+
+.. automodule:: synctoolbox.dtw.core
+    :members:
+    :undoc-members:
+
+.. automodule:: synctoolbox.dtw.mrmsdtw
+    :members:
+    :undoc-members:
+
+
+Index
+=====.. SyncToolbox documentation master file, created by
+   sphinx-quickstart on Tue May  4 08:49:22 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+
+Sync Toolbox: A Python Package for Efficient, Robust, and Accurate Music Synchronization
+========================================================================================
+**Sync Toolbox** is a Python package, which comprises all components of a music synchronization
+pipeline that is robust, efficient, and accurate.
+
+The toolbox's core technology is based on dynamic time warping (DTW). Using suitable feature representations
+and cost measures, DTW brings the feature sequences into temporal correspondence. To account for efficiency,
+robustness, and accuracy, **Sync Toolbox** uses a combination of
+`multiscale DTW (MsDTW) <https://www.audiolabs-erlangen.de/content/05-fau/professor/00-mueller/03-publications/2006_MuellerMattesKurth_MultiscaleAudioSynchronization_ISMIR.pdf>`__,
+`memory-restricted MsDTW (MrMsDTW) <https://www.audiolabs-erlangen.de/content/05-fau/professor/00-mueller/03-publications/2016_PraetzlichDriedgerMueller_MrMsDTW_ICASSP.pdf>`__,
+and `high-resolution music synchronization <https://www.audiolabs-erlangen.de/content/05-fau/professor/00-mueller/03-publications/2009_EwertMuellerGrosche_HighResAudioSync_ICASSP.pdf>`__.
+
+Despite a slight overlap with the well-known software packages in the MIR field (e.g., librosa and linmdtw),
+our **Sync Toolbox** is the first to provide an open-source Python package for offline music synchronization
+that produces state-of-the-art alignment results regarding efficiency and accuracy.
+
+
+
+Sync Toolbox API Documentation
+------------------------------
+
+The source code for the package Sync Toolbox is hosted at GitHub:
+
+https://github.com/meinardmueller/synctoolbox
+
+In particular, please note the provided Readme and the example notebooks.
+
+If you use SyncToolbox in a scholarly work, please consider citing the Sync Toolbox article. [#]_
+
+
+.. [#] Müller et al., (2021). Sync Toolbox: A Python Package for Efficient, Robust, and Accurate Music Synchronization. Journal of Open Source Software, 6(64), 3434, https://doi.org/10.21105/joss.03434
+
+.. toctree::
+    :caption: API Documentation
+    :maxdepth: 2
+    :hidden:
+
+    dtw
+    feature/index
+
+
+.. toctree::
+    :caption: Reference
+    :maxdepth: 1
+    :hidden:
+
+    genindex
+    py-modindex
+Module Index
+============
+Utils (synctoolbox.feature.utils)
+=================================
+
+.. automodule:: synctoolbox.feature.utils
+    :members:
+    :undoc-members:Chroma Features (synctoolbox.feature.chroma)
+============================================
+
+.. automodule:: synctoolbox.feature.chroma
+    :members:
+    :undoc-members:Spectral Flux (synctoolbox.feature.novelty)
+===========================================
+
+.. automodule:: synctoolbox.feature.novelty
+    :members:
+    :undoc-members:DLNCO Features (synctoolbox.feature.dlnco)
+==========================================
+
+.. automodule:: synctoolbox.feature.dlnco
+    :members:
+    :undoc-members:Pitch Features (synctoolbox.feature.pitch)
+==========================================
+
+.. automodule:: synctoolbox.feature.pitch
+    :members:
+    :undoc-members:CSV Tools (synctoolbox.feature.csv_tools)
+=========================================
+
+.. automodule:: synctoolbox.feature.csv_tools
+    :members:
+    :undoc-members:Feature Extraction (synctoolbox.feature)
+========================================
+
+.. toctree::
+    :caption: Features
+    :maxdepth: 1
+    :hidden:
+
+    chroma
+    filterbank
+    pitch
+    pitch_onset
+    dlnco
+    novelty
+    csv_tools
+    utilsFilterbank Generation (synctoolbox.feature.filterbank)
+======================================================
+
+.. automodule:: synctoolbox.feature.filterbank
+    :members:
+    :undoc-members:Pitch Onset Features (synctoolbox.feature.pitch_onset)
+======================================================
+
+.. automodule:: synctoolbox.feature.pitch_onset
+    :members:
+    :undoc-members:

@@ -285,3 +285,234 @@ See [Contributing.md](https://github.com/thomgrand/fim-python/blob/master/CONTRI
 
 **Additional information [Optional]**
 Add any other information about the problem here.
+Detailed Description
+====================
+
+The Fast Iterative Method locally computes an update rule, rooted in the Hamilton-Jacobi formalism of the eikonal problem, computing the path the front-wave will take through the current element.
+Since the algorithm is restricted to linear Lagrangian :math:`\mathcal{P}^1` elements, the path through an element will also be a line.
+To demonstrate the algorithm, consider a tetrahedron spanned by the four corners :math:`\mathbf{v}_1` through :math:`\mathbf{v}_4`.
+For the earliest arrival times associated to each corner, we will use the notation :math:`\phi_i = \phi(\mathbf{v}_i)`.
+The origin of a linear update from a face spanned by three vertices :math:`\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3` to the fourth :math:`\mathbf{v}_4` is required to be inside said face.
+Mathematically this is described by the following set:
+
+.. math::
+    \Delta_k = \left\{ \left( \lambda_1, \ldots, \lambda_k \right)^\top \middle\vert \sum_{i=1}^k \lambda_i = 1 \land \lambda_i \ge 0 \right\}
+
+The earliest arrival time :math:`\phi_4` can be found by solving the minimization problem which constitutes the local update rule
+
+.. math::
+    \phi_4 = \min_{\lambda_1, \lambda_2} \, \sum_{i=1}^3\lambda_i \phi_i + \sqrt{\mathbf{e}_{\Delta}^\top D^{-1} \mathbf{e}_{\Delta}} \quad \text{s.t.: } \, \left( \lambda_1, \lambda_2, \lambda_3 \right)^\top \in \Delta_3
+
+for :math:`\lambda_3 = 1 - \lambda_1 - \lambda_2` and :math:`\mathbf{e}_{\Delta} = \mathbf{v}_4 - \sum_{i=1}^3 \lambda_i \mathbf{v}_i`.
+The picture below visualizes the update.
+
+.. image:: figs/update_fig.jpg
+    :width: 300
+    :alt: Update inside a single tetrahedron
+    :align: center
+
+When updating a tetrahedron, we compute the update of each of the faces to the opposite vertex.
+The newly calculated value :math:`\phi_4` will only become the new value if it is strictly smaller than the old value.
+
+For triangles and lines, the algorithm behaves similarly but the update origin is limited to a side or vertex respectively.
+The internally implemented updates in the algorithm to solve the minimization problem are similar to the ones reported in `An inverse Eikonal method for identifying ventricular activation sequences from epicardial activation maps <https://www.sciencedirect.com/science/article/pii/S0021999120304745>`_.
+
+
+Jacobi vs. Active List Method
+-----------------------------
+Two different methods are implemented in the repository:
+In the *Jacobi* method, the above local update rule is computed for all elements in each iteration until the change between two subsequent iterations is smaller than ``convergence_eps`` (:math:`10^{-9}` by default).
+This version of the algorithm is bested suited for the GPU, since it is optimal for a SIMD (single instruction multiple data) architecture.
+
+The *active list* method is more closely related to the method presented in the `paper <https://epubs.siam.org/doi/abs/10.1137/120881956>`_:
+We keep track of all vertices that will be updated in the current iteration. 
+Initially, we start off with the neighbor nodes to the initial points :math:`\mathbf{x}_0`.
+Once convergence has been reached for a vertex on the active list (according to ``convergence_eps``), its neighboring nodes will be recomputed and if the new value is smaller than the old, they will be added onto the active list.
+Convergence is achieved once the active list is empty.
+
+The active list method computes much fewer updates, but has the additional overhead of keeping track of its active list, ill-suited for the GPU.
+For larger meshes, the active list is still a better choice, but comes at the additional cost of a setup time (see :doc:`Benchmark <benchmark>`), making it best suited for repeated queries of the same mesh with different :math:`D, g, \mathbf{x}_0`.
+
+Interface Methods
+=================
+All different solvers can be generated using the interface class.
+Note that if you specify the gpu interface, but your system does not support it (or you did not install it), you will only get a cpu solver.
+
+.. automethod:: fimpy.solver.FIMPY.create_fim_solver
+
+Computing the anisotropic eikonal equation can be easily achieved by calling :meth:`fimpy.fim_base.FIMBase.comp_fim` on the returned solver.
+
+.. automethod:: fimpy.fim_base.FIMBase.comp_fim
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+Installation
+--------------
+
+To install, either clone the repository and install it:
+
+.. code-block:: bash
+
+    git clone https://github.com/thomgrand/fim-python .
+    pip install -e .[gpu]
+
+
+or simply install the library over `PyPI <https://pypi.org>`_.
+
+.. code-block:: bash
+
+    pip install fim-python[gpu]
+
+.. note:: 
+
+    Installing the GPU version might take a while since many ``cupy`` modules are compiled using your system's ``nvcc`` compiler.
+    You can install the ``cupy`` binaries first as mentioned `here <https://docs.cupy.dev/en/stable/install.html#installing-cupy>`_, before installing ``fimpy``.Benchmark
+============
+
+Both the *Jacobi* and *active list* methods have been tested on heterogeneous ND cubes.
+Here you can see the comparison of both their run- and setup-time.
+The dashed lines show the performance of the implementation using active lists, the solid lines use the Jacobi method (see :doc:`Detailed Description <detailed_description>` for more info).
+
+Runtime
+--------
+
+Below you can see a performance benchmark of the library for tetrahedral domains (cube in ND), triangular surfaces (plane in ND), and line networks (randomly sampled point cloud in the ND cube with successive minimum spanning tree) from left to right.
+In all cases, :math:`\mathbf{x}_0` was placed in the middle of the domain.
+
+.. image:: figs/benchmark_gpu.jpg
+    :alt: Benchmark GPU
+    :align: center
+
+.. image:: figs/benchmark_cpu.jpg
+    :alt: Benchmark CPU
+    :align: center
+
+The library works for an arbitrary number of dimensions (manifolds in N-D), but the versions for 2 and 3D received a few optimized kernels that speed up the computations.
+
+Setup Time
+----------
+
+The active list method additionally needs to create a few mesh specific fields before computation to efficiently update the active list.
+This makes it best suited for repeated queries of the same mesh with different :math:`D, g, \mathbf{x}_0`.
+The figure below shows the setup time for both methods.
+
+.. image:: figs/benchmark_gpu_setup.jpg
+    :alt: Setup Time GPU
+    :align: center
+
+Run the Benchmark
+-------------
+
+Before running the benchmark, make sure the library was installed to run the tests and the documentation:
+
+.. code-block:: bash
+
+    pip install fim-python[gpu,tests,docs]
+
+The benchmark can then be initiated by first generating the data and then running the actual benchmark
+
+.. code-block:: bash
+
+    python tests/generate_benchmark_data.py
+    python tests/run_benchmark.py
+
+The routine ``generate_benchmark_plot`` in ``tests/generate_docs_figs.py`` can be called to regenerate the documentation figures, including the above benchmark plot
+
+.. code-block:: bash
+
+    python tests/generate_docs_figs.py
+
+.. note::
+
+    The benchmark exhaustively tests the library for many different meshes and can therefore take one hour or more to finish... FIM Python documentation master file, created by
+   sphinx-quickstart on Mon May 17 21:13:20 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+FIM-Python documentation
+======================================
+
+.. contents:: Quick Start
+    :depth: 3
+
+Introduction
+------------
+
+This library implements the Fast Iterative method that solves the anisotropic eikonal equation on 
+`triangulated surfaces <https://epubs.siam.org/doi/abs/10.1137/100788951>`_, 
+`tetrahedral meshes <https://epubs.siam.org/doi/abs/10.1137/120881956>`_ and line networks 
+(equivalent to the `Dijkstra's algorithm <https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm>`_ in this case),
+for arbitrary dimensions.
+
+The anisotropic eikonal equation that is solved, is given by the partial differential equation
+
+.. math::
+   \left\{
+   \begin{array}{rll}
+   \left<\nabla \phi, D \nabla \phi \right> &= 1 \quad &\text{on} \; \Omega \\
+   \phi(\mathbf{x}_0) &= g(\mathbf{x}_0) \quad &\text{on} \; \Gamma
+   \end{array}
+   \right. .
+
+The library computes :math:`\phi` for a given :math:`D`, :math:`\mathbf{x}_0` and :math:`g`.
+In practice, this problem is often associated to computing the earliest arrival times :math:`\phi` from a set of given starting points :math:`\mathbf{x}_0` through a heterogeneous medium (i.e. different velocities are assigned throughout the medium).   
+
+Usage
+---------------------
+The following shorthand notations are important to know:
+
+- :math:`n`: Number of points
+- :math:`m`: Number of elements
+- :math:`d`: Dimensionality of the points and metrics (:math:`D \in \mathbb{R}^{d \times d}`)
+- :math:`d_e`: Number of vertices per elements (2, 3 and 4 for lines, triangles and tetrahedra respectively)
+- :math:`k`: Number of discrete points :math:`\mathbf{x}_0 \in \Gamma` and respective values in :math:`g(\mathbf{x}_0)`
+- :math:`M := D^{-1}`: The actual metric used in all computations. This is is computed internally and automatically by the library (no need for you to invert :math:`D`)
+- precision: The chosen precision for the solver at the initialization
+
+This example computes the solution to the anisotropic eikonal equation for a simple square domain
+:math:`\Omega = [-1, 1]^2`, with :math:`n = 50^2, d = 2, d_e = 3` and a given isotropic :math:`D`. 
+This example requires additionally matplotlib and scipy.
+
+
+.. include:: example.inc
+
+You should see the following figure with the computed :math:`\phi` for the given :math:`D = c I`.
+
+
+.. image:: figs/usage_example.jpg
+  :alt: Usage example
+
+.. include:: installation.rst
+
+
+
+
+
+Detailed Contents
+--------------
+.. toctree::
+   :maxdepth: 2
+
+   interface.rst
+   detailed_description.rst
+   benchmark.rst
+
+
+Module API
+--------------
+
+.. autosummary::
+   :toctree: _autosummary
+   :recursive:
+   :caption: Module
+
+   fimpy
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

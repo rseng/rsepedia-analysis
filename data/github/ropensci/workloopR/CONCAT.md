@@ -489,3 +489,2635 @@ Although we are very happy to create new functions for additional file types, we
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
+---
+title: "Analyzing work loop experiments in workloopR"
+author: "Vikram B. Baliga"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyzing work loop experiments in workloopR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The function `analyze_workloop()` in `workloopR` allows users to evaluate the mechanical work and power output of a muscle they have investigated through work loop experiments.
+
+To demonstrate `analyze_workloop()`, we will first load `workloopR` and use example data provided with the package. We'll also load a couple packages within the `tidyverse` to help with data wrangling and plotting.
+
+
+## Load packages and data
+
+```{r package_loading, message=FALSE, warning=FALSE}
+library(workloopR)
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+```
+
+
+## Visualize
+
+We'll now import the `workloop.ddf` file included with `workloopR`. Because this experiment involved using a gear ratio of 2, we'll use `fix_GR()` to also implement this correction.
+
+Ultimately, an object of classes `workloop`, `muscle_stim`, and `data.frame` is produced. `muscle_stim` objects are used throughout `workloopR` to help with data formatting and error checking across functions. Additionally setting the class to `workloop` allows our functions to understand that the data have properties that other experiment types (twitch, tetanus) do not. 
+
+```{r data_import}
+## The file workloop.ddf is included and therefore can be accessed via
+## system.file("subdirectory","file_name","package") . We'll then use
+## read_ddf() to import it, creating an object of class "muscle_stim".
+## fix_GR() multiplies Force by 2 and divides Position by 2
+workloop_dat <-
+  system.file(
+    "extdata",
+    "workloop.ddf",
+    package = 'workloopR') %>%
+  read_ddf(phase_from_peak = TRUE) %>%
+  fix_GR(GR = 2)
+
+summary(workloop_dat)
+
+```
+
+Running `summary()` on a `muscle_stim shows a handy summary of file properties, data, and experimental parameters.
+
+Let's plot Time against Force, Position, and Stimulus (Stim) to visualize the time course of the work loop experiment.
+
+To get them all plotted in the same figure, we'll transform the data as they are being plotted. Please note that this is for aesthetic purposes only - the underlying data will not be changed after the plotting is complete.
+
+```{r intial_plot}
+scale_position_to_force <- 3000
+
+workloop_dat %>%
+  # Set the x axis for the whole plot
+  ggplot(aes(x = Time)) +
+  # Add a line for force
+  geom_line(aes(y = Force, color = "Force"), 
+            lwd = 1) +
+  # Add a line for Position, scaled to approximately the same range as Force
+  geom_line(aes(y = Position * scale_position_to_force, color = "Position")) +
+  # For stim, we only want to plot where stimulation happens, so we filter the data
+  geom_point(aes(y = 0, color = "Stim"), size = 1, 
+             data = filter(workloop_dat, Stim == 1)) +
+  # Next we add the second y-axis with the corrected units
+  scale_y_continuous(sec.axis = sec_axis(~ . / scale_position_to_force, name = "Position (mm)")) +
+  # Finally set colours, labels, and themes
+  scale_color_manual(values = c("#FC4E2A", "#4292C6", "#373737")) +
+  labs(y = "Force (mN)", x = "Time (secs)", color = "Parameter:") +
+  ggtitle("Time course of \n work loop experiment") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+There's a lot to digest here. The blue trace shows the change in length of the muscle via cyclical, sinusoidal changes to Position. The dark gray Stim dots show stimulation on a off vs. on basis. Stimulus onset is close to when the muscle is at L0 and the stimulator zapped the muscle four times in pulses of 0.2 ms width at 300 Hz. The resulting force development is shown in red. These cycles of length change and stimulation occurred a total of 6 times (measuring L0-to-L0).
+
+## Select cycles
+
+We are now ready to run the `select_cycles()` function. This function subsets the data and labels each cycle in prep for our `analyze_workloop()` function.
+
+In many cases, researchers are interested in using the final 3 cycles for analyses. Accordingly, we'll set the `keep_cycles` parameter to `4:6`. 
+
+One thing to pay heed to is the cycle definition, encoded as `cycle_def` within the arguments of `select_cycles()`. There are three options for how cycles can be defined and are named based on the starting (and ending) points of the cycle. We'll use the L0-to-L0 option, which is encoded as `lo`. 
+
+The function internally performs butterworth filtering of the Position data via `signal::butter()`. This is because Position data are often noisy, which makes assessing true peak values difficult. The default values of `bworth_order = 2` and `bworth_freq = 0.05` work well in most cases, but we recommend you please plot your data and assess this yourself.
+
+We will keep things straightforward for now so that we can proceed to the analytical stage. Please see the final section of this vignette for more details on using `select_cycles()`.
+
+```{r select_cycles}
+## Select cycles
+workloop_selected <- 
+  workloop_dat %>%
+  select_cycles(cycle_def="lo", keep_cycles = 4:6)
+
+summary(workloop_selected)
+
+attr(workloop_selected, "retained_cycles")
+```
+
+The `summary()` function now reflects that 3 cycles of the original 6 have been retained, and getting the `"retained_cycles"` attribute shows that these cycles are  4, 5, and 6 from the original data. 
+
+To avoid confusion in numbering schemes between the original data and the new object, once `select_cycles()` has been used we label cycles by letter. So, cycle 4 is now "a", 5 is "b" and 6 is "c".
+
+
+## Plot the work loop cycles
+
+```{r work_loop_fig}
+workloop_selected %>%
+  ggplot(aes(x = Position, y = Force)) +
+  geom_point(size=0.3) +
+  labs(y = "Force (mN)", x = "Position (mm)") +
+  ggtitle("Work loop") +
+  theme_bw()
+
+```
+
+
+## Basics of `analyze_workloop()`
+
+Now we're ready to use `analyze_workloop()`. 
+
+Again, running `select_cycles()` beforehand was necessary, so we will switch to using `workloop_selected` as our data object.
+
+Within `analyze_workloop()`, the `GR =` option allows for the gear ratio to be corrected if it hasn't been already. But because we already ran `fix_GR()` to correct the gear ratio to 2, we will not need to use it here again. So, this for this argument, we will use `GR = 1`, which keeps the data as they are. Please take care to ensure that you do not overcorrect for gear ratio by setting it multiple times. Doing so induces multiplicative changes. E.g. setting `GR = 3` on an object and then setting `GR = 3` again produces a gear ratio correction of 9.
+
+
+### Using the default `simplify = FALSE` version
+
+The argument `simplify = ` affects the output of the `analyze_workloop()` function. We'll first take a look at the organization of the "full" version, i.e. keeping the default `simplify = FALSE`.
+
+```{r analyze_workloop}
+## Run the analyze_workloop() function
+workloop_analyzed <-
+  workloop_selected %>%
+  analyze_workloop(GR = 1)
+
+## Produces a list of objects. 
+## The print method gives a simple output:
+workloop_analyzed
+
+## How is the list organized?
+names(workloop_analyzed)
+```
+
+This produces an `analyzed_workloop` object that is essentially a `list` that is organized by cycle. Within each of these, time-course data are stored as a `data.frame` and important metadata are stored as attributes.
+
+Users may typically want work and net power from each cycle. Within the `analyzed_workloop` object, these two values are stored as attributes: `"work"` (in J) and `"net_power"` (in W). To get them for a specific cycle:
+
+```{r metrics_for_cycle}
+## What is work for the second cycle?
+attr(workloop_analyzed$cycle_b, "work")
+
+## What is net power for the third cycle?
+attr(workloop_analyzed$cycle_c, "net_power")
+```
+
+To see how e.g. the first cycle is organized:
+
+```{r cycle_a_organization}
+str(workloop_analyzed$cycle_a)
+```
+
+Within each cycle's `data.frame`, the usual `Time`, `Position`, `Force`, and `Stim` are stored. `Cycle`, added via `select_cycles()`, denotes cycle identity and `Percent_of_Cycle` displays time as a percentage of that particular cycle. 
+
+`analyze_workloop()` also computes instantaneous velocity (`Inst_Velocity`) which can sometimes be noisy, leading us to also apply a butterworth filter to this velocity (`Filt_Velocity`). See the function's help file for more details on how to tweak filtering. The time course of power (instantaneous power) is also provided as `Inst_Power`.
+
+Each of these variables can be plot against Time to see the time-course of that variable's change over the cycle. For example, we will plot instantaneous force in cycle b:
+
+```{r instant_power_plot}
+workloop_analyzed$cycle_b %>%
+  ggplot(aes(x = Percent_of_Cycle, y = Inst_Power)) +
+  geom_line(lwd = 1) +
+  labs(y = "Instantaneous Power (W)", x = "Percent cycle") +
+  ggtitle("Instantaneous power \n during cycle b") +
+  theme_bw()
+```
+
+
+### Setting `simpilfy = TRUE` in the `analyze_workloop()` function
+
+If you simply want work and net power for each cycle without retaining any of the time-course data, set `simplify = TRUE` within `analyze_workloop()`.
+
+```{r simplify_TRUE}
+workloop_analyzed_simple <-
+  workloop_selected %>%
+  analyze_workloop(GR = 1, simplify = TRUE)
+
+## Produces a simple data.frame:
+workloop_analyzed_simple
+str(workloop_analyzed_simple)
+```
+
+Here, work (in J) and net power (in W) are simply returned in a `data.frame` that is organized by cycle. No other attributes are stored.
+
+
+## More on cycle definitions in `select_cycles()`
+
+As noted above, there are three options for cycle definitions within `select_cycles()`, encoded as `cycle_def`. The three options for how cycles can be defined are named based on the starting (and ending) points of the cycle: L0-to-L0 (`lo`), peak-to-peak (`p2p`), and trough-to-trough (`t2t`).
+
+We highly recommend that you plot your Position data after using `select_cycles()`. The `pracma::findpeaks()` function work for most data (especially sine waves), but it is conceivable that small, local 'peaks' may be misinterpreted as a cycle's true minimum or maximum.
+
+We also note that edge cases (i.e. the first cycle or the final cycle) may also be subject to issues in which the cycles are not super well defined via an automated algorithm.
+
+Below, we will plot a couple case examples to show what we generally expect. We recommend plotting your data in a similar fashion to verify that `select_cycles()` is behaving in the way you expect.
+
+
+```{r select_cycles_defintions}
+## Select cycles 4:6 using lo
+workloop_dat %>%
+  select_cycles(cycle_def="lo", keep_cycles = 4:6) %>%
+  ggplot(aes(x = Time, y = Position)) +
+  geom_line() +
+  theme_bw()
+
+## Select cycles 4:6 using p2p
+workloop_dat %>%
+  select_cycles(cycle_def="p2p", keep_cycles = 4:6) %>%
+  ggplot(aes(x = Time, y = Position)) +
+  geom_line() +
+  theme_bw()
+## here we see that via 'p2p' the final cycle is ill-defined because the return
+## to L0 is considered a cycle. Using a p2p definition, what we actually want is
+## to use cycles 3:5 to get the final 3 full cycles:
+workloop_dat %>%
+  select_cycles(cycle_def="p2p", keep_cycles = 3:5) %>%
+  ggplot(aes(x = Time, y = Position)) +
+  geom_line() +
+  theme_bw()
+
+## this difficulty in defining cycles may be more apparent by first plotting the 
+## cycles 1:6, e.g.
+workloop_dat %>%
+  select_cycles(cycle_def="p2p", keep_cycles = 1:6) %>%
+  ggplot(aes(x = Time, y = Position)) +
+  geom_line() +
+  theme_bw()
+
+```
+---
+title: "Importing data from non .ddf sources"
+author: "Vikram B. Baliga"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Importing data from non .ddf sources}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+`workloopR`'s data import functions, such as `read_ddf()`, are generally geared towards importing data from .ddf files (e.g. those generated by Aurora Scientific's Dynamic Muscle Control and Analysis Software). 
+
+Should your data be stored in another file format, you can use the `as_muscle_stim()` function to generate your own `muscle_stim` objects. These `muscle_stim` objects are used by nearly all other `workloopR` functions and are formatted in a very specific way. This helps ensure that other functions can interpret data & metadata correctly and also perform internal checks.
+
+
+## Load packages
+
+Before running through anything, we'll ensure we have the packages we need.
+
+```{r package_loading, message=FALSE, warning=FALSE}
+library(workloopR)
+library(magrittr)
+library(ggplot2)
+```
+
+
+## Data
+
+Because it is somewhat difficult to simulate muscle physiology data, we'll use one of our workloop files, deconstruct it, and then re-assemble the data via `as_muscle_stim()`.
+
+```{r get_data}
+## Load in the work loop example data from workloopR
+workloop_dat <-
+  system.file(
+    "extdata",
+    "workloop.ddf",
+    package = 'workloopR') %>%
+  read_ddf(phase_from_peak = TRUE) %>%
+  fix_GR(GR = 2)
+
+## First we'll extract Time
+Time <- workloop_dat$Time
+## Now Position
+Position <- workloop_dat$Position
+## Force
+Force <- workloop_dat$Force
+## Stimulation
+Stim <- workloop_dat$Stim
+
+## Put it all together as a data.frame
+my_data <- data.frame(Time = Time,
+                      Position = Position,
+                      Force = Force,
+                      Stim = Stim)
+
+head(my_data)
+```
+
+
+## Assemble via `as_muscle_stim()`
+It is absolutely crucial that the columns be named "Time", "Position", "Force", and "Stim" (all case-sensitive). Otherwise, `as_muscle_stim()` will not interpret data correctly.
+
+At minimum, this `data.frame`, the type of experiment, and the frequency at which data were recorded (`sample_frequency`, as a numeric) are necessary for `as_muscle_stim()`.
+
+```{r as_mus_basic}
+## Put it together
+my_muscle_stim <- as_muscle_stim(x = my_data,
+                                 type = "workloop",
+                                 sample_frequency = 10000)
+
+## Data are stored in columns and basically behave as data.frames
+head(my_muscle_stim)
+
+ggplot(my_muscle_stim, aes(x = Time, y = Position)) +
+  geom_line() + 
+  labs(y = "Position (mm)", x = "Time (secs)") +
+  ggtitle("Time course of length change") +
+  theme_bw()
+```
+
+
+### Attributes
+
+By default, a couple attributes are auto-filled based on the available information, but it's pretty bare-bones
+```{r attributes}
+str(attributes(my_muscle_stim))
+```
+
+We highly encourage you to add in as many of these details as possible by passing them in via the `...` argument. For example: 
+
+```{r add_file_id}
+## This time, add the file's name via "file_id"
+my_muscle_stim <- as_muscle_stim(x = my_data,
+                                 type = "workloop",
+                                 sample_frequency = 10000,
+                                 file_id = "workloop123")
+
+## For simplicity, we'll just target the file_id attribute directly instead of 
+## printing all attributes again
+attr(my_muscle_stim, "file_id")
+
+
+```
+
+
+### Possible attributes
+
+Here is a list of all possible attributes that can be filled. 
+```{r}
+names(attributes(workloop_dat))
+```
+
+To see how each should be formatted, (e.g. which ones take numeric values vs. character vectors...etc)
+
+```{r}
+str(attributes(workloop_dat))
+```
+
+
+## Thanks for reading!
+
+Please feel free to contact either Vikram or Shree with suggestions or code development requests. We are especially interested in expanding our data import functions to accommodate file types other than .ddf in future versions of `workloopR`.
+---
+title: "Working with isometric experiments in workloopR"
+author: "Vikram B. Baliga"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working with isometric experiments in workloopR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+The `workloopR` package also provides a function that can calculate the timing and magnitude of force during isometric experiments (twitch, tetanus) via the `isometric_timing()` function.
+
+To demonstrate, we will first load `workloopR` and use example data provided with the package. We'll also load a couple packages within the `tidyverse` as well as `viridis` to help with data wrangling and plotting.
+
+
+## Load packages and data
+
+```{r package_loading, message=FALSE, warning=FALSE}
+library(workloopR)
+library(magrittr)
+library(ggplot2)
+```
+
+
+## Visualize
+
+We'll now import the `twitch.ddf` file included with `workloopR`.
+
+```{r data_import}
+## The file twitch.ddf is included and therefore can be accessed via
+## system.file("subdirectory","file_name","package") . We'll then use
+## read_ddf() to import it, creating an object of class "muscle_stim".
+twitch_dat <-
+  system.file(
+    "extdata",
+    "twitch.ddf",
+    package = 'workloopR') %>%
+  read_ddf()
+
+```
+
+Let's plot Force vs. Time to visualize the time course of force development and relaxation.
+
+```{r intial_plot}
+twitch_dat %>%
+  ggplot(aes(x = Time, y = Force)) +
+    geom_line() +
+    ylab("Force (mN)") +
+    xlab("Time (sec)") +
+    theme_minimal()
+
+```
+
+This plot reveals that the final row of the data has Force = 0 and is likely an artifact. We can also see that the most salient parts of the twitch occur between ~ 0.075 and ~ 0.2 seconds. 
+
+We'll just re-plot the salient parts of the twitch by setting new limits on the axes via `ggplot2::xlim()` and `ggplot2::ylim()`. Please note that this will not change any analyses - we are simply doing it for ease of visualizing patterns.
+
+```{r data_cleaning}
+## Re-plot
+twitch_dat %>%
+  ggplot(aes(x = Time, y = Force)) +
+    geom_line(lwd = 1) +
+    xlim(0.075, 0.2) +
+    ylim(200, 450) +
+    xlab("Time (sec)") +
+    ylab("Force (mN)") +
+    theme_minimal()
+
+```
+
+Looks better!
+
+
+## Basics of `isometric_timing()`
+
+Now we're ready to use `isometric_timing()`.
+
+```{r twitch_analysis}
+## Run the isometric_timing() function
+twitch_analyzed <-
+  twitch_dat %>%
+  isometric_timing()
+
+twitch_analyzed
+```
+
+The function returns a new `data.frame` that provides information about the timing and magnitude of force at various intervals within the twitch. All returned values are absolute; in other words, time is measured from the beginning of the file and forces are returned in their actual magnitudes. 
+
+The first five columns of this `data.frame` are fixed. They will return (in this order): 1) the ID of the file, 2) the time at which stimulation occurs, 3) magnitude of force when stimulation occurs, 4) time at which peak force occurs, and 5) magnitude of peak force. 
+
+The function also provides data that help describe the rising and the relaxation phases of the twitch at certain "set points". By default, in the rising phase the set points are at 10% and at 90% of peak force development. Timing and force magnitudes at these points are returned as columns in the `data.frame`. And for the relaxation phase, the time and magnitude of force when force has relaxed to 90% and 50% of peak force are given.
+
+The user has some flexibility in specifying how data are grabbed from the rising and falling phases. There are two arguments: `rising = c()` and `falling = c()`. Each of these arguments can be filled with a vector of any length. Within the vector, each of these "set points" must be a vector between 0 and 100, signifying the % of peak force development that is to be described.
+
+For example, if we'd like to describe the rising phase at six points (e.g. 5%, 10%, 25%, 50%, 75%, and 95% of peak force development):
+
+```{r twitch_rising_custom}
+## Change rising supply a custom set of force development set points
+twitch_rising_custom <-
+  twitch_dat %>%
+  isometric_timing(rising = c(5, 10, 25, 50, 75, 95))
+
+## The returned `data.frame` contains the timing and force magnitudes
+## of these set points in the "..._rising_..." columns
+twitch_rising_custom
+```
+
+
+### Tetanus trials
+
+The `isometric_timing()` function can also work on `tetanus` objects that have been imported via `read_ddf()`. Should a `tetanus` object be used, the set points for relaxing are automatically set to `relaxing = c()`, which excludes this argument from producing anything. Instead, the timing & magnitude of force at stimulation, peak force, and specified points of the rising phase are returned. The idea of 'relaxation' is simply ignored. 
+
+To demonstrate, we'll use an example tetanus trial included in `workloopR`: 
+```{r tetanus}
+tetanus_analyzed <-
+  system.file(
+    "extdata",
+    "tetanus.ddf",
+    package = 'workloopR') %>%
+  read_ddf() %>%
+  isometric_timing(rising = c(25, 50, 75))
+
+tetanus_analyzed
+```
+
+
+## Computing intervals
+
+The returned `data.frame` provides all timing and force magnitudes in absolute terms, i.e. time since the start of the file and actual force magnitudes. Often, we'd like to report characteristics of the twitch as intervals. 
+
+To calculate, e.g. the interval between stimulation and peak force (often reported as "time to peak force"):
+
+```{r twitch_intervals}
+## Time to peak force from stimulation
+twitch_analyzed$time_peak - twitch_analyzed$time_stim
+```
+
+
+## Annotate the twitch plot
+
+It is also good to plot some of these metrics and see if they pass the eye-test.
+
+We'll use our analyzed twitch and the `viridis` package to supply colors to dots at key points.
+
+```{r annotated_plot}
+## Create a color pallete
+## Generated using `viridis::viridis(6)`
+## We use hard-coded values here just to avoid extra dependencies 
+colz <- c("#440154FF","#414487FF","#2A788EFF",
+          "#22A884FF","#7AD151FF","#FDE725FF")
+
+twitch_dat %>%
+ ggplot(aes(x = Time, y = Force)) +
+   geom_line(lwd = 1) +
+   xlim(0.075, 0.2) +
+   ylim(200, 450) +
+   xlab("Time (sec)") +
+   ylab("Force (mN)") +
+   geom_point(x = twitch_analyzed$time_stim, 
+              y = twitch_analyzed$force_stim,
+              color = colz[1], size = 3) +
+   geom_point(x = twitch_analyzed$time_peak, 
+              y = twitch_analyzed$force_peak,
+              color = colz[4], size = 3) +
+   geom_point(x = twitch_analyzed$time_rising_10, 
+              y = twitch_analyzed$force_rising_10,
+              color = colz[2], size = 3) +
+   geom_point(x = twitch_analyzed$time_rising_90, 
+              y = twitch_analyzed$force_rising_90,
+              color = colz[3], size = 3) +
+   geom_point(x = twitch_analyzed$time_relaxing_90, 
+              y = twitch_analyzed$force_relaxing_90,
+              color = colz[5], size = 3) +
+   geom_point(x = twitch_analyzed$time_relaxing_50, 
+              y = twitch_analyzed$force_relaxing_50,
+              color = colz[6], size = 3) +
+   theme_minimal()
+```
+
+The plot has dots added for each of the six time&force points that the function returns by default.
+---
+title: "Batch processing"
+author: "Shreeram Senthivasan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Batch processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Many of the functions in the `workloopR` package are built to facilitate batch processing of workloop and related data files. This vignette will start with an overview of how the functions were intended to be used for batch processing and then provide specific examples.
+
+
+## Conceptual overview
+
+We generally expect a single file to store data from a single experimental trial, whereas directories hold data from all the trials of a single experiment. Accordingly, the `muscle_stim` objects created and used by most of the `workloopR` functions are intended to hold data from a single trial of a workloop or related experiment. Lists are then used to package together trials from a single experiment. This also lends itself to using recursion to transform and analyze all data from a single experiment.
+
+In broad strokes, there are three ways that batch processing has been worked into `workloopR` functions. First, some functions like the `*_dir()` family of import functions and `summarize_wl_trials()` specifically generate or require lists of `muscle_stim` objects. Second, the first argument of all other functions are the objects being manipulated, which can help clean up recursion using the `purrr::map()` family of functions. Finally, some functions return summarized data as single rows of a data.frame that can easily be bound together to generate a summary table.
+
+
+## Load packages and data
+
+This vignette will rely heavily on the `purrr::map()` family of functions for recursion, though it should be mentioned that the `base::apply()` family of functions would work as well.
+
+```{r package_loading, message=FALSE, warning=FALSE}
+library(workloopR)
+library(magrittr)
+library(purrr)
+```
+
+
+## Necessarily-multi-trial functions
+
+
+### `*_dir()` functions
+
+Both `read_ddf()` and `read_analyze_wl()` have alternatives suffixed by `_dir()` to read in multiple files from a directory. Both take a path to the directory and an optional regular expression to filter files by and return a list of `muscle_stim` objects or `analyzed_workloop` objects, respectively.
+
+```{r}
+workloop_trials_list<-
+  system.file(
+    "extdata/wl_duration_trials",
+    package = 'workloopR') %>%
+  read_ddf_dir(phase_from_peak = TRUE)
+
+workloop_trials_list[1:2]
+```
+
+The `sort_by` argument can be used to rearrange this list by any attribute of the read-in objects. By default, the objects are sorted by their modification time. Other arguments of `read_ddf()` and `read_analyze_wl()` can also be passed to their `*_dir()` alternatives as named arguments.
+
+```{r}
+analyzed_wl_list<-
+  system.file(
+    "extdata/wl_duration_trials",
+    package = 'workloopR') %>%
+  read_analyze_wl_dir(sort_by = 'file_id',
+                      phase_from_peak = TRUE,
+                      cycle_def = 'lo',
+                      keep_cycles = 3)
+
+analyzed_wl_list[1:2]
+```
+
+
+### Summarizing workloop trials
+
+In a series of workloop trials, it can useful to see how mean power and work change as you vary different experimental parameters. To facilitate this, `summarize_wl_trials()` specifically takes a list of `analyzed_workloop` objects and returns a `data.frame` of this information. We will explore ways of generating lists of analyzed workloops without using `read_analyze_wl_dir()` in the following section.
+
+```{r}
+analyzed_wl_list %>%
+  summarize_wl_trials
+```
+
+
+## Manual recursion examples
+
+
+### Batch import for non-ddf data
+
+One of the more realistic use cases for manual recursion is for importing data from multiple related trials that are not stored in ddf format. As with importing individual non-ddf data sources, we start by reading the data into a data.frame, only now we want a list of data.frames. In this example, we will read in csv files and stitch them into a list using `purrr::map()`
+
+```{r}
+non_ddf_list<-
+  # Generate a vector of file names
+  system.file(
+    "extdata/twitch_csv",
+    package = 'workloopR') %>%
+  list.files(full.names = T) %>%
+  # Read into a list of data.frames
+  map(read.csv) %>%
+  # Coerce into a workloop object
+  map(as_muscle_stim, type = "twitch")
+```
+
+
+### Data transformation and analysis
+
+Applying a constant transformation to a list of `muscle_stim` objects is fairly straightforward using `purrr::map()`.
+
+```{r}
+non_ddf_list<-
+  non_ddf_list %>%
+  map(~{
+    attr(.x,"stimulus_width")<-0.2
+    attr(.x,"stimulus_offset")<-0.1
+    return(.x)
+  }) %>%
+  map(fix_GR,2)
+```
+
+Applying a non-constant transformation like setting a unique file ID can be done using `purrr::map2()`.
+
+```{r}
+file_ids<-paste0("0",1:4,"-",2:5,"mA-twitch.csv")
+
+non_ddf_list<-
+  non_ddf_list %>%
+  map2(file_ids, ~{
+    attr(.x,"file_id")<-.y
+    return(.x)
+  })
+
+non_ddf_list
+```
+
+Analysis can similarly be run recursively. `isometric_timing()` in particular returns a single row of a data.frame with timings and forces for key points in an isometric dataset. Here we can use `purrr::map_dfr()` to bind the rows together for neatness.
+
+```{r}
+non_ddf_list %>%
+  map_dfr(isometric_timing)
+```
+---
+title: "Introduction to workloopR"
+author: "Vikram B. Baliga"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to workloopR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Welcome to workloopR
+
+In this vignette, we'll provide an overview of core functions in `workloopR`. Other vignettes within the package give more details with respect to specific use-cases. Examples with code can also be found within each function's Help doc.
+
+`workloopR` (pronounced "work looper") provides functions for the import, transformation, and analysis of muscle physiology experiments. As you may have guessed, the initial motivation was to provide functions to analyze work loop experiments in R, but we have expanded this goal to cover additional types of experiments that are often involved in work loop procedures. There are three currently supported experiment types: work loop, simple twitch, and tetanus.
+
+
+## Analytical pipelines
+
+To cut to the chase, `workloopR` offers the ability to import, transform, and then analyze a data file. For example, with a work loop file:
+```{r a_p_single_file}
+library(workloopR)
+
+## import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf", 
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+## select cycles 3 through 5 using a peak-to-peak definition
+wl_selected <- select_cycles(wl_dat, cycle_def = "p2p", keep_cycles = 3:5)
+
+## run the analysis function and get the full object
+wl_analyzed <- analyze_workloop(wl_selected, GR = 2)
+## for brevity, the print() method for this object produces a simple output
+wl_analyzed
+## but see the structure for the full output, e.g.
+#str(wl_analyzed)
+
+## or run the analysis but get the simplified version
+wl_analyzed_simple <- analyze_workloop(wl_selected, simplify = TRUE, GR = 2)
+wl_analyzed_simple
+```
+
+Batch processing of files within a directory (e.g. successive trials of an experiment) is also readily achieved:
+```{r a_p_batch_files}
+## batch read and analyze files included with workloopR
+analyzed_wls <- read_analyze_wl_dir(system.file("extdata/wl_duration_trials",
+                                               package = 'workloopR'),
+                                   cycle_def = "p2p",
+                                   keep_cycles = 2:4,
+                                   phase_from_peak = TRUE
+                                   )
+
+## now summarize
+summarized_wls <- summarize_wl_trials(analyzed_wls)
+summarized_wls
+```
+
+Sections below will give more specific overviews.
+
+
+## Data import
+
+Data that are stored in .ddf format (e.g. generated by Aurora Scientific's Dynamic Muscle Control and Analysis Software) are easily imported via the function `read_ddf()`. Two additional all-in-one functions (`read_analyze_wl()` and `read_analyze_wl_dir()`) also import data and subsequently transform and analyze them. More on those functions later!
+
+Importing via these functions generates objects of class `muscle_stim`, which are formatted to work nicely with `workloopR`'s core functions and help with error checking procedures throughout the package. `muscle_stim` objects are organized to store time-series data for Time, Position, Force, and Stimulation in a `data.frame` and also store core metadata and experimental parameters as Attributes.
+
+We'll provide a quick example using data that are included within the package.
+
+```{r data_import}
+library(workloopR)
+
+## import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf", 
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+## muscle_stim objects have their own print() and summary() S3 methods
+## for example:
+summary(wl_dat) # some handy info about the imported file
+
+## see the first few rows of data stored within
+head(wl_dat)
+```
+
+
+### Attributes
+
+Again, important object metadata and experimental parameters are stored as attributes. We make extensive use of attributes throughout the package and most functions will update at least one attribute after completion. So please see this feature of your `muscle_stim` objects for important info!
+
+You can use `attributes` on an object itself (e.g. `attributes(wl_dat)`), but we'll avoid doing so because the printout can be pretty lengthy.
+
+Instead, let's just look at a couple interesting ones.
+
+```{r attributes}
+## names(attributes(x) gives a list of all the attributes' names
+names(attributes(wl_dat))
+
+## take a look at the stimulation protocol
+attr(wl_dat, "protocol_table")
+
+## at what frequency were cyclic changes to Position performed?
+attr(wl_dat, "cycle_frequency")
+
+## at what frequency were data recorded?
+attr(wl_dat, "sample_frequency")
+```
+
+
+## Data from files that are not of .ddf format
+
+Data that are read from other file formats can be constructed into `muscle_stim` objects via `as_muscle_stim()`. Should you need to do this, please refer to our vignette "Importing data from non .ddf sources" for an overview.
+
+
+## Transformations and corrections to data
+
+Prior to analyses, data can be transformed or corrected. Transformational functions include gear ratio correction (`fix_GR()`) and position inversion (`invert_position()`). The core idea behind these two functions is to correct issues related to data acquisition.
+
+For example, to apply a gear ratio correction of 2:
+```{r transformations}
+## this multiples Force by 2
+## and multiplies Position by (1/2)
+wl_fixed  <- fix_GR(wl_dat, GR = 2)
+
+# quick check:
+max(wl_fixed$Force)/max(wl_dat$Force)       #5592.578 / 2796.289 = 2
+max(wl_fixed$Position)/max(wl_dat$Position) #1.832262 / 3.664524 = 0.5
+```
+
+
+### A particularly important transformation - `select_cycles()`
+
+Another 'transformational' function is `select_cycles()`, which subsets cycles within a work loop experiment. This is a necessary step prior to analyses of work loop data: data are labeled by cycle for use with `analyze_workloop()`.
+
+
+## Data analytical functions
+
+Core analytical functions include `analyze_workloop()` for work loop files and `isometric_timing()` for twitches. `analyze_workloop()` computes instantaneous velocity, net work, instantaneous power, and net power for work loop experiments on a per-cycle basis. `isometric_timing()` provides summarization of twitch kinetics.
+
+To see more details about these functions, please refer to "Analyzing work loop experiments in workloopR" for work loop analyses and "Working with twitch files in workloopR" for twitches.
+
+Some functions are readily available for batch processing of files. The `read_analyze_wl_dir()` function allows for the batch import, cycle selection, gear ratio correction, and ultimately work & power computation for all work loop experiment files within a specified directory. The `get_wl_metadata()` and `summarize_wl_trials()` functions organize scanned files by recency (according to their time of last modification: 'mtime') and then report work and power output in the order that trials were run.
+
+This ultimately allows for the `time_correct()` function to correct for degradation of the muscle (according to power & work) over time, assuming that the first and final trials are identical in experimental parameters. If these parameters are not identical, we advise against using this function.
+
+
+## Thanks for reading!
+
+Please feel free to contact either Vikram or Shree with suggestions or code development requests. We are especially interested in expanding our data import functions to accommodate file types other than .ddf in future versions of `workloopR`.
+---
+title: "Plotting data in workloopR"
+author: "Shreeram Senthivasan"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plotting data in workloopR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Let's take a look at plotting data stored in objects created by `workloopR`!
+
+
+## Loading packages and data
+
+```{r package_loading, message=FALSE, warning=FALSE}
+library(workloopR)
+library(magrittr)
+library(ggplot2)
+library(purrr)
+library(tidyr)
+library(dplyr)
+```
+
+
+## Plotting `workloop` objects
+
+
+### Working with single files
+
+Let's start by visualizing the raw traces in our data files, specifically position, force, and stimulation over time.
+
+```{r data_import}
+workloop_dat<-
+  system.file(
+    "extdata",
+    "workloop.ddf",
+    package = 'workloopR') %>%
+  read_ddf(phase_from_peak = TRUE) %>%
+  fix_GR(2)
+```
+
+```{r raw_trace}
+# To overlay position and force, we need them to be on comparable scales
+# We will then use two y-axis to make the units clear
+scale_position_to_force <- 3000
+
+workloop_dat %>%
+  # Set the x axis for the whole plot
+  ggplot(aes(x = Time)) +
+  # Add a line for force
+  geom_line(aes(y = Force, color = "Force"),
+            lwd = 1) +
+  # Add a line for Position, scaled to approximately the same range as Force
+  geom_line(aes(y = Position * scale_position_to_force, color = "Position")) +
+  # For stim, we only want to plot where stimulation happens, so we filter the data
+  geom_point(aes(y = 0, color = "Stim"), size = 1,
+             data = filter(workloop_dat, Stim == 1)) +
+  # Next we add the second y-axis with the corrected units
+  scale_y_continuous(sec.axis = sec_axis(~ . / scale_position_to_force, name = "Position (mm)")) +
+  # Finally set colours, labels, and themes
+  scale_color_manual(values = c("#FC4E2A", "#4292C6", "#373737")) +
+  labs(y = "Force (mN)", x = "Time (secs)", color = "Parameter:") +
+  ggtitle("Time course of \n work loop experiment") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+Next, we would select cycles from the workloop in preparation for analysis. Before we do this, let's keep all the cycles and visualize how `select_cycles()` splits the data. Note that you can include 0 in the `keep_cycles` argument to include data that is categorized as being outside of a complete cycle. This assigns a single cycle label (a) to the data before and after the complete cycles.
+
+```{r annotate_cycles, warning=FALSE}
+# Let's calculate x and y positions to add labels for each cycle
+workloop_dat<-
+  workloop_dat %>%
+  select_cycles('lo', 0:6)
+
+label_dat<-
+  workloop_dat %>%
+  group_by(Cycle) %>%
+  summarize(
+    x = mean(Time)
+  ) %>%
+  # And add another row for the incomplete cycles at the beginning
+  bind_rows(data.frame(
+    Cycle = 'a',
+    x = 0))
+
+workloop_dat %>%
+  ggplot(aes(x = Time, y = Position, colour = Cycle)) +
+  geom_point(size=1) +
+  geom_text(aes(x, y=2.1, colour = Cycle, label = Cycle), data = label_dat) +
+  labs(y = "Position (mm)", x = "Time (secs)") +
+  ggtitle("Division of position\nby `select_cycles()`") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+Visualizing the cycles is a highly recommended in case noise before or after the experimental procedure is interpreted as a cycle.
+
+Let's go ahead and use cycles 2 to 5 (labeled c-f in the previous plot). Note however that the cycle labels will be reassigned from a-d when we subset the data.
+
+```{r select_cycles}
+workloop_dat<-
+  workloop_dat %>%
+  select_cycles('p2p', 2:5)
+```
+
+Now let's plot some work loops!
+
+```{r analyze_workloop}
+# Let's start with a single cycle using colour to indicate time
+workloop_dat %>%
+  filter(Cycle == 'a') %>%
+  ggplot(aes(x = Position, y = Force)) +
+  geom_path(aes(colour = Time)) +
+  labs(y = "Force (mN)", x = "Position (mm)", colour = "Time (sec)") +
+  ggtitle("Single work loop") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+
+# Now let's see how the work loop changes across cycles
+# We can use arrows to indicate direction through time
+workloop_dat %>%
+  ggplot(aes(x = Position, y = Force)) +
+  geom_path(aes(colour = Cycle), arrow=arrow()) +
+  labs(y = "Force (mN)", x = "Position (mm)", colour = "Cycle index") +
+  ggtitle("Work loops by cycle index") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+
+### Working with single files
+
+Working with multiple files is a little trickier as multiple the data are stored in separate `data.frame`s organized into a list. The easiest way to deal with this issue is to add a column specifying the file id and concatenating the data together. Refer to the "Batch processing" vignette for more information on working with multiple files.
+
+```{r multifile}
+multi_workloop_dat<-
+  system.file(
+    "extdata/wl_duration_trials",
+    package = 'workloopR') %>%
+  read_ddf_dir(phase_from_peak = TRUE) %>%
+  map(fix_GR, 2) %>%
+  map(select_cycles,'p2p', 4) %>%
+  map(analyze_workloop)
+
+# Summarize provides a quick way to pull out most experimental parameters, etc
+multi_workloop_dat %>%
+  summarize_wl_trials %>%
+  ggplot(aes(Stimulus_Pulses, Mean_Power)) +
+  geom_point() +
+  labs(y = "Mean Power (W)", x = "Stim Duration (pulses)") +
+  ggtitle("Mean power over trial\nby stimulus duration") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+
+# Accessing the time course data requires more manipulation
+multi_workloop_dat %>%
+  map(~ mutate(.x$cycle_a, stim_pulses = attr(.x, "stimulus_pulses"))) %>%
+  bind_rows %>%
+  ggplot(aes(Percent_of_Cycle, Inst_Power)) +
+  geom_path(aes(colour = as.factor(stim_pulses)))+
+  labs(y = "Power (W)", x = "Percent of Cycle", colour = "Stim Duration") +
+  ggtitle("Time course of instantaneous\npower by stimulus duration") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+
+## Plotting isometric objects
+
+
+### Working with single files
+
+One useful visualization with isometric data is annotating peak force and other timing points. With a single file and multiple set points, some manipulation is useful to make annotating a little cleaner.
+
+```{r isometric_annotation}
+twitch_dat<-
+  system.file(
+    "extdata",
+    "twitch.ddf",
+    package = 'workloopR') %>%
+  read_ddf() %>%
+  fix_GR(2)
+
+# We now need to reshape the single row into three columns, a label for the point, an x value for the label (time), and a y value (force). See the `tidyr` package and associated vignettes on reshaping tips
+label_dat<-
+  twitch_dat %>%
+  isometric_timing(c(10,90),50) %>%
+  gather(label, value) %>%
+  filter(label != 'file_id') %>%
+  separate(label, c("type", "identifier"), "_", extra="merge") %>%
+  spread(type,value)
+label_dat$time<-as.numeric(label_dat$time)
+label_dat$force<-as.numeric(label_dat$force)
+
+ggplot() +
+  geom_line(aes(Time, Force), data = twitch_dat) +
+  geom_point(aes(time, force), data = label_dat) +
+  geom_text(aes(time, force, label = identifier), hjust=-0.15, data = label_dat) +
+  labs(y = "Force (mN)", x = "Time (sec)") +
+  ggtitle("Force development in a twitch trial") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+```
+
+
+### Working with multiple files
+
+We can also overlay data from multiple isometric trials to see how force evolves across trials. Please see the "Batch processing" vignette for more details on how to work with multiple files.
+
+```{r iso_multi}
+multi_twitch_dat<-
+  system.file(
+    "extdata/twitch_csv",
+    package = 'workloopR') %>%
+  list.files(full.names = T) %>%
+  map(read.csv) %>%
+  map2(c("2mA","3mA","4mA","5mA"), ~as_muscle_stim(.x, type = 'twitch', file_id = .y))
+
+# Next we want another data.frame of label data
+multi_label_dat<-
+  multi_twitch_dat %>%
+  map_dfr(isometric_timing) %>%
+  select(file_id, ends_with("peak")) %>%
+  mutate(label = paste0(round(force_peak),"mV"))
+
+# Once again we want the data in a single data.frame with a column for which trial it came from
+multi_twitch_dat %>%
+  map_dfr(~mutate(.x, file_id = attr(.x, "file_id"))) %>%
+  ggplot(aes(x = Time, y = Force, colour = file_id)) +
+  geom_line() +
+  geom_text(aes(time_peak, force_peak, label = label), hjust=-0.7, data = multi_label_dat) +
+  labs(y = "Force (mN)", x = "Time (sec)", colour = "Stimulation Current") +
+  ggtitle("Force development across twitch trials") +
+  theme_bw() +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
+
+```
+
+Please note that these twitch trials have differing values of initial force, so actual force developments are not identical to peak forces.
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/analysis_functions.R
+\name{isometric_timing}
+\alias{isometric_timing}
+\title{Compute timing and magnitude of force in isometric trials}
+\usage{
+isometric_timing(x, rising = c(10, 90), relaxing = c(90, 50))
+}
+\arguments{
+\item{x}{A \code{muscle_stim} object that contains data from an isometric
+twitch trial, ideally created via \code{read_ddf}.}
+
+\item{rising}{Set points of the rising phase to be described.
+By default: 10\% and 90\%.}
+
+\item{relaxing}{Set points of the relaxation phase to be described.
+By default: 90\% and 50\%.}
+}
+\value{
+A \code{data.frame} with the following metrics as columns:
+\item{file_ID }{File ID}
+\item{time_stim}{Time between beginning of data collection and when
+stimulation occurs}
+\item{force_stim}{Magnitude of force at the onset of stimulation}
+\item{time_peak}{Absolute time of peak force, i.e. time between beginning of
+data collection and when peak force occurs}
+\item{force_peak}{Magnitude of peak force}
+\item{time_rising_X}{Time between beginning of data collection and X\% of
+ force development}
+\item{force_rising_X}{Magnitude of force at X\% of force development}
+\item{time_relaxing_X}{Time between beginning of data collection and X\% of
+ force relaxation}
+\item{force_relaxing_X}{Magnitude of force at X\% of relaxation}
+}
+\description{
+Calculate timing and magnitude of force at stimulation, peak force, and
+various parts of the rising (force development) and relaxation (falling)
+phases of the twitch.
+}
+\details{
+The \code{data.frame} (x) must have time series data organized in
+columns. Generally, it is preferred that you use a \code{muscle_stim} object
+imported by \code{read_ddf()}.
+
+The \code{rising} and \code{relaxing} arguments allow for the user to supply
+numeric vectors of any length. By default, these arguments are
+\code{rising = c(10, 90)} and \code{relaxing  = c(90, 50)}. Numbers in each
+of these correspond to percent values and capture time and force at that
+percent of the corresponding curve. These values can be replaced by those
+that the user specifies and do not necessarily need to have length = 2. But
+please note that 0 and 100 should not be used, e.g.
+\code{rising = seq(10, 90, 5)} works, but \code{rising = seq(0, 100, 5)}
+does not.
+}
+\examples{
+
+library(workloopR)
+
+# import the twitch.ddf file included in workloopR
+twitch_dat <-read_ddf(system.file("extdata", "twitch.ddf",
+                                  package = 'workloopR'))
+
+# run isometric_timing() to get info on twitch kinetics
+# we'll use different set points than the defaults
+analyze_twitch <- isometric_timing(twitch_dat,
+  rising = c(25, 50, 75),
+  relaxing = c(75, 50, 25)
+)
+
+# see the results
+analyze_twitch
+
+}
+\references{
+Ahn AN, and Full RJ. 2002. A motor and a brake: two leg extensor
+muscles acting at the same joint manage energy differently in a running
+insect. Journal of Experimental Biology 205, 379-389.
+}
+\seealso{
+Other data analyses: 
+\code{\link{analyze_workloop}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()}
+
+Other twitch functions: 
+\code{\link{fix_GR}()},
+\code{\link{invert_position}()}
+}
+\author{
+Vikram B. Baliga
+}
+\concept{data analyses}
+\concept{twitch functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/workloopR.R
+\docType{package}
+\name{workloopR-package}
+\alias{workloopR}
+\alias{workloopR-package}
+\title{workloopR: Analysis of Work Loops and Other Data from Muscle Physiology Experiments}
+\description{
+Functions for the import, transformation, and analysis of data 
+    from muscle physiology experiments. The work loop technique is used to 
+    evaluate the mechanical work and power output of muscle. Josephson (1985) 
+    <doi:10.1242/jeb.114.1.493> modernized the technique for
+    application in comparative biomechanics. Although our initial motivation 
+    was to provide functions to analyze work loop experiment data, as we 
+    developed the package we incorporated the ability to analyze data from 
+    experiments that are often complementary to work loops. There are currently 
+    three supported experiment types: work loops, simple twitches, and tetanus 
+    trials. Data can be imported directly from .ddf files or via an object 
+    constructor function. Through either method, data can then be cleaned or 
+    transformed via methods typically used in studies of muscle physiology. 
+    Data can then be analyzed to determine the timing and magnitude of force 
+    development and relaxation (for isometric trials) or the magnitude of work, 
+    net power, and instantaneous power among other things (for work loops). 
+    Although we do not provide plotting functions, all resultant objects are 
+    designed to be friendly to visualization via either base-R plotting or 
+    'tidyverse' functions.
+ This package has been peer-reviewed by rOpenSci (v. 1.1.0).
+}
+\details{
+Functions for the import, transformation, and analysis of muscle physiology
+experiments. Currently supported experiment types: work loop, simple twitch,
+and tetanus.
+
+Data that are stored in .ddf format (e.g. generated by Aurora Scientific's
+Dynamic Muscle Control and Analysis Software) are easily imported via
+\code{read_ddf()}, \code{read_analyze_wl()}, or \code{read_analyze_wl_dir()}.
+Doing so generates objects of class \code{muscle_stim}, which are formatted
+to work nicely with workloopR's core functions. Data that are read from other
+ file formats can be constructed into \code{muscle_stim} objects via
+ \code{as_muscle_stim()}.
+
+Prior to analyses, data can be transformed or corrected. Transformational
+functions include gear ratio correction (\code{fix_GR()}), position inversion
+(\code{invert_position()}), and subsetting of particular cycles within a work
+loop experiment (\code{select_cycles()}).
+
+Core data analytical functions include \code{analyze_workloop()} for work
+loop files and \code{isometric_timing()} for twitches.
+\code{analyze_workloop()} computes instantaneous velocity, net work,
+instantaneous power, and net power for work loop experiments on a per-cycle
+basis. \code{isometric_timing()} provides summarization of twitch kinetics.
+
+Some functions are readily available for batch processing of files. The
+\code{read_analyze_wl_dir()} function allows for the batch import, cycle
+selection, gear ratio correction, and ultimately work & power computation for
+all work loop experiment files within a specified directory. The
+\code{get_wl_metadata()} and \code{summarize_wl_trials()} functions organize
+scanned files by recency (according to their time of last modification:
+'mtime') and then report work and power output in the order that trials were
+run. This ultimately allows for the \code{time_correct()} function to correct
+ for degradation of the muscle (according to power & work) over time,
+ assuming that the first and final trials are identical in experimental
+ parameters.
+
+Please feel free to contact either Vikram or Shree with suggestions or code
+development requests (see contact info below). We are especially interested
+in expanding our data import functions to accommodate file types other than
+.ddf in future versions of workloopR.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://docs.ropensci.org/workloopR/}
+  \item \url{https://github.com/ropensci/workloopR/}
+  \item Report bugs at \url{https://github.com/ropensci/workloopR/issues/}
+}
+
+}
+\author{
+\strong{Maintainer}: Vikram B. Baliga \email{vbaliga87@gmail.com} (\href{https://orcid.org/0000-0002-9367-8974}{ORCID})
+
+Authors:
+\itemize{
+  \item Shreeram Senthivasan \email{shreeramsenthi@gmail.com} (\href{https://orcid.org/0000-0002-7118-9547}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Julia Romanowska \email{Julia.Romanowska@uib.no} (Julia reviewed the package for rOpenSci
+             , see <https://github.com/ropensci/software-review/issues/326/>) [reviewer]
+  \item Eric Brown \email{eb@ericebrown.com} (Eric reviewed the package for rOpenSci
+             , see <https://github.com/ropensci/software-review/issues/326/>) [reviewer]
+}
+
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/analysis_functions.R
+\name{read_analyze_wl}
+\alias{read_analyze_wl}
+\title{All-in-one import function for work loop files}
+\usage{
+read_analyze_wl(file_name, ...)
+}
+\arguments{
+\item{file_name}{A .ddf file that contains data from a
+single workloop experiment}
+
+\item{...}{Additional arguments to be passed to \code{read_ddf()},
+\code{select_cycles()},
+or \code{analyze_workloop()}.}
+}
+\value{
+The function returns a \code{list} of class \code{analyzed_workloop}
+that provides instantaneous velocity, a smoothed velocity, and computes work,
+ instantaneous power, and net power from a work loop experiment. All data are
+ organized by the cycle number and important metadata are stored as
+ Attributes.
+
+Within the \code{list}, each entry is labeled by cycle and includes:
+\item{Time}{Time, in sec}
+\item{Position}{Length change of the muscle, corrected for gear ratio, in mm}
+\item{Force}{Force, corrected for gear ratio, in mN}
+\item{Stim}{When stimulation occurs, on a binary scale}
+\item{Cycle}{Cycle ID, as a letter}
+\item{Inst_velocity}{Instantaneous velocity, computed from \code{Position}
+change, reported in meters/sec}
+\item{Filt_velocity}{Instantaneous velocity, after low-pass filtering, again
+ in meter/sec}
+\item{Inst_Power}{Instantaneous power, a product of \code{Force} and
+\code{Filt_velocity}, reported in J}
+\item{Percent_of_Cycle}{The percent of that particular cycle which has
+elapsed}
+
+In addition, the following information is stored in the
+\code{analyzed_workloop} object's attributes:
+\item{stimulus_frequency}{Frequency at which stimulus pulses occurred}
+\item{cycle_frequency}{Frequency of oscillations (assuming sine wave
+trajectory)}
+\item{total_cycles}{Total number of oscillatory cycles (assuming sine wave
+trajectory) that the muscle experienced.}
+\item{cycle_def}{Specifies what part of the cycle is understood as the
+beginning and end. There are currently three options:
+'lo' for L0-to-L0;
+'p2p' for peak-to-peak; and
+'t2t' for trough-to-trough}
+\item{amplitude}{Amplitude of length change (assuming sine wave
+trajectory)}
+\item{phase}{Phase of the oscillatory cycle (in percent) at which stimulation
+occurred. Somewhat experimental, please use with caution}
+\item{position_inverted}{Logical; whether position inversion has been
+applied)}
+\item{units}{The units of measurement for each column in the object after
+running this function. See Warning}
+\item{sample_frequency}{Frequency at which samples were collected}
+\item{header}{Additional information from the header}
+\item{units_table}{Units from each Channel of the original ddf file}
+\item{protocol_table}{Protocol in tabular format; taken from the original
+ddf file}
+\item{stim_table}{Specific info on stimulus protocol; taken from the original
+ddf file}
+\item{stimulus_pulses}{Number of sequential pulses within a stimulation
+train}
+\item{stimulus_offset}{Timing offset at which stimulus began}
+\item{gear_ratio}{Gear ratio applied by this function}
+\item{file_id}{File name}
+\item{mtime}{Time at which file was last modified}
+\item{retained_cycles}{Which cycles were retained, as numerics}
+\item{summary}{Simple table showing work (in J) and net power (in W) for each
+ cycle}
+}
+\description{
+\code{read_analyze_wl()} is an all-in-one function to read in a work loop
+file, select cycles, and compute work and power output.
+}
+\details{
+Please be careful with units! See Warnings below. This function
+combines \code{read_ddf()} with \code{select_cycles()} and then ultimately
+\code{analyze_workloop()} into one handy function.
+
+As detailed in these three functions, possible arguments include: \cr
+\code{cycle_def} - used to specify which part of the cycle is understood as
+the beginning and end. There are currently three options: 'lo' for L0-to-L0;
+'p2p' for peak-to-peak; and 't2t' for trough-to-trough \cr
+\code{bworth_order} - Filter order for low-pass filtering of \code{Position}
+ via \code{signal::butter} prior to finding peak lengths. Default: 2. \cr
+\code{bworth_freq} - Critical frequency (scalar) for low-pass filtering of
+\code{Position} via \code{signal::butter} prior to finding peak lengths.
+Default: 0.05. \cr
+\code{keep_cycles} - Which cycles should be retained. Default: 4:6. \cr
+\code{GR} - Gear ratio. Default: 1. \cr
+\code{M} - Velocity multiplier used to positivize velocity; should be either
+-1 or 1. Default: -1. \cr
+\code{vel_bf} - Critical frequency (scalar) for low-pass filtering of
+velocity via \code{signal::butter}. Default: 0.05. \cr
+
+The gear ratio (GR) and velocity multiplier (M) parameters can help correct
+for issues related to the magnitude and sign of data collection. By
+default, they are set to apply no gear ratio adjustment and to positivize
+velocity. Instantaneous velocity is often noisy and the \code{vel_bf}
+parameter allows for low-pass filtering of velocity data. See
+\code{signal::butter()} and \code{signal::filtfilt()} for details of how
+filtering is achieved.
+}
+\section{Warning}{
+
+Most systems we have encountered record Position data in millimeters
+and Force in millinewtons, and therefore this function assumes data are
+recorded in those units. Through a series of internal conversions, this
+function computes velocity in meters/sec, work in Joules, and power in
+Watts. If your raw data do not originate in millimeters and millinewtons,
+please transform your data accordingly and ignore what you see in the
+attribute \code{units}.
+}
+
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR and analyze with
+# a gear ratio correction of 2 and cycle definition of peak-to-peak
+wl_dat <- read_analyze_wl(system.file("extdata", "workloop.ddf",
+                                      package = 'workloopR'),
+                          phase_from_peak = TRUE,
+                          GR = 2, cycle_def = "p2p")
+
+
+}
+\references{
+Josephson RK. 1985. Mechanical Power output from Striated Muscle
+ during Cyclic Contraction. Journal of Experimental Biology 114: 493-512.
+}
+\seealso{
+\code{\link{read_ddf}},
+\code{\link{select_cycles}}
+\code{\link{analyze_workloop}}
+
+Other data analyses: 
+\code{\link{analyze_workloop}()},
+\code{\link{isometric_timing}()},
+\code{\link{read_analyze_wl_dir}()}
+
+Other data import functions: 
+\code{\link{as_muscle_stim}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_ddf_dir}()},
+\code{\link{read_ddf}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+}
+\author{
+Vikram B. Baliga
+}
+\concept{data analyses}
+\concept{data import functions}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/batch_analysis_functions.R
+\name{read_ddf_dir}
+\alias{read_ddf_dir}
+\title{Import a batch of work loop or isometric data files from a directory}
+\usage{
+read_ddf_dir(file_path, pattern = "*.ddf", sort_by = "mtime", ...)
+}
+\arguments{
+\item{file_path}{Path where files are stored. Should be in the same folder.}
+
+\item{pattern}{Regex pattern for identifying relevant files in the file_path.}
+
+\item{sort_by}{Metadata by which files should be sorted to be in the correct
+run order. Defaults to \code{mtime}, which is time of last modification of
+files.}
+
+\item{...}{Additional arguments to be passed to \code{read_ddf()}.}
+}
+\value{
+A list of objects of class \code{workloop}, \code{twitch}, or
+\code{tetanus}, all of which inherit class \code{muscle_stim}. These objects
+behave like \code{data.frames} in most situations but also store metadata
+from the ddf as attributes.
+
+Each \code{muscle_stim} object's columns contain:
+\item{Time}{Time}
+\item{Position}{Length change of the muscle, uncorrected for gear ratio}
+\item{Force}{Force, uncorrected for gear ratio}
+\item{Stim}{When stimulation occurs, on a binary scale}
+
+In addition, the following information is stored in each \code{data.frame}'s
+attributes:
+\item{sample_frequency}{Frequency at which samples were collected}
+\item{pulses}{Number of sequential pulses within a stimulation train}
+\item{total_cycles_lo}{Total number of oscillatory cycles (assuming sine
+wave trajectory) that the muscle experienced. Cycles are defined with respect
+to initial muscle length (L0-to-L0 as opposed to peak-to-peak).}
+\item{amplitude}{amplitude of length change (again, assuming sine wave
+trajectory)}
+\item{cycle_frequency}{Frequency of oscillations (again, assuming sine wave
+trajectory)}
+\item{units}{The units of measurement for each column in the
+\code{data.frame}. This might be the most important attribute so please check
+ that it makes sense!}
+}
+\description{
+Uses \code{read_ddf()} to read in workloop, twitch, or tetanus experiment
+data from multiple .ddf files.
+}
+\details{
+Read in a .ddf file that contains data from an experiment. If
+position and force do not correspond to columns 2 and 3 (respectively),
+replace "2" and "3" within \code{rename_cols} accordingly. Similarly,
+\code{skip_cols = 4:11} should be adjusted if more than 11 columns are
+present and/or columns 4:11 contain important data.
+
+Please note that there is no correction for gear ratio or further
+manipulation of data. See \code{fix_GR} to adjust gear ratio. Gear ratio can
+also be adjusted prior to analyses within the \code{analyze_workloop()}
+function, the data import all-in-one function \code{read_analyze_wl()}, or
+the batch analysis all-in-one \code{read_analyze_wl_dir()}.
+
+Please also note that organization of data within the .ddf file is assumed to
+conform to that used by Aurora Scientific's Dynamic Muscle Control and
+Analysis Software. YMMV if using a .ddf file from another source. The
+\code{as_muscle_stim()} function can be used to generate \code{muscle_stim}
+objects if data are imported via another function. Please feel free to
+contact us with any issues or requests.
+}
+\examples{
+
+library(workloopR)
+
+# import a set of twitch .ddf files included in workloopR
+workloop_dat <-read_ddf_dir(system.file("extdata/wl_duration_trials",
+                 package = 'workloopR'))
+
+}
+\seealso{
+Other data import functions: 
+\code{\link{as_muscle_stim}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{read_ddf}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{data import functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/batch_analysis_functions.R
+\name{summarize_wl_trials}
+\alias{summarize_wl_trials}
+\title{Summarize work loop files}
+\usage{
+summarize_wl_trials(wl_list)
+}
+\arguments{
+\item{wl_list}{List of \code{analyzed_workloop} objects, preferably one
+created by \code{read_analyze_wl_dir()}.}
+}
+\value{
+A \code{data.frame} of information about the collection of workloop files.
+Columns include:
+\item{File_ID }{Name of the file}
+\item{Cycle_Frequency }{Frequency of Position change}
+\item{Amplitude }{amplitude of Position change}
+\item{Phase }{Phase of the oscillatory cycle (in percent) at which
+stimulation occurred. Somewhat experimental, please use with caution}
+\item{Stimulus_Pulses }{Number of stimulation pulses}
+\item{mtime }{Time at which file's contents were last changed (\code{mtime})}
+\item{Mean_Work }{Mean work output from the selected cycles}
+\item{Mean_Power }{Net power output from the selected cycles}
+}
+\description{
+Summarize important info from work loop files stored in the same folder
+(e.g. a sequence of trials in an experiment) including experimental
+parameters, run order, and \code{mtime}.
+}
+\details{
+If several files (e.g. successive trials from one experiment) are
+stored in one folder, use this function to obtain summary stats and
+metadata and other parameters. This function requires a list of
+\code{analyze_workloop} objects, which can be readily obtained by first
+running \code{read_analyze_wl_dir()} on a specified directory.
+}
+\examples{
+
+library(workloopR)
+
+# batch read and analyze files included with workloopR
+analyzed_wls <- read_analyze_wl_dir(system.file("extdata/wl_duration_trials",
+                                               package = 'workloopR'),
+                                    phase_from_peak = TRUE,
+                                    cycle_def = "p2p",
+                                    keep_cycles = 2:4
+                                    )
+
+# now summarize
+summarized_wls <- summarize_wl_trials(analyzed_wls)
+
+}
+\references{
+Josephson RK. 1985. Mechanical Power output from Striated Muscle
+ during Cyclic Contraction. Journal of Experimental Biology 114: 493-512.
+}
+\seealso{
+\code{\link{read_analyze_wl_dir}},
+\code{\link{get_wl_metadata}},
+\code{\link{time_correct}}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{time_correct}()}
+
+Other batch analyses: 
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{time_correct}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{batch analyses}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/batch_analysis_functions.R
+\name{get_wl_metadata}
+\alias{get_wl_metadata}
+\title{Get file info for a sequence of experiment files}
+\usage{
+get_wl_metadata(file_path, pattern = "*.ddf")
+}
+\arguments{
+\item{file_path}{Path where files are stored. Should be in the same folder.}
+
+\item{pattern}{Regex pattern for identifying relevant files in the file_path.}
+}
+\value{
+Either a \code{data.frame} (if a single file is supplied) or a
+\code{list} of \code{data.frame}s (if a list of files is supplied), with
+information as supplied from \code{file.info()}.
+}
+\description{
+Grab metadata from files stored in the same folder (e.g. a sequence of trials
+ in an experiment).
+}
+\details{
+If several files (e.g. successive trials from one experiment) are
+stored in one folder, use this function to obtain metadata in a list
+format. Runs \code{file.info()} from base R to extract info from files.
+
+This function is not truly considered to be part of the batch analysis
+pipeline;
+see \code{read_analyze_wl_dir()} for a similar function that not
+only grabs metadata but also imports & analyzes files. Instead,
+\code{get_wl_metadata()} is meant to be a handy function to investigate
+metadata issues that arise if running \code{read_analyze_wl_dir()} goes awry.
+
+Unlike \code{read_analyze_wl_dir()}, this function does not necessarily need
+files to all be work loops. Any file type is welcome (as long as the Regex
+\code{pattern} argument makes sense).
+}
+\examples{
+
+library(workloopR)
+
+# get file info for files included with workloopR
+wl_meta <- get_wl_metadata(system.file("extdata/wl_duration_trials",
+                                       package = 'workloopR'))
+
+}
+\seealso{
+\code{\link{summarize_wl_trials}}
+
+Other data import functions: 
+\code{\link{as_muscle_stim}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{read_ddf_dir}()},
+\code{\link{read_ddf}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+
+Other batch analyses: 
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+}
+\author{
+Vikram B. Baliga
+}
+\concept{batch analyses}
+\concept{data import functions}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data_transformation_functions.R
+\name{select_cycles}
+\alias{select_cycles}
+\title{Select cycles from a work loop object}
+\usage{
+select_cycles(
+  x,
+  cycle_def,
+  keep_cycles = 4:6,
+  bworth_order = 2,
+  bworth_freq = 0.05,
+  ...
+)
+}
+\arguments{
+\item{x}{A \code{workloop} object (see Details for how it should be
+organized)}
+
+\item{cycle_def}{A string specifying how cycles should be defined; one of:
+"lo", "p2p", or "t2t". See Details more info}
+
+\item{keep_cycles}{The indices of the cycles to keep. Include 0 to keep data
+identified as being outside complete cycles}
+
+\item{bworth_order}{Filter order for low-pass filtering of \code{Position}
+via \code{signal::butter()} prior to finding L0}
+
+\item{bworth_freq}{Critical frequency (scalar) for low-pass filtering of
+\code{Position} via \code{signal::butter()} prior to finding L0}
+
+\item{...}{Additional arguments passed to/from other functions that make use
+of \code{select_cycles()}}
+}
+\value{
+A \code{workloop} object with rows subsetted by the chosen position
+cycles. A \code{Cycle} column is appended to denote which cycle each time
+point is associated with. Finally, all attributes from the input
+\code{workloop} object are retained and one new attribute is added to
+record which cycles from the original data were retained.
+}
+\description{
+Retain data from a work loop experiment based on position cycle
+}
+\details{
+\code{select_cycles()} subsets data from a workloop trial by
+position cycle. The \code{cycle_def} argument is used to specify which part
+of the cycle is understood as the beginning and end. There are currently
+three options: \cr
+'lo' for L0-to-L0; \cr
+'p2p' for peak-to-peak; and \cr
+'t2t' for trough-to-trough \cr
+
+Peaks are identified using \code{pracma::findpeaks()}. L0 points on the
+rising edge are found by finding the midpoints between troughs and the
+following peak. However the first and last extrema and L0 points may be
+misidentified by this method. Please plot your \code{Position} cycles to
+ensure the edge cases are identified correctly.
+
+The \code{keep_cycles} argument is used to determine which cycles (as
+defined by \code{cycle_def} should be retained in the final dataset. Zero
+is the index assigned to all data points that are determined to be outside
+a complete cycle.
+
+The \code{muscle_stim} object (\code{x}) must be a \code{workloop},
+preferably read in by one of our data import functions. Please see
+documentation for \code{as_muscle_stim()} if you need to manually construct
+a \code{muscle_stim} object from another source.
+}
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+# select cycles 3 through 5 via the peak-to-peak definition
+wl_selected <- select_cycles(wl_dat, cycle_def = "p2p", keep_cycles = 3:5)
+
+
+# are the cycles of (approximately) the same length?
+summary(as.factor(wl_selected$Cycle))
+
+}
+\seealso{
+\code{\link{analyze_workloop}},
+\code{\link{read_analyze_wl}},
+\code{\link{read_analyze_wl_dir}}
+
+Other data transformations: 
+\code{\link{fix_GR}()},
+\code{\link{invert_position}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{data transformations}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data_transformation_functions.R
+\name{fix_GR}
+\alias{fix_GR}
+\title{Adjust for the gear ratio of a motor arm}
+\usage{
+fix_GR(x, GR = 1)
+}
+\arguments{
+\item{x}{A \code{muscle_stim} object}
+
+\item{GR}{Gear ratio, set to 1 by default}
+}
+\value{
+An object of the same class(es) as the input (\code{x}). The function
+ will multiply \code{Position} by (1/GR) and multiply \code{Force} by GR,
+ returning an object with new values in \code{$Position} and \code{$Force}.
+ Other columns and attributes are welcome and will simply be passed on
+ unchanged into the resulting object.
+}
+\description{
+Fix a discrepancy between the gear ratio of the motor arm used and the gear
+ratio recorded by software.
+}
+\details{
+The \code{muscle_stim} object can be of any type, including
+\code{workloop}, \code{twitch}, or \code{tetanus}.
+
+If you have manually constructed the object via \code{as_muscle_stim()},
+the \code{muscle_stim} object should have columns as follows: \cr
+\code{Position}: length change of the muscle; \cr
+\code{Force}: force \cr
+}
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+# apply a gear ratio correction of 2
+# this will multiply Force by 2 and divide Position by 2
+wl_fixed <- fix_GR(wl_dat, GR = 2)
+
+# quick check:
+max(wl_fixed$Force) / max(wl_dat$Force) # 5592.578 / 2796.289 = 2
+max(wl_fixed$Position) / max(wl_dat$Position) # 1.832262 / 3.664524 = 0.5
+
+}
+\seealso{
+\code{\link{analyze_workloop}},
+\code{\link{read_analyze_wl}},
+\code{\link{read_analyze_wl_dir}}
+
+Other data transformations: 
+\code{\link{invert_position}()},
+\code{\link{select_cycles}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+
+Other twitch functions: 
+\code{\link{invert_position}()},
+\code{\link{isometric_timing}()}
+
+Other tetanus functions: 
+\code{\link{invert_position}()}
+}
+\author{
+Vikram B. Baliga
+}
+\concept{data transformations}
+\concept{tetanus functions}
+\concept{twitch functions}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/batch_analysis_functions.R
+\name{read_analyze_wl_dir}
+\alias{read_analyze_wl_dir}
+\title{Read and analyze work loop files from a directory}
+\usage{
+read_analyze_wl_dir(file_path, pattern = "*.ddf", sort_by = "mtime", ...)
+}
+\arguments{
+\item{file_path}{Directory in which files are located}
+
+\item{pattern}{Regular expression used to specify files of interest. Defaults
+to all .ddf files within file_path}
+
+\item{sort_by}{Metadata by which files should be sorted to be in the correct
+run order. Defaults to \code{mtime}, which is time of last modification of
+files.}
+
+\item{...}{Additional arguments to be passed to \code{read_analyze_wl()},
+\code{analyze_workloop()}, \code{select_cycles()}, or \code{read_ddf()}.}
+}
+\value{
+A list containing \code{analyzed_workloop} objects, one for each file that is
+imported and subsequently analyzed. The list is sorted according to the
+\code{sort_by} parameter, which by default uses the time of last modification
+of each file's contents (mtime).
+}
+\description{
+All-in-one function to import multiple workloop .ddf files from a directory,
+sort them by mtime, analyze them, and store the resulting objects in an
+ordered list.
+}
+\details{
+Work loop data files will be imported and then arranged in the order
+in which they were run (assuming run order is reflected in \code{mtime}).
+Chiefly used in conjunction with \code{summarize_wl_trials()} and
+\code{time_correct()} if time correction is desired.
+}
+\section{Warning}{
+
+Most systems we have encountered record Position data in millimeters
+and Force in millinewtons, and therefore this function assumes data are
+recorded in those units. Through a series of internal conversions, this
+function computes velocity in meters/sec, work in Joules, and power in
+Watts. If your raw data do not originate in millimeters and millinewtons,
+please transform your data accordingly and ignore what you see in the
+attribute \code{units}.
+}
+
+\examples{
+
+library(workloopR)
+
+# batch read and analyze files included with workloopR
+analyzed_wls <- read_analyze_wl_dir(system.file("extdata/wl_duration_trials",
+                                                package = 'workloopR'),
+                                    phase_from_peak = TRUE,
+                                    cycle_def = "p2p", keep_cycles = 2:4)
+
+}
+\references{
+Josephson RK. 1985. Mechanical Power output from Striated Muscle
+ during Cyclic Contraction. Journal of Experimental Biology 114: 493-512.
+}
+\seealso{
+\code{\link{read_analyze_wl}},
+\code{\link{get_wl_metadata}},
+\code{\link{summarize_wl_trials}},
+\code{\link{time_correct}}
+
+Other data analyses: 
+\code{\link{analyze_workloop}()},
+\code{\link{isometric_timing}()},
+\code{\link{read_analyze_wl}()}
+
+Other data import functions: 
+\code{\link{as_muscle_stim}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{read_ddf_dir}()},
+\code{\link{read_ddf}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+
+Other batch analyses: 
+\code{\link{get_wl_metadata}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+}
+\author{
+Shreeram Senthivasan
+}
+\concept{batch analyses}
+\concept{data analyses}
+\concept{data import functions}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data_import_functions.R
+\name{read_ddf}
+\alias{read_ddf}
+\title{Import work loop or isometric data from .ddf files}
+\usage{
+read_ddf(
+  file_name,
+  file_id = NA,
+  rename_cols = list(c(2, 3), c("Position", "Force")),
+  skip_cols = 4:11,
+  phase_from_peak = FALSE,
+  ...
+)
+}
+\arguments{
+\item{file_name}{A .ddf file that contains data from a single workloop,
+twitch, or tetanus experiment}
+
+\item{file_id}{A string identifying the experiment. The file name is used by
+default.}
+
+\item{rename_cols}{List consisting of a vector of indices of columns to
+rename and a vector of new column names. See Details.}
+
+\item{skip_cols}{Numeric vector of column indices to skip. See Details.}
+
+\item{phase_from_peak}{Logical, indicating whether percent phase of
+stimulation should be recorded relative to peak length or relative to L0
+(default)}
+
+\item{...}{Additional arguments passed to/from other functions that work
+with \code{read_ddf()}}
+}
+\value{
+An object of class \code{workloop}, \code{twitch}, or \code{tetanus},
+all of which inherit class \code{muscle_stim}. These objects behave like
+\code{data.frames} in most situations but also store metadata from the ddf
+as attributes.
+
+The \code{muscle_stim} object's columns contain:
+\item{Time}{Time}
+\item{Position}{Length change of the muscle, uncorrected for gear ratio}
+\item{Force}{Force, uncorrected for gear ratio}
+\item{Stim}{When stimulation occurs, on a binary scale}
+
+In addition, the following information is stored in the \code{data.frame}'s
+attributes:
+\item{sample_frequency}{Frequency at which samples were collected}
+\item{pulses}{Number of sequential pulses within a stimulation train}
+\item{total_cycles_lo}{Total number of oscillatory cycles (assuming sine
+wave trajectory) that the muscle experienced. Cycles are defined with respect
+to initial muscle length (L0-to-L0 as opposed to peak-to-peak).}
+\item{amplitude}{amplitude of length change (again, assuming sine wave
+trajectory)}
+\item{cycle_frequency}{Frequency of oscillations (again, assuming sine wave
+trajectory)}
+\item{units}{The units of measurement for each column in the
+\code{data.frame}. This might be the most important attribute so please check
+ that it makes sense!}
+}
+\description{
+\code{read_ddf} reads in workloop, twitch, or tetanus experiment data from
+.ddf files.
+}
+\details{
+Read in a .ddf file that contains data from an experiment. If
+position and force do not correspond to columns 2 and 3 (respectively),
+replace "2" and "3" within \code{rename_cols} accordingly. Similarly,
+\code{skip_cols = 4:11} should be adjusted if more than 11 columns are
+present and/or columns 4:11 contain important data.
+
+Please note that there is no correction for gear ratio or further
+manipulation of data. See \code{fix_GR} to adjust gear ratio. Gear ratio can
+also be adjusted prior to analyses within the \code{analyze_workloop()}
+function, the data import all-in-one function \code{read_analyze_wl()}, or
+the batch analysis all-in-one \code{read_analyze_wl_dir()}.
+
+Please also note that organization of data within the .ddf file is assumed to
+conform to that used by Aurora Scientific's Dynamic Muscle Control and
+Analysis Software. YMMV if using a .ddf file from another source. The
+\code{as_muscle_stim()} function can be used to generate \code{muscle_stim}
+objects if data are imported via another function. Please feel free to
+contact us with any issues or requests.
+}
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+
+}
+\seealso{
+Other data import functions: 
+\code{\link{as_muscle_stim}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{read_ddf_dir}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{data import functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data_import_functions.R
+\name{as_muscle_stim}
+\alias{as_muscle_stim}
+\title{Create your own muscle_stim object}
+\usage{
+as_muscle_stim(x, type, sample_frequency, ...)
+}
+\arguments{
+\item{x}{A \code{data.frame}. See Details for how it should be organized.}
+
+\item{type}{Experiment type; must be one of: "workloop", "tetanus", or
+"twitch."}
+
+\item{sample_frequency}{Numeric value of the frequency at which samples were
+recorded; must be in Hz. Please format as numeric, e.g. \code{10000} works
+but \code{10000 Hz} does not}
+
+\item{...}{Additional arguments that can be passed in as attributes. See
+Details.}
+}
+\value{
+An object of class \code{workloop}, \code{twitch}, or \code{tetanus},
+all of which inherit class \code{muscle_stim}. These objects behave like
+\code{data.frames} in most situations but also store metadata from the ddf
+as attributes.
+
+The \code{muscle_stim} object's columns contain:
+\item{Time}{Time}
+\item{Position}{Length change of the muscle, uncorrected for gear ratio}
+\item{Force}{Force, uncorrected for gear ratio}
+\item{Stim}{When stimulation occurs, on a binary scale}
+
+In addition, the following information is stored in the \code{data.frame}'s
+attributes:
+\item{sample_frequency}{Frequency at which samples were collected}
+\item{pulses}{Number of sequential pulses within a stimulation train}
+\item{total_cycles_lo}{Total number of oscillatory cycles (assuming sine
+wave trajectory) that the muscle experienced. Cycles are defined with respect
+to initial muscle length (L0-to-L0 as opposed to peak-to-peak).}
+\item{amplitude}{amplitude of length change (again, assuming sine wave
+trajectory)}
+\item{cycle_frequency}{Frequency of oscillations (again, assuming sine wave
+trajectory)}
+\item{units}{The units of measurement for each column in the
+\code{data.frame}. This might be the most important attribute so please check
+ that it makes sense!}
+}
+\description{
+For use when data are not stored in .ddf format and you would like
+to create a \code{muscle_stim} object that can be used by other workloopR
+functions.
+}
+\details{
+\code{muscle_stim} objects, which are required by (nearly) all
+workloopR functions, are automatically created via \code{read_ddf()}. Should
+you have data that are stored in a format other than .ddf, use this function
+to create your own object of class \code{muscle_stim}.
+
+The input \code{x} must be a \code{data.frame} that contains time series
+of numeric data collected from an experiment. Each row must correspond to a
+sample, and these columns (exact title matches) must be included: \cr
+"Time" - time, recorded in seconds \cr
+"Position" - instantaneous position of the muscle,
+  preferably in millimeters \cr
+"Force" - force, preferably in millinewtons \cr
+"Stim" - whether stimulation has occurred. All entries must be either 0 (no
+stimulus) or 1 (stimulus occurrence).
+
+Additional arguments can be provided via \code{...}. For all experiment
+types, the following attributes are appropriate: \cr
+"units","header", "units_table",
+"protocol_table", "stim_table",
+"stimulus_pulses", "stimulus_offset",
+"stimulus_width", "gear_ratio",
+"file_id", or "mtime".
+
+Please ensure that further attributes are appropriate to your experiment
+type.
+
+For workloops, these include:
+"stimulus_frequency", "cycle_frequency",
+"total_cycles", "cycle_def",
+"amplitude", "phase",
+and "position_inverted"
+
+For twitches or tetanic trials:
+"stimulus_frequency", and "stimulus_length"
+}
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'))
+
+
+}
+\seealso{
+\code{\link{read_ddf}}
+
+Other data import functions: 
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{read_ddf_dir}()},
+\code{\link{read_ddf}()}
+}
+\author{
+Shreeram Senthivasan
+}
+\concept{data import functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/analysis_functions.R
+\name{analyze_workloop}
+\alias{analyze_workloop}
+\title{Analyze work loop object to compute work and power output}
+\usage{
+analyze_workloop(x, simplify = FALSE, GR = 1, M = -1, vel_bf = 0.05, ...)
+}
+\arguments{
+\item{x}{A \code{workloop} object of class \code{muscle_stim} that has been
+passed through
+\code{select_cycles}. See Details.}
+
+\item{simplify}{Logical. If \code{FALSE}, the full analyzed workloop
+object is returned. If \code{TRUE} a simpler table of net work and power
+(by cycle) is returned.}
+
+\item{GR}{Gear ratio, set to 1 by default}
+
+\item{M}{Velocity multiplier, set adjust the sign of velocity. This parameter
+should generally be either -1 (the default) or 1.}
+
+\item{vel_bf}{Critical frequency (scalar) for low-pass filtering of velocity
+via \code{signal::butter()}}
+
+\item{...}{Additional arguments potentially passed down from
+\code{read_analyze_wl()} or \code{read_analyze_wl_dir()}}
+}
+\value{
+The function returns a \code{list} of class \code{analyzed_workloop}
+that provides instantaneous velocity, a smoothed velocity, and computes work,
+ instantaneous power, and net power from a work loop experiment. All data are
+ organized by the cycle number and important metadata are stored as
+ Attributes.
+
+Within the \code{list}, each entry is labeled by cycle and includes:
+\item{Time}{Time, in sec}
+\item{Position}{Length change of the muscle, corrected for gear ratio, in mm}
+\item{Force}{Force, corrected for gear ratio, in mN}
+\item{Stim}{When stimulation occurs, on a binary scale}
+\item{Cycle}{Cycle ID, as a letter}
+\item{Inst_velocity}{Instantaneous velocity, computed from \code{Position}
+change, reported in meters/sec}
+\item{Filt_velocity}{Instantaneous velocity, after low-pass filtering, again
+ in meter/sec}
+\item{Inst_Power}{Instantaneous power, a product of \code{Force} and
+\code{Filt_velocity}, reported in J}
+\item{Percent_of_Cycle}{The percent of that particular cycle which has
+elapsed}
+
+In addition, the following information is stored in the
+\code{analyzed_workloop} object's attributes:
+\item{stimulus_frequency}{Frequency at which stimulus pulses occurred}
+\item{cycle_frequency}{Frequency of oscillations (assuming sine wave
+trajectory)}
+\item{total_cycles}{Total number of oscillatory cycles (assuming sine wave
+trajectory) that the muscle experienced.}
+\item{cycle_def}{Specifies what part of the cycle is understood as the
+beginning and end. There are currently three options:
+'lo' for L0-to-L0;
+'p2p' for peak-to-peak; and
+'t2t' for trough-to-trough}
+\item{amplitude}{Amplitude of length change (assuming sine wave
+trajectory)}
+\item{phase}{Phase of the oscillatory cycle (in percent) at which stimulation
+occurred. Somewhat experimental, please use with caution}
+\item{position_inverted}{Logical; whether position inversion has been
+applied)}
+\item{units}{The units of measurement for each column in the object after
+running this function. See Warning}
+\item{sample_frequency}{Frequency at which samples were collected}
+\item{header}{Additional information from the header}
+\item{units_table}{Units from each Channel of the original ddf file}
+\item{protocol_table}{Protocol in tabular format; taken from the original
+ddf file}
+\item{stim_table}{Specific info on stimulus protocol; taken from the original
+ddf file}
+\item{stimulus_pulses}{Number of sequential pulses within a stimulation
+train}
+\item{stimulus_offset}{Timing offset at which stimulus began}
+\item{gear_ratio}{Gear ratio applied by this function}
+\item{file_id}{File name}
+\item{mtime}{Time at which file was last modified}
+\item{retained_cycles}{Which cycles were retained, as numerics}
+\item{summary}{Simple table showing work (in J) and net power (in W) for each
+ cycle}
+}
+\description{
+Compute work and power output from a work loop experiment on a per-cycle
+basis.
+}
+\details{
+Please note that \code{select_cycles()} must be run on data prior to
+using this function. This function relies on the input \code{muscle_stim}
+object being organized by cycle number.
+
+The \code{muscle_stim} object (\code{x}) must be a \code{workloop},
+preferably read in by one of our data import functions. Please see
+documentation for \code{as_muscle_stim()} if you need to manually construct
+a \code{muscle_stim} object from a non .ddf source.
+
+The gear ratio (GR) and velocity multiplier (M) parameters can help correct
+for issues related to the magnitude and sign of data collection. By default,
+they are set to apply no gear ratio adjustment and to positivize velocity.
+Instantaneous velocity is often noisy and the \code{vel_bf} parameter allows
+for low-pass filtering of velocity data. See \code{signal::butter()} and
+\code{signal::filtfilt()} for details of how filtering is achieved.
+
+Please also be careful with units! Se Warning section below.
+}
+\section{Warning}{
+
+Most systems we have encountered record Position data in millimeters
+and Force in millinewtons, and therefore this function assumes data are
+recorded in those units. Through a series of internal conversions, this
+function computes velocity in meters/sec, work in Joules, and power in
+Watts. If your raw data do not originate in millimeters and millinewtons,
+please transform your data accordingly and ignore what you see in the
+attribute \code{units}.
+}
+
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+# select cycles 3 through 5 via the peak-to-peak definition
+wl_selected <- select_cycles(wl_dat, cycle_def = "p2p", keep_cycles = 3:5)
+
+# run the analysis function and get the full object
+wl_analyzed <- analyze_workloop(wl_selected, GR = 2)
+
+# print methods give a short summary
+print(wl_analyzed)
+
+# summary provides a bit more detail
+summary(wl_analyzed)
+
+# run the analysis but get the simplified version
+wl_analyzed_simple <- analyze_workloop(wl_selected, simplify = TRUE, GR = 2)
+
+}
+\references{
+Josephson RK. 1985. Mechanical Power output from Striated Muscle
+ during Cyclic Contraction. Journal of Experimental Biology 114: 493-512.
+}
+\seealso{
+\code{\link{read_ddf}},
+\code{\link{read_analyze_wl}},
+\code{\link{select_cycles}}
+
+Other data analyses: 
+\code{\link{isometric_timing}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()}
+
+Other workloop functions: 
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{data analyses}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/data_transformation_functions.R
+\name{invert_position}
+\alias{invert_position}
+\title{Invert the position data}
+\usage{
+invert_position(x)
+}
+\arguments{
+\item{x}{A \code{muscle_stim} object}
+}
+\value{
+A \code{workloop} object with inverted position. The
+\code{position_inverted} attribute is set to \code{TRUE} and all others are
+retained.
+}
+\description{
+Multiply instantaneous position by -1.
+}
+\details{
+The \code{muscle_stim} object can be of any type, including
+\code{workloop}, \code{twitch}, or \code{tetanus}.
+
+If you have manually constructed the object via \code{as_muscle_stim()},
+the \code{muscle_stim} object should have a column entitled \code{Position}.
+Other columns and attributes are welcome and will be passed along unchanged.
+}
+\examples{
+
+library(workloopR)
+
+# import the workloop.ddf file included in workloopR
+wl_dat <-read_ddf(system.file("extdata", "workloop.ddf",
+                              package = 'workloopR'),
+                  phase_from_peak = TRUE)
+
+# invert the sign of Position
+wl_fixed <- invert_position(wl_dat)
+
+# quick check:
+max(wl_fixed$Position) / min(wl_dat$Position) # -1
+
+}
+\seealso{
+Other data transformations: 
+\code{\link{fix_GR}()},
+\code{\link{select_cycles}()}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()},
+\code{\link{time_correct}()}
+
+Other twitch functions: 
+\code{\link{fix_GR}()},
+\code{\link{isometric_timing}()}
+
+Other tetanus functions: 
+\code{\link{fix_GR}()}
+}
+\author{
+Vikram B. Baliga
+}
+\concept{data transformations}
+\concept{tetanus functions}
+\concept{twitch functions}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/analysis_functions.R
+\name{time_correct}
+\alias{time_correct}
+\title{Time correction for work loop experiments}
+\usage{
+time_correct(x)
+}
+\arguments{
+\item{x}{A \code{data.frame} with summary data, e.g. an object created by
+\code{summarize_wl_trials()}.}
+}
+\value{
+A \code{data.frame} that additionally contains:
+\item{Time_Corrected_Work }{Time corrected work output, transformed from
+ \code{$Mean_Work}}
+\item{Time_Corrected_Power }{Time corrected net power output, transformed
+from \code{$Mean_Power}}
+
+And new attributes:
+\item{power_difference }{Difference in mass-specific net power output
+between the final and first trials.}
+\item{time_difference }{Difference in mtime between the final and first
+trials.}
+\item{time_correction_rate }{Overall rate; \code{power_difference} divided
+ by \code{time_difference}.}
+}
+\description{
+Correct for potential degradation of muscle over time.
+}
+\details{
+This function assumes that across a batch of successive trials, the
+stimulation parameters for the first and final trials are identical. If not,
+DO NOT USE. Decline in power output is therefore assumed to be a linear
+function of time. Accordingly, the difference between the final and first
+trial's (absolute) power output is used to 'correct' trials that occur in
+between, with explicit consideration of run order and time elapsed (via
+mtime). A similar correction procedure is applied to work.
+}
+\examples{
+
+library(workloopR)
+
+# batch read and analyze files included with workloopR
+analyzed_wls <- read_analyze_wl_dir(system.file("extdata/wl_duration_trials",
+                                                package = 'workloopR'),
+                                    phase_from_peak = TRUE,
+                                    cycle_def = "p2p", keep_cycles = 2:4)
+
+# now summarize
+summarized_wls <- summarize_wl_trials(analyzed_wls)
+
+
+# mtimes within the package are not accurate, so we'll supply
+# our own vector of mtimes
+summarized_wls$mtime <- read.csv(
+                          system.file(
+                            "extdata/wl_duration_trials/ddfmtimes.csv",
+                            package="workloopR"))$mtime
+
+# now time correct
+timecor_wls <- time_correct(summarized_wls)
+timecor_wls
+
+
+}
+\seealso{
+\code{\link{summarize_wl_trials}}
+
+Other workloop functions: 
+\code{\link{analyze_workloop}()},
+\code{\link{fix_GR}()},
+\code{\link{get_wl_metadata}()},
+\code{\link{invert_position}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{read_analyze_wl}()},
+\code{\link{select_cycles}()},
+\code{\link{summarize_wl_trials}()}
+
+Other batch analyses: 
+\code{\link{get_wl_metadata}()},
+\code{\link{read_analyze_wl_dir}()},
+\code{\link{summarize_wl_trials}()}
+}
+\author{
+Vikram B. Baliga and Shreeram Senthivasan
+}
+\concept{batch analyses}
+\concept{workloop functions}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/analysis_functions.R
+\name{trapezoidal_integration}
+\alias{trapezoidal_integration}
+\title{Approximate the definite integral via the trapezoidal rule}
+\usage{
+trapezoidal_integration(x, f)
+}
+\arguments{
+\item{x}{a variable, e.g. vector of positions}
+
+\item{f}{integrand, e.g. vector of forces}
+}
+\value{
+A numerical value indicating the value of the integral.
+}
+\description{
+Mostly meant for internal use in our analysis functions, but made available
+for other use cases. Accordingly, it does not strictly rely on objects of
+class \code{muscle_stim}.
+}
+\details{
+In the functions \code{analyze_workloop()}, \code{read_analyze_wl()}
+, and \code{read_analyze_wl_dir()}, work is calculated as the difference
+between the integral of the upper curve and the integral of the lower curve
+of a work loop.
+}
+\examples{
+
+# create a circle centered at (x = 10, y = 20) with radius 2
+t <- seq(0, 2 * pi, length = 1000)
+coords <- t(rbind(10 + sin(t) * 2, 20 + cos(t) * 2))
+
+
+# use the function to get the area
+trapezoidal_integration(coords[, 1], coords[, 2])
+
+# does it match (pi * r^2)?
+3.14159265358 * (2^2) # very close
+
+}
+\references{
+Atkinson, Kendall E. (1989), An Introduction to Numerical
+Analysis (2nd ed.), New York: John Wiley & Sons
+}
+\seealso{
+\code{\link{analyze_workloop}},
+\code{\link{read_analyze_wl}},
+\code{\link{read_analyze_wl_dir}}
+}
+\author{
+Vikram B. Baliga
+}

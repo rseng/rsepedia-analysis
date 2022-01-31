@@ -929,3 +929,877 @@ txt
 #  10 PMC6358… Case Repo…         1        3 Computed tomography (CT) of the abdomen and pelvis reveal…
 #  # … with 1,073 more rows
 ```
+---
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "# "
+)
+```
+
+[![Build Status](https://travis-ci.org/ropensci/tidypmc.svg?branch=master)](https://travis-ci.org/ropensci/tidypmc)
+[![Coverage status](https://codecov.io/gh/ropensci/tidypmc/branch/master/graph/badge.svg)](https://codecov.io/github/ropensci/tidypmc?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tidypmc)](https://cran.r-project.org/package=tidypmc)
+[![Downloads](https://cranlogs.r-pkg.org/badges/tidypmc)](https://CRAN.R-project.org/package=tidypmc)
+[![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/tidypmc?color=orange)](https://CRAN.R-project.org/package=tidypmc)
+
+# tidypmc
+
+The [Open Access subset] of [Pubmed Central] (PMC) includes 2.5 million articles
+from biomedical and life sciences journals.  The full text XML files are freely
+available for text mining from the [REST service] or [FTP site] but can be
+challenging to parse. For example, section tags are nested to arbitrary depths,
+formulas and tables may return incomprehensible text blobs and superscripted
+references are pasted at the end of words.  The functions in the `tidypmc`
+package are intended to return readable text and maintain the document
+structure, so gene names and other terms can be associated with specific
+sections, paragraphs, sentences or table rows.
+
+
+## Installation
+
+Use [remotes] to install the package.
+
+```{r install, eval=FALSE}
+remotes::install_github("ropensci/tidypmc")
+```
+
+## Load XML
+
+Download a single XML document like [PMC2231364] from the [REST service] using
+the `pmc_xml` function.
+
+```{r pmc_xml, message=FALSE, echo=-1}
+options(width=100)
+library(tidypmc)
+library(tidyverse)
+doc <- pmc_xml("PMC2231364")
+doc
+```
+
+The [europepmc] package includes additional functions to search PMC
+and download full text.  Be sure to include the `OPEN_ACCESS` field in
+the search since these are the only articles with full text XML available.
+
+```{r epmc, echo=-1}
+options(width=100)
+library(europepmc)
+yp <- epmc_search("title:(Yersinia pestis virulence) OPEN_ACCESS:Y")
+select(yp, pmcid, pubYear, title) %>%
+  print(n=5)
+```
+
+
+Save all `r nrow(yp)` results to a list of XML documents using the `epmc_ftxt` or `pmc_xml` function.
+
+```{r purrr, eval=FALSE}
+docs <- map(yp$pmcid, epmc_ftxt)
+```
+
+
+See the [PMC FTP vignette] for details on parsing the large XML files on the [FTP site]
+with 10,000 articles each.
+
+
+## Parse XML
+
+
+The package includes five functions to parse the `xml_document`.
+
+
+|R function     |Description                                                                |
+|:--------------|:--------------------------------------------------------------------------|
+|`pmc_text`     |Split section paragraphs into sentences with full path to subsection titles|
+|`pmc_caption`  |Split figure, table and supplementary material captions into sentences     |
+|`pmc_table`    |Convert table nodes into a list of tibbles                                 |
+|`pmc_reference`|Format references cited into a tibble                                      |
+|`pmc_metadata` |List journal and article metadata in front node                            |
+
+
+The `pmc_text` function uses the [tokenizers] package to split section paragraphs into
+sentences.  The function also removes any tables, figures or formulas that are nested
+within paragraph tags, replaces superscripted references with brackets, adds carets and
+underscores to other superscripts and subscripts and includes the full path to the
+subsection title.
+
+```{r pmc_text, echo=-1}
+options(width=110)
+txt <- pmc_text(doc)
+txt
+count(txt, section, sort=TRUE)
+```
+
+
+Load the [tidytext] package for further text processing.
+
+```{r tidytext, echo=-1}
+options(width=110)
+library(tidytext)
+x1 <- unnest_tokens(txt, word, text) %>%
+  anti_join(stop_words) %>%
+  filter(!word %in% 1:100)
+filter(x1, str_detect(section, "^Results"))
+filter(x1, str_detect(section, "^Results")) %>%
+  count(word, sort = TRUE)
+```
+
+
+
+The `pmc_table` function formats tables by collapsing multiline headers,
+expanding rowspan and colspan attributes and adding subheadings into a new column.
+
+```{r pmc_table, echo=-1}
+options(width=110)
+tbls <- pmc_table(doc)
+map_int(tbls, nrow)
+tbls[[1]]
+```
+
+Use `collapse_rows` to join column names and cell values in a semi-colon delimited string (and
+then search using functions in the next section).
+
+```{r collapserows, echo=-1}
+options(width=110)
+collapse_rows(tbls, na.string="-")
+```
+
+The other three `pmc` functions are described in the package [vignette].
+
+
+## Searching text
+
+There are a few functions to search within the `pmc_text` or collapsed
+`pmc_table` output.  `separate_text` uses the [stringr] package to extract any
+regular expression or vector of words.
+
+
+```{r separate_text, echo=-1}
+options(width=110)
+separate_text(txt, "[ATCGN]{5,}")
+```
+
+A few wrappers search pre-defined patterns and add an extra step to expand
+matched ranges. `separate_refs` matches references within brackets using
+`\\[[0-9, -]+\\]` and expands ranges like `[7-9]`.
+
+```{r separate_refs, echo=-1}
+options(width=110)
+separate_refs(txt)
+```
+
+`separate_genes` will find microbial genes like tauD (with a
+capitalized 4th letter)  and expand operons like `tauABCD` into
+four genes.  `separate_tags` will find and expand locus tag ranges below.
+
+
+```{r locus_tags, echo=-1}
+options(width=110)
+collapse_rows(tbls, na="-") %>%
+  separate_tags("YPO") %>%
+  filter(id == "YPO1855")
+```
+
+
+See the [vignette] for more details including code to parse
+XML documents using the [xml2] package.  The [PMC FTP vignette]
+has details on parsing XML files at the Europe PMC [FTP site].
+
+
+### Community Guidelines
+
+This project is released with a [Contributor Code of Conduct](CONDUCT.md). By
+participating in this project you agree to abide by its terms. Feedback, bug
+reports, and feature requests are welcome
+[here](https://github.com/ropensci/tidypmc/issues).
+
+
+[remotes]: https://github.com/r-lib/remotes
+[PMC2231364]: https://www.ebi.ac.uk/europepmc/webservices/rest/PMC2231364/fullTextXML
+[Open Access subset]: https://europepmc.org/downloads/openaccess
+[REST service]: https://europepmc.org/RestfulWebService
+[FTP site]: https://europepmc.org/ftp/oa/
+[tidytext]: https://www.tidytextmining.com/
+[stringr]: https://stringr.tidyverse.org/
+[vignette]: https://github.com/ropensci/tidypmc/blob/master/vignettes/tidypmc.md
+[PMC FTP vignette]: https://github.com/ropensci/tidypmc/blob/master/vignettes/pmcftp.md
+[tokenizers]: https://lincolnmullen.com/software/tokenizers/
+[xml2]: https://github.com/r-lib/xml2
+[europepmc]: https://github.com/ropensci/europepmc
+[Pubmed Central]: https://europepmc.org
+---
+title: "Parsing Europe PMC FTP files"
+author: "Chris Stubben"
+date: '`r gsub("  ", " ", format(Sys.time(), "%B %e, %Y"))`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Parse PMC FTP files}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "# "
+)
+```
+
+
+The [Europe PMC FTP] includes 2.5 million open access articles separated into
+files with 10K articles each.  Download and unzip a recent series of PMC ids
+and load into R using the `readr` package.   A sample file with the first 10
+articles is included in the `tidypmc` package.
+
+```{r load}
+library(readr)
+pmcfile <- system.file("extdata/PMC6358576_PMC6358589.xml", package = "tidypmc")
+pmc <- read_lines(pmcfile)
+```
+
+
+Find the start of the article nodes.
+
+```{r startnode}
+a1 <- grep("^<article ", pmc)
+head(a1)
+n <- length(a1)
+n
+```
+
+Read a single article by collapsing the lines into a new line separated string.
+
+
+```{r read1, echo=-1}
+options(width=100)
+library(xml2)
+x1 <- paste(pmc[2:29], collapse="\n")
+doc <- read_xml(x1)
+doc
+```
+
+
+Loop through the articles and save the metadata and text below.
+All 10K articles takes about 10 minutes to run on a Mac laptop and returns 1.7M
+sentences.
+
+
+```{r loop}
+library(tidypmc)
+a1 <- c(a1, length(pmc))
+met1 <- vector("list", n)
+txt1 <- vector("list", n)
+for(i in seq_len(n)){
+  doc <- read_xml(paste(pmc[a1[i]:(a1[i+1]-1)], collapse="\n"))
+  m1 <- pmc_metadata(doc)
+  id <- m1$PMCID
+  message("Parsing ", i, ". ", id)
+  met1[[i]] <- m1
+  txt1[[i]] <- pmc_text(doc)
+}
+```
+
+
+Combine the list of metadata and text into tables.
+
+
+```{r combine, echo=-1, message=FALSE}
+options(width=100)
+library(dplyr)
+met <- bind_rows(met1)
+names(txt1) <- met$PMCID
+txt <- bind_rows(txt1, .id="PMCID")
+met
+txt
+```
+
+
+
+
+[Europe PMC FTP]: https://europepmc.org/ftp/oa/
+---
+title: "Introduction to tidypmc"
+author: "Chris Stubben"
+date: '`r gsub("  ", " ", format(Sys.time(), "%B %e, %Y"))`'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Introduction to tidypmc}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "# "
+)
+```
+
+The `tidypmc` package parses XML documents in the Open Access subset of [Pubmed Central].
+Download the full text using `pmc_xml`.
+
+```{r epmc_ftxt}
+library(tidypmc)
+doc <- pmc_xml("PMC2231364")
+doc
+```
+
+The package includes five functions to parse the `xml_document`.
+
+
+|R function     |Description                                                                |
+|:--------------|:--------------------------------------------------------------------------|
+|`pmc_text`     |Split section paragraphs into sentences with full path to subsection titles|
+|`pmc_caption`  |Split figure, table and supplementary material captions into sentences     |
+|`pmc_table`    |Convert table nodes into a list of tibbles                                 |
+|`pmc_reference`|Format references cited into a tibble                                      |
+|`pmc_metadata` |List journal and article metadata in front node                            |
+
+
+
+`pmc_text` splits paragraphs into sentences and  removes any tables, figures or
+formulas that are nested within paragraph tags, replaces superscripted
+references with brackets, adds carets and underscores to other superscripts and
+subscripts and includes the full path to the subsection title.
+
+```{r pmc_text, message=FALSE, echo=-1}
+options(width=100)
+library(dplyr)
+txt <- pmc_text(doc)
+txt
+count(txt, section)
+```
+
+`pmc_caption` splits figure, table and supplementary material captions into sentences.
+
+
+```{r pmc_caption, echo=-1}
+options(width=100)
+cap1 <- pmc_caption(doc)
+filter(cap1, sentence == 1)
+```
+
+`pmc_table` formats tables by collapsing multiline headers, expanding rowspan and
+colspan attributes and adding subheadings into a new column.
+
+```{r pmc_table, echo=-1}
+options(width=100)
+tab1 <- pmc_table(doc)
+sapply(tab1, nrow)
+tab1[[1]]
+```
+
+Captions and footnotes are added as attributes.
+
+```{r attributes}
+attributes(tab1[[1]])
+```
+
+
+Use `collapse_rows` to join column names and cell values in a semi-colon delimited string (and
+then search using functions in the next section).
+
+```{r collapserows, echo=-1}
+options(width=100)
+collapse_rows(tab1, na.string="-")
+```
+
+
+`pmc_reference` extracts the id, pmid, authors, year, title, journal, volume, pages,
+and DOIs from reference tags.
+
+
+```{r pmc_ref, echo=-1}
+options(width=100)
+ref1 <- pmc_reference(doc)
+ref1
+```
+
+
+Finally, `pmc_metadata` saves journal and article metadata to a list.
+
+```{r pmc_metadata}
+pmc_metadata(doc)
+```
+
+
+## Searching text
+
+There are a few functions to search within the `pmc_text` or collapsed `pmc_table` output.
+`separate_text` uses the [stringr]  package to extract any matching regular expression.
+
+
+```{r separate_text, echo=-1}
+options(width=100)
+separate_text(txt, "[ATCGN]{5,}")
+```
+
+A few wrappers search pre-defined patterns and add an extra step to expand matched ranges. `separate_refs`
+matches references within brackets using `\\[[0-9, -]+\\]` and expands ranges like `[7-9]`.
+
+```{r separate_refs, echo=-1}
+options(width=100)
+x <- separate_refs(txt)
+x
+filter(x, id == 8)
+```
+
+`separate_genes` expands microbial gene operons like `hmsHFRS` into four separate genes.
+
+```{r separate_genes, echo=-1}
+options(width=100)
+separate_genes(txt)
+```
+
+Finally, `separate_tags` expands locus tag ranges.
+
+
+```{r locus_tags, echo=-1}
+options(width=100)
+collapse_rows(tab1, na="-") %>%
+  separate_tags("YPO")
+```
+
+
+### Using `xml2`
+
+The `pmc_*` functions use the [xml2] package for parsing and may fail in some situations, so
+it helps to know how to parse `xml_documents`.  Use `cat` and `as.character` to view nodes
+returned by `xml_find_all`.
+
+```{r catchar}
+library(xml2)
+refs <- xml_find_all(doc, "//ref")
+refs[1]
+cat(as.character(refs[1]))
+```
+
+
+Many journals use superscripts for references cited so they usually
+appear after words like `results9` below.
+
+```{r pmcdoc1, message=FALSE}
+# doc1 <- pmc_xml("PMC6385181")
+doc1 <- read_xml(system.file("extdata/PMC6385181.xml", package = "tidypmc"))
+gsub(".*\\. ", "", xml_text( xml_find_all(doc1, "//sec/p"))[2])
+```
+
+Find the tags using `xml_find_all` and then update the nodes by adding brackets
+or other text.
+
+```{r bib}
+bib <- xml_find_all(doc1, "//xref[@ref-type='bibr']")
+bib[1]
+xml_text(bib) <- paste0(" [", xml_text(bib), "]")
+bib[1]
+```
+
+The text is now separated from the reference.  Note the `pmc_text` function adds the brackets by default.
+
+```{r pmc_text2, message=FALSE}
+gsub(".*\\. ", "", xml_text( xml_find_all(doc1, "//sec/p"))[2])
+```
+
+
+Genes, species and many other terms are often included within italic tags.  You
+can mark these nodes using the same code above or simply list all the names
+in italics and search text or tables for matches, for example three letter gene
+names in text below.
+
+
+```{r italicgenes}
+library(tibble)
+x <- xml_name(xml_find_all(doc, "//*"))
+tibble(tag=x) %>%
+  count(tag, sort=TRUE)
+it <- xml_text(xml_find_all(doc, "//sec//p//italic"), trim=TRUE)
+it2 <- tibble(italic=it) %>%
+  count(italic, sort=TRUE)
+it2
+filter(it2, nchar(italic) == 3)
+separate_text(txt, c("fur", "cys", "hmu", "ybt", "yfe", "yfu", "ymt"))
+```
+
+
+
+
+[stringr]: https://stringr.tidyverse.org/
+[xml2]: https://github.com/r-lib/xml2
+[europepmc]: https://github.com/ropensci/europepmc
+[Pubmed Central]: https://europepmc.org
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_table.R
+\name{pmc_table}
+\alias{pmc_table}
+\title{Convert table nodes to tibbles}
+\usage{
+pmc_table(doc)
+}
+\arguments{
+\item{doc}{\code{xml_document} from PubMed Central}
+}
+\value{
+a list of tibbles
+}
+\description{
+Convert PubMed Central table nodes into a list of tibbles
+}
+\note{
+Saves the caption and footnotes as attributes and collapses multiline
+headers, expands all rowspan and colspan attributes and adds
+subheadings to column one.
+}
+\examples{
+# doc <- pmc_xml("PMC2231364")
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+  package = "tidypmc"
+))
+x <- pmc_table(doc)
+sapply(x, dim)
+x
+attributes(x[[1]])
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/collapse_rows.R
+\name{collapse_rows}
+\alias{collapse_rows}
+\title{Collapse a list of PubMed Central tables}
+\usage{
+collapse_rows(pmc, na.string)
+}
+\arguments{
+\item{pmc}{a list of tables, usually from \code{\link{pmc_table}}}
+
+\item{na.string}{additional cell values to skip, default is NA and ""}
+}
+\value{
+A tibble with table and row number and collapsed text
+}
+\description{
+Collapse rows into a semi-colon delimited list with column names and cell
+values
+}
+\examples{
+x <- data.frame(
+  genes = c("aroB", "glnP", "ndhA", "pyrF"),
+  fold_change = c(2.5, 1.7, -3.1, -2.6)
+)
+collapse_rows(list(`Table 1` = x))
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_caption.R
+\name{pmc_caption}
+\alias{pmc_caption}
+\title{Split captions into sentences}
+\usage{
+pmc_caption(doc)
+}
+\arguments{
+\item{doc}{\code{xml_document} from PubMed Central}
+}
+\value{
+a tibble with tag, label, sentence number and text
+}
+\description{
+Split figure, table and supplementary material captions into sentences
+}
+\examples{
+# doc <- pmc_xml("PMC2231364") # OR
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+  package = "tidypmc"
+))
+x <- pmc_caption(doc)
+x
+dplyr::filter(x, sentence == 1)
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/tidypmc-package.R
+\docType{package}
+\name{tidypmc}
+\alias{tidypmc}
+\alias{tidypmc-package}
+\title{\code{tidypmc} package}
+\description{
+Parse full text XML documents from PubMed Central
+}
+\details{
+See the Github page for details at \url{https://github.com/ropensci/tidypmc}
+}
+\keyword{internal}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_reference.R
+\name{pmc_reference}
+\alias{pmc_reference}
+\title{Format references cited}
+\usage{
+pmc_reference(doc)
+}
+\arguments{
+\item{doc}{\code{xml_document} from PubMed Central}
+}
+\value{
+a tibble with id, pmid, authors, year, title, journal, volume, pages,
+and doi.
+}
+\description{
+Format references cited
+}
+\note{
+Mixed citations without any child tags are added to the author column.
+}
+\examples{
+# doc <- pmc_xml("PMC2231364")
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+  package = "tidypmc"
+))
+x <- pmc_reference(doc)
+x
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_xml.R
+\name{pmc_xml}
+\alias{pmc_xml}
+\title{Download XML from PubMed Central}
+\source{
+\url{https://europepmc.org/RestfulWebService}
+}
+\usage{
+pmc_xml(id)
+}
+\arguments{
+\item{id}{a PMC id starting with 'PMC'}
+}
+\value{
+\code{xml_document}
+}
+\description{
+Download XML from PubMed Central
+}
+\examples{
+\dontrun{
+doc <- pmc_xml("PMC2231364")
+}
+
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_metadata.R
+\name{pmc_metadata}
+\alias{pmc_metadata}
+\title{Get article metadata}
+\usage{
+pmc_metadata(doc)
+}
+\arguments{
+\item{doc}{\code{xml_document} from PubMed Central}
+}
+\value{
+a list
+}
+\description{
+Get a list of journal and article metadata in /front tag
+}
+\examples{
+# doc <- pmc_xml("PMC2231364") # OR
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+  package = "tidypmc"
+))
+pmc_metadata(doc)
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/separate_text.R
+\name{separate_text}
+\alias{separate_text}
+\title{Separate all matching text into multiple rows}
+\usage{
+separate_text(txt, pattern, column = "text")
+}
+\arguments{
+\item{txt}{a tibble, usually results from \code{pmc_text}}
+
+\item{pattern}{either a regular expression or a vector of words to find in
+text}
+
+\item{column}{column name, default "text"}
+}
+\value{
+a tibble
+}
+\description{
+Separate all matching text into multiple rows
+}
+\note{
+passed to \code{grepl} and \code{str_extract_all}
+}
+\examples{
+# doc <- pmc_xml("PMC2231364")
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+        package = "tidypmc"))
+txt <- pmc_text(doc)
+separate_text(txt, "[ATCGN]{5,}")
+separate_text(txt, "\\\\([A-Z]{3,6}s?\\\\)")
+# pattern can be a vector of words
+separate_text(txt, c("hmu", "ybt", "yfe", "yfu"))
+# wrappers for separate_text with extra step to expand matched ranges
+separate_refs(txt)
+separate_genes(txt)
+separate_tags(txt, "YPO")
+
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/pmc_text.R
+\name{pmc_text}
+\alias{pmc_text}
+\title{Split section paragraphs into sentences}
+\usage{
+pmc_text(doc)
+}
+\arguments{
+\item{doc}{\code{xml_document} from PubMed Central}
+}
+\value{
+a tibble with section, paragraph and sentence number and text
+}
+\description{
+Split section paragraph tags into a table with subsection titles and
+sentences using \code{tokenize_sentences}
+}
+\note{
+Subsections may be nested to arbitrary depths and this function will
+return the entire path to the subsection title as a delimited string like
+"Results; Predicted functions; Pathogenicity".  Tables, figures and
+formulas that are nested in section paragraphs are removed, superscripted
+references are replaced with brackets, and any other superscripts or
+subscripts are separared with ^ and _.
+}
+\examples{
+# doc <- pmc_xml("PMC2231364")
+doc <- xml2::read_xml(system.file("extdata/PMC2231364.xml",
+  package = "tidypmc"
+))
+txt <- pmc_text(doc)
+txt
+dplyr::count(txt, section, sort = TRUE)
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/separate_tags.R
+\name{separate_tags}
+\alias{separate_tags}
+\title{Separate locus tag into multiple rows}
+\usage{
+separate_tags(txt, pattern, column = "text")
+}
+\arguments{
+\item{txt}{a table}
+
+\item{pattern}{regular expression to match locus tags like YPO[0-9-]+ or
+the locus tag prefix like YPO.}
+
+\item{column}{column name to search, default "text"}
+}
+\value{
+a tibble with locus tag, matching text and rows.
+}
+\description{
+Separates locus tags mentioned in full text and expands ranges like
+YPO1970-74 into new rows
+}
+\examples{
+x <- data.frame(row = 1, text = "some genes like YPO1002 and YPO1970-74")
+separate_tags(x, "YPO")
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/separate_refs.R
+\name{separate_refs}
+\alias{separate_refs}
+\title{Separate references cited into multiple rows}
+\usage{
+separate_refs(txt, column = "text")
+}
+\arguments{
+\item{txt}{a table}
+
+\item{column}{column name, default "text"}
+}
+\value{
+a tibble
+}
+\description{
+Separates references cited in brackets or parentheses into multiple rows and
+splits the comma-delimited numeric strings and expands ranges like 7-9 into
+new rows
+}
+\examples{
+x <- data.frame(row = 1, text = "some important studies [7-9,15]")
+separate_refs(x)
+}
+\author{
+Chris Stubben
+}
+% Generated by roxygen2: do not edit by hand
+% Please edit documentation in R/separate_genes.R
+\name{separate_genes}
+\alias{separate_genes}
+\title{Separate genes and operons into multiple rows}
+\usage{
+separate_genes(txt, pattern = "\\\\b[A-Za-z][a-z]{2}[A-Z0-9]+\\\\b",
+  genes, operon = 6, column = "text")
+}
+\arguments{
+\item{txt}{a table}
+
+\item{pattern}{regular expression to match genes, default is to match
+microbial genes like AbcD, default [A-Za-z][a-z]{2}[A-Z0-9]+}
+
+\item{genes}{an optional vector of genes, set pattern to NA to only match
+this list.}
+
+\item{operon}{operon length, default 6. Split genes with 6 or more letters
+into separate genes, for example AbcDEF is split into abcD, abcE and abcF.}
+
+\item{column}{column name to search, default "text"}
+}
+\value{
+a tibble with gene name, matching text and rows.
+}
+\description{
+Separate genes and operons mentioned in full text into multiple rows
+}
+\note{
+Check for genes in italics using \code{xml_text(xml_find_all(doc,
+"//sec//p//italic"))} and update the pattern or add additional genes as an
+optional vector if needed
+}
+\examples{
+x <- data.frame(row = 1, text = "Genes like YacK, hmu and sufABC")
+separate_genes(x)
+separate_genes(x, genes = "hmu")
+}
+\author{
+Chris Stubben
+}
