@@ -1,0 +1,45 @@
+Package: tidync
+Title: A Tidy Approach to 'NetCDF' Data Exploration and Extraction
+Version: 0.2.4.9002
+Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre")), 
+             person("Simon", "Wotherspoon", role = "ctb"), 
+             person("Tomas", "Remenyi", role = "ctb"), 
+             person("Ben", "Raymond", role = "ctb"), 
+             person("Jakub", "Nowosad", role = "ctb"), 
+             person("Tim", "Lucas", role = "ctb"), 
+             person("Hadley", "Wickham", role = "ctb"), 
+             person("Adrian", "Odenweller", role = "ctb"))
+Description: Tidy tools for 'NetCDF' data sources. Explore the contents of a 
+ 'NetCDF' source (file or URL) presented as variables organized by grid with a 
+ database-like interface. The hyper_filter() interactive function translates the 
+ filter value or index expressions to array-slicing form. No data is read until 
+ explicitly requested, as a data frame or list of arrays via hyper_tibble() or 
+ hyper_array(). 
+Depends: R (>= 3.5.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+ByteCompile: true
+Imports:
+    dplyr (>= 0.7.0),
+    forcats,
+    magrittr,
+    ncdf4,
+    ncmeta (>= 0.2.0),
+    purrr,
+    RNetCDF (>= 1.9-1),
+    rlang,
+    tibble,
+    tidyr
+RoxygenNote: 7.1.2
+Suggests: ggplot2,
+    knitr,
+    rmarkdown,
+    testthat,
+    covr,    
+    cubelyr
+SystemRequirements: netcdf udunits-2
+Roxygen: list(markdown = TRUE)
+URL: https://docs.ropensci.org/tidync/
+BugReports: https://github.com/ropensci/tidync/issues
+VignetteBuilder: knitr

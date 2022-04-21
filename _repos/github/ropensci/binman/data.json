@@ -1,0 +1,158 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/binman": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "rappdirs": {
+            "credit": 0.001414285714285729,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "yaml": {
+            "credit": 0.1425836892857143,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "httr": {
+            "credit": 0.15658511785714288,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.1425836892857143,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "xml2": {
+            "credit": 0.0025694035714285864,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "assertthat": {
+            "credit": 0.02141632653061226,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/johndharrison/semver"
+        },
+        "withr": {
+            "credit": 0.0014351464285714299,
+            "url": "https://withr.r-lib.org"
+        },
+        "covr": {
+            "credit": 0.08326516224489795,
+            "url": "https://covr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.11214310867346937,
+            "url": "https://testthat.r-lib.org"
+        },
+        "roxygen2": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "R": {
+            "credit": 0.045469639285714285,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03746882295918367,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.015156546428571428,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03746882295918367,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.015156546428571428,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.017466782142857143,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.021157158673469387,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "rex": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0011551178571428571,
+            "url": null
+        }
+    }
+}

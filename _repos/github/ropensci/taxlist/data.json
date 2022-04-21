@@ -1,0 +1,174 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/taxlist": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "biblio": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/kamapu/biblio"
+        },
+        "foreign": {
+            "credit": 0.0016500000000000126,
+            "url": "https://svn.r-project.org/R-packages/trunk/foreign/"
+        },
+        "taxa": {
+            "credit": 0.165,
+            "url": "https://docs.ropensci.org/taxa/"
+        },
+        "taxize": {
+            "credit": 0.0016500000000000126,
+            "url": "https://docs.ropensci.org/taxize/ (website)"
+        },
+        "stringdist": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/markvanderloo/stringdist"
+        },
+        "vegdata": {
+            "credit": 0.165,
+            "url": "http://germansl.infinitenature.org"
+        },
+        "testthat": {
+            "credit": 0.026252678571428573,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "yamlme": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.06709017857142857,
+            "url": null
+        },
+        "R": {
+            "credit": 0.12154017857142857,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "vcr": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "vegan": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "conditionz": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "phangorn": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "wikitaxa": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "natserv": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "worrms": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "ritis": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "rotl": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "rredlist": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "bold": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.05445,
+            "url": null
+        }
+    }
+}

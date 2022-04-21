@@ -1,0 +1,358 @@
+{
+    "DESCRIPTION": {
+        "github/mlr-org/mcboost": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "backports": {
+            "credit": 0.02346807692307693,
+            "url": "https://github.com/r-lib/backports"
+        },
+        "checkmate": {
+            "credit": 0.021195381270903015,
+            "url": "https://github.com/mllg/checkmate"
+        },
+        "data.table": {
+            "credit": 0.02772938127090303,
+            "url": "https://r-datatable.com"
+        },
+        "mlr3": {
+            "credit": 0.007764381270903014,
+            "url": "https://mlr3.mlr-org.com"
+        },
+        "mlr3misc": {
+            "credit": 0.011394381270903,
+            "url": "https://mlr3misc.mlr-org.com"
+        },
+        "mlr3pipelines": {
+            "credit": 0.005251304347826092,
+            "url": "https://mlr3pipelines.mlr-org.com"
+        },
+        "mlr3proba": {
+            "credit": 0.0009900000000000048,
+            "url": "https://mlr3proba.mlr-org.com"
+        },
+        "R6": {
+            "credit": 0.02772938127090303,
+            "url": "https://r6.r-lib.org"
+        },
+        "rpart": {
+            "credit": 0.011394381270903,
+            "url": "https://github.com/bethatkinson/rpart"
+        },
+        "glmnet": {
+            "credit": 0.0035030769230769278,
+            "url": "https://glmnet.stanford.edu"
+        },
+        "R": {
+            "credit": 0.1927281120401338,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.006534,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "tinytest": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.06694861204013378,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.024753807692307693,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.02901511204013378,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.01330838127090301,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.014073230769230768,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.01821980769230769,
+            "url": null
+        },
+        "remotes": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "progressr": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "mlr3data": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "future.callr": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "distr6": {
+            "credit": 0.007891304347826087,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.013431,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.01116923076923077,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "paradox": {
+            "credit": 0.02020538127090301,
+            "url": null
+        },
+        "palmerpenguins": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "parallelly": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "mlr3measures": {
+            "credit": 0.006143076923076923,
+            "url": null
+        },
+        "mlbench": {
+            "credit": 0.006143076923076923,
+            "url": null
+        },
+        "lgr": {
+            "credit": 0.010404381270903009,
+            "url": null
+        },
+        "future.apply": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "future": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.015944076923076922,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.012314076923076924,
+            "url": null
+        },
+        "vtreat": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "GenSA": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "kknn": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "NMF": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "smotefamily": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "kernlab": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "fastICA": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "bestNormalize": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "visNetwork": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "stopwords": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "quanteda": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "nloptr": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "mlr3learners": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "mlr3filters": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "bbotk": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "lme4": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.002513076923076923,
+            "url": null
+        },
+        "survAUC": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "simsurv": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "set6": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "pracma": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "param6": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "cubature": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "bujar": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.03140253511705686,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.011800535117056856,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "lars": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "shape": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.007539230769230769,
+            "url": null
+        }
+    }
+}

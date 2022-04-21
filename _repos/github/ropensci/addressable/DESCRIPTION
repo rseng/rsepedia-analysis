@@ -1,0 +1,23 @@
+Package: addressable
+Type: Package
+Title: Email Address Validation
+Description: Email Address Validation.
+Version: 0.0.1.91
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "sckott@protonmail.com"))
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/addressable,
+  https://docs.ropensci.org/addressable
+BugReports: https://github.com/ropensci/addressable/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Imports:
+    R6,
+    utf8,
+    urltools,
+    iptools,
+    ipaddress,
+    pingr
+Suggests:
+    testthat
+RoxygenNote: 7.1.0

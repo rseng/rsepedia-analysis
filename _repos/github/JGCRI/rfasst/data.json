@@ -1,0 +1,14 @@
+{
+    "DESCRIPTION": {
+        "github/JGCRI/rfasst": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "tidyr": {
+            "credit": 0.0099,
+            "url": "https://tidyr.tidyverse.org"
+        }
+    }
+}

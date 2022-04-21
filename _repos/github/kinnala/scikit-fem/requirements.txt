@@ -1,0 +1,17 @@
+numpy
+scipy
+meshio
+matplotlib
+ipython
+pytest
+pygmsh
+gmsh
+pacopy
+pyamg
+mypy
+flake8
+dmsh
+sphinx
+h5py
+glvis
+autograd

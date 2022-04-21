@@ -1,0 +1,138 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/ramlegacy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.0019800000000000095,
+            "url": "https://cli.r-lib.org"
+        },
+        "crayon": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/r-lib/crayon#readme"
+        },
+        "httr": {
+            "credit": 0.198,
+            "url": "https://httr.r-lib.org/"
+        },
+        "rappdirs": {
+            "credit": 0.0019799999999999818,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "readxl": {
+            "credit": 0.0019800000000000095,
+            "url": "https://readxl.tidyverse.org"
+        },
+        "withr": {
+            "credit": 0.07572946583850931,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.030302608695652176,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.09750946583850931,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.03652546583850932,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.030302608695652176,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.03652546583850932,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.03652546583850932,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.030302608695652176,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.03652546583850932,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.06950660869565217,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.05830546583850932,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "R": {
+            "credit": 0.04772660869565218,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "cellranger": {
+            "credit": 0.02178,
+            "url": null
+        }
+    }
+}

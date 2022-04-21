@@ -1,0 +1,54 @@
+Package: rfishbase
+Title: R Interface to 'FishBase'
+Description: A programmatic interface to 'FishBase', re-written
+    based on an accompanying 'RESTful' API. Access tables describing over 30,000
+    species of fish, their biology, ecology, morphology, and more. This package also
+    supports experimental access to 'SeaLifeBase' data, which contains
+    nearly 200,000 species records for all types of aquatic life not covered by
+    'FishBase.'
+Version: 4.0.0
+Encoding: UTF-8
+License: CC0
+Authors@R: c(person("Carl", "Boettiger",
+                    role = c("cre", "aut"),
+                    email = "cboettig@gmail.com", ,
+                    comment = c(ORCID = "0000-0002-1642-628X")),
+             person("Scott", "Chamberlain", role = "aut",
+                    email = "myrmecocystus@gmail.com",
+                    comment = c(ORCID="0000-0003-1444-9135")),
+             person("Duncan", "Temple Lang", role = "aut"),
+             person("Peter", "Wainwright", role = "aut"),
+             person("Kevin", "Cazelles", role = "ctb", 
+                    comment = c(ORCID = "0000-0001-6619-9874")))
+URL: https://docs.ropensci.org/rfishbase/, https://github.com/ropensci/rfishbase
+BugReports: https://github.com/ropensci/rfishbase/issues
+LazyData: true
+Depends:
+    R (>= 4.0)
+Imports:
+    methods,
+    utils,
+    tools,
+    purrr,
+    progress,
+    memoise,
+    rlang,
+    magrittr,
+    tibble,
+    readr (>= 2.0.0),
+    stringr,
+    jsonlite,
+    DBI,
+    dplyr,
+    dbplyr,
+    duckdb,
+    contentid (>= 0.0.15),
+    rstudioapi
+Suggests:
+    testthat,
+    rmarkdown,
+    knitr,
+    covr,
+    spelling
+RoxygenNote: 7.1.2
+Language: en-US

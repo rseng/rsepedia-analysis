@@ -1,0 +1,374 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci-review-tools/pkgcheck": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.0006599999999999939,
+            "url": "https://cli.r-lib.org"
+        },
+        "covr": {
+            "credit": 0.05322231693363844,
+            "url": "https://covr.r-lib.org"
+        },
+        "curl": {
+            "credit": 0.0033824999999999945,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "fs": {
+            "credit": 0.003079999999999994,
+            "url": "https://fs.r-lib.org"
+        },
+        "gert": {
+            "credit": 0.0006599999999999939,
+            "url": "https://docs.ropensci.org/gert/"
+        },
+        "ghql": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/ropensci/ghql (devel)\nhttps://docs.ropensci.org/ghql (docs)"
+        },
+        "glue": {
+            "credit": 0.0035008695652173857,
+            "url": "https://github.com/tidyverse/glue"
+        },
+        "goodpractice": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/mangothecat/goodpractice"
+        },
+        "httr": {
+            "credit": 0.07416750000000001,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.09490944736842107,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "magrittr": {
+            "credit": 0.016631999999999997,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rappdirs": {
+            "credit": 0.0006599999999999939,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.05667081693363844,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "rprojroot": {
+            "credit": 0.0006599999999999939,
+            "url": "https://rprojroot.r-lib.org/"
+        },
+        "rvest": {
+            "credit": 0.0006599999999999939,
+            "url": "http://rvest.tidyverse.org/"
+        },
+        "withr": {
+            "credit": 0.04136981693363845,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.006279816933638445,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.010705869565217394,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.08456681693363846,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.005260869565217392,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.015536316933638447,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.016453369565217396,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.005563369565217392,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.016695369565217395,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.05843081693363845,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.007983369565217393,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.007983369565217393,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.0028408695652173918,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.011422316933638446,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0615258695652174,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.0027225000000000005,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0027225000000000005,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.011606447368421055,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.0027225000000000005,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.015790500000000002,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.005142500000000001,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.014873447368421056,
+            "url": null
+        },
+        "rex": {
+            "credit": 0.0027225000000000005,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0027225000000000005,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.007260000000000001,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.007260000000000001,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.024684000000000005,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.011132000000000001,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.005445000000000001,
+            "url": null
+        },
+        "zip": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "sys": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "credentials": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "askpass": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "graphql": {
+            "credit": 0.013068000000000001,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.013068000000000001,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.005687000000000001,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "rprintf": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0032670000000000004,
+            "url": null
+        },
+        "clisymbols": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "lintr": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "cyclocomp": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "rcmdcheck": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.005858947368421054,
+            "url": null
+        },
+        "xmlparsedata": {
+            "credit": 0.003438947368421053,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.013068000000000001,
+            "url": null
+        },
+        "tufte": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "rsconnect": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "jquerylib": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.0024200000000000003,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.008167500000000001,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.008167500000000001,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.005445000000000001,
+            "url": null
+        },
+        "png": {
+            "credit": 0.005445000000000001,
+            "url": null
+        },
+        "selectr": {
+            "credit": 0.005445000000000001,
+            "url": null
+        }
+    }
+}

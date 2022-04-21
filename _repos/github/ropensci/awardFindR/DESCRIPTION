@@ -1,0 +1,45 @@
+Package: awardFindR
+Type: Package
+Title: awardFindR
+Version: 1.0.1
+Authors@R: c(person("Michael", "McCall", email = "mimccall@syr.edu",
+                  role = c("aut", "cre"), comment = c(ORCID="0000-0002-4668-4212")),
+                  person("Sebastian", "Karcher", email = "karcher@u.northwestern.edu",
+                  role = c("ctb"), comment = c(ORCID = "0000-0001-8249-7388")),
+                  person("Qualitative Data", "Repository", email = "qdr@syr.edu",
+                  role = c("cph")),
+                  person("Sloan", "Foundation", email = "technology@sloan.org",
+                  role = c("fnd")))
+Author: Michael C. McCall
+Maintainer: Michael McCall <mimccall@syr.edu>
+Description: Queries a number of scientific awards databases.
+    Collects relevant results based on keyword and date parameters,
+    returns list of projects that fit those criteria as a data frame.
+    Sources include: Arnold Ventures, Carnegie Corp, Federal RePORTER,
+    Gates Foundation, MacArthur Foundation, Mellon Foundation, NEH, NIH,
+    NSF, Open Philanthropy, Open Society Foundations, Rockefeller Foundation,
+    Russell Sage Foundation, Robert Wood Johnson Foundation, 
+    Sloan Foundation, Social Science Research Council, 
+    John Templeton Foundation, and USASpending.gov.
+URL: https://github.com/PESData/awardFindR
+BugReports: https://github.com/PESData/awardFindR/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    rvest,
+    xml2,
+    readr,
+    readxl,
+    httr
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vcr,
+    covr
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+Config/testthat/edition: 3

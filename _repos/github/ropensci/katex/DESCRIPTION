@@ -1,0 +1,25 @@
+Package: katex
+Type: Package
+Title: Rendering Math to HTML, 'MathML', or R-Documentation Format
+Version: 1.4.0
+Authors@R: person("Jeroen", "Ooms", role = c("aut", "cre"), email = "jeroen@berkeley.edu",
+    comment = c(ORCID = "0000-0002-4035-0289"))
+Description: Convert latex math expressions to HTML and 'MathML' for use in 
+    markdown documents or package manual pages. The rendering is done in 
+    R using the V8 engine (i.e. server-side), which eliminates the need 
+    for embedding the 'MathJax' library into your web pages. In addition
+    a 'math-to-rd' wrapper is provided to automatically render beautiful
+    math in R documentation files.
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/katex/,
+    https://github.com/ropensci/katex
+    https://katex.org/docs/options.html (upstream)
+BugReports: https://github.com/ropensci/katex/issues
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Imports: V8
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Suggests: 
+    knitr,
+    rmarkdown

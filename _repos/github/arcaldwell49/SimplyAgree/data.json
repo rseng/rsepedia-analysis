@@ -1,0 +1,510 @@
+{
+    "DESCRIPTION": {
+        "github/arcaldwell49/SimplyAgree": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ggplot2": {
+            "credit": 0.016467196976990475,
+            "url": "https://ggplot2.tidyverse.org"
+        },
+        "emmeans": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/rvlenth/emmeans"
+        },
+        "lme4": {
+            "credit": 0.003075319148936175,
+            "url": "https://github.com/lme4/lme4/"
+        },
+        "boot": {
+            "credit": 0.00387264705882352,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.009914487804878053,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "magrittr": {
+            "credit": 0.02029500000000002,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "tidyselect": {
+            "credit": 0.003960000000000005,
+            "url": "https://tidyselect.r-lib.org"
+        },
+        "tidyr": {
+            "credit": 0.10197,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "stringr": {
+            "credit": 0.0009899999999999909,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "jmvcore": {
+            "credit": 0.0009900000000000048,
+            "url": "https://www.jamovi.org"
+        },
+        "sp": {
+            "credit": 0.002390487804878049,
+            "url": "https://github.com/edzer/sp/ https://edzer.github.io/sp/"
+        },
+        "xml2": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "vdiffr": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.050537684781868514,
+            "url": null
+        },
+        "svglite": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.042998454012637743,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.009929718574108818,
+            "url": null
+        },
+        "quantreg": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "profvis": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.007358454012637749,
+            "url": null
+        },
+        "munsell": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "multcomp": {
+            "credit": 0.004475806953814219,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.007358454012637749,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.050537684781868514,
+            "url": null
+        },
+        "interp": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "hexbin": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "ggplot2movies": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.009929718574108818,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03803048780487804,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.011894487804878048,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.014777134863701578,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.02696045401263775,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.004475806953814219,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.035768718574108814,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.007358454012637749,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.02696045401263775,
+            "url": null
+        },
+        "isoband": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "gtable": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.005273134863701578,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.02169548780487805,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "R": {
+            "credit": 0.07013968478186852,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.021687319148936172,
+            "url": null
+        },
+        "sommer": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "rstanarm": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "pscl": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "mice": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "MCMCpack": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "MCMCglmm": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "geepack": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "gee": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "coxme": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "CARBayes": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "splines": {
+            "credit": 0.004967966207759699,
+            "url": null
+        },
+        "rsm": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "MuMIn": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "lmerTest": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "pbkrtest": {
+            "credit": 0.004967966207759699,
+            "url": null
+        },
+        "ordinal": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "multcompView": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "mediation": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "logspline": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "coda": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "car": {
+            "credit": 0.004967966207759699,
+            "url": null
+        },
+        "brms": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "biglm": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "bayestestR": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "bayesplot": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "mvtnorm": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0079379662077597,
+            "url": null
+        },
+        "numDeriv": {
+            "credit": 0.004967966207759699,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0079379662077597,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0245699662077597,
+            "url": null
+        },
+        "estimability": {
+            "credit": 0.0020853191489361702,
+            "url": null
+        },
+        "semEff": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "rr2": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "statmod": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "dfoptim": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "HSAUR3": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "gamm4": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "optimx": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "mlmRev": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "MEMSS": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "PKPDmodels": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "nloptr": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "minqa": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0028826470588235293,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.009504,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.009504,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.010509230769230769,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.00297,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.006534,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.01734023076923077,
+            "url": null
+        },
+        "fastmap": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "RProtoBuf": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.007539230769230769,
+            "url": null
+        }
+    }
+}

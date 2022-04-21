@@ -1,0 +1,14 @@
+{
+    "package.json": {
+        "github/nlesc-sherlock/Rig": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "serve-static": {
+            "credit": 0.0099,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        }
+    }
+}

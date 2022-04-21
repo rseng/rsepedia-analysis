@@ -1,0 +1,290 @@
+{
+    "package.json": {
+        "github/iomega/paired-data-form": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "root": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/mafintosh/root#readme"
+        },
+        "ajv": {
+            "credit": 0.05823529411764706,
+            "url": "https://ajv.js.org"
+        },
+        "bootstrap": {
+            "credit": 0.05823529411764706,
+            "url": "https://getbootstrap.com/"
+        },
+        "d3-dsv": {
+            "credit": 0.05823529411764706,
+            "url": "https://d3js.org/d3-dsv/"
+        },
+        "diff2html": {
+            "credit": 0.05823529411764706,
+            "url": "https://diff2html.xyz/"
+        },
+        "difflib-ts": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/mailmangroup/difflib-ts#readme"
+        },
+        "file-saver": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "moment": {
+            "credit": 0.05823529411764706,
+            "url": "https://momentjs.com"
+        },
+        "react": {
+            "credit": 0.05941188475390156,
+            "url": "https://reactjs.org/"
+        },
+        "react-bootstrap": {
+            "credit": 0.05823529411764706,
+            "url": "https://react-bootstrap.github.io/"
+        },
+        "react-dom": {
+            "credit": 0.05941188475390156,
+            "url": "https://reactjs.org/"
+        },
+        "react-helmet": {
+            "credit": 0.0005823529411764783,
+            "url": "https://github.com/nfl/react-helmet#readme"
+        },
+        "react-jsonschema-form": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/mozilla-services/react-jsonschema-form#readme"
+        },
+        "react-router-bootstrap": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "react-router-dom": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "react-schemaorg": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "react-select": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "inherits": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "murl": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "protein": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "network-address": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "babel-preset-minify": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "": {
+            "credit": 0.043239705882352944,
+            "url": null
+        },
+        "sinon-chai": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rollup-plugin-replace": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-tap-reporter": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-spec-reporter": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-sourcemap-loader": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-rollup-preprocessor": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-mocha": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-html-reporter": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-firefox-launcher": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-coverage": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-chrome-launcher": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-chai-sinon": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma-chai": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "karma": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-plugin-react": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-plugin-mocha": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-plugin-jsx-a11y": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint-config-nfl": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "cz-conventional-changelog": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "conventional-changelog-cli": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-preset-react": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-plugin-transform-object-rest-spread": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-plugin-transform-class-properties": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-plugin-istanbul": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-plugin-external-helpers": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "react-side-effect": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "react-fast-compare": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "object-assign": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        }
+    }
+}

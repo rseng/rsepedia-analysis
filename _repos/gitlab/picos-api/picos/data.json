@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "gitlab/picos-api/picos": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cvxopt": {
+            "credit": 0.00495,
+            "url": "http://cvxopt.org"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

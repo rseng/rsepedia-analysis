@@ -1,0 +1,15 @@
+Temperature ramp
+================
+
+3D cell with NaCl molten salt, NPT simulation with varying temperature from 800 to 1500 K 
+
+   Temperature
+        ^
+        |   
+  temp2 |            ---
+        |         ---
+        |      --- 
+        |   ---
+  temp1 |---
+        ----------------------------->
+        0             num_steps       Time

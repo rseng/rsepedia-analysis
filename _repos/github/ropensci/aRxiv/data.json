@@ -1,0 +1,38 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/aRxiv": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.495,
+            "url": "https://httr.r-lib.org/"
+        },
+        "XML": {
+            "credit": 0.006381312312375011,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "RCurl": {
+            "credit": 0.001028129800499998,
+            "url": "http://www.omegahat.net/RCurl"
+        },
+        "bitops": {
+            "credit": 0.128259192612375,
+            "url": "https://github.com/mmaechler/R-bitops"
+        },
+        "utils": {
+            "credit": 0.10281298005,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.128259192612375,
+            "url": null
+        },
+        "R": {
+            "credit": 0.128259192612375,
+            "url": null
+        }
+    }
+}

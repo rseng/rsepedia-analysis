@@ -1,0 +1,56 @@
+Package: weathercan
+Type: Package
+Title: Download Weather Data from Environment and Climate Change Canada
+Version: 0.6.2
+Authors@R: c(
+     person("Steffi", "LaZerte", email = "steffi@steffi.ca", role = c("aut","cre"), comment = c(ORCID = "0000-0002-7690-8360")),
+     person("Sam", "Albers", email = "sam.albers@gmail.com", role = c("ctb"), comment = c(ORCID = "0000-0002-9270-7884")),
+     person("Nick", "Brown", email = "nicholas512@gmail.com", role = c("ctb"), comment = c(ORCID = "0000-0002-2719-0671")),
+     person("Kevin", "Cazelles", email = "kevin.cazelles@gmail.com", role = c("ctb"), comment = c(ORCID = "0000-0001-6619-9874")))
+Description: Provides means for downloading historical weather data from 
+    the Environment and Climate Change Canada website 
+    (<https://climate.weather.gc.ca/historical_data/search_historic_data_e.html>). 
+    Data can be downloaded from multiple stations and over large date ranges 
+    and automatically processed into a single dataset. Tools are also provided 
+    to identify stations either by name or proximity to a location.
+License: GPL-3
+Language: en-CA
+BugReports: https://github.com/ropensci/weathercan/issues/
+LazyData: TRUE
+URL: https://docs.ropensci.org/weathercan/, https://github.com/ropensci/weathercan/
+Depends: R (>= 3.3.0)
+Imports:
+    dplyr (>= 1.0.0),
+    httr (>= 1.4.2),
+    lubridate (>= 1.7.1),
+    memoise (>= 2.0.0),
+    methods (>= 3.2.2),
+    purrr (>= 0.3.4),
+    rlang (>= 0.1.4),
+    readr (>= 2.0.0),
+    rvest (>= 0.3.4),
+    stringi (>= 1.1.2),
+    stringr (>= 1.4.0),
+    tidyr (>= 1.1.3),
+    tidyselect (>= 1.0.0),
+    xml2 (>= 0.1.2),
+    rappdirs (>= 0.3.3)
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+Suggests:
+    devtools,
+    ggplot2,
+    htmltools,
+    knitr,
+    leaflet,
+    lutz,
+    mockery,
+    naniar,
+    rmarkdown,
+    sf,
+    sp,
+    testthat,
+    vcr (>= 1.0.2)
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8

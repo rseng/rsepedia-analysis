@@ -1,0 +1,34 @@
+Package: DoOR.functions
+Type: Package
+Title: Integrating Heterogeneous Odorant Response Data into a Common Response
+    Model: A DoOR to the Complete Olfactome
+Version: 2.0.1.9000
+Authors@R: c(
+    person("Daniel", "Münch", email = "daniel.muench@uni-konstanz.de", role = c("aut", "cre")),
+    person("C. Giovanni", "Galizia", email = "giovanni.galizia@uni-konstanz.de", role = "aut"), 
+    person("Shouwen", "Ma", role = "aut"),
+    person("Martin", "Strauch", role = "aut"),
+    person("Anja", "Nissler", role = "aut"),
+    person("Wolf", "Huetteroth", role = "ctb"))
+URL: https://docs.ropensci.org/DoOR.functions, http://neuro.uni.kn/DoOR, http://dx.doi.org/10.1038/srep21841, http://dx.doi.org/10.1093/chemse/bjq042, https://github.com/ropensci/DoOR.functions
+BugReports: https://github.com/ropensci/DoOR.functions/issues
+Description: This is a function package providing functions to perform data
+    manipulations and visualizations for DoOR.data. See the URLs for the original and the DoOR 2.0 publication.
+License: GPL-3
+Encoding: UTF-8
+Imports:
+    utils
+Depends:
+    DoOR.data (>= 2.0.1),
+    R (>= 3.4.1)
+Remotes: Dahaniel/DoOR.data@v2.0.1
+Suggests:
+    ggplot2,
+    grid,
+    gridExtra (>= 2.0.0),
+    knitr,
+    class, 
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

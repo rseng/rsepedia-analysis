@@ -1,0 +1,42 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rentrez": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "XML": {
+            "credit": 0.003461716500000024,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "httr": {
+            "credit": 0.33,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.33,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "RCurl": {
+            "credit": 0.0038553866999999986,
+            "url": "http://www.omegahat.net/RCurl"
+        },
+        "bitops": {
+            "credit": 0.0847136367,
+            "url": "https://github.com/mmaechler/R-bitops"
+        },
+        "utils": {
+            "credit": 0.0685419867,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0847136367,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0847136367,
+            "url": null
+        }
+    }
+}

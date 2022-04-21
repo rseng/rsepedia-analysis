@@ -1,0 +1,58 @@
+Package: baRcodeR
+Title: Label Creation for Tracking and Collecting Data from
+    Biological Samples
+Version: 0.1.7
+Authors@R: 
+    c(person(given = "Yihan",
+             family = "Wu",
+             role = c("aut"),
+             email = "yihan.wu@queensu.ca",
+             comment = c(ORCID = "0000-0002-1202-4208")),
+      person(given = "Robert",
+             family = "Colautti",
+             role = c("aut", "cre"),
+             email = "robert.colautti@queensu.ca",
+             comment = c(ORCID = "0000-0003-4213-0711")),
+      person(given = "Emily",
+             family = "Bao",
+             role = "ctb",
+             email = "13syeb@queensu.ca"),
+      person(given = "Lluís",
+             family = "Revilla Sancho",
+             role = c("rev"),
+             email = "lluis.revilla@gmail.com",
+             comment = c(ORCID = "0000-0001-9747-2570")),
+      person(given = "Rayna",
+             family = "Harris",
+             role = c("rev"),
+             email = "rmharris@ucdavis.edu"))
+Description: Tools to generate unique identifier codes and
+    printable barcoded labels for the management of biological samples.
+    The creation of unique ID codes and printable PDF files can be
+    initiated by standard commands, user prompts, or through a GUI addin
+    for R Studio. Biologically informative codes can be included for
+    hierarchically structured sampling designs.
+License: GPL-3
+URL: https://docs.ropensci.org/baRcodeR/ (website) https://github.com/ropensci/baRcodeR/  
+BugReports: https://github.com/ropensci/baRcodeR/issues
+Depends:
+    qrcode,
+    R (>= 4.0.0)
+Imports:
+    DT (>= 0.3),
+    grDevices,
+    grid,
+    miniUI (>= 0.1.1),
+    rstudioapi,
+    shiny (>= 0.13)
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown,
+    shinytest,
+    testthat (>= 2.1.0)
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Language: en-CA
+RoxygenNote: 7.1.2

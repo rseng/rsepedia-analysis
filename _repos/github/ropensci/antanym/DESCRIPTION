@@ -1,0 +1,46 @@
+Package: antanym
+Type: Package
+Title: Antarctic Geographic Place Names
+Version: 0.4.3
+Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
+	     person("Michael", "Sumner", email = "michael.sumner@aad.gov.au", role="aut"),
+	     person("John", "Baumgartner", role = c("ctb", "rev")),
+	     person("Lorenzo", "Busetto", role = c("ctb", "rev")),
+	     person("Andrew", "Cowie", role = "ctb"),
+	     person("Ursula", "Harris", role = "ctb"),
+	     person("Fraser", "Morgan", role = "ctb")
+	    )
+Description: Antarctic geographic names from the Composite Gazetteer of Antarctica, and functions for working with those place names.
+URL: https://docs.ropensci.org/antanym, https://github.com/ropensci/antanym
+BugReports: https://github.com/ropensci/antanym/issues
+Depends:
+    R (>= 3.3.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+  assertthat,
+  C50,
+  geosphere,
+  httr,
+  magrittr,
+  rappdirs,
+  raster,
+  readr,
+  sp,
+  stringi
+Suggests:
+  covr,
+  dplyr,
+  testthat (>= 2.0.0),
+  knitr,
+  leaflet,
+  rgdal,
+  rgeos,
+  rmarkdown,
+  rworldmap
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+X-schema.org-applicationCategory: Antarctic/Southern Ocean
+X-schema.org-keywords: Antarctic, Southern Ocean, place names, gazetteer
+X-schema.org-isPartOf: https://ropensci.org, https://scar.org

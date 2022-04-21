@@ -1,0 +1,146 @@
+{
+    "package.json": {
+        "github/tobiasrausch/alfred": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "axios": {
+            "credit": 0.14142857142857143,
+            "url": "https://axios-http.com"
+        },
+        "choices.js": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/jshjohnson/Choices#readme"
+        },
+        "file-saver": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "filepond": {
+            "credit": 0.14142857142857143,
+            "url": "https://pqina.nl/filepond/"
+        },
+        "lodash": {
+            "credit": 0.14293524689440995,
+            "url": "https://lodash.com/"
+        },
+        "pako": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/nodeca/pako#readme"
+        },
+        "papaparse": {
+            "credit": 0.14142857142857143,
+            "url": "http://papaparse.com"
+        },
+        "babel-preset-minify": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "": {
+            "credit": 0.10501071428571428,
+            "url": null
+        },
+        "babel-plugin-transform-undefined-to-void": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-simplify-comparison-operators": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-remove-undefined": {
+            "credit": 1.5066754658385039e-05,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-remove-debugger": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-remove-console": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-regexp-constructors": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-property-literals": {
+            "credit": 1.5066754658385039e-05,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-minify-booleans": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-merge-sibling-variables": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-member-expression-literals": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-transform-inline-consecutive-adds": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-minify-type-constructors": {
+            "credit": 1.5066754658385039e-05,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-minify-simplify": {
+            "credit": 0.0015066754658385093,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "babel-plugin-minify-replace": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-numeric-literals": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-mangle-names": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-infinity": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-guarded-expressions": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-flip-comparisons": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-dead-code-elimination": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-constant-folding": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-plugin-minify-builtins": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "babel-helper-evaluate-path": {
+            "credit": 0.0014916087111801243,
+            "url": null
+        },
+        "esutils": {
+            "credit": 0.0014916087111801243,
+            "url": null
+        },
+        "babel-helper-is-void-0": {
+            "credit": 0.0014916087111801243,
+            "url": null
+        }
+    }
+}

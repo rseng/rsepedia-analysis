@@ -1,0 +1,46 @@
+Package: tabulizer
+Type: Package
+Title: Bindings for 'Tabula' PDF Table Extractor Library
+Version: 0.2.2
+Authors@R: c(person("Thomas J.", "Leeper",
+                    role = "aut", 
+                    email = "thosjleeper@gmail.com",
+                    comment = c(ORCID = "0000-0003-4097-6326")),
+             person("Tom", "Paskhalis",
+                    role = "cre",
+                    email = "tpaskhalis@gmail.com",
+                    comment = c(ORCID = "0000-0001-9298-8850")),
+             person("David", "Gohel",
+                    role = "ctb",
+                    comment = "rOpenSci reviewer"),
+             person("Lincoln", "Mullen",
+                    role = "ctb",
+                    comment = "rOpenSci reviewer"))
+Maintainer: Tom Paskhalis <tpaskhalis@gmail.com>
+Description: Bindings for the 'Tabula' <http://tabula.technology/> 'Java'
+    library, which can extract tables from PDF documents. The 'tabulizerjars'
+    package <https://github.com/ropensci/tabulizerjars> provides versioned
+    'Java' .jar files, including all dependencies, aligned to releases of
+    'Tabula'.
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/tabulizer (website)
+    https://github.com/ropensci/tabulizer
+BugReports: https://github.com/ropensci/tabulizer/issues
+Imports:
+    png,
+    rJava,
+    tabulizerjars,
+    tools,
+    utils
+Suggests:
+    graphics,
+    grDevices,
+    knitr,
+    miniUI,
+    shiny,
+    testthat,
+    rmarkdown
+Remotes: ropensci/tabulizerjars
+SystemRequirements: Java (>= 7.0)
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1

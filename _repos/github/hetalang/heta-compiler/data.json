@@ -1,0 +1,278 @@
+{
+    "package.json": {
+        "github/hetalang/heta-compiler": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "ajv": {
+            "credit": 0.055,
+            "url": "https://ajv.js.org"
+        },
+        "ajv-errors": {
+            "credit": 0.055,
+            "url": "https://github.com/epoberezkin/ajv-errors#readme"
+        },
+        "colors": {
+            "credit": 0.055,
+            "url": "https://github.com/Marak/colors.js"
+        },
+        "commander": {
+            "credit": 0.0567015625,
+            "url": "https://github.com/tj/commander.js#readme"
+        },
+        "fs-extra": {
+            "credit": 0.0567015625,
+            "url": "https://github.com/jprichardson/node-fs-extra"
+        },
+        "heta-parser": {
+            "credit": 0.055,
+            "url": "https://github.com/hetalang/heta-parser#readme"
+        },
+        "inquirer": {
+            "credit": 0.055,
+            "url": "https://github.com/SBoudrias/Inquirer.js#readme"
+        },
+        "js-yaml": {
+            "credit": 0.055,
+            "url": "https://github.com/nodeca/js-yaml#readme"
+        },
+        "lodash": {
+            "credit": 0.055,
+            "url": "https://lodash.com/"
+        },
+        "markdown-it": {
+            "credit": 0.055,
+            "url": "https://github.com/markdown-it/markdown-it#readme"
+        },
+        "mathjs": {
+            "credit": 0.055,
+            "url": "https://mathjs.org"
+        },
+        "mathjs-mathml": {
+            "credit": 0.055,
+            "url": "https://github.com/insysbio/mathjs-mathml#readme"
+        },
+        "node-fetch": {
+            "credit": 0.055,
+            "url": "https://github.com/node-fetch/node-fetch"
+        },
+        "nunjucks": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/mozilla/nunjucks#readme"
+        },
+        "random-id": {
+            "credit": 0.055,
+            "url": "https://github.com/KingCosmic/random-id#readme"
+        },
+        "semver": {
+            "credit": 0.055,
+            "url": "https://github.com/npm/node-semver#readme"
+        },
+        "xlsx": {
+            "credit": 0.055,
+            "url": "https://sheetjs.com/"
+        },
+        "xml-js": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/nashwaan/xml-js#readme"
+        },
+        "webpack": {
+            "credit": 0.003795793269230769,
+            "url": "https://github.com/webpack/webpack"
+        },
+        "uglifyjs-webpack-plugin": {
+            "credit": 0.0017015625,
+            "url": "https://github.com/webpack-contrib/uglifyjs-webpack-plugin"
+        },
+        "uglify-js": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "serve-static": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "phantomjs-prebuilt": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "node-libs-browser": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "module-alias": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "mocha-phantomjs-istanbul": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "mocha-phantomjs-core": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "get-port": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "express": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "expect.js": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "eslint-config-airbnb-base": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.003795793269230769,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.003795793269230769,
+            "url": null
+        },
+        "core-js": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "connect": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "babel-plugin-module-resolver": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "babel-plugin-istanbul": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.003795793269230769,
+            "url": null
+        },
+        "": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "asap": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "a-sync-waterfall": {
+            "credit": 0.0017015625,
+            "url": null
+        },
+        "watch": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "unminified-webpack-plugin": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "prismjs": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "nodemon": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "jsonpath": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "jest-cli": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "jasmine": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "globify": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "codeclimate-test-reporter": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "codacy-coverage": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "cash-cat": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "browser-sync": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "biased-opener": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "sax": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        }
+    }
+}

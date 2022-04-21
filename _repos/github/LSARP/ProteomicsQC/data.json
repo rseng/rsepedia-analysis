@@ -1,0 +1,118 @@
+{
+    "requirements.txt": {
+        "github/LSARP/ProteomicsQC": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "celery": {
+            "credit": 0.03666666666666667,
+            "url": "http://celeryproject.org"
+        },
+        "colorlover": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/colorlover"
+        },
+        "dash_bootstrap_components": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/dash_bootstrap_components"
+        },
+        "dash-table-experiments": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/dash-table-experiments"
+        },
+        "dash-tabulator": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/dash-tabulator"
+        },
+        "dask": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/dask"
+        },
+        "django": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django"
+        },
+        "django_admin_index": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django_admin_index"
+        },
+        "django_plotly_dash": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django_plotly_dash"
+        },
+        "django-bootstrap4": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-bootstrap4"
+        },
+        "django-cache-memoize": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-cache-memoize"
+        },
+        "django-cookie-law": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-cookie-law"
+        },
+        "django-cors-headers": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-cors-headers"
+        },
+        "django-currentuser": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-currentuser"
+        },
+        "django-extensions": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-extensions"
+        },
+        "django-oauth-toolkit": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-oauth-toolkit"
+        },
+        "django-plotly-dash": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/django-plotly-dash"
+        },
+        "djangorestframework": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/djangorestframework"
+        },
+        "dpd-static-support": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/dpd-static-support"
+        },
+        "fastparquet": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/fastparquet"
+        },
+        "matplotlib": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "pandas": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "plotly": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/plotly"
+        },
+        "psycopg2-binary": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/psycopg2-binary"
+        },
+        "redis": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/redis"
+        },
+        "seaborn": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "waitress": {
+            "credit": 0.03666666666666667,
+            "url": "https://pypi.org/project/waitress"
+        }
+    }
+}

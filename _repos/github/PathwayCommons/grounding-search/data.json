@@ -1,0 +1,386 @@
+{
+    "package.json": {
+        "github/PathwayCommons/grounding-search": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "benchmark": {
+            "credit": 0.00038076923076923314,
+            "url": "https://benchmarkjs.com/"
+        },
+        "binary-split": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/maxogden/binary-split#readme"
+        },
+        "body-parser": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/expressjs/body-parser#readme"
+        },
+        "cookie-parser": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/expressjs/cookie-parser#readme"
+        },
+        "date-fns": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/date-fns/date-fns#readme"
+        },
+        "deep-equal-in-any-order": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/oprogramador/deep-equal-in-any-order#readme"
+        },
+        "dice-coefficient": {
+            "credit": 0.03807692307692308,
+            "url": "https://words.github.io/dice-coefficient/"
+        },
+        "download": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/kevva/download#readme"
+        },
+        "elasticdump": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/elasticsearch-dump/elasticsearch-dump#readme"
+        },
+        "elasticsearch": {
+            "credit": 0.03807692307692308,
+            "url": "https://www.elastic.co/guide/en/elasticsearch/client/elasticsearch-js/16.x/index.html"
+        },
+        "esm": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/standard-things/esm#readme"
+        },
+        "express": {
+            "credit": 0.03807692307692308,
+            "url": "http://expressjs.com/"
+        },
+        "fibers": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/laverdet/node-fibers"
+        },
+        "ftp": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/mscdex/node-ftp"
+        },
+        "lodash": {
+            "credit": 0.042788942307692306,
+            "url": "https://lodash.com/"
+        },
+        "morgan": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "ndjson": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/ndjson/ndjson.js"
+        },
+        "node-fetch": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/node-fetch/node-fetch"
+        },
+        "pipeline": {
+            "credit": 0.00038076923076923314,
+            "url": ""
+        },
+        "saxes": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/lddubeau/saxes#readme"
+        },
+        "serve-favicon": {
+            "credit": 0.00038076923076923314,
+            "url": "https://github.com/expressjs/serve-favicon#readme"
+        },
+        "split": {
+            "credit": 0.0027367788461538484,
+            "url": "http://github.com/dominictarr/split"
+        },
+        "swagger-jsdoc": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/Surnet/swagger-jsdoc"
+        },
+        "swagger-ui-express": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/scottie1984/swagger-ui-express"
+        },
+        "winston": {
+            "credit": 0.03807692307692308,
+            "url": "https://github.com/winstonjs/winston#readme"
+        },
+        "xmlbuilder": {
+            "credit": 0.00038076923076923314,
+            "url": "http://github.com/oozcitak/xmlbuilder-js"
+        },
+        "coveralls": {
+            "credit": 0.009424038461538461,
+            "url": "https://github.com/nickmerwin/node-coveralls#readme"
+        },
+        "istanbul": {
+            "credit": 0.011780048076923077,
+            "url": "https://github.com/gotwarlost/istanbul#readme"
+        },
+        "requirejs": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "docdown": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "qunitjs": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "platform": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "qunit-extras": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "standard": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "through2": {
+            "credit": 0.01795054945054945,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.01795054945054945,
+            "url": null
+        },
+        "xo": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "random-buffer": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "path-exists": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "nock": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "is-zip": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "pify": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "p-event": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "make-dir": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "got": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "get-stream": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "filenamify": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "file-type": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "ext-name": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "decompress": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "content-disposition": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "archive-type": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "xregexp": {
+            "credit": 0.018848076923076922,
+            "url": null
+        },
+        "readable-stream": {
+            "credit": 0.024233241758241757,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.007068028846153845,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "concat-stream": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "split2": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "minimist": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "json-stringify-safe": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "tap": {
+            "credit": 0.018848076923076922,
+            "url": null
+        },
+        "bufferedstream": {
+            "credit": 0.018848076923076922,
+            "url": null
+        },
+        "fresh": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "parseurl": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "etag": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "ms": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "temp-path": {
+            "credit": 0.0023560096153846153,
+            "url": null
+        },
+        "ubelt": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "through": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "asynct": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "event-stream": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "it-is": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "stream-spec": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "string-to-stream": {
+            "credit": 0.005385164835164835,
+            "url": null
+        },
+        "git-state": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "xpath": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "coffeescript": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "coffee-coverage": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        }
+    }
+}

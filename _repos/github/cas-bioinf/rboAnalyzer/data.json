@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/cas-bioinf/rboAnalyzer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Jinja2": {
+            "credit": 0.00495,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "subset": {
+            "credit": 0.00495,
+            "url": "https://github.com/rightbrace/subset-game.git"
+        },
+        "Babel": {
+            "credit": 0.00245025,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.00245025,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "colorama": {
+            "credit": 0.0049005,
+            "url": "https://github.com/tartley/colorama"
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "package.json": {
+        "github/Via-Appia/via-appia-online-viewer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "nuxt": {
+            "credit": 0.002475,
+            "url": "https://github.com/nuxt/nuxt.js#readme"
+        },
+        "tailwindcss": {
+            "credit": 0.0012375,
+            "url": "https://tailwindcss.com"
+        },
+        "camera-controls": {
+            "credit": 0.0012375,
+            "url": "https://github.com/yomotsu/camera-controls#readme"
+        },
+        "core-js": {
+            "credit": 0.0012375,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "daisyui": {
+            "credit": 0.0012375,
+            "url": "https://github.com/saadeghi/daisyui"
+        },
+        "proj4": {
+            "credit": 0.0012375,
+            "url": "https://github.com/proj4js/proj4js#readme"
+        },
+        "three": {
+            "credit": 0.0012375,
+            "url": "https://threejs.org/"
+        }
+    }
+}

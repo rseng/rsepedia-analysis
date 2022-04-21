@@ -1,0 +1,70 @@
+{
+  "version": "0.5.1",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iomega/zenodo-upload.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iomega/zenodo-upload/issues"
+  },
+  "homepage": "https://github.com/iomega/zenodo-upload",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build && cp src/climain.js dist/climain.js",
+    "apidocs": "typedoc --disableOutputCheck --includeVersion --out docs src"
+  },
+  "peerDependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@iomeg/zenodo-upload",
+  "author": "Stefan Verhoeven",
+  "module": "dist/zenodo-upload.esm.js",
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/node-fetch": "^2.5.5",
+    "@types/tmp": "^0.1.0",
+    "@types/yargs": "^16.0.1",
+    "husky": "^6.0.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "tmp-promise": "^2.0.2",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.0.0",
+    "typedoc": "^0.20.36",
+    "typescript": "^4.2.4",
+    "unzipper": "^0.10.10"
+  },
+  "dependencies": {
+    "file-type": "^16.4.0",
+    "hasha": "^5.2.0",
+    "node-fetch": "^2.6.0",
+    "yargs": "^17.0.1"
+  },
+  "bin": {
+    "zenodo_upload": "./dist/climain.js"
+  },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  }
+}

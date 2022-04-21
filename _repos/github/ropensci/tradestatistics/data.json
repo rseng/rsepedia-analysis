@@ -1,0 +1,150 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tradestatistics": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crul": {
+            "credit": 0.0019800000000000373,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "jsonlite": {
+            "credit": 0.214335,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "memoise": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/r-lib/memoise"
+        },
+        "data.table": {
+            "credit": 0.0019800000000000373,
+            "url": "https://r-datatable.com"
+        },
+        "digest": {
+            "credit": 0.02376000000000001,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "rmarkdown": {
+            "credit": 0.03267,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.038114999999999996,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "googleCloudStorageR": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "googleAuthR": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "aws.s3": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "cachem": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06534,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.049005,
+            "url": null
+        }
+    }
+}

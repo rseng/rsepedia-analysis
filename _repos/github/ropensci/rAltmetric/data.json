@@ -1,0 +1,198 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rAltmetric": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.33,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.3860835,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "rlist": {
+            "credit": 0.003300000000000025,
+            "url": "https://renkun.me/rlist"
+        },
+        "data.table": {
+            "credit": 0.0005445000000000033,
+            "url": "https://r-datatable.com"
+        },
+        "testthat": {
+            "credit": 0.0005445000000000033,
+            "url": "https://testthat.r-lib.org"
+        },
+        "R": {
+            "credit": 0.071356725,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.058942125,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "XML": {
+            "credit": 0.0005445000000000033,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "rmarkdown": {
+            "credit": 0.006125624999999999,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.006125624999999999,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.006125624999999999,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.016906724999999997,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.012414599999999998,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.010781099999999998,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.010781099999999998,
+            "url": null
+        }
+    }
+}

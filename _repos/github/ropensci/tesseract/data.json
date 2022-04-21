@@ -1,0 +1,126 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tesseract": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.04543110000000004,
+            "url": "http://www.rcpp.org"
+        },
+        "pdftools": {
+            "credit": 0.0019800000000000373,
+            "url": "https://docs.ropensci.org/pdftools/ (website)\nhttps://github.com/ropensci/pdftools#readme (devel)\nhttps://poppler.freedesktop.org (upstream)"
+        },
+        "curl": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "rappdirs": {
+            "credit": 0.0019799999999999818,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "digest": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "pkgKitten": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.03267,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.0708939,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.11401829999999999,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0434511,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.093654,
+            "url": "https://testthat.r-lib.org"
+        },
+        "tesseract": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "webp": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "png": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "qpdf": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "R": {
+            "credit": 0.109989,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.049985100000000005,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.0107811,
+            "url": null
+        }
+    }
+}

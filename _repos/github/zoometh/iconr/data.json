@@ -1,0 +1,254 @@
+{
+    "DESCRIPTION": {
+        "github/zoometh/iconr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "igraph": {
+            "credit": 0.002475000000000005,
+            "url": "https://igraph.org"
+        },
+        "magick": {
+            "credit": 0.002475000000000005,
+            "url": "https://docs.ropensci.org/magick/ (website)\nhttps://github.com/ropensci/magick (devel)"
+        },
+        "Momocs": {
+            "credit": 0.0024750000000000327,
+            "url": "https://github.com/MomX/Momocs/"
+        },
+        "rgdal": {
+            "credit": 0.002475000000000005,
+            "url": "http://rgdal.r-forge.r-project.org"
+        },
+        "digest": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "withr": {
+            "credit": 0.00013612500000000083,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.024536531249999997,
+            "url": "https://testthat.r-lib.org"
+        },
+        "tcltk": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.04311759374999999,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.03107053125,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03782673529411765,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.040871531249999996,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.040871531249999996,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.04548376654411765,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "tesseract": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "IRdisplay": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "gapminder": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.024214235294117648,
+            "url": null
+        },
+        "pdftools": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "webp": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "rsvg": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.04167226654411765,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04167226654411765,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "av": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.030748235294117646,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.010924031249999999,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "vegan": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.026136,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.026136,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "geomorph": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "geometry": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "dendextend": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "cluster": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "R": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "mapview": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.01745803125,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.01745803125,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.00112303125,
+            "url": null
+        }
+    }
+}

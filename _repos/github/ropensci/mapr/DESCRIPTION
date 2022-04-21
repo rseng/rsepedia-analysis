@@ -1,0 +1,39 @@
+Package: mapr
+Title: Visualize Species Occurrence Data
+Description: Utilities for visualizing species occurrence data. Includes
+    functions to visualize occurrence data from 'spocc', 'rgbif',
+    and other packages. Mapping options included for base R plots, 'ggplot2',
+    'leaflet' and 'GitHub' 'gists'.
+Version: 0.5.2
+License: MIT + file LICENSE
+Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com", 
+    comment = c(ORCID = "0000-0003-1444-9135"))
+URL: https://docs.ropensci.org/mapr/, https://github.com/ropensci/mapr
+BugReports: https://github.com/ropensci/mapr/issues
+LazyData: true
+LazyLoad: true
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+Imports:
+    ggplot2,
+    leaflet,
+    spocc (>= 0.6.0),
+    sp,
+    maps,
+    RColorBrewer,
+    jsonlite,
+    gistr,
+    data.table
+Suggests:
+    testthat,
+    knitr,
+    taxize,
+    maptools,
+    rgbif,
+    scrubr
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Geospatial
+X-schema.org-keywords: maps, mapping, ggplot, leaflet, interactive, biodiversity, occurrences
+X-schema.org-isPartOf: https://ropensci.org/

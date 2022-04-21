@@ -1,0 +1,37 @@
+Package: oai
+Type: Package
+Title: General Purpose 'Oai-PMH' Services Client
+Description: A general purpose client to work with any 'OAI-PMH'
+    (Open Archives Initiative Protocol for 'Metadata' Harvesting) service.
+    The 'OAI-PMH' protocol is described at
+    <http://www.openarchives.org/OAI/openarchivesprotocol.html>.
+    Functions are provided to work with the 'OAI-PMH' verbs: 'GetRecord',
+    'Identify', 'ListIdentifiers', 'ListMetadataFormats', 'ListRecords', and
+    'ListSets'.
+Version: 0.3.2
+License: MIT + file LICENSE
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
+        email = "myrmecocystus@gmail.com"),
+    person("Michal", "Bojanowski", role = "aut",
+        comment="supported by NCN grant 2012/07/D/HS6/01971")
+    )
+URL: https://docs.ropensci.org/oai/, https://github.com/ropensci/oai
+BugReports: https://github.com/ropensci/oai/issues
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+LazyData: true
+Encoding: UTF-8
+Imports:
+    xml2 (>= 1.0.0),
+    httr (>= 1.2.0),
+    plyr (>= 1.8.4),
+    stringr (>= 1.1.0),
+    tibble (>= 1.2)
+Suggests:
+    DBI,
+    knitr,
+    RSQLite,
+    testthat,
+    markdown
+RoxygenNote: 7.1.1

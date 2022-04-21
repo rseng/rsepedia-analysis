@@ -1,0 +1,62 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/suppdata": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.2720025,
+            "url": "https://httr.r-lib.org/"
+        },
+        "xml2": {
+            "credit": 0.002475000000000005,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.2475,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "rcrossref": {
+            "credit": 0.2475,
+            "url": "https://github.com/ropensci/rcrossref"
+        },
+        "testthat": {
+            "credit": 0.0245025,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0245025,
+            "url": null
+        }
+    }
+}

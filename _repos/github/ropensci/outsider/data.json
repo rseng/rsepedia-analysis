@@ -1,0 +1,242 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/outsider": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "outsider.base": {
+            "credit": 0.14142857142857143,
+            "url": "https://docs.ropensci.org/outsider.base"
+        },
+        "remotes": {
+            "credit": 0.001414285714285729,
+            "url": "https://remotes.r-lib.org"
+        },
+        "crayon": {
+            "credit": 0.005098872180451143,
+            "url": "https://github.com/r-lib/crayon#readme"
+        },
+        "jsonlite": {
+            "credit": 0.15698571428571428,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "tibble": {
+            "credit": 0.001414285714285729,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "curl": {
+            "credit": 0.008415000000000014,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "yaml": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "withr": {
+            "credit": 0.03068734156820623,
+            "url": "https://withr.r-lib.org"
+        },
+        "webfakes": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.046244484425349085,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.026242443609022555,
+            "url": null
+        },
+        "pingr": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.0106853007518797,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.027002755102040817,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.026242443609022555,
+            "url": null
+        },
+        "git2r": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0106853007518797,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0106853007518797,
+            "url": null
+        },
+        "brew": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.03068734156820623,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.03068734156820623,
+            "url": null
+        },
+        "R": {
+            "credit": 0.026242443609022555,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "formattable": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "DiagrammeR": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.019241729323308268,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "fansi": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.015557142857142856,
+            "url": null
+        }
+    }
+}

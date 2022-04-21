@@ -1,0 +1,13 @@
+Package: SDImpute
+Title: SDImpute: A statistical block imputation method based on cell-level and gene-level information for dropouts in single-cell RNA-seq data
+Version: 0.1
+Authors@R: person("Jing","Qi",email="845149186@qq.com",role=c("aut","cre"))
+Description: A statistical method to accurately impute the dropouts in scRNA-seq data.
+Depends: R (>= 3.5)
+Imports: fpc,stats
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+

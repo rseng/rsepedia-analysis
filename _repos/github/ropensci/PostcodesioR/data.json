@@ -1,0 +1,14 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/PostcodesioR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.0099,
+            "url": "https://httr.r-lib.org/"
+        }
+    }
+}

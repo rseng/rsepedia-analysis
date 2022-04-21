@@ -1,0 +1,26 @@
+---
+layout: post
+---
+
+We use <a href="https://github.com/vsoch/citelang" target="_blank">CiteLang</a> to clone software repositories,
+parse dependency files, and assemble them into one common structure to assess the value of any
+particular dependency across the ecosystem. Each credit value represents the average credit assigned to a dependency
+across repositories, where each repository is represented by it's own graph that allocates 50% of credit to the repository
+itself, and 50% to its dependencies.
+
+{% if page.url == "/analysis/dependencies/" %}
+The data here is biased of course in that there are more repos that have Python and R. To get around this, we can look at
+the same tables scoped to specific languages:
+
+<ul>
+<li><a href="{{ site.baseurl }}/analysis/python/">Python</a></li>
+<li><a href="{{ site.baseurl }}/analysis/r/">R</a></li>
+<li><a href="{{ site.baseurl }}/analysis/go/">Go</a></li>
+<li><a href="{{ site.baseurl }}/analysis/js/">Js</a></li>
+</ul>{% endif %}
+
+
+{{ content }}
+
+
+{% include testimonial.html %}

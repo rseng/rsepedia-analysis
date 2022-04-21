@@ -1,0 +1,210 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/lightr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "future.apply": {
+            "credit": 0.01885714285714288,
+            "url": "https://future.apply.futureverse.org"
+        },
+        "progressr": {
+            "credit": 0.003300000000000025,
+            "url": "https://progressr.futureverse.org"
+        },
+        "xml2": {
+            "credit": 0.008433857142857167,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "markdown": {
+            "credit": 0.012548249999999999,
+            "url": "https://github.com/rstudio/markdown"
+        },
+        "R.rsp": {
+            "credit": 0.01058805,
+            "url": "https://github.com/HenrikBengtsson/R.rsp"
+        },
+        "listenv": {
+            "credit": 0.003237299999999999,
+            "url": "https://github.com/HenrikBengtsson/listenv"
+        },
+        "tools": {
+            "credit": 0.05015764285714286,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0316602,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.0297,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.05505814285714286,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.032640300000000004,
+            "url": null
+        },
+        "globals": {
+            "credit": 0.003237299999999999,
+            "url": "https://github.com/HenrikBengtsson/globals"
+        },
+        "future": {
+            "credit": 0.015854142857142855,
+            "url": "https://future.futureverse.org"
+        },
+        "R": {
+            "credit": 0.1222416642857143,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.0021157714285714286,
+            "url": "http://www.rforge.net/base64enc"
+        },
+        "commonmark": {
+            "credit": 0.00015557142857142853,
+            "url": "https://docs.ropensci.org/commonmark/ (docs)\nhttps://github.com/r-lib/commonmark (devel)\nhttps://github.github.com/gfm/ (spec)"
+        },
+        "shiny": {
+            "credit": 0.015557142857142856,
+            "url": "https://shiny.rstudio.com/"
+        },
+        "rstudioapi": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "furrr": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "doFuture": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "plyr": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "pbmcapply": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "beepr": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.017517342857142855,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.020457642857142855,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.03780385714285714,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0395307,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.03780385714285714,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0346302,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "R.devices": {
+            "credit": 0.0019602,
+            "url": null
+        },
+        "R.cache": {
+            "credit": 0.0019602,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.00931095,
+            "url": null
+        },
+        "R.oo": {
+            "credit": 0.0019602,
+            "url": null
+        },
+        "R.methodsS3": {
+            "credit": 0.0019602,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "RhpcBLASctl": {
+            "credit": 0.0029403000000000003,
+            "url": null
+        },
+        "parallelly": {
+            "credit": 0.0029403000000000003,
+            "url": null
+        }
+    }
+}

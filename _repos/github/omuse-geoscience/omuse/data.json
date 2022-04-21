@@ -1,0 +1,142 @@
+{
+    "setup.py": {
+        "github/omuse-geoscience/omuse": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "wheel": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/pypa/wheel"
+        },
+        "docutils": {
+            "credit": 0.11,
+            "url": "http://docutils.sourceforge.net/"
+        },
+        "numpy": {
+            "credit": 0.11,
+            "url": "https://www.numpy.org"
+        },
+        "nose": {
+            "credit": 0.11336909375,
+            "url": "http://readthedocs.org/docs/nose/"
+        },
+        "mpi4py": {
+            "credit": 0.11,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "h5py": {
+            "credit": 0.11,
+            "url": "http://www.h5py.org"
+        },
+        "netCDF4": {
+            "credit": 0.11,
+            "url": "http://github.com/Unidata/netcdf4-python"
+        },
+        "f90nml": {
+            "credit": 0.11,
+            "url": "http://github.com/marshallward/f90nml"
+        },
+        "setuptools_scm": {
+            "credit": 0.11,
+            "url": "https://github.com/pypa/setuptools_scm/"
+        },
+        "pytest-cov": {
+            "credit": 0.0005445000000000033,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.007282687500000003,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "virtualenv": {
+            "credit": 0.006738187499999999,
+            "url": "https://virtualenv.pypa.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "xmlschema": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "mock": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.0033690937499999997,
+            "url": "https://pypi.org/project/attrs"
+        }
+    }
+}

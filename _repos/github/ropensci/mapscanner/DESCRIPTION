@@ -1,0 +1,64 @@
+Package: mapscanner
+Title: Print Maps, Draw on Them, Scan Them Back in
+Version: 0.0.6.004
+Authors@R: c(
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre")),
+    person("Michael D.", "Sumner", , "mdsumner@gmail.com", role = "aut"),
+    person("Kelly", "Hondula", role = "rev",
+           comment = "Kelly reviewed the package for rOpenSci, see https://github.com/ropensci/software-review/issues/330"),
+    person("Nicholas", "Potter", role = "rev",
+           comment = "Nichola reviewed the package for rOpenSci, see https://github.com/ropensci/software-review/issues/330"),
+    person("Stanislaw", "Adaszewski", role = "cph",
+           comment = "author of include concaveman-cpp code")
+  )
+Description: Enables preparation of maps to be printed and drawn on.
+    Modified maps can then be scanned back in, and hand-drawn marks
+    converted to spatial objects.
+License: GPL-3 | BSD_2_clause + file LICENSE
+URL: https://github.com/ropensci/mapscanner
+BugReports: https://github.com/ropensci/mapscanner/issues
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    cli,
+    curl,
+    fs,
+    glue,
+    magick,
+    magrittr,
+    memoise,
+    pdftools,
+    png,
+    purrr,
+    raster,
+    Rcpp,
+    reproj,
+    RNiftyReg,
+    sf,
+    slippymath,
+    tibble
+Suggests: 
+    dplyr,
+    ggplot2,
+    gibble,
+    jpeg,
+    knitr,
+    lwgeom,
+    mapview,
+    mmand,
+    osmdata,
+    polyclip,
+    rmarkdown,
+    spelling,
+    testthat
+LinkingTo: 
+    Rcpp
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Language: en-GB
+LazyData: true
+NeedsCompilation: yes
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+SystemRequirements: C++11

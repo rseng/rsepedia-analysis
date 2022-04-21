@@ -1,0 +1,390 @@
+{
+    "package.json": {
+        "github/NLeSC/UncertaintyVisualization": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "angular": {
+            "credit": 0.09636428571428571,
+            "url": "http://angularjs.org"
+        },
+        "angular-animate": {
+            "credit": 0.09,
+            "url": "http://angularjs.org"
+        },
+        "angular-sanitize": {
+            "credit": 0.09,
+            "url": "http://angularjs.org"
+        },
+        "angular-toastr": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/Foxandxss/angular-toastr#readme"
+        },
+        "angular-touch": {
+            "credit": 0.09,
+            "url": "http://angularjs.org"
+        },
+        "colorbrewer": {
+            "credit": 0.09,
+            "url": "http://colorbrewer2.org/"
+        },
+        "crossfilter2": {
+            "credit": 0.000899999999999998,
+            "url": "https://crossfilter.github.io/crossfilter/"
+        },
+        "dc": {
+            "credit": 0.09,
+            "url": "http://dc-js.github.io/dc.js/"
+        },
+        "dialog-polyfill": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/GoogleChrome/dialog-polyfill"
+        },
+        "grunt-contrib-imagemin": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/gruntjs/grunt-contrib-imagemin#readme"
+        },
+        "material-design-lite": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/google/material-design-lite#readme"
+        },
+        "angular-mocks": {
+            "credit": 0.006364285714285714,
+            "url": "http://angularjs.org"
+        },
+        "del": {
+            "credit": 0.008077747252747252,
+            "url": "https://github.com/sindresorhus/del#readme"
+        },
+        "gulp": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "gulp-angular-templatecache": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "gulp-concat": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "gulp-cssnano": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "gulp-jshint": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "gulp-less": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "gulp-rename": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "gulp-uglify": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "jquery": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "jshint": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "jshint-stylish": {
+            "credit": 0.008077747252747252,
+            "url": null
+        },
+        "vows": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "rollup-plugin-json": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.028639285714285714,
+            "url": null
+        },
+        "package-json-versionify": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "d3": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.022275,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.02398846153846154,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.02398846153846154,
+            "url": null
+        },
+        "xo": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "grunt": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "del-cli": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "imagemin-svgo": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "imagemin-optipng": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "imagemin-jpegtran": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "imagemin-gifsicle": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "pretty-bytes": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "plur": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "p-map": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "imagemin": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.006853846153846154,
+            "url": null
+        },
+        "browser-sync": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-marked": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-mocha-phantomjs": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-util": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "humanize": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "acorn": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "chai-jquery": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-if": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-iife": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-cache": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-closure-compiler": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "drool": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-file": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-imagemin": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "escodegen": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "prismjs": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-zip": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-autoprefixer": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-csso": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-shell": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "merge-stream": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "swig": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "vinyl-paths": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-connect": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-css-inline-images": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-front-matter": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-jscs": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-open": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "run-sequence": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-flatten": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-load-plugins": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-sass": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "through2": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-header": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-size": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-replace": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-sourcemaps": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-subtree": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        },
+        "gulp-tap": {
+            "credit": 0.0017134615384615385,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,114 @@
+{
+    "setup.py": {
+        "github/RaRe-Technologies/gensim": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.00495000000000001,
+            "url": "https://www.scipy.org"
+        },
+        "smart_open": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/piskvorky/smart_open"
+        },
+        "numpy": {
+            "credit": 0.49005,
+            "url": "https://www.numpy.org"
+        },
+        "boto3": {
+            "credit": 0.0012251250000000075,
+            "url": "https://github.com/boto/boto3"
+        },
+        "requests": {
+            "credit": 0.0012251249999999936,
+            "url": "https://requests.readthedocs.io"
+        },
+        "bz2file": {
+            "credit": 0.1225125,
+            "url": "https://github.com/nvawda/bz2file"
+        },
+        "boto": {
+            "credit": 0.1225125,
+            "url": "https://github.com/boto/boto/"
+        },
+        "botocore": {
+            "credit": 0.0006064368749999979,
+            "url": "https://github.com/boto/botocore"
+        },
+        "s3transfer": {
+            "credit": 0.030321843749999997,
+            "url": "https://github.com/boto/s3transfer"
+        },
+        "jmespath": {
+            "credit": 0.045331156406249996,
+            "url": "https://github.com/jmespath/jmespath.py"
+        },
+        "win-inet-pton": {
+            "credit": 0.017326767857142857,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.01923271232142857,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.00017326767857142947,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.01923271232142857,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.017326767857142857,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.01923271232142857,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.015182580334821429,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "awscrt": {
+            "credit": 0.01500931265625,
+            "url": "https://github.com/awslabs/aws-crt-python"
+        },
+        "python-dateutil": {
+            "credit": 0.01500931265625,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "unicodedata2": {
+            "credit": 0.017153500178571427,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.0019059444642857142,
+            "url": "https://pypi.org/project/brotlicffi"
+        }
+    }
+}

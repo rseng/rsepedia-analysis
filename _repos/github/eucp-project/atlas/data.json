@@ -1,0 +1,26 @@
+{
+    "package.json": {
+        "github/eucp-project/atlas": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "fortawesome": {
+            "credit": 0.00495,
+            "url": null
+        },
+        "nuxt": {
+            "credit": 0.002475,
+            "url": "https://github.com/nuxt/nuxt.js#readme"
+        },
+        "tailwindcss": {
+            "credit": 0.0012375,
+            "url": "https://tailwindcss.com"
+        },
+        "core-js": {
+            "credit": 0.0012375,
+            "url": "https://github.com/zloirock/core-js#readme"
+        }
+    }
+}

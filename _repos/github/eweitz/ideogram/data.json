@@ -1,0 +1,118 @@
+{
+    "package.json": {
+        "github/eweitz/ideogram": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "crossfilter2": {
+            "credit": 0.0012375000000000025,
+            "url": "https://crossfilter.github.io/crossfilter/"
+        },
+        "d3-array": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-array/"
+        },
+        "d3-brush": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-brush/"
+        },
+        "d3-dispatch": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-dispatch/"
+        },
+        "d3-fetch": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-fetch/"
+        },
+        "d3-format": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-format/"
+        },
+        "d3-scale": {
+            "credit": 0.12375,
+            "url": "https://d3js.org/d3-scale/"
+        },
+        "fflate": {
+            "credit": 0.12375,
+            "url": "https://101arrowz.github.io/fflate"
+        },
+        "vows": {
+            "credit": 0.008750892857142856,
+            "url": "https://github.com/cloudhead/vows"
+        },
+        "uglify-js": {
+            "credit": 0.008750892857142856,
+            "url": "https://github.com/mishoo/UglifyJS#readme"
+        },
+        "sinon": {
+            "credit": 0.008750892857142856,
+            "url": "https://sinonjs.org/"
+        },
+        "semver": {
+            "credit": 0.008750892857142856,
+            "url": "https://github.com/npm/node-semver#readme"
+        },
+        "rollup-plugin-terser": {
+            "credit": 8.750892857142811e-05,
+            "url": "https://github.com/TrySound/rollup-plugin-terser"
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.008750892857142856,
+            "url": "https://github.com/rollup/rollup-plugin-node-resolve#readme"
+        },
+        "rollup-plugin-json": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.009833815848214284,
+            "url": null
+        },
+        "package-json-versionify": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "d3": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "": {
+            "credit": 0.010916738839285713,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0010829229910714285,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0010829229910714285,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.0010829229910714285,
+            "url": null
+        },
+        "serialize-javascript": {
+            "credit": 0.0010829229910714285,
+            "url": null
+        },
+        "jest-worker": {
+            "credit": 0.0010829229910714285,
+            "url": null
+        }
+    }
+}

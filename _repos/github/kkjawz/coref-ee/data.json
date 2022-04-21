@@ -1,0 +1,158 @@
+{
+    "requirements.txt": {
+        "github/kkjawz/coref-ee": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.14966470588235295,
+            "url": "http://www.h5py.org"
+        },
+        "nltk": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.nltk.org/"
+        },
+        "numpy": {
+            "credit": 0.17300042016806724,
+            "url": "https://www.numpy.org"
+        },
+        "pyhocon": {
+            "credit": 0.14142857142857143,
+            "url": "http://github.com/chimpler/pyhocon/"
+        },
+        "tensorflow-gpu": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.tensorflow.org/"
+        },
+        "termcolor": {
+            "credit": 0.14142857142857143,
+            "url": "http://pypi.python.org/pypi/termcolor"
+        },
+        "tqdm": {
+            "credit": 0.0016476428571428718,
+            "url": "https://tqdm.github.io"
+        },
+        "pyparsing": {
+            "credit": 0.0002333571428571428,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "regex": {
+            "credit": 0.023335714285714283,
+            "url": "https://github.com/mrabarnett/mrab-regex"
+        },
+        "joblib": {
+            "credit": 0.023335714285714283,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "click": {
+            "credit": 0.0002333571428571428,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "tensorboard": {
+            "credit": 0.008236134453781511,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "six": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "packaging": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "keras": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/keras"
+        },
+        "grpcio": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "google-pasta": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/absl-py"
+        },
+        "requests": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/requests"
+        },
+        "slack-sdk": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.020389580357142854,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.03194075892857143,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "jinja2": {
+            "credit": 0.01155117857142857,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "railroad-diagrams": {
+            "credit": 0.01155117857142857,
+            "url": "https://pypi.org/project/railroad-diagrams"
+        },
+        "importlib-metadata": {
+            "credit": 0.01155117857142857,
+            "url": "https://pypi.org/project/importlib-metadata"
+        }
+    }
+}

@@ -1,0 +1,278 @@
+{
+    "requirements.txt": {
+        "github/singularityhub/sregistry": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "anyjson": {
+            "credit": 0.022,
+            "url": "http://bitbucket.org/runeh/anyjson/"
+        },
+        "coreapi": {
+            "credit": 0.022,
+            "url": "https://github.com/core-api/python-client"
+        },
+        "cython": {
+            "credit": 0.022,
+            "url": "http://cython.org/"
+        },
+        "django-chosen": {
+            "credit": 0.022,
+            "url": "https://github.com/theatlantic/django-chosen"
+        },
+        "django-crispy-forms": {
+            "credit": 0.022,
+            "url": "https://github.com/django-crispy-forms/django-crispy-forms"
+        },
+        "django-datatables-view": {
+            "credit": 0.00022000000000000144,
+            "url": "https://bitbucket.org/pigletto/django-datatables-view"
+        },
+        "django-dirtyfields": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/romgar/django-dirtyfields"
+        },
+        "django-extensions": {
+            "credit": 0.00022000000000000144,
+            "url": "http://github.com/django-extensions/django-extensions"
+        },
+        "django-filter": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/carltongibson/django-filter/tree/main"
+        },
+        "django-form-utils": {
+            "credit": 0.022,
+            "url": "http://bitbucket.org/carljm/django-form-utils/"
+        },
+        "django-gravatar2": {
+            "credit": 0.022,
+            "url": "https://github.com/twaddington/django-gravatar"
+        },
+        "django-guardian": {
+            "credit": 0.00022000000000000144,
+            "url": "http://github.com/django-guardian/django-guardian"
+        },
+        "django-hstore": {
+            "credit": 0.022,
+            "url": "https://github.com/djangonauts/django-hstore"
+        },
+        "django-notifications-hq": {
+            "credit": 0.00022000000000000144,
+            "url": "http://github.com/django-notifications/django-notifications"
+        },
+        "django-ratelimit": {
+            "credit": 0.022,
+            "url": "https://github.com/jsocol/django-ratelimit"
+        },
+        "django-rest-swagger": {
+            "credit": 0.022,
+            "url": "https://github.com/marcgibbons/django-rest-swagger"
+        },
+        "django-rq": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/rq/django-rq"
+        },
+        "django-taggit": {
+            "credit": 0.022,
+            "url": "https://github.com/jazzband/django-taggit"
+        },
+        "django-taggit-templatetags": {
+            "credit": 0.022,
+            "url": "http://github.com/feuervogel/django-taggit-templatetags"
+        },
+        "django-user-agents": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/selwin/django-user_agents"
+        },
+        "django": {
+            "credit": 0.05249199999999999,
+            "url": "https://www.djangoproject.com/"
+        },
+        "djangorestframework": {
+            "credit": 0.00022000000000000144,
+            "url": "https://www.django-rest-framework.org/"
+        },
+        "google": {
+            "credit": 0.00022000000000000144,
+            "url": "http://breakingcode.wordpress.com/"
+        },
+        "google-api-python-client": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/googleapis/google-api-python-client/"
+        },
+        "h5py": {
+            "credit": 0.022,
+            "url": "http://www.h5py.org"
+        },
+        "ipython": {
+            "credit": 0.022,
+            "url": "https://ipython.org"
+        },
+        "markdown": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/markdown"
+        },
+        "numexpr": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/numexpr"
+        },
+        "oauth2client": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/oauth2client"
+        },
+        "Pillow": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "psycopg2-binary": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/psycopg2-binary"
+        },
+        "pygments": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "python3-saml": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/python3-saml"
+        },
+        "python-social-auth": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/python-social-auth"
+        },
+        "requests": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/requests"
+        },
+        "requests-oauthlib": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/requests-oauthlib"
+        },
+        "requests-toolbelt": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/requests-toolbelt"
+        },
+        "retrying": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/retrying"
+        },
+        "rq-scheduler": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/rq-scheduler"
+        },
+        "shapely": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/shapely"
+        },
+        "social-auth-app-django": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/social-auth-app-django"
+        },
+        "social-auth-core": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/social-auth-core"
+        },
+        "sregistry": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/sregistry"
+        },
+        "uwsgi": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/uwsgi"
+        },
+        "minio": {
+            "credit": 0.022,
+            "url": "https://pypi.org/project/minio"
+        },
+        "Django": {
+            "credit": 0.08711999999999999,
+            "url": "https://pypi.org/project/Django"
+        },
+        "swapper": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/swapper"
+        },
+        "pytz": {
+            "credit": 0.015246,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "jsonfield": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/jsonfield"
+        },
+        "django-model-utils": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/django-model-utils"
+        },
+        "mock": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/mock"
+        },
+        "raven": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/raven"
+        },
+        "redis": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/redis"
+        },
+        "rq": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/rq"
+        },
+        "user-agents": {
+            "credit": 0.010889999999999999,
+            "url": "https://pypi.org/project/user-agents"
+        },
+        "bcrypt": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "argon2-cffi": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/argon2-cffi"
+        },
+        "tzdata": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/tzdata"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/backports.zoneinfo"
+        },
+        "sqlparse": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/sqlparse"
+        },
+        "asgiref": {
+            "credit": 0.0036299999999999995,
+            "url": "https://pypi.org/project/asgiref"
+        },
+        "beautifulsoup4": {
+            "credit": 0.021779999999999997,
+            "url": "https://pypi.org/project/beautifulsoup4"
+        },
+        "uritemplate": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/uritemplate"
+        },
+        "google-api-core": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/google-api-core"
+        },
+        "google-auth-httplib2": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/google-auth-httplib2"
+        },
+        "google-auth": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/google-auth"
+        },
+        "httplib2": {
+            "credit": 0.004356,
+            "url": "https://pypi.org/project/httplib2"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+Package: zbank
+Type: Package
+Title: 'ZooBank' API Client
+Description: Interface to the 'ZooBank' API (<http://zoobank.org/Api>) client.
+    'ZooBank' (<http://zoobank.org/>) is the official registry of zoological 
+    nomenclature. Methods are provided for using each of the API endpoints, 
+    including for querying by author, querying for publications, get 
+    statistics on 'ZooBank' activity, and more.
+Version: 0.1.1.91
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "sckott@protonmail.com", comment = c(ORCID = "0000-0003-1444-9135")))
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/zbank/, https://github.com/ropensci/zbank
+BugReports: https://github.com/ropensci/zbank/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Imports:
+    crul (>= 0.5.0),
+    jsonlite (>= 1.5),
+    tibble
+Suggests:
+    testthat,
+    vcr
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Taxonomy
+X-schema.org-keywords: taxonomy, biology, nomenclature, JSON, API, web, api-client, ZooBank, Zoological, species, names
+X-schema.org-isPartOf: https://ropensci.org

@@ -1,0 +1,134 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/robotstxt": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "stringr": {
+            "credit": 0.0016500000000000126,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "httr": {
+            "credit": 0.165,
+            "url": "https://httr.r-lib.org/"
+        },
+        "spiderbar": {
+            "credit": 0.0016500000000000126,
+            "url": "https://gitlab.com/hrbrmstr/spiderbar"
+        },
+        "future": {
+            "credit": 0.016500000000000015,
+            "url": "https://future.futureverse.org"
+        },
+        "future.apply": {
+            "credit": 0.0016500000000000126,
+            "url": "https://future.apply.futureverse.org"
+        },
+        "magrittr": {
+            "credit": 0.01798500000000001,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "testthat": {
+            "credit": 0.04356,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.07622999999999999,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R": {
+            "credit": 0.09108,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "robotstxt": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "R.rsp": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "RhpcBLASctl": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "parallelly": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "listenv": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "globals": {
+            "credit": 0.031184999999999997,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.027225,
+            "url": null
+        }
+    }
+}

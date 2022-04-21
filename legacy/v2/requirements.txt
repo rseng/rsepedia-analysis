@@ -1,0 +1,6 @@
+rse
+pandas
+river
+nltk
+scipy
+scikit-learn

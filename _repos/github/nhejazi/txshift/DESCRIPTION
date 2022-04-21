@@ -1,0 +1,73 @@
+Package: txshift
+Title: Efficient Estimation of the Causal Effects of Stochastic Interventions
+Version: 0.3.8
+Authors@R: c(
+    person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-7127-2789")),
+    person("David", "Benkeser", email = "benkeser@emory.edu",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-1019-8343")),
+    person("Iván", "Díaz", email = "ild2005@med.cornell.edu",
+           role = "ctb",
+           comment = c(ORCID = "0000-0001-9056-2047")),
+    person("Jeremy", "Coyle", email = "jeremy.coyle@gmail.com",
+           role = "ctb",
+           comment = c(ORCID = "0000-0002-9874-6649")),
+    person("Mark", "van der Laan", email = "laan@berkeley.edu",
+           role = c("ctb", "ths"),
+           comment = c(ORCID = "0000-0003-1432-5511"))
+  )
+Maintainer: Nima Hejazi <nh@nimahejazi.org>
+Description: Efficient estimation of the population-level causal effects of
+    stochastic interventions on a continuous-valued exposure. Both one-step and
+    targeted minimum loss estimators are implemented for the counterfactual mean
+    value of an outcome of interest under an additive modified treatment policy,
+    a stochastic intervention that may depend on the natural value of the
+    exposure. To accommodate settings with outcome-dependent two-phase
+    sampling, procedures incorporating inverse probability of censoring
+    weighting are provided to facilitate the construction of inefficient and
+    efficient one-step and targeted minimum loss estimators.  The causal
+    parameter and its estimation were first described by Díaz and van der Laan
+    (2013) <doi:10.1111/j.1541-0420.2011.01685.x>, while the multiply robust
+    estimation procedure and its application to data from two-phase sampling
+    designs is detailed in NS Hejazi, MJ van der Laan, HE Janes, PB Gilbert,
+    and DC Benkeser (2020) <doi:10.1111/biom.13375>. The software package
+    implementation is described in NS Hejazi and DC Benkeser (2020)
+    <doi:10.21105/joss.02447>. Estimation of nuisance parameters may be
+    enhanced through the Super Learner ensemble model in 'sl3', available for
+    download from GitHub using 'remotes::install_github("tlverse/sl3")'.
+Depends: R (>= 3.2.0)
+Imports:
+    stats,
+    stringr,
+    data.table,
+    assertthat,
+    mvtnorm,
+    hal9001 (>= 0.4.1),
+    haldensify (>= 0.2.1),
+    lspline,
+    ggplot2,
+    scales,
+    latex2exp,
+    Rdpack
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown,
+    covr,
+    future,
+    future.apply,
+    origami (>= 1.0.3),
+    ranger,
+    Rsolnp,
+    nnls
+Enhances:
+    sl3 (>= 1.4.3)
+License: MIT + file LICENSE
+URL: https://github.com/nhejazi/txshift
+BugReports: https://github.com/nhejazi/txshift/issues
+Encoding: UTF-8
+VignetteBuilder: knitr
+RoxygenNote: 7.1.2
+RdMacros: Rdpack

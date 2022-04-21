@@ -1,0 +1,178 @@
+{
+    "DESCRIPTION": {
+        "github/mrc-ide/individual": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "R6": {
+            "credit": 0.009850500000000009,
+            "url": "https://r6.r-lib.org"
+        },
+        "Rcpp": {
+            "credit": 0.03190275000000001,
+            "url": "http://www.rcpp.org"
+        },
+        "pryr": {
+            "credit": 0.16335,
+            "url": "https://github.com/hadley/pryr"
+        },
+        "testthat": {
+            "credit": 0.00163350000000001,
+            "url": "https://testthat.r-lib.org"
+        },
+        "R": {
+            "credit": 0.1682505,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.081675,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.05472225,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.16743375,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.11352825,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0049004999999999995,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "vctrs": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.026952749999999998,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.026952749999999998,
+            "url": null
+        }
+    }
+}

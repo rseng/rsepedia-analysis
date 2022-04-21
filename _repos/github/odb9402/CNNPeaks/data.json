@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/odb9402/CNNPeaks": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pysam": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "scipy": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.3130147058823529,
+            "url": "https://www.numpy.org"
+        },
+        "sklearn": {
+            "credit": 0.14142857142857143,
+            "url": "https://pypi.python.org/pypi/scikit-learn/"
+        },
+        "tensorflow-gpu": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.tensorflow.org/"
+        },
+        "pandas": {
+            "credit": 0.001414285714285729,
+            "url": "https://pandas.pydata.org"
+        },
+        "progressbar2": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/WoLpH/python-progressbar"
+        },
+        "tensorboard": {
+            "credit": 0.008236134453781511,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "six": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "packaging": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "keras": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/keras"
+        },
+        "h5py": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "grpcio": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "google-pasta": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.008236134453781511,
+            "url": "https://pypi.org/project/absl-py"
+        },
+        "pytest-xdist": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.04333775510204081,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "freezegun": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/freezegun"
+        },
+        "pytest-mypy": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-cov": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "flake8": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "sphinx": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "python-utils": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/python-utils"
+        }
+    }
+}

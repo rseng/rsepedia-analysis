@@ -1,0 +1,422 @@
+{
+    "package.json": {
+        "github/dondi/GRNsight": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "body-parser": {
+            "credit": 0.03,
+            "url": "https://github.com/expressjs/body-parser#readme"
+        },
+        "canvg": {
+            "credit": 0.03,
+            "url": "https://github.com/canvg/canvg"
+        },
+        "cors": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/expressjs/cors#readme"
+        },
+        "cytoscape": {
+            "credit": 0.03,
+            "url": "http://js.cytoscape.org"
+        },
+        "d3-v4-grid": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/finnfiddle/d3-v4-grid#readme"
+        },
+        "dotenv": {
+            "credit": 0.03,
+            "url": "https://github.com/motdotla/dotenv#readme"
+        },
+        "errorhandler": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/expressjs/errorhandler#readme"
+        },
+        "express": {
+            "credit": 0.0337125,
+            "url": "http://expressjs.com/"
+        },
+        "fs": {
+            "credit": 0.03,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "googleapis": {
+            "credit": 0.03,
+            "url": "https://github.com/googleapis/google-api-nodejs-client#readme"
+        },
+        "http": {
+            "credit": 0.03,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "jspdf": {
+            "credit": 0.03,
+            "url": "https://github.com/mrrio/jspdf"
+        },
+        "method-override": {
+            "credit": 0.0002999999999999982,
+            "url": "https://github.com/expressjs/method-override#readme"
+        },
+        "moment": {
+            "credit": 0.03,
+            "url": "https://momentjs.com"
+        },
+        "morgan": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "multiparty": {
+            "credit": 0.03,
+            "url": "https://github.com/pillarjs/multiparty#readme"
+        },
+        "node-xlsx": {
+            "credit": 0.03,
+            "url": "https://github.com/mgcrea/node-xlsx#readme"
+        },
+        "nodemon": {
+            "credit": 0.03,
+            "url": "https://nodemon.io"
+        },
+        "parallelshell": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/darkguy2008/parallelshell"
+        },
+        "pg": {
+            "credit": 0.03,
+            "url": "https://github.com/brianc/node-postgres"
+        },
+        "pg-hstore": {
+            "credit": 0.03,
+            "url": "https://github.com/scarney81/pg-hstore"
+        },
+        "pug": {
+            "credit": 0.03,
+            "url": "https://pugjs.org"
+        },
+        "querystring": {
+            "credit": 0.006240000000000001,
+            "url": "https://github.com/Gozala/querystring#readme"
+        },
+        "save-svg-as-png": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/exupero/saveSvgAsPng"
+        },
+        "sequelize": {
+            "credit": 0.03,
+            "url": "https://sequelize.org/"
+        },
+        "serve-static": {
+            "credit": 0.03,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        },
+        "should": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/shouldjs/should.js"
+        },
+        "stylus": {
+            "credit": 0.03,
+            "url": "https://github.com/stylus/stylus"
+        },
+        "supertest": {
+            "credit": 0.039974793956043954,
+            "url": "https://github.com/visionmedia/supertest#readme"
+        },
+        "url": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/defunctzombie/node-url#readme"
+        },
+        "webpack": {
+            "credit": 0.03,
+            "url": "https://github.com/webpack/webpack"
+        },
+        "xml2js": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/Leonidas-from-XIV/node-xml2js"
+        },
+        "xmlbuilder": {
+            "credit": 0.004012500000000001,
+            "url": "http://github.com/oozcitak/xmlbuilder-js"
+        },
+        "mocha": {
+            "credit": 0.028908543956043954,
+            "url": "https://mochajs.org/"
+        },
+        "nyc": {
+            "credit": 0.012993749999999998,
+            "url": "https://istanbul.js.org/"
+        },
+        "object-assign": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "vary": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "after": {
+            "credit": 0.005997115384615384,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.013481043956043956,
+            "url": null
+        },
+        "d3-array": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "d3-scale": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "its-set": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "babel-plugin-transform-es2015-modules-umd": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "babel-plugin-transform-runtime": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "babel-preset-stage-2": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.007912293956043957,
+            "url": null
+        },
+        "eslint-plugin-jsx-a11y": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "eslint-plugin-react": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "gulp-eslint": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "babel-register": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "eslint-config-airbnb": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "eslint-plugin-babel": {
+            "credit": 0.0016499999999999998,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.008118543956043955,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.006262293956043956,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.006262293956043956,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.006262293956043956,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.006262293956043956,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.006262293956043956,
+            "url": null
+        },
+        "escape-html": {
+            "credit": 0.0022846153846153845,
+            "url": null
+        },
+        "accepts": {
+            "credit": 0.0022846153846153845,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0021214285714285714,
+            "url": null
+        },
+        "parseurl": {
+            "credit": 0.0021214285714285714,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.003977678571428571,
+            "url": null
+        },
+        "split": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.00928125,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.007424999999999999,
+            "url": null
+        },
+        "coffee-script": {
+            "credit": 0.011137499999999998,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.017325,
+            "url": null
+        },
+        "retape": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "test": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "requirejs": {
+            "credit": 0.007424999999999999,
+            "url": null
+        },
+        "should-util": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "zuul": {
+            "credit": 0.007796249999999999,
+            "url": null
+        },
+        "tslint": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "mocha-better-spec-reporter": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "should-equal": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "eslint-config-shouldjs": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "should-type": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "should-format": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "should-type-adaptors": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.0018562499999999998,
+            "url": null
+        },
+        "assert": {
+            "credit": 0.005939999999999999,
+            "url": null
+        },
+        "punycode": {
+            "credit": 0.005939999999999999,
+            "url": null
+        },
+        "zap": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "docco": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "diff": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.007424999999999999,
+            "url": null
+        },
+        "sax": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "git-state": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "xpath": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "coffeescript": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        },
+        "coffee-coverage": {
+            "credit": 0.0037124999999999997,
+            "url": null
+        }
+    }
+}

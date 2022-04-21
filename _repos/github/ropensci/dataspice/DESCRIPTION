@@ -1,0 +1,53 @@
+Package: dataspice
+Version: 1.1.0
+Title: Create Lightweight Schema.org Descriptions of Data
+Description: The goal of 'dataspice' is to make it easier for researchers to
+  create basic, lightweight, and concise metadata files for their datasets.
+  These basic files can then be used to make useful information available during
+  analysis, create a helpful dataset "README" webpage, and produce more complex
+  metadata formats to aid dataset discovery. Metadata fields are based on
+  the 'Schema.org' and 'Ecological Metadata Language' standards.
+Authors@R: c(
+    person("Carl", "Boettiger", role = c("aut"), comment = "https://github.com/cboettig"),
+    person("Scott", "Chamberlain", role = c("aut"), comment = "https://github.com/sckott"),
+    person("Auriel", "Fournier", role = c("aut"), comment = "https://github.com/aurielfournier"),
+    person("Kelly", "Hondula", role = c("aut"), comment = "https://github.com/khondula"),
+    person("Anna", "Krystalli", role = c("aut"), comment = "https://github.com/annakrystalli"),
+    person("Bryce", "Mecum", role = c("aut", "cre"), email = "brycemecum@gmail.com", comment = "https://github.com/amoeba"),
+    person("Maëlle", "Salmon", role = c("aut"), comment = "https://github.com/maelle"),
+    person("Kate", "Webbink", role = c("aut"), comment = "https://github.com/magpiedin"),
+    person("Kara", "Woo", role = c("aut"), comment = "https://github.com/karawoo"),
+    person("Irene", "Steves", role = c("ctb"), comment = "https://github.com/isteves"))
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/dataspice
+BugReports: https://github.com/ropensci/dataspice/issues
+Encoding: UTF-8
+Language: en-US
+ByteCompile: true
+RoxygenNote: 7.1.1
+Imports:
+    purrr,
+    EML,
+    fs,
+    jsonlite,
+    whisker,
+    readr,
+    stringr,
+    tools,
+    tibble,
+    shiny,
+    rhandsontable,
+    dplyr,
+    tidyr,
+    ggplot2,
+    magrittr
+Suggests:
+    testthat,
+    kableExtra,
+    knitr,
+    rmarkdown,
+    servr,
+    listviewer,
+    maps
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

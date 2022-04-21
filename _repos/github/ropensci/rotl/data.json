@@ -1,0 +1,114 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rotl": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ape": {
+            "credit": 0.028875000000000012,
+            "url": "http://ape-package.ird.fr/"
+        },
+        "assertthat": {
+            "credit": 0.0016500000000000126,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.1883357142857143,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.1883357142857143,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "rentrez": {
+            "credit": 0.0016500000000000126,
+            "url": "http://github.com/ropensci/rentrez"
+        },
+        "rncl": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/fmichonneau/rncl"
+        },
+        "phangorn": {
+            "credit": 0.011667857142857143,
+            "url": "https://github.com/KlausVigo/phangorn"
+        },
+        "igraph": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "gee": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.038892857142857146,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.06611785714285714,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.038892857142857146,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "R": {
+            "credit": 0.062228571428571425,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.10501071428571429,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "XML": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.027225,
+            "url": null
+        }
+    }
+}

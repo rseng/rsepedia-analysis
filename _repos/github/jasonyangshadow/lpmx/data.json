@@ -1,0 +1,82 @@
+{
+    "go.mod": {
+        "github/jasonyangshadow/lpmx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "go": {
+        "github.com/bradfitz/gomemcache": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/docker/distribution": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/docker/libtrust": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/gorilla/mux": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/opencontainers/go-digest": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/opencontainers/image-spec": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/phayes/permbits": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/sirupsen/logrus": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/spf13/afero": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/spf13/viper": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/sylabs/sif": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "github.com/vmihailenco/msgpack": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "golang.org/x/crypto": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "golang.org/x/net": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "golang.org/x/sync": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "golang.org/x/sys": {
+            "credit": 0.00055,
+            "url": null
+        },
+        "google.golang.org/appengine": {
+            "credit": 0.00055,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,114 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/vcr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crul": {
+            "credit": 0.0012375000000000025,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "httr": {
+            "credit": 0.12375,
+            "url": "https://httr.r-lib.org/"
+        },
+        "webmockr": {
+            "credit": 0.133959375,
+            "url": "https://github.com/ropensci/webmockr (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)\nhttps://docs.ropensci.org/webmockr/ (documentation)"
+        },
+        "urltools": {
+            "credit": 0.011446875000000002,
+            "url": "https://github.com/Ironholds/urltools/"
+        },
+        "yaml": {
+            "credit": 0.12375,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "R6": {
+            "credit": 0.011446875000000002,
+            "url": "https://r6.r-lib.org"
+        },
+        "base64enc": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.rforge.net/base64enc"
+        },
+        "rprojroot": {
+            "credit": 0.0012375000000000025,
+            "url": "https://rprojroot.r-lib.org/"
+        },
+        "rmarkdown": {
+            "credit": 0.0255234375,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.045942187499999995,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.08677968750000001,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "triebeard": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "R": {
+            "credit": 0.19908281249999998,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0153140625,
+            "url": null
+        }
+    }
+}

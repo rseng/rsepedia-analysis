@@ -1,0 +1,48 @@
+Package: latentcor
+Type: Package
+Title: Fast Computation of Latent Correlations for Mixed Data
+Version: 1.2.0
+Authors@R: c(
+    person(given = "Mingze",
+           family = "Huang",
+           role = c("aut", "cre"),
+           email = "mingzehuang@gmail.com",
+           comment = c(ORCID = "0000-0003-3919-1564")),
+    person(given = "Grace",
+           family = "Yoon",
+           role = c("aut"),
+           email = "gyoon6067@gmail.com",
+           comment = c(ORCID = "0000-0003-3263-1352")),
+    person(given = "Christian",
+           family = "M&uuml;ller",
+           role = c("aut"),
+           email = "christian.mueller@stat.uni-muenchen.de",
+           comment = c(ORCID = "0000-0002-3821-7083")),
+    person(given = "Irina",
+           family = "Gaynanova",
+           role = c("aut"),
+           email = "irinag@stat.tamu.edu",
+           comment = c(ORCID = "0000-0002-4116-0268")))
+Maintainer: Mingze Huang <mingzehuang@gmail.com>
+Description: The first stand-alone R package for computation of latent correlation that takes into account all variable types (continuous/binary/ordinal/zero-inflated),
+             comes with an optimized memory footprint, and is computationally efficient, essentially making latent correlation estimation almost as fast as rank-based correlation estimation.
+             The estimation is based on latent copula Gaussian models.
+             For continuous/binary types, see Fan, J., Liu, H., Ning, Y., and Zou, H. (2017) <doi:10.1111/rssb.12168>.
+             For ternary type, see Quan X., Booth J.G. and Wells M.T. (2018) <arXiv:1809.06255>.
+             For truncated type or zero-inflated type, see Yoon G., Carroll R.J. and Gaynanova I. (2020) <doi:10.1093/biomet/asaa007>.
+             For approximation method of computation, see Yoon G., Müller C.L. and Gaynanova I. (2021) <doi:10.1080/10618600.2021.1882468>.
+Depends: R (>= 3.0.0)
+Imports: stats, pcaPP, fMultivar, mnormt, chebpol, Matrix, MASS, heatmaply, ggplot2, plotly, graphics
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Suggests:
+    microbenchmark,
+    rmarkdown,
+    markdown,
+    knitr,
+    testthat (>= 3.0.0),
+    covr
+Config/testthat/edition: 3
+VignetteBuilder: knitr

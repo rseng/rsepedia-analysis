@@ -1,0 +1,71 @@
+Package: secuTrialR
+Type: Package
+Title: Handling of Data from the Clinical Data Management System 'secuTrial'
+Version: 1.0.11
+Authors@R:
+    c(person(given = "Alan G.",
+             family = "Haynes",
+             role = c("cre", "aut", "cph"),
+             email = "alan.haynes@ctu.unibe.ch"),
+      person(given = "Patrick R.",
+             family = "Wright",
+             role = c("aut", "cph"),
+             email = "patrick.wright@usb.ch"),
+      person(given = "Milica",
+             family = "Markovic",
+             role = c("aut", "cph"),
+             email = "milica.markovic@usb.ch"),
+      person(given = "Gilles",
+             family = "Dutilh",
+             role = c("ctb")),
+      person(given = "Armando",
+             family = "Lenz",
+             role = c("ctb")),
+      person(given = "Pascal",
+             family = "Benkert",
+             role = c("com"),
+             email = "pascal.benkert@usb.ch"),
+      person(given = "Silvia",
+             family = "Grieder",
+             role = c("ctb")),
+      person(given = "Pia",
+             family = "Neuschwander",
+             role = c("ctb")),
+      person(given = "Constantin",
+             family = "Sluka",
+             role = c("ctb"))
+             )
+Maintainer: Alan G. Haynes <alan.haynes@ctu.unibe.ch>
+Description: Seamless and standardized interaction with data
+    exported from the clinical data management system (CDMS)
+    'secuTrial'<https://www.secutrial.com>.
+    The primary data export the package works with is a standard non-rectangular export.
+Depends:
+    R (>= 3.5)
+Imports:
+    haven (>= 2.2.0),
+    readr,
+    readxl,
+    stringr,
+    tibble,
+    magrittr,
+    purrr,
+    tidyr,
+    dplyr,
+    rlang,
+    lubridate
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    lintr,
+    rmarkdown,
+    testthat,
+    tufte,
+    tcltk,
+    igraph
+VignetteBuilder: knitr
+URL: https://github.com/SwissClinicalTrialOrganisation/secuTrialR
+BugReports: https://github.com/SwissClinicalTrialOrganisation/secuTrialR/issues

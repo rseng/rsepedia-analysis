@@ -1,0 +1,146 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/paleobioDB": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "rjson": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/alexcb/rjson"
+        },
+        "gtools": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/r-gregmisc/gtools"
+        },
+        "RCurl": {
+            "credit": 0.0019800000000000095,
+            "url": "http://www.omegahat.net/RCurl"
+        },
+        "plyr": {
+            "credit": 0.0019799999999999818,
+            "url": "http://had.co.nz/plyr"
+        },
+        "scales": {
+            "credit": 0.0019800000000000095,
+            "url": "https://scales.r-lib.org"
+        },
+        "R": {
+            "credit": 0.2731496086956522,
+            "url": null
+        },
+        "taxize": {
+            "credit": 0.02178,
+            "url": "https://docs.ropensci.org/taxize/ (website)"
+        },
+        "SGP": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "gplots": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "car": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.070785,
+            "url": null
+        },
+        "XML": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.03664721739130435,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "itertools": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03664721739130435,
+            "url": null
+        },
+        "abind": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.03664721739130435,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "viridisLite": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "dichromat": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "labeling": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "munsell": {
+            "credit": 0.017045217391304348,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.017045217391304348,
+            "url": null
+        }
+    }
+}

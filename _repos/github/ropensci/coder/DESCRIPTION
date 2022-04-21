@@ -1,0 +1,52 @@
+Package: coder
+Type: Package
+Title: Deterministic Categorization of Items Based on External Code Data
+Version: 0.13.7
+Authors@R: 
+  c(
+    person("Erik", "Bulow", email = "eriklgb@gmail.com",
+          role = c("aut", "cre"),
+          comment = c(ORCID = "0000-0002-9973-456X")),
+  person("Emely C", "Zabore", role = "rev",
+    comment = "Emily reviewed the package (v. 0.12.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/381>"),
+  person("David", "Robinson", role = "rev",
+    comment = "David reviewed the package (v. 0.12.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/381>")
+  )
+Description: 
+  Fast categorization of items based on external code data identified by 
+  regular expressions. A typical use case considers patient with medically coded 
+  data, such as codes from the International Classification of Diseases ('ICD') or 
+  the Anatomic Therapeutic Chemical ('ATC') classification system. 
+  Functions of the package relies on a triad of objects: (1) case data with unit 
+  id:s and possible dates of interest; (2) external code data for corresponding 
+  units in (1) and with optional dates of interest and; (3) a classification 
+  scheme ('classcodes' object) with regular expressions to identify and 
+  categorize relevant codes from (2). 
+  It is easy to introduce new classification schemes ('classcodes' objects) or  
+  to use default schemes included in the package. Use cases includes patient 
+  categorization based on 'comorbidity indices' such as 'Charlson', 'Elixhauser', 
+  'RxRisk V', or the 'comorbidity-polypharmacy' score (CPS), as well as adverse 
+  events after hip and knee replacement surgery.
+License: GPL-2
+Depends: R (>= 3.3)
+Suggests:
+  covr,
+  testthat,
+  knitr,
+  rmarkdown,
+  writexl
+Imports:
+  data.table,
+  decoder,
+  generics,
+  methods,
+  tibble
+LazyData: TRUE
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: 
+  knitr
+URL: https://docs.ropensci.org/coder/
+BugReports: https://github.com/ropensci/coder/issues
+Encoding: UTF-8
+Language: en-US

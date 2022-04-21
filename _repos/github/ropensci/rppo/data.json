@@ -1,0 +1,158 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rppo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "jsonlite": {
+            "credit": 0.2475,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "readr": {
+            "credit": 0.002475000000000005,
+            "url": "https://readr.tidyverse.org"
+        },
+        "plyr": {
+            "credit": 0.002475000000000005,
+            "url": "http://had.co.nz/plyr"
+        },
+        "httr": {
+            "credit": 0.248510728125,
+            "url": "https://httr.r-lib.org/"
+        },
+        "xml2": {
+            "credit": 0.00010209375000000062,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "withr": {
+            "credit": 0.010209375,
+            "url": "https://withr.r-lib.org"
+        },
+        "waldo": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.035722603125,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.011220103125,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.011220103125,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.011220103125,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.035722603125,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.011220103125,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "R": {
+            "credit": 0.035722603125,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "itertools": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "abind": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.001010728125,
+            "url": null
+        }
+    }
+}

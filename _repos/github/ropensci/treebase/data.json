@@ -1,0 +1,38 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/treebase": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "XML": {
+            "credit": 0.00828094987500003,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "RCurl": {
+            "credit": 0.007317103200000023,
+            "url": "http://www.omegahat.net/RCurl"
+        },
+        "httr": {
+            "credit": 0.33,
+            "url": "https://httr.r-lib.org/"
+        },
+        "bitops": {
+            "credit": 0.18656277007500002,
+            "url": "https://github.com/mmaechler/R-bitops"
+        },
+        "utils": {
+            "credit": 0.0847136367,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.18656277007500002,
+            "url": null
+        },
+        "R": {
+            "credit": 0.18656277007500002,
+            "url": null
+        }
+    }
+}

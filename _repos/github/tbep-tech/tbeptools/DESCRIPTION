@@ -1,0 +1,91 @@
+Package: tbeptools
+Title: Data and Indicators for the Tampa Bay Estuary Program
+Version: 1.1.0.9004
+Date: 2022-02-06
+Authors@R: c(
+    person(given = "Marcus",
+      family = "Beck",
+      role = c("aut", "cre"),
+      email = "mbeck@tbep.org",
+      comment = c(ORCID = "0000-0002-4996-0059")
+    ),
+    person(given = "Meagan",
+      family = "Schrandt",
+      role = c("aut"),
+      email = "Meagan.Schrandt@myfwc.com",,
+      comment = c(ORCID = "0000-0002-0482-5072")
+    ),
+    person(given = "Mike",
+      family = "Wessel",
+      role = c("aut"),
+      email = "mwessel@janickienvironmental.com"
+    ),
+    person(given = "Ed",
+      family = "Sherwood",
+      role = c("aut"),
+      email = "esherwood@tbep.org",
+      comment = c(ORCID = "0000-0001-5330-302X")
+    ),
+    person(given = "Gary",
+      family = "Raulerson",
+      role = c("aut"),
+      email = "graulerson@tbep.org",
+      comment = c(ORCID = "0000-0002-5920-5743")
+    ),
+    person(given = "Adhokshaja Achar",
+      family = "Budihal Prasad",
+      role = c("aut"),
+      email = "adhokshajaac@usf.edu",
+      comment = c(ORCID = "0000-0002-6485-6858")
+    ),
+    person(given = "Benjamin",
+      family = "Best",
+      role = c("aut"),
+      email = "ben@ecoquants.com",
+      comment = c(ORCID = "0000-0002-2686-0784")
+    )
+  )
+Description: Several functions are provided for Working with Tampa Bay Estuary 
+  Program data and indicators, including the water quality report card, tidal creek
+  assessments, Tampa Bay Nekton Index, and the Tampa Bay Benthic Index. Additional
+  functions are provided for miscellaneous tasks, such as reference library curation
+  and assessing seagrass data.
+Depends: 
+  R (>= 3.6),
+  methods
+Imports:
+  dataRetrieval,
+  dplyr,
+  ggplot2,
+  jsonlite,
+  leaflet,
+  lubridate,
+  mapview,
+  patchwork,
+  plotly,
+  purrr,
+  reactable,
+  readxl,
+  rnoaa,
+  sf,
+  RCurl,
+  tibble,
+  tidyr,
+  xml2
+Suggests: 
+  bookdown,
+  ggmap,
+  ggrepel,
+  ggsn,
+  knitr,
+  rmarkdown,
+  testthat (>= 2.1.0),
+  covr
+License: MIT + file LICENSE
+Encoding: UTF-8
+VignetteBuilder: knitr
+LazyData: true
+LazyDataCompression: xz
+RoxygenNote: 7.1.2
+URL: https://github.com/tbep-tech/tbeptools
+BugReports: https://github.com/tbep-tech/tbeptools/issues

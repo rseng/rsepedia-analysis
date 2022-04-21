@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/icecube/FIRESONG": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "coverage": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "numpy": {
+            "credit": 0.006567,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        },
+        "tomli": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/tomli"
+        }
+    }
+}

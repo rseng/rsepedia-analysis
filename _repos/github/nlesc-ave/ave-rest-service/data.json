@@ -1,0 +1,158 @@
+{
+    "setup.py": {
+        "github/nlesc-ave/ave-rest-service": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "flask": {
+            "credit": 0.007071428571428574,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "click": {
+            "credit": 0.07690355357142857,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "connexion": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/zalando/connexion"
+        },
+        "whoosh": {
+            "credit": 0.12375,
+            "url": "http://bitbucket.org/mchaput/whoosh"
+        },
+        "pybedtools": {
+            "credit": 0.12375,
+            "url": "https://github.com/daler/pybedtools"
+        },
+        "cyvcf2": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/brentp/cyvcf2/"
+        },
+        "numpy": {
+            "credit": 0.2871,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.scipy.org"
+        },
+        "python-dotenv": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "importlib-metadata": {
+            "credit": 0.08459196428571429,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "itsdangerous": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "colorama": {
+            "credit": 0.06125625,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "aiohttp-remotes": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/aiohttp-remotes"
+        },
+        "pytest-aiohttp": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/pytest-aiohttp"
+        },
+        "testfixtures": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/testfixtures"
+        },
+        "pytest-cov": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.010165620535714286,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "decorator": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "swagger-ui-bundle": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/swagger-ui-bundle"
+        },
+        "sphinx-autoapi": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/sphinx-autoapi"
+        },
+        "MarkupSafe": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "aiohttp-jinja2": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/aiohttp-jinja2"
+        },
+        "aiohttp": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "packaging": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "werkzeug": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/werkzeug"
+        },
+        "inflection": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/inflection"
+        },
+        "requests": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/requests"
+        },
+        "PyYAML": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "jsonschema": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/jsonschema"
+        },
+        "clickclick": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/clickclick"
+        },
+        "coloredlogs": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/coloredlogs"
+        },
+        "mypy": {
+            "credit": 0.004331691964285714,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pytest-asyncio": {
+            "credit": 0.004331691964285714,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "typing-extensions": {
+            "credit": 0.004331691964285714,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}

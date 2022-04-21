@@ -1,0 +1,43 @@
+Package: cofad
+Type: Package
+Title: Contrast Analyses for Factorial Designs
+Version: 0.2.1.9000
+Authors@R: c(person("Markus", "Burkhardt",
+  email = "markus.burkhardt@psychologie.tu-chemnitz.de",
+  role = c("aut", "cre")),
+  person("Johannes", "Titz", email = "johannes.titz@gmail.com",
+  role = c("aut")))
+Maintainer: Markus Burkhardt <markus.burkhardt@psychologie.tu-chemnitz.de>
+Description: Contrast analysis for factorial designs is an alternative to the 
+  classical ANOVA approach with the advantage of testing focused hypothesis. 
+  The method is mainly based on Rosenthal, Rosnow and Rubin (2000,
+  ISBN:978-0521659802) and Sedlmeier and Renkewitz (2018, ISBN:978-3868943214). 
+Depends: R (>= 3.1.0)
+License: LGPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/johannes-titz/cofad
+Imports: 
+    shinydashboard,
+    shiny,
+    shinyalert,
+    shinyjs,
+    shinyBS,
+    shinybusy,
+    plyr,
+    Hmisc,
+    stringr,
+    utils,
+    readr,
+    sortable,
+    htmlwidgets,
+    magrittr,
+    rhandsontable,
+    dplyr,
+    rlang

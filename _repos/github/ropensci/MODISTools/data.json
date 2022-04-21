@@ -1,0 +1,294 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/MODISTools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.18315,
+            "url": "https://httr.r-lib.org/"
+        },
+        "sf": {
+            "credit": 0.02706000000000001,
+            "url": "https://r-spatial.github.io/sf/"
+        },
+        "raster": {
+            "credit": 0.0050531250000000125,
+            "url": "https://rspatial.org/raster"
+        },
+        "terra": {
+            "credit": 0.014128125000000012,
+            "url": "https://rspatial.org/terra/"
+        },
+        "memoise": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/r-lib/memoise"
+        },
+        "jsonlite": {
+            "credit": 0.165,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "wk": {
+            "credit": 0.003403125,
+            "url": "https://paleolimbot.github.io/wk/"
+        },
+        "vctrs": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "tmap": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.021553125,
+            "url": null
+        },
+        "stars": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "spatstat.utils": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "spatstat.linnet": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "spatstat.random": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "spatstat.geom": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "spatstat": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.012478125,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "RPostgres": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.021553125,
+            "url": null
+        },
+        "pool": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "odbc": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "mapview": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "lwgeom": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.021553125,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "units": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "s2": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.028813125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "classInt": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "R": {
+            "credit": 0.028813125,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.028813125,
+            "url": null
+        },
+        "exactextractr": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "fields": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "gstat": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.02541,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "rasterVis": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.02541,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.02541,
+            "url": null
+        },
+        "ncdf4": {
+            "credit": 0.02541,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "XML": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "deldir": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "googleCloudStorageR": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "googleAuthR": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "aws.s3": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "cachem": {
+            "credit": 0.01815,
+            "url": null
+        }
+    }
+}

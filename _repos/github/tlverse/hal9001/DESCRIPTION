@@ -1,0 +1,72 @@
+Package: hal9001
+Title: The Scalable Highly Adaptive Lasso
+Version: 0.4.3
+Authors@R: c(
+  person("Jeremy", "Coyle", email = "jeremyrcoyle@gmail.com",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0002-9874-6649")),
+  person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+         role = "aut",
+         comment = c(ORCID = "0000-0002-7127-2789")),
+  person("Rachael", "Phillips", email = "rachaelvphillips@berkeley.edu",
+         role = "aut", comment = c(ORCID = "0000-0002-8474-591X")),
+  person("Lars", "van der Laan", email = "vanderlaanlars@yahoo.com",
+         role = "aut"),
+  person("David", "Benkeser", email = "benkeser@emory.edu",
+         role = "ctb",
+         comment = c(ORCID = "0000-0002-1019-8343")),
+  person("Oleg", "Sofrygin", email = "oleg.sofrygin@gmail.com",
+         role = "ctb"),
+  person("Weixin", "Cai", email = "wcai@berkeley.edu",
+         role = "ctb",
+         comment = c(ORCID = "0000-0003-2680-3066")),
+  person("Mark", "van der Laan", email = "laan@berkeley.edu",
+         role = c("aut", "cph", "ths"),
+         comment = c(ORCID = "0000-0003-1432-5511"))
+  )
+Description: A scalable implementation of the highly adaptive lasso algorithm,
+  including routines for constructing sparse matrices of basis functions of the
+  observed data, as well as a custom implementation of Lasso regression tailored
+  to enhance efficiency when the matrix of predictors is composed exclusively of
+  indicator functions. For ease of use and increased flexibility, the Lasso
+  fitting routines invoke code from the 'glmnet' package by default. The highly
+  adaptive lasso was first formulated and described by MJ van der Laan (2017)
+  <doi:10.1515/ijb-2015-0097>, with practical demonstrations of its performance
+  given by Benkeser and van der Laan (2016) <doi:10.1109/DSAA.2016.93>. This
+  implementation of the highly adaptive lasso algorithm was described by Hejazi,
+  Coyle, and van der Laan (2020) <doi:10.21105/joss.02526>.
+Depends:
+  R (>= 3.1.0),
+  Rcpp
+License: GPL-3
+URL: https://github.com/tlverse/hal9001
+BugReports: https://github.com/tlverse/hal9001/issues
+Encoding: UTF-8
+LazyData: true
+Imports:
+  Matrix,
+  stats,
+  utils,
+  methods,
+  assertthat,
+  origami (>= 1.0.3),
+  glmnet,
+  data.table,
+  stringr
+Suggests:
+  testthat,
+  knitr,
+  rmarkdown,
+  microbenchmark,
+  future,
+  ggplot2,
+  dplyr,
+  tidyr,
+  survival,
+  SuperLearner
+LinkingTo:
+  Rcpp,
+  RcppEigen
+VignetteBuilder: knitr
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)

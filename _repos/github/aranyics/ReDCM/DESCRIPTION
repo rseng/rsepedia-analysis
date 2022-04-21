@@ -1,0 +1,24 @@
+Package: ReDCM
+Type: Package
+Title: ReDCM package
+Version: 0.2.1
+Priority: optional
+Date: 2019-11-22
+Author: Csaba Aranyi
+Maintainer: Csaba Aranyi <aranyics11@gmail.com>
+Description: R implementation of Dynamic Causal Modeling from SPM12 (6225)
+Depends: R (>= 3.0.1), R.matlab, Matrix, matrixcalc, numDeriv, plyr,
+        stringr, pracma
+Imports: methods, R.matlab, Matrix, matrixcalc, numDeriv, plyr,
+        stringr, pracma
+Collate: 'ReDCM_generics.R' 'ReDCM_data.R' 'ReDCM_external.R'
+        'ReDCM_parameters.R' 'ReDCM_model.R' 'ReDCM_estimate_struct.R'
+        'ReDCM_utils.r' 'ReDCM_estimate.r' 'ReDCM_nlsi_GN.r'
+        'ReDCM_fx_fmri.r' 'ReDCM_gx_fmri.r' 'ReDCM_bireduce.r'
+        'ReDCM_int.r' 'ReDCM_c.r' 'ReDCM_kernels.r'
+        'ReDCM_bilinear_condition.r' 'ReDCM_generate.r' 'ReDCM_evidence.r'
+        'ReDCM_BMS.r' 'ReDCM_ges.r' 'DCMdata.R'
+NeedsCompilation: yes
+LazyData: true
+License: TBD
+Packaged: 2019-11-22 00:00:00 UTC; aranyics

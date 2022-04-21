@@ -1,0 +1,36 @@
+Package: ritis
+Title: Integrated Taxonomic Information System Client
+Description: An interface to the Integrated Taxonomic Information System ('ITIS')
+    (<https://www.itis.gov>). Includes functions to work with the 'ITIS' REST
+    API methods (<https://www.itis.gov/ws_description.html>), as well as the
+    'Solr' web service (<https://www.itis.gov/solr_documentation.html>).
+Version: 1.0.0
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/ritis (devel)
+    https://docs.ropensci.org/ritis/ (docs)
+BugReports: https://github.com/ropensci/ritis/issues
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
+        email = "myrmecocystus@gmail.com",
+        comment = c(ORCID = "0000-0003-1444-9135")),
+    person(given = "rOpenSci",
+        role = "fnd",
+        comment = "https://ropensci.org/"))
+Roxygen: list(markdown = TRUE)
+LazyData: true
+Encoding: UTF-8
+Language: en-US
+Imports:
+    solrium (>= 1.1.4),
+    crul (>= 0.9.0),
+    jsonlite,
+    data.table,
+    tibble
+Suggests:
+    testthat,
+    webmockr,
+    vcr (>= 0.5.4)
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Taxonomy
+X-schema.org-keywords: taxonomy, biology, nomenclature, JSON, API, web, api-client, identifiers, species, names
+X-schema.org-isPartOf: https://ropensci.org

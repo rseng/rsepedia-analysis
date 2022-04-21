@@ -1,0 +1,170 @@
+{
+    "DESCRIPTION": {
+        "github/timoast/signac": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Matrix": {
+            "credit": 0.0004304347826086935,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "Seurat": {
+            "credit": 0.043043478260869565,
+            "url": "https://satijalab.org/seurat"
+        },
+        "SeuratObject": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "future": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "future.apply": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "ggseqlogo": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "irlba": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "pbapply": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "patchwork": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "ggrepel": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "lsa": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "RcppRoll": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "ggforce": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "qlcMatrix": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0025066496163682864,
+            "url": null
+        }
+    }
+}

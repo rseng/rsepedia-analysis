@@ -1,0 +1,166 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rsnps": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "plyr": {
+            "credit": 0.0016500000000000126,
+            "url": "http://had.co.nz/plyr"
+        },
+        "stringr": {
+            "credit": 0.0016500000000000126,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "crul": {
+            "credit": 0.0016500000000000126,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "data.table": {
+            "credit": 0.0016500000000000126,
+            "url": "https://r-datatable.com"
+        },
+        "jsonlite": {
+            "credit": 0.1786125,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "httr": {
+            "credit": 0.165,
+            "url": "https://httr.r-lib.org/"
+        },
+        "testthat": {
+            "credit": 0.0462825,
+            "url": "https://testthat.r-lib.org"
+        },
+        "tcltk": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "itertools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "abind": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0462825,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0136125,
+            "url": null
+        }
+    }
+}

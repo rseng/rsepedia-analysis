@@ -1,0 +1,326 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/camsRad": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.5474125976785714,
+            "url": "https://httr.r-lib.org/"
+        },
+        "xml2": {
+            "credit": 0.009827747678571438,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "testthat": {
+            "credit": 0.02991346875,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.03097291017857143,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "mockery": {
+            "credit": 0.003981656249999998,
+            "url": "https://github.com/r-lib/mockery"
+        },
+        "magrittr": {
+            "credit": 0.007350749999999999,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "knitr": {
+            "credit": 0.031383618749999995,
+            "url": "https://yihui.org/knitr/"
+        },
+        "curl": {
+            "credit": 0.003981656249999998,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "covr": {
+            "credit": 0.010046024999999998,
+            "url": "https://covr.r-lib.org"
+        },
+        "methods": {
+            "credit": 0.055679597678571426,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06915597267857142,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.003267,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.003267,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.00349160625,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.00528845625,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.00528845625,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.011577431249999999,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.01562034375,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.01067900625,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.004653141428571429,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.006674597678571429,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.00349160625,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "tufte": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "rsconnect": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.005204447678571429,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "jquerylib": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.00381830625,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.003182991428571429,
+            "url": null
+        },
+        "targets": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "styler": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "png": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "JuliaCall": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "reticulate": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "tikzDevice": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "webshot": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "testit": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "highr": {
+            "credit": 0.0013861414285714286,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.00539055,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.00539055,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.00539055,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.00202145625,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.00202145625,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.00202145625,
+            "url": null
+        },
+        "rex": {
+            "credit": 0.00202145625,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.00202145625,
+            "url": null
+        }
+    }
+}

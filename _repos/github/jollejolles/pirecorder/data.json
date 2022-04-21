@@ -1,0 +1,50 @@
+{
+    "setup.py": {
+        "github/jollejolles/pirecorder": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pythutils": {
+            "credit": 0.0009,
+            "url": "https://github.com/JolleJolles"
+        },
+        "multiprocess": {
+            "credit": 0.0009,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "python-crontab": {
+            "credit": 0.0009,
+            "url": "https://gitlab.com/doctormo/python-crontab/"
+        },
+        "croniter": {
+            "credit": 0.0009,
+            "url": "http://github.com/kiorky/croniter"
+        },
+        "cron-descriptor": {
+            "credit": 0.0009,
+            "url": "https://github.com/Salamek/cron-descriptor"
+        },
+        "pyyaml": {
+            "credit": 0.0009,
+            "url": "https://pyyaml.org/"
+        },
+        "future": {
+            "credit": 0.0009,
+            "url": "https://python-future.org"
+        },
+        "numpy": {
+            "credit": 0.0018,
+            "url": "https://www.numpy.org"
+        },
+        "localconfig": {
+            "credit": 0.0018,
+            "url": "https://github.com/maxzheng/localconfig"
+        },
+        "python-dateutil": {
+            "credit": 0.000891,
+            "url": "https://github.com/dateutil/dateutil"
+        }
+    }
+}

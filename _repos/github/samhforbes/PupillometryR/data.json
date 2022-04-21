@@ -1,0 +1,298 @@
+{
+    "DESCRIPTION": {
+        "github/samhforbes/PupillometryR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "fda": {
+            "credit": 0.001414285714285729,
+            "url": "http://www.functionaldata.org"
+        },
+        "itsadug": {
+            "credit": 0.001414285714285729,
+            "url": "NA"
+        },
+        "lazyeval": {
+            "credit": 0.001414285714285729,
+            "url": "NA"
+        },
+        "mgcv": {
+            "credit": 0.02141632653061226,
+            "url": "NA"
+        },
+        "signal": {
+            "credit": 0.001414285714285729,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.14142857142857143,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "zoo": {
+            "credit": 0.005893314139941706,
+            "url": "http://zoo.R-Forge.R-project.org/"
+        },
+        "lattice": {
+            "credit": 0.010199118535572121,
+            "url": "http://lattice.r-forge.r-project.org/"
+        },
+        "deSolve": {
+            "credit": 0.0002333571428571428,
+            "url": "http://desolve.r-forge.r-project.org/"
+        },
+        "fds": {
+            "credit": 0.0002333571428571428,
+            "url": "https://sites.google.com/site/hanlinshangswebsite/"
+        },
+        "Matrix": {
+            "credit": 0.01296192857142857,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "splines": {
+            "credit": 0.03606428571428571,
+            "url": null
+        },
+        "R": {
+            "credit": 0.12932711736939137,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.00020002040816326574,
+            "url": "https://r-datatable.com"
+        },
+        "sp": {
+            "credit": 0.0015589825930372152,
+            "url": "https://github.com/edzer/sp/ https://edzer.github.io/sp/"
+        },
+        "xtable": {
+            "credit": 0.00020002040816326574,
+            "url": "http://xtable.r-forge.r-project.org/"
+        },
+        "knitr": {
+            "credit": 0.05372155266034985,
+            "url": "https://yihui.org/knitr/"
+        },
+        "plotfunctions": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.030890651785714283,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.033899555042016805,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.015557431486880465,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.04533521430816687,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.04580669098455171,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.04863555104286075,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.020275664990996395,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "pracma": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.03171915737110634,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.009019341299677765,
+            "url": null
+        },
+        "tseries": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "tis": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "timeSeries": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "timeDate": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "strucchange": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "mondate": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "fts": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "DAAG": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "chron": {
+            "credit": 0.00967940864661654,
+            "url": null
+        },
+        "coda": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "latticeExtra": {
+            "credit": 0.002310235714285714,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.002310235714285714,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.004906824174669868,
+            "url": null
+        },
+        "FME": {
+            "credit": 0.003300336734693877,
+            "url": null
+        },
+        "scatterplot3d": {
+            "credit": 0.003300336734693877,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.007700785714285713,
+            "url": null
+        },
+        "rainbow": {
+            "credit": 0.007700785714285713,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0025965884603841535,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.0013589621848739495,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "deldir": {
+            "credit": 0.001237626275510204,
+            "url": null
+        },
+        "gstat": {
+            "credit": 0.001237626275510204,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.001237626275510204,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.001237626275510204,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.001237626275510204,
+            "url": null
+        },
+        "plm": {
+            "credit": 0.0028288600583090376,
+            "url": null
+        }
+    }
+}

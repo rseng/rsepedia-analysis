@@ -1,0 +1,126 @@
+{
+    "DESCRIPTION": {
+        "github/nevrome/bleiglas": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "checkmate": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/mllg/checkmate"
+        },
+        "data.table": {
+            "credit": 0.025080000000000026,
+            "url": "https://r-datatable.com"
+        },
+        "Rcpp": {
+            "credit": 0.003300000000000025,
+            "url": "http://www.rcpp.org"
+        },
+        "tibble": {
+            "credit": 0.02178,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "tinytest": {
+            "credit": 0.07622999999999999,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.07622999999999999,
+            "url": null
+        },
+        "backports": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "R": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.05445,
+            "url": null
+        }
+    }
+}

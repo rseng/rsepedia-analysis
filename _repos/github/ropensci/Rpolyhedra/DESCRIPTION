@@ -1,0 +1,49 @@
+Package: Rpolyhedra
+Type: Package
+Title: Polyhedra Database
+Version: 0.5.1
+Language: en-US
+Authors@R: c(
+  person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
+  person("Leonardo","Belen",,"leobelen@gmail.com", c("aut","com","cph")),
+  person(,"qbotics",,"qbotics6@gmail.com", c("cph")),
+  person("Barret","Schloerke",,"schloerke@gmail.com", c("rev")),
+  person("Lijia","Yu",,"yu@lijiayu.net", c("rev")))
+Maintainer: Alejandro Baranek <abaranek@dc.uba.ar>
+Description: A polyhedra database scraped from various sources as R6 objects and 'rgl' visualizing capabilities.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr
+Depends: R (>= 3.5.0)
+Imports: R6,
+  geometry,
+  rgl,
+  stringr,
+  XML,
+  digest,
+  futile.logger,
+  git2r
+Suggests: 
+  testthat,
+  dplyr,
+  knitr, 
+  pkgdown, 
+  rmarkdown, 
+  covr, 
+  codemetar
+Collate:
+  'Rpolyhedra-package.R'
+  'polyhedra-lib.R'
+  'ledger-lib.R'
+  'db-lib.R'
+  'env-lib.R'
+  'package-lib.R'
+  'serialization-lib.R'
+  'public-lib.R'
+  'test-lib.R'
+  'zzz.R'
+BugReports: https://github.com/ropensci/Rpolyhedra/issues
+URL: https://docs.ropensci.org/Rpolyhedra/, https://github.com/ropensci/Rpolyhedra
+StagedInstall: TRUE

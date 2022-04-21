@@ -1,0 +1,33 @@
+Package: mauricer
+Type: Package
+Title: Work with 'BEAST2' Packages
+Version: 2.5.1
+Author: Richèl J.C. Bilderbeek
+Maintainer: Richèl J.C. Bilderbeek <richel@richelbilderbeek.nl>
+Description: 'BEAST2' (<https://www.beast2.org>) is a widely used
+    Bayesian phylogenetic tool, that uses DNA/RNA/protein data
+    and many model priors to create a posterior of jointly estimated 
+    phylogenies and parameters.
+    'BEAST2' is commonly accompanied by 'BEAUti 2' (<https://www.beast2.org>),
+    which, among others, allows one to install 'BEAST2' package. 
+    This package allows to work with 'BEAST2' packages from 'R'.
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Depends: 
+    beastier (>= 2.4.7)
+Imports:
+    stringr
+Suggests:
+    beautier (>= 2.6.2),
+    curl,
+    knitr,
+    markdown,
+    rmarkdown,
+    testit,
+    testthat (>= 2.1.0)
+VignetteBuilder: knitr
+URL: https://docs.ropensci.org/mauricer/ (website)
+    https://github.com/ropensci/mauricer/
+BugReports: https://github.com/ropensci/mauricer/issues
+SystemRequirements: BEAST2 (https://www.beast2.org/)

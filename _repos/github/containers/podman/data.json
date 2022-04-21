@@ -1,0 +1,286 @@
+{
+    "go.mod": {
+        "github/containers/podman": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "go": {
+        "github.com/BurntSushi/toml": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/blang/semver": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/buger/goterm": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/checkpoint-restore/checkpointctl": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/checkpoint-restore/go-criu/v5": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/container-orchestrated-devices/container-device-interface": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containernetworking/cni": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containernetworking/plugins": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/buildah": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/common": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/conmon": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/image/v5": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/ocicrypt": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/psgo": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/containers/storage": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/coreos/go-systemd/v22": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/coreos/stream-metadata-go": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/cyphar/filepath-securejoin": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/davecgh/go-spew": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/digitalocean/go-qemu": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/docker/distribution": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/docker/docker": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/docker/go-connections": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/docker/go-plugins-helpers": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/docker/go-units": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/dtylman/scp": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/fsnotify/fsnotify": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/ghodss/yaml": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/godbus/dbus/v5": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/google/gofuzz": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/google/shlex": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/google/uuid": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/gorilla/handlers": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/gorilla/mux": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/gorilla/schema": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/hashicorp/go-multierror": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/json-iterator/go": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/mattn/go-isatty": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/moby/term": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/mrunalp/fileutils": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/nxadm/tail": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/onsi/ginkgo": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/onsi/gomega": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/go-digest": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/image-spec": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/runc": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/runtime-spec": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/runtime-tools": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/opencontainers/selinux": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/pmezard/go-difflib": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/rootless-containers/rootlesskit": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/sirupsen/logrus": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/spf13/pflag": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/stretchr/testify": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/syndtr/gocapability": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/uber/jaeger-client-go": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/ulikunitz/xz": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/vbauerster/mpb/v7": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "github.com/vishvananda/netlink": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "go.etcd.io/bbolt": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "golang.org/x/crypto": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "golang.org/x/sync": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "golang.org/x/sys": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "golang.org/x/text": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "google.golang.org/protobuf": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "gopkg.in/inf.v0": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        },
+        "gopkg.in/yaml.v2": {
+            "credit": 0.0001434782608695652,
+            "url": null
+        }
+    }
+}

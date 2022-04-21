@@ -1,0 +1,51 @@
+Package: home2park
+Title: Spatial Provision of Urban Parks
+Version: 0.1.1
+Authors@R: 
+    c(person(given = "Xiao Ping",
+             family = "Song",
+             role = c("aut", "cre"),
+             email = "xp.song@u.nus.edu",
+             comment = c(ORCID = "0000-0002-8825-195X")),
+      person(given = "Kwek Yan",
+             family = "Chong",
+             role = "ctb",
+             comment = c("Methodology")))
+Description: Assess the spatial provision of urban parks to city buildings.
+License: GPL (>= 3)
+URL: https://github.com/ecological-cities/home2park
+BugReports: https://github.com/ecological-cities/home2park/issues
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Imports: 
+    magrittr,
+    methods,
+    checkmate,
+    units,
+    dplyr (>= 1.0.5),
+    tidyr (>= 1.1.3),
+    tidyselect,
+    stringr,
+    rlang,
+    stats,
+    glue,
+    raster (>= 3.4.5),
+    stars (>= 0.5.2),
+    terra (>= 1.1.4),
+    osmextract (>= 0.2.1),
+    smoothr (>= 0.1.2),
+    lwgeom (>= 0.2.6),
+    sf (>= 0.9.8)
+Suggests: 
+    testthat (>= 3.0.0),
+    spelling,
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+Language: en-GB
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr

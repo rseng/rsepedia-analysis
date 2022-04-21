@@ -1,0 +1,23 @@
+Package: rfisheries
+Title: Programmatic Interface to the 'openfisheries.org' API
+Version: 0.2.99
+Date: 2016-02-18
+Authors@R: c(person("Karthik", "Ram", role = c("aut", "cre"), email =
+    "karthik.ram@gmail.com"), person("Carl", "Boettiger", role = "aut"),
+    person("Andrew", "Dyck", role = "aut"))
+Maintainer: Karthik Ram <karthik.ram@gmail.com>
+Description: A programmatic interface to 'openfisheries.org'. This package is
+    part of the 'rOpenSci' suite (https://ropensci.org).
+Depends:
+    R (>= 2.15)
+Imports:
+    httr,
+    data.table,
+    assertthat,
+    ggplot2,
+    rjson
+LazyData: yes
+URL: https://docs.ropensci.org/rfisheries, https://www.github.com/ropensci/rfisheries
+BugReports: https://www.github.com/ropensci/rfisheries/issues/new
+License: MIT + file LICENSE
+RoxygenNote: 5.0.1

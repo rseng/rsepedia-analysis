@@ -1,0 +1,246 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/DataSpaceR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "R6": {
+            "credit": 0.003810262500000002,
+            "url": "https://r6.r-lib.org"
+        },
+        "Rlabkey": {
+            "credit": 0.0012375000000000025,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.01738873125,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "httr": {
+            "credit": 0.1645875,
+            "url": "https://httr.r-lib.org/"
+        },
+        "assertthat": {
+            "credit": 0.0012375000000000025,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.002462625000000002,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "jsonlite": {
+            "credit": 0.18279421875,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "data.table": {
+            "credit": 0.0012375000000000025,
+            "url": "https://r-datatable.com"
+        },
+        "pryr": {
+            "credit": 0.0408375,
+            "url": "https://github.com/hadley/pryr"
+        },
+        "testthat": {
+            "credit": 0.061821168749999995,
+            "url": "https://testthat.r-lib.org"
+        },
+        "R": {
+            "credit": 0.100106325,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0017560125000000023,
+            "url": "http://www.rcpp.org"
+        },
+        "webutils": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.0035052187500000005,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.0013612500000000007,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.0272930625,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.0272930625,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0443086875,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.0373663125,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.039939075,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0181726875,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0034711874999999994,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0025727625,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0012251249999999999,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "later": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        }
+    }
+}

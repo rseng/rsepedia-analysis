@@ -1,0 +1,178 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/ezknitr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "knitr": {
+            "credit": 0.057750000000000024,
+            "url": "https://yihui.org/knitr/"
+        },
+        "markdown": {
+            "credit": 0.012634285714285739,
+            "url": "https://github.com/rstudio/markdown"
+        },
+        "R.utils": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/HenrikBengtsson/R.utils"
+        },
+        "targets": {
+            "credit": 0.009334285714285713,
+            "url": "https://docs.ropensci.org/targets/"
+        },
+        "styler": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "png": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "JuliaCall": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "reticulate": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "tikzDevice": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "webshot": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.056005714285714284,
+            "url": null
+        },
+        "testit": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.056005714285714284,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.06378428571428571,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.056005714285714284,
+            "url": null
+        },
+        "highr": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.009334285714285713,
+            "url": null
+        },
+        "R": {
+            "credit": 0.11045571428571428,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.10112142857142857,
+            "url": null
+        },
+        "R.methodsS3": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "R.oo": {
+            "credit": 0.04667142857142857,
+            "url": null
+        }
+    }
+}

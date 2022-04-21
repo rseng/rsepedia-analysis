@@ -1,0 +1,88 @@
+---
+title: RSEPedia Languages
+description: "Languages used in the Research Software Encyclopedia"
+layout: base
+permalink: /analysis/languages/
+tipue_search_active: true
+exclude_from_search: true
+---
+
+<style>
+.chart-container {
+  position: relative;
+  max-width: 1400px;
+  margin: auto;
+}
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+    <div class="chart-container">
+        <p class="alert alert-info">Of the repositories that we can find requirements files for and parse, this is the language breakdown,
+        as determined by the GitHub API.</p>
+        <canvas id="languages"></canvas>
+        <a href="{{ site.baseurl }}/"><< Back Home</a>
+    </div>
+    </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+fetch("{{ site.baseurl }}/docs/language-counts.json")
+  .then(response => response.json())
+  .then(function(data) {
+      console.log(data)
+
+     // Sort based on value
+     let entries = Object.entries(data);
+     let sorted = entries.sort((a, b) => a[1] - b[1]);
+
+     let labels = sorted.map(x => x[0]);
+     let values = sorted.map(x => x[1]);
+     
+     make_plot(labels, values)
+})
+
+
+function make_plot(labels, values) {
+
+var data = {
+  labels: labels,
+  datasets: [{
+    label: "RSEPedia Languages",
+    backgroundColor: "rgba(255,99,132,0.2)",
+    borderColor: "rgba(255,99,132,1)",
+    borderWidth: 2,
+    hoverBackgroundColor: "rgba(255,99,132,0.4)",
+    hoverBorderColor: "rgba(255,99,132,1)",
+    data: values,
+  }]
+};
+
+var option = {
+  scales: {
+    yAxes: [{
+      stacked: true,
+      gridLines: {
+        display: true,
+        color: "rgba(255,99,132,0.2)"
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      },
+      ticks: {
+        autoSkip: false
+      }
+    }]
+  }
+};
+
+Chart.Bar('languages', {
+  options: option,
+  data: data
+});
+}
+</script>

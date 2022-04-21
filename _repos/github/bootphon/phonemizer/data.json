@@ -1,0 +1,114 @@
+{
+    "setup.py": {
+        "github/bootphon/phonemizer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "joblib": {
+            "credit": 0.198,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "segments": {
+            "credit": 0.198,
+            "url": "https://github.com/cldf/segments"
+        },
+        "attrs": {
+            "credit": 0.0019800000000000095,
+            "url": "https://www.attrs.org/"
+        },
+        "dlinfo": {
+            "credit": 0.198,
+            "url": "https://code.grasp-open.com/grasp-tools/python-dlinfo"
+        },
+        "typing-extensions": {
+            "credit": 0.198,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "cloudpickle": {
+            "credit": 0.015078461538461539,
+            "url": "https://github.com/cloudpipe/cloudpickle"
+        },
+        "pre-commit": {
+            "credit": 0.00015078461538461582,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.015078461538461539,
+            "url": "https://github.com/readthedocs/sphinx-notfound-page"
+        },
+        "sphinx": {
+            "credit": 0.015078461538461539,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "furo": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/furo"
+        },
+        "zope.interface": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "pytest-mypy-plugins": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/pytest-mypy-plugins"
+        },
+        "mypy": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "six": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/six"
+        },
+        "pytest": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pympler": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/pympler"
+        },
+        "hypothesis": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "coverage": {
+            "credit": 0.015078461538461539,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "importlib-metadata": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "importlib-resources": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "virtualenv": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "toml": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/toml"
+        },
+        "pyyaml": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "nodeenv": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/nodeenv"
+        },
+        "identify": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/identify"
+        },
+        "cfgv": {
+            "credit": 0.0018659596153846154,
+            "url": "https://pypi.org/project/cfgv"
+        }
+    }
+}

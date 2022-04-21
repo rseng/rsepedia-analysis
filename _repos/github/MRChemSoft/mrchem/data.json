@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/MRChemSoft/mrchem": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "hpccm": {
+            "credit": 0.0099,
+            "url": "https://github.com/NVIDIA/hpc-container-maker"
+        }
+    }
+}

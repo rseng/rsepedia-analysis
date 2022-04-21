@@ -1,0 +1,30 @@
+Package: PAFway
+Type: Package
+Title: Pairwise Association of Functional Annotations
+Version: 0.1.2
+Authors@R: c(person(given = "Daphne", family = "Ezer", role = c("aut", "cre"), email="daphne.ezer@york.ac.uk"),
+    person(given = "Mahair", family = "Mahjoub", role = c("aut"), email="mahiarmahjoub@gmail.com"))
+Description: Finds pairs of functional annotations or gene ontology (GO) 
+    terms that are enriched within a directed network (such as a gene
+    regulatory network).  This works with or without edge weights and
+    includes visualizations (both as a network where the functions are
+    nodes and as a heatmap).  PAFway is an acronym for Pairwise Associations of 
+    Functional annotations in biological networks and pathWAYs. 
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    igraph, 
+    gplots, 
+    ggplot2, 
+    GGally, 
+    network, 
+    sna, 
+    scales,
+    stats,
+    grDevices
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

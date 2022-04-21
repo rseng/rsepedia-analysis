@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/FAIR-data-for-CAPACITY/FHIR-to-CAPACITY": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "fhirclient": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/smart-on-fhir/client-py/"
+        },
+        "PyCap": {
+            "credit": 0.165,
+            "url": "https://github.com/redcap-tools/PyCap"
+        },
+        "clize": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/epsy/clize"
+        },
+        "Requests": {
+            "credit": 0.0016500000000000126,
+            "url": "https://requests.readthedocs.io"
+        },
+        "python-dateutil": {
+            "credit": 0.18541875000000002,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "pytest-runner": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/pytest-dev/pytest-runner/"
+        },
+        "isodate": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/gweis/isodate/"
+        },
+        "requests": {
+            "credit": 0.000816750000000005,
+            "url": "https://requests.readthedocs.io"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.02041875,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinx": {
+            "credit": 0.03298413461538462,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "docutils": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "od": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/od"
+        },
+        "attrs": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "sigtools": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/sigtools"
+        },
+        "six": {
+            "credit": 0.10127699999999999,
+            "url": "https://pypi.org/project/six"
+        },
+        "win-inet-pton": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "idna": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "certifi": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.03488689285714286,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "pytest-mypy": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "types-setuptools": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/types-setuptools"
+        },
+        "pytest-virtualenv": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-virtualenv"
+        },
+        "pytest-enabler": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-flake8": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "jaraco.tidelift": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/jaraco.tidelift"
+        },
+        "rst.linker": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        }
+    }
+}

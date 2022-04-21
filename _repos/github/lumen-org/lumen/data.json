@@ -1,0 +1,102 @@
+{
+    "package.json": {
+        "github/lumen-org/lumen": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "cytoscape": {
+            "credit": 0.14142857142857143,
+            "url": "http://js.cytoscape.org"
+        },
+        "cytoscape-cola": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/cytoscape/cytoscape.js-cola"
+        },
+        "deepmerge": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/TehShrike/deepmerge"
+        },
+        "js-logger": {
+            "credit": 0.001414285714285729,
+            "url": "http://github.com/jonnyreeves/js-logger"
+        },
+        "jshint": {
+            "credit": 0.15698571428571428,
+            "url": "http://jshint.com/"
+        },
+        "modernizr": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/Modernizr/Modernizr"
+        },
+        "requirejs": {
+            "credit": 0.14142857142857143,
+            "url": "http://github.com/jrburke/r.js"
+        },
+        "uglify-js": {
+            "credit": 0.028285714285714282,
+            "url": "https://github.com/mishoo/UglifyJS#readme"
+        },
+        "typescript": {
+            "credit": 0.028285714285714282,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "ts-node": {
+            "credit": 0.028285714285714282,
+            "url": "https://typestrong.org/ts-node"
+        },
+        "tape": {
+            "credit": 0.012728571428571428,
+            "url": "https://github.com/substack/tape"
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.012728571428571428,
+            "url": "https://github.com/rollup/rollup-plugin-node-resolve#readme"
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "jsmd": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "is-plain-object": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "is-mergeable-object": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "tsconfig-paths": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "replace": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "node-qunit-phantomjs": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.015557142857142856,
+            "url": null
+        }
+    }
+}

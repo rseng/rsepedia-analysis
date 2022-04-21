@@ -1,0 +1,71 @@
+Package: academictwitteR
+Title: Access the Twitter Academic Research Product Track V2 API Endpoint
+Version: 0.3.1
+Authors@R: 
+    c(person(given = "Christopher",
+           family = "Barrie",
+           role = c("aut", "cre"),
+           email = "christopher.barrie@ed.ac.uk",
+           comment = c(ORCID = "0000-0002-9156-990X")),
+           person(given = "Justin Chun-ting",
+           family = "Ho",
+           role = c("aut"),
+           email = "justinho@gate.sinica.edu.tw",
+           comment = c(ORCID = "0000-0002-7884-1059")),
+	   person(given = "Chung-hong",
+	   family = "Chan",
+	   role = c("ctb"),
+	   email = "chainsawtiney@gmail.com",
+	   comment = c(ORCID = "0000-0002-6232-7530")),
+	   person(given = "Noelia",
+	   family = "Rico",
+	   role = c("ctb"),
+	   email = "noeliarico@uniovi.es",
+	   comment = c(ORCID = "0000-0002-6169-4523")),
+	   person(given = "Tim",
+	   family = "König",
+	   role = c("ctb"),
+	   comment = c(ORCID = "0000-0002-2852-2690")),
+	   person(given = "Thomas",
+	   family = "Davidson",
+	   role = c("ctb"),
+	   email = "thomas.davidson@rutgers.edu",
+	   comment = c(ORCID = "0000-0002-5947-7490")))
+Description: Package to query the Twitter Academic Research Product Track,
+    providing access to full-archive search and other v2 API endpoints. Functions
+    are written with academic research in mind. They provide flexibility in how 
+    the user wishes to store collected data, and encourage regular storage of data
+    to mitigate loss when collecting large volumes of tweets. They also provide
+    workarounds to manage and reshape the format in which data is provided on
+    the client side.
+License: MIT + file LICENSE
+URL: https://github.com/cjbarrie/academictwitteR
+BugReports: https://github.com/cjbarrie/academictwitteR/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Depends:
+    R (>= 3.4)
+Imports: 
+    dplyr (>= 1.0.0),
+    httr,
+    jsonlite,
+    magrittr,
+    lubridate,
+    usethis,
+    tibble,
+    tidyr,
+    tidyselect,
+    purrr,
+    rlang,
+    utils
+Suggests: 
+    knitr,
+    rmarkdown,
+    devtools,
+    testthat (>= 3.0.0),
+    httptest,
+    lifecycle,
+    covr
+VignetteBuilder: knitr
+Config/testthat/edition: 3

@@ -1,0 +1,41 @@
+Package: rfasst
+Title: rfasst
+Version: 1.1.0
+Authors@R: c(person("Jon", "Sampedro", email = "jon.sampedro@pnnl.gov", role = c("aut", "cre"),
+		   comment = c(ORCID ="0000-0002-2277-1530")),
+		   person("Zarrar", "Khan", email = "zarrar.khan@pnnl.gov", role = c("aut"),
+		   comment = c(ORCID ="0000-0002-8147-8553")),
+		   person("Chris", "Vernon", email = "chris.vernon@pnnl.gov", role = c("aut"),
+		   comment = c(ORCID ="0000-0002-3406-6214")))
+Description: A screening Rtool to estimate adverse health and agricultural impacts within an integrated multi-sector model.
+URL: https://github.com/JGCRI/rfasst
+BugReports: https://github.com/JGCRI/rfasst/issues
+Depends: R (>= 2.10)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    tidyr,
+	dplyr (>= 1.0.0),
+    magrittr,
+    tibble,
+	gcamdata,
+	rgcam,
+	rmap,
+	rpackageutils,
+	rprojroot,
+	testthat
+Suggests: 
+    rmarkdown,
+	markdown,
+    testthat (>= 3.0.0),
+	knitr
+Remotes: 
+	github::JGCRI/rgcam,
+	github::JGCRI/gcamdata,
+	github::JGCRI/rmap,
+	github::JGCRI/rpackageutils
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3

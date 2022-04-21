@@ -1,0 +1,110 @@
+{
+    "package.json": {
+        "gitlab/metafundev/metafun": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "angular": {
+            "credit": 0.36666666666666675,
+            "url": "http://angularjs.org"
+        },
+        "angular-plotly": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/alonho/angular-plotly#readme"
+        },
+        "angular-plotly.js": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/plotly/angular-plotly.js"
+        },
+        "axios": {
+            "credit": 0.03666666666666667,
+            "url": "https://axios-http.com"
+        },
+        "core-js": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "crypto-js": {
+            "credit": 0.03666666666666667,
+            "url": "http://github.com/brix/crypto-js"
+        },
+        "file-saver": {
+            "credit": 0.0003666666666666679,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "filesaver": {
+            "credit": 0.0003666666666666679,
+            "url": "https://github.com/jacoborus/node-filesaver"
+        },
+        "ng2-file-upload": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/valor-software/ng2-file-upload"
+        },
+        "ngx-cookie-service": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/stevermeister/ngx-cookie-service#readme"
+        },
+        "ngx-smart-loader": {
+            "credit": 0.03666666666666667,
+            "url": "https://github.com/biig-io/ngx-smart-loader"
+        },
+        "ngx-smart-modal": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "plotly": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "plotly.js": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "rxjs": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "tslib": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "zone.js": {
+            "credit": 0.03666666666666667,
+            "url": null
+        },
+        "babel-preset-minify": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "updox": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "safename": {
+            "credit": 0.00726,
+            "url": null
+        }
+    }
+}

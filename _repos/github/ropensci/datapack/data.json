@@ -1,0 +1,98 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/datapack": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "digest": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "redland": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/ropensci/redland-bindings/tree/master/R/redland\nhttps://github.com/ropensci/redland-bindings/tree/master/R"
+        },
+        "XML": {
+            "credit": 0.0019799999999999818,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "hash": {
+            "credit": 0.0019800000000000095,
+            "url": "http://www.johnhughes.org"
+        },
+        "uuid": {
+            "credit": 0.0019800000000000095,
+            "url": "http://www.rforge.net/uuid"
+        },
+        "simplermarkdown": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/djvanderlaan/simplermarkdown"
+        },
+        "tinytest": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.19179331875,
+            "url": null
+        },
+        "R": {
+            "credit": 0.36380086875,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0002450249999999994,
+            "url": "https://stringi.gagolewski.com/ https://icu.unicode.org/"
+        },
+        "rmarkdown": {
+            "credit": 0.0245025,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "testthat": {
+            "credit": 0.0735075,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.11271149999999999,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.02223601875,
+            "url": null
+        },
+        "rjson": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.00606436875,
+            "url": null
+        }
+    }
+}

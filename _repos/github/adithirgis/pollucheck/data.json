@@ -1,0 +1,106 @@
+{
+    "DESCRIPTION": {
+        "github/adithirgis/pollucheck": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "biwavelet": {
+            "credit": 0.0005823529411764644,
+            "url": "https://github.com/tgouhier/biwavelet"
+        },
+        "broom": {
+            "credit": 0.05823529411764706,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "bslib": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "Cairo": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "forecast": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "janitor": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "nortest": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "openair": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "readxl": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "shinyjs": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "tidyverse": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.05823529411764706,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.008236134453781513,
+            "url": null
+        },
+        "fields": {
+            "credit": 0.008236134453781513,
+            "url": null
+        }
+    }
+}

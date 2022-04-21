@@ -1,0 +1,50 @@
+Package: ppdiag
+Type: Package
+Title: Diagnosis and Visualizations Tools for Temporal Point Processes
+Version: 0.1.1
+Authors@R: 
+    c(person(given = "Sally",
+             family = "Sun",
+             role = "aut"),
+      person(given = "Owen G.",
+             family = "Ward",
+             role = c("aut","cre"),
+             email = "owen.ward@columbia.edu",
+             comment = c(ORCID = "0000-0002-9678-3542")),
+      person(given = "Jing",
+             family = "Wu",
+             role = "aut"),
+      person(given = "Xiaoxi",
+             family = "Zhao",
+             role = "aut"),
+      person(given = "Lihao",
+             family = "Xiao",
+             role = "ctb"),
+      person(given = "Tian",
+             family = "Zheng",
+             role = "aut"))
+Description: A suite of diagnostic tools for univariate point processes.
+    This includes tools for simulating and fitting both common and more
+    complex temporal point processes. We also include functions to 
+    visualise these point processes and collect existing diagnostic
+    tools of Brown et al. (2002) <doi:10.1162/08997660252741149> and
+    Wu et al. (2021) <doi:10.1002/9781119821588.ch7>,
+    which can be used to assess the fit of a chosen point process
+    model.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+URL: https://owenward.github.io/ppdiag/
+BugReports: https://github.com/OwenWard/ppdiag/issues
+Depends:
+    R (>= 3.5)
+Imports: 
+    graphics,
+    stats
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown,
+    covr
+VignetteBuilder: knitr

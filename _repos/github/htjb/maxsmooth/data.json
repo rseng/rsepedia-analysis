@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/htjb/maxsmooth": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0039402,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        },
+        "cvxopt": {
+            "credit": 0.00198,
+            "url": "http://cvxopt.org"
+        },
+        "matplotlib": {
+            "credit": 0.00198,
+            "url": "https://matplotlib.org"
+        },
+        "progressbar": {
+            "credit": 0.00198,
+            "url": "http://code.google.com/p/python-progressbar"
+        }
+    }
+}

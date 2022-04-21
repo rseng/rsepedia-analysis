@@ -1,0 +1,158 @@
+{
+    "setup.py": {
+        "github/DeepRank/iScore": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.21572100000000002,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.010791000000000005,
+            "url": "https://www.scipy.org"
+        },
+        "biopython": {
+            "credit": 0.10880100000000001,
+            "url": "https://biopython.org/"
+        },
+        "mpi4py": {
+            "credit": 0.099,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "h5py": {
+            "credit": 0.10444500000000001,
+            "url": "http://www.h5py.org"
+        },
+        "matplotlib": {
+            "credit": 0.10444500000000001,
+            "url": "https://matplotlib.org"
+        },
+        "libsvm": {
+            "credit": 0.099,
+            "url": "https://github.com/ocampor/libsvm"
+        },
+        "pdb2sql": {
+            "credit": 0.010791000000000005,
+            "url": "https://github.com/DeepRank/pdb2sql"
+        },
+        "pssmgen": {
+            "credit": 0.0009899999999999909,
+            "url": "https://github.com/DeepRank/PSSMGen"
+        },
+        "h5xplorer": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/DeepRank/h5xplorer"
+        },
+        "pytest-cov": {
+            "credit": 0.0153351,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.025258612499999996,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "coveralls": {
+            "credit": 0.024155999999999997,
+            "url": "https://pypi.org/project/coveralls"
+        },
+        "ipython": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "sphinx": {
+            "credit": 0.014355,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "twine": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/twine"
+        },
+        "isort": {
+            "credit": 0.014355,
+            "url": "https://pypi.org/project/isort"
+        },
+        "autopep8": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/autopep8"
+        },
+        "prospector": {
+            "credit": 0.014355,
+            "url": "https://pypi.org/project/prospector"
+        },
+        "pandas": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "codacy-coverage": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/codacy-coverage"
+        },
+        "coverage": {
+            "credit": 0.0163486125,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "nose": {
+            "credit": 0.015246000000000001,
+            "url": "https://pypi.org/project/nose"
+        },
+        "pytest-runner": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pytest-runner"
+        },
+        "pycodestyle": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pycodestyle"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "recommonmark": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/recommonmark"
+        },
+        "yapf": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/yapf"
+        },
+        "IPython": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/IPython"
+        },
+        "qtconsole": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/qtconsole"
+        },
+        "PyQt5": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/PyQt5"
+        },
+        "virtualenv": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0011026125,
+            "url": "https://pypi.org/project/fields"
+        }
+    }
+}

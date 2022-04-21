@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/scipion-em/scipion-em-continuousflex": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "requirements": {
+            "credit": 0.0099,
+            "url": "http://github.com/mattack108/requirements"
+        }
+    }
+}

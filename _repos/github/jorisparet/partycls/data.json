@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/jorisparet/partycls": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.006600000000000001,
+            "url": "https://www.numpy.org"
+        },
+        "sklearn": {
+            "credit": 0.0033000000000000004,
+            "url": "https://pypi.python.org/pypi/scikit-learn/"
+        }
+    }
+}

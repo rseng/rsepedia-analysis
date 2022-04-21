@@ -1,0 +1,94 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rrricanes": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "broom": {
+            "credit": 0.04714285714285714,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "crul": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "readr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "rnaturalearthdata": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "rvest": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.04714285714285714,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.04714285714285714,
+            "url": null
+        }
+    }
+}

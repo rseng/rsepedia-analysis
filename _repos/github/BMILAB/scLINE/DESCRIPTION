@@ -1,0 +1,21 @@
+Package: scLINE
+Type: Package
+Title: A tool for R to perform low-dimensional representation of scRNA-seq using the scLINE model
+Version: 0.1.0
+Author: c(
+    person("Xuesong", "Xiao", email = "xiaoxuesong@stu.xmu.edu.cn", 
+        role = c("aut", "cre")),
+Maintainer: Xuesong Xiao <xiaoxuesong@stu.xmu.edu.cn>
+Description: scLINE is a R package for dimension reduction 
+    of single-cell RNA-seq data. scLINE integrates the
+    single-cell data and multiple gene networks collated from
+    public databases, supplementing inter-gene interactions
+    to solve the problem of missing information caused by
+    drop-out events.
+URL: https://github.com/BMILAB/scLINE
+License: GPL
+Depends: R (>= 3.5.0),ggplot2
+Suggests: RColorBrewer
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1

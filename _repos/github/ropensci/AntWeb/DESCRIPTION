@@ -1,0 +1,22 @@
+Package: AntWeb
+Type: Package
+Date: 2014-08-13
+Title: programmatic interface to the AntWeb
+Description: A complete programmatic interface to the AntWeb database from the
+    California Academy of Sciences.
+Version: 0.7.4.99
+Authors@R: person("Karthik", "Ram", role = c("aut", "cre"), email = "karthik.ram@gmail.com", comment = c(ORCID = "0000-0002-0233-1757"))
+Depends:
+    R (>= 3.0.1)
+License: CC0
+URL: https://docs.ropensci.org/AntWeb, https://github.com/ropensci/AntWeb
+BugReports: https://github.com/ropensci/AntWeb/issues
+LazyData: true
+Imports:
+    rjson,
+    plyr,
+    assertthat,
+    httr,
+    leafletR (>= 0.1-1)
+RoxygenNote: 6.0.1.9000
+Encoding: UTF-8

@@ -1,0 +1,51 @@
+Package: EndoMineR
+Title: Functions to mine endoscopic and associated pathology datasets
+Version: 2.0.1.9000
+Authors@R: person("Sebastian", "Zeki", email = "sebastiz@hotmail.com",
+  role = c("aut", "cre"))
+Description: This script comprises the functions that are used to clean up endoscopic 
+             reports and pathology reports as well as many of the scripts used for analysis.  
+             The scripts assume the endoscopy and histopathology data set is merged already but it can 
+             also be used of course with the unmerged datasets.
+Depends: R (>= 3.3.0)
+Imports:
+        ggplot2,
+        data.table,
+        magrittr,
+        tidyr,
+        tidyverse,
+        tibble,
+        ggthemes,
+        scales,
+        tm,
+        lubridate,
+        stringr,
+        rlang,
+        dplyr,
+        stringi,
+        fuzzyjoin,
+        purrr,
+        DiagrammeR,
+        here,
+        pander,
+        Hmisc
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    rmarkdown,
+    testthat,
+    prettydoc,
+    randomNames,
+    generator,
+    knitr,
+    covr,
+    circlize,
+    googleVis,
+    reshape2,
+    gplots,
+    covr
+VignetteBuilder: knitr
+URL: https://docs.ropensci.org/EndoMineR, https://github.com/ropensci/EndoMineR
+BugReports: https://github.com/ropensci/EndoMineR/issues

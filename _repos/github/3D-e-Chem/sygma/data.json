@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/3D-e-Chem/sygma": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "future": {
+            "credit": 0.0099,
+            "url": "https://python-future.org"
+        }
+    }
+}

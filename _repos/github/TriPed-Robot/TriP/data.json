@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/TriPed-Robot/TriP": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "casadi": {
+            "credit": 0.0033000000000000004,
+            "url": "http://casadi.org"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "defusedxml": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/tiran/defusedxml"
+        }
+    }
+}

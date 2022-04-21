@@ -1,0 +1,130 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/SymbiotaR2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.2475,
+            "url": "https://httr.r-lib.org/"
+        },
+        "rjson": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/alexcb/rjson"
+        },
+        "fs": {
+            "credit": 0.002475000000000005,
+            "url": "https://fs.r-lib.org"
+        },
+        "curl": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "R": {
+            "credit": 0.294353296875,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.02041875,
+            "url": "https://vctrs.r-lib.org/"
+        },
+        "spelling": {
+            "credit": 0.0274291875,
+            "url": "https://github.com/ropensci/spelling#readme"
+        },
+        "withr": {
+            "credit": 0.00020418750000000124,
+            "url": "https://withr.r-lib.org"
+        },
+        "knitr": {
+            "credit": 0.053371209375,
+            "url": "https://yihui.org/knitr/"
+        },
+        "rmarkdown": {
+            "credit": 0.049328296875,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.022103296874999998,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.049328296875,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.022103296874999998,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "pdftools": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "hunspell": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        }
+    }
+}

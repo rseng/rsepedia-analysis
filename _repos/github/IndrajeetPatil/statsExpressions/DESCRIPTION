@@ -1,0 +1,69 @@
+Type: Package
+Package: statsExpressions
+Title: Tidy Dataframes and Expressions with Statistical Details
+Version: 1.3.1.9000
+Authors@R: 
+    person(given = "Indrajeet",
+           family = "Patil",
+           role = c("cre", "aut", "cph"),
+           email = "patilindrajeet.science@gmail.com",
+           comment = c(ORCID = "0000-0003-1995-6531", Twitter = "@patilindrajeets"))
+Maintainer: Indrajeet Patil <patilindrajeet.science@gmail.com>
+Description: Utilities for producing dataframes with rich details for the
+    most common types of statistical approaches and tests: parametric,
+    nonparametric, robust, and Bayesian t-test, one-way ANOVA, correlation
+    analyses, contingency table analyses, and meta-analyses. The
+    functions are pipe-friendly and provide a consistent syntax to work
+    with tidy data. These dataframes additionally contain expressions with
+    statistical details, and can be used in graphing packages. This
+    package also forms the statistical processing backend for
+    'ggstatsplot'.
+License: GPL-3 | file LICENSE
+URL: https://indrajeetpatil.github.io/statsExpressions/,
+    https://github.com/IndrajeetPatil/statsExpressions
+BugReports: https://github.com/IndrajeetPatil/statsExpressions/issues
+Depends: 
+    R (>= 4.0.0)
+Imports:
+    BayesFactor (>= 0.9.12-4.3),
+    correlation (>= 0.8.0),
+    datawizard (>= 0.4.0),
+    dplyr,
+    effectsize (>= 0.6.0.1),
+    glue,
+    insight (>= 0.17.0.3),
+    magrittr,
+    parameters (>= 0.17.0),
+    performance (>= 0.8.0),
+    rlang,
+    stats,
+    tibble,
+    tidyr,
+    WRS2 (>= 1.1-3),
+    zeallot
+Suggests:
+    afex,
+    ggplot2,
+    knitr,
+    metaBMA,
+    metafor,
+    metaplus,
+    PMCMRplus,
+    purrr,
+    rmarkdown,
+    spelling,
+    survival,
+    testthat,
+    utils
+Remotes:
+    easystats/insight,
+    easystats/parameters
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace", "collate",
+    "pkgapi::api_roclet"))
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3

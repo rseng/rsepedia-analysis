@@ -1,0 +1,40 @@
+Package: cRegulome
+Type: Package
+Version: 0.3.2
+Title: Obtain and Visualize Regulome-Gene Expression Correlations in Cancer
+Description: Builds a 'SQLite' database file of pre-calculated transcription 
+    factor/microRNA-gene correlations (co-expression) in cancer from the 
+    Cistrome Cancer Liu et al. (2011) <doi:10.1186/gb-2011-12-8-r83> and 
+    'miRCancerdb' databases (in press). Provides custom classes and functions 
+    to query, tidy and plot the correlation data.
+License: GPL-3
+Authors@R: person("Mahmoud", "Ahmed",
+    email = "mahmoud.s.fahmy@students.kasralainy.edu.eg",
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-4377-6541"))
+URL: https://docs.ropensci.org/cRegulome, https://github.com/ropensci/cRegulome
+BugReports: https://github.com/ropensci/cRegulome/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Depends: R(>= 2.10.0)
+Imports: DBI,
+    graphics,
+    httr,
+    RSQLite,
+    UpSetR,
+    VennDiagram,
+    ggplot2,
+    ggridges,
+    grid,
+    R.utils,
+    igraph
+VignetteBuilder: knitr
+Suggests: knitr, 
+    rmarkdown, 
+    testthat,
+    covr,
+    readxl,
+    AnnotationDbi,
+    org.Hs.eg.db,
+    clusterProfiler

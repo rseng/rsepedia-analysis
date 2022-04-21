@@ -1,0 +1,35 @@
+Package: detectorchecker
+Type: Package
+Title: A package for analysing pixel damage in CT Scanners
+Version: 1.1.0
+Authors@R: c(
+        person("Tomas", "Lazauskas", email = "tlazauskas@turing.ac.uk", role = c("aut")),
+        person("Julia", "Brettschneider", email = "julia.brettschneider@warwick.ac.uk", role = c("aut", "cre")),
+        person("Oscar", "Giles", email = "ogiles@turing.ac.uk", role = c("aut")),
+        person("Wilfrid", "Kendall", email = "w.s.kendall@warwick.ac.uk", role = c("aut")))
+Description: DetectorChecker is an R package to aid in the assessment of damage to CT scanners 
+    arising from exposure to high energy radiation. While the target application concerns CT scanners, 
+    this package can also be used to analyze screen damage arising from other sources.
+Depends: R (>= 3.6.2)
+Imports:
+    spatstat (>= 1.63-3),
+    tools (>= 3.6.2), 
+    tiff (>= 0.1-5), 
+    hdf5r (>= 1.3.2), 
+    raster (>= 3.1-5), 
+    igraph (>= 1.2.5), 
+    plyr (>= 1.8.6), 
+    dplyr (>= 0.8.5), 
+    readr (>= 1.3.1), 
+    dbscan (>= 1.1-5)
+Suggests:
+    testthat (>= 2.3.2), 
+    knitr (>= 1.28), 
+    rmarkdown (>= 2.1), 
+    roxygen2 (>= 7.1.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

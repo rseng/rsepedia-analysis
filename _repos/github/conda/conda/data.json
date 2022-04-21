@@ -1,0 +1,98 @@
+{
+    "setup.py": {
+        "github/conda/conda": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pycosat": {
+            "credit": 0.2475,
+            "url": "https://github.com/ContinuumIO/pycosat"
+        },
+        "requests": {
+            "credit": 0.002475000000000005,
+            "url": "https://requests.readthedocs.io"
+        },
+        "ruamel_yaml_conda": {
+            "credit": 0.2475,
+            "url": "https://pypi.org/project/ruamel_yaml_conda"
+        },
+        "menuinst": {
+            "credit": 0.2475,
+            "url": "https://github.com/ContinuumIO/menuinst"
+        },
+        "win-inet-pton": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.03885396428571428,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.03885396428571428,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.03885396428571428,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.00035003571428571245,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "unicodedata2": {
+            "credit": 0.00034653535714285894,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.003850392857142857,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.003850392857142857,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.003850392857142857,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "pytest-randomly": {
+            "credit": 0.008576750089285714,
+            "url": "https://pypi.org/project/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.008576750089285714,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 0.008576750089285714,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.008576750089285714,
+            "url": "https://pypi.org/project/pytest"
+        }
+    }
+}

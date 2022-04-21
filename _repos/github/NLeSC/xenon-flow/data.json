@@ -1,0 +1,38 @@
+{
+    "package.json": {
+        "github/NLeSC/xenon-flow": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "angular": {
+            "credit": 0.005568750000000001,
+            "url": "http://angularjs.org"
+        },
+        "fortawesome": {
+            "credit": 0.0018562500000000003,
+            "url": null
+        },
+        "ng-bootstrap": {
+            "credit": 0.00061875,
+            "url": "https://github.com/valor-software/ngx-bootstrap#readme"
+        },
+        "core-js": {
+            "credit": 0.00061875,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "rxjs": {
+            "credit": 0.00061875,
+            "url": "https://rxjs.dev"
+        },
+        "zone.js": {
+            "credit": 0.00061875,
+            "url": "https://github.com/angular/angular#readme"
+        },
+        "moment": {
+            "credit": 0.0006125625,
+            "url": "https://momentjs.com"
+        }
+    }
+}

@@ -1,0 +1,33 @@
+Package: emotivepilepsy
+Type: Package
+Title: Epilepsy detection with emotiv data
+Version: 0.2
+Date: 2016-05-16
+Authors@R: c(person("Vincent T","van Hees",role=c("aut","cre"),
+                  email="v.vanhees@esciencecenter.nl"))
+Maintainer: Vincent T van Hees <vincentvanhees@gmail.com>
+Description: Clean and derive signal features from emotiv EEG data and train a classifier to detect epilepsy.
+License: file LICENSE
+Suggests:
+    wavelets,
+    caret,
+    psych,
+    pROC,
+    testthat,
+    covr,
+    entropy,
+    moments,
+    seewave,
+    signal,
+    pracma,
+    zoo,
+    Matrix,
+    igraph,
+    randomForest,
+    e1071
+Depends:
+    stats,
+    utils,
+    R (>= 2.10)
+NeedsCompilation: no
+RoxygenNote: 6.0.1

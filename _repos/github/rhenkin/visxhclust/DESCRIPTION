@@ -1,0 +1,44 @@
+Package: visxhclust
+Type: Package
+Title: A Shiny App for Visual Exploration of Hierarchical Clustering
+Version: 1.0.0
+Authors@R: c(person("Rafael", "Henkin",
+                    email = "r.henkin@qmul.ac.uk", 
+                    role = c("aut", "cre")))
+Maintainer: Rafael Henkin <r.henkin@qmul.ac.uk>
+Description: A Shiny application and functions for visual exploration of hierarchical clustering with numeric datasets. Allows users to iterative set hyperparameters, select features and evaluate results through various plots and computation of evaluation criteria.
+License: GPL-3
+URL: https://github.com/rhenkin/visxhclust
+BugReports: https://github.com/rhenkin/visxhclust/issues
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+biocViews:
+Imports: 
+    shiny,
+    shinyhelper,
+    shinycssloaders,
+    bsplus,
+    DT,
+    ggplot2,
+    dplyr,
+    readr,
+    tidyr,
+    cluster,
+    fastcluster,
+    clusterCrit,
+    dunn.test,
+    RColorBrewer,
+    dendextend,
+    ComplexHeatmap,
+    circlize,
+    patchwork,
+    knitr,
+    kableExtra
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat (>= 3.0.0),
+    rmarkdown
+VignetteBuilder: knitr
+Config/testthat/edition: 3

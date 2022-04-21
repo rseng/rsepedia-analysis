@@ -1,0 +1,14 @@
+Package: SAMT
+Title: South Australian Macrobenthic Traits database(SAMT): A database and tool for trait analysis
+Version: 2.0.0
+Authors@R:c(person("Orlando", "Lam-Gordillo", email = "orlando.lamgordillo@flinders.edu.au", role = c("aut", "cre"),comment = c(ORCID = "0000-0001-6805-6260")),
+		person("Ryan", "Baring", role="aut"),
+		person("Sabine", "Dittmann", role="aut"))
+Maintainer: Orlando Lam-Gordillo <orlando.lamgordillo@flinders.edu.au>
+Description:SAMT provides a functional trait database, and a set of tools designed for the analysisof functional trait information. The aim of SAMT is to provide an easy alternative to manipulate functional classifications and traits data.  
+Depends: R (>= 3.4.0)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0

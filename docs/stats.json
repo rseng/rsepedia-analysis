@@ -1,0 +1,8 @@
+{
+    "python_deps": 707,
+    "r_deps": 635,
+    "js_deps": 448,
+    "go_deps": 87,
+    "total_repos": 1571,
+    "missing_requirements_file": 660
+}

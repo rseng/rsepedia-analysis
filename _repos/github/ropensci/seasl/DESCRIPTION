@@ -1,0 +1,34 @@
+Package: seasl
+Type: Package
+Title: Citation Style Language ('CSL') Utilities
+Description: Tools for working with the Citation Style Language ('CSL')
+    (<https://citationstyles.org>), an XML-based format describing the
+    formatting of citations, notes and bibliographies. Functions are included
+    for downloading and searching for styles and locales, and loading and
+    parsing styles and locales. 'seasl' aims to help users fetch and modify
+    CSL files for work combining code and writing that requires citations.
+Version: 0.2.1
+URL: https://github.com/ropensci/seasl (devel)
+    https://docs.ropensci.org/seasl/ (docs)
+BugReports: https://github.com/ropensci/seasl/issues
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
+        email = "myrmecocystus@gmail.com",
+        comment = c(ORCID="0000-0003-1444-9135")),
+    person("rOpenSci", role = "fnd", comment = "https://ropensci.org")
+    )
+License: MIT + file LICENSE
+LazyData: TRUE
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+Imports:
+    xml2,
+    crul,
+    hoardr
+Suggests:
+    testthat
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Literature
+X-schema.org-keywords: text-ming, literature, citations, style, parse
+X-schema.org-isPartOf: https://ropensci.org

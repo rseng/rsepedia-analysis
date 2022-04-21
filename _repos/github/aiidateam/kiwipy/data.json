@@ -1,0 +1,86 @@
+{
+    "setup.py": {
+        "github/aiidateam/kiwipy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "shortuuid": {
+            "credit": 0.2475,
+            "url": "https://github.com/skorokithakis/shortuuid/"
+        },
+        "async_generator": {
+            "credit": 0.2475,
+            "url": "https://github.com/python-trio/async_generator"
+        },
+        "pytray": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/muhrin/pytray.git"
+        },
+        "deprecation": {
+            "credit": 0.018810000000000004,
+            "url": "http://deprecation.readthedocs.io/"
+        },
+        "docutils": {
+            "credit": 0.016335,
+            "url": "http://docutils.sourceforge.net/"
+        },
+        "Sphinx": {
+            "credit": 0.016335,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "Pygments": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "yapf": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/yapf"
+        },
+        "twine": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/twine"
+        },
+        "pytest": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pytest-cov": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pylint": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pylint"
+        },
+        "prospector": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/prospector"
+        },
+        "pre-commit": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pip": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pip"
+        },
+        "ipython": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "grayskull": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/grayskull"
+        },
+        "async-generator": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/async-generator"
+        },
+        "packaging": {
+            "credit": 0.245025,
+            "url": "https://pypi.org/project/packaging"
+        }
+    }
+}

@@ -1,0 +1,226 @@
+{
+    "DESCRIPTION": {
+        "github/Sydney-Informatics-Hub/OmixLitMiner": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cluster": {
+            "credit": 0.001414285714285729,
+            "url": "https://svn.r-project.org/R-packages/trunk/cluster/"
+        },
+        "httr": {
+            "credit": 0.19643418367346938,
+            "url": "https://httr.r-lib.org/"
+        },
+        "Rcpp": {
+            "credit": 0.04411864285714287,
+            "url": "http://www.rcpp.org"
+        },
+        "rentrez": {
+            "credit": 0.001414285714285729,
+            "url": "http://github.com/ropensci/rentrez"
+        },
+        "RISmed": {
+            "credit": 0.001414285714285729,
+            "url": null
+        },
+        "tm": {
+            "credit": 0.02941714285714287,
+            "url": "http://tm.r-forge.r-project.org/"
+        },
+        "wordcloud": {
+            "credit": 0.001414285714285729,
+            "url": "http://blog.fellstat.com/?cat=11 http://www.fellstat.com"
+        },
+        "Matrix": {
+            "credit": 0.00020002040816326574,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "MASS": {
+            "credit": 0.0013648451380552224,
+            "url": "http://www.stats.ox.ac.uk/pub/MASS4/"
+        },
+        "utils": {
+            "credit": 0.0765858533013205,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0301477818727491,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.021982242857142856,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0301477818727491,
+            "url": null
+        },
+        "R": {
+            "credit": 0.08515339411764705,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.0002333571428571428,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.023335714285714283,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.0002333571428571428,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.015634928571428567,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "methods": {
+            "credit": 0.10418866962785114,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.02000204081632653,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.027002755102040817,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "XML": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.04200428571428571,
+            "url": null
+        },
+        "tm.lexicon.GeneralInquirer": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "SnowballC": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "Rpoppler": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "Rgraphviz": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "Rcampdf": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "pdftools": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "filehash": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "antiword": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "slam": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "NLP": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.003145026770708283,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0011648247298919566,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.0019802020408163264,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.0019802020408163264,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.0019802020408163264,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.007700785714285713,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.007700785714285713,
+            "url": null
+        }
+    }
+}
