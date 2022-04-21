@@ -25,8 +25,8 @@ jobs:
         RSE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
           git clone https://github.com/rseng/software /tmp/software
-          python 1.download.py --settings-file ../software/rse.ini -o ./_repos
-          python 2.analysis.py --settings-file ../software/rse.ini -o ./_repos
+          python 1.download.py --settings-file /tmp/software/rse.ini -o ./_repos
+          python 2.analysis.py --settings-file /tmp/software/rse.ini -o ./_repos
           find _repos -type d -empty -print -delete
 
     - name: Checkout New Branch
