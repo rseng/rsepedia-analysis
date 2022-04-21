@@ -97,9 +97,8 @@ For all repos we generate high level metadata and a summary of all dependencies.
 If you need to update one parsing (e.g., look for new deps, etc.):
 
 ```bash
-$ python 3.parse_one.py --settings-file ../software/rse.ini -o ./_repos github/hpcng/singularity
+$ python 3.parse_one.py --settings-file ../software/rse.ini -o ./_repos github/sylabs/singularity
 ```
-
 
 ## Diary
 
