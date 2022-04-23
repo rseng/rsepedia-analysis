@@ -20,6 +20,22 @@ jobs:
         python -m nltk.downloader popular
         rse --version
 
+    - name: Load CiteLang Cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.citelang
+        key: ${{ runner.os }}-citelang-cache
+        restore-keys: |
+          ${{ runner.os }}-citelang-cache
+          ${{ runner.os }}
+
+    - name: Populate CiteLang Cache
+      run: |
+        if [[ ! -d "$HOME/.citelang" ]]; then
+            git clone https://github.com/researchapps/citelang-cache $HOME/.citelang
+        fi
+        tree ~/.citelang
+        
     - name: Download Latest Software Database
       env:
         RSE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,6 +44,13 @@ jobs:
           python 1.download.py --settings-file /tmp/software/rse.ini -o ./_repos
           python 2.analysis.py --settings-file /tmp/software/rse.ini -o ./_repos
           find _repos -type d -empty -print -delete
+
+    - name: Save Updated Cache
+      uses: actions/cache@v3
+      with:
+        key: ${{ runner.os }}-citelang-cache
+        path: |
+          ~/.citelang
 
     - name: Checkout New Branch
       env:
