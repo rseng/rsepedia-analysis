@@ -3,4 +3,5 @@ pandas
 nltk
 scipy
 scikit-learn
+citelang[all]
 citelang
