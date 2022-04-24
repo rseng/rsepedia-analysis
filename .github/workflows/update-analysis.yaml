@@ -68,8 +68,9 @@ jobs:
         git config --global user.email "github-actions@users.noreply.github.com"
 
         git add _repos/*
-        git add _docs/*
+        git add docs/*
         git add pages/*
+        git add _data/*
 
         if git diff-index --quiet HEAD --; then
            printf "No changes\n"
