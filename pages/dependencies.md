@@ -188,7 +188,6 @@ http://rgeos.r-forge.r-project.org/index.html)|0.0008183359126582197|
 |cran|[dbplyr](https://dbplyr.tidyverse.org/)|0.0006386646149512879|
 |cran|[XML](http://www.omegahat.net/RSXML/)|0.0006386146896811155|
 |pypi|[twine](https://pypi.org/project/twine)|0.000638464203166059|
-|npm||0.0006379895211743588|
 |pypi|[toolz](https://github.com/pytoolz/toolz/)|0.0006324779881070101|
 |pypi|[mpi4py](https://github.com/mpi4py/mpi4py/)|0.0006291951270158665|
 |cran|[png](http://www.rforge.net/png/)|0.0006285698933687352|

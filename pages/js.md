@@ -9,7 +9,6 @@ tipue_search_active: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|npm||0.0006379895211743588|
 |npm|[core-js](https://github.com/zloirock/core-js#readme)|0.0006059147586586949|
 |npm|[nuxt](https://github.com/nuxt/nuxt.js#readme)|0.0005596385542168675|
 |npm|[angular](http://angularjs.org)|0.0005197587101653367|
