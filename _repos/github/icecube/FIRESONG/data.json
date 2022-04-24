@@ -6,20 +6,24 @@
         }
     },
     "pypi": {
+        "firesong": {
+            "credit": 0.00495,
+            "url": "https://github.com/icecube/FIRESONG"
+        },
         "coverage": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.006583500000000001,
             "url": "https://github.com/nedbat/coveragepy"
         },
-        "numpy": {
-            "credit": 0.006567,
-            "url": "https://www.numpy.org"
-        },
         "scipy": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.0016335,
             "url": "https://www.scipy.org"
         },
+        "numpy": {
+            "credit": 0.003250665,
+            "url": "https://www.numpy.org"
+        },
         "tomli": {
-            "credit": 0.003267,
+            "credit": 0.006517665000000001,
             "url": "https://pypi.org/project/tomli"
         }
     }

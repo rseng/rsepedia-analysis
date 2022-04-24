@@ -9,11 +9,7 @@ __license__ = "MPL 2.0"
 
 from rse.main import Encyclopedia
 from rse.utils.command import Command
-from rse.utils.file import (
-    recursive_find,
-    write_json,
-    read_json,
-)
+from rse.utils.file import recursive_find
 
 import citelang.utils as utils
 import citelang.main.parser as parser
@@ -22,7 +18,6 @@ import citelang.main.packages as packages
 import tempfile
 import shutil
 import argparse
-import re
 import sys
 import os
 
@@ -112,7 +107,7 @@ def main():
     # copy found file into folder
     shutil.copyfile(found, reqfile)
 
-    try:                
+    try:
         cli = parser.RequirementsParser(filename=found, min_credit=0.001)
         result = cli.gen(name=repo.uid, min_credit=0.001)
     except:
@@ -143,6 +138,7 @@ def main():
     if os.path.exists(destdir) and len(os.listdir(destdir)) == 0:
         shutil.rmtree(destdir)
     shutil.rmtree(tempdir)
-    
+
+
 if __name__ == "__main__":
     main()

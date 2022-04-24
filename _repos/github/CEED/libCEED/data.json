@@ -6,13 +6,25 @@
         }
     },
     "pypi": {
+        "libceed": {
+            "credit": 0.0033000000000000004,
+            "url": "https://libceed.readthedocs.io"
+        },
         "cffi": {
-            "credit": 0.0099,
+            "credit": 0.0043890000000000005,
             "url": "http://cffi.readthedocs.org"
         },
         "pycparser": {
-            "credit": 0.009801,
+            "credit": 0.00764511,
             "url": "https://github.com/eliben/pycparser"
+        },
+        "numba": {
+            "credit": 0.001089,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.001089,
+            "url": "https://www.numpy.org"
         }
     }
 }

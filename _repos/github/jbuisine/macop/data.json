@@ -6,8 +6,12 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "macop": {
             "credit": 0.0099,
+            "url": "https://github.com/prise-3d/macop"
+        },
+        "numpy": {
+            "credit": 0.009801,
             "url": "https://www.numpy.org"
         }
     }

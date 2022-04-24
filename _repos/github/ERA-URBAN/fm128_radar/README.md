@@ -9,6 +9,7 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/ERA-URBAN/fm128_radar|0.01|
+|pypi|[fm128-radar](https://github.com/ERA-URBAN/fm128_radar)|0.01|
 |pypi|[numpy](https://www.numpy.org)|0.01|
 
 

@@ -8,11 +8,12 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.714|
+|pypi|[numpy](https://www.numpy.org)|0.707|
 |pypi|[pytz](http://pythonhosted.org/pytz)|0.057|
 |pypi|[python-dateutil](https://github.com/dateutil/dateutil)|0.057|
 |pypi|[pytest](https://docs.pytest.org/en/latest/)|0.027|
 |setup.py|github/hknd23/idcempy|0.01|
+|pypi|[idcempy](https://github.com/hknd23/idcempy)|0.01|
 |pypi|[execnet](https://pypi.org/project/execnet)|0.009|
 |pypi|[py](https://pypi.org/project/py)|0.008|
 |pypi|[importlib-metadata](https://pypi.org/project/importlib-metadata)|0.006|

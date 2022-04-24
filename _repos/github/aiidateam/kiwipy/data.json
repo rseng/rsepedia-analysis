@@ -6,81 +6,153 @@
         }
     },
     "pypi": {
-        "shortuuid": {
-            "credit": 0.2475,
-            "url": "https://github.com/skorokithakis/shortuuid/"
-        },
-        "async_generator": {
-            "credit": 0.2475,
-            "url": "https://github.com/python-trio/async_generator"
+        "kiwipy": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/aiidateam/kiwipy.git"
         },
         "pytray": {
-            "credit": 0.002475000000000005,
+            "credit": 0.010502608695652184,
             "url": "https://github.com/muhrin/pytray.git"
         },
+        "async_generator": {
+            "credit": 0.198,
+            "url": "https://github.com/python-trio/async_generator"
+        },
         "deprecation": {
-            "credit": 0.018810000000000004,
+            "credit": 0.02357060869565218,
             "url": "http://deprecation.readthedocs.io/"
         },
-        "docutils": {
-            "credit": 0.016335,
-            "url": "http://docutils.sourceforge.net/"
+        "shortuuid": {
+            "credit": 0.20652260869565217,
+            "url": "https://github.com/skorokithakis/shortuuid/"
         },
-        "Sphinx": {
-            "credit": 0.016335,
-            "url": "https://www.sphinx-doc.org/"
+        "msgpack": {
+            "credit": 0.008522608695652174,
+            "url": "https://msgpack.org/"
         },
-        "Pygments": {
-            "credit": 0.016335,
-            "url": "https://pypi.org/project/Pygments"
+        "pika": {
+            "credit": 8.522608695652259e-05,
+            "url": "https://pika.readthedocs.io"
         },
-        "yapf": {
-            "credit": 0.016335,
-            "url": "https://pypi.org/project/yapf"
+        "pytest-benchmark": {
+            "credit": 0.008522608695652174,
+            "url": "https://github.com/ionelmc/pytest-benchmark"
         },
-        "twine": {
-            "credit": 0.016335,
-            "url": "https://pypi.org/project/twine"
+        "pytest-notebook": {
+            "credit": 0.008522608695652174,
+            "url": "https://github.com/chrisjsewell/pytest-notebook"
+        },
+        "pytest-asyncio": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/pytest-asyncio"
         },
         "pytest": {
-            "credit": 0.016335,
+            "credit": 0.021590608695652172,
             "url": "https://pypi.org/project/pytest"
         },
         "pytest-cov": {
-            "credit": 0.016335,
+            "credit": 0.021590608695652172,
             "url": "https://pypi.org/project/pytest-cov"
         },
+        "ipykernel": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "coverage": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pyyaml": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "aio-pika": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/aio-pika"
+        },
         "pylint": {
-            "credit": 0.016335,
+            "credit": 0.021590608695652172,
             "url": "https://pypi.org/project/pylint"
         },
-        "prospector": {
-            "credit": 0.016335,
-            "url": "https://pypi.org/project/prospector"
-        },
         "pre-commit": {
-            "credit": 0.016335,
+            "credit": 0.021590608695652172,
             "url": "https://pypi.org/project/pre-commit"
         },
+        "sphinx-autobuild": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/sphinx-autobuild"
+        },
+        "sphinx": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "pandoc": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/pandoc"
+        },
+        "nbsphinx": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/nbsphinx"
+        },
+        "jupyter": {
+            "credit": 0.008522608695652174,
+            "url": "https://pypi.org/project/jupyter"
+        },
+        "docutils": {
+            "credit": 0.021590608695652172,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "async-generator": {
+            "credit": 0.021590608695652172,
+            "url": "https://pypi.org/project/async-generator"
+        },
+        "Sphinx": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "Pygments": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "yapf": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/yapf"
+        },
+        "twine": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/twine"
+        },
+        "prospector": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/prospector"
+        },
         "pip": {
-            "credit": 0.016335,
+            "credit": 0.013068,
             "url": "https://pypi.org/project/pip"
         },
         "ipython": {
-            "credit": 0.016335,
+            "credit": 0.013068,
             "url": "https://pypi.org/project/ipython"
         },
         "grayskull": {
-            "credit": 0.016335,
+            "credit": 0.013068,
             "url": "https://pypi.org/project/grayskull"
         },
-        "async-generator": {
-            "credit": 0.016335,
-            "url": "https://pypi.org/project/async-generator"
-        },
         "packaging": {
-            "credit": 0.245025,
+            "credit": 0.19602,
             "url": "https://pypi.org/project/packaging"
+        },
+        "twisted": {
+            "credit": 0.0028124608695652173,
+            "url": "https://pypi.org/project/twisted"
+        },
+        "tornado": {
+            "credit": 0.0028124608695652173,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "gevent": {
+            "credit": 0.0028124608695652173,
+            "url": "https://pypi.org/project/gevent"
         }
     }
 }

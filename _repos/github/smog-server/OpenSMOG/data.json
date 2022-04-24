@@ -6,9 +6,9 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "OpenSMOG": {
             "credit": 0.00495,
-            "url": "https://www.numpy.org"
+            "url": "https://github.com/junioreif/OpenSMOG"
         },
         "lxml": {
             "credit": 0.00495,

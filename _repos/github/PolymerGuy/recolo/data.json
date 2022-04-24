@@ -60,7 +60,7 @@
         },
         "beautifulsoup4": {
             "credit": 0.0006599999999999939,
-            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+            "url": "http://www.crummy.com/software/BeautifulSoup/bs4/"
         },
         "SciencePlots": {
             "credit": 0.066,

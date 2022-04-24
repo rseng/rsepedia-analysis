@@ -9,8 +9,6 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/Electrostatics/apbs|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.005|
-|pypi|[pyyaml](https://pyyaml.org/)|0.005|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

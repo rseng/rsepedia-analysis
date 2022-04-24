@@ -6,9 +6,9 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "openphi": {
             "credit": 0.495,
-            "url": "https://www.numpy.org"
+            "url": "https://gitlab.com/BioimageInformaticsGroup/openphi"
         },
         "pillow": {
             "credit": 0.00495000000000001,

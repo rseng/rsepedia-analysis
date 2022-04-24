@@ -9,6 +9,7 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/jbuisine/macop|0.01|
+|pypi|[macop](https://github.com/prise-3d/macop)|0.01|
 |pypi|[numpy](https://www.numpy.org)|0.01|
 
 

@@ -8,13 +8,48 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[typing-extensions](https://typing.readthedocs.io/)|0.196|
+|pypi|[matplotlib](https://matplotlib.org)|0.107|
+|pypi|[sisyphe](https://sisyphe.readthedocs.io)|0.099|
+|pypi|[pykeops](http://www.kernel-operations.io/)|0.099|
+|pypi|[keopscore](http://www.kernel-operations.io/)|0.099|
+|pypi|[cycler](https://github.com/matplotlib/cycler)|0.099|
+|pypi|[pybind11-global](https://pypi.org/project/pybind11-global)|0.098|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.019|
+|pypi|[cffi](https://pypi.org/project/cffi)|0.011|
 |setup.py|github/antoinediez/Sisyphe|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.004|
-|pypi|[scipy](https://www.scipy.org)|0.002|
-|pypi|[matplotlib](https://matplotlib.org)|0.002|
-|pypi|[torch](https://pytorch.org/)|0.002|
-|pypi|[pykeops](http://www.kernel-operations.io/)|0.002|
-|pypi|[typing-extensions](https://typing.readthedocs.io/)|0.002|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.01|
+|pypi|[munkres](https://software.clapper.org/munkres/)|0.008|
+|pypi|[brotli](https://github.com/google/brotli)|0.008|
+|pypi|[lxml](https://lxml.de/)|0.008|
+|pypi|[fs](https://github.com/PyFilesystem/pyfilesystem2)|0.008|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.007|
+|pypi|[mpmath](https://pypi.org/project/mpmath)|0.007|
+|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.007|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.007|
+|pypi|[pytest-timeout](https://pypi.org/project/pytest-timeout)|0.006|
+|pypi|[pyroma](https://pypi.org/project/pyroma)|0.006|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.006|
+|pypi|[markdown2](https://pypi.org/project/markdown2)|0.006|
+|pypi|[defusedxml](https://pypi.org/project/defusedxml)|0.006|
+|pypi|[check-manifest](https://pypi.org/project/check-manifest)|0.006|
+|pypi|[sphinxext-opengraph](https://pypi.org/project/sphinxext-opengraph)|0.006|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.006|
+|pypi|[sphinx-removed-in](https://pypi.org/project/sphinx-removed-in)|0.006|
+|pypi|[sphinx-issues](https://pypi.org/project/sphinx-issues)|0.006|
+|pypi|[sphinx-copybutton](https://pypi.org/project/sphinx-copybutton)|0.006|
+|pypi|[olefile](https://pypi.org/project/olefile)|0.006|
+|pypi|[pytest-randomly](https://pypi.org/project/pytest-randomly)|0.004|
+|pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.004|
+|pypi|[enum34](https://pypi.org/project/enum34)|0.004|
+|pypi|[psutil](https://pypi.org/project/psutil)|0.001|
+|pypi|[flake8](https://pypi.org/project/flake8)|0.001|
+|pypi|[sphinx-bootstrap-theme](https://pypi.org/project/sphinx-bootstrap-theme)|0.001|
+|pypi|[torch](https://pytorch.org/)|0.001|
+|pypi|[fonttools](http://github.com/fonttools/fonttools)|0.001|
+|pypi|[kiwisolver](https://github.com/nucleic/kiwi)|0.001|
+|pypi|[pillow](https://python-pillow.org)|0.001|
+|pypi|[pybind11](https://github.com/pybind/pybind11)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

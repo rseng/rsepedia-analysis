@@ -9,9 +9,9 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/mishioo/tesliper|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.005|
-|pypi|[openpyxl](https://openpyxl.readthedocs.io)|0.005|
-|pypi|[et-xmlfile](https://foss.heptapod.net/openpyxl/et_xmlfile)|0.005|
+|pypi|[et-xmlfile](https://foss.heptapod.net/openpyxl/et_xmlfile)|0.007|
+|pypi|[tesliper](https://github.com/mishioo/tesliper)|0.003|
+|pypi|[openpyxl](https://openpyxl.readthedocs.io)|0.003|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

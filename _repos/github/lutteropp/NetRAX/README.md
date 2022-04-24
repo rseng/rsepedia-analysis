@@ -29,6 +29,7 @@ exclude_from_search: true
 |pypi|[pandas](https://pandas.pydata.org)|0.007|
 |pypi|[typing-extensions](https://pypi.org/project/typing-extensions)|0.007|
 |pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.006|
+|pypi|[sympy](https://pypi.org/project/sympy)|0.006|
 |pypi|[pydot](https://pypi.org/project/pydot)|0.006|
 |pypi|[lxml](https://pypi.org/project/lxml)|0.006|
 |pypi|[texext](https://pypi.org/project/texext)|0.006|
@@ -37,8 +38,6 @@ exclude_from_search: true
 |pypi|[numpydoc](https://pypi.org/project/numpydoc)|0.006|
 |pypi|[sphinx-gallery](https://pypi.org/project/sphinx-gallery)|0.006|
 |pypi|[pydata-sphinx-theme](https://pypi.org/project/pydata-sphinx-theme)|0.006|
-|pypi|[pyupgrade](https://pypi.org/project/pyupgrade)|0.006|
-|pypi|[black](https://pypi.org/project/black)|0.006|
 |pypi|[scipy](https://pypi.org/project/scipy)|0.006|
 |pypi|[pytest-asyncio](https://pypi.org/project/pytest-asyncio)|0.005|
 |pypi|[coverage](https://pypi.org/project/coverage)|0.005|

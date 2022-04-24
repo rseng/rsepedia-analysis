@@ -6,8 +6,12 @@
         }
     },
     "pypi": {
+        "komics": {
+            "credit": 0.00495,
+            "url": "http://github.com/frebio/komics"
+        },
         "biopython": {
-            "credit": 0.0099,
+            "credit": 0.00495,
             "url": "https://biopython.org/"
         }
     }

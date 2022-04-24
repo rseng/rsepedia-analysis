@@ -8,10 +8,37 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[dymos](https://github.com/OpenMDAO/dymos)|0.247|
+|pypi|[openmdao](http://openmdao.org)|0.247|
+|pypi|[pyDOE2](https://github.com/clicumu/pyDOE2)|0.247|
+|pypi|[pytest](https://docs.pytest.org/en/latest/)|0.014|
+|pypi|[sympy](https://pypi.org/project/sympy)|0.012|
+|pypi|[pydot](https://pypi.org/project/pydot)|0.012|
+|pypi|[pygraphviz](https://pypi.org/project/pygraphviz)|0.012|
+|pypi|[lxml](https://pypi.org/project/lxml)|0.012|
+|pypi|[texext](https://pypi.org/project/texext)|0.012|
+|pypi|[nb2plots](https://pypi.org/project/nb2plots)|0.012|
+|pypi|[pillow](https://pypi.org/project/pillow)|0.012|
+|pypi|[numpydoc](https://pypi.org/project/numpydoc)|0.012|
+|pypi|[sphinx-gallery](https://pypi.org/project/sphinx-gallery)|0.012|
+|pypi|[pydata-sphinx-theme](https://pypi.org/project/pydata-sphinx-theme)|0.012|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.012|
+|pypi|[mypy](https://pypi.org/project/mypy)|0.012|
+|pypi|[pre-commit](https://pypi.org/project/pre-commit)|0.012|
+|pypi|[pandas](https://pypi.org/project/pandas)|0.012|
+|pypi|[matplotlib](https://pypi.org/project/matplotlib)|0.012|
+|pypi|[scipy](https://pypi.org/project/scipy)|0.012|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.012|
 |setup.py|github/OpenMDAO/dymos|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.007|
-|pypi|[openmdao](http://openmdao.org)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.003|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.008|
+|pypi|[requests](https://pypi.org/project/requests)|0.006|
+|pypi|[networkx](https://networkx.org/)|0.002|
+|pypi|[virtualenv](https://pypi.org/project/virtualenv)|0.002|
+|pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.002|
+|pypi|[six](https://pypi.org/project/six)|0.002|
+|pypi|[process-tests](https://pypi.org/project/process-tests)|0.002|
+|pypi|[hunter](https://pypi.org/project/hunter)|0.002|
+|pypi|[fields](https://pypi.org/project/fields)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

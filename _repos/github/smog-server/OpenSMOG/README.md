@@ -9,7 +9,7 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/smog-server/OpenSMOG|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.005|
+|pypi|[OpenSMOG](https://github.com/junioreif/OpenSMOG)|0.005|
 |pypi|[lxml](https://lxml.de/)|0.005|
 
 

@@ -43,8 +43,8 @@
             "url": "https://docs.pytest.org/en/latest/"
         },
         "babel": {
-            "credit": 0.009899999999999999,
-            "url": "http://babel.pocoo.org/"
+            "credit": 9.900000000000013e-05,
+            "url": "https://babel.pocoo.org/"
         },
         "mergedeep": {
             "credit": 0.009899999999999999,
@@ -157,6 +157,10 @@
         "attrs": {
             "credit": 0.00680625,
             "url": "https://pypi.org/project/attrs"
+        },
+        "pytz": {
+            "credit": 0.009800999999999999,
+            "url": "https://pypi.org/project/pytz"
         },
         "pyparsing": {
             "credit": 0.009800999999999999,

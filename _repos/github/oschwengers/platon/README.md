@@ -10,6 +10,7 @@ exclude_from_search: true
 |-------|----|------|
 |setup.py|github/oschwengers/platon|0.01|
 |pypi|[biopython](https://biopython.org/)|0.01|
+|pypi|[cb-platon](https://github.com/oschwengers/platon)|0.005|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

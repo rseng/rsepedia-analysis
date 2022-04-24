@@ -8,52 +8,8 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[pytest](https://pypi.org/project/pytest)|0.205|
-|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.191|
-|pypi|[wheel](https://github.com/pypa/wheel)|0.041|
-|pypi|[virtualenv](https://pypi.org/project/virtualenv)|0.039|
-|pypi|[setuptools](https://github.com/pypa/setuptools)|0.031|
-|pypi|[coverage](https://pypi.org/project/coverage)|0.029|
-|pypi|[scikit-build](https://pypi.org/project/scikit-build)|0.027|
-|pypi|[pytest-virtualenv](https://pypi.org/project/pytest-virtualenv)|0.027|
-|pypi|[pytest-runner](https://pypi.org/project/pytest-runner)|0.027|
-|pypi|[path.py](https://pypi.org/project/path.py)|0.027|
-|pypi|[flake8](https://pypi.org/project/flake8)|0.027|
-|pypi|[codecov](https://pypi.org/project/codecov)|0.027|
-|pypi|[filelock](https://pypi.org/project/filelock)|0.013|
-|pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.012|
-|pypi|[pytest-black](https://github.com/shopkeep/pytest-black)|0.011|
-|pypi|[tomli](https://pypi.org/project/tomli)|0.011|
-|pypi|[tomli-w](https://pypi.org/project/tomli-w)|0.011|
-|pypi|[ini2toml](https://github.com/abravalheri/ini2toml/)|0.011|
-|pypi|[pip-run](https://pypi.org/project/pip-run)|0.011|
-|pypi|[build](https://pypi.org/project/build)|0.011|
-|pypi|[jaraco.path](https://pypi.org/project/jaraco.path)|0.011|
-|pypi|[jaraco.envs](https://pypi.org/project/jaraco.envs)|0.011|
-|pypi|[pip](https://pypi.org/project/pip)|0.011|
-|pypi|[flake8-2020](https://pypi.org/project/flake8-2020)|0.011|
-|pypi|[mock](https://pypi.org/project/mock)|0.011|
-|pypi|[pytest-perf](https://pypi.org/project/pytest-perf)|0.011|
-|pypi|[pytest-enabler](https://pypi.org/project/pytest-enabler)|0.011|
-|pypi|[pytest-flake8](https://pypi.org/project/pytest-flake8)|0.011|
-|pypi|[pytest-checkdocs](https://pypi.org/project/pytest-checkdocs)|0.011|
-|pypi|[furo](https://pypi.org/project/furo)|0.011|
-|pypi|[sphinxcontrib-towncrier](https://pypi.org/project/sphinxcontrib-towncrier)|0.011|
-|pypi|[sphinx-inline-tabs](https://pypi.org/project/sphinx-inline-tabs)|0.011|
-|pypi|[sphinx-favicon](https://pypi.org/project/sphinx-favicon)|0.011|
-|pypi|[pygments-github-lexers](https://pypi.org/project/pygments-github-lexers)|0.011|
-|pypi|[jaraco.tidelift](https://pypi.org/project/jaraco.tidelift)|0.011|
-|pypi|[rst.linker](https://pypi.org/project/rst.linker)|0.011|
-|pypi|[jaraco.packaging](https://pypi.org/project/jaraco.packaging)|0.011|
-|pypi|[sphinx](https://pypi.org/project/sphinx)|0.011|
 |setup.py|github/BartoszBartmanski/StoSpa2|0.01|
-|pypi|[cmake](https://cmake.org/)|0.003|
-|pypi|[mypy](https://pypi.org/project/mypy)|0.003|
-|pypi|[attrs](https://pypi.org/project/attrs)|0.003|
-|pypi|[six](https://pypi.org/project/six)|0.001|
-|pypi|[process-tests](https://pypi.org/project/process-tests)|0.001|
-|pypi|[hunter](https://pypi.org/project/hunter)|0.001|
-|pypi|[fields](https://pypi.org/project/fields)|0.001|
+|pypi|[pystospa](https://pypi.org/project/pystospa)|0.01|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

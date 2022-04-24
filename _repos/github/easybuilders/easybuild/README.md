@@ -9,9 +9,10 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/easybuilders/easybuild|0.01|
-|pypi|[easybuild-framework](https://easybuild.io)|0.003|
-|pypi|[easybuild-easyblocks](https://easybuild.io)|0.003|
-|pypi|[easybuild-easyconfigs](https://easybuild.io)|0.003|
+|pypi|[easybuild](https://easybuild.io)|0.002|
+|pypi|[easybuild-easyblocks](https://easybuild.io)|0.002|
+|pypi|[easybuild-easyconfigs](https://easybuild.io)|0.002|
+|pypi|[easybuild-framework](https://easybuild.io)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

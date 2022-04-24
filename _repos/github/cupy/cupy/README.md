@@ -9,9 +9,6 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/cupy/cupy|0.01|
-|pypi|[fastrlock](https://github.com/scoder/fastrlock)|0.005|
-|pypi|[Cython](http://cython.org/)|0.002|
-|pypi|[numpy](https://www.numpy.org)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

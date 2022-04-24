@@ -6,17 +6,21 @@
         }
     },
     "pypi": {
-        "numpy": {
-            "credit": 0.009833999999999999,
-            "url": "https://www.numpy.org"
+        "freud-analysis": {
+            "credit": 0.00495,
+            "url": "https://github.com/glotzerlab/freud"
         },
         "rowan": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.006583500000000001,
             "url": "https://github.com/glotzerlab/rowan"
         },
         "scipy": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.0016335,
             "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.00976833,
+            "url": "https://www.numpy.org"
         }
     }
 }

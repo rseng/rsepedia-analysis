@@ -7,7 +7,7 @@
     },
     "pypi": {
         "numpy": {
-            "credit": 0.14897142857142856,
+            "credit": 0.14878037593984964,
             "url": "https://www.numpy.org"
         },
         "imageio": {
@@ -47,7 +47,7 @@
             "url": "https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree"
         },
         "pillow": {
-            "credit": 0.004289999999999994,
+            "credit": 0.0040989473684210475,
             "url": "https://python-pillow.org"
         },
         "matplotlib": {
@@ -66,69 +66,73 @@
             "credit": 0.008827499999999995,
             "url": "https://sigtools.readthedocs.io/"
         },
-        "tifffile": {
-            "credit": 0.0036300000000000004,
-            "url": "https://www.lfd.uci.edu/~gohlke/"
-        },
         "itk": {
-            "credit": 0.0036300000000000004,
-            "url": "https://pypi.org/project/itk"
+            "credit": 0.003438947368421053,
+            "url": "https://itk.org/"
         },
         "gdal": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/gdal"
         },
-        "astropy": {
-            "credit": 0.0036300000000000004,
-            "url": "https://pypi.org/project/astropy"
-        },
-        "psutil": {
-            "credit": 0.0036300000000000004,
-            "url": "https://pypi.org/project/psutil"
-        },
-        "imageio-ffmpeg": {
-            "credit": 0.0036300000000000004,
-            "url": "https://pypi.org/project/imageio-ffmpeg"
-        },
         "pydata-sphinx-theme": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/pydata-sphinx-theme"
         },
         "numpydoc": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/numpydoc"
         },
         "sphinx": {
-            "credit": 0.045284250000000005,
+            "credit": 0.04509319736842106,
             "url": "https://pypi.org/project/sphinx"
         },
         "flake8": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/flake8"
         },
         "black": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/black"
         },
         "fsspec": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/fsspec"
         },
         "pytest-cov": {
-            "credit": 0.02078175,
+            "credit": 0.020590697368421056,
             "url": "https://pypi.org/project/pytest-cov"
         },
         "pytest": {
-            "credit": 0.031671750000000005,
+            "credit": 0.03148069736842106,
             "url": "https://pypi.org/project/pytest"
         },
         "invoke": {
-            "credit": 0.0036300000000000004,
+            "credit": 0.003438947368421053,
             "url": "https://pypi.org/project/invoke"
         },
         "wheel": {
-            "credit": 0.016698,
+            "credit": 0.016506947368421055,
             "url": "https://pypi.org/project/wheel"
+        },
+        "tifffile": {
+            "credit": 0.003438947368421053,
+            "url": "https://pypi.org/project/tifffile"
+        },
+        "psutil": {
+            "credit": 0.003438947368421053,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "imageio-ffmpeg": {
+            "credit": 0.003438947368421053,
+            "url": "https://pypi.org/project/imageio-ffmpeg"
+        },
+        "av": {
+            "credit": 0.003438947368421053,
+            "url": "https://pypi.org/project/av"
+        },
+        "astropy": {
+            "credit": 0.003438947368421053,
+            "url": "https://pypi.org/project/astropy"
         },
         "pytest-xdist": {
             "credit": 0.010890000000000002,

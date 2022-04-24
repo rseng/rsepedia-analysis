@@ -6,16 +6,16 @@
         }
     },
     "pypi": {
-        "numpy": {
-            "credit": 0.00495,
-            "url": "https://www.numpy.org"
+        "tesliper": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/mishioo/tesliper"
         },
         "openpyxl": {
-            "credit": 0.00495,
+            "credit": 0.0033000000000000004,
             "url": "https://openpyxl.readthedocs.io"
         },
         "et-xmlfile": {
-            "credit": 0.0049005,
+            "credit": 0.006567,
             "url": "https://foss.heptapod.net/openpyxl/et_xmlfile"
         }
     }

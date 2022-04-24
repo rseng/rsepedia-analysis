@@ -8,11 +8,35 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[pycparser](https://github.com/eliben/pycparser)|0.141|
+|pypi|[async-generator](https://github.com/python-trio/async_generator)|0.097|
+|pypi|[attrs](https://www.attrs.org/)|0.084|
+|pypi|[cryptography](https://github.com/pyca/cryptography)|0.077|
+|pypi|[sortedcontainers](http://www.grantjenks.com/docs/sortedcontainers/)|0.075|
+|pypi|[contextvars](https://pypi.org/project/contextvars)|0.075|
+|pypi|[PySocks](https://github.com/Anorov/PySocks)|0.066|
+|pypi|[h11](https://github.com/python-hyper/h11)|0.066|
+|pypi|[trio-websocket~=0.9](https://pypi.org/project/trio-websocket~=0.9)|0.043|
+|pypi|[trio~=0.17](https://pypi.org/project/trio~=0.17)|0.043|
+|pypi|[urllib3[secure,](https://pypi.org/project/urllib3[secure,)|0.043|
+|pypi|[typing-extensions](https://pypi.org/project/typing-extensions)|0.033|
+|pypi|[dataclasses](https://pypi.org/project/dataclasses)|0.033|
+|pypi|[trio](https://github.com/python-trio/trio)|0.022|
+|pypi|[wsproto](https://github.com/python-hyper/wsproto/)|0.022|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.011|
+|pypi|[pretend](https://pypi.org/project/pretend)|0.011|
+|pypi|[flaky](https://pypi.org/project/flaky)|0.011|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.011|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.011|
 |setup.py|github/SouthGreenPlatform/PyRice|0.01|
-|pypi|[selenium](https://www.selenium.dev)|0.01|
-|pypi|[trio-websocket~=0.9](https://pypi.org/project/trio-websocket~=0.9)|0.003|
-|pypi|[trio~=0.17](https://pypi.org/project/trio~=0.17)|0.003|
-|pypi|[urllib3[secure,](https://pypi.org/project/urllib3[secure,)|0.003|
+|pypi|[idna](https://github.com/kjd/idna)|0.009|
+|pypi|[selenium](https://www.selenium.dev)|0.001|
+|pypi|[outcome](https://github.com/python-trio/outcome)|0.001|
+|pypi|[sniffio](https://github.com/python-trio/sniffio)|0.001|
+|pypi|[cffi](http://cffi.readthedocs.org)|0.001|
+|pypi|[pyrice](https://github.com/SouthGreenPlatform/PyRice)|0.001|
+|pypi|[trio-websocket](https://github.com/HyperionGray/trio-websocket)|0.001|
+|pypi|[pyOpenSSL](https://pyopenssl.org/)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

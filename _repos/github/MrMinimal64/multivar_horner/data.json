@@ -6,8 +6,16 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "multivar-horner": {
             "credit": 0.0099,
+            "url": "https://github.com/jannikmi/multivar_horner"
+        },
+        "numba": {
+            "credit": 0.0049005,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.0049005,
             "url": "https://www.numpy.org"
         }
     }

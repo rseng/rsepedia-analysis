@@ -100,7 +100,7 @@ exclude_from_search: true
 |pypi|[sphinx_rtd_theme](https://github.com/rtfd/sphinx_rtd_theme/)|0.001|
 |pypi|[sphinxcontrib-bibtex](https://github.com/mcmtroffaes/sphinxcontrib-bibtex)|0.001|
 |pypi|[scikit-image](https://scikit-image.org)|0.001|
-|pypi|[beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/bs4/)|0.001|
+|pypi|[beautifulsoup4](http://www.crummy.com/software/BeautifulSoup/bs4/)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

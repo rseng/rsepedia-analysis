@@ -6,8 +6,12 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "fm128-radar": {
             "credit": 0.0099,
+            "url": "https://github.com/ERA-URBAN/fm128_radar"
+        },
+        "numpy": {
+            "credit": 0.009801,
             "url": "https://www.numpy.org"
         }
     }

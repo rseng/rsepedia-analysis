@@ -92,12 +92,30 @@ $ python 2.analysis.py --settings-file ../software/rse.ini -o ./_repos
 
 For all repos we generate high level metadata and a summary of all dependencies.
 
-### 3 Parse One
+### 3 Parse One / Redo
 
 If you need to update one parsing (e.g., look for new deps, etc.):
 
 ```bash
 $ python 3.parse_one.py --settings-file ../software/rse.ini -o ./_repos github/sylabs/singularity
+```
+
+Or to re-run for an entire language (or more than one). Below we would re-parse python repos:
+
+```bash
+$ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos --language-file setup.py --language-file requirements.txt
+```
+
+Or for just repos with package.json files:
+
+```bash
+$ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos  --language-file package.json
+```
+
+And then you might update the summary data, etc.
+
+```bash
+$ python 2.analysis.py --settings-file ../software/rse.ini -o ./_repos
 ```
 
 ## Diary
