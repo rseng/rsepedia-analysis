@@ -17,6 +17,12 @@ defaults:
     values:
       layout: "page"
 
+# Search
+tipue_search:
+  include:
+    collections:
+      - repos
+
 user: 
   avatar: "/assets/img/logo.png"
   github: "vsoch"

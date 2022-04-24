@@ -64,7 +64,6 @@ description: "Most used dependencies across the RSEPedia database"
 layout: table
 permalink: /analysis/%s/
 tipue_search_active: true
-exclude_from_search: true
 ---
 """
 
@@ -73,7 +72,6 @@ repo_header = """---
 title: %s
 layout: repo
 tipue_search_active: true
-exclude_from_search: true
 ---
 """
 
