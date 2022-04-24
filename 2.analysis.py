@@ -136,6 +136,8 @@ def main():
     meta = read_json(meta_json)
     language_json = os.path.join("docs", "language-counts.json")
 
+    # Collect list of data files
+    data_files = []
     count = 0
     for i, reponame in enumerate(repos):
         repo = pedia.get(reponame[0])
@@ -144,46 +146,23 @@ def main():
         destfile = os.path.join(destdir, "data.json")
         if not os.path.exists(destfile):
             continue
-
         print(f"{reponame}: {i} of {len(repos)}")
+        data_files.append(destfile)
         count += 1
 
-        # Find the metadata file in the repo
-        found = None
-        for filename in recursive_find(destdir, pattern="*"):
-            basename = os.path.basename(filename)
-            if basename in packages.filesystem_manager_names:
-                found = filename
-                break
+    # This is how to render the custom (loaded) data
+    roots = global_cli.load_datafiles(data_files)
 
-        # This should not happen
-        if not found:
-            tempdir = tempfile.mkdtemp()
-            dest = clone(repo.url, tempdir)
-            for filename in recursive_find(tempdir, pattern="*"):
-                basename = os.path.basename(filename)
-                if basename in packages.filesystem_manager_names:
-                    found = filename
-                    break
-
-            if not found:
-                print("WARNING %s not found!" % repo.uid)
-                continue
-
-            # copy found file into folder
-            reqfile = os.path.join(destdir, os.path.basename(found))
-            shutil.copyfile(found, reqfile)
-            shutil.rmtree(dest)
-
-        if not found:
-            print("WARNING %s not found!" % repo.uid)
-            continue
-
-        try:
-            global_cli.gen(repo.uid, filename=found, min_credit=0.001)
-        except:
-            continue
-
+    # Write results, changing round to include most
+    global_cli.round_by = 100
+    content = (
+        header
+        % (
+            "RSEPedia Top Dependencies",
+            "dependencies",
+        )
+        + global_cli.render(start_end_blocks=False, data=roots)
+    )
     write_json(meta, meta_json)
 
     # Write language counts
@@ -194,29 +173,21 @@ def main():
         counts[language] += 1
     write_json(counts, language_json)
 
-    # Write results, changing round to include most
-    global_cli.round_by = 100
-    content = header % (
-        "RSEPedia Top Dependencies",
-        "dependencies",
-    ) + global_cli.render(start_end_blocks=False)
-
     # Replace for jekyll site
     write_file(
-        os.path.join("docs", "all-repos.md"), global_cli.render(start_end_blocks=False)
+        os.path.join("docs", "all-repos.md"),
+        global_cli.render(start_end_blocks=False, data=roots),
     )
     write_file(os.path.join("pages", "dependencies.md"), content)
 
     # Get stats for different languages
     # 'setup.py', 'package.json', 'npm', 'DESCRIPTION', 'cran', 'pypi', 'go.mod', 'go', 'requirements.txt'])
     python_deps = len(
-        set(global_cli.data["pypi"])
-        .union(global_cli.data["requirements.txt"])
-        .union(global_cli.data["pypi"])
+        set(roots["pypi"]).union(roots["requirements.txt"]).union(roots["pypi"])
     )
-    r_deps = len(set(global_cli.data["DESCRIPTION"]).union(global_cli.data["cran"]))
-    js_deps = len(set(global_cli.data["npm"]).union(global_cli.data["package.json"]))
-    go_deps = len(set(global_cli.data["go"]).union(global_cli.data["go.mod"]))
+    r_deps = len(set(roots["DESCRIPTION"]).union(roots["cran"]))
+    js_deps = len(set(roots["npm"]).union(roots["package.json"]))
+    go_deps = len(set(roots["go"]).union(roots["go.mod"]))
 
     stats = {
         "python_deps": python_deps,
@@ -230,45 +201,47 @@ def main():
     write_json(counts, os.path.join("_data", "language_counts.json"))
 
     # Prepare scoped tables to languages
-    custom_cli = copy.deepcopy(global_cli)
-
     # Keep count of repos / deps files for each
     repos_counts = {}
 
     # Python
-    custom_cli.data = custom_cli.prepare_custom_table(
-        ["setup.py", "requirements.txt", "pypi"]
+    data = global_cli.load_datafiles(
+        data_files, includes=["setup.py", "requirements.txt", "pypi"]
     )
-    content = header % (
-        "RSEPedia Top Python Dependencies",
-        "python",
-    ) + custom_cli.render(start_end_blocks=False)
+    content = (
+        header
+        % (
+            "RSEPedia Top Python Dependencies",
+            "python",
+        )
+        + global_cli.render(start_end_blocks=False, data=data)
+    )
     write_file(os.path.join("pages", "python.md"), content)
-    repos_counts["Python"] = count_repos(custom_cli.data)
+    repos_counts["Python"] = count_repos(data)
 
     # R
-    custom_cli.data = custom_cli.prepare_custom_table(["cran", "DESCRIPTION"])
-    content = header % ("RSEPedia Top R Dependencies", "R") + custom_cli.render(
-        start_end_blocks=False
+    data = global_cli.load_datafiles(data_files, includes=["cran", "DESCRIPTION"])
+    content = header % ("RSEPedia Top R Dependencies", "R") + global_cli.render(
+        start_end_blocks=False, data=data
     )
     write_file(os.path.join("pages", "r.md"), content)
-    repos_counts["R"] = count_repos(custom_cli.data)
+    repos_counts["R"] = count_repos(data)
 
     # Javascript
-    custom_cli.data = custom_cli.prepare_custom_table(["package.json", "npm"])
-    content = header % ("RSEPedia Top Js Dependencies", "js") + custom_cli.render(
-        start_end_blocks=False
+    data = global_cli.load_datafiles(data_files, includes=["package.json", "npm"])
+    content = header % ("RSEPedia Top Js Dependencies", "js") + global_cli.render(
+        start_end_blocks=False, data=data
     )
     write_file(os.path.join("pages", "js.md"), content)
-    repos_counts["Js"] = count_repos(custom_cli.data)
+    repos_counts["Js"] = count_repos(data)
 
     # Go
-    custom_cli.data = custom_cli.prepare_custom_table(["go.mod", "go"])
-    content = header % ("RSEPedia Top Go Dependencies", "go") + custom_cli.render(
-        start_end_blocks=False
+    data = global_cli.load_datafiles(data_files, includes=["go.mod", "go"])
+    content = header % ("RSEPedia Top Go Dependencies", "go") + global_cli.render(
+        start_end_blocks=False, data=data
     )
     write_file(os.path.join("pages", "go.md"), content)
-    repos_counts["Go"] = count_repos(custom_cli.data)
+    repos_counts["Go"] = count_repos(data)
 
     # Emoji are problematic for jekyll data
     for repo, desc in meta["description"].items():

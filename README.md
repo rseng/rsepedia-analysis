@@ -103,7 +103,7 @@ $ python 3.parse_one.py --settings-file ../software/rse.ini -o ./_repos github/s
 Or to re-run for an entire language (or more than one). Below we would re-parse python repos:
 
 ```bash
-$ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos github/sylabs/singularity --language-file setup.py --language-file requirements.txt
+$ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos --language-file setup.py --language-file requirements.txt
 ```
 
 And then you might update the summary data, etc.

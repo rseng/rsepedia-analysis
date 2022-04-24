@@ -141,6 +141,7 @@ def main():
             print("Issue parsing %s because of unicode, skipping." % repo.uid)
             continue
 
+        continue
         utils.write_json(cli.data, destfile)
         destfile = os.path.join(destdir, "README.md")
         utils.write_file(
