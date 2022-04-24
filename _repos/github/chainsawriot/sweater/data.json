@@ -1,0 +1,318 @@
+{
+    "DESCRIPTION": {
+        "github/chainsawriot/sweater": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.011199700657894739,
+            "url": "http://www.rcpp.org"
+        },
+        "purrr": {
+            "credit": 0.004461513157894739,
+            "url": "http://purrr.tidyverse.org"
+        },
+        "quanteda": {
+            "credit": 0.004461513157894739,
+            "url": "https://quanteda.io"
+        },
+        "LiblineaR": {
+            "credit": 0.0012375000000000025,
+            "url": "<https://www.dnalytics.com/software/liblinear/>"
+        },
+        "proxy": {
+            "credit": 0.0012375000000000025,
+            "url": "NA"
+        },
+        "data.table": {
+            "credit": 0.0012375000000000025,
+            "url": "https://r-datatable.com"
+        },
+        "cli": {
+            "credit": 0.0012374999999999886,
+            "url": "https://cli.r-lib.org"
+        },
+        "combinat": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.00020418750000000124,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.02041875,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.00020418750000000124,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.0136805625,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.07658806793478261,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.08675445609267735,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0111375,
+            "url": "https://tidyselect.r-lib.org"
+        },
+        "tibble": {
+            "credit": 0.019688143592677346,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.019688143592677346,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.029897518592677346,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.029897518592677346,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.014361513157894737,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0111375,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.01646413043478261,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.01646413043478261,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.014361513157894737,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06052564359267735,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "tidytext": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "topicmodels": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "text2vec": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "stm": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "spacyr": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "slam": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "quanteda.textplots": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "quanteda.textstats": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "quanteda.textmodels": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "lsa": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "lda": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "tokenizers": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "tm": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.013433388157894736,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "stopwords": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "SnowballC": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "RcppParallel": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.044061513157894736,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.0032240131578947367,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "cba": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.012064817934782607,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.006738187499999999,
+            "url": null
+        }
+    }
+}

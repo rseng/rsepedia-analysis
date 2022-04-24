@@ -1,0 +1,626 @@
+{
+    "Gemfile": {
+        "github/codidact/qpixel": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "coffee-rails": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/coffee-rails"
+        },
+        "counter_culture": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/magnusvk/counter_culture"
+        },
+        "fastimage": {
+            "credit": 0.00020204081632653123,
+            "url": "http://github.com/sdsykes/fastimage"
+        },
+        "image_processing": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/janko/image_processing"
+        },
+        "jquery-rails": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/jquery-rails"
+        },
+        "mysql2": {
+            "credit": 0.021204183673469386,
+            "url": "https://github.com/brianmario/mysql2"
+        },
+        "puma": {
+            "credit": 0.00020204081632653123,
+            "url": "https://puma.io"
+        },
+        "rails": {
+            "credit": 0.004378937575030013,
+            "url": "https://rubyonrails.org"
+        },
+        "rails-html-sanitizer": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/rails/rails-html-sanitizer"
+        },
+        "redis": {
+            "credit": 0.001378631452581033,
+            "url": "https://github.com/redis/redis-rb"
+        },
+        "rotp": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/mdp/rotp"
+        },
+        "sass-rails": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/sass-rails"
+        },
+        "tzinfo-data": {
+            "credit": 0.00020204081632653123,
+            "url": "https://tzinfo.github.io"
+        },
+        "uglifier": {
+            "credit": 0.00020204081632652776,
+            "url": "http://github.com/lautis/uglifier"
+        },
+        "devise": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/heartcombo/devise"
+        },
+        "omniauth": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/omniauth/omniauth"
+        },
+        "commonmarker": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/gjtorikian/commonmarker"
+        },
+        "reverse_markdown": {
+            "credit": 0.00020204081632653123,
+            "url": "http://github.com/xijo/reverse_markdown"
+        },
+        "chartkick": {
+            "credit": 0.02020408163265306,
+            "url": "https://chartkick.com"
+        },
+        "groupdate": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/ankane/groupdate"
+        },
+        "diffy": {
+            "credit": 0.00020204081632653123,
+            "url": "http://github.com/samg/diffy"
+        },
+        "jbuilder": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/jbuilder"
+        },
+        "rqrcode": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/whomwah/rqrcode"
+        },
+        "will_paginate": {
+            "credit": 0.04020612244897959,
+            "url": "https://github.com/mislav/will_paginate"
+        },
+        "will_paginate-bootstrap": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/bootstrap-ruby/will_paginate-bootstrap"
+        },
+        "aws-sdk-s3": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/aws/aws-sdk-ruby"
+        },
+        "whenever": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/javan/whenever"
+        },
+        "awesome_print": {
+            "credit": 0.003424591836734691,
+            "url": "https://github.com/awesome-print/awesome_print"
+        },
+        "coveralls": {
+            "credit": 0.0042024489795918375,
+            "url": "https://coveralls.io"
+        },
+        "rubocop": {
+            "credit": 0.01449108043217287,
+            "url": "https://rubocop.org/"
+        },
+        "rubocop-rails": {
+            "credit": 0.0022022448979591843,
+            "url": "https://docs.rubocop.org/rubocop-rails/"
+        },
+        "flamegraph": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/SamSaffron/flamegraph"
+        },
+        "memory_profiler": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/SamSaffron/memory_profiler"
+        },
+        "rack-mini-profiler": {
+            "credit": 0.00020204081632653123,
+            "url": "https://miniprofiler.com"
+        },
+        "stackprof": {
+            "credit": 0.001378631452581033,
+            "url": "http://github.com/tmm1/stackprof"
+        },
+        "e2mmap": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/ruby/e2mmap"
+        },
+        "thwait": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/ruby/thwait"
+        },
+        "ruby-progressbar": {
+            "credit": 0.002424489795918368,
+            "url": "https://github.com/jfelchner/ruby-progressbar"
+        },
+        "rmagick": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rmagick/rmagick"
+        },
+        "stripe": {
+            "credit": 0.02020408163265306,
+            "url": "https://stripe.com/docs/api?lang=ruby"
+        },
+        "premailer-rails": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/fphilipe/premailer-rails"
+        },
+        "minitest": {
+            "credit": 0.025474460641399414,
+            "url": "https://github.com/seattlerb/minitest"
+        },
+        "minitest-ci": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/circleci/minitest-ci"
+        },
+        "rails-controller-testing": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/rails/rails-controller-testing"
+        },
+        "term-ansicolor": {
+            "credit": 0.003535714285714286,
+            "url": "http://flori.github.com/term-ansicolor"
+        },
+        "byebug": {
+            "credit": 0.0030594752186588925,
+            "url": "https://github.com/deivid-rodriguez/byebug"
+        },
+        "letter_opener_web": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/fgrehm/letter_opener_web"
+        },
+        "spring": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/spring"
+        },
+        "web-console": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/rails/web-console"
+        },
+        "railties": {
+            "credit": 0.02343572448979592,
+            "url": "https://rubyonrails.org"
+        },
+        "coffee-script": {
+            "credit": 0.00010001020408163287,
+            "url": "http://github.com/josh/ruby-coffee-script"
+        },
+        "activesupport": {
+            "credit": 0.05165527040816327,
+            "url": "https://rubyonrails.org"
+        },
+        "activerecord": {
+            "credit": 0.002666938775510204,
+            "url": null
+        },
+        "timecop": {
+            "credit": 0.011001122448979592,
+            "url": null
+        },
+        "sqlite3": {
+            "credit": 0.00900091836734694,
+            "url": null
+        },
+        "simplecov": {
+            "credit": 0.019414679300291542,
+            "url": null
+        },
+        "rspec-extra-formatters": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "rspec": {
+            "credit": 0.042593514834505235,
+            "url": null
+        },
+        "rdoc": {
+            "credit": 0.02108151603498542,
+            "url": null
+        },
+        "rake": {
+            "credit": 0.07576951884325157,
+            "url": null
+        },
+        "pg": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "paranoia": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "paper_trail": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "discard": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "database_cleaner": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "bundler": {
+            "credit": 0.06308580174927113,
+            "url": null
+        },
+        "appraisal": {
+            "credit": 0.008334183673469388,
+            "url": null
+        },
+        "after_commit_action": {
+            "credit": 0.0010001020408163266,
+            "url": null
+        },
+        "test-unit": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "fakeweb-fi": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "ruby-vips": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "mini_magick": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "minitest-hooks": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "minispec-metadata": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "dhash-vips": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "thor": {
+            "credit": 0.011651188775510203,
+            "url": null
+        },
+        "rails-dom-testing": {
+            "credit": 0.010667755102040816,
+            "url": null
+        },
+        "nio4r": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "sprockets-rails": {
+            "credit": 0.0016668367346938774,
+            "url": null
+        },
+        "activestorage": {
+            "credit": 0.0016668367346938774,
+            "url": null
+        },
+        "activemodel": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "activejob": {
+            "credit": 0.0016668367346938774,
+            "url": null
+        },
+        "actionview": {
+            "credit": 0.02231894387755102,
+            "url": null
+        },
+        "actionpack": {
+            "credit": 0.007317413265306123,
+            "url": null
+        },
+        "actionmailer": {
+            "credit": 0.007667448979591837,
+            "url": null
+        },
+        "actioncable": {
+            "credit": 0.0016668367346938774,
+            "url": null
+        },
+        "loofah": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.016668367346938773,
+            "url": null
+        },
+        "hiredis": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "em-synchrony": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "sassc-rails": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "tzinfo": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "execjs": {
+            "credit": 0.006475660714285714,
+            "url": null
+        },
+        "sourcemap": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "warden": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "responders": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "orm_adapter": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "bcrypt": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "rack-protection": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "rack": {
+            "credit": 0.011844345738295318,
+            "url": null
+        },
+        "hashie": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "rubocop-standard": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rake-compiler": {
+            "credit": 0.011112244897959183,
+            "url": null
+        },
+        "minitest-focus": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "json": {
+            "credit": 0.010888809402332361,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.014892275767449836,
+            "url": null
+        },
+        "kramdown": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "codeclimate-test-reporter": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "rqrcode_core": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "chunky_png": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "standardrb": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "aws-sigv4": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "aws-sdk-kms": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "aws-sdk-core": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "chronic": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "fakefs": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "tins": {
+            "credit": 0.008334183673469386,
+            "url": null
+        },
+        "unicode-display_width": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rubocop-ast": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rexml": {
+            "credit": 0.00422265306122449,
+            "url": null
+        },
+        "regexp_parser": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rainbow": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "parser": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "fast_stack": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "guard": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "guard-minitest": {
+            "credit": 0.003333673469387755,
+            "url": null
+        },
+        "webpacker": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "webmock": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "sassc": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rubyzip": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rubocop-discourse": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rack-test": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "mini_racer": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "listen": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "dalli": {
+            "credit": 0.0011765906362545017,
+            "url": null
+        },
+        "rspectacular": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "fuubar": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "yard": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rubocop-rspec": {
+            "credit": 0.00422265306122449,
+            "url": null
+        },
+        "rubocop-performance": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "rspec_junit_formatter": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "premailer": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "hoe": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "ZenTest": {
+            "credit": 0.0028574344023323613,
+            "url": null
+        },
+        "gem_hadar": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "letter_opener": {
+            "credit": 0.002000204081632653,
+            "url": null
+        },
+        "shoulda-matchers": {
+            "credit": 0.002000204081632653,
+            "url": null
+        },
+        "rspec-rails": {
+            "credit": 0.002000204081632653,
+            "url": null
+        },
+        "bump": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "bindex": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "method_source": {
+            "credit": 0.0016501683673469387,
+            "url": null
+        },
+        "coffee-script-source": {
+            "credit": 0.002475252551020408,
+            "url": null
+        }
+    }
+}

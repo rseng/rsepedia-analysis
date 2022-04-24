@@ -7588,6 +7588,53 @@
             "timetree",
             "jax",
             "numpyro"
+        ],
+        "github/mishioo/tesliper": [
+            "python",
+            "chemistry",
+            "spectroscopy",
+            "chemical-computing",
+            "optical-spectroscopy",
+            "spectral-simulations",
+            "gaussian",
+            "workflow-automation",
+            "batch-processing"
+        ],
+        "github/OSS-Lab/ChemChaste": [],
+        "github/ModellingWebLab/chaste-codegen": [],
+        "github/SWIFTSIM/emulator": [],
+        "github/datngu/Circall": [],
+        "github/sylabs/singularity": [
+            "containers",
+            "hpc",
+            "linux"
+        ],
+        "github/aalhossary/pyemgpipeline": [],
+        "github/cinemascience/cinema_snap": [],
+        "github/leishenggit/CircleBase": [
+            "eccdna",
+            "function-regulation",
+            "pagerank"
+        ],
+        "github/spokenlanguage/platalea": [
+            "visually-grounded-speech",
+            "multi-tasking",
+            "spoken-language-understanding",
+            "deep-neural-networks",
+            "speech-processing",
+            "weakly-supervised-learning",
+            "multimodal-learning",
+            "pytorch",
+            "flickr8k",
+            "spokencoco"
+        ],
+        "github/laurazara/IgIDivA": [],
+        "github/lasseignelab/CINmetrics": [],
+        "github/chainsawriot/sweater": [
+            "r",
+            "wordembedding",
+            "bias-detection",
+            "textanalysis"
         ]
     },
     "language": {
@@ -9163,7 +9210,20 @@
         "github/BU-ISCIII/plasmidID": "Shell",
         "github/gromacs/gromacs": "C++",
         "github/ECP-copa/Cabana": "C++",
-        "github/theosanderson/chronumental": "Python"
+        "github/theosanderson/chronumental": "Python",
+        "github/mishioo/tesliper": "Python",
+        "github/OSS-Lab/ChemChaste": "C++",
+        "github/ModellingWebLab/chaste-codegen": "Python",
+        "github/SWIFTSIM/emulator": "Python",
+        "github/datngu/Circall": "C++",
+        "github/sylabs/singularity": "Go",
+        "github/aalhossary/pyemgpipeline": "Python",
+        "github/cinemascience/cinema_snap": "JavaScript",
+        "github/leishenggit/CircleBase": "HTML",
+        "github/spokenlanguage/platalea": "Python",
+        "github/laurazara/IgIDivA": "R",
+        "github/lasseignelab/CINmetrics": "R",
+        "github/chainsawriot/sweater": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -10738,7 +10798,20 @@
         "github/BU-ISCIII/plasmidID": "https://github.com/BU-ISCIII/plasmidID",
         "github/gromacs/gromacs": "https://github.com/gromacs/gromacs",
         "github/ECP-copa/Cabana": "https://github.com/ECP-copa/Cabana",
-        "github/theosanderson/chronumental": "https://github.com/theosanderson/chronumental"
+        "github/theosanderson/chronumental": "https://github.com/theosanderson/chronumental",
+        "github/mishioo/tesliper": "https://github.com/mishioo/tesliper",
+        "github/OSS-Lab/ChemChaste": "https://github.com/OSS-Lab/ChemChaste",
+        "github/ModellingWebLab/chaste-codegen": "https://github.com/ModellingWebLab/chaste-codegen",
+        "github/SWIFTSIM/emulator": "https://github.com/SWIFTSIM/emulator",
+        "github/datngu/Circall": "https://github.com/datngu/Circall",
+        "github/sylabs/singularity": "https://github.com/sylabs/singularity",
+        "github/aalhossary/pyemgpipeline": "https://github.com/aalhossary/pyemgpipeline",
+        "github/cinemascience/cinema_snap": "https://github.com/cinemascience/cinema_snap",
+        "github/leishenggit/CircleBase": "https://github.com/leishenggit/CircleBase",
+        "github/spokenlanguage/platalea": "https://github.com/spokenlanguage/platalea",
+        "github/laurazara/IgIDivA": "https://github.com/laurazara/IgIDivA",
+        "github/lasseignelab/CINmetrics": "https://github.com/lasseignelab/CINmetrics",
+        "github/chainsawriot/sweater": "https://github.com/chainsawriot/sweater"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -12313,6 +12386,19 @@
         "github/BU-ISCIII/plasmidID": "PlasmidID is a mapping-based, assembly-assisted plasmid identification tool that analyzes and gives graphic solution for plasmid identification.",
         "github/gromacs/gromacs": "Public/backup repository of the GROMACS molecular simulation toolkit. Please do not mine the metadata blindly; we use https://gitlab.com/gromacs/gromacs for code review and issue tracking.",
         "github/ECP-copa/Cabana": "Performance-portable library for particle-based simulations",
-        "github/theosanderson/chronumental": "Estimating time trees from very large phylogenies"
+        "github/theosanderson/chronumental": "Estimating time trees from very large phylogenies",
+        "github/mishioo/tesliper": "Theoretical Spectroscopist's Little Helper",
+        "github/OSS-Lab/ChemChaste": null,
+        "github/ModellingWebLab/chaste-codegen": "Code generation for Chaste based on cellmlmanip",
+        "github/SWIFTSIM/emulator": "The SWIFT simulation cosmological emulator (swift-emulator)",
+        "github/datngu/Circall": "Circall is a novel method to discover circular RNA from paired-end RNA sequencing data",
+        "github/sylabs/singularity": "SingularityCE is the Community Edition of Singularity, an open source container platform designed to be simple, fast, and secure.",
+        "github/aalhossary/pyemgpipeline": null,
+        "github/cinemascience/cinema_snap": "React-based web viewer",
+        "github/leishenggit/CircleBase": "An integrated resource and analysis platform for human eccDNAs",
+        "github/spokenlanguage/platalea": "Library for training visually-grounded models of spoken language understanding.",
+        "github/laurazara/IgIDivA": null,
+        "github/lasseignelab/CINmetrics": "CINmetrics R package",
+        "github/chainsawriot/sweater": "\ud83d\udc5a Speedy Word Embedding Association Test & Extras using R"
     }
 }
