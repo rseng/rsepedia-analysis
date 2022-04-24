@@ -77,7 +77,7 @@ exclude_from_search: true
 |pypi|[scipy](https://www.scipy.org)|0.001|
 |pypi|[pandas](https://pandas.pydata.org)|0.001|
 |pypi|[scriptcwl](https://github.com/nlesc/scriptcwl)|0.001|
-|pypi|[beautifulsoup4](http://www.crummy.com/software/BeautifulSoup/bs4/)|0.001|
+|pypi|[beautifulsoup4](https://www.crummy.com/software/BeautifulSoup/bs4/)|0.001|
 |pypi|[pytest-runner](https://github.com/pytest-dev/pytest-runner/)|0.001|
 |pypi|[recommonmark](https://github.com/rtfd/recommonmark)|0.001|
 

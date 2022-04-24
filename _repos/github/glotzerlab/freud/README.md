@@ -10,8 +10,9 @@ exclude_from_search: true
 |-------|----|------|
 |setup.py|github/glotzerlab/freud|0.01|
 |pypi|[numpy](https://www.numpy.org)|0.01|
-|pypi|[rowan](https://github.com/glotzerlab/rowan)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.003|
+|pypi|[rowan](https://github.com/glotzerlab/rowan)|0.007|
+|pypi|[freud-analysis](https://github.com/glotzerlab/freud)|0.005|
+|pypi|[scipy](https://www.scipy.org)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

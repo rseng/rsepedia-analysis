@@ -9,10 +9,11 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/icecube/FIRESONG|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.007|
-|pypi|[coverage](https://github.com/nedbat/coveragepy)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.003|
-|pypi|[tomli](https://pypi.org/project/tomli)|0.003|
+|pypi|[coverage](https://github.com/nedbat/coveragepy)|0.007|
+|pypi|[tomli](https://pypi.org/project/tomli)|0.007|
+|pypi|[firesong](https://github.com/icecube/FIRESONG)|0.005|
+|pypi|[numpy](https://www.numpy.org)|0.003|
+|pypi|[scipy](https://www.scipy.org)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

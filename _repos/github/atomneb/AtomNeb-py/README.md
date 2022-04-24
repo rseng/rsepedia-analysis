@@ -8,12 +8,18 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.516|
-|pypi|[pytest](https://pypi.org/project/pytest)|0.029|
-|pypi|[sphinx](https://www.sphinx-doc.org/)|0.02|
-|pypi|[packaging](https://pypi.org/project/packaging)|0.018|
+|pypi|[numpy](https://www.numpy.org)|0.259|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.097|
+|pypi|[pytest-doctestplus](https://pypi.org/project/pytest-doctestplus)|0.096|
+|pypi|[sphinx-astropy](https://pypi.org/project/sphinx-astropy)|0.096|
+|pypi|[pyerfa](https://github.com/liberfa/pyerfa)|0.017|
 |pypi|[sgp4](https://github.com/brandon-rhodes/python-sgp4)|0.014|
 |pypi|[skyfield](http://github.com/brandon-rhodes/python-skyfield/)|0.014|
+|pypi|[pytest-astropy](https://github.com/astropy/pytest-astropy)|0.014|
+|pypi|[pytest-astropy-header](https://pypi.org/project/pytest-astropy-header)|0.014|
+|pypi|[Jinja2](https://pypi.org/project/Jinja2)|0.014|
+|pypi|[sphinx-changelog](https://pypi.org/project/sphinx-changelog)|0.014|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.014|
 |pypi|[typing-extensions](https://pypi.org/project/typing-extensions)|0.014|
 |pypi|[ipython](https://pypi.org/project/ipython)|0.014|
 |pypi|[bottleneck](https://pypi.org/project/bottleneck)|0.014|
@@ -32,36 +38,21 @@ exclude_from_search: true
 |pypi|[certifi](https://pypi.org/project/certifi)|0.014|
 |pypi|[matplotlib](https://pypi.org/project/matplotlib)|0.014|
 |pypi|[scipy](https://pypi.org/project/scipy)|0.014|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.014|
 |pypi|[PyYAML](https://pypi.org/project/PyYAML)|0.014|
-|pypi|[pyerfa](https://pypi.org/project/pyerfa)|0.014|
-|pypi|[tomli](https://pypi.org/project/tomli)|0.014|
-|pypi|[graphviz](https://pypi.org/project/graphviz)|0.014|
-|pypi|[astropy](http://astropy.org)|0.011|
 |setup.py|github/atomneb/AtomNeb-py|0.01|
-|pypi|[Babel](https://pypi.org/project/Babel)|0.007|
-|pypi|[MarkupSafe](https://pypi.org/project/MarkupSafe)|0.007|
-|pypi|[sphinx-automodapi](https://pypi.org/project/sphinx-automodapi)|0.004|
-|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.004|
-|pypi|[pytest-remotedata](https://pypi.org/project/pytest-remotedata)|0.004|
-|pypi|[pytest-doctestplus](https://github.com/astropy/pytest-doctestplus)|0.003|
-|pypi|[towncrier](https://pypi.org/project/towncrier)|0.003|
+|pypi|[tomli](https://pypi.org/project/tomli)|0.009|
+|pypi|[graphviz](https://pypi.org/project/graphviz)|0.009|
+|pypi|[astropy](http://astropy.org)|0.005|
+|pypi|[coverage](https://github.com/nedbat/coveragepy)|0.005|
+|pypi|[objgraph](https://mg.pov.lt/objgraph/)|0.005|
+|pypi|[pytest-xdist](https://github.com/pytest-dev/pytest-xdist)|0.005|
+|pypi|[atomneb](https://atomneb.github.io/AtomNeb-py/)|0.003|
 |pypi|[filelock](https://pypi.org/project/filelock)|0.002|
 |pypi|[setproctitle](https://pypi.org/project/setproctitle)|0.002|
 |pypi|[psutil](https://pypi.org/project/psutil)|0.002|
 |pypi|[pytest-forked](https://pypi.org/project/pytest-forked)|0.002|
 |pypi|[execnet](https://pypi.org/project/execnet)|0.002|
-|pypi|[setuptools](https://pypi.org/project/setuptools)|0.002|
-|pypi|[pytest-astropy-header](https://github.com/astropy/pytest-astropy-header)|0.001|
-|pypi|[pillow](https://pypi.org/project/pillow)|0.001|
-|pypi|[sphinx-gallery](https://pypi.org/project/sphinx-gallery)|0.001|
-|pypi|[numpydoc](https://pypi.org/project/numpydoc)|0.001|
-|pypi|[astropy-sphinx-theme](https://pypi.org/project/astropy-sphinx-theme)|0.001|
-|pypi|[hypothesis](https://pypi.org/project/hypothesis)|0.001|
-|pypi|[attrs](https://pypi.org/project/attrs)|0.001|
-|pypi|[pytest-mock](https://pypi.org/project/pytest-mock)|0.001|
-|pypi|[pytest-filter-subpackage](https://pypi.org/project/pytest-filter-subpackage)|0.001|
-|pypi|[pytest-arraydiff](https://pypi.org/project/pytest-arraydiff)|0.001|
-|pypi|[pytest-openfiles](https://pypi.org/project/pytest-openfiles)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

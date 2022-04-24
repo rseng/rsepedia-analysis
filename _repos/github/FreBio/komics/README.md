@@ -9,7 +9,8 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/FreBio/komics|0.01|
-|pypi|[biopython](https://biopython.org/)|0.01|
+|pypi|[komics](http://github.com/frebio/komics)|0.005|
+|pypi|[biopython](https://biopython.org/)|0.005|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

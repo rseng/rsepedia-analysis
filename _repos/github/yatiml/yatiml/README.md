@@ -10,7 +10,9 @@ exclude_from_search: true
 |-------|----|------|
 |setup.py|github/yatiml/yatiml|0.01|
 |pypi|[ruamel.yaml](https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree)|0.005|
-|pypi|[typing_extensions](https://typing.readthedocs.io/)|0.005|
+|pypi|[yatiml](https://github.com/yatiml/yatiml)|0.003|
+|pypi|[ruamel.yaml.clib](https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree)|0.003|
+|pypi|[typing-extensions](https://typing.readthedocs.io/)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

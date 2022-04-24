@@ -6,17 +6,133 @@
         }
     },
     "pypi": {
+        "dymos": {
+            "credit": 0.2475,
+            "url": "https://github.com/OpenMDAO/dymos"
+        },
         "openmdao": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.2475,
             "url": "http://openmdao.org"
         },
-        "numpy": {
-            "credit": 0.006567,
-            "url": "https://www.numpy.org"
+        "networkx": {
+            "credit": 0.002475000000000005,
+            "url": "https://networkx.org/"
+        },
+        "pyDOE2": {
+            "credit": 0.2475,
+            "url": "https://github.com/clicumu/pyDOE2"
+        },
+        "codecov": {
+            "credit": 0.0001225124999999997,
+            "url": "https://github.com/codecov/codecov-python"
+        },
+        "pytest-cov": {
+            "credit": 0.0001225124999999997,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0137673421875,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "sympy": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sympy"
+        },
+        "pydot": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pydot"
+        },
+        "pygraphviz": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pygraphviz"
+        },
+        "lxml": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "texext": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/texext"
+        },
+        "nb2plots": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/nb2plots"
+        },
+        "pillow": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "numpydoc": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "pydata-sphinx-theme": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pydata-sphinx-theme"
+        },
+        "sphinx": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "mypy": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pre-commit": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pandas": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/matplotlib"
         },
         "scipy": {
-            "credit": 0.0033000000000000004,
-            "url": "https://www.scipy.org"
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "numpy": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "coverage": {
+            "credit": 0.0075804609375,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "requests": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/requests"
+        },
+        "virtualenv": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/fields"
         }
     }
 }

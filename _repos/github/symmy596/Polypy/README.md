@@ -9,8 +9,7 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/symmy596/Polypy|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.01|
-|pypi|[scipy](https://www.scipy.org)|0.005|
+|pypi|[polypy](https://github.com/symmy596/Polypy)|0.01|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

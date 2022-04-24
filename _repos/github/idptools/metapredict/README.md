@@ -1,5 +1,5 @@
 ---
-title: github/idptools/metapredict
+title: github.com/idptools/metapredict
 layout: repo
 tipue_search_active: true
 exclude_from_search: true
@@ -8,43 +8,51 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.246|
-|pypi|[matplotlib](https://matplotlib.org)|0.124|
-|pypi|[protfasta](https://pypi.org/project/protfasta)|0.124|
-|pypi|[alphaPredict](https://pypi.org/project/alphaPredict)|0.124|
-|pypi|[typing-extensions](https://pypi.org/project/typing-extensions)|0.123|
-|pypi|[pytest](https://pypi.org/project/pytest)|0.014|
-|pypi|[PySocks](https://pypi.org/project/PySocks)|0.014|
-|pypi|[ipaddress](https://pypi.org/project/ipaddress)|0.014|
-|pypi|[certifi](https://pypi.org/project/certifi)|0.014|
-|pypi|[idna](https://pypi.org/project/idna)|0.014|
-|pypi|[cryptography](https://pypi.org/project/cryptography)|0.014|
-|pypi|[pyOpenSSL](https://pypi.org/project/pyOpenSSL)|0.014|
-|pypi|[brotlipy](https://pypi.org/project/brotlipy)|0.014|
-|pypi|[brotli](https://pypi.org/project/brotli)|0.014|
-|pypi|[brotlicffi](https://pypi.org/project/brotlicffi)|0.014|
-|setup.py|github/idptools/metapredict|0.01|
-|pypi|[pytest-black](https://github.com/shopkeep/pytest-black)|0.009|
-|pypi|[types-setuptools](https://github.com/python/typeshed)|0.009|
-|pypi|[pytest-enabler](https://github.com/jaraco/pytest-enabler)|0.009|
-|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.009|
-|pypi|[pytest-flake8](https://pypi.org/project/pytest-flake8)|0.009|
-|pypi|[pytest-checkdocs](https://pypi.org/project/pytest-checkdocs)|0.009|
-|pypi|[jaraco.tidelift](https://pypi.org/project/jaraco.tidelift)|0.009|
-|pypi|[rst.linker](https://pypi.org/project/rst.linker)|0.009|
-|pypi|[jaraco.packaging](https://pypi.org/project/jaraco.packaging)|0.009|
-|pypi|[sphinx](https://pypi.org/project/sphinx)|0.009|
-|pypi|[mypy](https://pypi.org/project/mypy)|0.002|
-|pypi|[filelock](https://pypi.org/project/filelock)|0.002|
-|pypi|[attrs](https://pypi.org/project/attrs)|0.002|
-|pypi|[mock](https://pypi.org/project/mock)|0.002|
-|pypi|[virtualenv](https://pypi.org/project/virtualenv)|0.002|
-|pypi|[pytest-shutil](https://pypi.org/project/pytest-shutil)|0.002|
-|pypi|[pytest-fixture-config](https://pypi.org/project/pytest-fixture-config)|0.002|
-|pypi|[pytest_runner](https://github.com/pytest-dev/pytest-runner/)|0.001|
+|pypi|[typing-extensions](https://typing.readthedocs.io/)|0.218|
+|pypi|[matplotlib](https://matplotlib.org)|0.118|
+|pypi|[metapredict](https://github.com/idptools/metapredict.git)|0.11|
+|pypi|[alphaPredict](https://pypi.org/project/alphaPredict)|0.11|
+|pypi|[protfasta](https://pypi.org/project/protfasta)|0.11|
+|pypi|[cycler](https://github.com/matplotlib/cycler)|0.11|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.027|
+|pypi|[cffi](https://pypi.org/project/cffi)|0.012|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.011|
+|setup.py|github.com/idptools/metapredict|0.01|
+|pypi|[munkres](https://software.clapper.org/munkres/)|0.008|
+|pypi|[brotli](https://github.com/google/brotli)|0.008|
+|pypi|[lxml](https://lxml.de/)|0.008|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.008|
+|pypi|[mpmath](https://pypi.org/project/mpmath)|0.008|
+|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.008|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.008|
+|pypi|[pyroma](https://pypi.org/project/pyroma)|0.007|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.007|
+|pypi|[markdown2](https://pypi.org/project/markdown2)|0.007|
+|pypi|[defusedxml](https://pypi.org/project/defusedxml)|0.007|
+|pypi|[check-manifest](https://pypi.org/project/check-manifest)|0.007|
+|pypi|[sphinxext-opengraph](https://pypi.org/project/sphinxext-opengraph)|0.007|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.007|
+|pypi|[sphinx-removed-in](https://pypi.org/project/sphinx-removed-in)|0.007|
+|pypi|[sphinx-issues](https://pypi.org/project/sphinx-issues)|0.007|
+|pypi|[sphinx-copybutton](https://pypi.org/project/sphinx-copybutton)|0.007|
+|pypi|[olefile](https://pypi.org/project/olefile)|0.007|
+|pypi|[enum34](https://pypi.org/project/enum34)|0.005|
+|pypi|[pytest-randomly](https://pypi.org/project/pytest-randomly)|0.004|
+|pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.004|
+|pypi|[psutil](https://pypi.org/project/psutil)|0.001|
+|pypi|[flake8](https://pypi.org/project/flake8)|0.001|
+|pypi|[sphinx-bootstrap-theme](https://pypi.org/project/sphinx-bootstrap-theme)|0.001|
 |pypi|[torch](https://pytorch.org/)|0.001|
-|pypi|[scipy](https://www.scipy.org)|0.001|
-|pypi|[urllib3](https://urllib3.readthedocs.io/)|0.001|
+|pypi|[fonttools](http://github.com/fonttools/fonttools)|0.001|
+|pypi|[kiwisolver](https://github.com/nucleic/kiwi)|0.001|
+|pypi|[pillow](https://python-pillow.org)|0.001|
+|pypi|[scandir](https://pypi.org/project/scandir)|0.001|
+|pypi|[typing](https://pypi.org/project/typing)|0.001|
+|pypi|[backports.os](https://pypi.org/project/backports.os)|0.001|
+|pypi|[six](https://pypi.org/project/six)|0.001|
+|pypi|[setuptools](https://pypi.org/project/setuptools)|0.001|
+|pypi|[pytz](https://pypi.org/project/pytz)|0.001|
+|pypi|[appdirs](https://pypi.org/project/appdirs)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

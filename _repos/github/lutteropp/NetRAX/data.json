@@ -15,7 +15,7 @@
             "url": "https://github.com/django-crispy-forms/django-crispy-forms"
         },
         "numpy": {
-            "credit": 0.15000267857142857,
+            "credit": 0.15029437499999998,
             "url": "https://www.numpy.org"
         },
         "networkx": {
@@ -23,15 +23,15 @@
             "url": "https://networkx.org/"
         },
         "matplotlib": {
-            "credit": 0.12958392857142856,
+            "credit": 0.129875625,
             "url": "https://matplotlib.org"
         },
         "pygraphviz": {
-            "credit": 0.12958392857142856,
+            "credit": 0.129875625,
             "url": "http://pygraphviz.github.io"
         },
         "pandas": {
-            "credit": 0.007071428571428574,
+            "credit": 0.0073631250000000025,
             "url": "https://pandas.pydata.org"
         },
         "argparse": {
@@ -63,71 +63,67 @@
             "url": "https://github.com/django/asgiref/"
         },
         "codecov": {
-            "credit": 5.83392857142857e-05,
+            "credit": 6.125624999999985e-05,
             "url": "https://github.com/codecov/codecov-python"
         },
         "pytest-cov": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://github.com/pytest-dev/pytest-cov"
         },
         "pytest": {
-            "credit": 0.03299086607142857,
+            "credit": 0.0332825625,
             "url": "https://pypi.org/project/pytest"
         },
+        "sympy": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sympy"
+        },
         "pydot": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/pydot"
         },
         "lxml": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/lxml"
         },
         "texext": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/texext"
         },
         "nb2plots": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/nb2plots"
         },
         "pillow": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/pillow"
         },
         "numpydoc": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/numpydoc"
         },
         "sphinx-gallery": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/sphinx-gallery"
         },
         "pydata-sphinx-theme": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/pydata-sphinx-theme"
         },
         "sphinx": {
-            "credit": 0.007518475446428571,
+            "credit": 0.007810171875,
             "url": "https://pypi.org/project/sphinx"
         },
         "mypy": {
-            "credit": 0.010887569196428571,
+            "credit": 0.011179265625,
             "url": "https://pypi.org/project/mypy"
         },
         "pre-commit": {
-            "credit": 0.007518475446428571,
+            "credit": 0.007810171875,
             "url": "https://pypi.org/project/pre-commit"
         },
-        "pyupgrade": {
-            "credit": 0.0058339285714285715,
-            "url": "https://pypi.org/project/pyupgrade"
-        },
-        "black": {
-            "credit": 0.0058339285714285715,
-            "url": "https://pypi.org/project/black"
-        },
         "scipy": {
-            "credit": 0.0058339285714285715,
+            "credit": 0.006125625,
             "url": "https://pypi.org/project/scipy"
         },
         "pytest-xdist": {
@@ -155,7 +151,7 @@
             "url": "https://pypi.org/project/sphinx-notfound-page"
         },
         "coverage": {
-            "credit": 0.004572341517857143,
+            "credit": 0.00471673125,
             "url": "https://pypi.org/project/coverage"
         },
         "tomli": {
@@ -187,7 +183,7 @@
             "url": "https://pypi.org/project/pytest-asyncio"
         },
         "requests": {
-            "credit": 0.002887794642857143,
+            "credit": 0.003032184375,
             "url": "https://pypi.org/project/requests"
         }
     }

@@ -15,7 +15,7 @@
             "url": "https://numba.pydata.org"
         },
         "numpy": {
-            "credit": 0.20710574534161494,
+            "credit": 0.20675217391304349,
             "url": "https://www.numpy.org"
         },
         "pandas": {
@@ -130,84 +130,88 @@
             "credit": 0.027225,
             "url": "https://pypi.org/project/python-dateutil"
         },
+        "keras": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/keras"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/tensorflow-estimator"
+        },
+        "tensorboard": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/tensorboard"
+        },
         "grpcio": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/grpcio"
         },
         "tensorflow-io-gcs-filesystem": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/tensorflow-io-gcs-filesystem"
         },
-        "keras": {
-            "credit": 0.007778571428571428,
-            "url": "https://pypi.org/project/keras"
-        },
-        "tf-estimator-nightly": {
-            "credit": 0.007778571428571428,
-            "url": "https://pypi.org/project/tf-estimator-nightly"
-        },
-        "tensorboard": {
-            "credit": 0.007778571428571428,
-            "url": "https://pypi.org/project/tensorboard"
-        },
         "wrapt": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/wrapt"
         },
         "typing-extensions": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/typing-extensions"
         },
         "termcolor": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/termcolor"
         },
         "six": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/six"
         },
         "setuptools": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/setuptools"
         },
         "protobuf": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/protobuf"
         },
+        "packaging": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/packaging"
+        },
         "opt-einsum": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/opt-einsum"
         },
         "libclang": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/libclang"
         },
         "keras-preprocessing": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/keras-preprocessing"
         },
         "h5py": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/h5py"
         },
         "google-pasta": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/google-pasta"
         },
         "gast": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/gast"
         },
         "flatbuffers": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/flatbuffers"
         },
         "astunparse": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/astunparse"
         },
         "absl-py": {
-            "credit": 0.007778571428571428,
+            "credit": 0.007425,
             "url": "https://pypi.org/project/absl-py"
         },
         "slack-sdk": {

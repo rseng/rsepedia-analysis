@@ -9,8 +9,9 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/potassco/clingo|0.01|
-|pypi|[cffi](http://cffi.readthedocs.org)|0.01|
-|pypi|[pycparser](https://github.com/eliben/pycparser)|0.01|
+|pypi|[pycparser](https://github.com/eliben/pycparser)|0.007|
+|pypi|[clingo](https://github.com/potassco/clingo)|0.003|
+|pypi|[cffi](http://cffi.readthedocs.org)|0.003|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

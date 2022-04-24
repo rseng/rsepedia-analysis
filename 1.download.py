@@ -22,7 +22,6 @@ import citelang.main.packages as packages
 import tempfile
 import shutil
 import argparse
-import re
 import sys
 import os
 
@@ -125,7 +124,6 @@ def main():
         if os.path.exists(destfile) and reqfile:
             continue
 
-
         print(f"{reponame}: {i} of {len(repos)}")
         dest = clone(repo.url, tempdir)
         if not dest:
@@ -150,7 +148,7 @@ def main():
 
             if os.path.exists(destfile):
                 continue
-            try:                
+            try:
                 cli = parser.RequirementsParser(filename=found, min_credit=0.001)
                 result = cli.gen(name=repo.uid, min_credit=0.001)
             except:
@@ -196,6 +194,7 @@ def main():
     shutil.rmtree(tempdir)
     write_json(meta, meta_json)
     utils.write_json(list(missing_requirements), "missing-requirements.json")
-    
+
+
 if __name__ == "__main__":
     main()

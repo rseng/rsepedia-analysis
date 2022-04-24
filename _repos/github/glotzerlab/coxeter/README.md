@@ -8,10 +8,49 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[numpy](https://www.numpy.org)|0.685|
+|pypi|[matplotlib](https://matplotlib.org)|0.061|
+|pypi|[miniball](https://github.com/marmakoide/miniball)|0.061|
+|pypi|[rowan](https://github.com/glotzerlab/rowan)|0.014|
 |setup.py|github/glotzerlab/coxeter|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.01|
-|pypi|[rowan](https://github.com/glotzerlab/rowan)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.003|
+|pypi|[scipy](https://www.scipy.org)|0.009|
+|pypi|[pythreejs](https://pypi.org/project/pythreejs)|0.009|
+|pypi|[pyside2](https://pypi.org/project/pyside2)|0.009|
+|pypi|[vispy](https://pypi.org/project/vispy)|0.009|
+|pypi|[pyside](https://pypi.org/project/pyside)|0.009|
+|pypi|[importlib-metadata](https://pypi.org/project/importlib-metadata)|0.007|
+|pypi|[attrs](https://pypi.org/project/attrs)|0.007|
+|pypi|[coxeter](https://github.com/glotzerlab/coxeter)|0.005|
+|pypi|[hypothesis](https://hypothesis.works)|0.004|
+|pypi|[pytest](https://docs.pytest.org/en/latest/)|0.004|
+|pypi|[xmlschema](https://github.com/sissaschool/xmlschema)|0.004|
+|pypi|[requests](https://pypi.org/project/requests)|0.004|
+|pypi|[pygments](https://pypi.org/project/pygments)|0.004|
+|pypi|[nose](https://pypi.org/project/nose)|0.004|
+|pypi|[mock](https://pypi.org/project/mock)|0.004|
+|pypi|[argcomplete](https://pypi.org/project/argcomplete)|0.004|
+|pypi|[colorama](https://pypi.org/project/colorama)|0.004|
+|pypi|[atomicwrites](https://pypi.org/project/atomicwrites)|0.004|
+|pypi|[tomli](https://pypi.org/project/tomli)|0.004|
+|pypi|[py](https://pypi.org/project/py)|0.004|
+|pypi|[pluggy](https://pypi.org/project/pluggy)|0.004|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.004|
+|pypi|[iniconfig](https://pypi.org/project/iniconfig)|0.004|
+|pypi|[tzdata](https://pypi.org/project/tzdata)|0.003|
+|pypi|[backports.zoneinfo](https://pypi.org/project/backports.zoneinfo)|0.003|
+|pypi|[rich](https://pypi.org/project/rich)|0.003|
+|pypi|[redis](https://pypi.org/project/redis)|0.003|
+|pypi|[pytz](https://pypi.org/project/pytz)|0.003|
+|pypi|[python-dateutil](https://pypi.org/project/python-dateutil)|0.003|
+|pypi|[pandas](https://pypi.org/project/pandas)|0.003|
+|pypi|[libcst](https://pypi.org/project/libcst)|0.003|
+|pypi|[lark-parser](https://pypi.org/project/lark-parser)|0.003|
+|pypi|[dpcontracts](https://pypi.org/project/dpcontracts)|0.003|
+|pypi|[django](https://pypi.org/project/django)|0.003|
+|pypi|[click](https://pypi.org/project/click)|0.003|
+|pypi|[black](https://pypi.org/project/black)|0.003|
+|pypi|[sortedcontainers](https://pypi.org/project/sortedcontainers)|0.003|
+|pypi|[plato-draw](https://plato-draw.readthedocs.io/)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

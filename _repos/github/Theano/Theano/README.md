@@ -9,9 +9,7 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/Theano/Theano|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.007|
-|pypi|[scipy](https://www.scipy.org)|0.003|
-|pypi|[six](https://github.com/benjaminp/six)|0.003|
+|pypi|[Theano](http://deeplearning.net/software/theano/)|0.01|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

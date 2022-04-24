@@ -17,11 +17,11 @@ exclude_from_search: true
 |pypi|[types-typed-ast](https://github.com/python/typeshed)|0.039|
 |pypi|[imagesize](https://github.com/shibukawa/imagesize_py)|0.039|
 |pypi|[alabaster](https://alabaster.readthedocs.io)|0.039|
-|pypi|[babel](http://babel.pocoo.org/)|0.039|
 |pypi|[snowballstemmer](https://github.com/snowballstem/snowball)|0.039|
 |pypi|[Pygments](https://pygments.org/)|0.039|
 |pypi|[types-urllib3](https://pypi.org/project/types-urllib3)|0.038|
 |pypi|[pyparsing](https://pypi.org/project/pyparsing)|0.038|
+|pypi|[pytz](https://pypi.org/project/pytz)|0.038|
 |pypi|[Babel](https://pypi.org/project/Babel)|0.019|
 |pypi|[MarkupSafe](https://pypi.org/project/MarkupSafe)|0.019|
 |pypi|[importlib-metadata](https://github.com/python/importlib_metadata)|0.012|

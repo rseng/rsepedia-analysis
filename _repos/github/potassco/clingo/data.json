@@ -6,12 +6,16 @@
         }
     },
     "pypi": {
+        "clingo": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/potassco/clingo"
+        },
         "cffi": {
-            "credit": 0.0099,
+            "credit": 0.0033000000000000004,
             "url": "http://cffi.readthedocs.org"
         },
         "pycparser": {
-            "credit": 0.009801,
+            "credit": 0.006567,
             "url": "https://github.com/eliben/pycparser"
         }
     }

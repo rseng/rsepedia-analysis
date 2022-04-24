@@ -6,16 +6,20 @@
         }
     },
     "pypi": {
-        "easybuild-framework": {
-            "credit": 0.0033000000000000004,
+        "easybuild": {
+            "credit": 0.002475,
             "url": "https://easybuild.io"
         },
         "easybuild-easyblocks": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.002475,
             "url": "https://easybuild.io"
         },
         "easybuild-easyconfigs": {
-            "credit": 0.0033000000000000004,
+            "credit": 0.002475,
+            "url": "https://easybuild.io"
+        },
+        "easybuild-framework": {
+            "credit": 0.002475,
             "url": "https://easybuild.io"
         }
     }

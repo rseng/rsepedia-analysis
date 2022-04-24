@@ -27,6 +27,7 @@ import os
 import tempfile
 import shutil
 
+
 def clone(url, dest):
     dest = os.path.join(dest, os.path.basename(url))
     cmd = Command("git clone --depth 1 %s %s" % (url, dest))
@@ -166,7 +167,7 @@ def main():
                     break
 
             if not found:
-                print('WARNING %s not found!' % repo.uid)
+                print("WARNING %s not found!" % repo.uid)
                 continue
 
             # copy found file into folder
@@ -175,7 +176,7 @@ def main():
             shutil.rmtree(dest)
 
         if not found:
-            print('WARNING %s not found!' % repo.uid)
+            print("WARNING %s not found!" % repo.uid)
             continue
 
         try:
@@ -195,14 +196,10 @@ def main():
 
     # Write results, changing round to include most
     global_cli.round_by = 100
-    content = (
-        header
-        % (
-            "RSEPedia Top Dependencies",
-            "dependencies",
-        )
-        + global_cli.render(start_end_blocks=False)
-    )
+    content = header % (
+        "RSEPedia Top Dependencies",
+        "dependencies",
+    ) + global_cli.render(start_end_blocks=False)
 
     # Replace for jekyll site
     write_file(
@@ -242,14 +239,10 @@ def main():
     custom_cli.data = custom_cli.prepare_custom_table(
         ["setup.py", "requirements.txt", "pypi"]
     )
-    content = (
-        header
-        % (
-            "RSEPedia Top Python Dependencies",
-            "python",
-        )
-        + custom_cli.render(start_end_blocks=False)
-    )
+    content = header % (
+        "RSEPedia Top Python Dependencies",
+        "python",
+    ) + custom_cli.render(start_end_blocks=False)
     write_file(os.path.join("pages", "python.md"), content)
     repos_counts["Python"] = count_repos(custom_cli.data)
 
@@ -272,8 +265,8 @@ def main():
     # Go
     custom_cli.data = custom_cli.prepare_custom_table(["go.mod", "go"])
     content = header % ("RSEPedia Top Go Dependencies", "go") + custom_cli.render(
-         start_end_blocks=False
-     )
+        start_end_blocks=False
+    )
     write_file(os.path.join("pages", "go.md"), content)
     repos_counts["Go"] = count_repos(custom_cli.data)
 

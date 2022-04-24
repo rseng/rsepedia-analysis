@@ -8,7 +8,7 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.495|
+|pypi|[openphi](https://gitlab.com/BioimageInformaticsGroup/openphi)|0.495|
 |pypi|[sphinx](https://www.sphinx-doc.org/)|0.042|
 |pypi|[tomli](https://pypi.org/project/tomli)|0.04|
 |pypi|[markdown2](https://github.com/trentm/python-markdown2)|0.031|

@@ -8,10 +8,52 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[matplotlib](https://matplotlib.org)|0.178|
+|pypi|[nnde](https://github.com/elwinter/nnde)|0.165|
+|pypi|[cycler](https://github.com/matplotlib/cycler)|0.165|
+|pypi|[typing-extensions](https://typing.readthedocs.io/)|0.163|
+|pypi|[pytest](https://docs.pytest.org/en/latest/)|0.042|
+|pypi|[cffi](https://pypi.org/project/cffi)|0.019|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.018|
+|pypi|[munkres](https://software.clapper.org/munkres/)|0.013|
+|pypi|[brotli](https://github.com/google/brotli)|0.013|
+|pypi|[lxml](https://lxml.de/)|0.013|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.012|
+|pypi|[mpmath](https://pypi.org/project/mpmath)|0.012|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.012|
+|pypi|[pyroma](https://pypi.org/project/pyroma)|0.01|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.01|
+|pypi|[markdown2](https://pypi.org/project/markdown2)|0.01|
+|pypi|[defusedxml](https://pypi.org/project/defusedxml)|0.01|
+|pypi|[check-manifest](https://pypi.org/project/check-manifest)|0.01|
+|pypi|[sphinxext-opengraph](https://pypi.org/project/sphinxext-opengraph)|0.01|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.01|
+|pypi|[sphinx-removed-in](https://pypi.org/project/sphinx-removed-in)|0.01|
+|pypi|[sphinx-issues](https://pypi.org/project/sphinx-issues)|0.01|
+|pypi|[sphinx-copybutton](https://pypi.org/project/sphinx-copybutton)|0.01|
+|pypi|[olefile](https://pypi.org/project/olefile)|0.01|
 |setup.py|github/elwinter/nnde|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.007|
-|pypi|[matplotlib](https://matplotlib.org)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.003|
+|pypi|[enum34](https://pypi.org/project/enum34)|0.008|
+|pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.007|
+|pypi|[pytest-randomly](https://pypi.org/project/pytest-randomly)|0.006|
+|pypi|[six](https://pypi.org/project/six)|0.003|
+|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.002|
+|pypi|[psutil](https://pypi.org/project/psutil)|0.002|
+|pypi|[flake8](https://pypi.org/project/flake8)|0.002|
+|pypi|[sphinx-bootstrap-theme](https://pypi.org/project/sphinx-bootstrap-theme)|0.002|
+|pypi|[fonttools](http://github.com/fonttools/fonttools)|0.002|
+|pypi|[kiwisolver](https://github.com/nucleic/kiwi)|0.002|
+|pypi|[pillow](https://python-pillow.org)|0.002|
+|pypi|[scandir](https://pypi.org/project/scandir)|0.002|
+|pypi|[typing](https://pypi.org/project/typing)|0.002|
+|pypi|[backports.os](https://pypi.org/project/backports.os)|0.002|
+|pypi|[setuptools](https://pypi.org/project/setuptools)|0.002|
+|pypi|[pytz](https://pypi.org/project/pytz)|0.002|
+|pypi|[appdirs](https://pypi.org/project/appdirs)|0.002|
+|pypi|[virtualenv](https://pypi.org/project/virtualenv)|0.001|
+|pypi|[process-tests](https://pypi.org/project/process-tests)|0.001|
+|pypi|[hunter](https://pypi.org/project/hunter)|0.001|
+|pypi|[fields](https://pypi.org/project/fields)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

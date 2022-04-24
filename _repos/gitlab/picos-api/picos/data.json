@@ -6,13 +6,13 @@
         }
     },
     "pypi": {
+        "PICOS": {
+            "credit": 0.00495,
+            "url": "https://pypi.org/project/PICOS"
+        },
         "cvxopt": {
             "credit": 0.00495,
             "url": "http://cvxopt.org"
-        },
-        "numpy": {
-            "credit": 0.00495,
-            "url": "https://www.numpy.org"
         }
     }
 }

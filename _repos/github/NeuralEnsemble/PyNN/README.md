@@ -8,9 +8,10 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.316|
 |pypi|[quantities](http://python-quantities.readthedocs.io/)|0.278|
+|pypi|[PyNN](http://neuralensemble.org/PyNN/)|0.247|
 |pypi|[lazyarray](http://github.com/NeuralEnsemble/lazyarray/)|0.247|
+|pypi|[numpy](https://www.numpy.org)|0.069|
 |pypi|[stfio](https://pypi.org/project/stfio)|0.031|
 |pypi|[klusta](https://klusta.cortexlab.net)|0.031|
 |pypi|[igor](http://blog.tremily.us/posts/igor/)|0.031|

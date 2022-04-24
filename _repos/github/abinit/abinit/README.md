@@ -23,13 +23,13 @@ exclude_from_search: true
 |pypi|[jinja2](https://pypi.org/project/jinja2)|0.018|
 |pypi|[importlib-metadata](https://github.com/python/importlib_metadata)|0.017|
 |requirements.txt|github/abinit/abinit|0.01|
-|pypi|[babel](http://babel.pocoo.org/)|0.01|
 |pypi|[mergedeep](https://github.com/clarketm/mergedeep)|0.01|
 |pypi|[pyyaml-env-tag](https://pypi.org/project/pyyaml-env-tag)|0.01|
 |pypi|[ghp-import](https://pypi.org/project/ghp-import)|0.01|
 |pypi|[watchdog](https://pypi.org/project/watchdog)|0.01|
 |pypi|[Jinja2](https://pypi.org/project/Jinja2)|0.01|
 |pypi|[click](https://pypi.org/project/click)|0.01|
+|pypi|[pytz](https://pypi.org/project/pytz)|0.01|
 |pypi|[pyparsing](https://pypi.org/project/pyparsing)|0.01|
 |pypi|[packaging](https://github.com/pypa/packaging)|0.007|
 |pypi|[xmlschema](https://pypi.org/project/xmlschema)|0.007|

@@ -6,21 +6,117 @@
         }
     },
     "pypi": {
+        "pyrice": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/SouthGreenPlatform/PyRice"
+        },
         "selenium": {
-            "credit": 0.0099,
+            "credit": 0.0013133999999999924,
             "url": "https://www.selenium.dev"
         },
+        "trio": {
+            "credit": 0.022439999999999998,
+            "url": "https://github.com/python-trio/trio"
+        },
+        "trio-websocket": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/HyperionGray/trio-websocket"
+        },
+        "async-generator": {
+            "credit": 0.09711428571428572,
+            "url": "https://github.com/python-trio/async_generator"
+        },
+        "cryptography": {
+            "credit": 0.07689,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0006599999999999939,
+            "url": "https://pyopenssl.org/"
+        },
+        "PySocks": {
+            "credit": 0.066,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "wsproto": {
+            "credit": 0.022439999999999998,
+            "url": "https://github.com/python-hyper/wsproto/"
+        },
+        "outcome": {
+            "credit": 0.0007533428571428503,
+            "url": "https://github.com/python-trio/outcome"
+        },
+        "sniffio": {
+            "credit": 0.0007533428571428503,
+            "url": "https://github.com/python-trio/sniffio"
+        },
+        "sortedcontainers": {
+            "credit": 0.07533428571428571,
+            "url": "http://www.grantjenks.com/docs/sortedcontainers/"
+        },
+        "cffi": {
+            "credit": 0.0007533428571428503,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "h11": {
+            "credit": 0.066,
+            "url": "https://github.com/python-hyper/h11"
+        },
+        "pycparser": {
+            "credit": 0.14058094285714287,
+            "url": "https://github.com/eliben/pycparser"
+        },
         "trio-websocket~=0.9": {
-            "credit": 0.003267,
+            "credit": 0.04334220000000001,
             "url": "https://pypi.org/project/trio-websocket~=0.9"
         },
         "trio~=0.17": {
-            "credit": 0.003267,
+            "credit": 0.04334220000000001,
             "url": "https://pypi.org/project/trio~=0.17"
         },
         "urllib3[secure,": {
-            "credit": 0.003267,
+            "credit": 0.04334220000000001,
             "url": "https://pypi.org/project/urllib3[secure,"
+        },
+        "idna": {
+            "credit": 0.009334285714285715,
+            "url": "https://github.com/kjd/idna"
+        },
+        "attrs": {
+            "credit": 0.08391522857142858,
+            "url": "https://www.attrs.org/"
+        },
+        "pytest": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pretend": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/pretend"
+        },
+        "flaky": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "contextvars": {
+            "credit": 0.07458094285714287,
+            "url": "https://pypi.org/project/contextvars"
+        },
+        "typing-extensions": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "dataclasses": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/dataclasses"
         }
     }
 }

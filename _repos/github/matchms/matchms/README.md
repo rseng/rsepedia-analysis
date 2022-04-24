@@ -13,8 +13,8 @@ exclude_from_search: true
 |pypi|[matplotlib](https://matplotlib.org)|0.115|
 |pypi|[numba](https://numba.pydata.org)|0.099|
 |pypi|[wrapt](https://github.com/GrahamDumpleton/wrapt)|0.098|
-|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.037|
-|pypi|[pytest](https://pypi.org/project/pytest)|0.037|
+|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.038|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.038|
 |pypi|[prospector](https://pypi.org/project/prospector)|0.033|
 |pypi|[pandas](https://pypi.org/project/pandas)|0.016|
 |pypi|[win-inet-pton](https://pypi.org/project/win-inet-pton)|0.014|
@@ -31,6 +31,7 @@ exclude_from_search: true
 |pypi|[sqlalchemy](https://pypi.org/project/sqlalchemy)|0.011|
 |setup.py|github/matchms/matchms|0.01|
 |pypi|[scipy](https://www.scipy.org)|0.006|
+|pypi|[sympy](https://pypi.org/project/sympy)|0.005|
 |pypi|[pydot](https://pypi.org/project/pydot)|0.005|
 |pypi|[pygraphviz](https://pypi.org/project/pygraphviz)|0.005|
 |pypi|[texext](https://pypi.org/project/texext)|0.005|
@@ -42,8 +43,6 @@ exclude_from_search: true
 |pypi|[sphinx](https://pypi.org/project/sphinx)|0.005|
 |pypi|[mypy](https://pypi.org/project/mypy)|0.005|
 |pypi|[pre-commit](https://pypi.org/project/pre-commit)|0.005|
-|pypi|[pyupgrade](https://pypi.org/project/pyupgrade)|0.005|
-|pypi|[black](https://pypi.org/project/black)|0.005|
 |pypi|[requests](https://requests.readthedocs.io)|0.003|
 |pypi|[coverage](https://pypi.org/project/coverage)|0.002|
 |pypi|[pickydict](https://github.com/florian-huber/pickydict)|0.001|

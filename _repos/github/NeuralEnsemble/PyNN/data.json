@@ -6,9 +6,9 @@
         }
     },
     "pypi": {
-        "numpy": {
-            "credit": 0.3160304296875,
-            "url": "https://www.numpy.org"
+        "PyNN": {
+            "credit": 0.2475,
+            "url": "http://neuralensemble.org/PyNN/"
         },
         "lazyarray": {
             "credit": 0.2475,
@@ -45,6 +45,10 @@
         "igor": {
             "credit": 0.030628125,
             "url": "http://blog.tremily.us/posts/igor/"
+        },
+        "numpy": {
+            "credit": 0.06853042968749999,
+            "url": "https://www.numpy.org"
         },
         "pytest-timeout": {
             "credit": 1.8951152343749935e-05,

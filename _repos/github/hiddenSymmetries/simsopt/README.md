@@ -8,8 +8,55 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[ruamel.yaml](https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree)|0.119|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.082|
+|pypi|[flatbuffers](https://google.github.io/flatbuffers/)|0.073|
+|pypi|[wrapt](https://github.com/GrahamDumpleton/wrapt)|0.063|
+|pypi|[jax](https://github.com/google/jax)|0.061|
+|pypi|[nptyping](https://github.com/ramonhagenaars/nptyping)|0.061|
+|pypi|[f90nml](http://github.com/marshallward/f90nml)|0.061|
+|pypi|[randomgen](https://github.com/bashtage/randomgen)|0.061|
+|pypi|[mpmath](http://mpmath.org/)|0.058|
+|pypi|[ruamel.yaml.clib](https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree)|0.058|
+|pypi|[six](https://pypi.org/project/six)|0.058|
+|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.019|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.019|
+|pypi|[scipy](https://pypi.org/project/scipy)|0.017|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.015|
+|pypi|[absl-py](https://github.com/abseil/abseil-py)|0.015|
+|pypi|[wheel](https://pypi.org/project/wheel)|0.012|
+|pypi|[codecov](https://pypi.org/project/codecov)|0.012|
+|pypi|[pycodestyle](https://pypi.org/project/pycodestyle)|0.012|
 |setup.py|github/hiddenSymmetries/simsopt|0.01|
-|pypi|[setuptools_scm](https://github.com/pypa/setuptools_scm/)|0.01|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.01|
+|pypi|[pytest-pep8](https://pypi.org/project/pytest-pep8)|0.007|
+|pypi|[numpydoc](https://pypi.org/project/numpydoc)|0.007|
+|pypi|[sphinxcontrib-napoleon](https://pypi.org/project/sphinxcontrib-napoleon)|0.007|
+|pypi|[PyTest-Cov](https://pypi.org/project/PyTest-Cov)|0.005|
+|pypi|[PyTest](https://pypi.org/project/PyTest)|0.005|
+|pypi|[zipp](https://pypi.org/project/zipp)|0.005|
+|pypi|[sphinxcontrib-websupport](https://pypi.org/project/sphinxcontrib-websupport)|0.005|
+|pypi|[configparser](https://pypi.org/project/configparser)|0.005|
+|pypi|[importlib-resources](https://pypi.org/project/importlib-resources)|0.005|
+|pypi|[importlib-metadata](https://pypi.org/project/importlib-metadata)|0.005|
+|pypi|[bump2version](https://pypi.org/project/bump2version)|0.005|
+|pypi|[tox](https://pypi.org/project/tox)|0.005|
+|pypi|[Deprecated](https://github.com/tantale/deprecated)|0.003|
+|pypi|[jaxlib](https://github.com/google/jax)|0.003|
+|pypi|[monty](https://github.com/materialsvirtuallab/monty)|0.003|
+|pypi|[pyevtk](https://github.com/pyscience-projects/pyevtk)|0.003|
+|pypi|[sympy](https://sympy.org)|0.003|
+|pypi|[mayavi](http://docs.enthought.com/mayavi/mayavi/)|0.003|
+|pypi|[vtk](https://vtk.org)|0.003|
+|pypi|[matplotlib](https://pypi.org/project/matplotlib)|0.003|
+|pypi|[h5py](https://pypi.org/project/h5py)|0.003|
+|pypi|[pyoculus](https://pypi.org/project/pyoculus)|0.003|
+|pypi|[py-spec](https://pypi.org/project/py-spec)|0.003|
+|pypi|[mpi4py](https://pypi.org/project/mpi4py)|0.003|
+|pypi|[PyQt5-Qt5](https://pypi.org/project/PyQt5-Qt5)|0.001|
+|pypi|[PyQt5-sip](https://pypi.org/project/PyQt5-sip)|0.001|
+|pypi|[simsopt](https://github.com/hiddenSymmetries/simsopt)|0.001|
+|pypi|[opt_einsum](https://github.com/dgasmith/opt_einsum)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

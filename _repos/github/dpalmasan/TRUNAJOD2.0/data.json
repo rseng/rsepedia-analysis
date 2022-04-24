@@ -6,197 +6,261 @@
         }
     },
     "pypi": {
+        "TRUNAJOD": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/dpalmasan/TRUNAJOD2.0"
+        },
         "spacy": {
-            "credit": 0.011227358413132715,
+            "credit": 0.0010945000000000121,
             "url": "https://spacy.io"
         },
+        "blis": {
+            "credit": 0.004826346961740437,
+            "url": "https://github.com/explosion/cython-blis"
+        },
+        "catalogue": {
+            "credit": 0.004826346961740437,
+            "url": "https://github.com/explosion/catalogue"
+        },
+        "cymem": {
+            "credit": 0.08650134696174043,
+            "url": "https://github.com/explosion/cymem"
+        },
+        "langcodes": {
+            "credit": 0.003069895348837211,
+            "url": "https://github.com/rspeer/langcodes"
+        },
+        "murmurhash": {
+            "credit": 0.08650134696174043,
+            "url": "https://github.com/explosion/murmurhash"
+        },
+        "pathy": {
+            "credit": 0.003069895348837211,
+            "url": "https://github.com/justindujardin/pathy"
+        },
+        "preshed": {
+            "credit": 0.004826346961740437,
+            "url": "https://github.com/explosion/preshed"
+        },
+        "pydantic": {
+            "credit": 0.004826346961740437,
+            "url": "https://github.com/samuelcolvin/pydantic"
+        },
+        "spacy-legacy": {
+            "credit": 0.05751989534883721,
+            "url": "https://spacy.io"
+        },
+        "spacy-loggers": {
+            "credit": 0.003069895348837211,
+            "url": "https://github.com/explosion/spacy-loggers"
+        },
+        "srsly": {
+            "credit": 0.05927634696174044,
+            "url": "https://github.com/explosion/srsly"
+        },
+        "thinc": {
+            "credit": 0.003069895348837211,
+            "url": "https://github.com/explosion/thinc"
+        },
+        "typer": {
+            "credit": 0.06356989534883721,
+            "url": "https://github.com/tiangolo/typer"
+        },
+        "wasabi": {
+            "credit": 0.11372634696174043,
+            "url": "https://ines.io"
+        },
+        "jinja2": {
+            "credit": 0.003069895348837211,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "MarkupSafe": {
+            "credit": 0.08222499999999999,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
         "spacy-transformers": {
-            "credit": 0.0002279302325581406,
+            "credit": 0.002519895348837209,
             "url": "https://spacy.io"
         },
         "pythainlp": {
-            "credit": 0.022793023255813952,
-            "url": "https://github.com/PyThaiNLP/pythainlp"
+            "credit": 0.002519895348837209,
+            "url": "https://pypi.org/project/pythainlp"
         },
         "spacy-ray": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/spacy-ray"
         },
         "spacy-lookups-data": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/spacy-lookups-data"
         },
         "natto-py": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/natto-py"
         },
         "sudachidict-core": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/sudachidict-core"
         },
         "sudachipy": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/sudachipy"
         },
         "cupy-cuda92": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda92"
         },
         "cupy-cuda91": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda91"
         },
         "cupy-cuda90": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda90"
         },
         "cupy-cuda80": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda80"
         },
         "cupy-cuda115": {
-            "credit": 0.022793023255813952,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda115"
         },
         "cupy-cuda114": {
-            "credit": 0.022793023255813952,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda114"
         },
         "cupy-cuda113": {
-            "credit": 0.022793023255813952,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda113"
         },
         "cupy-cuda112": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda112"
         },
         "cupy-cuda111": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda111"
         },
         "cupy-cuda110": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda110"
         },
         "cupy-cuda102": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda102"
         },
         "cupy-cuda101": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda101"
         },
         "cupy-cuda100": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy-cuda100"
         },
         "cupy": {
-            "credit": 0.024120381668946648,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/cupy"
         },
         "thinc-apple-ops": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/thinc-apple-ops"
         },
         "typing-extensions": {
-            "credit": 0.022793023255813952,
+            "credit": 0.04511384696174043,
             "url": "https://pypi.org/project/typing-extensions"
         },
-        "langcodes": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/langcodes"
-        },
         "packaging": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/packaging"
         },
         "setuptools": {
-            "credit": 0.022793023255813952,
+            "credit": 0.004276346961740435,
             "url": "https://pypi.org/project/setuptools"
         },
-        "jinja2": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/jinja2"
-        },
-        "pydantic": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/pydantic"
-        },
         "requests": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/requests"
         },
         "numpy": {
-            "credit": 0.022793023255813952,
+            "credit": 0.058726346961740436,
             "url": "https://pypi.org/project/numpy"
         },
         "tqdm": {
-            "credit": 0.022793023255813952,
+            "credit": 0.002519895348837209,
             "url": "https://pypi.org/project/tqdm"
         },
-        "pathy": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/pathy"
+        "zipp": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/zipp"
         },
-        "typer": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/typer"
+        "language-data": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/language-data"
         },
-        "catalogue": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/catalogue"
+        "typer-cli": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/typer-cli"
         },
-        "srsly": {
-            "credit": 0.024120381668946648,
-            "url": "https://pypi.org/project/srsly"
+        "mock": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/mock"
         },
-        "wasabi": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/wasabi"
+        "pytest-coverage": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/pytest-coverage"
         },
-        "blis": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/blis"
+        "pytest": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/pytest"
         },
-        "thinc": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/thinc"
+        "boto3": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/boto3"
         },
-        "preshed": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/preshed"
-        },
-        "cymem": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/cymem"
-        },
-        "murmurhash": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/murmurhash"
-        },
-        "spacy-loggers": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/spacy-loggers"
-        },
-        "spacy-legacy": {
-            "credit": 0.022793023255813952,
-            "url": "https://pypi.org/project/spacy-legacy"
+        "google-cloud-storage": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/google-cloud-storage"
         },
         "dataclasses": {
-            "credit": 0.0013273584131326948,
+            "credit": 0.021418951612903227,
             "url": "https://pypi.org/project/dataclasses"
         },
-        "spacy-alignments": {
-            "credit": 0.0013273584131326948,
-            "url": "https://pypi.org/project/spacy-alignments"
+        "smart-open": {
+            "credit": 0.00605,
+            "url": "https://pypi.org/project/smart-open"
+        },
+        "email-validator": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/email-validator"
+        },
+        "python-dotenv": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/python-dotenv"
         },
         "torch": {
-            "credit": 0.0013273584131326948,
+            "credit": 0.0017564516129032258,
             "url": "https://pypi.org/project/torch"
         },
-        "transformers": {
-            "credit": 0.0013273584131326948,
-            "url": "https://pypi.org/project/transformers"
+        "tensorflow": {
+            "credit": 0.0017564516129032258,
+            "url": "https://pypi.org/project/tensorflow"
+        },
+        "mxnet": {
+            "credit": 0.0017564516129032258,
+            "url": "https://pypi.org/project/mxnet"
+        },
+        "ml-datasets": {
+            "credit": 0.0017564516129032258,
+            "url": "https://pypi.org/project/ml-datasets"
+        },
+        "contextvars": {
+            "credit": 0.0017564516129032258,
+            "url": "https://pypi.org/project/contextvars"
+        },
+        "Babel": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/Babel"
         }
     }
 }

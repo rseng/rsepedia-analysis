@@ -9,8 +9,8 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/jorisparet/partycls|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.007|
-|pypi|[sklearn](https://pypi.python.org/pypi/scikit-learn/)|0.003|
+|pypi|[partycls](https://pypi.org/project/partycls)|0.005|
+|pypi|[sklearn](https://pypi.python.org/pypi/scikit-learn/)|0.005|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

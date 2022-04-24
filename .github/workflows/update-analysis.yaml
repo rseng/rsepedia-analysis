@@ -1,7 +1,6 @@
 name: update-analysis
 
 on:
-  pull_request: []
   schedule:
     # Weekly on Wednesday (software updated Sunday night)
     - cron: 0 0 * * 3

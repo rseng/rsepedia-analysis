@@ -71,8 +71,8 @@
             "url": "https://alabaster.readthedocs.io"
         },
         "babel": {
-            "credit": 0.03881196,
-            "url": "http://babel.pocoo.org/"
+            "credit": 0.00038811960000000034,
+            "url": "https://babel.pocoo.org/"
         },
         "snowballstemmer": {
             "credit": 0.03881196,
@@ -313,6 +313,10 @@
         "urllib3": {
             "credit": 0.005489120057142857,
             "url": "https://pypi.org/project/urllib3"
+        },
+        "pytz": {
+            "credit": 0.0384238404,
+            "url": "https://pypi.org/project/pytz"
         },
         "Babel": {
             "credit": 0.0192119202,

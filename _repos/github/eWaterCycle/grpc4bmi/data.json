@@ -6,169 +6,241 @@
         }
     },
     "pypi": {
+        "grpc4bmi": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/eWaterCycle/grpc4bmi"
+        },
         "grpcio": {
-            "credit": 0.02950475000000001,
+            "credit": 0.02671143750000001,
             "url": "https://grpc.io"
         },
         "grpcio-reflection": {
-            "credit": 0.0011000000000000038,
+            "credit": 0.0009157500000000068,
             "url": "https://grpc.io"
         },
         "grpcio-status": {
-            "credit": 0.0011000000000000038,
+            "credit": 0.0008250000000000063,
             "url": "https://grpc.io"
         },
-        "googleapis-common-protos": {
-            "credit": 0.001463000000000006,
-            "url": "https://github.com/googleapis/python-api-common-protos"
-        },
         "protobuf": {
-            "credit": 0.28215275,
+            "credit": 0.22518168749999995,
             "url": "https://developers.google.com/protocol-buffers/"
         },
-        "numpy": {
-            "credit": 0.11,
-            "url": "https://www.numpy.org"
-        },
-        "docker": {
-            "credit": 0.0011000000000000038,
-            "url": "https://github.com/docker/docker-py"
+        "googleapis-common-protos": {
+            "credit": 0.001097250000000008,
+            "url": "https://github.com/googleapis/python-api-common-protos"
         },
         "bmipy": {
-            "credit": 0.11,
+            "credit": 0.0825,
             "url": "http://csdms.colorado.edu"
         },
+        "docker": {
+            "credit": 0.0009157500000000068,
+            "url": "https://github.com/docker/docker-py"
+        },
         "semver": {
-            "credit": 0.11,
+            "credit": 0.091575,
             "url": "https://github.com/python-semver/python-semver"
         },
+        "websocket-client": {
+            "credit": 0.002225142857142863,
+            "url": "https://github.com/websocket-client/websocket-client.git"
+        },
+        "jinja2": {
+            "credit": 0.0019480312500000062,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "MarkupSafe": {
+            "credit": 0.1233375,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "rpy2": {
+            "credit": 9.075000000000055e-05,
+            "url": "https://rpy2.github.io"
+        },
+        "typeguard": {
+            "credit": 9.075000000000055e-05,
+            "url": "https://pypi.org/project/typeguard"
+        },
+        "basic-modeling-interface": {
+            "credit": 0.009075,
+            "url": "https://github.com/bmi-forum/bmi-python"
+        },
+        "numpy": {
+            "credit": 0.01019803125,
+            "url": "https://www.numpy.org"
+        },
         "grpcio-tools": {
-            "credit": 0.03620925,
+            "credit": 0.029403,
             "url": "https://grpc.io"
         },
         "enum34": {
-            "credit": 0.063162,
+            "credit": 0.04961756249999999,
             "url": "https://bitbucket.org/stoneleaf/enum34"
         },
         "futures": {
-            "credit": 0.063162,
+            "credit": 0.04961756249999999,
             "url": "https://github.com/agronholm/pythonfutures"
         },
         "six": {
-            "credit": 0.06508719642857143,
+            "credit": 0.05106145982142856,
             "url": "https://github.com/benjaminp/six"
         },
         "idna": {
-            "credit": 0.017757367346938776,
+            "credit": 0.014601489795918366,
             "url": "https://github.com/kjd/idna"
         },
         "cryptography": {
-            "credit": 0.020049267857142856,
+            "credit": 0.01632041517857143,
             "url": "https://github.com/pyca/cryptography"
         },
         "pyOpenSSL": {
-            "credit": 0.00015557142857142853,
+            "credit": 0.001400142857142857,
             "url": "https://pyopenssl.org/"
         },
         "paramiko": {
-            "credit": 0.00015557142857142853,
+            "credit": 0.001400142857142857,
             "url": "https://paramiko.org"
         },
         "pywin32": {
-            "credit": 0.017482339285714285,
+            "credit": 0.01439521875,
             "url": "https://github.com/mhammond/pywin32"
         },
         "requests": {
-            "credit": 0.0001555714285714268,
+            "credit": 0.001400142857142857,
             "url": "https://requests.readthedocs.io"
         },
-        "websocket-client": {
-            "credit": 0.00015557142857142853,
-            "url": "https://github.com/websocket-client/websocket-client.git"
+        "websockets": {
+            "credit": 0.018645235714285713,
+            "url": "https://github.com/aaugustin/websockets"
+        },
+        "wsaccel": {
+            "credit": 0.018645235714285713,
+            "url": "https://github.com/methane/wsaccel"
+        },
+        "python-socks": {
+            "credit": 0.002473585714285714,
+            "url": "https://github.com/romis2012/python-socks"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.02236728214285714,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "Sphinx": {
+            "credit": 0.018645235714285713,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "Babel": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "pandas": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/pandas"
         },
         "setuptools": {
-            "credit": 0.00898425,
-            "url": "https://github.com/pypa/setuptools"
+            "credit": 0.00786121875,
+            "url": "https://pypi.org/project/setuptools"
         },
         "pytest": {
-            "credit": 0.002566928571428571,
+            "credit": 0.004845077678571429,
             "url": "https://pypi.org/project/pytest"
         },
+        "tzlocal": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "pytz": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "cffi": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "mypy": {
+            "credit": 0.0017968499999999998,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "typing-extensions": {
+            "credit": 0.0017968499999999998,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.0017968499999999998,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
         "pretend": {
-            "credit": 0.002566928571428571,
+            "credit": 0.0019251964285714287,
             "url": "https://pypi.org/project/pretend"
         },
         "flaky": {
-            "credit": 0.002566928571428571,
+            "credit": 0.0019251964285714287,
             "url": "https://pypi.org/project/flaky"
         },
-        "sphinx-rtd-theme": {
-            "credit": 0.005647242857142857,
-            "url": "https://pypi.org/project/sphinx-rtd-theme"
-        },
         "sphinx": {
-            "credit": 0.002566928571428571,
+            "credit": 0.0019251964285714287,
             "url": "https://pypi.org/project/sphinx"
         },
         "gssapi": {
-            "credit": 0.0019251964285714285,
+            "credit": 0.0014438973214285715,
             "url": "https://pypi.org/project/gssapi"
         },
         "invoke": {
-            "credit": 0.0019251964285714285,
+            "credit": 0.0014438973214285715,
             "url": "https://pypi.org/project/invoke"
         },
         "pyasn1": {
-            "credit": 0.0019251964285714285,
+            "credit": 0.0014438973214285715,
             "url": "https://pypi.org/project/pyasn1"
         },
         "pynacl": {
-            "credit": 0.0019251964285714285,
+            "credit": 0.0014438973214285715,
             "url": "https://pypi.org/project/pynacl"
         },
         "bcrypt": {
-            "credit": 0.0019251964285714285,
+            "credit": 0.0014438973214285715,
             "url": "https://pypi.org/project/bcrypt"
         },
         "win-inet-pton": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/win-inet-pton"
         },
         "PySocks": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/PySocks"
         },
         "charset-normalizer": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/charset-normalizer"
         },
         "chardet": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/chardet"
         },
         "certifi": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/certifi"
         },
         "urllib3": {
-            "credit": 0.0022002244897959184,
+            "credit": 0.0016501683673469387,
             "url": "https://pypi.org/project/urllib3"
         },
-        "websockets": {
-            "credit": 0.0030803142857142854,
-            "url": "https://pypi.org/project/websockets"
+        "trio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/trio"
         },
-        "wsaccel": {
-            "credit": 0.0030803142857142854,
-            "url": "https://pypi.org/project/wsaccel"
+        "curio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/curio"
         },
-        "python-socks": {
-            "credit": 0.0030803142857142854,
-            "url": "https://pypi.org/project/python-socks"
+        "async-timeout": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/async-timeout"
         },
-        "Sphinx": {
-            "credit": 0.0030803142857142854,
-            "url": "https://pypi.org/project/Sphinx"
+        "anyio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/anyio"
         }
     }
 }

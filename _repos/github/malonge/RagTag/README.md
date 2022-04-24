@@ -8,10 +8,12 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|pypi|[numpy](https://www.numpy.org)|0.259|
 |pypi|[intervaltree](https://github.com/chaimleib/intervaltree)|0.247|
 |pypi|[pysam](https://github.com/pysam-developers/pysam)|0.247|
+|pypi|[sortedcontainers](http://www.grantjenks.com/docs/sortedcontainers/)|0.198|
+|pypi|[numpy](https://www.numpy.org)|0.061|
 |pypi|[pytest](https://docs.pytest.org/en/latest/)|0.013|
+|pypi|[sympy](https://pypi.org/project/sympy)|0.012|
 |pypi|[pydot](https://pypi.org/project/pydot)|0.012|
 |pypi|[pygraphviz](https://pypi.org/project/pygraphviz)|0.012|
 |pypi|[lxml](https://pypi.org/project/lxml)|0.012|
@@ -24,15 +26,16 @@ exclude_from_search: true
 |pypi|[sphinx](https://pypi.org/project/sphinx)|0.012|
 |pypi|[mypy](https://pypi.org/project/mypy)|0.012|
 |pypi|[pre-commit](https://pypi.org/project/pre-commit)|0.012|
-|pypi|[pyupgrade](https://pypi.org/project/pyupgrade)|0.012|
-|pypi|[black](https://pypi.org/project/black)|0.012|
 |pypi|[pandas](https://pypi.org/project/pandas)|0.012|
 |pypi|[matplotlib](https://pypi.org/project/matplotlib)|0.012|
 |pypi|[scipy](https://pypi.org/project/scipy)|0.012|
 |setup.py|github/malonge/RagTag|0.01|
-|pypi|[coverage](https://pypi.org/project/coverage)|0.007|
-|pypi|[requests](https://pypi.org/project/requests)|0.006|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.006|
+|pypi|[requests](https://pypi.org/project/requests)|0.005|
+|pypi|[codecov](https://github.com/codecov/codecov-python)|0.003|
+|pypi|[pytest-cov](https://github.com/pytest-dev/pytest-cov)|0.003|
 |pypi|[networkx](https://networkx.org/)|0.002|
+|pypi|[RagTag](https://github.com/malonge/RagTag)|0.002|
 |pypi|[virtualenv](https://pypi.org/project/virtualenv)|0.001|
 |pypi|[pytest-xdist](https://pypi.org/project/pytest-xdist)|0.001|
 |pypi|[six](https://pypi.org/project/six)|0.001|

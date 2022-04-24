@@ -6,12 +6,12 @@
         }
     },
     "pypi": {
-        "setuptools_scm": {
-            "credit": 0.00495,
-            "url": "https://github.com/pypa/setuptools_scm/"
+        "itmlogic": {
+            "credit": 0.0099,
+            "url": "https://github.com/edwardoughton/itmlogic"
         },
         "numpy": {
-            "credit": 0.00495,
+            "credit": 0.009801,
             "url": "https://www.numpy.org"
         }
     }

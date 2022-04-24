@@ -8,14 +8,48 @@ exclude_from_search: true
 
 |Manager|Name|Credit|
 |-------|----|------|
+|pypi|[pycparser](https://github.com/eliben/pycparser)|0.197|
+|pypi|[matplotlib](https://matplotlib.org)|0.117|
+|pypi|[numpy](https://pypi.org/project/numpy)|0.109|
+|pypi|[cffi](http://cffi.readthedocs.org)|0.099|
+|pypi|[cycler](https://github.com/matplotlib/cycler)|0.099|
+|pypi|[typing-extensions](https://pypi.org/project/typing-extensions)|0.098|
+|pypi|[scipy](https://pypi.org/project/scipy)|0.018|
+|pypi|[pytest](https://docs.pytest.org/en/latest/)|0.017|
+|pypi|[sphinx-rtd-theme](https://pypi.org/project/sphinx-rtd-theme)|0.017|
+|pypi|[sphinx](https://pypi.org/project/sphinx)|0.017|
+|pypi|[SoundCard](https://github.com/bastibe/SoundCard)|0.012|
+|pypi|[SoundFile](https://github.com/bastibe/PySoundFile)|0.012|
+|pypi|[h5netcdf](https://pypi.org/project/h5netcdf)|0.011|
 |setup.py|github/DrMarc/slab|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.005|
-|pypi|[matplotlib](https://matplotlib.org)|0.003|
-|pypi|[scipy](https://www.scipy.org)|0.002|
-|pypi|[SoundFile](https://github.com/bastibe/PySoundFile)|0.002|
-|pypi|[SoundCard](https://github.com/bastibe/SoundCard)|0.002|
-|pypi|[cffi](http://cffi.readthedocs.org)|0.002|
-|pypi|[pycparser](https://github.com/eliben/pycparser)|0.002|
+|pypi|[xattr](https://pypi.org/project/xattr)|0.008|
+|pypi|[unicodedata2](https://pypi.org/project/unicodedata2)|0.008|
+|pypi|[munkres](https://pypi.org/project/munkres)|0.008|
+|pypi|[brotli](https://pypi.org/project/brotli)|0.008|
+|pypi|[brotlicffi](https://pypi.org/project/brotlicffi)|0.008|
+|pypi|[skia-pathops](https://pypi.org/project/skia-pathops)|0.008|
+|pypi|[sympy](https://pypi.org/project/sympy)|0.008|
+|pypi|[lz4](https://pypi.org/project/lz4)|0.008|
+|pypi|[zopfli](https://pypi.org/project/zopfli)|0.008|
+|pypi|[lxml](https://pypi.org/project/lxml)|0.008|
+|pypi|[fs](https://pypi.org/project/fs)|0.008|
+|pypi|[pytest-timeout](https://pypi.org/project/pytest-timeout)|0.006|
+|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.006|
+|pypi|[pyroma](https://pypi.org/project/pyroma)|0.006|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.006|
+|pypi|[markdown2](https://pypi.org/project/markdown2)|0.006|
+|pypi|[defusedxml](https://pypi.org/project/defusedxml)|0.006|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.006|
+|pypi|[check-manifest](https://pypi.org/project/check-manifest)|0.006|
+|pypi|[sphinxext-opengraph](https://pypi.org/project/sphinxext-opengraph)|0.006|
+|pypi|[sphinx-removed-in](https://pypi.org/project/sphinx-removed-in)|0.006|
+|pypi|[sphinx-issues](https://pypi.org/project/sphinx-issues)|0.006|
+|pypi|[sphinx-copybutton](https://pypi.org/project/sphinx-copybutton)|0.006|
+|pypi|[olefile](https://pypi.org/project/olefile)|0.006|
+|pypi|[slab](http://github.com/DrMarc/slab.git)|0.001|
+|pypi|[fonttools](http://github.com/fonttools/fonttools)|0.001|
+|pypi|[kiwisolver](https://github.com/nucleic/kiwi)|0.001|
+|pypi|[pillow](https://python-pillow.org)|0.001|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

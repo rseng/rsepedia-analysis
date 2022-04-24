@@ -6,17 +6,9 @@
         }
     },
     "pypi": {
-        "numpy": {
-            "credit": 0.006567,
-            "url": "https://www.numpy.org"
-        },
-        "scipy": {
-            "credit": 0.0033000000000000004,
-            "url": "https://www.scipy.org"
-        },
-        "six": {
-            "credit": 0.0033000000000000004,
-            "url": "https://github.com/benjaminp/six"
+        "Theano": {
+            "credit": 0.0099,
+            "url": "http://deeplearning.net/software/theano/"
         }
     }
 }

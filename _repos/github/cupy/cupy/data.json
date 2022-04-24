@@ -4,19 +4,5 @@
             "credit": 0.01,
             "url": null
         }
-    },
-    "pypi": {
-        "Cython": {
-            "credit": 0.002475,
-            "url": "http://cython.org/"
-        },
-        "fastrlock": {
-            "credit": 0.00495,
-            "url": "https://github.com/scoder/fastrlock"
-        },
-        "numpy": {
-            "credit": 0.002475,
-            "url": "https://www.numpy.org"
-        }
     }
 }

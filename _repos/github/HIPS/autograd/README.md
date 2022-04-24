@@ -9,8 +9,9 @@ exclude_from_search: true
 |Manager|Name|Credit|
 |-------|----|------|
 |setup.py|github/HIPS/autograd|0.01|
-|pypi|[numpy](https://www.numpy.org)|0.005|
-|pypi|[future](https://python-future.org)|0.005|
+|pypi|[future](https://python-future.org)|0.007|
+|pypi|[autograd](https://github.com/HIPS/autograd)|0.005|
+|pypi|[numpy](https://www.numpy.org)|0.002|
 
 
 > Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.

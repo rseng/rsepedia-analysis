@@ -6,12 +6,20 @@
         }
     },
     "pypi": {
+        "yatiml": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/yatiml/yatiml"
+        },
         "ruamel.yaml": {
-            "credit": 0.00495,
+            "credit": 0.0049335,
             "url": "https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree"
         },
-        "typing_extensions": {
-            "credit": 0.00495,
+        "ruamel.yaml.clib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree"
+        },
+        "typing-extensions": {
+            "credit": 0.0016335,
             "url": "https://typing.readthedocs.io/"
         }
     }

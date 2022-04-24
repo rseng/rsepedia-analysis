@@ -6,13 +6,17 @@
         }
     },
     "pypi": {
-        "numpy": {
+        "autograd": {
             "credit": 0.00495,
-            "url": "https://www.numpy.org"
+            "url": "https://github.com/HIPS/autograd"
         },
         "future": {
-            "credit": 0.00495,
+            "credit": 0.007400250000000001,
             "url": "https://python-future.org"
+        },
+        "numpy": {
+            "credit": 0.00245025,
+            "url": "https://www.numpy.org"
         }
     }
 }

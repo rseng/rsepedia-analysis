@@ -6,8 +6,12 @@
         }
     },
     "pypi": {
+        "cb-platon": {
+            "credit": 0.00495,
+            "url": "https://github.com/oschwengers/platon"
+        },
         "biopython": {
-            "credit": 0.0099,
+            "credit": 0.009850500000000002,
             "url": "https://biopython.org/"
         }
     }

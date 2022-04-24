@@ -6,29 +6,201 @@
         }
     },
     "pypi": {
-        "numpy": {
-            "credit": 0.0039402,
-            "url": "https://www.numpy.org"
-        },
-        "scipy": {
-            "credit": 0.00198,
-            "url": "https://www.scipy.org"
+        "sisyphe": {
+            "credit": 0.099,
+            "url": "https://sisyphe.readthedocs.io"
         },
         "matplotlib": {
-            "credit": 0.00198,
+            "credit": 0.10653923076923077,
             "url": "https://matplotlib.org"
         },
-        "torch": {
-            "credit": 0.00198,
-            "url": "https://pytorch.org/"
-        },
         "pykeops": {
-            "credit": 0.00198,
+            "credit": 0.099,
             "url": "http://www.kernel-operations.io/"
         },
+        "keopscore": {
+            "credit": 0.099,
+            "url": "http://www.kernel-operations.io/"
+        },
+        "torch": {
+            "credit": 0.0009900000000000048,
+            "url": "https://pytorch.org/"
+        },
+        "cycler": {
+            "credit": 0.099,
+            "url": "https://github.com/matplotlib/cycler"
+        },
+        "fonttools": {
+            "credit": 0.0009900000000000048,
+            "url": "http://github.com/fonttools/fonttools"
+        },
+        "kiwisolver": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/nucleic/kiwi"
+        },
+        "pillow": {
+            "credit": 0.0009900000000000048,
+            "url": "https://python-pillow.org"
+        },
+        "pybind11": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/pybind/pybind11"
+        },
         "typing-extensions": {
-            "credit": 0.0019602,
+            "credit": 0.19602,
             "url": "https://typing.readthedocs.io/"
+        },
+        "xattr": {
+            "credit": 7.539230769230791e-05,
+            "url": "http://github.com/xattr/xattr"
+        },
+        "unicodedata2": {
+            "credit": 7.539230769230791e-05,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "munkres": {
+            "credit": 0.007539230769230769,
+            "url": "https://software.clapper.org/munkres/"
+        },
+        "brotli": {
+            "credit": 0.007539230769230769,
+            "url": "https://github.com/google/brotli"
+        },
+        "scipy": {
+            "credit": 7.539230769230791e-05,
+            "url": "https://www.scipy.org"
+        },
+        "brotlicffi": {
+            "credit": 7.539230769230791e-05,
+            "url": "https://github.com/python-hyper/brotlicffi"
+        },
+        "skia-pathops": {
+            "credit": 7.539230769230791e-05,
+            "url": "https://github.com/fonttools/skia-pathops"
+        },
+        "sympy": {
+            "credit": 7.539230769230791e-05,
+            "url": "https://sympy.org"
+        },
+        "lz4": {
+            "credit": 7.539230769230878e-05,
+            "url": "https://github.com/python-lz4/python-lz4"
+        },
+        "zopfli": {
+            "credit": 7.539230769230791e-05,
+            "url": "https://github.com/fonttools/py-zopfli"
+        },
+        "lxml": {
+            "credit": 0.007539230769230769,
+            "url": "https://lxml.de/"
+        },
+        "fs": {
+            "credit": 0.007539230769230769,
+            "url": "https://github.com/PyFilesystem/pyfilesystem2"
+        },
+        "pytest-timeout": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.007369598076923077,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.018565355769230768,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyroma": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "packaging": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "markdown2": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "coverage": {
+            "credit": 0.009857544230769231,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "check-manifest": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx": {
+            "credit": 0.007369598076923077,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "olefile": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "pybind11-global": {
+            "credit": 0.09801,
+            "url": "https://pypi.org/project/pybind11-global"
+        },
+        "cffi": {
+            "credit": 0.011195757692307693,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "pytest-randomly": {
+            "credit": 0.0037319192307692308,
+            "url": "https://pypi.org/project/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.0037319192307692308,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "numpy": {
+            "credit": 0.0074638384615384615,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "enum34": {
+            "credit": 0.0037319192307692308,
+            "url": "https://pypi.org/project/enum34"
+        },
+        "mpmath": {
+            "credit": 0.0074638384615384615,
+            "url": "https://pypi.org/project/mpmath"
+        },
+        "psutil": {
+            "credit": 0.0012439730769230768,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "flake8": {
+            "credit": 0.0012439730769230768,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "sphinx-bootstrap-theme": {
+            "credit": 0.0012439730769230768,
+            "url": "https://pypi.org/project/sphinx-bootstrap-theme"
         }
     }
 }
