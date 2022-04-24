@@ -6,18 +6,18 @@ require (
 	github.com/BurntSushi/toml v1.1.0
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/buger/goterm v1.0.4
-	github.com/checkpoint-restore/checkpointctl v0.0.0-20211204171957-54b4ebfdb681
+	github.com/checkpoint-restore/checkpointctl v0.0.0-20220321135231-33f4a66335f0
 	github.com/checkpoint-restore/go-criu/v5 v5.3.0
-	github.com/container-orchestrated-devices/container-device-interface v0.3.2
+	github.com/container-orchestrated-devices/container-device-interface v0.4.0
 	github.com/containernetworking/cni v1.0.1
 	github.com/containernetworking/plugins v1.1.1
 	github.com/containers/buildah v1.25.2-0.20220406205807-5b8e79118057
-	github.com/containers/common v0.47.5-0.20220413182852-c23a4e11f91b
+	github.com/containers/common v0.47.5-0.20220421111103-112a47964ddb
 	github.com/containers/conmon v2.0.20+incompatible
-	github.com/containers/image/v5 v5.21.1-0.20220405081457-d1b64686e1d0
+	github.com/containers/image/v5 v5.21.1-0.20220421124950-8527e238867c
 	github.com/containers/ocicrypt v1.1.3
 	github.com/containers/psgo v1.7.2
-	github.com/containers/storage v1.39.1-0.20220414183333-eea4e0f5f1f9
+	github.com/containers/storage v1.39.1-0.20220421071128-4899f8265d63
 	github.com/coreos/go-systemd/v22 v22.3.2
 	github.com/coreos/stream-metadata-go v0.0.0-20210225230131-70edb9eb47b3
 	github.com/cyphar/filepath-securejoin v0.2.3
@@ -29,7 +29,7 @@ require (
 	github.com/docker/go-plugins-helpers v0.0.0-20211224144127-6eecb7beb651
 	github.com/docker/go-units v0.4.0
 	github.com/dtylman/scp v0.0.0-20181017070807-f3000a34aef4
-	github.com/fsnotify/fsnotify v1.5.1
+	github.com/fsnotify/fsnotify v1.5.3
 	github.com/ghodss/yaml v1.0.0
 	github.com/godbus/dbus/v5 v5.1.0
 	github.com/google/gofuzz v1.2.0
@@ -68,6 +68,7 @@ require (
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220319134239-a9b59b0215f8
+	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	golang.org/x/text v0.3.7
 	google.golang.org/protobuf v1.28.0
 	gopkg.in/inf.v0 v0.9.1
