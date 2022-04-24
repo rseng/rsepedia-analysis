@@ -106,6 +106,12 @@ Or to re-run for an entire language (or more than one). Below we would re-parse 
 $ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos --language-file setup.py --language-file requirements.txt
 ```
 
+Or for just repos with package.json files:
+
+```bash
+$ python 4.redo_language.py  --settings-file ../software/rse.ini -o ./_repos  --language-file package.json
+```
+
 And then you might update the summary data, etc.
 
 ```bash
