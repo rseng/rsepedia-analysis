@@ -1,0 +1,106 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/handlr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "jsonlite": {
+            "credit": 0.1786125,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "crul": {
+            "credit": 0.0016500000000000126,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "xml2": {
+            "credit": 0.0016500000000000126,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "urltools": {
+            "credit": 0.015262500000000012,
+            "url": "https://github.com/Ironholds/urltools/"
+        },
+        "mime": {
+            "credit": 0.015262500000000012,
+            "url": "https://github.com/yihui/mime"
+        },
+        "yaml": {
+            "credit": 0.165,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "rmarkdown": {
+            "credit": 0.0299475,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0299475,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "R": {
+            "credit": 0.04356,
+            "url": null
+        },
+        "triebeard": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.16335,
+            "url": null
+        }
+    }
+}

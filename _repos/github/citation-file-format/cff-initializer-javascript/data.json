@@ -1,0 +1,98 @@
+{
+    "package.json": {
+        "github/citation-file-format/cff-initializer-javascript": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "quasar": {
+            "credit": 0.2475,
+            "url": "https://quasar.dev"
+        },
+        "ajv": {
+            "credit": 0.12375,
+            "url": "https://ajv.js.org"
+        },
+        "ajv-formats": {
+            "credit": 0.12375,
+            "url": "https://github.com/ajv-validator/ajv-formats#readme"
+        },
+        "core-js": {
+            "credit": 0.12375,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "deep-filter": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/IndigoUnited/js-deep-filter#readme"
+        },
+        "js-yaml": {
+            "credit": 0.12375,
+            "url": "https://github.com/nodeca/js-yaml#readme"
+        },
+        "kebabcase-keys": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/mattii/kebabcase-keys#readme"
+        },
+        "is-plain-object": {
+            "credit": 0.00030628125000000186,
+            "url": "https://github.com/jonschlinkert/is-plain-object"
+        },
+        "browserify": {
+            "credit": 0.030628125,
+            "url": "https://github.com/browserify/browserify#readme"
+        },
+        "expect.js": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.035681765625,
+            "url": null
+        },
+        "xo": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "matcha": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "quick-lru": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "map-obj": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "lodash.kebabcase": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.0050536406249999995,
+            "url": null
+        },
+        "mocha-headless-chrome": {
+            "credit": 0.0050536406249999995,
+            "url": null
+        },
+        "gulp-format-md": {
+            "credit": 0.0050536406249999995,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.0050536406249999995,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0050536406249999995,
+            "url": null
+        }
+    }
+}

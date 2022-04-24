@@ -1,0 +1,8 @@
+{
+    "requirements.txt": {
+        "github/he2016012996/CABnet": {
+            "credit": 0.01,
+            "url": null
+        }
+    }
+}

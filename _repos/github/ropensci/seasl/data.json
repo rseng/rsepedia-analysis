@@ -1,0 +1,102 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/seasl": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "xml2": {
+            "credit": 0.003300000000000025,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "crul": {
+            "credit": 0.003300000000000025,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "hoardr": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/ropensci/hoardr"
+        },
+        "testthat": {
+            "credit": 0.10656642857142856,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.10656642857142856,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.10656642857142856,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "R": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.07389642857142857,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.07389642857142857,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.04667142857142857,
+            "url": null
+        }
+    }
+}

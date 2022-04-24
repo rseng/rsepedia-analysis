@@ -1,0 +1,114 @@
+Package: bomrang
+Type: Package
+Title: Australian Government Bureau of Meteorology ('BOM') Data Client
+Version: 0.7.4
+Authors@R:
+    c(person(given = "Adam H.",
+             family = "Sparks",
+             role = c("aut", "cre"),
+             email = "adamhsparks@gmail.com",
+             comment = c(ORCID = "0000-0002-0061-8359")),
+     person(given = "Jonathan",
+            family = "Carroll",
+            role = "aut",
+            email = "rpkg@jcarroll.com.au",
+            comment = c(ORCID = "0000-0002-1404-5264")),
+     person(given = "James",
+            family = "Goldie",
+            role = "aut",
+            email = "me@rensa.co",
+            comment = c(ORCID = "0000-0002-5024-6207")),
+     person(given = "Dean",
+            family = "Marchiori",
+            role = "aut",
+            email = "deanmarchiori@gmail.com"),
+     person(given = "Paul",
+            family = "Melloy",
+            role = "aut",
+            email = "paul@melloy.com.au",
+            comment = c(ORCID = "0000-0003-4253-7167")),
+     person(given = "Mark",
+            family = "Padgham",
+            role = c("aut", "rev"),
+            email = "mark.padgham@email.com",
+            comment = c(ORCID = "0000-0003-2172-5265")),
+     person(given = "Hugh",
+            family = "Parsonage",
+            role = "aut",
+            email = "hugh.parsonage@gmail.com",
+            comment = c(ORCID = "0000-0003-4055-0835")),
+     person(given = "Keith",
+            family = "Pembleton",
+            role = "aut",
+            email = "keith.pembleton@usq.edu.au",
+            comment = c(ORCID = "0000-0002-1896-4516")),
+     person(given = "James",
+            family = "Balamuta",
+            role = "ctb",
+            email = "balamut2@illinois.edu",
+            comment = c(ORCID = "0000-0003-2826-8458")),
+     person(given = "Brooke",
+            family = "Anderson",
+            role = "rev",
+            email = "brooke.anderson@colostate.edu",
+            comment = c(ORCID = "0000-0002-5012-9035")),
+     person(given = "Western Australia Agriculture Authority",
+            role = c("fnd", "cph")))
+Description: Provides functions to interface with Australian Government Bureau
+    of Meteorology ('BOM') data, fetching data and returning a data frame of
+    precis forecasts, historical and current weather data from stations,
+    agriculture bulletin data, 'BOM' 0900 or 1500 weather bulletins and
+    downloading and importing radar and satellite imagery files.  Data (c)
+    Australian Government Bureau of Meteorology Creative Commons (CC)
+    Attribution 3.0 licence or Public Access Licence (PAL) as appropriate.  See
+    <http://www.bom.gov.au/other/copyright.shtml> for further details.
+URL: https://github.com/ropensci/bomrang, https://docs.ropensci.org/bomrang/
+BugReports: https://github.com/ropensci/bomrang/issues
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.5.0)
+Imports:
+    curl (>= 2.8.1),
+    crayon,
+    data.table (>= 1.10.4),
+    dplyr (>= 0.7.0),
+    foreign,
+    httr (>= 1.2.1),
+    hoardr,
+    janitor (>= 1.0.0),
+    jsonlite (>= 1.5),
+    lubridate,
+    magick,
+    magrittr (>= 1.5),
+    readr (>= 1.1.1),
+    rvest,
+    terra,
+    tidyr (>= 0.6.3),
+    tools,
+    utils,
+    xml2 (>= 1.1.1)
+Encoding: UTF-8
+Suggests:
+    ASGS.foyer,
+    covr,
+    testthat,
+    knitr,
+    rmarkdown,
+    ggplot2,
+    ggthemes,
+    grid,
+    gridExtra,
+    maps,
+    mapproj,
+    rappdirs,
+    roxygen2 (>= 6.1.0)
+Language: en-AU
+RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+NeedsCompilation: no
+ByteCompile: TRUE
+VignetteBuilder: knitr
+X-schema.org-applicationCategory: Tools
+X-schema.org-keywords: bom, meteorological-data, weather-forecast, australia,
+    weather, weather-data, meteorology, australia-bureau-of-meteorology
+X-schema.org-isPartOf: https://ropensci.org

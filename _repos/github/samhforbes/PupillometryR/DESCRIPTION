@@ -1,0 +1,31 @@
+Package: PupillometryR
+Type: Package
+Title: A Unified Pipeline for Pupillometry Data
+Version: 0.0.4
+Authors@R: 
+        c(person("Samuel", "Forbes", email = "samuel.h.forbes@gmail.com", role = c("aut", "cre")),
+        person("David", "Robinson", email = "admiral.david@gmail.com", role = "ctb"))
+Description: Provides a unified pipeline to clean, prepare, plot,
+    and run basic analyses on pupillometry experiments.
+BugReports: https://github.com/samhforbes/PupillometryR/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: dplyr,
+         ggplot2,
+         rlang
+Imports: data.table,
+         fda,
+         itsadug,
+         lazyeval,
+         mgcv,
+         signal,
+         stats,
+         tidyr,
+         utils,
+         zoo
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

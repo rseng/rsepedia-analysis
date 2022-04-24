@@ -1,0 +1,38 @@
+{
+    "setup.py": {
+        "github/DrMarc/slab": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0049169999999999995,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0016500000000000002,
+            "url": "https://www.scipy.org"
+        },
+        "SoundFile": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/bastibe/PySoundFile"
+        },
+        "SoundCard": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/bastibe/SoundCard"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "cffi": {
+            "credit": 0.0016335,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "pycparser": {
+            "credit": 0.0016171649999999998,
+            "url": "https://github.com/eliben/pycparser"
+        }
+    }
+}

@@ -1,0 +1,46 @@
+Package: nodbi
+Title: 'NoSQL' Database Connector
+Description: Simplified document database access and manipulation,
+     providing a common API across supported 'NoSQL' databases 
+     'Elasticsearch', 'CouchDB', 'MongoDB' as well as 
+     'SQLite/JSON1' and 'PostgreSQL'.
+Version: 0.7.0.9000
+Authors@R: c(
+    person(given = "Ralf",
+           family = "Herold",
+           role = c("aut", "cre"),
+           email = "ralf.herold@mailbox.org",
+           comment = c(ORCID = "0000-0002-8148-6748")),
+    person(given = "Scott", 
+           family = "Chamberlain", 
+           role = "aut",
+           comment = c(ORCID = "0000-0003-1444-9135")),
+    person("Rich", "FitzJohn", role = "aut"),
+    person("Jeroen", "Ooms", role = "aut")
+  )
+License: MIT + file LICENSE
+LazyData: true
+URL: https://docs.ropensci.org/nodbi/, https://github.com/ropensci/nodbi
+BugReports: https://github.com/ropensci/nodbi/issues
+Roxygen: list(markdown = TRUE)
+Depends: R (>= 2.10)
+Encoding: UTF-8
+Language: en-US
+Imports:
+    stringi,
+    jsonlite,
+    jsonify,
+    uuid,
+    jqr,
+    sofa (>= 0.3.0),
+    elastic (>= 1.0.0),
+    mongolite (>= 1.6),
+    RSQLite (>= 2.2.4),
+    RPostgres,
+    DBI
+Suggests:
+    testthat
+RoxygenNote: 7.1.2
+X-schema.org-applicationCategory: Databases
+X-schema.org-keywords: database, MongoDB, Elasticsearch, CouchDB, SQLite, PostgreSQL, NoSQL, JSON, documents
+X-schema.org-isPartOf: https://ropensci.org

@@ -1,0 +1,93 @@
+Package: echolocatoR
+Type: Package
+Title: Automated genomic fine-mapping
+Version: 0.2.3
+Authors@R: 
+    c(person(given = "Brian",
+           family = "Schilder",
+           role = c("cre"),
+           email = "brian_schilder@alumni.brown.edu",
+           comment = c(ORCID = "0000-0001-5949-2191")),
+    person(given = "Jack",
+           family = "Humphrey",
+           role = c("aut"),
+           email = "Jack.Humphrey@mssm.edu",
+           comment = c(ORCID = "0000-0002-6274-6620")),
+    person(given = "Towfique",
+           family = "Raj",
+           role = c("aut"),
+           email = "towfique.raj@mssm.edu",
+           comment = c(ORCID = "0000-0002-9355-5704"))
+           ) 
+Description: Automated statistical and functional fine-mapping with extensive access to genome-wide datasets.  
+License: MIT + file LICENSE
+URL: https://github.com/RajLabMSSM/echolocatoR
+BugReports: https://github.com/RajLabMSSM/echolocatoR/issues
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.6.0)
+SystemRequirements: Python (>= 3.7.0)
+biocViews:
+Imports: 
+    devtools, 
+    remotes,
+    R.utils, 
+    BiocManager, 
+    tidyverse, 
+    rmarkdown,
+    data.table, 
+    mvtnorm,
+    DescTools,
+    Exact,
+    foreign,
+    reticulate,
+    ggplot2,  
+    ggrepel,
+    coloc,  
+    RColorBrewer, 
+    patchwork, 
+    htmltools,
+    stringr,  
+    openxlsx, 
+    EnsDb.Hsapiens.v75,  
+    ensembldb,  
+    BSgenome,
+    Ckmeans.1d.dp,
+    biovizBase,
+    GenomeInfoDb,
+    ggbio,
+    snpStats,
+    seqminer,
+    Rsamtools,
+    susieR (>= 0.9.0) 
+Remotes:
+  github::stephenslab/susieR
+Suggests:
+    knitr,
+    pbmcapply,
+    gaston, 
+    lattice,
+    jsonlite,
+    Matrix,
+    rappdirs,
+    Rcpp,
+    SparkR, 
+    shades,
+    pals,
+    crayon,
+    png,
+    readxl, 
+    biomaRt,
+    haploR,
+    motifbreakR,
+    SNPlocs.Hsapiens.dbSNP142.GRCh37,
+    BSgenome.Hsapiens.UCSC.hg19, 
+    ComplexHeatmap,
+    SummarizedExperiment,
+    LDlinkR, 
+    coin,
+    badger,
+    BiocStyle,
+    MungeSumstats
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr

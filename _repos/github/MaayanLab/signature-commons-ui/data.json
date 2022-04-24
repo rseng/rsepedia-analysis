@@ -1,0 +1,350 @@
+{
+    "package.json": {
+        "github/MaayanLab/signature-commons-ui": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "material-ui": {
+            "credit": 0.0005303571428571484,
+            "url": "http://material-ui.com/"
+        },
+        "mdi": {
+            "credit": 0.01767857142857143,
+            "url": "http://materialdesignicons.com"
+        },
+        "tippy.js": {
+            "credit": 0.01767857142857143,
+            "url": "https://atomiks.github.io/tippyjs/"
+        },
+        "vx": {
+            "credit": 0.00017678571428571613,
+            "url": "https://github.com/vxjs/vx"
+        },
+        "zeit": {
+            "credit": 0.00035357142857143226,
+            "url": "https://github.com/daviddenton/zeit#readme"
+        },
+        "abort-controller": {
+            "credit": 0.01767857142857143,
+            "url": "https://github.com/mysticatea/abort-controller#readme"
+        },
+        "acorn": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "ajv": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "color": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "create-react-class": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "d3": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "date-fns": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "deepmerge": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "dotenv-load": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "iframe-resizer": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "immutable": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "isomorphic-unfetch": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "js-file-download": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "material-table": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "material-ui-chip-input": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "materialize-css": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "mui-datatables": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "next": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "next-env": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "next-redux-wrapper": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "nprogress": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "plotly.js": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.022451785714285712,
+            "url": null
+        },
+        "ra-data-simple-rest": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-admin": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-ga": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-highcharts": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-json-view": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-loading": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-plotly.js": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-redux": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-router-dom": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-scroll": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-scroll-to-component": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-swipeable-views": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "react-wordcloud": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "recharts": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "redux": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "redux-saga": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "serialize-error": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "swagger-client": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "swagger-ui-react": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "tween": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "uuid5": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "validator": {
+            "credit": 0.01767857142857143,
+            "url": null
+        },
+        "inline-style-prefixer": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "keycode": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "react-event-listener": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "react-transition-group": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "simple-assign": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "warning": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "babel-runtime": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "lodash.merge": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "lodash.throttle": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "recompose": {
+            "credit": 0.004773214285714285,
+            "url": null
+        },
+        "grunt": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-contrib-clean": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-contrib-watch": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-eslint": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-release": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-jsdoc": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "grunt-mocha-istanbul": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "help-me-test": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0051394132653061215,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "cli-color": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "minimist": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "require-dir": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "through": {
+            "credit": 0.001250127551020408,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "mocha-lcov-reporter": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "chai-timers": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "moment": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "q": {
+            "credit": 0.003889285714285714,
+            "url": null
+        }
+    }
+}

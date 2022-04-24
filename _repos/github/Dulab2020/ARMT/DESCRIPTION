@@ -1,0 +1,48 @@
+Package: ARMT
+Title: ARMT:auto RNA-seq data minning tool(GUI)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Gunther",
+           family = "Wong",
+           role = c("aut", "cre"),
+           email = "1003589085@qq.com")
+Description: The aim of ARMT is : 
+    i) integrate and facilitate the downstream analysis of RNA-seq data,
+    ii) provide the way to analyze geneset according to GSVA, 
+    iii) explore the correlation of gene expression and mutation.
+License: GPL(>=3)
+Imports: 
+    rvcheck (<= 0.1.8),
+    BiocManager,
+    config,
+    golem,
+    shiny,
+    clusterProfiler,
+    data.table,
+    DOSE,
+    edgeR,
+    ggplot2,
+    ggpubr,
+    GSVA,
+    GSVAdata,
+    limma,
+    org.Hs.eg.db,
+    pheatmap,
+    psych,
+    survival,
+    DT,
+    shinythemes,
+    shinyjs,
+    GSEABase,
+    maftools,
+    survminer,
+    ggcorrplot,
+    patchwork,
+    R.utils,
+    statmod
+biocViews:
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 4.0.0)

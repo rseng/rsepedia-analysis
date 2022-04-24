@@ -1,0 +1,51 @@
+Package: LTRpred
+Type: Package
+Title: De novo functional annotation of retrotransposons 
+Version: 1.1.0
+Date: 2020-04-26
+Authors@R: as.person(c(
+    "Hajk-Georg Drost <hajk-georg.drost@tuebingen.mpg.de> [aut, cre]"
+    ))
+Maintainer: Hajk-Georg Drost <hajk-georg.drost@tuebingen.mpg.de>
+Description: A de novo functional annotation pipeline to predict potentially active LTR retrotransposons in any genome assembly file.
+License: GPL-2
+SystemRequirements: C++
+VignetteBuilder: knitr
+NeedsCompilation: yes
+Depends:
+    R (>= 3.1.1),
+Imports:
+    biomartr (>= 0.5.1),
+    parallel (>= 3.0.2),
+    dplyr (>= 0.3.0.2),
+    GenomicRanges,
+    GenomeInfoDb,
+    Biostrings,
+    stringr (>= 0.6.2),
+    IRanges,
+    RColorBrewer,
+    ggplot2,
+    readr,
+    magrittr,
+    downloader,
+    BSDA,
+    ggrepel,
+    reshape2,
+    gridExtra,
+    methods,
+    tibble,
+    scales,
+    ape,
+    R.utils
+Suggests:
+    knitr (>= 1.6),
+    rmarkdown (>= 0.3.3),
+    devtools (>= 1.6.1),
+    testthat (>= 0.9.1),
+    roxygen2,
+    amap,
+    ggsci,
+    ggbio
+URL: https://github.com/HajkD/LTRpred
+BugReports: https://github.com/HajkD/LTRpred/issues
+RoxygenNote: 7.1.2

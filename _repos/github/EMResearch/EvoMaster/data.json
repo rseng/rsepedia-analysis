@@ -1,0 +1,22 @@
+{
+    "package.json": {
+        "github/EMResearch/EvoMaster": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "apollo-server-express": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/apollographql/apollo-server#readme"
+        },
+        "express": {
+            "credit": 0.0033000000000000004,
+            "url": "http://expressjs.com/"
+        },
+        "graphql": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/graphql/graphql-js"
+        }
+    }
+}

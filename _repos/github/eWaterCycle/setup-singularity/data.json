@@ -1,0 +1,18 @@
+{
+    "package.json": {
+        "github/eWaterCycle/setup-singularity": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "actions": {
+            "credit": 0.00792,
+            "url": "https://github.com/fundon/actions"
+        },
+        "semver": {
+            "credit": 0.00198,
+            "url": "https://github.com/npm/node-semver#readme"
+        }
+    }
+}

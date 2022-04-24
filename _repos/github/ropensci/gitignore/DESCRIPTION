@@ -1,0 +1,47 @@
+Type: Package
+Package: gitignore
+Title: Create Useful .gitignore Files for your Project
+Version: 0.1.5.9000
+Authors@R: 
+    c(person(given = "Philippe",
+             family = "Massicotte",
+             role = c("aut", "cre"),
+             email = "pmassicotte@hotmail.com",
+             comment = c(ORCID = "0000-0002-5919-4116")),
+      person(given = "Amanda",
+             family = "Dobbyn",
+             role = "rev",
+             email = "amanda.e.dobbyn@gmail.com"),
+      person(given = "Mauro",
+             family = "Lepore",
+             role = "rev",
+             email = "maurolepore@gmail.com",
+             comment = c(ORCID = "0000-0002-1986-7988")))
+Description: Simple interface to query gitignore.io to fetch
+    gitignore templates that can be included in the .gitignore file. More
+    than 450 templates are currently available.
+License: GPL-3
+URL: https://docs.ropensci.org/gitignore/, https://github.com/ropensci/gitignore
+BugReports: https://github.com/ropensci/gitignore/issues
+Imports: 
+    clipr,
+    clisymbols,
+    crayon,
+    curl,
+    glue,
+    here,
+    jsonlite,
+    purrr,
+    xfun
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown,
+    spelling,
+    testthat (>= 2.1.0)
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 7.1.2

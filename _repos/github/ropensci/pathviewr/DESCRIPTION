@@ -1,0 +1,62 @@
+Package: pathviewr
+Title: Wrangle, Analyze, and Visualize Animal Movement Data
+Version: 1.1.0
+Authors@R: 
+    c(person(given = "Vikram B.",
+             family = "Baliga", 
+             role = c("aut", "cre"),
+             email = "vbaliga87@gmail.com",
+             comment = c(ORCID = "0000-0002-9367-8974")),
+      person(given = "Melissa S.", 
+             family = "Armstrong",
+             role = "aut",
+             email = "melissa.armstrong@gmail.com",
+             comment = c(ORCID = "0000-0002-3059-0094")),
+      person(given = "Eric R.", 
+             family = "Press",
+             role = "aut",
+             email = "epress12@gmail.com",
+             comment = c(ORCID = "0000-0002-1944-3755")),
+      person(given = "Anne-Sophie", 
+             family = "Bonnet-Lebrun",
+             role = "rev"),
+      person(given = "Marco", 
+             family = "Sciaini",
+             role = "rev")
+      )
+Description: Tools to import, clean, and visualize movement data,
+    particularly from motion capture systems such as Optitrack's 
+    'Motive', the Straw Lab's 'Flydra', or from other sources. We provide 
+    functions to remove artifacts, standardize tunnel position and tunnel 
+    axes, select a region of interest, isolate specific trajectories, fill
+    gaps in trajectory data, and calculate 3D and per-axis velocity. For 
+    experiments of visual guidance, we also provide functions that use 
+    subject position to estimate perception of visual stimuli. 
+Maintainer: Vikram B. Baliga <vbaliga87@gmail.com>
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9000
+Imports: 
+    R.matlab,
+    data.table (>= 1.12.2),
+    magrittr (>= 1.5),
+    dplyr (>= 1.0.0),
+    stringr (>= 1.4.0),
+    tibble (>= 3.0.1),
+    tidyr (>= 1.1.0),
+    fANCOVA,
+    purrr (>= 0.3.3),
+    ggplot2 (>= 3.3.0),
+    tidyselect (>= 1.1.0),
+    cowplot,
+    anomalize,
+    lubridate
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat,
+    covr
+VignetteBuilder: knitr
+URL: https://github.com/ropensci/pathviewr/,  https://docs.ropensci.org/pathviewr/
+BugReports: https://github.com/ropensci/pathviewr/issues/

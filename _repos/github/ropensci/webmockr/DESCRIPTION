@@ -1,0 +1,43 @@
+Package: webmockr
+Title: Stubbing and Setting Expectations on 'HTTP' Requests
+Description: Stubbing and setting expectations on 'HTTP' requests.
+    Includes tools for stubbing 'HTTP' requests, including expected
+    request conditions and response conditions. Match on
+    'HTTP' method, query parameters, request body, headers and
+    more. Can be used for unit tests or outside of a testing 
+    context.
+Version: 0.8.0
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"), email =
+    "myrmecocystus+r@gmail.com", comment = c(ORCID="0000-0003-1444-9135")),
+    person("Aaron", "Wolen", role = "ctb",
+    comment = c(ORCID="0000-0003-2542-2202")),
+    person("rOpenSci", role = "fnd", comment = "https://ropensci.org")
+    )
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/webmockr (devel)
+    https://books.ropensci.org/http-testing/ (user manual)
+    https://docs.ropensci.org/webmockr/ (documentation)
+BugReports: https://github.com/ropensci/webmockr/issues
+LazyData: true
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+Imports:
+    curl,
+    jsonlite,
+    magrittr (>= 1.5),
+    R6 (>= 2.1.3),
+    urltools (>= 1.6.0),
+    fauxpas,
+    crul (>= 0.7.0),
+    base64enc
+Suggests:
+    testthat,
+    xml2,
+    vcr,
+    httr
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Web
+X-schema.org-keywords: http, https, API, web-services, curl, mock, mocking, fakeweb, http-mocking, testing, testing-tools, tdd
+X-schema.org-isPartOf: https://ropensci.org

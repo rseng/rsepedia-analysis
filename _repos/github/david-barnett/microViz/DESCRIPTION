@@ -1,0 +1,57 @@
+Package: microViz
+Title: Microbiome Data Analysis and Visualization
+Version: 0.9.0.9006
+Authors@R: 
+    person(given = "David",
+           family = "Barnett",
+           role = c("aut", "cre"),
+           email = "david.barnett@maastrichtuniversity.nl",
+           comment = c(ORCID = "0000-0003-1961-7206"))
+URL: https://david-barnett.github.io/microViz, https://github.com/david-barnett/microViz
+Description: Microbiome data visualization and statistics tools built upon phyloseq.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+biocViews:
+Imports: 
+    phyloseq,
+    vegan,
+    microbiome,
+    ggiraph,
+    ggplot2,
+    dplyr (>= 1.0.0),
+    rlang (>= 0.4.0),
+    shiny (>= 1.5.0),
+    ggraph (>= 2.0.0),
+    tidygraph,
+    ComplexHeatmap (>= 2.0.0),
+    circlize,
+    seriation,
+    colorspace,
+    scales,
+    purrr,
+    tibble,
+    tidyr,
+    ggrepel,
+    broom,
+    future.apply,
+    cowplot,
+    methods,
+    DT
+Suggests: 
+    GUniFrac,
+    corncob,
+    patchwork (>= 1.0.0),
+    ggtext,
+    viridisLite,
+    stringr,
+    future,
+    skimr,
+    devtools,
+    testthat,
+    vdiffr,
+    knitr,
+    rmarkdown,
+    shinytest

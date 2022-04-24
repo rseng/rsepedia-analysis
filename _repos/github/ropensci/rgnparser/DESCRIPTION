@@ -1,0 +1,24 @@
+Package: rgnparser
+Title: Parse Scientific Names
+Description: Parse scientific names using 'gnparser'
+    (<https://github.com/gnames/gnparser>), written in Go. 'gnparser'
+    parses scientific names into their component parts; it utilizes
+    a Parsing Expression Grammar specifically for scientific names.
+Version: 0.2.5.91
+Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com")
+License: MIT + file LICENSE
+URL: https://ropensci.github.io/rgnparser/, https://github.com/ropensci/rgnparser
+BugReports: https://github.com/ropensci/rgnparser/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+SystemRequirements: gnparser (<https://github.com/gnames/gnparser>)
+Imports:
+    sys,
+    tibble,
+    jsonlite,
+    readr
+Suggests:
+    testthat
+RoxygenNote: 7.1.1

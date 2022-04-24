@@ -1,0 +1,126 @@
+{
+    "setup.py": {
+        "github/NeuralEnsemble/PyNN": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.3160304296875,
+            "url": "https://www.numpy.org"
+        },
+        "lazyarray": {
+            "credit": 0.2475,
+            "url": "http://github.com/NeuralEnsemble/lazyarray/"
+        },
+        "neo": {
+            "credit": 0.002475000000000005,
+            "url": "https://neuralensemble.org/neo"
+        },
+        "quantities": {
+            "credit": 0.278128125,
+            "url": "http://python-quantities.readthedocs.io/"
+        },
+        "pillow": {
+            "credit": 0.00030628125000000186,
+            "url": "https://python-pillow.org"
+        },
+        "stfio": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/stfio"
+        },
+        "nixio": {
+            "credit": 0.00030628125000000186,
+            "url": "https://github.com/G-Node/nixpy"
+        },
+        "klusta": {
+            "credit": 0.030628125,
+            "url": "https://klusta.cortexlab.net"
+        },
+        "scipy": {
+            "credit": 0.00030628125000000186,
+            "url": "https://www.scipy.org"
+        },
+        "igor": {
+            "credit": 0.030628125,
+            "url": "http://blog.tremily.us/posts/igor/"
+        },
+        "pytest-timeout": {
+            "credit": 1.8951152343749935e-05,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.0018951152343749998,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.00377127931640625,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyroma": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "packaging": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "markdown2": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "coverage": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "check-manifest": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "olefile": {
+            "credit": 0.0018951152343749998,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "enum34": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/enum34"
+        },
+        "six": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/six"
+        },
+        "h5py": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/h5py"
+        }
+    }
+}

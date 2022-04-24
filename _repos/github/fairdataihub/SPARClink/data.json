@@ -1,0 +1,130 @@
+{
+    "package.json": {
+        "github/fairdataihub/SPARClink": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "axios": {
+            "credit": 0.14142857142857143,
+            "url": "https://axios-http.com"
+        },
+        "core-js": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "d3": {
+            "credit": 0.14142857142857143,
+            "url": "https://d3js.org"
+        },
+        "d3-cloud": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.jasondavies.com/wordcloud/"
+        },
+        "uuid": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/uuidjs/uuid#readme"
+        },
+        "vue": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/vuejs/core/tree/main/packages/vue#readme"
+        },
+        "vue-router": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/vuejs/router#readme"
+        },
+        "d3-dispatch": {
+            "credit": 0.1400142857142857,
+            "url": "https://d3js.org/d3-dispatch/"
+        },
+        "standard-version": {
+            "credit": 0.005185714285714286,
+            "url": "https://github.com/conventional-changelog/standard-version#readme"
+        },
+        "runmd": {
+            "credit": 0.005185714285714286,
+            "url": "https://github.com/broofa/runmd"
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "random-seed": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "optional-dev-dependency": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "bundlewatch": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.005185714285714286,
+            "url": null
+        },
+        "": {
+            "credit": 0.031114285714285716,
+            "url": null
+        }
+    }
+}

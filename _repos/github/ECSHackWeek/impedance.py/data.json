@@ -1,0 +1,90 @@
+{
+    "setup.py": {
+        "github/ECSHackWeek/impedance.py": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "altair": {
+            "credit": 0.002475000000000005,
+            "url": "http://altair-viz.github.io"
+        },
+        "matplotlib": {
+            "credit": 0.2475,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.5078390625,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475000000000005,
+            "url": "https://www.scipy.org"
+        },
+        "recommonmark": {
+            "credit": 0.00015314062500000093,
+            "url": "https://github.com/rtfd/recommonmark"
+        },
+        "vega-datasets": {
+            "credit": 0.00015314062500000093,
+            "url": "http://github.com/altair-viz/vega_datasets"
+        },
+        "m2r": {
+            "credit": 0.0153140625,
+            "url": "https://github.com/miyakogi/m2r"
+        },
+        "mistune": {
+            "credit": 0.0153140625,
+            "url": "https://github.com/lepture/mistune"
+        },
+        "sphinx": {
+            "credit": 0.020367703124999997,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "pytest": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "flake8": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "ipython": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "docutils": {
+            "credit": 0.020367703124999997,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "black": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/black"
+        },
+        "toolz": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "pandas": {
+            "credit": 0.030474984375,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "jsonschema": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/jsonschema"
+        },
+        "jinja2": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "entrypoints": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/entrypoints"
+        },
+        "commonmark": {
+            "credit": 0.0050536406249999995,
+            "url": "https://pypi.org/project/commonmark"
+        }
+    }
+}

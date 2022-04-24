@@ -1,0 +1,36 @@
+Package: tidyfst
+Title: Tidy Verbs for Fast Data Manipulation
+Version: 1.5.0
+Depends: R (>= 3.3.0)
+Authors@R: 
+    person(given = "Tian-Yuan",
+           family = "Huang",
+           role = c("aut", "cre"),
+           email = "huang.tian-yuan@qq.com",
+           comment = c(ORCID = "0000-0002-3591-4203"))
+Description: A toolkit of tidy data manipulation verbs with 'data.table' as the backend.
+  Combining the merits of syntax elegance from 'dplyr' and computing performance from 'data.table', 
+  'tidyfst' intends to provide users with state-of-the-art data manipulation tools with least pain.
+  This package is an extension of 'data.table'. While enjoying a tidy syntax, 
+  it also wraps combinations of efficient functions to facilitate frequently-used data operations.  
+URL: https://github.com/hope-data-science/tidyfst, https://hope-data-science.github.io/tidyfst/
+BugReports: https://github.com/hope-data-science/tidyfst/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    data.table (>= 1.13.0),
+    fst (>= 0.9.0),
+    stringr (>= 1.4.0)
+Suggests: 
+    knitr,
+    rmarkdown,
+    nycflights13,
+    pryr,
+    tidyr,
+    ggplot2,
+    dplyr,
+    bench,
+    testthat
+VignetteBuilder: knitr

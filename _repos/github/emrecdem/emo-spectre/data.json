@@ -1,0 +1,66 @@
+{
+    "package.json": {
+        "github/emrecdem/emo-spectre": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "apexcharts": {
+            "credit": 0.11,
+            "url": "https://apexcharts.com"
+        },
+        "d3": {
+            "credit": 0.11,
+            "url": "https://d3js.org"
+        },
+        "idb": {
+            "credit": 0.11,
+            "url": "https://github.com/jakearchibald/idb#readme"
+        },
+        "js-sha256": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/emn178/js-sha256"
+        },
+        "lodash.debounce": {
+            "credit": 0.11,
+            "url": "https://lodash.com/"
+        },
+        "nanoid": {
+            "credit": 0.11,
+            "url": "https://github.com/ai/nanoid#readme"
+        },
+        "nuxt": {
+            "credit": 0.11,
+            "url": "https://github.com/nuxt/nuxt.js#readme"
+        },
+        "vue-apexcharts": {
+            "credit": 0.11,
+            "url": null
+        },
+        "vuex-persist": {
+            "credit": 0.11,
+            "url": "https://github.com/championswimmer/vuex-persist#readme"
+        },
+        "nyc": {
+            "credit": 0.02178,
+            "url": "https://istanbul.js.org/"
+        },
+        "webworker-threads": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "expect.js": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.02178,
+            "url": null
+        }
+    }
+}

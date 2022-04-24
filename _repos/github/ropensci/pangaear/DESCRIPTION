@@ -1,0 +1,39 @@
+Package: pangaear
+Title: Client for the 'Pangaea' Database
+Description: Tools to interact with the 'Pangaea' Database
+    (<https://www.pangaea.de>), including functions for searching for data,
+    fetching 'datasets' by 'dataset' 'ID', and working with the 'Pangaea'
+    'OAI-PMH' service.
+Version: 1.1.0
+Authors@R: c(person("Scott", "Chamberlain",
+		email = "myrmecocystus@gmail.com", role = c("aut","cre"),
+        comment = c(ORCID="0000-0003-1444-9135")),
+    person("Kara", "Woo", email = "woo.kara@gmail.com", role = "aut"),
+    person("Andrew", "MacDonald", email = "a.a.m.macdonald@gmail.com", role = "aut"),
+    person("Naupaka ", "Zimmerman", email = "naupaka@gmail.com", role = "aut"),
+    person("Gavin", "Simpson", email = "ucfagls@gmail.com", role = "aut"))
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/pangaear (devel),
+    https://docs.ropensci.org/pangaear/ (documentation)
+BugReports: https://github.com/ropensci/pangaear/issues
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Encoding: UTF-8
+Language: en-US
+Imports:
+    crul (>= 0.4.0),
+    jsonlite (>= 1.5),
+    xml2 (>= 1.1.1),
+    oai (>= 0.2.2),
+    tibble (>= 1.1),
+    hoardr (>= 0.2.0),
+    png
+Suggests:
+    knitr,
+    testthat,
+    vcr,
+    markdown
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Biodiversity
+X-schema.org-keywords: Pangaea, environmental science, earth science, archive, paleontology, ecology, chemistry, atmosphere
+X-schema.org-isPartOf: https://ropensci.org

@@ -1,0 +1,5438 @@
+{
+    "gitlab/chiemotono/mdcontactcom": {
+        "prediction": 0,
+        "unique_words": 585
+    },
+    "gitlab/pyFBS/pyFBS": {
+        "prediction": 1,
+        "unique_words": 14377
+    },
+    "gitlab/cosmograil/PyCS3": {
+        "prediction": 2,
+        "unique_words": 7830
+    },
+    "gitlab/emd-dev/emd": {
+        "prediction": 3,
+        "unique_words": 4283
+    },
+    "gitlab/cracklet/cracklet": {
+        "prediction": 4,
+        "unique_words": 3449
+    },
+    "gitlab/octopus-code/octopus": {
+        "prediction": 5,
+        "unique_words": 52783
+    },
+    "gitlab/andrea-tango/ficos": {
+        "prediction": 6,
+        "unique_words": 629
+    },
+    "gitlab/picos-api/picos": {
+        "prediction": 7,
+        "unique_words": 11677
+    },
+    "gitlab/libreumg/dataquier": {
+        "prediction": 8,
+        "unique_words": 614
+    },
+    "gitlab/BioimageInformaticsGroup/openphi": {
+        "prediction": 9,
+        "unique_words": 620
+    },
+    "gitlab/LouisLab/PiVR": {
+        "prediction": 10,
+        "unique_words": 17379
+    },
+    "gitlab/Molcas/OpenMolcas": {
+        "prediction": 11,
+        "unique_words": 157446
+    },
+    "gitlab/ffaucher/hawen": {
+        "prediction": 12,
+        "unique_words": 1399
+    },
+    "gitlab/gims-developers/gims": {
+        "prediction": 5,
+        "unique_words": 5308
+    },
+    "gitlab/vibes-developers/vibes": {
+        "prediction": 5,
+        "unique_words": 13796
+    },
+    "gitlab/project-dare/dare-platform": {
+        "prediction": 13,
+        "unique_words": 11853
+    },
+    "gitlab/magnumpi/magnumpi": {
+        "prediction": 142,
+        "unique_words": 2283
+    },
+    "gitlab/ampere2/metalwalls": {
+        "prediction": 51,
+        "unique_words": 1149
+    },
+    "gitlab/remram44/taguette": {
+        "prediction": 14,
+        "unique_words": 2871
+    },
+    "gitlab/jason-rumengan/pyarma": {
+        "prediction": 15,
+        "unique_words": 28650
+    },
+    "gitlab/fduchate/predihood": {
+        "prediction": 15,
+        "unique_words": 3096
+    },
+    "gitlab/ChemBioHub/tpmap": {
+        "prediction": 16,
+        "unique_words": 1112
+    },
+    "gitlab/davidtourigny/dynamic-fba": {
+        "prediction": 15,
+        "unique_words": 2555
+    },
+    "gitlab/vincent-sater/umigen": {
+        "prediction": 5,
+        "unique_words": 1499
+    },
+    "gitlab/aceteam.kaist/ACE-Molecule": {
+        "prediction": 18,
+        "unique_words": 5306
+    },
+    "gitlab/elsi_project/elsi_interface": {
+        "prediction": 15,
+        "unique_words": 4719
+    },
+    "gitlab/geekysquirrel/bigx": {
+        "prediction": 19,
+        "unique_words": 4123
+    },
+    "gitlab/dalton/dalton": {
+        "prediction": 20,
+        "unique_words": 2908
+    },
+    "github/jiujiezz/tsnad": {
+        "prediction": 21,
+        "unique_words": 709
+    },
+    "github/twopin/CAMP": {
+        "prediction": 22,
+        "unique_words": 342
+    },
+    "github/PolymerGuy/recolo": {
+        "prediction": 23,
+        "unique_words": 1938
+    },
+    "github/ekaterinailin/AltaiPony": {
+        "prediction": 24,
+        "unique_words": 2833
+    },
+    "github/upb-lea/openmodelica-microgrid-gym": {
+        "prediction": 15,
+        "unique_words": 4377
+    },
+    "github/upb-lea/gym-electric-motor": {
+        "prediction": 25,
+        "unique_words": 5862
+    },
+    "github/cobilab/RFSC": {
+        "prediction": 26,
+        "unique_words": 252
+    },
+    "github/hsci-r/finnish-media-scrapers": {
+        "prediction": 27,
+        "unique_words": 1339
+    },
+    "github/era-urban/wrfpy": {
+        "prediction": 28,
+        "unique_words": 232
+    },
+    "github/alvinxhan/Phydelity": {
+        "prediction": 29,
+        "unique_words": 356
+    },
+    "github/mosdef-hub/mbuild": {
+        "prediction": 15,
+        "unique_words": 7174
+    },
+    "github/mosdef-hub/foyer": {
+        "prediction": 15,
+        "unique_words": 4087
+    },
+    "github/ynop/audiomate": {
+        "prediction": 30,
+        "unique_words": 3762
+    },
+    "github/adigenova/wengan": {
+        "prediction": 31,
+        "unique_words": 684
+    },
+    "github/pmoulos/metaseqR2": {
+        "prediction": 32,
+        "unique_words": 293
+    },
+    "github/glotzerlab/hoomd-blue": {
+        "prediction": 15,
+        "unique_words": 19416
+    },
+    "github/glotzerlab/freud": {
+        "prediction": 15,
+        "unique_words": 13304
+    },
+    "github/glotzerlab/coxeter": {
+        "prediction": 15,
+        "unique_words": 3868
+    },
+    "github/scikit-learn/scikit-learn": {
+        "prediction": 51,
+        "unique_words": 144008
+    },
+    "github/jGetMove/jGetMove": {
+        "prediction": 33,
+        "unique_words": 315
+    },
+    "github/kinnala/scikit-fem": {
+        "prediction": 15,
+        "unique_words": 5481
+    },
+    "github/IKNL/vantage6": {
+        "prediction": 34,
+        "unique_words": 378
+    },
+    "github/aothmane-control/Algebraic-differentiators": {
+        "prediction": 35,
+        "unique_words": 588
+    },
+    "github/Kuifje02/vrpy": {
+        "prediction": 36,
+        "unique_words": 4357
+    },
+    "github/nlesc-dirac/sagecal": {
+        "prediction": 15,
+        "unique_words": 3841
+    },
+    "github/tensorflow/tensorflow": {
+        "prediction": 15,
+        "unique_words": 178052
+    },
+    "github/ZhaiLab-SUSTech/FLEPSeq": {
+        "prediction": 37,
+        "unique_words": 1067
+    },
+    "github/ocean-eddy-cpt/gcm-filters": {
+        "prediction": 38,
+        "unique_words": 4104
+    },
+    "github/bio-phys/BioEn": {
+        "prediction": 81,
+        "unique_words": 96037
+    },
+    "github/Filter-Bubble/e2e-Dutch": {
+        "prediction": 15,
+        "unique_words": 486
+    },
+    "github/Filter-Bubble/stroll": {
+        "prediction": 39,
+        "unique_words": 503
+    },
+    "github/tbrown122387/pf": {
+        "prediction": 15,
+        "unique_words": 1685
+    },
+    "github/deezer/spleeter": {
+        "prediction": 15,
+        "unique_words": 1815
+    },
+    "github/dmey/synthia": {
+        "prediction": 51,
+        "unique_words": 1668
+    },
+    "github/spinicist/riesling": {
+        "prediction": 15,
+        "unique_words": 3111
+    },
+    "github/hcdenbakker/sepia": {
+        "prediction": 15,
+        "unique_words": 882
+    },
+    "github/onnela-lab/beiwe-backend": {
+        "prediction": 51,
+        "unique_words": 2785
+    },
+    "github/isoverse/isoreader": {
+        "prediction": 51,
+        "unique_words": 1284
+    },
+    "github/phenology/cgc": {
+        "prediction": 51,
+        "unique_words": 3458
+    },
+    "github/surf-eds/one-button-compute": {
+        "prediction": 15,
+        "unique_words": 576
+    },
+    "github/vprusso/toqito": {
+        "prediction": 40,
+        "unique_words": 7655
+    },
+    "github/jbuisine/macop": {
+        "prediction": 15,
+        "unique_words": 12530
+    },
+    "github/MrMinimal64/multivar_horner": {
+        "prediction": 15,
+        "unique_words": 3780
+    },
+    "github/thejasvibr/bat_beamshapes": {
+        "prediction": 15,
+        "unique_words": 3266
+    },
+    "github/atomneb/AtomNeb-py": {
+        "prediction": 195,
+        "unique_words": 2514
+    },
+    "github/cjbarrie/academictwitteR": {
+        "prediction": 51,
+        "unique_words": 2052
+    },
+    "github/amusecode/amuse": {
+        "prediction": 15,
+        "unique_words": 26895
+    },
+    "github/ketch/nodepy": {
+        "prediction": 15,
+        "unique_words": 3115
+    },
+    "github/ketch/RK-Opt": {
+        "prediction": 15,
+        "unique_words": 3499
+    },
+    "github/c3s-magic/c3s-magic-wps": {
+        "prediction": 51,
+        "unique_words": 2701
+    },
+    "github/DedalusProject/eigentools": {
+        "prediction": 15,
+        "unique_words": 1077
+    },
+    "github/kadyb/rgugik": {
+        "prediction": 156,
+        "unique_words": 702
+    },
+    "github/MRCIEU/metaboprep": {
+        "prediction": 41,
+        "unique_words": 857
+    },
+    "github/entangled/entangled": {
+        "prediction": 15,
+        "unique_words": 11107
+    },
+    "github/geospace-code/h5fortran": {
+        "prediction": 15,
+        "unique_words": 2909
+    },
+    "github/fAndreuzzi/BisPy": {
+        "prediction": 15,
+        "unique_words": 2222
+    },
+    "github/pavanvidem/chira": {
+        "prediction": 17,
+        "unique_words": 261
+    },
+    "github/flintproject/Flint": {
+        "prediction": 42,
+        "unique_words": 904
+    },
+    "github/oschwengers/referenceseeker": {
+        "prediction": 43,
+        "unique_words": 2576
+    },
+    "github/oschwengers/platon": {
+        "prediction": 15,
+        "unique_words": 1631
+    },
+    "github/oschwengers/bakta": {
+        "prediction": 15,
+        "unique_words": 3396
+    },
+    "github/hillerlab/GenomeAlignmentTools": {
+        "prediction": 44,
+        "unique_words": 1170
+    },
+    "github/AstraZeneca/kallisto": {
+        "prediction": 142,
+        "unique_words": 1481
+    },
+    "github/mscroggs/symfem": {
+        "prediction": 15,
+        "unique_words": 2174
+    },
+    "github/Magritte-code/Magritte": {
+        "prediction": 15,
+        "unique_words": 1908
+    },
+    "github/SSAGESproject/SSAGES": {
+        "prediction": 15,
+        "unique_words": 17981
+    },
+    "github/CGAL/cgal": {
+        "prediction": 15,
+        "unique_words": 18544
+    },
+    "github/VALENCE-software/VALENCE": {
+        "prediction": 15,
+        "unique_words": 3437
+    },
+    "github/VNNikolaidis/nnlib2Rcpp": {
+        "prediction": 170,
+        "unique_words": 1157
+    },
+    "github/MoreiraLAB/mensadb-open": {
+        "prediction": 15,
+        "unique_words": 370
+    },
+    "github/MoreiraLAB/or": {
+        "prediction": 45,
+        "unique_words": 309
+    },
+    "github/cadop/seg1d": {
+        "prediction": 51,
+        "unique_words": 1687
+    },
+    "github/elwinter/nnde": {
+        "prediction": 15,
+        "unique_words": 1081
+    },
+    "github/mdsteiner/EFAtools": {
+        "prediction": 15,
+        "unique_words": 1593
+    },
+    "github/azizka/IUCNN": {
+        "prediction": 51,
+        "unique_words": 6138
+    },
+    "github/BioGearsEngine/core": {
+        "prediction": 46,
+        "unique_words": 88055
+    },
+    "github/DrDaveShaw/INCHEM-Py": {
+        "prediction": 15,
+        "unique_words": 1153
+    },
+    "github/bommert/stabm": {
+        "prediction": 47,
+        "unique_words": 962
+    },
+    "github/Yomguithereal/talisman": {
+        "prediction": 48,
+        "unique_words": 1819
+    },
+    "github/ashleefv/ACEInhibPKPD": {
+        "prediction": 15,
+        "unique_words": 801
+    },
+    "github/mbhall88/rasusa": {
+        "prediction": 15,
+        "unique_words": 2156
+    },
+    "github/NielsenBerkeleyLab/sconce": {
+        "prediction": 171,
+        "unique_words": 666
+    },
+    "github/BioMeCIS-Lab/OpenOmics": {
+        "prediction": 49,
+        "unique_words": 4935
+    },
+    "github/wangjun1996/VisFeature": {
+        "prediction": 15,
+        "unique_words": 81453
+    },
+    "github/hpgem/nanomesh": {
+        "prediction": 51,
+        "unique_words": 6973
+    },
+    "github/ylab-hi/ScanITD": {
+        "prediction": 15,
+        "unique_words": 419
+    },
+    "github/csinva/imodels": {
+        "prediction": 15,
+        "unique_words": 1684
+    },
+    "github/koenderks/jaspAudit": {
+        "prediction": 50,
+        "unique_words": 21644
+    },
+    "github/donaldRwilliams/GGMnonreg": {
+        "prediction": 51,
+        "unique_words": 1039
+    },
+    "github/donaldRwilliams/BGGM": {
+        "prediction": 51,
+        "unique_words": 3571
+    },
+    "github/neuralgraphs/diman": {
+        "prediction": 52,
+        "unique_words": 3462
+    },
+    "github/rickhelmus/patRoon": {
+        "prediction": 51,
+        "unique_words": 6702
+    },
+    "github/poldracklab/nitransforms": {
+        "prediction": 53,
+        "unique_words": 1955
+    },
+    "github/omuse-geoscience/omuse": {
+        "prediction": 15,
+        "unique_words": 1364
+    },
+    "github/reality/klarigi": {
+        "prediction": 51,
+        "unique_words": 355
+    },
+    "github/Narayana-Rao/SAR-tools": {
+        "prediction": 54,
+        "unique_words": 3458
+    },
+    "github/Materials-Consortia/optimade-python-tools": {
+        "prediction": 15,
+        "unique_words": 12260
+    },
+    "github/skypyproject/skypy": {
+        "prediction": 15,
+        "unique_words": 4429
+    },
+    "github/RTIInternational/gobbli": {
+        "prediction": 55,
+        "unique_words": 70712
+    },
+    "github/wvanzeist/riroriro": {
+        "prediction": 51,
+        "unique_words": 3425
+    },
+    "github/MD-Studio/MDStudio": {
+        "prediction": 56,
+        "unique_words": 3053
+    },
+    "github/MD-Studio/cerulean": {
+        "prediction": 15,
+        "unique_words": 1733
+    },
+    "github/MD-Studio/cerise": {
+        "prediction": 15,
+        "unique_words": 5902
+    },
+    "github/TPI-Immunogenetics/igmat": {
+        "prediction": 57,
+        "unique_words": 306
+    },
+    "github/climate-machine/Oceananigans.jl": {
+        "prediction": 15,
+        "unique_words": 18804
+    },
+    "github/WGLab/InterVar": {
+        "prediction": 15,
+        "unique_words": 2905
+    },
+    "github/nlesc-ave/ave-rest-service": {
+        "prediction": 51,
+        "unique_words": 1419
+    },
+    "github/gtayana/CVRMS": {
+        "prediction": 58,
+        "unique_words": 203
+    },
+    "github/villano-lab/nrCascadeSim": {
+        "prediction": 15,
+        "unique_words": 5633
+    },
+    "github/hansenjohnson/WhaleMap": {
+        "prediction": 59,
+        "unique_words": 1291
+    },
+    "github/Sulstice/cocktail-shaker": {
+        "prediction": 15,
+        "unique_words": 2269
+    },
+    "github/virgesmith/neworder": {
+        "prediction": 15,
+        "unique_words": 6017
+    },
+    "github/rajeshrinet/pystokes": {
+        "prediction": 15,
+        "unique_words": 2117
+    },
+    "github/auranic/ClinTrajan": {
+        "prediction": 51,
+        "unique_words": 1468
+    },
+    "github/spectrapepper/spectrapepper": {
+        "prediction": 51,
+        "unique_words": 1265
+    },
+    "github/vavrines/Kinetic.jl": {
+        "prediction": 15,
+        "unique_words": 5952
+    },
+    "github/ziyewang/MetaBinner": {
+        "prediction": 60,
+        "unique_words": 482
+    },
+    "github/meenakshi-kushwaha/mmaqshiny": {
+        "prediction": 51,
+        "unique_words": 1821
+    },
+    "github/sibirrer/lenstronomy": {
+        "prediction": 56,
+        "unique_words": 6566
+    },
+    "github/kuadrat/data_slicer": {
+        "prediction": 51,
+        "unique_words": 4324
+    },
+    "github/mazzalab/pyntacle": {
+        "prediction": 56,
+        "unique_words": 1454
+    },
+    "github/rodluger/starry_process": {
+        "prediction": 15,
+        "unique_words": 5616
+    },
+    "github/research-software-directory/research-software-directory": {
+        "prediction": 51,
+        "unique_words": 8481
+    },
+    "github/tudelft3d/3dfier": {
+        "prediction": 15,
+        "unique_words": 9465
+    },
+    "github/ouyang-lab/PRAS": {
+        "prediction": 15,
+        "unique_words": 852
+    },
+    "github/r-cas/caracas": {
+        "prediction": 61,
+        "unique_words": 1477
+    },
+    "github/brian-lau/MatlabAUC": {
+        "prediction": 62,
+        "unique_words": 300
+    },
+    "github/mlpack/mlpack": {
+        "prediction": 15,
+        "unique_words": 5524
+    },
+    "github/yaml2sbml-dev/yaml2sbml": {
+        "prediction": 63,
+        "unique_words": 1890
+    },
+    "github/qMRLab/qMRLab": {
+        "prediction": 15,
+        "unique_words": 6832
+    },
+    "github/Computational-NeuroGenetics/deMeta-beta": {
+        "prediction": 64,
+        "unique_words": 639
+    },
+    "github/jianghuaijie/scLRTC": {
+        "prediction": 51,
+        "unique_words": 227
+    },
+    "github/bhi-kimlab/StressGenePred": {
+        "prediction": 65,
+        "unique_words": 216
+    },
+    "github/compomics/DeepLC": {
+        "prediction": 15,
+        "unique_words": 1266
+    },
+    "github/compomics/COSS": {
+        "prediction": 66,
+        "unique_words": 558
+    },
+    "github/compomics/xilmass": {
+        "prediction": 67,
+        "unique_words": 271
+    },
+    "github/KiranLDA/PAMLr": {
+        "prediction": 51,
+        "unique_words": 813
+    },
+    "github/BartoszBartmanski/StoSpa2": {
+        "prediction": 15,
+        "unique_words": 2622
+    },
+    "github/sorenwacker/ProteomicsQC": {
+        "prediction": 5,
+        "unique_words": 2790
+    },
+    "github/richteague/disksurf": {
+        "prediction": 15,
+        "unique_words": 882
+    },
+    "github/InsightSoftwareConsortium/ITK": {
+        "prediction": 15,
+        "unique_words": 126108
+    },
+    "github/saeyslab/nichenetr": {
+        "prediction": 68,
+        "unique_words": 21768
+    },
+    "github/Quantum-Dynamics-Hub/libra-code": {
+        "prediction": 5,
+        "unique_words": 3933
+    },
+    "github/ZJUFanLab/scTITANS": {
+        "prediction": 69,
+        "unique_words": 334
+    },
+    "github/SunilAnandatheertha/PXO": {
+        "prediction": 142,
+        "unique_words": 1224
+    },
+    "github/zarr-developers/zarr-python": {
+        "prediction": 51,
+        "unique_words": 12249
+    },
+    "github/lrnv/cort": {
+        "prediction": 70,
+        "unique_words": 1001
+    },
+    "github/lydialucchesi/Vizumap": {
+        "prediction": 51,
+        "unique_words": 1843
+    },
+    "github/lammps/lammps": {
+        "prediction": 15,
+        "unique_words": 500109
+    },
+    "github/reproducible-biomedical-modeling/Biosimulations": {
+        "prediction": 15,
+        "unique_words": 40118
+    },
+    "github/telatin/qax": {
+        "prediction": 15,
+        "unique_words": 1732
+    },
+    "github/ConorMacBride/mcalf": {
+        "prediction": 47,
+        "unique_words": 2948
+    },
+    "github/NCIP/visda": {
+        "prediction": 71,
+        "unique_words": 200
+    },
+    "github/SCM-NV/qmflows-namd": {
+        "prediction": 15,
+        "unique_words": 4575
+    },
+    "github/SCM-NV/qmflows": {
+        "prediction": 15,
+        "unique_words": 1987
+    },
+    "github/SCM-NV/pyZacros": {
+        "prediction": 15,
+        "unique_words": 5886
+    },
+    "github/Merck/BioPhi": {
+        "prediction": 15,
+        "unique_words": 776
+    },
+    "github/Sydney-Informatics-Hub/OmixLitMiner": {
+        "prediction": 15,
+        "unique_words": 417
+    },
+    "github/stemangiola/tidyHeatmap": {
+        "prediction": 51,
+        "unique_words": 1367
+    },
+    "github/bihealth/sodar_core": {
+        "prediction": 15,
+        "unique_words": 24246
+    },
+    "github/JuliaSmoothOptimizers/DCISolver.jl": {
+        "prediction": 15,
+        "unique_words": 1130
+    },
+    "github/curl/curl": {
+        "prediction": 15,
+        "unique_words": 26579
+    },
+    "github/pandas-dev/pandas": {
+        "prediction": 51,
+        "unique_words": 196135
+    },
+    "github/JanCBrammer/biopeaks": {
+        "prediction": 15,
+        "unique_words": 3701
+    },
+    "github/DeltaRCM/pyDeltaRCM": {
+        "prediction": 15,
+        "unique_words": 7448
+    },
+    "github/martibosch/detectree": {
+        "prediction": 15,
+        "unique_words": 1706
+    },
+    "github/reizio/reiz.io": {
+        "prediction": 72,
+        "unique_words": 2238
+    },
+    "github/PathwayCommons/grounding-search": {
+        "prediction": 51,
+        "unique_words": 2325
+    },
+    "github/temken/obscura": {
+        "prediction": 15,
+        "unique_words": 4642
+    },
+    "github/mcsiple/mmrefpoints": {
+        "prediction": 15,
+        "unique_words": 2531
+    },
+    "github/nkallima/sim-universal-construction": {
+        "prediction": 15,
+        "unique_words": 4280
+    },
+    "github/OpenDA-Association/OpenDA": {
+        "prediction": 15,
+        "unique_words": 610
+    },
+    "github/merenlab/anvio": {
+        "prediction": 15,
+        "unique_words": 43363
+    },
+    "github/johncwok/CategoricalTimeSeries.jl": {
+        "prediction": 51,
+        "unique_words": 2896
+    },
+    "github/dnonatar/Sequoia": {
+        "prediction": 51,
+        "unique_words": 194
+    },
+    "github/JuliaOcean/AIBECS.jl": {
+        "prediction": 15,
+        "unique_words": 2264
+    },
+    "github/thomasdenecker/START-R": {
+        "prediction": 15,
+        "unique_words": 1256
+    },
+    "github/szymon-datalions/pyinterpolate": {
+        "prediction": 51,
+        "unique_words": 6685
+    },
+    "github/morphometry/papaya2": {
+        "prediction": 51,
+        "unique_words": 1218
+    },
+    "github/gvilitechltd/LibSWIFFT": {
+        "prediction": 15,
+        "unique_words": 5289
+    },
+    "github/OwenWard/ppdiag": {
+        "prediction": 73,
+        "unique_words": 543
+    },
+    "github/easystats/performance": {
+        "prediction": 51,
+        "unique_words": 3651
+    },
+    "github/easystats/parameters": {
+        "prediction": 74,
+        "unique_words": 5753
+    },
+    "github/easystats/effectsize": {
+        "prediction": 51,
+        "unique_words": 3061
+    },
+    "github/easystats/correlation": {
+        "prediction": 75,
+        "unique_words": 2953
+    },
+    "github/Parsl/parsl": {
+        "prediction": 15,
+        "unique_words": 19237
+    },
+    "github/babelomics/impuSARS": {
+        "prediction": 76,
+        "unique_words": 629
+    },
+    "github/fair-data/fairdatapoint-client": {
+        "prediction": 142,
+        "unique_words": 884
+    },
+    "github/ryokbys/nap": {
+        "prediction": 5,
+        "unique_words": 8272
+    },
+    "github/UUDigitalHumanitieslab/texcavator": {
+        "prediction": 15,
+        "unique_words": 949
+    },
+    "github/r-spatial/rgee": {
+        "prediction": 15,
+        "unique_words": 3859
+    },
+    "github/jordanlab/STing": {
+        "prediction": 15,
+        "unique_words": 2212
+    },
+    "github/oneilsh/tidytensor": {
+        "prediction": 47,
+        "unique_words": 1110
+    },
+    "github/hiddenSymmetries/simsopt": {
+        "prediction": 15,
+        "unique_words": 10384
+    },
+    "github/fair-software/fairtally": {
+        "prediction": 156,
+        "unique_words": 1944
+    },
+    "github/fair-software/howfairis": {
+        "prediction": 15,
+        "unique_words": 4104
+    },
+    "github/QuantEcon/QuantEcon.py": {
+        "prediction": 77,
+        "unique_words": 4519
+    },
+    "github/spacetx/starfish": {
+        "prediction": 51,
+        "unique_words": 10075
+    },
+    "github/bwa-mem2/bwa-mem2": {
+        "prediction": 15,
+        "unique_words": 1137
+    },
+    "github/scipy/scipy": {
+        "prediction": 15,
+        "unique_words": 111399
+    },
+    "github/fair-workflows/fairworkflows": {
+        "prediction": 15,
+        "unique_words": 1350
+    },
+    "github/fair-workflows/nanopub": {
+        "prediction": 15,
+        "unique_words": 2759
+    },
+    "github/ArgoCanada/argodata": {
+        "prediction": 51,
+        "unique_words": 1996
+    },
+    "github/zdelrosario/py_grama": {
+        "prediction": 56,
+        "unique_words": 2720
+    },
+    "github/JonasRieger/ldaPrototype": {
+        "prediction": 15,
+        "unique_words": 1393
+    },
+    "github/jameschapman19/cca_zoo": {
+        "prediction": 51,
+        "unique_words": 2303
+    },
+    "github/interactivereport/OmicsView0": {
+        "prediction": 15,
+        "unique_words": 22932
+    },
+    "github/yiwenstat/MCPCA_PopGen": {
+        "prediction": 51,
+        "unique_words": 299
+    },
+    "github/giswqs/leafmap": {
+        "prediction": 51,
+        "unique_words": 5891
+    },
+    "github/giswqs/geemap": {
+        "prediction": 51,
+        "unique_words": 8736
+    },
+    "github/giswqs/lidar": {
+        "prediction": 15,
+        "unique_words": 3659
+    },
+    "github/mlr-org/mcboost": {
+        "prediction": 15,
+        "unique_words": 1621
+    },
+    "github/bcgov/shinyssdtools": {
+        "prediction": 15,
+        "unique_words": 2956
+    },
+    "github/bcgov/bcdata": {
+        "prediction": 51,
+        "unique_words": 1443
+    },
+    "github/snakemake/snakemake": {
+        "prediction": 15,
+        "unique_words": 36287
+    },
+    "github/BrianAronson/birankr": {
+        "prediction": 78,
+        "unique_words": 2161
+    },
+    "github/nonlocalmodels/NLMech": {
+        "prediction": 15,
+        "unique_words": 3332
+    },
+    "github/Alcampopiano/hypothesize": {
+        "prediction": 51,
+        "unique_words": 4859
+    },
+    "github/niemasd/CoaTran": {
+        "prediction": 15,
+        "unique_words": 307
+    },
+    "github/ShubhadeepSadhukhan1993/fastSF": {
+        "prediction": 79,
+        "unique_words": 3114
+    },
+    "github/cran/irtplay": {
+        "prediction": 80,
+        "unique_words": 5015
+    },
+    "github/robashaw/libecpint": {
+        "prediction": 81,
+        "unique_words": 44798
+    },
+    "github/AA-ALERT/Dedispersion": {
+        "prediction": 51,
+        "unique_words": 643
+    },
+    "github/AA-ALERT/frbcatdb": {
+        "prediction": 82,
+        "unique_words": 1195
+    },
+    "github/dgarrimar/sqtlseeker2-nf": {
+        "prediction": 15,
+        "unique_words": 556
+    },
+    "github/UNSW-CEEM/nempy": {
+        "prediction": 15,
+        "unique_words": 3655
+    },
+    "github/JLiangLab/TransVW": {
+        "prediction": 51,
+        "unique_words": 1381
+    },
+    "github/kostergroup/SIMsalabim": {
+        "prediction": 15,
+        "unique_words": 2738
+    },
+    "github/scikit-hep/pyhf": {
+        "prediction": 51,
+        "unique_words": 7424
+    },
+    "github/AlexMikes/AutoFunc": {
+        "prediction": 56,
+        "unique_words": 1035
+    },
+    "github/candYgene/QTM": {
+        "prediction": 51,
+        "unique_words": 204
+    },
+    "github/candYgene/siga": {
+        "prediction": 51,
+        "unique_words": 358
+    },
+    "github/candYgene/pbg-ld": {
+        "prediction": 51,
+        "unique_words": 226
+    },
+    "github/MaayanLab/signature-commons-ui": {
+        "prediction": 15,
+        "unique_words": 748
+    },
+    "github/ArenA-Crowds/Crowds": {
+        "prediction": 83,
+        "unique_words": 851
+    },
+    "github/d-tear/SIAL": {
+        "prediction": 15,
+        "unique_words": 1302
+    },
+    "github/parallelwindfarms/byteparsing": {
+        "prediction": 142,
+        "unique_words": 1202
+    },
+    "github/sonjageorgievska/CClusTera": {
+        "prediction": 84,
+        "unique_words": 467
+    },
+    "github/JunTaoLuo/mctreesearch4j": {
+        "prediction": 15,
+        "unique_words": 2164
+    },
+    "github/weecology/retriever": {
+        "prediction": 51,
+        "unique_words": 9256
+    },
+    "github/mackelab/sbi": {
+        "prediction": 15,
+        "unique_words": 3199
+    },
+    "github/danhey/maelstrom": {
+        "prediction": 85,
+        "unique_words": 902
+    },
+    "github/arangrhie/merfin": {
+        "prediction": 15,
+        "unique_words": 992
+    },
+    "github/nwchemgit/nwchem": {
+        "prediction": 15,
+        "unique_words": 1955
+    },
+    "github/DrMarc/slab": {
+        "prediction": 15,
+        "unique_words": 8039
+    },
+    "github/scrook/neuroml-db": {
+        "prediction": 15,
+        "unique_words": 1106
+    },
+    "github/freelawproject/eyecite": {
+        "prediction": 15,
+        "unique_words": 1603
+    },
+    "github/jianlin-cheng/DRCon": {
+        "prediction": 15,
+        "unique_words": 347
+    },
+    "github/Dulab2020/ARMT": {
+        "prediction": 86,
+        "unique_words": 1010
+    },
+    "github/online-behaviour/machine-learning": {
+        "prediction": 142,
+        "unique_words": 1910
+    },
+    "github/bblodfon/emba": {
+        "prediction": 15,
+        "unique_words": 1594
+    },
+    "github/dfujim/bfit": {
+        "prediction": 51,
+        "unique_words": 1167
+    },
+    "github/OncoRNALab/CiLiQuant": {
+        "prediction": 15,
+        "unique_words": 615
+    },
+    "github/hpcng/singularity": {
+        "prediction": 15,
+        "unique_words": 8668
+    },
+    "github/traja-team/traja": {
+        "prediction": 51,
+        "unique_words": 5484
+    },
+    "github/tinglabs/scAIDE": {
+        "prediction": 87,
+        "unique_words": 923
+    },
+    "github/afeinstein20/stella": {
+        "prediction": 24,
+        "unique_words": 990
+    },
+    "github/cdslaborg/paramonte": {
+        "prediction": 15,
+        "unique_words": 16537
+    },
+    "github/meinardmueller/synctoolbox": {
+        "prediction": 15,
+        "unique_words": 738
+    },
+    "github/meinardmueller/libfmp": {
+        "prediction": 56,
+        "unique_words": 1014
+    },
+    "github/nextstrain/nextclade": {
+        "prediction": 15,
+        "unique_words": 80408
+    },
+    "github/wmglab-duke/ascent": {
+        "prediction": 15,
+        "unique_words": 23687
+    },
+    "github/shihyuntang/igrins_rv": {
+        "prediction": 15,
+        "unique_words": 1285
+    },
+    "github/tool-bin/ukbcc": {
+        "prediction": 15,
+        "unique_words": 1006
+    },
+    "github/KIT-MBS/pyREX": {
+        "prediction": 15,
+        "unique_words": 2610
+    },
+    "github/tud-hri/travia": {
+        "prediction": 51,
+        "unique_words": 2221
+    },
+    "github/EcoJulia/EcologicalNetworks.jl": {
+        "prediction": 78,
+        "unique_words": 4090
+    },
+    "github/EcoJulia/Microbiome.jl": {
+        "prediction": 15,
+        "unique_words": 3344
+    },
+    "github/EcoJulia/SimpleSDMLayers.jl": {
+        "prediction": 156,
+        "unique_words": 1334
+    },
+    "github/libdynd/dynd-python": {
+        "prediction": 15,
+        "unique_words": 3376
+    },
+    "github/metawards/MetaWards": {
+        "prediction": 15,
+        "unique_words": 40751
+    },
+    "github/MRChemSoft/mrchem": {
+        "prediction": 15,
+        "unique_words": 9871
+    },
+    "github/bokeh/bokeh": {
+        "prediction": 15,
+        "unique_words": 51533
+    },
+    "github/OpenMDAO/dymos": {
+        "prediction": 15,
+        "unique_words": 6651
+    },
+    "github/galsci/pysm": {
+        "prediction": 15,
+        "unique_words": 2979
+    },
+    "github/cb-geo/mpm": {
+        "prediction": 15,
+        "unique_words": 1442
+    },
+    "github/rinikerlab/Ensembler": {
+        "prediction": 15,
+        "unique_words": 1967
+    },
+    "github/llrs/experDesign": {
+        "prediction": 47,
+        "unique_words": 996
+    },
+    "github/JoelForamitti/agentpy": {
+        "prediction": 51,
+        "unique_words": 3556
+    },
+    "github/davidhoksza/traveler": {
+        "prediction": 15,
+        "unique_words": 1198
+    },
+    "github/davidhoksza/MolArt": {
+        "prediction": 15,
+        "unique_words": 2870
+    },
+    "github/FourierFlows/GeophysicalFlows.jl": {
+        "prediction": 15,
+        "unique_words": 5517
+    },
+    "github/spyder-ide/spyder": {
+        "prediction": 88,
+        "unique_words": 71765
+    },
+    "github/CAMI-challenge/CAMITAX": {
+        "prediction": 15,
+        "unique_words": 537
+    },
+    "github/PCMSolver/pcmsolver": {
+        "prediction": 15,
+        "unique_words": 8477
+    },
+    "github/vbaliga/gaussplotR": {
+        "prediction": 51,
+        "unique_words": 1335
+    },
+    "github/tobias-dv-lnu/s4rdm3x": {
+        "prediction": 15,
+        "unique_words": 1253
+    },
+    "github/SMTG-UCL/surfaxe": {
+        "prediction": 15,
+        "unique_words": 2208
+    },
+    "github/dynamicslab/pysindy": {
+        "prediction": 51,
+        "unique_words": 4719
+    },
+    "github/Shyentist/fish-r-man": {
+        "prediction": 142,
+        "unique_words": 921
+    },
+    "github/vfonov/DARQ": {
+        "prediction": 51,
+        "unique_words": 371
+    },
+    "github/YaleTHz/nelly": {
+        "prediction": 89,
+        "unique_words": 2809
+    },
+    "github/GOMC-WSU/GOMC": {
+        "prediction": 15,
+        "unique_words": 1126
+    },
+    "github/JamesPaynter/PyGRB": {
+        "prediction": 15,
+        "unique_words": 3167
+    },
+    "github/marieBvr/virAnnot": {
+        "prediction": 15,
+        "unique_words": 2513
+    },
+    "github/savage13/sacio": {
+        "prediction": 51,
+        "unique_words": 793
+    },
+    "github/LSARP/ProteomicsQC": {
+        "prediction": 15,
+        "unique_words": 4401
+    },
+    "github/akcochrane/TEfits": {
+        "prediction": 51,
+        "unique_words": 1238
+    },
+    "github/neuroanatomy/reorient": {
+        "prediction": 51,
+        "unique_words": 443
+    },
+    "github/matchms/matchms": {
+        "prediction": 15,
+        "unique_words": 4022
+    },
+    "github/matchms/ms2deepscore": {
+        "prediction": 51,
+        "unique_words": 914
+    },
+    "github/kendomaniac/docker4seq": {
+        "prediction": 15,
+        "unique_words": 7868
+    },
+    "github/kendomaniac/rCASC": {
+        "prediction": 90,
+        "unique_words": 308
+    },
+    "github/cupy/cupy": {
+        "prediction": 15,
+        "unique_words": 15782
+    },
+    "github/OSU-BMBL/IDAM": {
+        "prediction": 51,
+        "unique_words": 471
+    },
+    "github/agombolay/ribose-map": {
+        "prediction": 15,
+        "unique_words": 294
+    },
+    "github/RajLabMSSM/echolocatoR": {
+        "prediction": 15,
+        "unique_words": 1189
+    },
+    "github/qpv-research-group/solcore5": {
+        "prediction": 15,
+        "unique_words": 16488
+    },
+    "github/smog-server/OpenSMOG": {
+        "prediction": 15,
+        "unique_words": 871
+    },
+    "github/ADAH-EviDENce/evidence": {
+        "prediction": 15,
+        "unique_words": 1580
+    },
+    "github/inpefess/gym-saturation": {
+        "prediction": 15,
+        "unique_words": 1558
+    },
+    "github/berenslab/MorphoPy": {
+        "prediction": 15,
+        "unique_words": 1572
+    },
+    "github/BackofenLab/StoatyDive": {
+        "prediction": 51,
+        "unique_words": 796
+    },
+    "github/jbytecode/LinRegOutliers": {
+        "prediction": 51,
+        "unique_words": 2299
+    },
+    "github/jbytecode/JMcDM": {
+        "prediction": 15,
+        "unique_words": 1938
+    },
+    "github/PyTorchLightning/metrics": {
+        "prediction": 15,
+        "unique_words": 8047
+    },
+    "github/LiberTEM/LiberTEM": {
+        "prediction": 51,
+        "unique_words": 24066
+    },
+    "github/malonge/RagTag": {
+        "prediction": 91,
+        "unique_words": 207
+    },
+    "github/jamesrhester/Lerche.jl": {
+        "prediction": 15,
+        "unique_words": 1763
+    },
+    "github/SchedMD/slurm": {
+        "prediction": 15,
+        "unique_words": 1000
+    },
+    "github/MichaelSel/edoJS": {
+        "prediction": 15,
+        "unique_words": 714
+    },
+    "github/atfrank/PyShifts": {
+        "prediction": 15,
+        "unique_words": 396
+    },
+    "github/UCD4IDS/WaveletsExt.jl": {
+        "prediction": 15,
+        "unique_words": 4235
+    },
+    "github/haoharryfeng/NeuCA": {
+        "prediction": 51,
+        "unique_words": 412
+    },
+    "github/HajkD/LTRpred": {
+        "prediction": 80,
+        "unique_words": 1961
+    },
+    "github/timoast/signac": {
+        "prediction": 15,
+        "unique_words": 1759
+    },
+    "github/symmy596/Polypy": {
+        "prediction": 15,
+        "unique_words": 6117
+    },
+    "github/symmy596/SurfinPy": {
+        "prediction": 51,
+        "unique_words": 5608
+    },
+    "github/DSIMB/medusa": {
+        "prediction": 92,
+        "unique_words": 528
+    },
+    "github/ClaudioZandonella/PRDA": {
+        "prediction": 15,
+        "unique_words": 2334
+    },
+    "github/Oftatkofta/cellocity": {
+        "prediction": 51,
+        "unique_words": 3391
+    },
+    "github/arabic-digital-humanities/adhtools": {
+        "prediction": 15,
+        "unique_words": 327
+    },
+    "github/3d-pli/fastpli": {
+        "prediction": 15,
+        "unique_words": 1575
+    },
+    "github/lutteropp/NetRAX": {
+        "prediction": 83,
+        "unique_words": 20436
+    },
+    "github/pangeo-data/climpred": {
+        "prediction": 15,
+        "unique_words": 9918
+    },
+    "github/QEF/q-e": {
+        "prediction": 15,
+        "unique_words": 10167
+    },
+    "github/NLESC-JCER/QMCTorch": {
+        "prediction": 56,
+        "unique_words": 3901
+    },
+    "github/NLESC-JCER/EigenCuda": {
+        "prediction": 142,
+        "unique_words": 426
+    },
+    "github/NLESC-JCER/Fortran_Davidson": {
+        "prediction": 142,
+        "unique_words": 875
+    },
+    "github/puregome/notebooks": {
+        "prediction": 156,
+        "unique_words": 2270
+    },
+    "github/jendelel/PrankWebApp": {
+        "prediction": 15,
+        "unique_words": 528
+    },
+    "github/xenon-middleware/xenon": {
+        "prediction": 15,
+        "unique_words": 5204
+    },
+    "github/xenon-middleware/pyxenon": {
+        "prediction": 15,
+        "unique_words": 2025
+    },
+    "github/krober10nd/SeismicMesh": {
+        "prediction": 15,
+        "unique_words": 5997
+    },
+    "github/grant-m-s/astronomicAL": {
+        "prediction": 51,
+        "unique_words": 6345
+    },
+    "github/MesserLab/SLiM": {
+        "prediction": 15,
+        "unique_words": 1461
+    },
+    "github/ImperialCollegeLondon/champ": {
+        "prediction": 5,
+        "unique_words": 1938
+    },
+    "github/dianna-ai/dianna": {
+        "prediction": 15,
+        "unique_words": 2592
+    },
+    "github/exoplanet-dev/exoplanet": {
+        "prediction": 15,
+        "unique_words": 6889
+    },
+    "github/numpy/numpy": {
+        "prediction": 15,
+        "unique_words": 249498
+    },
+    "github/horovod/horovod": {
+        "prediction": 15,
+        "unique_words": 17342
+    },
+    "github/ghislainv/forestatrisk": {
+        "prediction": 15,
+        "unique_words": 2712
+    },
+    "github/gijut/gnucash": {
+        "prediction": 93,
+        "unique_words": 809
+    },
+    "github/felixchenier/kineticstoolkit": {
+        "prediction": 51,
+        "unique_words": 940
+    },
+    "github/GunzIvan28/rMAP": {
+        "prediction": 15,
+        "unique_words": 1259
+    },
+    "github/exafmm/exafmm-t": {
+        "prediction": 15,
+        "unique_words": 1834
+    },
+    "github/asancpt/caffsim": {
+        "prediction": 15,
+        "unique_words": 895
+    },
+    "github/radifar/PyPLIF-HIPPOS": {
+        "prediction": 137,
+        "unique_words": 4618
+    },
+    "github/pymatting/pymatting": {
+        "prediction": 94,
+        "unique_words": 1542
+    },
+    "github/tlverse/hal9001": {
+        "prediction": 15,
+        "unique_words": 2287
+    },
+    "github/pratheesh3780/grapesAgri1": {
+        "prediction": 15,
+        "unique_words": 1442
+    },
+    "github/clawpack/clawpack": {
+        "prediction": 15,
+        "unique_words": 1133
+    },
+    "github/clawpack/pyclaw": {
+        "prediction": 15,
+        "unique_words": 839
+    },
+    "github/ntcockroft/STarFish": {
+        "prediction": 15,
+        "unique_words": 261
+    },
+    "github/lzx325/DeeReCT-APA-repo": {
+        "prediction": 15,
+        "unique_words": 358
+    },
+    "github/snowformatics/macrobot": {
+        "prediction": 15,
+        "unique_words": 1389
+    },
+    "github/USEPA/nsink": {
+        "prediction": 51,
+        "unique_words": 1723
+    },
+    "github/Climdyn/qgs": {
+        "prediction": 15,
+        "unique_words": 19160
+    },
+    "github/diCenzo-GC/Tn-Core-webserver": {
+        "prediction": 51,
+        "unique_words": 1042
+    },
+    "github/mortonne/psifr": {
+        "prediction": 51,
+        "unique_words": 4153
+    },
+    "github/ESMValGroup/ESMValCore": {
+        "prediction": 51,
+        "unique_words": 21708
+    },
+    "github/ESMValGroup/ESMValTool": {
+        "prediction": 51,
+        "unique_words": 57302
+    },
+    "github/netsiphd/netrd": {
+        "prediction": 15,
+        "unique_words": 2528
+    },
+    "github/lantunes/cellpylib": {
+        "prediction": 15,
+        "unique_words": 5165
+    },
+    "github/li-shaochuan/SEDIM": {
+        "prediction": 95,
+        "unique_words": 258
+    },
+    "github/DeepRegNet/DeepReg": {
+        "prediction": 51,
+        "unique_words": 14110
+    },
+    "github/r-spatialecology/shar": {
+        "prediction": 51,
+        "unique_words": 2715
+    },
+    "github/mikegrudic/pytreegrav": {
+        "prediction": 96,
+        "unique_words": 2614
+    },
+    "github/Effective-Quadratures/Effective-Quadratures": {
+        "prediction": 15,
+        "unique_words": 532
+    },
+    "github/ropensci-org/rotemplate": {
+        "prediction": 156,
+        "unique_words": 419
+    },
+    "github/ropensci-org/pkgreviewr": {
+        "prediction": 156,
+        "unique_words": 1146
+    },
+    "github/ropensci-org/roblog": {
+        "prediction": 97,
+        "unique_words": 460
+    },
+    "github/rgerum/pylustrator": {
+        "prediction": 15,
+        "unique_words": 1720
+    },
+    "github/Social-Evolution-and-Behavior/anTraX": {
+        "prediction": 15,
+        "unique_words": 6016
+    },
+    "github/logological/gpp": {
+        "prediction": 15,
+        "unique_words": 966
+    },
+    "github/0xCoto/Virgo": {
+        "prediction": 98,
+        "unique_words": 3928
+    },
+    "github/churchmanlab/genewalk": {
+        "prediction": 15,
+        "unique_words": 1538
+    },
+    "github/multiscale/muscle3": {
+        "prediction": 51,
+        "unique_words": 19612
+    },
+    "github/darioizzo/dcgp": {
+        "prediction": 15,
+        "unique_words": 3595
+    },
+    "github/pepamengual/UEP": {
+        "prediction": 99,
+        "unique_words": 253
+    },
+    "github/ants-project/ANTs": {
+        "prediction": 15,
+        "unique_words": 275
+    },
+    "github/champsproject/ldds": {
+        "prediction": 15,
+        "unique_words": 3680
+    },
+    "github/Yu-Group/veridical-flow": {
+        "prediction": 51,
+        "unique_words": 1301
+    },
+    "github/elkebir-group/Jumper": {
+        "prediction": 15,
+        "unique_words": 712
+    },
+    "github/scipion-em/scipion-em-continuousflex": {
+        "prediction": 15,
+        "unique_words": 551
+    },
+    "github/scikit-image/scikit-image": {
+        "prediction": 15,
+        "unique_words": 31470
+    },
+    "github/dansarie/sboxgates": {
+        "prediction": 15,
+        "unique_words": 676
+    },
+    "github/kegiljarhus/pyBEMT": {
+        "prediction": 15,
+        "unique_words": 1409
+    },
+    "github/lcpp-org/RustBCA": {
+        "prediction": 15,
+        "unique_words": 2125
+    },
+    "github/asmusskar/ALVA": {
+        "prediction": 100,
+        "unique_words": 2337
+    },
+    "github/nhejazi/txshift": {
+        "prediction": 15,
+        "unique_words": 2722
+    },
+    "github/nhejazi/medoutcon": {
+        "prediction": 101,
+        "unique_words": 2244
+    },
+    "github/Circuitscape/Omniscape.jl": {
+        "prediction": 15,
+        "unique_words": 3692
+    },
+    "github/equipeGST/RiboDoc": {
+        "prediction": 15,
+        "unique_words": 1226
+    },
+    "github/aspuru-guzik-group/funsies": {
+        "prediction": 15,
+        "unique_words": 2130
+    },
+    "github/gridap/Gridap.jl": {
+        "prediction": 102,
+        "unique_words": 4076
+    },
+    "github/numba/numba": {
+        "prediction": 15,
+        "unique_words": 57782
+    },
+    "github/arviz-devs/arviz": {
+        "prediction": 15,
+        "unique_words": 13826
+    },
+    "github/JannisHoch/copro": {
+        "prediction": 51,
+        "unique_words": 3355
+    },
+    "github/ShixiangWang/sigminer": {
+        "prediction": 103,
+        "unique_words": 1672
+    },
+    "github/algo-cancer/CAMMiQ": {
+        "prediction": 15,
+        "unique_words": 1989
+    },
+    "github/lkmklsmn/DrivAER": {
+        "prediction": 104,
+        "unique_words": 310
+    },
+    "github/jonschwenk/RivGraph": {
+        "prediction": 15,
+        "unique_words": 7098
+    },
+    "github/ComparativeGenomicsToolkit/cactus": {
+        "prediction": 15,
+        "unique_words": 4699
+    },
+    "github/FAIR-data-for-CAPACITY/FHIR-to-CAPACITY": {
+        "prediction": 142,
+        "unique_words": 665
+    },
+    "github/WatsonLab/MAGpy": {
+        "prediction": 105,
+        "unique_words": 398
+    },
+    "github/wilsonrljr/sysidentpy": {
+        "prediction": 15,
+        "unique_words": 10346
+    },
+    "github/ruanjue/wtdbg2": {
+        "prediction": 106,
+        "unique_words": 593
+    },
+    "github/constantAmateur/SoupX": {
+        "prediction": 51,
+        "unique_words": 889
+    },
+    "github/KALMUS-Color-Toolkit/KALMUS": {
+        "prediction": 15,
+        "unique_words": 4073
+    },
+    "github/iontorrent/TS": {
+        "prediction": 15,
+        "unique_words": 5838
+    },
+    "github/ewatercycle/era5cli": {
+        "prediction": 51,
+        "unique_words": 979
+    },
+    "github/DataIntellSystLab/KARGA": {
+        "prediction": 15,
+        "unique_words": 250
+    },
+    "github/netrias/rnassist": {
+        "prediction": 163,
+        "unique_words": 2179
+    },
+    "github/pvlib/pvlib-python": {
+        "prediction": 15,
+        "unique_words": 17412
+    },
+    "github/phelelani/nf-rnaSeqCount": {
+        "prediction": 15,
+        "unique_words": 855
+    },
+    "github/phelelani/nf-rnaSeqMetagen": {
+        "prediction": 51,
+        "unique_words": 1400
+    },
+    "github/hemanthpruthvi/PyAstroPol": {
+        "prediction": 15,
+        "unique_words": 1509
+    },
+    "github/SchlossLab/mikropml": {
+        "prediction": 15,
+        "unique_words": 2882
+    },
+    "github/barbagroup/geoclaw-landspill": {
+        "prediction": 15,
+        "unique_words": 3560
+    },
+    "github/nlesc/embodied-emotions-scripts": {
+        "prediction": 51,
+        "unique_words": 633
+    },
+    "github/nlesc/scriptcwl": {
+        "prediction": 15,
+        "unique_words": 2045
+    },
+    "github/linqs/psl": {
+        "prediction": 15,
+        "unique_words": 269
+    },
+    "github/PGB-LIV/MHCVision": {
+        "prediction": 15,
+        "unique_words": 216
+    },
+    "github/sisl/POMDPStressTesting.jl": {
+        "prediction": 15,
+        "unique_words": 1940
+    },
+    "github/LINNAE-project/SFB-Annotator": {
+        "prediction": 107,
+        "unique_words": 3458
+    },
+    "github/andr1976/HydDown": {
+        "prediction": 15,
+        "unique_words": 6348
+    },
+    "github/abelson-lab/smMIP-tools": {
+        "prediction": 15,
+        "unique_words": 2558
+    },
+    "github/carlosborca/CrystaLattE": {
+        "prediction": 15,
+        "unique_words": 1470
+    },
+    "github/labsyspharm/minerva-story": {
+        "prediction": 108,
+        "unique_words": 1071
+    },
+    "github/mswzeus/TargetNet": {
+        "prediction": 15,
+        "unique_words": 351
+    },
+    "github/deepskies/deeplenstronomy": {
+        "prediction": 15,
+        "unique_words": 3596
+    },
+    "github/STEllAR-GROUP/hpx": {
+        "prediction": 15,
+        "unique_words": 80193
+    },
+    "github/Planet-AI-GmbH/tfaip": {
+        "prediction": 51,
+        "unique_words": 7074
+    },
+    "github/Acellera/htmd": {
+        "prediction": 15,
+        "unique_words": 3509
+    },
+    "github/BenMql/coral": {
+        "prediction": 15,
+        "unique_words": 604
+    },
+    "github/brainets/frites": {
+        "prediction": 51,
+        "unique_words": 3582
+    },
+    "github/BioinfoUNIBA/REDItools2": {
+        "prediction": 15,
+        "unique_words": 3027
+    },
+    "github/eweitz/ideogram": {
+        "prediction": 15,
+        "unique_words": 1955
+    },
+    "github/ranocha/SummationByPartsOperators.jl": {
+        "prediction": 15,
+        "unique_words": 3771
+    },
+    "github/joergbuchwald/joss_ogs6py_VTUinterface": {
+        "prediction": 15,
+        "unique_words": 1813
+    },
+    "github/abs-tudelft/variant-calling-at-scale": {
+        "prediction": 15,
+        "unique_words": 653
+    },
+    "github/CFSAN-Biostatistics/SeroTools": {
+        "prediction": 109,
+        "unique_words": 2212
+    },
+    "github/nicolet5/DiffCapAnalyzer": {
+        "prediction": 51,
+        "unique_words": 1520
+    },
+    "github/medema-group/bigslice": {
+        "prediction": 15,
+        "unique_words": 584
+    },
+    "github/egonw/bacting": {
+        "prediction": 15,
+        "unique_words": 1900
+    },
+    "github/NMBU-Data-Science/RENT": {
+        "prediction": 51,
+        "unique_words": 2148
+    },
+    "github/SWE-UniStuttgart/Qlunc": {
+        "prediction": 110,
+        "unique_words": 1452
+    },
+    "github/ComtekAdvancedStructures/cmstatr": {
+        "prediction": 51,
+        "unique_words": 1607
+    },
+    "github/FlowModelingControl/flowtorch": {
+        "prediction": 51,
+        "unique_words": 2584
+    },
+    "github/openmm/openmm": {
+        "prediction": 15,
+        "unique_words": 35294
+    },
+    "github/JuliaPlots/Makie.jl": {
+        "prediction": 15,
+        "unique_words": 27603
+    },
+    "github/andreasmang/claire": {
+        "prediction": 15,
+        "unique_words": 4063
+    },
+    "github/biocore/scikit-bio": {
+        "prediction": 15,
+        "unique_words": 10696
+    },
+    "github/EddyRivasLab/hmmer": {
+        "prediction": 111,
+        "unique_words": 892
+    },
+    "github/JGCRI/ambrosia": {
+        "prediction": 15,
+        "unique_words": 1488
+    },
+    "github/JGCRI/rfasst": {
+        "prediction": 15,
+        "unique_words": 1365
+    },
+    "github/JGCRI/plutus": {
+        "prediction": 112,
+        "unique_words": 384
+    },
+    "github/EpistasisLab/tpot": {
+        "prediction": 15,
+        "unique_words": 9588
+    },
+    "github/EpistasisLab/regens": {
+        "prediction": 15,
+        "unique_words": 2965
+    },
+    "github/joglekara/VlaPy": {
+        "prediction": 15,
+        "unique_words": 3070
+    },
+    "github/MDAnalysis/mdanalysis": {
+        "prediction": 15,
+        "unique_words": 7931
+    },
+    "github/anmolter/XLUR": {
+        "prediction": 15,
+        "unique_words": 15312
+    },
+    "github/dpalmasan/TRUNAJOD2.0": {
+        "prediction": 15,
+        "unique_words": 1909
+    },
+    "github/PyPSA/atlite": {
+        "prediction": 51,
+        "unique_words": 2804
+    },
+    "github/tekpinar/correlationplus": {
+        "prediction": 113,
+        "unique_words": 1475
+    },
+    "github/JuliaQX/QXTools.jl": {
+        "prediction": 15,
+        "unique_words": 3376
+    },
+    "github/ArneTillmann/AuDoLab": {
+        "prediction": 51,
+        "unique_words": 1367
+    },
+    "github/Bahler-Lab/pyphe": {
+        "prediction": 15,
+        "unique_words": 2112
+    },
+    "github/mpi4jax/mpi4jax": {
+        "prediction": 15,
+        "unique_words": 1601
+    },
+    "github/RaRe-Technologies/gensim": {
+        "prediction": 114,
+        "unique_words": 97723
+    },
+    "github/TomKellyGenetics/graphsim": {
+        "prediction": 51,
+        "unique_words": 4345
+    },
+    "github/sap218/jabberwocky": {
+        "prediction": 15,
+        "unique_words": 2043
+    },
+    "github/chemfiles/chemfiles": {
+        "prediction": 15,
+        "unique_words": 8969
+    },
+    "github/VU-BEAM-Lab/GENRE": {
+        "prediction": 51,
+        "unique_words": 4507
+    },
+    "github/edwardoughton/itmlogic": {
+        "prediction": 15,
+        "unique_words": 2044
+    },
+    "github/big-data-lab-team/spot": {
+        "prediction": 15,
+        "unique_words": 385
+    },
+    "github/icecube/FIRESONG": {
+        "prediction": 115,
+        "unique_words": 1317
+    },
+    "github/jollejolles/pirecorder": {
+        "prediction": 15,
+        "unique_words": 7271
+    },
+    "github/genotoul-bioinfo/dgenies": {
+        "prediction": 15,
+        "unique_words": 6070
+    },
+    "github/tresoldi/ngesh": {
+        "prediction": 51,
+        "unique_words": 6038
+    },
+    "github/YuLab-SMU/treeio": {
+        "prediction": 15,
+        "unique_words": 1370
+    },
+    "github/MikeHeiber/Excimontec": {
+        "prediction": 15,
+        "unique_words": 5135
+    },
+    "github/MAnalytics/opitools": {
+        "prediction": 47,
+        "unique_words": 1275
+    },
+    "github/MAnalytics/akmedoids": {
+        "prediction": 51,
+        "unique_words": 1057
+    },
+    "github/ropensci-archive/reviewer": {
+        "prediction": 15,
+        "unique_words": 200
+    },
+    "github/ropensci-archive/monkeylearn": {
+        "prediction": 116,
+        "unique_words": 458
+    },
+    "github/ropensci-archive/rodev": {
+        "prediction": 156,
+        "unique_words": 714
+    },
+    "github/FEniCS/ffcx": {
+        "prediction": 15,
+        "unique_words": 2634
+    },
+    "github/CisnerosResearch/LICHEM": {
+        "prediction": 15,
+        "unique_words": 743
+    },
+    "github/thomgrand/fim-python": {
+        "prediction": 15,
+        "unique_words": 1681
+    },
+    "github/jasonyangshadow/lpmx": {
+        "prediction": 117,
+        "unique_words": 1475
+    },
+    "github/leonzheng2/butterfly": {
+        "prediction": 15,
+        "unique_words": 247
+    },
+    "github/elixir-luxembourg/daisy": {
+        "prediction": 15,
+        "unique_words": 2852
+    },
+    "github/tobiasrausch/alfred": {
+        "prediction": 15,
+        "unique_words": 2067
+    },
+    "github/bbbbbbzhou/MDPET": {
+        "prediction": 118,
+        "unique_words": 234
+    },
+    "github/richford/groupyr": {
+        "prediction": 15,
+        "unique_words": 3216
+    },
+    "github/iobio-zjut/IPTDFold": {
+        "prediction": 15,
+        "unique_words": 247
+    },
+    "github/wesleyburr/subMaldi": {
+        "prediction": 47,
+        "unique_words": 1634
+    },
+    "github/SouthGreenPlatform/PyRice": {
+        "prediction": 15,
+        "unique_words": 1263
+    },
+    "github/pysal/spaghetti": {
+        "prediction": 119,
+        "unique_words": 5492
+    },
+    "github/pysal/pysal": {
+        "prediction": 15,
+        "unique_words": 31716
+    },
+    "github/adithirgis/pollucheck": {
+        "prediction": 51,
+        "unique_words": 3670
+    },
+    "github/MolMeDB/MolMeDB": {
+        "prediction": 51,
+        "unique_words": 17195
+    },
+    "github/monarch-initiative/loinc2hpo": {
+        "prediction": 15,
+        "unique_words": 1975
+    },
+    "github/pmkruyen/dearscholar": {
+        "prediction": 137,
+        "unique_words": 1663
+    },
+    "github/KVSlab/turtleFSI": {
+        "prediction": 15,
+        "unique_words": 2729
+    },
+    "github/DistrictDataLabs/yellowbrick": {
+        "prediction": 51,
+        "unique_words": 44267
+    },
+    "github/abinit/abinit": {
+        "prediction": 140,
+        "unique_words": 173355
+    },
+    "github/fakedrtom/oncogemini": {
+        "prediction": 15,
+        "unique_words": 16932
+    },
+    "github/tidyverse/glue": {
+        "prediction": 15,
+        "unique_words": 1952
+    },
+    "github/dstansby/pfsspy": {
+        "prediction": 15,
+        "unique_words": 2354
+    },
+    "github/alexander-pastukhov/bistablehistory": {
+        "prediction": 15,
+        "unique_words": 301
+    },
+    "github/fabian-sp/GGLasso": {
+        "prediction": 120,
+        "unique_words": 3182
+    },
+    "github/tramarobin/fctSPM": {
+        "prediction": 15,
+        "unique_words": 2566
+    },
+    "github/ejikeugba/serp": {
+        "prediction": 15,
+        "unique_words": 1582
+    },
+    "github/KarrLab/de_sim": {
+        "prediction": 15,
+        "unique_words": 2857
+    },
+    "github/arnikz/PIQMIe": {
+        "prediction": 121,
+        "unique_words": 216
+    },
+    "github/amkram/shusher": {
+        "prediction": 15,
+        "unique_words": 2349
+    },
+    "github/aranyics/ReDCM": {
+        "prediction": 15,
+        "unique_words": 260
+    },
+    "github/pokynmr/ipick": {
+        "prediction": 15,
+        "unique_words": 648
+    },
+    "github/cheginit/HyRiver": {
+        "prediction": 51,
+        "unique_words": 15976
+    },
+    "github/brainglobe/bg-atlasapi": {
+        "prediction": 15,
+        "unique_words": 684
+    },
+    "github/patrickfuchs/buildH": {
+        "prediction": 15,
+        "unique_words": 6264
+    },
+    "github/qutip/qutip": {
+        "prediction": 15,
+        "unique_words": 37578
+    },
+    "github/jacobmerson/model-traits": {
+        "prediction": 15,
+        "unique_words": 534
+    },
+    "github/cma2015/iwa-miRNA": {
+        "prediction": 51,
+        "unique_words": 1551
+    },
+    "github/UFParLab/aces4": {
+        "prediction": 15,
+        "unique_words": 233
+    },
+    "github/yatiml/yatiml": {
+        "prediction": 15,
+        "unique_words": 5495
+    },
+    "github/SteveMacenski/slam_toolbox": {
+        "prediction": 15,
+        "unique_words": 2660
+    },
+    "github/jboynyc/textnets": {
+        "prediction": 15,
+        "unique_words": 3359
+    },
+    "github/Cantera/cantera": {
+        "prediction": 15,
+        "unique_words": 5815
+    },
+    "github/Nico-Curti/rFBP": {
+        "prediction": 15,
+        "unique_words": 5978
+    },
+    "github/ECSHackWeek/impedance.py": {
+        "prediction": 51,
+        "unique_words": 2700
+    },
+    "github/cabb99/open3spn2": {
+        "prediction": 122,
+        "unique_words": 1180
+    },
+    "github/lumen-org/lumen": {
+        "prediction": 51,
+        "unique_words": 3848
+    },
+    "github/neuralhydrology/neuralhydrology": {
+        "prediction": 15,
+        "unique_words": 4740
+    },
+    "github/CouncilDataProject/cookiecutter-cdp-deployment": {
+        "prediction": 51,
+        "unique_words": 4595
+    },
+    "github/mggg/ecological-inference": {
+        "prediction": 15,
+        "unique_words": 1065
+    },
+    "github/samaygarg/fuelcell": {
+        "prediction": 51,
+        "unique_words": 1109
+    },
+    "github/comprna/reorientexpress": {
+        "prediction": 51,
+        "unique_words": 1060
+    },
+    "github/mmahmoudian/sivs": {
+        "prediction": 15,
+        "unique_words": 467
+    },
+    "github/KULL-Centre/DEERpredict": {
+        "prediction": 15,
+        "unique_words": 835
+    },
+    "github/pydata/xarray": {
+        "prediction": 51,
+        "unique_words": 47652
+    },
+    "github/GRChombo/GRChombo": {
+        "prediction": 15,
+        "unique_words": 381
+    },
+    "github/wtraylor/modular_megafauna_model": {
+        "prediction": 15,
+        "unique_words": 9941
+    },
+    "github/Singh-Lab/DeMaSk": {
+        "prediction": 15,
+        "unique_words": 1048
+    },
+    "github/fury-gl/fury": {
+        "prediction": 15,
+        "unique_words": 23835
+    },
+    "github/COVID-IWG/epimargin": {
+        "prediction": 51,
+        "unique_words": 1154
+    },
+    "github/rhenanbartels/hrv": {
+        "prediction": 123,
+        "unique_words": 2895
+    },
+    "github/sandmanns/CopyDetective": {
+        "prediction": 124,
+        "unique_words": 377
+    },
+    "github/tariks/peakachu": {
+        "prediction": 15,
+        "unique_words": 1161
+    },
+    "github/idptools/metapredict": {
+        "prediction": 15,
+        "unique_words": 10173
+    },
+    "github/bio-ontology-research-group/deepgoplus": {
+        "prediction": 15,
+        "unique_words": 204
+    },
+    "github/SwissClinicalTrialOrganisation/secuTrialR": {
+        "prediction": 51,
+        "unique_words": 2814
+    },
+    "github/msalibian/RBF": {
+        "prediction": 15,
+        "unique_words": 993
+    },
+    "github/IndrajeetPatil/ggstatsplot": {
+        "prediction": 80,
+        "unique_words": 17937
+    },
+    "github/IndrajeetPatil/statsExpressions": {
+        "prediction": 125,
+        "unique_words": 7631
+    },
+    "github/potassco/clingo": {
+        "prediction": 15,
+        "unique_words": 4039
+    },
+    "github/refresh-bio/whisper": {
+        "prediction": 15,
+        "unique_words": 610
+    },
+    "github/vwesselkamp/ernie-extension": {
+        "prediction": 126,
+        "unique_words": 652
+    },
+    "github/somefunAgba/NLSIG-COVID19Lab": {
+        "prediction": 51,
+        "unique_words": 1258
+    },
+    "github/cython/cython": {
+        "prediction": 15,
+        "unique_words": 53595
+    },
+    "github/JuliaOpt/JuMP.jl": {
+        "prediction": 15,
+        "unique_words": 21884
+    },
+    "github/IMB-Computational-Genomics-Lab/scGPS": {
+        "prediction": 127,
+        "unique_words": 289
+    },
+    "github/Julian/jsonschema": {
+        "prediction": 15,
+        "unique_words": 3202
+    },
+    "github/amrex-astro/Castro": {
+        "prediction": 15,
+        "unique_words": 35875
+    },
+    "github/IMMM-SFA/gamut": {
+        "prediction": 15,
+        "unique_words": 1976
+    },
+    "github/IMMM-SFA/mosartwmpy": {
+        "prediction": 15,
+        "unique_words": 2417
+    },
+    "github/cosmo-epfl/chemiscope": {
+        "prediction": 15,
+        "unique_words": 2828
+    },
+    "github/tzhu-bio/UMI-ATAC-seq": {
+        "prediction": 15,
+        "unique_words": 235
+    },
+    "github/networkx/networkx": {
+        "prediction": 15,
+        "unique_words": 32120
+    },
+    "github/jupyter/notebook": {
+        "prediction": 15,
+        "unique_words": 8351
+    },
+    "github/AlexanderBartholomaeus/smORFer": {
+        "prediction": 15,
+        "unique_words": 1634
+    },
+    "github/SJTU-CGM/ivTerm": {
+        "prediction": 128,
+        "unique_words": 998
+    },
+    "github/VBlesius/RHRT": {
+        "prediction": 51,
+        "unique_words": 3510
+    },
+    "github/nextflow-io/nextflow": {
+        "prediction": 5,
+        "unique_words": 42552
+    },
+    "github/rgmyr/corebreakout": {
+        "prediction": 51,
+        "unique_words": 3125
+    },
+    "github/datalad/datalad": {
+        "prediction": 15,
+        "unique_words": 40765
+    },
+    "github/ablab/TandemTools": {
+        "prediction": 15,
+        "unique_words": 6407
+    },
+    "github/ablab/nerpa": {
+        "prediction": 15,
+        "unique_words": 1310
+    },
+    "github/dankelley/oce": {
+        "prediction": 51,
+        "unique_words": 6827
+    },
+    "github/SNEWS2/snewpy": {
+        "prediction": 15,
+        "unique_words": 2459
+    },
+    "github/tylunel/pvpumpingsystem": {
+        "prediction": 15,
+        "unique_words": 2086
+    },
+    "github/iomega/zenodo-upload": {
+        "prediction": 142,
+        "unique_words": 863
+    },
+    "github/iomega/paired-data-form": {
+        "prediction": 15,
+        "unique_words": 2400
+    },
+    "github/iomega/spec2vec": {
+        "prediction": 15,
+        "unique_words": 2075
+    },
+    "github/bethgelab/foolbox": {
+        "prediction": 15,
+        "unique_words": 2553
+    },
+    "github/dellytools/delly": {
+        "prediction": 15,
+        "unique_words": 1038
+    },
+    "github/montilab/nf-gwas-pipeline": {
+        "prediction": 15,
+        "unique_words": 1804
+    },
+    "github/Hegghammer/daiR": {
+        "prediction": 15,
+        "unique_words": 1720
+    },
+    "github/wadpac/GGIR": {
+        "prediction": 142,
+        "unique_words": 1113
+    },
+    "github/Dfam-consortium/RepeatModeler": {
+        "prediction": 15,
+        "unique_words": 1358
+    },
+    "github/CrowdTruth/CrowdTruth": {
+        "prediction": 15,
+        "unique_words": 1628
+    },
+    "github/stammler/simframe": {
+        "prediction": 51,
+        "unique_words": 938
+    },
+    "github/dpseidel/stmove": {
+        "prediction": 51,
+        "unique_words": 256
+    },
+    "github/ml-evs/matador": {
+        "prediction": 15,
+        "unique_words": 9334
+    },
+    "github/openscm/openscm-twolayermodel": {
+        "prediction": 15,
+        "unique_words": 1971
+    },
+    "github/DrafProject/elmada": {
+        "prediction": 51,
+        "unique_words": 2457
+    },
+    "github/nlesc-nano/swan": {
+        "prediction": 15,
+        "unique_words": 1599
+    },
+    "github/nlesc-nano/flamingo": {
+        "prediction": 142,
+        "unique_words": 1030
+    },
+    "github/nlesc-nano/insilico-server": {
+        "prediction": 51,
+        "unique_words": 2226
+    },
+    "github/nlesc-nano/ceiba-cli": {
+        "prediction": 129,
+        "unique_words": 1656
+    },
+    "github/nlesc-nano/ceiba": {
+        "prediction": 129,
+        "unique_words": 2226
+    },
+    "github/nlesc-nano/CAT": {
+        "prediction": 130,
+        "unique_words": 6990
+    },
+    "github/nlesc-nano/Moka": {
+        "prediction": 129,
+        "unique_words": 1656
+    },
+    "github/BMILAB/scLINE": {
+        "prediction": 131,
+        "unique_words": 354
+    },
+    "github/hetalang/heta-compiler": {
+        "prediction": 15,
+        "unique_words": 4492
+    },
+    "github/ElectionDataAnalysis/electiondata": {
+        "prediction": 5,
+        "unique_words": 5799
+    },
+    "github/spack/spack": {
+        "prediction": 15,
+        "unique_words": 69376
+    },
+    "github/ivadomed/ivadomed": {
+        "prediction": 15,
+        "unique_words": 12321
+    },
+    "github/anwarbio/bioassays": {
+        "prediction": 51,
+        "unique_words": 1078
+    },
+    "github/potree/PotreeConverter": {
+        "prediction": 15,
+        "unique_words": 7184
+    },
+    "github/mpievolbio-scicomp/cancer_sim": {
+        "prediction": 132,
+        "unique_words": 3555
+    },
+    "github/grburgess/popsynth": {
+        "prediction": 133,
+        "unique_words": 4040
+    },
+    "github/sjvrijn/mf2": {
+        "prediction": 15,
+        "unique_words": 2172
+    },
+    "github/biosimulations/Biosimulations": {
+        "prediction": 15,
+        "unique_words": 40118
+    },
+    "github/pybamm-team/liionpack": {
+        "prediction": 15,
+        "unique_words": 3161
+    },
+    "github/michaeltouati/ESVM": {
+        "prediction": 15,
+        "unique_words": 2323
+    },
+    "github/pencil-code/pencil-code": {
+        "prediction": 15,
+        "unique_words": 6352
+    },
+    "github/0x0f0f0f/Metatheory.jl": {
+        "prediction": 15,
+        "unique_words": 4906
+    },
+    "github/pyomeca/ezc3d": {
+        "prediction": 51,
+        "unique_words": 3388
+    },
+    "github/pyomeca/biorbd": {
+        "prediction": 15,
+        "unique_words": 4074
+    },
+    "github/jeffcsauer/arcos_arcospy_information": {
+        "prediction": 51,
+        "unique_words": 2429
+    },
+    "github/JuliaManifolds/Manopt.jl": {
+        "prediction": 15,
+        "unique_words": 4312
+    },
+    "github/ipython/ipython": {
+        "prediction": 15,
+        "unique_words": 70548
+    },
+    "github/wilkelab/Opfi": {
+        "prediction": 15,
+        "unique_words": 4437
+    },
+    "github/jorisparet/partycls": {
+        "prediction": 15,
+        "unique_words": 578
+    },
+    "github/s-goldman/Dusty-Evolved-Star-Kit": {
+        "prediction": 15,
+        "unique_words": 2532
+    },
+    "github/niceume/datasailr": {
+        "prediction": 51,
+        "unique_words": 2519
+    },
+    "github/vcflib/vcflib": {
+        "prediction": 15,
+        "unique_words": 9840
+    },
+    "github/feature-engine/feature_engine": {
+        "prediction": 51,
+        "unique_words": 22317
+    },
+    "github/JohannesBuchner/BXA": {
+        "prediction": 134,
+        "unique_words": 9767
+    },
+    "github/mjacob1002/Eir": {
+        "prediction": 135,
+        "unique_words": 4281
+    },
+    "github/eucp-project/storyboards": {
+        "prediction": 15,
+        "unique_words": 7513
+    },
+    "github/eucp-project/atlas": {
+        "prediction": 51,
+        "unique_words": 1274
+    },
+    "github/ORNL/tx2": {
+        "prediction": 51,
+        "unique_words": 2347
+    },
+    "github/TeamLEGWORK/LEGWORK": {
+        "prediction": 15,
+        "unique_words": 1682
+    },
+    "github/shandley/hecatomb": {
+        "prediction": 15,
+        "unique_words": 5325
+    },
+    "github/nevrome/bleiglas": {
+        "prediction": 51,
+        "unique_words": 2490
+    },
+    "github/wonderful1/CNV-PG": {
+        "prediction": 136,
+        "unique_words": 216
+    },
+    "github/genner-lab/meta-fish-lib": {
+        "prediction": 137,
+        "unique_words": 11484
+    },
+    "github/cbirdferrer/collatrix": {
+        "prediction": 15,
+        "unique_words": 1484
+    },
+    "github/bempp/bempp-cl": {
+        "prediction": 15,
+        "unique_words": 1627
+    },
+    "github/colour-science/colour": {
+        "prediction": 138,
+        "unique_words": 10183
+    },
+    "github/HorvathLab/ReQTL": {
+        "prediction": 51,
+        "unique_words": 489
+    },
+    "github/ValeevGroup/mpqc": {
+        "prediction": 15,
+        "unique_words": 792
+    },
+    "github/DeepRank/DeepRank-GNN": {
+        "prediction": 15,
+        "unique_words": 2734
+    },
+    "github/DeepRank/pdb2sql": {
+        "prediction": 15,
+        "unique_words": 2480
+    },
+    "github/DeepRank/iScore": {
+        "prediction": 15,
+        "unique_words": 1374
+    },
+    "github/DeepRank/pssmgen": {
+        "prediction": 17,
+        "unique_words": 531
+    },
+    "github/DeepRank/deeprank": {
+        "prediction": 51,
+        "unique_words": 3856
+    },
+    "github/Munroe-Meyer-Institute-VR-Laboratory/Biosensor-Framework": {
+        "prediction": 139,
+        "unique_words": 6933
+    },
+    "github/athulpg007/AMAT": {
+        "prediction": 15,
+        "unique_words": 3476
+    },
+    "github/sachsmc/cosinor": {
+        "prediction": 15,
+        "unique_words": 281
+    },
+    "github/HIPS/autograd": {
+        "prediction": 15,
+        "unique_words": 1951
+    },
+    "github/damcb/tyssue": {
+        "prediction": 56,
+        "unique_words": 3344
+    },
+    "github/shirtsgroup/physical_validation": {
+        "prediction": 15,
+        "unique_words": 3100
+    },
+    "github/GaryBAYLOR/mixR": {
+        "prediction": 51,
+        "unique_words": 1080
+    },
+    "github/DreamCloud-Project/McSim-Cycle-accurate-NoC": {
+        "prediction": 15,
+        "unique_words": 403
+    },
+    "github/DreamCloud-Project/McSim-Cycle-accurate-Xbar": {
+        "prediction": 15,
+        "unique_words": 435
+    },
+    "github/DreamCloud-Project/McSim-TLM-NoC": {
+        "prediction": 15,
+        "unique_words": 411
+    },
+    "github/DreamCloud-Project/AMALTHEA-SimGrid": {
+        "prediction": 15,
+        "unique_words": 325
+    },
+    "github/humanfactors/FIPS": {
+        "prediction": 51,
+        "unique_words": 1657
+    },
+    "github/mtsch/Ripserer.jl": {
+        "prediction": 15,
+        "unique_words": 1835
+    },
+    "github/ni1o1/transbigdata": {
+        "prediction": 140,
+        "unique_words": 8129
+    },
+    "github/metageni/FOCUS": {
+        "prediction": 15,
+        "unique_words": 369
+    },
+    "github/bshoshany/OGRe": {
+        "prediction": 15,
+        "unique_words": 2643
+    },
+    "github/hknd23/idcempy": {
+        "prediction": 15,
+        "unique_words": 7402
+    },
+    "github/EC-Earth/ece2cmor3": {
+        "prediction": 141,
+        "unique_words": 938
+    },
+    "github/panoptes-organization/panoptes": {
+        "prediction": 142,
+        "unique_words": 999
+    },
+    "github/weizhouUMICH/SAIGE": {
+        "prediction": 15,
+        "unique_words": 56757
+    },
+    "github/mrc-ide/individual": {
+        "prediction": 15,
+        "unique_words": 1354
+    },
+    "github/LBNL-ETA/MSWH": {
+        "prediction": 15,
+        "unique_words": 4134
+    },
+    "github/KTH-Nek5000/UQit": {
+        "prediction": 15,
+        "unique_words": 2948
+    },
+    "github/SirSharpest/NarrowEscapeSimulator": {
+        "prediction": 15,
+        "unique_words": 624
+    },
+    "github/esa/pagmo2-paper": {
+        "prediction": 15,
+        "unique_words": 1385
+    },
+    "github/mne-tools/mne-python": {
+        "prediction": 51,
+        "unique_words": 25963
+    },
+    "github/htjb/maxsmooth": {
+        "prediction": 51,
+        "unique_words": 3907
+    },
+    "github/skovaka/UNCALLED": {
+        "prediction": 15,
+        "unique_words": 1770
+    },
+    "github/lnferris/ocean_data_tools": {
+        "prediction": 51,
+        "unique_words": 4722
+    },
+    "github/NLeSC-GO-common-infrastructure/marzipan": {
+        "prediction": 15,
+        "unique_words": 961
+    },
+    "github/johannes-titz/cofad": {
+        "prediction": 51,
+        "unique_words": 1594
+    },
+    "github/ymocquar/HOODESolver.jl": {
+        "prediction": 15,
+        "unique_words": 1451
+    },
+    "github/kutaslab/fitgrid": {
+        "prediction": 51,
+        "unique_words": 5169
+    },
+    "github/soraxas/sbp-env": {
+        "prediction": 15,
+        "unique_words": 2729
+    },
+    "github/easybuilders/easybuild": {
+        "prediction": 15,
+        "unique_words": 187034
+    },
+    "github/soerendip/ms-mint": {
+        "prediction": 51,
+        "unique_words": 2556
+    },
+    "github/NicolasHug/Surprise": {
+        "prediction": 15,
+        "unique_words": 3911
+    },
+    "github/3D-e-Chem/3D-e-Chem-VM": {
+        "prediction": 15,
+        "unique_words": 779
+    },
+    "github/3D-e-Chem/sygma": {
+        "prediction": 143,
+        "unique_words": 244
+    },
+    "github/3D-e-Chem/knime-testflow": {
+        "prediction": 144,
+        "unique_words": 399
+    },
+    "github/3D-e-Chem/knime-python-wrapper": {
+        "prediction": 144,
+        "unique_words": 585
+    },
+    "github/3D-e-Chem/knime-silicos-it": {
+        "prediction": 144,
+        "unique_words": 580
+    },
+    "github/3D-e-Chem/knime-plants": {
+        "prediction": 144,
+        "unique_words": 557
+    },
+    "github/3D-e-Chem/knime-sstea": {
+        "prediction": 144,
+        "unique_words": 280
+    },
+    "github/3D-e-Chem/tycho-knime-node-archetype": {
+        "prediction": 144,
+        "unique_words": 1046
+    },
+    "github/3D-e-Chem/knime-kripodb": {
+        "prediction": 15,
+        "unique_words": 774
+    },
+    "github/3D-e-Chem/knime-python-node-archetype": {
+        "prediction": 144,
+        "unique_words": 905
+    },
+    "github/3D-e-Chem/knime-pharmacophore": {
+        "prediction": 144,
+        "unique_words": 459
+    },
+    "github/3D-e-Chem/knime-sygma": {
+        "prediction": 144,
+        "unique_words": 455
+    },
+    "github/3D-e-Chem/knime-molviewer": {
+        "prediction": 144,
+        "unique_words": 544
+    },
+    "github/3D-e-Chem/kripodb": {
+        "prediction": 15,
+        "unique_words": 2171
+    },
+    "github/3D-e-Chem/knime-gpcrdb": {
+        "prediction": 145,
+        "unique_words": 4376
+    },
+    "github/3D-e-Chem/knime-klifs": {
+        "prediction": 15,
+        "unique_words": 2613
+    },
+    "github/indralab/pybiopax": {
+        "prediction": 15,
+        "unique_words": 1645
+    },
+    "github/esteinig/nanoq": {
+        "prediction": 15,
+        "unique_words": 1589
+    },
+    "github/benvanwerkhoven/kernel_tuner": {
+        "prediction": 15,
+        "unique_words": 3784
+    },
+    "github/benjaminbolling/DynaGUI": {
+        "prediction": 15,
+        "unique_words": 2787
+    },
+    "github/biolab/orange3": {
+        "prediction": 51,
+        "unique_words": 45769
+    },
+    "github/biolab/orange-bio": {
+        "prediction": 104,
+        "unique_words": 5599
+    },
+    "github/biolab/orange3-network": {
+        "prediction": 78,
+        "unique_words": 1979
+    },
+    "github/LindaNab/mecor": {
+        "prediction": 146,
+        "unique_words": 302
+    },
+    "github/Blosc/c-blosc": {
+        "prediction": 15,
+        "unique_words": 5922
+    },
+    "github/learningsimulator/learningsimulator": {
+        "prediction": 15,
+        "unique_words": 1443
+    },
+    "github/CornellLabofOrnithology/auk": {
+        "prediction": 51,
+        "unique_words": 1936
+    },
+    "github/NREL/OpenOA": {
+        "prediction": 51,
+        "unique_words": 3198
+    },
+    "github/twesterhout/lattice-symmetries": {
+        "prediction": 15,
+        "unique_words": 2986
+    },
+    "github/SMI/SmiServices": {
+        "prediction": 51,
+        "unique_words": 17645
+    },
+    "github/matplotlib/matplotlib": {
+        "prediction": 15,
+        "unique_words": 147030
+    },
+    "github/BioSTEAMDevelopmentGroup/thermosteam": {
+        "prediction": 15,
+        "unique_words": 1280
+    },
+    "github/FZJ-IEK3-VSA/LoadProfileGenerator": {
+        "prediction": 147,
+        "unique_words": 602
+    },
+    "github/slzarate/parliament2": {
+        "prediction": 5,
+        "unique_words": 93749
+    },
+    "github/aiidateam/aiida-core": {
+        "prediction": 51,
+        "unique_words": 67024
+    },
+    "github/aiidateam/kiwipy": {
+        "prediction": 15,
+        "unique_words": 2161
+    },
+    "github/opimwue/ddop": {
+        "prediction": 15,
+        "unique_words": 1547
+    },
+    "github/undark-lab/swyft": {
+        "prediction": 15,
+        "unique_words": 3998
+    },
+    "github/sverhoeven/docker-cartodb": {
+        "prediction": 51,
+        "unique_words": 275
+    },
+    "github/bootphon/phonemizer": {
+        "prediction": 15,
+        "unique_words": 2633
+    },
+    "github/rdicosmo/parmap": {
+        "prediction": 15,
+        "unique_words": 591
+    },
+    "github/CEED/libCEED": {
+        "prediction": 15,
+        "unique_words": 21313
+    },
+    "github/klho/FLAM": {
+        "prediction": 148,
+        "unique_words": 2441
+    },
+    "github/rajewsky-lab/novosparc": {
+        "prediction": 15,
+        "unique_words": 642
+    },
+    "github/WatsonGroupTCD/J2suscep": {
+        "prediction": 137,
+        "unique_words": 7593
+    },
+    "github/dask/dask": {
+        "prediction": 88,
+        "unique_words": 59095
+    },
+    "github/spectralcode/OCTproZ": {
+        "prediction": 51,
+        "unique_words": 2862
+    },
+    "github/JuliaLang/julia": {
+        "prediction": 15,
+        "unique_words": 137748
+    },
+    "github/semiautomaticgit/SemiAutomaticClassificationPlugin": {
+        "prediction": 15,
+        "unique_words": 611
+    },
+    "github/JuliaDynamics/DrWatson.jl": {
+        "prediction": 15,
+        "unique_words": 6234
+    },
+    "github/pyBRAvo/pyBRAvo": {
+        "prediction": 149,
+        "unique_words": 552
+    },
+    "github/mms-fcul/PypKa": {
+        "prediction": 15,
+        "unique_words": 2832
+    },
+    "github/optimusmoose/jsms": {
+        "prediction": 51,
+        "unique_words": 1511
+    },
+    "github/Music-and-Culture-Technology-Lab/omnizart": {
+        "prediction": 15,
+        "unique_words": 5219
+    },
+    "github/martin3141/spant": {
+        "prediction": 51,
+        "unique_words": 2397
+    },
+    "github/cochran4/GEMB": {
+        "prediction": 15,
+        "unique_words": 193
+    },
+    "github/drwaseemsheikh/audiometry": {
+        "prediction": 51,
+        "unique_words": 1134
+    },
+    "github/pmeier/pystiche": {
+        "prediction": 15,
+        "unique_words": 2134
+    },
+    "github/rhayes777/PyAutoFit": {
+        "prediction": 15,
+        "unique_words": 11988
+    },
+    "github/bxlab/metaWRAP": {
+        "prediction": 15,
+        "unique_words": 4533
+    },
+    "github/delve-team/delve": {
+        "prediction": 15,
+        "unique_words": 3007
+    },
+    "github/pymc-devs/pymc3": {
+        "prediction": 15,
+        "unique_words": 22955
+    },
+    "github/TinkerTools/Tinker-HP": {
+        "prediction": 15,
+        "unique_words": 18473
+    },
+    "github/TinkerTools/tinker9": {
+        "prediction": 15,
+        "unique_words": 6559
+    },
+    "github/radio1988/OneStopRNAseq": {
+        "prediction": 15,
+        "unique_words": 1295
+    },
+    "github/r-lib/gert": {
+        "prediction": 15,
+        "unique_words": 762
+    },
+    "github/conda/conda": {
+        "prediction": 184,
+        "unique_words": 46583
+    },
+    "github/statOmics/satuRnPaper": {
+        "prediction": 150,
+        "unique_words": 569
+    },
+    "github/alan-turing-institute/DetectorChecker": {
+        "prediction": 15,
+        "unique_words": 2047
+    },
+    "github/alan-turing-institute/Palaeoanalytics": {
+        "prediction": 51,
+        "unique_words": 2909
+    },
+    "github/alan-turing-institute/monitoring-ecosystem-resilience": {
+        "prediction": 15,
+        "unique_words": 7297
+    },
+    "github/alan-turing-institute/MLJ.jl": {
+        "prediction": 51,
+        "unique_words": 22387
+    },
+    "github/eWaterCycle/eWaterleaf": {
+        "prediction": 15,
+        "unique_words": 307
+    },
+    "github/eWaterCycle/grpc4bmi": {
+        "prediction": 15,
+        "unique_words": 1794
+    },
+    "github/eWaterCycle/Cesium-NcWMS": {
+        "prediction": 151,
+        "unique_words": 284
+    },
+    "github/eWaterCycle/ewatercycle": {
+        "prediction": 51,
+        "unique_words": 3361
+    },
+    "github/eWaterCycle/experiment-launcher": {
+        "prediction": 15,
+        "unique_words": 771
+    },
+    "github/eWaterCycle/jupyterlab_thredds": {
+        "prediction": 152,
+        "unique_words": 294
+    },
+    "github/google/caliban": {
+        "prediction": 15,
+        "unique_words": 14435
+    },
+    "github/AlexanderLabWHOI/EUKulele": {
+        "prediction": 15,
+        "unique_words": 5446
+    },
+    "github/MingBit/PySCNet": {
+        "prediction": 153,
+        "unique_words": 1182
+    },
+    "github/soedinglab/hh-suite": {
+        "prediction": 15,
+        "unique_words": 660
+    },
+    "github/PfizerRD/sit2standpy": {
+        "prediction": 51,
+        "unique_words": 1468
+    },
+    "github/landlab/landlab": {
+        "prediction": 154,
+        "unique_words": 61343
+    },
+    "github/pierrepo/autoclassweb": {
+        "prediction": 15,
+        "unique_words": 440
+    },
+    "github/circuitgraph/circuitgraph": {
+        "prediction": 15,
+        "unique_words": 817
+    },
+    "github/TRASAL/psrdada-python": {
+        "prediction": 15,
+        "unique_words": 386
+    },
+    "github/czbiohub/cerebra": {
+        "prediction": 155,
+        "unique_words": 2749
+    },
+    "github/tortellini-tools/action": {
+        "prediction": 47,
+        "unique_words": 1977
+    },
+    "github/geopandas/geopandas": {
+        "prediction": 15,
+        "unique_words": 13769
+    },
+    "github/volkamerlab/opencadd": {
+        "prediction": 51,
+        "unique_words": 4217
+    },
+    "github/lskatz/SneakerNet": {
+        "prediction": 15,
+        "unique_words": 6910
+    },
+    "github/teamPSG/kNN_Sleep_Scorer_kNNSS": {
+        "prediction": 51,
+        "unique_words": 2176
+    },
+    "github/Open-ET/flux-data-qaqc": {
+        "prediction": 51,
+        "unique_words": 10497
+    },
+    "github/odb9402/CNNPeaks": {
+        "prediction": 51,
+        "unique_words": 764
+    },
+    "github/KathrynJones1/catwoman": {
+        "prediction": 15,
+        "unique_words": 1522
+    },
+    "github/ropensci/trufflesniffer": {
+        "prediction": 156,
+        "unique_words": 342
+    },
+    "github/ropensci/colocr": {
+        "prediction": 15,
+        "unique_words": 268
+    },
+    "github/ropensci/brranching": {
+        "prediction": 15,
+        "unique_words": 748
+    },
+    "github/ropensci/refsplitr": {
+        "prediction": 157,
+        "unique_words": 1276
+    },
+    "github/ropensci/nodbi": {
+        "prediction": 51,
+        "unique_words": 1961
+    },
+    "github/ropensci/iheatmapr": {
+        "prediction": 15,
+        "unique_words": 963
+    },
+    "github/ropensci/osmplotr": {
+        "prediction": 158,
+        "unique_words": 1257
+    },
+    "github/ropensci/rfisheries": {
+        "prediction": 159,
+        "unique_words": 291
+    },
+    "github/ropensci/skynet": {
+        "prediction": 51,
+        "unique_words": 696
+    },
+    "github/ropensci/AntWeb": {
+        "prediction": 15,
+        "unique_words": 358
+    },
+    "github/ropensci/rerddap": {
+        "prediction": 15,
+        "unique_words": 1178
+    },
+    "github/ropensci/plater": {
+        "prediction": 161,
+        "unique_words": 611
+    },
+    "github/ropensci/stantargets": {
+        "prediction": 51,
+        "unique_words": 1625
+    },
+    "github/ropensci/mapr": {
+        "prediction": 156,
+        "unique_words": 509
+    },
+    "github/ropensci/PostcodesioR": {
+        "prediction": 171,
+        "unique_words": 623
+    },
+    "github/ropensci/DataPackageR": {
+        "prediction": 51,
+        "unique_words": 3487
+    },
+    "github/ropensci/gittargets": {
+        "prediction": 162,
+        "unique_words": 1527
+    },
+    "github/ropensci/parzer": {
+        "prediction": 15,
+        "unique_words": 511
+    },
+    "github/ropensci/citesdb": {
+        "prediction": 51,
+        "unique_words": 1530
+    },
+    "github/ropensci/baRcodeR": {
+        "prediction": 15,
+        "unique_words": 969
+    },
+    "github/ropensci/chirps": {
+        "prediction": 51,
+        "unique_words": 1989
+    },
+    "github/ropensci/ghql": {
+        "prediction": 156,
+        "unique_words": 282
+    },
+    "github/ropensci/geojsonlint": {
+        "prediction": 15,
+        "unique_words": 569
+    },
+    "github/ropensci/ecoengine": {
+        "prediction": 163,
+        "unique_words": 1993
+    },
+    "github/ropensci/tabulizer": {
+        "prediction": 15,
+        "unique_words": 1333
+    },
+    "github/ropensci/ezknitr": {
+        "prediction": 15,
+        "unique_words": 1217
+    },
+    "github/ropensci/babette": {
+        "prediction": 15,
+        "unique_words": 2324
+    },
+    "github/ropensci/awardFindR": {
+        "prediction": 15,
+        "unique_words": 833
+    },
+    "github/ropensci/tracerer": {
+        "prediction": 176,
+        "unique_words": 1130
+    },
+    "github/ropensci/treestartr": {
+        "prediction": 15,
+        "unique_words": 826
+    },
+    "github/ropensci/ckanr": {
+        "prediction": 15,
+        "unique_words": 998
+    },
+    "github/ropensci/addressable": {
+        "prediction": 156,
+        "unique_words": 313
+    },
+    "github/ropensci/fauxpas": {
+        "prediction": 15,
+        "unique_words": 654
+    },
+    "github/ropensci/rnpn": {
+        "prediction": 51,
+        "unique_words": 458
+    },
+    "github/ropensci/nomisr": {
+        "prediction": 51,
+        "unique_words": 1480
+    },
+    "github/ropensci/rperseus": {
+        "prediction": 80,
+        "unique_words": 542
+    },
+    "github/ropensci/infx": {
+        "prediction": 156,
+        "unique_words": 874
+    },
+    "github/ropensci/helminthR": {
+        "prediction": 15,
+        "unique_words": 358
+    },
+    "github/ropensci/rsat": {
+        "prediction": 15,
+        "unique_words": 754
+    },
+    "github/ropensci/patentsview": {
+        "prediction": 51,
+        "unique_words": 684
+    },
+    "github/ropensci/microdemic": {
+        "prediction": 156,
+        "unique_words": 680
+    },
+    "github/ropensci/rcoreoa": {
+        "prediction": 156,
+        "unique_words": 432
+    },
+    "github/ropensci/drake": {
+        "prediction": 51,
+        "unique_words": 9344
+    },
+    "github/ropensci/tidypmc": {
+        "prediction": 164,
+        "unique_words": 3067
+    },
+    "github/ropensci/clifro": {
+        "prediction": 51,
+        "unique_words": 1016
+    },
+    "github/ropensci/taxlist": {
+        "prediction": 15,
+        "unique_words": 2082
+    },
+    "github/ropensci/tidync": {
+        "prediction": 51,
+        "unique_words": 1927
+    },
+    "github/ropensci/rrricanes": {
+        "prediction": 51,
+        "unique_words": 2188
+    },
+    "github/ropensci/pixelclasser": {
+        "prediction": 15,
+        "unique_words": 357
+    },
+    "github/ropensci/censo2017": {
+        "prediction": 165,
+        "unique_words": 784
+    },
+    "github/ropensci/nlrx": {
+        "prediction": 15,
+        "unique_words": 1497
+    },
+    "github/ropensci/ramlegacy": {
+        "prediction": 156,
+        "unique_words": 936
+    },
+    "github/ropensci/jstor": {
+        "prediction": 51,
+        "unique_words": 1650
+    },
+    "github/ropensci/finch": {
+        "prediction": 15,
+        "unique_words": 705
+    },
+    "github/ropensci/EML": {
+        "prediction": 15,
+        "unique_words": 1705
+    },
+    "github/ropensci/emld": {
+        "prediction": 15,
+        "unique_words": 3436
+    },
+    "github/ropensci/osmdata": {
+        "prediction": 166,
+        "unique_words": 2457
+    },
+    "github/ropensci/onekp": {
+        "prediction": 51,
+        "unique_words": 827
+    },
+    "github/ropensci/tiler": {
+        "prediction": 15,
+        "unique_words": 712
+    },
+    "github/ropensci/RNeXML": {
+        "prediction": 15,
+        "unique_words": 1849
+    },
+    "github/ropensci/rotl": {
+        "prediction": 15,
+        "unique_words": 1066
+    },
+    "github/ropensci/rsnps": {
+        "prediction": 51,
+        "unique_words": 844
+    },
+    "github/ropensci/outcomerate": {
+        "prediction": 15,
+        "unique_words": 502
+    },
+    "github/ropensci/jagstargets": {
+        "prediction": 51,
+        "unique_words": 1563
+    },
+    "github/ropensci/treebase": {
+        "prediction": 51,
+        "unique_words": 4656
+    },
+    "github/ropensci/tarchetypes": {
+        "prediction": 51,
+        "unique_words": 1632
+    },
+    "github/ropensci/opencv": {
+        "prediction": 167,
+        "unique_words": 241
+    },
+    "github/ropensci/refimpact": {
+        "prediction": 142,
+        "unique_words": 344
+    },
+    "github/ropensci/googleLanguageR": {
+        "prediction": 15,
+        "unique_words": 992
+    },
+    "github/ropensci/UCSCXenaTools": {
+        "prediction": 168,
+        "unique_words": 1213
+    },
+    "github/ropensci/tesseract": {
+        "prediction": 51,
+        "unique_words": 245
+    },
+    "github/ropensci/bib2df": {
+        "prediction": 171,
+        "unique_words": 546
+    },
+    "github/ropensci/wdman": {
+        "prediction": 169,
+        "unique_words": 369
+    },
+    "github/ropensci/osmextract": {
+        "prediction": 51,
+        "unique_words": 1967
+    },
+    "github/ropensci/rnoaa": {
+        "prediction": 51,
+        "unique_words": 3482
+    },
+    "github/ropensci/allodb": {
+        "prediction": 15,
+        "unique_words": 1038
+    },
+    "github/ropensci/ots": {
+        "prediction": 156,
+        "unique_words": 499
+    },
+    "github/ropensci/rbhl": {
+        "prediction": 170,
+        "unique_words": 1490
+    },
+    "github/ropensci/arkdb": {
+        "prediction": 15,
+        "unique_words": 981
+    },
+    "github/ropensci/terrainr": {
+        "prediction": 51,
+        "unique_words": 1813
+    },
+    "github/ropensci/paleobioDB": {
+        "prediction": 51,
+        "unique_words": 787
+    },
+    "github/ropensci/rplos": {
+        "prediction": 15,
+        "unique_words": 2224
+    },
+    "github/ropensci/rdefra": {
+        "prediction": 51,
+        "unique_words": 627
+    },
+    "github/ropensci/worrms": {
+        "prediction": 156,
+        "unique_words": 531
+    },
+    "github/ropensci/gtfsr": {
+        "prediction": 15,
+        "unique_words": 891
+    },
+    "github/ropensci/hddtools": {
+        "prediction": 51,
+        "unique_words": 828
+    },
+    "github/ropensci/rcitoid": {
+        "prediction": 171,
+        "unique_words": 677
+    },
+    "github/ropensci/treedata.table": {
+        "prediction": 51,
+        "unique_words": 309
+    },
+    "github/ropensci/taxadb": {
+        "prediction": 171,
+        "unique_words": 1107
+    },
+    "github/ropensci/wellknown": {
+        "prediction": 156,
+        "unique_words": 622
+    },
+    "github/ropensci/rppo": {
+        "prediction": 51,
+        "unique_words": 435
+    },
+    "github/ropensci/neotoma": {
+        "prediction": 51,
+        "unique_words": 1531
+    },
+    "github/ropensci/hydroscoper": {
+        "prediction": 51,
+        "unique_words": 851
+    },
+    "github/ropensci/rcites": {
+        "prediction": 171,
+        "unique_words": 1756
+    },
+    "github/ropensci/oai": {
+        "prediction": 171,
+        "unique_words": 1248
+    },
+    "github/ropensci/BaseSet": {
+        "prediction": 172,
+        "unique_words": 729
+    },
+    "github/ropensci/medrxivr": {
+        "prediction": 51,
+        "unique_words": 1696
+    },
+    "github/ropensci/conditionz": {
+        "prediction": 15,
+        "unique_words": 416
+    },
+    "github/ropensci/dataaimsr": {
+        "prediction": 173,
+        "unique_words": 1909
+    },
+    "github/ropensci/dittodb": {
+        "prediction": 15,
+        "unique_words": 2437
+    },
+    "github/ropensci/textreuse": {
+        "prediction": 15,
+        "unique_words": 759
+    },
+    "github/ropensci/eia": {
+        "prediction": 15,
+        "unique_words": 642
+    },
+    "github/ropensci/taxize": {
+        "prediction": 51,
+        "unique_words": 7123
+    },
+    "github/ropensci/rdatacite": {
+        "prediction": 15,
+        "unique_words": 655
+    },
+    "github/ropensci/tif": {
+        "prediction": 174,
+        "unique_words": 622
+    },
+    "github/ropensci/outsider": {
+        "prediction": 15,
+        "unique_words": 2016
+    },
+    "github/ropensci/stplanr": {
+        "prediction": 51,
+        "unique_words": 2655
+    },
+    "github/ropensci/cleanEHR": {
+        "prediction": 51,
+        "unique_words": 583
+    },
+    "github/ropensci/osfr": {
+        "prediction": 15,
+        "unique_words": 2019
+    },
+    "github/ropensci/popler": {
+        "prediction": 51,
+        "unique_words": 1265
+    },
+    "github/ropensci/rAltmetric": {
+        "prediction": 51,
+        "unique_words": 375
+    },
+    "github/ropensci/qualtRics": {
+        "prediction": 51,
+        "unique_words": 1535
+    },
+    "github/ropensci/workloopR": {
+        "prediction": 51,
+        "unique_words": 1846
+    },
+    "github/ropensci/solrium": {
+        "prediction": 15,
+        "unique_words": 4017
+    },
+    "github/ropensci/camsRad": {
+        "prediction": 142,
+        "unique_words": 423
+    },
+    "github/ropensci/mauricer": {
+        "prediction": 176,
+        "unique_words": 968
+    },
+    "github/ropensci/targets": {
+        "prediction": 162,
+        "unique_words": 4172
+    },
+    "github/ropensci/piggyback": {
+        "prediction": 51,
+        "unique_words": 940
+    },
+    "github/ropensci/comtradr": {
+        "prediction": 80,
+        "unique_words": 1086
+    },
+    "github/ropensci/crul": {
+        "prediction": 15,
+        "unique_words": 2027
+    },
+    "github/ropensci/beautier": {
+        "prediction": 176,
+        "unique_words": 2268
+    },
+    "github/ropensci/spocc": {
+        "prediction": 51,
+        "unique_words": 2327
+    },
+    "github/ropensci/tradestatistics": {
+        "prediction": 142,
+        "unique_words": 727
+    },
+    "github/ropensci/fingertipsR": {
+        "prediction": 51,
+        "unique_words": 1571
+    },
+    "github/ropensci/Rclean": {
+        "prediction": 51,
+        "unique_words": 3405
+    },
+    "github/ropensci/rgbif": {
+        "prediction": 51,
+        "unique_words": 4803
+    },
+    "github/ropensci/git2r": {
+        "prediction": 15,
+        "unique_words": 2876
+    },
+    "github/ropensci/nasapower": {
+        "prediction": 51,
+        "unique_words": 2908
+    },
+    "github/ropensci/cyphr": {
+        "prediction": 51,
+        "unique_words": 893
+    },
+    "github/ropensci/phonfieldwork": {
+        "prediction": 15,
+        "unique_words": 651
+    },
+    "github/ropensci/roadoi": {
+        "prediction": 171,
+        "unique_words": 327
+    },
+    "github/ropensci/pangaear": {
+        "prediction": 51,
+        "unique_words": 1553
+    },
+    "github/ropensci/jsonld": {
+        "prediction": 175,
+        "unique_words": 497
+    },
+    "github/ropensci/rdhs": {
+        "prediction": 51,
+        "unique_words": 2029
+    },
+    "github/ropensci/rfigshare": {
+        "prediction": 137,
+        "unique_words": 3908
+    },
+    "github/ropensci/zbank": {
+        "prediction": 171,
+        "unique_words": 677
+    },
+    "github/ropensci/rfishbase": {
+        "prediction": 15,
+        "unique_words": 1222
+    },
+    "github/ropensci/suppdata": {
+        "prediction": 51,
+        "unique_words": 1821
+    },
+    "github/ropensci/prism": {
+        "prediction": 51,
+        "unique_words": 1464
+    },
+    "github/ropensci/dataspice": {
+        "prediction": 137,
+        "unique_words": 998
+    },
+    "github/ropensci/git2rdata": {
+        "prediction": 51,
+        "unique_words": 1592
+    },
+    "github/ropensci/webchem": {
+        "prediction": 15,
+        "unique_words": 2220
+    },
+    "github/ropensci/rdflib": {
+        "prediction": 51,
+        "unique_words": 823
+    },
+    "github/ropensci/USAboundaries": {
+        "prediction": 51,
+        "unique_words": 882
+    },
+    "github/ropensci/seasl": {
+        "prediction": 156,
+        "unique_words": 736
+    },
+    "github/ropensci/gitignore": {
+        "prediction": 15,
+        "unique_words": 725
+    },
+    "github/ropensci/tic": {
+        "prediction": 15,
+        "unique_words": 2562
+    },
+    "github/ropensci/restez": {
+        "prediction": 15,
+        "unique_words": 1609
+    },
+    "github/ropensci/lingtypology": {
+        "prediction": 15,
+        "unique_words": 808
+    },
+    "github/ropensci/gutenbergr": {
+        "prediction": 15,
+        "unique_words": 1020
+    },
+    "github/ropensci/bold": {
+        "prediction": 51,
+        "unique_words": 1279
+    },
+    "github/ropensci/pendulum": {
+        "prediction": 156,
+        "unique_words": 268
+    },
+    "github/ropensci/dbhydroR": {
+        "prediction": 51,
+        "unique_words": 596
+    },
+    "github/ropensci/beastier": {
+        "prediction": 176,
+        "unique_words": 2488
+    },
+    "github/ropensci/grainchanger": {
+        "prediction": 51,
+        "unique_words": 588
+    },
+    "github/ropensci/staypuft": {
+        "prediction": 142,
+        "unique_words": 522
+    },
+    "github/ropensci/historydata": {
+        "prediction": 51,
+        "unique_words": 213
+    },
+    "github/ropensci/rfema": {
+        "prediction": 171,
+        "unique_words": 3962
+    },
+    "github/ropensci/rdataretriever": {
+        "prediction": 51,
+        "unique_words": 1895
+    },
+    "github/ropensci/tidyhydat": {
+        "prediction": 51,
+        "unique_words": 3659
+    },
+    "github/ropensci/c14bazAAR": {
+        "prediction": 51,
+        "unique_words": 2940
+    },
+    "github/ropensci/spatsoc": {
+        "prediction": 15,
+        "unique_words": 991
+    },
+    "github/ropensci/tinkr": {
+        "prediction": 51,
+        "unique_words": 7670
+    },
+    "github/ropensci/rredlist": {
+        "prediction": 156,
+        "unique_words": 702
+    },
+    "github/ropensci/isdparser": {
+        "prediction": 171,
+        "unique_words": 765
+    },
+    "github/ropensci/bikedata": {
+        "prediction": 51,
+        "unique_words": 1131
+    },
+    "github/ropensci/webmockr": {
+        "prediction": 15,
+        "unique_words": 2335
+    },
+    "github/ropensci/taxview": {
+        "prediction": 51,
+        "unique_words": 390
+    },
+    "github/ropensci/MODIStsp": {
+        "prediction": 15,
+        "unique_words": 4593
+    },
+    "github/ropensci/nbaR": {
+        "prediction": 15,
+        "unique_words": 1212
+    },
+    "github/ropensci/traits": {
+        "prediction": 137,
+        "unique_words": 942
+    },
+    "github/ropensci/rglobi": {
+        "prediction": 15,
+        "unique_words": 1607
+    },
+    "github/ropensci/phylogram": {
+        "prediction": 15,
+        "unique_words": 814
+    },
+    "github/ropensci/rnaturalearth": {
+        "prediction": 196,
+        "unique_words": 639
+    },
+    "github/ropensci/rbace": {
+        "prediction": 156,
+        "unique_words": 373
+    },
+    "github/ropensci/ssh": {
+        "prediction": 15,
+        "unique_words": 232
+    },
+    "github/ropensci/rentrez": {
+        "prediction": 15,
+        "unique_words": 1311
+    },
+    "github/ropensci/ijtiff": {
+        "prediction": 15,
+        "unique_words": 2093
+    },
+    "github/ropensci/rorcid": {
+        "prediction": 15,
+        "unique_words": 1079
+    },
+    "github/ropensci/NLMR": {
+        "prediction": 137,
+        "unique_words": 1354
+    },
+    "github/ropensci/bowerbird": {
+        "prediction": 51,
+        "unique_words": 648
+    },
+    "github/ropensci/vcr": {
+        "prediction": 15,
+        "unique_words": 2858
+    },
+    "github/ropensci/bomrang": {
+        "prediction": 177,
+        "unique_words": 49584
+    },
+    "github/ropensci/getCRUCLdata": {
+        "prediction": 51,
+        "unique_words": 1521
+    },
+    "github/ropensci/cRegulome": {
+        "prediction": 51,
+        "unique_words": 412
+    },
+    "github/ropensci/rtweet": {
+        "prediction": 51,
+        "unique_words": 5913
+    },
+    "github/ropensci/rusda": {
+        "prediction": 15,
+        "unique_words": 285
+    },
+    "github/ropensci/robotstxt": {
+        "prediction": 15,
+        "unique_words": 1800
+    },
+    "github/ropensci/DataSpaceR": {
+        "prediction": 15,
+        "unique_words": 1527
+    },
+    "github/ropensci/rnassqs": {
+        "prediction": 137,
+        "unique_words": 1871
+    },
+    "github/ropensci/charlatan": {
+        "prediction": 51,
+        "unique_words": 948
+    },
+    "github/ropensci/riem": {
+        "prediction": 15,
+        "unique_words": 222
+    },
+    "github/ropensci/cde": {
+        "prediction": 51,
+        "unique_words": 2592
+    },
+    "github/ropensci/ritis": {
+        "prediction": 15,
+        "unique_words": 605
+    },
+    "github/ropensci/taxizedb": {
+        "prediction": 51,
+        "unique_words": 806
+    },
+    "github/ropensci/mapscanner": {
+        "prediction": 166,
+        "unique_words": 1068
+    },
+    "github/ropensci/rcrossref": {
+        "prediction": 15,
+        "unique_words": 1910
+    },
+    "github/ropensci/GSODR": {
+        "prediction": 51,
+        "unique_words": 4981
+    },
+    "github/ropensci/elastic": {
+        "prediction": 15,
+        "unique_words": 2860
+    },
+    "github/ropensci/cchecks": {
+        "prediction": 156,
+        "unique_words": 598
+    },
+    "github/ropensci/spelling": {
+        "prediction": 15,
+        "unique_words": 240
+    },
+    "github/ropensci/tokenizers": {
+        "prediction": 15,
+        "unique_words": 1311
+    },
+    "github/ropensci/rgnparser": {
+        "prediction": 15,
+        "unique_words": 481
+    },
+    "github/ropensci/pdftools": {
+        "prediction": 15,
+        "unique_words": 478
+    },
+    "github/ropensci/epubr": {
+        "prediction": 15,
+        "unique_words": 1200
+    },
+    "github/ropensci/sofa": {
+        "prediction": 15,
+        "unique_words": 744
+    },
+    "github/ropensci/rromeo": {
+        "prediction": 15,
+        "unique_words": 706
+    },
+    "github/ropensci/aRxiv": {
+        "prediction": 142,
+        "unique_words": 309
+    },
+    "github/ropensci/wateRinfo": {
+        "prediction": 51,
+        "unique_words": 1239
+    },
+    "github/ropensci/landscapetools": {
+        "prediction": 156,
+        "unique_words": 727
+    },
+    "github/ropensci/datapack": {
+        "prediction": 51,
+        "unique_words": 460
+    },
+    "github/ropensci/timefuzz": {
+        "prediction": 156,
+        "unique_words": 316
+    },
+    "github/ropensci/bibtex": {
+        "prediction": 178,
+        "unique_words": 10556
+    },
+    "github/ropensci/plotly": {
+        "prediction": 15,
+        "unique_words": 5161
+    },
+    "github/ropensci/scrubr": {
+        "prediction": 15,
+        "unique_words": 896
+    },
+    "github/ropensci/Rpolyhedra": {
+        "prediction": 15,
+        "unique_words": 937
+    },
+    "github/ropensci/opentripplanner": {
+        "prediction": 51,
+        "unique_words": 1407
+    },
+    "github/ropensci/chromer": {
+        "prediction": 51,
+        "unique_words": 404
+    },
+    "github/ropensci/rmangal": {
+        "prediction": 15,
+        "unique_words": 1038
+    },
+    "github/ropensci/phylocomr": {
+        "prediction": 15,
+        "unique_words": 804
+    },
+    "github/ropensci/rebird": {
+        "prediction": 171,
+        "unique_words": 3911
+    },
+    "github/ropensci/rvertnet": {
+        "prediction": 171,
+        "unique_words": 2597
+    },
+    "github/ropensci/opencage": {
+        "prediction": 15,
+        "unique_words": 1477
+    },
+    "github/ropensci/antanym": {
+        "prediction": 15,
+        "unique_words": 703
+    },
+    "github/ropensci/RefManageR": {
+        "prediction": 15,
+        "unique_words": 1980
+    },
+    "github/ropensci/SymbiotaR2": {
+        "prediction": 51,
+        "unique_words": 1230
+    },
+    "github/ropensci/rdryad": {
+        "prediction": 156,
+        "unique_words": 631
+    },
+    "github/ropensci/slopes": {
+        "prediction": 47,
+        "unique_words": 1555
+    },
+    "github/ropensci/coder": {
+        "prediction": 51,
+        "unique_words": 1332
+    },
+    "github/ropensci/smapr": {
+        "prediction": 51,
+        "unique_words": 913
+    },
+    "github/ropensci/magick": {
+        "prediction": 15,
+        "unique_words": 274
+    },
+    "github/ropensci/handlr": {
+        "prediction": 156,
+        "unique_words": 473
+    },
+    "github/ropensci/MODISTools": {
+        "prediction": 51,
+        "unique_words": 905
+    },
+    "github/ropensci/rtika": {
+        "prediction": 15,
+        "unique_words": 1344
+    },
+    "github/ropensci/phylotaR": {
+        "prediction": 15,
+        "unique_words": 874
+    },
+    "github/ropensci/FedData": {
+        "prediction": 51,
+        "unique_words": 1726
+    },
+    "github/ropensci/pubchunks": {
+        "prediction": 15,
+        "unique_words": 760
+    },
+    "github/ropensci/natserv": {
+        "prediction": 15,
+        "unique_words": 711
+    },
+    "github/ropensci/jqr": {
+        "prediction": 179,
+        "unique_words": 1224
+    },
+    "github/ropensci/virtuoso": {
+        "prediction": 15,
+        "unique_words": 1194
+    },
+    "github/ropensci/hoardr": {
+        "prediction": 156,
+        "unique_words": 640
+    },
+    "github/ropensci/chlorpromazineR": {
+        "prediction": 15,
+        "unique_words": 684
+    },
+    "github/ropensci/namext": {
+        "prediction": 156,
+        "unique_words": 412
+    },
+    "github/ropensci/stats19": {
+        "prediction": 51,
+        "unique_words": 2417
+    },
+    "github/ropensci/ruODK": {
+        "prediction": 51,
+        "unique_words": 3895
+    },
+    "github/ropensci/mctq": {
+        "prediction": 15,
+        "unique_words": 1279
+    },
+    "github/ropensci/dbparser": {
+        "prediction": 15,
+        "unique_words": 1392
+    },
+    "github/ropensci/internetarchive": {
+        "prediction": 51,
+        "unique_words": 459
+    },
+    "github/ropensci/excluder": {
+        "prediction": 51,
+        "unique_words": 1689
+    },
+    "github/ropensci/rrricanesdata": {
+        "prediction": 15,
+        "unique_words": 1543
+    },
+    "github/ropensci/exoplanets": {
+        "prediction": 15,
+        "unique_words": 777
+    },
+    "github/ropensci/geojsonio": {
+        "prediction": 15,
+        "unique_words": 1385
+    },
+    "github/ropensci/wikitaxa": {
+        "prediction": 156,
+        "unique_words": 518
+    },
+    "github/ropensci/tacmagic": {
+        "prediction": 51,
+        "unique_words": 734
+    },
+    "github/ropensci/taxa": {
+        "prediction": 15,
+        "unique_words": 1575
+    },
+    "github/ropensci/assertr": {
+        "prediction": 51,
+        "unique_words": 644
+    },
+    "github/ropensci/pathviewr": {
+        "prediction": 51,
+        "unique_words": 2457
+    },
+    "github/ropensci/rWBclimate": {
+        "prediction": 51,
+        "unique_words": 3411
+    },
+    "github/ropensci/rAvis": {
+        "prediction": 180,
+        "unique_words": 312
+    },
+    "github/ropensci/weathercan": {
+        "prediction": 51,
+        "unique_words": 2506
+    },
+    "github/ropensci/fulltext": {
+        "prediction": 15,
+        "unique_words": 1881
+    },
+    "github/ropensci/jsonvalidate": {
+        "prediction": 15,
+        "unique_words": 462
+    },
+    "github/ropensci/mcbette": {
+        "prediction": 15,
+        "unique_words": 1425
+    },
+    "github/ropensci/visdat": {
+        "prediction": 51,
+        "unique_words": 2443
+    },
+    "github/ropensci/skimr": {
+        "prediction": 51,
+        "unique_words": 4255
+    },
+    "github/ropensci/codemetar": {
+        "prediction": 15,
+        "unique_words": 5345
+    },
+    "github/ropensci/essurvey": {
+        "prediction": 51,
+        "unique_words": 1259
+    },
+    "github/ropensci/biomartr": {
+        "prediction": 181,
+        "unique_words": 3625
+    },
+    "github/ropensci/randgeo": {
+        "prediction": 15,
+        "unique_words": 632
+    },
+    "github/ropensci/photosearcher": {
+        "prediction": 156,
+        "unique_words": 598
+    },
+    "github/ropensci/mregions": {
+        "prediction": 51,
+        "unique_words": 872
+    },
+    "github/ropensci/av": {
+        "prediction": 15,
+        "unique_words": 218
+    },
+    "github/ropensci/CoordinateCleaner": {
+        "prediction": 51,
+        "unique_words": 720
+    },
+    "github/ropensci/europepmc": {
+        "prediction": 15,
+        "unique_words": 978
+    },
+    "github/ropensci/circle": {
+        "prediction": 15,
+        "unique_words": 850
+    },
+    "github/ropensci/getlandsat": {
+        "prediction": 15,
+        "unique_words": 554
+    },
+    "github/ropensci/EndoMineR": {
+        "prediction": 51,
+        "unique_words": 1058
+    },
+    "github/ropensci/binman": {
+        "prediction": 182,
+        "unique_words": 323
+    },
+    "github/ropensci/cffr": {
+        "prediction": 15,
+        "unique_words": 14792
+    },
+    "github/ropensci/bittrex": {
+        "prediction": 15,
+        "unique_words": 505
+    },
+    "github/ropensci/citecorp": {
+        "prediction": 171,
+        "unique_words": 669
+    },
+    "github/ropensci/rinat": {
+        "prediction": 15,
+        "unique_words": 539
+    },
+    "github/ropensci/lightr": {
+        "prediction": 15,
+        "unique_words": 3271
+    },
+    "github/ropensci/gistr": {
+        "prediction": 80,
+        "unique_words": 1338
+    },
+    "github/ropensci/MtreeRing": {
+        "prediction": 15,
+        "unique_words": 584
+    },
+    "github/ropensci/RSelenium": {
+        "prediction": 15,
+        "unique_words": 969
+    },
+    "github/ropensci/rcol": {
+        "prediction": 156,
+        "unique_words": 335
+    },
+    "github/NLeSC/python-pcl": {
+        "prediction": 15,
+        "unique_words": 412
+    },
+    "github/NLeSC/xtas": {
+        "prediction": 15,
+        "unique_words": 2200
+    },
+    "github/NLeSC/cptm": {
+        "prediction": 51,
+        "unique_words": 731
+    },
+    "github/NLeSC/Massive-PotreeConverter": {
+        "prediction": 15,
+        "unique_words": 1095
+    },
+    "github/NLeSC/python-template": {
+        "prediction": 156,
+        "unique_words": 4131
+    },
+    "github/NLeSC/noodles": {
+        "prediction": 15,
+        "unique_words": 3043
+    },
+    "github/NLeSC/DiVE": {
+        "prediction": 84,
+        "unique_words": 575
+    },
+    "github/NLeSC/eEcology-Annotation-WS": {
+        "prediction": 15,
+        "unique_words": 12018
+    },
+    "github/NLeSC/ExtJS-DateTime": {
+        "prediction": 15,
+        "unique_words": 215
+    },
+    "github/NLeSC/xenon-flow": {
+        "prediction": 15,
+        "unique_words": 963
+    },
+    "github/NLeSC/lokum": {
+        "prediction": 142,
+        "unique_words": 566
+    },
+    "github/NLeSC/UncertaintyVisualization": {
+        "prediction": 151,
+        "unique_words": 458
+    },
+    "github/NLeSC/PattyData": {
+        "prediction": 51,
+        "unique_words": 1321
+    },
+    "github/NLeSC/Chemical-Analytics-Platform": {
+        "prediction": 15,
+        "unique_words": 336
+    },
+    "github/NLeSC/pattyvis": {
+        "prediction": 151,
+        "unique_words": 482
+    },
+    "github/NLeSC/mcfly": {
+        "prediction": 51,
+        "unique_words": 2078
+    },
+    "github/NLeSC/eSalsa-MPI": {
+        "prediction": 15,
+        "unique_words": 863
+    },
+    "github/NLeSC/fairdatapoint": {
+        "prediction": 51,
+        "unique_words": 982
+    },
+    "github/NLeSC/SalientDetector-python": {
+        "prediction": 56,
+        "unique_words": 423
+    },
+    "github/NLeSC/nlesc-serverless-boilerplate": {
+        "prediction": 15,
+        "unique_words": 1711
+    },
+    "github/NLeSC/eEcology-SMS-reciever": {
+        "prediction": 15,
+        "unique_words": 307
+    },
+    "github/NLeSC/eAstroViz": {
+        "prediction": 51,
+        "unique_words": 360
+    },
+    "github/NLeSC/ShiCo": {
+        "prediction": 15,
+        "unique_words": 1913
+    },
+    "github/NLeSC/pycoeman": {
+        "prediction": 15,
+        "unique_words": 957
+    },
+    "github/NLeSC/ahn-pointcloud-viewer-ws": {
+        "prediction": 15,
+        "unique_words": 257
+    },
+    "github/NLeSC/osmium": {
+        "prediction": 183,
+        "unique_words": 362
+    },
+    "github/NLeSC/xenon-grpc": {
+        "prediction": 15,
+        "unique_words": 346
+    },
+    "github/NLeSC/eEcology-script-wrapper": {
+        "prediction": 15,
+        "unique_words": 1430
+    },
+    "github/NLeSC/boatswain": {
+        "prediction": 15,
+        "unique_words": 490
+    },
+    "github/NLeSC/structure-from-motion": {
+        "prediction": 15,
+        "unique_words": 2361
+    },
+    "github/NLeSC/baklava": {
+        "prediction": 142,
+        "unique_words": 691
+    },
+    "github/NLeSC/PattyAnalytics": {
+        "prediction": 15,
+        "unique_words": 804
+    },
+    "github/NLeSC/root-conda-recipes": {
+        "prediction": 184,
+        "unique_words": 1281
+    },
+    "github/NLeSC/MAGMa": {
+        "prediction": 15,
+        "unique_words": 2153
+    },
+    "github/NLeSC/xenon-cli": {
+        "prediction": 15,
+        "unique_words": 618
+    },
+    "github/NLeSC/spot": {
+        "prediction": 51,
+        "unique_words": 476
+    },
+    "github/fitbenchmarking/fitbenchmarking": {
+        "prediction": 51,
+        "unique_words": 10737
+    },
+    "github/david-barnett/microViz": {
+        "prediction": 185,
+        "unique_words": 7754
+    },
+    "github/amanchokshi/EMBERS": {
+        "prediction": 51,
+        "unique_words": 3925
+    },
+    "github/ci-for-science/self-hosted-runners": {
+        "prediction": 15,
+        "unique_words": 5195
+    },
+    "github/psi4/psi4": {
+        "prediction": 15,
+        "unique_words": 87111
+    },
+    "github/PopMedNet-Team/popmednet": {
+        "prediction": 51,
+        "unique_words": 824
+    },
+    "github/WelbornGroup/ELECTRIC": {
+        "prediction": 15,
+        "unique_words": 3980
+    },
+    "github/GooglingTheCancerGenome/sv-gen": {
+        "prediction": 186,
+        "unique_words": 237
+    },
+    "github/GooglingTheCancerGenome/sv-callers": {
+        "prediction": 186,
+        "unique_words": 868
+    },
+    "github/epiforecasts/covidregionaldata": {
+        "prediction": 51,
+        "unique_words": 3104
+    },
+    "github/CLARIAH/grlc": {
+        "prediction": 15,
+        "unique_words": 2137
+    },
+    "github/mzy2240/ESA": {
+        "prediction": 15,
+        "unique_words": 6801
+    },
+    "github/mariakotouza/TRIP-Tool": {
+        "prediction": 15,
+        "unique_words": 319
+    },
+    "github/KBNLresearch/ochre": {
+        "prediction": 15,
+        "unique_words": 696
+    },
+    "github/plotly/dash": {
+        "prediction": 15,
+        "unique_words": 16696
+    },
+    "github/jiahecui/SenAOReFoc": {
+        "prediction": 15,
+        "unique_words": 3939
+    },
+    "github/RiccardoBiondi/segmentation": {
+        "prediction": 15,
+        "unique_words": 3518
+    },
+    "github/carnotresearch/cr-sparse": {
+        "prediction": 15,
+        "unique_words": 10593
+    },
+    "github/linksmart/thing-directory": {
+        "prediction": 15,
+        "unique_words": 11682
+    },
+    "github/cbg-ethz/V-pipe": {
+        "prediction": 15,
+        "unique_words": 2569
+    },
+    "github/niosh-mining/obsplus": {
+        "prediction": 51,
+        "unique_words": 582
+    },
+    "github/21cmFAST/21cmFAST": {
+        "prediction": 15,
+        "unique_words": 6205
+    },
+    "github/imr-framework/OCTOPUS": {
+        "prediction": 51,
+        "unique_words": 1972
+    },
+    "github/ArkajyotiSaha/RandomForestsGLS": {
+        "prediction": 51,
+        "unique_words": 2004
+    },
+    "github/ci-for-research/self-hosted-runners": {
+        "prediction": 15,
+        "unique_words": 5195
+    },
+    "github/cbalbin-FIU/Epitopedia": {
+        "prediction": 15,
+        "unique_words": 935
+    },
+    "github/OpenWaterAnalytics/pyswmm": {
+        "prediction": 15,
+        "unique_words": 3470
+    },
+    "github/zhoux85/scAdapt": {
+        "prediction": 51,
+        "unique_words": 293
+    },
+    "github/dpryan79/MethylDackel": {
+        "prediction": 15,
+        "unique_words": 2263
+    },
+    "github/ramadatta/CPgeneProfiler": {
+        "prediction": 15,
+        "unique_words": 2401
+    },
+    "github/devitocodes/devito": {
+        "prediction": 15,
+        "unique_words": 4032
+    },
+    "github/containers/podman": {
+        "prediction": 15,
+        "unique_words": 165557
+    },
+    "github/damienmarsic/Parent-map": {
+        "prediction": 15,
+        "unique_words": 3501
+    },
+    "github/kavonrtep/dante": {
+        "prediction": 187,
+        "unique_words": 690
+    },
+    "github/EskelandLab/ShinyArchRUiO": {
+        "prediction": 15,
+        "unique_words": 830
+    },
+    "github/keurfonluu/toughio": {
+        "prediction": 15,
+        "unique_words": 2118
+    },
+    "github/chasmani/piecewise-regression": {
+        "prediction": 51,
+        "unique_words": 1398
+    },
+    "github/nluetts/NoisySignalIntegration.jl": {
+        "prediction": 15,
+        "unique_words": 2658
+    },
+    "github/benhid/Sequoya": {
+        "prediction": 188,
+        "unique_words": 200
+    },
+    "github/OpenMD/OpenMD": {
+        "prediction": 15,
+        "unique_words": 1999
+    },
+    "github/JuliaHCI/ADI.jl": {
+        "prediction": 15,
+        "unique_words": 2627
+    },
+    "github/AMReX-Astro/Nyx": {
+        "prediction": 15,
+        "unique_words": 11507
+    },
+    "github/tidymodels/infer": {
+        "prediction": 51,
+        "unique_words": 3372
+    },
+    "github/QibangLiu/PDLSM-FEM_mpi": {
+        "prediction": 189,
+        "unique_words": 609
+    },
+    "github/shaniAmare/long_read_tools": {
+        "prediction": 51,
+        "unique_words": 610
+    },
+    "github/broadinstitute/cromwell": {
+        "prediction": 15,
+        "unique_words": 39546
+    },
+    "github/Via-Appia/via-appia-online-viewer": {
+        "prediction": 15,
+        "unique_words": 9799
+    },
+    "github/SynthSys/pyOmeroUpload": {
+        "prediction": 15,
+        "unique_words": 534
+    },
+    "github/econ-ark/HARK": {
+        "prediction": 15,
+        "unique_words": 6160
+    },
+    "github/nedRad88/SCALAR": {
+        "prediction": 51,
+        "unique_words": 3024
+    },
+    "github/jakelever/civicmine": {
+        "prediction": 15,
+        "unique_words": 729
+    },
+    "github/DorianDepriester/mtex2Gmsh": {
+        "prediction": 51,
+        "unique_words": 1071
+    },
+    "github/ihrke/pypillometry": {
+        "prediction": 51,
+        "unique_words": 1670
+    },
+    "github/Leo-Simpson/c-lasso": {
+        "prediction": 15,
+        "unique_words": 8366
+    },
+    "github/labsquare/CutePeaks": {
+        "prediction": 47,
+        "unique_words": 1237
+    },
+    "github/tbep-tech/tbeptools": {
+        "prediction": 51,
+        "unique_words": 1714
+    },
+    "github/quadram-institute-bioscience/dadaist2": {
+        "prediction": 15,
+        "unique_words": 4992
+    },
+    "github/swiftsim/swiftsimio": {
+        "prediction": 51,
+        "unique_words": 4296
+    },
+    "github/sheryl-ai/MetaPred": {
+        "prediction": 15,
+        "unique_words": 368
+    },
+    "github/codidact/qpixel": {
+        "prediction": 15,
+        "unique_words": 1414
+    },
+    "github/girder/viime": {
+        "prediction": 51,
+        "unique_words": 2622
+    },
+    "github/dutilh/CAT": {
+        "prediction": 15,
+        "unique_words": 1621
+    },
+    "github/dmnfarrell/snpgenie": {
+        "prediction": 15,
+        "unique_words": 1145
+    },
+    "github/dmnfarrell/epitopepredict": {
+        "prediction": 15,
+        "unique_words": 2354
+    },
+    "github/hrwakeford/ExoTiC-ISM": {
+        "prediction": 51,
+        "unique_words": 2438
+    },
+    "github/julia-wrobel/registr": {
+        "prediction": 51,
+        "unique_words": 1532
+    },
+    "github/rhenkin/visxhclust": {
+        "prediction": 51,
+        "unique_words": 898
+    },
+    "github/alicia-ziying-yang/conTEXT-explorer": {
+        "prediction": 15,
+        "unique_words": 1234
+    },
+    "github/NeuralEnsemble/elephant": {
+        "prediction": 15,
+        "unique_words": 6475
+    },
+    "github/NeuralEnsemble/PyNN": {
+        "prediction": 142,
+        "unique_words": 413
+    },
+    "github/ezer/PAFway": {
+        "prediction": 190,
+        "unique_words": 285
+    },
+    "github/kerkelae/disimpy": {
+        "prediction": 15,
+        "unique_words": 466
+    },
+    "github/hope-data-science/tidyfst": {
+        "prediction": 51,
+        "unique_words": 1709
+    },
+    "github/MICCoM/SSAGES-public": {
+        "prediction": 15,
+        "unique_words": 17981
+    },
+    "github/FastMLC/fMLC": {
+        "prediction": 15,
+        "unique_words": 1027
+    },
+    "github/fermisurfaces/IFermi": {
+        "prediction": 15,
+        "unique_words": 2748
+    },
+    "github/multiply-org/sar-pre-processing": {
+        "prediction": 51,
+        "unique_words": 4543
+    },
+    "github/intelligent-soft-robots/o80": {
+        "prediction": 15,
+        "unique_words": 3447
+    },
+    "github/UcarLab/AMULET": {
+        "prediction": 15,
+        "unique_words": 1030
+    },
+    "github/wmalab/EnHiC": {
+        "prediction": 51,
+        "unique_words": 458
+    },
+    "github/shilpagarg/WHdenovo": {
+        "prediction": 15,
+        "unique_words": 6388
+    },
+    "github/e-mental-health/data-processing": {
+        "prediction": 51,
+        "unique_words": 388
+    },
+    "github/e-mental-health/orange-hackathon": {
+        "prediction": 15,
+        "unique_words": 337
+    },
+    "github/bcgsc/longstitch": {
+        "prediction": 15,
+        "unique_words": 598
+    },
+    "github/devsim/devsim": {
+        "prediction": 15,
+        "unique_words": 2000
+    },
+    "github/kkrismer/scansite4": {
+        "prediction": 15,
+        "unique_words": 328
+    },
+    "github/GabrielNakamura/FishPhyloMaker": {
+        "prediction": 51,
+        "unique_words": 594
+    },
+    "github/plumed/plumed2": {
+        "prediction": 15,
+        "unique_words": 39562
+    },
+    "github/syasini/AstroPaint": {
+        "prediction": 15,
+        "unique_words": 2039
+    },
+    "github/rcarragh/c212": {
+        "prediction": 51,
+        "unique_words": 1646
+    },
+    "github/HCGB-IGTP/XICRA": {
+        "prediction": 15,
+        "unique_words": 6936
+    },
+    "github/conda-forge/conda-smithy": {
+        "prediction": 15,
+        "unique_words": 4506
+    },
+    "github/recipy/recipy": {
+        "prediction": 5,
+        "unique_words": 5784
+    },
+    "github/dondi/GRNsight": {
+        "prediction": 51,
+        "unique_words": 1115
+    },
+    "github/bramvandijk88/cacatoo": {
+        "prediction": 15,
+        "unique_words": 1202
+    },
+    "github/astropy/astropy": {
+        "prediction": 51,
+        "unique_words": 181550
+    },
+    "github/prdm0/ropenblas": {
+        "prediction": 15,
+        "unique_words": 2946
+    },
+    "github/NCAS-CMS/cfdm": {
+        "prediction": 51,
+        "unique_words": 20557
+    },
+    "github/jmschrei/pomegranate": {
+        "prediction": 51,
+        "unique_words": 9744
+    },
+    "github/mengaldo/PySPOD": {
+        "prediction": 51,
+        "unique_words": 2203
+    },
+    "github/snystrom/memes": {
+        "prediction": 15,
+        "unique_words": 2172
+    },
+    "github/biboyd/SALSA": {
+        "prediction": 15,
+        "unique_words": 2465
+    },
+    "github/eEcoLiDAR/Laserfarm": {
+        "prediction": 51,
+        "unique_words": 2339
+    },
+    "github/eEcoLiDAR/laserchicken": {
+        "prediction": 51,
+        "unique_words": 2475
+    },
+    "github/HUST-NingKang-Lab/ONN4MST": {
+        "prediction": 15,
+        "unique_words": 1256
+    },
+    "github/SCECcode/pycsep": {
+        "prediction": 15,
+        "unique_words": 9732
+    },
+    "github/idaholab/moose": {
+        "prediction": 15,
+        "unique_words": 443280
+    },
+    "github/SPARC-FAIR-Codeathon/aqua": {
+        "prediction": 191,
+        "unique_words": 3700
+    },
+    "github/antoinediez/Sisyphe": {
+        "prediction": 192,
+        "unique_words": 10515
+    },
+    "github/vishwas1984/LaplaceInterpolation.jl": {
+        "prediction": 51,
+        "unique_words": 1320
+    },
+    "github/klevis-a/kinematics-vis": {
+        "prediction": 15,
+        "unique_words": 1986
+    },
+    "github/CTU-Bern/presize": {
+        "prediction": 15,
+        "unique_words": 1746
+    },
+    "github/BritishGeologicalSurvey/pyvolcans": {
+        "prediction": 15,
+        "unique_words": 2781
+    },
+    "github/EMResearch/EvoMaster": {
+        "prediction": 15,
+        "unique_words": 9437
+    },
+    "github/bio-tools/biotoolsSum": {
+        "prediction": 15,
+        "unique_words": 346
+    },
+    "github/openjournals/joss": {
+        "prediction": 15,
+        "unique_words": 9138
+    },
+    "github/DynaSlum/satsense": {
+        "prediction": 15,
+        "unique_words": 1502
+    },
+    "github/nlppln/nlppln": {
+        "prediction": 15,
+        "unique_words": 1506
+    },
+    "github/actris-cloudnet/cloudnetpy": {
+        "prediction": 51,
+        "unique_words": 3805
+    },
+    "github/genome/bam-readcount": {
+        "prediction": 51,
+        "unique_words": 1650
+    },
+    "github/genome/somatic-sniper": {
+        "prediction": 15,
+        "unique_words": 1067
+    },
+    "github/ZhaoXM-Lab/metaMIC": {
+        "prediction": 193,
+        "unique_words": 590
+    },
+    "github/fruzsinaagocs/oscode": {
+        "prediction": 15,
+        "unique_words": 2243
+    },
+    "github/saezlab/PHONEMeS": {
+        "prediction": 15,
+        "unique_words": 935
+    },
+    "github/m-a-d-n-e-s-s/madness": {
+        "prediction": 194,
+        "unique_words": 3069
+    },
+    "github/equib/pyEQUIB": {
+        "prediction": 195,
+        "unique_words": 3242
+    },
+    "github/andyphilips/dynamac": {
+        "prediction": 15,
+        "unique_words": 800
+    },
+    "github/statsmodels/statsmodels": {
+        "prediction": 88,
+        "unique_words": 45416
+    },
+    "github/sambit-giri/tools21cm": {
+        "prediction": 15,
+        "unique_words": 1503
+    },
+    "github/Electrostatics/apbs": {
+        "prediction": 15,
+        "unique_words": 24757
+    },
+    "github/ImproPhoto/pymicmac": {
+        "prediction": 15,
+        "unique_words": 2819
+    },
+    "github/luntergroup/octopus": {
+        "prediction": 15,
+        "unique_words": 10648
+    },
+    "github/MillionConcepts/lhorizon": {
+        "prediction": 15,
+        "unique_words": 3634
+    },
+    "github/sunpy/sunpy": {
+        "prediction": 51,
+        "unique_words": 44922
+    },
+    "github/Balaje/iceFem": {
+        "prediction": 15,
+        "unique_words": 909
+    },
+    "github/xoopR/set6": {
+        "prediction": 172,
+        "unique_words": 1689
+    },
+    "github/cbrueffer/tophat-recondition": {
+        "prediction": 15,
+        "unique_words": 564
+    },
+    "github/pikarpov-LANL/Sapsan": {
+        "prediction": 51,
+        "unique_words": 308
+    },
+    "github/coljac/sensie": {
+        "prediction": 15,
+        "unique_words": 1841
+    },
+    "github/FreBio/komics": {
+        "prediction": 15,
+        "unique_words": 900
+    },
+    "github/stan-dev/stan": {
+        "prediction": 15,
+        "unique_words": 445
+    },
+    "github/vsoch/gridtest": {
+        "prediction": 15,
+        "unique_words": 17346
+    },
+    "github/mathworks/Simscape-Medical-Ventilator": {
+        "prediction": 51,
+        "unique_words": 303
+    },
+    "github/nlesc-sherlock/emma": {
+        "prediction": 15,
+        "unique_words": 2236
+    },
+    "github/nlesc-sherlock/Rig": {
+        "prediction": 51,
+        "unique_words": 398
+    },
+    "github/ecological-cities/home2park": {
+        "prediction": 15,
+        "unique_words": 2740
+    },
+    "github/raspishake/rsudp": {
+        "prediction": 51,
+        "unique_words": 7481
+    },
+    "github/lzkelley/kalepy": {
+        "prediction": 51,
+        "unique_words": 4986
+    },
+    "github/JLBLine/WODEN": {
+        "prediction": 15,
+        "unique_words": 12462
+    },
+    "github/twosixlabs/magicwand-datatool": {
+        "prediction": 51,
+        "unique_words": 5751
+    },
+    "github/TNOCS/csWeb": {
+        "prediction": 15,
+        "unique_words": 1075
+    },
+    "github/ERA-URBAN/netcdf2littler": {
+        "prediction": 15,
+        "unique_words": 312
+    },
+    "github/bluesky/bluesky": {
+        "prediction": 15,
+        "unique_words": 22338
+    },
+    "github/sagepublishing/rejected_article_tracker_pkg": {
+        "prediction": 51,
+        "unique_words": 1732
+    },
+    "github/cicirello/Chips-n-Salsa": {
+        "prediction": 15,
+        "unique_words": 4197
+    },
+    "github/nf-core/viralrecon": {
+        "prediction": 15,
+        "unique_words": 10214
+    },
+    "github/nf-core/mag": {
+        "prediction": 15,
+        "unique_words": 6913
+    },
+    "github/citation-file-format/cffconvert-github-action": {
+        "prediction": 15,
+        "unique_words": 353
+    },
+    "github/citation-file-format/cff-initializer-javascript": {
+        "prediction": 15,
+        "unique_words": 724
+    },
+    "github/citation-file-format/cff-converter-python": {
+        "prediction": 196,
+        "unique_words": 2235
+    },
+    "github/citation-file-format/citation-file-format": {
+        "prediction": 197,
+        "unique_words": 8807
+    },
+    "github/ropenscilabs/allcontributors": {
+        "prediction": 198,
+        "unique_words": 531
+    },
+    "github/ropenscilabs/gendercoder": {
+        "prediction": 15,
+        "unique_words": 349
+    },
+    "github/ropenscilabs/r2readthedocs": {
+        "prediction": 15,
+        "unique_words": 434
+    },
+    "github/ropenscilabs/qcoder": {
+        "prediction": 51,
+        "unique_words": 958
+    },
+    "github/moranegg/AffectationRO": {
+        "prediction": 199,
+        "unique_words": 361
+    },
+    "github/chainsawriot/oolong": {
+        "prediction": 15,
+        "unique_words": 4508
+    },
+    "github/vgl-hub/gfastats": {
+        "prediction": 200,
+        "unique_words": 501
+    },
+    "github/davemlz/eemont": {
+        "prediction": 15,
+        "unique_words": 14395
+    },
+    "github/cjneely10/EukMetaSanity": {
+        "prediction": 15,
+        "unique_words": 1488
+    },
+    "github/DidierMurilloF/FielDHub": {
+        "prediction": 15,
+        "unique_words": 1815
+    },
+    "github/sebhaan/geobo": {
+        "prediction": 51,
+        "unique_words": 12596
+    },
+    "github/VincentAlcazer/StatAid": {
+        "prediction": 51,
+        "unique_words": 776
+    },
+    "github/erikbern/ann-benchmarks": {
+        "prediction": 201,
+        "unique_words": 2000
+    },
+    "github/nextgenusfs/funannotate": {
+        "prediction": 15,
+        "unique_words": 8455
+    },
+    "github/mathjax/MathJax": {
+        "prediction": 15,
+        "unique_words": 1789
+    },
+    "github/lukapecnik/NiaAML": {
+        "prediction": 15,
+        "unique_words": 4864
+    },
+    "github/ropensci-review-tools/autotest": {
+        "prediction": 15,
+        "unique_words": 813
+    },
+    "github/ropensci-review-tools/srr": {
+        "prediction": 15,
+        "unique_words": 1333
+    },
+    "github/ropensci-review-tools/pkgcheck": {
+        "prediction": 15,
+        "unique_words": 1685
+    },
+    "github/ropensci-review-tools/pkgstats": {
+        "prediction": 15,
+        "unique_words": 2121
+    },
+    "github/samhforbes/PupillometryR": {
+        "prediction": 51,
+        "unique_words": 747
+    },
+    "github/abrupt-climate/hyper-canny": {
+        "prediction": 15,
+        "unique_words": 2360
+    },
+    "github/jdber1/opendrop": {
+        "prediction": 15,
+        "unique_words": 2167
+    },
+    "github/adbar/htmldate": {
+        "prediction": 15,
+        "unique_words": 3336
+    },
+    "github/ot483/NetCom": {
+        "prediction": 15,
+        "unique_words": 267
+    },
+    "github/enveda/RPath": {
+        "prediction": 51,
+        "unique_words": 257
+    },
+    "github/TeamCOMPAS/COMPAS": {
+        "prediction": 51,
+        "unique_words": 34226
+    },
+    "github/jorittmo/singcar": {
+        "prediction": 15,
+        "unique_words": 2511
+    },
+    "github/euroargodev/argopy": {
+        "prediction": 51,
+        "unique_words": 8381
+    },
+    "github/openmopac/MOPAC": {
+        "prediction": 202,
+        "unique_words": 1035
+    },
+    "github/pypeit/PypeIt": {
+        "prediction": 15,
+        "unique_words": 57370
+    },
+    "github/SamDuffield/bmm": {
+        "prediction": 15,
+        "unique_words": 922
+    },
+    "github/AlgoLab/shark": {
+        "prediction": 203,
+        "unique_words": 218
+    },
+    "github/BDI-pathogens/OpenABM-Covid19-model-paper": {
+        "prediction": 51,
+        "unique_words": 253
+    },
+    "github/optuna/optuna": {
+        "prediction": 15,
+        "unique_words": 4365
+    },
+    "github/singularityhub/sregistry": {
+        "prediction": 15,
+        "unique_words": 14490
+    },
+    "github/singularityhub/singularity-compose": {
+        "prediction": 204,
+        "unique_words": 3663
+    },
+    "github/singularityhub/singularity-hpc": {
+        "prediction": 15,
+        "unique_words": 7976
+    },
+    "github/abschneider/StrainHub": {
+        "prediction": 15,
+        "unique_words": 1823
+    },
+    "github/insilico/cncv": {
+        "prediction": 51,
+        "unique_words": 659
+    },
+    "github/zoometh/iconr": {
+        "prediction": 205,
+        "unique_words": 2481
+    },
+    "github/csdms/bmi": {
+        "prediction": 15,
+        "unique_words": 7798
+    },
+    "github/cas-bioinf/rboAnalyzer": {
+        "prediction": 15,
+        "unique_words": 4296
+    },
+    "github/samuelefiorini/tangle": {
+        "prediction": 15,
+        "unique_words": 456
+    },
+    "github/jessecambon/tidygeocoder": {
+        "prediction": 15,
+        "unique_words": 1436
+    },
+    "github/mingzehuang/latentcor": {
+        "prediction": 51,
+        "unique_words": 2136
+    },
+    "github/PyTables/PyTables": {
+        "prediction": 51,
+        "unique_words": 41690
+    },
+    "github/zhouzilu/DENDRO": {
+        "prediction": 15,
+        "unique_words": 640
+    },
+    "github/sciapp/sampledb": {
+        "prediction": 15,
+        "unique_words": 12446
+    },
+    "github/siara-cc/Unishox2": {
+        "prediction": 15,
+        "unique_words": 3184
+    },
+    "github/PacificBiosciences/pbbioconda": {
+        "prediction": 15,
+        "unique_words": 966
+    },
+    "github/gromacs/gromacs": {
+        "prediction": 15,
+        "unique_words": 192309
+    }
+}

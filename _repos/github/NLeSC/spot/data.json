@@ -1,0 +1,330 @@
+{
+    "package.json": {
+        "github/NLeSC/spot": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "babel-polyfill": {
+            "credit": 0.0007071428571428645,
+            "url": "https://babeljs.io/"
+        },
+        "concurrently": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/open-cli-tools/concurrently#readme"
+        },
+        "cors-anywhere": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/Rob--W/cors-anywhere#readme"
+        },
+        "cpx": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/mysticatea/cpx"
+        },
+        "crossfilter2": {
+            "credit": 0.0007071428571428645,
+            "url": "https://crossfilter.github.io/crossfilter/"
+        },
+        "dotenv": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/motdotla/dotenv#readme"
+        },
+        "dotenv-webpack": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/mrsteele/dotenv-webpack#readme"
+        },
+        "file-saver": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "form-data": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/form-data/form-data#readme"
+        },
+        "mkdirp": {
+            "credit": 0.07304785714285715,
+            "url": "https://github.com/isaacs/node-mkdirp#readme"
+        },
+        "net": {
+            "credit": 0.07071428571428572,
+            "url": ""
+        },
+        "tls": {
+            "credit": 0.0007071428571428645,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/webpack/webpack"
+        },
+        "webpack-cli": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/webpack/webpack-cli/tree/master/packages/webpack-cli"
+        },
+        "core-js": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "regenerator-runtime": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/hackwaly/regenerator-runtime"
+        },
+        "babel-cli": {
+            "credit": 0.0023335714285714283,
+            "url": "https://babeljs.io/"
+        },
+        "babel-plugin-transform-runtime": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "babel-plugin-unassert": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "babel-preset-power-assert": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "babel-register": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.010377870452528838,
+            "url": null
+        },
+        "eslint-config-mysticatea": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "if-node-version": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "opener": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "power-assert": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.005377360248447205,
+            "url": null
+        },
+        "shelljs": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "through": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "babel-runtime": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "chokidar": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "duplexer": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "glob2base": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "minimatch": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "resolve": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "shell-quote": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "subarg": {
+            "credit": 0.0023335714285714283,
+            "url": null
+        },
+        "vows": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "rollup-plugin-json": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "package-json-versionify": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "d3": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "": {
+            "credit": 0.06054965616681455,
+            "url": null
+        },
+        "babel-preset-minify": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "request": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "pre-commit": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "pkgfiles": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "puppeteer": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "obake": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "is-node-modern": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "in-publish": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "formidable": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "far": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "fake": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "cross-spawn": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "browserify-istanbul": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "mime-types": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "combined-stream": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "asynckit": {
+            "credit": 0.003043788819875776,
+            "url": null
+        },
+        "spc": {
+            "credit": 0.07000714285714285,
+            "url": null
+        }
+    }
+}

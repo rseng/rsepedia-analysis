@@ -1,0 +1,170 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/lingtypology": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "leaflet": {
+            "credit": 0.026977500000000005,
+            "url": "https://rstudio.github.io/leaflet/"
+        },
+        "leaflet.minicharts": {
+            "credit": 0.002475000000000005,
+            "url": null
+        },
+        "stringdist": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/markvanderloo/stringdist"
+        },
+        "jsonlite": {
+            "credit": 0.2475,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "s2": {
+            "credit": 9.075000000000055e-05,
+            "url": "https://r-spatial.github.io/s2/"
+        },
+        "testthat": {
+            "credit": 0.03537435,
+            "url": "https://testthat.r-lib.org"
+        },
+        "purrr": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "RJSONIO": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.033577499999999996,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.033577499999999996,
+            "url": null
+        },
+        "leaflet.providers": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "raster": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "png": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.033577499999999996,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "crosstalk": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "R": {
+            "credit": 0.11704935,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "manipulateWidget": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0017968499999999998,
+            "url": null
+        },
+        "wk": {
+            "credit": 0.0017968499999999998,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0017968499999999998,
+            "url": null
+        }
+    }
+}

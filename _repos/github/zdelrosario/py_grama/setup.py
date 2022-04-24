@@ -1,0 +1,58 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="py_grama",
+    author="Zachary del Rosario",
+    author_email="zdelrosario@outlook.com",
+    version="0.3.4",
+    packages=[
+        "grama",
+        "grama.data",
+        "grama.dfply",
+        "grama.eval",
+        "grama.fit",
+        "grama.models",
+        "grama.tran",
+        "grama.psdr",
+        "grama.psdr.domains",
+        "grama.psdr.geometry",
+    ],
+    package_data={"grama.data": ["*.csv"]},
+    license="MIT",
+    url="https://github.com/zdelrosario/py_grama",
+    description="A grammar of model analysis",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.6",
+    install_requires=[
+        "matplotlib",
+        "numpy>=1.15",
+        "pandas",
+        "plotnine>=0.8.0",
+        "scipy",
+        "toolz",
+        "networkx",
+    ],
+    extras_require={
+        "lolo": ["lolopy"],
+        "matminer": ["pymatgen==2021.2.8.1", "matminer"],
+        "sklearn": ["scikit-learn"],
+        "statsmodels": ["statsmodels"],
+        "pyDOE": ["pyDOE"],
+        "umap": ["umap-learn"],
+        "dev": [
+            "lolopy",
+            "pymatgen==2021.2.8.1",
+            "matminer",
+            "scikit-learn",
+            "statsmodels",
+            "pyDOE",
+            "umap-learn",
+        ],
+    }
+)

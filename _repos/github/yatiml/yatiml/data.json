@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/yatiml/yatiml": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ruamel.yaml": {
+            "credit": 0.00495,
+            "url": "https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree"
+        },
+        "typing_extensions": {
+            "credit": 0.00495,
+            "url": "https://typing.readthedocs.io/"
+        }
+    }
+}

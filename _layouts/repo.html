@@ -1,0 +1,26 @@
+---
+layout: post
+---
+
+We use <a href="https://github.com/vsoch/citelang" target="_blank">CiteLang</a> to clone this repository,
+and parse found dependency files to generate this credit table and badge. For each research software repository,
+we assign a credit split (0.5 or 50/50) to say that the research software gets 50% of the credit, and the remaining 50%
+is shared by the dependencies. The same holds true for the children of dependencies up until we reach a minimum level
+of credit in the tree, at which point we stop parsing. 
+
+<br><br>
+
+<img src="badge.png"/>
+
+
+{{ content }}
+
+
+<a class="btn btn-theme" 
+    href="data.json" 
+    role="button"
+    target="_blank"
+    style="margin-left:10px;">data.json</a>
+
+
+<a href="{{ site.baseurl }}/analysis/repos/"><< Back to Repos</a>

@@ -1,0 +1,114 @@
+{
+    "DESCRIPTION": {
+        "github/oneilsh/tidytensor": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "abind": {
+            "credit": 0.0016500000000000126,
+            "url": "NA"
+        },
+        "purrr": {
+            "credit": 0.012540000000000013,
+            "url": "http://purrr.tidyverse.org"
+        },
+        "rstackdeque": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/oneilsh/rstackdeque"
+        },
+        "magrittr": {
+            "credit": 0.03598736842105264,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rlang": {
+            "credit": 0.05461500000000001,
+            "url": "https://rlang.r-lib.org"
+        },
+        "tidyselect": {
+            "credit": 0.016500000000000015,
+            "url": "https://tidyselect.r-lib.org"
+        },
+        "R": {
+            "credit": 0.11601236842105263,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.06304736842105263,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.14472236842105263,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.03433736842105263,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.14323736842105264,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.06156236842105263,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.06156236842105263,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.02574,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.03433736842105263,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.06156236842105263,
+            "url": null
+        },
+        "winch": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.01948736842105263,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.01948736842105263,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.01948736842105263,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.008597368421052631,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.01089,
+            "url": null
+        }
+    }
+}

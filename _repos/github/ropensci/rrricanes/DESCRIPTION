@@ -1,0 +1,58 @@
+Package: rrricanes
+Type: Package
+Title: Web Scraper for Atlantic and East Pacific Hurricanes and Tropical Storms
+Description: Get archived data of past and current hurricanes and tropical 
+  storms for the Atlantic and eastern Pacific oceans. Data is available for 
+  storms since 1998. Datasets are updated via the rrricanesdata package. 
+  Currently, this package is about 6MB of datasets. See the README or view 
+  `vignette("drat")` for more information.
+Version: 0.2.0.6.10
+Authors@R: c(person("Tim", "Trice", email = "tim.trice@gmail.com", role = c("aut")), 
+  person("Joseph", "Stachelek", role = c("rev"), comment = "Joseph Stachelek reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/118"), 
+  person("Emily", "Robinson", role = c("rev"), comment = "Emily Robinson reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/118"),
+  person("Sophia", "Barett", role= "ctb", email = "Sbarrett@ccny.cuny.edu"),
+  person("Lismarie", "Arche", role = "ctb", email = "lismarie.arche@lehman.cuny.edu"),
+  person("Simon", "Ayotes", role= "ctb", email="simon@aytes.net"),
+  person("Goodness", "Ajayi-Martins", role = "ctb", email = "goodnessmartins89@gmail.com"),
+  person("Elin", "Waring", email = "elin.waring@gmail.com", role = c("aut","cre"))
+  )
+Depends:
+  R (>= 4.1.0)
+URL: https://docs.ropensci.org/rrricanes https://github.com/ropensci/rrricanes
+BugReports: https://github.com/ropensci/rrricanes/issues
+License: MIT + file LICENSE
+LazyData: TRUE
+ByteCompile: TRUE
+Imports:
+  broom (>= 0.5), 
+  crul (>= 0.7),
+  curl (>= 3.3), 
+  dplyr (>= 0.8), 
+  ggplot2 (>= 3.1), 
+  httr (>= 1.4), 
+  lubridate (>= 1.7),
+  magrittr (>= 1.5), 
+  maptools (>= 0.9), 
+  purrr (>= 0.3), 
+  readr (>= 1.3),
+  rgdal (>= 1.4),
+  rgeos (>= 0.4),
+  rlang (>= 0.3),
+  rnaturalearthdata (>= 0.1),
+  rvest (>= 0.3), 
+  stringr (>= 1.4), 
+  tibble (>= 2.1), 
+  tidyr (>= 0.8), 
+  tidyselect (>= 0.2), 
+  xml2 (>= 1.2)
+Suggests:
+  covr, 
+  devtools,
+  knitr, 
+  rmarkdown,
+  sf (>= 1.0), 
+  sp,
+  testthat
+VignetteBuilder: knitr
+Encoding: UTF-8
+RoxygenNote: 7.1.2

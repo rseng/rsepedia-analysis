@@ -1,0 +1,126 @@
+{
+    "setup.py": {
+        "github/stammler/simframe": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "dill": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "h5py": {
+            "credit": 0.198,
+            "url": "http://www.h5py.org"
+        },
+        "matplotlib": {
+            "credit": 0.198,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.39402000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0019800000000000095,
+            "url": "https://www.scipy.org"
+        },
+        "objgraph": {
+            "credit": 0.0019601999999999953,
+            "url": "https://mg.pov.lt/objgraph/"
+        },
+        "graphviz": {
+            "credit": 0.0019405980000000156,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "coverage": {
+            "credit": 0.0019766110205769235,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest-cov": {
+            "credit": 0.00014778400153846183,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "mock": {
+            "credit": 0.014778400153846153,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "pytest-mock": {
+            "credit": 0.00014778400153846183,
+            "url": "https://github.com/pytest-dev/pytest-mock/"
+        },
+        "pytest": {
+            "credit": 0.02026488121096154,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "twine": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/twine"
+        },
+        "wheel": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "pep8-naming": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/pep8-naming"
+        },
+        "flake8": {
+            "credit": 0.014778400153846153,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "tox": {
+            "credit": 0.018436054191923075,
+            "url": "https://pypi.org/project/tox"
+        },
+        "tomli": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "virtualenv": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0018288270190384614,
+            "url": "https://pypi.org/project/fields"
+        },
+        "pytest-asyncio": {
+            "credit": 0.003657654038076923,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "pre-commit": {
+            "credit": 0.003657654038076923,
+            "url": "https://pypi.org/project/pre-commit"
+        }
+    }
+}

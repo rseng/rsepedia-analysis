@@ -1,0 +1,26 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tabulizer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "png": {
+            "credit": 0.0033000000000000004,
+            "url": "http://www.rforge.net/png/"
+        },
+        "rJava": {
+            "credit": 0.006567,
+            "url": "http://www.rforge.net/rJava/"
+        },
+        "tabulizerjars": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/ropensci/tabulizerjars"
+        },
+        "R": {
+            "credit": 0.003267,
+            "url": null
+        }
+    }
+}

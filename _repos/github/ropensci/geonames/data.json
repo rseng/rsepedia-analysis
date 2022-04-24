@@ -1,0 +1,18 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/geonames": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "rjson": {
+            "credit": 0.0099,
+            "url": "https://github.com/alexcb/rjson"
+        },
+        "R": {
+            "credit": 0.009801,
+            "url": null
+        }
+    }
+}

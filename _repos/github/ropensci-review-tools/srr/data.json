@@ -1,0 +1,214 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci-review-tools/srr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.011415306122448994,
+            "url": "https://cli.r-lib.org"
+        },
+        "clipr": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/mdlincoln/clipr"
+        },
+        "gert": {
+            "credit": 0.001414285714285729,
+            "url": "https://docs.ropensci.org/gert/"
+        },
+        "here": {
+            "credit": 0.001414285714285729,
+            "url": "https://here.r-lib.org/"
+        },
+        "pkgload": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/r-lib/pkgload"
+        },
+        "Rcpp": {
+            "credit": 0.011415306122448994,
+            "url": "http://www.rcpp.org"
+        },
+        "roxygen2": {
+            "credit": 0.14142857142857143,
+            "url": "https://roxygen2.r-lib.org/"
+        },
+        "withr": {
+            "credit": 0.02685892771824449,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.06419607057538733,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.05342574090505767,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.05419505016722407,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.02685892771824449,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0394243123336291,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.05419505016722407,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.05019464200395877,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.06276002661934338,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "R": {
+            "credit": 0.006087577639751552,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "zip": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "sys": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "credentials": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "askpass": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "readr": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "plyr": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "palmerpenguins": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "conflicted": {
+            "credit": 0.010770329670329669,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.020771350078492935,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.023335714285714283,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+  "name": "molart",
+  "description": "MOLeculAR structure annoTator",
+  "version": "1.14.1",
+  "homepage": "https://github.com/cusbg/MolArt",
+  "author": "David Hoksza",
+  "keywords": [],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/cusbg/MolArt/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cusbg/MolArt.git"
+  },
+  "main": "dist/molart.js",
+  "scripts": {
+    "test": "gulp test",
+    "build": "gulp build",
+    "build-debug": "gulp build-debug",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "0.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-es2015-ie": "^6.7.0",
+    "babelify": "^7.3.0",
+    "browser-sync": "^2.27.7",
+    "browserify": "^14.5.0",
+    "browserify-css": "^0.15.0",
+    "chai": "^4.3.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-replace": "^1.1.3",
+    "gulp-uglify": "^3.0.2",
+    "mocha": "^4.0.1",
+    "open": "^6.4.0",
+    "postcss": "^6.0.19",
+    "postcss-url": "^7.3.1",
+    "sinon": "^4.1.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "@types/downloadjs": "^1.4.2",
+    "ProtVista": "https://github.com/davidhoksza/protvista.git#scaling",
+    "color-blend": "^1.0.0",
+    "downloadjs": "^1.4.7",
+    "events": "^1.1.1",
+    "jquery": "^3.6.0",
+    "litemol": "github:dsehnal/LiteMol",
+    "lodash": "^4.17.21",
+    "semantic-ui-button": "^2.3.2",
+    "semantic-ui-dropdown": "^2.2.12",
+    "semantic-ui-label": "^2.2.12",
+    "semantic-ui-transition": "^2.2.12"
+  }
+}

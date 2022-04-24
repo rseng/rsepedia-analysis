@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/slzarate/parliament2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.0033000000000000004,
+            "url": "http://cython.org/"
+        },
+        "pysam": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "biopython": {
+            "credit": 0.0033000000000000004,
+            "url": "https://biopython.org/"
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+    "package.json": {
+        "github/luntergroup/octopus": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "docusaurus": {
+            "credit": 0.2475,
+            "url": "https://github.com/facebook/docusaurus"
+        },
+        "svgr": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/smooth-code/svgr#readme"
+        },
+        "clsx": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/lukeed/clsx#readme"
+        },
+        "file-loader": {
+            "credit": 0.005775000000000016,
+            "url": "https://github.com/webpack-contrib/file-loader"
+        },
+        "react": {
+            "credit": 0.12375,
+            "url": "https://reactjs.org/"
+        },
+        "react-dom": {
+            "credit": 0.12375,
+            "url": "https://reactjs.org/"
+        },
+        "url-loader": {
+            "credit": 0.006138000000000002,
+            "url": "https://github.com/webpack-contrib/url-loader"
+        },
+        "github-current-user": {
+            "credit": 0.0012251250000000075,
+            "url": "https://github.com/beaugunderson/github-current-user"
+        },
+        "tape": {
+            "credit": 0.030628125,
+            "url": "https://github.com/substack/tape"
+        },
+        "tap-spec": {
+            "credit": 0.00030628125000000186,
+            "url": "https://github.com/scottcorgan/tap-spec#readme"
+        },
+        "esm": {
+            "credit": 0.030628125,
+            "url": "https://github.com/standard-things/esm#readme"
+        },
+        "bundt": {
+            "credit": 0.030628125,
+            "url": "https://github.com/lukeed/bundt#readme"
+        },
+        "webpack": {
+            "credit": 0.009437999999999998,
+            "url": "https://github.com/webpack/webpack"
+        },
+        "standard-version": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "memfs": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "del-cli": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "del": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "": {
+            "credit": 0.06606599999999999,
+            "url": null
+        },
+        "schema-utils": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "loader-utils": {
+            "credit": 0.009437999999999998,
+            "url": null
+        },
+        "mini-svg-data-uri": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "mime-types": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "ghsign": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "git-config-path": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "github-username": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "parse-git-config": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "request": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "repeat-string": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "duplexer": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "tap-out": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "figures": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "pretty-ms": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "tapes": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "through2": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        }
+    }
+}

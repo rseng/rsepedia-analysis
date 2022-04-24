@@ -1,0 +1,47 @@
+Package: cleanEHR
+Type: Package
+Title: The Critical Care Clinical Data Processing Tools
+Version: 1.0
+Author: Sinan Shi, David Perez-Suarez, Steve Harris, Niall MacCallum, David
+    Brealey, Mervyn Singer, James Hetherington
+Maintainer: Sinan Shi <s.shi@ucl.ac.uk>
+Description: An electronic health care record (EHR) data cleaning and processing
+    platform. It focus on heterogeneous high resolution longitudinal data. It works with 
+    Critical Care Health Informatics Collaborative (CCHIC) dataset. It is
+    created to address various data reliability and accessibility problems of
+    EHRs as such. 
+Depends:
+    R (>= 3.1.0)
+BugReports: https://github.com/ropensci/cleanEHR/issues
+License: GPL-3
+LinkingTo: Rcpp
+Suggests:
+    testthat
+Imports:
+    data.table,
+    XML,
+    yaml,
+    Rcpp,
+    ggplot2,
+    methods, 
+    pander,
+    knitr
+VignetteBuilder: knitr
+URL: https://docs.ropensci.org/cleanEHR, https://github.com/ropensci/cleanEHR, http://www.hic.nihr.ac.uk
+RoxygenNote: 5.0.1
+Collate:
+    'RcppExports.R'
+    'ccRecord.R'
+    'ccTable.R'
+    'cchic_xml.R'
+    'data.R'
+    'data.quality.report.R'
+    'deltaTime.R'
+    'demographics.R'
+    'filter.categorical.R'
+    'filter.missingness.R'
+    'filter.range.R'
+    'imputation.R'
+    'stdid.R'
+    'utilities.R'
+    'zzz.R'

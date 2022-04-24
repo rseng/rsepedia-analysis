@@ -1,0 +1,49 @@
+Package: nomisr
+Type: Package
+Title: Access 'Nomis' UK Labour Market Data
+Version: 0.4.6
+Authors@R: c(
+    person(
+      "Evan", "Odell", email = "evanodell91@gmail.com", role = c("aut", "cre"),
+      comment = c(ORCID='0000-0003-1845-808X')),
+    person(
+      "Paul", "Egeler", email = "paulegeler@gmail.com", role = c("rev", "ctb")),
+    person(
+      "Christophe", "Dervieux", role = "rev", 
+      comment = c(ORCID='0000-0003-4474-2498')),
+    person(
+      "Nina", "Robery", role = "ctb",
+      comment = "Work and Health Indicators with nomisr vignette")
+    )
+Description: Access UK official statistics from the 'Nomis' database. 
+    'Nomis' includes data from the Census, the Labour Force Survey, DWP benefit 
+    statistics and other economic and demographic data from the Office for 
+    National Statistics, based around statistical geographies. See 
+    <https://www.nomisweb.co.uk/api/v01/help> for full API documentation.
+URL: https://github.com/ropensci/nomisr, https://docs.evanodell.com/nomisr
+BugReports: https://github.com/ropensci/nomisr/issues
+License: MIT + file LICENSE
+Depends: R (>= 3.4.0)
+Imports:
+    jsonlite,
+    tibble,
+    dplyr,
+    httr,
+    utils,
+    rsdmx,
+    rlang,
+    snakecase
+RoxygenNote: 7.1.2
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat,
+    purrr,
+    tidyr,
+    magrittr,
+    ggplot2,
+    scales, 
+    readr
+VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)

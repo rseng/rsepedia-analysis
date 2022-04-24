@@ -1,0 +1,38 @@
+Package: MODISTools
+Title: Interface to the 'MODIS Land Products Subsets' Web Services
+Version: 1.1.2
+Authors@R: person("Hufkens","Koen",
+		  email="koen.hufkens@gmail.com",
+		  role=c("aut", "cre"),
+		  comment = c(ORCID = "0000-0002-5070-8109"))
+Description: Programmatic interface to the Oak Ridge National Laboratories
+    'MODIS Land Products Subsets' web services 
+    (<https://modis.ornl.gov/data/modis_webservice.html>). Allows for easy
+    downloads of 'MODIS' time series directly to your R workspace or
+    your computer.
+URL: https://docs.ropensci.org/MODISTools, https://github.com/ropensci/MODISTools
+BugReports: https://github.com/ropensci/MODISTools/issues
+Depends:
+    R (>= 3.4)
+Imports:
+    httr,
+    utils,
+    sf,
+    raster,
+    terra,
+    stats,
+    memoise,
+    jsonlite
+License: AGPL-3
+LazyData: true
+ByteCompile: true
+RoxygenNote: 7.1.2
+Suggests:
+    knitr,
+    rmarkdown,
+    covr,
+    testthat,
+    rgdal,
+    ggplot2,
+    dplyr
+VignetteBuilder: knitr

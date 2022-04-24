@@ -1,0 +1,51 @@
+Package: babette
+Title: Control 'BEAST2'
+Version: 2.3
+Authors@R: c(
+    person("Richèl J.C.", "Bilderbeek", email = "richel@richelbilderbeek.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1107-7049")),
+    person("Joëlle", "Barido-Sottani", role = "rev", comment = "Joëlle reviewed the package for rOpenSci, see https://github.com/richelbilderbeek/onboarding/issues/209"),
+    person("David", "Winter", role = "rev", comment = "David reviewed the package for rOpenSci, see https://github.com/richelbilderbeek/onboarding/issues/209"),
+    person("Jason", "Griffiths", role = "ctb", comment = c(ORCID = "0000-0002-1667-8233")),
+    person("Giovanni", "Laudanno", email = "glaudanno@gmail.com", role = "ctb"))
+Maintainer: Richèl J.C. Bilderbeek <richel@richelbilderbeek.nl>
+Description: 'BEAST2' (<https://www.beast2.org>) is a widely used
+    Bayesian phylogenetic tool, that uses DNA/RNA/protein data
+    and many model priors to create a posterior of jointly estimated 
+    phylogenies and parameters.
+    'BEAST2' is commonly accompanied by 'BEAUti 2', 'Tracer' and 'DensiTree'.
+    'babette' provides for an alternative workflow of using 
+    all these tools separately. This allows doing complex Bayesian
+    phylogenetics easily and reproducibly from 'R'. 
+License: GPL-3
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr
+URL: https://docs.ropensci.org/babette/ (website)
+    https://github.com/ropensci/babette/
+BugReports: https://github.com/ropensci/babette/issues
+Depends:
+    beautier (>= 2.6.2),
+    beastier (>= 2.4.8),
+    mauricer (>= 2.5),
+    tracerer
+Imports:
+    phangorn,
+    remotes,
+    stringr,
+    testit,
+    xml2
+Suggests:
+    ape,
+    curl,
+    ggplot2,
+    hunspell,
+    knitr,
+    lintr,
+    markdown,
+    nLTT,
+    rappdirs,
+    rmarkdown,
+    spelling,
+    testthat (>= 2.1.0)
+Language: en-US
+Encoding: UTF-8
+SystemRequirements: BEAST2 (https://www.beast2.org/)

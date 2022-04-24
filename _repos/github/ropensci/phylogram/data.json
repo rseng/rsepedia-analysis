@@ -1,0 +1,218 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/phylogram": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ape": {
+            "credit": 0.016763743788819896,
+            "url": "http://ape-package.ird.fr/"
+        },
+        "phangorn": {
+            "credit": 0.0007000714285714249,
+            "url": "https://github.com/KlausVigo/phangorn"
+        },
+        "igraph": {
+            "credit": 0.0037134223602484436,
+            "url": "https://igraph.org"
+        },
+        "expm": {
+            "credit": 0.0007000714285714249,
+            "url": "http://R-Forge.R-project.org/projects/expm/"
+        },
+        "gee": {
+            "credit": 0.0007000714285714249,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0037134223602484436,
+            "url": "http://www.rcpp.org"
+        },
+        "parallel": {
+            "credit": 0.07302049378881988,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.10401615628881986,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.12711851343167702,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.10228347950310558,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.09246497771739129,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.009363455357142853,
+            "url": "http://lattice.r-forge.r-project.org/"
+        },
+        "nlme": {
+            "credit": 0.0007000714285714249,
+            "url": "https://svn.r-project.org/R-packages/trunk/nlme/"
+        },
+        "R": {
+            "credit": 0.08861458486024844,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.0030133509316770187,
+            "url": "http://xtable.r-forge.r-project.org/"
+        },
+        "tinytest": {
+            "credit": 0.01456452950310559,
+            "url": null
+        },
+        "seqLogo": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "seqinr": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.006863743788819876,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "Biostrings": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "quadprog": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.02072515807453416,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.013794450931677018,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.003850392857142857,
+            "url": null
+        },
+        "Rmpfr": {
+            "credit": 0.013861414285714285,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.013861414285714285,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.013861414285714285,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.05024762678571429,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.011551178571428572,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.011551178571428572,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.011551178571428572,
+            "url": null
+        },
+        "chron": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "latticeExtra": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "SASmixed": {
+            "credit": 0.008663383928571428,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.008663383928571428,
+            "url": null
+        }
+    }
+}

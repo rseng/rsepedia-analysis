@@ -1,0 +1,194 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/outcomerate": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rdpack": {
+            "credit": 0.00990000000000002,
+            "url": "https://geobosh.github.io/Rdpack/ (website)"
+        },
+        "gbRd": {
+            "credit": 0.0009800999999999976,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.0009800999999999976,
+            "url": "https://rprojroot.r-lib.org/"
+        },
+        "rstudioapi": {
+            "credit": 0.0039203999999999975,
+            "url": "https://github.com/rstudio/rstudioapi"
+        },
+        "testthat": {
+            "credit": 0.07071023334374998,
+            "url": "https://testthat.r-lib.org"
+        },
+        "grDevices": {
+            "credit": 0.09901062084375,
+            "url": null
+        },
+        "rbibutils": {
+            "credit": 0.0009800999999999976,
+            "url": "https://geobosh.github.io/rbibutils/ (website)"
+        },
+        "utils": {
+            "credit": 0.125207775,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.219297375,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.10195092084374999,
+            "url": null
+        },
+        "R": {
+            "credit": 0.13833713334375,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.003061587375000001,
+            "url": "https://withr.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.04841295834375,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0150690375,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04841295834375,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.01606965834375,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0029403,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.00100062084375,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.00100062084375,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.00100062084375,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.00100062084375,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.00100062084375,
+            "url": null
+        }
+    }
+}

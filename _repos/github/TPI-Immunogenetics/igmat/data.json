@@ -1,0 +1,194 @@
+{
+    "setup.py": {
+        "github/TPI-Immunogenetics/igmat": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "prettytable": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/jazzband/prettytable"
+        },
+        "biopython": {
+            "credit": 0.33,
+            "url": "https://biopython.org/"
+        },
+        "pyyaml": {
+            "credit": 0.33,
+            "url": "https://pyyaml.org/"
+        },
+        "pytest-lazy-fixture": {
+            "credit": 0.0006533999999999984,
+            "url": "https://github.com/tvorog/pytest-lazy-fixture"
+        },
+        "pytest-cov": {
+            "credit": 0.0042470999999999984,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.012979790999999994,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "importlib-metadata": {
+            "credit": 0.008698795874999998,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "wcwidth": {
+            "credit": 0.0006533999999999984,
+            "url": "https://github.com/jquast/wcwidth"
+        },
+        "virtualenv": {
+            "credit": 0.008085825,
+            "url": "https://virtualenv.pypa.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "xmlschema": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "requests": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "tomli": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.011639095875,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.008045395875,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "importlib-resources": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "pytest-mypy": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "pytest-perf": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-perf"
+        },
+        "flufl.flake8": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/flufl.flake8"
+        },
+        "pyfakefs": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pyfakefs"
+        },
+        "pytest-enabler": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-flake8": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "ipython": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "rst.linker": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "zipp": {
+            "credit": 0.0035937,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "backports.functools-lru-cache": {
+            "credit": 0.0646866,
+            "url": "https://pypi.org/project/backports.functools-lru-cache"
+        }
+    }
+}

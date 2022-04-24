@@ -1,0 +1,30 @@
+{
+    "package.json": {
+        "github/tortellini-tools/action": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "actions": {
+            "credit": 0.004242857142857143,
+            "url": "https://github.com/fundon/actions"
+        },
+        "atob": {
+            "credit": 0.0014142857142857143,
+            "url": "https://git.coolaj86.com/coolaj86/atob.js.git"
+        },
+        "node-fetch": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/node-fetch/node-fetch"
+        },
+        "node-html-parser": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/taoqf/node-fast-html-parser"
+        },
+        "pako": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/nodeca/pako#readme"
+        }
+    }
+}

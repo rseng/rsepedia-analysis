@@ -1,0 +1,27 @@
+Package: pixelclasser
+Type: Package
+Title: Classifies Image Pixels by Colour
+Version: 1.0.0
+Authors@R: c(person("Carlos", "Real", email = "carlos.real@usc.es",  role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5433-6728")),
+             person("Quentin", "Read", role = "rev"))
+Description: Contains functions to classify the pixels of an image file
+    (jpeg or tiff) by its colour. It implements a simple form of the techniques 
+    known as Support Vector Machine adapted to this particular problem.
+Encoding: UTF-8
+License: GPL-3
+LazyData: true
+RoxygenNote: 7.1.1
+Imports:
+    graphics,
+    grDevices,
+    jpeg,
+    tiff,
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat,
+    covr
+VignetteBuilder: knitr
+URL: https://github.com/ropensci/pixelclasser
+BugReports: https://github.com/ropensci/pixelclasser
+Language: en-GB

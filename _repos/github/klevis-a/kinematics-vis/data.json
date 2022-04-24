@@ -1,0 +1,106 @@
+{
+    "package.json": {
+        "github/klevis-a/kinematics-vis": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "papaparse": {
+            "credit": 0.2475,
+            "url": "http://papaparse.com"
+        },
+        "plotly.js-dist-min": {
+            "credit": 0.2475,
+            "url": "https://github.com/plotly/plotly.js#readme"
+        },
+        "svd-js": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/danilosalvati/svd-js#readme"
+        },
+        "three": {
+            "credit": 0.2475,
+            "url": "https://threejs.org/"
+        },
+        "standard": {
+            "credit": 0.0136125,
+            "url": "https://standardjs.com"
+        },
+        "rollup-plugin-uglify": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/TrySound/rollup-plugin-uglify"
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.0136125,
+            "url": "https://github.com/rollup/rollup-plugin-babel"
+        },
+        "rollup": {
+            "credit": 0.0149601375,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "mathjs": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "del-cli": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "const-version": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "": {
+            "credit": 0.0721054125,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "serialize-javascript": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "jest-worker": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,710 @@
+{
+    "DESCRIPTION": {
+        "github/david-barnett/microViz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "vegan": {
+            "credit": 0.0004949999999999954,
+            "url": "https://github.com/vegandevs/vegan"
+        },
+        "ggiraph": {
+            "credit": 0.0004949999999999954,
+            "url": "https://davidgohel.github.io/ggiraph/"
+        },
+        "ggplot2": {
+            "credit": 0.01720402773702549,
+            "url": "https://ggplot2.tidyverse.org"
+        },
+        "dplyr": {
+            "credit": 0.015399429910938536,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "rlang": {
+            "credit": 0.016329495241948988,
+            "url": "https://rlang.r-lib.org"
+        },
+        "shiny": {
+            "credit": 0.004578750000000003,
+            "url": "https://shiny.rstudio.com/"
+        },
+        "ggraph": {
+            "credit": 0.0004950000000000024,
+            "url": "https://ggraph.data-imaginist.com"
+        },
+        "tidygraph": {
+            "credit": 0.0022451785714285737,
+            "url": "https://tidygraph.data-imaginist.com"
+        },
+        "circlize": {
+            "credit": 0.0004950000000000024,
+            "url": "https://github.com/jokergoo/circlize"
+        },
+        "seriation": {
+            "credit": 0.00437583074534161,
+            "url": "https://github.com/mhahsler/seriation"
+        },
+        "colorspace": {
+            "credit": 0.005524460526315791,
+            "url": "https://colorspace.R-Forge.R-project.org/"
+        },
+        "scales": {
+            "credit": 0.01209585104529617,
+            "url": "https://scales.r-lib.org"
+        },
+        "purrr": {
+            "credit": 0.007353355263157898,
+            "url": "http://purrr.tidyverse.org"
+        },
+        "tibble": {
+            "credit": 0.01409028517409643,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "tidyr": {
+            "credit": 0.05440525743707094,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "ggrepel": {
+            "credit": 0.004578750000000003,
+            "url": "http://github.com/slowkow/ggrepel"
+        },
+        "broom": {
+            "credit": 0.050985,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "future.apply": {
+            "credit": 0.0495,
+            "url": null
+        },
+        "cowplot": {
+            "credit": 0.0495,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.0495,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.008674954428754815,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.029967942692096097,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.006650678571428571,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.006095743902439025,
+            "url": null
+        },
+        "cluster": {
+            "credit": 0.0073507500000000005,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.012046351045296168,
+            "url": null
+        },
+        "R": {
+            "credit": 0.032215273437437714,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.006095743902439025,
+            "url": null
+        },
+        "permute": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0035288153310104532,
+            "url": null
+        },
+        "quantreg": {
+            "credit": 0.0035288153310104532,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.0035288153310104532,
+            "url": null
+        },
+        "hexbin": {
+            "credit": 0.0035288153310104532,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.0035288153310104532,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.025067442692096095,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.0023335714285714288,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.0023335714285714288,
+            "url": null
+        },
+        "systemfonts": {
+            "credit": 0.0023335714285714288,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.014930706521739133,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.004818420594168348,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.01676849570041222,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0023335714285714288,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.016513633000183384,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "vdiffr": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.025496510116090866,
+            "url": null
+        },
+        "svglite": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.007206726821693684,
+            "url": null
+        },
+        "profvis": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "munsell": {
+            "credit": 0.005456548250265111,
+            "url": null
+        },
+        "multcomp": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "interp": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "ggplot2movies": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0217254053113962,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.009494482165780303,
+            "url": null
+        },
+        "isoband": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "gtable": {
+            "credit": 0.002945422473867596,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.00917012690262241,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.006454698331193838,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.002945422473867596,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.0027746052631578946,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0027746052631578946,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.0027746052631578946,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.007484467963386727,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.005353815789473684,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.014759279534998683,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.009072200424178155,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.013009100963570112,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.013134711865825752,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.003969849165596919,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.001485,
+            "url": null
+        },
+        "winch": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.009519059691912708,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0038688157894736837,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "future": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "shinytest": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "reactlog": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "Cairo": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.002945422473867596,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.002484849165596919,
+            "url": null
+        },
+        "cachem": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "fastmap": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.003325896076352068,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "later": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "sourcetools": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "fontawesome": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.0011952439024390245,
+            "url": null
+        },
+        "gganimate": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "deldir": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "network": {
+            "credit": 0.003880830745341615,
+            "url": null
+        },
+        "graphlayouts": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.003880830745341615,
+            "url": null
+        },
+        "ggforce": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "NetSwan": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "influenceR": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "netrankr": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "data.tree": {
+            "credit": 0.0021306521739130435,
+            "url": null
+        },
+        "bezier": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "png": {
+            "credit": 0.004329389097744361,
+            "url": null
+        },
+        "gridBase": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "ComplexHeatmap": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "dendextend": {
+            "credit": 0.005029460526315789,
+            "url": null
+        },
+        "shape": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "GlobalOptions": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.004329389097744361,
+            "url": null
+        },
+        "umap": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "dbscan": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "Rtsne": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "GA": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "DendSer": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "registry": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "gclus": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "qap": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "TSP": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "wesanderson": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "scico": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "rcartocolor": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "shinyjs": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "vcd": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "mvtnorm": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "kernlab": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.0017501785714285714,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.005550909610983982,
+            "url": null
+        },
+        "viridisLite": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "dichromat": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "labeling": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.005550909610983982,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "formattable": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "DiagrammeR": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "fansi": {
+            "credit": 0.0012896052631578947,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "gridExtra": {
+            "credit": 0.004455,
+            "url": null
+        }
+    }
+}

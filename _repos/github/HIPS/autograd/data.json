@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/HIPS/autograd": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "future": {
+            "credit": 0.00495,
+            "url": "https://python-future.org"
+        }
+    }
+}

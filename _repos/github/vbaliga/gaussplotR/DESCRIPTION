@@ -1,0 +1,35 @@
+Package: gaussplotR
+Type: Package
+Title: Fit, Predict and Plot 2D Gaussians
+Version: 0.2.6
+Authors@R: 
+    person(given = "Vikram B.",
+                 family = "Baliga", 
+                 role = c("aut", "cre", "cph"),
+                 email = "vbaliga87@gmail.com",
+                 comment = c(ORCID = "0000-0002-9367-8974")
+                 )
+Description: 
+    Functions to fit two-dimensional Gaussian functions, predict values from
+    fits, and produce plots of predicted data via either 'ggplot2' or base R 
+    plotting.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9000
+Imports: 
+    ggplot2 (>= 3.3.0),
+    metR (>= 0.7.0),
+    rgl,
+    viridisLite
+Suggests: 
+    lattice,
+    knitr,
+    rmarkdown,
+    testthat
+Depends: 
+    R (>= 3.3.0)
+URL: https://github.com/vbaliga/gaussplotR
+BugReports: https://github.com/vbaliga/gaussplotR/issues
+VignetteBuilder: knitr

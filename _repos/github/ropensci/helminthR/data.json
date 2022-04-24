@@ -1,0 +1,206 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/helminthR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "xml2": {
+            "credit": 0.021096428571428585,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "rvest": {
+            "credit": 0.0016500000000000126,
+            "url": "http://rvest.tidyverse.org/"
+        },
+        "httr": {
+            "credit": 0.1949475,
+            "url": "https://httr.r-lib.org/"
+        },
+        "magrittr": {
+            "credit": 0.031597500000000014,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "plyr": {
+            "credit": 0.0016500000000000126,
+            "url": "http://had.co.nz/plyr"
+        },
+        "taxize": {
+            "credit": 0.0016500000000000126,
+            "url": "https://docs.ropensci.org/taxize/ (website)"
+        },
+        "testthat": {
+            "credit": 0.07934142857142858,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0735075,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.02216892857142857,
+            "url": null
+        },
+        "R": {
+            "credit": 0.07934142857142858,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "png": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "selectr": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "itertools": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.02216892857142857,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "abind": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "vcr": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "vegan": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "conditionz": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "phangorn": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "wikitaxa": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "natserv": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "worrms": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "ritis": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "rotl": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "rredlist": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "bold": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0058339285714285715,
+            "url": null
+        }
+    }
+}

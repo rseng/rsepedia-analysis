@@ -1,0 +1,32 @@
+Package: rperseus
+Title: Get Texts from the Perseus Digital Library
+Version: 0.1.2
+Authors@R: person("David", "Ranzolin", email = "daranzolin@gmail.com", role = c("aut", "cre"))
+Description: The Perseus Digital Library is a collection of classical texts. This package helps
+    you get them. The available works can also be viewed here: <http://cts.perseids.org/>.
+Depends:
+    R (>= 3.3.0)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    stringr,
+    httr,
+    xml2,
+    dplyr,
+    purrr,
+    rlang,
+    rvest,
+    ggplot2,
+    stringi,
+    tibble
+RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown,
+    testthat,
+    covr,
+    roxygen2,
+    tidytext
+VignetteBuilder: knitr
+URL: https://docs.ropensci.org/rperseus, https://github.com/ropensci/rperseus
+BugReports: https://github.com/ropensci/rperseus/issues

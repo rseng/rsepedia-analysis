@@ -1,0 +1,30 @@
+{
+    "DESCRIPTION": {
+        "github/raredd/kmdata": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "fdrtool": {
+            "credit": 0.0099,
+            "url": "https://strimmerlab.github.io/software/fdrtool/"
+        },
+        "stats": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.00245025,
+            "url": null
+        },
+        "R": {
+            "credit": 0.00245025,
+            "url": null
+        }
+    }
+}

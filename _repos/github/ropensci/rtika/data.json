@@ -1,0 +1,118 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rtika": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "curl": {
+            "credit": 0.011908462500000005,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "sys": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/jeroen/sys"
+        },
+        "rappdirs": {
+            "credit": 0.002475000000000005,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "digest": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "webutils": {
+            "credit": 0.00027225000000000166,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.007010437500000001,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.00027225000000000166,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.031717125,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "jsonlite": {
+            "credit": 0.0339631875,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.031717125,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.17183058749999996,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.1089,
+            "url": null
+        },
+        "R": {
+            "credit": 0.14467365,
+            "url": null
+        },
+        "unix": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.053497125,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.06125625,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.06125625,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.063951525,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "later": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.004492125,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,52 @@
+{
+  "name": "via-appia-viewer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint": "yarn lint:js",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:unit": "cross-env TEST=unit ava ./test/specs/**/*",
+    "test:e2e": "cross-env TEST=e2e ava ./test/e2e/**/*"
+  },
+  "dependencies": {
+    "@nuxt/content": "^1.14.0",
+    "@nuxtjs/composition-api": "^0.29.2",
+    "@tailwindcss/typography": "^0.4.1",
+    "@vueuse/core": "^7.4.1",
+    "camera-controls": "^1.33.1",
+    "core-js": "^3.17.2",
+    "daisyui": "^2.0.9",
+    "nuxt": "^2.15.8",
+    "proj4": "^2.7.5",
+    "three": "^0.133.0"
+  },
+  "devDependencies": {
+    "@ava/babel": "^1.0.1",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@nuxtjs/eslint-config": "^6.0.1",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "@vue/test-utils": "^1.2.0",
+    "ava": "^3.15.0",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-vue": "^7.17.0",
+    "js-yaml-loader": "^1.2.2",
+    "jsdom": "^17.0.0",
+    "jsdom-global": "^3.0.2",
+    "nuxt-use-motion": "^2.0.0-beta.5",
+    "postcss": "^8.3.6",
+    "require-extension-hooks": "^0.3.3",
+    "require-extension-hooks-babel": "^1.0.0",
+    "require-extension-hooks-vue": "^3.0.0"
+  }
+}

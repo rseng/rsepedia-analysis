@@ -1,0 +1,242 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rdhs": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "brio": {
+            "credit": 0.0006599999999999939,
+            "url": "https://brio.r-lib.org"
+        },
+        "R6": {
+            "credit": 0.005686153846153841,
+            "url": "https://r6.r-lib.org"
+        },
+        "httr": {
+            "credit": 0.072534,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.066,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "foreign": {
+            "credit": 0.0006599999999999939,
+            "url": "https://svn.r-project.org/R-packages/trunk/foreign/"
+        },
+        "magrittr": {
+            "credit": 0.007193999999999995,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rappdirs": {
+            "credit": 0.0006599999999999939,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "digest": {
+            "credit": 0.005686153846153841,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "storr": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/richfitz/storr"
+        },
+        "xml2": {
+            "credit": 0.0006599999999999939,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "qdapRegex": {
+            "credit": 0.0006599999999999939,
+            "url": "http://trinker.github.com/qdapRegex/"
+        },
+        "rgdal": {
+            "credit": 0.0006599999999999939,
+            "url": "http://rgdal.r-forge.r-project.org"
+        },
+        "getPass": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/wrathematics/getPass"
+        },
+        "haven": {
+            "credit": 0.0006599999999999939,
+            "url": "https://haven.tidyverse.org"
+        },
+        "iotools": {
+            "credit": 0.0006599999999999939,
+            "url": "http://www.rforge.net/iotools"
+        },
+        "testthat": {
+            "credit": 0.12844615384615385,
+            "url": "https://testthat.r-lib.org"
+        },
+        "covr": {
+            "credit": 0.066792,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.021780000000000004,
+            "url": null
+        },
+        "R": {
+            "credit": 0.14913715384615386,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.020691,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.066429,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.04392300000000001,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.030436153846153856,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.014520000000000002,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.030436153846153856,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.013068000000000001,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.013068000000000001,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.016335000000000002,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.016335000000000002,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.005026153846153847,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.005026153846153847,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.01809415384615385,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.005026153846153847,
+            "url": null
+        },
+        "RPostgres": {
+            "credit": 0.005026153846153847,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.009382153846153847,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.009382153846153847,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.006534000000000001,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.021780000000000004,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "mapview": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.0043560000000000005,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.016335000000000002,
+            "url": null
+        },
+        "argon2": {
+            "credit": 0.016335000000000002,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "readr": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0036300000000000004,
+            "url": null
+        }
+    }
+}

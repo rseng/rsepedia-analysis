@@ -1,0 +1,226 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/babette": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "phangorn": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/KlausVigo/phangorn"
+        },
+        "remotes": {
+            "credit": 0.0019799999999999818,
+            "url": "https://remotes.r-lib.org"
+        },
+        "stringr": {
+            "credit": 0.0019799999999999818,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "testit": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/yihui/testit"
+        },
+        "xml2": {
+            "credit": 0.0019799999999999818,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "xtable": {
+            "credit": 8.522608695652259e-05,
+            "url": "http://xtable.r-forge.r-project.org/"
+        },
+        "tinytest": {
+            "credit": 8.522608695652259e-05,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "seqLogo": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "seqinr": {
+            "credit": 8.522608695652259e-05,
+            "url": "http://seqinr.r-forge.r-project.org/"
+        },
+        "rmarkdown": {
+            "credit": 0.057527608695652176,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "rgl": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.058732949068322986,
+            "url": null
+        },
+        "Biostrings": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.027966331677018633,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.01952894906832298,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "quadprog": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.037925608695652174,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0615454099378882,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.008522608695652174,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "webfakes": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.04900500000000001,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "pingr": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.029403000000000002,
+            "url": null
+        },
+        "git2r": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.04900500000000001,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.029403000000000002,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "brew": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.19602,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.0012053403726708072,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0012053403726708072,
+            "url": null
+        },
+        "plm": {
+            "credit": 0.0012053403726708072,
+            "url": null
+        },
+        "segmented": {
+            "credit": 0.0028124608695652173,
+            "url": null
+        },
+        "ade4": {
+            "credit": 0.0028124608695652173,
+            "url": null
+        }
+    }
+}

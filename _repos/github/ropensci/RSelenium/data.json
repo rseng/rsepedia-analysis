@@ -1,0 +1,154 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/RSelenium": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "XML": {
+            "credit": 0.009735825000000012,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "caTools": {
+            "credit": 0.0016500000000000126,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.005019093750000012,
+            "url": "https://github.com/jeroen/openssl"
+        },
+        "httr": {
+            "credit": 0.17666785714285715,
+            "url": "https://httr.r-lib.org/"
+        },
+        "wdman": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/ropensci/wdman"
+        },
+        "binman": {
+            "credit": 0.016500000000000015,
+            "url": "https://docs.ropensci.org/binman/"
+        },
+        "RCurl": {
+            "credit": 0.0003266999999999992,
+            "url": "http://www.omegahat.net/RCurl"
+        },
+        "bitops": {
+            "credit": 0.08159332500000001,
+            "url": "https://github.com/mmaechler/R-bitops"
+        },
+        "utils": {
+            "credit": 0.06323076964285713,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0447987375,
+            "url": null
+        },
+        "R": {
+            "credit": 0.12023991964285716,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.0004083750000000025,
+            "url": "https://github.com/bethatkinson/rpart"
+        },
+        "MASS": {
+            "credit": 0.0004083750000000025,
+            "url": "http://www.stats.ox.ac.uk/pub/MASS4/"
+        },
+        "sodium": {
+            "credit": 0.00020418750000000124,
+            "url": "https://github.com/jeroen/sodium#readme (devel)\nhttps://download.libsodium.org/doc/ (upstream)"
+        },
+        "jose": {
+            "credit": 0.00020418750000000124,
+            "url": "https://datatracker.ietf.org/wg/jose/documents/\nhttps://www.w3.org/TR/WebCryptoAPI/#jose\nhttps://github.com/r-lib/jose"
+        },
+        "jsonlite": {
+            "credit": 0.03545570089285714,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "rmarkdown": {
+            "credit": 0.06041298214285715,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.06041298214285715,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.050305700892857144,
+            "url": null
+        },
+        "askpass": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.02651785714285714,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.02651785714285714,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.02651785714285714,
+            "url": null
+        },
+        "subprocess": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "assertthat": {
+            "credit": 0.02651785714285714,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.023796594642857143,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        }
+    }
+}

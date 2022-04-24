@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/chasmani/piecewise-regression": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "statsmodels": {
+            "credit": 0.002475,
+            "url": "https://www.statsmodels.org/"
+        }
+    }
+}

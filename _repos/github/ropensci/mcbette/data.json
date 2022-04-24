@@ -1,0 +1,318 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/mcbette": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "babette": {
+            "credit": 0.0011000000000000038,
+            "url": "https://docs.ropensci.org/babette/ (website)\nhttps://github.com/ropensci/babette/"
+        },
+        "beautier": {
+            "credit": 0.023881578947368424,
+            "url": "https://docs.ropensci.org/beautier/ (website)\nhttps://github.com/ropensci/beautier/"
+        },
+        "beastier": {
+            "credit": 0.018150000000000003,
+            "url": "https://docs.ropensci.org/beastier/ (website)\nhttps://github.com/ropensci/beastier/"
+        },
+        "curl": {
+            "credit": 0.020806097560975612,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "devtools": {
+            "credit": 0.0132374613003096,
+            "url": "https://devtools.r-lib.org/"
+        },
+        "mauricer": {
+            "credit": 0.006050000000000003,
+            "url": "https://docs.ropensci.org/mauricer/ (website)\nhttps://github.com/ropensci/mauricer/"
+        },
+        "Rmpfr": {
+            "credit": 0.0011000000000000038,
+            "url": "https://rmpfr.r-forge.r-project.org/"
+        },
+        "testit": {
+            "credit": 0.0302874613003096,
+            "url": "https://github.com/yihui/testit"
+        },
+        "txtplot": {
+            "credit": 0.11,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.043943558861285203,
+            "url": "https://testthat.r-lib.org"
+        },
+        "spelling": {
+            "credit": 0.031843558861285204,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.043943558861285203,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.017087461300309595,
+            "url": null
+        },
+        "nLTT": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.029187461300309595,
+            "url": null
+        },
+        "lintr": {
+            "credit": 0.014011979913916785,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.043943558861285203,
+            "url": null
+        },
+        "hunspell": {
+            "credit": 0.017087461300309595,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.011355882352941176,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.017087461300309595,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.01068157894736842,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.029187461300309595,
+            "url": null
+        },
+        "remotes": {
+            "credit": 0.007606097560975609,
+            "url": null
+        },
+        "phangorn": {
+            "credit": 0.01068157894736842,
+            "url": null
+        },
+        "tracerer": {
+            "credit": 0.01068157894736842,
+            "url": null
+        },
+        "R": {
+            "credit": 0.028781097560975608,
+            "url": null
+        },
+        "readr": {
+            "credit": 0.012137461300309597,
+            "url": null
+        },
+        "seqinr": {
+            "credit": 0.006405882352941176,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.006405882352941176,
+            "url": null
+        },
+        "assertive": {
+            "credit": 0.012137461300309597,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.005731578947368421,
+            "url": null
+        },
+        "rJava": {
+            "credit": 0.005731578947368421,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.0121,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.0121,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0121,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0121,
+            "url": null
+        },
+        "rhub": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "pkgdown": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "pingr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.011731097560975609,
+            "url": null
+        },
+        "gmailr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "gh": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "foghorn": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "BiocManager": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.011731097560975609,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.011731097560975609,
+            "url": null
+        },
+        "sessioninfo": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "rversions": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.1115560975609756,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "rcmdcheck": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0026560975609756098,
+            "url": null
+        },
+        "pracma": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "dfoptim": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "polynom": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "Bessel": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "gmp": {
+            "credit": 0.009075,
+            "url": null
+        }
+    }
+}

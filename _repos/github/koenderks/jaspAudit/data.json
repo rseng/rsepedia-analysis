@@ -1,0 +1,262 @@
+{
+    "DESCRIPTION": {
+        "github/koenderks/jaspAudit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "digitTests": {
+            "credit": 0.0019800000000000095,
+            "url": "https://koenderks.github.io/digitTests/"
+        },
+        "extraDistr": {
+            "credit": 0.026482499999999982,
+            "url": "https://github.com/twolodzko/extraDistr"
+        },
+        "ggplot2": {
+            "credit": 0.01980000000000001,
+            "url": "https://ggplot2.tidyverse.org"
+        },
+        "ggrepel": {
+            "credit": 0.0019800000000000095,
+            "url": "http://github.com/slowkow/ggrepel"
+        },
+        "jfa": {
+            "credit": 0.0019800000000000095,
+            "url": "https://koenderks.github.io/jfa/"
+        },
+        "testthat": {
+            "credit": 0.0912079756097561,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.0716059756097561,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0716059756097561,
+            "url": null
+        },
+        "BeyondBenford": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "BenfordTests": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "benford.analysis": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.05378597560975609,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "actuar": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "triangle": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "skellam": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "hoa": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "evd": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "VGAM": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "LaplacesDemon": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.037422,
+            "url": null
+        },
+        "R": {
+            "credit": 0.042202975609756097,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "vdiffr": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "svglite": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "quantreg": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "profvis": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "munsell": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "multcomp": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "interp": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "hexbin": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "ggplot2movies": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.022600975609756095,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "isoband": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "gtable": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.022600975609756095,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.004780975609756098,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "gridExtra": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "MUS": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "kableExtra": {
+            "credit": 0.0245025,
+            "url": null
+        }
+    }
+}

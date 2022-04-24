@@ -1,0 +1,20 @@
+Package: jenkins
+Type: Package
+Title: Simple Jenkins Client for R
+Version: 1.0.9102
+Author: Jeroen Ooms
+Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
+Description: Manage jobs and builds on your Jenkins CI server <https://jenkins.io/>. 
+    Create and edit projects, schedule builds, manage the queue, download build logs,
+    and much more.
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/jenkins/ (website),
+    https://github.com/ropensci/jenkins
+BugReports: https://github.com/ropensci/jenkins/issues
+Encoding: UTF-8
+Imports: 
+    curl,
+    jsonlite
+LazyData: true
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)

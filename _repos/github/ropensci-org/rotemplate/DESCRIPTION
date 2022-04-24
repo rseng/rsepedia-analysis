@@ -1,0 +1,39 @@
+Package: rotemplate
+Title: pkgdown template and utilities for rOpenSci docs
+Version: 2.0.0
+Authors@R: 
+    c(person(given = "Maëlle",
+             family = "Salmon",
+             role = c("cre", "aut"),
+             email = "maelle.salmon@yahoo.se",
+             comment = c(ORCID = "0000-0002-2815-0399")),
+      person(given = "Jeroen",
+             family = "Ooms",
+             role = "aut",
+             email = "jeroen@berkeley.edu"),
+      person(given = "rOpenSci",
+             role = "fnd",
+             comment = "https://ropensci.org/"))
+Description: This is a private template for use by rOpenSci
+    packages.  Please don't use it for your own non-rOpenSci package.
+License: MIT + file LICENSE
+URL: https://github.com/ropensci-org/rotemplate
+BugReports: https://github.com/ropensci-org/rotemplate/issues
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    usethis,
+    withr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Imports:
+    commonmark,
+    pkgdown (>= 2.0.1),
+    servr,
+    xml2,
+    yaml
+Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3

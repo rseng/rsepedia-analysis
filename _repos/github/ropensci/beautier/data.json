@@ -1,0 +1,214 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/beautier": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ape": {
+            "credit": 0.001414285714285729,
+            "url": "http://ape-package.ird.fr/"
+        },
+        "assertive": {
+            "credit": 0.001414285714285729,
+            "url": "https://bitbucket.org/richierocks/assertive"
+        },
+        "pryr": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/hadley/pryr"
+        },
+        "rappdirs": {
+            "credit": 0.001414285714285729,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "seqinr": {
+            "credit": 0.001414285714285729,
+            "url": "http://seqinr.r-forge.r-project.org/"
+        },
+        "stringr": {
+            "credit": 0.001414285714285729,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "testit": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/yihui/testit"
+        },
+        "phangorn": {
+            "credit": 0.010001020408163265,
+            "url": "https://github.com/KlausVigo/phangorn"
+        },
+        "igraph": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "gee": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "R": {
+            "credit": 0.10604590762620837,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.04937345864661653,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0213706015037594,
+            "url": null
+        },
+        "assertive.code": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.reflection": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.data.us": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.data.uk": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.data": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.models": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.matrices": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.sets": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.files": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.datetimes": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.strings": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.numbers": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.types": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.properties": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "assertive.base": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.042004285714285716,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "segmented": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "ade4": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.1400142857142857,
+            "url": null
+        }
+    }
+}

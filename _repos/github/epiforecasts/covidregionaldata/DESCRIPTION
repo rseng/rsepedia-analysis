@@ -1,0 +1,130 @@
+Package: covidregionaldata
+Title: Subnational Data for COVID-19 Epidemiology
+Version: 0.9.3
+Authors@R:
+    c(person(given = "Joseph",
+             family = "Palmer",
+             role = "aut",
+             email = "joe.palmer.2019@live.rhul.ac.uk",
+             comment = c(ORCID = "0000-0002-5593-9352")),
+      person(given = "Katharine",
+             family = "Sherratt",
+             role = "aut",
+             email = "katharine.sherratt@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0003-2049-3423")),
+      person(given = "Richard",
+             family = "Martin-Nielsen",
+             role = "aut",
+             comment = c(URL = "https://github.com/RichardMN")),
+      person(given = "Jonnie",
+             family = "Bevan",
+             role = "aut",
+             email = "jonnie.bevan@tessella.com"),
+      person(given = "Hamish",
+             family = "Gibbs",
+             role = "aut",
+             email = "Hamish.Gibbs@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0003-4413-453X")),
+      person(given = "Hugo",
+             family = "Gruson",
+             role = "aut",
+             comment = c(ORCID = "0000-0002-4094-1476")),
+      person(given = "Sophie",
+             family = "Meakin",
+             role = "ctb",
+             email = "sophie.meaking@lshtm.ac.uk"),
+      person(given = "Joel",
+             family = "Hellewell",
+             role = "ctb",
+             email = "joel.hellewell@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0003-2683-0849")),
+      person(given = "Patrick",
+             family = "Barks",
+             role = "ctb",
+             email = "patrick.barks@epicentre.msf.org"),
+      person(given = "Paul",
+             family = "Campbell",
+             role = "ctb",
+             email = " paul.campbell@epicentre.msf.org"),
+      person(given = "Flavio",
+             family = "Finger",
+             role = "ctb",
+             email = "flavio.finger@epicentre.msf.org",
+             comment = c(ORCID = "0000-0002-8613-5170")),
+      person(given = "Richard",
+             family = "Boyes",
+             role = "ctb",
+             comment = c(URL = "https://github.com/rboyes")),
+      person(given = "Vang",
+             family = "Le",
+             role = "ctb",
+             comment = c(URL = "https://github.com/biocyberman")),
+      person(given = "Sebastian",
+             family = "Funk",
+             role = "aut",
+             email = "sebastian.funk@lshtm.ac.uk"),
+      person(given = "Sam Abbott",
+             role = c("aut", "cre"),
+             email = "sam.abbott@lshtm.ac.uk",
+             comment = c(ORCID = "0000-0001-8057-8037")))
+Description: An interface to subnational and national level COVID-19 data
+    sourced from both official sources, such as Public Health England in
+    the UK, and from other COVID-19 data collections, including the World
+    Health Organisation (WHO), European Centre for Disease Prevention and
+    Control (ECDC), John Hopkins University (JHU), Google Open Data and
+    others. Designed to streamline COVID-19 data extraction, cleaning, and
+    processing from a range of data sources in an open and transparent
+    way. This allows users to inspect and scrutinise the data, and tools
+    used to process it, at every step. For all countries supported, data
+    includes a daily time-series of cases. Wherever available data is also
+    provided for deaths, hospitalisations, and tests. National level data
+    are also supported using a range of sources.
+License: MIT + file LICENSE
+URL: https://epiforecasts.io/covidregionaldata/,
+    https://github.com/epiforecasts/covidregionaldata/
+BugReports: https://github.com/epiforecasts/covidregionaldata/issues/
+Depends:
+    R (>= 3.5.0)
+Imports:
+    countrycode (>= 1.2.0),
+    dplyr,
+    httr,
+    jsonlite,
+    lifecycle,
+    lubridate,
+    memoise,
+    purrr,
+    R6,
+    readxl,
+    rlang,
+    stringr,
+    tidyr (>= 1.0.0),
+    tidyselect,
+    vroom,
+    xml2
+Suggests:
+    ggplot2,
+    ggspatial,
+    knitr,
+    mockery,
+    rmarkdown,
+    RSocrata,
+    rvest,
+    rworldmap,
+    sf,
+    spelling,
+    testthat (>= 3.0.0),
+    usethis
+VignetteBuilder:
+    knitr
+Config/testthat/edition: 3
+Config/Needs/website: 
+    r-lib/pkgdown,
+    amirmasoudabdol/preferably
+Config/Needs/coverage: 
+    covr
+Encoding: UTF-8
+Language: en-gb
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

@@ -1,0 +1,166 @@
+{
+    "requirements.txt": {
+        "github/abinit/abinit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "html2text": {
+            "credit": 0.11,
+            "url": "https://github.com/Alir3z4/html2text/"
+        },
+        "mkdocs": {
+            "credit": 0.019250000000000003,
+            "url": "https://www.mkdocs.org"
+        },
+        "mkdocs-material": {
+            "credit": 0.0011000000000000038,
+            "url": "https://squidfunk.github.io/mkdocs-material/"
+        },
+        "pymdown-extensions": {
+            "credit": 0.019250000000000003,
+            "url": "https://github.com/facelessuser/pymdown-extensions"
+        },
+        "python-markdown-math": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/mitya57/python-markdown-math"
+        },
+        "pyyaml": {
+            "credit": 0.11,
+            "url": "https://pyyaml.org/"
+        },
+        "pygments": {
+            "credit": 0.13495625,
+            "url": "https://pygments.org/"
+        },
+        "pybtex": {
+            "credit": 0.0011000000000000038,
+            "url": "https://pybtex.org/"
+        },
+        "pytest": {
+            "credit": 0.028325000000000003,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "babel": {
+            "credit": 0.009899999999999999,
+            "url": "http://babel.pocoo.org/"
+        },
+        "mergedeep": {
+            "credit": 0.009899999999999999,
+            "url": "https://github.com/clarketm/mergedeep"
+        },
+        "packaging": {
+            "credit": 0.00690525,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "importlib-metadata": {
+            "credit": 0.01670625,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "pyyaml-env-tag": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/pyyaml-env-tag"
+        },
+        "ghp-import": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/ghp-import"
+        },
+        "watchdog": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "PyYAML": {
+            "credit": 0.037125,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "Markdown": {
+            "credit": 0.22769999999999999,
+            "url": "https://pypi.org/project/Markdown"
+        },
+        "Jinja2": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "click": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/click"
+        },
+        "mkdocs-material-extensions": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/mkdocs-material-extensions"
+        },
+        "markdown": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/markdown"
+        },
+        "jinja2": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "six": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/six"
+        },
+        "latexcodec": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/latexcodec"
+        },
+        "xmlschema": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "requests": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/requests"
+        },
+        "nose": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "tomli": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "iniconfig": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "pyparsing": {
+            "credit": 0.009800999999999999,
+            "url": "https://pypi.org/project/pyparsing"
+        }
+    }
+}

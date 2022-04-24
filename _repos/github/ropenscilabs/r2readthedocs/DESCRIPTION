@@ -1,0 +1,22 @@
+Package: r2readthedocs
+Title: Convert R Package Documentation to a 'readthedocs' Website
+Version: 0.0.1.018
+Authors@R: 
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"))
+Description: Convert R package documentation to a 'readthedocs' website.
+License: GPL-3
+URL: https://github.com/ropenscilabs/r2readthedocs
+BugReports: https://github.com/ropenscilabs/r2readthedocs/issues
+Imports:
+    brio,
+    desc,
+    here,
+    Rd2md,
+    withr
+Suggests: 
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

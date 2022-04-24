@@ -1,0 +1,24 @@
+Package: c212
+Type: Package
+Title: Methods for Detecting Safety Signals in Clinical Trials Using Body-Systems (System Organ Classes)
+Version: 0.99
+Date: 2020-10-06
+Authors@R:  person(given = "Raymond",
+                   family = "Carragher",
+                   role = c("aut", "cre"),
+                   email = "rcarragh@gmail.com",
+                   comment = c(ORCID = "0000-0002-0120-625X"))
+Depends: coda (>= 0.19)
+Encoding: UTF-8
+LazyData: true
+Description: Provides a self-contained set of methods to aid clinical trial
+    safety investigators, statisticians and researchers, in the early
+    detection of adverse events using groupings by body-system or system
+    organ class. This work was supported by the Engineering and Physical
+    Sciences Research Council (UK) (EPSRC) [award reference 1521741] and
+    Frontier Science (Scotland) Ltd. The package title c212 is in reference
+    to the original Engineering and Physical Sciences Research Council (UK)
+    funded project which was named CASE 2/12.
+License: GPL-3 + file LICENSE
+URL: https://github.com/rcarragh/c212
+BugReports: https://github.com/rcarragh/c212/issues

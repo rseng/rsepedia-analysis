@@ -1,0 +1,166 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/Rpolyhedra": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "geometry": {
+            "credit": 0.001414285714285729,
+            "url": "https://davidcsterratt.github.io/geometry"
+        },
+        "rgl": {
+            "credit": 0.15543,
+            "url": "https://github.com/dmurdoch/rgl"
+        },
+        "stringr": {
+            "credit": 0.001414285714285729,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "XML": {
+            "credit": 0.001414285714285729,
+            "url": "http://www.omegahat.net/RSXML/"
+        },
+        "digest": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "futile.logger": {
+            "credit": 0.001414285714285729,
+            "url": "NA"
+        },
+        "git2r": {
+            "credit": 0.001414285714285729,
+            "url": "https://docs.ropensci.org/git2r/ (website)"
+        },
+        "tripack": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "R.matlab": {
+            "credit": 0.00014001428571428637,
+            "url": "https://github.com/HenrikBengtsson/R.matlab"
+        },
+        "testthat": {
+            "credit": 0.056005714285714284,
+            "url": "https://testthat.r-lib.org"
+        },
+        "spelling": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "linprog": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "lpSolve": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "magic": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "R": {
+            "credit": 0.15574839107142854,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.12774553392857144,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.029735533928571426,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "futile.options": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "lambda.r": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "getPass": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0017326767857142856,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0017326767857142856,
+            "url": null
+        },
+        "R.methodsS3": {
+            "credit": 0.0017326767857142856,
+            "url": null
+        },
+        "R.oo": {
+            "credit": 0.0017326767857142856,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.0017326767857142856,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,166 @@
+{
+    "DESCRIPTION": {
+        "github/mcsiple/mmrefpoints": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "config": {
+            "credit": 0.0002911764705882357,
+            "url": "https://github.com/rstudio/config"
+        },
+        "shiny": {
+            "credit": 0.02911764705882353,
+            "url": "https://shiny.rstudio.com/"
+        },
+        "processx": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "attempt": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "golem": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "DT": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "gapminder": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "tableHTML": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "formattable": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "kableExtra": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "extrafont": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "gridExtra": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "shiny.i18n": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03392205882352941,
+            "url": null
+        },
+        "gganimate": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "plotly": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "popbio": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "shinyBS": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "shinythemes": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.02911764705882353,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.004804411764705883,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.004804411764705883,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.004804411764705883,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.004804411764705883,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.004804411764705883,
+            "url": null
+        }
+    }
+}

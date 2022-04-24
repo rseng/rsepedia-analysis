@@ -1,0 +1,146 @@
+{
+  "name": "bigx",
+  "version": "1.0.0",
+  "description": "A data visualisation tool for geographical datasets",
+  "main": "src/index.js",
+  "private": true,
+  "author": "Stefanie Wiegand",
+  "license": "GPL-3.0",
+  "repository": "gitlab:geekysquirrel/bigx",
+  "homepage": "https://gitlab.com/geekysquirrel/bigx#README",
+  "bugs": "https://gitlab.com/geekysquirrel/bigx/issues",
+  "scripts": {
+    "lint": "eslint src",
+    "jshint": "jshint --exclude src/js/lib  src test",
+    "test": "jest --env=jsdom",
+    "test1": "jest --env=jsdom -i \"$@\"",
+    "badges": "coverage-badges",
+    "stryker": "npx stryker run stryker.conf.js",
+    "start": "electron src"
+  },
+  "build": {
+    "appId": "net.binarywood.bigx",
+    "productName": "BigX"
+  },
+  "dependencies": {
+    "leaflet-geotiff-2": "^0.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/eslint-parser": "^7.14.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/preset-env": "^7.9.6",
+    "@stryker-mutator/babel-transpiler": "^4.0.0",
+    "@stryker-mutator/core": "^5.0.0",
+    "@stryker-mutator/javascript-mutator": "^4.0.0",
+    "@stryker-mutator/jest-runner": "^5.0.0",
+    "babel-jest": "^27.0.2",
+    "coverage-badges": "^1.0.5",
+    "electron": "^9.0.4",
+    "electron-squirrel-startup": "^1.0.0",
+    "eslint": "^7.28.0",
+    "jest": "^27.0.4",
+    "jest-canvas-mock": "^2.3.1",
+    "jest-jasmine2": "^27.0.4",
+    "jquery": "^3.5.1",
+    "jquery-csv": "^1.0.11",
+    "jsdoc": "^3.6.4",
+    "jsdom": "^16.2.2",
+    "jshint": "^2.11.1",
+    "prettier": "^2.3.1",
+    "stryker-cli": "^1.0.1"
+  },
+  "jshintConfig": {
+    "esversion": "10",
+    "asi": true,
+    "node": true,
+    "browser": true,
+    "jasmine": true,
+    "laxbreak": true
+  },
+  "jest": {
+    "testRunner": "jest-jasmine2",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/js/*.js",
+      "!<rootDir>/src/js/lib/*.js",
+      "!<rootDir>/src/js/(config|app).js"
+    ],
+    "verbose": true,
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.js"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "coverageDirectory": "<rootDir>/reports/coverage"
+  },
+  "prettier": {
+    "printWidth": 99,
+    "tabWidth": 4,
+    "semi": false,
+    "trailingComma": "none",
+    "jsxBracketSameLine": true,
+    "arrowParens": "avoid"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2020": true,
+      "jquery": true,
+      "jest": true
+    },
+    "extends": "eslint:recommended",
+    "parser": "@babel/eslint-parser",
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly",
+      "require": true,
+      "L": true,
+      "__dirname": true,
+      "Spinner": true,
+      "gpxParser": true
+    },
+    "parserOptions": {
+      "requireConfigFile": false,
+      "ecmaVersion": 11,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+      }
+    },
+    "rules": {
+      "no-unused-vars": "warn",
+      "no-fallthrough": "off",
+      "no-undef": "warn",
+      "no-case-declarations": "off",
+      "no-console": "off",
+      "no-unexpected-multiline": "warn"
+    },
+    "ignorePatterns": [
+      "src/js/lib/**"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}

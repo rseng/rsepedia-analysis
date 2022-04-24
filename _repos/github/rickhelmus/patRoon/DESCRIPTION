@@ -1,0 +1,245 @@
+Package: patRoon
+Type: Package
+Title: Workflows for Mass-Spectrometry Based Non-Target Analysis
+Version: 2.0.1
+Authors@R: c(
+    person("Rick", "Helmus",
+           email = "r.helmus@uva.nl",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9401-3133")
+    ),
+    person("Olaf", "Brock",
+           role = "ctb",
+           comment = c(ORCID = "0000-0003-4727-8459")
+    ),
+    person("Vittorio", "Albergamo",
+           role = "ctb",
+           comment = c(ORCID = "0000-0002-5347-1362")
+    ),
+    person("Andrea", "Brunner",
+           role = "ctb",
+           comment = c(ORCID = "0000-0002-2801-1751")
+    ),
+    person("Emma", "Schymanski",
+           role = "ctb",
+           comment = c(ORCID = "0000-0001-6868-8145")
+    ),
+    person("Bas", "van de Velde",
+           role = "ctb",
+           comment = c(ORCID = "0000-0003-1292-3251"),
+    ))
+Description: Provides an easy-to-use interface to a mass spectrometry based
+    non-target analysis workflow. Various (open-source) tools are combined
+    which provide algorithms for extraction and grouping of features,
+    extraction of MS and MS/MS data, automatic formula and compound annotation
+    and grouping related features to components. In addition, various tools are
+    provided for e.g. data preparation and cleanup, plotting results and
+    automatic reporting.
+License: GPL-3
+LazyData: TRUE
+RoxygenNote: 7.1.2
+URL: https://github.com/rickhelmus/patRoon
+BugReports: https://github.com/rickhelmus/patRoon/issues
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+SystemRequirements: GNU make
+Imports:
+    methods,
+    checkmate (>= 1.8.5),
+    Rcpp,
+    VennDiagram,
+    UpSetR,
+    stats,
+    utils,
+    parallel,
+    grid,
+    graphics,
+    RColorBrewer,
+    data.table,
+    withr,
+    digest,
+    enviPick,
+    DBI,
+    RSQLite (>= 2.2.4),
+    fst,
+    processx,
+    tools,
+    MSnbase,
+    Biobase,
+    BiocParallel,
+    xcms,
+    cluster,
+    fastcluster,
+    gplots,
+    heatmaply,
+    dynamicTreeCut,
+    dendextend,
+    igraph,
+    visNetwork,
+    rJava,
+    rcdk,
+    fingerprint,
+    mzR,
+    circlize,
+    miniUI,
+    rhandsontable,
+    rstudioapi,
+    htmlwidgets,
+    shiny,
+    shinyjs,
+    CAMERA,
+    enviPat,
+    knitr,
+    rmarkdown,
+    flexdashboard,
+    DT,
+    magrittr,
+    kableExtra,
+    R.utils,
+    magick,
+    glue,
+    jsonlite,
+    Rdpack,
+    rsm,
+    future,
+    future.apply,
+    fs,
+    yaml,
+    keys,
+    backports
+Suggests: 
+    RDCOMClient,
+    metfRag,
+    nontarget,
+    RAMClustR,
+    KPIC,
+    MetaClean,
+    MetaCleanData,
+    testthat,
+    rlang,
+    vdiffr,
+    patRoonData,
+    devtools,
+    covr,
+    DiagrammeR,
+    DiagrammeRsvg,
+    rsvg,
+    pkgload
+LinkingTo:
+    Rcpp
+RdMacros:
+    Rdpack
+Collate: 
+    'RcppExports.R'
+    'generics.R'
+    'cache.R'
+    'main.R'
+    'workflow-step.R'
+    'TP.R'
+    'TP-biotransformer.R'
+    'TP-library.R'
+    'features.R'
+    'workflow-step-set.R'
+    'features-set.R'
+    'feature_groups.R'
+    'feature_groups-set.R'
+    'TP-logic.R'
+    'utils.R'
+    'utils-adduct.R'
+    'adduct.R'
+    'check_ui.R'
+    'utils-components.R'
+    'components.R'
+    'check_components.R'
+    'check_features.R'
+    'components-camera.R'
+    'components-features.R'
+    'components-cliquems.R'
+    'components-clust.R'
+    'components-intclust.R'
+    'components-set.R'
+    'components-nontarget.R'
+    'components-nontarget-set.R'
+    'components-openms.R'
+    'components-ramclustr.R'
+    'components-specclust.R'
+    'feature_annotations.R'
+    'formulas.R'
+    'mspeaklists.R'
+    'compounds.R'
+    'utils-compounds.R'
+    'utils-screening.R'
+    'feature_groups-screening.R'
+    'feature_groups-screening-set.R'
+    'components-tps.R'
+    'compounds-cluster.R'
+    'compounds-metfrag.R'
+    'utils-feat_annotations-set.R'
+    'compounds-set.R'
+    'utils-sirius.R'
+    'compounds-sirius.R'
+    'convert.R'
+    'defunct.R'
+    'deprecated.R'
+    'utils-IPO.R'
+    'doe-optimizer.R'
+    'feature_groups-bruker.R'
+    'feature_groups-comparison.R'
+    'feature_groups-envimass.R'
+    'feature_groups-filter.R'
+    'feature_groups-kpic2.R'
+    'feature_groups-openms.R'
+    'feature_groups-optimize.R'
+    'feature_groups-optimize-kpic2.R'
+    'feature_groups-optimize-openms.R'
+    'feature_groups-optimize-xcms.R'
+    'feature_groups-optimize-xcms3.R'
+    'feature_groups-plot.R'
+    'feature_groups-sirius.R'
+    'feature_groups-tasq.R'
+    'feature_groups-xcms.R'
+    'feature_groups-xcms3.R'
+    'utils-bruker.R'
+    'features-bruker.R'
+    'features-envipick.R'
+    'features-kpic2.R'
+    'features-openms.R'
+    'features-optimize.R'
+    'features-optimize-envipick.R'
+    'features-optimize-kpic2.R'
+    'features-optimize-openms.R'
+    'features-optimize-xcms.R'
+    'features-optimize-xcms3.R'
+    'features-safd.R'
+    'features-sirius.R'
+    'features-tasq.R'
+    'features-xcms.R'
+    'features-xcms3.R'
+    'formulas-bruker.R'
+    'formulas-genform.R'
+    'formulas-set.R'
+    'formulas-sirius.R'
+    'mspeaklists-bruker.R'
+    'utils-mzr.R'
+    'mspeaklists-mzr.R'
+    'mspeaklists-set.R'
+    'multi-process-classic.R'
+    'multi-process-future.R'
+    'multi-process.R'
+    'project-tool.R'
+    'report.R'
+    'utils-TPs.R'
+    'utils-checkmate.R'
+    'utils-exported.R'
+    'utils-feat_annotations.R'
+    'utils-features.R'
+    'utils-formulas.R'
+    'utils-mol.R'
+    'utils-mspeaklists.R'
+    'utils-optimize.R'
+    'utils-plot.R'
+    'utils-progress.R'
+    'utils-sets.R'
+    'utils-xcms.R'
+    'zzz.R'
+VignetteBuilder: knitr

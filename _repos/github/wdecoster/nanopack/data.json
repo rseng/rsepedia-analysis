@@ -1,0 +1,42 @@
+{
+    "setup.py": {
+        "github/wdecoster/nanopack": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "NanoPlot": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/NanoPlot"
+        },
+        "NanoStat": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanostat"
+        },
+        "NanoFilt": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanofilt"
+        },
+        "NanoLyse": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanolyse"
+        },
+        "nanoget": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanoget"
+        },
+        "nanomath": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanomath"
+        },
+        "NanoComp": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/NanoComp"
+        },
+        "nanoQC": {
+            "credit": 0.0012375,
+            "url": "https://github.com/wdecoster/nanoQC"
+        }
+    }
+}

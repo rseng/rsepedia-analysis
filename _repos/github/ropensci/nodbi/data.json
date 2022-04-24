@@ -1,0 +1,210 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/nodbi": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "stringi": {
+            "credit": 0.000899999999999998,
+            "url": "https://stringi.gagolewski.com/ https://icu.unicode.org/"
+        },
+        "jsonlite": {
+            "credit": 0.14812714285714285,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "jsonify": {
+            "credit": 0.000899999999999998,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.000899999999999998,
+            "url": "http://www.rforge.net/uuid"
+        },
+        "jqr": {
+            "credit": 0.000899999999999998,
+            "url": "https://docs.ropensci.org/jqr/ (docs)"
+        },
+        "sofa": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/ropensci/sofa"
+        },
+        "elastic": {
+            "credit": 0.000899999999999998,
+            "url": "https://docs.ropensci.org/elastic (website)"
+        },
+        "mongolite": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/jeroen/mongolite/ (devel)\nhttps://jeroen.github.io/mongolite/ (user manual)\nhttp://mongoc.org/ (upstream)"
+        },
+        "RSQLite": {
+            "credit": 0.0058500000000000114,
+            "url": "https://rsqlite.r-dbi.org"
+        },
+        "RPostgres": {
+            "credit": 0.000899999999999998,
+            "url": "https://rpostgres.r-dbi.org"
+        },
+        "DBI": {
+            "credit": 0.011790000000000012,
+            "url": "https://dbi.r-dbi.org"
+        },
+        "stats": {
+            "credit": 0.022275,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.022275,
+            "url": null
+        },
+        "R": {
+            "credit": 0.15988500000000003,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.04341857142857143,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.056147142857142854,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.07396714285714286,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.02574,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.02574,
+            "url": null
+        },
+        "lazyeval": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.02277,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.025457142857142855,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.025457142857142855,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.027578571428571428,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.012728571428571428,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rvest": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.01584,
+            "url": null
+        },
+        "gh": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "gert": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "DBItest": {
+            "credit": 0.01584,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.01584,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.01584,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "RMariaDB": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.0049499999999999995,
+            "url": null
+        }
+    }
+}

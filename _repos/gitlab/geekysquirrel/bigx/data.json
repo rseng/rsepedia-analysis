@@ -1,0 +1,14 @@
+{
+    "package.json": {
+        "gitlab/geekysquirrel/bigx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "leaflet-geotiff-2": {
+            "credit": 0.0099,
+            "url": null
+        }
+    }
+}

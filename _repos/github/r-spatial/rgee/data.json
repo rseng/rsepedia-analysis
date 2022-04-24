@@ -1,0 +1,258 @@
+{
+    "DESCRIPTION": {
+        "github/r-spatial/rgee": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "reticulate": {
+            "credit": 0.0009900000000000048,
+            "url": "https://rstudio.github.io/reticulate/"
+        },
+        "rstudioapi": {
+            "credit": 0.019252732919254677,
+            "url": "https://github.com/rstudio/rstudioapi"
+        },
+        "leaflet": {
+            "credit": 0.007115625000000005,
+            "url": "https://rstudio.github.io/leaflet/"
+        },
+        "magrittr": {
+            "credit": 0.004620000000000018,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "jsonlite": {
+            "credit": 0.10476529411764707,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "processx": {
+            "credit": 0.10326130434782609,
+            "url": "https://processx.r-lib.org"
+        },
+        "leafem": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/r-spatial/leafem"
+        },
+        "crayon": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/r-lib/crayon#readme"
+        },
+        "R6": {
+            "credit": 0.004620000000000018,
+            "url": "https://r6.r-lib.org"
+        },
+        "cli": {
+            "credit": 0.0009900000000000048,
+            "url": "https://cli.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.10933302703690169,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.059031598465473144,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.026361598465473146,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.06266159846547313,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.010026598465473146,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.024028027036901718,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.024028027036901718,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "png": {
+            "credit": 0.01552091911764706,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.033783652036901715,
+            "url": null
+        },
+        "here": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "RcppTOML": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0057652941176470586,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06878722346547314,
+            "url": null
+        },
+        "s2": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "RJSONIO": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.009755625,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.007891304347826087,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.009755625,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "leaflet.providers": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "raster": {
+            "credit": 0.009755625,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.014016929347826088,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.014016929347826088,
+            "url": null
+        },
+        "crosstalk": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.009755625,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.020596304347826087,
+            "url": null
+        },
+        "stars": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "plainview": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "mapdeck": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "leafgl": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "geojsonsf": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.01826273291925466,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.01826273291925466,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.004261304347826087,
+            "url": null
+        }
+    }
+}

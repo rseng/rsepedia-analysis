@@ -1,0 +1,31 @@
+Package: rppo
+Title: Access the Global Plant Phenology Data Portal
+URL: https://docs.ropensci.org/rppo/, https://github.com/ropensci/rppo/
+BugReports: https://github.com/ropensci/rppo/issues 
+Version: 1.0.2
+Authors@R: c(
+    person("John","Deck", email = "jdeck88@gmail.com", role = c("aut", "cre")), 
+    person("Brian","Stucky", email = "stuckyb@flmnh.ufl.edu", role = "aut"),
+    person("Ramona","Walls", email = "rwalls@cyverse.org", role = "aut"),
+    person("Kjell", "Bolmgren", email = "Kjell.Bolmgren@slu.se", role = "aut"),
+    person("Ellen", "Denny", email = "ellen@usanpn.org", role = "aut"),
+    person("Robert","Guralnick", email = "rguralnick@flmnh.ufl.edu", role = "aut")
+  )
+Maintainer: John Deck <jdeck88@gmail.com>
+Description: Search plant phenology data aggregated from several sources and available on the Global Plant Phenology Data Portal. 
+Depends: R (>= 3.4.0)
+License: GPL-2
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Imports:
+    jsonlite,
+    readr,
+    plyr,
+    httr
+Suggests: 
+    testthat,
+    rmarkdown,
+    markdown,
+    knitr,
+    covr
+VignetteBuilder: knitr

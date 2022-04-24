@@ -1,0 +1,254 @@
+{
+    "setup.py": {
+        "github/recipy/recipy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "wrapt": {
+            "credit": 0.055,
+            "url": "https://github.com/GrahamDumpleton/wrapt"
+        },
+        "tinydb": {
+            "credit": 0.0010945000000000052,
+            "url": "https://github.com/msiemens/tinydb"
+        },
+        "tinydb-serialization": {
+            "credit": 0.0005500000000000019,
+            "url": "https://tinydb.readthedocs.org"
+        },
+        "jinja2": {
+            "credit": 0.0005500000000000019,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "docopt": {
+            "credit": 0.055,
+            "url": "http://docopt.org"
+        },
+        "GitPython": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/gitpython-developers/GitPython"
+        },
+        "colorama": {
+            "credit": 0.057178,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "Flask-Script": {
+            "credit": 0.0005500000000000019,
+            "url": "http://github.com/smurfix/flask-script"
+        },
+        "flask_bootstrap": {
+            "credit": 0.0005500000000000019,
+            "url": "http://github.com/mbr/flask-bootstrap"
+        },
+        "flask-wtf": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/wtforms/flask-wtf/"
+        },
+        "python-dateutil": {
+            "credit": 0.055,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "six": {
+            "credit": 0.055,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "svn": {
+            "credit": 0.055,
+            "url": "https://github.com/dsoprea/PySvn"
+        },
+        "binaryornot": {
+            "credit": 0.055,
+            "url": "https://github.com/audreyr/binaryornot"
+        },
+        "flask": {
+            "credit": 0.0005500000000000019,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "sphinx": {
+            "credit": 0.07314999999999999,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "recommonmark": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/rtfd/recommonmark"
+        },
+        "sphinx_rtd_theme": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/rtfd/sphinx_rtd_theme/"
+        },
+        "typing-extensions": {
+            "credit": 0.1375056964285714,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "Babel": {
+            "credit": 0.027225,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0339631875,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "gitdb": {
+            "credit": 0.00027225000000000166,
+            "url": "https://github.com/gitpython-developers/gitdb"
+        },
+        "Flask": {
+            "credit": 0.0008621250000000052,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "visitor": {
+            "credit": 0.01815,
+            "url": "http://github.com/mbr/visitor"
+        },
+        "dominate": {
+            "credit": 0.01815,
+            "url": "https://github.com/Knio/dominate/"
+        },
+        "email-validator": {
+            "credit": 0.0068743125,
+            "url": "https://github.com/JoshData/python-email-validator"
+        },
+        "itsdangerous": {
+            "credit": 0.03358398214285714,
+            "url": "https://palletsprojects.com/p/itsdangerous/"
+        },
+        "WTForms": {
+            "credit": 0.00013612500000000083,
+            "url": "https://wtforms.readthedocs.io/"
+        },
+        "python-dotenv": {
+            "credit": 0.012270696428571428,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 0.012270696428571428,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "importlib-metadata": {
+            "credit": 0.02214948214285714,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "click": {
+            "credit": 0.027672267857142857,
+            "url": "https://pypi.org/project/click"
+        },
+        "Jinja2": {
+            "credit": 0.02214948214285714,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.01997148214285714,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "pytest": {
+            "credit": 0.004103196428571428,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "types-requests": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/types-requests"
+        },
+        "types-typed-ast": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/types-typed-ast"
+        },
+        "docutils-stubs": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/docutils-stubs"
+        },
+        "mypy": {
+            "credit": 0.004103196428571428,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "isort": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/isort"
+        },
+        "flake8": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "sphinxcontrib-websupport": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-websupport"
+        },
+        "packaging": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "requests": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/requests"
+        },
+        "imagesize": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/imagesize"
+        },
+        "alabaster": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/alabaster"
+        },
+        "babel": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/babel"
+        },
+        "snowballstemmer": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/snowballstemmer"
+        },
+        "docutils": {
+            "credit": 0.020328,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "Pygments": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "sphinxcontrib-qthelp": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-qthelp"
+        },
+        "sphinxcontrib-serializinghtml": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-serializinghtml"
+        },
+        "sphinxcontrib-htmlhelp": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-htmlhelp"
+        },
+        "sphinxcontrib-jsmath": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-jsmath"
+        },
+        "sphinxcontrib-devhelp": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-devhelp"
+        },
+        "sphinxcontrib-applehelp": {
+            "credit": 0.002178,
+            "url": "https://pypi.org/project/sphinxcontrib-applehelp"
+        },
+        "commonmark": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/commonmark"
+        },
+        "smmap": {
+            "credit": 0.026952749999999998,
+            "url": "https://pypi.org/project/smmap"
+        },
+        "idna": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/idna"
+        },
+        "dnspython": {
+            "credit": 0.006738187499999999,
+            "url": "https://pypi.org/project/dnspython"
+        },
+        "pytest-asyncio": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        }
+    }
+}

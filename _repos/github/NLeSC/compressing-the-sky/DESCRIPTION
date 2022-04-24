@@ -1,0 +1,12 @@
+Package: ctsky
+Type: Package
+Title: Compressing Radio Astronomy Data With Domain Inspired Statistical Models
+Version: 0.2
+Date: 2015-11-09
+Author: Vincent T van Hees [aut, cre],
+  H. Muelheisen [ctb]
+Maintainer: Vincent T van Hees <v.vanhees@esciencecenter.nl>
+Description: Fits a linear regression model in log space and uses this to aid compression.
+Suggests: nortest, MCMCpack, moments
+License: GPL (>=2)
+LazyData: TRUE

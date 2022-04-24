@@ -1,0 +1,90 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tokenizers": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "stringi": {
+            "credit": 0.003300000000000025,
+            "url": "https://stringi.gagolewski.com/ https://icu.unicode.org/"
+        },
+        "Rcpp": {
+            "credit": 0.003479685000000024,
+            "url": "http://www.rcpp.org"
+        },
+        "SnowballC": {
+            "credit": 0.33,
+            "url": "https://r-forge.r-project.org/projects/r-temis/"
+        },
+        "stats": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.23111419178571427,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "R": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.0035093025000000034,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.0574148025,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.0035093025000000034,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.003868672500000001,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "methods": {
+            "credit": 0.0753833025,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0179685,
+            "url": "https://roxygen2.r-lib.org/"
+        },
+        "whoami": {
+            "credit": 0.00017968499999999887,
+            "url": "https://github.com/r-lib/whoami#readme"
+        },
+        "withr": {
+            "credit": 0.0025412592857142857,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.0025412592857142857,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0025412592857142857,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0025412592857142857,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0025412592857142857,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.0025412592857142857,
+            "url": null
+        }
+    }
+}

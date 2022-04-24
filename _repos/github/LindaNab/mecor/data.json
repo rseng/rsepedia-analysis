@@ -1,0 +1,158 @@
+{
+    "DESCRIPTION": {
+        "github/LindaNab/mecor": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "lme4": {
+            "credit": 0.039600000000000024,
+            "url": "https://github.com/lme4/lme4/"
+        },
+        "lmerTest": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/runehaubo/lmerTestR"
+        },
+        "numDeriv": {
+            "credit": 0.3759088235294118,
+            "url": "http://optimizer.r-forge.r-project.org/"
+        },
+        "tibble": {
+            "credit": 0.009608823529411765,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "semEff": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "rr2": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "statmod": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "dfoptim": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "car": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "HSAUR3": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "pbkrtest": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "gamm4": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "optimx": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "mlmRev": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "MEMSS": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "PKPDmodels": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "nloptr": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "minqa": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "boot": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "splines": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.009608823529411765,
+            "url": null
+        },
+        "R": {
+            "credit": 0.045908823529411766,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0363,
+            "url": null
+        }
+    }
+}

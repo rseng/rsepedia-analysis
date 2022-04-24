@@ -1,0 +1,78 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/ghql": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crul": {
+            "credit": 0.002475000000000005,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "graphql": {
+            "credit": 0.002475000000000005,
+            "url": "http://graphql.org (upstream) https://github.com/ropensci/graphql\n(devel)"
+        },
+        "jsonlite": {
+            "credit": 0.34959375,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "R6": {
+            "credit": 0.022893750000000004,
+            "url": "https://r6.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.02041875,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.18376874999999998,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "R": {
+            "credit": 0.081675,
+            "url": null
+        }
+    }
+}

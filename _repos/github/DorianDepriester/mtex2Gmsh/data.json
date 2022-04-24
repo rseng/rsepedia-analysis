@@ -1,0 +1,22 @@
+{
+    "package.json": {
+        "github/DorianDepriester/mtex2Gmsh": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "Matlab": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/abdennour/masfufa#readme"
+        },
+        "Gmsh": {
+            "credit": 0.0033000000000000004,
+            "url": null
+        },
+        "MTEX": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/diversemix/mtex#readme"
+        }
+    }
+}

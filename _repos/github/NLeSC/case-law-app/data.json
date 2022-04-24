@@ -1,0 +1,430 @@
+{
+    "package.json": {
+        "github/NLeSC/case-law-app": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "babyparse": {
+            "credit": 0.11,
+            "url": "https://github.com/Rich-Harris/BabyParse#readme"
+        },
+        "colormap": {
+            "credit": 0.11,
+            "url": "https://github.com/bpostlethwaite/colormap#readme"
+        },
+        "rc-slider": {
+            "credit": 0.11,
+            "url": "http://github.com/react-component/slider/"
+        },
+        "react": {
+            "credit": 0.11382280219780219,
+            "url": "https://reactjs.org/"
+        },
+        "react-dom": {
+            "credit": 0.11382280219780219,
+            "url": "https://reactjs.org/"
+        },
+        "react-mdl": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/react-mdl/react-mdl#readme"
+        },
+        "react-select": {
+            "credit": 0.11,
+            "url": "https://github.com/JedWatson/react-select"
+        },
+        "react-sigma": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/dunnock/react-sigma"
+        },
+        "react-simple-file-input": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/greena13/react-simple-file-input#readme"
+        },
+        "webpack-dev-server": {
+            "credit": 0.0020942307692307692,
+            "url": "https://github.com/webpack/webpack-dev-server#readme"
+        },
+        "webpack": {
+            "credit": 0.0038228021978021975,
+            "url": "https://github.com/webpack/webpack"
+        },
+        "wallaby-webpack": {
+            "credit": 0.0020942307692307692,
+            "url": "https://github.com/jeffling/wallaby-webpack#readme"
+        },
+        "standard-version": {
+            "credit": 0.0020942307692307692,
+            "url": "https://github.com/conventional-changelog/standard-version#readme"
+        },
+        "sinon": {
+            "credit": 0.0020942307692307692,
+            "url": "https://sinonjs.org/"
+        },
+        "rimraf": {
+            "credit": 0.0038228021978021975,
+            "url": "https://github.com/isaacs/rimraf#readme"
+        },
+        "react-test-renderer": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "react-router": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "package-yaml": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "json-loader": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "isparta-loader": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "isparta": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "gh-pages": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "gatsby": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "expect": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "eslint-plugin-react": {
+            "credit": 0.0038228021978021975,
+            "url": null
+        },
+        "eslint-plugin-jsx-a11y": {
+            "credit": 0.0038228021978021975,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0038228021978021975,
+            "url": null
+        },
+        "eslint-config-airbnb": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0038228021978021975,
+            "url": null
+        },
+        "enzyme-adapter-react-16": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "enzyme": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "conventional-changelog": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "chai-enzyme": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-preset-react": {
+            "credit": 0.011994230769230767,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.011994230769230767,
+            "url": null
+        },
+        "babel-polyfill": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-plugin-transform-object-rest-spread": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-plugin-__coverage__": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.0038228021978021975,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.011994230769230767,
+            "url": null
+        },
+        "add-stream": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.011994230769230767,
+            "url": null
+        },
+        "karma-webpack": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-sourcemap-loader": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-sinon": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-mocha-reporter": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-mocha": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-coverage": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-cli": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-chrome-launcher": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma-chai": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "karma": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "lodash.isequal": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "classnames": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "clamp": {
+            "credit": 0.0020942307692307692,
+            "url": null
+        },
+        "whatwg-fetch": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "webpack-manifest-plugin": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "webpack-cli": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "strip-ansi": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "script-loader": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "recursive-readdir": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "react-dev-utils": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "promise": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "path-exists": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "output-file-sync": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "object-assign": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "npm-release": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "jest-canvas-mock": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "imports-loader": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "gzip-size": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "fs-promise": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "fs-extra": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "flow-typed": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "flow-bin": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "find-cache-dir": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "filesize": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "file-loader": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "fake-xml-http-request": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "eslint-plugin-flowtype": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "eslint-loader": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "eslint-config-react-app": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "dmd-clear": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "dagre": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "cross-spawn": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "colors": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "child-process-promise": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "case-sensitive-paths-webpack-plugin": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "babel-plugin-transform-runtime": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "babel-plugin-flow-react-proptypes": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.0017285714285714285,
+            "url": null
+        },
+        "": {
+            "credit": 0.027657142857142866,
+            "url": null
+        },
+        "rollup-plugin-uglify": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rollup-plugin-replace": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "babel-plugin-external-helpers": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rollup-plugin-license": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "babel-plugin-remove-comments": {
+            "credit": 0.009899999999999999,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,130 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/ots": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "curl": {
+            "credit": 0.0323272125,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "httr": {
+            "credit": 0.2475,
+            "url": "https://httr.r-lib.org/"
+        },
+        "data.table": {
+            "credit": 0.002475000000000005,
+            "url": "https://r-datatable.com"
+        },
+        "ncdf4": {
+            "credit": 0.2475,
+            "url": "http://cirrus.ucsd.edu/~pierce/ncdf/"
+        },
+        "webutils": {
+            "credit": 0.00027225000000000166,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.007010437500000001,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.00027225000000000166,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.052135875,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "jsonlite": {
+            "credit": 0.0339631875,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.052135875,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.041150587499999995,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R": {
+            "credit": 0.054831149999999995,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "later": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0026952749999999996,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.004492125,
+            "url": null
+        }
+    }
+}

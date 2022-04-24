@@ -1,0 +1,94 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/rdataretriever": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "reticulate": {
+            "credit": 0.00495000000000001,
+            "url": "https://rstudio.github.io/reticulate/"
+        },
+        "semver": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/johndharrison/semver"
+        },
+        "testthat": {
+            "credit": 0.09883361344537814,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.09883361344537814,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.09883361344537814,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.09883361344537814,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "png": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "here": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "RcppTOML": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.09883361344537814,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "R": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "assertthat": {
+            "credit": 0.07000714285714285,
+            "url": null
+        }
+    }
+}

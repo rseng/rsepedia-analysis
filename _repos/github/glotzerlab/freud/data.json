@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/glotzerlab/freud": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.009833999999999999,
+            "url": "https://www.numpy.org"
+        },
+        "rowan": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/glotzerlab/rowan"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

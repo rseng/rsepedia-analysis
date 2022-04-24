@@ -1,0 +1,238 @@
+{
+    "DESCRIPTION": {
+        "github/r-spatialecology/shar": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "classInt": {
+            "credit": 0.0019800000000000095,
+            "url": "https://r-spatial.github.io/classInt/"
+        },
+        "raster": {
+            "credit": 0.0019800000000000095,
+            "url": "https://rspatial.org/raster"
+        },
+        "spatstat.core": {
+            "credit": 0.027512016806722696,
+            "url": "http://spatstat.org/"
+        },
+        "spatstat.geom": {
+            "credit": 0.022740738916256165,
+            "url": "http://spatstat.org/"
+        },
+        "spatstat.random": {
+            "credit": 0.020269898580121713,
+            "url": "http://spatstat.org/"
+        },
+        "rmarkdown": {
+            "credit": 0.01782,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "units": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "spData": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "class": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "e1071": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0361098985801217,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.05011132715155027,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.05011132715155027,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06100132715155028,
+            "url": null
+        },
+        "exactextractr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "fields": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "gstat": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rasterVis": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "ncdf4": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "terra": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.04318132715155028,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "spatstat": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "spatstat.linnet": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "nleqslv": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "fftwtools": {
+            "credit": 0.018289898580121703,
+            "url": null
+        },
+        "RandomFieldsUtils": {
+            "credit": 0.020760738916256155,
+            "url": null
+        },
+        "RandomFields": {
+            "credit": 0.020760738916256155,
+            "url": null
+        },
+        "spatial": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "locfit": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "gsl": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.018289898580121703,
+            "url": null
+        },
+        "sm": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "goftest": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "tensor": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "abind": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "spatstat.sparse": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "spatstat.utils": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.006759310344827586,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "spatstat.data": {
+            "credit": 0.032291327151550274,
+            "url": null
+        },
+        "polyclip": {
+            "credit": 0.011530588235294117,
+            "url": null
+        },
+        "deldir": {
+            "credit": 0.011530588235294117,
+            "url": null
+        }
+    }
+}

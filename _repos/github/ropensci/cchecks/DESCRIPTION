@@ -1,0 +1,35 @@
+Package: cchecks
+Type: Package
+Title: Client for the cranchecks.info API
+Description: Client for the cranchecks.info API.
+Version: 0.1.8.95
+Authors@R: c(
+    person("Scott", "Chamberlain", role = c("aut", "cre"),
+        email = "sckott@protonmail.com"),
+    person("Maëlle", "Salmon", role = "aut")
+    )
+License: MIT + file LICENSE
+URL: https://github.com/ropensci/cchecks, https://docs.ropensci.org/cchecks/
+BugReports: https://github.com/ropensci/cchecks/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+VignetteBuilder: knitr
+Imports:
+    crul,
+    jsonlite,
+    rappdirs,
+    tibble,
+    cli,
+    crayon,
+    whoami,
+    desc,
+    rematch,
+    addressable
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    vcr,
+    usethis
+RoxygenNote: 7.1.1
+Remotes: ropensci/addressable@main

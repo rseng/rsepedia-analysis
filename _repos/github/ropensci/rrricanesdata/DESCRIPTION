@@ -1,0 +1,19 @@
+Package: rrricanesdata
+Type: Package
+Title: Data for Atlantic and east Pacific tropical cyclones since 1998
+Description: Includes storm discussions, forecast/advisories, public advisories, 
+  wind speed probabilities, strike probabilities and more. This package can be 
+  used along with rrricanes (>= 0.2.0-6). Data is considered public domain via 
+  the National Hurricane Center.
+Version: 0.2.1
+Authors@R: c(person("Tim", "Trice", email = "tim.trice@gmail.com", role = c("aut", "cre")))
+Depends:
+  R (>= 3.3)
+URL: https://docs.ropensci.org/rrricanesdata, https://github.com/ropensci/rrricanesdata
+BugReports: https://github.com/ropensci/rrricanesdata/issues
+License: CC0-1.0 + file LICENSE
+Suggests: rrricanes
+Remotes: github::ropensci/rrricanes@develop
+LazyData: TRUE
+ByteCompile: TRUE
+RoxygenNote: 6.0.1

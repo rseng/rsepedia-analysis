@@ -1,0 +1,90 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/pubchunks": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "xml2": {
+            "credit": 0.003300000000000025,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "data.table": {
+            "credit": 0.003300000000000025,
+            "url": "https://r-datatable.com"
+        },
+        "rcrossref": {
+            "credit": 0.33,
+            "url": "https://github.com/ropensci/rcrossref"
+        },
+        "testthat": {
+            "credit": 0.03267,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "R": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.027225,
+            "url": null
+        }
+    }
+}

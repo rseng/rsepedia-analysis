@@ -1,0 +1,16 @@
+ipython
+jupyter
+matplotlib>=3.4
+numba
+numpy
+python>=3.8
+scipy
+sympy
+sphinx
+sphinx_rtd_theme
+sparse
+julia
+diffeqpy
+sphinxcontrib-bibtex
+pebble
+pytest

@@ -1,0 +1,56 @@
+Package: gamut
+Type: Package
+Title: Geospatial Analytics for Multisector Urban Teleconnections
+Version: 1.0.0
+Authors@R:
+    c(person(given = "Kristian D.",
+           family = "Nelson",
+           role = c("aut", "cre"),
+           email = "kristian.nelson@pnnl.gov",
+           comment = c(ORCID = "0000-0002-6745-167X")),
+    person(given = "Sean W.D.",
+           family = "Turner",
+           role = "aut",
+           email = "sean.turner@pnnl.gov",
+           comment = c(ORCID = "0000-0003-4400-9800")),
+    person(given = "Chris R.",
+           family = "Vernon",
+           role = "aut",
+           email = "chris.vernon@pnnl.gov",
+           comment = c(ORCID = "0000-0002-3406-6214")))
+Description: gamut is a tool for exploring teleconnections between cities of the United States and human activities that occur in their associated water supply catchments.
+License: BSD_2_clause + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: R (>= 3.5.0)
+Imports:
+    clisymbols,
+    crayon,
+    dplyr,
+    dams,
+    exactextractr,
+    foreign,
+    geosphere,
+    ggplot2,
+    lwgeom,
+    magrittr,
+    purrr,
+    raster,
+    readxl,
+    reservoir,
+    rgdal,
+    rgeos,
+    sf (>= 0.9-4),
+    sp,
+    spex,
+    stringr,
+    tibble,
+    tidyr,
+    vroom
+Suggests:
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

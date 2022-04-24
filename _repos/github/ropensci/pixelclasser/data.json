@@ -1,0 +1,22 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/pixelclasser": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "jpeg": {
+            "credit": 0.00495,
+            "url": "http://www.rforge.net/jpeg/"
+        },
+        "tiff": {
+            "credit": 0.00495,
+            "url": "https://www.rforge.net/tiff/"
+        },
+        "R": {
+            "credit": 0.009801,
+            "url": null
+        }
+    }
+}

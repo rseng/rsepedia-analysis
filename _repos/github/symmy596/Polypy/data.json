@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/symmy596/Polypy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.00495,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.009850500000000002,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

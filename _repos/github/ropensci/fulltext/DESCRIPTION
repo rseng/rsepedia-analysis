@@ -1,0 +1,56 @@
+Package: fulltext
+Title: Full Text of 'Scholarly' Articles Across Many Data Sources
+Description: Provides a single interface to many sources of full text
+    'scholarly' data, including 'Biomed Central', Public Library of
+    Science, 'Pubmed Central', 'eLife', 'F1000Research', 'PeerJ',
+    'Pensoft', 'Hindawi', 'arXiv' 'preprints', and more. Functionality
+    included for searching for articles, downloading full or partial
+    text, downloading supplementary materials, converting to various
+    data formats.
+Version: 2.0
+License: MIT + file LICENSE
+Authors@R: c(
+    person("Scott", "Chamberlain",
+        role = c("aut", "cre"),
+        email = "myrmecocystus@gmail.com",
+        comment = c(ORCID = "0000-0003-1444-9135")),
+    person(given = "rOpenSci",
+        role = "fnd",
+        comment = "https://ropensci.org/")
+    )
+URL: https://docs.ropensci.org/fulltext/ (website)
+    https://github.com/ropensci/fulltext/ (devel)
+    https://books.ropensci.org/fulltext/ (user manual)
+BugReports: https://github.com/ropensci/fulltext/issues
+LazyLoad: yes
+Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+Depends: 
+    R (>= 2.10)
+Imports:
+    crul (>= 0.7.0),
+    magrittr,
+    xml2 (>= 1.1.1),
+    jsonlite,
+    rplos (>= 0.8.0),
+    rcrossref (>= 0.8.0),
+    microdemic (>= 0.2.0),
+    aRxiv,
+    rentrez (>= 1.1.0),
+    data.table,
+    hoardr (>= 0.5.0),
+    pdftools,
+    storr,
+    tibble,
+    digest,
+    fauxpas
+Suggests:
+    roxygen2 (>= 7.1.0),
+    testthat,
+    pubchunks,
+    vcr
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Literature
+X-schema.org-keywords: text-mining, literature, pdf, xml, publications, citations, full-text, TDM
+X-schema.org-isPartOf: https://ropensci.org

@@ -1,0 +1,250 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/drake": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "base64url": {
+            "credit": 0.025740000000000002,
+            "url": "https://github.com/mllg/base64url"
+        },
+        "digest": {
+            "credit": 0.019362903695913466,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "igraph": {
+            "credit": 0.0012375000000000025,
+            "url": "https://igraph.org"
+        },
+        "rlang": {
+            "credit": 0.009405000000000002,
+            "url": "https://rlang.r-lib.org"
+        },
+        "storr": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/richfitz/storr"
+        },
+        "tidyselect": {
+            "credit": 0.0012375000000000025,
+            "url": "https://tidyselect.r-lib.org"
+        },
+        "txtq": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/wlandau/txtq"
+        },
+        "vctrs": {
+            "credit": 0.13836552631578947,
+            "url": "https://vctrs.r-lib.org/"
+        },
+        "openssl": {
+            "credit": 0.00015314062500000093,
+            "url": "https://github.com/jeroen/openssl"
+        },
+        "knitr": {
+            "credit": 0.041248742511702935,
+            "url": "https://yihui.org/knitr/"
+        },
+        "checkmate": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "backports": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.07255749251170293,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.041248742511702935,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.04388240131578947,
+            "url": null
+        },
+        "R": {
+            "credit": 0.05466768977732794,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.021421776315789474,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.013254276315789473,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.021421776315789474,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.013254276315789473,
+            "url": null
+        },
+        "winch": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.014615526315789473,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.014615526315789473,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.014615526315789473,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.014615526315789473,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.03392653846153846,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "RPostgres": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.03392653846153846,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "filelock": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "sodium": {
+            "credit": 0.0018951152343749998,
+            "url": null
+        },
+        "jose": {
+            "credit": 0.0018951152343749998,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0018951152343749998,
+            "url": null
+        },
+        "askpass": {
+            "credit": 0.0018951152343749998,
+            "url": null
+        }
+    }
+}

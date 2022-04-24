@@ -1,0 +1,55 @@
+Package: tinkr
+Title: Cast (R)Markdown Files to XML and Back Again
+Version: 0.0.0.9002
+Authors@R: 
+    c(person(given = "Maëlle",
+             family = "Salmon",
+             role = c("aut"),
+             email = "msmaellesalmon@gmail.com",
+             comment = c(ORCID = "0000-0002-2815-0399")),
+      person(given = "Zhian N.",
+             family = "Kamvar",
+             role = c("aut", "cre"),
+             email = "zkamvar@gmail.com",
+             comment = c(ORCID = "0000-0003-1458-7108")),
+      person(given = "Jeroen",
+             family = "Ooms",
+             role = "aut"),
+      person(given = "Nick",
+             family = "Wellnhofer",
+             role = "cph",
+             comment = "Nick Wellnhofer wrote the XSLT stylesheet."),
+      person(given = "rOpenSci",
+             role = "fnd",
+             comment = "https://ropensci.org/"),
+      person(given = "Peter",
+             family = "Daengeli",
+             role = "ctb"))
+Description: Casts (R)Markdown files to XML and back to allow their
+    editing via XPath.
+License: GPL-3
+URL: https://docs.ropensci.org/tinkr/, https://github.com/ropensci/tinkr
+BugReports: https://github.com/ropensci/tinkr/issues
+Imports: 
+    commonmark (>= 1.6),
+    fs,
+    glue,
+    knitr,
+    magrittr,
+    purrr,
+    R6,
+    stringr,
+    xml2,
+    xslt,
+    yaml
+Suggests: 
+    rmarkdown,
+    covr,
+    testthat (>= 3.0.0),
+    withr
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr

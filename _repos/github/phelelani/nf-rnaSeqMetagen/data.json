@@ -1,0 +1,38 @@
+{
+    "package.json": {
+        "github/phelelani/nf-rnaSeqMetagen": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "d3": {
+            "credit": 0.002475,
+            "url": "https://d3js.org"
+        },
+        "font-awesome": {
+            "credit": 0.002475,
+            "url": "http://fontawesome.io/"
+        },
+        "font-awesome-webpack": {
+            "credit": 0.002475,
+            "url": "https://github.com/gowravshekar/font-awesome-webpack"
+        },
+        "jquery": {
+            "credit": 0.002475,
+            "url": "https://jquery.com"
+        },
+        "css-loader": {
+            "credit": 0.00081675,
+            "url": "https://github.com/webpack-contrib/css-loader"
+        },
+        "less-loader": {
+            "credit": 0.00081675,
+            "url": "https://github.com/webpack-contrib/less-loader"
+        },
+        "style-loader": {
+            "credit": 0.00081675,
+            "url": "https://github.com/webpack-contrib/style-loader"
+        }
+    }
+}

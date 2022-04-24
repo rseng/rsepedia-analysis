@@ -1,0 +1,334 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/jenkins": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "curl": {
+            "credit": 0.02545042500000001,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "jsonlite": {
+            "credit": 0.5665563749999999,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "webutils": {
+            "credit": 0.0005445000000000033,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.014020875000000002,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.002178000000000003,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.012702407142857138,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.02393985,
+            "url": "https://yihui.org/knitr/"
+        },
+        "testthat": {
+            "credit": 0.030392175,
+            "url": "https://testthat.r-lib.org"
+        },
+        "spelling": {
+            "credit": 0.0005445000000000033,
+            "url": "https://github.com/ropensci/spelling#readme"
+        },
+        "R": {
+            "credit": 0.07399495714285713,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.007024049999999999,
+            "url": null
+        },
+        "later": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.007024049999999999,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.009020549999999999,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.010617749999999999,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.010617749999999999,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "tufte": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "rsconnect": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.005170157142857143,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.005170157142857143,
+            "url": null
+        },
+        "jquerylib": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.0019965,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.005170157142857143,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.0035366571428571427,
+            "url": null
+        },
+        "targets": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "styler": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.013954757142857141,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "png": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "JuliaCall": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "reticulate": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "tikzDevice": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "webshot": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "testit": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "highr": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "pdftools": {
+            "credit": 0.010781099999999998,
+            "url": null
+        },
+        "hunspell": {
+            "credit": 0.010781099999999998,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.010781099999999998,
+            "url": null
+        }
+    }
+}

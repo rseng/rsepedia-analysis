@@ -1,0 +1,36 @@
+Package: pamlr
+Type: Package
+Title: Suite Of Functions For Manipulating Pressure, Activity, Magnetism, Temperature And Light Data In R
+Version: 2.2.1
+Author: Kiran Dhanjal-Adams
+Maintainer: Kiran Dhanjal-Adams <kiran.dhanjaladams@uqconnect.edu.au>
+Description: This package combines a set of functions for analysing multisensor geolocator data such as Pressure, Activity, Magnetism, Temperature or Light. This includes functions for visualising the data, deriving visual classification, and finally for comparing classification accuracy between different models.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Imports: changepoint,
+  cluster,
+  data.table,
+  depmixS4,
+  dplyr,
+  dygraphs,
+  EMbC,
+  GeoLight,
+  graphics,
+  grDevices,
+  htmltools,
+  raster,
+  rgl,
+  RColorBrewer,
+  stats,
+  utils,
+  viridis,
+  xts,
+  zoo
+Depends: R (>= 2.10)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)

@@ -1,0 +1,142 @@
+{
+    "setup.py": {
+        "github/nlesc-nano/flamingo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "nlesc-CAT": {
+            "credit": 0.10378928571428571,
+            "url": "https://github.com/nlesc-nano/CAT"
+        },
+        "nano-CAT": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/nlesc-nano/nano-CAT"
+        },
+        "data-CAT": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/nlesc-nano/data-CAT"
+        },
+        "plams": {
+            "credit": 0.014689285714285712,
+            "url": "https://www.scm.com/doc/plams/"
+        },
+        "more_itertools": {
+            "credit": 0.09,
+            "url": "https://github.com/more-itertools/more-itertools"
+        },
+        "numpy": {
+            "credit": 0.1631892857142857,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.014689285714285712,
+            "url": "https://pandas.pydata.org"
+        },
+        "pyyaml": {
+            "credit": 0.09,
+            "url": "https://pyyaml.org/"
+        },
+        "schema": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/keleshev/schema"
+        },
+        "typing_extensions": {
+            "credit": 0.09,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "h5py": {
+            "credit": 0.097425,
+            "url": "http://www.h5py.org"
+        },
+        "pytest-mock": {
+            "credit": 6.36428571428576e-05,
+            "url": "https://github.com/pytest-dev/pytest-mock/"
+        },
+        "pytest-cov": {
+            "credit": 0.013789285714285714,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.030214446428571427,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "Auto-FOX": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/Auto-FOX"
+        },
+        "qmflows": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/qmflows"
+        },
+        "more-itertools": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/more-itertools"
+        },
+        "noodles": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/noodles"
+        },
+        "AssertionLib": {
+            "credit": 0.013789285714285714,
+            "url": "https://pypi.org/project/AssertionLib"
+        },
+        "scipy": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "Nano-Utils": {
+            "credit": 0.013789285714285714,
+            "url": "https://pypi.org/project/Nano-Utils"
+        },
+        "wheel": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/twine"
+        },
+        "pymongo": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pymongo"
+        },
+        "dill": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/dill"
+        },
+        "pytest-xdist": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "contextlib2": {
+            "credit": 0.0891,
+            "url": "https://pypi.org/project/contextlib2"
+        },
+        "pytest-asyncio": {
+            "credit": 0.001575160714285714,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "tox": {
+            "credit": 0.001575160714285714,
+            "url": "https://pypi.org/project/tox"
+        },
+        "pre-commit": {
+            "credit": 0.001575160714285714,
+            "url": "https://pypi.org/project/pre-commit"
+        }
+    }
+}

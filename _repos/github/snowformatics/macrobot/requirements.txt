@@ -1,0 +1,6 @@
+numpy
+scikit-image
+opencv-python
+pytest
+jinja2
+sphinx-autoapi

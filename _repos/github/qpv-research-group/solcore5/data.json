@@ -1,0 +1,98 @@
+{
+    "setup.py": {
+        "github/qpv-research-group/solcore5": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.22151250000000003,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.1235025,
+            "url": "https://matplotlib.org"
+        },
+        "scipy": {
+            "credit": 0.0009900000000000048,
+            "url": "https://www.scipy.org"
+        },
+        "tmm": {
+            "credit": 0.099,
+            "url": "http://pypi.python.org/pypi/tmm"
+        },
+        "natsort": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/SethMMorton/natsort"
+        },
+        "regex": {
+            "credit": 0.099,
+            "url": "https://github.com/mrabarnett/mrab-regex"
+        },
+        "cycler": {
+            "credit": 0.099,
+            "url": "https://github.com/matplotlib/cycler"
+        },
+        "pyyaml": {
+            "credit": 0.099,
+            "url": "https://pyyaml.org/"
+        },
+        "yabox": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/pablormier/yabox"
+        },
+        "joblib": {
+            "credit": 0.099,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "PyICU": {
+            "credit": 0.049005,
+            "url": "https://gitlab.pyicu.org/main/pyicu"
+        },
+        "fastnumbers": {
+            "credit": 0.049005,
+            "url": "https://github.com/SethMMorton/fastnumbers"
+        },
+        "tqdm": {
+            "credit": 0.0002450249999999994,
+            "url": "https://tqdm.github.io"
+        },
+        "jupyter": {
+            "credit": 0.0245025,
+            "url": "http://jupyter.org"
+        },
+        "requests": {
+            "credit": 0.003032184375,
+            "url": "https://requests.readthedocs.io"
+        },
+        "slack-sdk": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.003032184375,
+            "url": "https://pypi.org/project/colorama"
+        }
+    }
+}

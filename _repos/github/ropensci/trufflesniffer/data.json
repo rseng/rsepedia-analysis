@@ -1,0 +1,138 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/trufflesniffer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.0049499999999999544,
+            "url": "https://cli.r-lib.org"
+        },
+        "crayon": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/r-lib/crayon#readme"
+        },
+        "withr": {
+            "credit": 0.07323355900621119,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.00021306521739130474,
+            "url": "https://github.com/r-lib/whoami#readme"
+        },
+        "tibble": {
+            "credit": 0.021306521739130436,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "testthat": {
+            "credit": 0.09608480357142857,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.09131366459627328,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.023064309782608698,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.09432701552795031,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.09307145263975154,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.023064309782608698,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.09307145263975154,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.026077660714285716,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.09432701552795031,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "R": {
+            "credit": 0.023064309782608698,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.0030133509316770187,
+            "url": null
+        }
+    }
+}

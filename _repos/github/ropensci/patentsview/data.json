@@ -1,0 +1,18 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/patentsview": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "httr": {
+            "credit": 0.00495,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.00495,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        }
+    }
+}
