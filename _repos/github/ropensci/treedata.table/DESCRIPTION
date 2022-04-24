@@ -1,0 +1,54 @@
+Package: treedata.table
+Title: Manipulation of Matched Phylogenies and Data using 'data.table'
+Version: 0.1.1
+Authors@R: c(
+    person(given = "Josef",
+           family = "Uyeda", 
+           role=c("aut"),
+           email="juyeda@vt.edu",
+           comment = c(ORCID="0000-0003-4624-9680")
+           ),
+    person(given = "Cristian", 
+            family = "Roman-Palacios",
+            role = c("aut","cre"),
+            email = "cromanpa94@email.arizona.edu", 
+          comment = c(ORCID="0000-0003-4692-3225")
+            ),
+    person(given = "April",
+          family = "Wright",
+          role = c("aut"),
+          email = "april.wright@southeastern.edu", 
+          comment = c(ORCID="0000-0003-4692-3225")),
+    person(given = "Luke",
+          family = "Harmon",
+          role = c("ctb")),
+    person(given = "Hugo",
+          family = "Gruson",
+          role = c("rev")),
+    person(given = "Kari",
+          family = "Norman",
+          role = c("rev"))
+  )
+URL: https://ropensci.github.io/treedata.table, https://docs.ropensci.org/treedata.table/, https://github.com/ropensci/treedata.table/
+BugReports: https://github.com/ropensci/treedata.table/issues
+Description: An implementation that combines trait data and a phylogenetic tree (or trees) into a 
+    single object of class treedata.table. The resulting object can be easily 
+    manipulated to simultaneously change the trait- and tree-level sampling.
+    Currently implemented functions allow users to use a 'data.table' syntax when
+    performing operations on the trait dataset within the treedata.table object.
+License: MIT + file LICENSE
+Depends:
+  R (>= 2.10),
+  ape
+Imports: 
+  lazyeval, geiger, utils,  data.table
+RoxygenNote: 7.1.1
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown,
+    testthat,
+    utf8
+VignetteBuilder: knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)

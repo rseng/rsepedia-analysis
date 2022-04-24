@@ -1,0 +1,58 @@
+{
+    "setup.py": {
+        "github/davidebolo1993/VISOR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyfaidx": {
+            "credit": 0.14142857142857143,
+            "url": "http://mattshirley.com"
+        },
+        "pysam": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "pywgsim": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/ialbert/pywgsim"
+        },
+        "pybedtools": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/daler/pybedtools"
+        },
+        "mappy": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/lh3/minimap2"
+        },
+        "plotly": {
+            "credit": 0.001414285714285729,
+            "url": "https://plotly.com/python/"
+        },
+        "numpy": {
+            "credit": 0.14142857142857143,
+            "url": "https://www.numpy.org"
+        },
+        "six": {
+            "credit": 0.07000714285714285,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "tenacity": {
+            "credit": 0.0007000714285714249,
+            "url": "https://github.com/jd/tenacity"
+        },
+        "tornado": {
+            "credit": 0.023102357142857143,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "sphinx": {
+            "credit": 0.023102357142857143,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "reno": {
+            "credit": 0.023102357142857143,
+            "url": "https://pypi.org/project/reno"
+        }
+    }
+}

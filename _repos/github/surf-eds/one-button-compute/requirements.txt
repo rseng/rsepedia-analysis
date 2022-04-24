@@ -1,0 +1,12 @@
+flask
+cwl-runner
+celery
+redis
+python-magic
+# For WebDAV remote storage
+easywebdav
+# For S3 remote storage
+minio
+# For Swift remote storage
+python-swiftclient
+python-keystoneclient

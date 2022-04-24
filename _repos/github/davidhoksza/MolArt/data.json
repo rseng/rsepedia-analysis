@@ -1,0 +1,86 @@
+{
+    "package.json": {
+        "github/davidhoksza/MolArt": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "types": {
+            "credit": 0.0008250000000000063,
+            "url": "http://nodeca.github.com/types/"
+        },
+        "ProtVista": {
+            "credit": 0.0825,
+            "url": "https://github.com/ebi-uniprot/ProtVista"
+        },
+        "color-blend": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/Loilo/color-blend#readme"
+        },
+        "downloadjs": {
+            "credit": 0.0825,
+            "url": "http://danml.com/download.html"
+        },
+        "events": {
+            "credit": 0.0825,
+            "url": "https://github.com/Gozala/events#readme"
+        },
+        "jquery": {
+            "credit": 0.0825,
+            "url": "https://jquery.com"
+        },
+        "litemol": {
+            "credit": 0.0825,
+            "url": "https://webchemdev.ncbr.muni.cz/LiteMol/"
+        },
+        "lodash": {
+            "credit": 0.0825,
+            "url": "https://lodash.com/"
+        },
+        "semantic-ui-button": {
+            "credit": 0.0825,
+            "url": "http://www.semantic-ui.com"
+        },
+        "semantic-ui-dropdown": {
+            "credit": 0.0825,
+            "url": "http://www.semantic-ui.com"
+        },
+        "semantic-ui-label": {
+            "credit": 0.0825,
+            "url": "http://www.semantic-ui.com"
+        },
+        "semantic-ui-transition": {
+            "credit": 0.0825,
+            "url": "http://www.semantic-ui.com"
+        },
+        "vows": {
+            "credit": 0.081675,
+            "url": "https://github.com/cloudhead/vows"
+        },
+        "typescript": {
+            "credit": 0.0136125,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "tslint-config-prettier": {
+            "credit": 0.0136125,
+            "url": "https://github.com/prettier/tslint-config-prettier#readme"
+        },
+        "tslint": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "microbundle": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "": {
+            "credit": 0.0136125,
+            "url": null
+        }
+    }
+}

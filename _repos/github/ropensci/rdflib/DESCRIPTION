@@ -1,0 +1,65 @@
+Package: rdflib
+Title: Tools to Manipulate and Query Semantic Data
+Version: 0.2.5
+Authors@R: c(person("Carl", "Boettiger", 
+                  email = "cboettig@gmail.com", 
+                  role = c("aut", "cre", "cph"),
+                  comment=c(ORCID = "0000-0002-1642-628X")),
+             person("Bryce", "Mecum", 
+                  role = "rev",
+                  comment=c(ORCID = "0000-0002-0381-3766")),
+             person("Anna", "Krystalli", 
+                  role = "rev",
+                  comment=c(ORCID = "0000-0002-2378-4915")),
+             person("Viktor", "Senderov",
+                  email = "vsenderov@gmail.com",
+                  role = "ctb",
+                  comment = c(ORCID = "0000-0003-3340-5963")))
+Description: The Resource Description Framework, or 'RDF' is a widely used
+             data representation model that forms the cornerstone of the 
+             Semantic Web. 'RDF' represents data as a graph rather than 
+             the familiar data table or rectangle of relational databases.
+             The 'rdflib' package provides a friendly and concise user interface
+             for performing common tasks on 'RDF' data, such as reading, writing
+             and converting between the various serializations of 'RDF' data,
+             including 'rdfxml', 'turtle', 'nquads', 'ntriples', and 'json-ld';
+             creating new 'RDF' graphs, and performing graph queries using 'SPARQL'.
+             This package wraps the low level 'redland' R package which
+             provides direct bindings to the 'redland' C library.  Additionally,
+             the package supports the newer and more developer friendly
+             'JSON-LD' format through the 'jsonld' package. The package
+             interface takes inspiration from the Python 'rdflib' library.
+License: MIT + file LICENSE
+Encoding: UTF-8
+URL: https://github.com/ropensci/rdflib
+BugReports: https://github.com/ropensci/rdflib/issues
+Imports: 
+    redland,
+    jsonld,
+    methods,
+    utils,
+    stringi,
+    readr,
+    dplyr,
+    tidyr
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    magrittr,
+    covr,
+    testthat,
+    knitr,
+    rmarkdown,
+    jqr,
+    DT,
+    tibble,
+    purrr,
+    lubridate,
+    httr,
+    xml2,
+    jsonlite,
+    repurrrsive,
+    nycflights13,
+    spelling
+VignetteBuilder: knitr
+Language: en-US

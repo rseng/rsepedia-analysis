@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/potassco/clingo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cffi": {
+            "credit": 0.0099,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "pycparser": {
+            "credit": 0.009801,
+            "url": "https://github.com/eliben/pycparser"
+        }
+    }
+}

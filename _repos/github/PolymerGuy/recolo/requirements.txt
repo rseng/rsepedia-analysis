@@ -1,0 +1,15 @@
+numpy
+scipy
+pytest
+coverage
+pytest-cov
+codecov
+matplotlib
+natsort
+sphinx_rtd_theme
+sphinxcontrib-bibtex
+sphinx
+scikit-image
+wget
+beautifulsoup4
+SciencePlots

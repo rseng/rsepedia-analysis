@@ -1,0 +1,210 @@
+{
+    "go.mod": {
+        "github/hpcng/singularity": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "go": {
+        "github.com/Netflix/go-expect": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/ProtonMail/go-crypto": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/adigunhammedolalekan/registry-auth": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/apex/log": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/blang/semver/v4": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/buger/jsonparser": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/containerd/cgroups": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/containerd/containerd": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/containernetworking/cni": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/containernetworking/plugins": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/containers/image/v5": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/cyphar/filepath-securejoin": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/docker/docker": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/fatih/color": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/go-log/log": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/google/uuid": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/gorilla/websocket": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/hpcng/sif/v2": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/kr/pty": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/moby/sys/mount": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/go-digest": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/image-spec": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/runtime-spec": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/runtime-tools": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/selinux": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/opencontainers/umoci": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/pelletier/go-toml": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/russross/blackfriday/v2": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/seccomp/containers-golang": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/seccomp/libseccomp-golang": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/spf13/pflag": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/sylabs/json-resp": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/sylabs/scs-build-client": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/sylabs/scs-key-client": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/sylabs/scs-library-client": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/urfave/cli": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/vbauerster/mpb/v4": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/vbauerster/mpb/v6": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/xeipuuv/gojsonpointer": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/yvasiyarov/go-metrics": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/yvasiyarov/gorelic": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "github.com/yvasiyarov/newrelic_platform_go": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "golang.org/x/sys": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "golang.org/x/term": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "gopkg.in/yaml.v2": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "gotest.tools/v3": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "mvdan.cc/sh/v3": {
+            "credit": 0.000198,
+            "url": null
+        },
+        "oras.land/oras-go": {
+            "credit": 0.000198,
+            "url": null
+        }
+    }
+}

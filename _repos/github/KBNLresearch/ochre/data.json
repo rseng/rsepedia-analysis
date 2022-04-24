@@ -1,0 +1,102 @@
+{
+    "setup.py": {
+        "github/KBNLresearch/ochre": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cwltool": {
+            "credit": 0.05610000000000001,
+            "url": "https://github.com/common-workflow-language/cwltool"
+        },
+        "scriptcwl": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/nlesc/scriptcwl"
+        },
+        "nlppln": {
+            "credit": 0.165,
+            "url": "https://github.com/nlppln/nlppln"
+        },
+        "six": {
+            "credit": 0.21945,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "glob2": {
+            "credit": 0.165,
+            "url": "http://github.com/miracle2k/python-glob2/"
+        },
+        "sh": {
+            "credit": 0.165,
+            "url": "https://github.com/amoffat/sh"
+        },
+        "galaxy-tool-util": {
+            "credit": 0.010209375,
+            "url": "https://github.com/galaxyproject/galaxy"
+        },
+        "argcomplete": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "pyparsing": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "pydot": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/pydot"
+        },
+        "coloredlogs": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/coloredlogs"
+        },
+        "typing-extensions": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "bagit": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/bagit"
+        },
+        "prov": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/prov"
+        },
+        "psutil": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "mypy-extensions": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "schema-salad": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/schema-salad"
+        },
+        "shellescape": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/shellescape"
+        },
+        "rdflib": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/rdflib"
+        },
+        "ruamel.yaml": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/ruamel.yaml"
+        },
+        "requests": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/requests"
+        },
+        "setuptools": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "click": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/click"
+        }
+    }
+}

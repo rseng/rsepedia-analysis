@@ -1,0 +1,50 @@
+Package: opitools
+Type: Package
+Title: Analyzing the Opinions in a Big Text Document
+Version: 2.0.0
+Author: Monsuru Adepeju [cre, aut],
+Maintainer: Monsuru Adepeju <monsuur2010@yahoo.com>
+Description: Designed for performing impact analysis of
+  opinions in a digital text document (DTD). The 
+  package allows a user to assess the extent to which a theme
+  or subject within a document impacts the overall opinion 
+  expressed in the document. The package can be applied to a wide 
+  range of opinion-based DTD, including commentaries on social media
+  platforms (such as 'Facebook', 'Twitter' and 'Youtube'), 
+  online products reviews, and so on. 
+  The utility of 'opitools' was originally demonstrated 
+  in Adepeju and Jimoh (2021) <doi:10.31235/osf.io/c32qh> in the 
+  assessment of COVID-19 impacts on neighbourhood policing using 
+  Twitter data. Further examples can be found in the vignette of 
+  the package.
+Language: en-US
+License: GPL-3
+URL: https://github.com/MAnalytics/opitools
+BugReports: https://github.com/MAnalytics/opitools/issues/new/choose
+Depends: R (>= 4.0.0)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+Imports:
+  ggplot2,
+  tibble,
+  tidytext,
+  magrittr,
+  dplyr,
+  stringr,
+  purrr,
+  tidyr,
+  likert,
+  tm,
+  wordcloud2,
+  forcats,
+  cowplot
+RoxygenNote: 7.1.1
+Suggests:
+  knitr,
+  rmarkdown,
+  testthat,
+  rvest,
+  kableExtra,
+  markdown
+VignetteBuilder: knitr

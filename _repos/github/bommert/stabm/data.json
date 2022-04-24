@@ -1,0 +1,138 @@
+{
+    "DESCRIPTION": {
+        "github/bommert/stabm": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "checkmate": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/mllg/checkmate"
+        },
+        "Matrix": {
+            "credit": 0.00495000000000001,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "tibble": {
+            "credit": 0.03267,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "tinytest": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.06149647058823529,
+            "url": null
+        },
+        "backports": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06149647058823529,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.028826470588235294,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,11 @@
+biopython
+click
+edlib
+jellyfish
+joblib
+numpy
+matplotlib
+pandas
+plotly
+python-slugify
+regex

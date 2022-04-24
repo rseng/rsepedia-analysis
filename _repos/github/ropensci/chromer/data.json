@@ -1,0 +1,186 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/chromer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "dplyr": {
+            "credit": 0.003300000000000025,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "httr": {
+            "credit": 0.33,
+            "url": "https://httr.r-lib.org/"
+        },
+        "data.table": {
+            "credit": 0.003300000000000025,
+            "url": "https://r-datatable.com"
+        },
+        "withr": {
+            "credit": 0.009899999999999999,
+            "url": "https://withr.r-lib.org"
+        },
+        "tidyr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.037125,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.037125,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.037125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.009899999999999999,
+            "url": null
+        },
+        "R": {
+            "credit": 0.037125,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.027225,
+            "url": null
+        }
+    }
+}

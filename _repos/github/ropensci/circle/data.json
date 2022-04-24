@@ -1,0 +1,134 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/circle": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.003300000000000025,
+            "url": "https://cli.r-lib.org"
+        },
+        "httr": {
+            "credit": 0.33200890062111804,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.33200890062111804,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "withr": {
+            "credit": 0.0021509440993788824,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.0001420434782608681,
+            "url": "https://github.com/r-lib/whoami#readme"
+        },
+        "tibble": {
+            "credit": 0.014204347826086957,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "testthat": {
+            "credit": 0.017385107142857143,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.015376206521739131,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.01621324844720497,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.015376206521739131,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.015376206521739131,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.015376206521739131,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.017385107142857143,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.01621324844720497,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.014204347826086957,
+            "url": null
+        },
+        "R": {
+            "credit": 0.015376206521739131,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.001171858695652174,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.001171858695652174,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.001171858695652174,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.001171858695652174,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.001171858695652174,
+            "url": null
+        }
+    }
+}

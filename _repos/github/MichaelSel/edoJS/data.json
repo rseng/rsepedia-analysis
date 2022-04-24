@@ -1,0 +1,186 @@
+{
+    "package.json": {
+        "github/MichaelSel/edoJS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "csv-parser": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/mafintosh/csv-parser"
+        },
+        "fs": {
+            "credit": 0.2475,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "midi-parser-js": {
+            "credit": 0.2475,
+            "url": "https://github.com/colxi/midi-parser-js#readme"
+        },
+        "xml2js": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/Leonidas-from-XIV/node-xml2js"
+        },
+        "tsd": {
+            "credit": 0.009424038461538461,
+            "url": "https://github.com/SamVerschueren/tsd#readme"
+        },
+        "time-span": {
+            "credit": 0.009424038461538461,
+            "url": "https://github.com/sindresorhus/time-span#readme"
+        },
+        "text-table": {
+            "credit": 9.424038461538532e-05,
+            "url": null
+        },
+        "strip-ansi": {
+            "credit": 0.009424038461538461,
+            "url": "https://github.com/chalk/strip-ansi#readme"
+        },
+        "pre-commit": {
+            "credit": 0.001427068681318682,
+            "url": "https://github.com/observing/pre-commit"
+        },
+        "nyc": {
+            "credit": 0.04005216346153846,
+            "url": "https://istanbul.js.org/"
+        },
+        "loud-rejection": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "globby": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "execa": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "csv-spectrum": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "concat-stream": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "bops": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "": {
+            "credit": 0.02827211538461538,
+            "url": null
+        },
+        "minimist": {
+            "credit": 0.009424038461538461,
+            "url": null
+        },
+        "zap": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "docco": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "diff": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "coffee-script": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "xmlbuilder": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "sax": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "tap": {
+            "credit": 0.003109932692307692,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.003109932692307692,
+            "url": null
+        },
+        "cli-color": {
+            "credit": 0.003109932692307692,
+            "url": null
+        },
+        "assume": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        },
+        "cross-spawn": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        },
+        "spawn-sync": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        },
+        "which": {
+            "credit": 0.0013328282967032966,
+            "url": null
+        }
+    }
+}

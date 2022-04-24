@@ -1,0 +1,270 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tinkr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "commonmark": {
+            "credit": 0.000899999999999998,
+            "url": "https://docs.ropensci.org/commonmark/ (docs)\nhttps://github.com/r-lib/commonmark (devel)\nhttps://github.github.com/gfm/ (spec)"
+        },
+        "fs": {
+            "credit": 0.000899999999999998,
+            "url": "https://fs.r-lib.org"
+        },
+        "glue": {
+            "credit": 0.009809999999999998,
+            "url": "https://github.com/tidyverse/glue"
+        },
+        "knitr": {
+            "credit": 0.0564903,
+            "url": "https://yihui.org/knitr/"
+        },
+        "magrittr": {
+            "credit": 0.0342153,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "purrr": {
+            "credit": 0.000899999999999998,
+            "url": "http://purrr.tidyverse.org"
+        },
+        "R6": {
+            "credit": 0.000899999999999998,
+            "url": "https://r6.r-lib.org"
+        },
+        "stringr": {
+            "credit": 0.007900714285714283,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "xml2": {
+            "credit": 0.04829271428571428,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "xslt": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/ropensci/xslt"
+        },
+        "yaml": {
+            "credit": 0.09254571428571429,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "testthat": {
+            "credit": 0.15954030000000002,
+            "url": "https://testthat.r-lib.org"
+        },
+        "curl": {
+            "credit": 0.0415503,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.01188,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.01188,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.05813601428571429,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.019979999999999998,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.018070714285714287,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0555903,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.026276014285714286,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0878360142857143,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "rprintf": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.004455,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.012555,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "targets": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "styler": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.014396014285714284,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "png": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "JuliaCall": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "reticulate": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "tikzDevice": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "webshot": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.011455714285714284,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "testit": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "highr": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.022949999999999998,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0081,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.0297,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.00891,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.00891,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0118503,
+            "url": null
+        }
+    }
+}

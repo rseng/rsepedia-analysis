@@ -1,0 +1,43 @@
+Type: Package
+Package: riem
+Title: Accesses Weather Data from the Iowa Environment Mesonet
+Version: 0.3.0.9000
+Authors@R: c(
+    person("Maëlle", "Salmon", , "maelle.salmon@yahoo.se", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-2815-0399")),
+    person("Brooke", "Anderson", role = "rev",
+           comment = "Brooke Anderson reviewed the package for rOpenSci, see https://github.com/ropensci/onboarding/issues/39."),
+    person("CHAI Project", role = "fnd",
+           comment = "The research leading to these results has received funding from the European Research Council under the ERC Grant Agreement number 336167– the CHAI Project"),
+    person("rOpenSci", role = "fnd",
+           comment = "https://ropensci.org/"),
+    person("Daryl", "Herzmann", , "akrherz@gmail.com", role = "ctb")
+  )
+Description: Allows to get weather data from Automated Surface Observing
+    System (ASOS) stations (airports) in the whole world thanks to the
+    Iowa Environment Mesonet website.
+License: GPL (>= 2)
+URL: https://docs.ropensci.org/riem/, https://github.com/ropensci/riem
+BugReports: https://github.com/ropensci/riem/issues
+Imports:
+    httr2,
+    jsonlite (>= 0.9.19),
+    lubridate (>= 1.5.6),
+    magrittr,
+    purrr,
+    rlang,
+    tibble
+Suggests: 
+    dplyr,
+    forecast,
+    ggplot2,
+    httptest2,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vcr,
+    weathermetrics,
+    xts
+Config/testthat/edition: 3
+Encoding: UTF-8
+RoxygenNote: 7.1.2

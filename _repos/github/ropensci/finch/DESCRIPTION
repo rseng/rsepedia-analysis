@@ -1,0 +1,31 @@
+Package: finch
+Title: Parse Darwin Core Files
+Description: Parse and create Darwin Core (<http://rs.tdwg.org/dwc/>) Simple
+    and Archives. Functionality includes reading and parsing all the
+    files in a Darwin Core Archive, including the datasets and metadata;
+    read and parse simple Darwin Core files; and validation of Darwin
+    Core Archives.
+Version: 0.4.0
+Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com",
+    comment = c(ORCID = "0000-0003-1444-9135"))
+License: MIT + file LICENSE
+LazyData: true
+URL: https://docs.ropensci.org/finch/, https://github.com/ropensci/finch
+BugReports: https://github.com/ropensci/finch/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Imports:
+    xml2 (>= 1.0.0),
+    EML (>= 2.0.0),
+    data.table (>= 1.10.0),
+    digest,
+    hoardr (>= 0.2.0)
+Suggests:
+    testthat,
+    crul,
+    jsonlite
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Biology
+X-schema.org-keywords: biology, occurrences, specimen, biodiversity, collections, species
+X-schema.org-isPartOf: https://ropensci.org

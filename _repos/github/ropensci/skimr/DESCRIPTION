@@ -1,0 +1,167 @@
+Package: skimr
+Title: Compact and Flexible Summaries of Data
+Version: 2.1.4
+Authors@R: 
+    c(person(given = "Elin",
+             family = "Waring",
+             role = c("cre", "aut"),
+             email = "elin.waring@gmail.com"),
+      person(given = "Michael",
+             family = "Quinn",
+             role = "aut",
+             email = "msquinn@google.com"),
+      person(given = "Amelia",
+             family = "McNamara",
+             role = "aut",
+             email = "amcnamara@smith.edu"),
+      person(given = "Eduardo",
+             family = "Arino de la Rubia",
+             role = "aut",
+             email = "earino@gmail.com"),
+      person(given = "Hao",
+             family = "Zhu",
+             role = "aut",
+             email = "haozhu233@gmail.com"),
+      person(given = "Julia",
+             family = "Lowndes",
+             role = "ctb",
+             email = "lowndes@nceas.ucsb.edu"),
+      person(given = "Shannon",
+             family = "Ellis",
+             role = "aut",
+             email = "sellis18@jhmi.edu"),
+      person(given = "Hope",
+             family = "McLeod",
+             role = "ctb",
+             email = "hmgit2@gmail.com"),
+      person(given = "Hadley",
+             family = "Wickham",
+             role = "ctb",
+             email = "hadley@rstudio.com"),
+      person(given = "Kirill",
+             family = "Müller",
+             role = "ctb",
+             email = "krlmlr+r@mailbox.org"),
+      person(family = "RStudio, Inc.",
+             role = "cph",
+             comment = "Spark functions"),
+      person(given = "Connor",
+             family = "Kirkpatrick",
+             role = "ctb",
+             email = "hello@connorkirkpatrick.com"),
+      person(given = "Scott",
+             family = "Brenstuhl",
+             role = "ctb",
+             email = "brenstsr@miamioh.edu"),
+      person(given = "Patrick",
+             family = "Schratz",
+             role = "ctb",
+             email = "patrick.schratz@gmail.com"),
+      person(given = "lbusett",
+             role = "ctb",
+             email = "lbusett@gmail.com"),
+      person(given = "Mikko",
+             family = "Korpela",
+             role = "ctb",
+             email = "mvkorpel@iki.fi"),
+      person(given = "Jennifer",
+             family = "Thompson",
+             role = "ctb",
+             email = "thompson.jennifer@gmail.com"),
+      person(given = "Harris",
+             family = "McGehee",
+             role = "ctb",
+             email = "mcgehee.harris@gmail.com"),
+      person(given = "Mark",
+             family = "Roepke",
+             role = "ctb",
+             email = "mroepke5@gmail.com"),
+      person(given = "Patrick",
+             family = "Kennedy",
+             role = "ctb",
+             email = "pkqstr@protonmail.com"),
+      person(given = "Daniel",
+             family = "Possenriede",
+             role = "ctb",
+             email = "possenriede@gmail.com"),
+      person(given = "David",
+             family = "Zimmermann",
+             role = "ctb",
+             email = "david_j_zimmermann@hotmail.com"),
+      person(given = "Kyle", 
+             family = "Butts",
+             role ="ctb",
+             email = "buttskyle96@gmail.com"),
+      person(given = "Bastian", 
+             family = "Torges",
+             role ="ctb",
+             email = "bastian.torges@gmail.com"),
+      person(given = "Rick",
+             family = "Saporta",
+             role = "ctb",
+             email = "Rick@TheFarmersDog.com"),
+      person(given = "Henry",
+             family = "Morgan Stewart",
+             role = "ctb",
+             email = "henry.morganstewart@gmail.com")
+       )
+Description: A simple to use summary function that can be used with pipes
+    and displays nicely in the console. The default summary statistics may
+    be modified by the user as can the default formatting.  Support for
+    data frames and vectors is included, and users can implement their own
+    skim methods for specific object types as described in a vignette.
+    Default summaries include support for inline spark graphs.
+    Instructions for managing these on specific operating systems are
+    given in the "Using skimr" vignette and the README.
+License: GPL-3
+URL: https://docs.ropensci.org/skimr/ (website),
+    https://github.com/ropensci/skimr/
+BugReports: https://github.com/ropensci/skimr/issues
+Depends:
+    R (>= 3.1.2)
+Imports:
+    cli,
+    dplyr (>= 0.8.0),
+    knitr (>= 1.2),
+    magrittr (>= 1.5),
+    pillar (>= 1.6.4),
+    purrr,
+    repr,
+    rlang (>= 0.3.1),
+    stats,
+    stringr (>= 1.1),
+    tibble (>= 2.0.0),
+    tidyr (>= 1.0),
+    tidyselect (>= 1.0.0),
+    vctrs
+Suggests:
+    covr,
+    crayon,
+    data.table,
+    dtplyr,
+    extrafont,
+    haven,
+    lubridate,
+    rmarkdown,
+    testthat (>= 2.0.0),
+    withr
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Collate:
+    'deprecated.R'
+    'dplyr.R'
+    'stats.R'
+    'skim_with.R'
+    'get_skimmers.R'
+    'reshape.R'
+    'sfl.R'
+    'skim.R'
+    'skim_obj.R'
+    'skim_print.R'
+    'skimr-package.R'
+    'summary.R'
+    'utils.R'
+    'vctrs.R'

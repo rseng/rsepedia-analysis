@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/NLeSC/Massive-PotreeConverter": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "lxml": {
+            "credit": 0.002475,
+            "url": "https://lxml.de/"
+        },
+        "pycoeman": {
+            "credit": 0.002475,
+            "url": "https://github.com/NLeSC/pycoeman"
+        },
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "glob2": {
+            "credit": 0.002475,
+            "url": "http://github.com/miracle2k/python-glob2/"
+        }
+    }
+}

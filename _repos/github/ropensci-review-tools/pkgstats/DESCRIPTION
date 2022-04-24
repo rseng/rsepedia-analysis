@@ -1,0 +1,45 @@
+Package: pkgstats
+Title: Metrics of R Packages
+Version: 0.0.4.030
+Authors@R: 
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-2172-5265"))
+Description: Metrics of R packages.
+License: GPL-3
+URL: https://docs.ropensci.org/pkgstats/,
+    https://github.com/ropensci-review-tools/pkgstats
+BugReports: https://github.com/ropensci-review-tools/pkgstats/issues
+Imports:
+    brio,
+    checkmate,
+    dplyr,
+    fs,
+    igraph,
+    methods,
+    readr,
+    sys,
+    withr
+Suggests: 
+    curl,
+    hms,
+    jsonlite,
+    knitr,
+    parallel,
+    pkgbuild,
+    Rcpp,
+    rmarkdown,
+    roxygen2,
+    testthat (>= 3.0.0),
+    visNetwork
+LinkingTo: 
+    cpp11
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+NeedsCompilation: yes
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+SystemRequirements: ctags, global, C++11

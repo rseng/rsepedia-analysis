@@ -1,0 +1,66 @@
+Type: Package
+Package: roblog
+Title: rOpenSci's blog guidance
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Maëlle",
+             family = "Salmon",
+             role = c("aut", "cre"),
+             email = "maelle.salmon@yahoo.se",
+             comment = c(ORCID = "0000-0002-2815-0399")),
+      person(given = "Stefanie",
+             family = "Butland",
+             role = "aut"),
+      person(given = "rOpenSci",
+             role = "fnd",
+             comment = "https://ropensci.org/"),
+      person(given = "Amanda",
+             family = "Dobbyn",
+             role = "ctb",
+             email = "amanda.e.dobbyn@gmail.com"),
+      person(given = "Christophe",
+             family = "Dervieux",
+             role = "ctb"),
+      person(given = "Romain",
+             family = "LESUR",
+             role = "ctb"))
+Description: It provides templates for roweb2 blogging and help
+    for a GitHub forking workflow.
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/roblog/,
+    https://github.com/ropenscilabs/roblog
+BugReports: https://github.com/ropenscilabs/roblog/issues
+Imports: 
+    commonmark,
+    crul (>= 0.9.1.9992),
+    dplyr,
+    fs,
+    gh,
+    git2r,
+    glue,
+    hrbrthemes,
+    magrittr,
+    praise,
+    purrr,
+    rlang,
+    rstudioapi,
+    snakecase,
+    stringr,
+    tibble,
+    tidytext,
+    xml2,
+    yaml
+Suggests: 
+    details,
+    gluedown,
+    knitr,
+    rmarkdown,
+    testthat (>= 2.1.0)
+VignetteBuilder: 
+    knitr
+Remotes:
+    ropensci/crul
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2

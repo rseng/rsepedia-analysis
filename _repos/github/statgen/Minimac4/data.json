@@ -1,0 +1,8 @@
+{
+    "requirements.txt": {
+        "github/statgen/Minimac4": {
+            "credit": 0.01,
+            "url": null
+        }
+    }
+}

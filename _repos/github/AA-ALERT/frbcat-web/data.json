@@ -1,0 +1,198 @@
+{
+    "package.json": {
+        "github/AA-ALERT/frbcat-web": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "compression": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/expressjs/compression#readme"
+        },
+        "express": {
+            "credit": 0.14142857142857143,
+            "url": "http://expressjs.com/"
+        },
+        "fs": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "path": {
+            "credit": 0.001414285714285729,
+            "url": "http://nodejs.org/docs/latest/api/path.html"
+        },
+        "pg": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/brianc/node-postgres"
+        },
+        "react-grid-gallery": {
+            "credit": 0.001414285714285729,
+            "url": "https://benhowell.github.io/react-grid-gallery/"
+        },
+        "react-images": {
+            "credit": 0.14809591836734695,
+            "url": "https://jossmac.github.io/react-images/"
+        },
+        "supertest": {
+            "credit": 0.007778571428571428,
+            "url": "https://github.com/visionmedia/supertest#readme"
+        },
+        "mocha": {
+            "credit": 0.007778571428571428,
+            "url": "https://mochajs.org/"
+        },
+        "istanbul": {
+            "credit": 0.007778571428571428,
+            "url": "https://github.com/gotwarlost/istanbul#readme"
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "after": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "vary": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "compressible": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "bytes": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "accepts": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "process": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "util": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "watchify": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "vinyl-source-stream": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "vinyl-buffer": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "run-sequence": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "react": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-uglify": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-if": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-gh-pages": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-clean": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-beautify": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp-babel": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "gulp": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "babelify": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "babel-preset-react": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "babel-plugin-transform-es2015-modules-commonjs": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.00666734693877551,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.00666734693877551,
+            "url": null
+        }
+    }
+}

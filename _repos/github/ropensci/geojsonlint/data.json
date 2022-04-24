@@ -1,0 +1,82 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/geojsonlint": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crul": {
+            "credit": 0.002475000000000005,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "jsonlite": {
+            "credit": 0.34375982142857137,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "jsonvalidate": {
+            "credit": 0.002475000000000005,
+            "url": "https://docs.ropensci.org/jsonvalidate/"
+        },
+        "V8": {
+            "credit": 0.043312500000000004,
+            "url": "https://github.com/jeroen/v8 (devel) https://v8.dev (upstream)"
+        },
+        "rmarkdown": {
+            "credit": 0.09625982142857142,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.09625982142857142,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.09625982142857142,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.055422321428571425,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.035003571428571426,
+            "url": null
+        }
+    }
+}

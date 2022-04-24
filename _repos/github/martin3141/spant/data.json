@@ -1,0 +1,222 @@
+{
+    "DESCRIPTION": {
+        "github/martin3141/spant": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "abind": {
+            "credit": 0.005995000000000002,
+            "url": "NA"
+        },
+        "plyr": {
+            "credit": 0.0005500000000000019,
+            "url": "http://had.co.nz/plyr"
+        },
+        "pracma": {
+            "credit": 0.06180625,
+            "url": "NA"
+        },
+        "stringr": {
+            "credit": 0.0005500000000000019,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "expm": {
+            "credit": 0.0005500000000000019,
+            "url": "http://R-Forge.R-project.org/projects/expm/"
+        },
+        "signal": {
+            "credit": 0.0005500000000000019,
+            "url": null
+        },
+        "minpack.lm": {
+            "credit": 0.0005500000000000019,
+            "url": null
+        },
+        "smoother": {
+            "credit": 0.0005500000000000019,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.005995000000000002,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "ptw": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/rwehrens/ptw"
+        },
+        "mmand": {
+            "credit": 0.06180625,
+            "url": "https://github.com/jonclayden/mmand"
+        },
+        "RNifti": {
+            "credit": 0.06180625,
+            "url": "https://github.com/jonclayden/RNifti"
+        },
+        "RNiftyReg": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/jonclayden/RNiftyReg"
+        },
+        "fields": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/dnychka/fieldsRPackage"
+        },
+        "numDeriv": {
+            "credit": 0.055,
+            "url": "http://optimizer.r-forge.r-project.org/"
+        },
+        "nloptr": {
+            "credit": 0.0005500000000000019,
+            "url": null
+        },
+        "irlba": {
+            "credit": 0.0005500000000000019,
+            "url": "NA"
+        },
+        "jsonlite": {
+            "credit": 0.055,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "R": {
+            "credit": 0.06942374999999999,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0535425,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.02495625,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.044921249999999996,
+            "url": "https://testthat.r-lib.org"
+        },
+        "tcltk": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "itertools": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.02677125,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.01225125,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "Rmpfr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.03403125,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.06125625,
+            "url": null
+        },
+        "TTR": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "RcppDE": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "loder": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "ore": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "spam": {
+            "credit": 0.01089,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,246 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/UCSCXenaTools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "digest": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "dplyr": {
+            "credit": 0.001414285714285729,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "httr": {
+            "credit": 0.14142857142857143,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.14142857142857143,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "magrittr": {
+            "credit": 0.013026315789473698,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "readr": {
+            "credit": 0.001414285714285729,
+            "url": "https://readr.tidyverse.org"
+        },
+        "rlang": {
+            "credit": 0.03482678571428573,
+            "url": "https://rlang.r-lib.org"
+        },
+        "simplermarkdown": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/djvanderlaan/simplermarkdown"
+        },
+        "tinytest": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.08710306578947369,
+            "url": null
+        },
+        "R": {
+            "credit": 0.07578524436090225,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.01744595864661654,
+            "url": "https://withr.r-lib.org"
+        },
+        "tidyr": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.04078167293233082,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.04078167293233082,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04078167293233082,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.04078167293233082,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.01161203007518797,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.01161203007518797,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.01744595864661654,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.010076785714285713,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.01744595864661654,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.010076785714285713,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.01161203007518797,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.004242857142857143,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.013203101503759397,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.013203101503759397,
+            "url": null
+        },
+        "winch": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0073691729323308265,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.011551178571428572,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.011551178571428572,
+            "url": null
+        },
+        "rjson": {
+            "credit": 0.011551178571428572,
+            "url": null
+        }
+    }
+}

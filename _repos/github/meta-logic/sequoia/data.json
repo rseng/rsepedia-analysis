@@ -1,0 +1,194 @@
+{
+    "package.json": {
+        "github/meta-logic/sequoia": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "bcrypt": {
+            "credit": 0.061875,
+            "url": "https://github.com/kelektiv/node.bcrypt.js#readme"
+        },
+        "body-parser": {
+            "credit": 0.061875,
+            "url": "https://github.com/expressjs/body-parser#readme"
+        },
+        "dotenv": {
+            "credit": 0.061875,
+            "url": "https://github.com/motdotla/dotenv#readme"
+        },
+        "express": {
+            "credit": 0.072084375,
+            "url": "http://expressjs.com/"
+        },
+        "express-flash": {
+            "credit": 0.0006187500000000012,
+            "url": null
+        },
+        "express-handlebars": {
+            "credit": 0.061875,
+            "url": "https://github.com/express-handlebars/express-handlebars"
+        },
+        "express-session": {
+            "credit": 0.061875,
+            "url": "https://github.com/expressjs/session#readme"
+        },
+        "helmet": {
+            "credit": 0.061875,
+            "url": "https://helmetjs.github.io/"
+        },
+        "mongoose": {
+            "credit": 0.061875,
+            "url": "https://mongoosejs.com"
+        },
+        "morgan": {
+            "credit": 0.0006187500000000012,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "node-cmd": {
+            "credit": 0.061875,
+            "url": "https://github.com/RIAEvangelist/node-cmd"
+        },
+        "nodemon": {
+            "credit": 0.061875,
+            "url": "https://nodemon.io"
+        },
+        "passport": {
+            "credit": 0.061875,
+            "url": "https://www.passportjs.org/"
+        },
+        "passport-local": {
+            "credit": 0.0006187500000000012,
+            "url": "https://www.passportjs.org/packages/passport-local/?utm_source=github&utm_medium=referral&utm_campaign=passport-local"
+        },
+        "passport-local-mongoose": {
+            "credit": 0.061875,
+            "url": "https://github.com/saintedlama/passport-local-mongoose#readme"
+        },
+        "serve-favicon": {
+            "credit": 0.0006187500000000012,
+            "url": "https://github.com/expressjs/serve-favicon#readme"
+        },
+        "jade": {
+            "credit": 0.010209375,
+            "url": "http://jade-lang.com"
+        },
+        "mocha": {
+            "credit": 0.03318046875,
+            "url": null
+        },
+        "superagent": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "should": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "connect-flash": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "split": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "chai-passport-strategy": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "passport-strategy": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "fresh": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "parseurl": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "etag": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "ms": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.003828515625,
+            "url": null
+        },
+        "temp-path": {
+            "credit": 0.003828515625,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,65 @@
+Package: gittargets
+Title: Data Version Control for the Targets Package
+Description: In computationally demanding data analysis pipelines,
+  the 'targets' R package (2021, <doi:10.21105/joss.02959>) maintains
+  an up-to-date set of results while skipping tasks that do not need to rerun.
+  This process increases speed and increases trust in the final end product.
+  However, it also overwrites old output with new output, and past
+  results disappear by default. To preserve historical output, the 'gittargets'
+  package captures version-controlled snapshots of the data store,
+  and each snapshot links to the underlying commit of the source code.
+  That way, when the user rolls back the code to a previous branch or commit,
+  'gittargets' can recover the data contemporaneous with that commit so that
+  all targets remain up to date.
+Version: 0.0.3.9000
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/gittargets/, https://github.com/ropensci/gittargets
+BugReports: https://github.com/ropensci/gittargets/issues
+Authors@R: c(
+  person(
+    given = c("William", "Michael"),
+    family = "Landau",
+    role = c("aut", "cre"),
+    email = "will.landau@gmail.com",
+    comment = c(ORCID = "0000-0003-1878-3253")
+  ),
+  person(
+    given = "Saras",
+    family = "Windecker",
+    role = "rev", 
+    email = "saras.windecker@gmail.com"
+  ),
+  person(
+    given = "David",
+    family = "Neuzerling",
+    role = "rev",
+    email = "david@neuzerling.com"
+  ),
+  person(
+    family = "Eli Lilly and Company",
+    role = "cph"
+  ))
+Depends:
+  R (>= 3.5.0)
+Imports:
+  cli (>= 3.1.0),
+  data.table (>= 1.12.8),
+  gert (>= 1.0.0),
+  processx (>= 3.0.0),
+  stats,
+  targets (>= 0.6.0),
+  tibble (>= 3.0.0),
+  utils,
+  uuid (>= 0.1.4)
+Suggests:
+  knitr (>= 1.30),
+  markdown (>= 1.1),
+  rmarkdown (>= 2.4),
+  testthat (>= 3.0.0)
+SystemRequirements: Git (>= 2.0.0)
+Encoding: UTF-8
+Language: en-US
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

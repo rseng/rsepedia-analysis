@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/mishioo/tesliper": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "openpyxl": {
+            "credit": 0.00495,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "et-xmlfile": {
+            "credit": 0.0049005,
+            "url": "https://foss.heptapod.net/openpyxl/et_xmlfile"
+        }
+    }
+}

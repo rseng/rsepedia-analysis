@@ -1,0 +1,65 @@
+Package: osmdata
+Title: Import 'OpenStreetMap' Data as Simple Features or Spatial Objects
+Version: 0.1.9.002
+Authors@R: c(
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre")),
+    person("Bob", "Rudis", role = "aut"),
+    person("Robin", "Lovelace", role = "aut"),
+    person("Maëlle", "Salmon", role = "aut"),
+    person("Andrew", "Smith", role = "ctb"),
+    person("James", "Smith", role = "ctb"),
+    person("Andrea", "Gilardi", role = "ctb"),
+    person("Enrico", "Spinielli", role = "ctb"),
+    person("Anthony", "North", role = "ctb"),
+    person("Martin", "Machyna", role = "ctb"),
+    person("Marcin", "Kalicinski", role = c("ctb", "cph"),
+           comment = "Author of included RapidXML code"),
+    person("Finkelstein", "Noam", role = c("ctb", "cph"),
+           comment = "Author of included stub.R code"),
+    person("Bartnik", "Lukasz", role = c("ctb", "cph"),
+           comment = "Author of included stub.R code")
+  )
+Maintainer: Mark Padgham <mark.padgham@email.com>
+Description: Download and import of 'OpenStreetMap' ('OSM') data as 'sf'
+    or 'sp' objects.  'OSM' data are extracted from the 'Overpass' web
+    server (<https://overpass-api.de/>) and processed with very fast 'C++'
+    routines for return to 'R'.
+License: GPL-3
+URL: https://docs.ropensci.org/osmdata/ (website)
+    https://github.com/ropensci/osmdata/ (devel)
+BugReports: https://github.com/ropensci/osmdata/issues
+Depends:
+    R (>= 3.2.4)
+Imports:
+    curl,
+    httr,
+    jsonlite,
+    lubridate,
+    magrittr,
+    methods,
+    Rcpp (>= 0.12.4),
+    reproj,
+    rvest,
+    sp,
+    tibble,
+    utils,
+    xml2
+Suggests:
+    knitr,
+    markdown,
+    raster,
+    rmarkdown,
+    sf,
+    testthat
+LinkingTo:
+    Rcpp
+VignetteBuilder:
+    knitr
+Encoding: UTF-8
+NeedsCompilation: yes
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+SystemRequirements: C++11
+X-schema.org-applicationCategory: Data Access
+X-schema.org-isPartOf: https://ropensci.org
+X-schema.org-keywords: open0street0map, openstreetmap, overpass0API, OSM

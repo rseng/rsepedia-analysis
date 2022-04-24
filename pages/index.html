@@ -1,0 +1,55 @@
+---
+layout: about
+title: ""
+permalink: /
+---
+
+<style>
+ul {
+  color:#999
+}
+ul>li {
+  color:#999
+}
+</style>
+
+<div class="container mtb">
+    <div class="row" style="margin-top:100px">
+      <div class="col-lg-5">
+       <img class="img-responsive" src="{{ "/assets/img/logo/logo-transparent.svg" | prepend: site.baseurl }}" alt="">
+      </div>
+    <div class="col-lg-7">
+      <h3 style="color:#777">Research Software Ecosystem</h3>
+      <p>This is an automated analysis that uses the <a target="_blank" href="https://github.com/rseng/software">Research Software Engineering Community Database</a> and software to generate high level metrics to describe the ecosystem. We use <a href="https://github.com/vsoch/citelang" target="_blank">CiteLang</a> to parse dependency files and generate the analysis. Currently, outputs include:
+       <ul>
+      <li>{{ site.data.stats.total_repos }} total repositories</li>
+      <li>{{ site.data.stats.total_parsed }} total parsed</li>
+      <li>{{ site.data.stats.python_deps }} Python dependencies</li>
+      <li>{{ site.data.stats.r_deps }} R dependencies</li>
+      <li>{{ site.data.stats.go_deps }} Go dependencies</li>
+      <li>{{ site.data.stats.js_deps }} Js dependencies</li>
+     </ul><br>
+    <span style="color:#777">Of course these numbers are hugely influenced by the languages present in research software engineering projects, which tend to be Python and R, and those that we are easily able to parse metadata for. This means that a common language (C++) by way of not having consistently parseable formats is not well-represented. However, we can get better! This is run on a regular basis and you can improve the parsing by simply contributing to <a href="https://github.com/vsoch/citelang" target="_blank">CiteLang</a>. We invite you to explore the current results below.</span>
+            </p>
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-5" style="margin-right:20px">
+      <a class="btn btn-theme" 
+         href="{{ site.baseurl }}/analysis/languages/" 
+         role="button"
+         style="margin-left:10px;">Languages</a>
+      <a class="btn btn-theme" 
+         href="{{ site.baseurl }}/analysis/repos/" 
+         role="button"
+         style="margin-left:10px;">Repositories</a>
+      <a class="btn btn-theme" 
+         href="{{ site.baseurl }}/analysis/dependencies/" 
+         role="button"
+         style="margin-left:10px;">Dependencies</a>
+    </div>
+</div>
+</div>

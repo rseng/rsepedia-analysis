@@ -1,0 +1,202 @@
+{
+    "setup.py": {
+        "github/dpalmasan/TRUNAJOD2.0": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "spacy": {
+            "credit": 0.011227358413132715,
+            "url": "https://spacy.io"
+        },
+        "spacy-transformers": {
+            "credit": 0.0002279302325581406,
+            "url": "https://spacy.io"
+        },
+        "pythainlp": {
+            "credit": 0.022793023255813952,
+            "url": "https://github.com/PyThaiNLP/pythainlp"
+        },
+        "spacy-ray": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/spacy-ray"
+        },
+        "spacy-lookups-data": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/spacy-lookups-data"
+        },
+        "natto-py": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/natto-py"
+        },
+        "sudachidict-core": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/sudachidict-core"
+        },
+        "sudachipy": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/sudachipy"
+        },
+        "cupy-cuda92": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda92"
+        },
+        "cupy-cuda91": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda91"
+        },
+        "cupy-cuda90": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda90"
+        },
+        "cupy-cuda80": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda80"
+        },
+        "cupy-cuda115": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/cupy-cuda115"
+        },
+        "cupy-cuda114": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/cupy-cuda114"
+        },
+        "cupy-cuda113": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/cupy-cuda113"
+        },
+        "cupy-cuda112": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda112"
+        },
+        "cupy-cuda111": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda111"
+        },
+        "cupy-cuda110": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda110"
+        },
+        "cupy-cuda102": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda102"
+        },
+        "cupy-cuda101": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda101"
+        },
+        "cupy-cuda100": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy-cuda100"
+        },
+        "cupy": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/cupy"
+        },
+        "thinc-apple-ops": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/thinc-apple-ops"
+        },
+        "typing-extensions": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "langcodes": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/langcodes"
+        },
+        "packaging": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "setuptools": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "jinja2": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "pydantic": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/pydantic"
+        },
+        "requests": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/requests"
+        },
+        "numpy": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "tqdm": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/tqdm"
+        },
+        "pathy": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/pathy"
+        },
+        "typer": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/typer"
+        },
+        "catalogue": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/catalogue"
+        },
+        "srsly": {
+            "credit": 0.024120381668946648,
+            "url": "https://pypi.org/project/srsly"
+        },
+        "wasabi": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/wasabi"
+        },
+        "blis": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/blis"
+        },
+        "thinc": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/thinc"
+        },
+        "preshed": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/preshed"
+        },
+        "cymem": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/cymem"
+        },
+        "murmurhash": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/murmurhash"
+        },
+        "spacy-loggers": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/spacy-loggers"
+        },
+        "spacy-legacy": {
+            "credit": 0.022793023255813952,
+            "url": "https://pypi.org/project/spacy-legacy"
+        },
+        "dataclasses": {
+            "credit": 0.0013273584131326948,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "spacy-alignments": {
+            "credit": 0.0013273584131326948,
+            "url": "https://pypi.org/project/spacy-alignments"
+        },
+        "torch": {
+            "credit": 0.0013273584131326948,
+            "url": "https://pypi.org/project/torch"
+        },
+        "transformers": {
+            "credit": 0.0013273584131326948,
+            "url": "https://pypi.org/project/transformers"
+        }
+    }
+}

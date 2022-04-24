@@ -1,0 +1,166 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/spatsoc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "sp": {
+            "credit": 0.042251785714285714,
+            "url": "https://github.com/edzer/sp/ https://edzer.github.io/sp/"
+        },
+        "rgeos": {
+            "credit": 0.035290848214285714,
+            "url": "https://r-forge.r-project.org/projects/rgeos/ https://libgeos.org\nhttp://rgeos.r-forge.r-project.org/index.html"
+        },
+        "adehabitatHR": {
+            "credit": 0.002475000000000005,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.002475000000000005,
+            "url": "https://igraph.org"
+        },
+        "rmarkdown": {
+            "credit": 0.0153140625,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "deldir": {
+            "credit": 0.03281584821428571,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.05509084821428571,
+            "url": null
+        },
+        "gstat": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.0375890625,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.04642834821428571,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.06870334821428571,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.06870334821428571,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0512015625,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.06870334821428571,
+            "url": null
+        },
+        "R": {
+            "credit": 0.05509084821428571,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.022275,
+            "url": null
+        },
+        "XML": {
+            "credit": 0.022275,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.0358875,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "tkrplot": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "adehabitatLT": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "adehabitatMA": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "ade4": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0136125,
+            "url": null
+        }
+    }
+}

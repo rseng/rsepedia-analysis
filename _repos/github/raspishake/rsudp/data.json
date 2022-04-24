@@ -1,0 +1,126 @@
+{
+    "setup.py": {
+        "github/raspishake/rsudp": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "obspy": {
+            "credit": 0.0016500000000000126,
+            "url": "https://www.obspy.org"
+        },
+        "numpy": {
+            "credit": 0.17589000000000002,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.17589000000000002,
+            "url": "https://matplotlib.org"
+        },
+        "pydub": {
+            "credit": 0.165,
+            "url": "http://pydub.com"
+        },
+        "twython": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/ryanmcgrath/twython/tree/master"
+        },
+        "python-telegram-bot": {
+            "credit": 0.0016500000000000126,
+            "url": "https://python-telegram-bot.org/"
+        },
+        "pyshp": {
+            "credit": 0.01089,
+            "url": "https://github.com/GeospatialPython/pyshp"
+        },
+        "cartopy": {
+            "credit": 0.01089,
+            "url": "https://scitools.org.uk/cartopy/docs/latest/"
+        },
+        "geographiclib": {
+            "credit": 0.01089,
+            "url": "https://geographiclib.sourceforge.io/1.52/python"
+        },
+        "pytest-json-report": {
+            "credit": 0.00010890000000000032,
+            "url": "https://github.com/numirias/pytest-json-report"
+        },
+        "pytest": {
+            "credit": 0.01628055,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "pyproj": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/pyproj"
+        },
+        "packaging": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "requests": {
+            "credit": 0.092565,
+            "url": "https://pypi.org/project/requests"
+        },
+        "decorator": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "sqlalchemy": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "setuptools": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "lxml": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "scipy": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "requests-oauthlib": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/requests-oauthlib"
+        },
+        "PySocks": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "cryptography": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "ujson": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/ujson"
+        },
+        "cachetools": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/cachetools"
+        },
+        "pytz": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "APScheduler": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/APScheduler"
+        },
+        "tornado": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "certifi": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "pytest-metadata": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/pytest-metadata"
+        }
+    }
+}

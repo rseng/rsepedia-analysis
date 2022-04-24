@@ -1,0 +1,38 @@
+{
+    "package.json": {
+        "github/ReGIS-org/regis-v2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "angular": {
+            "credit": 0.00594,
+            "url": "http://angularjs.org"
+        },
+        "angular-cesium": {
+            "credit": 0.00066,
+            "url": "https://github.com/articodeltd/angular-cesium#readme"
+        },
+        "angular2-uuid": {
+            "credit": 0.00066,
+            "url": "https://github.com/wulfsolter/angular2-uuid#readme"
+        },
+        "cesium": {
+            "credit": 0.00066,
+            "url": "http://cesium.com/cesiumjs/"
+        },
+        "core-js": {
+            "credit": 0.00066,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "rxjs": {
+            "credit": 0.00066,
+            "url": "https://rxjs.dev"
+        },
+        "zone.js": {
+            "credit": 0.00066,
+            "url": "https://github.com/angular/angular#readme"
+        }
+    }
+}

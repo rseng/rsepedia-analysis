@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/exafmm/exafmm-t": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pybind11": {
+            "credit": 0.0099,
+            "url": "https://github.com/pybind/pybind11"
+        },
+        "pybind11-global": {
+            "credit": 0.009801,
+            "url": "https://github.com/pybind/pybind11"
+        }
+    }
+}

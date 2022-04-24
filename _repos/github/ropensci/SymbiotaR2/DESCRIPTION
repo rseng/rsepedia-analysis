@@ -1,0 +1,32 @@
+Package: SymbiotaR2
+Type: Package
+Title: Downloading Data from Symbiota2 Portals into R
+Version: 0.0-1
+Authors@R: c(person("Austin", "Koontz", email = "austinkoontz11@gmail.com", role = c("aut", "cre"), comment=c(ORCID="0000-0002-6103-5896")),
+    person("William D.", "Pearse", email = "will.pearse@gmail.com", role ="aut", comment=c(ORCID="0000-0002-6241-3164")),
+    person("Ben", "Bond-Lamberty", role = "rev", comment = "Ben reviewed SymbiotaR2 for rOpenSci and provided valuable feedback, see https://github.com/ropensci/software-review/issues/373"),
+    person("Scott", "Chamberlain", role = "rev", comment = "Scott reviewed SymbiotaR2 for rOpenSci and provided valuable feedback, see https://github.com/ropensci/software-review/issues/373"))
+Maintainer: Austin Koontz <austinkoontz11@gmail.com>
+Description: Download data from Symbiota2 portals using Symbiota's
+    API. Covers the Checklists, Collections, Crowdsource, Exsiccati,
+    Glossary, ImageProcessor, Key, Media, Occurrence, Reference, Taxa,
+    Traits, and UserRoles API families. Each Symbiota2 portal owner
+    can load their own plugins (and modified code), and so this
+    package may not cover every possible API endpoint from a given
+    Symbiota2 instance.
+License: MIT + file LICENSE
+URL: https://github.com/pearselab/SymbiotaR2
+BugReports: https://github.com/pearselab/SymbiotaR2/issues
+VignetteBuilder: knitr
+LazyLoad: yes
+Suggests:
+    knitr (>= 1.23),
+    testthat (>= 2.0.0),
+    vcr
+Imports:
+    httr (>= 1.0.0),
+    rjson (>= 0.2.20),
+    fs (>= 1.2.6),
+    curl (>= 3.3)
+Encoding: UTF-8
+RoxygenNote: 7.1.0

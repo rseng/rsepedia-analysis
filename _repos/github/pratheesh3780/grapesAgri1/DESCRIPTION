@@ -1,0 +1,58 @@
+Package: grapesAgri1
+Type: Package
+Title: Collection of Shiny Apps for Agricultural Research Data Analysis
+Version: 1.1.0
+Authors@R: c(
+    person(given = "Pratheesh P.", family = "Gopinath",
+           email = "grapescoa@gmail.com",
+           role = c("aut", "cre"),
+		       comment = c(ORCID = "0000-0003-3290-0436")),
+	  person(given = "Rajender", family = "Parsad", 
+           email = "Rajender.Parsad@icar.gov.in",
+		       role = "aut"),
+    person(given = "Brigit", family = "Joseph",
+           email = "brigit.joseph@kau.in",
+		       role = "aut"),
+		person(given = "Adarsh.", family = "V.S.",
+           email = "adarshvs0007@gmail.com",
+		       role = "aut"),
+    person("Kerala Agricultural University",
+           role = c("cph"),
+		       comment = c(url = "http://www.kau.in/")))
+Description: Allows user to have graphical user interface to perform analysis of Agricultural experimental data. On using the functions in this package a Interactive User Interface will pop up. Apps Works by simple upload of files in CSV format.
+License: GPL-3 
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+URL: https://github.com/pratheesh3780/grapesAgri1
+    https://CRAN.R-project.org/package=grapesAgri1
+    https://www.kaugrapes.com/
+BugReports: https://github.com/pratheesh3780/grapesAgri1/issues
+Imports: 
+        shiny(>= 1.6.0),
+        shinyWidgets(>= 0.6.0),
+        rmarkdown(>= 2.7),
+        knitr(>= 1.31),
+        kableExtra(>= 1.3.4),
+        magrittr(>= 2.0.1),
+        summarytools(>= 0.9.9),
+        dplyr(>= 1.0.4),
+        pastecs(>= 1.3.21),
+        ggpubr(>= 0.4.0),
+        Hmisc(>= 4.5.0),
+        corrplot(>= 0.84),
+        ggplot2(>= 3.3.3),
+        reshape2(>= 1.4.4),
+        gridGraphics(>= 0.5.1),
+        RColorBrewer(>= 1.1.2),
+        desplot(>= 1.8),
+        agricolae(>= 1.3.5),
+        PairedData(>= 1.1.1),
+        gtools(>= 3.9.2),
+        Rdpack(>= 2.1.2)
+Suggests:
+        shinytest,
+        testthat,
+        datasets,
+        grid
+RdMacros:
+        Rdpack

@@ -1,0 +1,79 @@
+---
+title: RSEPedia Parsed Repositories
+description: "Repositories parsed for the RSEPedia"
+layout: post
+permalink: /analysis/repos/
+tipue_search_active: true
+exclude_from_search: true
+---
+
+<style>
+#repos-input {
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#repos {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#repos li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#repos li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>
+
+The following repositories were included and parsed from the RSEPedia. Each includes:
+
+<ul>
+<li>a parsed data.json file of dependencies and credits</li>
+<li>the original requirements file that was parsed</li>
+<li>a png badge generated with a 0.001 credit cutoff</li>
+<li>a table of credit and packages derived from the same</li>
+</ul>
+
+<br>
+
+<input type="text" id="repos-input" onkeyup="filterRepos()" placeholder="Search for names.." title="Type in a name">
+
+<ul id="repos">{% for repo in site.repos %}
+  <li><a href="{{ site.baseurl }}{{ repo.url }}">{{ repo.title }}</a></li>{% endfor %}
+</ul>
+
+
+<script>
+function filterRepos() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("repos-input");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("repos");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+</script>

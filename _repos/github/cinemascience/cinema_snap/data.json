@@ -1,0 +1,50 @@
+{
+    "package.json": {
+        "github/cinemascience/cinema_snap": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "bootstrap": {
+            "credit": 0.00099,
+            "url": "https://getbootstrap.com/"
+        },
+        "papaparse": {
+            "credit": 0.00099,
+            "url": "http://papaparse.com"
+        },
+        "plotly.js": {
+            "credit": 0.00099,
+            "url": "https://github.com/plotly/plotly.js#readme"
+        },
+        "react": {
+            "credit": 0.00099,
+            "url": "https://reactjs.org/"
+        },
+        "react-bootstrap": {
+            "credit": 0.00099,
+            "url": "https://react-bootstrap.github.io/"
+        },
+        "react-dnd": {
+            "credit": 0.00099,
+            "url": "https://github.com/react-dnd/react-dnd#readme"
+        },
+        "react-dnd-html5-backend": {
+            "credit": 0.00099,
+            "url": "https://github.com/react-dnd/react-dnd#readme"
+        },
+        "react-dom": {
+            "credit": 0.00099,
+            "url": "https://reactjs.org/"
+        },
+        "react-plotly.js": {
+            "credit": 0.00099,
+            "url": "https://github.com/plotly/react-plotly.js#readme"
+        },
+        "react-scripts": {
+            "credit": 0.00099,
+            "url": "https://github.com/facebook/create-react-app#readme"
+        }
+    }
+}

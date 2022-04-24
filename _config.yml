@@ -1,0 +1,41 @@
+title: Research Software Ecosystem
+baseurl: "/rsepedia-analysis"
+url: ""
+repository: rseng/rsepedia-analysis
+paginate: 28
+
+# Collections
+collections:
+  repos:
+    output: true
+    permalink: /:collection/:path
+
+defaults:
+  - scope:
+      path: "_repos"
+      type: "repos"
+    values:
+      layout: "page"
+
+user: 
+  avatar: "/assets/img/logo.png"
+  github: "vsoch"
+
+# Build settings
+# markdown: kramdown
+markdown: GFM 
+highlighter: rouge
+permalink: /:title
+
+plugins:
+  - jekyll-scholar
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-archives
+  - jekyll-redirect-from
+
+exclude:
+  - Gemfile
+  - Gemfile.lock

@@ -1,0 +1,24 @@
+Package: plater
+Title: Read, Tidy, and Display Data from Microtiter Plates
+Version: 1.0.4
+Authors@R: person("Sean", "Hughes", email = "smhughes@uw.edu",
+    role = c("aut", "cre"), 
+    comment = c(ORCID = "0000-0002-9409-9405"))
+Description: Tools for interacting with data from experiments done in microtiter
+    plates. Easily read in plate-shaped data and convert it to tidy format, 
+    combine plate-shaped data with tidy data, and view tidy data in plate shape.  
+Depends:
+    R (>= 3.1.0)
+Imports:
+    utils,
+    dplyr (> 0.4.3),
+    rlang
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown
+License: GPL-3
+URL: https://docs.ropensci.org/plater/, https://github.com/ropensci/plater
+BugReports: https://github.com/ropensci/plater/issues
+VignetteBuilder: knitr
+RoxygenNote: 7.1.2

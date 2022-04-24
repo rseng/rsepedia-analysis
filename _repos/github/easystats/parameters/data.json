@@ -1,0 +1,194 @@
+{
+    "DESCRIPTION": {
+        "github/easystats/parameters": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "bayestestR": {
+            "credit": 0.028285714285714296,
+            "url": "https://easystats.github.io/bayestestR/"
+        },
+        "datawizard": {
+            "credit": 0.017515384615384627,
+            "url": "https://easystats.github.io/datawizard/"
+        },
+        "tweedie": {
+            "credit": 0.00012565384615384652,
+            "url": "http://www.r-project.org/package=tweedie"
+        },
+        "tidyr": {
+            "credit": 0.012565384615384615,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "testthat": {
+            "credit": 0.0359010989010989,
+            "url": "https://testthat.r-lib.org"
+        },
+        "stringr": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "see": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "rstanarm": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "rstan": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "performance": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "parameters": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "modelbased": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "mediation": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "mclust": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "logspline": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "lme4": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "lavaan": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "ggridges": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "ggdist": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "GGally": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "emmeans": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "effectsize": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "brms": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "bridgesampling": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "blavaan": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "bayesQR": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "BayesFactor": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.012565384615384615,
+            "url": null
+        },
+        "insight": {
+            "credit": 0.0359010989010989,
+            "url": null
+        },
+        "R": {
+            "credit": 0.04004767582417583,
+            "url": null
+        },
+        "psych": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "poorman": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "gamm4": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "boot": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "statmod": {
+            "credit": 0.004146576923076923,
+            "url": null
+        },
+        "stabledist": {
+            "credit": 0.004146576923076923,
+            "url": null
+        }
+    }
+}

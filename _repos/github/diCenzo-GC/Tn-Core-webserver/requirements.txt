@@ -1,0 +1,6 @@
+Flask==0.10.1
+biopython==1.64
+networkx==1.9
+redis==2.10.1
+wsgiref==0.1.2
+numpy

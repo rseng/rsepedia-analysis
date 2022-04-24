@@ -1,0 +1,28 @@
+Package: docker4seq
+Version: 2.4.2
+Date: 2020-12-31
+Title: Running NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
+Authors@R: c(person("Raffaele", "Calogero", role = c("aut", "cre"),
+                     email = "raffaele.calogero@unito.it"),
+              person("Neha", "Kulkarni", role = "aut"),
+              person("Luca", "Alessandri", role = "aut"),
+              person("Marco", "Beccuti", role = "aut"),
+              person("Greta", "Romano", role = "aut"),
+              person("Francesca", "Cordero", role = "aut"))
+Author: Raffaele Calogero [aut, cre],
+    Neha Kulkarni [aut],
+    Luca Alessandri [aut]
+    Marco Beccuti [aut]
+    Greta Romano [aut]
+    Francesca Cordero [aut]
+Maintainer: Raffaele Calogero <raffaele.calogero@unito.it>
+Depends:
+    R (>= 3.0.0)
+VignetteBuilder: knitr
+Suggests: BiocStyle, knitr, rmarkdown
+BiocStyle: :html_document
+Description: A collection of functions to execute NGS computing demanding applications, e.g reads mapping and counting, wrapped in docker containers
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1

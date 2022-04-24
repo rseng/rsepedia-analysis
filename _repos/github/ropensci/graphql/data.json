@@ -1,0 +1,70 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/graphql": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.005219527500000015,
+            "url": "http://www.rcpp.org"
+        },
+        "jsonlite": {
+            "credit": 0.4988118889285714,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "pkgKitten": {
+            "credit": 0.005263953750000004,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.08612220375,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.005263953750000004,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.0058030087500000075,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.2241587876785714,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.11307495375,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.026952749999999998,
+            "url": "https://roxygen2.r-lib.org/"
+        },
+        "whoami": {
+            "credit": 0.0002695275000000018,
+            "url": "https://github.com/r-lib/whoami#readme"
+        },
+        "withr": {
+            "credit": 0.003811888928571428,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.003811888928571428,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.003811888928571428,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.003811888928571428,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.003811888928571428,
+            "url": null
+        }
+    }
+}

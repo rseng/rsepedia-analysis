@@ -1,0 +1,24 @@
+Package: namext
+Title: Extract Scientific Names from Text
+Description: Extract scientific names from text using the 
+    Golang tool gnfinder <https://github.com/gnames/gnfinder>.
+Version: 0.0.2.91
+License: MIT + file LICENSE
+Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"), 
+    email = "myrmecocystus@gmail.com")
+URL: https://github.com/ropensci/namext (devel)
+    https://docs.ropensci.org/namext (docs)
+BugReports: https://github.com/ropensci/namext/issues
+LazyData: true
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+SystemRequirements: gnfinder
+Imports:
+    sys,
+    pdftools,
+    tibble,
+    jsonlite
+Suggests:
+    testthat
+RoxygenNote: 7.1.1

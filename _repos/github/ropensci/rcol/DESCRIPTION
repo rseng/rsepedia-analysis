@@ -1,0 +1,32 @@
+Package: rcol
+Type: Package
+Title: Catalogue of Life Client
+Description: Client for the Catalogue of Life ('CoL')
+    (<https://www.catalogueoflife.org/>); based on the new
+    'CoL' service, not the old one. Catalogue of Life is a database of
+    taxonomic names. Includes functions for each
+    of the API methods, including searching for names, and more.
+Version: 0.2.0
+Authors@R: c(person("Scott", "Chamberlain", role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com",
+    comment = c(ORCID = "0000-0003-1444-9135")),
+    person(given = "rOpenSci", role = "fnd", comment = "https://ropensci.org/"))
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/rcol/ (docs), https://github.com/ropensci/rcol
+BugReports: https://github.com/ropensci/rcol/issues
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
+Language: en-US
+Imports:
+    crul,
+    tibble,
+    jsonlite,
+    data.table,
+    glue
+Suggests:
+    testthat,
+    vcr
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Biology
+X-schema.org-keywords: biology, science, API, web, api-client, taxonomy, species
+X-schema.org-isPartOf: https://ropensci.org

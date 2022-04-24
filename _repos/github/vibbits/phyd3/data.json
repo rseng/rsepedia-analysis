@@ -1,0 +1,142 @@
+{
+    "package.json": {
+        "github/vibbits/phyd3": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "finalhandler": {
+            "credit": 0.33,
+            "url": "https://github.com/pillarjs/finalhandler#readme"
+        },
+        "node-minify": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/srod/node-minify"
+        },
+        "serve-static": {
+            "credit": 0.33,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        },
+        "babel-preset-minify": {
+            "credit": 0.01089,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "csso": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "google-closure-compiler": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "uglify-es": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "ora": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "update-notifier": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "crass": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "sqwish": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "gzip-size": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "clean-css": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "html-minifier": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "node-version": {
+            "credit": 0.01089,
+            "url": null
+        }
+    }
+}

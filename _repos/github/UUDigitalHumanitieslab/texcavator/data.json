@@ -1,0 +1,130 @@
+{
+    "requirements.txt": {
+        "github/UUDigitalHumanitieslab/texcavator": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "alabaster": {
+            "credit": 0.03413793103448276,
+            "url": "https://alabaster.readthedocs.io"
+        },
+        "amqp": {
+            "credit": 0.000341379310344829,
+            "url": "http://github.com/celery/py-amqp"
+        },
+        "anyjson": {
+            "credit": 0.03413793103448276,
+            "url": "http://bitbucket.org/runeh/anyjson/"
+        },
+        "babel": {
+            "credit": 0.03413793103448276,
+            "url": "http://babel.pocoo.org/"
+        },
+        "billiard": {
+            "credit": 0.03413793103448276,
+            "url": "https://github.com/celery/billiard"
+        },
+        "Celery": {
+            "credit": 0.03413793103448276,
+            "url": "http://celeryproject.org"
+        },
+        "colorama": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "DAWG": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/DAWG"
+        },
+        "dicttoxml": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/dicttoxml"
+        },
+        "django-nose": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/django-nose"
+        },
+        "Django": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/Django"
+        },
+        "docutils": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "elasticsearch": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/elasticsearch"
+        },
+        "imagesize": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/imagesize"
+        },
+        "Jinja2": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "kombu": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/kombu"
+        },
+        "MarkupSafe": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "MySQL-python": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/MySQL-python"
+        },
+        "nose": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/nose"
+        },
+        "numpy": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "Pygments": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "pytz": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "redis": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/redis"
+        },
+        "requests": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/requests"
+        },
+        "six": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/six"
+        },
+        "snowballstemmer": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/snowballstemmer"
+        },
+        "sphinx": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "sqlparse": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sqlparse"
+        },
+        "urllib3": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "vine": {
+            "credit": 0.03379655172413793,
+            "url": "https://pypi.org/project/vine"
+        }
+    }
+}

@@ -1,0 +1,162 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/phonfieldwork": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "tuneR": {
+            "credit": 0.198,
+            "url": null
+        },
+        "phonTools": {
+            "credit": 0.0019800000000000095,
+            "url": "http://www.santiagobarreda.com/rscripts.html"
+        },
+        "rmarkdown": {
+            "credit": 0.060786000000000014,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "xml2": {
+            "credit": 0.0019799999999999818,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "uchardet": {
+            "credit": 0.0019799999999999818,
+            "url": "https://artemklevtsov.gitlab.io/uchardet"
+        },
+        "R": {
+            "credit": 0.262086,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.00726,
+            "url": "https://withr.r-lib.org"
+        },
+        "vctrs": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "tufte": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.026862,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "rsconnect": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.026862,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.066066,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "jquerylib": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.00726,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.058806000000000004,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.039204,
+            "url": null
+        }
+    }
+}

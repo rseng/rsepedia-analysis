@@ -1,0 +1,126 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/cffr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crayon": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/r-lib/crayon#readme"
+        },
+        "desc": {
+            "credit": 0.0019800000000000373,
+            "url": "https://github.com/r-lib/desc#readme"
+        },
+        "jsonlite": {
+            "credit": 0.23067000000000001,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "jsonvalidate": {
+            "credit": 0.0019800000000000373,
+            "url": "https://docs.ropensci.org/jsonvalidate/"
+        },
+        "yaml": {
+            "credit": 0.198,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "withr": {
+            "credit": 0.049285028571428566,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.07931809285714284,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rstudioapi": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.04433785714285714,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.030313092857142857,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.030313092857142857,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "gh": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.018645235714285713,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R": {
+            "credit": 0.018645235714285713,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03498023571428571,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03498023571428571,
+            "url": null
+        },
+        "V8": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0023102357142857142,
+            "url": null
+        }
+    }
+}

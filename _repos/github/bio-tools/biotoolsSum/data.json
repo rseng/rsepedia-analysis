@@ -1,0 +1,210 @@
+{
+    "package.json": {
+        "github/bio-tools/biotoolsSum": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "babel-polyfill": {
+            "credit": 0.00026052631578947494,
+            "url": "https://babeljs.io/"
+        },
+        "bootstrap": {
+            "credit": 0.02605263157894737,
+            "url": "https://getbootstrap.com/"
+        },
+        "file-saver": {
+            "credit": 0.00026052631578947494,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "font-awesome": {
+            "credit": 0.02605263157894737,
+            "url": "http://fontawesome.io/"
+        },
+        "highcharts-exporting": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "highcharts-no-data-to-display": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "history": {
+            "credit": 0.02605263157894737,
+            "url": "https://github.com/remix-run/history#readme"
+        },
+        "jsdocx": {
+            "credit": 0.02605263157894737,
+            "url": "https://github.com/zuck/jsdocx#readme"
+        },
+        "jsx-to-string": {
+            "credit": 0.00026052631578947494,
+            "url": "https://github.com/alansouzati/jsx-to-string#readme"
+        },
+        "pretty-checkbox": {
+            "credit": 0.00026052631578947494,
+            "url": "https://lokesh-coder.github.io/pretty-checkbox"
+        },
+        "prop-types": {
+            "credit": 0.02605263157894737,
+            "url": "https://facebook.github.io/react/"
+        },
+        "ramda": {
+            "credit": 0.02605263157894737,
+            "url": "https://ramdajs.com/"
+        },
+        "rc-slider": {
+            "credit": 0.02605263157894737,
+            "url": "http://github.com/react-component/slider/"
+        },
+        "rc-tooltip": {
+            "credit": 0.02605263157894737,
+            "url": "http://github.com/react-component/tooltip"
+        },
+        "react": {
+            "credit": 0.02605263157894737,
+            "url": "https://reactjs.org/"
+        },
+        "react-bootstrap": {
+            "credit": 0.02605263157894737,
+            "url": "https://react-bootstrap.github.io/"
+        },
+        "react-bootstrap-table": {
+            "credit": 0.02605263157894737,
+            "url": "https://github.com/AllenFang/react-bootstrap-table#readme"
+        },
+        "react-dom": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-fontawesome": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-highcharts": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-js-pagination": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-redux": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-router": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-router-bootstrap": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-router-dom": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-router-redux": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-s-alert": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-table": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "react-test-renderer": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "redux": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "redux-form": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "redux-observable": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "redux-persist": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "reselect": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "rx-dom": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "rxjs": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "whatwg-fetch": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "xlsx": {
+            "credit": 0.02605263157894737,
+            "url": null
+        },
+        "core-js": {
+            "credit": 0.012896052631578947,
+            "url": null
+        },
+        "regenerator-runtime": {
+            "credit": 0.012896052631578947,
+            "url": null
+        },
+        "babel-preset-minify": {
+            "credit": 0.0064480263157894735,
+            "url": null
+        },
+        "": {
+            "credit": 0.01934407894736842,
+            "url": null
+        },
+        "immutable": {
+            "credit": 0.025792105263157894,
+            "url": null
+        },
+        "browser-sync": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "conventional-github-releaser": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "corp-semantic-release": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "del": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "gulp": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "gulp-autoprefixer": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        },
+        "gulp-clean-css": {
+            "credit": 0.0036845864661654132,
+            "url": null
+        }
+    }
+}

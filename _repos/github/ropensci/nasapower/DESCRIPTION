@@ -1,0 +1,96 @@
+Package: nasapower
+Type: Package
+Title: NASA POWER API Client
+Version: 4.0.7
+Authors@R: 
+    c(person(given = "Adam H.",
+            family = "Sparks",
+            role = c("aut", "cre"),
+            email = "adamhsparks@gmail.com",
+            comment = c(ORCID = "0000-0002-0061-8359")),
+     person(given = "Scott",
+            family = "Chamberlain",
+            role = "rev", 
+            email = "myrmecocystus@gmail.com",
+            comment = c(ORCID = "0000-0003-1444-9135",
+                        "Scott Chamberlain reviewed nasapower for rOpenSci, see
+                        <https://github.com/ropensci/software-review/issues/155>.")
+                        ),
+     person(given = "Hazel",
+            family = "Kavili",
+            role = "rev",
+            comment = "Hazel Kavili reviewed nasapower for rOpenSci, see
+            <https://github.com/ropensci/software-review/issues/155>."),
+     person(given = "Alison",
+            family = "Boyer",
+            role = "rev",
+            comment = "Alison Boyer reviewed nasapower for rOpenSci, see
+            <https://github.com/ropensci/software-review/issues/155>."),
+    person(given = "Fernando",
+            family = "Miguez",
+            role = "ctb",
+            email = "femiguez@iastate.edu",
+            comment = c(ORCID = "0000-0002-4627-8329",
+                        "Fernando Miguez provided assistance in identifying
+                        improper missing value handling in the POWER data, see 
+                        <https://github.com/femiguez/apsimx/pull/26>.")),
+     person(given = "Maëlle",
+            family = "Salmon",
+            role = "ctb",
+            comment = c(ORCID = "0000-0002-2815-0399",
+                        "Maëlle Salmon contributed a patch to fix issues with
+                        using the R package, 'vcr', for testing the 'API'
+                        queries, see
+                        <https://github.com/ropensci/nasapower/pull/64>.")),
+      person(given = "Phillip D.",
+             family = "Alderman",
+             role = "ctb",
+             email = "phillip.alderman@okstate.edu",
+             comment = c(ORCID = "0000-0003-1467-2337",
+                         "Phillip Alderman contributed a patch to fix an issue
+                         with, 'The `file` argument of `vroom()` must use `I()`
+                         for literal data as of vroom 1.5.0.', see
+                         https://github.com/ropensci/nasapower/pull/67.")),
+      person(given = "Western Australia Agriculture Authority (WAAA)",
+             role = "cph",
+             comment = c("Supported the development of nasapower through Adam H.
+             Sparks' time.")))
+URL: https://docs.ropensci.org/nasapower/
+BugReports: https://github.com/ropensci/nasapower/issues
+Description: Client for 'NASA' 'POWER' global meteorology, surface solar
+    energy and climatology data 'API'.  'POWER' (Prediction Of Worldwide Energy 
+    Resource) data are freely available for download with varying spatial
+    resolutions dependent on the original data and with several temporal
+    resolutions depending on the POWER parameter and community.  This work is
+    funded through the 'NASA' Earth Science Directorate Applied Science Program.
+    For more on the data themselves, the methodologies used in creating, a web-
+    based data viewer and web access, please see <https://power.larc.nasa.gov/>.
+Depends:
+    R (>= 3.5.0)
+License: MIT + file LICENSE
+Imports:
+    crul,
+    lubridate,
+    jsonlite,
+    readr,
+    tibble (>= 3.0.2)
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+Language: en-US
+NeedsCompilation: no
+Repository: CRAN
+Suggests:
+    knitr,
+    purrr,
+    ratelimitr,
+    rmarkdown,
+    spelling,
+    testthat,
+    vcr
+VignetteBuilder: knitr
+X-schema.org-applicationCategory: Tools
+X-schema.org-keywords: NASA, meteorological-data, weather, global, weather,
+    weather-data, meteorology, NASA-POWER, agroclimatology, earth-science,
+    data-access, climate-data
+X-schema.org-isPartOf: https://ropensci.org
+Roxygen: list(markdown = TRUE)

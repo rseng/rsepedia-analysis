@@ -1,0 +1,138 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/webmockr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "curl": {
+            "credit": 0.02977610625,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "jsonlite": {
+            "credit": 0.15094096875,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "magrittr": {
+            "credit": 0.0013736250000000033,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "R6": {
+            "credit": 0.0264070125,
+            "url": "https://r6.r-lib.org"
+        },
+        "urltools": {
+            "credit": 0.011446875000000002,
+            "url": "https://github.com/Ironholds/urltools/"
+        },
+        "fauxpas": {
+            "credit": 0.011446875000000002,
+            "url": "https://docs.ropensci.org/fauxpas"
+        },
+        "crul": {
+            "credit": 0.014850000000000002,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "base64enc": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.rforge.net/base64enc"
+        },
+        "webutils": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.0035052187500000005,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "rmarkdown": {
+            "credit": 0.0600991875,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.0805179375,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.12607216875,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "R": {
+            "credit": 0.2213937,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0226648125,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0226648125,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "triebeard": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.021766387499999998,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "whisker": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.023821875,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "later": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0013476374999999998,
+            "url": null
+        }
+    }
+}

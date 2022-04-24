@@ -1,0 +1,98 @@
+{
+    "go.mod": {
+        "github/linksmart/thing-directory": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "go": {
+        "github.com/antchfx/jsonquery": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/bhmj/jsonslice": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/codegangsta/negroni": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/davecgh/go-spew": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/evanphx/json-patch/v5": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/gorilla/context": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/gorilla/mux": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/grandcat/zeroconf": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/justinas/alice": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/kelseyhightower/envconfig": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/linksmart/go-sec": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/linksmart/service-catalog/v3": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/miekg/dns": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/onsi/ginkgo": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/onsi/gomega": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/rs/cors": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/satori/go.uuid": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/syndtr/goleveldb": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "github.com/xeipuuv/gojsonschema": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "golang.org/x/crypto": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "golang.org/x/net": {
+            "credit": 0.00045,
+            "url": null
+        },
+        "golang.org/x/sys": {
+            "credit": 0.00045,
+            "url": null
+        }
+    }
+}

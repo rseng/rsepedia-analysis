@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/STEllAR-GROUP/hpx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        },
+        "python-dateutil": {
+            "credit": 0.002475,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "lxml": {
+            "credit": 0.002475,
+            "url": "https://lxml.de/"
+        }
+    }
+}

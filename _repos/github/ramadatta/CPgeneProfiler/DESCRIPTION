@@ -1,0 +1,50 @@
+Package: CPgeneProfiler
+Title: Profiles the Carbapenamase genes from the genome assemblies (One Line, Title Case)
+Version: 2.1.1
+Authors@R: 
+    c(person(given = "Sai Rama Sridatta",
+           family = "Prakki",
+           role = c("aut", "cre"),
+           email = "ramadatta.88@gmail.com",
+           comment = structure("0000-0002-9254-2557", .Names = "ORCID")),
+      person(given = "Natascha M",
+             family = "Thevasagayam",
+             role = c("ctb")),
+      person(given = "Weizhen",
+             family = "Xu",
+             role = c("ctb")),
+      person(given = "Kalisvar",
+             family = "Marimuthu",
+             role = c("ctb")),
+      person(given = "Jeanette W P",
+             family = "Teo",
+             role = c("ctb")),
+      person(given = "Indumathi",
+             family = "Venkatachalam",
+             role = c("ctb")),
+      person(given = "Ng",
+             family = "Oon Tek",
+             role = c("ctb")))
+Description: CPgene-profiler checks for a list of CarbaPenamase (CP) genes from a list of genome assemblies provided in fasta file format. It reports the profile of all the CP genes available in the genome assemblies in the format of simple heatmap. Apart from this, it also reports the presence of cocarriage of CP genes within an assembly. Other assembly statistics such as N50, N90, Assembly Size from the assembly are calculated and plots of length distribution of CP gene contigs from the list of assemblies are reported.
+Depends: 
+    R (>= 3.6.3),
+    usethis (>= 1.6.1)
+biocViews:
+Imports: tidyverse (>= 1.3.0),
+	 UpSetR (>= 1.4.0),
+	 scales (>= 1.1.1),
+	 ape (>= 5.4),
+	 reshape2 (>= 1.4.4),
+	 gridExtra (>= 2.3),
+	 png, 
+	 tiff,
+	 jpeg,
+	 pdftools,
+	grid
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+URL: https://github.com/ramadatta/CPgeneProfiler
+BugReports: https://github.com/ramadatta/CPgeneProfiler/issues

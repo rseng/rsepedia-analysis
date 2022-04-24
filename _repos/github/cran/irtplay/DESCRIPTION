@@ -1,0 +1,56 @@
+Package: irtplay
+Type: Package
+Title: Unidimensional Item Response Theory Modeling
+Version: 1.6.4
+Description: Fit unidimensional item response theory (IRT) models to a mixture 
+    of dichotomous and polytomous data, calibrate online item parameters 
+    (i.e., pretest and operational items), estimate examinees' abilities, 
+    and examine the IRT model-data fit on item-level in different ways 
+    as well as provide useful functions related to unidimensional IRT models. 
+    For the item parameter estimation, the marginal maximum likelihood estimation 
+    via the expectation-maximization (MMLE-EM) algorithm 
+    (Bock & Aitkin (1981) <doi:10.1007/BF02294168>) is used. 
+    For the online calibration, the fixed item parameter calibration method 
+    (Kim (2006) <doi:10.1111/j.1745-3984.2006.00021.x>) and 
+    the fixed ability parameter calibration method
+    (Ban, Hanson, Wang, Yi, & Harris (2011) <doi:10.1111/j.1745-3984.2001.tb01123.x>) 
+    are provided. For the ability estimation, several popular scoring methods 
+    (e.g., MLE, EAP, and MAP) are implemented. In terms of assessing the IRT 
+    model-data fit, one of distinguished features of this package is that it 
+    gives not only well-known item fit statistics (e.g., chi-square (X2), 
+    likelihood ratio chi-square (G2), infit and oufit statistics, and 
+    S-X2 statistic (Ames & Penfield (2015) <doi:10.1111/emip.12067>)) 
+    but also graphical displays to look at residuals between the observed 
+    data and model-based predictions 
+    (Hambleton, Swaminathan, & Rogers (1991, ISBN:9780803936478)). 
+    In addition, there are many useful functions such as analyzing differential item 
+    functioning, computing asymptotic variance-covariance matrices of item parameter 
+    estimates (Li & Lissitz (2004) <doi:10.1111/j.1745-3984.2004.tb01109.x>), 
+    importing item and/or ability parameters from popular IRT software, 
+    running 'flexMIRT' (Cai, 2017) through R, generating simulated data, 
+    computing the conditional distribution of observed scores using 
+    the Lord-Wingersky recursion formula (Lord & Wingersky (1984) 
+    <doi:10.1177/014662168400800409>), computing the loglikelihood of individual 
+    items, computing the loglikelihood of abilities, computing item and test 
+    information functions, computing item and test characteristic curve functions, 
+    and plotting item and test characteristic curves and item and test information functions.
+Depends: R (>= 3.6)
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Imports: stats, statmod, utils, reshape2, dplyr, tidyr, purrr, ggplot2,
+        rlang, gridExtra, parallel, Matrix, janitor,
+Authors@R: c(person("Hwanggyu", "Lim", email="hglim83@gmail.com", role=c("aut", "cre")),
+    person("Craig S.", "Wells", email="cswells@educ.umass.edu ", role="ctb")
+    ) 
+RoxygenNote: 7.1.1
+Suggests: mirt
+URL: https://github.com/hwangQ/irtplay
+BugReports: https://github.com/hwangQ/irtplay/issues
+NeedsCompilation: no
+Packaged: 2022-03-30 01:48:52 UTC; Hwanggyu Lim
+Author: Hwanggyu Lim [aut, cre],
+  Craig S. Wells [ctb]
+Maintainer: Hwanggyu Lim <hglim83@gmail.com>
+Repository: CRAN
+Date/Publication: 2022-03-30 06:40:02 UTC

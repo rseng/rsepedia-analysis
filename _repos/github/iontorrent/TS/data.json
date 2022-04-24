@@ -1,0 +1,206 @@
+{
+    "requirements.txt": {
+        "github/iontorrent/TS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "celery": {
+            "credit": 0.002475000000000005,
+            "url": "http://celeryproject.org"
+        },
+        "Django": {
+            "credit": 0.008600625000000004,
+            "url": "https://www.djangoproject.com/"
+        },
+        "django-tastypie": {
+            "credit": 0.2475,
+            "url": "https://github.com/django-tastypie/django-tastypie"
+        },
+        "South": {
+            "credit": 0.2475,
+            "url": "http://south.aeracode.org/"
+        },
+        "zstandard": {
+            "credit": 6.125624999999985e-05,
+            "url": "https://github.com/indygreg/python-zstandard"
+        },
+        "kazoo": {
+            "credit": 0.006125625,
+            "url": "https://kazoo.readthedocs.io"
+        },
+        "PyYAML": {
+            "credit": 0.006125625,
+            "url": "https://pyyaml.org/"
+        },
+        "tblib": {
+            "credit": 0.006125625,
+            "url": "https://github.com/ionelmc/python-tblib"
+        },
+        "kombu": {
+            "credit": 0.01225125,
+            "url": "https://kombu.readthedocs.io"
+        },
+        "sqlalchemy": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "ephem": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/ephem"
+        },
+        "softlayer-messaging": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/softlayer-messaging"
+        },
+        "redis": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/redis"
+        },
+        "pytest-celery": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pytest-celery"
+        },
+        "pyro4": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pyro4"
+        },
+        "python-memcached": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/python-memcached"
+        },
+        "msgpack": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "pymongo": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pymongo"
+        },
+        "pylibmc": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pylibmc"
+        },
+        "librabbitmq": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/librabbitmq"
+        },
+        "gevent": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/gevent"
+        },
+        "eventlet": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/eventlet"
+        },
+        "elasticsearch": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/elasticsearch"
+        },
+        "boto3": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/boto3"
+        },
+        "pycouchdb": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pycouchdb"
+        },
+        "couchbase": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/couchbase"
+        },
+        "pydocumentdb": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pydocumentdb"
+        },
+        "python-consul2": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/python-consul2"
+        },
+        "cassandra-driver": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/cassandra-driver"
+        },
+        "brotlipy": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "azure-storage-blob": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/azure-storage-blob"
+        },
+        "cryptography": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyArango": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pyArango"
+        },
+        "importlib-metadata": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "click-plugins": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/click-plugins"
+        },
+        "click-repl": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/click-repl"
+        },
+        "click-didyoumean": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/click-didyoumean"
+        },
+        "click": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/click"
+        },
+        "vine": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/vine"
+        },
+        "billiard": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/billiard"
+        },
+        "pytz": {
+            "credit": 0.006125625,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "bcrypt": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "argon2-cffi": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/argon2-cffi"
+        },
+        "tzdata": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/tzdata"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/backports.zoneinfo"
+        },
+        "sqlparse": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/sqlparse"
+        },
+        "asgiref": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/asgiref"
+        },
+        "cffi": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/cffi"
+        }
+    }
+}

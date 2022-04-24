@@ -1,0 +1,270 @@
+{
+    "package.json": {
+        "github/bramvandijk88/cacatoo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "abbrev": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/isaacs/abbrev-js#readme"
+        },
+        "ansi-regex": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/chalk/ansi-regex#readme"
+        },
+        "aproba": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/iarna/aproba"
+        },
+        "balanced-match": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/juliangruber/balanced-match"
+        },
+        "brace-expansion": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/juliangruber/brace-expansion"
+        },
+        "cacatoo": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/bramvandijk88/cacatoo#readme"
+        },
+        "chai": {
+            "credit": 0.01677966101694915,
+            "url": "http://chaijs.com"
+        },
+        "chownr": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/isaacs/chownr#readme"
+        },
+        "code-point-at": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/sindresorhus/code-point-at#readme"
+        },
+        "concat-map": {
+            "credit": 0.00016779661016949263,
+            "url": null
+        },
+        "console-control-strings": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/iarna/console-control-strings#readme"
+        },
+        "debug": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/debug-js/debug#readme"
+        },
+        "decompress-response": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/sindresorhus/decompress-response#readme"
+        },
+        "deep-extend": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/unclechu/node-deep-extend"
+        },
+        "detect-libc": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/lovell/detect-libc#readme"
+        },
+        "esdoc": {
+            "credit": 0.01677966101694915,
+            "url": "https://esdoc.org/"
+        },
+        "esdoc-standard-plugin": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "fast-random": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "flatted": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "fs.realpath": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "has-unicode": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "iconv-lite": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "ignore-walk": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "inherits": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "ini": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "is-fullwidth-code-point": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "jsdocs": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "mimic-response": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "minimatch": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "minimist": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.02231694915254237,
+            "url": null
+        },
+        "ms": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "needle": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "node": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "nopt": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "npm": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "npm-bundled": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "npm-normalize-package-bin": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "npm-packlist": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "number-is-nan": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "object-assign": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "odex": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "os-homedir": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "os-tmpdir": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "osenv": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "path-is-absolute": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "rc": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "safer-buffer": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "sax": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "set-blocking": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "signal-exit": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "simple-concat": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "string-width": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "strip-ansi": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "strip-json-comments": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "tap": {
+            "credit": 0.03876101694915254,
+            "url": null
+        },
+        "standard": {
+            "credit": 0.01661186440677966,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.005537288135593219,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.01661186440677966,
+            "url": null
+        },
+        "should": {
+            "credit": 0.00830593220338983,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.00830593220338983,
+            "url": null
+        }
+    }
+}

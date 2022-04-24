@@ -1,0 +1,50 @@
+{
+    "package.json": {
+        "github/NLeSC/nlesc-serverless-boilerplate": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "testing-library": {
+            "credit": 0.002284615384615385,
+            "url": null
+        },
+        "types": {
+            "credit": 0.0030461538461538464,
+            "url": "http://nodeca.github.com/types/"
+        },
+        "aws-amplify": {
+            "credit": 0.0007615384615384616,
+            "url": "https://aws-amplify.github.io/"
+        },
+        "aws-amplify-react": {
+            "credit": 0.0007615384615384616,
+            "url": "https://github.com/aws-amplify/amplify-js#readme"
+        },
+        "react": {
+            "credit": 0.0007615384615384616,
+            "url": "https://reactjs.org/"
+        },
+        "react-dom": {
+            "credit": 0.0007615384615384616,
+            "url": "https://reactjs.org/"
+        },
+        "react-scripts": {
+            "credit": 0.0007615384615384616,
+            "url": "https://github.com/facebook/create-react-app#readme"
+        },
+        "typescript": {
+            "credit": 0.0007615384615384616,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "tslib": {
+            "credit": 0.002261769230769231,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "vows": {
+            "credit": 0.0030156923076923078,
+            "url": "https://github.com/cloudhead/vows"
+        }
+    }
+}

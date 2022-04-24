@@ -1,2 +1,4 @@
 env
 *.bz2
+Gemfile.lock
+_site

@@ -1,0 +1,38 @@
+Package: exoplanets
+Title: Access NASA's Exoplanet Archive Data
+Version: 0.2.2.9000
+Authors@R: c(
+  person("Tyler", "Littlefield", email = "tylerlittlefield@hey.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6020-1125")),
+  person("Maëlle", "Salmon", role = c("ctb", "rev")),
+  person("Mathida", "Chuk", role = c("ctb")))
+Description: The goal of exoplanets is to provide access to
+    NASA's Exoplanet Archive TAP Service. For more information regarding
+    the API please read the documentation
+    <https://exoplanetarchive.ipac.caltech.edu/index.html>.
+License: MIT + file LICENSE
+URL: https://docs.ropensci.org/exoplanets/, https://github.com/ropensci/exoplanets
+BugReports: https://github.com/ropensci/exoplanets/issues
+Depends:
+    R (>= 2.10)
+Imports:
+    cli,
+    httr,
+    memoise,
+    readr,
+    tibble
+Suggests:
+    covr,
+    dplyr,
+    ggplot2,
+    httptest,
+    knitr,
+    rmarkdown,
+    scales,
+    testthat (>= 3.0.0)
+VignetteBuilder:
+    knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 7.1.1

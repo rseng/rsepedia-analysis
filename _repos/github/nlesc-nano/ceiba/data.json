@@ -1,0 +1,178 @@
+{
+    "setup.py": {
+        "github/nlesc-nano/ceiba": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "aiohttp": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/aio-libs/aiohttp"
+        },
+        "more-itertools": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/more-itertools/more-itertools"
+        },
+        "tartiflette": {
+            "credit": 0.14142857142857143,
+            "url": "https://tartiflette.io"
+        },
+        "tartiflette-aiohttp": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/tartiflette/tartiflette-aiohttp"
+        },
+        "pandas": {
+            "credit": 0.001414285714285729,
+            "url": "https://pandas.pydata.org"
+        },
+        "pymongo": {
+            "credit": 0.001414285714285729,
+            "url": "http://github.com/mongodb/mongo-python-driver"
+        },
+        "requests": {
+            "credit": 0.0154157142857143,
+            "url": "https://requests.readthedocs.io"
+        },
+        "cchardet": {
+            "credit": 0.010770329670329669,
+            "url": "https://github.com/PyYoshi/cChardet"
+        },
+        "Brotli": {
+            "credit": 0.010770329670329669,
+            "url": "https://github.com/google/brotli"
+        },
+        "aiodns": {
+            "credit": 0.00010770329670329627,
+            "url": "https://github.com/saghul/aiodns"
+        },
+        "typing-extensions": {
+            "credit": 0.024987164835164832,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "asynctest": {
+            "credit": 0.010770329670329669,
+            "url": "https://github.com/Martiusweb/asynctest/"
+        },
+        "idna-ssl": {
+            "credit": 0.010770329670329669,
+            "url": "https://github.com/aio-libs/idna-ssl"
+        },
+        "aiosignal": {
+            "credit": 0.00010770329670329627,
+            "url": "https://github.com/aio-libs/aiosignal"
+        },
+        "frozenlist": {
+            "credit": 0.021432956043956043,
+            "url": "https://github.com/aio-libs/frozenlist"
+        },
+        "yarl": {
+            "credit": 0.00010770329670329627,
+            "url": "https://github.com/aio-libs/yarl/"
+        },
+        "async-timeout": {
+            "credit": 0.00010770329670329627,
+            "url": "https://github.com/aio-libs/async-timeout"
+        },
+        "multidict": {
+            "credit": 0.01432453846153846,
+            "url": "https://github.com/aio-libs/multidict"
+        },
+        "charset-normalizer": {
+            "credit": 0.020109744113029827,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "attrs": {
+            "credit": 0.010770329670329669,
+            "url": "https://www.attrs.org/"
+        },
+        "pytest-xdist": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "numpy": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "pytz": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "zstandard": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/zstandard"
+        },
+        "dnspython": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/dnspython"
+        },
+        "python-snappy": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/python-snappy"
+        },
+        "certifi": {
+            "credit": 0.0340034693877551,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "service-identity": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/service-identity"
+        },
+        "pyopenssl": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/pyopenssl"
+        },
+        "pykerberos": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/pykerberos"
+        },
+        "pymongocrypt": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/pymongocrypt"
+        },
+        "pymongo-auth-aws": {
+            "credit": 0.014001428571428571,
+            "url": "https://pypi.org/project/pymongo-auth-aws"
+        },
+        "win-inet-pton": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "idna": {
+            "credit": 0.023556249607535322,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "urllib3": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "pycares": {
+            "credit": 0.010662626373626373,
+            "url": "https://pypi.org/project/pycares"
+        },
+        "unicodedata2": {
+            "credit": 0.010662626373626373,
+            "url": "https://pypi.org/project/unicodedata2"
+        }
+    }
+}

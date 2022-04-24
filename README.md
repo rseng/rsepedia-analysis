@@ -2,20 +2,40 @@
 
 We ultimately want to be able to group the different software into categories.
 E.g., if I'm an astronomy researcher I want to quickly see what other libraries
-are being developed. To do this, we can use [word2vec](https://radimrehurek.com/gensim/models/word2vec.html) on text from the repos
+are being developed. 
+
+## Background
+
+### Version 1
+
+- [legacy/v1](legacy/v1)
+
+To do this, I originally started with [word2vec](https://radimrehurek.com/gensim/models/word2vec.html) on text from the repos
 to derive a set of embeddings that represent each code repository.
-This means that each repository is going to be represented as a vector of numbers.
-We then want to take the label data (where we have topics on the repo) and we will
+This meant that each repository is going to be represented as a vector of numbers.
+I then could take the label data (where we have topics on the repo) and
 train a model to derive the probability of each embedding (without labels) of having
 the labels. We can try a "separate label" model, or a multiple label model.
-On a higher level, once we have the embeddings the topics can be used to train a probabilistic model.
+In practie, this worked well **up until** the data got large, and then I couldn't run
+it on my computer. I also then realized I couldn't automate it on GitHub.
+
+- [legacy/v2](legacy/v2)
+
+I took a few weeks break, went off and learned about [online machine learning with river](https://riverml.xyz/latest/),
+developer some of my own [Django plugins](https://vsoch.github.io/django-river-ml/) to allow 
+making a server and ran it again. This worked great to generate the clustering, but I realized this wasn't super useful.
+
+For the current version, I stepped back and decided to do something more simple - instead of parsing the code repos
+I would just use the repository metadata that the RSEpedia already provides, and then do some extra parsing of dependencies
+from the repository with [citelang](https://github.com/vsoch/citelang). This reflects the current state of the repository,
+and the content in the root here.
 
 ## Analysis Steps
 
-1. For each repository in data, likely we will want to clone and combine all of the markdown or rst files found into a single document.
-2. Clean up text, etc., and use word2vec to make a vector.
-3. Cluster the vectors to minimally look at similarity (add topics known to see patterns).
-4. Then try training the probabilistic models.
+1. Compile all the metadata into a single file, including descriptions and topics
+2. Clean up text, etc., to prepare a vector of words for our model (combining topics and description)
+3. Cluster
+4. Then try training some probabilistic model to predict software topics based on cluster!
 
 If this basic idea works (has signal), we could explore looking for more robust sources of text for each repository.
 
@@ -32,7 +52,7 @@ $ pip install -r requirements.txt
 $ python -m nltk.downloader popular
 ```
 
-This will install the research software encyclopedia and Gensim, and nltk
+This will install the research software encyclopedia, and nltk
 and data we need.
 
 ### 1. Data from Repositories
@@ -49,67 +69,36 @@ $ cd rsepedia-analysis
 
 Then run the analysis script, targeting the correct rse.ini settings file
 for the [software](https://github.com/rseng/software) respository we
-just cloned.
+just cloned. This will download the main data (or updated data):
 
 ```bash
-$ mkdir -p data/
-$ python 1.download.py --settings-file ../software/rse.ini -o ./data
+$ mkdir -p _repos/ _data/ docs/
+$ python 1.download.py --settings-file ../software/rse.ini -o ./_repos
 ```
 
-### 2. Preprocess text
+This generates, for each repository that we find a requirements file for:
 
-Then you'll want to prepare the gensim word2vec corpora. Each subfolder in
-data is a unique identifier for a repository, and after this we will generate
-a space separated `corpus.txt` in each subfolder.
+ - a badge that shows the dependencies
+ - a data export of the same
+ - and a saved requirments file.
+ 
+### 2. Analysis
+
+Then run a short analysis that mostly generates summary data and tables.
 
 ```bash
-$ python 2.preprocess.py ./data
+$ python 2.analysis.py --settings-file ../software/rse.ini -o ./_repos
 ```
 
-### 3. Model and Vectors
+For all repos we generate high level metadata and a summary of all dependencies.
 
-And then train the model!
+### 3 Parse One
+
+If you need to update one parsing (e.g., look for new deps, etc.):
 
 ```bash
-$ python 3.vectors.py ./data
+$ python 3.parse_one.py --settings-file ../software/rse.ini -o ./_repos github/sylabs/singularity
 ```
-
-This will generate vectors along with embeddings and the distance matrix for
-those embeddings that drive the visualization in `index.html`. The plot shows
-the different repository embeddings, colored by language.
-
-## 4. Wikipedia Model
-
-**under development - files not added yet!**
-
-Since the dataset is small, it would make sense to try using a larger dataset,
-perhaps Wikipedia that also can generate vectors for articles (topics) that could
-be matched to software. First download the data:
-
-```bash
-$ wget https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-pages-articles.xml.bz2
-```
-
-Note this is big and will take 30 minutes to an hour to download, depending on
-your connection. Then run the script!
-
-```bash
-$ python 4.wikipedia.py ./data
-```
-
-If this works, we can derive labels from here, and either use this clustering
-or the previous one generated to visualize the labels.
-
-
-### 5. Probabilistic Model
-
-The labels are too distinct I think to be useful, so instead I'm going to try:
-
-1. Generating an embedding for each word across the model
-2. For each vector (document) find the K nearest neighbors (KNN) to derive a set of words
-3. Associate the words and add to the plot!
-
-**under development**
 
 ## Diary
 
@@ -129,7 +118,3 @@ And this one looks a little bit like a brain? I'm worried that the distinction m
 Rmd documentation files that tend to have more code in them, and the greatest distinction reflecting
 common documentation practices over anything else. But we will see!
 
-## TODO
-
-1. Try finding pretrained model (wikipedia? other)?
-2. Can we add more data -spack sources?

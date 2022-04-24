@@ -1,0 +1,122 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/tacmagic": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "pracma": {
+            "credit": 0.495,
+            "url": "NA"
+        },
+        "R.matlab": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/HenrikBengtsson/R.matlab"
+        },
+        "R.utils": {
+            "credit": 0.0006125624999999968,
+            "url": "https://github.com/HenrikBengtsson/R.utils"
+        },
+        "methods": {
+            "credit": 0.09945973468172267,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0006125625000000037,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "utils": {
+            "credit": 0.12467740140047268,
+            "url": null
+        },
+        "R.methodsS3": {
+            "credit": 0.014543283857142859,
+            "url": "https://github.com/HenrikBengtsson/R.methodsS3"
+        },
+        "R.oo": {
+            "credit": 0.0006991963392857185,
+            "url": "https://github.com/HenrikBengtsson/R.oo"
+        },
+        "R": {
+            "credit": 0.12467740140047268,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.004179838235294121,
+            "url": "http://www.econ.uiuc.edu/~roger/research/sparse/sparse.html"
+        },
+        "digest": {
+            "credit": 8.663383928571473e-05,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "tools": {
+            "credit": 0.02250747144642857,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.0035672757352941172,
+            "url": "https://github.com/r-spatial/spdep/"
+        },
+        "sp": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.015696013235294116,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0035672757352941172,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.015696013235294116,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.02307347919642857,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.0021441875223214284,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.0021441875223214284,
+            "url": null
+        }
+    }
+}

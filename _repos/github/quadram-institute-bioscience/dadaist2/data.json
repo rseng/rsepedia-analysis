@@ -1,0 +1,254 @@
+{
+    "Gemfile": {
+        "github/quadram-institute-bioscience/dadaist2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "github-pages": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/github/pages-gem"
+        },
+        "jekyll-commonmark-ghpages": {
+            "credit": 0.0050531250000000125,
+            "url": "https://github.com/github/jekyll-commonmark-ghpages"
+        },
+        "jekyll-remote-theme": {
+            "credit": 0.0050531250000000125,
+            "url": "https://github.com/benbalter/jekyll-remote-theme"
+        },
+        "faraday": {
+            "credit": 0.165,
+            "url": "https://lostisland.github.io/faraday"
+        },
+        "liquid": {
+            "credit": 0.16840312500000001,
+            "url": "http://www.liquidmarkup.org"
+        },
+        "jemoji": {
+            "credit": 0.0050531250000000125,
+            "url": "https://github.com/jekyll/jemoji"
+        },
+        "terminal-table": {
+            "credit": 0.003403125,
+            "url": "https://github.com/tj/terminal-table"
+        },
+        "rouge": {
+            "credit": 0.036073125,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "minima": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "mercenary": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "kramdown-parser-gfm": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "kramdown": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-titles-from-headings": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-time-machine": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-tactile": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-slate": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-primer": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "jekyll-theme-modernist": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-minimal": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-midnight": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-merlot": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-leap-day": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-hacker": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-dinky": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-cayman": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-theme-architect": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-swiss": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-sitemap": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-seo-tag": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-sass-converter": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "jekyll-relative-links": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-redirect-from": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-readme-index": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-paginate": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-optional-front-matter": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-mentions": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-include-cache": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-github-metadata": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-gist": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-feed": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-default-layout": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-coffeescript": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll-avatar": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "jekyll": {
+            "credit": 0.040351339285714286,
+            "url": null
+        },
+        "github-pages-health-check": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "rubocop-github": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "rspec": {
+            "credit": 0.07302133928571428,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "jekyll_test_plugin_malicious": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "jekyll-commonmark": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "commonmarker": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "rake": {
+            "credit": 0.056005714285714284,
+            "url": null
+        },
+        "rubyzip": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "addressable": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "webmock": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rubocop-jekyll": {
+            "credit": 0.036948214285714286,
+            "url": null
+        },
+        "rubocop": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "html-pipeline": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "gemoji": {
+            "credit": 0.023335714285714286,
+            "url": null
+        },
+        "bundler": {
+            "credit": 0.023335714285714286,
+            "url": null
+        }
+    }
+}

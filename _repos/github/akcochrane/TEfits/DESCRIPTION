@@ -1,0 +1,19 @@
+Package: TEfits
+Type: Package
+Title: Time-evolving model fits
+Version: 00.79.00
+Author: Aaron Cochrane
+Maintainer: Aaron Cochrane <aaron.cochrane@unige.ch>
+Description: Data is described, interpreted, and tested using indices such as d prime, mean, or psychometric function threshold. This package serves to allow the same questions to be asked about time-evolving aspects of these indices, namely, the starting level, the amount of time that the index takes to change, and the asymptotic level of that index. Nonlinear regression applied to time-evolving functions is made as intuitive and painless as is feasible, with many extensions if desired.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: graphics, MASS, stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    psych,
+    lme4,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 7.1.1

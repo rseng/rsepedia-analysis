@@ -1,0 +1,94 @@
+{
+    "setup.py": {
+        "github/fakedrtom/oncogemini": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "http": {
+            "credit": 0.495,
+            "url": "https://github.com/franckcuny/http"
+        },
+        "git": {
+            "credit": 0.00495000000000001,
+            "url": "https://pypi.org"
+        },
+        "certifi": {
+            "credit": 0.1087911,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.0009800999999999976,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "pandoc-min": {
+            "credit": 0.09801,
+            "url": "https://github.com/boisgera/pandoc"
+        },
+        "idna": {
+            "credit": 0.1087911,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.09801,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.0107811,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "ipaddress": {
+            "credit": 0.0107811,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.012559981500000001,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.00010781099999999932,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.0107811,
+            "url": "https://github.com/python-hyper/brotlipy/"
+        },
+        "brotli": {
+            "credit": 0.0107811,
+            "url": "https://github.com/google/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.00010781099999999932,
+            "url": "https://github.com/python-hyper/brotlicffi"
+        },
+        "pytest": {
+            "credit": 0.0017788815000000001,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "pretend": {
+            "credit": 0.0017788815000000001,
+            "url": "https://pypi.org/project/pretend"
+        },
+        "flaky": {
+            "credit": 0.0017788815000000001,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0017788815000000001,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0017788815000000001,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "enum34": {
+            "credit": 0.0053366445,
+            "url": "https://pypi.org/project/enum34"
+        },
+        "cffi": {
+            "credit": 0.0053366445,
+            "url": "https://pypi.org/project/cffi"
+        }
+    }
+}

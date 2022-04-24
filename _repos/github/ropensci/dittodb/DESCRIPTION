@@ -1,0 +1,87 @@
+Package: dittodb
+Title: A Test Environment for Database Requests
+Version: 0.1.3.9000
+Authors@R: c(
+    person(given = "Jonathan",
+           family = "Keane",
+           role = c("aut", "cre"),
+           email = "jkeane@gmail.com",
+           comment = c(ORCID = "0000-0001-7087-9776")),
+    person(given = "Mauricio",
+          family = "Vargas",
+          role = "aut",
+          email = "mvargas@dcc.uchile.cl",
+          comment = c(ORCID = "0000-0003-1017-7574")),
+    person(given = "Helen",
+           family = "Miller",
+           role = "rev",
+           comment = "reviewed the package for rOpenSci, see https://github.com/ropensci/software-review/issues/366"),
+    person(given = "Etienne",
+           family = "Racine",
+           role = "rev",
+           comment = "reviewed the package for rOpenSci, see https://github.com/ropensci/software-review/issues/366")
+  )
+URL: https://dittodb.jonkeane.com/, https://github.com/ropensci/dittodb
+BugReports: https://github.com/ropensci/dittodb/issues
+Description: Testing and documenting code that communicates with remote
+  databases can be painful. Although the interaction with R is usually relatively 
+  simple (e.g. data(frames) passed to and from a database), because they rely on 
+  a separate service and the data there, testing them can be difficult to set up,
+  unsustainable in a continuous integration environment, or impossible without 
+  replicating an entire production cluster. This package addresses that by 
+  allowing you to make recordings from your database interactions and then play 
+  them back while testing (or in other contexts) all without needing to spin up 
+  or have access to the database your code would typically connect to.
+License: Apache License (>= 2.0)
+Encoding: UTF-8
+Depends:
+    R (>= 3.3.0),
+    DBI
+Imports: 
+    digest,
+    glue,
+    methods,
+    utils,
+    lifecycle
+Suggests: 
+    callr,
+    covr,
+    dplyr,
+    dbplyr,
+    knitr,
+    nycflights13,
+    odbc,
+    RMariaDB,
+    RPostgres,
+    RPostgreSQL,
+    RSQLite,
+    spelling,
+    testthat,
+    withr,
+    rmarkdown,
+    lintr
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+Language: en-US
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Collate: 
+    'capture-requests.R'
+    'connection.R'
+    'dbExistsTable.R'
+    'dbListTables-Fields.R'
+    'driver-specific-connections.R'
+    'dbQueries-Results.R'
+    'dbMisc.R'
+    'mock-paths.R'
+    'dittodb-env.R'
+    'expect-sql.R'
+    'mock-db.R'
+    'nycflights13-sql.R'
+    'paths.R'
+    'quote.R'
+    'redact.R'
+    'transactions.R'
+    'use-dittodb.R'
+    'utils.R'
+RdMacros: lifecycle

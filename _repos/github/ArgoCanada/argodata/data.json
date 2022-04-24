@@ -1,0 +1,310 @@
+{
+    "DESCRIPTION": {
+        "github/ArgoCanada/argodata": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "curl": {
+            "credit": 0.007563670714285719,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "rlang": {
+            "credit": 0.008166346240601509,
+            "url": "https://rlang.r-lib.org"
+        },
+        "fs": {
+            "credit": 0.008948706766917312,
+            "url": "https://fs.r-lib.org"
+        },
+        "glue": {
+            "credit": 0.018749706766917285,
+            "url": "https://github.com/tidyverse/glue"
+        },
+        "vroom": {
+            "credit": 0.0009900000000000048,
+            "url": "https://vroom.r-lib.org"
+        },
+        "stringr": {
+            "credit": 0.005890499999999991,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "vctrs": {
+            "credit": 0.12260591729323309,
+            "url": "https://vctrs.r-lib.org/"
+        },
+        "tibble": {
+            "credit": 0.017116206766917295,
+            "url": "https://tibble.tidyverse.org/"
+        },
+        "progress": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/r-lib/progress#readme"
+        },
+        "RNetCDF": {
+            "credit": 0.0009900000000000186,
+            "url": "https://github.com/mjwoods/RNetCDF\nhttps://www.unidata.ucar.edu/software/netcdf/\nhttps://www.unidata.ucar.edu/software/udunits/"
+        },
+        "webutils": {
+            "credit": 0.00010890000000000032,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.0028041750000000003,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.02254803157894737,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.04609376729323309,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "jsonlite": {
+            "credit": 0.013585275,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.04609376729323309,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.06386858086466166,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.02185778571428571,
+            "url": null
+        },
+        "R": {
+            "credit": 0.07984187729323308,
+            "url": null
+        },
+        "winch": {
+            "credit": 0.005158421052631579,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.03760734586466165,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.005158421052631579,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.007958706766917293,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.015905131578947365,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.02360591729323308,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.03760734586466165,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03520376729323309,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.010537917293233083,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.008815741578947368,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.007700785714285715,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "rprintf": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.010279996240601504,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.007700785714285715,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.010279996240601504,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.005379496240601503,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.005379496240601503,
+            "url": null
+        },
+        "prettyunits": {
+            "credit": 0.016801714285714284,
+            "url": null
+        },
+        "patchwork": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.005379496240601503,
+            "url": null
+        },
+        "archive": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.0028002857142857144,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.005379496240601503,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.019380924812030076,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0380494962406015,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.01238021052631579,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.01238021052631579,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "formattable": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "DiagrammeR": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.003657320526315789,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "fansi": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0025792105263157893,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.015079538571428571,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.015079538571428571,
+            "url": null
+        },
+        "pbdMPI": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "later": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.00107811,
+            "url": null
+        }
+    }
+}

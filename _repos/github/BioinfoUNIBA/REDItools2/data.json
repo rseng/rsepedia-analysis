@@ -1,0 +1,54 @@
+{
+    "requirements.txt": {
+        "github/BioinfoUNIBA/REDItools2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pysam": {
+            "credit": 0.00198,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "sortedcontainers": {
+            "credit": 0.00198,
+            "url": "http://www.grantjenks.com/docs/sortedcontainers/"
+        },
+        "psutil": {
+            "credit": 0.00198,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "netifaces": {
+            "credit": 0.00198,
+            "url": "https://github.com/al45tair/netifaces"
+        },
+        "mpi4py": {
+            "credit": 0.00198,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "wmi": {
+            "credit": 0.00032669999999999997,
+            "url": "http://timgolden.me.uk/python/wmi.html"
+        },
+        "pywin32": {
+            "credit": 0.00032669999999999997,
+            "url": "https://github.com/mhammond/pywin32"
+        },
+        "enum34": {
+            "credit": 0.00032669999999999997,
+            "url": "https://bitbucket.org/stoneleaf/enum34"
+        },
+        "unittest2": {
+            "credit": 0.00032669999999999997,
+            "url": "http://pypi.python.org/pypi/unittest2"
+        },
+        "mock": {
+            "credit": 0.00032669999999999997,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "ipaddress": {
+            "credit": 0.00032669999999999997,
+            "url": "https://github.com/phihag/ipaddress"
+        }
+    }
+}

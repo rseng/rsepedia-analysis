@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/cbalbin-FIU/Epitopedia": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "flask": {
+            "credit": 0.0012375000000000025,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "gemmi": {
+            "credit": 0.12375,
+            "url": "https://project-gemmi.github.io/"
+        },
+        "biopython": {
+            "credit": 0.12375,
+            "url": "https://biopython.org/"
+        },
+        "rich": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/willmcgugan/rich"
+        },
+        "dataclasses-json": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/lidatong/dataclasses-json"
+        },
+        "scipy": {
+            "credit": 0.031865625,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.276890625,
+            "url": "https://www.numpy.org"
+        },
+        "seaborn": {
+            "credit": 0.0012375000000000025,
+            "url": "https://seaborn.pydata.org"
+        },
+        "python-dotenv": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "importlib-metadata": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "click": {
+            "credit": 0.03482855357142857,
+            "url": "https://pypi.org/project/click"
+        },
+        "itsdangerous": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "ipywidgets": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "commonmark": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/commonmark"
+        },
+        "pygments": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "dataclasses": {
+            "credit": 0.034711875,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "typing-extensions": {
+            "credit": 0.028834191964285716,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "types-dataclasses": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/types-dataclasses"
+        },
+        "simplejson": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/simplejson"
+        },
+        "flake8": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "portray": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/portray"
+        },
+        "hypothesis": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "mypy": {
+            "credit": 0.014541066964285714,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "ipython": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "pytest": {
+            "credit": 0.014541066964285714,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "typing-inspect": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/typing-inspect"
+        },
+        "marshmallow-enum": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/marshmallow-enum"
+        },
+        "marshmallow": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/marshmallow"
+        },
+        "matplotlib": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "pandas": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "pytest-asyncio": {
+            "credit": 0.004331691964285714,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        }
+    }
+}

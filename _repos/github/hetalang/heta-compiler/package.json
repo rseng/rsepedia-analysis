@@ -1,0 +1,65 @@
+{
+  "name": "heta-compiler",
+  "version": "0.6.12",
+  "description": "Programming platform for Quantitative Systems Pharmacology modeling in NodeJS",
+  "main": "src/index.js",
+  "scripts": {
+    "test:dev": "mocha test/unit/parse-and-stringify.js --config=./test/.mocharc.json",
+    "test": "mocha test --config=./test/.mocharc.json",
+    "jsdoc": "jsdoc -r -c .jsdoc.json --readme api-references.md -d docs/dev src",
+    "test:cov": "nyc --reporter=lcov npm run test",
+    "precompile": "nunjucks-precompile --include [\"\\.hjk$\"] src/templates > compiled-templates.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hetalang/heta-compiler.git"
+  },
+  "homepage": "https://hetalang.github.io/#/heta-compiler/",
+  "bugs": {
+    "url": "https://github.com/hetalang/heta-compiler/issues",
+    "email": "dev@insysbio.com"
+  },
+  "author": "Evgeny Metelkin <evgeny.metelkin@gmail.com> (https://github.com/metelkin)",
+  "license": "Apache-2.0",
+  "bin": {
+    "heta": "bin/heta.js",
+    "heta-build": "bin/heta-build.js",
+    "heta-init": "bin/heta-init.js"
+  },
+  "dependencies": {
+    "@insysbio/topo-sort": "^1.0.1",
+    "ajv": "^6.12.6",
+    "ajv-errors": "^1.0.1",
+    "colors": "^1.4.0",
+    "commander": "^2.20.3",
+    "fs-extra": "^7.0.1",
+    "heta-parser": "^0.3.16",
+    "inquirer": "^7.3.3",
+    "js-yaml": "^3.14.0",
+    "lodash": "^4.17.21",
+    "markdown-it": "^12.3.2",
+    "mathjs": "^9.4.0",
+    "mathjs-mathml": "^0.3.1",
+    "node-fetch": "^2.6.7",
+    "nunjucks": "^3.2.3",
+    "random-id": "^1.0.4",
+    "semver": "^6.3.0",
+    "xlsx": "^0.17.0",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-xml": "^0.3.2",
+    "eslint": "^7.26.0",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
+    "jsdoc": "^3.6.10",
+    "jsdoc-to-markdown": "^7.1.0",
+    "mocha": "^9.2.0",
+    "nyc": "^15.1.0",
+    "slv-utils": "^0.5.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "private": false
+}

@@ -1,0 +1,366 @@
+{
+    "package.json": {
+        "github/reproducible-biomedical-modeling/Biosimulations": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "bull-board": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/felixmosh/bull-board#readme"
+        },
+        "nestjs": {
+            "credit": 0.1845762711864407,
+            "url": null
+        },
+        "semantic-release": {
+            "credit": 0.0335593220338983,
+            "url": "https://github.com/semantic-release/semantic-release#readme"
+        },
+        "sendgrid": {
+            "credit": 0.00016779661016949263,
+            "url": "https://sendgrid.com"
+        },
+        "stoplight": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/andrewhao/stoplight"
+        },
+        "types": {
+            "credit": 0.0006711864406779705,
+            "url": "http://nodeca.github.com/types/"
+        },
+        "auth0": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/auth0/node-auth0"
+        },
+        "aws-sdk": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/aws/aws-sdk-js"
+        },
+        "axios": {
+            "credit": 0.01677966101694915,
+            "url": "https://axios-http.com"
+        },
+        "bullmq": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/taskforcesh/bullmq#readme"
+        },
+        "cache-manager": {
+            "credit": 0.018057496740547588,
+            "url": "https://github.com/BryanDonovan/node-cache-manager#readme"
+        },
+        "cache-manager-redis-store": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/dabroek/node-cache-manager-redis-store#readme"
+        },
+        "class-transformer": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/typestack/class-transformer#readme"
+        },
+        "class-validator": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/typestack/class-validator#readme"
+        },
+        "compare-versions": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/omichelsen/compare-versions#readme"
+        },
+        "cron": {
+            "credit": 0.00016779661016949263,
+            "url": "https://github.com/kelektiv/node-cron#readme"
+        },
+        "email-validator": {
+            "credit": 0.00016779661016949263,
+            "url": "http://github.com/manishsaraan/email-validator"
+        },
+        "err-code": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/IndigoUnited/js-err-code#readme"
+        },
+        "form-data": {
+            "credit": 0.01677966101694915,
+            "url": "https://github.com/form-data/form-data#readme"
+        },
+        "hammerjs": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "http-status-codes": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "is-url": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "json5": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "jwks-rsa": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "mongoose": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "nats": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "nestjs-s3": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "ngx-material-file-input": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "passport": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "passport-jwt": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "reflect-metadata": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "retry": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "rxjs": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "sharp": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "ssh2": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "stackdriver-errors-js": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "swagger-ui-express": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "tiny-version-compare": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "tslib": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "unzipper": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "validator": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "zone.js": {
+            "credit": 0.01677966101694915,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "sendgrid-rest": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.010691225554106908,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "system-sleep": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "lodash.chunk": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "mailparser": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.0022940193704600485,
+            "url": null
+        },
+        "async.ensureasync": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "bottleneck": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "mocha-sinon": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "sinon-chai": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "async.queue": {
+            "credit": 0.001107457627118644,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.011877787297448313,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0022940193704600485,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "babel-register": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "node-fetch": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "gpx-parse": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "node-geo-distance": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "rx": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "vows": {
+            "credit": 0.06644745762711864,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0024643974669398393,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "": {
+            "credit": 0.0076670143415906115,
+            "url": null
+        },
+        "redis": {
+            "credit": 0.0012778357235984352,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-jest": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        },
+        "moment-timezone": {
+            "credit": 0.0011865617433414043,
+            "url": null
+        }
+    }
+}

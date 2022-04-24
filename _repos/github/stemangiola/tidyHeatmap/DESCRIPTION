@@ -1,0 +1,71 @@
+Type: Package
+Package: tidyHeatmap
+Title: A Tidy Implementation of Heatmap
+Version: 1.6.0
+Authors@R: 
+    c(person(given = "Stefano",
+           family = "Mangiola",
+           role = c("aut", "cre"),
+           email = "mangiolastefano@gmail.com"),
+           person(given = "Anthony",
+           family = "Papenfuss",
+           role = c("ctb"),
+           email = "papenfuss@wehi.edu.au")
+           )
+Maintainer: Stefano Mangiola <mangiolastefano@gmail.com>
+Description: This is a tidy implementation for heatmap.  At the
+    moment it is based on the (great) package 'ComplexHeatmap'.  The goal
+    of this package is to interface a tidy data frame with this powerful
+    tool.  Some of the advantages are: Row and/or columns colour
+    annotations are easy to integrate just specifying one parameter
+    (column names).  Custom grouping of rows is easy to specify providing
+    a grouped tbl. For example: df %>% group_by(...).  Labels size
+    adjusted by row and column total number.  Default use of Brewer and
+    Viridis palettes.
+License: GPL-3
+URL: https://www.r-project.org,
+    https://github.com/stemangiola/tidyHeatmap
+BugReports: https://github.com/stemangiola/tidyHeatmap
+Depends: 
+    R (>= 3.6)
+Imports: 
+    methods,
+    stats,
+    utils,
+    dplyr (>= 0.8.5),
+    magrittr (>= 1.5),
+    tidyr (>= 1.0.3),
+    rlang (>= 0.4.5),
+    purrr (>= 0.3.3),
+    tibble,
+    ComplexHeatmap (>= 2.2.0),
+    viridis (>= 0.5.1),
+    circlize (>= 0.4.8),
+    RColorBrewer (>= 1.1), 
+    grid,
+    grDevices,
+    lifecycle (>= 0.2.0),
+    dendextend,
+    patchwork
+Suggests:
+    spelling,
+    testthat,
+    vdiffr,
+    BiocManager,
+    knitr,
+    rmarkdown,
+    qpdf,
+    covr,
+    roxygen2,
+    forcats,
+    ggplot2
+VignetteBuilder: 
+    knitr
+RdMacros: 
+    lifecycle
+Biarch: true
+biocViews: AssayDomain, Infrastructure
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Language: en-US

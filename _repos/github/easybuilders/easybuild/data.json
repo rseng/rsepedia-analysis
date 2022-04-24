@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/easybuilders/easybuild": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "easybuild-framework": {
+            "credit": 0.0033000000000000004,
+            "url": "https://easybuild.io"
+        },
+        "easybuild-easyblocks": {
+            "credit": 0.0033000000000000004,
+            "url": "https://easybuild.io"
+        },
+        "easybuild-easyconfigs": {
+            "credit": 0.0033000000000000004,
+            "url": "https://easybuild.io"
+        }
+    }
+}

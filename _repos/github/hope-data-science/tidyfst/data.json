@@ -1,0 +1,114 @@
+{
+    "DESCRIPTION": {
+        "github/hope-data-science/tidyfst": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "data.table": {
+            "credit": 0.039600000000000024,
+            "url": "https://r-datatable.com"
+        },
+        "fst": {
+            "credit": 0.003300000000000025,
+            "url": "http://www.fstpackage.org"
+        },
+        "stringr": {
+            "credit": 0.003300000000000025,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.059895,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.059895,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.063525,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.063525,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R": {
+            "credit": 0.096195,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0363,
+            "url": null
+        },
+        "lintr": {
+            "credit": 0.0363,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.06897,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0363,
+            "url": null
+        },
+        "fstcore": {
+            "credit": 0.0363,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.03267,
+            "url": null
+        }
+    }
+}

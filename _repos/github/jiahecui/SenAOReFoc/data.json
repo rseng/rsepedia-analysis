@@ -1,0 +1,142 @@
+{
+    "setup.py": {
+        "github/jiahecui/SenAOReFoc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.30944571428571427,
+            "url": "https://www.numpy.org"
+        },
+        "PySide2": {
+            "credit": 0.0016943142857143018,
+            "url": "https://www.pyside.org"
+        },
+        "qimage2ndarray": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/hmeine/qimage2ndarray"
+        },
+        "Click": {
+            "credit": 0.001414285714285729,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "scipy": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.scipy.org"
+        },
+        "h5py": {
+            "credit": 0.14142857142857143,
+            "url": "http://www.h5py.org"
+        },
+        "pyyaml": {
+            "credit": 0.14142857142857143,
+            "url": "https://pyyaml.org/"
+        },
+        "shiboken2": {
+            "credit": 0.16773711428571428,
+            "url": "https://www.pyside.org"
+        },
+        "PySide": {
+            "credit": 0.028002857142857142,
+            "url": "http://www.pyside.org"
+        },
+        "PyQt5": {
+            "credit": 0.00028002857142857274,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt4": {
+            "credit": 0.028002857142857142,
+            "url": "http://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "importlib-metadata": {
+            "credit": 0.0007000714285714249,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "colorama": {
+            "credit": 0.07000714285714285,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.013861414285714285,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.013861414285714285,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "importlib-resources": {
+            "credit": 0.003850392857142857,
+            "url": "https://github.com/python/importlib_resources"
+        },
+        "pytest-mypy": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "pytest-perf": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-perf"
+        },
+        "flufl.flake8": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/flufl.flake8"
+        },
+        "pyfakefs": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pyfakefs"
+        },
+        "packaging": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "pytest-enabler": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-flake8": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "ipython": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "rst.linker": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "zipp": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/zipp"
+        }
+    }
+}

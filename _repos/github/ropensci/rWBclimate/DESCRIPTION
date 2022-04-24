@@ -1,0 +1,24 @@
+Package: rWBclimate
+Authors@R: c(person("Edmund", "Hart", role = c("aut", "cre"),
+    email = "edmund.m.hart@gmail.com"))
+Version: 0.1.5.91
+License: MIT + file LICENSE
+URL: http://github.com/ropensci/rWBclimate
+BugReports: http://github.com/ropensci/rWBclimate/issues
+Type: Package
+Title: A package for accessing World Bank climate data
+Description: This package will download model predictions from 15 different global circulation models in 20 year intervals from the world bank.  Users can also access historical data, and create maps at 2 different spatial scales.
+LazyData: True
+LazyLoad: True
+VignetteBuilder: knitr
+Suggests:
+    knitr
+Imports:
+    ggplot2,
+    httr,
+    plyr,
+    rgdal,
+    jsonlite,
+    reshape2,
+    sp
+RoxygenNote: 7.0.2

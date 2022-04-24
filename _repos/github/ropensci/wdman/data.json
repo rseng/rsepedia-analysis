@@ -1,0 +1,82 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/wdman": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "binman": {
+            "credit": 0.0019800000000000095,
+            "url": "https://docs.ropensci.org/binman/"
+        },
+        "assertthat": {
+            "credit": 0.043984285714285754,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.198,
+            "url": "https://processx.r-lib.org"
+        },
+        "yaml": {
+            "credit": 0.2120014285714286,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "semver": {
+            "credit": 0.01598142857142858,
+            "url": "https://github.com/johndharrison/semver"
+        },
+        "rmarkdown": {
+            "credit": 0.042004285714285716,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.042004285714285716,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.1073442857142857,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.1073442857142857,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.042004285714285716,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "rappdirs": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "R": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.06534,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.028002857142857142,
+            "url": null
+        }
+    }
+}

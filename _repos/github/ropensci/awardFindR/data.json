@@ -1,0 +1,150 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/awardFindR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "rvest": {
+            "credit": 0.0019800000000000373,
+            "url": "http://rvest.tidyverse.org/"
+        },
+        "xml2": {
+            "credit": 0.02648249999999998,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "readr": {
+            "credit": 0.0019800000000000373,
+            "url": "https://readr.tidyverse.org"
+        },
+        "readxl": {
+            "credit": 0.0019800000000000095,
+            "url": "https://readxl.tidyverse.org"
+        },
+        "httr": {
+            "credit": 0.233937,
+            "url": "https://httr.r-lib.org/"
+        },
+        "testthat": {
+            "credit": 0.0658845,
+            "url": "https://testthat.r-lib.org"
+        },
+        "stringi": {
+            "credit": 0.024502499999999997,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.024502499999999997,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0658845,
+            "url": null
+        },
+        "png": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0658845,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0658845,
+            "url": null
+        },
+        "selectr": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.035937,
+            "url": null
+        },
+        "R": {
+            "credit": 0.0441045,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027769500000000003,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.027769500000000003,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.029947500000000002,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.029947500000000002,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "cellranger": {
+            "credit": 0.02178,
+            "url": null
+        }
+    }
+}

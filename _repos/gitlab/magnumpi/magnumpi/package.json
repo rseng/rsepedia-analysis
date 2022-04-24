@@ -1,0 +1,12 @@
+{
+    "name": "magnumpi-js-workspaces",
+    "private": true,
+    "workspaces": [
+        "assembly",
+        "magnumpi-app"
+    ],
+    "engines": {
+      "node": ">=14",
+      "npm": ">=7"
+    }
+}

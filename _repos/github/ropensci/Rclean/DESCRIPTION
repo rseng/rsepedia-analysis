@@ -1,0 +1,42 @@
+Type: Package
+Package: Rclean
+Title: A Tool for Writing Cleaner, More Transparent Code
+Version: 1.1.8
+Authors@R: c(
+   person(
+     given = "Matthew", 
+     family = "Lau", 
+     email = "matthewklau@fas.harvard.edu", 
+     role = c("aut", "cre"), 
+     comment = c(ORCID = "0000-0003-3758-2406")),
+   person(
+     given = c("William", "Michael"), 
+     family = "Landau", 
+     role = "rev",
+     comment = "Will reviewed the package for ropensci, 
+	       see <https://github.com/ropensci/software-review/issues/327>"),
+   person(
+     given = "Clemens", 
+     family = "Schmid", 
+     role = "rev",
+     comment = "Clemens reviewed the package for ropensci, 
+	       see <https://github.com/ropensci/software-review/issues/327>")
+   )
+Description: To create clearer, more concise code provides this
+	     toolbox helps coders to isolate the essential parts of a
+	     script that produces a chosen result, such as an object,
+	     tables and figures written to disk.
+URL: https://github.com/MKLau/Rclean
+BugReports: https://github.com/MKLau/Rclean/issues
+License: GPL-3 | file LICENSE
+Depends:
+   R (>= 3.5.0)
+Imports: igraph, CodeDepends, methods, Rgraphviz, clipr, styler
+biocViews: Rgraphviz, graph
+Suggests: roxygen2, testthat, covr, knitr
+Remotes: MKLau/CodeDepends
+Language: en-US
+Encoding: UTF-8
+RoxygenNote: 7.0.2
+VignetteBuilder: knitr
+LazyData: true

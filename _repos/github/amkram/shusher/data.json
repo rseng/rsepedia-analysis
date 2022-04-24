@@ -1,0 +1,94 @@
+{
+    "package.json": {
+        "github/amkram/shusher": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "material-ui": {
+            "credit": 0.0029700000000000143,
+            "url": "http://material-ui.com/"
+        },
+        "auspice": {
+            "credit": 0.099,
+            "url": "https://www.npmjs.com/package/auspice"
+        },
+        "express": {
+            "credit": 0.099,
+            "url": "http://expressjs.com/"
+        },
+        "heroku-ssl-redirect": {
+            "credit": 0.099,
+            "url": "https://github.com/paulomcnally/node-heroku-ssl-redirect"
+        },
+        "lodash": {
+            "credit": 0.099,
+            "url": "https://lodash.com/"
+        },
+        "node-gzip": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/Rebsos/node-gzip#readme"
+        },
+        "react-file-drop": {
+            "credit": 0.099,
+            "url": "https://github.com/sarink/react-file-drop#readme"
+        },
+        "react-redux": {
+            "credit": 0.099,
+            "url": "https://github.com/reduxjs/react-redux"
+        },
+        "inline-style-prefixer": {
+            "credit": 0.026729999999999997,
+            "url": "https://github.com/rofrischmann/inline-style-prefixer#readme"
+        },
+        "keycode": {
+            "credit": 0.026729999999999997,
+            "url": "https://github.com/timoxley/keycode"
+        },
+        "prop-types": {
+            "credit": 0.026729999999999997,
+            "url": "https://facebook.github.io/react/"
+        },
+        "react-event-listener": {
+            "credit": 0.026729999999999997,
+            "url": "https://github.com/oliviertassinari/react-event-listener"
+        },
+        "react-transition-group": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "simple-assign": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "warning": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "babel-runtime": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "lodash.merge": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "lodash.throttle": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "recompose": {
+            "credit": 0.026729999999999997,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.049005,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,358 @@
+{
+    "Gemfile": {
+        "github/scrook/neuroml-db": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "rails": {
+            "credit": 0.0003960000000000005,
+            "url": "https://rubyonrails.org"
+        },
+        "i18n": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/ruby-i18n/i18n"
+        },
+        "coderay": {
+            "credit": 0.039599999999999996,
+            "url": "http://coderay.rubychan.de"
+        },
+        "fastercsv": {
+            "credit": 0.039599999999999996,
+            "url": "http://fastercsv.rubyforge.org"
+        },
+        "builder": {
+            "credit": 0.039599999999999996,
+            "url": "http://onestepback.org"
+        },
+        "rubyzip": {
+            "credit": 0.00039600000000000746,
+            "url": "http://github.com/rubyzip/rubyzip"
+        },
+        "net-ldap": {
+            "credit": 0.00039600000000000746,
+            "url": "http://github.com/ruby-ldap/ruby-net-ldap"
+        },
+        "ruby-openid": {
+            "credit": 0.019998,
+            "url": "https://github.com/openid/ruby-openid"
+        },
+        "rack-openid": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/grosser/rack-openid"
+        },
+        "jruby-openssl": {
+            "credit": 0.039599999999999996,
+            "url": "https://github.com/jruby/jruby-openssl"
+        },
+        "activerecord-jdbc-adapter": {
+            "credit": 0.07880399999999999,
+            "url": "https://github.com/jruby/activerecord-jdbc-adapter"
+        },
+        "mysql2": {
+            "credit": 0.039599999999999996,
+            "url": "https://github.com/brianmario/mysql2"
+        },
+        "activerecord-jdbcmysql-adapter": {
+            "credit": 0.000792000000000001,
+            "url": "https://github.com/jruby/activerecord-jdbc-adapter"
+        },
+        "pg": {
+            "credit": 0.039599999999999996,
+            "url": "https://github.com/ged/ruby-pg"
+        },
+        "activerecord-jdbcpostgresql-adapter": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/jruby/activerecord-jdbc-adapter"
+        },
+        "sqlite3": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/sparklemotion/sqlite3-ruby"
+        },
+        "activerecord-jdbcsqlite3-adapter": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/jruby/activerecord-jdbc-adapter"
+        },
+        "tiny_tds": {
+            "credit": 0.0003960000000000005,
+            "url": "http://github.com/rails-sqlserver/tiny_tds"
+        },
+        "activerecord-sqlserver-adapter": {
+            "credit": 0.039599999999999996,
+            "url": "http://github.com/rails-sqlserver/activerecord-sqlserver-adapter"
+        },
+        "rdoc": {
+            "credit": 0.0052965,
+            "url": "https://ruby.github.io/rdoc"
+        },
+        "yard": {
+            "credit": 0.001660645161290323,
+            "url": "http://yardoc.org"
+        },
+        "shoulda": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/thoughtbot/shoulda"
+        },
+        "mocha": {
+            "credit": 0.0003960000000000005,
+            "url": "https://mocha.jamesmead.org"
+        },
+        "capybara": {
+            "credit": 0.0003960000000000005,
+            "url": "https://github.com/teamcapybara/capybara"
+        },
+        "sprockets-rails": {
+            "credit": 0.0032669999999999995,
+            "url": "https://github.com/rails/sprockets-rails"
+        },
+        "railties": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "bundler": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "activesupport": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "activestorage": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "activerecord": {
+            "credit": 0.042470999999999995,
+            "url": null
+        },
+        "activemodel": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "activejob": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "actionview": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "actionpack": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "actionmailer": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "actioncable": {
+            "credit": 0.0032669999999999995,
+            "url": null
+        },
+        "concurrent-ruby": {
+            "credit": 0.039203999999999996,
+            "url": null
+        },
+        "rubocop": {
+            "credit": 0.026747245161290317,
+            "url": null
+        },
+        "rake": {
+            "credit": 0.032347816589861744,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.007840799999999998,
+            "url": null
+        },
+        "minitest": {
+            "credit": 0.06861151658986175,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.009105445161290322,
+            "url": null
+        },
+        "test-unit": {
+            "credit": 0.007840799999999998,
+            "url": null
+        },
+        "flexmock": {
+            "credit": 0.007840799999999998,
+            "url": null
+        },
+        "byebug": {
+            "credit": 0.009105445161290322,
+            "url": null
+        },
+        "rack": {
+            "credit": 0.02086664516129032,
+            "url": null
+        },
+        "jdbc-mysql": {
+            "credit": 0.039203999999999996,
+            "url": null
+        },
+        "jdbc-postgres": {
+            "credit": 0.019601999999999998,
+            "url": null
+        },
+        "rake-compiler-dock": {
+            "credit": 0.010501071428571427,
+            "url": null
+        },
+        "rake-compiler": {
+            "credit": 0.010501071428571427,
+            "url": null
+        },
+        "mini_portile": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "hoe-gemspec": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "hoe-bundler": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "hoe": {
+            "credit": 0.0049004999999999995,
+            "url": null
+        },
+        "jdbc-sqlite3": {
+            "credit": 0.019601999999999998,
+            "url": null
+        },
+        "toxiproxy": {
+            "credit": 0.005600571428571428,
+            "url": null
+        },
+        "mini_portile2": {
+            "credit": 0.005600571428571428,
+            "url": null
+        },
+        "connection_pool": {
+            "credit": 0.005600571428571428,
+            "url": null
+        },
+        "psych": {
+            "credit": 0.039203999999999996,
+            "url": null
+        },
+        "webrick": {
+            "credit": 0.039203999999999996,
+            "url": null
+        },
+        "shoulda-matchers": {
+            "credit": 0.019601999999999998,
+            "url": null
+        },
+        "shoulda-context": {
+            "credit": 0.019601999999999998,
+            "url": null
+        },
+        "introspection": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "xpath": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "regexp_parser": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rack-test": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "mini_mime": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "matrix": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "addressable": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "webdrivers": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "uglifier": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "sinatra": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "selenium-webdriver": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "selenium_statistics": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "sauce_whisk": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rubocop-rspec": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rubocop-rake": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rubocop-performance": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rubocop-minitest": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rspec-instafail": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "rspec": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "puma": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "launchy": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "irb": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "erubi": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        },
+        "cucumber": {
+            "credit": 0.0012646451612903225,
+            "url": null
+        }
+    }
+}

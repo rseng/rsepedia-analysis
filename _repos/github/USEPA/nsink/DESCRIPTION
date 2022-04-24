@@ -1,0 +1,90 @@
+Package: nsink
+Title: Flow path nitrogen removal estimation
+Version: 1.2.0
+Authors@R: c(person(given = "Jeffrey",
+           family = "Hollister",
+           role = c("aut", "cre"),
+           email = "hollister.jeff@epa.gov",
+           comment = c(ORCID = "0000-0002-9254-9740")),
+           person(given = "Dorothy",
+           family = "Kellogg",
+           role = c("aut"),
+           email = "qkellogg@uri.edu",
+           comment = c(ORCID = "0000-0002-9509-4606")),
+           person(given = "Qian",
+           family = "Lei-Parent",
+           role = c("aut"),
+           email = "qian.lei@uconn.edu",
+           comment = c(ORCID = "0000-0002-1904-2513")),
+           person(given = "Chester",
+           family = "Arnold",
+           role = c("ctb"),
+           email = "chester.arnold_jr@uconn.edu"),
+           person(given = "Arthur",
+           family = "Gold",
+           role = c("ctb"),
+           email = "agold@uri.edu",
+           comment = c(ORCID = "0000-0002-0290-1377")),
+           person(given = "Emily",
+           family = "Wilson",
+           role = c("ctb"),
+           email = "emily.wilson@uconn.edu",
+           comment = c(ORCID = "0000-0003-0035-5752")),
+           person(given = "Cary",
+           family = "Chadwick",
+           role = c("ctb"),
+           email = "cary.chadwick@uconn.edu",
+           comment = c(ORCID = "0000-0002-6952-7535")),
+           person(given = "David",
+           family = "Dickson",
+           role = c("ctb"),
+           email = "david.dickson@uconn.edu>, ",
+           comment = c(ORCID = "0000-0002-2660-6460")),
+           person(given = "Kenneth",
+           family = "Forshay",
+           role = c("fnd"),
+           email = "forshay.ken@epa.gov>, ",
+           comment = c(ORCID = "0000-0002-2867-8492")))
+Description: N-Sink is an analysis that utilizes geospatial data to estimate a 
+             flow path and the nitrogen removal along that flow path.  
+             Additionally, several static maps summarizing nitrogen removal may 
+             be summarized.  The nsink package provides tools to setup and run 
+             this analysis for any HUC in the United States.
+Depends: R (>= 3.5.0)
+Imports:
+  sf,
+  raster,
+  httr,
+  dplyr,
+  fasterize,
+  zoo,
+  igraph,
+  lwgeom,
+  readr,
+  FedData, 
+  foreign,
+  gstat,
+  methods,
+  rlang,
+  furrr,
+  future, 
+  stars,
+  units,
+  archive
+Remotes: 
+  ropensci/FedData
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: es
+LazyData: true
+URL: https://github.com/USEPA/nsink,
+    https://jhollist.github.io/nsink/
+BugReports: https://github.com/USEPA/nsink/issues
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    rmarkdown,
+    markdown,
+    testthat,
+    covr
+VignetteBuilder: knitr

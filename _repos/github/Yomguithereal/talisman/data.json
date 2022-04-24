@@ -1,0 +1,34 @@
+{
+    "package.json": {
+        "github/Yomguithereal/talisman": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "html-entities": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/mdevils/html-entities#readme"
+        },
+        "lodash": {
+            "credit": 0.0016500000000000002,
+            "url": "https://lodash.com/"
+        },
+        "long": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/dcodeIO/long.js#readme"
+        },
+        "mnemonist": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/yomguithereal/mnemonist#readme"
+        },
+        "obliterator": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/yomguithereal/obliterator#readme"
+        },
+        "pandemonium": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/yomguithereal/pandemonium#readme"
+        }
+    }
+}

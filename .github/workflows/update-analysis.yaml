@@ -1,6 +1,7 @@
 name: update-analysis
 
 on:
+  pull_request: []
   schedule:
     # Weekly on Wednesday (software updated Sunday night)
     - cron: 0 0 * * 3
@@ -19,14 +20,37 @@ jobs:
         python -m nltk.downloader popular
         rse --version
 
+    - name: Load CiteLang Cache
+      uses: actions/cache@v3
+      with:
+        path: ~/.citelang
+        key: ${{ runner.os }}-citelang-cache
+        restore-keys: |
+          ${{ runner.os }}-citelang-cache
+          ${{ runner.os }}
+
+    - name: Populate CiteLang Cache
+      run: |
+        if [[ ! -d "$HOME/.citelang" ]]; then
+            git clone https://github.com/researchapps/citelang-cache $HOME/.citelang
+        fi
+        tree ~/.citelang
+        
     - name: Download Latest Software Database
       env:
         RSE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
           git clone https://github.com/rseng/software /tmp/software
-          python 1.download.py --settings-file /tmp/software/rse.ini -o ./data
-          python 2.preprocess.py ./data
-          python 3.vectors.py ./data
+          python 1.download.py --settings-file /tmp/software/rse.ini -o ./_repos
+          python 2.analysis.py --settings-file /tmp/software/rse.ini -o ./_repos
+          find _repos -type d -empty -print -delete
+
+    - name: Save Updated Cache
+      uses: actions/cache@v3
+      with:
+        key: ${{ runner.os }}-citelang-cache
+        path: |
+          ~/.citelang
 
     - name: Checkout New Branch
       env:
@@ -43,8 +67,10 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@users.noreply.github.com"
 
-        git add data/*
+        git add _repos/*
         git add docs/*
+        git add pages/*
+        git add _data/*
 
         if git diff-index --quiet HEAD --; then
            printf "No changes\n"

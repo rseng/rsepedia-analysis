@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/3d-pli/fastpli": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "jupyter": {
+            "credit": 0.0033000000000000004,
+            "url": "http://jupyter.org"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "PyQt5": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.0016335,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.0016335,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        }
+    }
+}

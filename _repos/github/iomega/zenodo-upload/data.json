@@ -1,0 +1,86 @@
+{
+    "package.json": {
+        "github/iomega/zenodo-upload": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "file-type": {
+            "credit": 0.2475,
+            "url": "https://github.com/sindresorhus/file-type#readme"
+        },
+        "hasha": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/sindresorhus/hasha#readme"
+        },
+        "node-fetch": {
+            "credit": 0.2475,
+            "url": "https://github.com/node-fetch/node-fetch"
+        },
+        "yargs": {
+            "credit": 0.2475,
+            "url": "https://yargs.js.org/"
+        },
+        "xo": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/xojs/xo#readme"
+        },
+        "tsd": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/SamVerschueren/tsd#readme"
+        },
+        "proxyquire": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/thlorenz/proxyquire#readme"
+        },
+        "ava": {
+            "credit": 0.035003571428571426,
+            "url": "https://avajs.dev"
+        },
+        "": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "type-fest": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/sindresorhus/type-fest#readme"
+        },
+        "is-stream": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/sindresorhus/is-stream#readme"
+        },
+        "standard": {
+            "credit": 0.004331691964285714,
+            "url": "https://standardjs.com"
+        },
+        "sinon": {
+            "credit": 0.004331691964285714,
+            "url": "https://sinonjs.org/"
+        },
+        "should": {
+            "credit": 0.004331691964285714,
+            "url": "https://github.com/shouldjs/should.js"
+        },
+        "native-hello-world": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "resolve": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "module-not-found-error": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "fill-keys": {
+            "credit": 0.004331691964285714,
+            "url": null
+        }
+    }
+}

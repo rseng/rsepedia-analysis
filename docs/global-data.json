@@ -1,0 +1,3800 @@
+{
+    "DESCRIPTION": {
+        "github/ropenscilabs/qcoder": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/arcaldwell49/SimplyAgree": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/chainsawriot/oolong": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/DidierMurilloF/FielDHub": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/VincentAlcazer/StatAid": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/takfung/ResDisMapper": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ropensci-review-tools/roreviewapi": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ropensci-review-tools/autotest": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ropensci-review-tools/srr": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ropensci-review-tools/pkgcheck": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ropensci-review-tools/pkgstats": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/samhforbes/PupillometryR": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/jorittmo/singcar": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/abschneider/StrainHub": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/insilico/cncv": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/zoometh/iconr": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/jessecambon/tidygeocoder": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/mingzehuang/latentcor": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/zhouzilu/DENDRO": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        }
+    },
+    "cran": {
+        "assertthat": {
+            "credit": 1.5714285714285878e-05,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0018938985358273154,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "DT": {
+            "credit": 0.00021383979558270698,
+            "url": "https://github.com/rstudio/DT"
+        },
+        "here": {
+            "credit": 0.00014343686138423056,
+            "url": "https://here.r-lib.org/"
+        },
+        "magrittr": {
+            "credit": 0.003982993058867372,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "readr": {
+            "credit": 0.0008130515638207948,
+            "url": "https://readr.tidyverse.org"
+        },
+        "shiny": {
+            "credit": 0.0038168088065112216,
+            "url": "https://shiny.rstudio.com/"
+        },
+        "shinyAce": {
+            "credit": 0.00017128571428571445,
+            "url": "http://trestletech.github.io/shinyAce/"
+        },
+        "shinyFiles": {
+            "credit": 1.5714285714285878e-05,
+            "url": "https://github.com/thomasp85/shinyFiles"
+        },
+        "shinyjs": {
+            "credit": 0.00017947368421052646,
+            "url": "https://deanattali.com/shinyjs/"
+        },
+        "shinythemes": {
+            "credit": 2.729323308270699e-05,
+            "url": "http://rstudio.github.io/shinythemes/"
+        },
+        "stringi": {
+            "credit": 0.0011632182692307696,
+            "url": "https://stringi.gagolewski.com/ https://icu.unicode.org/"
+        },
+        "stringr": {
+            "credit": 0.000915531814297649,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "zip": {
+            "credit": 0.0006395956043956046,
+            "url": "https://github.com/r-lib/zip#readme"
+        },
+        "covr": {
+            "credit": 0.011521002574484285,
+            "url": "https://covr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.018294937420309892,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.0022441451460231505,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.006200666330955765,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.007146293609022557,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0018713767387218045,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.01306855549659277,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.0010025793233082705,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.0005657744360902256,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0006817954887218045,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.013895850520334747,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0029205357474855493,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.001912447595864662,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0012362895662861167,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.0013933060150375942,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.0005657744360902256,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.001148791136495084,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0019724792887667888,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.009920070746065837,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0005723796992481205,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.004491816398616455,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0062420959210898715,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0030545281839786495,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.009148609712186463,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0012997748931192902,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.002217250642134744,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.00037037969924812023,
+            "url": null
+        },
+        "R": {
+            "credit": 0.02680273333812449,
+            "url": null
+        },
+        "testit": {
+            "credit": 0.000348740030075188,
+            "url": null
+        },
+        "bslib": {
+            "credit": 0.0005941000048087699,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.0007267728505127735,
+            "url": null
+        },
+        "jquerylib": {
+            "credit": 0.00041468695071010867,
+            "url": null
+        },
+        "crosstalk": {
+            "credit": 0.0003305954887218045,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.010163213819122045,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0012638091929489277,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.0034656781292571187,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.000627502113271344,
+            "url": null
+        },
+        "plyr": {
+            "credit": 0.001422069398832185,
+            "url": null
+        },
+        "palmerpenguins": {
+            "credit": 0.0006504284290608177,
+            "url": null
+        },
+        "fs": {
+            "credit": 0.0012094592586990155,
+            "url": null
+        },
+        "conflicted": {
+            "credit": 0.000627502113271344,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.0013160785130620295,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0009761484823606273,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0004475722180451128,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.00017825892857142856,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0031421850926807975,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.0003166011255272327,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0017985428880018606,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.00017825892857142856,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0008922250939849624,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0033526161015343353,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.00020968750000000035,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0013441841489713296,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.0002864308318764391,
+            "url": null
+        },
+        "showtext": {
+            "credit": 0.00017941305409866127,
+            "url": null
+        },
+        "ragg": {
+            "credit": 0.0006615511121894794,
+            "url": null
+        },
+        "dygraphs": {
+            "credit": 0.00024535997473358194,
+            "url": null
+        },
+        "future": {
+            "credit": 0.00019817736179096897,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0029307617894300067,
+            "url": null
+        },
+        "shinytest": {
+            "credit": 0.00016126851274527782,
+            "url": null
+        },
+        "reactlog": {
+            "credit": 0.00013834219695580414,
+            "url": null
+        },
+        "markdown": {
+            "credit": 0.0003568190691362553,
+            "url": null
+        },
+        "Cairo": {
+            "credit": 0.0003223482119933981,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0007606695986330742,
+            "url": null
+        },
+        "cachem": {
+            "credit": 0.0003400088636224708,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.0001761706180084357,
+            "url": null
+        },
+        "fastmap": {
+            "credit": 0.0004820460720281002,
+            "url": null
+        },
+        "later": {
+            "credit": 0.00019817736179096897,
+            "url": null
+        },
+        "sourcetools": {
+            "credit": 0.00013834219695580414,
+            "url": null
+        },
+        "fontawesome": {
+            "credit": 0.00013834219695580414,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.00024123278360479747,
+            "url": null
+        },
+        "mime": {
+            "credit": 0.00019817736179096897,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.00035951069512430236,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.004733127937109472,
+            "url": null
+        },
+        "shinydisconnect": {
+            "credit": 0.0003193308270676692,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0019631337732145737,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.007273892758842927,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0010654526663439535,
+            "url": null
+        },
+        "emmeans": {
+            "credit": 2.2000000000000108e-05,
+            "url": "https://github.com/rvlenth/emmeans"
+        },
+        "lme4": {
+            "credit": 6.8340425531915e-05,
+            "url": "https://github.com/lme4/lme4/"
+        },
+        "boot": {
+            "credit": 8.605882352941157e-05,
+            "url": null
+        },
+        "jmvcore": {
+            "credit": 2.2000000000000108e-05,
+            "url": "https://www.jamovi.org"
+        },
+        "sp": {
+            "credit": 0.0007689639549272854,
+            "url": "https://github.com/edzer/sp/ https://edzer.github.io/sp/"
+        },
+        "vdiffr": {
+            "credit": 0.0003129620025673941,
+            "url": null
+        },
+        "svglite": {
+            "credit": 0.00021083568677792043,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.0001764462130937099,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.0002170184395782887,
+            "url": null
+        },
+        "rgeos": {
+            "credit": 0.0007847490192161588,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.0007004213153410865,
+            "url": null
+        },
+        "quantreg": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "profvis": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.0007845426886396154,
+            "url": null
+        },
+        "munsell": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "multcomp": {
+            "credit": 0.00019986032283615112,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.0005971481788800244,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.00025564621309370994,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.00021083568677792043,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0026488747416976806,
+            "url": null
+        },
+        "interp": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.00024336239730423623,
+            "url": null
+        },
+        "hexbin": {
+            "credit": 0.00023376200256739412,
+            "url": null
+        },
+        "ggplot2movies": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0011080618265955496,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.0008133360559865544,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.0028101109297571153,
+            "url": null
+        },
+        "isoband": {
+            "credit": 0.00015351989730423622,
+            "url": null
+        },
+        "gtable": {
+            "credit": 0.0002739698973042362,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0006089432580485338,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.002480610301064546,
+            "url": null
+        },
+        "sommer": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "rstanarm": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "pscl": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.0005830353963773959,
+            "url": null
+        },
+        "mice": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "MCMCpack": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "MCMCglmm": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "geepack": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "gee": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "coxme": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "CARBayes": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "splines": {
+            "credit": 0.0011045049633470409,
+            "url": null
+        },
+        "rsm": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "MuMIn": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "lmerTest": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "pbkrtest": {
+            "credit": 0.00011039924906132667,
+            "url": null
+        },
+        "ordinal": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "multcompView": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "mediation": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "logspline": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "coda": {
+            "credit": 0.0002100998240281555,
+            "url": null
+        },
+        "car": {
+            "credit": 0.00011039924906132667,
+            "url": null
+        },
+        "brms": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "biglm": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "bayestestR": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "bayesplot": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "mvtnorm": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "numDeriv": {
+            "credit": 0.00011039924906132667,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.004763958465384698,
+            "url": null
+        },
+        "estimability": {
+            "credit": 4.6340425531914894e-05,
+            "url": null
+        },
+        "semEff": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "rr2": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "statmod": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "dfoptim": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "HSAUR3": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "gamm4": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "optimx": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "mlmRev": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "MEMSS": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "PKPDmodels": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "nloptr": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "minqa": {
+            "credit": 6.405882352941177e-05,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0006804779135019393,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0018701248720124255,
+            "url": null
+        },
+        "RProtoBuf": {
+            "credit": 0.00016753846153846154,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.0003321796414112203,
+            "url": null
+        },
+        "keyATM": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://keyatm.github.io/keyATM/"
+        },
+        "quanteda": {
+            "credit": 0.00016639097744360897,
+            "url": "https://quanteda.io"
+        },
+        "irr": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://www.r-project.org"
+        },
+        "cowplot": {
+            "credit": 6.124999999999996e-05,
+            "url": "https://wilkelab.org/cowplot/"
+        },
+        "readtext": {
+            "credit": 9.428571428571429e-05,
+            "url": null
+        },
+        "pgdraw": {
+            "credit": 9.428571428571429e-05,
+            "url": null
+        },
+        "matrixNormal": {
+            "credit": 9.428571428571429e-05,
+            "url": null
+        },
+        "ggrepel": {
+            "credit": 0.00014553571428571426,
+            "url": null
+        },
+        "future.apply": {
+            "credit": 9.428571428571429e-05,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0024524582505066807,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.00045559173558897285,
+            "url": null
+        },
+        "pkgbuild": {
+            "credit": 0.0007628036024126249,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0003768947368421053,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.00019539473684210525,
+            "url": null
+        },
+        "formattable": {
+            "credit": 0.00019539473684210525,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0004828808717627402,
+            "url": null
+        },
+        "DiagrammeR": {
+            "credit": 0.00037841994692613886,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.00042332983082706775,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.00019539473684210525,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.00046581514500537057,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0006491447368421052,
+            "url": null
+        },
+        "fansi": {
+            "credit": 0.00019539473684210525,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.00102361875,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.0017236901785714284,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.00066,
+            "url": null
+        },
+        "tidytext": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "topicmodels": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "text2vec": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "stm": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "spacyr": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "slam": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "quanteda.textplots": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "quanteda.textstats": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "quanteda.textmodels": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "lsa": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "lda": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "tokenizers": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "tm": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "formatR": {
+            "credit": 9.317612030075188e-05,
+            "url": null
+        },
+        "stopwords": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "SnowballC": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "RcppParallel": {
+            "credit": 5.210526315789474e-05,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.00023360526315789474,
+            "url": null
+        },
+        "lpSolve": {
+            "credit": 0.00099,
+            "url": null
+        },
+        "VennDiagram": {
+            "credit": 7.92e-05,
+            "url": null
+        },
+        "patchwork": {
+            "credit": 7.92e-05,
+            "url": null
+        },
+        "PASWR": {
+            "credit": 7.92e-05,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.00017527085714285725,
+            "url": null
+        },
+        "gridGraphics": {
+            "credit": 7.92e-05,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.00024204210526315787,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.0004398309905197777,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.002467587593906578,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0006703458994266602,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0008488433899901934,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.0003634099378881987,
+            "url": null
+        },
+        "config": {
+            "credit": 0.0010726165413533835,
+            "url": "https://github.com/rstudio/config"
+        },
+        "golem": {
+            "credit": 2.1578947368421086e-05,
+            "url": "https://github.com/ThinkR-open/golem"
+        },
+        "attempt": {
+            "credit": 7.261654135338352e-05,
+            "url": "https://github.com/ColinFay/attempt"
+        },
+        "turner": {
+            "credit": 1.157894736842111e-05,
+            "url": "http://www.gastonsanchez.com"
+        },
+        "shinyjqui": {
+            "credit": 1.157894736842111e-05,
+            "url": "https://github.com/yang-tang/shinyjqui"
+        },
+        "numbers": {
+            "credit": 1.157894736842111e-05,
+            "url": null
+        },
+        "blocksdesign": {
+            "credit": 1.157894736842111e-05,
+            "url": "<doi:10.1007/s13253-020-00416-0>"
+        },
+        "shinycssloaders": {
+            "credit": 1.157894736842111e-05,
+            "url": "https://github.com/daattali/shinycssloaders"
+        },
+        "plotly": {
+            "credit": 0.00010710526315789479,
+            "url": "https://plotly-r.com"
+        },
+        "viridis": {
+            "credit": 1.157894736842111e-05,
+            "url": "https://sjmgarnier.github.io/viridis/"
+        },
+        "shinyalert": {
+            "credit": 1.157894736842111e-05,
+            "url": "https://github.com/daattali/shinyalert\nhttps://daattali.com/shiny/shinyalert-demo/"
+        },
+        "rsconnect": {
+            "credit": 0.00016805537176274018,
+            "url": null
+        },
+        "rcmdcheck": {
+            "credit": 0.00013745864661654137,
+            "url": null
+        },
+        "pkgdown": {
+            "credit": 6.10375939849624e-05,
+            "url": null
+        },
+        "dockerfiler": {
+            "credit": 6.10375939849624e-05,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.0006402792943898207,
+            "url": null
+        },
+        "attachment": {
+            "credit": 6.10375939849624e-05,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0002959614097744361,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0041141870445344135,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.000699458187432868,
+            "url": null
+        },
+        "rprintf": {
+            "credit": 0.0001299157894736842,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.00046735158225233415,
+            "url": null
+        },
+        "tester": {
+            "credit": 0.0003821052631578947,
+            "url": null
+        },
+        "highcharter": {
+            "credit": 9.552631578947368e-05,
+            "url": null
+        },
+        "gmp": {
+            "credit": 0.0005731578947368422,
+            "url": null
+        },
+        "R.rsp": {
+            "credit": 0.0002865789473684211,
+            "url": null
+        },
+        "PolynomF": {
+            "credit": 0.0002865789473684211,
+            "url": null
+        },
+        "plotlyGeoAssets": {
+            "credit": 2.2926315789473683e-05,
+            "url": null
+        },
+        "IRdisplay": {
+            "credit": 0.00034322043343653247,
+            "url": null
+        },
+        "png": {
+            "credit": 0.00018499717293233084,
+            "url": null
+        },
+        "dendextend": {
+            "credit": 0.00024072631578947367,
+            "url": null
+        },
+        "listviewer": {
+            "credit": 2.2926315789473683e-05,
+            "url": null
+        },
+        "webshot": {
+            "credit": 6.399717293233083e-05,
+            "url": null
+        },
+        "GGally": {
+            "credit": 2.2926315789473683e-05,
+            "url": null
+        },
+        "ggthemes": {
+            "credit": 2.2926315789473683e-05,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.0004202297571660244,
+            "url": null
+        },
+        "lazyeval": {
+            "credit": 5.435488721804544e-05,
+            "url": null
+        },
+        "viridisLite": {
+            "credit": 8.02421052631579e-05,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.007446167217213708,
+            "url": null
+        },
+        "rgdal": {
+            "credit": 0.0001398185955961333,
+            "url": null
+        },
+        "rasterVis": {
+            "credit": 5.731578947368421e-05,
+            "url": null
+        },
+        "colorspace": {
+            "credit": 5.731578947368421e-05,
+            "url": null
+        },
+        "dichromat": {
+            "credit": 5.731578947368421e-05,
+            "url": null
+        },
+        "gridExtra": {
+            "credit": 0.0001885657894736842,
+            "url": null
+        },
+        "colourpicker": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "pdftools": {
+            "credit": 0.0003581225386996904,
+            "url": null
+        },
+        "hunspell": {
+            "credit": 3.7828421052631574e-05,
+            "url": null
+        },
+        "shinydashboard": {
+            "credit": 9.999999999999979e-06,
+            "url": "http://rstudio.github.io/shinydashboard/"
+        },
+        "ggpubr": {
+            "credit": 9.999999999999979e-06,
+            "url": "https://rpkgs.datanovia.com/ggpubr/"
+        },
+        "survminer": {
+            "credit": 0.001,
+            "url": null
+        },
+        "plotROC": {
+            "credit": 0.001,
+            "url": null
+        },
+        "readxl": {
+            "credit": 0.001,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.000364712536443149,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.0002704204081632653,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.0004341798066595059,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.0002704204081632653,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 8.999999999999999e-05,
+            "url": null
+        },
+        "rstatix": {
+            "credit": 4.125e-05,
+            "url": null
+        },
+        "polynom": {
+            "credit": 4.125e-05,
+            "url": null
+        },
+        "ggsignif": {
+            "credit": 4.125e-05,
+            "url": null
+        },
+        "ggsci": {
+            "credit": 4.125e-05,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.00042260204081632656,
+            "url": null
+        },
+        "gert": {
+            "credit": 6.301831501831532e-05,
+            "url": "https://docs.ropensci.org/gert/"
+        },
+        "ghql": {
+            "credit": 3.158974358974356e-05,
+            "url": "https://github.com/ropensci/ghql (devel)\nhttps://docs.ropensci.org/ghql (docs)"
+        },
+        "logger": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://daroczig.github.io/logger/"
+        },
+        "plumber": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://www.rplumber.io"
+        },
+        "rappdirs": {
+            "credit": 3.158974358974356e-05,
+            "url": "https://rappdirs.r-lib.org"
+        },
+        "remotes": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://remotes.r-lib.org"
+        },
+        "tictoc": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://github.com/collectivemedia/tictoc"
+        },
+        "sys": {
+            "credit": 0.0006513813186813188,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.0006238813186813187,
+            "url": null
+        },
+        "credentials": {
+            "credit": 0.0006238813186813187,
+            "url": null
+        },
+        "askpass": {
+            "credit": 0.0006238813186813187,
+            "url": null
+        },
+        "graphql": {
+            "credit": 0.0006254769230769231,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.0006254769230769231,
+            "url": null
+        },
+        "log4r": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "futile.logger": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "logging": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "syslognet": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "botor": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "txtq": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "rsyslog": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "telegram": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "RPushbullet": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "slackr": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "pander": {
+            "credit": 6.701538461538462e-05,
+            "url": null
+        },
+        "feather": {
+            "credit": 5.983516483516484e-05,
+            "url": null
+        },
+        "visNetwork": {
+            "credit": 5.983516483516484e-05,
+            "url": null
+        },
+        "swagger": {
+            "credit": 5.983516483516484e-05,
+            "url": null
+        },
+        "sodium": {
+            "credit": 5.983516483516484e-05,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.0002211684981684982,
+            "url": null
+        },
+        "webfakes": {
+            "credit": 8.376923076923077e-05,
+            "url": null
+        },
+        "pingr": {
+            "credit": 8.376923076923077e-05,
+            "url": null
+        },
+        "git2r": {
+            "credit": 8.376923076923077e-05,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.0001248400879120879,
+            "url": null
+        },
+        "brew": {
+            "credit": 8.376923076923077e-05,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.0001948798958333335,
+            "url": "https://github.com/r-lib/memoise"
+        },
+        "googleCloudStorageR": {
+            "credit": 0.00020166666666666667,
+            "url": null
+        },
+        "googleAuthR": {
+            "credit": 0.00020166666666666667,
+            "url": null
+        },
+        "aws.s3": {
+            "credit": 0.00020166666666666667,
+            "url": null
+        },
+        "winch": {
+            "credit": 9.552631578947368e-05,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0001393975,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.00021581855263157895,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.0005185714285714286,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.0005185714285714286,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.0005185714285714286,
+            "url": null
+        },
+        "goodpractice": {
+            "credit": 1.4666666666666532e-05,
+            "url": "https://github.com/mangothecat/goodpractice"
+        },
+        "rvest": {
+            "credit": 1.4666666666666532e-05,
+            "url": "http://rvest.tidyverse.org/"
+        },
+        "rex": {
+            "credit": 0.0001765465625,
+            "url": null
+        },
+        "clisymbols": {
+            "credit": 7.642105263157896e-05,
+            "url": null
+        },
+        "lintr": {
+            "credit": 0.0005386770319463818,
+            "url": null
+        },
+        "cyclocomp": {
+            "credit": 7.642105263157896e-05,
+            "url": null
+        },
+        "xmlparsedata": {
+            "credit": 7.642105263157896e-05,
+            "url": null
+        },
+        "tufte": {
+            "credit": 0.00010701777777777779,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.00010701777777777779,
+            "url": null
+        },
+        "downlit": {
+            "credit": 0.00010701777777777779,
+            "url": null
+        },
+        "xfun": {
+            "credit": 0.0006267699536019536,
+            "url": null
+        },
+        "tinytex": {
+            "credit": 0.00014808863492063494,
+            "url": null
+        },
+        "selectr": {
+            "credit": 0.00012100000000000003,
+            "url": null
+        },
+        "checkmate": {
+            "credit": 2.7500000000000055e-05,
+            "url": "https://github.com/mllg/checkmate"
+        },
+        "igraph": {
+            "credit": 0.0002957243697478993,
+            "url": "https://igraph.org"
+        },
+        "backports": {
+            "credit": 0.0001815,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.00045374999999999994,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.0005172485422740525,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.0004948208571428571,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.00045374999999999994,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.00048394915966386553,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.00045374999999999994,
+            "url": null
+        },
+        "unix": {
+            "credit": 0.0009075,
+            "url": null
+        },
+        "fda": {
+            "credit": 3.1428571428571756e-05,
+            "url": "http://www.functionaldata.org"
+        },
+        "itsadug": {
+            "credit": 3.1428571428571756e-05,
+            "url": "NA"
+        },
+        "signal": {
+            "credit": 3.1428571428571756e-05,
+            "url": null
+        },
+        "deSolve": {
+            "credit": 5.1857142857142845e-06,
+            "url": "http://desolve.r-forge.r-project.org/"
+        },
+        "fds": {
+            "credit": 5.1857142857142845e-06,
+            "url": "https://sites.google.com/site/hanlinshangswebsite/"
+        },
+        "plotfunctions": {
+            "credit": 0.00044448979591836735,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.0003889285714285714,
+            "url": null
+        },
+        "pracma": {
+            "credit": 0.0003889285714285714,
+            "url": null
+        },
+        "tseries": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "tis": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "timeSeries": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "timeDate": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "strucchange": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "mondate": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "fts": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "DAAG": {
+            "credit": 0.0001637593984962406,
+            "url": null
+        },
+        "chron": {
+            "credit": 0.00028697196992481203,
+            "url": null
+        },
+        "latticeExtra": {
+            "credit": 0.0001232125714285714,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.0001232125714285714,
+            "url": null
+        },
+        "FME": {
+            "credit": 7.33408163265306e-05,
+            "url": null
+        },
+        "scatterplot3d": {
+            "credit": 7.33408163265306e-05,
+            "url": null
+        },
+        "RCurl": {
+            "credit": 0.00017112857142857142,
+            "url": null
+        },
+        "rainbow": {
+            "credit": 0.00017112857142857142,
+            "url": null
+        },
+        "spdep": {
+            "credit": 3.0199159663865547e-05,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 3.0199159663865547e-05,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 3.0199159663865547e-05,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 3.0199159663865547e-05,
+            "url": null
+        },
+        "expm": {
+            "credit": 3.0199159663865547e-05,
+            "url": null
+        },
+        "deldir": {
+            "credit": 2.7502806122448977e-05,
+            "url": null
+        },
+        "gstat": {
+            "credit": 2.7502806122448977e-05,
+            "url": null
+        },
+        "plm": {
+            "credit": 6.286355685131195e-05,
+            "url": null
+        },
+        "CholWishart": {
+            "credit": 7.33333333333339e-05,
+            "url": "https://github.com/gzt/CholWishart\nhttps://gzt.github.io/CholWishart/"
+        },
+        "targets": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "styler": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "gifski": {
+            "credit": 0.000361364974789916,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.00025887085714285715,
+            "url": null
+        },
+        "JuliaCall": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "reticulate": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "tikzDevice": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "highr": {
+            "credit": 4.1070857142857144e-05,
+            "url": null
+        },
+        "SASmixed": {
+            "credit": 8.984249999999999e-05,
+            "url": null
+        },
+        "randomForest": {
+            "credit": 9.492711370262424e-05,
+            "url": "https://www.stat.berkeley.edu/~breiman/RandomForests/"
+        },
+        "xgboost": {
+            "credit": 3.1428571428571756e-05,
+            "url": "https://github.com/dmlc/xgboost"
+        },
+        "glmnet": {
+            "credit": 6.285714285714351e-05,
+            "url": "https://glmnet.stanford.edu"
+        },
+        "CORElearn": {
+            "credit": 3.1428571428571756e-05,
+            "url": "http://lkm.fri.uni-lj.si/rmarko/software/"
+        },
+        "reshape2": {
+            "credit": 9.492711370262424e-05,
+            "url": "https://github.com/hadley/reshape"
+        },
+        "caret": {
+            "credit": 3.1428571428571756e-05,
+            "url": "https://github.com/topepo/caret/"
+        },
+        "titanic": {
+            "credit": 1.830252100840322e-06,
+            "url": "https://github.com/paulhendricks/titanic"
+        },
+        "float": {
+            "credit": 1.830252100840322e-06,
+            "url": "https://github.com/wrathematics/float"
+        },
+        "vcd": {
+            "credit": 0.0001830252100840336,
+            "url": null
+        },
+        "Ckmeans.1d.dp": {
+            "credit": 0.0001830252100840336,
+            "url": null
+        },
+        "lars": {
+            "credit": 0.00047868131868131865,
+            "url": null
+        },
+        "shape": {
+            "credit": 0.00047868131868131865,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.0005421798609553711,
+            "url": null
+        },
+        "ExplainPrediction": {
+            "credit": 0.0003889285714285714,
+            "url": null
+        },
+        "rpart.plot": {
+            "credit": 0.0003889285714285714,
+            "url": null
+        },
+        "plotrix": {
+            "credit": 0.0003889285714285714,
+            "url": null
+        },
+        "cluster": {
+            "credit": 0.0006067285714285714,
+            "url": null
+        },
+        "themis": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "superpc": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "subselect": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "spls": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "RANN": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "proxy": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "pls": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "party": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "pamr": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "MLmetrics": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "mlbench": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "mda": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "klaR": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "kernlab": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "ipred": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "gam": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "fastICA": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "ellipse": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "earth": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "Cubist": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "BradleyTerry2": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "recipes": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "pROC": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "ModelMetrics": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "e1071": {
+            "credit": 6.349854227405248e-05,
+            "url": null
+        },
+        "Momocs": {
+            "credit": 5.500000000000073e-05,
+            "url": "https://github.com/MomX/Momocs/"
+        },
+        "tesseract": {
+            "credit": 0.0003202941176470588,
+            "url": null
+        },
+        "gapminder": {
+            "credit": 0.0003202941176470588,
+            "url": null
+        },
+        "webp": {
+            "credit": 0.0003202941176470588,
+            "url": null
+        },
+        "rsvg": {
+            "credit": 0.0003202941176470588,
+            "url": null
+        },
+        "av": {
+            "credit": 0.0003202941176470588,
+            "url": null
+        },
+        "vegan": {
+            "credit": 0.00021779999999999998,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.0002544666666666669,
+            "url": null
+        },
+        "geomorph": {
+            "credit": 0.00021779999999999998,
+            "url": null
+        },
+        "geometry": {
+            "credit": 0.00021779999999999998,
+            "url": null
+        },
+        "mapview": {
+            "credit": 0.000363,
+            "url": null
+        },
+        "tidyverse": {
+            "credit": 0.00027923076923076925,
+            "url": null
+        },
+        "prettyunits": {
+            "credit": 0.0005185714285714286,
+            "url": null
+        }
+    },
+    "setup.py": {
+        "github/davemlz/eemont": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/cjneely10/EukMetaSanity": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/sebhaan/geobo": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/nextgenusfs/funannotate": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/abrupt-climate/hyper-canny": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/caselawanalytics/CaseLawAnalytics": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/adbar/htmldate": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/euroargodev/argopy": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/pypeit/PypeIt": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/SamDuffield/bmm": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/optuna/optuna": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/singularityhub/singularity-compose": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/singularityhub/singularity-hpc": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/cas-bioinf/rboAnalyzer": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/samuelefiorini/tangle": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/PyTables/PyTables": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/sciapp/sampledb": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/gromacs/gromacs": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        }
+    },
+    "pypi": {
+        "beautifulsoup4": {
+            "credit": 0.0005793681318681318,
+            "url": "http://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "earthengine-api": {
+            "credit": 0.0027500000000000003,
+            "url": "http://code.google.com/p/earthengine-api/"
+        },
+        "ee_extra": {
+            "credit": 0.0027500000000000003,
+            "url": "https://github.com/r-earthengine/ee_extra"
+        },
+        "numpy": {
+            "credit": 0.030806851181972787,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0012117986361852436,
+            "url": "https://pandas.pydata.org"
+        },
+        "python-box": {
+            "credit": 2.7500000000000055e-05,
+            "url": "https://github.com/cdgriffith/Box"
+        },
+        "geopy": {
+            "credit": 2.7500000000000055e-05,
+            "url": "https://github.com/geopy/geopy"
+        },
+        "requests": {
+            "credit": 0.0035001171629077273,
+            "url": "https://requests.readthedocs.io"
+        },
+        "lxml": {
+            "credit": 0.007328064589481947,
+            "url": "https://lxml.de/"
+        },
+        "html5lib": {
+            "credit": 0.0011098002747252748,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "soupsieve": {
+            "credit": 0.0006690750000000001,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0012517805505494505,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.008211178377288372,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.0013731107007185122,
+            "url": "https://hypothesis.works"
+        },
+        "pytz": {
+            "credit": 0.0033196708104395603,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.007388449931318682,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "msgpack": {
+            "credit": 0.0011707142857142858,
+            "url": "https://msgpack.org/"
+        },
+        "toml": {
+            "credit": 0.0009175722527472528,
+            "url": "https://github.com/uiri/toml"
+        },
+        "ruamel.yaml": {
+            "credit": 0.000680625,
+            "url": "https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree"
+        },
+        "PyYAML": {
+            "credit": 0.0027284931318681317,
+            "url": "https://pyyaml.org/"
+        },
+        "urllib3": {
+            "credit": 0.0013598166326530615,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0005284855714285714,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-issues": {
+            "credit": 0.0001815,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx": {
+            "credit": 0.0031991964355301285,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "readme-renderer": {
+            "credit": 0.0001815,
+            "url": "https://pypi.org/project/readme-renderer"
+        },
+        "pytest-aiohttp": {
+            "credit": 0.0001815,
+            "url": "https://pypi.org/project/pytest-aiohttp"
+        },
+        "isort": {
+            "credit": 0.00044043069230769225,
+            "url": "https://pypi.org/project/isort"
+        },
+        "flake8": {
+            "credit": 0.00229373789010989,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "coverage": {
+            "credit": 0.0009587032398472408,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "async-generator": {
+            "credit": 0.0001815,
+            "url": "https://pypi.org/project/async-generator"
+        },
+        "aiohttp": {
+            "credit": 0.0002209912087912088,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "geographiclib": {
+            "credit": 0.0001815,
+            "url": "https://pypi.org/project/geographiclib"
+        },
+        "win-inet-pton": {
+            "credit": 0.0007414594897959183,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.0012254594897959184,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0007414594897959183,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "idna": {
+            "credit": 0.0019294594897959186,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.0011343166326530612,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "certifi": {
+            "credit": 0.0017604704788069076,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "six": {
+            "credit": 0.0028852161331360954,
+            "url": "https://pypi.org/project/six"
+        },
+        "webencodings": {
+            "credit": 0.0008420696428571429,
+            "url": "https://pypi.org/project/webencodings"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.000898425,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        },
+        "filelock": {
+            "credit": 0.0004916874164835165,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.00039277118571428573,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0007418840483516489,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.00039277118571428573,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.00039277118571428573,
+            "url": "https://pypi.org/project/execnet"
+        },
+        "xmlschema": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "pygments": {
+            "credit": 0.0009623348300976801,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.0017341523148351648,
+            "url": "https://pypi.org/project/mock"
+        },
+        "argcomplete": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0020446228423076926,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.002148574860989011,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0019994174901098905,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0013129294357142856,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0004175997873626374,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.000573656334065934,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "tzdata": {
+            "credit": 0.00019403934523809524,
+            "url": "https://pypi.org/project/tzdata"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.00019403934523809524,
+            "url": "https://pypi.org/project/backports.zoneinfo"
+        },
+        "rich": {
+            "credit": 5.347767857142857e-05,
+            "url": "https://pypi.org/project/rich"
+        },
+        "redis": {
+            "credit": 0.00024750982142857146,
+            "url": "https://pypi.org/project/redis"
+        },
+        "libcst": {
+            "credit": 5.347767857142857e-05,
+            "url": "https://pypi.org/project/libcst"
+        },
+        "lark-parser": {
+            "credit": 5.347767857142857e-05,
+            "url": "https://pypi.org/project/lark-parser"
+        },
+        "dpcontracts": {
+            "credit": 5.347767857142857e-05,
+            "url": "https://pypi.org/project/dpcontracts"
+        },
+        "django": {
+            "credit": 0.0012199665674603173,
+            "url": "https://pypi.org/project/django"
+        },
+        "click": {
+            "credit": 0.00019118317307692312,
+            "url": "https://pypi.org/project/click"
+        },
+        "black": {
+            "credit": 0.0005804628120094191,
+            "url": "https://pypi.org/project/black"
+        },
+        "sortedcontainers": {
+            "credit": 0.00010134581043956043,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "scipy": {
+            "credit": 0.0011533616902145477,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.01700635740450026,
+            "url": "https://matplotlib.org"
+        },
+        "scikit_image": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://scikit-image.org"
+        },
+        "rasterio": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://github.com/mapbox/rasterio"
+        },
+        "pyvista": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://github.com/pyvista/pyvista"
+        },
+        "pytest-runner": {
+            "credit": 0.0005165714285714294,
+            "url": "https://github.com/pytest-dev/pytest-runner/"
+        },
+        "webdav": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://github.com/kamikaze/webdav"
+        },
+        "pytest-faulthandler": {
+            "credit": 5.65714285714284e-07,
+            "url": "https://github.com/pytest-dev/pytest-faulthandler"
+        },
+        "pytest-localserver": {
+            "credit": 5.65714285714284e-07,
+            "url": "https://github.com/pytest-dev/pytest-localserver"
+        },
+        "pytest-cov": {
+            "credit": 0.0027416945056907374,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "codecov": {
+            "credit": 5.8053061224489794e-05,
+            "url": "https://pypi.org/project/codecov"
+        },
+        "asv": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/asv"
+        },
+        "qtpy": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/qtpy"
+        },
+        "pyamg": {
+            "credit": 0.0001518942857142857,
+            "url": "https://pypi.org/project/pyamg"
+        },
+        "astropy": {
+            "credit": 7.34945054945056e-05,
+            "url": "https://pypi.org/project/astropy"
+        },
+        "SimpleITK": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/SimpleITK"
+        },
+        "kaleido": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/kaleido"
+        },
+        "plotly": {
+            "credit": 0.00044942857142857143,
+            "url": "https://pypi.org/project/plotly"
+        },
+        "ipywidgets": {
+            "credit": 0.0007488461538461539,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "myst-parser": {
+            "credit": 0.00011646642857142858,
+            "url": "https://pypi.org/project/myst-parser"
+        },
+        "seaborn": {
+            "credit": 0.00028600000000000034,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "cloudpickle": {
+            "credit": 0.00011972698478444632,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "dask": {
+            "credit": 0.00010443956043956044,
+            "url": "https://pypi.org/project/dask"
+        },
+        "scikit-learn": {
+            "credit": 7.857142857142838e-05,
+            "url": "https://pypi.org/project/scikit-learn"
+        },
+        "sphinx-copybutton": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "numpydoc": {
+            "credit": 0.0005139434850863423,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.00040273469387755104,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "pooch": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/pooch"
+        },
+        "PyWavelets": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/PyWavelets"
+        },
+        "tifffile": {
+            "credit": 5.6571428571428574e-05,
+            "url": "https://pypi.org/project/tifffile"
+        },
+        "imageio": {
+            "credit": 0.00025457142857142855,
+            "url": "https://pypi.org/project/imageio"
+        },
+        "pillow": {
+            "credit": 0.000402734693877551,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "networkx": {
+            "credit": 0.00048085714285714317,
+            "url": "https://pypi.org/project/networkx"
+        },
+        "boto3": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/boto3"
+        },
+        "ghp-import": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/ghp-import"
+        },
+        "shapely": {
+            "credit": 0.0005831746031746031,
+            "url": "https://pypi.org/project/shapely"
+        },
+        "ipython": {
+            "credit": 0.0007752454822954823,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "setuptools": {
+            "credit": 0.00037547164835164835,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "click-plugins": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/click-plugins"
+        },
+        "snuggs": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/snuggs"
+        },
+        "cligj": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/cligj"
+        },
+        "affine": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/affine"
+        },
+        "meshio": {
+            "credit": 0.000198,
+            "url": "https://pypi.org/project/meshio"
+        },
+        "cmocean": {
+            "credit": 0.000198,
+            "url": "https://pypi.org/project/cmocean"
+        },
+        "colorcet": {
+            "credit": 0.000198,
+            "url": "https://pypi.org/project/colorcet"
+        },
+        "vtk": {
+            "credit": 0.000198,
+            "url": "https://pypi.org/project/vtk"
+        },
+        "scooby": {
+            "credit": 0.000198,
+            "url": "https://pypi.org/project/scooby"
+        },
+        "appdirs": {
+            "credit": 0.0005908571428571429,
+            "url": "https://pypi.org/project/appdirs"
+        },
+        "pytest-mypy": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.004802130989010989,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "types-setuptools": {
+            "credit": 0.003503076923076923,
+            "url": "https://pypi.org/project/types-setuptools"
+        },
+        "pytest-virtualenv": {
+            "credit": 0.00018581538461538488,
+            "url": "https://pypi.org/project/pytest-virtualenv"
+        },
+        "pytest-enabler": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-flake8": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "jaraco.tidelift": {
+            "credit": 0.0002764384615384618,
+            "url": "https://pypi.org/project/jaraco.tidelift"
+        },
+        "rst.linker": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.0014848694505494508,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "werkzeug": {
+            "credit": 5.600571428571429e-05,
+            "url": "https://pypi.org/project/werkzeug"
+        },
+        "ansicolors": {
+            "credit": 0.0022,
+            "url": "http://github.com/jonathaneunice/colors/"
+        },
+        "docker": {
+            "credit": 2.2000000000000108e-05,
+            "url": "https://github.com/docker/docker-py"
+        },
+        "h5py": {
+            "credit": 0.004675658119658119,
+            "url": "http://www.h5py.org"
+        },
+        "pyyaml": {
+            "credit": 0.0023523076923076926,
+            "url": "https://pyyaml.org/"
+        },
+        "jinja2": {
+            "credit": 0.00030123076923076935,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "cryptography": {
+            "credit": 0.0009648453571428572,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 7.9514285714286e-06,
+            "url": "https://pyopenssl.org/"
+        },
+        "paramiko": {
+            "credit": 3.111428571428586e-06,
+            "url": "https://paramiko.org"
+        },
+        "pywin32": {
+            "credit": 0.0007126467857142857,
+            "url": "https://github.com/mhammond/pywin32"
+        },
+        "websocket-client": {
+            "credit": 3.111428571428586e-06,
+            "url": "https://github.com/websocket-client/websocket-client.git"
+        },
+        "wmi": {
+            "credit": 0.000363,
+            "url": "http://timgolden.me.uk/python/wmi.html"
+        },
+        "enum34": {
+            "credit": 0.00060258,
+            "url": "https://bitbucket.org/stoneleaf/enum34"
+        },
+        "unittest2": {
+            "credit": 0.000363,
+            "url": "http://pypi.python.org/pypi/unittest2"
+        },
+        "ipaddress": {
+            "credit": 0.0008470000000000001,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "mypy": {
+            "credit": 0.0006218333819587006,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.00019800000000000002,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.00019800000000000002,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.0010797460317460317,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "scikit-image": {
+            "credit": 0.00019800000000000002,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.00019800000000000002,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "threadpoolctl": {
+            "credit": 0.00019800000000000002,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.002198,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "Babel": {
+            "credit": 0.00114345,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.001536307142857143,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "pretend": {
+            "credit": 0.0001311985714285714,
+            "url": "https://pypi.org/project/pretend"
+        },
+        "flaky": {
+            "credit": 0.00038821780219780216,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "gssapi": {
+            "credit": 3.850392857142857e-05,
+            "url": "https://pypi.org/project/gssapi"
+        },
+        "invoke": {
+            "credit": 3.850392857142857e-05,
+            "url": "https://pypi.org/project/invoke"
+        },
+        "pyasn1": {
+            "credit": 3.850392857142857e-05,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "pynacl": {
+            "credit": 3.850392857142857e-05,
+            "url": "https://pypi.org/project/pynacl"
+        },
+        "bcrypt": {
+            "credit": 0.00011917059523809524,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "websockets": {
+            "credit": 6.16062857142857e-05,
+            "url": "https://pypi.org/project/websockets"
+        },
+        "wsaccel": {
+            "credit": 6.16062857142857e-05,
+            "url": "https://pypi.org/project/wsaccel"
+        },
+        "python-socks": {
+            "credit": 6.16062857142857e-05,
+            "url": "https://pypi.org/project/python-socks"
+        },
+        "Sphinx": {
+            "credit": 0.00011745243956043955,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "pycairo": {
+            "credit": 0.003666666666666667,
+            "url": "https://pycairo.readthedocs.io"
+        },
+        "pygobject": {
+            "credit": 0.003666666666666667,
+            "url": "https://pygobject.readthedocs.io"
+        },
+        "injector": {
+            "credit": 3.666666666666695e-05,
+            "url": "https://github.com/alecthomas/injector"
+        },
+        "dataclasses": {
+            "credit": 0.0005580626373626374,
+            "url": "https://github.com/ericvsmith/dataclasses"
+        },
+        "check-manifest": {
+            "credit": 5.1857142857142845e-06,
+            "url": "https://github.com/mgedmin/check-manifest"
+        },
+        "typing-extensions": {
+            "credit": 0.0009226178076923077,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "uvloop": {
+            "credit": 3.9491208791208794e-05,
+            "url": "http://github.com/MagicStack/uvloop"
+        },
+        "tokenize-rt": {
+            "credit": 3.9491208791208794e-05,
+            "url": "https://pypi.org/project/tokenize-rt"
+        },
+        "typed-ast": {
+            "credit": 0.000261892532967033,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "mypy-extensions": {
+            "credit": 0.000261892532967033,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "pathspec": {
+            "credit": 3.9491208791208794e-05,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "platformdirs": {
+            "credit": 3.9491208791208794e-05,
+            "url": "https://pypi.org/project/platformdirs"
+        },
+        "build": {
+            "credit": 0.00025319521978021974,
+            "url": "https://pypi.org/project/build"
+        },
+        "virtualenv": {
+            "credit": 0.0012329062912087912,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "process-tests": {
+            "credit": 0.00047883090659340654,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.00047883090659340654,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.00047883090659340654,
+            "url": "https://pypi.org/project/fields"
+        },
+        "charset_normalizer": {
+            "credit": 4.4000000000000216e-05,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "dateparser": {
+            "credit": 4.4000000000000216e-05,
+            "url": "https://github.com/scrapinghub/dateparser"
+        },
+        "unicodedata2": {
+            "credit": 4.3559999999999895e-05,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "langdetect": {
+            "credit": 5.444999999999987e-06,
+            "url": "https://github.com/Mimino666/langdetect"
+        },
+        "fasttext": {
+            "credit": 0.0005445000000000001,
+            "url": "https://github.com/facebookresearch/fastText"
+        },
+        "hijri-converter": {
+            "credit": 0.0005445000000000001,
+            "url": "https://github.com/mhalshehri/hijri-converter"
+        },
+        "convertdate": {
+            "credit": 5.444999999999987e-06,
+            "url": "https://github.com/fitnr/convertdate"
+        },
+        "tzlocal": {
+            "credit": 5.444999999999987e-06,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "regex": {
+            "credit": 0.0005445000000000001,
+            "url": "https://github.com/mrabarnett/mrab-regex"
+        },
+        "brotlipy": {
+            "credit": 0.00048400000000000006,
+            "url": "https://github.com/python-hyper/brotlipy/"
+        },
+        "brotli": {
+            "credit": 0.00048400000000000006,
+            "url": "https://github.com/google/brotli"
+        },
+        "brotlicffi": {
+            "credit": 4.840000000000015e-06,
+            "url": "https://github.com/python-hyper/brotlicffi"
+        },
+        "pytest-randomly": {
+            "credit": 1.0781100000000087e-05,
+            "url": "https://github.com/pytest-dev/pytest-randomly"
+        },
+        "pylint": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/pylint"
+        },
+        "pymeeus": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/pymeeus"
+        },
+        "pytest-mock": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "zest.releaser": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/zest.releaser"
+        },
+        "pyroma": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "pytz-deprecation-shim": {
+            "credit": 5.9895e-05,
+            "url": "https://pypi.org/project/pytz-deprecation-shim"
+        },
+        "cffi": {
+            "credit": 0.00023958,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "Brotli": {
+            "credit": 0.0003928571428571429,
+            "url": "https://github.com/google/brotli"
+        },
+        "CacheControl": {
+            "credit": 3.9285714285714695e-06,
+            "url": "https://github.com/ionrock/cachecontrol"
+        },
+        "contextlib2": {
+            "credit": 0.0003928571428571429,
+            "url": "http://contextlib2.readthedocs.org"
+        },
+        "cycler": {
+            "credit": 0.0003928571428571429,
+            "url": "https://github.com/matplotlib/cycler"
+        },
+        "dash": {
+            "credit": 0.0003928571428571429,
+            "url": "https://plotly.com/dash"
+        },
+        "dash-bootstrap-components": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-bootstrap-components"
+        },
+        "dash-core-components": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-core-components"
+        },
+        "dash-extensions": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-extensions"
+        },
+        "dash-html-components": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-html-components"
+        },
+        "dash-renderer": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-renderer"
+        },
+        "dash-table": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/dash-table"
+        },
+        "decorator": {
+            "credit": 0.0004487032967032967,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "distlib": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/distlib"
+        },
+        "distro": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/distro"
+        },
+        "Flask": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/Flask"
+        },
+        "Flask-Caching": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/Flask-Caching"
+        },
+        "Flask-Compress": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/Flask-Compress"
+        },
+        "future": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/future"
+        },
+        "gunicorn": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/gunicorn"
+        },
+        "ipaddr": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/ipaddr"
+        },
+        "itsdangerous": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.00108483789010989,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "kiwisolver": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "lockfile": {
+            "credit": 0.0004900892857142858,
+            "url": "https://pypi.org/project/lockfile"
+        },
+        "more-itertools": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/more-itertools"
+        },
+        "patsy": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/patsy"
+        },
+        "pep517": {
+            "credit": 0.000906242857142857,
+            "url": "https://pypi.org/project/pep517"
+        },
+        "progress": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/progress"
+        },
+        "pyparsing": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "pytoml": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/pytoml"
+        },
+        "retrying": {
+            "credit": 0.0008817460317460317,
+            "url": "https://pypi.org/project/retrying"
+        },
+        "statsmodels": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/statsmodels"
+        },
+        "Werkzeug": {
+            "credit": 0.0003928571428571429,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "drug2ways": {
+            "credit": 0.003142857142857143,
+            "url": "https://github.com/drug2ways/drug2ways"
+        },
+        "tqdm": {
+            "credit": 5.1428571428571714e-05,
+            "url": "https://tqdm.github.io"
+        },
+        "matplotlib_venn": {
+            "credit": 0.003142857142857143,
+            "url": "https://github.com/konstantint/matplotlib-venn"
+        },
+        "pydot": {
+            "credit": 0.00030047095761381474,
+            "url": "https://pypi.org/project/pydot"
+        },
+        "pygraphviz": {
+            "credit": 0.00014816326530612243,
+            "url": "https://pypi.org/project/pygraphviz"
+        },
+        "texext": {
+            "credit": 0.00014816326530612243,
+            "url": "https://pypi.org/project/texext"
+        },
+        "nb2plots": {
+            "credit": 0.00014816326530612243,
+            "url": "https://pypi.org/project/nb2plots"
+        },
+        "pydata-sphinx-theme": {
+            "credit": 0.00014816326530612243,
+            "url": "https://pypi.org/project/pydata-sphinx-theme"
+        },
+        "pre-commit": {
+            "credit": 0.00031603035998067864,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pyupgrade": {
+            "credit": 0.00014816326530612243,
+            "url": "https://pypi.org/project/pyupgrade"
+        },
+        "slack-sdk": {
+            "credit": 0.0006364285714285714,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "wheel": {
+            "credit": 0.0007270516483516483,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0006364285714285714,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0006364285714285714,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0008575793406593406,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "sphinx_rtd_theme": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://github.com/rtfd/sphinx_rtd_theme/"
+        },
+        "sphinx-math-dollar": {
+            "credit": 0.0016923076923076924,
+            "url": "https://github.com/sympy/sphinx-math-dollar/"
+        },
+        "linuxdoc": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://github.com/return42/linuxdoc"
+        },
+        "nbsphinx": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "ipykernel": {
+            "credit": 7.276923076923088e-05,
+            "url": "https://ipython.org"
+        },
+        "IPython": {
+            "credit": 1.692307692307703e-05,
+            "url": "https://ipython.org"
+        },
+        "numba": {
+            "credit": 0.0016923076923076924,
+            "url": "https://numba.pydata.org"
+        },
+        "fspath": {
+            "credit": 8.37692307692314e-06,
+            "url": "https://github.com/return42/fspath"
+        },
+        "traitlets": {
+            "credit": 0.0004397884615384615,
+            "url": "https://github.com/ipython/traitlets"
+        },
+        "nbformat": {
+            "credit": 0.0003350769230769231,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.0003350769230769231,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "docutils": {
+            "credit": 0.0007152137142857143,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "pytest-timeout": {
+            "credit": 0.00020733931730769232,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "ipyparallel": {
+            "credit": 0.00016055769230769232,
+            "url": "https://pypi.org/project/ipyparallel"
+        },
+        "appnope": {
+            "credit": 0.00016055769230769232,
+            "url": "https://pypi.org/project/appnope"
+        },
+        "nest-asyncio": {
+            "credit": 0.00010471153846153847,
+            "url": "https://pypi.org/project/nest-asyncio"
+        },
+        "matplotlib-inline": {
+            "credit": 0.00016055769230769232,
+            "url": "https://pypi.org/project/matplotlib-inline"
+        },
+        "tornado": {
+            "credit": 0.00010471153846153847,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "jupyter-client": {
+            "credit": 0.00010471153846153847,
+            "url": "https://pypi.org/project/jupyter-client"
+        },
+        "debugpy": {
+            "credit": 0.00010471153846153847,
+            "url": "https://pypi.org/project/debugpy"
+        },
+        "trio": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/trio"
+        },
+        "curio": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/curio"
+        },
+        "testpath": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/testpath"
+        },
+        "pytest-asyncio": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "qtconsole": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/qtconsole"
+        },
+        "notebook": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/notebook"
+        },
+        "pexpect": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/pexpect"
+        },
+        "stack-data": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/stack-data"
+        },
+        "prompt-toolkit": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/prompt-toolkit"
+        },
+        "pickleshare": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/pickleshare"
+        },
+        "jedi": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/jedi"
+        },
+        "backcall": {
+            "credit": 5.584615384615385e-05,
+            "url": "https://pypi.org/project/backcall"
+        },
+        "sgp4": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/sgp4"
+        },
+        "skyfield": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/skyfield"
+        },
+        "objgraph": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/objgraph"
+        },
+        "pytest-astropy": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/pytest-astropy"
+        },
+        "pytest-astropy-header": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/pytest-astropy-header"
+        },
+        "pytest-doctestplus": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/pytest-doctestplus"
+        },
+        "sphinx-changelog": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/sphinx-changelog"
+        },
+        "sphinx-astropy": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/sphinx-astropy"
+        },
+        "bottleneck": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/bottleneck"
+        },
+        "asdf": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/asdf"
+        },
+        "mpmath": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/mpmath"
+        },
+        "jplephem": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/jplephem"
+        },
+        "bleach": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/bleach"
+        },
+        "pyarrow": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "pyerfa": {
+            "credit": 4.786813186813187e-05,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "types-requests": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/types-requests"
+        },
+        "types-typed-ast": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/types-typed-ast"
+        },
+        "docutils-stubs": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/docutils-stubs"
+        },
+        "sphinxcontrib-websupport": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-websupport"
+        },
+        "imagesize": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/imagesize"
+        },
+        "alabaster": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/alabaster"
+        },
+        "babel": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/babel"
+        },
+        "snowballstemmer": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/snowballstemmer"
+        },
+        "Pygments": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "sphinxcontrib-qthelp": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-qthelp"
+        },
+        "sphinxcontrib-serializinghtml": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-serializinghtml"
+        },
+        "sphinxcontrib-htmlhelp": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-htmlhelp"
+        },
+        "sphinxcontrib-jsmath": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-jsmath"
+        },
+        "sphinxcontrib-devhelp": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-devhelp"
+        },
+        "sphinxcontrib-applehelp": {
+            "credit": 0.00019903569230769231,
+            "url": "https://pypi.org/project/sphinxcontrib-applehelp"
+        },
+        "tomli-w": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/tomli-w"
+        },
+        "ini2toml": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/ini2toml"
+        },
+        "pip-run": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/pip-run"
+        },
+        "jaraco.path": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/jaraco.path"
+        },
+        "jaraco.envs": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/jaraco.envs"
+        },
+        "pip": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/pip"
+        },
+        "flake8-2020": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/flake8-2020"
+        },
+        "pytest-perf": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/pytest-perf"
+        },
+        "furo": {
+            "credit": 0.0002564064119822485,
+            "url": "https://pypi.org/project/furo"
+        },
+        "sphinxcontrib-towncrier": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/sphinxcontrib-towncrier"
+        },
+        "sphinx-inline-tabs": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/sphinx-inline-tabs"
+        },
+        "sphinx-favicon": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/sphinx-favicon"
+        },
+        "pygments-github-lexers": {
+            "credit": 9.062307692307692e-05,
+            "url": "https://pypi.org/project/pygments-github-lexers"
+        },
+        "anyjson": {
+            "credit": 0.0004888888888888889,
+            "url": "http://bitbucket.org/runeh/anyjson/"
+        },
+        "coreapi": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/core-api/python-client"
+        },
+        "cython": {
+            "credit": 0.0004888888888888889,
+            "url": "http://cython.org/"
+        },
+        "django-chosen": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/theatlantic/django-chosen"
+        },
+        "django-crispy-forms": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/django-crispy-forms/django-crispy-forms"
+        },
+        "django-datatables-view": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://bitbucket.org/pigletto/django-datatables-view"
+        },
+        "django-dirtyfields": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://github.com/romgar/django-dirtyfields"
+        },
+        "django-extensions": {
+            "credit": 4.8888888888889215e-06,
+            "url": "http://github.com/django-extensions/django-extensions"
+        },
+        "django-filter": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://github.com/carltongibson/django-filter/tree/main"
+        },
+        "django-form-utils": {
+            "credit": 0.0004888888888888889,
+            "url": "http://bitbucket.org/carljm/django-form-utils/"
+        },
+        "django-gravatar2": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/twaddington/django-gravatar"
+        },
+        "django-guardian": {
+            "credit": 4.8888888888889215e-06,
+            "url": "http://github.com/django-guardian/django-guardian"
+        },
+        "django-hstore": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/djangonauts/django-hstore"
+        },
+        "django-notifications-hq": {
+            "credit": 4.8888888888889215e-06,
+            "url": "http://github.com/django-notifications/django-notifications"
+        },
+        "django-ratelimit": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/jsocol/django-ratelimit"
+        },
+        "django-rest-swagger": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/marcgibbons/django-rest-swagger"
+        },
+        "django-rq": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://github.com/rq/django-rq"
+        },
+        "django-taggit": {
+            "credit": 0.0004888888888888889,
+            "url": "https://github.com/jazzband/django-taggit"
+        },
+        "django-taggit-templatetags": {
+            "credit": 0.0004888888888888889,
+            "url": "http://github.com/feuervogel/django-taggit-templatetags"
+        },
+        "django-user-agents": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://github.com/selwin/django-user_agents"
+        },
+        "djangorestframework": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://www.django-rest-framework.org/"
+        },
+        "google": {
+            "credit": 4.8888888888889215e-06,
+            "url": "http://breakingcode.wordpress.com/"
+        },
+        "google-api-python-client": {
+            "credit": 4.8888888888889215e-06,
+            "url": "https://github.com/googleapis/google-api-python-client/"
+        },
+        "markdown": {
+            "credit": 0.0006411965811965812,
+            "url": "https://pypi.org/project/markdown"
+        },
+        "numexpr": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/numexpr"
+        },
+        "oauth2client": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/oauth2client"
+        },
+        "psycopg2-binary": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/psycopg2-binary"
+        },
+        "python3-saml": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/python3-saml"
+        },
+        "python-social-auth": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/python-social-auth"
+        },
+        "requests-oauthlib": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/requests-oauthlib"
+        },
+        "requests-toolbelt": {
+            "credit": 0.000710039658119658,
+            "url": "https://pypi.org/project/requests-toolbelt"
+        },
+        "rq-scheduler": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/rq-scheduler"
+        },
+        "social-auth-app-django": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/social-auth-app-django"
+        },
+        "social-auth-core": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/social-auth-core"
+        },
+        "sregistry": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/sregistry"
+        },
+        "uwsgi": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/uwsgi"
+        },
+        "minio": {
+            "credit": 0.0004888888888888889,
+            "url": "https://pypi.org/project/minio"
+        },
+        "Django": {
+            "credit": 0.0019359999999999998,
+            "url": "https://pypi.org/project/Django"
+        },
+        "swapper": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/swapper"
+        },
+        "jsonfield": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/jsonfield"
+        },
+        "django-model-utils": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/django-model-utils"
+        },
+        "raven": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/raven"
+        },
+        "rq": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/rq"
+        },
+        "user-agents": {
+            "credit": 0.00024199999999999997,
+            "url": "https://pypi.org/project/user-agents"
+        },
+        "argon2-cffi": {
+            "credit": 8.066666666666666e-05,
+            "url": "https://pypi.org/project/argon2-cffi"
+        },
+        "sqlparse": {
+            "credit": 8.066666666666666e-05,
+            "url": "https://pypi.org/project/sqlparse"
+        },
+        "asgiref": {
+            "credit": 8.066666666666666e-05,
+            "url": "https://pypi.org/project/asgiref"
+        },
+        "uritemplate": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/uritemplate"
+        },
+        "google-api-core": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/google-api-core"
+        },
+        "google-auth-httplib2": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/google-auth-httplib2"
+        },
+        "google-auth": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/google-auth"
+        },
+        "httplib2": {
+            "credit": 9.68e-05,
+            "url": "https://pypi.org/project/httplib2"
+        },
+        "pytest-shutil": {
+            "credit": 0.0006634523076923076,
+            "url": "https://pypi.org/project/pytest-shutil"
+        },
+        "pytest-fixture-config": {
+            "credit": 0.0006634523076923076,
+            "url": "https://pypi.org/project/pytest-fixture-config"
+        },
+        "types-toml": {
+            "credit": 0.00023694725274725273,
+            "url": "https://pypi.org/project/types-toml"
+        },
+        "jaraco.context": {
+            "credit": 0.00023694725274725273,
+            "url": "https://pypi.org/project/jaraco.context"
+        },
+        "jaraco.functools": {
+            "credit": 0.00023694725274725273,
+            "url": "https://pypi.org/project/jaraco.functools"
+        },
+        "types-docutils": {
+            "credit": 0.00045809802197802193,
+            "url": "https://pypi.org/project/types-docutils"
+        },
+        "keyring": {
+            "credit": 0.00022115076923076923,
+            "url": "https://pypi.org/project/keyring"
+        },
+        "autocommand": {
+            "credit": 0.00022115076923076923,
+            "url": "https://pypi.org/project/autocommand"
+        },
+        "types-python-dateutil": {
+            "credit": 0.00023694725274725273,
+            "url": "https://pypi.org/project/types-python-dateutil"
+        },
+        "path": {
+            "credit": 0.00023694725274725273,
+            "url": "https://pypi.org/project/path"
+        },
+        "covdefaults": {
+            "credit": 0.00010262777884615384,
+            "url": "https://pypi.org/project/covdefaults"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.00010262777884615384,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx-notfound-page": {
+            "credit": 6.315555621301774e-05,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "zope.interface": {
+            "credit": 6.315555621301774e-05,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "pytest-mypy-plugins": {
+            "credit": 6.315555621301774e-05,
+            "url": "https://pypi.org/project/pytest-mypy-plugins"
+        },
+        "pympler": {
+            "credit": 6.315555621301774e-05,
+            "url": "https://pypi.org/project/pympler"
+        },
+        "subset": {
+            "credit": 0.00011000000000000002,
+            "url": "https://github.com/rightbrace/subset-game.git"
+        },
+        "Keras": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://github.com/keras-team/keras"
+        },
+        "tensorflow": {
+            "credit": 1.9999999999999958e-05,
+            "url": "https://www.tensorflow.org/"
+        },
+        "scikit_learn": {
+            "credit": 1.9999999999999958e-05,
+            "url": "http://scikit-learn.org"
+        },
+        "pytest-pep8": {
+            "credit": 0.0001523076923076923,
+            "url": "https://pypi.org/project/pytest-pep8"
+        },
+        "grpcio": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/tensorflow-io-gcs-filesystem"
+        },
+        "keras": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/keras"
+        },
+        "tf-estimator-nightly": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/tf-estimator-nightly"
+        },
+        "tensorboard": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/tensorboard"
+        },
+        "wrapt": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "termcolor": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "protobuf": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "opt-einsum": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "google-pasta": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 9.428571428571429e-05,
+            "url": "https://pypi.org/project/absl-py"
+        }
+    },
+    "requirements.txt": {
+        "github/erikbern/ann-benchmarks": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/jdber1/opendrop": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/ot483/NetCom": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/enveda/RPath": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/TeamCOMPAS/COMPAS": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/singularityhub/sregistry": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        }
+    },
+    "package.json": {
+        "github/mathjax/MathJax": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        },
+        "github/vibbits/phyd3": {
+            "credit": 0.00022222222222222223,
+            "url": null
+        }
+    },
+    "npm": {
+        "finalhandler": {
+            "credit": 0.007333333333333334,
+            "url": "https://github.com/pillarjs/finalhandler#readme"
+        },
+        "node-minify": {
+            "credit": 7.33333333333339e-05,
+            "url": "https://github.com/srod/node-minify"
+        },
+        "serve-static": {
+            "credit": 0.007333333333333334,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        },
+        "babel-preset-minify": {
+            "credit": 0.00024200000000000003,
+            "url": "https://github.com/babel/minify#readme"
+        },
+        "csso": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "google-closure-compiler": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "uglify-es": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "ora": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "update-notifier": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "crass": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "sqwish": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "gzip-size": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "clean-css": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "html-minifier": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        },
+        "node-version": {
+            "credit": 0.00024200000000000003,
+            "url": null
+        }
+    }
+}

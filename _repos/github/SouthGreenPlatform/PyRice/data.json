@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/SouthGreenPlatform/PyRice": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "selenium": {
+            "credit": 0.0099,
+            "url": "https://www.selenium.dev"
+        },
+        "trio-websocket~=0.9": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/trio-websocket~=0.9"
+        },
+        "trio~=0.17": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/trio~=0.17"
+        },
+        "urllib3[secure,": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/urllib3[secure,"
+        }
+    }
+}

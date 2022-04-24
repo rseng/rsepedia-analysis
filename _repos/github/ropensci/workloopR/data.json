@@ -1,0 +1,66 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/workloopR": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "pracma": {
+            "credit": 0.55625625,
+            "url": "NA"
+        },
+        "signal": {
+            "credit": 0.00495000000000001,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.0006125625000000037,
+            "url": "http://cran.r-project.org/package=matlab"
+        },
+        "utils": {
+            "credit": 0.06732061874999999,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.06732061874999999,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.06732061874999999,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.06732061874999999,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.0006125625000000037,
+            "url": "http://www.stats.ox.ac.uk/pub/MASS4/"
+        },
+        "R": {
+            "credit": 0.09764246249999999,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.036386212499999994,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.006064368749999999,
+            "url": "https://github.com/therneau/survival"
+        },
+        "nnet": {
+            "credit": 0.006064368749999999,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.006064368749999999,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.006064368749999999,
+            "url": null
+        }
+    }
+}

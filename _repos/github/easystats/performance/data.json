@@ -1,0 +1,454 @@
+{
+    "DESCRIPTION": {
+        "github/easystats/performance": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "bayestestR": {
+            "credit": 0.022332674772036498,
+            "url": "https://easystats.github.io/bayestestR/"
+        },
+        "insight": {
+            "credit": 0.02723406593406596,
+            "url": "https://easystats.github.io/insight/"
+        },
+        "datawizard": {
+            "credit": 0.015152454991816718,
+            "url": "https://easystats.github.io/datawizard/"
+        },
+        "tweedie": {
+            "credit": 0.003559301145662848,
+            "url": "http://www.r-project.org/package=tweedie"
+        },
+        "tidyr": {
+            "credit": 0.008376923076923077,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "testthat": {
+            "credit": 0.02740959784895955,
+            "url": "https://testthat.r-lib.org"
+        },
+        "stringr": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "see": {
+            "credit": 0.023934065934065933,
+            "url": null
+        },
+        "rstanarm": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "rstan": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "performance": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "parameters": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "modelbased": {
+            "credit": 0.023934065934065933,
+            "url": null
+        },
+        "mediation": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "mclust": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "logspline": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "lme4": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "lavaan": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "ggridges": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.023934065934065933,
+            "url": null
+        },
+        "ggdist": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "GGally": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "emmeans": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "effectsize": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "brms": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "bridgesampling": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "blavaan": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "bayesQR": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "BayesFactor": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.02740959784895955,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.011852454991816693,
+            "url": null
+        },
+        "R": {
+            "credit": 0.030173982464344166,
+            "url": null
+        },
+        "VGAM": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "truncreg": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "tripack": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "survey": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "statmod": {
+            "credit": 0.006239916530278233,
+            "url": null
+        },
+        "splines": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "speedglm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "sandwich": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "rstantools": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "robustlmm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "robustbase": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "rms": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "quantreg": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "psych": {
+            "credit": 0.019032674772036472,
+            "url": null
+        },
+        "pscl": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "poorman": {
+            "credit": 0.019032674772036472,
+            "url": null
+        },
+        "plm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "parsnip": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "panelr": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "ordinal": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "nonnest2": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "multgee": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "mlogit": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "mice": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "metaBMA": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "merTools": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "MCMCglmm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "marginaleffects": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "logistf": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "lmtest": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "lfe": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "JM": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "ivreg": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gt": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gmnl": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "glmmTMB": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "GLMMadaptive": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "geepack": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gee": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gbm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gamm4": {
+            "credit": 0.019032674772036472,
+            "url": null
+        },
+        "gamlss": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "gam": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "fungible": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "fixest": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "feisr": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "estimatr": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "epiR": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "crch": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "cplm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "coxme": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "clubSandwich": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "cgam": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "censReg": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "boot": {
+            "credit": 0.019032674772036472,
+            "url": null
+        },
+        "blme": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "biglm": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "bife": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "betareg": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "bdsmatrix": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "bbmle": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "aod": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "afex": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "AER": {
+            "credit": 0.003475531914893617,
+            "url": null
+        },
+        "stabledist": {
+            "credit": 0.002764384615384615,
+            "url": null
+        }
+    }
+}

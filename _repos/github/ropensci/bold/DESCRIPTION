@@ -1,0 +1,36 @@
+Package: bold
+Title: Interface to Bold Systems API
+Description: A programmatic interface to the Web Service methods provided by
+    Bold Systems (<http://www.boldsystems.org/>) for genetic 'barcode' data.
+    Functions include methods for searching by sequences by taxonomic names,
+    ids, collectors, and institutions; as well as a function for searching
+    for specimens, and downloading trace files.
+Version: 1.2.0
+License: MIT + file LICENSE
+Authors@R: c(person("Scott", "Chamberlain",
+    role = c("aut", "cre"),
+    email = "myrmecocystus@gmail.com",
+    comment = c(ORCID="0000-0003-1444-9135")))
+URL: https://docs.ropensci.org/bold/ (documentation)
+    https://github.com/ropensci/bold (source)
+BugReports: https://github.com/ropensci/bold/issues
+LazyData: yes
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    xml2,
+    crul (>= 0.3.8),
+    stringr,
+    jsonlite,
+    reshape,
+    plyr,
+    data.table,
+    tibble
+Suggests:
+    sangerseqR,
+    testthat,
+    vcr (>= 0.5.4)
+RoxygenNote: 7.1.1
+X-schema.org-applicationCategory: Data Access
+X-schema.org-keywords: biodiversity, barcode, DNA, sequences, fasta
+X-schema.org-isPartOf: https://ropensci.org

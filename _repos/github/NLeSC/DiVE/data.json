@@ -1,0 +1,26 @@
+{
+    "package.json": {
+        "github/NLeSC/DiVE": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "nonew": {
+            "credit": 0.002475,
+            "url": "https://github.com/frewsxcv/nonew.js"
+        },
+        "three": {
+            "credit": 0.004925250000000001,
+            "url": "https://threejs.org/"
+        },
+        "three.trackball": {
+            "credit": 0.002475,
+            "url": "https://github.com/anvaka/three.trackball"
+        },
+        "three-buffergeometry-sort": {
+            "credit": 0.002475,
+            "url": "https://github.com/frewsxcv/three-buffergeometry-sort"
+        }
+    }
+}

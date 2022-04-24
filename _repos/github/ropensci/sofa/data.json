@@ -1,0 +1,74 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/sofa": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "crul": {
+            "credit": 0.002475000000000005,
+            "url": "https://docs.ropensci.org/crul/ (website)\nhttps://github.com/ropensci/crul (devel)\nhttps://books.ropensci.org/http-testing/ (user manual)"
+        },
+        "jsonlite": {
+            "credit": 0.26791875,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "R6": {
+            "credit": 0.022893750000000004,
+            "url": "https://r6.r-lib.org"
+        },
+        "mime": {
+            "credit": 0.022893750000000004,
+            "url": "https://github.com/yihui/mime"
+        },
+        "rmarkdown": {
+            "credit": 0.02041875,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "webmockr": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "fauxpas": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.10209375,
+            "url": null
+        },
+        "httpcode": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "urltools": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "pryr": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "R": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.245025,
+            "url": null
+        }
+    }
+}

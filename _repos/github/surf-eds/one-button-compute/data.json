@@ -1,0 +1,326 @@
+{
+    "requirements.txt": {
+        "github/surf-eds/one-button-compute": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "flask": {
+            "credit": 0.0011000000000000038,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "cwl-runner": {
+            "credit": 0.11,
+            "url": "https://github.com/common-workflow-language/common-workflow-language"
+        },
+        "celery": {
+            "credit": 0.0011000000000000038,
+            "url": "http://celeryproject.org"
+        },
+        "redis": {
+            "credit": 0.003822500000000004,
+            "url": "https://github.com/redis/redis-py"
+        },
+        "python-magic": {
+            "credit": 0.11,
+            "url": "http://github.com/ahupp/python-magic"
+        },
+        "easywebdav": {
+            "credit": 0.0011000000000000038,
+            "url": "http://github.com/amnong/easywebdav"
+        },
+        "minio": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/minio/minio-py"
+        },
+        "python-swiftclient": {
+            "credit": 0.0011000000000000038,
+            "url": "https://docs.openstack.org/python-swiftclient/latest/"
+        },
+        "python-keystoneclient": {
+            "credit": 0.011990000000000004,
+            "url": "https://docs.openstack.org/python-keystoneclient/latest/"
+        },
+        "python-dotenv": {
+            "credit": 0.00015557142857142853,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 0.00015557142857142853,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "importlib-metadata": {
+            "credit": 0.030379642857142855,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "click": {
+            "credit": 0.03368121428571429,
+            "url": "https://pypi.org/project/click"
+        },
+        "itsdangerous": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "zstandard": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/zstandard"
+        },
+        "kazoo": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/kazoo"
+        },
+        "PyYAML": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "tblib": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/tblib"
+        },
+        "kombu": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/kombu"
+        },
+        "sqlalchemy": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "ephem": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/ephem"
+        },
+        "softlayer-messaging": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/softlayer-messaging"
+        },
+        "pytest-celery": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pytest-celery"
+        },
+        "pyro4": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pyro4"
+        },
+        "python-memcached": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/python-memcached"
+        },
+        "msgpack": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "pymongo": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pymongo"
+        },
+        "pylibmc": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pylibmc"
+        },
+        "librabbitmq": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/librabbitmq"
+        },
+        "gevent": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/gevent"
+        },
+        "eventlet": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/eventlet"
+        },
+        "elasticsearch": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/elasticsearch"
+        },
+        "boto3": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/boto3"
+        },
+        "Django": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/Django"
+        },
+        "pycouchdb": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pycouchdb"
+        },
+        "couchbase": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/couchbase"
+        },
+        "pydocumentdb": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pydocumentdb"
+        },
+        "python-consul2": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/python-consul2"
+        },
+        "cassandra-driver": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/cassandra-driver"
+        },
+        "brotlipy": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "azure-storage-blob": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/azure-storage-blob"
+        },
+        "cryptography": {
+            "credit": 0.014822499999999999,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyArango": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pyArango"
+        },
+        "click-plugins": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/click-plugins"
+        },
+        "click-repl": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/click-repl"
+        },
+        "click-didyoumean": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/click-didyoumean"
+        },
+        "vine": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/vine"
+        },
+        "billiard": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/billiard"
+        },
+        "pytz": {
+            "credit": 0.0027225,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "requests": {
+            "credit": 0.14278000000000002,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pyopenssl": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pyopenssl"
+        },
+        "hiredis": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/hiredis"
+        },
+        "typing-extensions": {
+            "credit": 0.015950392857142857,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "async-timeout": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/async-timeout"
+        },
+        "packaging": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "deprecated": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/deprecated"
+        },
+        "urllib3": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "certifi": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "hacking": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/hacking"
+        },
+        "stestr": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/stestr"
+        },
+        "openstacksdk": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/openstacksdk"
+        },
+        "mock": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/mock"
+        },
+        "keystoneauth1": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/keystoneauth1"
+        },
+        "coverage": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "futures": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/futures"
+        },
+        "six": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/six"
+        },
+        "stevedore": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/stevedore"
+        },
+        "pbr": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/pbr"
+        },
+        "oslo.utils": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/oslo.utils"
+        },
+        "oslo.serialization": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/oslo.serialization"
+        },
+        "oslo.i18n": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/oslo.i18n"
+        },
+        "oslo.config": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/oslo.config"
+        },
+        "debtcollector": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/debtcollector"
+        },
+        "mypy": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pytest-asyncio": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "pytest": {
+            "credit": 0.003850392857142857,
+            "url": "https://pypi.org/project/pytest"
+        }
+    }
+}

@@ -1,0 +1,162 @@
+{
+    "DESCRIPTION": {
+        "github/ropenscilabs/allcontributors": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "cli": {
+            "credit": 0.0012374999999999886,
+            "url": "https://cli.r-lib.org"
+        },
+        "clipr": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/mdlincoln/clipr"
+        },
+        "ghql": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/ropensci/ghql (devel)\nhttps://docs.ropensci.org/ghql (docs)"
+        },
+        "git2r": {
+            "credit": 0.0012375000000000025,
+            "url": "https://docs.ropensci.org/git2r/ (website)"
+        },
+        "gitcreds": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/r-lib/gitcreds"
+        },
+        "httr": {
+            "credit": 0.12375,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.1482525,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "magrittr": {
+            "credit": 0.0012375000000000025,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "withr": {
+            "credit": 0.02282841614906832,
+            "url": "https://withr.r-lib.org"
+        },
+        "whoami": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.08816841614906833,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.025745380434782607,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.06366591614906832,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.025745380434782607,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.02282841614906832,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.06366591614906832,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.04616413043478261,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "asciicast": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0563735054347826,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "R": {
+            "credit": 0.05637350543478261,
+            "url": null
+        },
+        "graphql": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "crul": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "getPass": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.030628125,
+            "url": null
+        },
+        "oskeyring": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.017501785714285713,
+            "url": null
+        }
+    }
+}

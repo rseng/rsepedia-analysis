@@ -1,0 +1,25 @@
+Package: cld3
+Type: Package
+Title: Google's Compact Language Detector 3
+Version: 1.4.2
+Authors@R: c(
+    person("Jeroen", "Ooms", ,"jeroen@berkeley.edu", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-4035-0289")),
+    person("Google Inc", role = "cph", comment = "CLD3 C++ library"))
+Description: Google's Compact Language Detector 3 is a neural network model for language 
+    identification and the successor of 'cld2' (available from CRAN). The algorithm is still
+    experimental and takes a novel approach to language detection with different properties
+    and outcomes. It can be useful to combine this with the Bayesian classifier results 
+    from 'cld2'. See <https://github.com/google/cld3#readme> for more information.
+License: Apache License 2.0
+Encoding: UTF-8
+URL: https://docs.ropensci.org/cld3/,  https://github.com/ropensci/cld3 (devel)
+    https://github.com/google/cld3 (upstream)
+Imports: Rcpp
+LinkingTo: Rcpp
+RoxygenNote: 6.0.1.9000
+Roxygen: list(markdown = TRUE)
+SystemRequirements: libprotobuf and protobuf-compiler
+Suggests: 
+    testthat,
+    cld2

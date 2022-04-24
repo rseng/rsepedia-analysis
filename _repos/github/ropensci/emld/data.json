@@ -1,0 +1,102 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/emld": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "jsonlite": {
+            "credit": 0.4322104285714286,
+            "url": "https://arxiv.org/abs/1403.2805 (paper)"
+        },
+        "jsonld": {
+            "credit": 0.003300000000000025,
+            "url": "https://docs.ropensci.org/jsonld"
+        },
+        "yaml": {
+            "credit": 0.33,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "spelling": {
+            "credit": 0.009801000000000004,
+            "url": "https://github.com/ropensci/spelling#readme"
+        },
+        "curl": {
+            "credit": 0.012367928571428575,
+            "url": "https://github.com/jeroen/curl (devel) https://curl.se/libcurl/\n(upstream)"
+        },
+        "V8": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/jeroen/v8 (devel) https://v8.dev (upstream)"
+        },
+        "pdftools": {
+            "credit": 0.00016171649999999899,
+            "url": "https://docs.ropensci.org/pdftools/ (website)\nhttps://github.com/ropensci/pdftools#readme (devel)\nhttps://poppler.freedesktop.org (upstream)"
+        },
+        "knitr": {
+            "credit": 0.03670707857142857,
+            "url": "https://yihui.org/knitr/"
+        },
+        "hunspell": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "webutils": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "httpuv": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.02053542857142857,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.02320375082142857,
+            "url": null
+        },
+        "R": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.01155117857142857,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.01421950082142857,
+            "url": null
+        },
+        "tesseract": {
+            "credit": 0.00266832225,
+            "url": null
+        },
+        "webp": {
+            "credit": 0.00266832225,
+            "url": null
+        },
+        "png": {
+            "credit": 0.00266832225,
+            "url": null
+        },
+        "qpdf": {
+            "credit": 0.00266832225,
+            "url": null
+        }
+    }
+}

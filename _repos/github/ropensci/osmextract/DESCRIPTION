@@ -1,0 +1,40 @@
+Package: osmextract
+Type: Package
+Title: Download and Import Open Street Map Data Extracts
+Version: 0.4.0.9000
+Authors@R: c(
+    person("Andrea", "Gilardi", email = "andrea.gilardi@unimib.it", role=c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-9424-7439")),
+    person("Robin", "Lovelace", role = c("aut"),
+      comment = c(ORCID = "0000-0001-5679-6536")),
+    person("Barry", "Rowlingson", role=c("ctb"),
+      comment = c(ORCID = "0000-0002-8586-6625")), 
+    person("Salva", "Fernández", role = c("rev"), 
+    comment = c("Salva reviewed the package (v. 0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/395>")), 
+    person("Nicholas", "Potter", role = c("rev"), 
+    comment = c("Nicholas reviewed the package (v. 0.1) for rOpenSci, see <https://github.com/ropensci/software-review/issues/395>"))
+    )
+Description: Match, download, convert and import Open Street Map data extracts 
+    obtained from several providers. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+URL: https://docs.ropensci.org/osmextract/, https://github.com/ropensci/osmextract
+BugReports: https://github.com/ropensci/osmextract/issues
+Depends: R (>= 3.5.0)
+Imports: 
+    sf (>= 0.8.1),
+    utils,
+    tools,
+    httr,
+    jsonlite
+Suggests: 
+    testthat (>= 3.0.2),
+    knitr,
+    rmarkdown,
+    covr
+VignetteBuilder: knitr
+Language: en_GB
+Config/testthat/edition: 3

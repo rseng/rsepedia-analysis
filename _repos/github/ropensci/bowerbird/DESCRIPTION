@@ -1,0 +1,44 @@
+Package: bowerbird
+Type: Package
+Title: Keep a Collection of Sparkly Data Resources
+Version: 0.11.0
+Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
+             person("Michael", "Sumner", role = "aut"),
+             person("Miles", "McBain", email = "miles.mcbain@gmail.com", role = c("rev", "ctb")),
+             person("Leah", "Wasser", role = c("rev", "ctb")))
+Description: Tools to get and maintain a data repository from third-party data
+    providers.
+URL: https://docs.ropensci.org/bowerbird, https://github.com/ropensci/bowerbird
+BugReports: https://github.com/ropensci/bowerbird/issues
+License: MIT + file LICENSE
+Depends: R (>= 3.3.0)
+Imports:
+    archive,
+    assertthat,
+    aws.s3 (>= 0.3.20),
+    curl,
+    fs,
+    httr,
+    jsonlite,
+    lubridate,
+    magrittr,
+    methods,
+    openssl,
+    R.utils,
+    rmarkdown,
+    rvest,
+    stringr,
+    sys (>= 1.4.9000),
+    tibble,
+    xml2
+LazyLoad: yes
+Encoding: UTF-8
+RoxygenNote: 7.1.1
+Suggests:
+    covr,
+    knitr,
+    testthat
+VignetteBuilder: knitr
+X-schema.org-applicationCategory: Antarctic/Southern Ocean
+X-schema.org-keywords: ropensci, Antarctic, Southern Ocean, data, environmental, satellite, climate
+X-schema.org-isPartOf: https://ropensci.org, https://scar.org
