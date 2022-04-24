@@ -10,7 +10,7 @@ tipue_search_active: true
 |Manager|Name|Credit|
 |-------|----|------|
 |cran|R|0.03459483212294504|
-|cran|[jsonlite](https://arxiv.org/abs/1403.2805 (paper))|0.028199251359688197|
+|cran|[jsonlite](https://arxiv.org/abs/1403.2805)|0.028199251359688197|
 |cran|[testthat](https://testthat.r-lib.org)|0.024186798443270662|
 |cran|[httr](https://httr.r-lib.org/)|0.020714456795037903|
 |cran|[knitr](https://yihui.org/knitr/)|0.01702485221808837|
@@ -26,8 +26,7 @@ tipue_search_active: true
 |cran|[yaml](https://github.com/vubiostat/r-yaml/)|0.004611015136511384|
 |cran|[tibble](https://tibble.tidyverse.org/)|0.004557139698925646|
 |cran|tools|0.00433075367528893|
-|cran|[curl](https://github.com/jeroen/curl (devel) https://curl.se/libcurl/
-(upstream))|0.004124929907265835|
+|cran|[curl](https://github.com/jeroen/curl)|0.004124929907265835|
 |cran|[Rcpp](http://www.rcpp.org)|0.003935628524548365|
 |cran|[vctrs](https://vctrs.r-lib.org/)|0.0036369965360368906|
 |cran|[R6](https://r6.r-lib.org)|0.003590816970177616|
@@ -45,7 +44,7 @@ tipue_search_active: true
 |cran|[tinytest](https://github.com/markvanderloo/tinytest)|0.002004788964535879|
 |cran|[rstudioapi](https://github.com/rstudio/rstudioapi)|0.0019953648376784504|
 |cran|[mockery](https://github.com/r-lib/mockery)|0.001987295077652944|
-|cran|[stringi](https://stringi.gagolewski.com/ https://icu.unicode.org/)|0.0018401776756390867|
+|cran|[stringi](https://stringi.gagolewski.com/)|0.0018401776756390867|
 |cran|[MASS](http://www.stats.ox.ac.uk/pub/MASS4/)|0.0018350562326889391|
 |cran|[xml2](https://xml2.r-lib.org/)|0.0018264405490459833|
 |cran|[cli](https://cli.r-lib.org)|0.001780220021593451|
@@ -62,7 +61,7 @@ tipue_search_active: true
 |cran|[rbenchmark](http://rbenchmark.googlecode.com)|0.0013916472333871596|
 |cran|[bitops](https://github.com/mmaechler/R-bitops)|0.0013703968769049509|
 |cran|[markdown](https://github.com/rstudio/markdown)|0.0013630830245250647|
-|cran|[sp](https://github.com/edzer/sp/ https://edzer.github.io/sp/)|0.0013535826474691114|
+|cran|[sp](https://github.com/edzer/sp/)|0.0013535826474691114|
 |cran|[zoo](http://zoo.R-Forge.R-project.org/)|0.0013498206296207406|
 |cran|parallel|0.0013266308148621984|
 |cran|[pracma](NA)|0.0013025594376042716|
@@ -75,9 +74,7 @@ tipue_search_active: true
 |cran|[mime](https://github.com/yihui/mime)|0.0010296712415911373|
 |cran|[microbenchmark](https://github.com/joshuaulrich/microbenchmark/)|0.0010239653309060486|
 |cran|[nycflights13](https://github.com/hadley/nycflights13)|0.0010147616588765179|
-|cran|[webmockr](https://github.com/ropensci/webmockr (devel)
-https://books.ropensci.org/http-testing/ (user manual)
-https://docs.ropensci.org/webmockr/ (documentation))|0.0009495885896783475|
+|cran|[webmockr](https://github.com/ropensci/webmockr)|0.0009495885896783475|
 |cran|ellipsis|0.000946117874209225|
 |cran|[unix](https://github.com/jeroen/unix)|0.0009451518489926089|
 |cran|bench|0.000923123366326633|
@@ -94,8 +91,7 @@ https://docs.ropensci.org/webmockr/ (documentation))|0.0009495885896783475|
 |cran|[scales](https://scales.r-lib.org)|0.000852392827861058|
 |cran|[fs](https://fs.r-lib.org)|0.0008259038308673948|
 |cran|RColorBrewer|0.0008240069372671377|
-|cran|[rgeos](https://r-forge.r-project.org/projects/rgeos/ https://libgeos.org
-http://rgeos.r-forge.r-project.org/index.html)|0.0008183359126582197|
+|cran|[rgeos](https://r-forge.r-project.org/projects/rgeos/)|0.0008183359126582197|
 |cran|[sf](https://r-spatial.github.io/sf/)|0.0008068501151515312|
 |cran|tcltk|0.0008021244418094772|
 |cran|[fauxpas](https://docs.ropensci.org/fauxpas)|0.0007707219242589057|
@@ -129,9 +125,7 @@ http://rgeos.r-forge.r-project.org/index.html)|0.0008183359126582197|
 |cran|[foreach](https://github.com/RevolutionAnalytics/foreach)|0.0005458503227206338|
 |cran|pkgbuild|0.0005345616925655117|
 |cran|[DiagrammeR](https://github.com/rich-iannone/DiagrammeR)|0.0005153462636404906|
-|cran|[crul](https://docs.ropensci.org/crul/ (website)
-https://github.com/ropensci/crul (devel)
-https://books.ropensci.org/http-testing/ (user manual))|0.0005032499418972444|
+|cran|[crul](https://docs.ropensci.org/crul/)|0.0005032499418972444|
 |cran|Lahman|0.0004996782809883057|
 |cran|[pkgKitten](https://github.com/eddelbuettel/pkgkitten)|0.000493688519613616|
 |cran|formattable|0.0004900914626279948|
@@ -192,8 +186,7 @@ https://books.ropensci.org/http-testing/ (user manual))|0.0005032499418972444|
 |cran|[SparseM](http://www.econ.uiuc.edu/~roger/research/sparse/sparse.html)|0.00025982549033740906|
 |cran|[R.methodsS3](https://github.com/HenrikBengtsson/R.methodsS3)|0.00025722112939831305|
 |cran|[deldir](https://www.stat.auckland.ac.nz/~rolf/)|0.00025278352591798876|
-|cran|[magick](https://docs.ropensci.org/magick/ (website)
-https://github.com/ropensci/magick (devel))|0.00024376511403660693|
+|cran|[magick](https://docs.ropensci.org/magick/)|0.00024376511403660693|
 |cran|[fields](https://github.com/dnychka/fieldsRPackage)|0.0002427743238165913|
 |cran|[R.oo](https://github.com/HenrikBengtsson/R.oo)|0.00024016005130020636|
 |cran|[gridExtra](https://github.com/baptiste/gridextra)|0.0002398839437382751|
@@ -228,9 +221,7 @@ https://github.com/ropensci/magick (devel))|0.00024376511403660693|
 |cran|[downlit](https://downlit.r-lib.org/)|0.00020543580491710529|
 |cran|prettyunits|0.00020458080242974702|
 |cran|profvis|0.00020380351207553016|
-|cran|[pdftools](https://docs.ropensci.org/pdftools/ (website)
-https://github.com/ropensci/pdftools#readme (devel)
-https://poppler.freedesktop.org (upstream))|0.0001999746832906262|
+|cran|[pdftools](https://docs.ropensci.org/pdftools/)|0.0001999746832906262|
 |cran|[spatstat.linnet](http://spatstat.org/)|0.00019656242707952832|
 |cran|[memoise](https://github.com/r-lib/memoise)|0.0001942372042856767|
 |cran|[future.apply](https://future.apply.futureverse.org)|0.00019358907130647467|
@@ -250,24 +241,20 @@ https://poppler.freedesktop.org (upstream))|0.0001999746832906262|
 |cran|[mapview](https://github.com/r-spatial/mapview)|0.00017821037046860815|
 |cran|[praise](https://github.com/gaborcsardi/praise)|0.00017756257269680226|
 |cran|[viridisLite](https://github.com/sjmgarnier/viridisLite)|0.00017709248736465214|
-|cran|[webp](https://github.com/jeroen/webp#readme
-https://developers.google.com/speed/webp)|0.0001767907882796634|
+|cran|[webp](https://github.com/jeroen/webp#readme)|0.0001767907882796634|
 |cran|diffviewer|0.00017568519935462232|
-|cran|[commonmark](https://docs.ropensci.org/commonmark/ (docs)
-https://github.com/r-lib/commonmark (devel)
-https://github.github.com/gfm/ (spec))|0.0001748964723108449|
+|cran|[commonmark](https://docs.ropensci.org/commonmark/)|0.0001748964723108449|
 |cran|[jpeg](http://www.rforge.net/jpeg/)|0.00017472233336546163|
 |cran|[spatstat](http://spatstat.org/)|0.00017327831235977977|
 |cran|[reshape2](https://github.com/hadley/reshape)|0.00017227151600235797|
 |cran|splines|0.00016867884131941375|
 |cran|[getPass](https://github.com/wrathematics/getPass)|0.00016772711522782864|
-|cran|[V8](https://github.com/jeroen/v8 (devel) https://v8.dev (upstream))|0.00016603833515881712|
+|cran|[V8](https://github.com/jeroen/v8)|0.00016603833515881712|
 |cran|[nleqslv](NA)|0.00016601044572378182|
 |cran|later|0.00016413198479376463|
 |cran|[whisker](http://github.com/edwindj/whisker)|0.00016385762986211478|
 |cran|[openssl](https://github.com/jeroen/openssl)|0.000163019088832088|
-|cran|[tesseract](https://docs.ropensci.org/tesseract/ (website)
-https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
+|cran|[tesseract](https://docs.ropensci.org/tesseract/)|0.00016116197892459606|
 |cran|[gh](https://gh.r-lib.org/)|0.00016090961502490073|
 |cran|[WikidataR](https://github.com/TS404/WikidataR/issues)|0.00015903415861247185|
 |cran|dichromat|0.00015898562902079205|
@@ -287,7 +274,7 @@ https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
 |cran|sfsmisc|0.00014400709993490888|
 |cran|fastmap|0.00014240737002120196|
 |cran|labeling|0.00014218561297267424|
-|cran|[gifski](https://gif.ski/ (upstream))|0.00014087942605725136|
+|cran|[gifski](https://gif.ski/)|0.00014087942605725136|
 |cran|[readxl](https://readxl.tidyverse.org)|0.00014079469001094125|
 |cran|[phangorn](https://github.com/KlausVigo/phangorn)|0.0001407483780555966|
 |cran|[units](https://github.com/r-quantities/units/)|0.00013994953131396613|
@@ -303,16 +290,14 @@ https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
 |cran|[visNetwork](http://datastorm-open.github.io/visNetwork/)|0.00012944835925417827|
 |cran|[randomForest](https://www.stat.berkeley.edu/~breiman/RandomForests/)|0.0001276606191764281|
 |cran|styler|0.00012688041048878473|
-|cran|[hunspell](https://github.com/ropensci/hunspell#readme (devel)
-https://hunspell.github.io (upstream))|0.00012650265585747493|
+|cran|[hunspell](https://github.com/ropensci/hunspell#readme)|0.00012650265585747493|
 |cran|boot|0.00012550930379847384|
 |cran|tufte|0.00012546437781647018|
 |cran|katex|0.00012546437781647018|
 |cran|[viridis](https://sjmgarnier.github.io/viridis/)|0.00012408757216332114|
 |cran|[formatR](https://github.com/yihui/formatR)|0.00012390357824424084|
-|cran|[sodium](https://github.com/jeroen/sodium#readme (devel)
-https://download.libsodium.org/doc/ (upstream))|0.00012386070228348798|
-|cran|[qpdf](https://github.com/ropensci/qpdf (devel))|0.0001237899812949276|
+|cran|[sodium](https://github.com/jeroen/sodium#readme)|0.00012386070228348798|
+|cran|[qpdf](https://github.com/ropensci/qpdf)|0.0001237899812949276|
 |cran|[progress](https://github.com/r-lib/progress#readme)|0.00012344488560741735|
 |cran|webshot|0.00012314752053716336|
 |cran|txtplot|0.00012048192771084337|
@@ -323,11 +308,8 @@ https://download.libsodium.org/doc/ (upstream))|0.00012386070228348798|
 |cran|cellranger|0.00011810935163040516|
 |cran|[globals](https://github.com/HenrikBengtsson/globals)|0.00011689493180582504|
 |cran|[odbc](https://github.com/r-dbi/odbc)|0.00011660196586449895|
-|cran|[jose](https://datatracker.ietf.org/wg/jose/documents/
-https://www.w3.org/TR/WebCryptoAPI/#jose
-https://github.com/r-lib/jose)|0.00011616586858199605|
-|cran|[psych](https://personality-project.org/r/psych/
-https://personality-project.org/r/psych-manual.pdf)|0.00011555680247237536|
+|cran|[jose](https://datatracker.ietf.org/wg/jose/documents/)|0.00011616586858199605|
+|cran|[psych](https://personality-project.org/r/psych/)|0.00011555680247237536|
 |cran|flashClust|0.00011544768547875711|
 |cran|e1071|0.00011450206263493085|
 |cran|[targets](https://docs.ropensci.org/targets/)|0.00011391990751476081|
@@ -350,8 +332,7 @@ https://personality-project.org/r/psych-manual.pdf)|0.00011555680247237536|
 |cran|palmerpenguins|0.00010034065768772701|
 |cran|coda|9.98057068760766e-05|
 |cran|JuliaCall|9.808574168059499e-05|
-|cran|[vcr](https://github.com/ropensci/vcr/ (devel)
-https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
+|cran|[vcr](https://github.com/ropensci/vcr/)|9.7106478504284e-05|
 |cran|[forecast](https://pkg.robjhyndman.com/forecast/)|9.675392591541552e-05|
 |cran|class|9.290857547838413e-05|
 |cran|[leaflet](https://rstudio.github.io/leaflet/)|9.25821327274874e-05|
@@ -369,7 +350,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |cran|[tmap](https://github.com/mtennekes/tmap)|8.53668229867553e-05|
 |cran|pool|8.53668229867553e-05|
 |cran|polyclip|8.516488083026489e-05|
-|cran|[taxize](https://docs.ropensci.org/taxize/ (website))|8.373063683304652e-05|
+|cran|[taxize](https://docs.ropensci.org/taxize/)|8.373063683304652e-05|
 |cran|[gapminder](https://github.com/jennybc/gapminder)|8.250036403647214e-05|
 |cran|animation|8.230608770485669e-05|
 |cran|[spatstat.core](http://spatstat.org/)|8.19520983092032e-05|
@@ -410,7 +391,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |cran|colorRamps|6.77710843373494e-05|
 |cran|paletteer|6.77710843373494e-05|
 |cran|statsExpressions|6.77710843373494e-05|
-|cran|[Rdpack](https://geobosh.github.io/Rdpack/ (website))|6.748054852428875e-05|
+|cran|[Rdpack](https://geobosh.github.io/Rdpack/)|6.748054852428875e-05|
 |cran|latticeExtra|6.678418286962606e-05|
 |cran|timeSeries|6.540687562279192e-05|
 |cran|fts|6.540687562279192e-05|
@@ -430,11 +411,9 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |cran|[ggforce](https://ggforce.data-imaginist.com)|6.089544393532084e-05|
 |cran|rsvg|6.048690522384607e-05|
 |cran|[futile.logger](NA)|6.0441430557394424e-05|
-|cran|[graphql](http://graphql.org (upstream) https://github.com/ropensci/graphql
-(devel))|6.0376737720111215e-05|
+|cran|[graphql](http://graphql.org)|6.0376737720111215e-05|
 |cran|[TTR](https://github.com/joshuaulrich/TTR)|6.0316265060240964e-05|
-|cran|[credentials](https://docs.ropensci.org/credentials/ (website)
-https://github.com/r-lib/credentials)|6.002378194095064e-05|
+|cran|[credentials](https://docs.ropensci.org/credentials/)|6.002378194095064e-05|
 |cran|spatial|5.9367234222313774e-05|
 |cran|[BayesFactor](https://richarddmorey.github.io/BayesFactor/)|5.932579263026475e-05|
 |cran|stopwords|5.92934627877784e-05|
@@ -449,14 +428,14 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |cran|[wk](https://paleolimbot.github.io/wk/)|5.5989144001583887e-05|
 |cran|[hoardr](https://github.com/ropensci/hoardr)|5.5586601562859624e-05|
 |cran|[config](https://github.com/rstudio/config)|5.537109315392728e-05|
-|cran|[git2r](https://docs.ropensci.org/git2r/ (website))|5.514448894238023e-05|
+|cran|[git2r](https://docs.ropensci.org/git2r/)|5.514448894238023e-05|
 |cran|[genalg](https://github.com/egonw/genalg)|5.421686746987952e-05|
 |cran|segmented|5.4199221731647075e-05|
 |cran|[semver](https://github.com/johndharrison/semver)|5.351979345955253e-05|
 |cran|lsa|5.3244499738082764e-05|
 |cran|RJSONIO|5.273149157716841e-05|
 |cran|mclust|5.216489721034981e-05|
-|cran|[rbibutils](https://geobosh.github.io/rbibutils/ (website))|5.1262822719449226e-05|
+|cran|[rbibutils](https://geobosh.github.io/rbibutils/)|5.1262822719449226e-05|
 |cran|[remotes](https://remotes.r-lib.org)|5.1133814700554035e-05|
 |cran|[matlab](http://cran.r-project.org/package=matlab)|4.965974612736661e-05|
 |cran|[foreign](https://svn.r-project.org/R-packages/trunk/foreign/)|4.96407623910328e-05|
@@ -493,7 +472,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |cran|proj4|3.902878482254811e-05|
 |cran|RandomFieldsUtils|3.8775917548970777e-05|
 |cran|biglm|3.876299806179348e-05|
-|cran|[jqr](https://docs.ropensci.org/jqr/ (docs))|3.865515121711337e-05|
+|cran|[jqr](https://docs.ropensci.org/jqr/)|3.865515121711337e-05|
 |cran|websocket|3.860318416523235e-05|
 |cran|[base64url](https://github.com/mllg/base64url)|3.8549709710950415e-05|
 |cran|[utf8](https://ptrckprry.com/r-utf8/)|3.794200054265647e-05|
@@ -550,8 +529,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |cran|kernlab|2.8174806199455808e-05|
 |cran|jsonify|2.770693162259427e-05|
 |cran|gt|2.7344799761519666e-05|
-|cran|[beautier](https://docs.ropensci.org/beautier/ (website)
-https://github.com/ropensci/beautier/)|2.714302184815818e-05|
+|cran|[beautier](https://docs.ropensci.org/beautier/)|2.714302184815818e-05|
 |cran|[heatmaply](https://talgalili.github.io/heatmaply/)|2.7044878076900904e-05|
 |cran|[seqinr](http://seqinr.r-forge.r-project.org/)|2.6960281241883887e-05|
 |cran|gridBase|2.695545935224872e-05|
@@ -595,11 +573,9 @@ https://github.com/ropensci/beautier/)|2.714302184815818e-05|
 |cran|[natserv](https://docs.ropensci.org/natserv)|2.2632776001967053e-05|
 |cran|[worrms](https://docs.ropensci.org/worrms)|2.2632776001967053e-05|
 |cran|[rotl](https://docs.ropensci.org/rotl/)|2.2632776001967053e-05|
-|cran|[rredlist](https://github.com/ropensci/rredlist (devel)
-https://docs.ropensci.org/rredlist/ (docs))|2.2632776001967053e-05|
-|cran|[bold](https://docs.ropensci.org/bold/ (documentation)
-https://github.com/ropensci/bold (source))|2.2632776001967053e-05|
-|cran|[ritis](https://github.com/ropensci/ritis (devel))|2.2632776001967047e-05|
+|cran|[rredlist](https://github.com/ropensci/rredlist)|2.2632776001967053e-05|
+|cran|[bold](https://docs.ropensci.org/bold/)|2.2632776001967053e-05|
+|cran|[ritis](https://github.com/ropensci/ritis)|2.2632776001967047e-05|
 |cran|yamlme|2.23644578313253e-05|
 |cran|adehabitatLT|2.2332185886402756e-05|
 |cran|doFuture|2.2285986049461e-05|
@@ -638,8 +614,7 @@ https://github.com/ropensci/bold (source))|2.2632776001967053e-05|
 |cran|[deSolve](http://desolve.r-forge.r-project.org/)|2.051741030054283e-05|
 |cran|gamlss|2.0348379099622603e-05|
 |cran|[binman](https://docs.ropensci.org/binman/)|2.0240963855421715e-05|
-|cran|[beastier](https://docs.ropensci.org/beastier/ (website)
-https://github.com/ropensci/beastier/)|1.987951807228916e-05|
+|cran|[beastier](https://docs.ropensci.org/beastier/)|1.987951807228916e-05|
 |cran|shapefiles|1.9879518072289157e-05|
 |cran|[ggsignif](https://const-ae.github.io/ggsignif/)|1.9821033338095006e-05|
 |cran|[ggsci](https://nanx.me/ggsci/)|1.9821033338095006e-05|
@@ -675,9 +650,7 @@ https://github.com/ropensci/beastier/)|1.987951807228916e-05|
 |cran|[geosphere](NA)|1.6979756444652645e-05|
 |cran|ks|1.6962134251290875e-05|
 |cran|[origami](https://tlverse.org/origami/)|1.6893661602933492e-05|
-|cran|[RNetCDF](https://github.com/mjwoods/RNetCDF
-https://www.unidata.ucar.edu/software/netcdf/
-https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
+|cran|[RNetCDF](https://github.com/mjwoods/RNetCDF)|1.6851427448926178e-05|
 |cran|glmmTMB|1.684052278958985e-05|
 |cran|fixest|1.684052278958985e-05|
 |cran|cplm|1.684052278958985e-05|
@@ -733,7 +706,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|metafor|1.36353491538705e-05|
 |cran|RSpectra|1.3631669535283991e-05|
 |cran|future.callr|1.360995067480584e-05|
-|cran|[solrium](https://github.com/ropensci/solrium (devel))|1.353334767641998e-05|
+|cran|[solrium](https://github.com/ropensci/solrium)|1.353334767641998e-05|
 |cran|party|1.3519201664052584e-05|
 |cran|[haven](https://haven.tidyverse.org)|1.3424210676698908e-05|
 |cran|FastRWeb|1.3418674698795181e-05|
@@ -771,7 +744,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|gsl|1.3138242625675114e-05|
 |cran|Biobase|1.2812214146468406e-05|
 |cran|[clisymbols](https://github.com/gaborcsardi/clisymbols)|1.2720831317782064e-05|
-|cran|[wordcloud](http://blog.fellstat.com/?cat=11 http://www.fellstat.com)|1.2505845284799463e-05|
+|cran|[wordcloud](http://blog.fellstat.com/?cat=11)|1.2505845284799463e-05|
 |cran|clusterGeneration|1.2501870837386813e-05|
 |cran|[mlr3misc](https://mlr3misc.mlr-org.com)|1.2480154732642935e-05|
 |cran|bs4Dash|1.2473978213532174e-05|
@@ -1308,7 +1281,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|princurve|9.759036144578313e-06|
 |cran|brglm|9.759036144578313e-06|
 |cran|[robustbase](http://robustbase.r-forge.r-project.org/)|9.720309810671263e-06|
-|cran|[gistr](https://github.com/ropensci/gistr (devel))|9.707009857612272e-06|
+|cran|[gistr](https://github.com/ropensci/gistr)|9.707009857612272e-06|
 |cran|PCICt|9.636413547165251e-06|
 |cran|gld|9.636362664500058e-06|
 |cran|torch|9.634047060348009e-06|
@@ -1399,7 +1372,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|[rvertnet](https://github.com/ropensci/rvertnet)|7.530120481927717e-06|
 |cran|[rebird](https://docs.ropensci.org/rebird/)|7.530120481927717e-06|
 |cran|[rbison](https://github.com/ropensci/rbison)|7.530120481927717e-06|
-|cran|[rgbif](https://github.com/ropensci/rgbif (devel))|7.530120481927717e-06|
+|cran|[rgbif](https://github.com/ropensci/rgbif)|7.530120481927717e-06|
 |cran|rnaturalearthhires|7.506950880444857e-06|
 |cran|[clusterCrit](http:www.r-project.org)|7.489808859498159e-06|
 |cran|sparklyr|7.4548192771084335e-06|
@@ -1431,8 +1404,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|googleAnalyticsR|6.6676644466063e-06|
 |cran|bigQueryR|6.6676644466063e-06|
 |cran|[tiff](https://www.rforge.net/tiff/)|6.62650602409639e-06|
-|cran|[mauricer](https://docs.ropensci.org/mauricer/ (website)
-https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
+|cran|[mauricer](https://docs.ropensci.org/mauricer/)|6.626506024096389e-06|
 |cran|wicket|6.626506024096385e-06|
 |cran|lm.beta|6.536746012652878e-06|
 |cran|[oai](https://github.com/ropensci/oai)|6.449424069906019e-06|
@@ -1444,7 +1416,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |cran|xmlparsedata|6.334812935954344e-06|
 |cran|[hal9001](https://github.com/tlverse/hal9001)|6.313157769417578e-06|
 |cran|rio|6.283778840056583e-06|
-|cran|[geojsonio](https://github.com/ropensci/geojsonio (devel))|6.235505141656065e-06|
+|cran|[geojsonio](https://github.com/ropensci/geojsonio)|6.235505141656065e-06|
 |cran|[ggdendro](https://github.com/andrie/ggdendro)|6.220672162333548e-06|
 |cran|textdata|6.164408107518896e-06|
 |cran|mallet|6.164408107518896e-06|
@@ -1464,7 +1436,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |cran|batchtools|5.898318548920958e-06|
 |cran|BatchJobs|5.898318548920958e-06|
 |cran|BBmisc|5.898318548920958e-06|
-|cran|[ssh](https://docs.ropensci.org/ssh (website))|5.898318548920958e-06|
+|cran|[ssh](https://docs.ropensci.org/ssh)|5.898318548920958e-06|
 |cran|[mlr3pipelines](https://mlr3pipelines.mlr-org.com)|5.751702462022006e-06|
 |cran|bain|5.740609496810773e-06|
 |cran|[rncl](https://github.com/fmichonneau/rncl)|5.641135972461287e-06|
@@ -1545,8 +1517,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |cran|[servr](https://github.com/yihui/servr)|4.032379518072269e-06|
 |cran|[shinydashboard](http://rstudio.github.io/shinydashboard/)|4.0105226099202e-06|
 |cran|[taxizedb](https://ropensci.github.io/taxizedb/)|3.975903614457886e-06|
-|cran|[redland](https://github.com/ropensci/redland-bindings/tree/master/R/redland
-https://github.com/ropensci/redland-bindings/tree/master/R)|3.975903614457855e-06|
+|cran|[redland](https://github.com/ropensci/redland-bindings/tree/master/R/redland)|3.975903614457855e-06|
 |cran|mlr3data|3.975903614457832e-06|
 |cran|reactR|3.975903614457832e-06|
 |cran|[countrycode](https://vincentarelbundock.github.io/countrycode/)|3.930722891566282e-06|
@@ -1570,8 +1541,7 @@ https://github.com/ropensci/redland-bindings/tree/master/R)|3.975903614457855e-0
 |cran|listviewer|3.6646322130627773e-06|
 |cran|FME|3.614826653552987e-06|
 |cran|[rlist](https://renkun.me/rlist)|3.6144578313253287e-06|
-|cran|[CholWishart](https://github.com/gzt/CholWishart
-https://gzt.github.io/CholWishart/)|3.6144578313253287e-06|
+|cran|[CholWishart](https://github.com/gzt/CholWishart)|3.6144578313253287e-06|
 |cran|[tabulizerjars](https://github.com/ropensci/tabulizerjars)|3.6144578313253016e-06|
 |cran|[susieR](https://github.com/stephenslab/susieR)|3.583027763226818e-06|
 |cran|rvg|3.5312301838934686e-06|
@@ -1624,8 +1594,7 @@ https://gzt.github.io/CholWishart/)|3.6144578313253287e-06|
 |cran|mathjaxr|2.949159274460479e-06|
 |cran|glassoFast|2.949159274460479e-06|
 |cran|[leafem](https://github.com/r-spatial/leafem)|2.948042168674704e-06|
-|cran|[ghql](https://github.com/ropensci/ghql (devel)
-https://docs.ropensci.org/ghql (docs))|2.912418906394811e-06|
+|cran|[ghql](https://github.com/ropensci/ghql)|2.912418906394811e-06|
 |cran|tablerDash|2.839931153184165e-06|
 |cran|argonDash|2.839931153184165e-06|
 |cran|argonR|2.839931153184165e-06|
@@ -1741,22 +1710,20 @@ https://docs.ropensci.org/ghql (docs))|2.912418906394811e-06|
 |cran|[fishtree](https://fishtreeoflife.org/)|1.3554216867469906e-06|
 |cran|[LiblineaR](<https://www.dnalytics.com/software/liblinear/>)|1.3554216867469906e-06|
 |cran|pheatmap|1.248414711477493e-06|
-|cran|[shinyalert](https://github.com/daattali/shinyalert
-https://daattali.com/shiny/shinyalert-demo/)|1.248414711477493e-06|
+|cran|[shinyalert](https://github.com/daattali/shinyalert)|1.248414711477493e-06|
 |cran|[RNiftyReg](https://github.com/jonclayden/RNiftyReg)|1.2402551381998611e-06|
 |cran|[ggiraph](https://davidgohel.github.io/ggiraph/)|1.2198795180722854e-06|
 |cran|[goodpractice](https://github.com/mangothecat/goodpractice)|1.2157721796275937e-06|
 |cran|[fitdistrplus](https://lbbe.univ-lyon1.fr/fr/fitdistrplus)|1.2048192771084378e-06|
 |cran|[kinship2](https://cran.r-project.org/package=kinship2)|1.2048192771084378e-06|
 |cran|[corrr](https://github.com/tidymodels/corrr)|1.2048192771084378e-06|
-|cran|[spocc](https://github.com/ropensci/spocc (devel))|1.2048192771084378e-06|
+|cran|[spocc](https://github.com/ropensci/spocc)|1.2048192771084378e-06|
 |cran|[RcppProgress](https://github.com/kforner/rcpp_progress)|1.2048192771084378e-06|
 |cran|[rematch](https://github.com/MangoTheCat/rematch)|1.2048192771084378e-06|
 |cran|treeman|1.2048192771084378e-06|
 |cran|[treemapify](https://wilkox.org/treemapify/)|1.2048192771084378e-06|
 |cran|[restez](https://github.com/ropensci/restez#readme)|1.2048192771084378e-06|
-|cran|[babette](https://docs.ropensci.org/babette/ (website)
-https://github.com/ropensci/babette/)|1.2048192771084378e-06|
+|cran|[babette](https://docs.ropensci.org/babette/)|1.2048192771084378e-06|
 |cran|gdata|1.0843373493976108e-06|
 |cran|[mlr3proba](https://mlr3proba.mlr-org.com)|1.0843373493975956e-06|
 |cran|ggm|1.0843373493975956e-06|
@@ -1767,17 +1734,14 @@ https://github.com/ropensci/babette/)|1.2048192771084378e-06|
 |cran|[jmvcore](https://www.jamovi.org)|1.0843373493975956e-06|
 |cran|[cowsay](https://github.com/sckott/cowsay)|1.0843373493975803e-06|
 |cran|[rworldmap](https://github.com/AndySouth/rworldmap/)|1.0843373493975803e-06|
-|cran|[osmdata](https://docs.ropensci.org/osmdata/ (website)
-https://github.com/ropensci/osmdata/ (devel))|1.0843373493975803e-06|
+|cran|[osmdata](https://docs.ropensci.org/osmdata/)|1.0843373493975803e-06|
 |cran|[mvnfast](https://github.com/mfasiolo/mvnfast/)|9.857612267250953e-07|
 |cran|[BFpack](https://github.com/jomulder/BFpack)|9.8576122672508e-07|
 |cran|[haldensify](https://github.com/nhejazi/haldensify)|9.8576122672508e-07|
 |cran|lspline|9.8576122672508e-07|
 |cran|[sofa](https://github.com/ropensci/sofa)|9.8576122672508e-07|
-|cran|[elastic](https://docs.ropensci.org/elastic (website))|9.8576122672508e-07|
-|cran|[mongolite](https://github.com/jeroen/mongolite/ (devel)
-https://jeroen.github.io/mongolite/ (user manual)
-http://mongoc.org/ (upstream))|9.8576122672508e-07|
+|cran|[elastic](https://docs.ropensci.org/elastic)|9.8576122672508e-07|
+|cran|[mongolite](https://github.com/jeroen/mongolite/)|9.8576122672508e-07|
 |cran|pbs|9.8576122672508e-07|
 |cran|[keyATM](https://keyatm.github.io/keyATM/)|9.8576122672508e-07|
 |cran|[irr](https://www.r-project.org)|9.8576122672508e-07|
@@ -1821,9 +1785,8 @@ http://mongoc.org/ (upstream))|9.8576122672508e-07|
 |cran|[dplR](https://github.com/AndyBunn/dplR)|6.777108433734953e-07|
 |cran|[lunar](http://statistics.lazaridis.eu)|6.777108433734953e-07|
 |cran|[sortable](https://rstudio.github.io/sortable/)|6.777108433734953e-07|
-|cran|[rplos](https://docs.ropensci.org/rplos (website)
-https://github.com/ropensci/rplos)|6.777108433734953e-07|
-|cran|[microdemic](https://github.com/ropensci/microdemic (devel))|6.777108433734953e-07|
+|cran|[rplos](https://docs.ropensci.org/rplos)|6.777108433734953e-07|
+|cran|[microdemic](https://github.com/ropensci/microdemic)|6.777108433734953e-07|
 |cran|[aRxiv](https://docs.ropensci.org/aRxiv/)|6.777108433734953e-07|
 |cran|[codemeta](https://github.com/cboettig/codemeta)|6.777108433734953e-07|
 |cran|[osmextract](https://docs.ropensci.org/osmextract/)|6.777108433734953e-07|
@@ -1838,11 +1801,10 @@ https://github.com/ropensci/rplos)|6.777108433734953e-07|
 |cran|smoother|6.024096385542189e-07|
 |cran|[ptw](https://github.com/rwehrens/ptw)|6.024096385542189e-07|
 |cran|[dataRetrieval](https://pubs.usgs.gov/tm/04/a10/)|6.024096385542189e-07|
-|cran|[rnoaa](https://docs.ropensci.org/rnoaa/ (docs))|6.024096385542189e-07|
+|cran|[rnoaa](https://docs.ropensci.org/rnoaa/)|6.024096385542189e-07|
 |cran|[longitudinalData](http:www.r-project.org)|5.963855421686783e-07|
 |cran|[rvcheck](https://github.com/GuangchuangYu/rvcheck)|5.707038681039977e-07|
-|cran|[nabor](https://github.com/jefferis/nabor
-https://github.com/ethz-asl/libnabo)|5.707038681039977e-07|
+|cran|[nabor](https://github.com/jefferis/nabor)|5.707038681039977e-07|
 |cran|shinyhelper|5.707038681039977e-07|
 |cran|[bsplus](https://github.com/ijlyttle/bsplus)|5.707038681039977e-07|
 |cran|[turner](http://www.gastonsanchez.com)|5.707038681039977e-07|

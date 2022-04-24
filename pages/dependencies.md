@@ -11,7 +11,7 @@ tipue_search_active: true
 |-------|----|------|
 |cran|R|0.03459483212294504|
 |pypi|[numpy](https://www.numpy.org)|0.03433503389896354|
-|cran|[jsonlite](https://arxiv.org/abs/1403.2805 (paper))|0.028199251359688197|
+|cran|[jsonlite](https://arxiv.org/abs/1403.2805)|0.028199251359688197|
 |cran|[testthat](https://testthat.r-lib.org)|0.024186798443270662|
 |cran|[httr](https://httr.r-lib.org/)|0.020714456795037903|
 |cran|[knitr](https://yihui.org/knitr/)|0.01702485221808837|
@@ -33,8 +33,7 @@ tipue_search_active: true
 |cran|[yaml](https://github.com/vubiostat/r-yaml/)|0.004611015136511384|
 |cran|[tibble](https://tibble.tidyverse.org/)|0.004557139698925646|
 |cran|tools|0.00433075367528893|
-|cran|[curl](https://github.com/jeroen/curl (devel) https://curl.se/libcurl/
-(upstream))|0.004124929907265835|
+|cran|[curl](https://github.com/jeroen/curl)|0.004124929907265835|
 |pypi|[biopython](https://biopython.org/)|0.004053039927086237|
 |pypi|[h5py](http://www.h5py.org)|0.0039924377163693195|
 |cran|[Rcpp](http://www.rcpp.org)|0.003935628524548365|
@@ -69,7 +68,7 @@ tipue_search_active: true
 |cran|[mockery](https://github.com/r-lib/mockery)|0.001987295077652944|
 |pypi|[contextlib2](http://contextlib2.readthedocs.org)|0.0019740591929706132|
 |pypi|[packaging](https://pypi.org/project/packaging)|0.0019431336991752688|
-|cran|[stringi](https://stringi.gagolewski.com/ https://icu.unicode.org/)|0.0018401776756390867|
+|cran|[stringi](https://stringi.gagolewski.com/)|0.0018401776756390867|
 |cran|[MASS](http://www.stats.ox.ac.uk/pub/MASS4/)|0.0018350562326889391|
 |cran|[xml2](https://xml2.r-lib.org/)|0.0018264405490459833|
 |cran|[cli](https://cli.r-lib.org)|0.001780220021593451|
@@ -97,7 +96,7 @@ tipue_search_active: true
 |cran|[bitops](https://github.com/mmaechler/R-bitops)|0.0013703968769049509|
 |cran|[markdown](https://github.com/rstudio/markdown)|0.0013630830245250647|
 |pypi|[certifi](https://pypi.org/project/certifi)|0.0013557745777998105|
-|cran|[sp](https://github.com/edzer/sp/ https://edzer.github.io/sp/)|0.0013535826474691114|
+|cran|[sp](https://github.com/edzer/sp/)|0.0013535826474691114|
 |cran|[zoo](http://zoo.R-Forge.R-project.org/)|0.0013498206296207406|
 |pypi|[Sphinx](https://www.sphinx-doc.org/)|0.0013475386411156566|
 |pypi|[sklearn](https://pypi.python.org/pypi/scikit-learn/)|0.001329632394806558|
@@ -126,9 +125,7 @@ tipue_search_active: true
 |pypi|[wheel](https://pypi.org/project/wheel)|0.0009681764600550026|
 |pypi|[docopt](https://pypi.org/project/docopt)|0.0009573461366382111|
 |pypi|[joblib](https://joblib.readthedocs.io)|0.0009568826020326367|
-|cran|[webmockr](https://github.com/ropensci/webmockr (devel)
-https://books.ropensci.org/http-testing/ (user manual)
-https://docs.ropensci.org/webmockr/ (documentation))|0.0009495885896783475|
+|cran|[webmockr](https://github.com/ropensci/webmockr)|0.0009495885896783475|
 |cran|ellipsis|0.000946117874209225|
 |cran|[unix](https://github.com/jeroen/unix)|0.0009451518489926089|
 |cran|bench|0.000923123366326633|
@@ -149,8 +146,7 @@ https://docs.ropensci.org/webmockr/ (documentation))|0.0009495885896783475|
 |cran|[fs](https://fs.r-lib.org)|0.0008259038308673948|
 |pypi|[pyparsing](https://pypi.org/project/pyparsing)|0.0008252971675909484|
 |cran|RColorBrewer|0.0008240069372671377|
-|cran|[rgeos](https://r-forge.r-project.org/projects/rgeos/ https://libgeos.org
-http://rgeos.r-forge.r-project.org/index.html)|0.0008183359126582197|
+|cran|[rgeos](https://r-forge.r-project.org/projects/rgeos/)|0.0008183359126582197|
 |cran|[sf](https://r-spatial.github.io/sf/)|0.0008068501151515312|
 |pypi|[attrs](https://pypi.org/project/attrs)|0.0008031259150515656|
 |cran|tcltk|0.0008021244418094772|
@@ -243,9 +239,7 @@ http://rgeos.r-forge.r-project.org/index.html)|0.0008183359126582197|
 |pypi|[SQLAlchemy](https://www.sqlalchemy.org)|0.0005104093907090021|
 |pypi|[py](https://pypi.org/project/py)|0.000508908223164955|
 |pypi|[appdirs](http://github.com/ActiveState/appdirs)|0.0005039298608444769|
-|cran|[crul](https://docs.ropensci.org/crul/ (website)
-https://github.com/ropensci/crul (devel)
-https://books.ropensci.org/http-testing/ (user manual))|0.0005032499418972444|
+|cran|[crul](https://docs.ropensci.org/crul/)|0.0005032499418972444|
 |pypi|[psutil](https://pypi.org/project/psutil)|0.0005017764539983165|
 |cran|Lahman|0.0004996782809883057|
 |pypi|[unicodedata2](https://pypi.org/project/unicodedata2)|0.0004995317499309193|
@@ -473,8 +467,7 @@ https://books.ropensci.org/http-testing/ (user manual))|0.0005032499418972444|
 |pypi|[decorator](https://pypi.org/project/decorator)|0.00024823438579295336|
 |pypi|[oauthlib](https://pypi.org/project/oauthlib)|0.0002480934092226953|
 |pypi|[webencodings](https://pypi.org/project/webencodings)|0.0002474486395554112|
-|cran|[magick](https://docs.ropensci.org/magick/ (website)
-https://github.com/ropensci/magick (devel))|0.00024376511403660693|
+|cran|[magick](https://docs.ropensci.org/magick/)|0.00024376511403660693|
 |cran|[fields](https://github.com/dnychka/fieldsRPackage)|0.0002427743238165913|
 |pypi|[lz4](https://pypi.org/project/lz4)|0.0002426061738341034|
 |pypi|[zopfli](https://pypi.org/project/zopfli)|0.0002409418420885164|
@@ -552,9 +545,7 @@ https://github.com/ropensci/magick (devel))|0.00024376511403660693|
 |pypi|[threadpoolctl](https://pypi.org/project/threadpoolctl)|0.00020009557368777362|
 |pypi|[soupsieve](https://pypi.org/project/soupsieve)|0.00020008578890038942|
 |pypi|[munch](https://pypi.org/project/munch)|0.0002000053000063916|
-|cran|[pdftools](https://docs.ropensci.org/pdftools/ (website)
-https://github.com/ropensci/pdftools#readme (devel)
-https://poppler.freedesktop.org (upstream))|0.0001999746832906262|
+|cran|[pdftools](https://docs.ropensci.org/pdftools/)|0.0001999746832906262|
 |cran|[spatstat.linnet](http://spatstat.org/)|0.00019656242707952832|
 |npm|[js-yaml](https://github.com/nodeca/js-yaml#readme)|0.0001957831325301205|
 |cran|[memoise](https://github.com/r-lib/memoise)|0.0001942372042856767|
@@ -610,14 +601,11 @@ https://poppler.freedesktop.org (upstream))|0.0001999746832906262|
 |pypi|[bleach](https://pypi.org/project/bleach)|0.0001773851694418113|
 |pypi|[earthengine-api](http://code.google.com/p/earthengine-api/)|0.00017724745134383688|
 |cran|[viridisLite](https://github.com/sjmgarnier/viridisLite)|0.00017709248736465214|
-|cran|[webp](https://github.com/jeroen/webp#readme
-https://developers.google.com/speed/webp)|0.0001767907882796634|
+|cran|[webp](https://github.com/jeroen/webp#readme)|0.0001767907882796634|
 |pypi|[tf-estimator-nightly](https://www.tensorflow.org/)|0.00017655414356323033|
 |cran|diffviewer|0.00017568519935462232|
 |pypi|[pytest-perf](https://pypi.org/project/pytest-perf)|0.00017541944259141248|
-|cran|[commonmark](https://docs.ropensci.org/commonmark/ (docs)
-https://github.com/r-lib/commonmark (devel)
-https://github.github.com/gfm/ (spec))|0.0001748964723108449|
+|cran|[commonmark](https://docs.ropensci.org/commonmark/)|0.0001748964723108449|
 |cran|[jpeg](http://www.rforge.net/jpeg/)|0.00017472233336546163|
 |pypi|[pytest-asyncio](https://pypi.org/project/pytest-asyncio)|0.00017366505705818002|
 |cran|[spatstat](http://spatstat.org/)|0.00017327831235977977|
@@ -635,7 +623,7 @@ https://github.github.com/gfm/ (spec))|0.0001748964723108449|
 |pypi|[tensorboard-data-server](https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server)|0.00016731044469350633|
 |pypi|[tensorboard-plugin-wit](https://whatif-tool.dev)|0.00016731044469350633|
 |pypi|[prospector](https://pypi.org/project/prospector)|0.00016609489950649277|
-|cran|[V8](https://github.com/jeroen/v8 (devel) https://v8.dev (upstream))|0.00016603833515881712|
+|cran|[V8](https://github.com/jeroen/v8)|0.00016603833515881712|
 |cran|[nleqslv](NA)|0.00016601044572378182|
 |cran|later|0.00016413198479376463|
 |cran|[whisker](http://github.com/edwindj/whisker)|0.00016385762986211478|
@@ -644,8 +632,7 @@ https://github.github.com/gfm/ (spec))|0.0001748964723108449|
 |cran|[openssl](https://github.com/jeroen/openssl)|0.000163019088832088|
 |npm|[react-images](https://jossmac.github.io/react-images/)|0.00016220801573641505|
 |pypi|[pytest-randomly](https://pypi.org/project/pytest-randomly)|0.00016166767474174435|
-|cran|[tesseract](https://docs.ropensci.org/tesseract/ (website)
-https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
+|cran|[tesseract](https://docs.ropensci.org/tesseract/)|0.00016116197892459606|
 |cran|[gh](https://gh.r-lib.org/)|0.00016090961502490073|
 |pypi|[django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms)|0.00015963855421686747|
 |pypi|[aiohttp](https://pypi.org/project/aiohttp)|0.00015936960283913744|
@@ -705,7 +692,7 @@ https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
 |pypi|[jellyfish](http://github.com/jamesturk/jellyfish)|0.00014194961664841182|
 |pypi|[google-auth](https://github.com/googleapis/google-auth-library-python)|0.00014170441516354898|
 |pypi|[cvxopt](http://cvxopt.org)|0.00014096385542168674|
-|cran|[gifski](https://gif.ski/ (upstream))|0.00014087942605725136|
+|cran|[gifski](https://gif.ski/)|0.00014087942605725136|
 |cran|[readxl](https://readxl.tidyverse.org)|0.00014079469001094125|
 |cran|[phangorn](https://github.com/KlausVigo/phangorn)|0.0001407483780555966|
 |pypi|[lockfile](https://pypi.org/project/lockfile)|0.00014066136275484232|
@@ -767,8 +754,7 @@ https://github.com/ropensci/tesseract (devel))|0.00016116197892459606|
 |cran|styler|0.00012688041048878473|
 |pypi|[grpcio-tools](https://pypi.org/project/grpcio-tools)|0.00012681071461305548|
 |pypi|[sos-notebook](https://github.com/vatlab/SOS)|0.00012675332910589725|
-|cran|[hunspell](https://github.com/ropensci/hunspell#readme (devel)
-https://hunspell.github.io (upstream))|0.00012650265585747493|
+|cran|[hunspell](https://github.com/ropensci/hunspell#readme)|0.00012650265585747493|
 |pypi|[dlinfo](https://code.grasp-open.com/grasp-tools/python-dlinfo)|0.00012632530120481927|
 |pypi|[segments](https://github.com/cldf/segments)|0.00012632530120481927|
 |npm|[nyc](https://istanbul.js.org/)|0.00012552070576261087|
@@ -778,9 +764,8 @@ https://hunspell.github.io (upstream))|0.00012650265585747493|
 |pypi|[sqlalchemy](https://pypi.org/project/sqlalchemy)|0.0001251078400779589|
 |cran|[viridis](https://sjmgarnier.github.io/viridis/)|0.00012408757216332114|
 |cran|[formatR](https://github.com/yihui/formatR)|0.00012390357824424084|
-|cran|[sodium](https://github.com/jeroen/sodium#readme (devel)
-https://download.libsodium.org/doc/ (upstream))|0.00012386070228348798|
-|cran|[qpdf](https://github.com/ropensci/qpdf (devel))|0.0001237899812949276|
+|cran|[sodium](https://github.com/jeroen/sodium#readme)|0.00012386070228348798|
+|cran|[qpdf](https://github.com/ropensci/qpdf)|0.0001237899812949276|
 |pypi|[mistune](https://pypi.org/project/mistune)|0.00012365293316425805|
 |cran|[progress](https://github.com/r-lib/progress#readme)|0.00012344488560741735|
 |pypi|[ratelimit](https://pypi.org/project/ratelimit)|0.00012334337349397591|
@@ -831,12 +816,9 @@ https://download.libsodium.org/doc/ (upstream))|0.00012386070228348798|
 |pypi|[absl-py](https://pypi.org/project/absl-py)|0.00011690758242592681|
 |cran|[globals](https://github.com/HenrikBengtsson/globals)|0.00011689493180582504|
 |cran|[odbc](https://github.com/r-dbi/odbc)|0.00011660196586449895|
-|cran|[jose](https://datatracker.ietf.org/wg/jose/documents/
-https://www.w3.org/TR/WebCryptoAPI/#jose
-https://github.com/r-lib/jose)|0.00011616586858199605|
+|cran|[jose](https://datatracker.ietf.org/wg/jose/documents/)|0.00011616586858199605|
 |pypi|[pyupgrade](https://pypi.org/project/pyupgrade)|0.00011582016606457226|
-|cran|[psych](https://personality-project.org/r/psych/
-https://personality-project.org/r/psych-manual.pdf)|0.00011555680247237536|
+|cran|[psych](https://personality-project.org/r/psych/)|0.00011555680247237536|
 |cran|flashClust|0.00011544768547875711|
 |npm|[esm](https://github.com/standard-things/esm#readme)|0.00011474740139916023|
 |cran|e1071|0.00011450206263493085|
@@ -932,8 +914,7 @@ https://personality-project.org/r/psych-manual.pdf)|0.00011555680247237536|
 |pypi|[gitpython](https://github.com/gitpython-developers/GitPython)|9.820980405137033e-05|
 |cran|JuliaCall|9.808574168059499e-05|
 |pypi|[pyOpenSSL](https://pyopenssl.org/)|9.755594994623384e-05|
-|cran|[vcr](https://github.com/ropensci/vcr/ (devel)
-https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
+|cran|[vcr](https://github.com/ropensci/vcr/)|9.7106478504284e-05|
 |pypi|[distro](https://github.com/python-distro/distro)|9.681583476764199e-05|
 |cran|[forecast](https://pkg.robjhyndman.com/forecast/)|9.675392591541552e-05|
 |pypi|[dnspython](https://pypi.org/project/dnspython)|9.611876075731496e-05|
@@ -1014,7 +995,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |pypi|[pooch](https://pypi.org/project/pooch)|8.462039089852167e-05|
 |pypi|[flaky](https://pypi.org/project/flaky)|8.419634086845127e-05|
 |pypi|[oaiharvest](http://github.com/bloomonkey/oai-harvest)|8.384251290877796e-05|
-|cran|[taxize](https://docs.ropensci.org/taxize/ (website))|8.373063683304652e-05|
+|cran|[taxize](https://docs.ropensci.org/taxize/)|8.373063683304652e-05|
 |pypi|[contextvars](https://pypi.org/project/contextvars)|8.361160401976572e-05|
 |pypi|[yt](https://github.com/yt-project/yt)|8.341056533827618e-05|
 |pypi|[21cmFAST](https://github.com/21cmFAST/21cmFAST)|8.341056533827618e-05|
@@ -1173,7 +1154,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |npm|[helmet](https://helmetjs.github.io/)|6.77710843373494e-05|
 |npm|[node-cmd](https://github.com/RIAEvangelist/node-cmd)|6.77710843373494e-05|
 |npm|[passport-local-mongoose](https://github.com/saintedlama/passport-local-mongoose#readme)|6.77710843373494e-05|
-|cran|[Rdpack](https://geobosh.github.io/Rdpack/ (website))|6.748054852428875e-05|
+|cran|[Rdpack](https://geobosh.github.io/Rdpack/)|6.748054852428875e-05|
 |pypi|[progressbar2](https://github.com/WoLpH/python-progressbar)|6.729514332860793e-05|
 |pypi|[miniball](https://github.com/marmakoide/miniball)|6.70933734939759e-05|
 |cran|latticeExtra|6.678418286962606e-05|
@@ -1232,8 +1213,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |npm|[plotly.js](https://github.com/plotly/plotly.js#readme)|6.060814687320711e-05|
 |cran|rsvg|6.048690522384607e-05|
 |cran|[futile.logger](NA)|6.0441430557394424e-05|
-|cran|[graphql](http://graphql.org (upstream) https://github.com/ropensci/graphql
-(devel))|6.0376737720111215e-05|
+|cran|[graphql](http://graphql.org)|6.0376737720111215e-05|
 |cran|[TTR](https://github.com/joshuaulrich/TTR)|6.0316265060240964e-05|
 |pypi|[pyclipper](https://github.com/greginvm/pyclipper)|6.0240963855421684e-05|
 |pypi|[quantiphy](https://quantiphy.readthedocs.io)|6.0240963855421684e-05|
@@ -1249,8 +1229,7 @@ https://books.ropensci.org/http-testing/ (user manual))|9.7106478504284e-05|
 |rubygems|[activesupport](https://rubyonrails.org)|6.015582739119745e-05|
 |pypi|[pydub](http://pydub.com)|6.015490533562822e-05|
 |rubygems|[rubocop](https://rubocop.org/)|6.007757458210644e-05|
-|cran|[credentials](https://docs.ropensci.org/credentials/ (website)
-https://github.com/r-lib/credentials)|6.002378194095064e-05|
+|cran|[credentials](https://docs.ropensci.org/credentials/)|6.002378194095064e-05|
 |pypi|[pyscf](http://www.pyscf.org)|5.989537095751427e-05|
 |pypi|[language-data](https://pypi.org/project/language-data)|5.963855421686747e-05|
 |cran|spatial|5.9367234222313774e-05|
@@ -1295,7 +1274,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |cran|[hoardr](https://github.com/ropensci/hoardr)|5.5586601562859624e-05|
 |cran|[config](https://github.com/rstudio/config)|5.537109315392728e-05|
 |pypi|[natsort](https://github.com/SethMMorton/natsort)|5.527654400327435e-05|
-|cran|[git2r](https://docs.ropensci.org/git2r/ (website))|5.514448894238023e-05|
+|cran|[git2r](https://docs.ropensci.org/git2r/)|5.514448894238023e-05|
 |pypi|[google-api-core](https://github.com/googleapis/python-api-core)|5.4679326188828995e-05|
 |pypi|[nbsphinx](https://nbsphinx.readthedocs.io/)|5.453463639876933e-05|
 |pypi|[nanopack](https://github.com/wdecoster/nanopack)|5.421686746987952e-05|
@@ -1330,7 +1309,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |pypi|[flake8-polyfill](https://pypi.org/project/flake8-polyfill)|5.140216535904892e-05|
 |npm|coffee-script|5.1336596385542165e-05|
 |npm|cross-env|5.1293798821660266e-05|
-|cran|[rbibutils](https://geobosh.github.io/rbibutils/ (website))|5.1262822719449226e-05|
+|cran|[rbibutils](https://geobosh.github.io/rbibutils/)|5.1262822719449226e-05|
 |cran|[remotes](https://remotes.r-lib.org)|5.1133814700554035e-05|
 |pypi|[pooch>=1.1.1](https://pypi.org/project/pooch>=1.1.1)|5.1118760757314967e-05|
 |pypi|[pandas>=0.25.1](https://pypi.org/project/pandas>=0.25.1)|5.1118760757314967e-05|
@@ -1516,7 +1495,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |pypi|[sphinxcontrib-napoleon](https://pypi.org/project/sphinxcontrib-napoleon)|3.90243175612712e-05|
 |cran|RandomFieldsUtils|3.8775917548970777e-05|
 |cran|biglm|3.876299806179348e-05|
-|cran|[jqr](https://docs.ropensci.org/jqr/ (docs))|3.865515121711337e-05|
+|cran|[jqr](https://docs.ropensci.org/jqr/)|3.865515121711337e-05|
 |npm|[form-data](https://github.com/form-data/form-data#readme)|3.864994785437149e-05|
 |cran|websocket|3.860318416523235e-05|
 |cran|[base64url](https://github.com/mllg/base64url)|3.8549709710950415e-05|
@@ -1769,8 +1748,7 @@ https://github.com/r-lib/credentials)|6.002378194095064e-05|
 |pypi|[jaraco.context](https://pypi.org/project/jaraco.context)|2.7320214769926923e-05|
 |pypi|[jaraco.functools](https://pypi.org/project/jaraco.functools)|2.7320214769926923e-05|
 |pypi|[types-toml](https://pypi.org/project/types-toml)|2.7236102109608225e-05|
-|cran|[beautier](https://docs.ropensci.org/beautier/ (website)
-https://github.com/ropensci/beautier/)|2.714302184815818e-05|
+|cran|[beautier](https://docs.ropensci.org/beautier/)|2.714302184815818e-05|
 |pypi|[tangle](https://github.com/fifman/tangle)|2.710843373493976e-05|
 |cran|[heatmaply](https://talgalili.github.io/heatmaply/)|2.7044878076900904e-05|
 |pypi|[zope.interface](https://pypi.org/project/zope.interface)|2.7027107289879215e-05|
@@ -1870,11 +1848,9 @@ https://github.com/ropensci/beautier/)|2.714302184815818e-05|
 |cran|[natserv](https://docs.ropensci.org/natserv)|2.2632776001967053e-05|
 |cran|[worrms](https://docs.ropensci.org/worrms)|2.2632776001967053e-05|
 |cran|[rotl](https://docs.ropensci.org/rotl/)|2.2632776001967053e-05|
-|cran|[rredlist](https://github.com/ropensci/rredlist (devel)
-https://docs.ropensci.org/rredlist/ (docs))|2.2632776001967053e-05|
-|cran|[bold](https://docs.ropensci.org/bold/ (documentation)
-https://github.com/ropensci/bold (source))|2.2632776001967053e-05|
-|cran|[ritis](https://github.com/ropensci/ritis (devel))|2.2632776001967047e-05|
+|cran|[rredlist](https://github.com/ropensci/rredlist)|2.2632776001967053e-05|
+|cran|[bold](https://docs.ropensci.org/bold/)|2.2632776001967053e-05|
+|cran|[ritis](https://github.com/ropensci/ritis)|2.2632776001967047e-05|
 |pypi|[pygments~=2.7](https://pypi.org/project/pygments~=2.7)|2.2609745433346285e-05|
 |pypi|[sphinx~=4.0](https://pypi.org/project/sphinx~=4.0)|2.2609745433346285e-05|
 |npm|babel-core|2.2479939934692714e-05|
@@ -1990,8 +1966,7 @@ https://github.com/ropensci/bold (source))|2.2632776001967053e-05|
 |pypi|[hyperlink](https://pypi.org/project/hyperlink)|1.9971266411573092e-05|
 |pypi|[incremental](https://pypi.org/project/incremental)|1.9971266411573092e-05|
 |pypi|[txaio](https://pypi.org/project/txaio)|1.9971266411573092e-05|
-|cran|[beastier](https://docs.ropensci.org/beastier/ (website)
-https://github.com/ropensci/beastier/)|1.987951807228916e-05|
+|cran|[beastier](https://docs.ropensci.org/beastier/)|1.987951807228916e-05|
 |pypi|[mkdocs-material-extensions](https://pypi.org/project/mkdocs-material-extensions)|1.9879518072289157e-05|
 |pypi|[mkl](https://pypi.org/project/mkl)|1.9879518072289157e-05|
 |cran|shapefiles|1.9879518072289157e-05|
@@ -2168,9 +2143,7 @@ https://github.com/ropensci/beastier/)|1.987951807228916e-05|
 |pypi|[json5](https://pypi.org/project/json5)|1.694277108433735e-05|
 |pypi|[mmtf-python](https://github.com/rcsb/mmtf-python.git)|1.6940568340534412e-05|
 |cran|[origami](https://tlverse.org/origami/)|1.6893661602933492e-05|
-|cran|[RNetCDF](https://github.com/mjwoods/RNetCDF
-https://www.unidata.ucar.edu/software/netcdf/
-https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
+|cran|[RNetCDF](https://github.com/mjwoods/RNetCDF)|1.6851427448926178e-05|
 |cran|glmmTMB|1.684052278958985e-05|
 |cran|fixest|1.684052278958985e-05|
 |cran|cplm|1.684052278958985e-05|
@@ -2330,7 +2303,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |pypi|[pyemd](https://pypi.org/project/pyemd)|1.357778941854374e-05|
 |pypi|[Morfessor](https://pypi.org/project/Morfessor)|1.357778941854374e-05|
 |pypi|[Pyro4](https://pypi.org/project/Pyro4)|1.357778941854374e-05|
-|cran|[solrium](https://github.com/ropensci/solrium (devel))|1.353334767641998e-05|
+|cran|[solrium](https://github.com/ropensci/solrium)|1.353334767641998e-05|
 |cran|party|1.3519201664052584e-05|
 |npm|accepts|1.3507050178736925e-05|
 |cran|[haven](https://haven.tidyverse.org)|1.3424210676698908e-05|
@@ -2398,7 +2371,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |pypi|[skrebate](https://github.com/EpistasisLab/scikit-rebate)|1.26293408929837e-05|
 |pypi|[dask-ml](https://pypi.org/project/dask-ml)|1.26293408929837e-05|
 |pypi|[update-checker](https://pypi.org/project/update-checker)|1.26293408929837e-05|
-|cran|[wordcloud](http://blog.fellstat.com/?cat=11 http://www.fellstat.com)|1.2505845284799463e-05|
+|cran|[wordcloud](http://blog.fellstat.com/?cat=11)|1.2505845284799463e-05|
 |cran|clusterGeneration|1.2501870837386813e-05|
 |cran|[mlr3misc](https://mlr3misc.mlr-org.com)|1.2480154732642935e-05|
 |cran|bs4Dash|1.2473978213532174e-05|
@@ -3499,7 +3472,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|brglm|9.759036144578313e-06|
 |cran|[robustbase](http://robustbase.r-forge.r-project.org/)|9.720309810671263e-06|
 |pypi|[flake8-docstrings](https://pypi.org/project/flake8-docstrings)|9.709156626506024e-06|
-|cran|[gistr](https://github.com/ropensci/gistr (devel))|9.707009857612272e-06|
+|cran|[gistr](https://github.com/ropensci/gistr)|9.707009857612272e-06|
 |pypi|[kazoo](https://pypi.org/project/kazoo)|9.691265060240964e-06|
 |pypi|[softlayer-messaging](https://pypi.org/project/softlayer-messaging)|9.691265060240964e-06|
 |pypi|[pytest-celery](https://pypi.org/project/pytest-celery)|9.691265060240964e-06|
@@ -3696,7 +3669,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |cran|[rvertnet](https://github.com/ropensci/rvertnet)|7.530120481927717e-06|
 |cran|[rebird](https://docs.ropensci.org/rebird/)|7.530120481927717e-06|
 |cran|[rbison](https://github.com/ropensci/rbison)|7.530120481927717e-06|
-|cran|[rgbif](https://github.com/ropensci/rgbif (devel))|7.530120481927717e-06|
+|cran|[rgbif](https://github.com/ropensci/rgbif)|7.530120481927717e-06|
 |pypi|[Keras](https://github.com/keras-team/keras)|7.507087172218284e-06|
 |cran|rnaturalearthhires|7.506950880444857e-06|
 |npm|imagemin-svgo|7.506950880444857e-06|
@@ -3786,8 +3759,7 @@ https://www.unidata.ucar.edu/software/udunits/)|1.6851427448926178e-05|
 |pypi|[channels](https://pypi.org/project/channels)|6.649407547545554e-06|
 |pypi|[pydeck](https://pypi.org/project/pydeck)|6.64156626506024e-06|
 |cran|[tiff](https://www.rforge.net/tiff/)|6.62650602409639e-06|
-|cran|[mauricer](https://docs.ropensci.org/mauricer/ (website)
-https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
+|cran|[mauricer](https://docs.ropensci.org/mauricer/)|6.626506024096389e-06|
 |pypi|[typer-cli](https://pypi.org/project/typer-cli)|6.626506024096385e-06|
 |pypi|[pytest-coverage](https://pypi.org/project/pytest-coverage)|6.626506024096385e-06|
 |cran|wicket|6.626506024096385e-06|
@@ -3816,7 +3788,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |pypi|[holoviews](https://www.holoviews.org)|6.282691742580081e-06|
 |npm|babel-plugin-transform-runtime|6.256454388984508e-06|
 |npm|duplexer|6.246073580034422e-06|
-|cran|[geojsonio](https://github.com/ropensci/geojsonio (devel))|6.235505141656065e-06|
+|cran|[geojsonio](https://github.com/ropensci/geojsonio)|6.235505141656065e-06|
 |cran|[ggdendro](https://github.com/andrie/ggdendro)|6.220672162333548e-06|
 |cran|textdata|6.164408107518896e-06|
 |cran|mallet|6.164408107518896e-06|
@@ -3852,7 +3824,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |cran|batchtools|5.898318548920958e-06|
 |cran|BatchJobs|5.898318548920958e-06|
 |cran|BBmisc|5.898318548920958e-06|
-|cran|[ssh](https://docs.ropensci.org/ssh (website))|5.898318548920958e-06|
+|cran|[ssh](https://docs.ropensci.org/ssh)|5.898318548920958e-06|
 |pypi|[humanize](https://github.com/jmoiron/humanize)|5.873493975903609e-06|
 |pypi|[pytest-env](https://github.com/MobileDynasty/pytest-env)|5.758615461491482e-06|
 |cran|[mlr3pipelines](https://mlr3pipelines.mlr-org.com)|5.751702462022006e-06|
@@ -4184,8 +4156,7 @@ https://github.com/ropensci/mauricer/)|6.626506024096389e-06|
 |pypi|[tempora](https://pypi.org/project/tempora)|3.987727118150019e-06|
 |cran|[taxizedb](https://ropensci.github.io/taxizedb/)|3.975903614457886e-06|
 |pypi|[matchms](https://github.com/matchms/matchms)|3.975903614457855e-06|
-|cran|[redland](https://github.com/ropensci/redland-bindings/tree/master/R/redland
-https://github.com/ropensci/redland-bindings/tree/master/R)|3.975903614457855e-06|
+|cran|[redland](https://github.com/ropensci/redland-bindings/tree/master/R/redland)|3.975903614457855e-06|
 |cran|mlr3data|3.975903614457832e-06|
 |cran|reactR|3.975903614457832e-06|
 |pypi|[yatiml](https://github.com/yatiml/yatiml)|3.949924698795183e-06|
@@ -4283,8 +4254,7 @@ https://github.com/ropensci/redland-bindings/tree/master/R)|3.975903614457855e-0
 |pypi|[circuitgraph](https://github.com/circuitgraph/circuitgraph)|3.6144578313253287e-06|
 |pypi|[google-cloud-monitoring](https://github.com/googleapis/python-monitoring)|3.6144578313253287e-06|
 |cran|[rlist](https://renkun.me/rlist)|3.6144578313253287e-06|
-|cran|[CholWishart](https://github.com/gzt/CholWishart
-https://gzt.github.io/CholWishart/)|3.6144578313253287e-06|
+|cran|[CholWishart](https://github.com/gzt/CholWishart)|3.6144578313253287e-06|
 |npm|[node-minify](https://github.com/srod/node-minify)|3.6144578313253287e-06|
 |pypi|[tesliper](https://github.com/mishioo/tesliper)|3.6144578313253016e-06|
 |pypi|[pyplif-hippos](https://github.com/radifar/PyPLIF-HIPPOS)|3.6144578313253016e-06|
@@ -4413,8 +4383,7 @@ https://gzt.github.io/CholWishart/)|3.6144578313253287e-06|
 |pypi|[phonemizer](https://pypi.org/project/phonemizer)|2.9480421686747194e-06|
 |cran|[leafem](https://github.com/r-spatial/leafem)|2.948042168674704e-06|
 |pypi|[croniter](https://pypi.org/project/croniter)|2.9209337349397606e-06|
-|cran|[ghql](https://github.com/ropensci/ghql (devel)
-https://docs.ropensci.org/ghql (docs))|2.912418906394811e-06|
+|cran|[ghql](https://github.com/ropensci/ghql)|2.912418906394811e-06|
 |pypi|[dask-cudf](https://pypi.org/project/dask-cudf)|2.909197766676462e-06|
 |pypi|[cudf](https://pypi.org/project/cudf)|2.909197766676462e-06|
 |pypi|[spatialpandas](https://pypi.org/project/spatialpandas)|2.909197766676462e-06|
@@ -5041,8 +5010,7 @@ https://docs.ropensci.org/ghql (docs))|2.912418906394811e-06|
 |go|github.com/gorilla/mux|1.2524405924091624e-06|
 |go|golang.org/x/crypto|1.2524405924091624e-06|
 |cran|pheatmap|1.248414711477493e-06|
-|cran|[shinyalert](https://github.com/daattali/shinyalert
-https://daattali.com/shiny/shinyalert-demo/)|1.248414711477493e-06|
+|cran|[shinyalert](https://github.com/daattali/shinyalert)|1.248414711477493e-06|
 |npm|tslint-config-semistandard|1.2424698795180723e-06|
 |npm|optimist|1.2424698795180723e-06|
 |npm|eslint-plugin-dependencies|1.2424698795180723e-06|
@@ -5071,14 +5039,13 @@ https://daattali.com/shiny/shinyalert-demo/)|1.248414711477493e-06|
 |cran|[fitdistrplus](https://lbbe.univ-lyon1.fr/fr/fitdistrplus)|1.2048192771084378e-06|
 |cran|[kinship2](https://cran.r-project.org/package=kinship2)|1.2048192771084378e-06|
 |cran|[corrr](https://github.com/tidymodels/corrr)|1.2048192771084378e-06|
-|cran|[spocc](https://github.com/ropensci/spocc (devel))|1.2048192771084378e-06|
+|cran|[spocc](https://github.com/ropensci/spocc)|1.2048192771084378e-06|
 |cran|[RcppProgress](https://github.com/kforner/rcpp_progress)|1.2048192771084378e-06|
 |cran|[rematch](https://github.com/MangoTheCat/rematch)|1.2048192771084378e-06|
 |cran|treeman|1.2048192771084378e-06|
 |cran|[treemapify](https://wilkox.org/treemapify/)|1.2048192771084378e-06|
 |cran|[restez](https://github.com/ropensci/restez#readme)|1.2048192771084378e-06|
-|cran|[babette](https://docs.ropensci.org/babette/ (website)
-https://github.com/ropensci/babette/)|1.2048192771084378e-06|
+|cran|[babette](https://docs.ropensci.org/babette/)|1.2048192771084378e-06|
 |npm|[react-mdl](https://github.com/react-mdl/react-mdl#readme)|1.2048192771084378e-06|
 |npm|[react-sigma](https://github.com/dunnock/react-sigma)|1.2048192771084378e-06|
 |npm|[react-simple-file-input](https://github.com/greena13/react-simple-file-input#readme)|1.2048192771084378e-06|
@@ -5137,8 +5104,7 @@ https://github.com/ropensci/babette/)|1.2048192771084378e-06|
 |npm|[react-dnd-html5-backend](https://github.com/react-dnd/react-dnd#readme)|1.0843373493975903e-06|
 |cran|[cowsay](https://github.com/sckott/cowsay)|1.0843373493975803e-06|
 |cran|[rworldmap](https://github.com/AndySouth/rworldmap/)|1.0843373493975803e-06|
-|cran|[osmdata](https://docs.ropensci.org/osmdata/ (website)
-https://github.com/ropensci/osmdata/ (devel))|1.0843373493975803e-06|
+|cran|[osmdata](https://docs.ropensci.org/osmdata/)|1.0843373493975803e-06|
 |pypi|[pytest-lazy-fixture](https://github.com/tvorog/pytest-lazy-fixture)|1.0734939759036118e-06|
 |go|github.com/opencontainers/go-digest|1.0117314556507122e-06|
 |go|github.com/opencontainers/image-spec|1.0117314556507122e-06|
@@ -5160,10 +5126,8 @@ https://github.com/ropensci/osmdata/ (devel))|1.0843373493975803e-06|
 |cran|[haldensify](https://github.com/nhejazi/haldensify)|9.8576122672508e-07|
 |cran|lspline|9.8576122672508e-07|
 |cran|[sofa](https://github.com/ropensci/sofa)|9.8576122672508e-07|
-|cran|[elastic](https://docs.ropensci.org/elastic (website))|9.8576122672508e-07|
-|cran|[mongolite](https://github.com/jeroen/mongolite/ (devel)
-https://jeroen.github.io/mongolite/ (user manual)
-http://mongoc.org/ (upstream))|9.8576122672508e-07|
+|cran|[elastic](https://docs.ropensci.org/elastic)|9.8576122672508e-07|
+|cran|[mongolite](https://github.com/jeroen/mongolite/)|9.8576122672508e-07|
 |cran|pbs|9.8576122672508e-07|
 |cran|[keyATM](https://keyatm.github.io/keyATM/)|9.8576122672508e-07|
 |cran|[irr](https://www.r-project.org)|9.8576122672508e-07|
@@ -5264,9 +5228,8 @@ http://mongoc.org/ (upstream))|9.8576122672508e-07|
 |cran|[dplR](https://github.com/AndyBunn/dplR)|6.777108433734953e-07|
 |cran|[lunar](http://statistics.lazaridis.eu)|6.777108433734953e-07|
 |cran|[sortable](https://rstudio.github.io/sortable/)|6.777108433734953e-07|
-|cran|[rplos](https://docs.ropensci.org/rplos (website)
-https://github.com/ropensci/rplos)|6.777108433734953e-07|
-|cran|[microdemic](https://github.com/ropensci/microdemic (devel))|6.777108433734953e-07|
+|cran|[rplos](https://docs.ropensci.org/rplos)|6.777108433734953e-07|
+|cran|[microdemic](https://github.com/ropensci/microdemic)|6.777108433734953e-07|
 |cran|[aRxiv](https://docs.ropensci.org/aRxiv/)|6.777108433734953e-07|
 |cran|[codemeta](https://github.com/cboettig/codemeta)|6.777108433734953e-07|
 |cran|[osmextract](https://docs.ropensci.org/osmextract/)|6.777108433734953e-07|
@@ -5302,7 +5265,7 @@ https://github.com/ropensci/rplos)|6.777108433734953e-07|
 |cran|smoother|6.024096385542189e-07|
 |cran|[ptw](https://github.com/rwehrens/ptw)|6.024096385542189e-07|
 |cran|[dataRetrieval](https://pubs.usgs.gov/tm/04/a10/)|6.024096385542189e-07|
-|cran|[rnoaa](https://docs.ropensci.org/rnoaa/ (docs))|6.024096385542189e-07|
+|cran|[rnoaa](https://docs.ropensci.org/rnoaa/)|6.024096385542189e-07|
 |npm|[nunjucks](https://github.com/mozilla/nunjucks#readme)|6.024096385542189e-07|
 |npm|[xml-js](https://github.com/nashwaan/xml-js#readme)|6.024096385542189e-07|
 |go|github.com/bradfitz/gomemcache|6.024096385542169e-07|
@@ -5324,8 +5287,7 @@ https://github.com/ropensci/rplos)|6.777108433734953e-07|
 |pypi|[chart-studio](https://plot.ly/python/)|5.707038681039977e-07|
 |pypi|[markov-clustering](https://github.com/guyallard/markov_clustering.git)|5.707038681039977e-07|
 |cran|[rvcheck](https://github.com/GuangchuangYu/rvcheck)|5.707038681039977e-07|
-|cran|[nabor](https://github.com/jefferis/nabor
-https://github.com/ethz-asl/libnabo)|5.707038681039977e-07|
+|cran|[nabor](https://github.com/jefferis/nabor)|5.707038681039977e-07|
 |cran|shinyhelper|5.707038681039977e-07|
 |cran|[bsplus](https://github.com/ijlyttle/bsplus)|5.707038681039977e-07|
 |cran|[turner](http://www.gastonsanchez.com)|5.707038681039977e-07|
