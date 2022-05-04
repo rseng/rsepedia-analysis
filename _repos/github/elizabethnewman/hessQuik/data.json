@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/elizabethnewman/hessQuik": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "torch": {
+            "credit": 0.0099,
+            "url": "https://pytorch.org/"
+        },
+        "typing-extensions": {
+            "credit": 0.009801,
+            "url": "https://typing.readthedocs.io/"
+        }
+    }
+}

@@ -7635,6 +7635,75 @@
             "wordembedding",
             "bias-detection",
             "textanalysis"
+        ],
+        "github/INCEPTdk/adaptr": [],
+        "github/andreaminio/haplosync": [],
+        "github/Heldenkombinat/Logodetect": [
+            "one-shot-learning",
+            "logo-detection",
+            "object-detection",
+            "image-processing",
+            "video-processing",
+            "small-dataset"
+        ],
+        "github/RWTH-EBC/AixCaliBuHA": [],
+        "github/CityU-AIM-Group/HTD": [
+            "object-detection",
+            "faster-rcnn",
+            "graph",
+            "mmdetection"
+        ],
+        "github/BenNordick/HiLoop": [
+            "network-analysis",
+            "bioinformatics",
+            "enrichment-analysis"
+        ],
+        "github/FarnazFouladi/HashSeq_Manuscript": [],
+        "github/liulizhi1996/HPODNets": [
+            "graph-convolutional-network",
+            "human-phenotype-ontology"
+        ],
+        "github/biobakery/halla": [],
+        "github/elizabethnewman/hessQuik": [
+            "neural-network",
+            "derivatives",
+            "gpu-acceleration"
+        ],
+        "github/DKMS/hapl-o-Mat_WinBin": [],
+        "github/mithun218/GiNaCDE": [],
+        "github/rhysf/HaplotypeTools": [],
+        "github/tumcms/Open-Infra-Platform": [
+            "ifc",
+            "infrastructure",
+            "boost",
+            "point-cloud",
+            "building-information-modelling",
+            "okstra"
+        ],
+        "github/atmos-cloud-sim-uj/PySDM": [
+            "physics-simulation",
+            "monte-carlo-simulation",
+            "gpu-computing",
+            "atmospheric-modelling",
+            "particle-system",
+            "numba",
+            "thrust",
+            "nvrtc",
+            "pint",
+            "atmospheric-physics",
+            "python",
+            "simulation",
+            "gpu",
+            "cuda",
+            "research",
+            "pypi-package"
+        ],
+        "github/dgbowl/yadg": [
+            "parser",
+            "data-science",
+            "electrochemistry",
+            "chromatography",
+            "catalysis"
         ]
     },
     "language": {
@@ -9223,7 +9292,23 @@
         "github/spokenlanguage/platalea": "Python",
         "github/laurazara/IgIDivA": "R",
         "github/lasseignelab/CINmetrics": "R",
-        "github/chainsawriot/sweater": "R"
+        "github/chainsawriot/sweater": "R",
+        "github/INCEPTdk/adaptr": "R",
+        "github/andreaminio/haplosync": "Python",
+        "github/Heldenkombinat/Logodetect": "Jupyter Notebook",
+        "github/RWTH-EBC/AixCaliBuHA": "Python",
+        "github/CityU-AIM-Group/HTD": "Python",
+        "github/BenNordick/HiLoop": "Python",
+        "github/FarnazFouladi/HashSeq_Manuscript": "R",
+        "github/liulizhi1996/HPODNets": "Python",
+        "github/biobakery/halla": "Python",
+        "github/elizabethnewman/hessQuik": "Python",
+        "github/DKMS/hapl-o-Mat_WinBin": null,
+        "github/mithun218/GiNaCDE": "C++",
+        "github/rhysf/HaplotypeTools": "Perl",
+        "github/tumcms/Open-Infra-Platform": "C++",
+        "github/atmos-cloud-sim-uj/PySDM": "Python",
+        "github/dgbowl/yadg": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -10811,7 +10896,23 @@
         "github/spokenlanguage/platalea": "https://github.com/spokenlanguage/platalea",
         "github/laurazara/IgIDivA": "https://github.com/laurazara/IgIDivA",
         "github/lasseignelab/CINmetrics": "https://github.com/lasseignelab/CINmetrics",
-        "github/chainsawriot/sweater": "https://github.com/chainsawriot/sweater"
+        "github/chainsawriot/sweater": "https://github.com/chainsawriot/sweater",
+        "github/INCEPTdk/adaptr": "https://github.com/INCEPTdk/adaptr",
+        "github/andreaminio/haplosync": "https://github.com/andreaminio/HaploSync",
+        "github/Heldenkombinat/Logodetect": "https://github.com/Heldenkombinat/Logodetect",
+        "github/RWTH-EBC/AixCaliBuHA": "https://github.com/RWTH-EBC/AixCaliBuHA",
+        "github/CityU-AIM-Group/HTD": "https://github.com/CityU-AIM-Group/HTD",
+        "github/BenNordick/HiLoop": "https://github.com/BenNordick/HiLoop",
+        "github/FarnazFouladi/HashSeq_Manuscript": "https://github.com/FarnazFouladi/HashSeq_Manuscript",
+        "github/liulizhi1996/HPODNets": "https://github.com/liulizhi1996/HPODNets",
+        "github/biobakery/halla": "https://github.com/biobakery/halla",
+        "github/elizabethnewman/hessQuik": "https://github.com/elizabethnewman/hessQuik",
+        "github/DKMS/hapl-o-Mat_WinBin": "https://github.com/DKMS/Hapl-o-Mat_WinBin",
+        "github/mithun218/GiNaCDE": "https://github.com/mithun218/GiNaCDE",
+        "github/rhysf/HaplotypeTools": "https://github.com/rhysf/HaplotypeTools",
+        "github/tumcms/Open-Infra-Platform": "https://github.com/tumcms/Open-Infra-Platform",
+        "github/atmos-cloud-sim-uj/PySDM": "https://github.com/atmos-cloud-sim-uj/PySDM",
+        "github/dgbowl/yadg": "https://github.com/dgbowl/yadg"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -12399,6 +12500,22 @@
         "github/spokenlanguage/platalea": "Library for training visually-grounded models of spoken language understanding.",
         "github/laurazara/IgIDivA": null,
         "github/lasseignelab/CINmetrics": "CINmetrics R package",
-        "github/chainsawriot/sweater": " Speedy Word Embedding Association Test & Extras using R"
+        "github/chainsawriot/sweater": " Speedy Word Embedding Association Test & Extras using R",
+        "github/INCEPTdk/adaptr": "Adaptive Trial Simulator",
+        "github/andreaminio/haplosync": "Tools for haplotype-wise reconstruction of pseudomolecules",
+        "github/Heldenkombinat/Logodetect": "Find logos in images and videos in just one-shot. Never be embarrassed again to say that you have a small data situation!",
+        "github/RWTH-EBC/AixCaliBuHA": "Wield this tool to be King Arthur of your models.",
+        "github/CityU-AIM-Group/HTD": "[TIP' 21] HTD: Heterogeneous Task Decoupling for Two-stage Object Detection",
+        "github/BenNordick/HiLoop": null,
+        "github/FarnazFouladi/HashSeq_Manuscript": null,
+        "github/liulizhi1996/HPODNets": "HPODNets: deep graph convolutional networks for predicting human protein-phenotype associations",
+        "github/biobakery/halla": null,
+        "github/elizabethnewman/hessQuik": "Computing gradients and Hessians of feed-forward networks with GPU acceleration",
+        "github/DKMS/hapl-o-Mat_WinBin": "Windows binary version of the Graphical User Interface to Hapl-o-Mat. Includes also a binary version of the command line interface.",
+        "github/mithun218/GiNaCDE": "GiNaC Differential Equation Solver",
+        "github/rhysf/HaplotypeTools": "A toolkit for identifying recombination and recombinant genotypes",
+        "github/tumcms/Open-Infra-Platform": "This is the official repository of the open-source Open Infra Platform software (as of April 2020).",
+        "github/atmos-cloud-sim-uj/PySDM": "Pythonic particle-based (super-droplet) warm-rain/aqueous-chemistry cloud microphysics package with box, parcel & 1D/2D prescribed-flow examples in Python, Julia and Matlab",
+        "github/dgbowl/yadg": "yadg: yet another datagram"
     }
 }
