@@ -7704,7 +7704,51 @@
             "electrochemistry",
             "chromatography",
             "catalysis"
-        ]
+        ],
+        "github/GOVS-pack/GOVS": [],
+        "github/TheMillerLab/genetex": [],
+        "github/infer-actively/pymdp": [],
+        "github/yangfangs/test_GFICLEE": [],
+        "github/cgre-aachen/gemgis": [
+            "spatial-data",
+            "processing",
+            "geographic",
+            "geographic-data",
+            "vector-data",
+            "raster-data",
+            "geomodeling",
+            "modeling",
+            "visualization",
+            "python",
+            "jupyter",
+            "jupyter-notebook",
+            "notebooks",
+            "geospatial"
+        ],
+        "github/uw-comphys/opencmp": [
+            "finite-element-methods",
+            "computational-fluid-dynamics",
+            "simulation",
+            "modeling"
+        ],
+        "github/JuliaOcean/PlanktonIndividuals.jl": [],
+        "github/KerryAM-R/ggVolcanoR": [],
+        "github/AP6YC/AdaptiveResonance.jl": [
+            "julia",
+            "machine-learning"
+        ],
+        "github/thejackal360/OpenPelt-Public": [],
+        "github/lilyminium/psiresp": [
+            "psi4",
+            "atomic-charges",
+            "python",
+            "molecular-dynamics"
+        ],
+        "github/dsoave/JLS": [],
+        "github/R-Vessel-X/SlicerRVXLiverSegmentation": [
+            "3d-slicer-extension"
+        ],
+        "github/JLSteenwyk/ggpubfigs": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -9308,7 +9352,21 @@
         "github/rhysf/HaplotypeTools": "Perl",
         "github/tumcms/Open-Infra-Platform": "C++",
         "github/atmos-cloud-sim-uj/PySDM": "Python",
-        "github/dgbowl/yadg": "Python"
+        "github/dgbowl/yadg": "Python",
+        "github/GOVS-pack/GOVS": "R",
+        "github/TheMillerLab/genetex": "R",
+        "github/infer-actively/pymdp": "Python",
+        "github/yangfangs/test_GFICLEE": "Python",
+        "github/cgre-aachen/gemgis": "Python",
+        "github/uw-comphys/opencmp": "Python",
+        "github/JuliaOcean/PlanktonIndividuals.jl": "Julia",
+        "github/KerryAM-R/ggVolcanoR": "R",
+        "github/AP6YC/AdaptiveResonance.jl": "Julia",
+        "github/thejackal360/OpenPelt-Public": "Python",
+        "github/lilyminium/psiresp": "Python",
+        "github/dsoave/JLS": "R",
+        "github/R-Vessel-X/SlicerRVXLiverSegmentation": "Python",
+        "github/JLSteenwyk/ggpubfigs": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -10912,7 +10970,21 @@
         "github/rhysf/HaplotypeTools": "https://github.com/rhysf/HaplotypeTools",
         "github/tumcms/Open-Infra-Platform": "https://github.com/tumcms/Open-Infra-Platform",
         "github/atmos-cloud-sim-uj/PySDM": "https://github.com/atmos-cloud-sim-uj/PySDM",
-        "github/dgbowl/yadg": "https://github.com/dgbowl/yadg"
+        "github/dgbowl/yadg": "https://github.com/dgbowl/yadg",
+        "github/GOVS-pack/GOVS": "https://github.com/GOVS-pack/GOVS",
+        "github/TheMillerLab/genetex": "https://github.com/TheMillerLab/genetex",
+        "github/infer-actively/pymdp": "https://github.com/infer-actively/pymdp",
+        "github/yangfangs/test_GFICLEE": "https://github.com/yangfangs/test_GFICLEE",
+        "github/cgre-aachen/gemgis": "https://github.com/cgre-aachen/gemgis",
+        "github/uw-comphys/opencmp": "https://github.com/uw-comphys/opencmp",
+        "github/JuliaOcean/PlanktonIndividuals.jl": "https://github.com/JuliaOcean/PlanktonIndividuals.jl",
+        "github/KerryAM-R/ggVolcanoR": "https://github.com/KerryAM-R/ggVolcanoR",
+        "github/AP6YC/AdaptiveResonance.jl": "https://github.com/AP6YC/AdaptiveResonance.jl",
+        "github/thejackal360/OpenPelt-Public": "https://github.com/thejackal360/OpenPelt-Public",
+        "github/lilyminium/psiresp": "https://github.com/lilyminium/psiresp",
+        "github/dsoave/JLS": "https://github.com/dsoave/JLS",
+        "github/R-Vessel-X/SlicerRVXLiverSegmentation": "https://github.com/R-Vessel-X/SlicerRVXLiverSegmentation",
+        "github/JLSteenwyk/ggpubfigs": "https://github.com/JLSteenwyk/ggpubfigs"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -12516,6 +12588,20 @@
         "github/rhysf/HaplotypeTools": "A toolkit for identifying recombination and recombinant genotypes",
         "github/tumcms/Open-Infra-Platform": "This is the official repository of the open-source Open Infra Platform software (as of April 2020).",
         "github/atmos-cloud-sim-uj/PySDM": "Pythonic particle-based (super-droplet) warm-rain/aqueous-chemistry cloud microphysics package with box, parcel & 1D/2D prescribed-flow examples in Python, Julia and Matlab",
-        "github/dgbowl/yadg": "yadg: yet another datagram"
+        "github/dgbowl/yadg": "yadg: yet another datagram",
+        "github/GOVS-pack/GOVS": "Genome optimization via virtual simulation",
+        "github/TheMillerLab/genetex": null,
+        "github/infer-actively/pymdp": "A Python implementation of active inference for Markov Decision Processes",
+        "github/yangfangs/test_GFICLEE": "test GFICLEE model",
+        "github/cgre-aachen/gemgis": "Spatial data processing for geomodeling",
+        "github/uw-comphys/opencmp": "OpenCMP is a computational multiphysics software package based on the finite element method. It is primarily intended for physicochemical processes involving significant convective flow.",
+        "github/JuliaOcean/PlanktonIndividuals.jl": "This package simulates the behaviors of an ensemble of phytoplankton individuals.",
+        "github/KerryAM-R/ggVolcanoR": null,
+        "github/AP6YC/AdaptiveResonance.jl": "A Julia package for Adaptive Resonance Theory (ART) algorithms.",
+        "github/thejackal360/OpenPelt-Public": null,
+        "github/lilyminium/psiresp": "RESP with inter- and intra-molecular constraints in Psi4.",
+        "github/dsoave/JLS": "JLS",
+        "github/R-Vessel-X/SlicerRVXLiverSegmentation": "3D Slicer plugin for Liver Anatomy Annotation by R-Vessel-X",
+        "github/JLSteenwyk/ggpubfigs": "colorblind friendly color palettes and ggplot2 graphic system extensions for publication-quality scientific figures"
     }
 }

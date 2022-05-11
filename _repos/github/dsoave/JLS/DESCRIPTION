@@ -1,0 +1,14 @@
+Package: JLS
+Type: Package
+Title: Joint Location Scale (JLS) Test
+Version: 1.1.0
+Author: David Soave <david.soave@mail.utoronto.ca>
+Maintainer: David Soave <david.soave@mail.utoronto.ca>
+Description: Joint Location Scale (JLS) test to simultaneously test for mean and
+    variance differences between genotype groups.
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 5.0.1
+Imports: quantreg
+URL: http://github.com/dsoave/JLS
+BugReports: http://github.com/dsoave/JLS/issues
