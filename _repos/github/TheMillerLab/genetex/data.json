@@ -1,0 +1,210 @@
+{
+    "DESCRIPTION": {
+        "github/TheMillerLab/genetex": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "dplyr": {
+            "credit": 0.0019800000000000095,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "tidyr": {
+            "credit": 0.20394,
+            "url": "https://tidyr.tidyverse.org"
+        },
+        "readr": {
+            "credit": 0.0019800000000000373,
+            "url": "https://readr.tidyverse.org"
+        },
+        "stringr": {
+            "credit": 0.0019799999999999818,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "magrittr": {
+            "credit": 0.02752200000000004,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "withr": {
+            "credit": 0.014107499999999999,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.06637950000000001,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.06637950000000001,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.06637950000000001,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "dbplyr": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.06637950000000001,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.014107499999999999,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.014107499999999999,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0467775,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.014107499999999999,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.014107499999999999,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.014107499999999999,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.025542000000000002,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.00594,
+            "url": null
+        },
+        "R": {
+            "credit": 0.06637950000000001,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.027769500000000003,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.019602,
+            "url": null
+        }
+    }
+}
