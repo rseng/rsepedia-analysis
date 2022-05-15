@@ -155,14 +155,10 @@ def main():
 
     # Write results, changing round to include most
     global_cli.round_by = 100
-    content = (
-        header
-        % (
-            "RSEPedia Top Dependencies",
-            "dependencies",
-        )
-        + global_cli.render(start_end_blocks=False, data=roots)
-    )
+    content = header % (
+        "RSEPedia Top Dependencies",
+        "dependencies",
+    ) + global_cli.render(start_end_blocks=False, data=roots)
     write_json(meta, meta_json)
 
     # Write language counts
@@ -185,12 +181,14 @@ def main():
     python_deps = len(
         set(roots["pypi"]).union(roots["requirements.txt"]).union(roots["pypi"])
     )
+    cpp_deps = len(set(roots["spack"]))
     r_deps = len(set(roots["DESCRIPTION"]).union(roots["cran"]))
     js_deps = len(set(roots["npm"]).union(roots["package.json"]))
     go_deps = len(set(roots["go"]).union(roots["go.mod"]))
 
     stats = {
         "python_deps": python_deps,
+        "cpp_deps": cpp_deps,
         "r_deps": r_deps,
         "js_deps": js_deps,
         "go_deps": go_deps,
@@ -208,14 +206,10 @@ def main():
     data = global_cli.load_datafiles(
         data_files, includes=["setup.py", "requirements.txt", "pypi"]
     )
-    content = (
-        header
-        % (
-            "RSEPedia Top Python Dependencies",
-            "python",
-        )
-        + global_cli.render(start_end_blocks=False, data=data)
-    )
+    content = header % (
+        "RSEPedia Top Python Dependencies",
+        "python",
+    ) + global_cli.render(start_end_blocks=False, data=data)
     write_file(os.path.join("pages", "python.md"), content)
     repos_counts["Python"] = count_repos(data)
 
@@ -226,6 +220,14 @@ def main():
     )
     write_file(os.path.join("pages", "r.md"), content)
     repos_counts["R"] = count_repos(data)
+
+    # Cpp
+    data = global_cli.load_datafiles(data_files, includes=["spack"])
+    content = header % ("RSEPedia Top Spack (C++) Dependencies", "cpp") + global_cli.render(
+        start_end_blocks=False, data=data
+    )
+    write_file(os.path.join("pages", "cpp.md"), content)
+    repos_counts["Cpp"] = count_repos(data)
 
     # Javascript
     data = global_cli.load_datafiles(data_files, includes=["package.json", "npm"])

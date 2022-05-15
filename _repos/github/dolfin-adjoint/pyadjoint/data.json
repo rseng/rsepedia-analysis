@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/dolfin-adjoint/pyadjoint": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.0099,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.009801,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

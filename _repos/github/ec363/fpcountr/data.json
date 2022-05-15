@@ -1,0 +1,54 @@
+{
+    "DESCRIPTION": {
+        "github/ec363/fpcountr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "broom": {
+            "credit": 0.09,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "dplyr": {
+            "credit": 0.09,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.09,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.09,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.09,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.09,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.09,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.09,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.09,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.09,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.09,
+            "url": null
+        }
+    }
+}

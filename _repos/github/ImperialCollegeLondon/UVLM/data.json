@@ -1,0 +1,90 @@
+{
+    "CMakeLists.txt": {
+        "github/ImperialCollegeLondon/UVLM": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.cmake.org"
+        },
+        "blas": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.netlib.org/xblas"
+        },
+        "mkl": {
+            "credit": 0.001414285714285729,
+            "url": "https://software.intel.com/en-us/intel-mkl"
+        },
+        "lapack": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/mcg1969/vecLibFort"
+        },
+        "eigen3": {
+            "credit": 0.28285714285714286,
+            "url": null
+        },
+        "openmp": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.011667857142857141,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "python": {
+            "credit": 0.023219035714285713,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.1400142857142857,
+            "url": null
+        },
+        "cpio": {
+            "credit": 0.1400142857142857,
+            "url": null
+        }
+    }
+}

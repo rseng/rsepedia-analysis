@@ -1,0 +1,52 @@
+Package: orderly
+Title: Lightweight Reproducible Reporting
+Version: 1.4.8
+Description: Order, create and store reports from R.  By defining a
+    lightweight interface around the inputs and outputs of an
+    analysis, a lot of the repetitive work for reproducible research
+    can be automated.  We define a simple format for organising and
+    describing work that facilitates collaborative reproducible
+    research and acknowledges that all analyses are run multiple
+    times over their lifespans.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Authors@R: c(person("Rich", "FitzJohn", role = c("aut", "cre"),
+                    email = "rich.fitzjohn@gmail.com"),
+             person("Robert", "Ashton", role = "aut"),
+             person("Alex", "Hill", role = "aut"),
+             person("Martin", "Eden", role = "aut"),
+             person("Wes", "Hinsley", role = "aut"),
+             person("Emma", "Russell", role = "aut"),
+             person("James", "Thompson", role = "aut"),
+             person("Imperial College of Science, Technology and Medicine",
+                    role = "cph"))
+URL: https://www.vaccineimpact.org/orderly/, https://github.com/vimc/orderly
+BugReports: https://github.com/vimc/orderly/issues
+SystemRequirements: git
+Imports:
+    DBI,
+    R6,
+    RSQLite (>= 2.2.4),
+    crayon,
+    digest,
+    docopt,
+    fs (>= 1.2.7),
+    gert,
+    ids,
+    withr,
+    yaml,
+    zip (>= 2.0.0)
+Suggests:
+    httr,
+    jsonlite,
+    knitr,
+    markdown,
+    mockery,
+    processx,
+    rmarkdown,
+    testthat,
+    vaultr (>= 1.0.4)
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+Language: en-GB

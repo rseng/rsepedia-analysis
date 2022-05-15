@@ -1,0 +1,162 @@
+{
+    "DESCRIPTION": {
+        "github/vimc/vaultr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "R6": {
+            "credit": 0.004925250000000004,
+            "url": "https://r6.r-lib.org"
+        },
+        "getPass": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/wrathematics/getPass"
+        },
+        "httr": {
+            "credit": 0.2475,
+            "url": "https://httr.r-lib.org/"
+        },
+        "jsonlite": {
+            "credit": 0.24995024999999998,
+            "url": "https://arxiv.org/abs/1403.2805"
+        },
+        "pryr": {
+            "credit": 0.081675,
+            "url": "https://github.com/hadley/pryr"
+        },
+        "testthat": {
+            "credit": 0.021031312500000003,
+            "url": "https://testthat.r-lib.org"
+        },
+        "R": {
+            "credit": 0.20602518749999998,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0637065,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.0030628125000000035,
+            "url": "https://github.com/rstudio/rstudioapi"
+        },
+        "argon2": {
+            "credit": 0.0006125625000000037,
+            "url": "https://github.com/wrathematics/argon2"
+        },
+        "xml2": {
+            "credit": 0.0024502499999999997,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "vctrs": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0226648125,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0226648125,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "pkgload": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.0024502499999999997,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,286 @@
+{
+    "CMakeLists.txt": {
+        "github/jczarnowski/DeepFactors": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.08634378737541527,
+            "url": "https://www.cmake.org"
+        },
+        "cuda": {
+            "credit": 0.002335215946843861,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "jsoncpp": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/open-source-parsers/jsoncpp"
+        },
+        "sophus": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "visioncore": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "brisk": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "glog": {
+            "credit": 0.002335215946843861,
+            "url": "https://github.com/google/glog"
+        },
+        "opencv": {
+            "credit": 0.0007071428571428645,
+            "url": "https://opencv.org/"
+        },
+        "opengv": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "gtsam": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "eigen3": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "pangolin": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/stevenlovegrove/Pangolin"
+        },
+        "boost": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.boost.org"
+        },
+        "tensorflow": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "ninja": {
+            "credit": 5.83392857142857e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.005833928571428571,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.01912985880398671,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.007462001661129567,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "python": {
+            "credit": 0.05990901951827242,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "gflags": {
+            "credit": 0.03663164451827242,
+            "url": null
+        },
+        "java": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "ant": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "py-setuptools": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.013295930232558137,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "harfbuzz": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "py-jinja2": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "ceres-solver": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "clp": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "cudnn": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "eigen": {
+            "credit": 0.015629501661129568,
+            "url": null
+        },
+        "ffmpeg": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "gdal": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "gtkplus": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "hpx": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "ipp": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "jasper": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "lapack": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "onnx": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "opencl": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "openexr": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.015629501661129568,
+            "url": null
+        },
+        "openjpeg": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "protobuf": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "tbb": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "vtk": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "libwebp": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "tesseract": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "leptonica": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "libdc1394": {
+            "credit": 0.0016280730897009965,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "glu": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.011667857142857141,
+            "url": null
+        }
+    }
+}

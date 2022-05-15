@@ -1,0 +1,84 @@
+Package: sircovid
+Title: SIR Model for COVID-19
+Version: 0.13.15
+Authors@R:
+    c(person(given = "Marc",
+           family = "Baguelin",
+           role = c("aut", "cre"),
+           email = "m.baguelin@imperial.ac.uk"),
+      person(given = "Sangeeta",
+           family = "Bhatia",
+           role = c("ctb"),
+           email = "s.bathia@imperial.ac.uk"),
+      person(given = "Edward",
+           family = "Knock",
+           role = c("aut"),
+           email = "e.knock@imperial.ac.uk"),
+      person(given = "Lilith",
+           family = "Whittles",
+           role = c("aut"),
+           email = "l.whittles@imperial.ac.uk"),
+      person(given = "Rich",
+           family = "FitzJohn",
+           role = c("aut"),
+           email = "r.fitzjohn@imperial.ac.uk"),
+      person(given = "John",
+           family = "Lees",
+           role = c("aut"),
+           email = "j.lees@imperial.ac.uk"),
+      person(given = "OJ",
+           family = "Watson",
+           role = c("ctb"),
+           email = "o.watson15@imperial.ac.uk"),
+      person(given = "Anne",
+           family = "Cori",
+           role = c("aut"),
+           email = "a.cori@imperial.ac.uk"),
+      person(given = "Pablo",
+           family = "Perez-Guzman",
+           role = c("aut"),
+           email = "p.perez-guzman@imperial.ac.uk"),
+      person(given = "Raphael",
+           family = "Sonabend",
+           role = c("aut"),
+           email = "r.sonabend@imperial.ac.uk"),
+      person(given = "Yasin",
+           family = "Elmaci",
+           role = c("aut"),
+           email = "yasin.elmaci20@imperial.ac.uk"))
+Description: Mechanistic models of transmission of the SARS-Cov-2 (COVID-19)
+    virus implemented as stochastic compartmental models in odin and
+    dust. Uses mcstate to perfom Bayesian evidence synthesis from
+    several surveillance data streams through the estimation of
+    transmission parameters.
+License: MIT + file LICENSE
+URL: https://github.com/mrc-ide/sircovid, https://mrc-ide.github.io
+BugReports: https://github.com/mrc-ide/sircovid/issues
+Encoding: UTF-8
+LazyData: true
+Language: en-GB
+Depends: R (>= 3.1.0)
+Imports:
+    dust (>= 0.11.26),
+    eigen1 (>= 0.1.1),
+    mcstate (>= 0.8.4),
+    socialmixr
+LinkingTo:
+    cpp11 (>= 0.2.1),
+    dust (>= 0.11.26)
+Suggests:
+    EpiEstim,
+    distcrete,
+    mockery,
+    odin (>= 1.1.16),
+    odin.dust (>= 0.2.15),
+    testthat
+RoxygenNote: 7.1.2
+Roxygen: list(markdown = TRUE)
+SystemRequirements: C++11
+Remotes:
+    mrc-ide/dust,
+    mrc-ide/eigen1,
+    mrc-ide/mcstate,
+    mrc-ide/odin,
+    mrc-ide/odin.dust

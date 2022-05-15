@@ -1,0 +1,122 @@
+{
+    "CMakeLists.txt": {
+        "github/mp3guy/ElasticFusion": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.018719999999999997,
+            "url": "https://www.cmake.org"
+        },
+        "jpeg": {
+            "credit": 0.000899999999999998,
+            "url": "http://www.ijg.org"
+        },
+        "lapack": {
+            "credit": 0.09,
+            "url": "https://github.com/mcg1969/vecLibFort"
+        },
+        "blas": {
+            "credit": 0.000899999999999998,
+            "url": "https://www.netlib.org/xblas"
+        },
+        "zlib": {
+            "credit": 0.097425,
+            "url": "https://zlib.net"
+        },
+        "pangolin": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/stevenlovegrove/Pangolin"
+        },
+        "cuda": {
+            "credit": 0.000899999999999998,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "openni2": {
+            "credit": 0.09,
+            "url": null
+        },
+        "efusion": {
+            "credit": 0.09,
+            "url": null
+        },
+        "suitesparse": {
+            "credit": 0.09,
+            "url": null
+        },
+        "realsense": {
+            "credit": 0.09,
+            "url": null
+        },
+        "ninja": {
+            "credit": 7.424999999999966e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.007425,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.051975,
+            "url": null
+        },
+        "python": {
+            "credit": 0.01477575,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.007425,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.1782,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "glu": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "eigen": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.04455,
+            "url": null
+        }
+    }
+}

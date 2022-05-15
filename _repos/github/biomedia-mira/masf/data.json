@@ -1,0 +1,162 @@
+{
+    "requirements.txt": {
+        "github/biomedia-mira/masf": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "python": {
+            "credit": 0.165,
+            "url": "http://www.python.org/2.5"
+        },
+        "numpy": {
+            "credit": 0.1849903846153846,
+            "url": "https://www.numpy.org"
+        },
+        "tensorflow-gpu": {
+            "credit": 0.0031201500000000125,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorboard": {
+            "credit": 0.009075000000000014,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "matplotlib": {
+            "credit": 0.165,
+            "url": "https://matplotlib.org"
+        },
+        "skimage": {
+            "credit": 0.165,
+            "url": "https://github.com/scikit-image/scikit-image"
+        },
+        "wrapt": {
+            "credit": 0.007425,
+            "url": "https://github.com/GrahamDumpleton/wrapt"
+        },
+        "typing-extensions": {
+            "credit": 0.007425,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "termcolor": {
+            "credit": 0.007425,
+            "url": "http://pypi.python.org/pypi/termcolor"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.007425,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 7.424999999999966e-05,
+            "url": "https://github.com/tensorflow/io"
+        },
+        "six": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.019990384615384615,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.019990384615384615,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "packaging": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "keras": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/keras"
+        },
+        "h5py": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "grpcio": {
+            "credit": 0.019990384615384615,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "google-pasta": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.019990384615384615,
+            "url": "https://pypi.org/project/absl-py"
+        },
+        "wheel": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "werkzeug": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/werkzeug"
+        },
+        "tensorboard-plugin-wit": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/tensorboard-plugin-wit"
+        },
+        "tensorboard-data-server": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/tensorboard-data-server"
+        },
+        "requests": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/requests"
+        },
+        "markdown": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/markdown"
+        },
+        "google-auth-oauthlib": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/google-auth-oauthlib"
+        },
+        "google-auth": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/google-auth"
+        },
+        "tensorflow-rocm": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-rocm"
+        },
+        "tensorflow-cpu": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-cpu"
+        },
+        "tensorflow-aarch64": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-aarch64"
+        },
+        "tensorflow": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow"
+        }
+    }
+}

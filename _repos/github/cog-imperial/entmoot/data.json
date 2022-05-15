@@ -1,0 +1,122 @@
+{
+    "setup.py": {
+        "github/cog-imperial/entmoot": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.2679882857142857,
+            "url": "https://www.numpy.org"
+        },
+        "scikit-learn": {
+            "credit": 0.05473875000000002,
+            "url": "http://scikit-learn.org"
+        },
+        "pyYAML": {
+            "credit": 0.165,
+            "url": "https://pyyaml.org/"
+        },
+        "lightgbm": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/microsoft/LightGBM"
+        },
+        "mopti": {
+            "credit": 0.04248750000000001,
+            "url": "https://github.com/basf/mopti"
+        },
+        "mbo": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/basf/mbo"
+        },
+        "pyamg": {
+            "credit": 0.003928178571428571,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 0.007778571428571428,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/black"
+        },
+        "flake8": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0825695357142857,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "seaborn": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "scikit-image": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "pandas": {
+            "credit": 0.10170482142857143,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "threadpoolctl": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "scipy": {
+            "credit": 0.062150785714285714,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "dask": {
+            "credit": 0.06125625,
+            "url": "https://pypi.org/project/dask"
+        },
+        "wheel": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/wheel"
+        }
+    }
+}
