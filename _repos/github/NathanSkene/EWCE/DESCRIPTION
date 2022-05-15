@@ -1,0 +1,79 @@
+Package: EWCE
+Type: Package
+Title: Expression Weighted Celltype Enrichment
+Version: 1.5.1
+Authors@R:
+    c(person(given = "Alan",
+           family = "Murphy",
+           role = c("cre"),
+           email = "alanmurph94@hotmail.com",
+           comment = c(ORCID = "0000-0002-2487-8753")),
+     person(given = "Brian",
+           family = "Schilder",
+           role = c("aut"),
+           email = "brian_schilder@alumni.brown.edu",
+           comment = c(ORCID = "0000-0001-5949-2191")),
+     person(given = "Nathan",
+           family = "Skene",
+           role = c("aut"),
+           email = "nathan.skene@gmail.com",
+           comment = c(ORCID = "0000-0002-6807-3180")))      
+Description: Used to determine which cell types are enriched within gene lists. The package
+        provides tools for testing enrichments within simple gene lists (such as human disease
+        associated genes) and those resulting from differential expression studies. The package does
+        not depend upon any particular Single Cell Transcriptome dataset and user defined datasets
+        can be loaded in and used in the analyses.
+URL: https://github.com/NathanSkene/EWCE 
+BugReports: https://github.com/NathanSkene/EWCE/issues 
+License: GPL-3
+Depends: R (>= 4.1),
+         RNOmni (>= 1.0)
+VignetteBuilder: knitr
+Imports:
+    stats, 
+    utils,
+    methods,  
+    ewceData,
+    dplyr,
+    ggplot2,
+    reshape2, 
+    limma, 
+    stringr,
+    HGNChelper,  
+    Matrix, 
+    parallel,
+    SingleCellExperiment,
+    SummarizedExperiment,   
+    DelayedArray, 
+    BiocParallel,
+    orthogene (>= 0.99.8),
+    data.table
+Suggests: 
+    remotes, 
+    knitr, 
+    BiocStyle, 
+    rmarkdown, 
+    testthat (>= 3.0.0),  
+    readxl,  
+    memoise, 
+    markdown, 
+    sctransform,
+    DESeq2,  
+    MAST,
+    DelayedMatrixStats,
+    cowplot,
+    ggdendro,
+    grDevices, 
+    grid, 
+    gridExtra,
+    scales,
+    magick,
+    badger
+biocViews: GeneExpression, Transcription, DifferentialExpression,
+        GeneSetEnrichment, Genetics, Microarray,
+        mRNAMicroarray, OneChannel, RNASeq,
+        BiomedicalInformatics, Proteomics, Visualization,
+        FunctionalGenomics, SingleCell 
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+Config/testthat/edition: 3 

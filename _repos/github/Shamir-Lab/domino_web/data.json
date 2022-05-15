@@ -1,0 +1,306 @@
+{
+    "package.json": {
+        "github/Shamir-Lab/domino_web": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "fortawesome": {
+            "credit": 0.08081632653061224,
+            "url": null
+        },
+        "testing-library": {
+            "credit": 0.0006061224489795937,
+            "url": null
+        },
+        "axios": {
+            "credit": 0.02020408163265306,
+            "url": "https://axios-http.com"
+        },
+        "body-parser": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/expressjs/body-parser#readme"
+        },
+        "bootstrap": {
+            "credit": 0.02020408163265306,
+            "url": "https://getbootstrap.com/"
+        },
+        "bootstrap-icons": {
+            "credit": 0.02020408163265306,
+            "url": "https://icons.getbootstrap.com/"
+        },
+        "cdbreact": {
+            "credit": 0.02020408163265306,
+            "url": "https://www.devwares.com/product/contrast/"
+        },
+        "child_process": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "connect-timeout": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/expressjs/timeout#readme"
+        },
+        "cookie-parser": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/expressjs/cookie-parser#readme"
+        },
+        "cors": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/expressjs/cors#readme"
+        },
+        "csv-write-stream": {
+            "credit": 0.00020204081632652776,
+            "url": "https://github.com/maxogden/csv-write-stream"
+        },
+        "csv-writer": {
+            "credit": 0.00020204081632653123,
+            "url": "https://github.com/ryu1kn/csv-writer#readme"
+        },
+        "danfojs-node": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/opensource9ja/danfojs#readme"
+        },
+        "express": {
+            "credit": 0.022704336734693877,
+            "url": "http://expressjs.com/"
+        },
+        "express-fileupload": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/richardgirges/express-fileupload#readme"
+        },
+        "font-awesome": {
+            "credit": 0.02020408163265306,
+            "url": "http://fontawesome.io/"
+        },
+        "fs": {
+            "credit": 0.02020408163265306,
+            "url": "https://github.com/npm/security-holder#readme"
+        },
+        "jade": {
+            "credit": 0.02020408163265306,
+            "url": "http://jade-lang.com"
+        },
+        "js-cookie": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "mkdir-recursive": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "mongodb": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "mongoose": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "morgan": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "ncp": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "node-pre-gyp": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-bootstrap": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-bootstrap-drawer": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-collapsible": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-combo-select": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-icons": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-jsx-parser": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-pro-sidebar": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-router-dom": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-scripts": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "react-spinners": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "reactour": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "recharts": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "styled-components": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "util-promisifyall": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "web-vitals": {
+            "credit": 0.02020408163265306,
+            "url": null
+        },
+        "tslib": {
+            "credit": 0.060006122448979585,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.003928972303206997,
+            "url": null
+        },
+        "http-errors": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "ms": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.003928972303206997,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.006151421282798834,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.0014287172011661806,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.004722704081632653,
+            "url": null
+        },
+        "object-assign": {
+            "credit": 0.002500255102040816,
+            "url": null
+        },
+        "vary": {
+            "credit": 0.002500255102040816,
+            "url": null
+        },
+        "after": {
+            "credit": 0.002500255102040816,
+            "url": null
+        },
+        "concat-stream": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "argparse": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "generate-object-property": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "ndjson": {
+            "credit": 0.004000408163265306,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "tslint": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "ts-node": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "codeclimate-test-reporter": {
+            "credit": 0.0022224489795918366,
+            "url": null
+        },
+        "": {
+            "credit": 0.004444897959183673,
+            "url": null
+        }
+    }
+}

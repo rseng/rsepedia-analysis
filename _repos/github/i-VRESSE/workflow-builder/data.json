@@ -1,0 +1,178 @@
+{
+    "package.json": {
+        "github/i-VRESSE/workflow-builder": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "ltd": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/overlandjs/ltd#readme"
+        },
+        "rjsf": {
+            "credit": 0.0011000000000000038,
+            "url": "https://www.rjsf.io/"
+        },
+        "storybook": {
+            "credit": 0.055,
+            "url": "https://github.com/storybookjs/storybook/tree/main/lib/cli"
+        },
+        "ajv": {
+            "credit": 0.059188461538461544,
+            "url": "https://ajv.js.org"
+        },
+        "ajv-formats": {
+            "credit": 0.055,
+            "url": "https://github.com/ajv-validator/ajv-formats#readme"
+        },
+        "bootstrap": {
+            "credit": 0.055,
+            "url": "https://getbootstrap.com/"
+        },
+        "file-saver": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/eligrey/FileSaver.js#readme"
+        },
+        "js-yaml": {
+            "credit": 0.055,
+            "url": "https://github.com/nodeca/js-yaml#readme"
+        },
+        "react": {
+            "credit": 0.059188461538461544,
+            "url": "https://reactjs.org/"
+        },
+        "react-bootstrap": {
+            "credit": 0.055,
+            "url": "https://react-bootstrap.github.io/"
+        },
+        "react-bootstrap-icons": {
+            "credit": 0.055,
+            "url": "https://github.com/ismamz/react-bootstrap-icons#readme"
+        },
+        "react-dnd": {
+            "credit": 0.055,
+            "url": "https://github.com/react-dnd/react-dnd#readme"
+        },
+        "react-dnd-html5-backend": {
+            "credit": 0.055,
+            "url": "https://github.com/react-dnd/react-dnd#readme"
+        },
+        "react-dom": {
+            "credit": 0.059188461538461544,
+            "url": "https://reactjs.org/"
+        },
+        "react-syntax-highlighter": {
+            "credit": 0.055,
+            "url": "https://github.com/react-syntax-highlighter/react-syntax-highlighter#readme"
+        },
+        "react-toastify": {
+            "credit": 0.055,
+            "url": "https://github.com/fkhadra/react-toastify#readme"
+        },
+        "recoil": {
+            "credit": 0.055,
+            "url": "https://github.com/facebookexperimental/Recoil#readme"
+        },
+        "": {
+            "credit": 0.10157019230769235,
+            "url": null
+        },
+        "inquirer": {
+            "credit": 0.003403125,
+            "url": "https://github.com/SBoudrias/Inquirer.js#readme"
+        },
+        "mz": {
+            "credit": 0.003403125,
+            "url": "https://github.com/normalize/mz#readme"
+        },
+        "debug": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "ejs": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "overland": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "fs-extra": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "react-transition-group": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "react-test-renderer": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "moment": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "eslint-plugin-react": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "shortid": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "react-beautiful-dnd": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "objectpath": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "deepmerge": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "clsx": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "babel-preset-minify": {
+            "credit": 0.0136125,
+            "url": null
+        }
+    }
+}

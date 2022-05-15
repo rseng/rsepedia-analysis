@@ -1,0 +1,14 @@
+{
+    "CMakeLists.txt": {
+        "github/mofanv/darknetz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "threads": {
+            "credit": 0.0099,
+            "url": null
+        }
+    }
+}

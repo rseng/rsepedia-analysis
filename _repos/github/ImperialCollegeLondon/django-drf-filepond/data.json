@@ -1,0 +1,270 @@
+{
+    "setup.py": {
+        "github/ImperialCollegeLondon/django-drf-filepond": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Django": {
+            "credit": 0.002954571428571421,
+            "url": "https://www.djangoproject.com/"
+        },
+        "djangorestframework": {
+            "credit": 0.001799999999999996,
+            "url": "https://www.django-rest-framework.org/"
+        },
+        "shortuuid": {
+            "credit": 0.18,
+            "url": "https://github.com/skorokithakis/shortuuid/"
+        },
+        "requests": {
+            "credit": 0.03870385714285714,
+            "url": "https://requests.readthedocs.io"
+        },
+        "django-storages": {
+            "credit": 0.001799999999999996,
+            "url": "https://github.com/jschneier/django-storages"
+        },
+        "six": {
+            "credit": 0.10155117857142859,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "bcrypt": {
+            "credit": 0.06660225,
+            "url": "https://github.com/pyca/bcrypt/"
+        },
+        "argon2-cffi": {
+            "credit": 0.019347428571428568,
+            "url": "https://argon2-cffi.readthedocs.io/"
+        },
+        "tzdata": {
+            "credit": 0.08550417857142859,
+            "url": "https://github.com/python/tzdata"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.019347428571428568,
+            "url": "https://github.com/pganssle/zoneinfo"
+        },
+        "sqlparse": {
+            "credit": 0.06345192857142858,
+            "url": "https://github.com/andialbrecht/sqlparse"
+        },
+        "asgiref": {
+            "credit": 0.019347428571428568,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "pytz": {
+            "credit": 0.0891,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "django": {
+            "credit": 0.0008910000000000029,
+            "url": "https://www.djangoproject.com/"
+        },
+        "win-inet-pton": {
+            "credit": 0.012728571428571428,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.014128714285714284,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0001272857142857152,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.014128714285714284,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.012728571428571428,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.014128714285714284,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.0001272857142857152,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "paramiko": {
+            "credit": 0.0002545714285714304,
+            "url": "https://paramiko.org"
+        },
+        "apache-libcloud": {
+            "credit": 0.0002545714285714304,
+            "url": "https://libcloud.apache.org/"
+        },
+        "google-cloud-storage": {
+            "credit": 0.0002545714285714269,
+            "url": "https://github.com/googleapis/python-storage"
+        },
+        "dropbox": {
+            "credit": 0.0002545714285714269,
+            "url": "http://www.dropbox.com/developers"
+        },
+        "boto3": {
+            "credit": 0.0002545714285714304,
+            "url": "https://github.com/boto/boto3"
+        },
+        "azure-storage-blob": {
+            "credit": 0.0002545714285714269,
+            "url": "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob"
+        },
+        "furo": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pradyunsg.me/furo/quickstart"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "sphinx": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "pytest": {
+            "credit": 0.014701500000000001,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "coverage": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "tomli": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "cogapp": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/cogapp"
+        },
+        "pre-commit": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "typing-extensions": {
+            "credit": 0.014701500000000001,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "dataclasses": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "argon2-cffi-bindings": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/argon2-cffi-bindings"
+        },
+        "importlib-resources": {
+            "credit": 0.022052250000000002,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "mypy": {
+            "credit": 0.011026125000000001,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pytest-asyncio": {
+            "credit": 0.011026125000000001,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "unicodedata2": {
+            "credit": 0.012601285714285712,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.001400142857142857,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.012951321428571427,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.001400142857142857,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.001400142857142857,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.001400142857142857,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.001400142857142857,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "pywin32": {
+            "credit": 0.003150321428571428,
+            "url": "https://pypi.org/project/pywin32"
+        },
+        "gssapi": {
+            "credit": 0.003150321428571428,
+            "url": "https://pypi.org/project/gssapi"
+        },
+        "invoke": {
+            "credit": 0.003150321428571428,
+            "url": "https://pypi.org/project/invoke"
+        },
+        "pyasn1": {
+            "credit": 0.003150321428571428,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "pynacl": {
+            "credit": 0.003150321428571428,
+            "url": "https://pypi.org/project/pynacl"
+        },
+        "protobuf": {
+            "credit": 0.004200428571428571,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "google-resumable-media": {
+            "credit": 0.004200428571428571,
+            "url": "https://pypi.org/project/google-resumable-media"
+        },
+        "google-cloud-core": {
+            "credit": 0.004200428571428571,
+            "url": "https://pypi.org/project/google-cloud-core"
+        },
+        "google-api-core": {
+            "credit": 0.004200428571428571,
+            "url": "https://pypi.org/project/google-api-core"
+        },
+        "google-auth": {
+            "credit": 0.004200428571428571,
+            "url": "https://pypi.org/project/google-auth"
+        },
+        "stone": {
+            "credit": 0.008400857142857142,
+            "url": "https://pypi.org/project/stone"
+        },
+        "botocore": {
+            "credit": 0.012601285714285712,
+            "url": "https://pypi.org/project/botocore"
+        },
+        "s3transfer": {
+            "credit": 0.006300642857142856,
+            "url": "https://pypi.org/project/s3transfer"
+        },
+        "jmespath": {
+            "credit": 0.006300642857142856,
+            "url": "https://pypi.org/project/jmespath"
+        },
+        "msrest": {
+            "credit": 0.008400857142857142,
+            "url": "https://pypi.org/project/msrest"
+        },
+        "azure-core": {
+            "credit": 0.008400857142857142,
+            "url": "https://pypi.org/project/azure-core"
+        }
+    }
+}

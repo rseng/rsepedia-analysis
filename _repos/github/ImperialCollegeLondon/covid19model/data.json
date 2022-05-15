@@ -1,0 +1,186 @@
+{
+    "DESCRIPTION": {
+        "github/ImperialCollegeLondon/covid19model": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "abind": {
+            "credit": 0.0003093750000000006,
+            "url": "NA"
+        },
+        "bayesplot": {
+            "credit": 0.0003093750000000006,
+            "url": "https://mc-stan.org/bayesplot/"
+        },
+        "broom": {
+            "credit": 0.0309375,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "colorspace": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "corrplot": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "cowplot": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "EnvStats": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "gdata": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "ggpubr": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "gridExtra": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "gtable": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "gtools": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "hexbin": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "reshape2": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "rstan": {
+            "credit": 0.03246890625,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "tidyverse": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.0309375,
+            "url": null
+        },
+        "R": {
+            "credit": 0.01174078125,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.01174078125,
+            "url": null
+        },
+        "loo": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "ggfortify": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "posterior": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.00153140625,
+            "url": null
+        },
+        "ggridges": {
+            "credit": 0.00153140625,
+            "url": null
+        }
+    }
+}

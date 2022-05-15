@@ -1,0 +1,43 @@
+Package: riboWaltz
+Type: Package
+Title: Optimization of ribosome P-site positioning in ribosome profiling data
+Version: 1.2.0
+Authors@R: c(
+    person("Fabio", "Lauria", email = "fabio.lauria@gmail.com", role = c("aut", "cre")),
+    person("Toma", "Tebaldi", email = "toma.tebaldi@gmail.com", role = "aut"),
+    person("Gabriella", "Viero", email = "gabriella.viero@cnr.it", role = "aut"))
+Description: riboWaltz is an R package designed for the analysis of
+    ribosome profiling (RiboSeq) data aimed at the identification of the
+    P-site offset. The P-site offset (PO) is specified by the localization of
+    the P-site of ribosomes within the fragments of the RNA (reads) resulting
+    from RiboSeq assays. It is defined as the distance of the P-site from the
+    two ends of the reads. Determining the PO is a crucial step for a variety of
+    RiboSeq-based analyses such as verify the so-called 3-nt periodicity of
+    ribosomes along the coding sequence, derive translation initiation and
+    elongation rates and reveal new translational events in unannotated open
+    reading frames and ncRNAs. riboWaltz performs accurate computation of the
+    PO for all the lengths of reads from single or multiple samples, taking
+    advantage from an original two-step algorithm. Moreover, riboWaltz
+    provides the user a variety of graphical representations, laying
+    the groundwork for further positional analyses and new biological
+    discoveries.
+License: MIT + file LICENSE
+LazyData: TRUE
+Depends:
+    R (>= 3.3.0)
+Imports:
+	Biostrings (>= 2.46.0),
+	data.table (>= 1.10.4.3),
+	GenomicAlignments (>= 1.14.1),
+	GenomicFeatures (>= 1.24.5),
+	GenomicRanges (>= 1.24.3),
+	ggplot2 (>= 2.2.1),
+	ggrepel (>= 0.6.5),
+	IRanges (>= 2.12.0)
+biocViews:
+RoxygenNote: 7.1.1
+Encoding: UTF-8
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

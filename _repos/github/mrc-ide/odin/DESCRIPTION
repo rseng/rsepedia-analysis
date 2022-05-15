@@ -1,0 +1,55 @@
+Package: odin
+Title: ODE Generation and Integration
+Version: 1.3.4
+Authors@R: c(person("Rich", "FitzJohn", role = c("aut", "cre"),
+                    email = "rich.fitzjohn@gmail.com"),
+             person("Thibaut", "Jombart", role = "ctb"),
+             person("Travis", "Fischer", role = c("aut", "cph"),
+                    comment = "Author of random.js"),
+             person("Imperial College of Science, Technology and Medicine",
+                    role = "cph"))
+Description: Generate systems of ordinary differential equations
+    (ODE) and integrate them, using a domain specific language
+    (DSL).  The DSL uses R's syntax, but compiles to C in order to
+    efficiently solve the system.  A solver is not provided, but
+    instead interfaces to the packages 'deSolve' and 'dde' are
+    generated.  With these, while solving the differential equations,
+    no allocations are done and the calculations remain entirely in
+    compiled code.  Alternatively, a model can be transpiled to R for
+    use in contexts where a C compiler is not present.  After
+    compilation, models can be inspected to return information about
+    parameters and outputs, or intermediate values after calculations.
+    'odin' is not targeted at any particular domain and is suitable
+    for any system that can be expressed primarily as mathematical
+    expressions.  Additional support is provided for working with
+    delays (delay differential equations, DDE), using interpolated
+    functions during interpolation, and for integrating quantities
+    that represent arrays.
+License: MIT + file LICENSE
+URL: https://github.com/mrc-ide/odin
+BugReports: https://github.com/mrc-ide/odin/issues
+Imports:
+    R6,
+    cinterpolate (>= 1.0.0),
+    deSolve,
+    digest,
+    glue,
+    jsonlite,
+    ring,
+    withr
+Suggests:
+    V8,
+    dde (>= 1.0.0),
+    jsonvalidate (>= 1.1.0),
+    knitr,
+    mockery,
+    pkgbuild,
+    pkgload,
+    rlang,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 7.1.2
+Roxygen: list(old_usage = TRUE, markdown = TRUE)
+Encoding: UTF-8
+Language: en-GB

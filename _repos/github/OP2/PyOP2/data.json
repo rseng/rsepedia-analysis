@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/OP2/PyOP2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "decorator": {
+            "credit": 0.002475,
+            "url": "https://github.com/micheles/decorator"
+        },
+        "mpi4py": {
+            "credit": 0.002475,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "COFFEE": {
+            "credit": 0.002475,
+            "url": "UNKNOWN"
+        }
+    }
+}

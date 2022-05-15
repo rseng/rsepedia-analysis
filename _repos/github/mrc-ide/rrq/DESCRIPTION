@@ -1,0 +1,36 @@
+Package: rrq
+Title: Simple Redis Queue
+Version: 0.5.6
+Authors@R: c(person("Rich", "FitzJohn", role = c("aut", "cre"),
+                    email = "rich.fitzjohn@gmail.com"),
+             person("Robert", "Ashton", role = "aut"),
+             person("Imperial College of Science, Technology and Medicine",
+                    role = "cph"))
+Description: Simple Redis queue in R.
+License: MIT + file LICENSE
+LazyData: true
+URL: https://github.com/mrc-ide/rrq
+BugReports: https://github.com/mrc-ide/rrq/issues
+Imports:
+    R6,
+    docopt,
+    ids,
+    openssl,
+    progress,
+    redux (>= 1.0.0)
+Suggests:
+    callr (>= 3.7.0),
+    knitr,
+    markdown,
+    mockery,
+    processx,
+    rmarkdown,
+    storr,
+    testthat,
+    withr
+RoxygenNote: 7.1.2
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Language: en-GB
+Config/testthat/edition: 3
+VignetteBuilder: knitr

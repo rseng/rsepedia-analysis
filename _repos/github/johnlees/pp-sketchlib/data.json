@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/johnlees/pp-sketchlib": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pybind11": {
+            "credit": 0.00396,
+            "url": "https://github.com/pybind/pybind11"
+        },
+        "numpy": {
+            "credit": 0.0039402,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        },
+        "h5py": {
+            "credit": 0.00198,
+            "url": "http://www.h5py.org"
+        },
+        "pybind11-global": {
+            "credit": 0.0039204,
+            "url": "https://github.com/pybind/pybind11"
+        }
+    }
+}

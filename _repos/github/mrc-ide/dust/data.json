@@ -1,0 +1,254 @@
+{
+    "DESCRIPTION": {
+        "github/mrc-ide/dust": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "R6": {
+            "credit": 0.01689600000000001,
+            "url": "https://r6.r-lib.org"
+        },
+        "cpp11": {
+            "credit": 0.0016500000000000126,
+            "url": "https://cpp11.r-lib.org"
+        },
+        "glue": {
+            "credit": 0.00942857142857144,
+            "url": "https://github.com/tidyverse/glue"
+        },
+        "pkgbuild": {
+            "credit": 0.013317857142857156,
+            "url": "https://github.com/r-lib/pkgbuild"
+        },
+        "pkgload": {
+            "credit": 0.003283500000000012,
+            "url": "https://github.com/r-lib/pkgload"
+        },
+        "withr": {
+            "credit": 0.04450992857142858,
+            "url": "https://withr.r-lib.org"
+        },
+        "pryr": {
+            "credit": 0.05445,
+            "url": "https://github.com/hadley/pryr"
+        },
+        "testthat": {
+            "credit": 0.05538342857142857,
+            "url": "https://testthat.r-lib.org"
+        },
+        "R": {
+            "credit": 0.09147599999999999,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.017579571428571427,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.021079928571428572,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.03305892857142857,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.031192071428571427,
+            "url": null
+        },
+        "progress": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.009412071428571428,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.031192071428571427,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.015946071428571428,
+            "url": null
+        },
+        "desc": {
+            "credit": 0.034692428571428575,
+            "url": null
+        },
+        "decor": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.05647242857142857,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.034692428571428575,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.023024571428571425,
+            "url": null
+        },
+        "brio": {
+            "credit": 0.009412071428571428,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "rprintf": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.009800999999999999,
+            "url": null
+        },
+        "forcats": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.03508135714285714,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.03508135714285714,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.025280357142857143,
+            "url": null
+        },
+        "prettyunits": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "bitops": {
+            "credit": 0.011667857142857143,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.013301357142857143,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.013301357142857143,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "usethis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "diffviewer": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ps": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "processx": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "praise": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "evaluate": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        }
+    }
+}

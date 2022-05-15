@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/gilestrolab/ethoscope": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.009867,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

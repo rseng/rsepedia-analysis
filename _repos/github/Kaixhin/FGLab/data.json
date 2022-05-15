@@ -1,0 +1,606 @@
+{
+    "package.json": {
+        "github/Kaixhin/FGLab": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "bluebird": {
+            "credit": 0.00729219117647059,
+            "url": "https://github.com/petkaantonov/bluebird"
+        },
+        "body-parser": {
+            "credit": 0.06038094117647059,
+            "url": "https://github.com/expressjs/body-parser#readme"
+        },
+        "bower": {
+            "credit": 0.055,
+            "url": "http://bower.io"
+        },
+        "compression": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/expressjs/compression#readme"
+        },
+        "dotenv": {
+            "credit": 0.055,
+            "url": "https://github.com/motdotla/dotenv#readme"
+        },
+        "express": {
+            "credit": 0.056296428571428574,
+            "url": "http://expressjs.com/"
+        },
+        "http-auth": {
+            "credit": 0.055,
+            "url": "https://github.com/gevorg/http-auth"
+        },
+        "jade": {
+            "credit": 0.0005500000000000019,
+            "url": "http://jade-lang.com"
+        },
+        "kerberos": {
+            "credit": 0.055,
+            "url": "https://github.com/mongodb-js/kerberos#readme"
+        },
+        "lodash": {
+            "credit": 0.05820294117647059,
+            "url": "https://lodash.com/"
+        },
+        "mongodb": {
+            "credit": 0.06277857142857143,
+            "url": "https://github.com/mongodb/node-mongodb-native"
+        },
+        "mongoskin": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/kissjs/node-mongoskin"
+        },
+        "morgan": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "multer": {
+            "credit": 0.055,
+            "url": "https://github.com/expressjs/multer#readme"
+        },
+        "request": {
+            "credit": 0.00375294117647059,
+            "url": "https://github.com/request/request#readme"
+        },
+        "request-promise": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/request/request-promise#readme"
+        },
+        "serve-favicon": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/expressjs/serve-favicon#readme"
+        },
+        "ws": {
+            "credit": 0.055,
+            "url": "https://github.com/websockets/ws"
+        },
+        "uglify-js": {
+            "credit": 0.003474428571428571,
+            "url": "https://github.com/mishoo/UglifyJS#readme"
+        },
+        "sinon": {
+            "credit": 0.002178,
+            "url": "https://sinonjs.org/"
+        },
+        "serve-static": {
+            "credit": 0.002178,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        },
+        "rx": {
+            "credit": 0.002178,
+            "url": "https://github.com/Reactive-Extensions/RxJS"
+        },
+        "rimraf": {
+            "credit": 0.00803861974789916,
+            "url": null
+        },
+        "optimist": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "open": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.02108425,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.003474428571428571,
+            "url": null
+        },
+        "kefir": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "jshint-stylish": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "jshint": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.017681125,
+            "url": null
+        },
+        "highland": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "grunt-saucelabs": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "cross-spawn": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "co": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "cli-table": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.004835678571428571,
+            "url": null
+        },
+        "baconjs": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "acorn-walk": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "acorn": {
+            "credit": 0.002178,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.00983125,
+            "url": null
+        },
+        "after": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "vary": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.007789374999999999,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.006428125,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.006428125,
+            "url": null
+        },
+        "compressible": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "bytes": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "accepts": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "browserify-middleware": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "code-mirror": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "coffee-script": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.01043625,
+            "url": null
+        },
+        "github-basic": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "handle": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "highlight-codemirror": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "inconsolata": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jade-code-mirror": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jade-highlighter": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-cdata": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-coffee-script": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-less": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-marked": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-stylus": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer-verbatim": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "less": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "less-file": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "linify": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "lsr": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "marked": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "opener": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "pull-request": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "should": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "stop": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "stylus": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "twbs": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "character-parser": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "clean-css": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "constantinople": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "jstransformer": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "transformers": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "void-elements": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "with": {
+            "credit": 0.0012964285714285714,
+            "url": null
+        },
+        "mocha-lcov-reporter": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "travis-cov": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "split": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.0047643749999999995,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "taper": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "tape": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "standard": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "server-destroy": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "phantomjs-prebuilt": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma-tap": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma-phantomjs-launcher": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma-coverage": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma-cli": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma-browserify": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "karma": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "function-bind": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "buffer-equal": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "browserify-istanbul": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "tunnel-agent": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "tough-cookie": {
+            "credit": 0.004564191176470589,
+            "url": null
+        },
+        "qs": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "performance-now": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "oauth-sign": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "mime-types": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "json-stringify-safe": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "isstream": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "is-typedarray": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "http-signature": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "har-validator": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "form-data": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "forever-agent": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "extend": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "combined-stream": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "caseless": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "aws4": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "aws-sign2": {
+            "credit": 0.00136125,
+            "url": null
+        },
+        "run-sequence": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "publish-please": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "gulp-mocha": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "gulp-istanbul": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "gulp-eslint": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "gulp-coveralls": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "gulp": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "stealthy-require": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "request-promise-core": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "fresh": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "parseurl": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "etag": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "ms": {
+            "credit": 0.003403125,
+            "url": null
+        },
+        "temp-path": {
+            "credit": 0.003403125,
+            "url": null
+        }
+    }
+}

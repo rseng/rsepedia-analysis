@@ -1,0 +1,202 @@
+{
+    "requirements.txt": {
+        "github/ImperialCollegeLondon/research-software-directory-data": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "algoliasearch": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/algolia/algoliasearch-client-python"
+        },
+        "certifi": {
+            "credit": 0.0769541974789916,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "cffi": {
+            "credit": 0.0005823529411764714,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "chardet": {
+            "credit": 0.07054831512605042,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "Deprecated": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/tantale/deprecated"
+        },
+        "emoji": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/carpedm20/emoji/"
+        },
+        "idna": {
+            "credit": 0.0769541974789916,
+            "url": "https://github.com/kjd/idna"
+        },
+        "pycparser": {
+            "credit": 0.11588823529411765,
+            "url": "https://github.com/eliben/pycparser"
+        },
+        "PyGithub": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/pygithub/pygithub"
+        },
+        "PyJWT": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/jpadilla/pyjwt"
+        },
+        "PyNaCl": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/pyca/pynacl/"
+        },
+        "python-gitlab": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/python-gitlab/python-gitlab"
+        },
+        "requests": {
+            "credit": 0.026814441176470583,
+            "url": "https://requests.readthedocs.io"
+        },
+        "requests-toolbelt": {
+            "credit": 0.07264852941176471,
+            "url": "https://toolbelt.readthedocs.org"
+        },
+        "six": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "urllib3": {
+            "credit": 0.012895373949579833,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "wrapt": {
+            "credit": 0.0634764705882353,
+            "url": "https://github.com/GrahamDumpleton/wrapt"
+        },
+        "typing": {
+            "credit": 0.028826470588235294,
+            "url": "https://docs.python.org/3/library/typing.html"
+        },
+        "PyTest-Cov": {
+            "credit": 0.005241176470588235,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "PyTest": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/PyTest"
+        },
+        "zipp": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "sphinxcontrib-websupport": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/sphinxcontrib-websupport"
+        },
+        "configparser": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/configparser"
+        },
+        "importlib-resources": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "importlib-metadata": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "sphinx": {
+            "credit": 0.012447794117647059,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "bump2version": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/bump2version"
+        },
+        "tox": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/tox"
+        },
+        "cryptography": {
+            "credit": 0.02514308823529412,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pynacl": {
+            "credit": 0.011530588235294117,
+            "url": "https://pypi.org/project/pynacl"
+        },
+        "pyjwt": {
+            "credit": 0.011530588235294117,
+            "url": "https://pypi.org/project/pyjwt"
+        },
+        "deprecated": {
+            "credit": 0.011530588235294117,
+            "url": "https://pypi.org/project/deprecated"
+        },
+        "pre-commit": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "mypy": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "coverage": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "zope.interface": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.007206617647058823,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "PyYaml": {
+            "credit": 0.014413235294117647,
+            "url": "https://pypi.org/project/PyYaml"
+        },
+        "argcomplete": {
+            "credit": 0.014413235294117647,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "win-inet-pton": {
+            "credit": 0.012313021008403362,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.01871890336134454,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.012313021008403362,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "ipaddress": {
+            "credit": 0.006405882352941176,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "pyOpenSSL": {
+            "credit": 0.006405882352941176,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.006405882352941176,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.006405882352941176,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.006405882352941176,
+            "url": "https://pypi.org/project/brotlicffi"
+        }
+    }
+}
