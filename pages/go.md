@@ -9,11 +9,11 @@ tipue_search_active: true
 
 |Manager|Name|Credit|
 |-------|----|------|
-|go.mod|github/mlpack/mlpack|9.910802775024776e-06|
-|go.mod|github/jasonyangshadow/lpmx|9.910802775024776e-06|
 |go.mod|github/sylabs/singularity|9.910802775024776e-06|
 |go.mod|github/linksmart/thing-directory|9.910802775024776e-06|
+|go.mod|github/mlpack/mlpack|9.910802775024776e-06|
 |go.mod|github/containers/podman|9.910802775024776e-06|
+|go.mod|github/jasonyangshadow/lpmx|9.910802775024776e-06|
 |go|golang.org/x/sys|1.3614576997116949e-06|
 |go|github.com/gorilla/mux|1.1332787521006593e-06|
 |go|golang.org/x/crypto|1.1332787521006593e-06|
