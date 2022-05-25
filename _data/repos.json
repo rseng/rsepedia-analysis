@@ -8283,7 +8283,19 @@
         "github/xmuyulab/DreamDIA-XMBD": [],
         "github/FluidityProject/fluidity": [],
         "github/Crompulence/cpl-library": [],
-        "github/tanhevg/GpABC.jl": []
+        "github/tanhevg/GpABC.jl": [],
+        "github/PhilippJunk/homelette": [],
+        "github/sinc-lab/miRe2e": [],
+        "github/NLESC-JCER/QMCblip": [],
+        "github/yuhuan-wu/mobilesal": [],
+        "github/Glogobyte/miRGalaxy": [
+            "mirnas",
+            "isomirs",
+            "docker",
+            "galaxy"
+        ],
+        "github/TearsWaiting/MIMML": [],
+        "github/ngltr/sinaps": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10047,7 +10059,14 @@
         "github/xmuyulab/DreamDIA-XMBD": "Python",
         "github/FluidityProject/fluidity": "Fortran",
         "github/Crompulence/cpl-library": "C++",
-        "github/tanhevg/GpABC.jl": "Julia"
+        "github/tanhevg/GpABC.jl": "Julia",
+        "github/PhilippJunk/homelette": "Python",
+        "github/sinc-lab/miRe2e": "Python",
+        "github/NLESC-JCER/QMCblip": "Python",
+        "github/yuhuan-wu/mobilesal": "Python",
+        "github/Glogobyte/miRGalaxy": "Dockerfile",
+        "github/TearsWaiting/MIMML": "Python",
+        "github/ngltr/sinaps": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -11811,7 +11830,14 @@
         "github/xmuyulab/DreamDIA-XMBD": "https://github.com/xmuyulab/DreamDIA-XMBD",
         "github/FluidityProject/fluidity": "https://github.com/FluidityProject/fluidity",
         "github/Crompulence/cpl-library": "https://github.com/Crompulence/cpl-library",
-        "github/tanhevg/GpABC.jl": "https://github.com/tanhevg/GpABC.jl"
+        "github/tanhevg/GpABC.jl": "https://github.com/tanhevg/GpABC.jl",
+        "github/PhilippJunk/homelette": "https://github.com/PhilippJunk/homelette",
+        "github/sinc-lab/miRe2e": "https://github.com/sinc-lab/miRe2e",
+        "github/NLESC-JCER/QMCblip": "https://github.com/NLESC-JCER/QMCblip",
+        "github/yuhuan-wu/mobilesal": "https://github.com/yuhuan-wu/MobileSal",
+        "github/Glogobyte/miRGalaxy": "https://github.com/Glogobyte/miRGalaxy",
+        "github/TearsWaiting/MIMML": "https://github.com/TearsWaiting/MIMML",
+        "github/ngltr/sinaps": "https://github.com/ngltr/sinaps"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13575,6 +13601,13 @@
         "github/xmuyulab/DreamDIA-XMBD": "Software for data-independent acquisition (DIA) proteomic data processing with deep representation features.",
         "github/FluidityProject/fluidity": "Fluidity",
         "github/Crompulence/cpl-library": null,
-        "github/tanhevg/GpABC.jl": null
+        "github/tanhevg/GpABC.jl": null,
+        "github/PhilippJunk/homelette": "A unified and modular interface to homology modelling software",
+        "github/sinc-lab/miRe2e": null,
+        "github/NLESC-JCER/QMCblip": null,
+        "github/yuhuan-wu/mobilesal": "[IEEE TPAMI21] MobileSal: Extremely Efficient RGB-D Salient Object Detection [PyTorch & Jittor]",
+        "github/Glogobyte/miRGalaxy": "miRGalaxy: a Galaxy\u2011based framework for interactive analysis of microRNA and isomiR sequencing data",
+        "github/TearsWaiting/MIMML": "The implement of MIMML in paper: Accelerating Bioactive Peptides Discovery via Mutual Information based Meta-learning",
+        "github/ngltr/sinaps": null
     }
 }
