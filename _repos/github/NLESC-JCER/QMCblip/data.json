@@ -1,0 +1,126 @@
+{
+    "requirements.txt": {
+        "github/NLESC-JCER/QMCblip": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ase": {
+            "credit": 0.037991250000000004,
+            "url": "https://wiki.fysik.dtu.dk/ase"
+        },
+        "mir-flare": {
+            "credit": 0.031865625,
+            "url": "https://github.com/mir-group/flare"
+        },
+        "flare-pp": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/mir-group/flare_pp"
+        },
+        "numpy": {
+            "credit": 0.17411625,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.1373625,
+            "url": "https://matplotlib.org"
+        },
+        "pydantic": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/samuelcolvin/pydantic"
+        },
+        "periodictable": {
+            "credit": 0.12375,
+            "url": "https://github.com/pkienzle/periodictable"
+        },
+        "sgdml": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.sgdml.org"
+        },
+        "pytest": {
+            "credit": 0.025863749999999998,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-mock": {
+            "credit": 0.025863749999999998,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "pillow": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "scipy": {
+            "credit": 0.05036625,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "IPython": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/IPython"
+        },
+        "nbsphinx": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/nbsphinx"
+        },
+        "nptyping": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/nptyping"
+        },
+        "numba": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/numba"
+        },
+        "memory-profiler": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "nbconvert": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jupyter": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/jupyter"
+        },
+        "cmake": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/cmake"
+        },
+        "email-validator": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/email-validator"
+        },
+        "python-dotenv": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/python-dotenv"
+        },
+        "dataclasses": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "typing-extensions": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "torch": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/torch"
+        },
+        "future": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/future"
+        }
+    }
+}

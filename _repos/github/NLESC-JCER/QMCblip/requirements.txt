@@ -1,0 +1,8 @@
+ase==3.22.1
+mir-flare==0.2.4
+flare-pp==0.1.1
+numpy==1.20.3
+matplotlib==3.1.2
+pydantic==1.9.0
+periodictable==1.6.0
+sgdml==0.4.10
