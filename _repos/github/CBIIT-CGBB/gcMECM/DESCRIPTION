@@ -1,0 +1,11 @@
+Package: gcMECM
+Version: 0.1
+Date: 2020-07-30
+Author: Ying Hu <yhu@mail.nih.gov> Chunhua Yan <yanch@mail.nih.gov>
+Maintainer: Ying Hu <yhu@mail.nih.gov>
+License: GPL-2
+Title: Graph Based Clustering of mutual exclusivity of cancer mutation 
+Description: Toots are for Graph Based Clustering of mutual exclusivity of cancer mutation.
+Depends: R (>= 3.5), igraph, Rtsne
+NeedsCompilation: no
+Packaged: 2020-07-30 13:00:09

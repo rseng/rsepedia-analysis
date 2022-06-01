@@ -1,15 +1,15 @@
 {
     "unknown": 34,
-    "Python": 582,
-    "Jupyter Notebook": 101,
+    "Python": 586,
+    "Jupyter Notebook": 102,
     "Modelica": 1,
     "Shell": 16,
     "HTML": 42,
-    "Perl": 10,
-    "R": 494,
-    "C++": 144,
+    "Perl": 11,
+    "R": 497,
+    "C++": 145,
     "Java": 50,
-    "C": 45,
+    "C": 46,
     "Rust": 6,
     "JavaScript": 52,
     "AMPL": 1,
@@ -19,7 +19,7 @@
     "Clojure": 1,
     "Groovy": 2,
     "E": 1,
-    "Julia": 38,
+    "Julia": 40,
     "null": 15,
     "Matlab": 5,
     "Scala": 4,
@@ -53,5 +53,6 @@
     "CMake": 1,
     "Stan": 2,
     "Lua": 2,
-    "PHP": 1
+    "PHP": 1,
+    "Gnuplot": 1
 }

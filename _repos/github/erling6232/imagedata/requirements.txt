@@ -1,0 +1,12 @@
+imagedata
+importlib.metadata
+pydicom
+pynetdicom
+itk
+nibabel
+numpy
+scipy
+python-magic
+imageio
+matplotlib
+flake8

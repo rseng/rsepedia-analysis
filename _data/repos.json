@@ -8295,7 +8295,37 @@
             "galaxy"
         ],
         "github/TearsWaiting/MIMML": [],
-        "github/ngltr/sinaps": []
+        "github/ngltr/sinaps": [],
+        "github/pixixiaonaogou/MLSDR": [],
+        "github/xiaotiand/FunFor": [],
+        "github/erling6232/imagedata": [],
+        "github/CBIIT-CGBB/gcMECM": [],
+        "github/warrickball/tomso": [],
+        "github/mattpitkin/lintegrate": [
+            "integral",
+            "gsl",
+            "gsl-functions",
+            "python",
+            "wrapper"
+        ],
+        "github/EbmeyerSt/GEnView": [],
+        "github/AbbasAlameer/geoCancerPrognosticDatasetsRetriever": [],
+        "github/byuflowlab/GXBeam.jl": [
+            "gebt",
+            "beam-elements",
+            "finite-element-analysis",
+            "julia",
+            "nonlinear"
+        ],
+        "github/mad-lab-fau/imucal": [],
+        "github/baxmittens/VTUFileHandler": [],
+        "github/paulmorio/gincco": [],
+        "github/davidechicco/geneExpressionFromGEO": [],
+        "github/FEniCS/basix": [
+            "finite-elements",
+            "high-order",
+            "fenics-x"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10066,7 +10096,21 @@
         "github/yuhuan-wu/mobilesal": "Python",
         "github/Glogobyte/miRGalaxy": "Dockerfile",
         "github/TearsWaiting/MIMML": "Python",
-        "github/ngltr/sinaps": "Python"
+        "github/ngltr/sinaps": "Python",
+        "github/pixixiaonaogou/MLSDR": "Jupyter Notebook",
+        "github/xiaotiand/FunFor": "R",
+        "github/erling6232/imagedata": "Python",
+        "github/CBIIT-CGBB/gcMECM": "R",
+        "github/warrickball/tomso": "Gnuplot",
+        "github/mattpitkin/lintegrate": "C",
+        "github/EbmeyerSt/GEnView": "Python",
+        "github/AbbasAlameer/geoCancerPrognosticDatasetsRetriever": "Perl",
+        "github/byuflowlab/GXBeam.jl": "Julia",
+        "github/mad-lab-fau/imucal": "Python",
+        "github/baxmittens/VTUFileHandler": "Julia",
+        "github/paulmorio/gincco": "Python",
+        "github/davidechicco/geneExpressionFromGEO": "R",
+        "github/FEniCS/basix": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -11837,7 +11881,21 @@
         "github/yuhuan-wu/mobilesal": "https://github.com/yuhuan-wu/MobileSal",
         "github/Glogobyte/miRGalaxy": "https://github.com/Glogobyte/miRGalaxy",
         "github/TearsWaiting/MIMML": "https://github.com/TearsWaiting/MIMML",
-        "github/ngltr/sinaps": "https://github.com/ngltr/sinaps"
+        "github/ngltr/sinaps": "https://github.com/ngltr/sinaps",
+        "github/pixixiaonaogou/MLSDR": "https://github.com/pixixiaonaogou/MLSDR",
+        "github/xiaotiand/FunFor": "https://github.com/xiaotiand/FunFor",
+        "github/erling6232/imagedata": "https://github.com/erling6232/imagedata",
+        "github/CBIIT-CGBB/gcMECM": "https://github.com/CBIIT-CGBB/gcMECM",
+        "github/warrickball/tomso": "https://github.com/warrickball/tomso",
+        "github/mattpitkin/lintegrate": "https://github.com/mattpitkin/lintegrate",
+        "github/EbmeyerSt/GEnView": "https://github.com/EbmeyerSt/GEnView",
+        "github/AbbasAlameer/geoCancerPrognosticDatasetsRetriever": "https://github.com/AbbasAlameer/geoCancerPrognosticDatasetsRetriever",
+        "github/byuflowlab/GXBeam.jl": "https://github.com/byuflowlab/GXBeam.jl",
+        "github/mad-lab-fau/imucal": "https://github.com/mad-lab-fau/imucal",
+        "github/baxmittens/VTUFileHandler": "https://github.com/baxmittens/VTUFileHandler.jl",
+        "github/paulmorio/gincco": "https://github.com/paulmorio/gincco",
+        "github/davidechicco/geneExpressionFromGEO": "https://github.com/davidechicco/geneExpressionFromGEO",
+        "github/FEniCS/basix": "https://github.com/FEniCS/basix"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13608,6 +13666,20 @@
         "github/yuhuan-wu/mobilesal": "[IEEE TPAMI21] MobileSal: Extremely Efficient RGB-D Salient Object Detection [PyTorch & Jittor]",
         "github/Glogobyte/miRGalaxy": "miRGalaxy: a Galaxy\u2011based framework for interactive analysis of microRNA and isomiR sequencing data",
         "github/TearsWaiting/MIMML": "The implement of MIMML in paper: Accelerating Bioactive Peptides Discovery via Mutual Information based Meta-learning",
-        "github/ngltr/sinaps": null
+        "github/ngltr/sinaps": null,
+        "github/pixixiaonaogou/MLSDR": null,
+        "github/xiaotiand/FunFor": "FunFor R package",
+        "github/erling6232/imagedata": "Read/write medical image data",
+        "github/CBIIT-CGBB/gcMECM": null,
+        "github/warrickball/tomso": "TOMSO (Tools for Models of Stars and their Oscillations) is a set of Python modules for loading and saving input and output files for and from stellar evolution and oscillation codes.",
+        "github/mattpitkin/lintegrate": "A numerical integration routine that works for the natural logarithm of functions ",
+        "github/EbmeyerSt/GEnView": "GEnView - A phylogeny based comparative genomics software to analyze the genetic environment of genes",
+        "github/AbbasAlameer/geoCancerPrognosticDatasetsRetriever": "GEO Cancer Prognostic Datasets Retriever is a bioinformatics tool for cancer prognostic dataset retrieval from the GEO website.",
+        "github/byuflowlab/GXBeam.jl": "Pure Julia Implementation of Geometrically Exact Beam Theory",
+        "github/mad-lab-fau/imucal": "A Python library to calibrate 6 DOF IMUs",
+        "github/baxmittens/VTUFileHandler": "A VTU library in the Julia language that implements an algebra for basic mathematical operations on VTU data.",
+        "github/paulmorio/gincco": "Source code for GINCCo Paper",
+        "github/davidechicco/geneExpressionFromGEO": "geneExpressionFromGEO",
+        "github/FEniCS/basix": "FEniCS finite element basis evaluation library"
     }
 }
