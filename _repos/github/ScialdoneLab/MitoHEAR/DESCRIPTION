@@ -1,0 +1,43 @@
+Type: Package
+Package: MitoHEAR
+Title: Quantification of Mitochondrial DNA Heteroplasmy
+Version: 0.1.0
+Author: Gabriele Lubatti
+Maintainer: Gabriele Lubatti <gabriele.lubatti@helmholtz-muenchen.de>
+Description: R package that allows the estimation and downstream statistical analysis of the mitochondrial DNA Heteroplasmy calculated from single-cell datasets.
+License: GPL-3
+Depends:
+    R (>= 4.0)
+Imports:
+    Biostrings,
+    circlize,
+    ComplexHeatmap,
+    dynamicTreeCut,
+    GenomicRanges,
+    ggplot2,
+    gridExtra,
+    IRanges,
+    magrittr,
+    mcclust,
+    rdist,
+    reshape2,
+    rlist,
+    Rsamtools,
+Suggests:
+    clustree,
+    fmsb,
+    gam,
+    karyoploteR,
+    knitr,
+    plotly,
+    regioneR,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
+biocViews: software
+Encoding: UTF-8
+LazyData: true
+Config/testthat/edition: 3
+RoxygenNote: 7.1.1
+BugReports: https://github.com/ScialdoneLab/MitoHEAR/issues

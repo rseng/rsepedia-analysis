@@ -1,0 +1,174 @@
+{
+    "setup.py": {
+        "github/icredd-cheminfo/CGRdb2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "CGRtools": {
+            "credit": 0.21143571428571428,
+            "url": "https://github.com/cimm-kzn/CGRtools"
+        },
+        "StructureFingerprint": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/dcloudf/MorganFingerprint"
+        },
+        "pony": {
+            "credit": 0.14142857142857143,
+            "url": "https://ponyorm.com"
+        },
+        "psycopg2-binary": {
+            "credit": 0.14142857142857143,
+            "url": "https://psycopg.org/"
+        },
+        "tqdm": {
+            "credit": 0.001414285714285729,
+            "url": "https://tqdm.github.io"
+        },
+        "datasketch": {
+            "credit": 0.001414285714285729,
+            "url": "https://ekzhu.github.io/datasketch"
+        },
+        "multiprocess": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "numpy": {
+            "credit": 0.07737631578947368,
+            "url": "https://www.numpy.org"
+        },
+        "requests": {
+            "credit": 0.00017501785714285623,
+            "url": "https://requests.readthedocs.io"
+        },
+        "slack-sdk": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/slackapi/python-slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "nose-exclude": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/nose-exclude"
+        },
+        "nose": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/nose"
+        },
+        "pymongo": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/pymongo"
+        },
+        "coverage": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "mockredispy": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/mockredispy"
+        },
+        "mock": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/mock"
+        },
+        "redis": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/redis"
+        },
+        "motor": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/motor"
+        },
+        "aiounittest": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/aiounittest"
+        },
+        "cassandra-driver": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/cassandra-driver"
+        },
+        "nltk": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/nltk"
+        },
+        "pyfarmhash": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/pyfarmhash"
+        },
+        "SetSimilaritySearch": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/SetSimilaritySearch"
+        },
+        "pandas": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "scikit-learn": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/scikit-learn"
+        },
+        "matplotlib": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "pyhash": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/pyhash"
+        },
+        "scipy": {
+            "credit": 0.0073691729323308265,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "win-inet-pton": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "idna": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "certifi": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/urllib3"
+        }
+    }
+}
