@@ -8325,7 +8325,47 @@
             "finite-elements",
             "high-order",
             "fenics-x"
-        ]
+        ],
+        "github/dfki-ric-underactuated-lab/torque_limited_simple_pendulum": [],
+        "github/siminegroup/E2EDNA2": [],
+        "github/LiuJJ0327/CCPE": [],
+        "github/wangsiwei2010/FPMVS-CAG": [],
+        "github/RudolfCardinal/camcops": [],
+        "github/chrisaberson/BetterReg": [],
+        "github/rudeboybert/forestecology": [
+            "forestecology",
+            "tidyverse"
+        ],
+        "github/maxibor/sam2lca": [],
+        "github/VeinsOfTheEarth/rabpro": [
+            "python",
+            "manuscript"
+        ],
+        "github/NKI-AI/direct": [
+            "pytorch",
+            "deep-learning",
+            "mri-reconstruction",
+            "inverse-problems",
+            "medical-imaging",
+            "fastmri-challenge"
+        ],
+        "github/aomlomics/tourmaline": [
+            "noaa-omics-software",
+            "amplicon-sequence-variants",
+            "dada2",
+            "deblur",
+            "snakemake"
+        ],
+        "github/ScialdoneLab/MitoHEAR": [
+            "bioinformatics-analysis",
+            "heteroplasmy",
+            "open-source",
+            "rstats-package"
+        ],
+        "github/seung-lab/FlyWirePaper": [],
+        "github/icredd-cheminfo/CGRdb2": [],
+        "github/szwiep/py_SBeLT": [],
+        "github/TingMAC/FrMLNet": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10110,7 +10150,23 @@
         "github/baxmittens/VTUFileHandler": "Julia",
         "github/paulmorio/gincco": "Python",
         "github/davidechicco/geneExpressionFromGEO": "R",
-        "github/FEniCS/basix": "C++"
+        "github/FEniCS/basix": "C++",
+        "github/dfki-ric-underactuated-lab/torque_limited_simple_pendulum": "Python",
+        "github/siminegroup/E2EDNA2": "Python",
+        "github/LiuJJ0327/CCPE": "MATLAB",
+        "github/wangsiwei2010/FPMVS-CAG": "MATLAB",
+        "github/RudolfCardinal/camcops": "Python",
+        "github/chrisaberson/BetterReg": "R",
+        "github/rudeboybert/forestecology": "TeX",
+        "github/maxibor/sam2lca": "Python",
+        "github/VeinsOfTheEarth/rabpro": "Python",
+        "github/NKI-AI/direct": "Python",
+        "github/aomlomics/tourmaline": "Python",
+        "github/ScialdoneLab/MitoHEAR": "R",
+        "github/seung-lab/FlyWirePaper": "Jupyter Notebook",
+        "github/icredd-cheminfo/CGRdb2": "Python",
+        "github/szwiep/py_SBeLT": "Python",
+        "github/TingMAC/FrMLNet": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -11895,7 +11951,23 @@
         "github/baxmittens/VTUFileHandler": "https://github.com/baxmittens/VTUFileHandler.jl",
         "github/paulmorio/gincco": "https://github.com/paulmorio/gincco",
         "github/davidechicco/geneExpressionFromGEO": "https://github.com/davidechicco/geneExpressionFromGEO",
-        "github/FEniCS/basix": "https://github.com/FEniCS/basix"
+        "github/FEniCS/basix": "https://github.com/FEniCS/basix",
+        "github/dfki-ric-underactuated-lab/torque_limited_simple_pendulum": "https://github.com/dfki-ric-underactuated-lab/torque_limited_simple_pendulum",
+        "github/siminegroup/E2EDNA2": "https://github.com/siminegroup/E2EDNA2",
+        "github/LiuJJ0327/CCPE": "https://github.com/LiuJJ0327/CCPE",
+        "github/wangsiwei2010/FPMVS-CAG": "https://github.com/wangsiwei2010/FPMVS-CAG",
+        "github/RudolfCardinal/camcops": "https://github.com/ucam-department-of-psychiatry/camcops",
+        "github/chrisaberson/BetterReg": "https://github.com/chrisaberson/BetterReg",
+        "github/rudeboybert/forestecology": "https://github.com/rudeboybert/forestecology",
+        "github/maxibor/sam2lca": "https://github.com/maxibor/sam2lca",
+        "github/VeinsOfTheEarth/rabpro": "https://github.com/VeinsOfTheEarth/rabpro",
+        "github/NKI-AI/direct": "https://github.com/NKI-AI/direct",
+        "github/aomlomics/tourmaline": "https://github.com/aomlomics/tourmaline",
+        "github/ScialdoneLab/MitoHEAR": "https://github.com/ScialdoneLab/MitoHEAR",
+        "github/seung-lab/FlyWirePaper": "https://github.com/seung-lab/FlyWirePaper",
+        "github/icredd-cheminfo/CGRdb2": "https://github.com/icredd-cheminfo/CGRdb2",
+        "github/szwiep/py_SBeLT": "https://github.com/szwiep/py_SBeLT",
+        "github/TingMAC/FrMLNet": "https://github.com/TingMAC/FrMLNet"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13680,6 +13752,22 @@
         "github/baxmittens/VTUFileHandler": "A VTU library in the Julia language that implements an algebra for basic mathematical operations on VTU data.",
         "github/paulmorio/gincco": "Source code for GINCCo Paper",
         "github/davidechicco/geneExpressionFromGEO": "geneExpressionFromGEO",
-        "github/FEniCS/basix": "FEniCS finite element basis evaluation library"
+        "github/FEniCS/basix": "FEniCS finite element basis evaluation library",
+        "github/dfki-ric-underactuated-lab/torque_limited_simple_pendulum": "Torque Limited Simple Pendulum Underactuated System",
+        "github/siminegroup/E2EDNA2": null,
+        "github/LiuJJ0327/CCPE": "Cell cycle pseudotome estimation for scRNA-seq data",
+        "github/wangsiwei2010/FPMVS-CAG": "code of \"Fast Parameter-free Multi-view Subspace Clustering with Consensus Anchor Guidance \" published in IEEE TIP2022",
+        "github/RudolfCardinal/camcops": "Cambridge Cognitive and Psychiatric Test Kit (CamCOPS)",
+        "github/chrisaberson/BetterReg": "Better statistics for regression (OLS and logistic)",
+        "github/rudeboybert/forestecology": "forestecology R package of Methods and Data for Forest Ecology Model Fitting and Assessment",
+        "github/maxibor/sam2lca": "Lowest Common Ancestor from a SAM/BAM/CRAM alignment file",
+        "github/VeinsOfTheEarth/rabpro": "River and basin profiler",
+        "github/NKI-AI/direct": "Deep learning framework for MRI reconstruction",
+        "github/aomlomics/tourmaline": "Amplicon sequence processing workflow using QIIME 2 and Snakemake",
+        "github/ScialdoneLab/MitoHEAR": "MitoHEAR (Mitochondrial HEteroplasmy AnalyzeR) is an R package that allows the estimation as well as downstream statistical analysis of the mtDNA heteroplasmy calculated from single-cell datasets.",
+        "github/seung-lab/FlyWirePaper": "Source code and data to reproduce analyses from the FlyWire paper.",
+        "github/icredd-cheminfo/CGRdb2": null,
+        "github/szwiep/py_SBeLT": "A Markov-type numerical model of sediment particle transport in rivers",
+        "github/TingMAC/FrMLNet": "This is a implementation of training code of this paper \u201cFrMLNet: Framelet-based Multi-level Network for Pansharpening\u201d"
     }
 }

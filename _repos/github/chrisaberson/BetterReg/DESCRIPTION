@@ -1,0 +1,13 @@
+Package: BetterReg
+Type: Package
+Title: Better Statistics for OLS and Binomial Logistic Regression
+Version: 0.3.0
+Author: Chris Aberson
+Maintainer: Chris Aberson <cla18@humboldt.edu> 
+Description: Provides squared semi partial correlations, tolerance, Mahalanobis, Likelihood Ratio Chi Square, and Pseudo R Square. Aberson, C. L. (2022) <doi:10.31234/osf.io/s2yqn>.
+License: GNU General Public License version 3
+Encoding: UTF-8
+LazyData: true
+Imports: car (>= 3.0-0), stats (>= 3.5.0), dplyr (>= 0.8.0)
+Depends: R (>= 3.5.0)
+RoxygenNote: 7.1.2
