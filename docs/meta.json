@@ -8365,7 +8365,23 @@
         "github/seung-lab/FlyWirePaper": [],
         "github/icredd-cheminfo/CGRdb2": [],
         "github/szwiep/py_SBeLT": [],
-        "github/TingMAC/FrMLNet": []
+        "github/TingMAC/FrMLNet": [],
+        "github/bengeof/QPoweredCompound2DeNovoDrugPropMax": [],
+        "github/mmollina/viewpoly": [],
+        "github/yjx1217/RecombineX": [
+            "tetrad",
+            "recombination",
+            "meiosis",
+            "spore"
+        ],
+        "github/YonghuiDong/RawHummus": [
+            "metabolomics",
+            "lcms",
+            "orbitrap",
+            "quality-control"
+        ],
+        "github/MASILab/pyPheWAS": [],
+        "github/lanl/PyBNF": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10166,7 +10182,13 @@
         "github/seung-lab/FlyWirePaper": "Jupyter Notebook",
         "github/icredd-cheminfo/CGRdb2": "Python",
         "github/szwiep/py_SBeLT": "Python",
-        "github/TingMAC/FrMLNet": "Python"
+        "github/TingMAC/FrMLNet": "Python",
+        "github/bengeof/QPoweredCompound2DeNovoDrugPropMax": "Jupyter Notebook",
+        "github/mmollina/viewpoly": "R",
+        "github/yjx1217/RecombineX": "Perl",
+        "github/YonghuiDong/RawHummus": "R",
+        "github/MASILab/pyPheWAS": "Python",
+        "github/lanl/PyBNF": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -11967,7 +11989,13 @@
         "github/seung-lab/FlyWirePaper": "https://github.com/seung-lab/FlyWirePaper",
         "github/icredd-cheminfo/CGRdb2": "https://github.com/icredd-cheminfo/CGRdb2",
         "github/szwiep/py_SBeLT": "https://github.com/szwiep/py_SBeLT",
-        "github/TingMAC/FrMLNet": "https://github.com/TingMAC/FrMLNet"
+        "github/TingMAC/FrMLNet": "https://github.com/TingMAC/FrMLNet",
+        "github/bengeof/QPoweredCompound2DeNovoDrugPropMax": "https://github.com/bengeof/QPoweredCompound2DeNovoDrugPropMax",
+        "github/mmollina/viewpoly": "https://github.com/mmollina/viewpoly",
+        "github/yjx1217/RecombineX": "https://github.com/yjx1217/RecombineX",
+        "github/YonghuiDong/RawHummus": "https://github.com/YonghuiDong/RawHummus",
+        "github/MASILab/pyPheWAS": "https://github.com/MASILab/pyPheWAS",
+        "github/lanl/PyBNF": "https://github.com/lanl/PyBNF"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13768,6 +13796,12 @@
         "github/seung-lab/FlyWirePaper": "Source code and data to reproduce analyses from the FlyWire paper.",
         "github/icredd-cheminfo/CGRdb2": null,
         "github/szwiep/py_SBeLT": "A Markov-type numerical model of sediment particle transport in rivers",
-        "github/TingMAC/FrMLNet": "This is a implementation of training code of this paper \u201cFrMLNet: Framelet-based Multi-level Network for Pansharpening\u201d"
+        "github/TingMAC/FrMLNet": "This is a implementation of training code of this paper \u201cFrMLNet: Framelet-based Multi-level Network for Pansharpening\u201d",
+        "github/bengeof/QPoweredCompound2DeNovoDrugPropMax": null,
+        "github/mmollina/viewpoly": "R package to visualize genetic maps and QTL analysis.",
+        "github/yjx1217/RecombineX": "A computational framework for tetrad-based genotyping & recombination landscape analysis",
+        "github/YonghuiDong/RawHummus": "QC Check Tool for Metabolomics",
+        "github/MASILab/pyPheWAS": "MASI Lab Implementation of PheWAS in Python",
+        "github/lanl/PyBNF": "An application for parameterization of biological models available in SBML and BNGL formats. Features include parallelization, metaheuristic optimization algorithms, and an adaptive Markov chain Monte Carlo (MCMC) sampling algorithm."
     }
 }

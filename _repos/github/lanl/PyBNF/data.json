@@ -1,0 +1,170 @@
+{
+    "setup.py": {
+        "github/lanl/PyBNF": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "distributed": {
+            "credit": 0.007524000000000005,
+            "url": "https://distributed.dask.org"
+        },
+        "paramiko": {
+            "credit": 0.0009900000000000048,
+            "url": "https://paramiko.org"
+        },
+        "msgpack": {
+            "credit": 0.105534,
+            "url": "https://msgpack.org/"
+        },
+        "numpy": {
+            "credit": 0.30155400000000004,
+            "url": "https://www.numpy.org"
+        },
+        "nose": {
+            "credit": 0.099,
+            "url": "http://readthedocs.org/docs/nose/"
+        },
+        "pyparsing": {
+            "credit": 0.0009900000000000048,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "libroadrunner": {
+            "credit": 0.0009900000000000048,
+            "url": "http://libroadrunner.org"
+        },
+        "dask": {
+            "credit": 0.007524000000000005,
+            "url": "https://github.com/dask/dask/"
+        },
+        "tornado": {
+            "credit": 0.105534,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "scipy": {
+            "credit": 0.0009900000000000048,
+            "url": "https://www.scipy.org"
+        },
+        "pyyaml": {
+            "credit": 0.013068,
+            "url": "https://pyyaml.org/"
+        },
+        "zict": {
+            "credit": 6.533999999999967e-05,
+            "url": "http://zict.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.006534,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "toolz": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "tblib": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/tblib"
+        },
+        "sortedcontainers": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "psutil": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "packaging": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "locket": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/locket"
+        },
+        "jinja2": {
+            "credit": 0.062072999999999996,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "cloudpickle": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "click": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/click"
+        },
+        "pywin32": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pywin32"
+        },
+        "gssapi": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/gssapi"
+        },
+        "invoke": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/invoke"
+        },
+        "pyasn1": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "six": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/six"
+        },
+        "pynacl": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/pynacl"
+        },
+        "cryptography": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "bcrypt": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "railroad-diagrams": {
+            "credit": 0.049005,
+            "url": "https://pypi.org/project/railroad-diagrams"
+        },
+        "pre-commit": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pytest-xdist": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "bokeh": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "partd": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/partd"
+        },
+        "fsspec": {
+            "credit": 0.006534,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "heapdict": {
+            "credit": 0.00646866,
+            "url": "https://pypi.org/project/heapdict"
+        }
+    }
+}
