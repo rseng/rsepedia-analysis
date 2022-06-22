@@ -1,0 +1,34 @@
+{
+    "CMakeLists.txt": {
+        "github/seqan/lara": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0014142857142857143,
+            "url": null
+        },
+        "seqan": {
+            "credit": 0.0014142857142857143,
+            "url": null
+        },
+        "openmp": {
+            "credit": 0.0014142857142857143,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.0014142857142857143,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.0014142857142857143,
+            "url": null
+        },
+        "seqan.": {
+            "credit": 0.0028285714285714286,
+            "url": null
+        }
+    }
+}

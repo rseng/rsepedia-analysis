@@ -8381,7 +8381,40 @@
             "quality-control"
         ],
         "github/MASILab/pyPheWAS": [],
-        "github/lanl/PyBNF": []
+        "github/lanl/PyBNF": [],
+        "github/pnnl/interflow": [],
+        "github/engyasin/Offline_MOT": [
+            "multiple-object-tracking",
+            "drone",
+            "object-detection",
+            "python"
+        ],
+        "github/pysal/spopt": [
+            "spatial-optimization",
+            "regionalization",
+            "facility-location",
+            "routing",
+            "transportation",
+            "spatial-analysis",
+            "location-allocation",
+            "location-modeling",
+            "resource-planning",
+            "python"
+        ],
+        "github/insightsengineering/rbmi": [],
+        "github/seqan/lara": [
+            "bioinformatics",
+            "rna",
+            "alignment",
+            "rna-structure"
+        ],
+        "github/UAMCAntwerpen/LEADD": [],
+        "github/C0PEP0D/otto": [
+            "pomdp",
+            "reinforcement-learning",
+            "olfactory-search",
+            "source-tracking"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10188,7 +10221,14 @@
         "github/yjx1217/RecombineX": "Perl",
         "github/YonghuiDong/RawHummus": "R",
         "github/MASILab/pyPheWAS": "Python",
-        "github/lanl/PyBNF": "Python"
+        "github/lanl/PyBNF": "Python",
+        "github/pnnl/interflow": "Python",
+        "github/engyasin/Offline_MOT": "Python",
+        "github/pysal/spopt": "Python",
+        "github/insightsengineering/rbmi": "R",
+        "github/seqan/lara": "C++",
+        "github/UAMCAntwerpen/LEADD": "C++",
+        "github/C0PEP0D/otto": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -11995,7 +12035,14 @@
         "github/yjx1217/RecombineX": "https://github.com/yjx1217/RecombineX",
         "github/YonghuiDong/RawHummus": "https://github.com/YonghuiDong/RawHummus",
         "github/MASILab/pyPheWAS": "https://github.com/MASILab/pyPheWAS",
-        "github/lanl/PyBNF": "https://github.com/lanl/PyBNF"
+        "github/lanl/PyBNF": "https://github.com/lanl/PyBNF",
+        "github/pnnl/interflow": "https://github.com/pnnl/interflow",
+        "github/engyasin/Offline_MOT": "https://github.com/engyasin/Offline_MOT",
+        "github/pysal/spopt": "https://github.com/pysal/spopt",
+        "github/insightsengineering/rbmi": "https://github.com/insightsengineering/rbmi",
+        "github/seqan/lara": "https://github.com/seqan/lara",
+        "github/UAMCAntwerpen/LEADD": "https://github.com/UAMCAntwerpen/LEADD",
+        "github/C0PEP0D/otto": "https://github.com/C0PEP0D/otto"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13802,6 +13849,13 @@
         "github/yjx1217/RecombineX": "A computational framework for tetrad-based genotyping & recombination landscape analysis",
         "github/YonghuiDong/RawHummus": "QC Check Tool for Metabolomics",
         "github/MASILab/pyPheWAS": "MASI Lab Implementation of PheWAS in Python",
-        "github/lanl/PyBNF": "An application for parameterization of biological models available in SBML and BNGL formats. Features include parallelization, metaheuristic optimization algorithms, and an adaptive Markov chain Monte Carlo (MCMC) sampling algorithm."
+        "github/lanl/PyBNF": "An application for parameterization of biological models available in SBML and BNGL formats. Features include parallelization, metaheuristic optimization algorithms, and an adaptive Markov chain Monte Carlo (MCMC) sampling algorithm.",
+        "github/pnnl/interflow": "A Python package for organizing and calculating cross-sectoral interdependency flow values",
+        "github/engyasin/Offline_MOT": "Multiple traffic entities detection and tracking from bird-view drone stationary  videos https://engyasin.github.io/Offline_MOT/",
+        "github/pysal/spopt": "Spatial Optimization",
+        "github/insightsengineering/rbmi": "Reference based multiple imputation R package",
+        "github/seqan/lara": "LaRA 2: Lagrangian Relaxed structural Alignment",
+        "github/UAMCAntwerpen/LEADD": "Lamarckian Evolutionary Algorithm for de novo Drug Design",
+        "github/C0PEP0D/otto": "a Python package to simulate, solve and visualize the source-tracking POMDP"
     }
 }
