@@ -17,7 +17,7 @@ setup(
     description="Pythonic particle-based (super-droplet) warm-rain/aqueous-chemistry"
     " cloud microphysics package with box, parcel & 1D/2D prescribed-flow"
     " examples in Python, Julia and Matlab",
-    use_scm_version=True,
+    use_scm_version={"local_scheme": lambda _: "", "version_scheme": "post-release"},
     setup_requires=["setuptools_scm"],
     install_requires=[
         "ThrustRTC==0.3.19",
@@ -51,4 +51,9 @@ setup(
     " atmospheric-modelling, particle-system, numba, thrust,"
     " nvrtc, pint, atmospheric-physics",
     packages=find_packages(include=["PySDM", "PySDM.*"]),
+    project_urls={
+        "Tracker": "https://github.com/atmos-cloud-sim-uj/PySDM/issues",
+        "Documentation": "https://atmos-cloud-sim-uj.github.io/PySDM",
+        "Source": "https://github.com/atmos-cloud-sim-uj/PySDM",
+    },
 )
