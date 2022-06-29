@@ -1,0 +1,150 @@
+{
+    "DESCRIPTION": {
+        "github/ropensci/readODS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "xml2": {
+            "credit": 0.010147499999999981,
+            "url": "https://xml2.r-lib.org/"
+        },
+        "cellranger": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/rsheets/cellranger"
+        },
+        "readr": {
+            "credit": 0.0019800000000000373,
+            "url": "https://readr.tidyverse.org"
+        },
+        "stringi": {
+            "credit": 0.010147500000000009,
+            "url": "https://stringi.gagolewski.com/"
+        },
+        "purrr": {
+            "credit": 0.0019800000000000095,
+            "url": "http://purrr.tidyverse.org"
+        },
+        "testthat": {
+            "credit": 0.045589500000000005,
+            "url": "https://testthat.r-lib.org"
+        },
+        "rmarkdown": {
+            "credit": 0.045589500000000005,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.037422,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.045589500000000005,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.027769500000000003,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0945945,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.027769500000000003,
+            "url": null
+        },
+        "R": {
+            "credit": 0.1435995,
+            "url": null
+        },
+        "rematch": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.0749925,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "waldo": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "tzdb": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "datasets": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "vroom": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.025987499999999997,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.025987499999999997,
+            "url": null
+        },
+        "clipr": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "cli": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.01782,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.01782,
+            "url": null
+        }
+    }
+}

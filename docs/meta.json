@@ -8414,7 +8414,31 @@
             "reinforcement-learning",
             "olfactory-search",
             "source-tracking"
-        ]
+        ],
+        "gitlab/moerman1/fhi-cc4s": [],
+        "github/vipinagrawal25/MeMC": [],
+        "github/LeandroOrdonez/explora-vr-dash-client": [],
+        "github/dingyaozhang/Evitar": [],
+        "github/RongquanWang/ELF-DPC": [],
+        "github/icb-dcm/pyabc": [
+            "abc",
+            "approximate-bayesian-inference",
+            "likelihood-free-inference",
+            "parameter-inference"
+        ],
+        "github/NeamulKabir/EnsembleFam": [],
+        "github/ropensci/readODS": [],
+        "github/SJLeo/FFSD": [],
+        "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": [],
+        "github/nikhilroxtomar/FANet": [
+            "semantic-segmentation",
+            "deep-learning",
+            "computer-vision",
+            "machine-learning",
+            "unet",
+            "pytorch"
+        ],
+        "github/DeepRank/deeprank-core": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10228,7 +10252,19 @@
         "github/insightsengineering/rbmi": "R",
         "github/seqan/lara": "C++",
         "github/UAMCAntwerpen/LEADD": "C++",
-        "github/C0PEP0D/otto": "Python"
+        "github/C0PEP0D/otto": "Python",
+        "gitlab/moerman1/fhi-cc4s": "unknown",
+        "github/vipinagrawal25/MeMC": "C++",
+        "github/LeandroOrdonez/explora-vr-dash-client": "Jupyter Notebook",
+        "github/dingyaozhang/Evitar": "Perl",
+        "github/RongquanWang/ELF-DPC": null,
+        "github/icb-dcm/pyabc": "Python",
+        "github/NeamulKabir/EnsembleFam": "Python",
+        "github/ropensci/readODS": "R",
+        "github/SJLeo/FFSD": "Python",
+        "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": "Perl",
+        "github/nikhilroxtomar/FANet": "Python",
+        "github/DeepRank/deeprank-core": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -12042,7 +12078,19 @@
         "github/insightsengineering/rbmi": "https://github.com/insightsengineering/rbmi",
         "github/seqan/lara": "https://github.com/seqan/lara",
         "github/UAMCAntwerpen/LEADD": "https://github.com/UAMCAntwerpen/LEADD",
-        "github/C0PEP0D/otto": "https://github.com/C0PEP0D/otto"
+        "github/C0PEP0D/otto": "https://github.com/C0PEP0D/otto",
+        "gitlab/moerman1/fhi-cc4s": "https://gitlab.com/moerman1/fhi-cc4s",
+        "github/vipinagrawal25/MeMC": "https://github.com/vipinagrawal25/MeMC",
+        "github/LeandroOrdonez/explora-vr-dash-client": "https://github.com/LeandroOrdonez/explora-vr-dash-client",
+        "github/dingyaozhang/Evitar": "https://github.com/dingyaozhang/Evitar",
+        "github/RongquanWang/ELF-DPC": "https://github.com/RongquanWang/ELF-DPC",
+        "github/icb-dcm/pyabc": "https://github.com/ICB-DCM/pyABC",
+        "github/NeamulKabir/EnsembleFam": "https://github.com/NeamulKabir/EnsembleFam",
+        "github/ropensci/readODS": "https://github.com/ropensci/readODS",
+        "github/SJLeo/FFSD": "https://github.com/SJLeo/FFSD",
+        "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": "https://github.com/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner",
+        "github/nikhilroxtomar/FANet": "https://github.com/nikhilroxtomar/FANet",
+        "github/DeepRank/deeprank-core": "https://github.com/DeepRank/deeprank-core"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13856,6 +13904,18 @@
         "github/insightsengineering/rbmi": "Reference based multiple imputation R package",
         "github/seqan/lara": "LaRA 2: Lagrangian Relaxed structural Alignment",
         "github/UAMCAntwerpen/LEADD": "Lamarckian Evolutionary Algorithm for de novo Drug Design",
-        "github/C0PEP0D/otto": "a Python package to simulate, solve and visualize the source-tracking POMDP"
+        "github/C0PEP0D/otto": "a Python package to simulate, solve and visualize the source-tracking POMDP",
+        "gitlab/moerman1/fhi-cc4s": "This project constitutes the interface between the Fritz Haber Institute ab initio molecular simulations (FHI-aims) and the Coupled Cluster for Solids (CC4S) code developed by Felix Hummel and Adreas Grueneis at the TU Wien. \r\n",
+        "github/vipinagrawal25/MeMC": "The software mainly has three sections:",
+        "github/LeandroOrdonez/explora-vr-dash-client": null,
+        "github/dingyaozhang/Evitar": null,
+        "github/RongquanWang/ELF-DPC": "An ensemble learning framework for detecting protein complexes from PPI networks",
+        "github/icb-dcm/pyabc": "distributed, likelihood-free inference",
+        "github/NeamulKabir/EnsembleFam": "EnsembleFam: Towards a more accurate protein function prediction in twilight zone",
+        "github/ropensci/readODS": "read ODS files into R as data.frames",
+        "github/SJLeo/FFSD": "Pytorch implementation of our paper accepted by IEEE TNNLS, 2022 -- Distilling a Powerful Student Model via Online Knowledge Distillation",
+        "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": null,
+        "github/nikhilroxtomar/FANet": "FANet: A Feedback Attention Network for Improved Biomedical Image Segmentation [IEEE Transactions on Neural Networks and Learning Systems]",
+        "github/DeepRank/deeprank-core": null
     }
 }
