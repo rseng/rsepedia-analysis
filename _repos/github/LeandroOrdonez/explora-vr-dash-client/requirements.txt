@@ -1,0 +1,6 @@
+grequests
+asyncio
+pandas
+numpy
+kafka-python
+httplib2
