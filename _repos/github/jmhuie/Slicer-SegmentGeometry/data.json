@@ -1,0 +1,18 @@
+{
+    "CMakeLists.txt": {
+        "github/jmhuie/Slicer-SegmentGeometry": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.00495,
+            "url": null
+        },
+        "slicer": {
+            "credit": 0.00495,
+            "url": null
+        }
+    }
+}
