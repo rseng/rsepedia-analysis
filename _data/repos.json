@@ -8438,7 +8438,46 @@
             "unet",
             "pytorch"
         ],
-        "github/DeepRank/deeprank-core": []
+        "github/DeepRank/deeprank-core": [],
+        "gitlab/thartwig/asloth": [],
+        "github/yuliadm/mixComp": [],
+        "github/jmhuie/Slicer-SegmentGeometry": [
+            "3d-slicer-extension"
+        ],
+        "github/alesantuz/musclesyneRgies": [
+            "muscle-synergies",
+            "emg",
+            "nmf",
+            "rstudio",
+            "r",
+            "physiol"
+        ],
+        "github/SolavLab/DuoDIC": [],
+        "github/ropensci/tidyqpcr": [
+            "qpcr-analysis",
+            "tidyverse",
+            "r",
+            "rstats",
+            "r-package",
+            "miqe",
+            "qpcr"
+        ],
+        "github/longfei8533/SDC": [],
+        "github/connectomicslab/connectomemapper3": [
+            "bids",
+            "bidsapp",
+            "dmri",
+            "fmri",
+            "connectome",
+            "bids-apps",
+            "pipelines",
+            "chuv",
+            "brain",
+            "parcellation",
+            "python",
+            "eeg"
+        ],
+        "github/IanevskiAleksandr/sc-type": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10264,7 +10303,16 @@
         "github/SJLeo/FFSD": "Python",
         "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": "Perl",
         "github/nikhilroxtomar/FANet": "Python",
-        "github/DeepRank/deeprank-core": "Python"
+        "github/DeepRank/deeprank-core": "Python",
+        "gitlab/thartwig/asloth": "unknown",
+        "github/yuliadm/mixComp": "R",
+        "github/jmhuie/Slicer-SegmentGeometry": "Python",
+        "github/alesantuz/musclesyneRgies": "HTML",
+        "github/SolavLab/DuoDIC": "MATLAB",
+        "github/ropensci/tidyqpcr": "R",
+        "github/longfei8533/SDC": "R",
+        "github/connectomicslab/connectomemapper3": "HTML",
+        "github/IanevskiAleksandr/sc-type": "HTML"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -12090,7 +12138,16 @@
         "github/SJLeo/FFSD": "https://github.com/SJLeo/FFSD",
         "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": "https://github.com/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner",
         "github/nikhilroxtomar/FANet": "https://github.com/nikhilroxtomar/FANet",
-        "github/DeepRank/deeprank-core": "https://github.com/DeepRank/deeprank-core"
+        "github/DeepRank/deeprank-core": "https://github.com/DeepRank/deeprank-core",
+        "gitlab/thartwig/asloth": "https://gitlab.com/thartwig/asloth",
+        "github/yuliadm/mixComp": "https://github.com/yuliadm/mixComp",
+        "github/jmhuie/Slicer-SegmentGeometry": "https://github.com/jmhuie/Slicer-SegmentGeometry",
+        "github/alesantuz/musclesyneRgies": "https://github.com/alesantuz/musclesyneRgies",
+        "github/SolavLab/DuoDIC": "https://github.com/SolavLab/DuoDIC",
+        "github/ropensci/tidyqpcr": "https://github.com/ropensci/tidyqpcr",
+        "github/longfei8533/SDC": "https://github.com/longfei8533/SDC",
+        "github/connectomicslab/connectomemapper3": "https://github.com/connectomicslab/connectomemapper3",
+        "github/IanevskiAleksandr/sc-type": "https://github.com/IanevskiAleksandr/sc-type"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13916,6 +13973,15 @@
         "github/SJLeo/FFSD": "Pytorch implementation of our paper accepted by IEEE TNNLS, 2022 -- Distilling a Powerful Student Model via Online Knowledge Distillation",
         "github/frarei312/ExceS-A-An-Exon-Centric-Split-Aligner": null,
         "github/nikhilroxtomar/FANet": "FANet: A Feedback Attention Network for Improved Biomedical Image Segmentation [IEEE Transactions on Neural Networks and Learning Systems]",
-        "github/DeepRank/deeprank-core": null
+        "github/DeepRank/deeprank-core": null,
+        "gitlab/thartwig/asloth": "Semi-analytical model A-SLOTH (Ancient Stars and Local Observables by Tracing Halos)",
+        "github/yuliadm/mixComp": null,
+        "github/jmhuie/Slicer-SegmentGeometry": "Extension to calculate second moment of area and other cross-sectional properties in 3D Slicer",
+        "github/alesantuz/musclesyneRgies": "R package to extract muscle synergies from electromyogram",
+        "github/SolavLab/DuoDIC": "Stereo 3D Digital Image Correlation (3D-DIC) MATLAB toolbox",
+        "github/ropensci/tidyqpcr": "quantitative PCR analysis in the tidyverse",
+        "github/longfei8533/SDC": "Sex Differences in Cancer",
+        "github/connectomicslab/connectomemapper3": "Connectome Mapper 3 is a BIDS App that implements full anatomical, diffusion, resting/state functional MRI, and recently EEG processing pipelines, from raw T1 / DWI / BOLD data, and preprocessed EEG to multi-resolution brain parcellation with corresponding connection matrices.",
+        "github/IanevskiAleksandr/sc-type": null
     }
 }
