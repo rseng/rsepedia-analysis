@@ -8477,7 +8477,43 @@
             "python",
             "eeg"
         ],
-        "github/IanevskiAleksandr/sc-type": []
+        "github/IanevskiAleksandr/sc-type": [],
+        "github/lanl/spiner": [],
+        "github/amoradinejad/limHaloPT": [],
+        "github/tidymodels/stacks": [],
+        "github/pni-lab/mlconfound": [
+            "confounders",
+            "machine-learning",
+            "predictive-modeling",
+            "permutation-test",
+            "conditional-independence"
+        ],
+        "github/Gabaldonlab/karyon": [],
+        "github/kno10/python-kmedoids": [],
+        "github/holmescao/ANTS_marking_and_analysis_tools": [],
+        "github/nasa/simupy-flight": [],
+        "github/sdnjly/WSDL-AD": [],
+        "github/NASA-PDS/naif-pds4-bundler": [
+            "python",
+            "planetary-science",
+            "planetary-data",
+            "data",
+            "archive",
+            "spice",
+            "geometry",
+            "geometry-processing",
+            "navigation"
+        ],
+        "github/TrackerControl/tracker-control-android": [
+            "android",
+            "tracking-protection",
+            "privacy"
+        ],
+        "github/DICP1810/SpotLink": [],
+        "github/rbturnbull/ausdex": [
+            "inflation",
+            "australia"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -10312,7 +10348,20 @@
         "github/ropensci/tidyqpcr": "R",
         "github/longfei8533/SDC": "R",
         "github/connectomicslab/connectomemapper3": "HTML",
-        "github/IanevskiAleksandr/sc-type": "HTML"
+        "github/IanevskiAleksandr/sc-type": "HTML",
+        "github/lanl/spiner": "C++",
+        "github/amoradinejad/limHaloPT": "C",
+        "github/tidymodels/stacks": "R",
+        "github/pni-lab/mlconfound": "Jupyter Notebook",
+        "github/Gabaldonlab/karyon": "Python",
+        "github/kno10/python-kmedoids": "Python",
+        "github/holmescao/ANTS_marking_and_analysis_tools": "Python",
+        "github/nasa/simupy-flight": "Python",
+        "github/sdnjly/WSDL-AD": "Python",
+        "github/NASA-PDS/naif-pds4-bundler": "HCL",
+        "github/TrackerControl/tracker-control-android": "Java",
+        "github/DICP1810/SpotLink": "HTML",
+        "github/rbturnbull/ausdex": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -12147,7 +12196,20 @@
         "github/ropensci/tidyqpcr": "https://github.com/ropensci/tidyqpcr",
         "github/longfei8533/SDC": "https://github.com/longfei8533/SDC",
         "github/connectomicslab/connectomemapper3": "https://github.com/connectomicslab/connectomemapper3",
-        "github/IanevskiAleksandr/sc-type": "https://github.com/IanevskiAleksandr/sc-type"
+        "github/IanevskiAleksandr/sc-type": "https://github.com/IanevskiAleksandr/sc-type",
+        "github/lanl/spiner": "https://github.com/lanl/spiner",
+        "github/amoradinejad/limHaloPT": "https://github.com/amoradinejad/limHaloPT",
+        "github/tidymodels/stacks": "https://github.com/tidymodels/stacks",
+        "github/pni-lab/mlconfound": "https://github.com/pni-lab/mlconfound",
+        "github/Gabaldonlab/karyon": "https://github.com/Gabaldonlab/karyon",
+        "github/kno10/python-kmedoids": "https://github.com/kno10/python-kmedoids",
+        "github/holmescao/ANTS_marking_and_analysis_tools": "https://github.com/holmescao/ANTS_marking_and_analysis_tools",
+        "github/nasa/simupy-flight": "https://github.com/nasa/simupy-flight",
+        "github/sdnjly/WSDL-AD": "https://github.com/sdnjly/WSDL-AD",
+        "github/NASA-PDS/naif-pds4-bundler": "https://github.com/NASA-PDS/naif-pds4-bundler",
+        "github/TrackerControl/tracker-control-android": "https://github.com/TrackerControl/tracker-control-android",
+        "github/DICP1810/SpotLink": "https://github.com/DICP1810/SpotLink",
+        "github/rbturnbull/ausdex": "https://github.com/rbturnbull/ausdex"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -13982,6 +14044,19 @@
         "github/ropensci/tidyqpcr": "quantitative PCR analysis in the tidyverse",
         "github/longfei8533/SDC": "Sex Differences in Cancer",
         "github/connectomicslab/connectomemapper3": "Connectome Mapper 3 is a BIDS App that implements full anatomical, diffusion, resting/state functional MRI, and recently EEG processing pipelines, from raw T1 / DWI / BOLD data, and preprocessed EEG to multi-resolution brain parcellation with corresponding connection matrices.",
-        "github/IanevskiAleksandr/sc-type": null
+        "github/IanevskiAleksandr/sc-type": null,
+        "github/lanl/spiner": "Performance portable routines for generic, tabulated, multi-dimensional data",
+        "github/amoradinejad/limHaloPT": "The public repository of limHaloPT (master for the most recent version of the code)",
+        "github/tidymodels/stacks": "An R package for tidy stacked ensemble modeling",
+        "github/pni-lab/mlconfound": "Tools for analyzing and quantifying effects of counfounder variables on machine learning model predictions.",
+        "github/Gabaldonlab/karyon": "This is the Karyon Pipeline",
+        "github/kno10/python-kmedoids": "Fast K-Medoids clustering in Python with FasterPAM",
+        "github/holmescao/ANTS_marking_and_analysis_tools": null,
+        "github/nasa/simupy-flight": null,
+        "github/sdnjly/WSDL-AD": null,
+        "github/NASA-PDS/naif-pds4-bundler": "Package to generate PDS4 SPICE Kernels Archives",
+        "github/TrackerControl/tracker-control-android": "TrackerControl: monitor and control trackers and ads.",
+        "github/DICP1810/SpotLink": "SpotLinkTest",
+        "github/rbturnbull/ausdex": "A Python package for adjusting Australian dollars for inflation"
     }
 }

@@ -1,15 +1,15 @@
 {
     "unknown": 36,
-    "Python": 608,
-    "Jupyter Notebook": 105,
+    "Python": 614,
+    "Jupyter Notebook": 106,
     "Modelica": 1,
     "Shell": 16,
-    "HTML": 45,
+    "HTML": 46,
     "Perl": 14,
-    "R": 506,
-    "C++": 148,
-    "Java": 50,
-    "C": 46,
+    "R": 507,
+    "C++": 149,
+    "Java": 51,
+    "C": 47,
     "Rust": 6,
     "JavaScript": 52,
     "AMPL": 1,
@@ -54,5 +54,6 @@
     "Stan": 2,
     "Lua": 2,
     "PHP": 1,
-    "Gnuplot": 1
+    "Gnuplot": 1,
+    "HCL": 1
 }
