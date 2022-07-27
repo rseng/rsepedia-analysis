@@ -125,6 +125,8 @@ def main():
             continue
 
         print(f"{reponame}: {i} of {len(repos)}")
+        if not repo.url:
+            continue
         dest = clone(repo.url, tempdir)
         if not dest:
             continue
