@@ -1,0 +1,58 @@
+{
+    "go.mod": {
+        "github/brentp/vcfanno": {
+            "credit": 0.01,
+            "url": "https://github/brentp/vcfanno"
+        }
+    },
+    "go": {
+        "github.com/BurntSushi/toml": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/BurntSushi/toml"
+        },
+        "github.com/biogo/hts": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/biogo/hts"
+        },
+        "github.com/brentp/bix": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/brentp/bix"
+        },
+        "github.com/brentp/goluaez": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/brentp/goluaez"
+        },
+        "github.com/brentp/irelate": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/brentp/irelate"
+        },
+        "github.com/brentp/vcfgo": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/brentp/vcfgo"
+        },
+        "github.com/brentp/xopen": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/brentp/xopen"
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/pkg/errors"
+        },
+        "github.com/yuin/gluare": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/yuin/gluare"
+        },
+        "github.com/yuin/gopher-lua": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/yuin/gopher-lua"
+        },
+        "golang.org/x/tools": {
+            "credit": 0.0008250000000000001,
+            "url": "https://golang.org/x/tools"
+        },
+        "gopkg.in/check.v1": {
+            "credit": 0.0008250000000000001,
+            "url": "https://gopkg.in/check.v1"
+        }
+    }
+}

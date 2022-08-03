@@ -1,0 +1,6 @@
+scikit-learn
+nose
+astroML_addons
+astroML
+scipy
+pandas

@@ -1,0 +1,290 @@
+{
+    "CMakeLists.txt": {
+        "github/pkestene/ramsesGPU": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.014375204081632658,
+            "url": "https://www.cmake.org"
+        },
+        "cuda": {
+            "credit": 0.019459056122448984,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "cudalibs": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.0260430612244898,
+            "url": "http://mvapich.cse.ohio-state.edu"
+        },
+        "hdf5": {
+            "credit": 0.002707346938775517,
+            "url": "https://portal.hdfgroup.org"
+        },
+        "pnetcdf": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "vtk": {
+            "credit": 0.0007071428571428784,
+            "url": "http://www.vtk.org"
+        },
+        "papi": {
+            "credit": 0.0007071428571428645,
+            "url": "https://icl.cs.utk.edu/papi/index.html"
+        },
+        "fftw": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.fftw.org"
+        },
+        "qt5widgets": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "qt5opengl": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "opengl": {
+            "credit": 0.14142857142857143,
+            "url": "https://www.opengl.org/"
+        },
+        "glut": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "ninja": {
+            "credit": 5.83392857142857e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.005833928571428571,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.007834132653061224,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.019501989795918367,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.007834132653061224,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0408375,
+            "url": null
+        },
+        "python": {
+            "credit": 0.013609721938775509,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.04700479591836734,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.03041977040816326,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "libpciaccess": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "pmix": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.01875191326530612,
+            "url": null
+        },
+        "java": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "szip": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "py-mpi4py": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "glx": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "libxt": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "osmesa": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "boost": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "ffmpeg": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "jsoncpp": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "netcdf-c": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "netcdf-cxx": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "eigen": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "double-conversion": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "pugixml": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "libogg": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "libtheora": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "utf8cpp": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "gl2ps": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "proj": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "cgns": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "seacas": {
+            "credit": 0.0020002040816326527,
+            "url": null
+        },
+        "llvm-amdgpu": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "hsa-rocr-dev": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "lm-sensors": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rocprofiler-dev": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rocm-smi-lib": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "llvm-openmp": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.011667857142857141,
+            "url": null
+        }
+    }
+}

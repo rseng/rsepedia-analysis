@@ -1,0 +1,42 @@
+{
+    "requirements.txt": {
+        "github/johnh2o2/cuvarbase": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "future": {
+            "credit": 0.00198,
+            "url": "https://python-future.org"
+        },
+        "numpy": {
+            "credit": 0.0023067,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0023067,
+            "url": "https://www.scipy.org"
+        },
+        "pycuda": {
+            "credit": 0.0023067,
+            "url": "http://mathema.tician.de/software/pycuda"
+        },
+        "scikit-cuda": {
+            "credit": 0.00198,
+            "url": "https://github.com/lebedov/scikit-cuda/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.00032669999999999997,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinx": {
+            "credit": 0.00032669999999999997,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "mako": {
+            "credit": 0.00032669999999999997,
+            "url": "https://www.makotemplates.org/"
+        }
+    }
+}

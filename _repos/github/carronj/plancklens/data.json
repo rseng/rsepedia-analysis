@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/carronj/plancklens": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "healpy": {
+            "credit": 0.002475,
+            "url": "http://github.com/healpy"
+        },
+        "six": {
+            "credit": 0.002475,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

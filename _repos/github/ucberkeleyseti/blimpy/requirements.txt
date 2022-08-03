@@ -1,0 +1,12 @@
+astropy
+numpy>=1.19
+six
+setuptools
+matplotlib
+h5py
+scipy
+hdf5plugin
+pandas
+Pillow
+psutil
+pyparsing==2.4.7

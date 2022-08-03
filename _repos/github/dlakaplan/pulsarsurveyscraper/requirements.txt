@@ -1,0 +1,7 @@
+astropy
+h5py
+pyyaml
+beautifulsoup4
+requests
+fpdf2
+pdf2image

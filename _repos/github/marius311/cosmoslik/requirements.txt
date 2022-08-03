@@ -1,0 +1,13 @@
+CommonMark>=0.5.4
+Cython>=0.16
+docutils>=0.12
+ipython>=5
+jupyter-client>=4
+nbsphinx>=0.2.9
+numpy>=1.11.0
+pandoc>=1.0.0b2
+recommonmark>=0.4.0
+scipy>=0.17.0
+sphinx-autobuild>=0.6.0
+Sphinx>=1.4.6
+sphinxcontrib-napoleon>=0.5.3

@@ -1,0 +1,18 @@
+{
+    "requirements.txt": {
+        "github/michaelhb/superplot": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "appdirs": {
+            "credit": 0.00495,
+            "url": "http://github.com/ActiveState/appdirs"
+        },
+        "simpleyaml": {
+            "credit": 0.00495,
+            "url": "http://pyyaml.org/wiki/PyYAML"
+        }
+    }
+}

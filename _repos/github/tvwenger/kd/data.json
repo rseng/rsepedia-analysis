@@ -1,0 +1,110 @@
+{
+    "setup.py": {
+        "github/tvwenger/kd": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.492525,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.2475,
+            "url": "https://matplotlib.org"
+        },
+        "scipy": {
+            "credit": 0.002475000000000005,
+            "url": "https://www.scipy.org"
+        },
+        "pathos": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/uqfoundation/pathos"
+        },
+        "multiprocess": {
+            "credit": 0.0006125625000000037,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "pox": {
+            "credit": 0.06125625,
+            "url": "https://github.com/uqfoundation/pox"
+        },
+        "dill": {
+            "credit": 0.0015222178125000006,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "ppft": {
+            "credit": 0.0006125625000000037,
+            "url": "https://github.com/uqfoundation/ppft"
+        },
+        "objgraph": {
+            "credit": 0.001506995634375001,
+            "url": "https://mg.pov.lt/objgraph/"
+        },
+        "six": {
+            "credit": 0.030321843749999997,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "graphviz": {
+            "credit": 0.0309131803468125,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "coverage": {
+            "credit": 0.004572067547596153,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest-cov": {
+            "credit": 0.009098414419716344,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "mock": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/mock"
+        },
+        "pytest-mock": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "pytest": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "twine": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/twine"
+        },
+        "wheel": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "pep8-naming": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/pep8-naming"
+        },
+        "flake8": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "tox": {
+            "credit": 0.009098414419716344,
+            "url": "https://pypi.org/project/tox"
+        },
+        "tomli": {
+            "credit": 0.004526346872120192,
+            "url": "https://pypi.org/project/tomli"
+        }
+    }
+}

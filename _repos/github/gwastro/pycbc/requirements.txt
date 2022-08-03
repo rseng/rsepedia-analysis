@@ -1,0 +1,36 @@
+# requirements for most basic library use
+astropy>=2.0.3,!=4.2.1,!=4.0.5
+Mako>=1.0.1
+scipy>=0.16.0
+matplotlib>=2.0.0
+numpy>=1.16.0,!=1.19.0
+pillow
+h5py>=3.0.0
+jinja2
+mpld3>=0.3
+beautifulsoup4>=4.6.0
+cython
+lalsuite!=7.2
+lscsoft-glue>=1.59.3
+ligo-segments
+tqdm
+gwdatafind
+
+# Requirements for full pegasus env
+pegasus-wms >= 5.0.1
+# need to pin until pegasus for further upstream
+# addresses incompatibility between old flask/jinja2 and latest markupsafe
+markupsafe <= 2.0.1
+
+# Requirements for ligoxml access needed by some workflows
+python-ligo-lw >= 1.8.1
+
+# Needed for Parameter Estimation Tasks
+emcee==2.2.1
+dynesty
+
+# For building documentation
+Sphinx>=4.2.0
+sphinx-rtd-theme
+sphinxcontrib-programoutput>=0.11
+sphinx_design

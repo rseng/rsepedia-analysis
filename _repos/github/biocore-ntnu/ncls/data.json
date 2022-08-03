@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/biocore-ntnu/ncls": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.00495,
+            "url": "http://cython.org/"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

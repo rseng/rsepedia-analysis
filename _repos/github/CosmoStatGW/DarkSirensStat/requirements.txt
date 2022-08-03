@@ -1,0 +1,8 @@
+scipy
+numpy
+pandas
+healpy
+astropy
+ligo.skymap
+pycbc
+matplotlib

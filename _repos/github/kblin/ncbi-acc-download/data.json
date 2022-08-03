@@ -1,0 +1,8 @@
+{
+    "requirements.txt": {
+        "github/kblin/ncbi-acc-download": {
+            "credit": 0.01,
+            "url": null
+        }
+    }
+}

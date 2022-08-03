@@ -1,0 +1,10 @@
+astropy
+numpy
+blimpy>=2.0.34
+pandas
+toolz
+fsspec
+dask
+dask[bag]
+numba
+cloudpickle

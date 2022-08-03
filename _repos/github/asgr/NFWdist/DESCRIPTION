@@ -1,0 +1,12 @@
+Package: NFWdist
+Type: Package
+Title: The Standard Distribution Functions for the 3D NFW Profile
+Version: 0.1.0
+Author: Aaron Robotham
+Maintainer: Aaron Robotham <aaron.robotham@uwa.edu.au>
+Description: Density, distribution function, quantile function and random generation for the 3D Navarro, Frenk & White (NFW) profile. For details see Robotham & Howlett (2018) <arXiv:1805.09550>.
+License: GPL-3
+LazyData: true
+Depends: R (>= 3.00)
+Suggests: knitr, gsl, lamW
+VignetteBuilder: knitr

@@ -1,0 +1,158 @@
+{
+    "requirements.txt": {
+        "github/igmhub/picca": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.27149999999999996,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.004199999999999998,
+            "url": "https://www.scipy.org"
+        },
+        "iminuit": {
+            "credit": 0.000899999999999998,
+            "url": "http://github.com/scikit-hep/iminuit"
+        },
+        "healpy": {
+            "credit": 0.09,
+            "url": "http://github.com/healpy"
+        },
+        "fitsio": {
+            "credit": 0.09,
+            "url": "https://github.com/esheldon/fitsio"
+        },
+        "llvmlite": {
+            "credit": 0.09,
+            "url": "http://llvmlite.readthedocs.io"
+        },
+        "numba": {
+            "credit": 0.0933,
+            "url": "https://numba.pydata.org"
+        },
+        "h5py": {
+            "credit": 0.000899999999999998,
+            "url": "http://www.h5py.org"
+        },
+        "future": {
+            "credit": 0.09,
+            "url": "https://python-future.org"
+        },
+        "setuptools": {
+            "credit": 0.09,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "gitpython": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/gitpython-developers/GitPython"
+        },
+        "resample": {
+            "credit": 0.0033,
+            "url": "http://github.com/resample-project/resample"
+        },
+        "boost-histogram": {
+            "credit": 0.0033,
+            "url": "https://github.com/scikit-hep/boost-histogram"
+        },
+        "tabulate": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/tabulate"
+        },
+        "pytest-xdist": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-cov": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pylint": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pylint"
+        },
+        "pydocstyle": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pydocstyle"
+        },
+        "pre-commit": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "numba-stats": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/numba-stats"
+        },
+        "nbformat": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "matplotlib": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "jupyter-client": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/jupyter-client"
+        },
+        "joblib": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "jaxlib": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/jaxlib"
+        },
+        "jax": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/jax"
+        },
+        "ipykernel": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "flake8": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "cython": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/cython"
+        },
+        "nbsphinx": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/nbsphinx"
+        },
+        "Jinja2": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0033,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "gitdb": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/gitdb"
+        }
+    }
+}

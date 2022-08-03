@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/sanger-pathogens/circlator": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "openpyxl": {
+            "credit": 0.002475,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "pyfastaq": {
+            "credit": 0.002475,
+            "url": "https://github.com/sanger-pathogens/Fastaq"
+        },
+        "pysam": {
+            "credit": 0.002475,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "pymummer": {
+            "credit": 0.002475,
+            "url": "https://github.com/sanger-pathogens/pymummer"
+        },
+        "et-xmlfile": {
+            "credit": 0.00245025,
+            "url": "https://foss.heptapod.net/openpyxl/et_xmlfile"
+        }
+    }
+}

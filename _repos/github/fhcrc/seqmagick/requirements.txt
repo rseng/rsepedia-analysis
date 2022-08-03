@@ -1,0 +1,9 @@
+biopython>=1.78
+pygtrie>=2.1
+
+# for development
+wheel
+sphinx
+nose
+twine
+ghp-import

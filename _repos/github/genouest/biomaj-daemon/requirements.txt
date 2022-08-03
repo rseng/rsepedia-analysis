@@ -1,0 +1,11 @@
+biomaj-user
+biomaj-zipkin
+redis
+PyYAML
+flask
+python-consul
+prometheus_client>=0.0.18
+requests
+biomaj-core>=3.0.16
+biomaj>=3.1.14
+flask-cors

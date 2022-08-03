@@ -1,0 +1,226 @@
+{
+    "CMakeLists.txt": {
+        "github/STEllAR-GROUP/octotiger": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.11370150000000001,
+            "url": "https://www.cmake.org"
+        },
+        "vc": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/VcDevel/Vc"
+        },
+        "hpx": {
+            "credit": 0.010790999999999992,
+            "url": "https://hpx.stellar-group.org/"
+        },
+        "cppuddle": {
+            "credit": 0.099,
+            "url": null
+        },
+        "silo": {
+            "credit": 0.0009900000000000048,
+            "url": "https://wci.llnl.gov/simulation/computer-codes/silo"
+        },
+        "boost": {
+            "credit": 0.005890500000000019,
+            "url": "https://www.boost.org"
+        },
+        "threads": {
+            "credit": 0.099,
+            "url": null
+        },
+        "kokkos": {
+            "credit": 0.0009899999999999909,
+            "url": "https://github.com/kokkos/kokkos"
+        },
+        "hpxkokkos": {
+            "credit": 0.099,
+            "url": null
+        },
+        "ninja": {
+            "credit": 0.004982175,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.0081675,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.03204173076923077,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.015706730769230768,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "python": {
+            "credit": 0.037488824999999996,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "virtest": {
+            "credit": 0.09801,
+            "url": null
+        },
+        "llvm-amdgpu": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "hsa-rocr-dev": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "git": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "hwloc": {
+            "credit": 0.014701500000000001,
+            "url": null
+        },
+        "asio": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "gperftools": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "jemalloc": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "mimalloc": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "tbb": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.028774730769230768,
+            "url": null
+        },
+        "otf2": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "papi": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "valgrind": {
+            "credit": 0.0049005,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "autoconf-archive": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "libxmu": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.007539230769230769,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "numactl": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "memkind": {
+            "credit": 0.009801,
+            "url": null
+        },
+        "kokkos-nvcc-wrapper": {
+            "credit": 0.009801,
+            "url": null
+        }
+    }
+}

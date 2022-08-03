@@ -1,0 +1,7 @@
+edlib
+h5py
+keras
+mappy
+noise
+numpy
+tensorflow

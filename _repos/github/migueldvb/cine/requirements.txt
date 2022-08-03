@@ -1,0 +1,4 @@
+numpy
+scipy
+pandas
+https://github.com/astropy/astroquery/archive/master.zip

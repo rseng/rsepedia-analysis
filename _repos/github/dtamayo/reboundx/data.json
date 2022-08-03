@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/dtamayo/reboundx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "rebound": {
+            "credit": 0.00495,
+            "url": "https://github.com/hannorein/rebound/"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

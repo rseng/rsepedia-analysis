@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/1313e/CMasher": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "colorspacious": {
+            "credit": 0.002475,
+            "url": "https://github.com/njsmith/colorspacious"
+        },
+        "e13tools": {
+            "credit": 0.002475,
+            "url": "https://e13tools.readthedocs.io"
+        },
+        "matplotlib": {
+            "credit": 0.0037001250000000003,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0037001250000000003,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

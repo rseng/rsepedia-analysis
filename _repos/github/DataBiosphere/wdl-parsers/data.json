@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/DataBiosphere/wdl-parsers": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "antlr4-python3-runtime": {
+            "credit": 0.0099,
+            "url": "http://www.antlr.org"
+        }
+    }
+}

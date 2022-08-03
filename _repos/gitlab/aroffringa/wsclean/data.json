@@ -1,0 +1,242 @@
+{
+    "CMakeLists.txt": {
+        "gitlab/aroffringa/wsclean": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.016243887362637367,
+            "url": "https://www.cmake.org"
+        },
+        "git": {
+            "credit": 0.0007615384615384663,
+            "url": "http://git-scm.com"
+        },
+        "casacore": {
+            "credit": 0.0007615384615384663,
+            "url": "https://github.com/casacore/casacore"
+        },
+        "cfitsio": {
+            "credit": 0.005473557692307697,
+            "url": "https://heasarc.gsfc.nasa.gov/fitsio/"
+        },
+        "lapack": {
+            "credit": 0.08086586538461539,
+            "url": "https://developer.arm.com/tools-and-software/server-and-hpc/downloads/arm-performance-libraries"
+        },
+        "pythonlibs": {
+            "credit": 0.07615384615384616,
+            "url": null
+        },
+        "pythoninterp": {
+            "credit": 0.07615384615384616,
+            "url": null
+        },
+        "gsl": {
+            "credit": 0.0007615384615384663,
+            "url": "https://www.gnu.org/software/gsl"
+        },
+        "mpi": {
+            "credit": 0.01803894230769231,
+            "url": "http://mvapich.cse.ohio-state.edu"
+        },
+        "everybeam": {
+            "credit": 0.07615384615384616,
+            "url": null
+        },
+        "idgapi": {
+            "credit": 0.07615384615384616,
+            "url": null
+        },
+        "doxygen": {
+            "credit": 0.0007615384615384663,
+            "url": "https://github.com/doxygen/doxygen/"
+        },
+        "boost": {
+            "credit": 0.005473557692307697,
+            "url": "https://www.boost.org"
+        },
+        "ninja": {
+            "credit": 6.282692307692326e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.03560192307692307,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.010471153846153845,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.023036538461538462,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.010471153846153845,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "python": {
+            "credit": 0.04055029120879121,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.006282692307692308,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.05265494505494506,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.016753846153846154,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.016753846153846154,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.016753846153846154,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.016753846153846154,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.014958791208791209,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "openssh": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "perl-alien-svn": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.0154823489010989,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.026252678571428573,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.017277403846153845,
+            "url": null
+        },
+        "wcslib": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "fftw": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "sofa-c": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "adios2": {
+            "credit": 0.0047120192307692306,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.017277403846153845,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.037696153846153845,
+            "url": null
+        },
+        "libpciaccess": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "pmix": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "graphviz": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "mscgen": {
+            "credit": 0.01077032967032967,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.012565384615384615,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "requirements.txt": {
+        "github/NBISweden/AGAT": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sphinx-rtd-theme": {
+            "credit": 0.002475,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "recommonmark": {
+            "credit": 0.002475,
+            "url": "https://github.com/rtfd/recommonmark"
+        },
+        "sphinxemoji": {
+            "credit": 0.002475,
+            "url": "https://github.com/sphinx-contrib/emojicodes"
+        },
+        "sphinx-markdown-tables": {
+            "credit": 0.002475,
+            "url": "https://github.com/ryanfox/sphinx-markdown-tables"
+        },
+        "sphinx": {
+            "credit": 0.00081675,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "docutils": {
+            "credit": 0.00081675,
+            "url": "https://docutils.sourceforge.io/"
+        },
+        "commonmark": {
+            "credit": 0.00081675,
+            "url": "https://github.com/rtfd/commonmark.py"
+        },
+        "hypothesis": {
+            "credit": 0.0002695275,
+            "url": "https://hypothesis.works"
+        },
+        "flake8": {
+            "credit": 0.0002695275,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "future": {
+            "credit": 0.0002695275,
+            "url": "https://python-future.org"
+        }
+    }
+}

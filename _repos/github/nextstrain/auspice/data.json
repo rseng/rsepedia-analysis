@@ -1,0 +1,330 @@
+{
+    "package.json": {
+        "github/nextstrain/auspice": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "babel": {
+            "credit": 0.08451219512195121,
+            "url": "https://babeljs.io/"
+        },
+        "hot-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "argparse": {
+            "credit": 0.00012073170731707189,
+            "url": "https://github.com/nodeca/argparse#readme"
+        },
+        "babel-loader": {
+            "credit": 0.012073170731707317,
+            "url": "https://github.com/babel/babel-loader"
+        },
+        "babel-plugin-lodash": {
+            "credit": 0.012073170731707317,
+            "url": "https://github.com/lodash/babel-plugin-lodash#readme"
+        },
+        "babel-plugin-strip-function-call": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "babel-plugin-styled-components": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "binomial": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "clean-webpack-plugin": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "compression": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "compression-webpack-plugin": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "core-js": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "create-react-class": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "css-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "css.escape": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-array": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-axis": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-brush": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-color": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-ease": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-format": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-interpolate": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-scale": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-selection": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-shape": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-timer": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-transition": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "d3-zoom": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "dom-to-image": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "dompurify": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "express": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "express-naked-redirect": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "express-static-gzip": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "file-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "html-webpack-plugin": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "i18next": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "leaflet": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "leaflet-gesture-handling": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "linspace": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "lodash-webpack-plugin": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "marked": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "mousetrap": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "node-fetch": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "null-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "outer-product": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "papaparse": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "query-string": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-addons-css-transition-group": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-collapsible": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-ga": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-helmet": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-hot-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-i18next": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-icons": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-redux": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-select": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-tooltip": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "react-virtualized": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "redux": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "redux-thunk": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "regenerator-runtime": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "style-loader": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "styled-components": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "typeface-lato": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "webpack-bundle-analyzer": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "webpack-dev-middleware": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "webpack-hot-middleware": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "whatwg-fetch": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "xlsx": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "yaml-front-matter": {
+            "credit": 0.012073170731707317,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.002390487804878049,
+            "url": null
+        },
+        "": {
+            "credit": 0.004780975609756098,
+            "url": null
+        }
+    }
+}

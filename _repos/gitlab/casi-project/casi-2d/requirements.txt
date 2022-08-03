@@ -1,0 +1,10 @@
+astropy
+keras
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+seaborn
+tensorflow
+-e https://gitlab.com/vail-uvm/vailtools.git@master#egg=vailtools

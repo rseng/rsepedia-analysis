@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/alphaparrot/ExoPlaSim": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.006567,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

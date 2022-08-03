@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/vhaasteren/piccard": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.007375500000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "h5py": {
+            "credit": 0.002475,
+            "url": "http://www.h5py.org"
+        },
+        "healpy": {
+            "credit": 0.002475,
+            "url": "http://github.com/healpy"
+        }
+    }
+}

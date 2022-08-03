@@ -1,0 +1,6 @@
+boltons
+six>=1.9.0
+docutils
+pyyaml
+packaging
+markupsafe

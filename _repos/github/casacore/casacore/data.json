@@ -1,0 +1,250 @@
+{
+    "CMakeLists.txt": {
+        "github/casacore/casacore": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.04005294117647059,
+            "url": "https://www.cmake.org"
+        },
+        "dl": {
+            "credit": 0.055,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.0005500000000000019,
+            "url": "https://tiswww.case.edu/php/chet/readline/rltop.html"
+        },
+        "sofa": {
+            "credit": 0.055,
+            "url": null
+        },
+        "adios2": {
+            "credit": 0.0005500000000000019,
+            "url": "https://csmd.ornl.gov/software/adios2"
+        },
+        "hdf5": {
+            "credit": 0.00375294117647059,
+            "url": "https://portal.hdfgroup.org"
+        },
+        "flex": {
+            "credit": 0.022330000000000003,
+            "url": "https://github.com/westes/flex"
+        },
+        "bison": {
+            "credit": 0.01377357142857143,
+            "url": "https://www.gnu.org/software/bison/"
+        },
+        "blas": {
+            "credit": 0.0005500000000000019,
+            "url": "https://cnugteren.github.io/clblast/clblast.html"
+        },
+        "lapack": {
+            "credit": 0.055,
+            "url": "https://developer.arm.com/tools-and-software/server-and-hpc/downloads/arm-performance-libraries"
+        },
+        "fftw3": {
+            "credit": 0.11,
+            "url": null
+        },
+        "cfitsio": {
+            "credit": 0.022330000000000003,
+            "url": "https://heasarc.gsfc.nasa.gov/fitsio/"
+        },
+        "wcslib": {
+            "credit": 0.0011000000000000038,
+            "url": "https://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/"
+        },
+        "mpi": {
+            "credit": 0.01282794117647059,
+            "url": "http://mvapich.cse.ohio-state.edu"
+        },
+        "openmp": {
+            "credit": 0.055,
+            "url": null
+        },
+        "pthreads": {
+            "credit": 0.055,
+            "url": null
+        },
+        "ninja": {
+            "credit": 4.5375000000000276e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.0226875,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0317625,
+            "url": null
+        },
+        "python": {
+            "credit": 0.012232566176470588,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.0045375,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.09399107142857142,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.010981512605042015,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.012277941176470589,
+            "url": null
+        },
+        "libffi": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "libfabric": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "libzmq": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "dataspaces": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "c-blosc": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.02135294117647059,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "zfp": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "sz": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "py-mpi4py": {
+            "credit": 0.003202941176470588,
+            "url": null
+        },
+        "java": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "szip": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "help2man": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "findutils": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.019057499999999998,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.019057499999999998,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "opencl": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "gmake": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "libpciaccess": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "pmix": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.007778571428571428,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/radiocosmology/draco": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Cython": {
+            "credit": 0.00198,
+            "url": "http://cython.org/"
+        },
+        "mpi4py": {
+            "credit": 0.00198,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "numpy": {
+            "credit": 0.00198,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        },
+        "skyfield": {
+            "credit": 0.00198,
+            "url": "http://github.com/brandon-rhodes/python-skyfield/"
+        }
+    }
+}

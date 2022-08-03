@@ -1,0 +1,158 @@
+{
+    "setup.py": {
+        "github/davidgardenier/frbpoppy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bokeh": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/bokeh/bokeh"
+        },
+        "numpy": {
+            "credit": 0.23478749999999998,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0306,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.000899999999999998,
+            "url": "https://www.scipy.org"
+        },
+        "frbcat": {
+            "credit": 0.000899999999999998,
+            "url": "http://github.com/davidgardenier/frbcat"
+        },
+        "SQLAlchemy": {
+            "credit": 0.09,
+            "url": "https://www.sqlalchemy.org"
+        },
+        "matplotlib": {
+            "credit": 0.09,
+            "url": "https://matplotlib.org"
+        },
+        "requests": {
+            "credit": 0.0417375,
+            "url": "https://requests.readthedocs.io"
+        },
+        "dill": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "tqdm": {
+            "credit": 0.000899999999999998,
+            "url": "https://tqdm.github.io"
+        },
+        "joblib": {
+            "credit": 0.09,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "xyzservices": {
+            "credit": 0.0111375,
+            "url": "https://github.com/geopandas/xyzservices"
+        },
+        "typing-extensions": {
+            "credit": 0.0111375,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "tornado": {
+            "credit": 0.0111375,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "PyYAML": {
+            "credit": 0.0111375,
+            "url": "https://pyyaml.org/"
+        },
+        "pillow": {
+            "credit": 0.0111375,
+            "url": "https://python-pillow.org"
+        },
+        "packaging": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "Jinja2": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "pytest-xdist": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "chardet": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "objgraph": {
+            "credit": 0.0891,
+            "url": "https://pypi.org/project/objgraph"
+        },
+        "slack-sdk": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/colorama"
+        }
+    }
+}

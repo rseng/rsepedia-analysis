@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/PolyChord/PolyChordLite": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        },
+        "anesthetic": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/williamjameshandley/anesthetic"
+        }
+    }
+}

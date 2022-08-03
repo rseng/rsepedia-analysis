@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/vaexio/vaex": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pip": {
+            "credit": 0.0099,
+            "url": "https://pip.pypa.io/"
+        }
+    }
+}

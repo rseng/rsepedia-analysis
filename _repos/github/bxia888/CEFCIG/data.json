@@ -1,0 +1,198 @@
+{
+    "setup.py": {
+        "github/bxia888/CEFCIG": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.4006008482142857,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0017643214285714415,
+            "url": "https://www.scipy.org"
+        },
+        "pandas": {
+            "credit": 0.0019393392857142977,
+            "url": "https://pandas.pydata.org"
+        },
+        "rpy2": {
+            "credit": 0.001414285714285729,
+            "url": "https://rpy2.github.io"
+        },
+        "matplotlib": {
+            "credit": 0.17643214285714287,
+            "url": "https://matplotlib.org"
+        },
+        "sklearn": {
+            "credit": 0.14142857142857143,
+            "url": "https://pypi.python.org/pypi/scikit-learn/"
+        },
+        "seaborn": {
+            "credit": 0.001414285714285729,
+            "url": "https://seaborn.pydata.org"
+        },
+        "pytest-xdist": {
+            "credit": 0.008896741071428571,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.014847348214285714,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.03452591852678571,
+            "url": "https://hypothesis.works"
+        },
+        "pytz": {
+            "credit": 0.049500883928571424,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.03199909821428571,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "setuptools": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "tzlocal": {
+            "credit": 0.00017501785714285623,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "jinja2": {
+            "credit": 0.00017501785714285623,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "cffi": {
+            "credit": 0.00017501785714285623,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "filelock": {
+            "credit": 0.0038503928571428565,
+            "url": "https://github.com/tox-dev/py-filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0038503928571428565,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0038503928571428565,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0038503928571428565,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0038503928571428565,
+            "url": "https://pypi.org/project/execnet"
+        },
+        "xmlschema": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/mock"
+        },
+        "argcomplete": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "pytest-mock": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "zest.releaser": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/zest.releaser"
+        },
+        "pytest-cov": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pyroma": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "black": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/black"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/backports.zoneinfo"
+        },
+        "tzdata": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/tzdata"
+        },
+        "pytz-deprecation-shim": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pytz-deprecation-shim"
+        },
+        "Babel": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "pycparser": {
+            "credit": 0.017326767857142857,
+            "url": "https://pypi.org/project/pycparser"
+        }
+    }
+}

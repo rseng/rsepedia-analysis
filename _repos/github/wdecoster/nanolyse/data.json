@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/wdecoster/nanolyse": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "mappy": {
+            "credit": 0.00495,
+            "url": "https://github.com/lh3/minimap2"
+        },
+        "biopython": {
+            "credit": 0.00495,
+            "url": "https://biopython.org/"
+        }
+    }
+}

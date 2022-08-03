@@ -1,0 +1,46 @@
+{
+    "setup.py": {
+        "github/VMBoehm/MADLens": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools_scm": {
+            "credit": 0.0011,
+            "url": "https://github.com/pypa/setuptools_scm/"
+        },
+        "numpy": {
+            "credit": 0.0011,
+            "url": "https://www.numpy.org"
+        },
+        "nbodykit": {
+            "credit": 0.0011,
+            "url": "http://github.com/bccp/nbodykit"
+        },
+        "vmad": {
+            "credit": 0.0011,
+            "url": "https://pypi.org/project/vmad"
+        },
+        "abopt": {
+            "credit": 0.0011,
+            "url": "https://pypi.org/project/abopt"
+        },
+        "absl-py": {
+            "credit": 0.0011,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "fastpm": {
+            "credit": 0.0011,
+            "url": "https://pypi.org/project/fastpm"
+        },
+        "mpi4py": {
+            "credit": 0.0011,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "cython": {
+            "credit": 0.0011,
+            "url": "http://cython.org/"
+        }
+    }
+}

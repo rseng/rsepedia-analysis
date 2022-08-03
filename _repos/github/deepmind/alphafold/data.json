@@ -1,0 +1,206 @@
+{
+    "requirements.txt": {
+        "github/deepmind/alphafold": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "absl-py": {
+            "credit": 0.09884897448979592,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "biopython": {
+            "credit": 0.07071428571428572,
+            "url": "https://biopython.org/"
+        },
+        "chex": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/deepmind/chex"
+        },
+        "dm-haiku": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/deepmind/dm-haiku"
+        },
+        "dm-tree": {
+            "credit": 0.08071530612244898,
+            "url": "https://github.com/deepmind/tree"
+        },
+        "docker": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/docker/docker-py"
+        },
+        "immutabledict": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/corenting/immutabledict"
+        },
+        "jax": {
+            "credit": 0.09319157908163266,
+            "url": "https://github.com/google/jax"
+        },
+        "ml-collections": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/google/ml_collections"
+        },
+        "numpy": {
+            "credit": 0.1829992270408163,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0007071428571428645,
+            "url": "https://pandas.pydata.org"
+        },
+        "protobuf": {
+            "credit": 0.07389642857142857,
+            "url": "https://developers.google.com/protocol-buffers/"
+        },
+        "scipy": {
+            "credit": 0.00565764795918368,
+            "url": "https://www.scipy.org"
+        },
+        "tensorflow-cpu": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.tensorflow.org/"
+        },
+        "dataclasses": {
+            "credit": 0.012476272959183674,
+            "url": "https://github.com/ericvsmith/dataclasses"
+        },
+        "toolz": {
+            "credit": 0.010001020408163265,
+            "url": "https://github.com/pytoolz/toolz/"
+        },
+        "jaxlib": {
+            "credit": 0.0026752729591836737,
+            "url": "https://github.com/google/jax"
+        },
+        "typing-extensions": {
+            "credit": 0.013183163265306122,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "tabulate": {
+            "credit": 0.00010001020408163287,
+            "url": "https://github.com/astanin/python-tabulate"
+        },
+        "jmp": {
+            "credit": 0.00010001020408163287,
+            "url": "https://github.com/deepmind/jmp"
+        },
+        "pytest-xdist": {
+            "credit": 0.0001166785714285714,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.01359305357142857,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "keras": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/keras"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/tensorflow-estimator"
+        },
+        "tensorboard": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/tensorboard"
+        },
+        "grpcio": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/tensorflow-io-gcs-filesystem"
+        },
+        "wrapt": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "termcolor": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "six": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "packaging": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "h5py": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "google-pasta": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.008132647959183673,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.003182142857142857,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "wcwidth": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/wcwidth"
+        },
+        "filelock": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

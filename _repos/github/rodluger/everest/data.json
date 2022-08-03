@@ -1,0 +1,46 @@
+{
+    "requirements.txt": {
+        "github/rodluger/everest": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0020075,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0020075,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.001463,
+            "url": "https://matplotlib.org"
+        },
+        "george": {
+            "credit": 0.0011,
+            "url": "https://github.com/dfm/george"
+        },
+        "six": {
+            "credit": 0.002189,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "pyfits": {
+            "credit": 0.0011,
+            "url": "http://pyfits.readthedocs.io/en/latest/"
+        },
+        "pysyzygy": {
+            "credit": 0.0011,
+            "url": "http://github.com/rodluger/pysyzygy"
+        },
+        "k2plr": {
+            "credit": 0.0011,
+            "url": "https://github.com/rodluger/k2plr"
+        },
+        "PyPDF2": {
+            "credit": 0.0011,
+            "url": "https://pypdf2.readthedocs.io/en/latest/"
+        }
+    }
+}

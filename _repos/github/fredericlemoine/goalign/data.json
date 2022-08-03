@@ -1,0 +1,30 @@
+{
+    "go.mod": {
+        "github/fredericlemoine/goalign": {
+            "credit": 0.01,
+            "url": "https://github/fredericlemoine/goalign"
+        }
+    },
+    "go": {
+        "github.com/armon/go-radix": {
+            "credit": 0.00198,
+            "url": "https://github.com/armon/go-radix"
+        },
+        "github.com/fredericlemoine/cobrashell": {
+            "credit": 0.00198,
+            "url": "https://github.com/fredericlemoine/cobrashell"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.00198,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/ulikunitz/xz": {
+            "credit": 0.00198,
+            "url": "https://github.com/ulikunitz/xz"
+        },
+        "gonum.org/v1/gonum": {
+            "credit": 0.00198,
+            "url": "https://gonum.org/v1/gonum"
+        }
+    }
+}

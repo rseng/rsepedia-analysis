@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/JixingGE/GGCHEMPY": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.00198,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0039402,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        },
+        "progressbar": {
+            "credit": 0.00198,
+            "url": "http://code.google.com/p/python-progressbar"
+        },
+        "numba": {
+            "credit": 0.00198,
+            "url": "https://numba.pydata.org"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/xuanxu/starmatrix": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyyaml": {
+            "credit": 0.0033000000000000004,
+            "url": "https://pyyaml.org/"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

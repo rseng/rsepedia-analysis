@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/zonca/python-qucs": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "docutils": {
+            "credit": 0.0099,
+            "url": "https://docutils.sourceforge.io/"
+        }
+    }
+}

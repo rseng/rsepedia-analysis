@@ -1,0 +1,170 @@
+{
+    "requirements.txt": {
+        "github/johnveitch/cpnest": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.165,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.165,
+            "url": "https://www.scipy.org"
+        },
+        "corner": {
+            "credit": 0.0016500000000000126,
+            "url": "https://corner.readthedocs.io"
+        },
+        "tqdm": {
+            "credit": 0.0016500000000000126,
+            "url": "https://tqdm.github.io"
+        },
+        "cython": {
+            "credit": 0.165,
+            "url": "http://cython.org/"
+        },
+        "matplotlib": {
+            "credit": 0.17589000000000002,
+            "url": "https://matplotlib.org"
+        },
+        "twine": {
+            "credit": 0.02052765,
+            "url": "https://twine.readthedocs.io/"
+        },
+        "pep517": {
+            "credit": 0.01089,
+            "url": "https://github.com/pypa/pep517"
+        },
+        "flake8": {
+            "credit": 0.01089,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "pre-commit": {
+            "credit": 0.00010890000000000032,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "sphinx-book-theme": {
+            "credit": 0.01089,
+            "url": "https://sphinx-book-theme.readthedocs.io"
+        },
+        "myst-nb": {
+            "credit": 0.01089,
+            "url": "https://github.com/executablebooks/myst-nb"
+        },
+        "pandoc": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/pandoc"
+        },
+        "sphinx": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "toml": {
+            "credit": 0.0122376375,
+            "url": "https://pypi.org/project/toml"
+        },
+        "isort": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/isort"
+        },
+        "black": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/black"
+        },
+        "pytest-cov": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "arviz": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/arviz"
+        },
+        "requests": {
+            "credit": 0.02161665,
+            "url": "https://pypi.org/project/requests"
+        },
+        "slack-sdk": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "py-make": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.021766387499999998,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "rich": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/rich"
+        },
+        "rfc3986": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/rfc3986"
+        },
+        "keyring": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/keyring"
+        },
+        "importlib-metadata": {
+            "credit": 0.0025455375000000002,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "urllib3": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "requests-toolbelt": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/requests-toolbelt"
+        },
+        "readme-renderer": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/readme-renderer"
+        },
+        "pkginfo": {
+            "credit": 0.0011979,
+            "url": "https://pypi.org/project/pkginfo"
+        },
+        "virtualenv": {
+            "credit": 0.0013476375,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pyyaml": {
+            "credit": 0.0013476375,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "nodeenv": {
+            "credit": 0.0013476375,
+            "url": "https://pypi.org/project/nodeenv"
+        },
+        "identify": {
+            "credit": 0.0013476375,
+            "url": "https://pypi.org/project/identify"
+        },
+        "cfgv": {
+            "credit": 0.0013476375,
+            "url": "https://pypi.org/project/cfgv"
+        }
+    }
+}

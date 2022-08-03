@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/AdmiralenOla/Scoary": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "argparse": {
+            "credit": 0.002475,
+            "url": "https://github.com/ThomasWaldmann/argparse/"
+        },
+        "ete3": {
+            "credit": 0.002475,
+            "url": "http://etetoolkit.org"
+        },
+        "six": {
+            "credit": 0.002475,
+            "url": "https://github.com/benjaminp/six"
+        }
+    }
+}

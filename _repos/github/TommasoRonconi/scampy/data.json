@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/TommasoRonconi/scampy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sphinx": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "jupyter": {
+            "credit": 0.0033000000000000004,
+            "url": "http://jupyter.org"
+        },
+        "breathe": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/michaeljones/breathe"
+        }
+    }
+}

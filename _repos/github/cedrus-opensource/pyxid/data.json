@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/cedrus-opensource/pyxid": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ftd2xx": {
+            "credit": 0.0099,
+            "url": "https://github.com/snmishra/ftd2xx"
+        },
+        "async-timeout": {
+            "credit": 0.003267,
+            "url": "https://github.com/aio-libs/async-timeout"
+        },
+        "typing-extensions": {
+            "credit": 0.00650133,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "pywin32": {
+            "credit": 0.003267,
+            "url": "https://github.com/mhammond/pywin32"
+        }
+    }
+}

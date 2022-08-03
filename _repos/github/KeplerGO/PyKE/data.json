@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/KeplerGO/PyKE": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "pyraf": {
+            "credit": 0.002475,
+            "url": "https://iraf-community.github.io/pyraf.html"
+        }
+    }
+}

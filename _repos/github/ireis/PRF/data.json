@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/ireis/PRF": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "numba": {
+            "credit": 0.002475,
+            "url": "https://numba.pydata.org"
+        },
+        "joblib": {
+            "credit": 0.002475,
+            "url": "https://joblib.readthedocs.io"
+        }
+    }
+}

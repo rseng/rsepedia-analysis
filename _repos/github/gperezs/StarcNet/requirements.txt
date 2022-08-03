@@ -1,0 +1,8 @@
+# local package
+# -e .
+
+# external requirements
+astropy
+scipy
+scikit-image
+wget

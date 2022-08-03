@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/rcsb/mmtf-python": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "nose": {
+            "credit": 0.0033000000000000004,
+            "url": "http://readthedocs.org/docs/nose/"
+        },
+        "msgpack": {
+            "credit": 0.0033000000000000004,
+            "url": "https://msgpack.org/"
+        }
+    }
+}

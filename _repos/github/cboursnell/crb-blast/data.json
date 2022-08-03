@@ -1,0 +1,106 @@
+{
+    "Gemfile": {
+        "github/cboursnell/crb-blast": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "spec": {
+            "credit": 0.00990000000000002,
+            "url": "https://github.com/bootstraponline/spec"
+        },
+        "hoe": {
+            "credit": 0.3790044527445,
+            "url": "http://www.zenspider.com/projects/hoe.html"
+        },
+        "rdoc": {
+            "credit": 0.05557145274450001,
+            "url": "https://ruby.github.io/rdoc"
+        },
+        "chronic_duration": {
+            "credit": 0.00326700000000002,
+            "url": "https://github.com/hpoydar/chronic_duration"
+        },
+        "psych": {
+            "credit": 0.0032343300000000075,
+            "url": "https://github.com/ruby/psych"
+        },
+        "rake": {
+            "credit": 0.25712230814324993,
+            "url": "https://github.com/ruby/rake"
+        },
+        "rspec": {
+            "credit": 0.001078110000000021,
+            "url": "http://github.com/rspec"
+        },
+        "numerizer": {
+            "credit": 0.10781099999999999,
+            "url": "http://github.com/jduff/numerizer"
+        },
+        "jar-dependencies": {
+            "credit": 0.0032019866999999924,
+            "url": "https://github.com/mkristian/jar-dependencies"
+        },
+        "rspec-mocks": {
+            "credit": 0.00035577629999999916,
+            "url": "https://github.com/rspec/rspec-mocks"
+        },
+        "rspec-expectations": {
+            "credit": 0.03557762999999999,
+            "url": "https://github.com/rspec/rspec-expectations"
+        },
+        "rspec-core": {
+            "credit": 0.00035577629999999916,
+            "url": "https://github.com/rspec/rspec-core"
+        },
+        "ruby-maven": {
+            "credit": 0.0010566556110000042,
+            "url": "https://github.com/takari/ruby-maven"
+        },
+        "minitest": {
+            "credit": 0.04571013902399999,
+            "url": "https://github.com/seattlerb/minitest"
+        },
+        "rspec-support": {
+            "credit": 0.003972242389499999,
+            "url": "https://github.com/rspec/rspec-support"
+        },
+        "diff-lcs": {
+            "credit": 0.005870308949999999,
+            "url": "https://github.com/halostatue/diff-lcs"
+        },
+        "cucumber": {
+            "credit": 0.009783848249999998,
+            "url": null
+        },
+        "aruba": {
+            "credit": 0.009783848249999998,
+            "url": null
+        },
+        "thread_order": {
+            "credit": 0.006819342230249999,
+            "url": null
+        },
+        "rr": {
+            "credit": 0.003913539299999999,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.003913539299999999,
+            "url": null
+        },
+        "flexmock": {
+            "credit": 0.003913539299999999,
+            "url": null
+        },
+        "coderay": {
+            "credit": 0.003913539299999999,
+            "url": null
+        },
+        "ruby-maven-libs": {
+            "credit": 0.03486963516299999,
+            "url": null
+        }
+    }
+}

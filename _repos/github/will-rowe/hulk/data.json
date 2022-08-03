@@ -1,0 +1,86 @@
+{
+    "go.mod": {
+        "github/will-rowe/hulk": {
+            "credit": 0.01,
+            "url": "https://github/will-rowe/hulk"
+        }
+    },
+    "go": {
+        "github.com/JSchwehn/goDistances": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/JSchwehn/goDistances"
+        },
+        "github.com/Lebonesco/go_worker_pool": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/Lebonesco/go_worker_pool"
+        },
+        "github.com/cheekybits/genny": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/cheekybits/genny"
+        },
+        "github.com/cornelk/hashmap": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/cornelk/hashmap"
+        },
+        "github.com/deckarep/golang-set": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/deckarep/golang-set"
+        },
+        "github.com/dgryski/go-jump": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/dgryski/go-jump"
+        },
+        "github.com/irfansharif/cfilter": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/irfansharif/cfilter"
+        },
+        "github.com/leesper/go_rng": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/leesper/go_rng"
+        },
+        "github.com/linxGnu/fimap": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/linxGnu/fimap"
+        },
+        "github.com/lithammer/go-jump-consistent-hash": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/lithammer/go-jump-consistent-hash"
+        },
+        "github.com/oleiade/lane": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/oleiade/lane"
+        },
+        "github.com/pkg/profile": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/pkg/profile"
+        },
+        "github.com/segmentio/objconv": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/segmentio/objconv"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/spf13/pflag": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/spf13/pflag"
+        },
+        "github.com/tidwall/gjson": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/tidwall/gjson"
+        },
+        "github.com/twmb/murmur3": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/twmb/murmur3"
+        },
+        "github.com/valyala/fastrand": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/valyala/fastrand"
+        },
+        "github.com/will-rowe/ntHash": {
+            "credit": 0.0005210526315789474,
+            "url": "https://github.com/will-rowe/ntHash"
+        }
+    }
+}

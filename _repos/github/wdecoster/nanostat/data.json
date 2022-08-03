@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/wdecoster/nanostat": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "nanoget": {
+            "credit": 0.00495,
+            "url": "https://github.com/wdecoster/nanoget"
+        },
+        "nanomath": {
+            "credit": 0.00495,
+            "url": "https://github.com/wdecoster/nanomath"
+        }
+    }
+}

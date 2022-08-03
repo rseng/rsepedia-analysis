@@ -1,0 +1,54 @@
+{
+    "requirements.txt": {
+        "github/galaxyproject/galaxy-lib": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "boltons": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/mahmoud/boltons"
+        },
+        "six": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "docutils": {
+            "credit": 0.0016500000000000002,
+            "url": "https://docutils.sourceforge.io/"
+        },
+        "pyyaml": {
+            "credit": 0.0016500000000000002,
+            "url": "https://pyyaml.org/"
+        },
+        "packaging": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "markupsafe": {
+            "credit": 0.0016500000000000002,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "pyparsing": {
+            "credit": 0.0016335,
+            "url": "https://github.com/pyparsing/pyparsing/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.0008085824999999999,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "jinja2": {
+            "credit": 0.0008085824999999999,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "Babel": {
+            "credit": 0.0004002483375,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0004002483375,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

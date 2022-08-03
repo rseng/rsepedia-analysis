@@ -1,0 +1,250 @@
+{
+    "Gemfile": {
+        "github/gramos/imagetooth": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "rspec": {
+            "credit": 0.07990216359910716,
+            "url": "http://github.com/rspec"
+        },
+        "rspec-mocks": {
+            "credit": 0.00546836585625002,
+            "url": "https://github.com/rspec/rspec-mocks"
+        },
+        "rspec-expectations": {
+            "credit": 0.33313679799910717,
+            "url": "https://github.com/rspec/rspec-expectations"
+        },
+        "rspec-core": {
+            "credit": 0.00546836585625002,
+            "url": "https://github.com/rspec/rspec-core"
+        },
+        "rspec-support": {
+            "credit": 0.0008984250000000013,
+            "url": "https://github.com/rspec/rspec-support"
+        },
+        "diff-lcs": {
+            "credit": 0.004245058125000003,
+            "url": "https://github.com/halostatue/diff-lcs"
+        },
+        "rake": {
+            "credit": 0.1396730008928571,
+            "url": "https://github.com/ruby/rake"
+        },
+        "minitest": {
+            "credit": 0.022922672142857144,
+            "url": "https://github.com/seattlerb/minitest"
+        },
+        "cucumber": {
+            "credit": 0.00513385714285715,
+            "url": "https://cucumber.io/"
+        },
+        "aruba": {
+            "credit": 0.0008984250000000013,
+            "url": "https://github.com/cucumber/aruba"
+        },
+        "thread_order": {
+            "credit": 0.018415017224999997,
+            "url": "https://github.com/JoshCheek/thread_order"
+        },
+        "rr": {
+            "credit": 0.00035936999999999775,
+            "url": "https://rr.github.io/rr"
+        },
+        "mocha": {
+            "credit": 0.00035936999999999775,
+            "url": "https://mocha.jamesmead.org"
+        },
+        "flexmock": {
+            "credit": 0.00035936999999999775,
+            "url": "https://github.com/doudou/flexmock"
+        },
+        "coderay": {
+            "credit": 0.035937,
+            "url": "http://coderay.rubychan.de"
+        },
+        "rdoc": {
+            "credit": 0.04784079434062499,
+            "url": "https://ruby.github.io/rdoc"
+        },
+        "hoe-rubygems": {
+            "credit": 6.670805624999984e-05,
+            "url": "http://github.com/jbarnette/hoe-rubygems"
+        },
+        "hoe-git": {
+            "credit": 6.670805624999984e-05,
+            "url": "http://github.com/jbarnette/hoe-git"
+        },
+        "hoe-gemspec2": {
+            "credit": 0.006670805624999999,
+            "url": "http://rubygems.org/gems/hoe-gemspec2"
+        },
+        "hoe-doofus": {
+            "credit": 0.006670805624999999,
+            "url": null
+        },
+        "hoe": {
+            "credit": 0.061048989478124996,
+            "url": null
+        },
+        "sys-uname": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "multi_test": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "mime-types": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-messages": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-html-formatter": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-gherkin": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-cucumber-expressions": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-core": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-ci-environment": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "builder": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "webrick": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "test-unit": {
+            "credit": 0.012600410624999999,
+            "url": null
+        },
+        "syntax": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "sinatra": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "simplecov": {
+            "credit": 0.01683584276785714,
+            "url": null
+        },
+        "rack-test": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.007941435267857141,
+            "url": null
+        },
+        "octokit": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "cucumber-compatibility-kit": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "capybara": {
+            "credit": 0.0037060031249999993,
+            "url": null
+        },
+        "thor": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "contracts": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "childprocess": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "bundler": {
+            "credit": 0.013129839642857143,
+            "url": null
+        },
+        "yard-junk": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "rubocop-rspec": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "rubocop-performance": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "rubocop-packaging": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "rubocop": {
+            "credit": 0.013129839642857143,
+            "url": null
+        },
+        "rake-manifest": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "pry-doc": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "kramdown": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "json": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "appraisal": {
+            "credit": 0.004235432142857142,
+            "url": null
+        },
+        "test-unit-rr": {
+            "credit": 0.0088944075,
+            "url": null
+        },
+        "introspection": {
+            "credit": 0.0088944075,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.0088944075,
+            "url": null
+        },
+        "psych": {
+            "credit": 0.006604097568749999,
+            "url": null
+        }
+    }
+}

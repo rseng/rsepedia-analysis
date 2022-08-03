@@ -1,0 +1,5 @@
+numpy
+cython>=0.16
+matplotlib
+astropy
+numpydoc

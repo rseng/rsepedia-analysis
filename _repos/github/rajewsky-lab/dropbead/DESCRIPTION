@@ -1,0 +1,29 @@
+Package: dropbead
+Type: Package
+Title: dropbead
+Version: 0.3.1
+Date: 2015-11-14
+Author: Nikos Karaiskos
+Maintainer: Nikos Karaiskos <nikolaos.karaiskos@mdc-berlin.de>
+Depends:
+    ggplot2,
+    grid,
+    RColorBrewer,
+    gridExtra,
+    gplots,
+    plyr
+Suggests:
+    data.table,
+    Rsamtools
+Description: Basic Exploration and Analysis of Drop-seq Data
+License: GNU GPL3
+Collate:
+    Tools.R
+    DGEMatrix.R
+    SingleSpeciesSample.R
+    MixedSpeciesSample.R
+    plottingMethods.R
+LazyData: TRUE
+NeedsCompilation: no
+Packaged: 2015-11-14 09:59:18 UTC; root
+RoxygenNote: 6.0.1

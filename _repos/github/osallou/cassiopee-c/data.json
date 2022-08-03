@@ -1,0 +1,206 @@
+{
+    "CMakeLists.txt": {
+        "github/osallou/cassiopee-c": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0499714285714286,
+            "url": "https://www.cmake.org"
+        },
+        "boost": {
+            "credit": 0.003300000000000025,
+            "url": "https://www.boost.org"
+        },
+        "doxygen": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/doxygen/doxygen/"
+        },
+        "ninja": {
+            "credit": 0.00027225000000000166,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.00027225000000000166,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.002345538461538463,
+            "url": "https://libexpat.github.io/"
+        },
+        "zlib": {
+            "credit": 0.09273253846153848,
+            "url": "https://zlib.net"
+        },
+        "libarchive": {
+            "credit": 0.00027225000000000166,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.00027225000000000166,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.027225,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "openssl": {
+            "credit": 0.004591600961538463,
+            "url": "https://www.openssl.org"
+        },
+        "qt": {
+            "credit": 0.027225,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "python": {
+            "credit": 0.15529917857142858,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.05652328846153846,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "graphviz": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "mscgen": {
+            "credit": 0.04667142857142857,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.02318627596153846,
+            "url": null
+        },
+        "gnutls": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "mbedtls": {
+            "credit": 0.004319350961538461,
+            "url": null
+        },
+        "nss": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "nghttp2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libssh2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libssh": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.013476374999999999,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.006738187499999999,
+            "url": null
+        }
+    }
+}

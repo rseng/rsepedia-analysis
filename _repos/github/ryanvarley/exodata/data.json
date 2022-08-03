@@ -1,0 +1,134 @@
+{
+    "requirements.txt": {
+        "github/ryanvarley/exodata": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.174075,
+            "url": "https://www.numpy.org"
+        },
+        "quantities": {
+            "credit": 0.165,
+            "url": "http://python-quantities.readthedocs.io/"
+        },
+        "nose": {
+            "credit": 0.165,
+            "url": "http://readthedocs.org/docs/nose/"
+        },
+        "matplotlib": {
+            "credit": 0.165,
+            "url": "https://matplotlib.org"
+        },
+        "hypothesis": {
+            "credit": 0.0016500000000000126,
+            "url": "https://hypothesis.works"
+        },
+        "requests": {
+            "credit": 0.0016500000000000126,
+            "url": "https://requests.readthedocs.io"
+        },
+        "tzdata": {
+            "credit": 0.013567125,
+            "url": "https://github.com/python/tzdata"
+        },
+        "backports.zoneinfo": {
+            "credit": 9.075000000000055e-05,
+            "url": "https://github.com/pganssle/zoneinfo"
+        },
+        "importlib-metadata": {
+            "credit": 0.009075,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "rich": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/rich"
+        },
+        "redis": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/redis"
+        },
+        "pytz": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "pytest": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "libcst": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/libcst"
+        },
+        "lark-parser": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/lark-parser"
+        },
+        "dpcontracts": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/dpcontracts"
+        },
+        "django": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/django"
+        },
+        "click": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/click"
+        },
+        "black": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/black"
+        },
+        "sortedcontainers": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "attrs": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "win-inet-pton": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "idna": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "certifi": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.023335714285714286,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "importlib-resources": {
+            "credit": 0.004492125,
+            "url": "https://pypi.org/project/importlib-resources"
+        }
+    }
+}

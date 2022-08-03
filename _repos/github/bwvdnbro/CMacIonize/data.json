@@ -1,0 +1,210 @@
+{
+    "CMakeLists.txt": {
+        "github/bwvdnbro/CMacIonize": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.03132642857142859,
+            "url": "https://www.cmake.org"
+        },
+        "git": {
+            "credit": 0.0009900000000000048,
+            "url": "http://git-scm.com"
+        },
+        "hdf5": {
+            "credit": 0.0009900000000000186,
+            "url": "https://portal.hdfgroup.org"
+        },
+        "openmp": {
+            "credit": 0.099,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.049995,
+            "url": "http://mvapich.cse.ohio-state.edu"
+        },
+        "boost": {
+            "credit": 0.0019800000000000373,
+            "url": "https://www.boost.org"
+        },
+        "pythonlibs": {
+            "credit": 0.099,
+            "url": null
+        },
+        "pythoninterp": {
+            "credit": 0.099,
+            "url": null
+        },
+        "doxygen": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/doxygen/doxygen/"
+        },
+        "ninja": {
+            "credit": 8.16749999999998e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.0136125,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.06261749999999999,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "python": {
+            "credit": 0.06292475357142857,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.019446428571428573,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.019446428571428573,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "openssh": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "perl-alien-svn": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "java": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "szip": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "libpciaccess": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "pmix": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "graphviz": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "mscgen": {
+            "credit": 0.014001428571428571,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,10 @@
+astropy==4.1
+h5py
+iminuit
+numpy==1.19.5
+sklearn
+tensorflow
+numba
+lmfit
+python-pysap==0.0.5
+PyQt5

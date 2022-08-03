@@ -1,0 +1,11 @@
+cython
+numpy
+scipy
+matplotlib
+astropy
+corner
+jdcal
+KMlogger
+emcee
+pathos
+pyyaml

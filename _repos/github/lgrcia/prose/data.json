@@ -1,0 +1,122 @@
+{
+    "requirements.txt": {
+        "github/lgrcia/prose": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.06793448275862068,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.000341379310344829,
+            "url": "https://www.scipy.org"
+        },
+        "astropy": {
+            "credit": 0.03413793103448276,
+            "url": "http://astropy.org"
+        },
+        "matplotlib": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "colorama": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "scikit-image": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "pandas": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "tqdm": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/tqdm"
+        },
+        "astroalign": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/astroalign"
+        },
+        "photutils": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/photutils"
+        },
+        "astroquery": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/astroquery"
+        },
+        "pyyaml": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "sphinx": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "nbsphinx": {
+            "credit": 0.06827586206896552,
+            "url": "https://pypi.org/project/nbsphinx"
+        },
+        "docutils": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "tabulate": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/tabulate"
+        },
+        "sphinx_rtd_theme": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sphinx_rtd_theme"
+        },
+        "imageio": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/imageio"
+        },
+        "sep": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sep"
+        },
+        "xarray": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/xarray"
+        },
+        "numba": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/numba"
+        },
+        "netcdf4": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/netcdf4"
+        },
+        "celerite2": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/celerite2"
+        },
+        "jinja2": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "tensorflow": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/tensorflow"
+        },
+        "requests": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/requests"
+        },
+        "ipython": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        }
+    }
+}

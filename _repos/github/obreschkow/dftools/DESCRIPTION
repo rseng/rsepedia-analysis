@@ -1,0 +1,24 @@
+Package: dftools
+Title: Fitting distribution functions such as galaxy mass functions
+Version: 0.98
+Author: Danail Obreschkow
+Description: This package can find the most likely P parameters of a D-dimensional distribution function (DF) generating N objects, where each object is specified by D observables with measurement uncertainties. For instance, if the objects are galaxies, it can fit a MF (P=1), a mass-size distribution (P=2) or the mass-spin-morphology distribution (P=3). Unlike most common fitting approaches, this method accurately accounts for measurement is uncertainties and complex selection functions. A full description of the algorithm can be found in Obreschkow et al. (2017).
+Maintainer: Danail Obreschkow <danail.obreschkow@icrar.org>
+Depends:
+    R (>= 3.0.0)
+Imports:
+    ellipse,
+    magicaxis,
+    mvtnorm,
+    akima,
+    MASS,
+    pracma,
+    graphics,
+    grDevices,
+    stats
+Suggests:
+    rgl
+License: GPL-3
+LazyData: true
+RoxygenNote: 7.1.1
+Encoding: UTF-8

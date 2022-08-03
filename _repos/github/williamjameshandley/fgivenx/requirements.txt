@@ -1,0 +1,8 @@
+matplotlib
+scipy
+numpy
+sphinx
+numpydoc
+joblib
+tqdm
+getdist

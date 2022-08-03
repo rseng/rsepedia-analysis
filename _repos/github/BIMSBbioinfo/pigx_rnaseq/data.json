@@ -1,0 +1,154 @@
+{
+    "requirements.txt": {
+        "github/BIMSBbioinfo/pigx_rnaseq": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "snakemake": {
+            "credit": 0.2475,
+            "url": "https://snakemake.readthedocs.io"
+        },
+        "multiqc": {
+            "credit": 0.002475000000000005,
+            "url": "http://multiqc.info"
+        },
+        "deeptools": {
+            "credit": 0.2475,
+            "url": "http://pypi.python.org/pypi/deepTools/"
+        },
+        "python": {
+            "credit": 0.2475,
+            "url": "http://www.python.org/2.5"
+        },
+        "spectra": {
+            "credit": 0.017501785714285713,
+            "url": "http://github.com/jsvine/spectra"
+        },
+        "simplejson": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/simplejson/simplejson"
+        },
+        "rich": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/willmcgugan/rich"
+        },
+        "requests": {
+            "credit": 0.00017501785714285623,
+            "url": "https://requests.readthedocs.io"
+        },
+        "pyyaml": {
+            "credit": 0.023277375,
+            "url": "https://pyyaml.org/"
+        },
+        "markdown": {
+            "credit": 0.00017501785714285623,
+            "url": "https://Python-Markdown.github.io/"
+        },
+        "lzstring": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/gkovacs/lz-string-python"
+        },
+        "jinja2": {
+            "credit": 0.00017501785714285623,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "future": {
+            "credit": 0.017501785714285713,
+            "url": "https://python-future.org"
+        },
+        "coloredlogs": {
+            "credit": 0.00017501785714285623,
+            "url": "https://coloredlogs.readthedocs.io"
+        },
+        "click": {
+            "credit": 0.00017501785714285623,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "numpy": {
+            "credit": 0.017501785714285713,
+            "url": "https://www.numpy.org"
+        },
+        "networkx": {
+            "credit": 0.017501785714285713,
+            "url": "https://networkx.org/"
+        },
+        "matplotlib": {
+            "credit": 0.017501785714285713,
+            "url": "https://matplotlib.org"
+        },
+        "ipywidgets": {
+            "credit": 0.003465353571428571,
+            "url": "http://ipython.org"
+        },
+        "commonmark": {
+            "credit": 0.003465353571428571,
+            "url": "https://pypi.org/project/commonmark"
+        },
+        "pygments": {
+            "credit": 0.003465353571428571,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "dataclasses": {
+            "credit": 0.003465353571428571,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "typing-extensions": {
+            "credit": 0.003465353571428571,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "chardet": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.002887794642857143,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "coverage": {
+            "credit": 0.005775589285714286,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "importlib-metadata": {
+            "credit": 0.014438973214285715,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "Babel": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "capturer": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/capturer"
+        },
+        "humanfriendly": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/humanfriendly"
+        },
+        "colorama": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/colorama"
+        }
+    }
+}

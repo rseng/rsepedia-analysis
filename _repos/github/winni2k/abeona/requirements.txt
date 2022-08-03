@@ -1,0 +1,7 @@
+sphinx
+twine
+wheel
+pytest-benchmark
+coverage>=4.5
+tox
+bumpversion

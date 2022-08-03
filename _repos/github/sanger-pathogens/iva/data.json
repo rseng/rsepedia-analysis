@@ -1,0 +1,46 @@
+{
+    "setup.py": {
+        "github/sanger-pathogens/iva": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyfastaq": {
+            "credit": 0.002475,
+            "url": "https://github.com/sanger-pathogens/Fastaq"
+        },
+        "networkx": {
+            "credit": 0.002475,
+            "url": "https://networkx.org/"
+        },
+        "pysam": {
+            "credit": 0.002475,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "packaging": {
+            "credit": 0.002475,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "pyparsing": {
+            "credit": 0.00245025,
+            "url": "https://github.com/pyparsing/pyparsing/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.00121287375,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "jinja2": {
+            "credit": 0.00121287375,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "Babel": {
+            "credit": 0.00060037250625,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.00060037250625,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

@@ -1,0 +1,186 @@
+{
+    "setup.py": {
+        "github/dwkim78/upsilon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.35069100000000003,
+            "url": "https://www.numpy.org"
+        },
+        "scikit-learn": {
+            "credit": 0.003300000000000025,
+            "url": "http://scikit-learn.org"
+        },
+        "scipy": {
+            "credit": 0.35069100000000003,
+            "url": "https://www.scipy.org"
+        },
+        "pyamg": {
+            "credit": 0.00015557142857142853,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 0.00015557142857142853,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.0001555714285714268,
+            "url": "https://github.com/psf/black"
+        },
+        "flake8": {
+            "credit": 0.015557142857142856,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.00015557142857142853,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.022616196428571426,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "seaborn": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "scikit-image": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "pandas": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "threadpoolctl": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "lxml": {
+            "credit": 0.002566928571428571,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "psutil": {
+            "credit": 0.002566928571428571,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.003751664835164835,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "tomli": {
+            "credit": 0.003751664835164835,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.003751664835164835,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "typing-extensions": {
+            "credit": 0.003751664835164835,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "uvloop": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/uvloop"
+        },
+        "tokenize-rt": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/tokenize-rt"
+        },
+        "ipython": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "aiohttp": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "colorama": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "dataclasses": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "pathspec": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "platformdirs": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/platformdirs"
+        },
+        "click": {
+            "credit": 0.0011847362637362638,
+            "url": "https://pypi.org/project/click"
+        },
+        "virtualenv": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.0019251964285714285,
+            "url": "https://pypi.org/project/coverage"
+        }
+    }
+}

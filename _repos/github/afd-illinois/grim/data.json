@@ -1,0 +1,322 @@
+{
+    "CMakeLists.txt": {
+        "github/afd-illinois/grim": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.016971428571428585,
+            "url": "https://www.cmake.org"
+        },
+        "petsc": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.mcs.anl.gov/petsc/index.html"
+        },
+        "cython": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "numpy": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "arrayfire": {
+            "credit": 0.001414285714285729,
+            "url": "https://arrayfire.org/docs/index.htm"
+        },
+        "cuda": {
+            "credit": 0.019517142857142872,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.011667857142857141,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.014213571428571426,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "python": {
+            "credit": 0.025764749999999996,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "llvm-amdgpu": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hsa-rocr-dev": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "sowing": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.018102857142857143,
+            "url": null
+        },
+        "lapack": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hipblas": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hipsparse": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocsparse": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocsolver": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocblas": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocrand": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocthrust": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "rocprim": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "metis": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "scotch": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "parmetis": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "valgrind": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "mmg": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "parmmg": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "tetgen": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hypre": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "superlu-dist": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "strumpack": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "scalapack": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "mumps": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "trilinos": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "mkl": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "fftw": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "suite-sparse": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "mpfr": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "gmp": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "giflib": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "exodusii": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "netcdf-c": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "parallel-netcdf": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "random123": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "moab": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "cgns": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "memkind": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "p4est": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "saws": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "libyaml": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "hwloc": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "kokkos": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "kokkos-kernels": {
+            "credit": 0.0025457142857142857,
+            "url": null
+        },
+        "boost": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "fftw-api": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "cudnn": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "opencl": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "fontconfig": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "glfw": {
+            "credit": 0.015557142857142856,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.07000714285714285,
+            "url": null
+        }
+    }
+}

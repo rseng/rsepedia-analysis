@@ -1,0 +1,8 @@
+{
+    "requirements.txt": {
+        "github/SegataLab/lefse": {
+            "credit": 0.01,
+            "url": null
+        }
+    }
+}

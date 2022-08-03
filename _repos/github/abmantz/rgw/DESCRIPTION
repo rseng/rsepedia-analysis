@@ -1,0 +1,12 @@
+Package: rgw
+Type: Package
+Title: Goodman-Weare Affine-Invariant Sampling
+Version: 0.3.0
+Date: 2020-08-10
+Author: Adam Mantz
+Maintainer: Adam Mantz <amantz@slac.stanford.edu>
+Description: Implementation of the affine-invariant method of Goodman & Weare (2010) <DOI:10.2140/camcos.2010.5.65>, a method of producing Monte-Carlo samples from a target distribution.
+License: MIT + file LICENSE
+LazyLoad: yes
+Imports: parallel
+URL: https://github.com/abmantz/rgw

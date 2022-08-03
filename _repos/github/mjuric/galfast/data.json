@@ -1,0 +1,130 @@
+{
+    "CMakeLists.txt": {
+        "github/mjuric/galfast": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.cmake.org"
+        },
+        "libpeyton": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "gsl": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.gnu.org/software/gsl"
+        },
+        "boost": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.boost.org"
+        },
+        "cfitsio": {
+            "credit": 0.0012375000000000025,
+            "url": "https://heasarc.gsfc.nasa.gov/fitsio/"
+        },
+        "zlib": {
+            "credit": 0.15437812499999998,
+            "url": "https://zlib.net"
+        },
+        "bzip2": {
+            "credit": 0.06249375,
+            "url": "https://sourceware.org/bzip2/"
+        },
+        "cuda": {
+            "credit": 0.0012375000000000025,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "ninja": {
+            "credit": 0.00010209375000000062,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.051046875,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.071465625,
+            "url": null
+        },
+        "python": {
+            "credit": 0.040735406249999995,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.06125625,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.1225125,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.06125625,
+            "url": null
+        }
+    }
+}

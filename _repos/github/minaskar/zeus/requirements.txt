@@ -1,0 +1,8 @@
+numpy
+scipy>=1.5.0
+tqdm
+setuptools
+pytest
+matplotlib
+seaborn
+sklearn

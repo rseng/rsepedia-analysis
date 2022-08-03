@@ -1,0 +1,178 @@
+{
+    "go.mod": {
+        "github/arvados/arvados": {
+            "credit": 0.01,
+            "url": "https://github/arvados/arvados"
+        }
+    },
+    "go": {
+        "github.com/AdRoll/goamz": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/AdRoll/goamz"
+        },
+        "github.com/Azure/azure-sdk-for-go": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/Azure/azure-sdk-for-go"
+        },
+        "github.com/Azure/go-autorest/autorest": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/Azure/go-autorest/autorest"
+        },
+        "github.com/Azure/go-autorest/autorest/azure/auth": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/Azure/go-autorest/autorest/azure/auth"
+        },
+        "github.com/Azure/go-autorest/autorest/to": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/Azure/go-autorest/autorest/to"
+        },
+        "github.com/arvados/cgofuse": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/arvados/cgofuse"
+        },
+        "github.com/aws/aws-sdk-go": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/aws/aws-sdk-go"
+        },
+        "github.com/aws/aws-sdk-go-v2": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/aws/aws-sdk-go-v2"
+        },
+        "github.com/bradleypeabody/godap": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/bradleypeabody/godap"
+        },
+        "github.com/coreos/go-oidc": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/coreos/go-oidc"
+        },
+        "github.com/coreos/go-systemd": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/coreos/go-systemd"
+        },
+        "github.com/creack/pty": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/creack/pty"
+        },
+        "github.com/docker/docker": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/docker/docker"
+        },
+        "github.com/dustin/go-humanize": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/dustin/go-humanize"
+        },
+        "github.com/fsnotify/fsnotify": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/fsnotify/fsnotify"
+        },
+        "github.com/ghodss/yaml": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/ghodss/yaml"
+        },
+        "github.com/go-ldap/ldap": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/go-ldap/ldap"
+        },
+        "github.com/gogo/protobuf": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/gogo/protobuf"
+        },
+        "github.com/google/shlex": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/google/shlex"
+        },
+        "github.com/gorilla/mux": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/gorilla/mux"
+        },
+        "github.com/hashicorp/golang-lru": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/hashicorp/golang-lru"
+        },
+        "github.com/imdario/mergo": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/imdario/mergo"
+        },
+        "github.com/jmcvetta/randutil": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/jmcvetta/randutil"
+        },
+        "github.com/jmoiron/sqlx": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/jmoiron/sqlx"
+        },
+        "github.com/johannesboyne/gofakes3": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/johannesboyne/gofakes3"
+        },
+        "github.com/julienschmidt/httprouter": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/julienschmidt/httprouter"
+        },
+        "github.com/lib/pq": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/lib/pq"
+        },
+        "github.com/msteinert/pam": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/msteinert/pam"
+        },
+        "github.com/prometheus/client_golang": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/prometheus/client_golang"
+        },
+        "github.com/prometheus/client_model": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/prometheus/client_model"
+        },
+        "github.com/prometheus/common": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/prometheus/common"
+        },
+        "github.com/sirupsen/logrus": {
+            "credit": 0.0002357142857142857,
+            "url": "https://github.com/sirupsen/logrus"
+        },
+        "golang.org/x/crypto": {
+            "credit": 0.0002357142857142857,
+            "url": "https://golang.org/x/crypto"
+        },
+        "golang.org/x/net": {
+            "credit": 0.0002357142857142857,
+            "url": "https://golang.org/x/net"
+        },
+        "golang.org/x/oauth2": {
+            "credit": 0.0002357142857142857,
+            "url": "https://golang.org/x/oauth2"
+        },
+        "golang.org/x/sys": {
+            "credit": 0.0002357142857142857,
+            "url": "https://golang.org/x/sys"
+        },
+        "google.golang.org/api": {
+            "credit": 0.0002357142857142857,
+            "url": "https://google.golang.org/api"
+        },
+        "gopkg.in/check.v1": {
+            "credit": 0.0002357142857142857,
+            "url": "https://gopkg.in/check.v1"
+        },
+        "gopkg.in/square/go-jose.v2": {
+            "credit": 0.0002357142857142857,
+            "url": "https://gopkg.in/square/go-jose.v2"
+        },
+        "gopkg.in/src-d/go-billy.v4": {
+            "credit": 0.0002357142857142857,
+            "url": "https://gopkg.in/src-d/go-billy.v4"
+        },
+        "gopkg.in/src-d/go-git.v4": {
+            "credit": 0.0002357142857142857,
+            "url": "https://gopkg.in/src-d/go-git.v4"
+        },
+        "rsc.io/getopt": {
+            "credit": 0.0002357142857142857,
+            "url": "https://rsc.io/getopt"
+        }
+    }
+}

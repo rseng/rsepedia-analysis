@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/astrom-tom/specstack": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.009850500000000002,
+            "url": "https://www.numpy.org"
+        },
+        "catscii": {
+            "credit": 0.00495,
+            "url": "https://pypi.org/project/catscii"
+        }
+    }
+}

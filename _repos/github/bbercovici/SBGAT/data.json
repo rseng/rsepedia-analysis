@@ -1,0 +1,230 @@
+{
+    "CMakeLists.txt": {
+        "github/bbercovici/SBGAT": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.028750408163265316,
+            "url": "https://www.cmake.org"
+        },
+        "boost": {
+            "credit": 0.005414693877551034,
+            "url": "https://www.boost.org"
+        },
+        "armadillo": {
+            "credit": 0.001414285714285729,
+            "url": "http://arma.sourceforge.net/"
+        },
+        "rigidbodykinematics": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "sbgatcore": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "openmp": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "vtk": {
+            "credit": 0.0014142857142857568,
+            "url": "http://www.vtk.org"
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.011667857142857141,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.015668265306122447,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.039003979591836734,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.015668265306122447,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "python": {
+            "credit": 0.05055515816326531,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.027336122448979587,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "arpack-ng": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "lapack": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "superlu": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.027336122448979587,
+            "url": null
+        },
+        "py-mpi4py": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "glx": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libxt": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "osmesa": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "ffmpeg": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "jsoncpp": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "netcdf-c": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "netcdf-cxx": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "eigen": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "double-conversion": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "pugixml": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libogg": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "libtheora": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "utf8cpp": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "gl2ps": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "proj": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "cgns": {
+            "credit": 0.004000408163265305,
+            "url": null
+        },
+        "seacas": {
+            "credit": 0.004000408163265305,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,28 @@
+Type: Package
+Package: rosa
+Version: 0.1.0
+Date: 2017-06-13
+Title: Removal of Spurious Antisense
+Encoding: UTF-8
+Authors: c(person("Kira Mourao", role=c("aut"), email="kira.mourao@synpromics.com"),
+             person("Nicholas J. Schurch", role=c("cre"), email="nschurch@dundee.ac.uk"))
+Author: Kira Mourao [aut], Nicholas Schurch [cre]
+Maintainer: Kira Mourao <kira.mourao@synpromics.com>
+Description: Given counts of sense and antisense reads, aligned to the genome and to spike-ins, this package identifies the level of spurious antisense transcription in the data.
+License: GPL3 + file LICENSE
+URL: https://github.com/bartongroup/RoSA
+BugReports: https://github.com/bartongroup/RoSA/issues
+VignetteBuilder: knitr
+Depends:
+Imports:
+    utils,
+    stats,
+    LSD
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown,
+    boot
+URL: https://github.com/bartongroup/RoSA, http://www.compbio.dundee.ac.uk
+BugReports: https://github.com/bartongroup/RoSA/issues
+RoxygenNote: 6.0.1

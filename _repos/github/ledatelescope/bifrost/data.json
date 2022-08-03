@@ -1,0 +1,34 @@
+{
+    "setup.py": {
+        "github/ledatelescope/bifrost": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0016500000000000002,
+            "url": "https://www.numpy.org"
+        },
+        "contextlib2": {
+            "credit": 0.0016500000000000002,
+            "url": "http://contextlib2.readthedocs.org"
+        },
+        "pint": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/hgrecco/pint"
+        },
+        "graphviz": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "ctypesgen": {
+            "credit": 0.0016500000000000002,
+            "url": "https://github.com/davidjamesca/ctypesgen"
+        },
+        "matplotlib": {
+            "credit": 0.0016500000000000002,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/LSSTDESC/descqa": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "future": {
+            "credit": 0.0033000000000000004,
+            "url": "https://python-future.org"
+        },
+        "pyyaml": {
+            "credit": 0.0033000000000000004,
+            "url": "https://pyyaml.org/"
+        },
+        "jinja2": {
+            "credit": 0.0033000000000000004,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "Babel": {
+            "credit": 0.0016335,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0016335,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

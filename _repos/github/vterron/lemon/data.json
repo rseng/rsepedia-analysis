@@ -1,0 +1,162 @@
+{
+    "requirements.txt": {
+        "github/vterron/lemon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "absl-py": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "APLpy": {
+            "credit": 0.0007615384615384663,
+            "url": "http://aplpy.github.io"
+        },
+        "scipy": {
+            "credit": 0.07615384615384616,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.08243653846153846,
+            "url": "https://matplotlib.org"
+        },
+        "mock": {
+            "credit": 0.07615384615384616,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "prettytable": {
+            "credit": 0.0007615384615384663,
+            "url": "https://github.com/jazzband/prettytable"
+        },
+        "pyfits": {
+            "credit": 0.07615384615384616,
+            "url": "http://pyfits.readthedocs.io/en/latest/"
+        },
+        "pyraf": {
+            "credit": 0.07615384615384616,
+            "url": "https://iraf-community.github.io/pyraf.html"
+        },
+        "uncertainties": {
+            "credit": 0.0007615384615384663,
+            "url": "http://uncertainties-python-package.readthedocs.io/"
+        },
+        "unittest2": {
+            "credit": 0.07615384615384616,
+            "url": "http://pypi.python.org/pypi/unittest2"
+        },
+        "montage-wrapper": {
+            "credit": 0.0007615384615384663,
+            "url": "http://astropy.org/montage-wrapper/"
+        },
+        "requests": {
+            "credit": 0.0007615384615384663,
+            "url": "https://requests.readthedocs.io"
+        },
+        "subprocess32": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/google/python-subprocess32"
+        },
+        "pytest-mpl": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/matplotlib/pytest-mpl"
+        },
+        "pytest-astropy": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/astropy/pytest-astropy"
+        },
+        "sphinx-astropy": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/sphinx-astropy"
+        },
+        "shapely": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/shapely"
+        },
+        "scikit-image": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "pyavm": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/pyavm"
+        },
+        "pillow": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "pyregion": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/pyregion"
+        },
+        "reproject": {
+            "credit": 0.006282692307692308,
+            "url": "https://pypi.org/project/reproject"
+        },
+        "astropy": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/astropy"
+        },
+        "numpy": {
+            "credit": 0.02513076923076923,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "pytest-lazy-fixture": {
+            "credit": 0.015078461538461537,
+            "url": "https://pypi.org/project/pytest-lazy-fixture"
+        },
+        "pytest-cov": {
+            "credit": 0.015078461538461537,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.015078461538461537,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "importlib-metadata": {
+            "credit": 0.015078461538461537,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "wcwidth": {
+            "credit": 0.015078461538461537,
+            "url": "https://pypi.org/project/wcwidth"
+        },
+        "nose": {
+            "credit": 0.018848076923076922,
+            "url": "https://pypi.org/project/nose"
+        },
+        "sphinx": {
+            "credit": 0.018848076923076922,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "future": {
+            "credit": 0.018848076923076922,
+            "url": "https://pypi.org/project/future"
+        },
+        "chardet": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/charset-normalizer"
+        }
+    }
+}

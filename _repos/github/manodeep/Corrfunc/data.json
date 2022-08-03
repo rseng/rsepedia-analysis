@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/manodeep/Corrfunc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "future": {
+            "credit": 0.0033000000000000004,
+            "url": "https://python-future.org"
+        },
+        "wurlitzer": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/minrk/wurlitzer"
+        }
+    }
+}

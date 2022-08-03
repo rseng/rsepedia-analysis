@@ -1,0 +1,3 @@
+numpy>=1.7.2
+scipy>=0.9.0
+astropy>=2.0

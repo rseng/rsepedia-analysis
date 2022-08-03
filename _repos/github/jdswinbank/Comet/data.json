@@ -1,0 +1,230 @@
+{
+    "requirements.txt": {
+        "github/jdswinbank/Comet": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "twisted": {
+            "credit": 0.005373288461538487,
+            "url": "https://twistedmatrix.com/"
+        },
+        "lxml": {
+            "credit": 0.0046821923076923325,
+            "url": "https://lxml.de/"
+        },
+        "zope.interface": {
+            "credit": 0.011676923076923102,
+            "url": "https://github.com/zopefoundation/zope.interface"
+        },
+        "types-pyOpenSSL": {
+            "credit": 0.008376923076923077,
+            "url": "https://github.com/python/typeshed"
+        },
+        "types-setuptools": {
+            "credit": 0.008376923076923077,
+            "url": "https://github.com/python/typeshed"
+        },
+        "mypy-zope": {
+            "credit": 0.008376923076923077,
+            "url": "https://github.com/Shoobx/mypy-zope"
+        },
+        "mypy": {
+            "credit": 8.376923076923101e-05,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "pyobjc-framework-Cocoa": {
+            "credit": 0.004230346153846154,
+            "url": "https://github.com/ronaldoussoren/pyobjc"
+        },
+        "pyobjc-framework-CFNetwork": {
+            "credit": 8.376923076923101e-05,
+            "url": "https://github.com/ronaldoussoren/pyobjc"
+        },
+        "pyobjc-core": {
+            "credit": 0.020816653846153846,
+            "url": "https://github.com/ronaldoussoren/pyobjc"
+        },
+        "pydoctor": {
+            "credit": 0.008376923076923077,
+            "url": "https://github.com/twisted/pydoctor"
+        },
+        "python-subunit": {
+            "credit": 0.008376923076923077,
+            "url": "http://launchpad.net/subunit"
+        },
+        "coverage": {
+            "credit": 0.05660705769230769,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "twistedchecker": {
+            "credit": 8.376923076923101e-05,
+            "url": "https://github.com/twisted/twistedchecker"
+        },
+        "pyflakes": {
+            "credit": 0.010450211538461538,
+            "url": "https://github.com/PyCQA/pyflakes"
+        },
+        "sphinx": {
+            "credit": 0.008376923076923077,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "readthedocs-sphinx-ext": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/readthedocs-sphinx-ext"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "towncrier": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/towncrier"
+        },
+        "PyNaCl": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/PyNaCl"
+        },
+        "contextvars": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/contextvars"
+        },
+        "pywin32": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pywin32"
+        },
+        "priority": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/priority"
+        },
+        "h2": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/h2"
+        },
+        "pyserial": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pyserial"
+        },
+        "bcrypt": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "appdirs": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/appdirs"
+        },
+        "cryptography": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyasn1": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "idna": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/idna"
+        },
+        "service-identity": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/service-identity"
+        },
+        "pyopenssl": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pyopenssl"
+        },
+        "PyHamcrest": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/PyHamcrest"
+        },
+        "cython-test-exception-raiser": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/cython-test-exception-raiser"
+        },
+        "twisted-iocpsupport": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/twisted-iocpsupport"
+        },
+        "typing-extensions": {
+            "credit": 0.009759115384615385,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "attrs": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "hyperlink": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/hyperlink"
+        },
+        "Automat": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/Automat"
+        },
+        "incremental": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/incremental"
+        },
+        "constantly": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/constantly"
+        },
+        "Cython": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/Cython"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/BeautifulSoup4"
+        },
+        "html5lib": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/html5lib"
+        },
+        "cssselect": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/cssselect"
+        },
+        "zope.testing": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/zope.testing"
+        },
+        "zope.event": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/zope.event"
+        },
+        "repoze.sphinx.autointerface": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/repoze.sphinx.autointerface"
+        },
+        "Sphinx": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "setuptools": {
+            "credit": 0.05445,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "psutil": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "tomli": {
+            "credit": 0.009675346153846154,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "pylint": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/pylint"
+        }
+    }
+}

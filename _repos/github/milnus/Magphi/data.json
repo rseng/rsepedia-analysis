@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/milnus/Magphi": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.0033000000000000004,
+            "url": "https://biopython.org/"
+        },
+        "pybedtools": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/daler/pybedtools"
+        },
+        "pylint": {
+            "credit": 0.0033000000000000004,
+            "url": "http://pylint.pycqa.org"
+        }
+    }
+}

@@ -1,0 +1,130 @@
+{
+    "requirements.txt": {
+        "github/taoliu/MACS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.14142857142857143,
+            "url": "https://www.numpy.org"
+        },
+        "Cython": {
+            "credit": 0.14142857142857143,
+            "url": "http://cython.org/"
+        },
+        "cykhash": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/realead/cykhash"
+        },
+        "pytest": {
+            "credit": 0.018916071428571442,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "pytest-cov": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "codecov": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/codecov/codecov-python"
+        },
+        "setuptools": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "xmlschema": {
+            "credit": 0.008750892857142856,
+            "url": "https://github.com/sissaschool/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0787580357142857,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "virtualenv": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.08750892857142856,
+            "url": "https://pypi.org/project/coverage"
+        }
+    }
+}

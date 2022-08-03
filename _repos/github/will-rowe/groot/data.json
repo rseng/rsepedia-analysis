@@ -1,0 +1,54 @@
+{
+    "go.mod": {
+        "github/will-rowe/groot": {
+            "credit": 0.01,
+            "url": "https://github/will-rowe/groot"
+        }
+    },
+    "go": {
+        "github.com/adam-hanna/arrayOperations": {
+            "credit": 0.0009,
+            "url": "https://github.com/adam-hanna/arrayOperations"
+        },
+        "github.com/biogo/biogo": {
+            "credit": 0.0009,
+            "url": "https://github.com/biogo/biogo"
+        },
+        "github.com/biogo/hts": {
+            "credit": 0.0009,
+            "url": "https://github.com/biogo/hts"
+        },
+        "github.com/dgryski/go-minhash": {
+            "credit": 0.0009,
+            "url": "https://github.com/dgryski/go-minhash"
+        },
+        "github.com/ekzhu/lshensemble": {
+            "credit": 0.0009,
+            "url": "https://github.com/ekzhu/lshensemble"
+        },
+        "github.com/orcaman/concurrent-map": {
+            "credit": 0.0009,
+            "url": "https://github.com/orcaman/concurrent-map"
+        },
+        "github.com/pkg/profile": {
+            "credit": 0.0009,
+            "url": "https://github.com/pkg/profile"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.0009,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/spf13/pflag": {
+            "credit": 0.0009,
+            "url": "https://github.com/spf13/pflag"
+        },
+        "github.com/will-rowe/gfa": {
+            "credit": 0.0009,
+            "url": "https://github.com/will-rowe/gfa"
+        },
+        "github.com/will-rowe/nthash": {
+            "credit": 0.0009,
+            "url": "https://github.com/will-rowe/nthash"
+        }
+    }
+}

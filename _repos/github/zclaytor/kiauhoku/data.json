@@ -1,0 +1,130 @@
+{
+    "setup.py": {
+        "github/zclaytor/kiauhoku": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "requests": {
+            "credit": 0.0013906406250000034,
+            "url": "https://requests.readthedocs.io"
+        },
+        "tqdm": {
+            "credit": 0.0012375000000000025,
+            "url": "https://tqdm.github.io"
+        },
+        "numpy": {
+            "credit": 0.2871,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0012375000000000025,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.14416875,
+            "url": "https://www.scipy.org"
+        },
+        "emcee": {
+            "credit": 0.0012375000000000025,
+            "url": "https://emcee.readthedocs.io"
+        },
+        "pyarrow": {
+            "credit": 0.0012375000000000025,
+            "url": "https://arrow.apache.org/"
+        },
+        "numba": {
+            "credit": 0.12375,
+            "url": "https://numba.pydata.org"
+        },
+        "chardet": {
+            "credit": 0.0229455703125,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.0229455703125,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.0229455703125,
+            "url": "https://github.com/certifi/python-certifi"
+        },
+        "urllib3": {
+            "credit": 0.0229455703125,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.0229455703125,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.002731007812500001,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "slack-sdk": {
+            "credit": 0.0153140625,
+            "url": "https://github.com/slackapi/python-slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.0153140625,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "pytest-xdist": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "coverage": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest-cov": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "h5py": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "unicodedata2": {
+            "credit": 0.020214562499999998,
+            "url": "https://pypi.org/project/unicodedata2"
+        }
+    }
+}

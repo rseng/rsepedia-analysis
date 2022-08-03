@@ -1,0 +1,74 @@
+{
+    "requirements.txt": {
+        "github/rmjarvis/Piff": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.32037665,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0011000000000000038,
+            "url": "https://www.scipy.org"
+        },
+        "pyyaml": {
+            "credit": 0.13722499999999999,
+            "url": "https://pyyaml.org/"
+        },
+        "lsstdesc.coord": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/LSSTDESC/Coord"
+        },
+        "treecorr": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/rmjarvis/TreeCorr"
+        },
+        "fitsio": {
+            "credit": 0.11,
+            "url": "https://github.com/esheldon/fitsio"
+        },
+        "matplotlib": {
+            "credit": 0.11,
+            "url": "https://matplotlib.org"
+        },
+        "galsim": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/rmjarvis/GalSim"
+        },
+        "treegp": {
+            "credit": 0.11,
+            "url": "https://github.com/PFLeget/treegp"
+        },
+        "cffi": {
+            "credit": 0.016806900000000003,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "future": {
+            "credit": 0.052471649999999995,
+            "url": "https://python-future.org"
+        },
+        "LSSTDESC.Coord": {
+            "credit": 0.0004900500000000023,
+            "url": "https://github.com/LSSTDESC/Coord"
+        },
+        "astropy": {
+            "credit": 0.02178,
+            "url": "http://astropy.org"
+        },
+        "pybind11": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/pybind11"
+        },
+        "setuptools": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "pycparser": {
+            "credit": 0.06288975,
+            "url": "https://pypi.org/project/pycparser"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/dgerosa/spops": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "h5py": {
+            "credit": 0.002475,
+            "url": "http://www.h5py.org"
+        },
+        "singleton_decorator": {
+            "credit": 0.002475,
+            "url": "https://github.com/Kemaweyan/singleton_decorator"
+        },
+        "contexttimer": {
+            "credit": 0.002475,
+            "url": "https://github.com/brouberol/contexttimer"
+        }
+    }
+}

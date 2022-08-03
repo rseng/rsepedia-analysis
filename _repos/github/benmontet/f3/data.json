@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/benmontet/f3": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "mahotas": {
+            "credit": 0.0099,
+            "url": "http://luispedro.org/software/mahotas"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+# specific requirements to build the documentation
+sphinx
+livereload
+sphinx_rtd_theme
+sphinx-autobuild
+myst-parser
+ipython
+merklelib >= 1.0
+gputil >= 1.4.0

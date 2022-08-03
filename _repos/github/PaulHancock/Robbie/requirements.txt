@@ -1,0 +1,7 @@
+astropy>=4.0
+matplotlib>=3
+numpy>=1.21
+pandas>=1.2
+python-dateutil>=2.8
+scipy>=1.6
+git+https://github.com/PaulHancock/Aegean.git@v2.2.5

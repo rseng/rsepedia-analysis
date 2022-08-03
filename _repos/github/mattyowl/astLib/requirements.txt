@@ -1,0 +1,8 @@
+--index-url https://pypi.python.org/simple/
+
+sphinx_epytext
+numpy
+astropy
+scipy
+matplotlib
+-e .

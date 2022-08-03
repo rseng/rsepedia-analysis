@@ -1,0 +1,34 @@
+{
+    "requirements.txt": {
+        "github/AemulusProject/bias_emulator": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Aemulator": {
+            "credit": 0.00198,
+            "url": "https://github.com/AemulusProject/Aemulator"
+        },
+        "cffi": {
+            "credit": 0.00198,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "numpy": {
+            "credit": 0.005890599,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0029601000000000002,
+            "url": "https://www.scipy.org"
+        },
+        "george": {
+            "credit": 0.00198,
+            "url": "https://github.com/dfm/george"
+        },
+        "pycparser": {
+            "credit": 0.0019602,
+            "url": "https://github.com/eliben/pycparser"
+        }
+    }
+}

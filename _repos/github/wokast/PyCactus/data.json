@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/wokast/PyCactus": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.002475,
+            "url": "http://www.h5py.org"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

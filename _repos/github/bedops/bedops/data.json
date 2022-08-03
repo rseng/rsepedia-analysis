@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/bedops/bedops": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sphinx-better-theme": {
+            "credit": 0.0099,
+            "url": "http://github.com/irskep/sphinx-better-theme"
+        }
+    }
+}

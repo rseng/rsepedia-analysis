@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "gitlab/rki_bioinformatics/IDeFIX": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "joblib": {
+            "credit": 0.0099,
+            "url": "https://joblib.readthedocs.io"
+        }
+    }
+}

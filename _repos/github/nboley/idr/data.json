@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/nboley/idr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.00495,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

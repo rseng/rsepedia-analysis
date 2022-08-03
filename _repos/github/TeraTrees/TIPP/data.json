@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/TeraTrees/TIPP": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "dendropy": {
+            "credit": 0.00495,
+            "url": "http://packages.python.org/DendroPy/"
+        },
+        "sepp": {
+            "credit": 0.00495,
+            "url": "https://repos.cosmos.esa.int/socci/projects/SEPP/repos/sepp"
+        }
+    }
+}

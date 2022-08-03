@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/icecube/TauRunner": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "coverage": {
+            "credit": 0.002475,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "proposal": {
+            "credit": 0.002475,
+            "url": "https://github.com/tudo-astroparticlephysics/PROPOSAL"
+        },
+        "tomli": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/tomli"
+        }
+    }
+}

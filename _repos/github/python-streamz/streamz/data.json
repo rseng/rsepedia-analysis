@@ -1,0 +1,34 @@
+{
+    "requirements.txt": {
+        "github/python-streamz/streamz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tornado": {
+            "credit": 0.00198,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "toolz": {
+            "credit": 0.00198,
+            "url": "https://github.com/pytoolz/toolz/"
+        },
+        "zict": {
+            "credit": 0.00198,
+            "url": "http://zict.readthedocs.io/en/latest/"
+        },
+        "six": {
+            "credit": 0.00198,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "setuptools": {
+            "credit": 0.00198,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "heapdict": {
+            "credit": 0.0019602,
+            "url": "http://stutzbachenterprises.com/"
+        }
+    }
+}

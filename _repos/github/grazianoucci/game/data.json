@@ -1,0 +1,46 @@
+{
+    "setup.py": {
+        "github/grazianoucci/game": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "sklearn": {
+            "credit": 0.002475,
+            "url": "https://pypi.python.org/pypi/scikit-learn/"
+        },
+        "httplib2": {
+            "credit": 0.002475,
+            "url": "https://github.com/httplib2/httplib2"
+        },
+        "pyparsing": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "jinja2": {
+            "credit": 0.00121287375,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.00121287375,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "Babel": {
+            "credit": 0.00060037250625,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.00060037250625,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/ejhigson/dyPolyChord": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.7239705,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.006864000000000025,
+            "url": "https://www.scipy.org"
+        },
+        "nestcheck": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/ejhigson/nestcheck"
+        },
+        "nbsphinx": {
+            "credit": 0.00029699999999999865,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.032967,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "numpydoc": {
+            "credit": 0.003563999999999999,
+            "url": "https://numpydoc.readthedocs.io"
+        },
+        "sphinx": {
+            "credit": 0.0437481,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "futures": {
+            "credit": 0.0297,
+            "url": "https://github.com/agronholm/pythonfutures"
+        },
+        "tqdm": {
+            "credit": 0.003563999999999999,
+            "url": "https://tqdm.github.io"
+        },
+        "pandas": {
+            "credit": 0.00029699999999999865,
+            "url": "https://pandas.pydata.org"
+        },
+        "fgivenx": {
+            "credit": 0.00029699999999999865,
+            "url": "https://github.com/williamjameshandley/fgivenx"
+        },
+        "matplotlib": {
+            "credit": 0.0388476,
+            "url": "https://matplotlib.org"
+        },
+        "nbformat": {
+            "credit": 0.0049005,
+            "url": "http://jupyter.org"
+        },
+        "traitlets": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "nbconvert": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jinja2": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "docutils": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "pytest-cov": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.010781100000000002,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "Jinja2": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "requests": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/requests"
+        },
+        "slack-sdk": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "pytest-xdist": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.0049005,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "joblib": {
+            "credit": 0.0032670000000000004,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "getdist": {
+            "credit": 0.0032670000000000004,
+            "url": "https://pypi.org/project/getdist"
+        }
+    }
+}

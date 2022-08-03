@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/nanoporetech/qcat": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.002475,
+            "url": "https://biopython.org/"
+        },
+        "parasail": {
+            "credit": 0.002475,
+            "url": "https://github.com/jeffdaily/parasail-python"
+        },
+        "six": {
+            "credit": 0.002475,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "pyyaml": {
+            "credit": 0.002475,
+            "url": "https://pyyaml.org/"
+        },
+        "numpy": {
+            "credit": 0.00245025,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

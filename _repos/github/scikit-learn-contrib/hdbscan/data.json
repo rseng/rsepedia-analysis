@@ -1,0 +1,126 @@
+{
+    "requirements.txt": {
+        "github/scikit-learn-contrib/hdbscan": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.198,
+            "url": "http://cython.org/"
+        },
+        "numpy": {
+            "credit": 0.4064346000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.01439460000000001,
+            "url": "https://www.scipy.org"
+        },
+        "scikit-learn": {
+            "credit": 0.0019799999999999818,
+            "url": "http://scikit-learn.org"
+        },
+        "joblib": {
+            "credit": 0.20733428571428572,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "pyamg": {
+            "credit": 9.334285714285642e-05,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 9.334285714285642e-05,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.009334285714285715,
+            "url": "https://github.com/psf/black"
+        },
+        "flake8": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.012414600000000001,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "seaborn": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "scikit-image": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "pandas": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "threadpoolctl": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "lxml": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "psutil": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "tomli": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "typing-extensions": {
+            "credit": 0.0015401571428571431,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}

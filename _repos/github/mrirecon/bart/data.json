@@ -1,0 +1,162 @@
+{
+    "CMakeLists.txt": {
+        "github/mrirecon/bart": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "bpython": {
+            "credit": 0.495,
+            "url": null
+        },
+        "python": {
+            "credit": 0.00495000000000001,
+            "url": "https://www.python.org/"
+        },
+        "pkgconfig": {
+            "credit": 0.017728279411764705,
+            "url": "http://pkgconf.org/"
+        },
+        "gettext": {
+            "credit": 0.0034591764705882346,
+            "url": "https://www.gnu.org/software/gettext/"
+        },
+        "readline": {
+            "credit": 0.02407010294117647,
+            "url": "https://tiswww.case.edu/php/chet/readline/rltop.html"
+        },
+        "ncurses": {
+            "credit": 0.01812464338235294,
+            "url": "https://invisible-island.net/ncurses/ncurses.html"
+        },
+        "openssl": {
+            "credit": 0.00028826470588235245,
+            "url": "https://www.openssl.org"
+        },
+        "sqlite": {
+            "credit": 0.0002882647058823559,
+            "url": "https://www.sqlite.org"
+        },
+        "gdbm": {
+            "credit": 0.00028826470588235245,
+            "url": "https://www.gnu.org.ua/software/gdbm/gdbm.html"
+        },
+        "libnsl": {
+            "credit": 0.0002882647058823559,
+            "url": "https://github.com/thkukuk/libnsl"
+        },
+        "zlib": {
+            "credit": 0.05974286029411765,
+            "url": "https://zlib.net"
+        },
+        "bzip2": {
+            "credit": 0.0038555404411764697,
+            "url": "https://sourceware.org/bzip2/"
+        },
+        "xz": {
+            "credit": 0.0038555404411764697,
+            "url": "https://tukaani.org/xz/"
+        },
+        "expat": {
+            "credit": 0.00028826470588235245,
+            "url": "https://libexpat.github.io/"
+        },
+        "libffi": {
+            "credit": 0.00028826470588235245,
+            "url": "https://sourceware.org/libffi/"
+        },
+        "tk": {
+            "credit": 0.009800999999999999,
+            "url": "https://www.tcl.tk"
+        },
+        "tcl": {
+            "credit": 0.015508641176470588,
+            "url": "https://www.tcl.tk/"
+        },
+        "uuid": {
+            "credit": 0.00028826470588235245,
+            "url": "https://sourceforge.net/projects/libuuid/"
+        },
+        "tix": {
+            "credit": 0.0002882647058823559,
+            "url": "https://sourceforge.net/projects/tix/"
+        },
+        "gnuconfig": {
+            "credit": 0.21873543898897063,
+            "url": "https://www.gnu.org/software/config/"
+        },
+        "iconv": {
+            "credit": 0.0018014742463235295,
+            "url": "https://www.gnu.org/software/libiconv/"
+        },
+        "libxml2": {
+            "credit": 0.0035672757352941177,
+            "url": null
+        },
+        "tar": {
+            "credit": 0.0035672757352941177,
+            "url": null
+        },
+        "libunistring": {
+            "credit": 0.0035672757352941177,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.007134551470588235,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.007134551470588235,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.007134551470588235,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "rpcsvc-proto": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "libtirpc": {
+            "credit": 0.003170911764705882,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.02853820588235294,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.01426910294117647,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.005707641176470588,
+            "url": null
+        },
+        "libxft": {
+            "credit": 0.005707641176470588,
+            "url": null
+        },
+        "libxscrnsaver": {
+            "credit": 0.005707641176470588,
+            "url": null
+        }
+    }
+}

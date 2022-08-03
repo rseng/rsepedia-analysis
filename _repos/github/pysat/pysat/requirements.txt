@@ -1,0 +1,9 @@
+dask
+netCDF4
+numpy>=1.12
+pandas
+portalocker
+pytest
+scipy
+toolz
+xarray<2022.06.0

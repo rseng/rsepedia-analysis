@@ -1,0 +1,13 @@
+six
+numpy>=1.9
+scipy>=0.16
+pandas
+h5py>=2.5
+click>=7
+cytoolz<0.11
+multiprocess
+pyfaidx
+pypairix
+asciitree
+pyyaml
+simplejson

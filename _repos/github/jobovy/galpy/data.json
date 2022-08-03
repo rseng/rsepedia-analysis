@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/jobovy/galpy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.002475,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

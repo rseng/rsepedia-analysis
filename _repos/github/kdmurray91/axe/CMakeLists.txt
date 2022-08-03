@@ -1,0 +1,66 @@
+PROJECT(axe C)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules")
+
+# Cmake options
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+ENABLE_TESTING()
+
+IF (NOT CMAKE_BUILD_TYPE)
+        SET(CMAKE_BUILD_TYPE Release)
+ENDIF()
+
+IF (NOT AXE_VERSION)
+	# git describe as versioning
+	EXECUTE_PROCESS(COMMAND git describe
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+			OUTPUT_VARIABLE AXE_VERSION
+			OUTPUT_STRIP_TRAILING_WHITESPACE)
+ENDIF()
+
+MESSAGE(STATUS "${CMAKE_BUILD_TYPE} build of axe version: ${AXE_VERSION}")
+
+###############################
+## Find Packages and Headers ##
+###############################
+
+FIND_PACKAGE(ZLIB 1.2.5 REQUIRED)
+
+FIND_PACKAGE(GSL)
+
+IF (GSL_FOUND)
+    SET(AXE_DEP_INCLUDES ${GSL_INCLUDE_DIRS})
+    SET(AXE_DEP_LIBS ${GSL_LIBRARIES})
+ENDIF()
+
+
+##########################
+## Set Compiler Options ##
+##########################
+
+# Set CFLAGS
+SET(AXEWRN "${AXEWRN} -fstack-protector-all -Wstack-protector")
+SET(AXEWRN "${AXEWRN} -Wall -Wextra -Wpedantic")
+
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu11")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${AXEWRN}")
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src
+                    ${PROJECT_SOURCE_DIR}/src/datrie
+                    ${PROJECT_SOURCE_DIR}/src/libqes/src
+                    ${PROJECT_SOURCE_DIR}/src/gsl)
+LINK_DIRECTORIES(${CMAKE_BINARY_DIR}/lib)
+
+INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
+
+CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/axe_config.h.in
+               ${CMAKE_BINARY_DIR}/axe_config.h)
+
+SET(LIBQES_AS_SUBMODULE True)  # stop libqes installing itself
+ADD_SUBDIRECTORY(src/libqes)
+ADD_SUBDIRECTORY(docs)
+ADD_SUBDIRECTORY(tests)
+ADD_SUBDIRECTORY(src)

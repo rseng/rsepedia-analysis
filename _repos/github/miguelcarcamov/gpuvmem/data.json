@@ -1,0 +1,62 @@
+{
+    "requirements.txt": {
+        "github/miguelcarcamov/gpuvmem": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "almatasks": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/almatasks/browse"
+        },
+        "casadata": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casadatabrowse"
+        },
+        "casampi": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casampi/browse"
+        },
+        "casaplotms": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotms/browse"
+        },
+        "casaplotserver": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casaplotserver/browse"
+        },
+        "casashell": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casatools/browse"
+        },
+        "casatasks": {
+            "credit": 0.0018067500000000002,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casatools/browse"
+        },
+        "casatestutils": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casa6/browse"
+        },
+        "casatools": {
+            "credit": 0.0019701000000000002,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casatools/browse"
+        },
+        "casaviewer": {
+            "credit": 0.00099,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casaviewer/browse"
+        },
+        "mpi4py": {
+            "credit": 0.00049005,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "protobuf": {
+            "credit": 0.00081675,
+            "url": "https://developers.google.com/protocol-buffers/"
+        },
+        "grpcio": {
+            "credit": 0.00081675,
+            "url": "https://grpc.io"
+        }
+    }
+}

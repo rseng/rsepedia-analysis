@@ -1,0 +1,26 @@
+{
+    "go.mod": {
+        "github/phil-mansfield/gotetra": {
+            "credit": 0.01,
+            "url": "https://github/phil-mansfield/gotetra"
+        }
+    },
+    "go": {
+        "github.com/phil-mansfield/pyplot": {
+            "credit": 0.002475,
+            "url": "https://github.com/phil-mansfield/pyplot"
+        },
+        "github.com/phil-mansfield/table": {
+            "credit": 0.002475,
+            "url": "https://github.com/phil-mansfield/table"
+        },
+        "gopkg.in/gcfg.v1": {
+            "credit": 0.002475,
+            "url": "https://gopkg.in/gcfg.v1"
+        },
+        "gopkg.in/warnings.v0": {
+            "credit": 0.002475,
+            "url": "https://gopkg.in/warnings.v0"
+        }
+    }
+}

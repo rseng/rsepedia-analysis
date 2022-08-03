@@ -1,0 +1,12 @@
+biopython
+matplotlib
+namedlist
+networkx
+numpy
+openpyxl
+pandas
+Pillow
+scipy
+seaborn
+sqlalchemy
+tqdm

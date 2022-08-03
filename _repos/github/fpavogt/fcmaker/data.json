@@ -1,0 +1,250 @@
+{
+    "setup.py": {
+        "github/fpavogt/fcmaker": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.18907071428571426,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0034457142857142837,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.09997071428571429,
+            "url": "https://matplotlib.org"
+        },
+        "astropy": {
+            "credit": 0.008324999999999999,
+            "url": "http://astropy.org"
+        },
+        "aplpy": {
+            "credit": 0.000899999999999998,
+            "url": "http://aplpy.github.io"
+        },
+        "astroquery": {
+            "credit": 0.09,
+            "url": "http://astropy.org/astroquery"
+        },
+        "p2api": {
+            "credit": 0.09,
+            "url": "https://www.eso.org/copdemo/apidoc/index.html"
+        },
+        "PyYAML": {
+            "credit": 0.09254571428571429,
+            "url": "https://pyyaml.org/"
+        },
+        "pytz": {
+            "credit": 0.09254571428571429,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "astroplan": {
+            "credit": 0.09,
+            "url": "https://github.com/astropy/astroplan"
+        },
+        "pillow": {
+            "credit": 0.008324999999999999,
+            "url": "https://python-pillow.org"
+        },
+        "sgp4": {
+            "credit": 0.0025457142857142857,
+            "url": "https://github.com/brandon-rhodes/python-sgp4"
+        },
+        "skyfield": {
+            "credit": 0.0025457142857142857,
+            "url": "http://github.com/brandon-rhodes/python-skyfield/"
+        },
+        "coverage": {
+            "credit": 0.008114464285714286,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "objgraph": {
+            "credit": 2.545714285714278e-05,
+            "url": "https://mg.pov.lt/objgraph/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0025457142857142857,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest-astropy": {
+            "credit": 0.009970714285714286,
+            "url": "https://pypi.org/project/pytest-astropy"
+        },
+        "pytest-astropy-header": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/pytest-astropy-header"
+        },
+        "pytest-doctestplus": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/pytest-doctestplus"
+        },
+        "Jinja2": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "sphinx-changelog": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/sphinx-changelog"
+        },
+        "sphinx-astropy": {
+            "credit": 0.009970714285714286,
+            "url": "https://pypi.org/project/sphinx-astropy"
+        },
+        "sphinx": {
+            "credit": 0.008114464285714286,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "pytest": {
+            "credit": 0.008114464285714286,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "ipython": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "bottleneck": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/bottleneck"
+        },
+        "asdf": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/asdf"
+        },
+        "mpmath": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/mpmath"
+        },
+        "jplephem": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/jplephem"
+        },
+        "sortedcontainers": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "pandas": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "bleach": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/bleach"
+        },
+        "html5lib": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/html5lib"
+        },
+        "beautifulsoup4": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/beautifulsoup4"
+        },
+        "pyarrow": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "h5py": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "dask": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/dask"
+        },
+        "certifi": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "packaging": {
+            "credit": 0.008114464285714286,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "pyerfa": {
+            "credit": 0.0025457142857142857,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "pytest-mpl": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pytest-mpl"
+        },
+        "shapely": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/shapely"
+        },
+        "scikit-image": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "pyavm": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pyavm"
+        },
+        "pyregion": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pyregion"
+        },
+        "reproject": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/reproject"
+        },
+        "pytest-timeout": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pyroma": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "markdown2": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "check-manifest": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "olefile": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "furo": {
+            "credit": 0.00556875,
+            "url": "https://pypi.org/project/furo"
+        },
+        "graphviz": {
+            "credit": 0.002520257142857143,
+            "url": "https://pypi.org/project/graphviz"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+Package: zerone
+Title: A ChIP-seq discretizer with built-in quality control
+Version: 1.0
+Date: 2015-10-25
+Author: Pol Cuscó and Guillaume Filion
+Maintainer: Guillaume Filion <guillaume.filion@gmail.com>
+LazyData: true
+Description: Provides HMM for mixture model negative multinomial emissions.
+License: GPL (>=3)

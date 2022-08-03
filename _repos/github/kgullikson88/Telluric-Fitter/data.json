@@ -1,0 +1,94 @@
+{
+    "setup.py": {
+        "github/kgullikson88/Telluric-Fitter": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.33,
+            "url": "http://cython.org/"
+        },
+        "requests": {
+            "credit": 0.003300000000000025,
+            "url": "https://requests.readthedocs.io"
+        },
+        "numpy": {
+            "credit": 0.33,
+            "url": "https://www.numpy.org"
+        },
+        "win-inet-pton": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0004667142857142856,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/certifi/python-certifi"
+        },
+        "urllib3": {
+            "credit": 0.04667142857142857,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "unicodedata2": {
+            "credit": 0.00046204714285714293,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "pytest-randomly": {
+            "credit": 0.00011435666785714234,
+            "url": "https://github.com/pytest-dev/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.00011435666785714234,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 0.011435666785714286,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest": {
+            "credit": 0.018983206864285715,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "importlib-metadata": {
+            "credit": 0.005660655058928572,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "filelock": {
+            "credit": 0.0018868850196428573,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0018868850196428573,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0018868850196428573,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0018868850196428573,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0018868850196428573,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

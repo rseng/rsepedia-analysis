@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/PacificBiosciences/pbbam": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "breathe": {
+            "credit": 0.0099,
+            "url": "https://github.com/michaeljones/breathe"
+        }
+    }
+}

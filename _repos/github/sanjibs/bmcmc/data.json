@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/sanjibs/bmcmc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ebfpy": {
+            "credit": 0.0099,
+            "url": "https://pypi.org/project/ebfpy"
+        }
+    }
+}

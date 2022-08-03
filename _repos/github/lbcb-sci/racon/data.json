@@ -1,0 +1,102 @@
+{
+    "CMakeLists.txt": {
+        "github/lbcb-sci/racon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0009900000000000186,
+            "url": "https://www.cmake.org"
+        },
+        "bioparser": {
+            "credit": 0.099,
+            "url": null
+        },
+        "edlib": {
+            "credit": 0.099,
+            "url": null
+        },
+        "spoa": {
+            "credit": 0.099,
+            "url": null
+        },
+        "thread_pool": {
+            "credit": 0.099,
+            "url": null
+        },
+        "gtest": {
+            "credit": 0.099,
+            "url": null
+        },
+        "rampler": {
+            "credit": 0.099,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.0009900000000000048,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "cudapoa": {
+            "credit": 0.099,
+            "url": null
+        },
+        "cudaaligner": {
+            "credit": 0.099,
+            "url": null
+        },
+        "ninja": {
+            "credit": 8.16749999999998e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.0081675,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.0571725,
+            "url": null
+        },
+        "python": {
+            "credit": 0.016253325,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.049005,
+            "url": null
+        }
+    }
+}

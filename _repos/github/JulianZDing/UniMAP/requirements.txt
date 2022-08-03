@@ -1,0 +1,5 @@
+gwpy
+matplotlib
+numpy
+sklearn
+tqdm

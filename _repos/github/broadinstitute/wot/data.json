@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/broadinstitute/wot": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools_scm": {
+            "credit": 0.00495,
+            "url": "https://github.com/pypa/setuptools_scm/"
+        },
+        "cython": {
+            "credit": 0.00495,
+            "url": "http://cython.org/"
+        }
+    }
+}
