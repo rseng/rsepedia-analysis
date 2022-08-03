@@ -1,0 +1,5 @@
+corner
+emcee
+matplotlib
+numpy
+scipy

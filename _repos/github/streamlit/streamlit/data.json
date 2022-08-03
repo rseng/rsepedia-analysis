@@ -1,0 +1,306 @@
+{
+    "package.json": {
+        "github/streamlit/streamlit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "emotion-icons": {
+            "credit": 0.0495,
+            "url": "https://github.com/emotion-icons/emotion-icons"
+        },
+        "emotion": {
+            "credit": 0.061875,
+            "url": "https://emotion.sh"
+        },
+        "loaders.gl": {
+            "credit": 0.000371250000000007,
+            "url": "https://github.com/uber/luma.gl#readme"
+        },
+        "apache-arrow": {
+            "credit": 0.012375,
+            "url": "https://github.com/apache/arrow/blob/master/js/README.md"
+        },
+        "axios": {
+            "credit": 0.012375,
+            "url": "https://axios-http.com"
+        },
+        "baseui": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "camelcase": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "classnames": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "clipboard": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "color2k": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "copy-to-clipboard": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "cypress-circleci-reporter": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "d3": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "d3-graphviz": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "decamelize": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "deck.gl": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "dompurify": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "fzy.js": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "hoist-non-react-statics": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "humanize-string": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "immer": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "immutable": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "jest-fetch-mock": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "json5": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "katex": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "mapbox-gl": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "moment": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "moment-duration-format": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "moment-timezone": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "node-emoji": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "numbro": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "plotly.js": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "prismjs": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "protobufjs": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "query-string": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-color": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-debounce-render": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-device-detect": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-dropzone": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-feather": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-google-login": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-hotkeys": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-html-parser": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-json-view": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-map-gl": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-markdown": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-plotly.js": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-syntax-highlighter": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-transition-group": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-virtualized": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-webcam": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "react-window": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "rehype-katex": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "rehype-raw": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "remark-emoji": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "remark-gfm": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "remark-math": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "re-resizable": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "sprintf-js": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "styled-components": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "styletron-engine-atomic": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "styletron-react": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "typed-signals": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "vega": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "vega-embed": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "vega-lite": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "xxhashjs": {
+            "credit": 0.012375,
+            "url": null
+        },
+        "draco3d": {
+            "credit": 0.012251249999999998,
+            "url": null
+        },
+        "webgl-obj-loader": {
+            "credit": 0.012251249999999998,
+            "url": null
+        },
+        "d3-request": {
+            "credit": 0.012251249999999998,
+            "url": null
+        }
+    }
+}

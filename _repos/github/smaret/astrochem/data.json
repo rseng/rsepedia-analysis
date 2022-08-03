@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/smaret/astrochem": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "mock": {
+            "credit": 0.0099,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        }
+    }
+}

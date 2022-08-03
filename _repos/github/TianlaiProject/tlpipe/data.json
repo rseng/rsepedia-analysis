@@ -1,0 +1,38 @@
+{
+    "requirements.txt": {
+        "github/TianlaiProject/tlpipe": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002814428571428571,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0014142857142857143,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0014142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "h5py": {
+            "credit": 0.0014142857142857143,
+            "url": "http://www.h5py.org"
+        },
+        "healpy": {
+            "credit": 0.0014142857142857143,
+            "url": "http://github.com/healpy"
+        },
+        "pyephem": {
+            "credit": 0.0014142857142857143,
+            "url": "http://rhodesmill.org/pyephem/"
+        },
+        "cython": {
+            "credit": 0.0014142857142857143,
+            "url": "http://cython.org/"
+        }
+    }
+}

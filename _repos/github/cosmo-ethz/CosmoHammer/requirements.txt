@@ -1,0 +1,4 @@
+emcee
+numpy
+mock
+pytest

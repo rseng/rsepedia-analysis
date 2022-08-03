@@ -1,0 +1,98 @@
+{
+    "go.mod": {
+        "github/shenwei356/csvtk": {
+            "credit": 0.01,
+            "url": "https://github/shenwei356/csvtk"
+        }
+    },
+    "go": {
+        "github.com/Knetic/govaluate": {
+            "credit": 0.00045,
+            "url": "https://github.com/Knetic/govaluate"
+        },
+        "github.com/araddon/dateparse": {
+            "credit": 0.00045,
+            "url": "https://github.com/araddon/dateparse"
+        },
+        "github.com/bsipos/thist": {
+            "credit": 0.00045,
+            "url": "https://github.com/bsipos/thist"
+        },
+        "github.com/cheggaaa/pb/v3": {
+            "credit": 0.00045,
+            "url": "https://github.com/cheggaaa/pb/v3"
+        },
+        "github.com/dustin/go-humanize": {
+            "credit": 0.00045,
+            "url": "https://github.com/dustin/go-humanize"
+        },
+        "github.com/fatih/color": {
+            "credit": 0.00045,
+            "url": "https://github.com/fatih/color"
+        },
+        "github.com/mattn/go-colorable": {
+            "credit": 0.00045,
+            "url": "https://github.com/mattn/go-colorable"
+        },
+        "github.com/mattn/go-runewidth": {
+            "credit": 0.00045,
+            "url": "https://github.com/mattn/go-runewidth"
+        },
+        "github.com/metakeule/fmtdate": {
+            "credit": 0.00045,
+            "url": "https://github.com/metakeule/fmtdate"
+        },
+        "github.com/mitchellh/go-homedir": {
+            "credit": 0.00045,
+            "url": "https://github.com/mitchellh/go-homedir"
+        },
+        "github.com/mxschmitt/golang-combinations": {
+            "credit": 0.00045,
+            "url": "https://github.com/mxschmitt/golang-combinations"
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.00045,
+            "url": "https://github.com/pkg/errors"
+        },
+        "github.com/shenwei356/breader": {
+            "credit": 0.00045,
+            "url": "https://github.com/shenwei356/breader"
+        },
+        "github.com/shenwei356/go-logging": {
+            "credit": 0.00045,
+            "url": "https://github.com/shenwei356/go-logging"
+        },
+        "github.com/shenwei356/natsort": {
+            "credit": 0.00045,
+            "url": "https://github.com/shenwei356/natsort"
+        },
+        "github.com/shenwei356/util": {
+            "credit": 0.00045,
+            "url": "https://github.com/shenwei356/util"
+        },
+        "github.com/shenwei356/xopen": {
+            "credit": 0.00045,
+            "url": "https://github.com/shenwei356/xopen"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.00045,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/tatsushid/go-prettytable": {
+            "credit": 0.00045,
+            "url": "https://github.com/tatsushid/go-prettytable"
+        },
+        "github.com/xuri/excelize/v2": {
+            "credit": 0.00045,
+            "url": "https://github.com/xuri/excelize/v2"
+        },
+        "gonum.org/v1/gonum": {
+            "credit": 0.00045,
+            "url": "https://gonum.org/v1/gonum"
+        },
+        "gonum.org/v1/plot": {
+            "credit": 0.00045,
+            "url": "https://gonum.org/v1/plot"
+        }
+    }
+}

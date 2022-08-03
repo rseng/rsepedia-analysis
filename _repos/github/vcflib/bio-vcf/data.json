@@ -1,0 +1,158 @@
+{
+    "Gemfile": {
+        "github/vcflib/bio-vcf": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "rake": {
+            "credit": 0.366073125,
+            "url": "https://github.com/ruby/rake"
+        },
+        "rspec": {
+            "credit": 0.021404625000000024,
+            "url": "http://github.com/rspec"
+        },
+        "cucumber": {
+            "credit": 0.03324750000000002,
+            "url": "https://cucumber.io/"
+        },
+        "rspec-mocks": {
+            "credit": 0.0010890000000000066,
+            "url": "https://github.com/rspec/rspec-mocks"
+        },
+        "rspec-expectations": {
+            "credit": 0.1089,
+            "url": "https://github.com/rspec/rspec-expectations"
+        },
+        "rspec-core": {
+            "credit": 0.0010890000000000066,
+            "url": "https://github.com/rspec/rspec-core"
+        },
+        "sys-uname": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/djberg96/sys-uname"
+        },
+        "multi_test": {
+            "credit": 0.0136125,
+            "url": "http://cukes.info"
+        },
+        "mime-types": {
+            "credit": 0.0136125,
+            "url": "https://github.com/mime-types/ruby-mime-types/"
+        },
+        "diff-lcs": {
+            "credit": 0.031581,
+            "url": null
+        },
+        "cucumber-messages": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-html-formatter": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-gherkin": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-cucumber-expressions": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-core": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-ci-environment": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "builder": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "webrick": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "test-unit": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "syntax": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "sinatra": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "simplecov": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rack-test": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "octokit": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "cucumber-compatibility-kit": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "capybara": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "rspec-support": {
+            "credit": 0.029947499999999995,
+            "url": null
+        },
+        "minitest": {
+            "credit": 0.029947499999999995,
+            "url": null
+        },
+        "aruba": {
+            "credit": 0.029947499999999995,
+            "url": null
+        },
+        "thread_order": {
+            "credit": 0.011978999999999998,
+            "url": null
+        },
+        "rr": {
+            "credit": 0.011978999999999998,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.011978999999999998,
+            "url": null
+        },
+        "flexmock": {
+            "credit": 0.011978999999999998,
+            "url": null
+        },
+        "coderay": {
+            "credit": 0.011978999999999998,
+            "url": null
+        },
+        "ffi": {
+            "credit": 0.004492125,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,3 @@
+cogent3
+python-igraph>=0.7.1
+cairocffi

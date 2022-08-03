@@ -1,0 +1,98 @@
+{
+    "setup.py": {
+        "github/fred3m/toyz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tornado": {
+            "credit": 0.198,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "passlib": {
+            "credit": 0.0019800000000000373,
+            "url": "https://passlib.readthedocs.io"
+        },
+        "numpy": {
+            "credit": 0.198,
+            "url": "https://www.numpy.org"
+        },
+        "six": {
+            "credit": 0.198,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "importlib": {
+            "credit": 0.198,
+            "url": "https://github.com/brettcannon/importlib"
+        },
+        "cryptography": {
+            "credit": 0.03267,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "cloud-sptheme": {
+            "credit": 0.03267,
+            "url": "https://cloud-sptheme.readthedocs.io"
+        },
+        "sphinxcontrib-fulltoc": {
+            "credit": 0.03267,
+            "url": "http://sphinxcontrib-fulltoc.readthedocs.org"
+        },
+        "sphinx": {
+            "credit": 0.035365274999999995,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "bcrypt": {
+            "credit": 0.03267,
+            "url": "https://github.com/pyca/bcrypt/"
+        },
+        "argon2-cffi": {
+            "credit": 0.0003266999999999992,
+            "url": "https://argon2-cffi.readthedocs.io/"
+        },
+        "furo": {
+            "credit": 0.002695275,
+            "url": "https://pradyunsg.me/furo/quickstart"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "pytest": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "coverage": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "tomli": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "cogapp": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/cogapp"
+        },
+        "pre-commit": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "typing-extensions": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "dataclasses": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "argon2-cffi-bindings": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/argon2-cffi-bindings"
+        }
+    }
+}

@@ -1,0 +1,110 @@
+{
+    "requirements.txt": {
+        "github/mirnylab/cooler": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "six": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "numpy": {
+            "credit": 0.16411153846153848,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.07615384615384616,
+            "url": "https://www.scipy.org"
+        },
+        "pandas": {
+            "credit": 0.0007615384615384663,
+            "url": "https://pandas.pydata.org"
+        },
+        "h5py": {
+            "credit": 0.0007615384615384663,
+            "url": "http://www.h5py.org"
+        },
+        "click": {
+            "credit": 0.0007615384615384663,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "cytoolz": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/pytoolz/cytoolz"
+        },
+        "multiprocess": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "pyfaidx": {
+            "credit": 0.07615384615384616,
+            "url": "http://mattshirley.com"
+        },
+        "pypairix": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/4dn-dcic/pairix"
+        },
+        "asciitree": {
+            "credit": 0.07615384615384616,
+            "url": "http://github.com/mbr/asciitree"
+        },
+        "pyyaml": {
+            "credit": 0.07615384615384616,
+            "url": "https://pyyaml.org/"
+        },
+        "simplejson": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/simplejson/simplejson"
+        },
+        "pytest-xdist": {
+            "credit": 0.00012565384615384652,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.014638673076923077,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.012565384615384615,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "importlib-metadata": {
+            "credit": 0.037696153846153845,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "colorama": {
+            "credit": 0.037696153846153845,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "filelock": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0020732884615384615,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

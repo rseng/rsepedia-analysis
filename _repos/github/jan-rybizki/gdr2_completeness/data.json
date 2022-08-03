@@ -1,0 +1,150 @@
+{
+    "requirements.txt": {
+        "github/jan-rybizki/gdr2_completeness": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.165,
+            "url": "https://www.numpy.org"
+        },
+        "pyvo": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/astropy/pyvo"
+        },
+        "time": {
+            "credit": 0.165,
+            "url": "UNKNOWN"
+        },
+        "os": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/os"
+        },
+        "urllib": {
+            "credit": 0.165,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "matplotlib": {
+            "credit": 0.165,
+            "url": "https://matplotlib.org"
+        },
+        "pytest-astropy": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/astropy/pytest-astropy"
+        },
+        "sphinx-astropy": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/astropy/sphinx-astropy"
+        },
+        "mimeparse": {
+            "credit": 0.03267,
+            "url": "http://code.google.com/p/mimeparse/"
+        },
+        "requests": {
+            "credit": 0.0003266999999999992,
+            "url": "https://requests.readthedocs.io"
+        },
+        "astropy": {
+            "credit": 0.03590433,
+            "url": "http://astropy.org"
+        },
+        "hypothesis": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "attrs": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "pytest-mock": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "pytest-cov": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-filter-subpackage": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-filter-subpackage"
+        },
+        "pytest-arraydiff": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-arraydiff"
+        },
+        "pytest-astropy-header": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-astropy-header"
+        },
+        "pytest-openfiles": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-openfiles"
+        },
+        "pytest-remotedata": {
+            "credit": 0.0029403,
+            "url": "https://pypi.org/project/pytest-remotedata"
+        },
+        "pytest-doctestplus": {
+            "credit": 0.0061746299999999995,
+            "url": "https://pypi.org/project/pytest-doctestplus"
+        },
+        "pytest": {
+            "credit": 0.0061746299999999995,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pillow": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "sphinx-gallery": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx-automodapi": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/sphinx-automodapi"
+        },
+        "numpydoc": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "astropy-sphinx-theme": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/astropy-sphinx-theme"
+        },
+        "sphinx": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "packaging": {
+            "credit": 0.0032343299999999997,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "chardet": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.00539055,
+            "url": "https://pypi.org/project/charset-normalizer"
+        }
+    }
+}

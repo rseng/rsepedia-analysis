@@ -1,0 +1,42 @@
+{
+    "requirements.txt": {
+        "github/minkailin/stratsi": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.0012375,
+            "url": "http://cython.org/"
+        },
+        "docopt": {
+            "credit": 0.0012375,
+            "url": "http://docopt.org"
+        },
+        "h5py": {
+            "credit": 0.0012375,
+            "url": "http://www.h5py.org"
+        },
+        "matplotlib": {
+            "credit": 0.0012375,
+            "url": "https://matplotlib.org"
+        },
+        "mpi4py": {
+            "credit": 0.0012375,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "numpy": {
+            "credit": 0.0024626250000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0012375,
+            "url": "https://www.scipy.org"
+        },
+        "setuptools": {
+            "credit": 0.0012375,
+            "url": "https://github.com/pypa/setuptools"
+        }
+    }
+}

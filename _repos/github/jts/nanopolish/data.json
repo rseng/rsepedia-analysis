@@ -1,0 +1,170 @@
+{
+    "requirements.txt": {
+        "github/jts/nanopolish": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.0825,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "cython": {
+            "credit": 0.0825,
+            "url": "http://cython.org/"
+        },
+        "numpy": {
+            "credit": 0.18296025000000002,
+            "url": "https://www.numpy.org"
+        },
+        "scikit-learn": {
+            "credit": 0.0008250000000000063,
+            "url": "http://scikit-learn.org"
+        },
+        "h5py": {
+            "credit": 0.0825,
+            "url": "http://www.h5py.org"
+        },
+        "tqdm": {
+            "credit": 0.0008250000000000063,
+            "url": "https://tqdm.github.io"
+        },
+        "matplotlib": {
+            "credit": 0.08638928571428572,
+            "url": "https://matplotlib.org"
+        },
+        "seaborn": {
+            "credit": 0.08638928571428572,
+            "url": "https://seaborn.pydata.org"
+        },
+        "biopython": {
+            "credit": 0.0825,
+            "url": "https://biopython.org/"
+        },
+        "pysam": {
+            "credit": 0.0825,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "pandas": {
+            "credit": 0.00471428571428572,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.005997750000000006,
+            "url": "https://www.scipy.org"
+        },
+        "pyamg": {
+            "credit": 3.889285714285713e-05,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 0.003889285714285714,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/black"
+        },
+        "flake8": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.01878525,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "scikit-image": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "threadpoolctl": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "requests": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/requests"
+        },
+        "slack-sdk": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.010209375,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "pytest-xdist": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/python-dateutil"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/ThomasEdwardRiley/xpsi-pre-transfer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "cython": {
+            "credit": 0.00495,
+            "url": "http://cython.org/"
+        }
+    }
+}

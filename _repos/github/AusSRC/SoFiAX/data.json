@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/AusSRC/SoFiAX": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "aiofiles": {
+            "credit": 0.0033000000000000004,
+            "url": "https://pypi.org/project/aiofiles"
+        },
+        "asyncpg": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/MagicStack/asyncpg"
+        },
+        "xmltodict": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/martinblech/xmltodict"
+        }
+    }
+}

@@ -1,0 +1,174 @@
+{
+    "CMakeLists.txt": {
+        "github/PhaseTracer/PhaseTracer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.02141632653061226,
+            "url": "https://www.cmake.org"
+        },
+        "boost": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.boost.org"
+        },
+        "eigen3": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "nlopt": {
+            "credit": 0.001414285714285729,
+            "url": "https://nlopt.readthedocs.io"
+        },
+        "threads": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "git": {
+            "credit": 0.001414285714285729,
+            "url": "http://git-scm.com"
+        },
+        "effpotential": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.01944642857142857,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.01944642857142857,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.04278214285714285,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.01944642857142857,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "python": {
+            "credit": 0.06655679081632652,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.023335714285714283,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.04333775510204081,
+            "url": null
+        },
+        "swig": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "guile": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "octave": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "matlab": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "openssh": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "perl-alien-svn": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.007778571428571428,
+            "url": null
+        }
+    }
+}

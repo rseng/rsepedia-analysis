@@ -1,0 +1,118 @@
+{
+    "setup.py": {
+        "github/dgerosa/surrkick": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.2552,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.14629999999999999,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.11,
+            "url": "https://matplotlib.org"
+        },
+        "singleton_decorator": {
+            "credit": 0.11,
+            "url": "https://github.com/Kemaweyan/singleton_decorator"
+        },
+        "tqdm": {
+            "credit": 0.0011000000000000038,
+            "url": "https://tqdm.github.io"
+        },
+        "pathos": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/uqfoundation/pathos"
+        },
+        "h5py": {
+            "credit": 0.0374,
+            "url": "http://www.h5py.org"
+        },
+        "NRSur7dq2": {
+            "credit": 0.0011000000000000038,
+            "url": "https://www.black-holes.org/surrogates/"
+        },
+        "precession": {
+            "credit": 0.11,
+            "url": "https://github.com/dgerosa/precession/"
+        },
+        "requests": {
+            "credit": 0.00013612500000000083,
+            "url": "https://requests.readthedocs.io"
+        },
+        "slack-sdk": {
+            "credit": 0.0136125,
+            "url": "https://github.com/slackapi/python-slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "multiprocess": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/multiprocess"
+        },
+        "pox": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/pox"
+        },
+        "dill": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/dill"
+        },
+        "ppft": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/ppft"
+        },
+        "chardet": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/charset-normalizer"
+        }
+    }
+}

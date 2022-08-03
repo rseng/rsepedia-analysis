@@ -1,0 +1,122 @@
+{
+    "CMakeLists.txt": {
+        "github/yatisht/usher": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.048085714285714294,
+            "url": "https://www.cmake.org"
+        },
+        "protobuf": {
+            "credit": 0.002828571428571458,
+            "url": "https://developers.google.com/protocol-buffers"
+        },
+        "mpi": {
+            "credit": 0.001414285714285729,
+            "url": "http://mvapich.cse.ohio-state.edu"
+        },
+        "tbb": {
+            "credit": 0.14142857142857143,
+            "url": "https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/onetbb.html"
+        },
+        "openmp": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.19976785714285716,
+            "url": "https://zlib.net"
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.011667857142857141,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "python": {
+            "credit": 0.023219035714285713,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.046671428571428565,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "libpciaccess": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "cuda": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "pmix": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "hip": {
+            "credit": 0.02000204081632653,
+            "url": null
+        }
+    }
+}

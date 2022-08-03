@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/PacificBiosciences/FALCON": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "networkx": {
+            "credit": 0.002475,
+            "url": "https://networkx.org/"
+        },
+        "msgpack": {
+            "credit": 0.002475,
+            "url": "https://msgpack.org/"
+        },
+        "future": {
+            "credit": 0.002475,
+            "url": "https://python-future.org"
+        },
+        "pypeFLOW": {
+            "credit": 0.002475,
+            "url": "https://github.com/Xinyi2016/pypeflow"
+        }
+    }
+}

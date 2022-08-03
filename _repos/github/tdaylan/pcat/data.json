@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/tdaylan/pcat": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tdpy": {
+            "credit": 0.0099,
+            "url": "https://github.com/tdaylan/tdpy"
+        }
+    }
+}

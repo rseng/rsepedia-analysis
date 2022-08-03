@@ -1,0 +1,12 @@
+numpy
+scipy
+pandas
+camb
+matplotlib>=3.0.0
+hankel
+chainconsumer>=0.30.0
+emcee>=3.0.0
+dynesty
+pyyaml
+mpi4py
+pytest

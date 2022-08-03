@@ -1,0 +1,86 @@
+{
+    "Gemfile": {
+        "github/sibirrer/hierArc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "coveralls": {
+            "credit": 0.00990000000000002,
+            "url": "https://coveralls.io"
+        },
+        "tins": {
+            "credit": 0.020048966437500017,
+            "url": "https://github.com/flori/tins"
+        },
+        "thor": {
+            "credit": 0.00163350000000001,
+            "url": "http://whatisthor.com/"
+        },
+        "term-ansicolor": {
+            "credit": 0.00163350000000001,
+            "url": "http://flori.github.com/term-ansicolor"
+        },
+        "simplecov": {
+            "credit": 0.010366191000000007,
+            "url": "https://github.com/simplecov-ruby/simplecov"
+        },
+        "json": {
+            "credit": 0.16335,
+            "url": "http://flori.github.io/json/"
+        },
+        "bundler": {
+            "credit": 0.34950833180999996,
+            "url": "https://bundler.io/"
+        },
+        "sync": {
+            "credit": 0.008328399749999996,
+            "url": "https://github.com/ruby/sync"
+        },
+        "utils": {
+            "credit": 0.04034826675,
+            "url": "http://github.com/flori/utils"
+        },
+        "test-unit": {
+            "credit": 0.008839423889999998,
+            "url": "http://test-unit.github.io/"
+        },
+        "gem_hadar": {
+            "credit": 0.026743866187499993,
+            "url": "http://github.com/flori/gem_hadar"
+        },
+        "simplecov_json_formatter": {
+            "credit": 0.07792040025,
+            "url": "https://github.com/fede-moya/simplecov_json_formatter"
+        },
+        "simplecov-html": {
+            "credit": 0.07792040025,
+            "url": "https://github.com/simplecov-ruby/simplecov-html"
+        },
+        "docile": {
+            "credit": 0.07792040025,
+            "url": "https://ms-ati.github.io/docile/"
+        },
+        "rake": {
+            "credit": 0.042453006997499994,
+            "url": "https://github.com/ruby/rake"
+        },
+        "power_assert": {
+            "credit": 0.01376854281,
+            "url": "https://github.com/ruby/power_assert"
+        },
+        "yard": {
+            "credit": 0.0317797179975,
+            "url": null
+        },
+        "packnga": {
+            "credit": 0.01376854281,
+            "url": null
+        },
+        "kramdown": {
+            "credit": 0.01376854281,
+            "url": null
+        }
+    }
+}

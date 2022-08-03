@@ -1,0 +1,14 @@
+Package: demc2
+Type: Package
+Title: demc2 implements adaptive MCMC on real parameter spaces via Differential
+    Evolution Markov Chain
+Version: 1.0
+Date: 2015-02-09
+Author: Cajo J.F. ter Braak
+Maintainer: Cajo J.F. ter Braak <cajo.terbraak@wur.nl>
+Description: The package implements both the origal Markovian demc version of
+    ter Braak (2006) and the egodic demc-zc version of ter Braak & Vrugt (2008)
+    using learning from the past and the snooker update. Convergence can be checked
+    with coda. The demc package allows restarts.
+License: GPL (>= 2)
+RoxygenNote: 6.1.1

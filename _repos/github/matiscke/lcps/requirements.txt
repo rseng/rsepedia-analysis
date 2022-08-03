@@ -1,0 +1,2 @@
+# specific sphinx version needed for readthedocs to work
+sphinx <= 1.5.6

@@ -1,0 +1,2 @@
+setuptools
+networkx==2.2

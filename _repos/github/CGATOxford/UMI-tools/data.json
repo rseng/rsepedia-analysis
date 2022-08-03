@@ -1,0 +1,94 @@
+{
+    "requirements.txt": {
+        "github/CGATOxford/UMI-tools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.09,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "numpy": {
+            "credit": 0.10485,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.000899999999999998,
+            "url": "https://pandas.pydata.org"
+        },
+        "pysam": {
+            "credit": 0.09,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "future": {
+            "credit": 0.09,
+            "url": "https://python-future.org"
+        },
+        "six": {
+            "credit": 0.09,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "regex": {
+            "credit": 0.09,
+            "url": "https://github.com/mrabarnett/mrab-regex"
+        },
+        "scipy": {
+            "credit": 0.09,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.09,
+            "url": "https://matplotlib.org"
+        },
+        "pybktree": {
+            "credit": 0.09,
+            "url": "https://github.com/Jetsetter/pybktree"
+        },
+        "python": {
+            "credit": 0.09,
+            "url": "http://www.python.org/2.5"
+        },
+        "pytest-xdist": {
+            "credit": 0.00014849999999999933,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.01730025,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "filelock": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "setup.py": {
+        "github/stammler/dustpy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.2475,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.2475,
+            "url": "https://www.numpy.org"
+        },
+        "requests": {
+            "credit": 0.002475000000000005,
+            "url": "https://requests.readthedocs.io"
+        },
+        "simframe": {
+            "credit": 0.2475,
+            "url": "https://github.com/stammler/simframe"
+        },
+        "chardet": {
+            "credit": 0.0408375,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.0408375,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.0408375,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.0408375,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.0408375,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.0004083750000000025,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "unicodedata2": {
+            "credit": 0.00040429125000000093,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "pytest-randomly": {
+            "credit": 0.00010006208437499976,
+            "url": "https://github.com/pytest-dev/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.00010006208437499976,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 0.00010006208437499976,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest": {
+            "credit": 0.01661030600625,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "importlib-metadata": {
+            "credit": 0.0049530731765624995,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "filelock": {
+            "credit": 0.0016510243921874998,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0016510243921874998,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0016510243921874998,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0016510243921874998,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0016510243921874998,
+            "url": "https://pypi.org/project/execnet"
+        },
+        "tomli": {
+            "credit": 0.009906146353124999,
+            "url": "https://pypi.org/project/tomli"
+        }
+    }
+}

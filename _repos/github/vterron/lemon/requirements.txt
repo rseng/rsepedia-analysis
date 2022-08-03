@@ -1,0 +1,21 @@
+# The reason why we need two different requirements files, and also
+# why numpy>=1.7.1 is not included in any of them, is that some of
+# the packages depend on another package in order to even run their
+# setup.py, without mattering that the dependency is also going to be
+# installed. As explained by the pip developers, these are broken
+# setup.py files, not pip's fault. Serial installation is the only
+# answer here [https://github.com/pypa/pip/issues/25]
+
+absl-py>=0.9.0
+APLpy>=0.9.9
+scipy>=0.12.0
+matplotlib>=1.2.1
+mock>=1.0.1
+prettytable>=0.7.2
+pyfits>=3.2
+pyraf>=2.1.1
+uncertainties>=2.4.1
+unittest2>=0.5.1
+montage-wrapper>=0.9.7
+requests>=2.0.1
+subprocess32>=3.2.6

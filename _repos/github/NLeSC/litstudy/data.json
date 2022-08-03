@@ -1,0 +1,194 @@
+{
+    "requirements.txt": {
+        "github/NLeSC/litstudy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bibtexparser": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/sciunto-org/python-bibtexparser"
+        },
+        "gensim": {
+            "credit": 0.0007071428571428645,
+            "url": "http://radimrehurek.com/gensim"
+        },
+        "matplotlib": {
+            "credit": 0.11459557453416148,
+            "url": "https://matplotlib.org"
+        },
+        "networkx": {
+            "credit": 0.07071428571428572,
+            "url": "https://networkx.org/"
+        },
+        "numpy": {
+            "credit": 0.12626343167701864,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.021252717391304354,
+            "url": "https://pandas.pydata.org"
+        },
+        "pybliometrics": {
+            "credit": 0.07071428571428572,
+            "url": "https://pybliometrics.readthedocs.io/en/stable/"
+        },
+        "pyvis": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/WestHealth/pyvis"
+        },
+        "requests": {
+            "credit": 0.0007071428571428645,
+            "url": "https://requests.readthedocs.io"
+        },
+        "seaborn": {
+            "credit": 0.0007071428571428645,
+            "url": "https://seaborn.pydata.org"
+        },
+        "sklearn": {
+            "credit": 0.07071428571428572,
+            "url": "https://pypi.python.org/pypi/scikit-learn/"
+        },
+        "unidecode": {
+            "credit": 0.07071428571428572,
+            "url": "https://pypi.org/project/unidecode"
+        },
+        "wordcloud": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/amueller/word_cloud"
+        },
+        "feedparser": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/kurtmckee/feedparser"
+        },
+        "statsmodels": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/statsmodels"
+        },
+        "nltk": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/nltk"
+        },
+        "annoy": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/annoy"
+        },
+        "memory-profiler": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "sphinxcontrib-napoleon": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/sphinxcontrib-napoleon"
+        },
+        "sphinxcontrib.programoutput": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/sphinxcontrib.programoutput"
+        },
+        "sphinx-gallery": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "visdom": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/visdom"
+        },
+        "nmslib": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/nmslib"
+        },
+        "pyemd": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/pyemd"
+        },
+        "Morfessor": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/Morfessor"
+        },
+        "testfixtures": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/testfixtures"
+        },
+        "cython": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/cython"
+        },
+        "mock": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/mock"
+        },
+        "pytest": {
+            "credit": 0.014711645962732917,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "Pyro4": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/Pyro4"
+        },
+        "dataclasses": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "smart-open": {
+            "credit": 0.003043788819875776,
+            "url": "https://pypi.org/project/smart-open"
+        },
+        "scipy": {
+            "credit": 0.02054557453416149,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "pytest-xdist": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "chardet": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "pillow": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "sgmllib3k": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/sgmllib3k"
+        }
+    }
+}

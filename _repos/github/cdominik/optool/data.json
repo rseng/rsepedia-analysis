@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/cdominik/optool": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.00495,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

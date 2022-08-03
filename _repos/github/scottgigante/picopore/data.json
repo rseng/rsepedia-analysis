@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/scottgigante/picopore": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.0033000000000000004,
+            "url": "http://www.h5py.org"
+        },
+        "watchdog": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/gorakhargosh/watchdog"
+        },
+        "future": {
+            "credit": 0.0033000000000000004,
+            "url": "https://python-future.org"
+        },
+        "numpy": {
+            "credit": 0.003267,
+            "url": "https://www.numpy.org"
+        },
+        "PyYAML": {
+            "credit": 0.003267,
+            "url": "https://pyyaml.org/"
+        }
+    }
+}

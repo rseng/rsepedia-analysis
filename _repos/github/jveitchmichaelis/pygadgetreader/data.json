@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/jveitchmichaelis/pygadgetreader": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.00495,
+            "url": "http://www.h5py.org"
+        },
+        "numpy": {
+            "credit": 0.009850500000000002,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

@@ -1,0 +1,454 @@
+{
+    "CMakeLists.txt": {
+        "github/EdoardoCarlesi/cmbeasy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.00990000000000002,
+            "url": "https://www.cmake.org"
+        },
+        "ninja": {
+            "credit": 0.002501296875000005,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.000816750000000005,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.016501787002262448,
+            "url": "https://libexpat.github.io/"
+        },
+        "zlib": {
+            "credit": 0.12599733387726245,
+            "url": "https://zlib.net"
+        },
+        "libarchive": {
+            "credit": 0.000816750000000005,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.000816750000000005,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.081675,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "openssl": {
+            "credit": 0.02492452137726245,
+            "url": "https://www.openssl.org"
+        },
+        "qt": {
+            "credit": 0.000816750000000005,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.010281921617647063,
+            "url": "https://invisible-island.net/ncurses/ncurses.html"
+        },
+        "python": {
+            "credit": 0.006544209375000006,
+            "url": "https://www.python.org/"
+        },
+        "py-sphinx": {
+            "credit": 0.000816750000000005,
+            "url": "https://www.sphinx-doc.org/en/master/"
+        },
+        "gnuconfig": {
+            "credit": 0.10998795288461538,
+            "url": "https://www.gnu.org/software/config/"
+        },
+        "gnutls": {
+            "credit": 0.006738187499999999,
+            "url": "https://www.gnutls.org"
+        },
+        "mbedtls": {
+            "credit": 0.012958052884615384,
+            "url": null
+        },
+        "nss": {
+            "credit": 0.008422734375,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "nghttp2": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "libssh2": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "libssh": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.05831703099264705,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.040429124999999996,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.015685037002262443,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0062198653846153844,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.0062198653846153844,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.015685037002262443,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.007904412259615384,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.0062198653846153844,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.007904412259615384,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0062198653846153844,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libmng": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "gtkplus": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.011149718492647058,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libsm": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "inputproto": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "glib": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "dbus": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "assimp": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "harfbuzz": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "double-conversion": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "llvm": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "gperf": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libdrm": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxcomposite": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxcursor": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxi": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxtst": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxrandr": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxdamage": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.011149718492647058,
+            "url": null
+        },
+        "fontconfig": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxcb": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxkbcommon": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "xcb-util-image": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "xcb-util-keysyms": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "xcb-util-renderutil": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "xcb-util-wm": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxext": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "libxrender": {
+            "credit": 0.0016845468749999998,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "gdbm": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "libnsl": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "libffi": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "tcl": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "tix": {
+            "credit": 0.009465171617647058,
+            "url": null
+        },
+        "py-pip": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-wheel": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-websupport": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-applehelp": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-devhelp": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-jsmath": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-htmlhelp": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-serializinghtml": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinxcontrib-qthelp": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-six": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-jinja2": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-pygments": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-docutils": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-snowballstemmer": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-babel": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-alabaster": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-imagesize": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-requests": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-setuptools": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-sphinx-rtd-theme": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-packaging": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-importlib-metadata": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-typing": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "py-colorama": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        }
+    }
+}

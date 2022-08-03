@@ -1,0 +1,15 @@
+# medaka requirements. 
+# Add comments to keep track of why we are using particular versions
+cffi
+edlib
+grpcio 
+h5py
+intervaltree
+tensorflow~=2.7.0
+numpy
+mappy
+ont_fast5_api
+parasail
+pysam>=0.16.0.1       # 0.16.0 is broken, various others too
+pyspoa>=0.0.3         # 0.0.2 has portable instruction set, and py38 wheels
+requests

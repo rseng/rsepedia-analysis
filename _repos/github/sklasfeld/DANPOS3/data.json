@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/sklasfeld/DANPOS3": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "rpy2": {
+            "credit": 0.002475,
+            "url": "https://rpy2.github.io"
+        },
+        "argparse": {
+            "credit": 0.002475,
+            "url": "https://github.com/ThomasWaldmann/argparse/"
+        },
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "pysam": {
+            "credit": 0.002475,
+            "url": "https://github.com/pysam-developers/pysam"
+        }
+    }
+}

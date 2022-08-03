@@ -1,0 +1,5 @@
+aplanat
+pandas
+pysam
+scipy
+tqdm

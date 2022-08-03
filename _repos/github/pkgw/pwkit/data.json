@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/pkgw/pwkit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "six": {
+            "credit": 0.00495,
+            "url": "https://github.com/benjaminp/six"
+        }
+    }
+}

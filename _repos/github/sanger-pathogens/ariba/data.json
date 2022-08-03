@@ -1,0 +1,70 @@
+{
+    "setup.py": {
+        "github/sanger-pathogens/ariba": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "BeautifulSoup4": {
+            "credit": 0.0015297975000000148,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "biopython": {
+            "credit": 0.14142857142857143,
+            "url": "https://biopython.org/"
+        },
+        "dendropy": {
+            "credit": 0.14142857142857143,
+            "url": "http://packages.python.org/DendroPy/"
+        },
+        "pyfastaq": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/sanger-pathogens/Fastaq"
+        },
+        "pysam": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "pymummer": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/sanger-pathogens/pymummer"
+        },
+        "matplotlib": {
+            "credit": 0.14142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "lxml": {
+            "credit": 0.004278603214285713,
+            "url": "https://lxml.de/"
+        },
+        "html5lib": {
+            "credit": 0.004394114999999999,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "soupsieve": {
+            "credit": 0.004278603214285713,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "Cython": {
+            "credit": 0.01155117857142857,
+            "url": "http://cython.org/"
+        },
+        "cssselect": {
+            "credit": 0.01155117857142857,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "six": {
+            "credit": 0.02882019053571428,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "webencodings": {
+            "credit": 0.02882019053571428,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.04620471428571428,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

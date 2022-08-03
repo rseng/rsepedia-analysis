@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/philres/catfishq": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pysam": {
+            "credit": 0.0099,
+            "url": "https://github.com/pysam-developers/pysam"
+        }
+    }
+}

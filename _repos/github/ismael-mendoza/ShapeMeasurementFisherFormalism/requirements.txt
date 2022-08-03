@@ -1,0 +1,4 @@
+numpy
+galsim
+lmfit
+setuptools

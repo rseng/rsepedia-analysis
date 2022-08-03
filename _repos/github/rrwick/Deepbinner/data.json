@@ -1,0 +1,114 @@
+{
+    "requirements.txt": {
+        "github/rrwick/Deepbinner": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "edlib": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/Martinsos/edlib"
+        },
+        "h5py": {
+            "credit": 0.007778571428571443,
+            "url": "http://www.h5py.org"
+        },
+        "keras": {
+            "credit": 0.14779285714285714,
+            "url": "https://keras.io/"
+        },
+        "mappy": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/lh3/minimap2"
+        },
+        "noise": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/caseman/noise"
+        },
+        "numpy": {
+            "credit": 0.2878071428571428,
+            "url": "https://www.numpy.org"
+        },
+        "tensorflow": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.006364285714285714,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorboard": {
+            "credit": 0.006364285714285714,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "grpcio": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/tensorflow-io-gcs-filesystem"
+        },
+        "wrapt": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "typing-extensions": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "termcolor": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "six": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "packaging": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "libclang": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "keras-preprocessing": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/keras-preprocessing"
+        },
+        "google-pasta": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/absl-py"
+        }
+    }
+}

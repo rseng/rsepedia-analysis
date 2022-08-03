@@ -1,0 +1,9 @@
+numpy
+matplotlib
+astropy
+pyyaml
+scipy
+numdifftools
+pandas
+numpydoc
+cffi

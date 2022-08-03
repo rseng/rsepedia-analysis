@@ -1,0 +1,130 @@
+{
+    "requirements.txt": {
+        "github/pyxnat/pyxnat": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "lxml": {
+            "credit": 0.0034625360137500085,
+            "url": "https://lxml.de/"
+        },
+        "requests": {
+            "credit": 0.0019800000000000373,
+            "url": "https://requests.readthedocs.io"
+        },
+        "pathlib": {
+            "credit": 0.198,
+            "url": "https://pathlib.readthedocs.org/"
+        },
+        "six": {
+            "credit": 0.23224367102062501,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "future": {
+            "credit": 0.198,
+            "url": "https://python-future.org"
+        },
+        "Cython": {
+            "credit": 0.053007483375,
+            "url": "http://cython.org/"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.0005300748337499989,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "html5lib": {
+            "credit": 0.002012610847499998,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "cssselect": {
+            "credit": 0.053007483375,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "chardet": {
+            "credit": 0.03267,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.03267,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.03267,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.03267,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.03267,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "soupsieve": {
+            "credit": 0.001482536013749999,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "webencodings": {
+            "credit": 0.034243671020625005,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "unicodedata2": {
+            "credit": 0.00032343299999999797,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.0160099335,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        },
+        "pytest-randomly": {
+            "credit": 8.004966750000016e-05,
+            "url": "https://github.com/pytest-dev/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 8.004966750000016e-05,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 8.004966750000016e-05,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest": {
+            "credit": 0.013288244805,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "importlib-metadata": {
+            "credit": 0.00396245854125,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "filelock": {
+            "credit": 0.00132081951375,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.00132081951375,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.00132081951375,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.00132081951375,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.00132081951375,
+            "url": "https://pypi.org/project/execnet"
+        },
+        "tomli": {
+            "credit": 0.0079249170825,
+            "url": "https://pypi.org/project/tomli"
+        }
+    }
+}

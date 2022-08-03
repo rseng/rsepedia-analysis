@@ -1,0 +1,13 @@
+Package: IRACpm
+Type: Package
+Title: Apply Distortion Correction to SPITZER IRAC Data
+Version: 1.0
+Date: 2015-05-05
+Author: Taran Esplin
+Maintainer: Taran Esplin <tle918@psu.edu>
+Description: Applies a 7-8 order distortion correction to IRAC 
+ astrometric data from the Spitzer Space Telescope and includes 
+ a function for measuring apparent proper motions between 
+ different Epochs.
+Depends: foreach, doMC, astro, R.utils 
+License: GPL-2

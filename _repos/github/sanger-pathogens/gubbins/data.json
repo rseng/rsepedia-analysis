@@ -1,0 +1,130 @@
+{
+    "setup.py": {
+        "github/sanger-pathogens/gubbins": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.198,
+            "url": "https://biopython.org/"
+        },
+        "dendropy": {
+            "credit": 0.198,
+            "url": "http://packages.python.org/DendroPy/"
+        },
+        "multiprocess": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "scipy": {
+            "credit": 0.198,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.198,
+            "url": "https://www.numpy.org"
+        },
+        "dill": {
+            "credit": 0.0019601999999999953,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "objgraph": {
+            "credit": 0.0019405980000000156,
+            "url": "https://mg.pov.lt/objgraph/"
+        },
+        "graphviz": {
+            "credit": 0.00192119201999999,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "coverage": {
+            "credit": 0.0019568449103711536,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "pytest-cov": {
+            "credit": 0.00014630616152307672,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "mock": {
+            "credit": 0.014630616152307692,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "pytest-mock": {
+            "credit": 0.00014630616152307672,
+            "url": "https://github.com/pytest-dev/pytest-mock/"
+        },
+        "pytest": {
+            "credit": 0.020062232398851923,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "twine": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/twine"
+        },
+        "wheel": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "pep8-naming": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/pep8-naming"
+        },
+        "flake8": {
+            "credit": 0.014630616152307692,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "tox": {
+            "credit": 0.018251693650003845,
+            "url": "https://pypi.org/project/tox"
+        },
+        "tomli": {
+            "credit": 0.014484309990784615,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "virtualenv": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0018105387488480769,
+            "url": "https://pypi.org/project/fields"
+        },
+        "pytest-asyncio": {
+            "credit": 0.0036210774976961537,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "pre-commit": {
+            "credit": 0.0036210774976961537,
+            "url": "https://pypi.org/project/pre-commit"
+        }
+    }
+}

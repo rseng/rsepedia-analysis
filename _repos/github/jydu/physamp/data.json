@@ -1,0 +1,178 @@
+{
+    "CMakeLists.txt": {
+        "github/jydu/physamp": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "bpp-phyl": {
+            "credit": 0.00990000000000002,
+            "url": "http://biopp.univ-montp2.fr/wiki/index.php/Installation"
+        },
+        "cmake": {
+            "credit": 0.4884165,
+            "url": "https://www.cmake.org"
+        },
+        "bpp-core": {
+            "credit": 0.1649835,
+            "url": "http://biopp.univ-montp2.fr/wiki/index.php/Installation"
+        },
+        "bpp-seq": {
+            "credit": 0.00326700000000002,
+            "url": "http://biopp.univ-montp2.fr/wiki/index.php/Installation"
+        },
+        "ninja": {
+            "credit": 0.0002695275000000018,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.00026952750000000525,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.0023220830769230785,
+            "url": "https://libexpat.github.io/"
+        },
+        "zlib": {
+            "credit": 0.037899713076923074,
+            "url": "https://zlib.net"
+        },
+        "libarchive": {
+            "credit": 0.0002695274999999983,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.0002695274999999983,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.026952749999999998,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "openssl": {
+            "credit": 0.004545684951923078,
+            "url": "https://www.openssl.org"
+        },
+        "qt": {
+            "credit": 0.026952749999999998,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.026952749999999998,
+            "url": null
+        },
+        "python": {
+            "credit": 0.05363597249999999,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.026952749999999998,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.022954413201923075,
+            "url": null
+        },
+        "gnutls": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "mbedtls": {
+            "credit": 0.004276157451923076,
+            "url": null
+        },
+        "nss": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "nghttp2": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "libssh2": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "libssh": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0022236018749999995,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.013341611249999998,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0020525555769230768,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.0053366444999999995,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.0053366444999999995,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.0053366444999999995,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.0053366444999999995,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.006670805624999999,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.006670805624999999,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.006670805624999999,
+            "url": null
+        }
+    }
+}

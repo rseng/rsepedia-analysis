@@ -1,0 +1,10 @@
+astropy>=4.0.1
+matplotlib>=3.2.1
+numpy>=1.18.3
+scipy>=1.4.1
+lmfit>=1.0.0
+corner>=2.1.0
+tqdm>=4.62.3
+emcee>=3.1.1
+numdifftools>=0.9.39
+

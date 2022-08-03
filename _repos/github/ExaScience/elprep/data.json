@@ -1,0 +1,26 @@
+{
+    "go.mod": {
+        "github/ExaScience/elprep": {
+            "credit": 0.01,
+            "url": "https://github/ExaScience/elprep"
+        }
+    },
+    "go": {
+        "github.com/bits-and-blooms/bitset": {
+            "credit": 0.002475,
+            "url": "https://github.com/bits-and-blooms/bitset"
+        },
+        "github.com/exascience/pargo": {
+            "credit": 0.002475,
+            "url": "https://github.com/exascience/pargo"
+        },
+        "github.com/google/uuid": {
+            "credit": 0.002475,
+            "url": "https://github.com/google/uuid"
+        },
+        "golang.org/x/sys": {
+            "credit": 0.002475,
+            "url": "https://golang.org/x/sys"
+        }
+    }
+}

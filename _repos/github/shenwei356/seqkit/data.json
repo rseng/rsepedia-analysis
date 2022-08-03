@@ -1,0 +1,114 @@
+{
+    "go.mod": {
+        "github/shenwei356/seqkit": {
+            "credit": 0.01,
+            "url": "https://github/shenwei356/seqkit"
+        }
+    },
+    "go": {
+        "github.com/biogo/biogo": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/biogo/biogo"
+        },
+        "github.com/biogo/hts": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/biogo/hts"
+        },
+        "github.com/bsipos/thist": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/bsipos/thist"
+        },
+        "github.com/cespare/xxhash/v2": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/cespare/xxhash/v2"
+        },
+        "github.com/cznic/sortutil": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/cznic/sortutil"
+        },
+        "github.com/dustin/go-humanize": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/dustin/go-humanize"
+        },
+        "github.com/fsnotify/fsnotify": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/fsnotify/fsnotify"
+        },
+        "github.com/iafan/cwalk": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/iafan/cwalk"
+        },
+        "github.com/klauspost/compress": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/klauspost/compress"
+        },
+        "github.com/klauspost/pgzip": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/klauspost/pgzip"
+        },
+        "github.com/logrusorgru/aurora": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/logrusorgru/aurora"
+        },
+        "github.com/mattn/go-colorable": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/mattn/go-colorable"
+        },
+        "github.com/mattn/go-isatty": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/mattn/go-isatty"
+        },
+        "github.com/mitchellh/go-homedir": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/mitchellh/go-homedir"
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/pkg/errors"
+        },
+        "github.com/shenwei356/bio": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/bio"
+        },
+        "github.com/shenwei356/breader": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/breader"
+        },
+        "github.com/shenwei356/bwt": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/bwt"
+        },
+        "github.com/shenwei356/go-logging": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/go-logging"
+        },
+        "github.com/shenwei356/util": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/util"
+        },
+        "github.com/shenwei356/xopen": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/shenwei356/xopen"
+        },
+        "github.com/smallfish/simpleyaml": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/smallfish/simpleyaml"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/tatsushid/go-prettytable": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/tatsushid/go-prettytable"
+        },
+        "github.com/twotwotwo/sorts": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/twotwotwo/sorts"
+        },
+        "github.com/ulikunitz/xz": {
+            "credit": 0.0003807692307692308,
+            "url": "https://github.com/ulikunitz/xz"
+        }
+    }
+}

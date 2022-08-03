@@ -1,0 +1,70 @@
+{
+    "DESCRIPTION": {
+        "github/gabraham/flashpca": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.01043905500000003,
+            "url": "http://www.rcpp.org"
+        },
+        "pkgKitten": {
+            "credit": 0.010527907500000008,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.1722444075,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.010527907500000008,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.011606017500000015,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.4483175753571428,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.2261499075,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.053905499999999995,
+            "url": "https://roxygen2.r-lib.org/"
+        },
+        "whoami": {
+            "credit": 0.0005390550000000036,
+            "url": "https://github.com/r-lib/whoami#readme"
+        },
+        "withr": {
+            "credit": 0.007623777857142856,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.007623777857142856,
+            "url": null
+        },
+        "mockery": {
+            "credit": 0.007623777857142856,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.007623777857142856,
+            "url": null
+        },
+        "jsonlite": {
+            "credit": 0.007623777857142856,
+            "url": null
+        },
+        "httr": {
+            "credit": 0.007623777857142856,
+            "url": null
+        }
+    }
+}

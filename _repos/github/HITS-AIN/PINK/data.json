@@ -1,0 +1,162 @@
+{
+    "CMakeLists.txt": {
+        "github/HITS-AIN/PINK": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.02141632653061226,
+            "url": "https://www.cmake.org"
+        },
+        "openmp": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "git": {
+            "credit": 0.001414285714285729,
+            "url": "http://git-scm.com"
+        },
+        "cuda": {
+            "credit": 0.001414285714285729,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "pybind11": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "gtest": {
+            "credit": 0.14142857142857143,
+            "url": null
+        },
+        "doxygen": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/doxygen/doxygen/"
+        },
+        "ninja": {
+            "credit": 0.0001166785714285714,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.01944642857142857,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.01944642857142857,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.01944642857142857,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.01944642857142857,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "python": {
+            "credit": 0.043221076530612246,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.02778061224489796,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "openssh": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "perl-alien-svn": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "graphviz": {
+            "credit": 0.02000204081632653,
+            "url": null
+        },
+        "mscgen": {
+            "credit": 0.02000204081632653,
+            "url": null
+        }
+    }
+}

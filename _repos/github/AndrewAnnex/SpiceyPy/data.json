@@ -1,0 +1,102 @@
+{
+    "requirements.txt": {
+        "github/AndrewAnnex/SpiceyPy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.33,
+            "url": "https://www.numpy.org"
+        },
+        "setuptools": {
+            "credit": 0.3455571428571429,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "build": {
+            "credit": 0.003300000000000025,
+            "url": "https://pypa-build.readthedocs.io/en/stable/"
+        },
+        "virtualenv": {
+            "credit": 0.015557142857142856,
+            "url": "https://virtualenv.pypa.io/"
+        },
+        "typing-extensions": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "mypy": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "wheel": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "toml": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/toml"
+        },
+        "pytest-xdist": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest-mock": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "pytest-cov": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "filelock": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx-argparse-cli": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx-argparse-cli"
+        },
+        "sphinx": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "furo": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/furo"
+        },
+        "importlib-metadata": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "colorama": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "tomli": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "pep517": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/pep517"
+        },
+        "packaging": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/packaging"
+        }
+    }
+}

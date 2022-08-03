@@ -1,0 +1,246 @@
+{
+    "CMakeLists.txt": {
+        "github/ester-project/ester": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.08641285714285714,
+            "url": "https://www.cmake.org"
+        },
+        "blas": {
+            "credit": 0.0012375000000000025,
+            "url": "https://cnugteren.github.io/clblast/clblast.html"
+        },
+        "lapack": {
+            "credit": 0.12375,
+            "url": "https://developer.arm.com/tools-and-software/server-and-hpc/downloads/arm-performance-libraries"
+        },
+        "pythonlibs": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "swig": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.swig.org"
+        },
+        "pythoninterp": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.004737857142857145,
+            "url": "https://portal.hdfgroup.org"
+        },
+        "vtk": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.vtk.org"
+        },
+        "ninja": {
+            "credit": 0.00010209375000000062,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.010209375,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.013709732142857142,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.034128482142857144,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.013709732142857142,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "python": {
+            "credit": 0.02381701339285714,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "opencl": {
+            "credit": 0.06125625,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "yacc": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.03792053571428571,
+            "url": null
+        },
+        "mpi": {
+            "credit": 0.02391910714285714,
+            "url": null
+        },
+        "java": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "szip": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "py-mpi4py": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "glx": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libxt": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "osmesa": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "boost": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "ffmpeg": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "jsoncpp": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "netcdf-c": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "netcdf-cxx": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "eigen": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "double-conversion": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "pugixml": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libogg": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "libtheora": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "utf8cpp": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "gl2ps": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "proj": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "cgns": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        },
+        "seacas": {
+            "credit": 0.0035003571428571427,
+            "url": null
+        }
+    }
+}

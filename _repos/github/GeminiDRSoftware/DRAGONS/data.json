@@ -1,0 +1,18 @@
+{
+    "requirements.txt": {
+        "github/GeminiDRSoftware/DRAGONS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Cython": {
+            "credit": 0.00495,
+            "url": "http://cython.org/"
+        },
+        "docutils": {
+            "credit": 0.00495,
+            "url": "https://docutils.sourceforge.io/"
+        }
+    }
+}

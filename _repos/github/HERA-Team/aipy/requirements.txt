@@ -1,0 +1,6 @@
+astropy>=1.0
+basemap
+numpy>=1.2
+matplotlib<3;python_version<"3.0"
+matplotlib;python_version>="3.0"
+ephem>=3.7.3.2

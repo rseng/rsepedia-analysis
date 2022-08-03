@@ -1,0 +1,8 @@
+{
+    "requirements.txt": {
+        "github/sourmash-bio/sourmash": {
+            "credit": 0.01,
+            "url": null
+        }
+    }
+}

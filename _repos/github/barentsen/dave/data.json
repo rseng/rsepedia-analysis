@@ -1,0 +1,70 @@
+{
+    "requirements.txt": {
+        "github/barentsen/dave": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.3432,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.016500000000000015,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.165,
+            "url": "https://matplotlib.org"
+        },
+        "oct2py": {
+            "credit": 0.0016500000000000126,
+            "url": "http://github.com/blink1073/oct2py"
+        },
+        "gnuplot": {
+            "credit": 0.165,
+            "url": "https://github.com/gnuplot"
+        },
+        "python-bls": {
+            "credit": 0.165,
+            "url": "https://github.com/zebra-lucky/python-bls"
+        },
+        "pre-commit": {
+            "credit": 0.01485,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "pytest-timeout": {
+            "credit": 0.00014849999999999933,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "nbconvert": {
+            "credit": 0.01485,
+            "url": "https://jupyter.org"
+        },
+        "pandas": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "pytest": {
+            "credit": 0.0295515,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "numpydoc": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-bootstrap-theme": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/sphinx-bootstrap-theme"
+        },
+        "sphinx": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "octave-kernel": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/octave-kernel"
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "requirements.txt": {
+        "github/SebastianBocquet/pygtc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "packaging": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "pyparsing": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "jinja2": {
+            "credit": 0.0016171649999999998,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.0016171649999999998,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "Babel": {
+            "credit": 0.000800496675,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.000800496675,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

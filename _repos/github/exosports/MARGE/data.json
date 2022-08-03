@@ -1,0 +1,150 @@
+{
+    "requirements.txt": {
+        "github/exosports/MARGE": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "keras2onnx": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/onnx/keras-onnx"
+        },
+        "onnx": {
+            "credit": 0.004024185000000027,
+            "url": "https://github.com/onnx/onnx"
+        },
+        "onnx2keras": {
+            "credit": 0.33,
+            "url": "https://github.com/nerox8664/onnx2keras"
+        },
+        "fire": {
+            "credit": 0.05445,
+            "url": "https://github.com/google/python-fire"
+        },
+        "onnxconverter-common": {
+            "credit": 0.0005445000000000033,
+            "url": "https://github.com/microsoft/onnxconverter-common"
+        },
+        "requests": {
+            "credit": 0.0005445000000000033,
+            "url": "https://requests.readthedocs.io"
+        },
+        "protobuf": {
+            "credit": 0.12933197357142856,
+            "url": "https://developers.google.com/protocol-buffers/"
+        },
+        "numpy": {
+            "credit": 0.12933197357142856,
+            "url": "https://www.numpy.org"
+        },
+        "types-protobuf": {
+            "credit": 0.05691347357142857,
+            "url": "https://github.com/python/typeshed"
+        },
+        "mypy": {
+            "credit": 0.0030849814285714284,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "flake8": {
+            "credit": 0.05691347357142857,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "clang-format": {
+            "credit": 0.05691347357142857,
+            "url": "http://clang.llvm.org/"
+        },
+        "typing-extensions": {
+            "credit": 0.06588488892857143,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "chardet": {
+            "credit": 0.00898425,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.00898425,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.00898425,
+            "url": "https://github.com/certifi/python-certifi"
+        },
+        "urllib3": {
+            "credit": 0.00898425,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.00898425,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "lxml": {
+            "credit": 0.0013476375,
+            "url": "https://lxml.de/"
+        },
+        "psutil": {
+            "credit": 0.0013476374999999991,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.008971415357142857,
+            "url": "https://github.com/python/typed_ast"
+        },
+        "tomli": {
+            "credit": 0.008971415357142857,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.0013476375,
+            "url": "https://github.com/python/mypy_extensions"
+        },
+        "unicodedata2": {
+            "credit": 0.0088944075,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "Cython": {
+            "credit": 0.0019059444642857144,
+            "url": "https://pypi.org/project/Cython"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.0019059444642857144,
+            "url": "https://pypi.org/project/BeautifulSoup4"
+        },
+        "html5lib": {
+            "credit": 0.0019059444642857144,
+            "url": "https://pypi.org/project/html5lib"
+        },
+        "cssselect": {
+            "credit": 0.0019059444642857144,
+            "url": "https://pypi.org/project/cssselect"
+        },
+        "wmi": {
+            "credit": 0.0015247555714285716,
+            "url": "https://pypi.org/project/wmi"
+        },
+        "pywin32": {
+            "credit": 0.0015247555714285716,
+            "url": "https://pypi.org/project/pywin32"
+        },
+        "enum34": {
+            "credit": 0.0015247555714285716,
+            "url": "https://pypi.org/project/enum34"
+        },
+        "mock": {
+            "credit": 0.0015247555714285716,
+            "url": "https://pypi.org/project/mock"
+        },
+        "ipaddress": {
+            "credit": 0.0015247555714285716,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "typing": {
+            "credit": 0.0076237778571428575,
+            "url": "https://pypi.org/project/typing"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/nanoporetech/megalodon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.00495,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "cython": {
+            "credit": 0.00495,
+            "url": "http://cython.org/"
+        }
+    }
+}

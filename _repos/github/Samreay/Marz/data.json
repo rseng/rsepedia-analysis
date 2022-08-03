@@ -1,0 +1,342 @@
+{
+    "package.json": {
+        "github/Samreay/Marz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "minimist": {
+            "credit": 0.005294503500000024,
+            "url": "https://github.com/substack/minimist"
+        },
+        "q": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/kriskowal/q"
+        },
+        "progress": {
+            "credit": 0.33,
+            "url": "https://github.com/visionmedia/node-progress#readme"
+        },
+        "tape": {
+            "credit": 0.11891791160526315,
+            "url": "https://github.com/substack/tape"
+        },
+        "tap": {
+            "credit": 0.12781231910526317,
+            "url": "http://www.node-tap.org/"
+        },
+        "covert": {
+            "credit": 0.008204526000000007,
+            "url": "https://github.com/substack/covert"
+        },
+        "cover": {
+            "credit": 0.0003630000000000022,
+            "url": "http://www.cover.io"
+        },
+        "grunt": {
+            "credit": 0.004356000000000002,
+            "url": "https://gruntjs.com/"
+        },
+        "grunt-cli": {
+            "credit": 0.0379335,
+            "url": "https://github.com/gruntjs/grunt-cli#readme"
+        },
+        "grunt-contrib-uglify": {
+            "credit": 0.0003630000000000022,
+            "url": "https://github.com/gruntjs/grunt-contrib-uglify#readme"
+        },
+        "jasmine-node": {
+            "credit": 0.0003630000000000022,
+            "url": "https://github.com/mhevery/jasmine-node"
+        },
+        "jshint": {
+            "credit": 0.04528425,
+            "url": "http://jshint.com/"
+        },
+        "matcha": {
+            "credit": 0.0003630000000000022,
+            "url": "https://github.com/logicalparadox/matcha#readme"
+        },
+        "opener": {
+            "credit": 0.0003630000000000022,
+            "url": "https://github.com/domenic/opener#readme"
+        },
+        "promises-aplus-tests": {
+            "credit": 0.0003630000000000022,
+            "url": "https://github.com/promises-aplus/promises-tests#readme"
+        },
+        "resolve": {
+            "credit": 0.00021562199999999865,
+            "url": "https://github.com/browserify/resolve#readme"
+        },
+        "parents": {
+            "credit": 0.00021562199999999865,
+            "url": "https://github.com/substack/node-parents"
+        },
+        "coverify": {
+            "credit": 0.00021562199999999865,
+            "url": "https://github.com/substack/coverify"
+        },
+        "browserify": {
+            "credit": 0.023341081499999996,
+            "url": "https://github.com/browserify/browserify#readme"
+        },
+        "cli-table": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "underscore": {
+            "credit": 0.022460624999999998,
+            "url": null
+        },
+        "underscore.string": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "which": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "through2": {
+            "credit": 0.0034123814999999997,
+            "url": null
+        },
+        "temporary": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-eslint": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-contrib-watch": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-contrib-nodeunit": {
+            "credit": 0.0056264999999999996,
+            "url": null
+        },
+        "eslint-config-grunt": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "difflet": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.0027570041052631575,
+            "url": null
+        },
+        "nopt": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.007249129105263157,
+            "url": null
+        },
+        "minimatch": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "js-yaml": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "iconv-lite": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-legacy-util": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-legacy-log": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-known-options": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "findup-sync": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "exit": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "eventemitter2": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "dateformat": {
+            "credit": 0.0016334999999999998,
+            "url": null
+        },
+        "grunt-contrib-jshint": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "grunt-contrib-internal": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "grunt-contrib-clean": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "uri-path": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "maxmin": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.003993,
+            "url": null
+        },
+        "walkdir": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "requirejs": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "jasmine-reporters": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "jasmine-growl-reporter": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "gaze": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "coffeescript": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "electron": {
+            "credit": 0.0179685,
+            "url": null
+        },
+        "v8-argv": {
+            "credit": 0.0179685,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.038839385605263156,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.00898425,
+            "url": null
+        },
+        "tmp": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "safe-publish-latest": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "object-keys": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "npmignore": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "mv": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "in-publish": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "eclint": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "copy-dir": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "aud": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "array.prototype.map": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "": {
+            "credit": 0.0029023856052631577,
+            "url": null
+        },
+        "supports-preserve-symlinks-flag": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "path-parse": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "is-core-module": {
+            "credit": 0.0011235041052631578,
+            "url": null
+        },
+        "path-platform": {
+            "credit": 0.010673288999999999,
+            "url": null
+        },
+        "stream-combiner2": {
+            "credit": 0.0017788815,
+            "url": null
+        },
+        "split2": {
+            "credit": 0.0017788815,
+            "url": null
+        },
+        "source-map": {
+            "credit": 0.0017788815,
+            "url": null
+        },
+        "slash": {
+            "credit": 0.0017788815,
+            "url": null
+        },
+        "falafel": {
+            "credit": 0.0017788815,
+            "url": null
+        },
+        "convert-source-map": {
+            "credit": 0.0017788815,
+            "url": null
+        }
+    }
+}

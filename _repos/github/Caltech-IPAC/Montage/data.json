@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/Caltech-IPAC/Montage": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tornado": {
+            "credit": 0.0099,
+            "url": "http://www.tornadoweb.org/"
+        }
+    }
+}

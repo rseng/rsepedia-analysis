@@ -1,0 +1,166 @@
+{
+    "CMakeLists.txt": {
+        "github/ncbi/sra-tools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.00990000000000002,
+            "url": "https://www.cmake.org"
+        },
+        "ninja": {
+            "credit": 0.041245875,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.041245875,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.044355807692307694,
+            "url": "https://libexpat.github.io/"
+        },
+        "zlib": {
+            "credit": 0.09826130769230769,
+            "url": "https://zlib.net"
+        },
+        "libarchive": {
+            "credit": 0.041245875,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.041245875,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.081675,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "openssl": {
+            "credit": 0.04772490144230769,
+            "url": "https://www.openssl.org"
+        },
+        "qt": {
+            "credit": 0.081675,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "python": {
+            "credit": 0.122104125,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.081675,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.03477941394230769,
+            "url": null
+        },
+        "gnutls": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "mbedtls": {
+            "credit": 0.006479026442307692,
+            "url": null
+        },
+        "nss": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "nghttp2": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "libssh2": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "libssh": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0033690937499999997,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.020214562499999998,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.010107281249999999,
+            "url": null
+        }
+    }
+}

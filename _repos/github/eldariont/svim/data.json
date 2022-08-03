@@ -1,0 +1,38 @@
+{
+    "setup.py": {
+        "github/eldariont/svim": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pysam": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "numpy": {
+            "credit": 0.002814428571428571,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0014142857142857143,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0014142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "edlib": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/Martinsos/edlib"
+        },
+        "pyspoa": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/nanoporetech/pyspoa"
+        },
+        "py-cpuinfo": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/workhorsy/py-cpuinfo"
+        }
+    }
+}

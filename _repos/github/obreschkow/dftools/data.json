@@ -1,0 +1,142 @@
+{
+    "DESCRIPTION": {
+        "github/obreschkow/dftools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ellipse": {
+            "credit": 0.0016500000000000126,
+            "url": null
+        },
+        "magicaxis": {
+            "credit": 0.0016500000000000126,
+            "url": "NA"
+        },
+        "mvtnorm": {
+            "credit": 0.165,
+            "url": "http://mvtnorm.R-forge.R-project.org"
+        },
+        "akima": {
+            "credit": 0.0016500000000000126,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.016908375000000017,
+            "url": "http://www.stats.ox.ac.uk/pub/MASS4/"
+        },
+        "pracma": {
+            "credit": 0.165,
+            "url": "NA"
+        },
+        "stats": {
+            "credit": 0.0760654125,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.0760654125,
+            "url": null
+        },
+        "R": {
+            "credit": 0.11729891249999999,
+            "url": null
+        },
+        "fst": {
+            "credit": 0.00014849999999999933,
+            "url": "http://www.fstpackage.org"
+        },
+        "imager": {
+            "credit": 0.01485,
+            "url": "http://dahtah.github.io/imager/"
+        },
+        "RANN": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "sm": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "plotrix": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "celestial": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.0352279125,
+            "url": null
+        },
+        "tripack": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "nlme": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.020377912499999998,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "lintr": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        },
+        "fstcore": {
+            "credit": 0.0016335000000000002,
+            "url": null
+        }
+    }
+}

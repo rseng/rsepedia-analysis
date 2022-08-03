@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/damonge/schNell": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        },
+        "healpy": {
+            "credit": 0.0033000000000000004,
+            "url": "http://github.com/healpy"
+        }
+    }
+}

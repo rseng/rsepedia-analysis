@@ -1,0 +1,7 @@
+setuptools>=56.0.0
+pandas>=1.2.5
+numpy>=1.21.0
+matplotlib>=3.4.2
+astropy>=4.3rc1
+astroquery>=0.4.2
+pyvo==1.2.1

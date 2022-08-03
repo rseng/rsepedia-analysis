@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/pierrexyz/pybird": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00495,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

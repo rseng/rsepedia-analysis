@@ -1,0 +1,22 @@
+{
+    "CMakeLists.txt": {
+        "github/jydu/maffilter": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "bpp-phyl-omics3": {
+            "credit": 0.0033000000000000004,
+            "url": null
+        },
+        "bpp-popgen3": {
+            "credit": 0.0033000000000000004,
+            "url": null
+        },
+        "eigen3": {
+            "credit": 0.0033000000000000004,
+            "url": null
+        }
+    }
+}

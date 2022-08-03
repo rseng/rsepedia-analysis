@@ -1,0 +1,42 @@
+{
+    "requirements.txt": {
+        "github/eggnogdb/eggnog-mapper": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.0033000000000000004,
+            "url": "https://biopython.org/"
+        },
+        "psutil": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "xlsxwriter": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/jmcnamara/XlsxWriter"
+        },
+        "wmi": {
+            "credit": 0.0006533999999999999,
+            "url": "http://timgolden.me.uk/python/wmi.html"
+        },
+        "pywin32": {
+            "credit": 0.0006533999999999999,
+            "url": "https://github.com/mhammond/pywin32"
+        },
+        "enum34": {
+            "credit": 0.0006533999999999999,
+            "url": "https://bitbucket.org/stoneleaf/enum34"
+        },
+        "mock": {
+            "credit": 0.0006533999999999999,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "ipaddress": {
+            "credit": 0.0006533999999999999,
+            "url": "https://github.com/phihag/ipaddress"
+        }
+    }
+}

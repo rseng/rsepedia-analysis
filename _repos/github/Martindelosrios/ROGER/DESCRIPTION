@@ -1,0 +1,19 @@
+Package: ROGER
+Title: ROGER
+Version: 1.0.0.0000
+Authors@R: 
+    person(given = "Martín",
+           family = "de los Rios",
+           role = c("aut", "cre"),
+           email = "martindelosrios13@gmail.com",
+           comment = c(ORCID = "0000-0003-2190-2196"))
+    person(given = "Martín",
+           family = "de los Rios",
+           role = c("aut", "cre"),
+           email = "martindelosrios13@gmail.com",
+           comment = c(ORCID = "0000-0003-2190-2196"))
+Description: This package contains the main functions for the automatic classification of galaxies using their phase-space information. For a detailed description of the algorithms used in this package please read XXXX.XXXX.
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2.9000
+Depends: randomForest, caret, kernlab

@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/INCF/one_click": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "py2app": {
+            "credit": 0.0099,
+            "url": "http://github.com/ronaldoussoren/py2app"
+        },
+        "macholib": {
+            "credit": 0.003267,
+            "url": "http://github.com/ronaldoussoren/macholib"
+        },
+        "modulegraph": {
+            "credit": 0.003267,
+            "url": "http://github.com/ronaldoussoren/modulegraph"
+        },
+        "altgraph": {
+            "credit": 0.008118495,
+            "url": "https://altgraph.readthedocs.io"
+        },
+        "setuptools": {
+            "credit": 0.0016171649999999998,
+            "url": "https://github.com/pypa/setuptools"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+Package: celestial
+Type: Package
+Title: Collection of Common Astronomical Conversion Routines and Functions
+Version: 1.5.2
+Date: 2021-06-22
+Author: Aaron Robotham
+Maintainer: Aaron Robotham <aaron.robotham@uwa.edu.au>
+Description: Contains a number of common astronomy utility functions for cosmology and angular coordinates.
+License: GPL-3
+LazyData: TRUE
+Depends: R (>= 3.00), RANN, NISTunits, pracma
+SystemRequirements: C++11
+LinkingTo: Rcpp
+NeedsCompilation: yes

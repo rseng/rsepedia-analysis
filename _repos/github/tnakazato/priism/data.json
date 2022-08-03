@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/tnakazato/priism": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "casatasks": {
+            "credit": 0.0033000000000000004,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casatools/browse"
+        },
+        "casatools": {
+            "credit": 0.0033000000000000004,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casatools/browse"
+        },
+        "casadata": {
+            "credit": 0.0033000000000000004,
+            "url": "https://open-bitbucket.nrao.edu/projects/CASA/repos/casadatabrowse"
+        }
+    }
+}

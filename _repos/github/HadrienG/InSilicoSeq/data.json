@@ -1,0 +1,110 @@
+{
+    "setup.py": {
+        "github/HadrienG/InSilicoSeq": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.14142857142857143,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.14142857142857143,
+            "url": "https://www.scipy.org"
+        },
+        "biopython": {
+            "credit": 0.14142857142857143,
+            "url": "https://biopython.org/"
+        },
+        "pysam": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "future": {
+            "credit": 0.14142857142857143,
+            "url": "https://python-future.org"
+        },
+        "joblib": {
+            "credit": 0.14142857142857143,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "requests": {
+            "credit": 0.001414285714285729,
+            "url": "https://requests.readthedocs.io"
+        },
+        "win-inet-pton": {
+            "credit": 0.02000204081632653,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.022202265306122446,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.00020002040816326574,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.022202265306122446,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.02000204081632653,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.022202265306122446,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.00020002040816326574,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "unicodedata2": {
+            "credit": 0.00019802020408163368,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.002200224489795918,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.002200224489795918,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.002200224489795918,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.002200224489795918,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.002200224489795918,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.002200224489795918,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "pytest-randomly": {
+            "credit": 0.0049010000510204075,
+            "url": "https://pypi.org/project/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.0049010000510204075,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 0.0049010000510204075,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.0049010000510204075,
+            "url": "https://pypi.org/project/pytest"
+        }
+    }
+}

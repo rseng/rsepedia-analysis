@@ -1,0 +1,298 @@
+{
+    "DESCRIPTION": {
+        "github/kateharborne/SimSpin": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "celestial": {
+            "credit": 0.01207193877551021,
+            "url": null
+        },
+        "cmocean": {
+            "credit": 0.0007071428571428645,
+            "url": "https://matplotlib.org/cmocean/"
+        },
+        "data.table": {
+            "credit": 0.0007071428571428645,
+            "url": "https://r-datatable.com"
+        },
+        "doParallel": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/RevolutionAnalytics/doparallel"
+        },
+        "fields": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/dnychka/fieldsRPackage"
+        },
+        "hdf5r": {
+            "credit": 0.0007071428571428645,
+            "url": "https://hhoeflin.github.io/hdf5r/"
+        },
+        "magicaxis": {
+            "credit": 0.005707653061224497,
+            "url": "NA"
+        },
+        "plotrix": {
+            "credit": 0.007071428571428578,
+            "url": "NA"
+        },
+        "pracma": {
+            "credit": 0.08821607142857144,
+            "url": "NA"
+        },
+        "ProFit": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/ICRAR/ProFit"
+        },
+        "RColorBrewer": {
+            "credit": 0.005707653061224497,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.0007071428571428645,
+            "url": "http://www.rcpp.org"
+        },
+        "sphereplot": {
+            "credit": 0.0007071428571428645,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.0007071428571428645,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "NISTunits": {
+            "credit": 0.00017501785714285623,
+            "url": "NA"
+        },
+        "RANN": {
+            "credit": 0.00653930357142857,
+            "url": "https://github.com/jefferis/RANN"
+        },
+        "R": {
+            "credit": 0.1780401352040816,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.014001428571428571,
+            "url": "https://ggplot2.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.038200867346938776,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.038200867346938776,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.03436714285714286,
+            "url": null
+        },
+        "yaml": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.005833928571428571,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.012198214285714284,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.04286801020408163,
+            "url": null
+        },
+        "compiler": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "RUnit": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "rpart": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "mlbench": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "caret": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.03903428571428571,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "viridis": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "spam": {
+            "credit": 0.014001428571428571,
+            "url": null
+        },
+        "formatR": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "reshape2": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.030691767857142855,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "fst": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "imager": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "mapproj": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "sm": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.006364285714285714,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.020365714285714286,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.020365714285714286,
+            "url": null
+        },
+        "sn": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "ProFound": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "fftw": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "checkmate": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "LaplacesDemon": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "cubature": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "FITSio": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.011667857142857141,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.07000714285714285,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.0070007142857142855,
+            "url": null
+        }
+    }
+}

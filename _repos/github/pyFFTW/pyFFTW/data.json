@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/pyFFTW/pyFFTW": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.002475,
+            "url": "http://cython.org/"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "dask": {
+            "credit": 0.002475,
+            "url": "https://github.com/dask/dask/"
+        }
+    }
+}

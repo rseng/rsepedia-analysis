@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/alejandrobll/py-sphviewer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "py-sphviewer": {
+            "credit": 0.00198,
+            "url": "https://github.com/alejandrobll/py-sphviewer"
+        },
+        "pykdtree": {
+            "credit": 0.00198,
+            "url": "https://github.com/storpipfugl/pykdtree"
+        },
+        "matplotlib": {
+            "credit": 0.00198,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0059004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

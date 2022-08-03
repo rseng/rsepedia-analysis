@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/rabix/cwl-format": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ruamel.yaml": {
+            "credit": 0.0099,
+            "url": "https://sourceforge.net/p/ruamel-yaml/code/ci/default/tree"
+        }
+    }
+}

@@ -1,0 +1,6 @@
+matplotlib>=2.2.2
+pandas>=0.23.0
+numpy>=1.16.0
+pyvo>=1.1
+guizero==0.5.4
+Pillow

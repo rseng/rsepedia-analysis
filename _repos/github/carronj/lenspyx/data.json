@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/carronj/lenspyx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0043890000000000005,
+            "url": "https://www.numpy.org"
+        },
+        "healpy": {
+            "credit": 0.0033000000000000004,
+            "url": "http://github.com/healpy"
+        },
+        "pyfftw": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pyFFTW/pyFFTW"
+        },
+        "scipy": {
+            "credit": 0.001089,
+            "url": "https://www.scipy.org"
+        },
+        "dask": {
+            "credit": 0.001089,
+            "url": "https://github.com/dask/dask/"
+        }
+    }
+}

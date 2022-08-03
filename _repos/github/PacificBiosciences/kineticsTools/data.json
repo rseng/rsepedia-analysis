@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/PacificBiosciences/kineticsTools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0039402,
+            "url": "https://www.numpy.org"
+        },
+        "pbcommand": {
+            "credit": 0.00198,
+            "url": "https://github.com/PacificBiosciences/pbcommand"
+        },
+        "pbcore": {
+            "credit": 0.00198,
+            "url": "UNKNOWN"
+        },
+        "pyBigWig": {
+            "credit": 0.00198,
+            "url": "https://github.com/dpryan79/pyBigWig"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

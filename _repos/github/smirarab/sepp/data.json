@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/smirarab/sepp": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "dendropy": {
+            "credit": 0.0099,
+            "url": "http://packages.python.org/DendroPy/"
+        }
+    }
+}

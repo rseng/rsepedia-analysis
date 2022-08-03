@@ -1,0 +1,14 @@
+{
+    "Gemfile": {
+        "github/ncbi/igblast": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "github-pages": {
+            "credit": 0.0099,
+            "url": "https://github.com/github/pages-gem"
+        }
+    }
+}

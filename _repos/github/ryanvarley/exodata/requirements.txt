@@ -1,0 +1,6 @@
+numpy
+quantities
+nose
+matplotlib
+hypothesis
+requests

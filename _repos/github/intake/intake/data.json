@@ -1,0 +1,50 @@
+{
+    "requirements.txt": {
+        "github/intake/intake": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "appdirs": {
+            "credit": 0.0014142857142857143,
+            "url": "http://github.com/ActiveState/appdirs"
+        },
+        "dask": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/dask/dask/"
+        },
+        "entrypoints": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/takluyver/entrypoints"
+        },
+        "pyyaml": {
+            "credit": 0.0014142857142857143,
+            "url": "https://pyyaml.org/"
+        },
+        "fsspec": {
+            "credit": 0.0014142857142857143,
+            "url": "http://github.com/fsspec/filesystem_spec"
+        },
+        "jinja2": {
+            "credit": 0.0014142857142857143,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "msgpack": {
+            "credit": 0.0014142857142857143,
+            "url": "https://msgpack.org/"
+        },
+        "Babel": {
+            "credit": 0.0007000714285714285,
+            "url": "https://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0007000714285714285,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "pytz": {
+            "credit": 0.0006930707142857143,
+            "url": "http://pythonhosted.org/pytz"
+        }
+    }
+}

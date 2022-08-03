@@ -1,0 +1,9 @@
+# sigproc and filterbank can't simply be pip installed
+#sigproc
+#filterbank
+#http://github.com/liamconnor/arts-analysis
+PyYAML
+matplotlib
+pandas
+seaborn
+sphinx_automodapi

@@ -1,0 +1,22 @@
+{
+    "go.mod": {
+        "github/cov-ert/gofasta": {
+            "credit": 0.01,
+            "url": "https://github/cov-ert/gofasta"
+        }
+    },
+    "go": {
+        "github.com/biogo/hts": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/biogo/hts"
+        },
+        "github.com/spf13/cobra": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/spf13/cobra"
+        },
+        "github.com/spf13/pflag": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/spf13/pflag"
+        }
+    }
+}

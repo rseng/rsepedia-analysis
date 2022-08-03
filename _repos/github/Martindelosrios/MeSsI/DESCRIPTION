@@ -1,0 +1,14 @@
+Package: MeSsI
+Title: Merging Systems Identification Algorithm
+Version: 3.0.0.0000
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "0000-0003-2190-2196"))
+Description: This package have all the necessary functions for the automatic classification of merging clusters using the code developed by de los Rios et al. (https://arxiv.org/abs/1509.02524).
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2.9000
+Depends: randomForest, nortest, cosmoFns, mclust, e1071, beepr, caret, progress

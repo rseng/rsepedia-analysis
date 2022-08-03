@@ -1,0 +1,98 @@
+{
+    "requirements.txt": {
+        "github/maserlib/ExPRES": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.165,
+            "url": "https://www.numpy.org"
+        },
+        "lxml": {
+            "credit": 0.0017847637500000135,
+            "url": "https://lxml.de/"
+        },
+        "jsonschema": {
+            "credit": 0.165,
+            "url": "https://python-jsonschema.readthedocs.io"
+        },
+        "sphinx": {
+            "credit": 0.165,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.165,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinxcontrib-bibtex": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/mcmtroffaes/sphinxcontrib-bibtex"
+        },
+        "Cython": {
+            "credit": 0.0441729028125,
+            "url": "http://cython.org/"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.003743777812500002,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "html5lib": {
+            "credit": 0.003878541562500003,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "cssselect": {
+            "credit": 0.0441729028125,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "dataclasses": {
+            "credit": 0.03267,
+            "url": "https://github.com/ericvsmith/dataclasses"
+        },
+        "pybtex-docutils": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/mcmtroffaes/pybtex-docutils"
+        },
+        "pybtex": {
+            "credit": 0.0004884164999999982,
+            "url": "https://pybtex.org/"
+        },
+        "docutils": {
+            "credit": 0.04884165,
+            "url": "https://docutils.sourceforge.io/"
+        },
+        "Sphinx": {
+            "credit": 0.03267,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "soupsieve": {
+            "credit": 0.0001347637500000009,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "six": {
+            "credit": 0.03897367649999999,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "webencodings": {
+            "credit": 0.026885368124999996,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "pytest": {
+            "credit": 0.012088308374999999,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "latexcodec": {
+            "credit": 0.012088308374999999,
+            "url": "https://pypi.org/project/latexcodec"
+        },
+        "PyYAML": {
+            "credit": 0.012088308374999999,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.013341611249999998,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

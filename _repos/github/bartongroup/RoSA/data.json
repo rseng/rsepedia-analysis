@@ -1,0 +1,14 @@
+{
+    "DESCRIPTION": {
+        "github/bartongroup/RoSA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "LSD": {
+            "credit": 0.0099,
+            "url": null
+        }
+    }
+}

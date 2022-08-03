@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/chanzuckerberg/idseq-dag": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pytz": {
+            "credit": 0.00495,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "boto3": {
+            "credit": 0.00495,
+            "url": "https://github.com/boto/boto3"
+        }
+    }
+}

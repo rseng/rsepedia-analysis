@@ -1,0 +1,262 @@
+{
+    "setup.py": {
+        "github/pynbody/tangos": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools": {
+            "credit": 0.07994839285714285,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "numpy": {
+            "credit": 0.08208750000000001,
+            "url": "https://www.numpy.org"
+        },
+        "sqlalchemy": {
+            "credit": 0.044653125,
+            "url": "http://www.sqlalchemy.org"
+        },
+        "pyparsing": {
+            "credit": 0.00041250000000000314,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "WebOb": {
+            "credit": 0.00041250000000000314,
+            "url": "http://webob.org/"
+        },
+        "repoze.lru": {
+            "credit": 0.003815625000000003,
+            "url": "http://www.repoze.org"
+        },
+        "zope.interface": {
+            "credit": 0.01562933035714286,
+            "url": "https://github.com/zopefoundation/zope.interface"
+        },
+        "zope.deprecation": {
+            "credit": 0.00644089285714286,
+            "url": "https://github.com/zopefoundation/zope.deprecation"
+        },
+        "venusian": {
+            "credit": 0.00235714285714286,
+            "url": "https://pylonsproject.org/"
+        },
+        "translationstring": {
+            "credit": 0.00235714285714286,
+            "url": "https://github.com/Pylons/translationstring"
+        },
+        "PasteDeploy": {
+            "credit": 0.06166875,
+            "url": "https://pylonsproject.org/"
+        },
+        "plaster": {
+            "credit": 0.02277589285714286,
+            "url": "https://docs.pylonsproject.org/projects/plaster/en/latest/"
+        },
+        "plaster_pastedeploy": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/Pylons/plaster_pastedeploy"
+        },
+        "pyramid": {
+            "credit": 0.018108750000000003,
+            "url": "https://trypyramid.com"
+        },
+        "waitress": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/Pylons/waitress"
+        },
+        "pyramid_debugtoolbar": {
+            "credit": 0.00041250000000000314,
+            "url": "https://docs.pylonsproject.org/projects/pyramid-debugtoolbar/en/latest/"
+        },
+        "pyramid_jinja2": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/Pylons/pyramid_jinja2"
+        },
+        "pyramid_tm": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/Pylons/pyramid_tm"
+        },
+        "pyramid_retry": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/Pylons/pyramid_retry"
+        },
+        "zope.sqlalchemy": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/zopefoundation/zope.sqlalchemy"
+        },
+        "hupper": {
+            "credit": 0.00235714285714286,
+            "url": "https://github.com/Pylons/hupper"
+        },
+        "scipy": {
+            "credit": 0.00041250000000000314,
+            "url": "https://www.scipy.org"
+        },
+        "more_itertools": {
+            "credit": 0.04125,
+            "url": "https://more-itertools.rtfd.io"
+        },
+        "matplotlib": {
+            "credit": 0.04125,
+            "url": "https://matplotlib.org"
+        },
+        "jinja2": {
+            "credit": 0.004287937500000001,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.02041875,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "pytest-xdist": {
+            "credit": 6.806250000000041e-05,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest-cov": {
+            "credit": 0.04618526785714286,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "coverage": {
+            "credit": 0.05673495535714286,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.05411454910714285,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pylons-sphinx-themes": {
+            "credit": 0.06183964285714286,
+            "url": "https://pypi.org/project/pylons-sphinx-themes"
+        },
+        "Sphinx": {
+            "credit": 0.09995464285714283,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "nose": {
+            "credit": 0.017015625,
+            "url": "https://pypi.org/project/nose"
+        },
+        "zope.testing": {
+            "credit": 0.01497375,
+            "url": "https://pypi.org/project/zope.testing"
+        },
+        "zope.event": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/zope.event"
+        },
+        "repoze.sphinx.autointerface": {
+            "credit": 0.022023080357142857,
+            "url": "https://pypi.org/project/repoze.sphinx.autointerface"
+        },
+        "zope.testrunner": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/zope.testrunner"
+        },
+        "docutils": {
+            "credit": 0.022363392857142856,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "zope.component": {
+            "credit": 0.001944642857142857,
+            "url": "https://pypi.org/project/zope.component"
+        },
+        "webtest": {
+            "credit": 0.006028392857142857,
+            "url": "https://pypi.org/project/webtest"
+        },
+        "sphinxcontrib-autoprogram": {
+            "credit": 0.001944642857142857,
+            "url": "https://pypi.org/project/sphinxcontrib-autoprogram"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.001944642857142857,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "pylons-sphinx-latesturl": {
+            "credit": 0.001944642857142857,
+            "url": "https://pypi.org/project/pylons-sphinx-latesturl"
+        },
+        "webob": {
+            "credit": 0.0053477678571428565,
+            "url": "https://pypi.org/project/webob"
+        },
+        "plaster-pastedeploy": {
+            "credit": 0.001944642857142857,
+            "url": "https://pypi.org/project/plaster-pastedeploy"
+        },
+        "pytest-cover": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/pytest-cover"
+        },
+        "WebTest": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/WebTest"
+        },
+        "ipaddress": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "Pygments": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "pyramid-mako": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/pyramid-mako"
+        },
+        "sphinx": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "markupsafe": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/markupsafe"
+        },
+        "transaction": {
+            "credit": 0.0132721875,
+            "url": "https://pypi.org/project/transaction"
+        },
+        "SQLAlchemy": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/SQLAlchemy"
+        },
+        "mock": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/mock"
+        },
+        "watchdog": {
+            "credit": 0.00680625,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "Babel": {
+            "credit": 0.010107281249999999,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.010107281249999999,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "filelock": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

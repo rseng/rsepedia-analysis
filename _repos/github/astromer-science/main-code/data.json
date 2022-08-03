@@ -1,0 +1,190 @@
+{
+    "requirements.txt": {
+        "github/astromer-science/main-code": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tensorboard_plugin_profile": {
+            "credit": 0.0009899999999999909,
+            "url": "https://github.com/tensorflow/profiler"
+        },
+        "googledrivedownloader": {
+            "credit": 0.099,
+            "url": "https://github.com/ndrplz/google-drive-downloader"
+        },
+        "scikit-learn": {
+            "credit": 0.0009899999999999909,
+            "url": "http://scikit-learn.org"
+        },
+        "notebook": {
+            "credit": 0.099,
+            "url": "http://jupyter.org"
+        },
+        "graphviz": {
+            "credit": 0.099,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "seaborn": {
+            "credit": 0.10366714285714286,
+            "url": "https://seaborn.pydata.org"
+        },
+        "joblib": {
+            "credit": 0.10366714285714286,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "pandas": {
+            "credit": 0.005657142857142876,
+            "url": "https://pandas.pydata.org"
+        },
+        "pydot": {
+            "credit": 0.099,
+            "url": "https://github.com/pydot/pydot"
+        },
+        "tqdm": {
+            "credit": 0.0009900000000000048,
+            "url": "https://tqdm.github.io"
+        },
+        "werkzeug": {
+            "credit": 0.019602,
+            "url": "https://palletsprojects.com/p/werkzeug/"
+        },
+        "six": {
+            "credit": 0.03900798,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "setuptools": {
+            "credit": 0.019602,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.019602,
+            "url": "https://developers.google.com/protocol-buffers/"
+        },
+        "gviz-api": {
+            "credit": 0.0001960200000000016,
+            "url": "https://github.com/google/google-visualization-python"
+        },
+        "pyamg": {
+            "credit": 4.667142857142821e-05,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 0.0046671428571428576,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/black"
+        },
+        "flake8": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0225423,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "scikit-image": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "matplotlib": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "threadpoolctl": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "scipy": {
+            "credit": 0.006207300000000001,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "numpy": {
+            "credit": 0.0225423,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "pytest-xdist": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.016335,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "requests": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/requests"
+        },
+        "slack-sdk": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/colorama"
+        }
+    }
+}

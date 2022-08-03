@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/PacificBiosciences/pbcore": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.0033000000000000004,
+            "url": "https://biopython.org/"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "pysam": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pysam-developers/pysam"
+        }
+    }
+}

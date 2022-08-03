@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/pmelchior/skymapper": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "healpy": {
+            "credit": 0.002475,
+            "url": "http://github.com/healpy"
+        }
+    }
+}

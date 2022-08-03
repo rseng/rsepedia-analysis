@@ -1,0 +1,254 @@
+{
+    "requirements.txt": {
+        "github/genouest/biomaj-daemon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biomaj-user": {
+            "credit": 0.006141176470588233,
+            "url": "http://biomaj.genouest.org"
+        },
+        "biomaj-zipkin": {
+            "credit": 0.000899999999999998,
+            "url": "http://biomaj.genouest.org"
+        },
+        "redis": {
+            "credit": 0.006141176470588247,
+            "url": "https://github.com/redis/redis-py"
+        },
+        "PyYAML": {
+            "credit": 0.10113749999999999,
+            "url": "https://pyyaml.org/"
+        },
+        "flask": {
+            "credit": 0.0010113749999999984,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "python-consul": {
+            "credit": 0.0010113749999999984,
+            "url": "https://github.com/cablehead/python-consul"
+        },
+        "prometheus_client": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/prometheus/client_python"
+        },
+        "requests": {
+            "credit": 0.056748738970588235,
+            "url": "https://requests.readthedocs.io"
+        },
+        "biomaj-core": {
+            "credit": 0.006252551470588234,
+            "url": "http://biomaj.genouest.org"
+        },
+        "biomaj": {
+            "credit": 0.000899999999999998,
+            "url": "http://biomaj.genouest.org"
+        },
+        "flask-cors": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/corydolphin/flask-cors"
+        },
+        "tabulate": {
+            "credit": 0.005352551470588236,
+            "url": "https://github.com/astanin/python-tabulate"
+        },
+        "py-bcrypt": {
+            "credit": 0.016378676470588237,
+            "url": "https://code.google.com/p/py-bcrypt"
+        },
+        "pymongo": {
+            "credit": 0.016378676470588237,
+            "url": "http://github.com/mongodb/mongo-python-driver"
+        },
+        "ldap3": {
+            "credit": 0.00011137500000000036,
+            "url": "https://github.com/cannatag/ldap3"
+        },
+        "py-zipkin": {
+            "credit": 0.00044550000000000145,
+            "url": "https://github.com/Yelp/py_zipkin"
+        },
+        "pyopenssl": {
+            "credit": 9.900000000000013e-05,
+            "url": "https://pyopenssl.org/"
+        },
+        "cryptography": {
+            "credit": 0.011533499999999999,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "hiredis": {
+            "credit": 0.009899999999999999,
+            "url": "https://github.com/redis/hiredis-py"
+        },
+        "typing-extensions": {
+            "credit": 0.009899999999999999,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "importlib-metadata": {
+            "credit": 0.02420373214285714,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "async-timeout": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/async-timeout"
+        },
+        "packaging": {
+            "credit": 0.015141176470588234,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "deprecated": {
+            "credit": 0.009899999999999999,
+            "url": "https://pypi.org/project/deprecated"
+        },
+        "python-dotenv": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/asgiref"
+        },
+        "click": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/click"
+        },
+        "itsdangerous": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.014303732142857142,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "treq": {
+            "credit": 0.0166876875,
+            "url": "https://pypi.org/project/treq"
+        },
+        "twisted": {
+            "credit": 0.1057876875,
+            "url": "https://pypi.org/project/twisted"
+        },
+        "tornado": {
+            "credit": 0.0166876875,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "aiohttp": {
+            "credit": 0.0166876875,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "six": {
+            "credit": 0.0166876875,
+            "url": "https://pypi.org/project/six"
+        },
+        "chardet": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.023834249999999998,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "elasticsearch": {
+            "credit": 0.03861655147058824,
+            "url": "https://pypi.org/project/elasticsearch"
+        },
+        "future": {
+            "credit": 0.03861655147058824,
+            "url": "https://pypi.org/project/future"
+        },
+        "Yapsy": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/Yapsy"
+        },
+        "influxdb": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/influxdb"
+        },
+        "drmaa": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/drmaa"
+        },
+        "pycurl": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/pycurl"
+        },
+        "biomaj-process": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/biomaj-process"
+        },
+        "biomaj-download": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/biomaj-download"
+        },
+        "biomaj-cli": {
+            "credit": 0.005241176470588235,
+            "url": "https://pypi.org/project/biomaj-cli"
+        },
+        "Six": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/Six"
+        },
+        "Flask": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/Flask"
+        },
+        "wcwidth": {
+            "credit": 0.011026125,
+            "url": "https://pypi.org/project/wcwidth"
+        },
+        "pyasn1": {
+            "credit": 0.011026125,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "protobuf": {
+            "credit": 0.02205225,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "thriftpy2": {
+            "credit": 0.02205225,
+            "url": "https://pypi.org/project/thriftpy2"
+        },
+        "pytest": {
+            "credit": 0.0016334999999999998,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pretend": {
+            "credit": 0.0016334999999999998,
+            "url": "https://pypi.org/project/pretend"
+        },
+        "flaky": {
+            "credit": 0.0016334999999999998,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0016334999999999998,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0016334999999999998,
+            "url": "https://pypi.org/project/sphinx"
+        }
+    }
+}

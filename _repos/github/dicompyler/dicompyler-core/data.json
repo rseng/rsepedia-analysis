@@ -1,0 +1,134 @@
+{
+    "setup.py": {
+        "github/dicompyler/dicompyler-core": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.274725,
+            "url": "https://www.numpy.org"
+        },
+        "six": {
+            "credit": 0.260976375,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "pydicom": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/pydicom/pydicom"
+        },
+        "matplotlib": {
+            "credit": 0.28011555,
+            "url": "https://matplotlib.org"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.0019567968750000015,
+            "url": "https://github.com/executablebooks/sphinx-copybutton"
+        },
+        "sphinxcontrib-napoleon": {
+            "credit": 0.00027225000000000166,
+            "url": "https://sphinxcontrib-napoleon.readthedocs.io"
+        },
+        "sphinx-gallery": {
+            "credit": 0.027225,
+            "url": "https://sphinx-gallery.github.io"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.027225,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinx": {
+            "credit": 0.039690646875,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "pillow": {
+            "credit": 0.00027225000000000166,
+            "url": "https://python-pillow.org"
+        },
+        "numpydoc": {
+            "credit": 0.00027225000000000166,
+            "url": "https://numpydoc.readthedocs.io"
+        },
+        "sphinx-book-theme": {
+            "credit": 0.005390549999999999,
+            "url": "https://sphinx-book-theme.readthedocs.io"
+        },
+        "myst-nb": {
+            "credit": 0.005390549999999999,
+            "url": "https://github.com/executablebooks/myst-nb"
+        },
+        "ipython": {
+            "credit": 0.005390549999999999,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "pre-commit": {
+            "credit": 0.005390549999999999,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pockets": {
+            "credit": 0.013476374999999999,
+            "url": "https://pypi.org/project/pockets"
+        },
+        "pytest-timeout": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.007075096874999999,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.007075096874999999,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyroma": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "packaging": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "markdown2": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "coverage": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "check-manifest": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "olefile": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "furo": {
+            "credit": 0.0016845468749999998,
+            "url": "https://pypi.org/project/furo"
+        },
+        "Jinja2": {
+            "credit": 0.005390549999999999,
+            "url": "https://pypi.org/project/Jinja2"
+        }
+    }
+}

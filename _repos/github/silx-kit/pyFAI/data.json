@@ -1,0 +1,142 @@
+{
+    "requirements.txt": {
+        "github/silx-kit/pyFAI": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.18010044642857143,
+            "url": "https://www.numpy.org"
+        },
+        "cython": {
+            "credit": 0.07071428571428572,
+            "url": "http://cython.org/"
+        },
+        "fabio": {
+            "credit": 0.005082589285714293,
+            "url": "http://github.com/silx-kit/fabio"
+        },
+        "scipy": {
+            "credit": 0.07508973214285715,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.07508973214285715,
+            "url": "https://matplotlib.org"
+        },
+        "numexpr": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/pydata/numexpr"
+        },
+        "h5py": {
+            "credit": 0.09842544642857143,
+            "url": "http://www.h5py.org"
+        },
+        "silx": {
+            "credit": 0.0007071428571428645,
+            "url": "http://www.silx.org/"
+        },
+        "PyOpenGL": {
+            "credit": 0.07508973214285715,
+            "url": "http://pyopengl.sourceforge.net"
+        },
+        "PyQt5": {
+            "credit": 0.005082589285714293,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "hdf5plugin": {
+            "credit": 0.005082589285714293,
+            "url": "https://github.com/silx-kit/hdf5plugin"
+        },
+        "wheel": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/pypa/wheel"
+        },
+        "transformations": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.lfd.uci.edu/~gohlke/"
+        },
+        "nbsphinx": {
+            "credit": 0.0007071428571428645,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "setuptools": {
+            "credit": 0.03937901785714285,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "pytest-xvfb": {
+            "credit": 4.3754464285714056e-05,
+            "url": "https://github.com/The-Compiler/pytest-xvfb"
+        },
+        "pytest": {
+            "credit": 0.04154486383928571,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "Pillow": {
+            "credit": 0.004375446428571428,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "python-dateutil": {
+            "credit": 0.004375446428571428,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "qtconsole": {
+            "credit": 0.004375446428571428,
+            "url": "https://pypi.org/project/qtconsole"
+        },
+        "Mako": {
+            "credit": 0.004375446428571428,
+            "url": "https://pypi.org/project/Mako"
+        },
+        "pyopencl": {
+            "credit": 0.004375446428571428,
+            "url": "https://pypi.org/project/pyopencl"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/PyQt5-Qt5"
+        },
+        "PyQt5-sip": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/PyQt5-sip"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "pytest-cov": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "nbformat": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "traitlets": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "nbconvert": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jinja2": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "docutils": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "pyvirtualdisplay": {
+            "credit": 0.002165845982142857,
+            "url": "https://pypi.org/project/pyvirtualdisplay"
+        }
+    }
+}

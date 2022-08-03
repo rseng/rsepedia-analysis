@@ -1,0 +1,226 @@
+{
+    "CMakeLists.txt": {
+        "github/stevengj/nlopt": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.cmake.org"
+        },
+        "pythoninterp": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "pythonlibs": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "numpy": {
+            "credit": 0.12375,
+            "url": null
+        },
+        "guile": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.gnu.org/software/guile/"
+        },
+        "swig": {
+            "credit": 0.0012375000000000025,
+            "url": "http://www.swig.org"
+        },
+        "octave": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.gnu.org/software/octave/"
+        },
+        "matlab": {
+            "credit": 0.12375,
+            "url": "https://www.mathworks.com/products/matlab.html"
+        },
+        "ninja": {
+            "credit": 0.00010209375000000062,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.014584821428571428,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.014584821428571428,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.014584821428571428,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "python": {
+            "credit": 0.02031665625,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.03548973214285714,
+            "url": null
+        },
+        "bdw-gc": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "gmp": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.031114285714285712,
+            "url": null
+        },
+        "libunistring": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "libffi": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.017987946428571426,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.03548973214285714,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.02187723214285714,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "yacc": {
+            "credit": 0.017501785714285713,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "lapack": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "texinfo": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "arpack-ng": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "fftw": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "fltk": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "fontconfig": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "glpk": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "gl2ps": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "gnuplot": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "imagemagick": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "java": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "llvm": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "qhull": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "qrupdate": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "qscintilla": {
+            "credit": 0.004375446428571428,
+            "url": null
+        },
+        "suite-sparse": {
+            "credit": 0.004375446428571428,
+            "url": null
+        }
+    }
+}

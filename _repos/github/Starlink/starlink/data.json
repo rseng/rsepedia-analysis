@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/Starlink/starlink": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "starlink-pyast": {
+            "credit": 0.0033000000000000004,
+            "url": "http://www.starlink.ac.uk/ast"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "pyqt5": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.0016335,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.0016335,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        }
+    }
+}

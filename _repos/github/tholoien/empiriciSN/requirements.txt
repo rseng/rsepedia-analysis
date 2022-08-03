@@ -1,0 +1,8 @@
+numpy
+nose
+scikit-learn
+astroML_addons
+astroML
+scipy
+corner
+pandas

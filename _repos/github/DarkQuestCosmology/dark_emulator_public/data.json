@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/DarkQuestCosmology/dark_emulator_public": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0037001250000000003,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0061503750000000005,
+            "url": "https://www.scipy.org"
+        },
+        "george": {
+            "credit": 0.002475,
+            "url": "https://github.com/dfm/george"
+        },
+        "pyfftlog": {
+            "credit": 0.002475,
+            "url": "https://github.com/prisae/pyfftlog"
+        }
+    }
+}

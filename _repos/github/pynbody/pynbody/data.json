@@ -1,0 +1,34 @@
+{
+    "setup.py": {
+        "github/pynbody/pynbody": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.0016500000000000002,
+            "url": "http://cython.org/"
+        },
+        "h5py": {
+            "credit": 0.0016500000000000002,
+            "url": "http://www.h5py.org"
+        },
+        "matplotlib": {
+            "credit": 0.0016500000000000002,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0032835,
+            "url": "https://www.numpy.org"
+        },
+        "posix_ipc": {
+            "credit": 0.0016500000000000002,
+            "url": "http://semanchuk.com/philip/posix_ipc/"
+        },
+        "scipy": {
+            "credit": 0.0016500000000000002,
+            "url": "https://www.scipy.org"
+        }
+    }
+}
