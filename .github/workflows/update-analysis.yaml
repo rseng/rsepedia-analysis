@@ -1,6 +1,7 @@
 name: update-analysis
 
 on:
+  workflow_dispatch:
   schedule:
     # Weekly on Wednesday (software updated Sunday night)
     - cron: 0 0 * * 3
