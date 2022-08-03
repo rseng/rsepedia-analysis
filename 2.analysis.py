@@ -10,22 +10,17 @@ __license__ = "MPL 2.0"
 from rse.main import Encyclopedia
 from rse.utils.command import Command
 from rse.utils.file import (
-    recursive_find,
     write_file,
     write_json,
     read_json,
 )
 
 import citelang.main.parser as parser
-import citelang.main.packages as packages
 
-import copy
 import argparse
 import re
 import sys
 import os
-import tempfile
-import shutil
 
 
 def clone(url, dest):
@@ -171,10 +166,10 @@ def main():
 
     # Replace for jekyll site
     write_file(
-        os.path.join("docs", "all-repos.md"),
         global_cli.render(start_end_blocks=False, data=roots),
+        os.path.join("docs", "all-repos.md"),
     )
-    write_file(os.path.join("pages", "dependencies.md"), content)
+    write_file(content, os.path.join("pages", "dependencies.md"))
 
     # Get stats for different languages
     # 'setup.py', 'package.json', 'npm', 'DESCRIPTION', 'cran', 'pypi', 'go.mod', 'go', 'requirements.txt'])
@@ -210,7 +205,7 @@ def main():
         "RSEPedia Top Python Dependencies",
         "python",
     ) + global_cli.render(start_end_blocks=False, data=data)
-    write_file(os.path.join("pages", "python.md"), content)
+    write_file(content, os.path.join("pages", "python.md"))
     repos_counts["Python"] = count_repos(data)
 
     # R
@@ -218,15 +213,16 @@ def main():
     content = header % ("RSEPedia Top R Dependencies", "R") + global_cli.render(
         start_end_blocks=False, data=data
     )
-    write_file(os.path.join("pages", "r.md"), content)
+    write_file(content, os.path.join("pages", "r.md"))
     repos_counts["R"] = count_repos(data)
 
     # Cpp
     data = global_cli.load_datafiles(data_files, includes=["spack"])
-    content = header % ("RSEPedia Top Spack (C++) Dependencies", "cpp") + global_cli.render(
-        start_end_blocks=False, data=data
-    )
-    write_file(os.path.join("pages", "cpp.md"), content)
+    content = header % (
+        "RSEPedia Top Spack (C++) Dependencies",
+        "cpp",
+    ) + global_cli.render(start_end_blocks=False, data=data)
+    write_file(content, os.path.join("pages", "cpp.md"))
     repos_counts["Cpp"] = count_repos(data)
 
     # Javascript
@@ -234,7 +230,7 @@ def main():
     content = header % ("RSEPedia Top Js Dependencies", "js") + global_cli.render(
         start_end_blocks=False, data=data
     )
-    write_file(os.path.join("pages", "js.md"), content)
+    write_file(content, os.path.join("pages", "js.md"))
     repos_counts["Js"] = count_repos(data)
 
     # Go
@@ -242,7 +238,7 @@ def main():
     content = header % ("RSEPedia Top Go Dependencies", "go") + global_cli.render(
         start_end_blocks=False, data=data
     )
-    write_file(os.path.join("pages", "go.md"), content)
+    write_file(content, os.path.join("pages", "go.md"))
     repos_counts["Go"] = count_repos(data)
 
     # Emoji are problematic for jekyll data
