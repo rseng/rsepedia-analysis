@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/mchalela/GriSPy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "grispy": {
+            "credit": 0.0099,
+            "url": "https://github.com/mchalela/GriSPy"
+        }
+    }
+}

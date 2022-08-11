@@ -15007,6 +15007,73 @@
             "light-curves",
             "exoplanets",
             "planets"
+        ],
+        "github/pavanvyn/triple-stability": [],
+        "github/bic-nirrh/precocity": [],
+        "github/ncbi/datasets": [],
+        "github/statgen/popscle": [
+            "rna-seq",
+            "demultiplex",
+            "single-cell-sequencing",
+            "single-cell-rna-seq",
+            "single-cell-omics"
+        ],
+        "github/Cadaei-Yuvxvs/OSHy-X": [],
+        "github/RafaelSdeSouza/qrpca": [
+            "pca",
+            "r",
+            "dimensionality-reduction"
+        ],
+        "github/psheehan/pdspy": [],
+        "github/simoncasassus/ConeRot": [],
+        "github/marcelauliano/MitoHiFi": [],
+        "github/max-little/GRAPL": [],
+        "github/chhylp123/hifiasm": [
+            "bioinformatics",
+            "denovo-assembly",
+            "genomics",
+            "hifi-read",
+            "pacbio"
+        ],
+        "github/cpinte/mcfost": [
+            "astronomy",
+            "astrophysics",
+            "astrophysical-simulation",
+            "radiative-transfer",
+            "fortran"
+        ],
+        "github/cpinte/pymcfost": [],
+        "github/cpinte/casa_cube": [],
+        "github/sparks-baird/xtal2png": [
+            "crystallography",
+            "image-processing",
+            "machine-learning",
+            "materials-informatics",
+            "python",
+            "materials-science"
+        ],
+        "github/aabdurrouf/piXedfit": [
+            "astrophysics",
+            "galaxies",
+            "astronomical-images",
+            "astronomical-spectroscopy",
+            "pixel-binning",
+            "sed-fitting"
+        ],
+        "github/seheonoh/baygaud": [],
+        "github/dgerosa/gwdet": [],
+        "github/LCOGT/banzai": [
+            "backend"
+        ],
+        "github/astro-informatics/massmappy": [],
+        "github/astro-informatics/ssht": [],
+        "github/huchiayu/ParticleGridMapper.jl": [],
+        "github/krab1k/ChargeFW2": [
+            "charges"
+        ],
+        "github/barricklab/pLannotate": [
+            "plasmid-annotation",
+            "webserver"
         ]
     },
     "language": {
@@ -19054,7 +19121,31 @@
         "github/danhey/echelle": "Jupyter Notebook",
         "github/oscaribv/pyaneti": "Jupyter Notebook",
         "github/oscaribv/exotrending": "Fortran",
-        "github/oscaribv/citlalicue": "Jupyter Notebook"
+        "github/oscaribv/citlalicue": "Jupyter Notebook",
+        "github/pavanvyn/triple-stability": "Python",
+        "github/bic-nirrh/precocity": "PHP",
+        "github/ncbi/datasets": "Jupyter Notebook",
+        "github/statgen/popscle": "C++",
+        "github/Cadaei-Yuvxvs/OSHy-X": "Python",
+        "github/RafaelSdeSouza/qrpca": "R",
+        "github/psheehan/pdspy": "Python",
+        "github/simoncasassus/ConeRot": "Python",
+        "github/marcelauliano/MitoHiFi": "Python",
+        "github/max-little/GRAPL": "Python",
+        "github/chhylp123/hifiasm": "C++",
+        "github/cpinte/mcfost": "Fortran",
+        "github/cpinte/pymcfost": "Python",
+        "github/cpinte/casa_cube": "Python",
+        "github/sparks-baird/xtal2png": "Python",
+        "github/aabdurrouf/piXedfit": "Python",
+        "github/seheonoh/baygaud": "Roff",
+        "github/dgerosa/gwdet": "Python",
+        "github/LCOGT/banzai": "Python",
+        "github/astro-informatics/massmappy": "Python",
+        "github/astro-informatics/ssht": "C",
+        "github/huchiayu/ParticleGridMapper.jl": "Julia",
+        "github/krab1k/ChargeFW2": "C++",
+        "github/barricklab/pLannotate": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23101,7 +23192,31 @@
         "github/danhey/echelle": "https://github.com/danhey/echelle",
         "github/oscaribv/pyaneti": "https://github.com/oscaribv/pyaneti",
         "github/oscaribv/exotrending": "https://github.com/oscaribv/exotrending",
-        "github/oscaribv/citlalicue": "https://github.com/oscaribv/citlalicue"
+        "github/oscaribv/citlalicue": "https://github.com/oscaribv/citlalicue",
+        "github/pavanvyn/triple-stability": "https://github.com/pavanvyn/triple-stability",
+        "github/bic-nirrh/precocity": "https://github.com/bic-nirrh/precocity",
+        "github/ncbi/datasets": "https://github.com/ncbi/datasets",
+        "github/statgen/popscle": "https://github.com/statgen/popscle",
+        "github/Cadaei-Yuvxvs/OSHy-X": "https://github.com/Cadaei-Yuvxvs/OSHy-X",
+        "github/RafaelSdeSouza/qrpca": "https://github.com/RafaelSdeSouza/qrpca",
+        "github/psheehan/pdspy": "https://github.com/psheehan/pdspy",
+        "github/simoncasassus/ConeRot": "https://github.com/simoncasassus/ConeRot",
+        "github/marcelauliano/MitoHiFi": "https://github.com/marcelauliano/MitoHiFi",
+        "github/max-little/GRAPL": "https://github.com/max-little/GRAPL",
+        "github/chhylp123/hifiasm": "https://github.com/chhylp123/hifiasm",
+        "github/cpinte/mcfost": "https://github.com/cpinte/mcfost",
+        "github/cpinte/pymcfost": "https://github.com/cpinte/pymcfost",
+        "github/cpinte/casa_cube": "https://github.com/cpinte/casa_cube",
+        "github/sparks-baird/xtal2png": "https://github.com/sparks-baird/xtal2png",
+        "github/aabdurrouf/piXedfit": "https://github.com/aabdurrouf/piXedfit",
+        "github/seheonoh/baygaud": "https://github.com/seheonoh/baygaud",
+        "github/dgerosa/gwdet": "https://github.com/dgerosa/gwdet",
+        "github/LCOGT/banzai": "https://github.com/LCOGT/banzai",
+        "github/astro-informatics/massmappy": "https://github.com/astro-informatics/massmappy",
+        "github/astro-informatics/ssht": "https://github.com/astro-informatics/ssht",
+        "github/huchiayu/ParticleGridMapper.jl": "https://github.com/huchiayu/ParticleGridMapper.jl",
+        "github/krab1k/ChargeFW2": "https://github.com/krab1k/ChargeFW2",
+        "github/barricklab/pLannotate": "https://github.com/barricklab/pLannotate"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -27148,6 +27263,30 @@
         "github/danhey/echelle": "Dynamic echelle diagrams for asteroseismology",
         "github/oscaribv/pyaneti": "A multi-planet Radial Velocity and Transit modelling software",
         "github/oscaribv/exotrending": "A fast and easy-to-use light curve detrending software for exoplanets",
-        "github/oscaribv/citlalicue": "Create and manipulate stellar light curves!"
+        "github/oscaribv/citlalicue": "Create and manipulate stellar light curves!",
+        "github/pavanvyn/triple-stability": "Code to check if a given configuration of a triple-star system is dynamically stable",
+        "github/bic-nirrh/precocity": "Database and enrichment analysis of genes associated with precocious puberty",
+        "github/ncbi/datasets": "NCBI Datasets is an experimental resource for finding and building datasets",
+        "github/statgen/popscle": "A suite of population scale analysis tools for single-cell genomics data including implementation of Demuxlet / Freemuxlet methods and auxilary tools",
+        "github/Cadaei-Yuvxvs/OSHy-X": "Open Source Hypothalamic Atlas and Segmentation for 3T and 7T",
+        "github/RafaelSdeSouza/qrpca": "QR based Principal Components Analysis",
+        "github/psheehan/pdspy": "pdspy: MCMC for Monte Carlo Dust Radiative Transfer Modeling",
+        "github/simoncasassus/ConeRot": null,
+        "github/marcelauliano/MitoHiFi": "Find, circularise and annotate mitogenome from PacBio assemblies",
+        "github/max-little/GRAPL": "GRAPL: A computational library for nonparametric structural causal modelling, analysis and inference",
+        "github/chhylp123/hifiasm": "Hifiasm: a haplotype-resolved assembler for accurate Hifi reads ",
+        "github/cpinte/mcfost": "MCFOST radiative transfer code",
+        "github/cpinte/pymcfost": "python interface to the 3D radiative transfer code mcfost",
+        "github/cpinte/casa_cube": "python tool to display and analysis astronomical data cubes",
+        "github/sparks-baird/xtal2png": "Encode/decode a crystal structure to/from a grayscale PNG image for direct use with image-based machine learning models such as Palette.",
+        "github/aabdurrouf/piXedfit": "piXedfit is a Python package designed for analyzing spatially resolved SEDs of galaxies  ",
+        "github/seheonoh/baygaud": null,
+        "github/dgerosa/gwdet": "Detectability of gravitational-wave signals from compact binary coalescences",
+        "github/LCOGT/banzai": "Beautiful Algorithms to Normalize Zillions of Astronomical Images",
+        "github/astro-informatics/massmappy": "Mapping dark matter on the celestial sphere",
+        "github/astro-informatics/ssht": "Fast and exact spin spherical harmonic transforms",
+        "github/huchiayu/ParticleGridMapper.jl": null,
+        "github/krab1k/ChargeFW2": "The core part of Atomic Charge Calculator II.",
+        "github/barricklab/pLannotate": "Webserver and command line tool for annotating engineered plasmids"
     }
 }

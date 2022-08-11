@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/ggonnella/gfapy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "gfapy": {
+            "credit": 0.0099,
+            "url": "https://github.com/ggonnella/gfapy"
+        }
+    }
+}

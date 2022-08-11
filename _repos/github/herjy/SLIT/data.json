@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/herjy/SLIT": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "SLIT": {
+            "credit": 0.0099,
+            "url": "https://github.com/bweir/slit"
+        }
+    }
+}

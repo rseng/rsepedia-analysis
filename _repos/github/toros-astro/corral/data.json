@@ -1,0 +1,98 @@
+{
+    "setup.py": {
+        "github/toros-astro/corral": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "corral-pipeline": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/toros-astro/corral"
+        },
+        "alembic": {
+            "credit": 0.0004714285714285714,
+            "url": "https://alembic.sqlalchemy.org"
+        },
+        "coverage": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "flake8": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "Jinja2": {
+            "credit": 0.0004714285714285714,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "mock": {
+            "credit": 0.0004714285714285714,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "sadisplay": {
+            "credit": 0.0004714285714285714,
+            "url": "http://bitbucket.org/estin/sadisplay"
+        },
+        "sh": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/amoffat/sh"
+        },
+        "snakeviz": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/jiffyclub/snakeviz"
+        },
+        "SQLAlchemy": {
+            "credit": 0.000938142857142857,
+            "url": "https://www.sqlalchemy.org"
+        },
+        "SQLAlchemy-Utils": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/kvesteri/sqlalchemy-utils"
+        },
+        "termcolor": {
+            "credit": 0.0004714285714285714,
+            "url": "http://pypi.python.org/pypi/termcolor"
+        },
+        "texttable": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/foutaise/texttable/"
+        },
+        "xmltodict": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/martinblech/xmltodict"
+        },
+        "greenlet": {
+            "credit": 0.0004714285714285714,
+            "url": "https://greenlet.readthedocs.io/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0007047857142857142,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "mccabe": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/pycqa/mccabe"
+        },
+        "pycodestyle": {
+            "credit": 0.0004714285714285714,
+            "url": "https://pycodestyle.pycqa.org/"
+        },
+        "pyflakes": {
+            "credit": 0.0004714285714285714,
+            "url": "https://github.com/PyCQA/pyflakes"
+        },
+        "tornado": {
+            "credit": 0.000938142857142857,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "Mako": {
+            "credit": 0.0004714285714285714,
+            "url": "https://www.makotemplates.org/"
+        },
+        "Babel": {
+            "credit": 0.00023335714285714282,
+            "url": "http://babel.pocoo.org/"
+        }
+    }
+}

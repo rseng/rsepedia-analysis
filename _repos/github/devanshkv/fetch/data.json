@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/devanshkv/fetch": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "fetch": {
+            "credit": 0.0099,
+            "url": "http://k0s.org/mozilla/fetch"
+        }
+    }
+}

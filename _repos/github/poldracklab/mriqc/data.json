@@ -1,0 +1,246 @@
+{
+    "setup.py": {
+        "github/poldracklab/mriqc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "mriqc": {
+            "credit": 0.017368421052631578,
+            "url": "https://github.com/nipreps/mriqc"
+        },
+        "torch": {
+            "credit": 0.017368421052631578,
+            "url": "https://pytorch.org/"
+        },
+        "jinja2": {
+            "credit": 0.00017368421052631547,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "markupsafe": {
+            "credit": 0.017368421052631578,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "nibabel": {
+            "credit": 0.017368421052631578,
+            "url": "https://nipy.org/nibabel"
+        },
+        "nilearn": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/nilearn"
+        },
+        "nipype": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/nipype"
+        },
+        "nitransforms": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/nitransforms"
+        },
+        "niworkflows": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/niworkflows"
+        },
+        "matplotlib": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "pybids": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pybids"
+        },
+        "mriqc-learn": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/mriqc-learn"
+        },
+        "toml": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/toml"
+        },
+        "cycler": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "etelemetry": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/etelemetry"
+        },
+        "filelock": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "fonttools": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "formulaic": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/formulaic"
+        },
+        "kiwisolver": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "networkx": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/networkx"
+        },
+        "pillow": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "prov": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/prov"
+        },
+        "lxml": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "pydot": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pydot"
+        },
+        "rdflib": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/rdflib"
+        },
+        "simplejson": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/simplejson"
+        },
+        "sqlalchemy": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "svgutils": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/svgutils"
+        },
+        "templateflow": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/templateflow"
+        },
+        "traits": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/traits"
+        },
+        "bids-validator": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/bids-validator"
+        },
+        "h5py": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "looseversion": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/looseversion"
+        },
+        "num2words": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/num2words"
+        },
+        "scikit-image": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "seaborn": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "surfplot": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/surfplot"
+        },
+        "transforms3d": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/transforms3d"
+        },
+        "typing-extensions": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "astor": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/astor"
+        },
+        "brainspace": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/brainspace"
+        },
+        "ci-info": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/ci-info"
+        },
+        "docopt": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/docopt"
+        },
+        "imageio": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/imageio"
+        },
+        "interface-meta": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/interface-meta"
+        },
+        "PyWavelets": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/PyWavelets"
+        },
+        "tifffile": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/tifffile"
+        },
+        "vtk": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/vtk"
+        },
+        "wrapt": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "isodate": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/isodate"
+        },
+        "wslink": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/wslink"
+        },
+        "aiohttp": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "aiosignal": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/aiosignal"
+        },
+        "async-timeout": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/async-timeout"
+        },
+        "frozenlist": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/frozenlist"
+        },
+        "multidict": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/multidict"
+        },
+        "yarl": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/yarl"
+        },
+        "Babel": {
+            "credit": 0.008597368421052631,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.008597368421052631,
+            "url": "https://pypi.org/project/MarkupSafe"
+        }
+    }
+}

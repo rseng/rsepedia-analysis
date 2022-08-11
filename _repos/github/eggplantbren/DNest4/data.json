@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/eggplantbren/DNest4": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "dnest4": {
+            "credit": 0.0099,
+            "url": "https://github.com/eggplantbren/DNest4"
+        }
+    }
+}

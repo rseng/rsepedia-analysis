@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/danielkoll/PyRADS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numba": {
+            "credit": 0.0033000000000000004,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "llvmlite": {
+            "credit": 0.0033000000000000004,
+            "url": "http://llvmlite.readthedocs.io"
+        }
+    }
+}

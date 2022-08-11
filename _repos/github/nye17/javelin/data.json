@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/nye17/javelin": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "javelin": {
+            "credit": 0.0099,
+            "url": "https://github.com/0xJeremy/javelin"
+        }
+    }
+}

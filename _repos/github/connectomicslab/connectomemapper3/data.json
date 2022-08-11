@@ -1,0 +1,134 @@
+{
+    "setup.py": {
+        "github/connectomicslab/connectomemapper3": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "connectomemapper": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/connectomicslab/connectomemapper3"
+        },
+        "codecarbon": {
+            "credit": 0.020831250000000003,
+            "url": "https://pypi.org/project/codecarbon"
+        },
+        "dash-bootstrap-components": {
+            "credit": 0.024543750000000003,
+            "url": "https://dash-bootstrap-components.opensource.faculty.ai/"
+        },
+        "dash": {
+            "credit": 0.058575,
+            "url": "https://plotly.com/dash"
+        },
+        "dash-core-components": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/dash-core-components"
+        },
+        "dash-html-components": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/dash-html-components"
+        },
+        "dash-table": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/dash-table"
+        },
+        "APScheduler": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/APScheduler"
+        },
+        "fire": {
+            "credit": 0.0449625,
+            "url": "https://pypi.org/project/fire"
+        },
+        "py-cpuinfo": {
+            "credit": 0.0449625,
+            "url": "https://pypi.org/project/py-cpuinfo"
+        },
+        "pynvml": {
+            "credit": 0.0449625,
+            "url": "https://pypi.org/project/pynvml"
+        },
+        "Flask": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/Flask"
+        },
+        "tzlocal": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "flask-compress": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/flask-compress"
+        },
+        "termcolor": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "importlib-metadata": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "itsdangerous": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "Werkzeug": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "brotli": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "pytz-deprecation-shim": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/pytz-deprecation-shim"
+        },
+        "MarkupSafe": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "zipp": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "tzdata": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/tzdata"
+        },
+        "click": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/click"
+        },
+        "fuzzywuzzy": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/fuzzywuzzy"
+        },
+        "psutil": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "requests": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pandas": {
+            "credit": 0.017325,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "arrow": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/arrow"
+        },
+        "numpy": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/numpy"
+        }
+    }
+}

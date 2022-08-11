@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/dpryan79/pyBigWig": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyBigWig": {
+            "credit": 0.0099,
+            "url": "https://github.com/dpryan79/pyBigWig"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/bxlab/bx-python": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bx-python": {
+            "credit": 0.0099,
+            "url": "https://github.com/bxlab/bx-python"
+        },
+        "numpy": {
+            "credit": 0.009801,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

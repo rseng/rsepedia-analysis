@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/ChrisBeaumont/brut": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bubbly": {
+            "credit": 0.0099,
+            "url": "https://github.com/AashitaK/bubbly"
+        }
+    }
+}

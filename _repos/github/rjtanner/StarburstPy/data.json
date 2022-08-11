@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/rjtanner/StarburstPy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "StarburstPy": {
+            "credit": 0.0099,
+            "url": "https://github.com/rjtanner/StarburstPy"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "setup.py": {
+        "github/lehtiolab/msstitch": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "msstitch": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/lehtiolab/msstitch"
+        },
+        "biopython": {
+            "credit": 0.4389,
+            "url": "https://biopython.org/"
+        },
+        "lxml": {
+            "credit": 0.006948837431250033,
+            "url": "https://lxml.de/"
+        },
+        "numpy": {
+            "credit": 0.1089,
+            "url": "https://www.numpy.org"
+        },
+        "Cython": {
+            "credit": 0.11749992148124999,
+            "url": "http://cython.org/"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.0033543514125000105,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "html5lib": {
+            "credit": 0.005914188843750007,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "cssselect": {
+            "credit": 0.11749992148124999,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "soupsieve": {
+            "credit": 0.002559837431250001,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "six": {
+            "credit": 0.07481712799687498,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "webencodings": {
+            "credit": 0.07481712799687498,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.03548868592499999,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

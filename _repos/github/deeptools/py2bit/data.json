@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/deeptools/py2bit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "py2bit": {
+            "credit": 0.0099,
+            "url": "https://github.com/deeptools/py2bit"
+        }
+    }
+}

@@ -1,0 +1,130 @@
+{
+    "setup.py": {
+        "github/gwastro/pycbc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "PyCBC": {
+            "credit": 0.033,
+            "url": "http://www.pycbc.org/"
+        },
+        "astropy": {
+            "credit": 0.033,
+            "url": "http://astropy.org"
+        },
+        "cython": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/cython"
+        },
+        "h5py": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "lalsuite": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/lalsuite"
+        },
+        "lscsoft-glue": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/lscsoft-glue"
+        },
+        "Mako": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/Mako"
+        },
+        "matplotlib": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "mpld3": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/mpld3"
+        },
+        "pegasus-wms.api": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pegasus-wms.api"
+        },
+        "pillow": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "python-ligo-lw": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/python-ligo-lw"
+        },
+        "gwdatafind": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/gwdatafind"
+        },
+        "jinja2": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "ligo-segments": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/ligo-segments"
+        },
+        "cycler": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "fonttools": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "kiwisolver": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "MarkupSafe": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "pyerfa": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "pegasus-wms.common": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pegasus-wms.common"
+        },
+        "pyOpenSSL": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "pyRXP": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pyRXP"
+        },
+        "cryptography": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "safe-netrc": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/safe-netrc"
+        },
+        "scitokens": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/scitokens"
+        },
+        "igwn-auth-utils": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/igwn-auth-utils"
+        },
+        "cffi": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "PyJWT": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/PyJWT"
+        },
+        "pycparser": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pycparser"
+        }
+    }
+}

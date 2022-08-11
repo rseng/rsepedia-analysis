@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/nespinoza/mc-spam": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "UNKNOWN": {
+            "credit": 0.0099,
+            "url": "UNKNOWN"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/libgamera/GAMERA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "gappa": {
+            "credit": 0.0099,
+            "url": "http://joachimhahn.github.io/GAMERA/"
+        }
+    }
+}

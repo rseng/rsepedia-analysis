@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/sensein/etelemetry-client": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "etelemetry": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/sensein/etelemetry-client"
+        },
+        "ci-info": {
+            "credit": 0.59301,
+            "url": "https://github.com/mgxd/ci-info"
+        },
+        "codecov": {
+            "credit": 0.0009800999999999976,
+            "url": "https://github.com/codecov/codecov-python"
+        },
+        "pytest-cov": {
+            "credit": 0.0009800999999999976,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.013108837499999998,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "requests": {
+            "credit": 0.007529618250000002,
+            "url": "https://requests.readthedocs.io"
+        },
+        "coverage": {
+            "credit": 0.012613887000000004,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "virtualenv": {
+            "credit": 0.0121287375,
+            "url": "https://virtualenv.pypa.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0121287375,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0121287375,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0121287375,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0121287375,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0121287375,
+            "url": "https://pypi.org/project/fields"
+        },
+        "xmlschema": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "pygments": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.05409416925,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.00606436875,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "chardet": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.024176616749999998,
+            "url": "https://pypi.org/project/charset-normalizer"
+        }
+    }
+}

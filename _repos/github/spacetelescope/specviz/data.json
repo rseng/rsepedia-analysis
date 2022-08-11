@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/spacetelescope/specviz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "specviz": {
+            "credit": 0.0099,
+            "url": "https://github.com/spacetelescope/specviz"
+        }
+    }
+}

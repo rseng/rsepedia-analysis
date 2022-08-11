@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/clauswilke/PeptideBuilder": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "PeptideBuilder": {
+            "credit": 0.00495,
+            "url": "https://github.com/clauswilke/PeptideBuilder"
+        },
+        "Biopython": {
+            "credit": 0.00495,
+            "url": "https://biopython.org/"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/rvalieris/parallel-fastq-dump": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "parallel-fastq-dump": {
+            "credit": 0.0099,
+            "url": "https://github.com/rvalieris/parallel-fastq-dump"
+        }
+    }
+}

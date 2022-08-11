@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/deeptools/deeptools_intervals": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "deeptoolsintervals": {
+            "credit": 0.0099,
+            "url": "https://github.com/deeptools/deeptools_intervals"
+        }
+    }
+}

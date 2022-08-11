@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/HERA-Team/hera_opm": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "hera-opm": {
+            "credit": 0.00495,
+            "url": "https://github.com/HERA-Team/hera_opm"
+        },
+        "toml": {
+            "credit": 0.00495,
+            "url": "https://github.com/uiri/toml"
+        }
+    }
+}

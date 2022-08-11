@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/dstndstn/astrometry.net": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "astrometry": {
+            "credit": 0.0099,
+            "url": "https://github.com/neuromorphicsystems/astrometry"
+        }
+    }
+}

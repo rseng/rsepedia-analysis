@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/heliopython/heliopy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "HelioPy": {
+            "credit": 0.0099,
+            "url": "https://pypi.org/project/HelioPy"
+        },
+        "sphinx-bootstrap-theme": {
+            "credit": 0.0049005,
+            "url": "https://ryan-roemer.github.io/sphinx-bootstrap-theme/README.html"
+        },
+        "sphinx": {
+            "credit": 0.0049005,
+            "url": "https://www.sphinx-doc.org/"
+        }
+    }
+}

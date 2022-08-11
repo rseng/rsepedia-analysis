@@ -1,0 +1,246 @@
+{
+    "setup.py": {
+        "github/4pisky/fourpisky-core": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "comet": {
+            "credit": 0.00017368421052631547,
+            "url": "http://comet.transientskp.org/"
+        },
+        "sendgrid": {
+            "credit": 0.00017368421052631547,
+            "url": "https://github.com/sendgrid/sendgrid-python/"
+        },
+        "voevent-parse": {
+            "credit": 0.017368421052631578,
+            "url": "https://github.com/timstaley/voevent-parse"
+        },
+        "astropy": {
+            "credit": 0.017368421052631578,
+            "url": "http://astropy.org"
+        },
+        "ipython": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "Jinja2": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "logging_tree": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/logging_tree"
+        },
+        "nose": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/nose"
+        },
+        "pyephem": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pyephem"
+        },
+        "voeventdb.server": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/voeventdb.server"
+        },
+        "billiard": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/billiard"
+        },
+        "click-didyoumean": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/click-didyoumean"
+        },
+        "click-plugins": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/click-plugins"
+        },
+        "click-repl": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/click-repl"
+        },
+        "jedi": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/jedi"
+        },
+        "kombu": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/kombu"
+        },
+        "lxml": {
+            "credit": 0.021667105263157894,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "MarkupSafe": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "pexpect": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pexpect"
+        },
+        "prompt-toolkit": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/prompt-toolkit"
+        },
+        "pyerfa": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "python-http-client": {
+            "credit": 0.02596578947368421,
+            "url": "https://pypi.org/project/python-http-client"
+        },
+        "traitlets": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "twisted": {
+            "credit": 0.021667105263157894,
+            "url": "https://pypi.org/project/twisted"
+        },
+        "vine": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/vine"
+        },
+        "zope.interface": {
+            "credit": 0.021667105263157894,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "backcall": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/backcall"
+        },
+        "celery": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/celery"
+        },
+        "decorator": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "ephem": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/ephem"
+        },
+        "flask": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/flask"
+        },
+        "iso8601": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/iso8601"
+        },
+        "matplotlib-inline": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/matplotlib-inline"
+        },
+        "msgpack": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "orderedmultidict": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/orderedmultidict"
+        },
+        "pickleshare": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pickleshare"
+        },
+        "psycopg2": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/psycopg2"
+        },
+        "simplejson": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/simplejson"
+        },
+        "SQLAlchemy": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/SQLAlchemy"
+        },
+        "stack-data": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/stack-data"
+        },
+        "amqp": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/amqp"
+        },
+        "Automat": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/Automat"
+        },
+        "constantly": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/constantly"
+        },
+        "greenlet": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/greenlet"
+        },
+        "hyperlink": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/hyperlink"
+        },
+        "importlib-metadata": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "incremental": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/incremental"
+        },
+        "itsdangerous": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "parso": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/parso"
+        },
+        "ptyprocess": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/ptyprocess"
+        },
+        "typing-extensions": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "Werkzeug": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "asttokens": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/asttokens"
+        },
+        "executing": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/executing"
+        },
+        "pure-eval": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/pure-eval"
+        },
+        "wcwidth": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/wcwidth"
+        },
+        "zipp": {
+            "credit": 0.017368421052631578,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "py2-ipaddress": {
+            "credit": 0.004298684210526316,
+            "url": "https://pypi.org/project/py2-ipaddress"
+        },
+        "starkbank-ecdsa": {
+            "credit": 0.008597368421052631,
+            "url": "https://pypi.org/project/starkbank-ecdsa"
+        }
+    }
+}

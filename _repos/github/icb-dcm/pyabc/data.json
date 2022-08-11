@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/icb-dcm/pyabc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyabc": {
+            "credit": 0.0309375,
+            "url": "https://github.com/icb-dcm/pyabc"
+        },
+        "cloudpickle": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "distributed": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/distributed"
+        },
+        "dask": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/dask"
+        },
+        "gitpython": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/gitpython"
+        },
+        "jabbar": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/jabbar"
+        },
+        "matplotlib": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "redis": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/redis"
+        },
+        "sqlalchemy": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "async-timeout": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/async-timeout"
+        },
+        "cycler": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "deprecated": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/deprecated"
+        },
+        "fonttools": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "gitdb": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/gitdb"
+        },
+        "greenlet": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/greenlet"
+        },
+        "kiwisolver": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "locket": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/locket"
+        },
+        "msgpack": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "pillow": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "psutil": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "sortedcontainers": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "tblib": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/tblib"
+        },
+        "toolz": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "tornado": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "zict": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/zict"
+        },
+        "jinja2": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "fsspec": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "MarkupSafe": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "partd": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/partd"
+        },
+        "smmap": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/smmap"
+        },
+        "wrapt": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "heapdict": {
+            "credit": 0.0309375,
+            "url": "https://pypi.org/project/heapdict"
+        }
+    }
+}

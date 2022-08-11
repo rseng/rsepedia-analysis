@@ -1,0 +1,218 @@
+{
+    "setup.py": {
+        "github/sdss/marvin": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sdss-marvin": {
+            "credit": 0.01903846153846154,
+            "url": "https://github.com/sdss/marvin"
+        },
+        "astropy": {
+            "credit": 0.01903846153846154,
+            "url": "http://astropy.org"
+        },
+        "dogpile.cache": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/dogpile.cache"
+        },
+        "Flask-JWT-Extended": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/Flask-JWT-Extended"
+        },
+        "fuzzywuzzy": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/fuzzywuzzy"
+        },
+        "marvin-brain": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/marvin-brain"
+        },
+        "marvin-sqlalchemy-boolean-search": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/marvin-sqlalchemy-boolean-search"
+        },
+        "marvin-wtforms-alchemy": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/marvin-wtforms-alchemy"
+        },
+        "matplotlib": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "numpyencoder": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/numpyencoder"
+        },
+        "packaging": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "python-Levenshtein": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/python-Levenshtein"
+        },
+        "raven": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/raven"
+        },
+        "sdss-access": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/sdss-access"
+        },
+        "sdss-tree": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/sdss-tree"
+        },
+        "sdsstools": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/sdsstools"
+        },
+        "webargs": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/webargs"
+        },
+        "werkzeug": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/werkzeug"
+        },
+        "yamlordereddictloader": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/yamlordereddictloader"
+        },
+        "configparser": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/configparser"
+        },
+        "cycler": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "daemonocle": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/daemonocle"
+        },
+        "decorator": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "docutils": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "Flask": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/Flask"
+        },
+        "flask-classful": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/flask-classful"
+        },
+        "fonttools": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "invoke": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/invoke"
+        },
+        "kiwisolver": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "marshmallow": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/marshmallow"
+        },
+        "networkx": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/networkx"
+        },
+        "passlib": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/passlib"
+        },
+        "pillow": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "pyerfa": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "PyJWT": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/PyJWT"
+        },
+        "pyparsing": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "semantic-version": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/semantic-version"
+        },
+        "sqlalchemy": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "SQLAlchemy-Utils": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/SQLAlchemy-Utils"
+        },
+        "stevedore": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/stevedore"
+        },
+        "WTForms": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/WTForms"
+        },
+        "WTForms-Components": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/WTForms-Components"
+        },
+        "email-validator": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/email-validator"
+        },
+        "intervals": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/intervals"
+        },
+        "itsdangerous": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/itsdangerous"
+        },
+        "Jinja2": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "MarkupSafe": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "pbr": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/pbr"
+        },
+        "validators": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/validators"
+        },
+        "psutil": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "dnspython": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/dnspython"
+        },
+        "infinity": {
+            "credit": 0.01903846153846154,
+            "url": "https://pypi.org/project/infinity"
+        }
+    }
+}

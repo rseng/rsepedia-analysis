@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/bwkeller/PASTA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "PASTA": {
+            "credit": 0.0099,
+            "url": "http://github.com/guanghetv/pasta"
+        }
+    }
+}

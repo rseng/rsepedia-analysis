@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/astroML/gatspy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "gatspy": {
+            "credit": 0.0099,
+            "url": "http://github.com/astroml/gatspy"
+        }
+    }
+}
