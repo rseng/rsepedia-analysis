@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/galkintool/galkin": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "galkin": {
+            "credit": 0.0099,
+            "url": "UNKNOWN"
+        }
+    }
+}

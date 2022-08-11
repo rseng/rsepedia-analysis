@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/mmp2/megaman": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "megaman": {
+            "credit": 0.0099,
+            "url": "https://github.com/mmp2/megaman"
+        }
+    }
+}

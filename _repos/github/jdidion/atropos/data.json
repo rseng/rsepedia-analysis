@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/jdidion/atropos": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "atropos": {
+            "credit": 0.00495000000000001,
+            "url": "https://atropos.readthedocs.org/"
+        },
+        "cython": {
+            "credit": 0.5650071428571428,
+            "url": "http://cython.org/"
+        },
+        "tqdm": {
+            "credit": 0.0007000714285714249,
+            "url": "https://tqdm.github.io"
+        },
+        "srastream": {
+            "credit": 0.07000714285714285,
+            "url": "https://github.com/jdidion/srastream"
+        },
+        "pysam": {
+            "credit": 0.07000714285714285,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "progressbar2": {
+            "credit": 0.0007000714285714249,
+            "url": "https://github.com/WoLpH/python-progressbar"
+        },
+        "khmer": {
+            "credit": 0.07000714285714285,
+            "url": "https://khmer.readthedocs.io/"
+        },
+        "jinja2": {
+            "credit": 0.0007000714285714249,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "requests": {
+            "credit": 8.663383928571473e-05,
+            "url": "https://requests.readthedocs.io"
+        },
+        "slack-sdk": {
+            "credit": 0.008663383928571428,
+            "url": "https://github.com/slackapi/python-slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.008663383928571428,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "freezegun": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/freezegun"
+        },
+        "pytest-mypy": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-cov": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "flake8": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "sphinx": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "python-utils": {
+            "credit": 0.009901010204081632,
+            "url": "https://pypi.org/project/python-utils"
+        },
+        "Babel": {
+            "credit": 0.03465353571428571,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.03465353571428571,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "win-inet-pton": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "idna": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/idna"
+        },
+        "chardet": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "certifi": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.0012252500127551019,
+            "url": "https://pypi.org/project/urllib3"
+        }
+    }
+}

@@ -1,0 +1,82 @@
+{
+    "setup.py": {
+        "github/cthoyt/bel-resources": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bel-resources": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/cthoyt/bel-resources"
+        },
+        "multisplitby": {
+            "credit": 0.4389,
+            "url": "https://github.com/cthoyt/multisplitby"
+        },
+        "requests_file": {
+            "credit": 0.33,
+            "url": "http://github.com/dashea/requests-file"
+        },
+        "requests-file": {
+            "credit": 0.1089,
+            "url": "http://github.com/dashea/requests-file"
+        },
+        "requests": {
+            "credit": 0.0010890000000000066,
+            "url": "https://requests.readthedocs.io"
+        },
+        "chardet": {
+            "credit": 0.0179685,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.019945035,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.019945035,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.00017968499999999887,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.019945035,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.00017968499999999887,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "ipaddress": {
+            "credit": 0.0019765349999999998,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.0019765349999999998,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0019765349999999998,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.0019765349999999998,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0019765349999999998,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.0019765349999999998,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "unicodedata2": {
+            "credit": 0.017788815,
+            "url": "https://pypi.org/project/unicodedata2"
+        }
+    }
+}

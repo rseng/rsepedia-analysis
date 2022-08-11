@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/nbarbey/TomograPy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "TomograPy": {
+            "credit": 0.0099,
+            "url": "http://nbarbey.dyndns.org/software/siddon.html"
+        }
+    }
+}

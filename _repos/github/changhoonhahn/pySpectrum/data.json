@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/changhoonhahn/pySpectrum": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pySpectrum": {
+            "credit": 0.0099,
+            "url": "https://github.com/gooseterv/pyspectrum"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/iraf-community/pyraf": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyraf": {
+            "credit": 0.00495,
+            "url": "https://iraf-community.github.io/pyraf.html"
+        },
+        "configobj": {
+            "credit": 0.00495,
+            "url": "https://github.com/DiffSK/configobj"
+        },
+        "six": {
+            "credit": 0.0049005,
+            "url": "https://github.com/benjaminp/six"
+        }
+    }
+}

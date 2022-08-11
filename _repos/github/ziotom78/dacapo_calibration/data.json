@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/ziotom78/dacapo_calibration": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "calibrate": {
+            "credit": 0.0099,
+            "url": "https://github.com/ginkgobioworks/calibrate"
+        },
+        "six": {
+            "credit": 0.003267,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "scipy": {
+            "credit": 0.003267,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.00650133,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

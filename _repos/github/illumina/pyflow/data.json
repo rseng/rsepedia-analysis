@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/illumina/pyflow": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyFlow": {
+            "credit": 0.0099,
+            "url": "https://www.github.com/David-OConnor/pyflow"
+        }
+    }
+}

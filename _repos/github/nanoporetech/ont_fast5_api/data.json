@@ -1,0 +1,50 @@
+{
+    "setup.py": {
+        "github/nanoporetech/ont_fast5_api": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ont-fast5-api": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/nanoporetech/ont_fast5_api"
+        },
+        "h5py": {
+            "credit": 0.004116750000000001,
+            "url": "http://www.h5py.org"
+        },
+        "progressbar33": {
+            "credit": 0.004116750000000001,
+            "url": "http://github.com/germangh/python-progressbar"
+        },
+        "packaging": {
+            "credit": 0.00081675,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "numpy": {
+            "credit": 0.00081675,
+            "url": "https://www.numpy.org"
+        },
+        "pyparsing": {
+            "credit": 0.0008085824999999999,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "jinja2": {
+            "credit": 0.0004002483375,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.0004002483375,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "Babel": {
+            "credit": 0.0001981229270625,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0001981229270625,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}

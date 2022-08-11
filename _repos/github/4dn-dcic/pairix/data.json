@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/4dn-dcic/pairix": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pypairix": {
+            "credit": 0.0099,
+            "url": "https://github.com/4dn-dcic/pairix"
+        }
+    }
+}

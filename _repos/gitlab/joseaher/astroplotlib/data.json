@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "gitlab/joseaher/astroplotlib": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "astroplotlib": {
+            "credit": 0.0099,
+            "url": "https://gitlab.com/joseaher/astrocubelib"
+        }
+    }
+}

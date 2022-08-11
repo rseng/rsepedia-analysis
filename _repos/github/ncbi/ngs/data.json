@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/ncbi/ngs": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ngs": {
+            "credit": 0.0099,
+            "url": "https://broadtech.com.cn"
+        }
+    }
+}

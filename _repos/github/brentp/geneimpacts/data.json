@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/brentp/geneimpacts": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "geneimpacts": {
+            "credit": 0.0099,
+            "url": "https://pypi.org/project/geneimpacts"
+        }
+    }
+}

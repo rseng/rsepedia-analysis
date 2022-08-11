@@ -1,0 +1,134 @@
+{
+    "setup.py": {
+        "github/bmorris3/aesop": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "aesop": {
+            "credit": 0.03193548387096774,
+            "url": "https://github.com/rohithmohan/aesop-python"
+        },
+        "astropy": {
+            "credit": 0.03193548387096774,
+            "url": "http://astropy.org"
+        },
+        "astroquery": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/astroquery"
+        },
+        "matplotlib": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "specutils": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/specutils"
+        },
+        "asdf": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf"
+        },
+        "cycler": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "fonttools": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "gwcs": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/gwcs"
+        },
+        "html5lib": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/html5lib"
+        },
+        "keyring": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/keyring"
+        },
+        "kiwisolver": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "ndcube": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/ndcube"
+        },
+        "pillow": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "pyerfa": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/pyerfa"
+        },
+        "pyvo": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/pyvo"
+        },
+        "asdf-astropy": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf-astropy"
+        },
+        "asdf-standard": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf-standard"
+        },
+        "asdf-transform-schemas": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf-transform-schemas"
+        },
+        "importlib-metadata": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "jeepney": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/jeepney"
+        },
+        "jmespath": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/jmespath"
+        },
+        "SecretStorage": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/SecretStorage"
+        },
+        "semantic-version": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/semantic-version"
+        },
+        "asdf-wcs-schemas": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf-wcs-schemas"
+        },
+        "webencodings": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/webencodings"
+        },
+        "cryptography": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "zipp": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "asdf-coordinates-schemas": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/asdf-coordinates-schemas"
+        },
+        "cffi": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "pycparser": {
+            "credit": 0.03193548387096774,
+            "url": "https://pypi.org/project/pycparser"
+        }
+    }
+}

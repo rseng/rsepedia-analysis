@@ -1,0 +1,78 @@
+{
+    "setup.py": {
+        "github/tlambert03/pycudadecon": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pycudadecon": {
+            "credit": 0.33,
+            "url": "https://github.com/tlambert03/pycudadecon"
+        },
+        "tifffile": {
+            "credit": 0.0047404139191406505,
+            "url": "https://www.lfd.uci.edu/~gohlke/"
+        },
+        "typing-extensions": {
+            "credit": 0.336670805625,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "lxml": {
+            "credit": 0.0009334890984375047,
+            "url": "https://lxml.de/"
+        },
+        "matplotlib": {
+            "credit": 0.10813093501289063,
+            "url": "https://matplotlib.org"
+        },
+        "imagecodecs": {
+            "credit": 0.0008667810421875049,
+            "url": "https://www.lfd.uci.edu/~gohlke/"
+        },
+        "numpy": {
+            "credit": 0.11480174063789063,
+            "url": "https://www.numpy.org"
+        },
+        "Cython": {
+            "credit": 0.023103855186328123,
+            "url": "http://cython.org/"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.003091438311328125,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "html5lib": {
+            "credit": 0.0031581463675781248,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "cssselect": {
+            "credit": 0.023103855186328123,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "numcodecs": {
+            "credit": 0.0014404139191406254,
+            "url": "https://github.com/zarr-developers/numcodecs"
+        },
+        "soupsieve": {
+            "credit": 6.670805624999984e-05,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "six": {
+            "credit": 0.013308257221874998,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "webencodings": {
+            "credit": 0.013308257221874998,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "msgpack": {
+            "credit": 0.006670805624999999,
+            "url": "https://msgpack.org/"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.006604097568749999,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

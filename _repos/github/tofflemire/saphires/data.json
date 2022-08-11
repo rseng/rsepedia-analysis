@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/tofflemire/saphires": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "saphires": {
+            "credit": 0.0099,
+            "url": "https://github.com/tofflemire/saphires"
+        }
+    }
+}

@@ -1,0 +1,154 @@
+{
+    "setup.py": {
+        "github/biocore/emperor": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "emperor": {
+            "credit": 0.03,
+            "url": "http://github.com/biocore/emperor"
+        },
+        "jinja2": {
+            "credit": 0.00030000000000000165,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "scikit-bio": {
+            "credit": 0.03,
+            "url": "http://scikit-bio.org"
+        },
+        "future": {
+            "credit": 0.03,
+            "url": "https://python-future.org"
+        },
+        "CacheControl": {
+            "credit": 0.00030000000000000165,
+            "url": "https://github.com/ionrock/cachecontrol"
+        },
+        "decorator": {
+            "credit": 0.03,
+            "url": "https://github.com/micheles/decorator"
+        },
+        "h5py": {
+            "credit": 0.03,
+            "url": "http://www.h5py.org"
+        },
+        "hdmedians": {
+            "credit": 0.03,
+            "url": "http://github.com/daleroberts/hdmedians"
+        },
+        "IPython": {
+            "credit": 0.03,
+            "url": "https://ipython.org"
+        },
+        "lockfile": {
+            "credit": 0.037425,
+            "url": "https://pypi.org/project/lockfile"
+        },
+        "MarkupSafe": {
+            "credit": 0.04485,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "matplotlib": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "natsort": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/natsort"
+        },
+        "cycler": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/cycler"
+        },
+        "Cython": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/Cython"
+        },
+        "fonttools": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/fonttools"
+        },
+        "jedi": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/jedi"
+        },
+        "kiwisolver": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/kiwisolver"
+        },
+        "msgpack": {
+            "credit": 0.037425,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "pexpect": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/pexpect"
+        },
+        "pillow": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "prompt-toolkit": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/prompt-toolkit"
+        },
+        "traitlets": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "backcall": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/backcall"
+        },
+        "matplotlib-inline": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/matplotlib-inline"
+        },
+        "pickleshare": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/pickleshare"
+        },
+        "stack-data": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/stack-data"
+        },
+        "parso": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/parso"
+        },
+        "ptyprocess": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/ptyprocess"
+        },
+        "asttokens": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/asttokens"
+        },
+        "executing": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/executing"
+        },
+        "pure-eval": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/pure-eval"
+        },
+        "wcwidth": {
+            "credit": 0.03,
+            "url": "https://pypi.org/project/wcwidth"
+        },
+        "Babel": {
+            "credit": 0.014849999999999999,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "redis": {
+            "credit": 0.007424999999999999,
+            "url": "https://pypi.org/project/redis"
+        },
+        "requests": {
+            "credit": 0.007424999999999999,
+            "url": "https://pypi.org/project/requests"
+        }
+    }
+}

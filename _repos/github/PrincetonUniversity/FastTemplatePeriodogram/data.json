@@ -1,0 +1,94 @@
+{
+    "setup.py": {
+        "github/PrincetonUniversity/FastTemplatePeriodogram": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ftperiodogram": {
+            "credit": 0.00495000000000001,
+            "url": "http://github.com/jakevdp/nfft/"
+        },
+        "nfft": {
+            "credit": 0.6175125,
+            "url": "http://github.com/jakevdp/nfft/"
+        },
+        "scipy": {
+            "credit": 0.1225125,
+            "url": "https://www.scipy.org"
+        },
+        "pytest": {
+            "credit": 0.0012251250000000075,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "numpy": {
+            "credit": 0.1225125,
+            "url": "https://www.numpy.org"
+        },
+        "xmlschema": {
+            "credit": 0.007580460937499999,
+            "url": "https://github.com/sissaschool/xmlschema"
+        },
+        "requests": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.007580460937499999,
+            "url": "https://pypi.org/project/attrs"
+        }
+    }
+}

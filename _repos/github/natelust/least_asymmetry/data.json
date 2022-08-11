@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/natelust/least_asymmetry": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "least-asymmetry": {
+            "credit": 0.0099,
+            "url": "https://github.com/natelust/least_asymmetry"
+        }
+    }
+}

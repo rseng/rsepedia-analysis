@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/Alymantara/pydoppler": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pydoppler": {
+            "credit": 0.0099,
+            "url": "https://github.com/alymantara/pydoppler"
+        }
+    }
+}

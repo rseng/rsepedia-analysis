@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/EliseJ/astroABC": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "astroabc": {
+            "credit": 0.0099,
+            "url": "https://github.com/EliseJ/astroABC"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/brentp/cigar": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cigar": {
+            "credit": 0.0099,
+            "url": "https://github.com/brentp/cigar"
+        }
+    }
+}

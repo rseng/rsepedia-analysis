@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/kbarbary/nestle": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "nestle": {
+            "credit": 0.0099,
+            "url": "http://github.com/kbarbary/nestle"
+        }
+    }
+}

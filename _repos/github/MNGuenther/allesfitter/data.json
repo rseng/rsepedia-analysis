@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/MNGuenther/allesfitter": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "allesfitter": {
+            "credit": 0.0099,
+            "url": "https://github.com/MNGuenther/allesfitter"
+        }
+    }
+}

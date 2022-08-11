@@ -1,0 +1,182 @@
+{
+    "setup.py": {
+        "github/BD2KGenomics/toil": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "toil": {
+            "credit": 0.0825,
+            "url": "https://github.com/DataBiosphere/toil"
+        },
+        "addict": {
+            "credit": 0.0825,
+            "url": "https://github.com/mewwts/addict"
+        },
+        "dill": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "docker": {
+            "credit": 0.0825,
+            "url": "https://github.com/docker/docker-py"
+        },
+        "enlighten": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/Rockhopper-Technologies/enlighten"
+        },
+        "psutil": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "py-tes": {
+            "credit": 0.0825,
+            "url": "https://github.com/ohsu-comp-bio/py-tes"
+        },
+        "blessed": {
+            "credit": 0.0012333750000000088,
+            "url": "https://github.com/jquast/blessed"
+        },
+        "future": {
+            "credit": 0.0825,
+            "url": "https://python-future.org"
+        },
+        "prefixed": {
+            "credit": 0.1233375,
+            "url": "https://github.com/Rockhopper-Technologies/prefixed"
+        },
+        "websocket-client": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/websocket-client/websocket-client.git"
+        },
+        "wcwidth": {
+            "credit": 0.009074175000000006,
+            "url": "https://github.com/jquast/wcwidth"
+        },
+        "objgraph": {
+            "credit": 0.000816750000000005,
+            "url": "https://mg.pov.lt/objgraph/"
+        },
+        "wmi": {
+            "credit": 0.016335,
+            "url": "http://timgolden.me.uk/python/wmi.html"
+        },
+        "pywin32": {
+            "credit": 0.016335,
+            "url": "https://github.com/mhammond/pywin32"
+        },
+        "enum34": {
+            "credit": 0.016335,
+            "url": "https://bitbucket.org/stoneleaf/enum34"
+        },
+        "mock": {
+            "credit": 0.016335,
+            "url": "http://mock.readthedocs.org/en/latest/"
+        },
+        "ipaddress": {
+            "credit": 0.016335,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "backports.functools-lru-cache": {
+            "credit": 0.106095825,
+            "url": "https://github.com/jaraco/backports.functools_lru_cache"
+        },
+        "ordereddict": {
+            "credit": 0.024420825,
+            "url": "UNKNOWN"
+        },
+        "jinxed": {
+            "credit": 0.008249175,
+            "url": "https://github.com/Rockhopper-Technologies/jinxed"
+        },
+        "six": {
+            "credit": 0.024420825,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "websockets": {
+            "credit": 0.016335,
+            "url": "https://github.com/aaugustin/websockets"
+        },
+        "wsaccel": {
+            "credit": 0.016335,
+            "url": "https://github.com/methane/wsaccel"
+        },
+        "python-socks": {
+            "credit": 0.0001633499999999996,
+            "url": "https://github.com/romis2012/python-socks"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.016335,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "Sphinx": {
+            "credit": 0.016335,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "graphviz": {
+            "credit": 0.08085824999999999,
+            "url": "https://pypi.org/project/graphviz"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest-enabler": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-flake8": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "pytest-mypy": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "pytest": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "rst.linker": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.0016171649999999998,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "ansicon": {
+            "credit": 0.01617165,
+            "url": "https://pypi.org/project/ansicon"
+        },
+        "trio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/trio"
+        },
+        "curio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/curio"
+        },
+        "async-timeout": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/async-timeout"
+        },
+        "anyio": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/anyio"
+        }
+    }
+}

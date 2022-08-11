@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/beastraban/INSANE": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "INSANE": {
+            "credit": 0.0099,
+            "url": "https://github.com/Tsjerk/Insane"
+        }
+    }
+}

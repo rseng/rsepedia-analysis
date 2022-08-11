@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/marius311/pypico": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pypico": {
+            "credit": 0.0099,
+            "url": "https://sites.google.com/a/ucdavis.edu/pico"
+        }
+    }
+}
