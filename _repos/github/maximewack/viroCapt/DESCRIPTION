@@ -1,0 +1,26 @@
+Package: viroCapt
+Title: Viral capture analysis pipeline
+Version: 3.2.0
+Authors@R: c(person("Maxime", "Wack", email = "maxime.wack@aphp.fr", role = c("aut", "cre")),
+             person("Bastien", "Rance", email = "bastien.rance@aphp.fr", role = c("aut")),
+             person("David", "Veyer", email = "david.veyer@aphp.fr", role = c("aut")),
+             person("Helene", "Pere", email = "helene.pere@aphp.fr", role = c("aut")))
+Description: Provides wrappers around bioinformatics tools, plotting functions, and functions for viral capture analysis.
+Depends: R (>= 3.4.4)
+License: GPL-3 + file LICENSE
+LazyData: true
+RoxygenNote: 7.1.2
+ByteCompile: true
+Imports:
+    dplyr,
+    tidyr,
+    readr,
+    forcats,
+    ggplot2,
+    patchwork,
+    plotly,
+    purrr,
+    DT,
+    shiny,
+    furrr,
+    stringr

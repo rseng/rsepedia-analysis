@@ -1,0 +1,50 @@
+{
+    "requirements.txt": {
+        "github/COMBINE-lab/alevin-fry": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "furo": {
+            "credit": 0.0099,
+            "url": "https://pradyunsg.me/furo/quickstart"
+        },
+        "pygments~=2.7": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/pygments~=2.7"
+        },
+        "sphinx~=4.0": {
+            "credit": 0.003267,
+            "url": "https://pypi.org/project/sphinx~=4.0"
+        },
+        "beautifulsoup4": {
+            "credit": 0.003267,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "lxml": {
+            "credit": 0.00107811,
+            "url": "https://lxml.de/"
+        },
+        "html5lib": {
+            "credit": 0.00107811,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "soupsieve": {
+            "credit": 0.00107811,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "six": {
+            "credit": 0.0005336644499999999,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "webencodings": {
+            "credit": 0.0005336644499999999,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.0010673288999999999,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

@@ -1,0 +1,52 @@
+Package: causact
+Type: Package
+Title: Accelerated Bayesian Analytics with DAGs
+Version: 0.4.2.9000
+Authors@R: c(person("Adam", "Fleischhacker", email = "ajf@udel.edu", role = c("aut", "cre","cph")),
+    person("Daniela", "Dapena", role = "ctb"),
+    person("Rose", "Nguyen", role = "ctb"),
+    person("Jared", "Sharpe", role = "ctb")
+    )
+Description: Accelerate Bayesian analytics workflows in 'R' through interactive modelling,
+    visualization, and inference. Define probabilistic graphical models using directed
+    acyclic graphs (DAGs) as a unifying language for business stakeholders, statisticians, 
+    and programmers. This package relies on the sleek and elegant 'greta' package for 
+    Bayesian inference. 'greta', in turn, is an interface into 'TensorFlow' from 'R'. 
+    Install 'greta' using instructions available here: <https://www.causact.com/install-tensorflow-greta-and-causact.html>.
+    See <https://github.com/flyaflya/causact> or <https://www.causact.com/> for more documentation.
+License: MIT + file LICENSE
+URL: https://github.com/flyaflya/causact, https://www.causact.com/
+BugReports: https://github.com/flyaflya/causact/issues
+SystemRequirements: Python and TensorFlow are needed for Bayesian inference computations; 
+    Python (>= 2.7.0) with header files and shared library;
+    TensorFlow (= v1.14; https://www.tensorflow.org/);
+    TensorFlow Probability (= v0.7.0; https://www.tensorflow.org/probability/)
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.2.0)
+Imports:
+    DiagrammeR (>= 1.0.7),
+    dplyr (>= 0.8.5),
+    magrittr (>= 1.5),
+    ggplot2 (>= 3.3.0),
+    rlang (>= 0.4.6),
+    greta (>= 0.3.1),
+    purrr (>= 0.3.4),
+    tidyr (>= 1.0.3),
+    igraph (>= 1.2.5),
+    stringr (>= 1.4.0),
+    cowplot (>= 1.0.0),
+    coda (>= 0.19.3),
+    forcats (>= 0.5.0),
+    htmlwidgets (>= 1.5.1),
+    rstudioapi (>= 0.11),
+    lifecycle
+RoxygenNote: 7.1.2
+Suggests: 
+    knitr,
+    covr,
+    testthat (>= 3.0.0),
+    rmarkdown
+Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
