@@ -1,0 +1,110 @@
+{
+    "setup.py": {
+        "github/agshumate/LiftoffTools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.14142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "nltk": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.nltk.org/"
+        },
+        "numpy": {
+            "credit": 0.30477857142857145,
+            "url": "https://www.numpy.org"
+        },
+        "parasail": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/jeffdaily/parasail-python"
+        },
+        "gffutils": {
+            "credit": 0.14142857142857143,
+            "url": "https://github.com/daler/gffutils"
+        },
+        "pyfaidx": {
+            "credit": 0.14142857142857143,
+            "url": "http://mattshirley.com"
+        },
+        "biopython": {
+            "credit": 0.14142857142857143,
+            "url": "https://biopython.org/"
+        },
+        "pyparsing": {
+            "credit": 0.0002333571428571428,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "tqdm": {
+            "credit": 0.0002333571428571428,
+            "url": "https://tqdm.github.io"
+        },
+        "regex": {
+            "credit": 0.023335714285714283,
+            "url": "https://github.com/mrabarnett/mrab-regex"
+        },
+        "joblib": {
+            "credit": 0.023335714285714283,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "click": {
+            "credit": 0.0002333571428571428,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "jinja2": {
+            "credit": 0.00011551178571428573,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "railroad-diagrams": {
+            "credit": 0.01155117857142857,
+            "url": "https://github.com/tabatkins/railroad-diagrams"
+        },
+        "requests": {
+            "credit": 0.0028877946428571425,
+            "url": "https://requests.readthedocs.io"
+        },
+        "slack-sdk": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0028877946428571425,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.014438973214285711,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "importlib-metadata": {
+            "credit": 0.01155117857142857,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "Babel": {
+            "credit": 0.005717833392857142,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.005717833392857142,
+            "url": "https://pypi.org/project/MarkupSafe"
+        }
+    }
+}

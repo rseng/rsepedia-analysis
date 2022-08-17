@@ -15074,6 +15074,56 @@
         "github/barricklab/pLannotate": [
             "plasmid-annotation",
             "webserver"
+        ],
+        "github/agshumate/LiftoffTools": [],
+        "github/domschrei/mallob": [],
+        "github/peikuan/WBBC": [],
+        "github/myfang2021/VIPPID": [],
+        "github/mh-skjelvareid/synaptus": [],
+        "github/putonti/virmine": [],
+        "github/10XGenomics/bamtofastq": [],
+        "github/JacobBumgarner/VesselVio": [
+            "open-source",
+            "visualization",
+            "analysis"
+        ],
+        "github/maize-genetics/rTASSEL": [],
+        "github/ajohnson-uoregon/llvm-project": [],
+        "github/maximewack/viroCapt": [],
+        "github/connor-lab/vapor": [],
+        "github/Onogi/VIGoR": [],
+        "github/tolkit/telomeric-identifier": [
+            "genome",
+            "rust",
+            "telomere",
+            "repeats",
+            "telomeric",
+            "telomeres",
+            "bioinformatics"
+        ],
+        "github/OceanGenomics/mudskipper": [
+            "bioinformatics",
+            "rna-seq",
+            "scrna-seq",
+            "transcriptomics",
+            "converter"
+        ],
+        "github/AnantharamanLab/vRhyme": [],
+        "github/stevenweaver/seqcomplexity": [],
+        "github/flyaflya/causact": [],
+        "github/COMBINE-lab/terminus": [
+            "rna-seq",
+            "transcriptomics",
+            "gene-expression"
+        ],
+        "github/COMBINE-lab/alevin-fry": [
+            "single-cell",
+            "rust",
+            "transcriptomics",
+            "rna-seq",
+            "single-cell-rna-seq",
+            "quantification",
+            "10x"
         ]
     },
     "language": {
@@ -19145,7 +19195,27 @@
         "github/astro-informatics/ssht": "C",
         "github/huchiayu/ParticleGridMapper.jl": "Julia",
         "github/krab1k/ChargeFW2": "C++",
-        "github/barricklab/pLannotate": "Python"
+        "github/barricklab/pLannotate": "Python",
+        "github/agshumate/LiftoffTools": "Python",
+        "github/domschrei/mallob": "C++",
+        "github/peikuan/WBBC": "Perl",
+        "github/myfang2021/VIPPID": "R",
+        "github/mh-skjelvareid/synaptus": "MATLAB",
+        "github/putonti/virmine": "Python",
+        "github/10XGenomics/bamtofastq": "Rust",
+        "github/JacobBumgarner/VesselVio": "Python",
+        "github/maize-genetics/rTASSEL": "R",
+        "github/ajohnson-uoregon/llvm-project": "unknown",
+        "github/maximewack/viroCapt": "R",
+        "github/connor-lab/vapor": "Python",
+        "github/Onogi/VIGoR": "R",
+        "github/tolkit/telomeric-identifier": "Rust",
+        "github/OceanGenomics/mudskipper": "Rust",
+        "github/AnantharamanLab/vRhyme": "Python",
+        "github/stevenweaver/seqcomplexity": "Rust",
+        "github/flyaflya/causact": "R",
+        "github/COMBINE-lab/terminus": "Rust",
+        "github/COMBINE-lab/alevin-fry": "Rust"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23216,7 +23286,27 @@
         "github/astro-informatics/ssht": "https://github.com/astro-informatics/ssht",
         "github/huchiayu/ParticleGridMapper.jl": "https://github.com/huchiayu/ParticleGridMapper.jl",
         "github/krab1k/ChargeFW2": "https://github.com/krab1k/ChargeFW2",
-        "github/barricklab/pLannotate": "https://github.com/barricklab/pLannotate"
+        "github/barricklab/pLannotate": "https://github.com/barricklab/pLannotate",
+        "github/agshumate/LiftoffTools": "https://github.com/agshumate/LiftoffTools",
+        "github/domschrei/mallob": "https://github.com/domschrei/mallob",
+        "github/peikuan/WBBC": "https://github.com/peikuan/WBBC",
+        "github/myfang2021/VIPPID": "https://github.com/myfang2021/VIPPID",
+        "github/mh-skjelvareid/synaptus": "https://github.com/mh-skjelvareid/synaptus",
+        "github/putonti/virmine": "https://github.com/putonti/virMine",
+        "github/10XGenomics/bamtofastq": "https://github.com/10XGenomics/bamtofastq",
+        "github/JacobBumgarner/VesselVio": "https://github.com/JacobBumgarner/VesselVio",
+        "github/maize-genetics/rTASSEL": "https://github.com/maize-genetics/rTASSEL",
+        "github/ajohnson-uoregon/llvm-project": "https://github.com/ajohnson-uoregon/llvm-project",
+        "github/maximewack/viroCapt": "https://github.com/MaximeWack/viroCapt",
+        "github/connor-lab/vapor": "https://github.com/connor-lab/vapor",
+        "github/Onogi/VIGoR": "https://github.com/Onogi/VIGoR",
+        "github/tolkit/telomeric-identifier": "https://github.com/tolkit/telomeric-identifier",
+        "github/OceanGenomics/mudskipper": "https://github.com/OceanGenomics/mudskipper",
+        "github/AnantharamanLab/vRhyme": "https://github.com/AnantharamanLab/vRhyme",
+        "github/stevenweaver/seqcomplexity": "https://github.com/stevenweaver/seqcomplexity",
+        "github/flyaflya/causact": "https://github.com/flyaflya/causact",
+        "github/COMBINE-lab/terminus": "https://github.com/COMBINE-lab/terminus",
+        "github/COMBINE-lab/alevin-fry": "https://github.com/COMBINE-lab/alevin-fry"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -27287,6 +27377,26 @@
         "github/astro-informatics/ssht": "Fast and exact spin spherical harmonic transforms",
         "github/huchiayu/ParticleGridMapper.jl": null,
         "github/krab1k/ChargeFW2": "The core part of Atomic Charge Calculator II.",
-        "github/barricklab/pLannotate": "Webserver and command line tool for annotating engineered plasmids"
+        "github/barricklab/pLannotate": "Webserver and command line tool for annotating engineered plasmids",
+        "github/agshumate/LiftoffTools": "is a toolkit to compare genes lifted between genome assemblies.",
+        "github/domschrei/mallob": "Malleable Load Balancer. Massively Parallel Logic Backend. Award-winning SAT solving for the cloud.",
+        "github/peikuan/WBBC": "Westlake BioBank for Chinese pilot project",
+        "github/myfang2021/VIPPID": null,
+        "github/mh-skjelvareid/synaptus": "A Matlab/Octave toolbox for synthetic aperture ultrasound imaging",
+        "github/putonti/virmine": null,
+        "github/10XGenomics/bamtofastq": "Convert 10x BAM files to the original FASTQs compatible with 10x pipelines",
+        "github/JacobBumgarner/VesselVio": "VesselVio is an open-source application for the analysis and visualization of segmented vasculature datasets",
+        "github/maize-genetics/rTASSEL": "R front-end for TASSEL",
+        "github/ajohnson-uoregon/llvm-project": "The LLVM Project is a collection of modular and reusable compiler and toolchain technologies. Note: the repository does not accept github pull requests at this moment. Please submit your patches at http://reviews.llvm.org.",
+        "github/maximewack/viroCapt": null,
+        "github/connor-lab/vapor": "is a tool for classification of Influenza samples from raw short read sequence data for downstream bioinformatics analysis.",
+        "github/Onogi/VIGoR": "Variational Bayesian Inference for Genome-Wide Regression",
+        "github/tolkit/telomeric-identifier": "Identify and find telomeres, or telomeric repeats in a genome.",
+        "github/OceanGenomics/mudskipper": "A tool for projecting genomic alignments to transcriptomic coordinates",
+        "github/AnantharamanLab/vRhyme": "Binning Virus Genomes from Metagenomes",
+        "github/stevenweaver/seqcomplexity": "Rust package that calculates sequence complexity from FastQ file",
+        "github/flyaflya/causact": "causact:  R package to accelerate Bayesian analytics workflows.",
+        "github/COMBINE-lab/terminus": "enables the discovery of data-driven, robust transcript groups from RNA-seq data.",
+        "github/COMBINE-lab/alevin-fry": "   alevin-fry is an efficient and flexible tool for processing single-cell sequencing data, currently focused on single-cell transcriptomics and feature barcoding."
     }
 }
