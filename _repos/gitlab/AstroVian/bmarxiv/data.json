@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "gitlab/AstroVian/bmarxiv": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "PyYAML": {
+            "credit": 0.0099,
+            "url": "https://pyyaml.org/"
+        }
+    }
+}
