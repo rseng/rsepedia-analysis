@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/podondra/eidein": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ipympl": {
+            "credit": 0.00198,
+            "url": "http://matplotlib.org"
+        },
+        "ipywidgets": {
+            "credit": 0.00198,
+            "url": "http://jupyter.org"
+        },
+        "matplotlib": {
+            "credit": 0.00198,
+            "url": "https://matplotlib.org"
+        },
+        "scikit-learn": {
+            "credit": 0.00198,
+            "url": "http://scikit-learn.org"
+        },
+        "umap-learn": {
+            "credit": 0.00198,
+            "url": "http://github.com/lmcinnes/umap"
+        }
+    }
+}

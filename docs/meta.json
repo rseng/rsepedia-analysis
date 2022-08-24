@@ -15124,7 +15124,63 @@
             "single-cell-rna-seq",
             "quantification",
             "10x"
-        ]
+        ],
+        "github/raddleverse/MimiBRICK.jl": [],
+        "github/ptiede/Comrade.jl": [],
+        "github/JuliaHEP/UnROOT.jl": [
+            "cern-root",
+            "julia",
+            "analysis",
+            "bigdata",
+            "particle-physics",
+            "hep",
+            "hep-ex",
+            "high-energy-physics",
+            "hacktoberfest"
+        ],
+        "github/podondra/eidein": [],
+        "github/JetBrains-Research/spbla": [
+            "cplusplus",
+            "sparse-matrix",
+            "boolean-algebra",
+            "cuda",
+            "opencl",
+            "graphblas",
+            "suitesparse",
+            "python",
+            "graph-algorithms"
+        ],
+        "github/lpfworld/DMPNet": [],
+        "github/SciML/GlobalSensitivity.jl": [],
+        "github/temuller/hostphot": [
+            "cosmology",
+            "supernova",
+            "galaxy",
+            "python",
+            "photometry",
+            "sep",
+            "sextractor",
+            "transients"
+        ],
+        "github/desihub/fastspecfit": [],
+        "github/wouterpeere/GHEtool": [
+            "geothermal-energy",
+            "borefields",
+            "sizing",
+            "energy",
+            "storage",
+            "geothermal"
+        ],
+        "github/WangLabTHU/DeSP": [],
+        "github/yangyanli/DO-Conv": [
+            "deep-learning",
+            "convolutional-neural-networks",
+            "tensorflow",
+            "pytorch",
+            "gluoncv"
+        ],
+        "github/JanLeppert/GasChromatographySimulator.jl": [],
+        "gitlab/AstroVian/bmarxiv": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19215,7 +19271,21 @@
         "github/stevenweaver/seqcomplexity": "Rust",
         "github/flyaflya/causact": "R",
         "github/COMBINE-lab/terminus": "Rust",
-        "github/COMBINE-lab/alevin-fry": "Rust"
+        "github/COMBINE-lab/alevin-fry": "Rust",
+        "github/raddleverse/MimiBRICK.jl": "Julia",
+        "github/ptiede/Comrade.jl": "Julia",
+        "github/JuliaHEP/UnROOT.jl": "Julia",
+        "github/podondra/eidein": "Python",
+        "github/JetBrains-Research/spbla": "C++",
+        "github/lpfworld/DMPNet": "Python",
+        "github/SciML/GlobalSensitivity.jl": "Julia",
+        "github/temuller/hostphot": "Python",
+        "github/desihub/fastspecfit": "Python",
+        "github/wouterpeere/GHEtool": "Python",
+        "github/WangLabTHU/DeSP": "Jupyter Notebook",
+        "github/yangyanli/DO-Conv": "Python",
+        "github/JanLeppert/GasChromatographySimulator.jl": "Julia",
+        "gitlab/AstroVian/bmarxiv": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23306,7 +23376,21 @@
         "github/stevenweaver/seqcomplexity": "https://github.com/stevenweaver/seqcomplexity",
         "github/flyaflya/causact": "https://github.com/flyaflya/causact",
         "github/COMBINE-lab/terminus": "https://github.com/COMBINE-lab/terminus",
-        "github/COMBINE-lab/alevin-fry": "https://github.com/COMBINE-lab/alevin-fry"
+        "github/COMBINE-lab/alevin-fry": "https://github.com/COMBINE-lab/alevin-fry",
+        "github/raddleverse/MimiBRICK.jl": "https://github.com/raddleverse/MimiBRICK.jl",
+        "github/ptiede/Comrade.jl": "https://github.com/ptiede/Comrade.jl",
+        "github/JuliaHEP/UnROOT.jl": "https://github.com/JuliaHEP/UnROOT.jl",
+        "github/podondra/eidein": "https://github.com/podondra/eidein",
+        "github/JetBrains-Research/spbla": "https://github.com/JetBrains-Research/spbla",
+        "github/lpfworld/DMPNet": "https://github.com/lpfworld/DMPNet",
+        "github/SciML/GlobalSensitivity.jl": "https://github.com/SciML/GlobalSensitivity.jl",
+        "github/temuller/hostphot": "https://github.com/temuller/hostphot",
+        "github/desihub/fastspecfit": "https://github.com/desihub/fastspecfit",
+        "github/wouterpeere/GHEtool": "https://github.com/wouterpeere/GHEtool",
+        "github/WangLabTHU/DeSP": "https://github.com/WangLabTHU/DeSP",
+        "github/yangyanli/DO-Conv": "https://github.com/yangyanli/DO-Conv",
+        "github/JanLeppert/GasChromatographySimulator.jl": "https://github.com/JanLeppert/GasChromatographySimulator.jl",
+        "gitlab/AstroVian/bmarxiv": "https://gitlab.com/AstroVian/bmarxiv"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -27397,6 +27481,20 @@
         "github/stevenweaver/seqcomplexity": "Rust package that calculates sequence complexity from FastQ file",
         "github/flyaflya/causact": "causact:  R package to accelerate Bayesian analytics workflows.",
         "github/COMBINE-lab/terminus": "enables the discovery of data-driven, robust transcript groups from RNA-seq data.",
-        "github/COMBINE-lab/alevin-fry": "\ud83d\udc1f \ud83d\udd2c\ud83e\udd80  alevin-fry is an efficient and flexible tool for processing single-cell sequencing data, currently focused on single-cell transcriptomics and feature barcoding."
+        "github/COMBINE-lab/alevin-fry": "\ud83d\udc1f \ud83d\udd2c\ud83e\udd80  alevin-fry is an efficient and flexible tool for processing single-cell sequencing data, currently focused on single-cell transcriptomics and feature barcoding.",
+        "github/raddleverse/MimiBRICK.jl": null,
+        "github/ptiede/Comrade.jl": null,
+        "github/JuliaHEP/UnROOT.jl": "Native Julia I/O package to work with CERN ROOT files",
+        "github/podondra/eidein": "Interactive tool for dimensionality reduction of spectra and their visualisation",
+        "github/JetBrains-Research/spbla": "Sparse Boolean linear algebra for Nvidia Cuda, OpenCL and CPU computations",
+        "github/lpfworld/DMPNet": "DMPNet",
+        "github/SciML/GlobalSensitivity.jl": null,
+        "github/temuller/hostphot": "HostPhot: global and local photometry of galaxies hosting supernovae or other transients",
+        "github/desihub/fastspecfit": "Fast (simple) spectral synthesis and emission-line fitting of DESI spectra.",
+        "github/wouterpeere/GHEtool": "GHEtool is an open-source tool for borefield sizing and ground temperature evolution plotting.",
+        "github/WangLabTHU/DeSP": "DNA-D2S: a systematic error simulation Model for DNA Data Storage channel",
+        "github/yangyanli/DO-Conv": "Depthwise Over-parameterized Convolutional Layer",
+        "github/JanLeppert/GasChromatographySimulator.jl": "A package for the simulation of gas chromatography (GC)",
+        "gitlab/AstroVian/bmarxiv": null
     }
 }
