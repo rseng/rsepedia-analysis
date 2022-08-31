@@ -15180,7 +15180,77 @@
             "gluoncv"
         ],
         "github/JanLeppert/GasChromatographySimulator.jl": [],
-        "gitlab/AstroVian/bmarxiv": []
+        "gitlab/AstroVian/bmarxiv": [],
+        "github/micahvista/MAMnet": [
+            "bioinformatics",
+            "genomics",
+            "structural-variation-calling",
+            "structural-variations",
+            "deep-learning",
+            "deep-neural-networks"
+        ],
+        "github/floodlight-sports/floodlight": [
+            "python",
+            "sports-analytics",
+            "sports-stats"
+        ],
+        "github/ejikeugba/gofcat": [
+            "hosmer-lemeshow-test",
+            "lipsitz-test",
+            "pulkstenis-robinson-test",
+            "brant-test",
+            "likelihood-ratio-test",
+            "proportional-odds-test",
+            "pseudo-r2",
+            "brier-scores",
+            "log-loss-score-metric",
+            "misclassification",
+            "logistic-regression",
+            "ordinal-regression"
+        ],
+        "github/Mat-dp/mat-dp-core": [
+            "modelling-tool",
+            "bulk-materials",
+            "critical-materials",
+            "embodied-emissions",
+            "low-carbon-systems",
+            "material-demand"
+        ],
+        "github/mne-tools/mne-icalabel": [
+            "eeg",
+            "ica",
+            "neuroscience",
+            "python"
+        ],
+        "github/valentineap/pyprop8": [],
+        "github/travisseymour/EPICpy": [],
+        "github/BioHPC/MegaD": [],
+        "github/stefanoMP/massiveGST": [],
+        "github/matthiasdemuzere/w2w": [],
+        "github/cicirello/rho-mu": [
+            "randomizer",
+            "randomization",
+            "gaussian",
+            "cauchy",
+            "binomial",
+            "pseudorandom",
+            "random-numbers"
+        ],
+        "github/tyo-nu/MINE-app": [
+            "cheminformatics",
+            "metabolomics"
+        ],
+        "github/palaimon/ipyannotator": [
+            "ipycanvas",
+            "nbdev",
+            "ipywidgets",
+            "voila",
+            "labeling",
+            "annotations",
+            "labeling-tool",
+            "annotation-tool"
+        ],
+        "github/siavash-saki/tesspy": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19285,7 +19355,21 @@
         "github/WangLabTHU/DeSP": "Jupyter Notebook",
         "github/yangyanli/DO-Conv": "Python",
         "github/JanLeppert/GasChromatographySimulator.jl": "Julia",
-        "gitlab/AstroVian/bmarxiv": "unknown"
+        "gitlab/AstroVian/bmarxiv": "unknown",
+        "github/micahvista/MAMnet": "Python",
+        "github/floodlight-sports/floodlight": "Python",
+        "github/ejikeugba/gofcat": "R",
+        "github/Mat-dp/mat-dp-core": "Python",
+        "github/mne-tools/mne-icalabel": "Python",
+        "github/valentineap/pyprop8": "Python",
+        "github/travisseymour/EPICpy": "C++",
+        "github/BioHPC/MegaD": "Python",
+        "github/stefanoMP/massiveGST": "R",
+        "github/matthiasdemuzere/w2w": "Jupyter Notebook",
+        "github/cicirello/rho-mu": "Java",
+        "github/tyo-nu/MINE-app": "CSS",
+        "github/palaimon/ipyannotator": "Jupyter Notebook",
+        "github/siavash-saki/tesspy": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23390,7 +23474,21 @@
         "github/WangLabTHU/DeSP": "https://github.com/WangLabTHU/DeSP",
         "github/yangyanli/DO-Conv": "https://github.com/yangyanli/DO-Conv",
         "github/JanLeppert/GasChromatographySimulator.jl": "https://github.com/JanLeppert/GasChromatographySimulator.jl",
-        "gitlab/AstroVian/bmarxiv": "https://gitlab.com/AstroVian/bmarxiv"
+        "gitlab/AstroVian/bmarxiv": "https://gitlab.com/AstroVian/bmarxiv",
+        "github/micahvista/MAMnet": "https://github.com/micahvista/MAMnet",
+        "github/floodlight-sports/floodlight": "https://github.com/floodlight-sports/floodlight",
+        "github/ejikeugba/gofcat": "https://github.com/ejikeugba/gofcat",
+        "github/Mat-dp/mat-dp-core": "https://github.com/Mat-dp/mat-dp-core",
+        "github/mne-tools/mne-icalabel": "https://github.com/mne-tools/mne-icalabel",
+        "github/valentineap/pyprop8": "https://github.com/valentineap/pyprop8",
+        "github/travisseymour/EPICpy": "https://github.com/travisseymour/EPICpy",
+        "github/BioHPC/MegaD": "https://github.com/BioHPC/MegaD",
+        "github/stefanoMP/massiveGST": "https://github.com/stefanoMP/massiveGST",
+        "github/matthiasdemuzere/w2w": "https://github.com/matthiasdemuzere/w2w",
+        "github/cicirello/rho-mu": "https://github.com/cicirello/rho-mu",
+        "github/tyo-nu/MINE-app": "https://github.com/tyo-nu/MINE-app",
+        "github/palaimon/ipyannotator": "https://github.com/palaimon/ipyannotator",
+        "github/siavash-saki/tesspy": "https://github.com/siavash-saki/tesspy"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -27495,6 +27593,20 @@
         "github/WangLabTHU/DeSP": "DNA-D2S: a systematic error simulation Model for DNA Data Storage channel",
         "github/yangyanli/DO-Conv": "Depthwise Over-parameterized Convolutional Layer",
         "github/JanLeppert/GasChromatographySimulator.jl": "A package for the simulation of gas chromatography (GC)",
-        "gitlab/AstroVian/bmarxiv": null
+        "gitlab/AstroVian/bmarxiv": null,
+        "github/micahvista/MAMnet": "MAMnet uses a deep learning network to call genetic variants from third generation DNA sequencing data.",
+        "github/floodlight-sports/floodlight": "Python package for streamlined analysis of sports data.",
+        "github/ejikeugba/gofcat": "Goodness-of-fit tests for categorical response models",
+        "github/Mat-dp/mat-dp-core": "Mat-dp core cotains the key methods used in the broader Mat-dp model. Mat-dp aims to deliver user-friendly and open-access software to study the environmental implications of materials used for building low-carbon systems.",
+        "github/mne-tools/mne-icalabel": "Automatic labeling of ICA components in Python.",
+        "github/valentineap/pyprop8": "A lightweight  Python code to calculate the seismic response of a layered half-space (including static components), and derivatives of the wavefield wrt source components.",
+        "github/travisseymour/EPICpy": "Cross Platform Python Interface for EPIC modeling using C++ EPIClib backend",
+        "github/BioHPC/MegaD": "Deep learning for metagenomic sample classification",
+        "github/stefanoMP/massiveGST": null,
+        "github/matthiasdemuzere/w2w": "A python tool that ingests WUDAPT information into WRF.",
+        "github/cicirello/rho-mu": "\u03c1\u03bc - a Java library of Randomization enHancements and Other Math Utilities",
+        "github/tyo-nu/MINE-app": "Web application for the MINE databases",
+        "github/palaimon/ipyannotator": "the infinitely hackable annotation framework",
+        "github/siavash-saki/tesspy": null
     }
 }

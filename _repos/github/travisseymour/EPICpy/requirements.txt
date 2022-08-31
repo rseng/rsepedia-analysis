@@ -1,0 +1,32 @@
+# Normal
+# ------
+
+loguru
+fbs  # ok to run/develop EPICpy, but to use any fbs ____ command on Py3.7+, you'll need fbs pro
+PyQt5
+QScintilla
+python-dateutil
+ulid
+pingouin
+plum-dispatch
+ascii_frame
+
+# Platform Specific
+# -----------------
+#
+# LINUX: Comment out the cppyy import and build it from source as explained here:
+# https://cppyy.readthedocs.io/en/latest/repositories.html#building-from-source
+#
+# MACOS: Uncomment the next line vvvv
+# cppyy
+
+
+# Development
+# Developers: See epicpy_dev_setup.txt
+# ------------------------------------
+
+# icecream
+mkdocs
+black
+fbs[upload]
+plumbum

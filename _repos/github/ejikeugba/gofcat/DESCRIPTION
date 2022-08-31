@@ -1,0 +1,49 @@
+Type: Package
+Package: gofcat
+Title: Goodness-of-Fit Measures for Categorical Response Models
+Version: 0.1.3
+Authors@R: 
+    person(given = "Ejike R.",
+           family = "Ugba",
+           role = c("aut", "cre", "cph"),
+           email = "ejike.ugba@outlook.com",
+           comment = c(ORCID = "0000-0003-2572-0023"))
+Description: A post-estimation method for categorical response models (CRM). 
+    Inputs from objects of class serp(), clm(), polr(), multinom(), mlogit(), 
+    vglm() and glm() are currently supported. Available tests include the 
+    Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic 
+    regression; the Lipsitz and the Pulkstenis-Robinson tests for the ordinal 
+    models. The proportional odds, adjacent-category, and constrained continuation-ratio 
+    models are particularly supported at ordinal level. Tests for the proportional 
+    odds assumptions in ordinal models are also possible with the Brant and the 
+    Likelihood-Ratio tests. Moreover, several summary measures of predictive strength 
+    (Pseudo R-squared), and some useful error metrics, including, the brier 
+    score, misclassification rate and logloss are also available for the 
+    binary, multinomial and ordinal models. Ugba, E. R. and Gertheiss, J. (2018) 
+    <http://www.statmod.org/workshops_archive_proceedings_2018.html>.
+License: GPL-2 | file LICENSE
+URL: https://github.com/ejikeugba/gofcat
+BugReports: https://github.com/ejikeugba/gofcat/issues
+Depends:
+    R (>= 3.2.0)
+Imports:
+    utils,
+    crayon,
+    stats,
+    Matrix,
+    epiR,
+    reshape,
+    stringr,
+    VGAM (>= 1.1-4)
+Encoding: UTF-8
+LazyData: True
+RoxygenNote: 7.1.2
+Suggests:
+    serp,
+    dfidx,
+    mlogit,
+    nnet,
+    ordinal,
+    MASS,
+    testthat,
+    covr
