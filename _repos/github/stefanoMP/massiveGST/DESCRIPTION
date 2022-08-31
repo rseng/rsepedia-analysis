@@ -1,0 +1,19 @@
+Package: massiveGST
+Type: Package
+Title: Competitive Gene Sets Test with the Mann-Whitney-Wilcoxon Test
+Version: 1.0.1
+Date: 2022-05-30
+Authors@R: 
+        person(given = "Stefano Maria",
+               family = "Pagnotta",
+               role = c("aut", "cre", "cph"),
+               email = "pagnotta@unisannio.it",
+               comment = c(ORCID = "0000-0002-8298-9777"))
+Maintainer: Stefano Maria Pagnotta <pagnotta@unisannio.it>
+Description: Friendly implementation of the Mann-Whitney-Wilcoxon test for competitive gene set enrichment analysis.
+Depends: R (>= 4.1.0), formattable (>= 0.2.1), msigdbr (>= 7.4.0), WriteXLS (>= 6.3.0), igraph (>= 1.2.6), visNetwork (>= 2.0.9)
+Suggests: knitr, rmarkdown
+License: GPL (>=3)
+URL: <https://github.com/stefanoMP/massiveGST>, <http://www.massivegenesetstest.org/>
+VignetteBuilder: knitr
+

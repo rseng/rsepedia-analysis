@@ -1,0 +1,242 @@
+{
+    "requirements.txt": {
+        "github/travisseymour/EPICpy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "loguru": {
+            "credit": 0.0007615384615384663,
+            "url": "https://github.com/Delgan/loguru"
+        },
+        "fbs": {
+            "credit": 0.1523076923076923,
+            "url": "https://build-system.fman.io"
+        },
+        "PyQt5": {
+            "credit": 0.03845769230769231,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "QScintilla": {
+            "credit": 0.0007615384615384663,
+            "url": "https://www.riverbankcomputing.com/software/qscintilla/"
+        },
+        "python-dateutil": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "ulid": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/mdipierro/ulid"
+        },
+        "pingouin": {
+            "credit": 0.07615384615384616,
+            "url": "https://pingouin-stats.org/index.html"
+        },
+        "plum-dispatch": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/wesselb/plum"
+        },
+        "ascii_frame": {
+            "credit": 0.07615384615384616,
+            "url": "https://github.com/pi314/ascii_frame"
+        },
+        "mkdocs": {
+            "credit": 0.0007615384615384663,
+            "url": "https://www.mkdocs.org"
+        },
+        "black": {
+            "credit": 0.006146703296703302,
+            "url": "https://github.com/psf/black"
+        },
+        "plumbum": {
+            "credit": 0.0007615384615384663,
+            "url": "https://plumbum.readthedocs.io"
+        },
+        "isort": {
+            "credit": 5.3851648351648136e-05,
+            "url": "https://pycqa.github.io/isort/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.013762087912087911,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-autobuild": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/sphinx-autobuild"
+        },
+        "Sphinx": {
+            "credit": 0.013762087912087911,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "pytest-cov": {
+            "credit": 0.013762087912087911,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.013762087912087911,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "tox-travis": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/tox-travis"
+        },
+        "tox": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/tox"
+        },
+        "flake8": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "codecov": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/codecov"
+        },
+        "win32-setctime": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/win32-setctime"
+        },
+        "colorama": {
+            "credit": 0.01225083575655114,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "aiocontextvars": {
+            "credit": 0.005385164835164835,
+            "url": "https://pypi.org/project/aiocontextvars"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.037696153846153845,
+            "url": "https://pypi.org/project/PyQt5-Qt5"
+        },
+        "PyQt5-sip": {
+            "credit": 0.07539230769230769,
+            "url": "https://pypi.org/project/PyQt5-sip"
+        },
+        "babel": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/babel"
+        },
+        "mergedeep": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/mergedeep"
+        },
+        "packaging": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "importlib-metadata": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "pyyaml-env-tag": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/pyyaml-env-tag"
+        },
+        "ghp-import": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/ghp-import"
+        },
+        "watchdog": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "PyYAML": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "Markdown": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/Markdown"
+        },
+        "Jinja2": {
+            "credit": 0.006853846153846154,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "click": {
+            "credit": 0.012653254437869823,
+            "url": "https://pypi.org/project/click"
+        },
+        "uvloop": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/uvloop"
+        },
+        "tokenize-rt": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/tokenize-rt"
+        },
+        "ipython": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "aiohttp": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "typed-ast": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "dataclasses": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "typing-extensions": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "tomli": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "pathspec": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "platformdirs": {
+            "credit": 0.005799408284023668,
+            "url": "https://pypi.org/project/platformdirs"
+        },
+        "pytest-timeout": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-mock": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "psutil": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "paramiko": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/paramiko"
+        },
+        "pywin32": {
+            "credit": 0.008376923076923077,
+            "url": "https://pypi.org/project/pywin32"
+        },
+        "setuptools": {
+            "credit": 0.0010662626373626374,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "pip-api": {
+            "credit": 0.0010662626373626374,
+            "url": "https://pypi.org/project/pip-api"
+        },
+        "requirementslib": {
+            "credit": 0.0010662626373626374,
+            "url": "https://pypi.org/project/requirementslib"
+        },
+        "pipreqs": {
+            "credit": 0.0010662626373626374,
+            "url": "https://pypi.org/project/pipreqs"
+        }
+    }
+}
