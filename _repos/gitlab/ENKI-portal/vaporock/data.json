@@ -1,0 +1,186 @@
+{
+    "requirements.txt": {
+        "gitlab/ENKI-portal/vaporock": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "PyYAML": {
+            "credit": 0.0275,
+            "url": "https://pyyaml.org/"
+        },
+        "pyzmq": {
+            "credit": 0.0275,
+            "url": "https://pyzmq.readthedocs.org"
+        },
+        "QDarkStyle": {
+            "credit": 0.00027500000000000094,
+            "url": "https://github.com/ColinDuquesnoy/QDarkStyleSheet"
+        },
+        "QtPy": {
+            "credit": 0.0275,
+            "url": "https://github.com/spyder-ide/qtpy"
+        },
+        "Rtree": {
+            "credit": 0.00027500000000000094,
+            "url": "https://github.com/Toblerity/rtree"
+        },
+        "rubicon-objc": {
+            "credit": 0.0275,
+            "url": "https://beeware.org/rubicon"
+        },
+        "scikit-image": {
+            "credit": 0.0275,
+            "url": "https://scikit-image.org"
+        },
+        "Send2Trash": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/Send2Trash"
+        },
+        "simplegeneric": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/simplegeneric"
+        },
+        "snowballstemmer": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/snowballstemmer"
+        },
+        "sortedcollections": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sortedcollections"
+        },
+        "sortedcontainers": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "soupsieve": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/soupsieve"
+        },
+        "sphinxcontrib-applehelp": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-applehelp"
+        },
+        "sphinxcontrib-devhelp": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-devhelp"
+        },
+        "sphinxcontrib-htmlhelp": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-htmlhelp"
+        },
+        "sphinxcontrib-jsmath": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-jsmath"
+        },
+        "sphinxcontrib-qthelp": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-qthelp"
+        },
+        "sphinxcontrib-serializinghtml": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/sphinxcontrib-serializinghtml"
+        },
+        "SulfLiq": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/SulfLiq"
+        },
+        "tables": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/tables"
+        },
+        "terminado": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/terminado"
+        },
+        "testpath": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/testpath"
+        },
+        "tifffile": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/tifffile"
+        },
+        "tornado": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "unicodecsv": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/unicodecsv"
+        },
+        "webencodings": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/webencodings"
+        },
+        "Werkzeug": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/Werkzeug"
+        },
+        "widgetsnbextension": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/widgetsnbextension"
+        },
+        "wrapt": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "xlrd": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/xlrd"
+        },
+        "xlwings": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/xlwings"
+        },
+        "xlwt": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/xlwt"
+        },
+        "xmltodict": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/xmltodict"
+        },
+        "zict": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/zict"
+        },
+        "zope.event": {
+            "credit": 0.0275,
+            "url": "https://pypi.org/project/zope.event"
+        },
+        "pyside2": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/pyside2"
+        },
+        "pyqt5": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/pyqt5"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "watchdog": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "qtsass": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/qtsass"
+        },
+        "qtpy": {
+            "credit": 0.003889285714285714,
+            "url": "https://pypi.org/project/qtpy"
+        },
+        "typing-extensions": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}
