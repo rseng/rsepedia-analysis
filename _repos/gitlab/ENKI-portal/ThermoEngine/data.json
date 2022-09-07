@@ -1,0 +1,162 @@
+{
+    "requirements.txt": {
+        "gitlab/ENKI-portal/ThermoEngine": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sphinx": {
+            "credit": 0.111738,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "ipykernel": {
+            "credit": 0.0006599999999999939,
+            "url": "https://ipython.org"
+        },
+        "nbsphinx": {
+            "credit": 0.0006599999999999939,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "numpydoc": {
+            "credit": 0.0006599999999999939,
+            "url": "https://numpydoc.readthedocs.io"
+        },
+        "recommonmark": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/rtfd/recommonmark"
+        },
+        "scipy": {
+            "credit": 0.0006599999999999939,
+            "url": "https://www.scipy.org"
+        },
+        "deprecation": {
+            "credit": 0.0006599999999999939,
+            "url": "http://deprecation.readthedocs.io/"
+        },
+        "openpyxl": {
+            "credit": 0.0006599999999999939,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "pandas": {
+            "credit": 0.066,
+            "url": "https://pandas.pydata.org"
+        },
+        "pytest": {
+            "credit": 0.08719466249999999,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "numdifftools": {
+            "credit": 0.066,
+            "url": "https://github.com/pbrod/numdifftools"
+        },
+        "numpy": {
+            "credit": 0.13134,
+            "url": "https://www.numpy.org"
+        },
+        "sympy": {
+            "credit": 0.066,
+            "url": "https://sympy.org"
+        },
+        "Cython": {
+            "credit": 0.066,
+            "url": "http://cython.org/"
+        },
+        "statsmodels": {
+            "credit": 0.066,
+            "url": "https://www.statsmodels.org/"
+        },
+        "pytest-timeout": {
+            "credit": 4.08374999999999e-05,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "pre-commit": {
+            "credit": 0.004083750000000001,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "ipyparallel": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/ipyparallel"
+        },
+        "flaky": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "pytest-cov": {
+            "credit": 0.01715175,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "appnope": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/appnope"
+        },
+        "packaging": {
+            "credit": 0.06942375,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "nest-asyncio": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/nest-asyncio"
+        },
+        "psutil": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "matplotlib-inline": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/matplotlib-inline"
+        },
+        "tornado": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "jupyter-client": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/jupyter-client"
+        },
+        "traitlets": {
+            "credit": 0.014973750000000003,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "ipython": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "debugpy": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/debugpy"
+        },
+        "nbformat": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jinja2": {
+            "credit": 0.010890000000000002,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "docutils": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "matplotlib": {
+            "credit": 0.013068000000000001,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "Jinja2": {
+            "credit": 0.013068000000000001,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "commonmark": {
+            "credit": 0.021780000000000004,
+            "url": "https://pypi.org/project/commonmark"
+        },
+        "et-xmlfile": {
+            "credit": 0.06534000000000001,
+            "url": "https://pypi.org/project/et-xmlfile"
+        }
+    }
+}

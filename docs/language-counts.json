@@ -1,15 +1,15 @@
 {
-    "unknown": 119,
-    "Python": 1603,
-    "Jupyter Notebook": 299,
+    "unknown": 121,
+    "Python": 1613,
+    "Jupyter Notebook": 304,
     "Modelica": 1,
     "Shell": 24,
     "HTML": 60,
     "Perl": 42,
-    "R": 551,
-    "C++": 449,
+    "R": 553,
+    "C++": 451,
     "Java": 89,
-    "C": 284,
+    "C": 285,
     "Rust": 17,
     "JavaScript": 73,
     "AMPL": 1,
@@ -26,7 +26,7 @@
     "TypeScript": 14,
     "Nim": 6,
     "Makefile": 4,
-    "C#": 15,
+    "C#": 16,
     "Pascal": 1,
     "TSQL": 2,
     "Kotlin": 2,
@@ -69,5 +69,6 @@
     "PowerBuilder": 1,
     "Tea": 1,
     "OpenEdge ABL": 2,
-    "Logos": 2
+    "Logos": 2,
+    "SWIG": 1
 }

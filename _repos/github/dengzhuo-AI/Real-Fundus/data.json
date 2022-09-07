@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/dengzhuo-AI/Real-Fundus": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "opencv-python": {
+            "credit": 0.002475,
+            "url": "https://github.com/skvark/opencv-python"
+        },
+        "torchvision": {
+            "credit": 0.002475,
+            "url": "https://github.com/pytorch/vision"
+        },
+        "torch": {
+            "credit": 0.002475,
+            "url": "https://pytorch.org/"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.00245025,
+            "url": "https://www.numpy.org"
+        }
+    }
+}
