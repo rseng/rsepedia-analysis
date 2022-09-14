@@ -15295,7 +15295,59 @@
         ],
         "github/Pranab-JD/LeXInt": [],
         "gitlab/ENKI-portal/ThermoEngine": [],
-        "gitlab/ENKI-portal/vaporock": []
+        "gitlab/ENKI-portal/vaporock": [],
+        "github/atmos-cloud-sim-uj/PyMPDATA": [
+            "pde-solver",
+            "numerical-integration",
+            "advection",
+            "numba",
+            "advection-diffusion",
+            "atmospheric-modelling",
+            "python",
+            "simulation",
+            "research",
+            "pypi-package"
+        ],
+        "github/arq5x/poretools": [],
+        "github/jmcbroome/BTE": [],
+        "github/thachnguyen/CRISPRnano": [],
+        "github/vsoch/citelang": [
+            "citation",
+            "rseng",
+            "research-software-engineering",
+            "credit",
+            "publication",
+            "doi"
+        ],
+        "github/yyZhang14/dbEssLnc": [],
+        "github/NREL/graph-env": [
+            "graph-algorithms",
+            "gym-environment",
+            "machine-learning",
+            "python",
+            "ray",
+            "reinforcement-learning"
+        ],
+        "github/alexriss/SpmImageTycoon.jl": [
+            "spm",
+            "afm",
+            "stm",
+            "julia",
+            "electron",
+            "javascript",
+            "julialang",
+            "spectroscopy"
+        ],
+        "github/phineasng/DECODE": [],
+        "github/LucyMcGowan/tipr": [],
+        "github/ToHanwei/Genome2OR": [],
+        "github/MonashSmartStructures/ospgrillage": [
+            "bridge-engineering",
+            "structural-analysis",
+            "finite-element-analysis",
+            "bridges",
+            "structural-engineering"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19438,7 +19490,19 @@
         "github/gasparl/possa": "R",
         "github/Pranab-JD/LeXInt": "Python",
         "gitlab/ENKI-portal/ThermoEngine": "unknown",
-        "gitlab/ENKI-portal/vaporock": "unknown"
+        "gitlab/ENKI-portal/vaporock": "unknown",
+        "github/atmos-cloud-sim-uj/PyMPDATA": "Python",
+        "github/arq5x/poretools": "Jupyter Notebook",
+        "github/jmcbroome/BTE": "Cython",
+        "github/thachnguyen/CRISPRnano": "HTML",
+        "github/vsoch/citelang": "Python",
+        "github/yyZhang14/dbEssLnc": "Vue",
+        "github/NREL/graph-env": "Python",
+        "github/alexriss/SpmImageTycoon.jl": "Julia",
+        "github/phineasng/DECODE": "Jupyter Notebook",
+        "github/LucyMcGowan/tipr": "R",
+        "github/ToHanwei/Genome2OR": "Python",
+        "github/MonashSmartStructures/ospgrillage": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23581,7 +23645,19 @@
         "github/gasparl/possa": "https://github.com/gasparl/possa",
         "github/Pranab-JD/LeXInt": "https://github.com/Pranab-JD/LeXInt",
         "gitlab/ENKI-portal/ThermoEngine": "https://gitlab.com/ENKI-portal/ThermoEngine",
-        "gitlab/ENKI-portal/vaporock": "https://gitlab.com/ENKI-portal/vaporock"
+        "gitlab/ENKI-portal/vaporock": "https://gitlab.com/ENKI-portal/vaporock",
+        "github/atmos-cloud-sim-uj/PyMPDATA": "https://github.com/atmos-cloud-sim-uj/PyMPDATA",
+        "github/arq5x/poretools": "https://github.com/arq5x/poretools",
+        "github/jmcbroome/BTE": "https://github.com/jmcbroome/BTE",
+        "github/thachnguyen/CRISPRnano": "https://github.com/thachnguyen/CRISPRnano",
+        "github/vsoch/citelang": "https://github.com/vsoch/citelang",
+        "github/yyZhang14/dbEssLnc": "https://github.com/yyZhang14/dbEssLnc",
+        "github/NREL/graph-env": "https://github.com/NREL/graph-env",
+        "github/alexriss/SpmImageTycoon.jl": "https://github.com/alexriss/SpmImageTycoon.jl",
+        "github/phineasng/DECODE": "https://github.com/phineasng/DECODE",
+        "github/LucyMcGowan/tipr": "https://github.com/LucyMcGowan/tipr",
+        "github/ToHanwei/Genome2OR": "https://github.com/ToHanwei/Genome2OR",
+        "github/MonashSmartStructures/ospgrillage": "https://github.com/MonashSmartStructures/ospgrillage"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -27724,6 +27800,18 @@
         "github/gasparl/possa": "POSSA: Power simulation for sequential analyses and multiple hypotheses.",
         "github/Pranab-JD/LeXInt": "Leja Exponential Integrators",
         "gitlab/ENKI-portal/ThermoEngine": "Python, C, C++ and Objective C code that Implement thermodynamic properties of stoichiometric phases and solutions.  This is the main code repository of the ENKI project.",
-        "gitlab/ENKI-portal/vaporock": "Thermodynamics of vaporized silicate rocks & melts for modeling magma ocean atmospheres and stellar nebula"
+        "gitlab/ENKI-portal/vaporock": "Thermodynamics of vaporized silicate rocks & melts for modeling magma ocean atmospheres and stellar nebula",
+        "github/atmos-cloud-sim-uj/PyMPDATA": "Numba-accelerated Pythonic implementation of MPDATA with examples in Python, Julia and Matlab",
+        "github/arq5x/poretools": "a toolkit for working with Oxford nanopore data",
+        "github/jmcbroome/BTE": "Cython API for the Mutation Annotated Tree (MAT) Online Phylogenetics Toolkit",
+        "github/thachnguyen/CRISPRnano": "A simple website analyzes CRISPR experiment for Oxford Nanopore Sequencing data.",
+        "github/vsoch/citelang": "markdown syntax and credit system for software!",
+        "github/yyZhang14/dbEssLnc": "a Vue.js project",
+        "github/NREL/graph-env": "Reinforcement learning for combinatorial optimization over directed graphs",
+        "github/alexriss/SpmImageTycoon.jl": "Organize Scanning Probe Microscopy (SPM, STM, AFM) Images and Spectra.",
+        "github/phineasng/DECODE": "Code Release for the DECODE submission (ISMB2022)",
+        "github/LucyMcGowan/tipr": "An R package for conducting sensitivity analyses for unmeasured confounders",
+        "github/ToHanwei/Genome2OR": "Annotate Olfactory receptor CDS from genome",
+        "github/MonashSmartStructures/ospgrillage": "`ospgrillage` is a package that wraps `OpenSeesPy` with an interface dedicated to the development and analysis of regular bridge deck grillage models."
     }
 }

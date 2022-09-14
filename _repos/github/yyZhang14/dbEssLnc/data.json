@@ -1,0 +1,250 @@
+{
+    "package.json": {
+        "github/yyZhang14/dbEssLnc": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "axios": {
+            "credit": 0.0825,
+            "url": "https://axios-http.com"
+        },
+        "cookie-parser": {
+            "credit": 0.0825,
+            "url": "https://github.com/expressjs/cookie-parser#readme"
+        },
+        "core-js": {
+            "credit": 0.0825,
+            "url": "https://github.com/zloirock/core-js#readme"
+        },
+        "echarts": {
+            "credit": 0.0008250000000000063,
+            "url": "https://echarts.apache.org"
+        },
+        "element-plus": {
+            "credit": 0.0008250000000000063,
+            "url": "https://element-plus.org/"
+        },
+        "express": {
+            "credit": 0.0825,
+            "url": "http://expressjs.com/"
+        },
+        "mysql": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/mysqljs/mysql#readme"
+        },
+        "normalize.css": {
+            "credit": 0.0825,
+            "url": "https://necolas.github.io/normalize.css"
+        },
+        "string-random": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/maichong/string-random#readme"
+        },
+        "vue": {
+            "credit": 0.08679868421052632,
+            "url": "https://github.com/vuejs/core/tree/main/packages/vue#readme"
+        },
+        "vue-cookies": {
+            "credit": 0.0825,
+            "url": "https://github.com/cmp-cc/vue-cookies#readme"
+        },
+        "vue-router": {
+            "credit": 0.08679868421052632,
+            "url": "https://github.com/vuejs/router#readme"
+        },
+        "typescript": {
+            "credit": 0.001944642857142857,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "ts-jest": {
+            "credit": 0.001944642857142857,
+            "url": "https://kulshekhar.github.io/ts-jest"
+        },
+        "terser": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "socket.io": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "slugify": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "serve-handler": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "seedrandom": {
+            "credit": 0.010112142857142856,
+            "url": null
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "pngjs": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "pixelmatch": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "open": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "magic-string": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "jshint": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "jest-canvas-mock": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "globby": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "fs-extra": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.010112142857142856,
+            "url": null
+        },
+        "esbuild": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "dtslint": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "cwebp-bin": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "": {
+            "credit": 0.059669830827067664,
+            "url": null
+        },
+        "zrender": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "tslib": {
+            "credit": 0.001944642857142857,
+            "url": null
+        },
+        "csstype": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "normalize-wheel-es": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "memoize-one": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "lodash-unified": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "lodash-es": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "escape-html": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "dayjs": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "async-validator": {
+            "credit": 0.004298684210526316,
+            "url": null
+        },
+        "utest": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "urun": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "timezone-mock": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "after": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "sqlstring": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "safe-buffer": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "readable-stream": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "bignumber.js": {
+            "credit": 0.0081675,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.081675,
+            "url": null
+        }
+    }
+}
