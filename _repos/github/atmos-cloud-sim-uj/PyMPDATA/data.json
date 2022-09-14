@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/atmos-cloud-sim-uj/PyMPDATA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "setuptools_scm": {
+            "credit": 0.002475,
+            "url": "https://github.com/pypa/setuptools_scm/"
+        },
+        "numba": {
+            "credit": 0.002475,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "pystrict": {
+            "credit": 0.002475,
+            "url": "https://github.com/earonesty/pystrict"
+        }
+    }
+}
