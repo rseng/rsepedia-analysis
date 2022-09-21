@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/ELELAB/LipidDyn": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.141717125,
+            "url": "https://matplotlib.org"
+        },
+        "MDAnalysis": {
+            "credit": 0.12815,
+            "url": "https://www.mdanalysis.org"
+        },
+        "progressbar": {
+            "credit": 0.11,
+            "url": "http://code.google.com/p/python-progressbar"
+        },
+        "seaborn": {
+            "credit": 0.0012815000000000049,
+            "url": "https://seaborn.pydata.org"
+        },
+        "pyyaml": {
+            "credit": 0.22,
+            "url": "https://pyyaml.org/"
+        },
+        "lipyphilic": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/p-j-smith/lipyphilic"
+        },
+        "fatslim": {
+            "credit": 0.11,
+            "url": "https://github.com/seb-buch/FATSLiM"
+        },
+        "requests": {
+            "credit": 0.0011000000000000038,
+            "url": "https://requests.readthedocs.io"
+        },
+        "pandas": {
+            "credit": 0.004945875000000002,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.004764375000000001,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.10227525,
+            "url": "https://www.numpy.org"
+        },
+        "tidynamics": {
+            "credit": 0.0001815000000000011,
+            "url": "https://pypi.org/project/tidynamics/"
+        },
+        "freud-analysis": {
+            "credit": 0.01815,
+            "url": "https://github.com/glotzerlab/freud"
+        },
+        "win-inet-pton": {
+            "credit": 0.015557142857142856,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.01726842857142857,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.00015557142857142853,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.01726842857142857,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.015557142857142856,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.01726842857142857,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.00015557142857142853,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.007486874999999999,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.007486874999999999,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "hypothesis": {
+            "credit": 0.007486874999999999,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.007486874999999999,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.007486874999999999,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "unicodedata2": {
+            "credit": 0.015401571428571428,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.0017112857142857142,
+            "url": "https://pypi.org/project/brotlicffi"
+        }
+    }
+}
