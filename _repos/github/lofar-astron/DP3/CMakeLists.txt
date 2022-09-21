@@ -52,6 +52,7 @@ if(PORTABLE)
                     "TARGET_CPU settings will be ignored.")
     unset(TARGET_CPU CACHE)
   endif()
+  add_compile_definitions(PORTABLE_BUILD)
 else()
   if(DEFINED TARGET_CPU)
     add_compile_options(-march=${TARGET_CPU})
@@ -582,6 +583,7 @@ if(BUILD_TESTING)
       common/test/unit/avx256/tVectorDouble4.cc
       common/test/unit/avx256/tVectorFloat8.cc
       common/test/unit/fixtures/fSkymodel.cc
+      common/test/unit/tMedian.cc
       common/test/unit/tProximityClustering.cc
       common/test/unit/tTimer.cc
       base/test/runtests.cc
@@ -620,6 +622,7 @@ if(BUILD_TESTING)
       steps/test/unit/tMedFlagger.cc
       steps/test/unit/tMSReader.cc
       steps/test/unit/tMSWriter.cc
+      steps/test/unit/tNeeds.cc
       steps/test/unit/tPreFlagger.cc
       steps/test/unit/tPhaseShift.cc
       steps/test/unit/tOnePredict.cc

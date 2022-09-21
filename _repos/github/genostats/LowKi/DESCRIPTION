@@ -1,0 +1,19 @@
+Package: LowKi
+Type: Package
+Title: Low Depth Kinship
+Version: 1.0.1
+Date: 2021-11-12
+Encoding: UTF-8 
+Authors@R: c( person("Anthony", "Herzig", role = "aut"),
+              person("Hervé", "Perdry", role = c("cre", "aut"), email = "herve.perdry@universite-paris-saclay.fr") )
+Description: Computes Kinship Matrices (GRM and Dominance Matrix) from Low Depth Sequencing Data.
+License: GPL-3
+LinkingTo: gaston, milorGWAS, Rcpp, RcppEigen
+Depends: gaston, Rcpp, R (>= 3.5.0), milorGWAS
+Suggests: knitr, rmarkdown
+Imports:
+NeedsCompilation: yes
+LazyLoad: yes
+LazyData: yes
+VignetteBuilder: knitr
+RoxygenNote: 7.1.2
