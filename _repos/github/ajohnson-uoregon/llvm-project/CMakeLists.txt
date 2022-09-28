@@ -1,95 +1,116 @@
-# Cross project tests, for tests that require access to multiple projects across
-# LLVM (e.g. clang, lld and lldb).
-# The subset inside debuginfo-tests invoke clang to generate programs with
-# various types of debug info, and then run those programs under a debugger
-# such as GDB or LLDB to verify the results.
+cmake_minimum_required(VERSION 3.13.4)
 
-find_package(Python3 COMPONENTS Interpreter)
+# Add cmake directory to search for custom cmake functions.
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
-add_llvm_executable(check-gdb-llvm-support
-        debuginfo-tests/llvm-prettyprinters/gdb/llvm-support.cpp
-)
-target_link_libraries(check-gdb-llvm-support PRIVATE LLVMSupport)
-
-set(CROSS_PROJECT_TESTS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(CROSS_PROJECT_TESTS_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
-
-set(CROSS_PROJECT_TEST_DEPS
-  FileCheck
-  count
-  llvm-dwarfdump
-  llvm-config
-  llvm-objdump
-  check-gdb-llvm-support
-  not
-  )
-
-if ("clang" IN_LIST LLVM_ENABLE_PROJECTS)
-  list(APPEND CROSS_PROJECT_TEST_DEPS clang)
+# llvm/runtimes/ will set OPENMP_STANDALONE_BUILD.
+if (OPENMP_STANDALONE_BUILD OR "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+  set(OPENMP_STANDALONE_BUILD TRUE)
+  project(openmp C CXX)
 endif()
 
-if ("mlir" IN_LIST LLVM_ENABLE_PROJECTS)
-  add_llvm_executable(check-gdb-mlir-support
-        debuginfo-tests/llvm-prettyprinters/gdb/mlir-support.cpp
-  )
-  target_include_directories(check-gdb-mlir-support PRIVATE
-                               ${LLVM_EXTERNAL_MLIR_SOURCE_DIR}/include
-                               ${LLVM_BINARY_DIR}/tools/mlir/include)
-  target_link_libraries(check-gdb-mlir-support PRIVATE MLIRIR)
-  list(APPEND CROSS_PROJECT_TEST_DEPS check-gdb-mlir-support)
-  set(MLIR_SOURCE_DIR  ${LLVM_EXTERNAL_MLIR_SOURCE_DIR})
-endif()
+# Must go below project(..)
+include(GNUInstallDirs)
 
-if("compiler-rt" IN_LIST LLVM_ENABLE_PROJECTS)
-  # llgdb-tests/asan.c and other asan* files.
-  if(TARGET asan)
-    list(APPEND CROSS_PROJECT_TEST_DEPS asan)
+if (OPENMP_STANDALONE_BUILD)
+  # CMAKE_BUILD_TYPE was not set, default to Release.
+  if (NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
   endif()
-  # llgdb-tests/safestack.c
-  if(TARGET safestack)
-    list(APPEND CROSS_PROJECT_TEST_DEPS safestack)
+
+  # Group common settings.
+  set(OPENMP_ENABLE_WERROR FALSE CACHE BOOL
+    "Enable -Werror flags to turn warnings into errors for supporting compilers.")
+  set(OPENMP_LIBDIR_SUFFIX "" CACHE STRING
+    "Suffix of lib installation directory, e.g. 64 => lib64")
+  # Do not use OPENMP_LIBDIR_SUFFIX directly, use OPENMP_INSTALL_LIBDIR.
+  set(OPENMP_INSTALL_LIBDIR "lib${OPENMP_LIBDIR_SUFFIX}")
+
+  # Group test settings.
+  set(OPENMP_TEST_C_COMPILER ${CMAKE_C_COMPILER} CACHE STRING
+    "C compiler to use for testing OpenMP runtime libraries.")
+  set(OPENMP_TEST_CXX_COMPILER ${CMAKE_CXX_COMPILER} CACHE STRING
+    "C++ compiler to use for testing OpenMP runtime libraries.")
+  set(OPENMP_LLVM_TOOLS_DIR "" CACHE PATH "Path to LLVM tools for testing.")
+else()
+  set(OPENMP_ENABLE_WERROR ${LLVM_ENABLE_WERROR})
+  # If building in tree, we honor the same install suffix LLVM uses.
+  set(OPENMP_INSTALL_LIBDIR "lib${LLVM_LIBDIR_SUFFIX}")
+
+  if (NOT MSVC)
+    set(OPENMP_TEST_C_COMPILER ${LLVM_RUNTIME_OUTPUT_INTDIR}/clang)
+    set(OPENMP_TEST_CXX_COMPILER ${LLVM_RUNTIME_OUTPUT_INTDIR}/clang++)
+  else()
+    set(OPENMP_TEST_C_COMPILER ${LLVM_RUNTIME_OUTPUT_INTDIR}/clang.exe)
+    set(OPENMP_TEST_CXX_COMPILER ${LLVM_RUNTIME_OUTPUT_INTDIR}/clang++.exe)
   endif()
 endif()
-# Many dexter tests depend on lldb.
-if("lldb" IN_LIST LLVM_ENABLE_PROJECTS)
-  list(APPEND CROSS_PROJECT_TEST_DEPS lldb lldb-server)
+
+# Check and set up common compiler flags.
+include(config-ix)
+include(HandleOpenMPOptions)
+
+# Set up testing infrastructure.
+include(OpenMPTesting)
+
+set(OPENMP_TEST_FLAGS "" CACHE STRING
+  "Extra compiler flags to send to the test compiler.")
+set(OPENMP_TEST_OPENMP_FLAGS ${OPENMP_TEST_COMPILER_OPENMP_FLAGS} CACHE STRING
+  "OpenMP compiler flag to use for testing OpenMP runtime libraries.")
+
+set(ENABLE_LIBOMPTARGET ON)
+# Currently libomptarget cannot be compiled on Windows or MacOS X.
+# Since the device plugins are only supported on Linux anyway,
+# there is no point in trying to compile libomptarget on other OSes.
+if (APPLE OR WIN32 OR NOT OPENMP_HAVE_STD_CPP14_FLAG)
+  set(ENABLE_LIBOMPTARGET OFF)
 endif()
 
-if ("lld" IN_LIST LLVM_ENABLE_PROJECTS)
-  list(APPEND CROSS_PROJECT_TEST_DEPS lld)
+set(ENABLE_LIBOMPTARGET_PROFILING OFF)
+if (ENABLE_LIBOMPTARGET AND NOT LLVM_RUNTIMES_BUILD)
+  set(ENABLE_LIBOMPTARGET_PROFILING ON)
 endif()
 
-configure_lit_site_cfg(
-  ${CMAKE_CURRENT_SOURCE_DIR}/lit.site.cfg.py.in
-  ${CMAKE_CURRENT_BINARY_DIR}/lit.site.cfg.py
-  MAIN_CONFIG
-  ${CMAKE_CURRENT_SOURCE_DIR}/lit.cfg.py
-  )
+option(OPENMP_ENABLE_LIBOMPTARGET "Enable building libomptarget for offloading."
+       ${ENABLE_LIBOMPTARGET})
+option(OPENMP_ENABLE_LIBOMPTARGET_PROFILING "Enable time profiling for libomptarget."
+       ${ENABLE_LIBOMPTARGET_PROFILING})
+option(OPENMP_ENABLE_LIBOMP_PROFILING "Enable time profiling for libomp." OFF)
 
-add_lit_testsuite(check-cross-project "Running cross-project tests"
-  ${CMAKE_CURRENT_BINARY_DIR}
-  DEPENDS ${CROSS_PROJECT_TEST_DEPS}
-  )
+# Build host runtime library, after LIBOMPTARGET variables are set since they are needed
+# to enable time profiling support in the OpenMP runtime.
+add_subdirectory(runtime)
 
-# Add alias for debuginfo test subset.
-add_lit_testsuite(check-debuginfo "Running debuginfo tests"
-  ${CMAKE_CURRENT_BINARY_DIR}/debuginfo-tests
-  EXCLUDE_FROM_CHECK_ALL
-  DEPENDS ${CROSS_PROJECT_TEST_DEPS}
-  )
+# Build libompd.so
+add_subdirectory(libompd)
 
-# Add alias for intrinsic header test subset.
-add_lit_testsuite(check-intrinsic-headers "Running intrinsic header tests"
-  ${CMAKE_CURRENT_BINARY_DIR}/intrinsic-header-tests
-  EXCLUDE_FROM_CHECK_ALL
-  DEPENDS ${CROSS_PROJECT_TEST_DEPS}
-  )
+if (OPENMP_ENABLE_LIBOMPTARGET)
+  # Check that the library can actually be built.
+  if (APPLE OR WIN32)
+    message(FATAL_ERROR "libomptarget cannot be built on Windows and MacOS X!")
+  elseif (NOT OPENMP_HAVE_STD_CPP14_FLAG)
+    message(FATAL_ERROR "Host compiler must support C++14 to build libomptarget!")
+  endif()
 
-# Add check-cross-project-* targets.
-add_lit_testsuites(CROSS_PROJECT ${CMAKE_CURRENT_SOURCE_DIR}
-  DEPENDS ${CROSS_PROJECT_TEST_DEPS}
-  )
+  add_subdirectory(libomptarget)
+endif()
 
-set_target_properties(check-cross-project PROPERTIES FOLDER "Tests")
-set_target_properties(check-debuginfo PROPERTIES FOLDER "Tests")
-set_target_properties(check-intrinsic-headers PROPERTIES FOLDER "Tests")
+set(ENABLE_OMPT_TOOLS ON)
+# Currently tools are not tested well on Windows or MacOS X.
+if (APPLE OR WIN32)
+  set(ENABLE_OMPT_TOOLS OFF)
+endif()
+
+option(OPENMP_ENABLE_OMPT_TOOLS "Enable building ompt based tools for OpenMP."
+       ${ENABLE_OMPT_TOOLS})
+if (OPENMP_ENABLE_OMPT_TOOLS)
+  add_subdirectory(tools)
+endif()
+
+option(OPENMP_MSVC_NAME_SCHEME "Build dll with MSVC naming scheme." OFF)
+
+# Build documentation
+add_subdirectory(docs)
+
+# Now that we have seen all testsuites, create the check-openmp target.
+construct_check_openmp_target()

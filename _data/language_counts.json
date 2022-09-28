@@ -1,12 +1,12 @@
 {
     "unknown": 121,
-    "Python": 1622,
+    "Python": 1628,
     "Jupyter Notebook": 306,
     "Modelica": 1,
     "Shell": 24,
-    "HTML": 63,
+    "HTML": 64,
     "Perl": 42,
-    "R": 559,
+    "R": 561,
     "C++": 452,
     "Java": 89,
     "C": 285,
@@ -30,7 +30,7 @@
     "Pascal": 1,
     "TSQL": 2,
     "Kotlin": 2,
-    "Go": 21,
+    "Go": 22,
     "PostScript": 3,
     "Nextflow": 6,
     "CSS": 4,
@@ -53,7 +53,7 @@
     "CMake": 2,
     "Stan": 2,
     "Lua": 3,
-    "PHP": 3,
+    "PHP": 4,
     "Gnuplot": 3,
     "HCL": 1,
     "IDL": 29,
@@ -70,5 +70,6 @@
     "Tea": 1,
     "OpenEdge ABL": 2,
     "Logos": 2,
-    "SWIG": 1
+    "SWIG": 1,
+    "Svelte": 1
 }
