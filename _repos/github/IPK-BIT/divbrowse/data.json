@@ -1,0 +1,366 @@
+{
+    "package.json": {
+        "github/IPK-BIT/divbrowse": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "axios": {
+            "credit": 0.07071428571428572,
+            "url": "https://axios-http.com"
+        },
+        "d3": {
+            "credit": 0.07071428571428572,
+            "url": "https://d3js.org"
+        },
+        "dataframe-js": {
+            "credit": 0.0007071428571428645,
+            "url": "https://gmousse.gitbooks.io/dataframe-js/"
+        },
+        "fuse.js": {
+            "credit": 0.0007071428571428645,
+            "url": "http://fusejs.io"
+        },
+        "lodash": {
+            "credit": 0.07071428571428572,
+            "url": "https://lodash.com/"
+        },
+        "plotly.js-dist": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/plotly/plotly.js#readme"
+        },
+        "sirv-cli": {
+            "credit": 0.07644586466165414,
+            "url": "https://github.com/lukeed/sirv#readme"
+        },
+        "svelte-inview": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/maciekgrzybek/svelte-inview"
+        },
+        "svelte-moveable": {
+            "credit": 0.0007071428571428645,
+            "url": "https://daybrush.com/moveable"
+        },
+        "svelte-range-slider-pips": {
+            "credit": 0.07071428571428572,
+            "url": "https://simeydotme.github.io/svelte-range-slider-pips/"
+        },
+        "svelte-simple-datatables": {
+            "credit": 0.07071428571428572,
+            "url": "https://vincjo.fr/svelte-simple-datatables"
+        },
+        "svelte-simple-modal": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/flekschas/svelte-simple-modal#readme"
+        },
+        "sveltejs-tippy": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/mdauner/sveltejs-tippy#readme"
+        },
+        "tippy.js": {
+            "credit": 0.07255657894736842,
+            "url": "https://atomiks.github.io/tippyjs/"
+        },
+        "shx": {
+            "credit": 0.002800285714285714,
+            "url": "https://github.com/shelljs/shx#readme"
+        },
+        "rollup-plugin-uglify": {
+            "credit": 0.002800285714285714,
+            "url": "https://github.com/TrySound/rollup-plugin-uglify"
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.008531864661654134,
+            "url": null
+        },
+        "rollup-plugin-commonjs": {
+            "credit": 0.008531864661654134,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.00464257894736842,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.019216715525076426,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.01532742981079071,
+            "url": null
+        },
+        "dts-gen": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "documentation": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "check-node-version": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "check-es3-syntax-cli": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "": {
+            "credit": 0.0790707756754523,
+            "url": null
+        },
+        "regenerator-runtime": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "d3-request": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "d3-dsv": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "core-js": {
+            "credit": 0.002800285714285714,
+            "url": null
+        },
+        "webpack-cli": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vuepress-plugin-social-share": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vuepress-plugin-smooth-scroll": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vuepress-plugin-google-adsense": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vuepress-plugin-element-tabs": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vuepress": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vue-eslint-parser": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "vue-codemirror": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.014574136577708004,
+            "url": null
+        },
+        "terser-webpack-plugin": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "standard-version": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "rollup-plugin-copy": {
+            "credit": 0.005684340659340659,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "replace-in-file": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.012527144096504997,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0036373481781376516,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.012527144096504997,
+            "url": null
+        },
+        "faker": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "eslint-plugin-vue": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.007526633892423366,
+            "url": null
+        },
+        "codemirror": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.0017950549450549448,
+            "url": null
+        },
+        "svelte-preprocess": {
+            "credit": 0.009620864661654134,
+            "url": null
+        },
+        "svelte-check": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "rollup-plugin-typescript2": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "rollup-plugin-svelte": {
+            "credit": 0.014621374865735766,
+            "url": null
+        },
+        "prettier-plugin-svelte": {
+            "credit": 0.010732089151450052,
+            "url": null
+        },
+        "eslint-plugin-svelte3": {
+            "credit": 0.010732089151450052,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "tslib": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "svelte-guides": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "svelte": {
+            "credit": 0.010732089151450052,
+            "url": null
+        },
+        "scenejs": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.005731578947368421,
+            "url": null
+        },
+        "rollup-plugin-livereload": {
+            "credit": 0.005731578947368421,
+            "url": null
+        },
+        "print-sizes": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "keycon": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "moveable": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "framework-utils": {
+            "credit": 0.003889285714285714,
+            "url": null
+        },
+        "sveld": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "pretty-quick": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.006842803437164339,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.005000510204081632,
+            "url": null
+        },
+        "svelte-jest": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "semantic-release": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "rollup-plugin-replace": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "rollup-plugin-postcss": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "postcss": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "eslint-plugin-jest": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "cz-conventional-changelog": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "babel-jest": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        },
+        "autoprefixer": {
+            "credit": 0.0018422932330827066,
+            "url": null
+        }
+    }
+}

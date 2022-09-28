@@ -1,0 +1,64 @@
+Package: haldensify
+Title: Highly Adaptive Lasso Conditional Density Estimation
+Version: 0.2.5
+Authors@R: c(
+    person("Nima", "Hejazi", email = "nh@nimahejazi.org",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-7127-2789")),
+    person("David", "Benkeser", email = "benkeser@emory.edu",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-1019-8343")),
+    person("Mark", "van der Laan", email = "laan@berkeley.edu",
+           role = c("aut", "ths"),
+           comment = c(ORCID = "0000-0003-1432-5511")),
+    person("Rachael", "Phillips", email = "rachaelvphillips@berkeley.edu",
+           role = "ctb",
+           comment = c(ORCID = "0000-0002-8474-591X"))
+  )
+Maintainer: Nima Hejazi <nh@nimahejazi.org>
+Description: An algorithm for flexible conditional density estimation based on
+    application of pooled hazard regression to an artificial repeated measures
+    dataset constructed by discretizing the support of the outcome variable. To
+    facilitate non/semi-parametric estimation of the conditional density, the
+    highly adaptive lasso, a nonparametric regression function shown to
+    reliably estimate a large class of functions at a fast convergence rate, is
+    utilized.  The pooled hazards formulation implemented was first described
+    by Díaz and van der Laan (2011) <doi:10.2202/1557-4679.1356>. To complement
+    the conditional density estimation utilities, nonparametric inverse
+    probability weighted (IPW) estimators of the causal effects of additive
+    modified treatment policies are implemented, using the conditional density
+    estimation procedure to estimate the generalized propensity score. Per
+    Hejazi, Benkeser, Díaz, and van der Laan <>10.48550/arXiv.2205.05777>,
+    these nonparametric IPW estimators can be coupled with sieve estimation
+    (undersmoothing) of the generalized propensity score estimators to attain
+    the non/semi-parametric efficiency bound.
+Depends: R (>= 3.2.0)
+Imports:
+    stats,
+    utils,
+    dplyr,
+    tibble,
+    ggplot2,
+    data.table,
+    matrixStats,
+    future.apply,
+    assertthat,
+    hal9001 (>= 0.4.1),
+    origami (>= 1.0.3),
+    stringr,
+    rlang,
+    scales,
+    Rdpack
+Suggests:
+    testthat,
+    knitr,
+    rmarkdown,
+    covr,
+    future
+License: MIT + file LICENSE
+URL: https://github.com/nhejazi/haldensify
+BugReports: https://github.com/nhejazi/haldensify/issues
+Encoding: UTF-8
+VignetteBuilder: knitr
+RoxygenNote: 7.2.1
+RdMacros: Rdpack

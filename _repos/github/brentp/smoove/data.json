@@ -1,0 +1,90 @@
+{
+    "go.mod": {
+        "github/brentp/smoove": {
+            "credit": 0.01,
+            "url": "https://github/brentp/smoove"
+        }
+    },
+    "go": {
+        "github.com/alexflint/go-arg": {
+            "credit": 0.000495,
+            "url": "https://github.com/alexflint/go-arg"
+        },
+        "github.com/biogo/biogo": {
+            "credit": 0.000495,
+            "url": "https://github.com/biogo/biogo"
+        },
+        "github.com/biogo/hts": {
+            "credit": 0.000495,
+            "url": "https://github.com/biogo/hts"
+        },
+        "github.com/biogo/store": {
+            "credit": 0.000495,
+            "url": "https://github.com/biogo/store"
+        },
+        "github.com/brentp/faidx": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/faidx"
+        },
+        "github.com/brentp/gargs": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/gargs"
+        },
+        "github.com/brentp/go-athenaeum": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/go-athenaeum"
+        },
+        "github.com/brentp/go-chartjs": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/go-chartjs"
+        },
+        "github.com/brentp/goleft": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/goleft"
+        },
+        "github.com/brentp/irelate": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/irelate"
+        },
+        "github.com/brentp/vcfgo": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/vcfgo"
+        },
+        "github.com/brentp/xopen": {
+            "credit": 0.000495,
+            "url": "https://github.com/brentp/xopen"
+        },
+        "github.com/edsrzf/mmap-go": {
+            "credit": 0.000495,
+            "url": "https://github.com/edsrzf/mmap-go"
+        },
+        "github.com/fatih/color": {
+            "credit": 0.000495,
+            "url": "https://github.com/fatih/color"
+        },
+        "github.com/kyroy/kdtree": {
+            "credit": 0.000495,
+            "url": "https://github.com/kyroy/kdtree"
+        },
+        "github.com/mattn/go-isatty": {
+            "credit": 0.000495,
+            "url": "https://github.com/mattn/go-isatty"
+        },
+        "github.com/pkg/errors": {
+            "credit": 0.000495,
+            "url": "https://github.com/pkg/errors"
+        },
+        "github.com/valyala/fasttemplate": {
+            "credit": 0.000495,
+            "url": "https://github.com/valyala/fasttemplate"
+        },
+        "gonum.org/v1/gonum": {
+            "credit": 0.000495,
+            "url": "https://gonum.org/v1/gonum"
+        },
+        "gopkg.in/check.v1": {
+            "credit": 0.000495,
+            "url": "https://gopkg.in/check.v1"
+        }
+    }
+}
