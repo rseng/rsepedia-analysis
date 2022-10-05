@@ -325,6 +325,7 @@ add_library(
   common/BaselineSelect.cc
   common/ClusterDesc.cc
   common/DataConvert.cc
+  common/Fields.cc
   common/Memory.cc
   common/NodeDesc.cc
   common/ParameterHandler.cc
@@ -429,11 +430,13 @@ add_library(
   steps/MSUpdater.cc
   steps/MSWriter.cc
   steps/MultiMSReader.cc
+  steps/MultiResultStep.cc
   steps/OneApplyCal.cc
+  steps/OnePredict.cc
   steps/PhaseShift.cc
   steps/Predict.cc
   steps/PreFlagger.cc
-  steps/OnePredict.cc
+  steps/ResultStep.cc
   steps/ScaleData.cc
   steps/SetBeam.cc
   steps/Split.cc
@@ -608,12 +611,12 @@ if(BUILD_TESTING)
       ddecal/test/unit/tSolvers.cc
       steps/test/unit/mock/MockInput.cc
       steps/test/unit/mock/MockStep.cc
+      steps/test/unit/mock/ThrowStep.cc
       steps/test/unit/tAntennaFlagger.cc
       steps/test/unit/tAOFlaggerStep.cc
       steps/test/unit/tApplyCal.cc
       steps/test/unit/tApplyCalH5.cc
       steps/test/unit/tAverager.cc
-      steps/test/unit/tBdaDdeCal.cc
       steps/test/unit/tBdaPredict.cc
       steps/test/unit/tBDAResultStep.cc
       steps/test/unit/tDDECal.cc
@@ -654,8 +657,11 @@ if(BUILD_TESTING)
       ddecal/test/unit/tSolveData.cc
       parmdb/test/unit/tSkymodelToSourceDB.cc
       parmdb/test/unit/tSourceDB.cc
+      steps/test/unit/tApplyBeam.cc
       steps/test/unit/tBDAAverager.cc
+      steps/test/unit/tBdaDdeCal.cc
       steps/test/unit/tBDAExpander.cc
+      steps/test/unit/tBdaGroupPredict.cc
       steps/test/unit/tCounter.cc
       steps/test/unit/tInputStep.cc
       steps/test/unit/tMSBDAReader.cc

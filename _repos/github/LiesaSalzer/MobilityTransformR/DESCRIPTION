@@ -1,0 +1,31 @@
+Package: MobilityTransformR
+Title: Effective mobility scale transformation of CE-MS(/MS) data 
+Version: 0.99.17
+Description: MobilityTransformR collects a tool set for effective mobility scale transformation of CE-MS/MS data in order to increase reproducibility. It provides functionality to determine the migration times from mobility markers that have been added to the analysis and performs the transformation based on these markers. MobilityTransformR supports the conversion of numeric vectors, Spectra-objects, and MSnOnDiskExp.
+Authors@R: person("Liesa", "Salzer",
+           email = "liesa.salzer@helmholtz-muenchen.de",
+           role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0003-0761-0656"))
+Depends:
+    MSnbase,
+    R (>= 4.2)
+Imports:
+    xcms,
+    MetaboCoreUtils,
+    Spectra
+Suggests:
+    testthat,
+    msdata (>= 0.35.3),
+    knitr (>= 1.1.0),
+    roxygen2,
+    BiocStyle (>= 2.5.19),
+    rmarkdown
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: FALSE
+VignetteBuilder: knitr
+BugReports: https://github.com/LiesaSalzer/MobilityTransformR/issues
+URL: https://github.com/LiesaSalzer/MobilityTransformR
+biocViews: Infrastructure, Metabolomics, MassSpectrometry, Proteomics, Preprocessing
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
