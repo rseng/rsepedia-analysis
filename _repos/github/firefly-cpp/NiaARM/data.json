@@ -1,0 +1,78 @@
+{
+    "requirements.txt": {
+        "github/firefly-cpp/NiaARM": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Sphinx": {
+            "credit": 0.19767,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.165,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinxcontrib-bibtex": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/mcmtroffaes/sphinxcontrib-bibtex"
+        },
+        "niapy": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/NiaOrg/NiaPy"
+        },
+        "numpy": {
+            "credit": 0.2058375,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.2058375,
+            "url": "https://pandas.pydata.org"
+        },
+        "dataclasses": {
+            "credit": 0.03267,
+            "url": "https://github.com/ericvsmith/dataclasses"
+        },
+        "pybtex-docutils": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/mcmtroffaes/pybtex-docutils"
+        },
+        "pybtex": {
+            "credit": 0.0004884164999999982,
+            "url": "https://pybtex.org/"
+        },
+        "docutils": {
+            "credit": 0.04884165,
+            "url": "http://docutils.sourceforge.net/"
+        },
+        "openpyxl": {
+            "credit": 0.0004083750000000025,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "matplotlib": {
+            "credit": 0.0408375,
+            "url": "https://matplotlib.org"
+        },
+        "pytest": {
+            "credit": 0.012088308374999999,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "six": {
+            "credit": 0.012088308374999999,
+            "url": "https://pypi.org/project/six"
+        },
+        "latexcodec": {
+            "credit": 0.012088308374999999,
+            "url": "https://pypi.org/project/latexcodec"
+        },
+        "PyYAML": {
+            "credit": 0.012088308374999999,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "et-xmlfile": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/et-xmlfile"
+        }
+    }
+}

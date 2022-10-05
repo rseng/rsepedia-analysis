@@ -1,0 +1,110 @@
+{
+    "DESCRIPTION": {
+        "github/schochastics/netrankr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.03190275000000001,
+            "url": "http://www.rcpp.org"
+        },
+        "Matrix": {
+            "credit": 0.00495000000000001,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "pkgKitten": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.081675,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.05472225,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.19135972058823528,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.13745422058823528,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.028826470588235294,
+            "url": "https://github.com/r-spatial/spdep/"
+        },
+        "sp": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "igraph": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "R": {
+            "credit": 0.028826470588235294,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.026952749999999998,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.026952749999999998,
+            "url": null
+        }
+    }
+}
