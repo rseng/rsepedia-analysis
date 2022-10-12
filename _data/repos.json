@@ -15523,7 +15523,25 @@
             "r-package",
             "network-centrality"
         ],
-        "github/pierfied/karmma": []
+        "github/pierfied/karmma": [],
+        "github/tlancian/bio_cs": [],
+        "github/open2c/pairtools": [],
+        "github/enthought/vpsearch": [],
+        "github/yrjia1015/CRISPRCasStack": [],
+        "github/cnes/EleFits": [
+            "actively-maintained",
+            "fits-files",
+            "fitsio",
+            "cpp"
+        ],
+        "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": [],
+        "github/Gaiana/nirdust": [
+            "spectra",
+            "dust",
+            "agn",
+            "astronomy",
+            "galaxies"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19736,7 +19754,14 @@
         "github/NiallJeffrey/DeepMass": "Jupyter Notebook",
         "github/DESI-UR/VAST": "Python",
         "github/schochastics/netrankr": "R",
-        "github/pierfied/karmma": "Python"
+        "github/pierfied/karmma": "Python",
+        "github/tlancian/bio_cs": "Python",
+        "github/open2c/pairtools": "Python",
+        "github/enthought/vpsearch": "Cython",
+        "github/yrjia1015/CRISPRCasStack": "Python",
+        "github/cnes/EleFits": "C++",
+        "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "Scala",
+        "github/Gaiana/nirdust": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23949,7 +23974,14 @@
         "github/NiallJeffrey/DeepMass": "https://github.com/NiallJeffrey/DeepMass",
         "github/DESI-UR/VAST": "https://github.com/DESI-UR/VAST",
         "github/schochastics/netrankr": "https://github.com/schochastics/netrankr",
-        "github/pierfied/karmma": "https://github.com/pierfied/karmma"
+        "github/pierfied/karmma": "https://github.com/pierfied/karmma",
+        "github/tlancian/bio_cs": "https://github.com/tlancian/bio_cs",
+        "github/open2c/pairtools": "https://github.com/open2c/pairtools",
+        "github/enthought/vpsearch": "https://github.com/enthought/vpsearch",
+        "github/yrjia1015/CRISPRCasStack": "https://github.com/yrjia1015/CRISPRCasStack",
+        "github/cnes/EleFits": "https://github.com/CNES/EleFits",
+        "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "https://github.com/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark",
+        "github/Gaiana/nirdust": "https://github.com/Gaiana/nirdust"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28162,6 +28194,13 @@
         "github/NiallJeffrey/DeepMass": "Cosmological map inference with deep learning",
         "github/DESI-UR/VAST": "Void Analysis Software Toolkit",
         "github/schochastics/netrankr": "An R package for network centrality",
-        "github/pierfied/karmma": "KaRMMa - Kappa Reconstruction for Mass Mapping"
+        "github/pierfied/karmma": "KaRMMa - Kappa Reconstruction for Mass Mapping",
+        "github/tlancian/bio_cs": "\"Contrast Subgraphs Allow Comparing Homogeneous and Heterogeneous Networks Derived from Omics Data\" - T. Lanciano, A. Savino, F. Porcu, D. Cittaro, F. Bonchi, P. Provero",
+        "github/open2c/pairtools": "CLI tools to process mapped Hi-C data",
+        "github/enthought/vpsearch": "Fast similarity search for genomic sequences via vantage-point trees",
+        "github/yrjia1015/CRISPRCasStack": "A toolkit for automated identification of Cas proteins and CRISPR-Cas locus",
+        "github/cnes/EleFits": "A modern C++ API on top of CFitsIO",
+        "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "A method for time-series reconstruction of massive astronomical catalogues.",
+        "github/Gaiana/nirdust": "Nirdust is a python package that uses K-band (2.2 micrometers) spectra to measure the temperature of the dust heated by a type 2 Active Galactic Nuclei (AGN) accretion disk."
     }
 }
