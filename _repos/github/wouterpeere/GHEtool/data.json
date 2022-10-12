@@ -1,0 +1,50 @@
+{
+    "requirements.txt": {
+        "github/wouterpeere/GHEtool": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.0014142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0014142857142857143,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0014142857142857143,
+            "url": "https://pandas.pydata.org"
+        },
+        "pygfunction": {
+            "credit": 0.0014142857142857143,
+            "url": "https://github.com/MassimoCimmino/pygfunction"
+        },
+        "PyQt5": {
+            "credit": 0.0014142857142857143,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "scipy": {
+            "credit": 0.0014142857142857143,
+            "url": "https://www.scipy.org"
+        },
+        "openpyxl": {
+            "credit": 0.0014142857142857143,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.0007000714285714285,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.0007000714285714285,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "et-xmlfile": {
+            "credit": 0.001400142857142857,
+            "url": "https://foss.heptapod.net/openpyxl/et_xmlfile"
+        }
+    }
+}
