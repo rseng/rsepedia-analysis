@@ -73,11 +73,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   # GCC 8.x requires linking with stdc++fs for the filesystem library
   # https://gcc.gnu.org/onlinedocs/gcc-9.1.0/libstdc++/manual/manual/status.html#status.iso.2017
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
-    link_libraries(stdc++fs)
-  elseif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 8.0)
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 8.0)
     message(
       FATAL_ERROR "The GCC version is too old, upgrade to GCC 8.0 or newer")
+  elseif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
+    link_libraries(stdc++fs)
   endif()
 endif()
 include_directories("${CMAKE_SOURCE_DIR}/include")
@@ -129,6 +129,7 @@ find_package(
   Casacore
   COMPONENTS casa ms tables fits
   REQUIRED)
+include_directories(${CASACORE_INCLUDE_DIR})
 
 find_package(CFITSIO REQUIRED)
 include_directories(${CFITSIO_INCLUDE_DIRS})
@@ -276,7 +277,7 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 endif()
 
 # Include aocommon
-include_directories("${CMAKE_SOURCE_DIR}/external/aocommon/include/")
+include_directories(${CMAKE_SOURCE_DIR}/external/aocommon/include/)
 
 # Include pybind11
 set(PYTHON_EXECUTABLE "${Python3_EXECUTABLE}")
@@ -342,9 +343,6 @@ add_library(
   common/VdsMaker.cc
   common/VdsPartDesc.cc)
 
-add_library(AntennaFlagger OBJECT antennaflagger/Flagger.cc)
-set_property(TARGET AntennaFlagger PROPERTY POSITION_INDEPENDENT_CODE ON)
-
 add_library(
   DDECal OBJECT
   steps/BdaDdeCal.cc
@@ -372,10 +370,9 @@ add_library(
   ddecal/linear_solvers/LLSSolver.cc
   ${DDE_ARMADILLO_FILES})
 
-target_include_directories(DDECal PRIVATE "${CMAKE_SOURCE_DIR}")
-
 add_library(
   DP3_OBJ OBJECT
+  antennaflagger/Flagger.cc
   base/Apply.cc
   base/BaselineSelection.cc
   base/BDABuffer.cc
@@ -483,15 +480,6 @@ add_library(PythonDP3 OBJECT pythondp3/PyStep.cc)
 set_property(TARGET Blob Common DDECal DP3_OBJ ParmDB PythonDP3
              PROPERTY POSITION_INDEPENDENT_CODE ON)
 
-set(DP3_OBJECTS
-    $<TARGET_OBJECTS:Blob>
-    $<TARGET_OBJECTS:Common>
-    $<TARGET_OBJECTS:DDECal>
-    $<TARGET_OBJECTS:DP3_OBJ>
-    $<TARGET_OBJECTS:ParmDB>
-    $<TARGET_OBJECTS:PythonDP3>
-    $<TARGET_OBJECTS:AntennaFlagger>)
-
 set(LIBDIRAC_PREFIX
     ""
     CACHE FILEPATH "Path to libdirac install root")
@@ -540,43 +528,40 @@ add_library(Casacore INTERFACE)
 target_include_directories(Casacore INTERFACE ${CASACORE_INCLUDE_DIR})
 target_link_libraries(Casacore INTERFACE ${CASACORE_LIBRARIES})
 
-add_library(LIBDP3 SHARED ${DP3_OBJECTS})
-
-target_include_directories(
-  LIBDP3 PUBLIC $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>
-                $<INSTALL_INTERFACE:include>)
+add_library(LIBDP3 SHARED)
 target_link_libraries(
   LIBDP3
+  PUBLIC Blob Common DDECal DP3_OBJ ParmDB PythonDP3
   # The public headers of LIBDP3 include casacore and aocommon headers
   # These targets should therefore be linked as INTERFACE
   INTERFACE Casacore Aocommon
   PRIVATE ${DP3_LIBRARIES})
-install(TARGETS LIBDP3 DESTINATION lib)
+set_target_properties(LIBDP3 PROPERTIES LIBRARY_OUTPUT_NAME "DP3")
+install(TARGETS LIBDP3)
 # CMake 3.23 has FILE_SETs which are a cleaner solution. But this version
 # is too new to require,
 install(DIRECTORY include DESTINATION include)
-
-add_subdirectory(base)
 
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   add_subdirectory(pythondp3)
 endif()
 
-set(SOURCEDB_OBJECTS $<TARGET_OBJECTS:Blob> $<TARGET_OBJECTS:Common>
-                     $<TARGET_OBJECTS:ParmDB>)
+set(SOURCEDB_LIBRARIES Blob Common ParmDB ${CASACORE_LIBRARIES}
+                       ${Boost_SYSTEM_LIBRARY})
 
-set(SOURCEDB_LIBRARIES ${CASACORE_LIBRARIES} ${Boost_SYSTEM_LIBRARY})
+add_executable(DP3 base/Main.cc)
+target_link_libraries(DP3 LIBDP3)
 
-add_executable(makesourcedb parmdb/makesourcedb.cc ${SOURCEDB_OBJECTS})
+add_executable(makesourcedb parmdb/makesourcedb.cc)
 target_link_libraries(makesourcedb ${SOURCEDB_LIBRARIES})
 
-add_executable(showsourcedb parmdb/showsourcedb.cc ${SOURCEDB_OBJECTS})
+add_executable(showsourcedb parmdb/showsourcedb.cc)
 target_link_libraries(showsourcedb ${SOURCEDB_LIBRARIES})
 
 add_executable(msoverview base/msoverview.cc)
 target_link_libraries(msoverview ${CASACORE_LIBRARIES})
 
-install(TARGETS makesourcedb showsourcedb msoverview DESTINATION bin)
+install(TARGETS DP3 makesourcedb showsourcedb msoverview DESTINATION bin)
 
 # Install a script that warns users that DP3 is the new name of the executable
 install(
@@ -596,10 +581,9 @@ if(BUILD_TESTING)
     set(OS_SPECIFIC_TESTS # steps/dynamic_test_step/test/tDynamicTestStep.cc #
                           # This test still fails
     )
-    add_library(dp3_testdyndp3 SHARED steps/dynamic_test_step/DynamicTestStep.cc
-                                      ${DP3_OBJECTS})
-    target_link_libraries(dp3_testdyndp3 ${DP3_LIBRARIES})
-    add_dependencies(dp3_testdyndp3 schaapcommon)
+    add_library(dp3_testdyndp3 SHARED
+                steps/dynamic_test_step/DynamicTestStep.cc)
+    target_link_libraries(dp3_testdyndp3 LIBDP3)
   endif()
 
   set(TEST_FILENAMES
@@ -618,7 +602,6 @@ if(BUILD_TESTING)
       base/test/unit/tBaselineSelection.cc
       base/test/unit/tBDABuffer.cc
       base/test/unit/tDPBuffer.cc
-      base/test/unit/tDP3.cc
       base/test/unit/tMirror.cc
       base/test/unit/tSimulate.cc
       base/test/unit/tSolutionInterval.cc
@@ -645,7 +628,6 @@ if(BUILD_TESTING)
       steps/test/unit/tFilter.cc
       steps/test/unit/tInterpolate.cc
       steps/test/unit/tMedFlagger.cc
-      steps/test/unit/tMSReader.cc
       steps/test/unit/tPhaseShift.cc
       steps/test/unit/tUVWFlagger.cc
       steps/test/unit/tPSet.cc
@@ -668,6 +650,7 @@ if(BUILD_TESTING)
       common/test/unit/tBaselineUtils.cc
       common/test/unit/tMemory.cc
       common/test/unit/tStringTools.cc
+      base/test/unit/tDP3.cc
       base/test/unit/tDPInfo.cc
       base/test/unit/tSimulator.cc
       ddecal/test/unit/tSolutionResampler.cc
@@ -688,6 +671,7 @@ if(BUILD_TESTING)
       steps/test/unit/tInputStep.cc
       steps/test/unit/tMSBDAReader.cc
       steps/test/unit/tMSBDAWriter.cc
+      steps/test/unit/tMSReader.cc
       steps/test/unit/tMSUpdater.cc
       steps/test/unit/tMSWriter.cc
       steps/test/unit/tOneApplyCal.cc

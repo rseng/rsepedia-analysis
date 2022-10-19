@@ -15541,7 +15541,55 @@
             "agn",
             "astronomy",
             "galaxies"
-        ]
+        ],
+        "github/zengzhenhuan/GFNet": [],
+        "github/VChristiaens/special": [],
+        "github/stinefm/relsad": [
+            "electrical-power-engineering",
+            "reliability"
+        ],
+        "github/JulianKarlBauer/mechkit": [
+            "mechanics",
+            "mechanics-of-materials",
+            "python",
+            "continuum-mechanics"
+        ],
+        "github/yangyongsan-bio/GREAP": [],
+        "github/bionlplab/GlaucomaNet": [],
+        "github/bluefoxr/COINr": [],
+        "github/chocoteam/choco-solver": [
+            "constraint-programming",
+            "solver",
+            "constraints",
+            "csp",
+            "copr",
+            "constraint-satisfaction-problem",
+            "java",
+            "constraint-solver",
+            "constraint-optimisation-problem"
+        ],
+        "github/samtools/samtools": [],
+        "github/vferat/pycrostates": [
+            "eeg",
+            "eeg-analysis"
+        ],
+        "github/JorenSix/Panako": [
+            "music-information-retrieval",
+            "acoustic-fingerprinting",
+            "duplicate-detection",
+            "audio-processing"
+        ],
+        "github/hues-platform/cesar-p-core": [],
+        "github/Basvanstein/GSAreport": [
+            "explainable-ai",
+            "machine-learning",
+            "python",
+            "sensitivity-analysis"
+        ],
+        "github/BaroudLab/Griottes": [],
+        "github/csuhjhjhj/GCNCMI": [],
+        "github/zpliulab/GENELink": [],
+        "github/zhoulinumass/ML-wPBE": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19761,7 +19809,24 @@
         "github/yrjia1015/CRISPRCasStack": "Python",
         "github/cnes/EleFits": "C++",
         "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "Scala",
-        "github/Gaiana/nirdust": "Python"
+        "github/Gaiana/nirdust": "Python",
+        "github/zengzhenhuan/GFNet": "Python",
+        "github/VChristiaens/special": "Python",
+        "github/stinefm/relsad": "Python",
+        "github/JulianKarlBauer/mechkit": "Python",
+        "github/yangyongsan-bio/GREAP": "FreeMarker",
+        "github/bionlplab/GlaucomaNet": "Python",
+        "github/bluefoxr/COINr": "HTML",
+        "github/chocoteam/choco-solver": "Java",
+        "github/samtools/samtools": "C",
+        "github/vferat/pycrostates": "Python",
+        "github/JorenSix/Panako": "Java",
+        "github/hues-platform/cesar-p-core": "HTML",
+        "github/Basvanstein/GSAreport": "Python",
+        "github/BaroudLab/Griottes": "Jupyter Notebook",
+        "github/csuhjhjhj/GCNCMI": "Python",
+        "github/zpliulab/GENELink": "Python",
+        "github/zhoulinumass/ML-wPBE": "Jupyter Notebook"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -23981,7 +24046,24 @@
         "github/yrjia1015/CRISPRCasStack": "https://github.com/yrjia1015/CRISPRCasStack",
         "github/cnes/EleFits": "https://github.com/CNES/EleFits",
         "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "https://github.com/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark",
-        "github/Gaiana/nirdust": "https://github.com/Gaiana/nirdust"
+        "github/Gaiana/nirdust": "https://github.com/Gaiana/nirdust",
+        "github/zengzhenhuan/GFNet": "https://github.com/zengzhenhuan/GFNet",
+        "github/VChristiaens/special": "https://github.com/VChristiaens/special",
+        "github/stinefm/relsad": "https://github.com/stinefm/relsad",
+        "github/JulianKarlBauer/mechkit": "https://github.com/JulianKarlBauer/mechkit",
+        "github/yangyongsan-bio/GREAP": "https://github.com/yangyongsan-bio/GREAP",
+        "github/bionlplab/GlaucomaNet": "https://github.com/bionlplab/GlaucomaNet",
+        "github/bluefoxr/COINr": "https://github.com/bluefoxr/COINr",
+        "github/chocoteam/choco-solver": "https://github.com/chocoteam/choco-solver",
+        "github/samtools/samtools": "https://github.com/samtools/samtools",
+        "github/vferat/pycrostates": "https://github.com/vferat/pycrostates",
+        "github/JorenSix/Panako": "https://github.com/JorenSix/Panako",
+        "github/hues-platform/cesar-p-core": "https://github.com/hues-platform/cesar-p-core",
+        "github/Basvanstein/GSAreport": "https://github.com/Basvanstein/GSAreport",
+        "github/BaroudLab/Griottes": "https://github.com/BaroudLab/Griottes",
+        "github/csuhjhjhj/GCNCMI": "https://github.com/csuhjhjhj/GCNCMI",
+        "github/zpliulab/GENELink": "https://github.com/zpliulab/GENELink",
+        "github/zhoulinumass/ML-wPBE": "https://github.com/zhoulinumass/ML-wPBE"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28201,6 +28283,23 @@
         "github/yrjia1015/CRISPRCasStack": "A toolkit for automated identification of Cas proteins and CRISPR-Cas locus",
         "github/cnes/EleFits": "A modern C++ API on top of CFitsIO",
         "github/Liltsliverfish/A-time-series-reconstruction-method-of-massive-astronomical-catalogues-based-on-Spark": "A method for time-series reconstruction of massive astronomical catalogues.",
-        "github/Gaiana/nirdust": "Nirdust is a python package that uses K-band (2.2 micrometers) spectra to measure the temperature of the dust heated by a type 2 Active Galactic Nuclei (AGN) accretion disk."
+        "github/Gaiana/nirdust": "Nirdust is a python package that uses K-band (2.2 micrometers) spectra to measure the temperature of the dust heated by a type 2 Active Galactic Nuclei (AGN) accretion disk.",
+        "github/zengzhenhuan/GFNet": null,
+        "github/VChristiaens/special": "Package for spectral characterization of (sub-)stellar objects",
+        "github/stinefm/relsad": "A Python package for reliability assessment of modern distribution systems.",
+        "github/JulianKarlBauer/mechkit": "Continuum mechanics toolkit",
+        "github/yangyongsan-bio/GREAP": null,
+        "github/bionlplab/GlaucomaNet": "A deep-learning algorithm for the diagnosis of primary open-angle glaucoma from fundus photographs",
+        "github/bluefoxr/COINr": "COINr",
+        "github/chocoteam/choco-solver": "An open-source Java library for Constraint Programming",
+        "github/samtools/samtools": "Tools (written in C using htslib) for manipulating next-generation sequencing data",
+        "github/vferat/pycrostates": null,
+        "github/JorenSix/Panako": "The Panako acoustic fingerprinting system.",
+        "github/hues-platform/cesar-p-core": "CESAR-P code library",
+        "github/Basvanstein/GSAreport": "Global Sensitivity reporting for Explainable AI",
+        "github/BaroudLab/Griottes": "Python program to generate NetworkX graphs from segmented images.",
+        "github/csuhjhjhj/GCNCMI": "CircRNA-miRNA interaction Prediction Based on Graph Neural Network",
+        "github/zpliulab/GENELink": null,
+        "github/zhoulinumass/ML-wPBE": null
     }
 }

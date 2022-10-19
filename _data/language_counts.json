@@ -1,15 +1,15 @@
 {
     "unknown": 124,
-    "Python": 1648,
-    "Jupyter Notebook": 311,
+    "Python": 1657,
+    "Jupyter Notebook": 313,
     "Modelica": 1,
     "Shell": 24,
-    "HTML": 64,
+    "HTML": 66,
     "Perl": 42,
     "R": 566,
     "C++": 455,
-    "Java": 89,
-    "C": 285,
+    "Java": 91,
+    "C": 286,
     "Rust": 17,
     "JavaScript": 74,
     "AMPL": 1,
@@ -71,5 +71,6 @@
     "OpenEdge ABL": 2,
     "Logos": 2,
     "SWIG": 1,
-    "Svelte": 1
+    "Svelte": 1,
+    "FreeMarker": 1
 }
