@@ -1,0 +1,38 @@
+{
+    "requirements.txt": {
+        "github/arq5x/poretools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.00198,
+            "url": "http://www.h5py.org"
+        },
+        "matplotlib": {
+            "credit": 0.00247005,
+            "url": "https://matplotlib.org"
+        },
+        "seaborn": {
+            "credit": 0.00198,
+            "url": "https://seaborn.pydata.org"
+        },
+        "pandas": {
+            "credit": 0.00247005,
+            "url": "https://pandas.pydata.org"
+        },
+        "python-dateutil": {
+            "credit": 0.00198,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "numpy": {
+            "credit": 0.00245025,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00049005,
+            "url": "https://scipy.org/"
+        }
+    }
+}

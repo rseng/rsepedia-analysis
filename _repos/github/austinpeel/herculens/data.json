@@ -1,0 +1,42 @@
+{
+    "requirements.txt": {
+        "github/austinpeel/herculens": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0024626250000000004,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0012375,
+            "url": "https://www.scipy.org"
+        },
+        "jax": {
+            "credit": 0.0012375,
+            "url": "https://github.com/google/jax"
+        },
+        "jaxlib": {
+            "credit": 0.0012375,
+            "url": "https://github.com/google/jax"
+        },
+        "optax": {
+            "credit": 0.0012375,
+            "url": "https://github.com/deepmind/optax"
+        },
+        "chex": {
+            "credit": 0.0012375,
+            "url": "https://github.com/deepmind/chex"
+        },
+        "matplotlib": {
+            "credit": 0.0012375,
+            "url": "https://matplotlib.org"
+        },
+        "findiff": {
+            "credit": 0.0012375,
+            "url": "https://github.com/maroba/findiff"
+        }
+    }
+}

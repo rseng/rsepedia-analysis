@@ -1,0 +1,150 @@
+{
+    "requirements.txt": {
+        "github/miracum/ahd2fhir": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "fhir.resources": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/nazrulworld/fhir.resources"
+        },
+        "fastapi": {
+            "credit": 0.12375,
+            "url": "https://fastapi.tiangolo.com/"
+        },
+        "prometheus-fastapi-instrumentator": {
+            "credit": 0.12375,
+            "url": "https://github.com/trallnag/prometheus-fastapi-instrumentator"
+        },
+        "uvicorn": {
+            "credit": 0.12375,
+            "url": "https://www.uvicorn.org/"
+        },
+        "structlog": {
+            "credit": 0.12375,
+            "url": "https://www.structlog.org/"
+        },
+        "averbis-python-api": {
+            "credit": 0.12375,
+            "url": "https://pypi.org/project/averbis-python-api"
+        },
+        "tenacity": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/jd/tenacity"
+        },
+        "aiokafka": {
+            "credit": 0.0012375000000000025,
+            "url": "http://aiokafka.readthedocs.org"
+        },
+        "pytest-runner": {
+            "credit": 0.0058339285714285715,
+            "url": "https://github.com/pytest-dev/pytest-runner/"
+        },
+        "pytest-cov": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "zest-releaser": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/zest-releaser"
+        },
+        "fhirspec": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/fhirspec"
+        },
+        "certifi": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "colorlog": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/colorlog"
+        },
+        "MarkupSafe": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/MarkupSafe"
+        },
+        "Jinja2": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "mypy": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "black": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/black"
+        },
+        "isort": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/isort"
+        },
+        "requests": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/requests"
+        },
+        "flake8-bugbear": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/flake8-bugbear"
+        },
+        "flake8-isort": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/flake8-isort"
+        },
+        "flake8": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "coverage": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "lxml": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "PyYAML": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "orjson": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/orjson"
+        },
+        "pydantic": {
+            "credit": 0.0058339285714285715,
+            "url": "https://pypi.org/project/pydantic"
+        },
+        "tornado": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "sphinx": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "reno": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/reno"
+        },
+        "python-snappy": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/python-snappy"
+        },
+        "dataclasses": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "kafka-python": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/kafka-python"
+        }
+    }
+}
