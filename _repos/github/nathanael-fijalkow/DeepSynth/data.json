@@ -1,0 +1,142 @@
+{
+    "requirements.txt": {
+        "github/nathanael-fijalkow/DeepSynth": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "contourpy": {
+            "credit": 0.061875,
+            "url": "https://github.com/contourpy/contourpy"
+        },
+        "cycler": {
+            "credit": 0.061875,
+            "url": "https://github.com/matplotlib/cycler"
+        },
+        "Cython": {
+            "credit": 0.061875,
+            "url": "http://cython.org/"
+        },
+        "fonttools": {
+            "credit": 0.061875,
+            "url": "http://github.com/fonttools/fonttools"
+        },
+        "kiwisolver": {
+            "credit": 0.061875,
+            "url": "https://kiwisolver.readthedocs.io/en/latest/"
+        },
+        "matplotlib": {
+            "credit": 0.061875,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.061875,
+            "url": "https://www.numpy.org"
+        },
+        "packaging": {
+            "credit": 0.004447265625000001,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "Pillow": {
+            "credit": 0.0006187500000000012,
+            "url": "https://python-pillow.org"
+        },
+        "pyparsing": {
+            "credit": 0.001231312500000005,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "python-dateutil": {
+            "credit": 0.061875,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "scipy": {
+            "credit": 0.061875,
+            "url": "https://scipy.org/"
+        },
+        "six": {
+            "credit": 0.061875,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "torch": {
+            "credit": 0.061875,
+            "url": "https://pytorch.org/"
+        },
+        "tqdm": {
+            "credit": 0.061875,
+            "url": "https://tqdm.github.io"
+        },
+        "typing_extensions": {
+            "credit": 0.061875,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "pytest-timeout": {
+            "credit": 3.828515625000023e-05,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.003828515625,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.00761874609375,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyroma": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "markdown2": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "coverage": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "check-manifest": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "olefile": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "furo": {
+            "credit": 0.003828515625,
+            "url": "https://pypi.org/project/furo"
+        },
+        "jinja2": {
+            "credit": 0.06094996875,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "railroad-diagrams": {
+            "credit": 0.06094996875,
+            "url": "https://pypi.org/project/railroad-diagrams"
+        }
+    }
+}

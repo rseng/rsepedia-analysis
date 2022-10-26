@@ -1,0 +1,5 @@
+numpy
+torch
+healpy
+tqdm
+scipy

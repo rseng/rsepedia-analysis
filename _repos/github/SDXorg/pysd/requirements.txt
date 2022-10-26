@@ -1,0 +1,12 @@
+pandas
+parsimonious
+xarray
+xlrd
+lxml
+regex
+chardet
+black
+openpyxl
+scipy
+progressbar2
+portion

@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/CederGroupHub/smol": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002475,
+            "url": "https://www.numpy.org"
+        },
+        "monty": {
+            "credit": 0.002475,
+            "url": "https://github.com/materialsvirtuallab/monty"
+        },
+        "pymatgen": {
+            "credit": 0.002475,
+            "url": "https://pymatgen.org"
+        },
+        "spglib": {
+            "credit": 0.002475,
+            "url": "http://spglib.github.io/spglib/"
+        }
+    }
+}

@@ -1,14 +1,14 @@
 {
     "unknown": 124,
-    "Python": 1657,
+    "Python": 1662,
     "Jupyter Notebook": 313,
     "Modelica": 1,
     "Shell": 24,
     "HTML": 66,
-    "Perl": 42,
-    "R": 566,
+    "Perl": 43,
+    "R": 567,
     "C++": 455,
-    "Java": 91,
+    "Java": 92,
     "C": 286,
     "Rust": 17,
     "JavaScript": 74,
@@ -72,5 +72,6 @@
     "Logos": 2,
     "SWIG": 1,
     "Svelte": 1,
-    "FreeMarker": 1
+    "FreeMarker": 1,
+    "Slash": 1
 }

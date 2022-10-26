@@ -1,0 +1,26 @@
+Package: isocalcR
+Type: Package
+Title: Isotope Calculations in R 
+Version: 0.1.0
+Author: Justin Mathias
+Date: 2022-07-14
+Maintainer: Justin Mathias <justin.m.mathias@gmail.com>
+Description: Perform common calculations based on published stable isotope theory, such as calculating carbon isotope discrimination and intrinsic water use efficiency from wood or leaf carbon isotope composition. See Farquhar, O'Leary, and Berry (1982) <doi:10.1071/PP9820121>.  
+License: GPL-3
+URL: https://github.com/justinmathias/isocalcR
+BugReports: https://github.com/justinmathias/isocalcR/issues
+Depends: R (>= 4.0.0)
+Imports: 
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0),
+    ggplot2,
+    tidyr,
+    dplyr
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+RoxygenNote: 7.1.1

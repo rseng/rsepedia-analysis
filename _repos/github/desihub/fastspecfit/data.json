@@ -1,0 +1,46 @@
+{
+    "requirements.txt": {
+        "github/desihub/fastspecfit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0018500625000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0018500625000000001,
+            "url": "https://scipy.org/"
+        },
+        "astropy": {
+            "credit": 0.00154378125,
+            "url": "http://astropy.org"
+        },
+        "healpy": {
+            "credit": 0.0012375,
+            "url": "http://github.com/healpy"
+        },
+        "numba": {
+            "credit": 0.0012375,
+            "url": "https://numba.pydata.org"
+        },
+        "seaborn": {
+            "credit": 0.0012375,
+            "url": "https://seaborn.pydata.org"
+        },
+        "matplotlib": {
+            "credit": 0.0018500625000000001,
+            "url": "https://matplotlib.org"
+        },
+        "sphinx-toolbox": {
+            "credit": 0.0012375,
+            "url": "https://github.com/sphinx-toolbox/sphinx-toolbox"
+        },
+        "pandas": {
+            "credit": 0.00030628125,
+            "url": "https://pandas.pydata.org"
+        }
+    }
+}

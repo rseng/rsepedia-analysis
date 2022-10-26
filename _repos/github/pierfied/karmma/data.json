@@ -1,0 +1,38 @@
+{
+    "requirements.txt": {
+        "github/pierfied/karmma": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00247005,
+            "url": "https://www.numpy.org"
+        },
+        "torch": {
+            "credit": 0.00198,
+            "url": "https://pytorch.org/"
+        },
+        "healpy": {
+            "credit": 0.00198,
+            "url": "http://github.com/healpy"
+        },
+        "tqdm": {
+            "credit": 0.00198,
+            "url": "https://tqdm.github.io"
+        },
+        "scipy": {
+            "credit": 0.00247005,
+            "url": "https://scipy.org/"
+        },
+        "astropy": {
+            "credit": 0.00049005,
+            "url": "http://astropy.org"
+        },
+        "matplotlib": {
+            "credit": 0.00049005,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

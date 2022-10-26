@@ -15589,7 +15589,37 @@
         "github/BaroudLab/Griottes": [],
         "github/csuhjhjhj/GCNCMI": [],
         "github/zpliulab/GENELink": [],
-        "github/zhoulinumass/ML-wPBE": []
+        "github/zhoulinumass/ML-wPBE": [],
+        "github/sibirrer/psfr": [
+            "astronomy",
+            "psf-estimation",
+            "lenstronomy"
+        ],
+        "github/nathanael-fijalkow/DeepSynth": [],
+        "github/yangfangs/KPP": [],
+        "github/pymedphys/pymedphys": [
+            "medical-physics",
+            "dicom",
+            "radiation-oncology",
+            "radiation-therapy",
+            "radiation-physics",
+            "radiotherapy"
+        ],
+        "github/moead-framework/framework": [
+            "moead",
+            "framework",
+            "multi-objective-optimization",
+            "multi-objective",
+            "operations-research",
+            "pypi",
+            "modular-framework",
+            "moea",
+            "python"
+        ],
+        "github/kwkx/IPRP": [],
+        "github/SDXorg/pysd": [],
+        "github/cagrikymk/JAX-ReaxFF": [],
+        "github/justinmathias/isocalcR": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -19826,7 +19856,16 @@
         "github/BaroudLab/Griottes": "Jupyter Notebook",
         "github/csuhjhjhj/GCNCMI": "Python",
         "github/zpliulab/GENELink": "Python",
-        "github/zhoulinumass/ML-wPBE": "Jupyter Notebook"
+        "github/zhoulinumass/ML-wPBE": "Jupyter Notebook",
+        "github/sibirrer/psfr": "Python",
+        "github/nathanael-fijalkow/DeepSynth": "Slash",
+        "github/yangfangs/KPP": "Java",
+        "github/pymedphys/pymedphys": "Python",
+        "github/moead-framework/framework": "Python",
+        "github/kwkx/IPRP": "Perl",
+        "github/SDXorg/pysd": "Python",
+        "github/cagrikymk/JAX-ReaxFF": "Python",
+        "github/justinmathias/isocalcR": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24063,7 +24102,16 @@
         "github/BaroudLab/Griottes": "https://github.com/BaroudLab/Griottes",
         "github/csuhjhjhj/GCNCMI": "https://github.com/csuhjhjhj/GCNCMI",
         "github/zpliulab/GENELink": "https://github.com/zpliulab/GENELink",
-        "github/zhoulinumass/ML-wPBE": "https://github.com/zhoulinumass/ML-wPBE"
+        "github/zhoulinumass/ML-wPBE": "https://github.com/zhoulinumass/ML-wPBE",
+        "github/sibirrer/psfr": "https://github.com/sibirrer/psfr",
+        "github/nathanael-fijalkow/DeepSynth": "https://github.com/nathanael-fijalkow/DeepSynth",
+        "github/yangfangs/KPP": "https://github.com/yangfangs/KPP",
+        "github/pymedphys/pymedphys": "https://github.com/pymedphys/pymedphys",
+        "github/moead-framework/framework": "https://github.com/moead-framework/framework",
+        "github/kwkx/IPRP": "https://github.com/kwkx/IPRP",
+        "github/SDXorg/pysd": "https://github.com/SDXorg/pysd",
+        "github/cagrikymk/JAX-ReaxFF": "https://github.com/cagrikymk/JAX-ReaxFF",
+        "github/justinmathias/isocalcR": "https://github.com/justinmathias/isocalcR"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28300,6 +28348,15 @@
         "github/BaroudLab/Griottes": "Python program to generate NetworkX graphs from segmented images.",
         "github/csuhjhjhj/GCNCMI": "CircRNA-miRNA interaction Prediction Based on Graph Neural Network",
         "github/zpliulab/GENELink": null,
-        "github/zhoulinumass/ML-wPBE": null
+        "github/zhoulinumass/ML-wPBE": null,
+        "github/sibirrer/psfr": "Point Spread Function reconstruction",
+        "github/nathanael-fijalkow/DeepSynth": "General-purpose program synthesiser",
+        "github/yangfangs/KPP": "KPP (kmer phylogenetic profile) algorithm",
+        "github/pymedphys/pymedphys": "A community effort to develop an open standard library for Medical Physics in Python. Building quality transparent software together via peer review and open source distribution. Open code is better science.",
+        "github/moead-framework/framework": "MOEA/D is a general-purpose algorithm framework. It decomposes a multi-objective optimization problem into a number of single-objective optimization sub-problems and then uses a search heuristic to optimize these sub-problems simultaneously and cooperatively.",
+        "github/kwkx/IPRP": "The implement of IPRP and related nomograms.",
+        "github/SDXorg/pysd": "System Dynamics Modeling in Python",
+        "github/cagrikymk/JAX-ReaxFF": "JAX-ReaxFF: A Gradient Based Framework for Extremely Fast Optimization of Reactive Force Fields",
+        "github/justinmathias/isocalcR": "R Package containing widely used isotope theory functions"
     }
 }

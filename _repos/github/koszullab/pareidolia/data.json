@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/koszullab/pareidolia": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "chromosight": {
+            "credit": 0.0099,
+            "url": "https://github.com/koszullab/chromosight"
+        }
+    }
+}
