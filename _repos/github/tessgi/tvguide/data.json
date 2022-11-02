@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/tessgi/tvguide": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "astropy": {
+            "credit": 0.0033000000000000004,
+            "url": "http://astropy.org"
+        }
+    }
+}

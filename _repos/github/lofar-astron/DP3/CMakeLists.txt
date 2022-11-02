@@ -322,6 +322,7 @@ add_library(
   blob/BlobOBufStream.cc
   blob/BlobOStream.cc)
 
+# 'Common' files are included in all executables and libraries.
 add_library(
   Common OBJECT
   common/BaselineSelect.cc
@@ -330,7 +331,6 @@ add_library(
   common/Fields.cc
   common/Memory.cc
   common/NodeDesc.cc
-  common/ParameterHandler.cc
   common/ParameterRecord.cc
   common/ParameterSet.cc
   common/ParameterSetImpl.cc
@@ -370,6 +370,7 @@ add_library(
   ddecal/linear_solvers/LLSSolver.cc
   ${DDE_ARMADILLO_FILES})
 
+# 'Base' files and steps are only included in DP3.
 add_library(
   DP3_OBJ OBJECT
   antennaflagger/Flagger.cc
@@ -403,6 +404,7 @@ add_library(
   base/Stokes.cc
   base/SubtractMixed.cc
   base/SubtractNew.cc
+  base/Telescope.cc
   base/UVWCalculator.cc
   steps/AntennaFlagger.cc
   steps/AOFlaggerStep.cc
@@ -411,7 +413,6 @@ add_library(
   steps/BDAAverager.cc
   steps/BDAExpander.cc
   steps/BdaGroupPredict.cc
-  steps/ColumnReader.cc
   steps/Counter.cc
   steps/Demixer.cc
   steps/DummyStep.cc
@@ -424,6 +425,7 @@ add_library(
   steps/MedFlagger.cc
   steps/MSBDAReader.cc
   steps/MSBDAWriter.cc
+  steps/MsColumnReader.cc
   steps/MSReader.cc
   steps/MSUpdater.cc
   steps/MSWriter.cc
@@ -578,12 +580,12 @@ if(BUILD_TESTING)
     set(OS_SPECIFIC_TESTS) # No specific tests for Apple
   else()
     # These run only on Linux
-    set(OS_SPECIFIC_TESTS # steps/dynamic_test_step/test/tDynamicTestStep.cc #
-                          # This test still fails
-    )
-    add_library(dp3_testdyndp3 SHARED
+    # Note: The tests in tDynamicTestStep still fail and are disabled.
+    # TODO(AST-1045): Either remove or test this feature.
+    set(OS_SPECIFIC_TESTS steps/dynamic_test_step/test/tDynamicTestStep.cc)
+    add_library(DP3_testdyndp3 SHARED
                 steps/dynamic_test_step/DynamicTestStep.cc)
-    target_link_libraries(dp3_testdyndp3 LIBDP3)
+    target_link_libraries(DP3_testdyndp3 LIBDP3)
   endif()
 
   set(TEST_FILENAMES
@@ -606,6 +608,7 @@ if(BUILD_TESTING)
       base/test/unit/tSimulate.cc
       base/test/unit/tSolutionInterval.cc
       base/test/unit/tSourceDBUtil.cc
+      base/test/unit/tTelescope.cc
       base/test/unit/tUvwCalculator.cc
       ddecal/test/unit/SolverTester.cc
       ddecal/test/unit/tBdaSolverBuffer.cc
@@ -623,8 +626,8 @@ if(BUILD_TESTING)
       steps/test/unit/tApplyCal.cc
       steps/test/unit/tApplyCalH5.cc
       steps/test/unit/tAverager.cc
-      steps/test/unit/tBdaGroupPredict.cc
       steps/test/unit/tBDAResultStep.cc
+      steps/test/unit/tDummyStep.cc
       steps/test/unit/tFilter.cc
       steps/test/unit/tInterpolate.cc
       steps/test/unit/tMedFlagger.cc
@@ -661,7 +664,7 @@ if(BUILD_TESTING)
       steps/test/unit/tBDAAverager.cc
       steps/test/unit/tBdaDdeCal.cc
       steps/test/unit/tBDAExpander.cc
-      steps/test/unit/tColumnReader.cc
+      steps/test/unit/tBdaGroupPredict.cc
       steps/test/unit/tCounter.cc
       steps/test/unit/tDDECal.cc
       steps/test/unit/tDemixer.cc # Parset is no longer valid in this test!
@@ -670,6 +673,7 @@ if(BUILD_TESTING)
       steps/test/unit/tInputStep.cc
       steps/test/unit/tMSBDAReader.cc
       steps/test/unit/tMSBDAWriter.cc
+      steps/test/unit/tMsColumnReader.cc
       steps/test/unit/tMSReader.cc
       steps/test/unit/tMSUpdater.cc
       steps/test/unit/tMSWriter.cc

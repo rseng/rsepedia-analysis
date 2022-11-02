@@ -1,0 +1,286 @@
+{
+    "DESCRIPTION": {
+        "github/riatelab/osrm": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "RcppSimdJson": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/eddelbuettel/rcppsimdjson/"
+        },
+        "curl": {
+            "credit": 0.009526770000000009,
+            "url": "https://github.com/jeroen/curl"
+        },
+        "mapiso": {
+            "credit": 0.198,
+            "url": "https://github.com/riatelab/mapiso"
+        },
+        "googlePolylines": {
+            "credit": 0.0019800000000000095,
+            "url": null
+        },
+        "sf": {
+            "credit": 0.02998285714285718,
+            "url": "https://r-spatial.github.io/sf/"
+        },
+        "tinytest": {
+            "credit": 0.008575874999999998,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "bit64": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/truecluster/bit64"
+        },
+        "utils": {
+            "credit": 0.12154873499999999,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.03473287714285714,
+            "url": "http://www.rcpp.org"
+        },
+        "webutils": {
+            "credit": 0.00021780000000000063,
+            "url": "https://github.com/jeroen/webutils"
+        },
+        "httpuv": {
+            "credit": 0.005608350000000001,
+            "url": "https://github.com/rstudio/httpuv"
+        },
+        "magrittr": {
+            "credit": 0.00430155,
+            "url": "https://magrittr.tidyverse.org"
+        },
+        "rmarkdown": {
+            "credit": 0.05746030714285714,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "jsonlite": {
+            "credit": 0.02717055,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.05746030714285714,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.06500707714285714,
+            "url": null
+        },
+        "spelling": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "R": {
+            "credit": 0.04131666,
+            "url": null
+        },
+        "sfheaders": {
+            "credit": 0.028002857142857142,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.03568030714285714,
+            "url": null
+        },
+        "wk": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "tmap": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "terra": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "stars": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "spatstat.utils": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "spatstat.linnet": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "spatstat.random": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "spatstat.geom": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "spatstat": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "RPostgres": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.00767745,
+            "url": null
+        },
+        "raster": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "pool": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "odbc": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "mapview": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "maps": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "lwgeom": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "units": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.013786739999999999,
+            "url": null
+        },
+        "s2": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "classInt": {
+            "credit": 0.00408375,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.021872564999999997,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.00970299,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "websocket": {
+            "credit": 0.00215622,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.00215622,
+            "url": null
+        },
+        "later": {
+            "credit": 0.00215622,
+            "url": null
+        },
+        "promises": {
+            "credit": 0.00215622,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.00215622,
+            "url": null
+        }
+    }
+}

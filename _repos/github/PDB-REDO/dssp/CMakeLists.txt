@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.0.5 LANGUAGES CXX)
+project(mkdssp VERSION 4.1.0 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -37,6 +37,7 @@ include(CMakePackageConfigHelpers)
 include(Dart)
 include(FindFilesystem)
 include(GenerateExportHeader)
+include(AddGitSubmodule)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
@@ -47,24 +48,25 @@ find_package(Filesystem REQUIRED)
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers")
 elseif(MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 endif()
 
 if(NOT "$ENV{CCP4}" STREQUAL "")
 	set(CCP4 $ENV{CCP4})
 	list(PREPEND CMAKE_MODULE_PATH "${CCP4}/Lib")
 	list(APPEND CMAKE_PREFIX_PATH ${CCP4})
+
 	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 		set(CMAKE_INSTALL_PREFIX ${CCP4})
 	endif()
 endif()
 
 if(MSVC)
-    # make msvc standards compliant...
-    add_compile_options(/permissive-)
+	# make msvc standards compliant...
+	add_compile_options(/permissive-)
 
 	macro(get_WIN32_WINNT version)
-		if (WIN32 AND CMAKE_SYSTEM_VERSION)
+		if(WIN32 AND CMAKE_SYSTEM_VERSION)
 			set(ver ${CMAKE_SYSTEM_VERSION})
 			string(REPLACE "." "" ver ${ver})
 			string(REGEX REPLACE "([0-9])" "0\\1" ver ${ver})
@@ -75,23 +77,6 @@ if(MSVC)
 
 	get_WIN32_WINNT(ver)
 	add_definitions(-D_WIN32_WINNT=${ver})
-
-	# On Windows, do not install in the system location
-	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT AND NOT BUILD_FOR_CCP4)
-		message(STATUS "The library and auxiliary files will be installed in $ENV{LOCALAPPDATA}/${PROJECT_NAME}")
-		set(CMAKE_INSTALL_PREFIX "$ENV{LOCALAPPDATA}/${PROJECT_NAME}" CACHE PATH "..." FORCE)
-	endif()
-endif()
-
-if(UNIX AND NOT APPLE)
-	# On Linux, install in the $HOME/.local folder by default
-	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		message(WARNING "The library and auxiliary files will be installed in $ENV{HOME}/.local")
-		set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/.local" CACHE PATH "..." FORCE)
-
-		# libcifpp will be there as well, likely
-		list(PREPEND CMAKE_PREFIX_PATH "$ENV{HOME}/.local")
-	endif()
 endif()
 
 # Create a revision file, containing the current git version info
@@ -118,29 +103,38 @@ set(CMAKE_THREAD_PREFER_PTHREAD)
 set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
 
-# Note: use -DBoost_USE_STATIC_LIBS=ON to use boost static libraries
+if(NOT PDB_REDO_META)
+	add_git_submodule(date EXCLUDE_FROM_ALL)
 
-find_package(cifpp 4.0.1 REQUIRED)
-find_package(Boost COMPONENTS date_time program_options)
+	find_package(gxrio REQUIRED)
+	find_package(libconfig REQUIRED)
+	find_package(cifpp 5.0.0 REQUIRED)
+endif()
+
+# The DSSP code is in a separate library, optionally to be used by others
+add_library(dssp_library OBJECT ${PROJECT_SOURCE_DIR}/src/DSSP.cpp)
+add_library(dssp::dssp ALIAS dssp_library)
+
+target_link_libraries(dssp_library PRIVATE cifpp::cifpp)
 
 add_executable(mkdssp
-	${PROJECT_SOURCE_DIR}/src/dssp.cpp
-	${PROJECT_SOURCE_DIR}/src/dssp.hpp
-	${PROJECT_SOURCE_DIR}/src/mkdssp.cpp)
+	${PROJECT_SOURCE_DIR}/src/dssp_wrapper.cpp
+	${PROJECT_SOURCE_DIR}/src/dssp_wrapper.hpp
+	${PROJECT_SOURCE_DIR}/src/mkdssp.cpp
+	$<TARGET_OBJECTS:dssp_library>)
 
-target_include_directories(mkdssp PRIVATE cifpp::cifpp ${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR})
-target_link_libraries(mkdssp PRIVATE cifpp::cifpp Boost::date_time Boost::program_options)
-	
+target_include_directories(mkdssp PRIVATE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/date/include)
+target_link_libraries(mkdssp PRIVATE dssp_library cifpp::cifpp libconfig::libconfig gxrio::gxrio)
+
 if(USE_RSRC)
-	mrc_target_resources(mkdssp ${CIFPP_SHARE_DIR}/mmcif_pdbx_v50.dic)
+	mrc_target_resources(mkdssp ${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic)
 endif()
 
 install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 )
 
 # manual
-
 if(UNIX)
 	install(FILES doc/mkdssp.1
 		DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1)
@@ -152,40 +146,42 @@ if(EXISTS "${CCP4}/html")
 endif()
 
 # test
+if(ENABLE_TESTING)
+	# We still depend on boost for the testing headers-only library
+	find_package(Boost REQUIRED)
 
-add_executable(unit-test ${PROJECT_SOURCE_DIR}/test/unit-test.cpp ${PROJECT_SOURCE_DIR}/src/dssp.cpp)
+	add_executable(unit-test-dssp ${PROJECT_SOURCE_DIR}/test/unit-test-dssp.cpp ${PROJECT_SOURCE_DIR}/src/dssp_wrapper.cpp)
 
-if(USE_RSRC)
-	mrc_target_resources(unit-test ${CIFPP_SHARE_DIR}/mmcif_pdbx_v50.dic)
+	if(USE_RSRC)
+		mrc_target_resources(unit-test-dssp ${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic)
+	endif()
+
+	target_include_directories(unit-test-dssp PRIVATE
+		${CMAKE_CURRENT_SOURCE_DIR}/src
+		${CMAKE_CURRENT_SOURCE_DIR}/include
+	)
+
+	target_link_libraries(unit-test-dssp PRIVATE dssp_library cifpp::cifpp date::date Boost::boost)
+
+	if(MSVC)
+		# Specify unwind semantics so that MSVC knowns how to handle exceptions
+		target_compile_options(unit-test-dssp PRIVATE /EHsc)
+	endif()
+
+	enable_testing()
+
+	add_test(NAME unit-test-dssp COMMAND $<TARGET_FILE:unit-test-dssp> -- ${PROJECT_SOURCE_DIR}/test)
 endif()
-
-target_include_directories(unit-test PRIVATE
-	${CMAKE_CURRENT_SOURCE_DIR}/src
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-target_link_libraries(unit-test cifpp::cifpp Boost::date_time)
-
-if(MSVC)
-	# Specify unwind semantics so that MSVC knowns how to handle exceptions
-	target_compile_options(unit-test PRIVATE /EHsc)
-endif()
-
-enable_testing()
-
-add_test(NAME unit-test
-	COMMAND $<TARGET_FILE:unit-test>
-	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/test)
 
 option(DSSP_BUILD_INSTALLER "Build an installer" OFF)
+
 if(DSSP_BUILD_INSTALLER)
 	include(InstallRequiredSystemLibraries)
 	set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-	
+
 	# NSIS options
 	set(CPACK_NSIS_MODIFY_PATH ON)
 
 	# configuration done, include CPack
-
 	include(CPack)
 endif()

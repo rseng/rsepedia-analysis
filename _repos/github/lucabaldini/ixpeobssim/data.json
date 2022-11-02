@@ -1,0 +1,82 @@
+{
+    "requirements.txt": {
+        "github/lucabaldini/ixpeobssim": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.11,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.11,
+            "url": "https://scipy.org/"
+        },
+        "matplotlib": {
+            "credit": 0.11,
+            "url": "https://matplotlib.org"
+        },
+        "astropy": {
+            "credit": 0.11,
+            "url": "http://astropy.org"
+        },
+        "regions": {
+            "credit": 0.11,
+            "url": "https://github.com/astropy/regions"
+        },
+        "skyfield": {
+            "credit": 0.11,
+            "url": "http://github.com/brandon-rhodes/python-skyfield/"
+        },
+        "pytest-cov": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "coverage": {
+            "credit": 0.014712500000000003,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "sphinxcontrib-programoutput": {
+            "credit": 0.0011000000000000038,
+            "url": "https://sphinxcontrib-programoutput.readthedocs.org/"
+        },
+        "virtualenv": {
+            "credit": 0.0136125,
+            "url": "https://virtualenv.pypa.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/fields"
+        },
+        "pytest": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "tomli": {
+            "credit": 0.1089,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "Sphinx": {
+            "credit": 0.1089,
+            "url": "https://pypi.org/project/Sphinx"
+        }
+    }
+}

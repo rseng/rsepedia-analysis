@@ -1,0 +1,254 @@
+{
+    "package.json": {
+        "github/korcsmarosgroup/TFlink": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "cytoscape": {
+            "credit": 0.002475000000000005,
+            "url": "http://js.cytoscape.org"
+        },
+        "cytoscape-cose-bilkent": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/cytoscape/cytoscape.js-cose-bilkent"
+        },
+        "postcss-scss": {
+            "credit": 0.2475,
+            "url": "https://github.com/postcss/postcss-scss#readme"
+        },
+        "uikit": {
+            "credit": 0.002475000000000005,
+            "url": "https://getuikit.com"
+        },
+        "rollup-plugin-terser": {
+            "credit": 8.449137931034433e-05,
+            "url": "https://github.com/TrySound/rollup-plugin-terser"
+        },
+        "rollup-plugin-license": {
+            "credit": 0.008449137931034483,
+            "url": "https://github.com/mjeanroy/rollup-plugin-license"
+        },
+        "rollup": {
+            "credit": 0.01824561160714286,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "marked": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "livereload": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "jsonlint": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "http-server": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "highlight.js": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "handlebars": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "gh-pages": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.03161326608229499,
+            "url": null
+        },
+        "download-cli": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "cpy-cli": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.02286237322515213,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "benchmark": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "": {
+            "credit": 0.09654045350985219,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "heap": {
+            "credit": 0.008449137931034483,
+            "url": null
+        },
+        "webpack-dev-server": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "updater-license": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "update": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "camelcase": {
+            "credit": 0.023164128151260503,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "cose-base": {
+            "credit": 0.014413235294117647,
+            "url": null
+        },
+        "watch-run": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "svgo": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rtlcss": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rollup-plugin-modify": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rollup-plugin-html": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "rollup-plugin-esbuild": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.009796473676108374,
+            "url": null
+        },
+        "p-limit": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "number-precision": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "minimist": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "less": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "inquirer": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "fs-extra": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "esbuild": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "dateformat": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "clean-css": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "archiver": {
+            "credit": 0.008750892857142856,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.0010455808189655173,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.0010455808189655173,
+            "url": null
+        },
+        "serialize-javascript": {
+            "credit": 0.0010455808189655173,
+            "url": null
+        },
+        "jest-worker": {
+            "credit": 0.0010455808189655173,
+            "url": null
+        }
+    }
+}
