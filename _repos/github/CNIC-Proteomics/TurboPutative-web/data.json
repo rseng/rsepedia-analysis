@@ -1,0 +1,282 @@
+{
+    "package.json": {
+        "github/CNIC-Proteomics/TurboPutative-web": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "cors": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/expressjs/cors#readme"
+        },
+        "express": {
+            "credit": 0.19222500000000003,
+            "url": "http://expressjs.com/"
+        },
+        "formidable": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/node-formidable/formidable"
+        },
+        "joi": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/hapijs/joi#readme"
+        },
+        "morgan": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "pm2": {
+            "credit": 0.0016500000000000126,
+            "url": "http://pm2.keymetrics.io/"
+        },
+        "mocha": {
+            "credit": 0.0357328125,
+            "url": "https://mochajs.org/"
+        },
+        "nyc": {
+            "credit": 0.037434375,
+            "url": "https://istanbul.js.org/"
+        },
+        "supertest": {
+            "credit": 0.037434375,
+            "url": null
+        },
+        "object-assign": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "vary": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "after": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.037434375,
+            "url": null
+        },
+        "prettier-plugin-pkgjson": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "make-dir-cli": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "koa": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "formdata-polyfill": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.017015625,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "eslint-config-airbnb-base": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "del-cli": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "": {
+            "credit": 0.19614375000000006,
+            "url": null
+        },
+        "once": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "hexoid": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "dezalgo": {
+            "credit": 0.00680625,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.01485,
+            "url": null
+        },
+        "split": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.0153140625,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.010209375,
+            "url": null
+        },
+        "should": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pm2-sysmonit": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "yamljs": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "vizion": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "sprintf-js": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "source-map-support": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "promptly": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pm2-multimeter": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pm2-deploy": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pm2-axon-rpc": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pm2-axon": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "pidusage": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "needle": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "fclone": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "eventemitter2": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "enquirer": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "dayjs": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "croner": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "cli-tableau": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "chokidar": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "blessed": {
+            "credit": 0.0051046875,
+            "url": null
+        },
+        "async": {
+            "credit": 0.0051046875,
+            "url": null
+        }
+    }
+}

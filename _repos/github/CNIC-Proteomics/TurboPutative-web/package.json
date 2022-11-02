@@ -1,0 +1,23 @@
+{
+  "name": "turboputative-web-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src",
+    "dev": "nodemon ./src/index.js"
+  },
+  "author": "Rafael Barrero Rodriguez",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
+    "joi": "^17.4.0",
+    "morgan": "^1.10.0",
+    "pm2": "^5.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

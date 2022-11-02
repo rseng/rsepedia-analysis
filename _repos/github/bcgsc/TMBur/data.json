@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/bcgsc/TMBur": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "SigProfilerMatrixGenerator": {
+            "credit": 0.0099,
+            "url": "https://pypi.org/project/SigProfilerMatrixGenerator"
+        }
+    }
+}

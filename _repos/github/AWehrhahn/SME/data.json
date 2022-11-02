@@ -1,0 +1,134 @@
+{
+    "requirements.txt": {
+        "github/AWehrhahn/SME": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pandas": {
+            "credit": 0.061875,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.061875,
+            "url": "https://scipy.org/"
+        },
+        "numpy": {
+            "credit": 0.061875,
+            "url": "https://www.numpy.org"
+        },
+        "astropy": {
+            "credit": 0.061875,
+            "url": "http://astropy.org"
+        },
+        "wget": {
+            "credit": 0.061875,
+            "url": "http://bitbucket.org/techtonik/python-wget/"
+        },
+        "tqdm": {
+            "credit": 0.061875,
+            "url": "https://tqdm.github.io"
+        },
+        "colorlog": {
+            "credit": 0.061875,
+            "url": "https://github.com/borntyping/python-colorlog"
+        },
+        "emcee": {
+            "credit": 0.061875,
+            "url": "https://emcee.readthedocs.io"
+        },
+        "pybtex": {
+            "credit": 0.0006187500000000012,
+            "url": "https://pybtex.org/"
+        },
+        "flex-format": {
+            "credit": 0.061875,
+            "url": "https://github.com/AWehrhahn/flex-format"
+        },
+        "plotly": {
+            "credit": 0.061875,
+            "url": "https://plotly.com/python/"
+        },
+        "matplotlib": {
+            "credit": 0.061875,
+            "url": "https://matplotlib.org"
+        },
+        "pre-commit": {
+            "credit": 0.061875,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "sphinx": {
+            "credit": 0.061875,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "pytest": {
+            "credit": 0.0771890625,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "requests": {
+            "credit": 0.0006187500000000012,
+            "url": "https://requests.readthedocs.io"
+        },
+        "six": {
+            "credit": 0.030474984375,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "latexcodec": {
+            "credit": 0.00015314062500000093,
+            "url": "https://github.com/mcmtroffaes/latexcodec"
+        },
+        "PyYAML": {
+            "credit": 0.0153140625,
+            "url": "https://pyyaml.org/"
+        },
+        "chardet": {
+            "credit": 0.010209375,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.01133240625,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.01133240625,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.00010209375000000062,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "idna": {
+            "credit": 0.01133240625,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.010209375,
+            "url": "https://github.com/Ousret/charset_normalizer"
+        },
+        "ipaddress": {
+            "credit": 0.00112303125,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.00112303125,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.00112303125,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/brotlicffi"
+        }
+    }
+}
