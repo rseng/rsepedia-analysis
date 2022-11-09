@@ -1,0 +1,270 @@
+{
+    "requirements.txt": {
+        "github/Beuth-Erdelt/DBMS-Benchmarker": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "JayDeBeApi": {
+            "credit": 0.00023571428571428701,
+            "url": "https://github.com/baztian/jaydebeapi"
+        },
+        "matplotlib": {
+            "credit": 0.02357142857142857,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.046907142857142856,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.02357142857142857,
+            "url": "https://pandas.pydata.org"
+        },
+        "tabulate": {
+            "credit": 0.02357142857142857,
+            "url": "https://pypi.org/project/tabulate/"
+        },
+        "tqdm": {
+            "credit": 0.00023571428571428701,
+            "url": "https://tqdm.github.io"
+        },
+        "requests": {
+            "credit": 0.005745535714285715,
+            "url": "https://requests.readthedocs.io"
+        },
+        "JPype1": {
+            "credit": 0.046907142857142856,
+            "url": "https://github.com/jpype-project/jpype"
+        },
+        "scipy": {
+            "credit": 0.00023571428571428701,
+            "url": "https://www.scipy.org"
+        },
+        "colour": {
+            "credit": 0.04714285714285714,
+            "url": "http://github.com/vaab/colour"
+        },
+        "Brotli": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/google/brotli"
+        },
+        "certifi": {
+            "credit": 0.029497959183673466,
+            "url": "https://github.com/certifi/python-certifi"
+        },
+        "chardet": {
+            "credit": 0.026905102040816323,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "click": {
+            "credit": 0.00023571428571428701,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "cycler": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/matplotlib/cycler"
+        },
+        "dash": {
+            "credit": 0.026164285714285713,
+            "url": "https://plotly.com/dash"
+        },
+        "dash-auth": {
+            "credit": 0.00023571428571428701,
+            "url": "https://plotly.com/dash"
+        },
+        "dash-core-components": {
+            "credit": 0.02357142857142857,
+            "url": "https://pypi.org/project/dash-core-components"
+        },
+        "dash-daq": {
+            "credit": 0.02357142857142857,
+            "url": "http://github.com/plotly/dash-daq"
+        },
+        "dash-html-components": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/plotly/dash-html-components"
+        },
+        "dash-renderer": {
+            "credit": 0.02357142857142857,
+            "url": "https://pypi.org/project/dash-renderer"
+        },
+        "dash-table": {
+            "credit": 0.02357142857142857,
+            "url": "https://pypi.org/project/dash-table"
+        },
+        "Flask": {
+            "credit": 0.026164285714285713,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "Flask-Caching": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/pallets-eco/flask-caching"
+        },
+        "future": {
+            "credit": 0.02357142857142857,
+            "url": "https://python-future.org"
+        },
+        "idna": {
+            "credit": 0.029497959183673466,
+            "url": "https://github.com/kjd/idna"
+        },
+        "itsdangerous": {
+            "credit": 0.026164285714285713,
+            "url": "https://palletsprojects.com/p/itsdangerous/"
+        },
+        "kiwisolver": {
+            "credit": 0.02357142857142857,
+            "url": "https://kiwisolver.readthedocs.io/en/latest/"
+        },
+        "MarkupSafe": {
+            "credit": 0.02357142857142857,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "plotly": {
+            "credit": 0.00023571428571428701,
+            "url": "https://plotly.com/python/"
+        },
+        "pyparsing": {
+            "credit": 0.00023571428571428701,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "python-dateutil": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "pytz": {
+            "credit": 0.02357142857142857,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "retrying": {
+            "credit": 0.026164285714285713,
+            "url": "https://github.com/rholder/retrying"
+        },
+        "six": {
+            "credit": 0.03523928571428571,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "urllib3": {
+            "credit": 0.0035693877551020415,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "uuid": {
+            "credit": 0.02357142857142857,
+            "url": "http://zesty.ca/python/"
+        },
+        "Werkzeug": {
+            "credit": 0.02357142857142857,
+            "url": "https://palletsprojects.com/p/werkzeug/"
+        },
+        "m2r2": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/crossnox/m2r2"
+        },
+        "myst_parser": {
+            "credit": 0.02357142857142857,
+            "url": "https://github.com/executablebooks/MyST-Parser"
+        },
+        "markupsafe": {
+            "credit": 0.02357142857142857,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "slack-sdk": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.0029169642857142853,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.014584821428571426,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "win-inet-pton": {
+            "credit": 0.0033336734693877545,
+            "url": "https://pypi.org/project/win-inet-pton"
+        },
+        "PySocks": {
+            "credit": 0.0059265306122448964,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0033336734693877545,
+            "url": "https://pypi.org/project/charset-normalizer"
+        },
+        "importlib-metadata": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "ua_parser": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/ua_parser"
+        },
+        "flask-seasurf": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/flask-seasurf"
+        },
+        "flask-compress": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/flask-compress"
+        },
+        "chart_studio": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/chart_studio"
+        },
+        "tenacity": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/tenacity"
+        },
+        "jinja2": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "railroad-diagrams": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/railroad-diagrams"
+        },
+        "ipaddress": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.0025928571428571424,
+            "url": "https://pypi.org/project/brotlicffi"
+        }
+    }
+}

@@ -1,0 +1,242 @@
+{
+    "requirements.txt": {
+        "github/RECETOX/MSMetaEnhancer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matchms": {
+            "credit": 0.0825,
+            "url": "https://github.com/matchms/matchms"
+        },
+        "pandas": {
+            "credit": 0.0825,
+            "url": "https://pandas.pydata.org"
+        },
+        "scipy": {
+            "credit": 0.0008250000000000063,
+            "url": "https://www.scipy.org"
+        },
+        "requests": {
+            "credit": 0.009900000000000006,
+            "url": "https://requests.readthedocs.io"
+        },
+        "aiohttp": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/aio-libs/aiohttp"
+        },
+        "asyncstdlib": {
+            "credit": 0.0008250000000000063,
+            "url": "https://pypi.org/project/asyncstdlib"
+        },
+        "frozendict": {
+            "credit": 0.0825,
+            "url": "https://github.com/Marco-Sulla/python-frozendict"
+        },
+        "twine": {
+            "credit": 0.0008250000000000063,
+            "url": "https://twine.readthedocs.io/"
+        },
+        "tabulate": {
+            "credit": 0.0825,
+            "url": "https://pypi.org/project/tabulate/"
+        },
+        "rdkit-pypi": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/kuelumbus/rdkit-pypi"
+        },
+        "multidict": {
+            "credit": 0.09085598076923078,
+            "url": "https://github.com/aio-libs/multidict"
+        },
+        "aiocircuitbreaker": {
+            "credit": 0.0825,
+            "url": "https://github.com/GenyaSol/aiocircuitbreaker"
+        },
+        "numpy": {
+            "credit": 0.1225125,
+            "url": "https://www.numpy.org"
+        },
+        "win-inet-pton": {
+            "credit": 0.011667857142857143,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.012951321428571428,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.00017950549450549465,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.01502460989010989,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.011667857142857143,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.012951321428571428,
+            "url": "https://github.com/certifi/python-certifi"
+        },
+        "urllib3": {
+            "credit": 0.009191678571428571,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "cchardet": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/PyYoshi/cChardet"
+        },
+        "Brotli": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/google/brotli"
+        },
+        "aiodns": {
+            "credit": 6.282692307692326e-05,
+            "url": "https://github.com/saghul/aiodns"
+        },
+        "typing-extensions": {
+            "credit": 0.014575846153846153,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "asynctest": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/Martiusweb/asynctest/"
+        },
+        "idna-ssl": {
+            "credit": 0.006282692307692308,
+            "url": "https://github.com/aio-libs/idna-ssl"
+        },
+        "aiosignal": {
+            "credit": 6.282692307692326e-05,
+            "url": "https://github.com/aio-libs/aiosignal"
+        },
+        "frozenlist": {
+            "credit": 0.012502557692307691,
+            "url": "https://github.com/aio-libs/frozenlist"
+        },
+        "yarl": {
+            "credit": 6.282692307692326e-05,
+            "url": "https://github.com/aio-libs/yarl/"
+        },
+        "async-timeout": {
+            "credit": 6.282692307692326e-05,
+            "url": "https://github.com/aio-libs/async-timeout"
+        },
+        "attrs": {
+            "credit": 0.006282692307692308,
+            "url": "https://www.attrs.org/"
+        },
+        "mypy": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "flake8-2020": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flake8-2020"
+        },
+        "pytest-cov": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "coverage": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "black": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/black"
+        },
+        "flake8-bugbear": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flake8-bugbear"
+        },
+        "flake8": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxcontrib-trio": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/sphinxcontrib-trio"
+        },
+        "sphinx": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing_extensions": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/typing_extensions"
+        },
+        "rich": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/rich"
+        },
+        "rfc3986": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/rfc3986"
+        },
+        "keyring": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/keyring"
+        },
+        "importlib-metadata": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "requests-toolbelt": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/requests-toolbelt"
+        },
+        "readme-renderer": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/readme-renderer"
+        },
+        "pkginfo": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/pkginfo"
+        },
+        "Pillow": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "unicodedata2": {
+            "credit": 0.017771043956043956,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.0012834642857142858,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "pycares": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/pycares"
+        }
+    }
+}

@@ -15728,7 +15728,93 @@
         "github/wiederm/transformato": [
             "charmm-gui",
             "free-energy-calculations"
-        ]
+        ],
+        "gitlab/ags-data-format-wg/ags-python-library": [],
+        "github/klb2/qmkpy": [
+            "knapsack-problem",
+            "operations-research",
+            "optimization"
+        ],
+        "github/Beuth-Erdelt/DBMS-Benchmarker": [
+            "dbms",
+            "benchmarking",
+            "python",
+            "sql",
+            "jdbc",
+            "agplv3"
+        ],
+        "github/LTeinturier/Cloud-Killer-": [],
+        "github/LangeLab/SQuAPP": [
+            "shiny",
+            "proteomics",
+            "peptidomics",
+            "interactive-apps",
+            "data-analysis",
+            "bioinformatics-tool"
+        ],
+        "github/ajshajib/LensingETC": [],
+        "github/msaland/THInCR-Suite": [],
+        "github/RECETOX/MSMetaEnhancer": [
+            "hacktoberfest",
+            "annotations",
+            "python",
+            "usegalaxy",
+            "mass-spectrometry"
+        ],
+        "github/Merck/pkglite": [
+            "package",
+            "r",
+            "packaging-tool",
+            "ectd"
+        ],
+        "github/phipsonlab/propeller-paper-analysis": [],
+        "github/QingyuLiaib/PLA-MoRe": [],
+        "github/Qiskit/rustworkx": [
+            "graph",
+            "dag",
+            "rust",
+            "python",
+            "graph-theory",
+            "hacktoberfest"
+        ],
+        "github/bancaditalia/black-it": [
+            "agent-based-modeling",
+            "calibration-toolbox"
+        ],
+        "github/phac-nml/staramr": [
+            "antimicrobial-resistance",
+            "genomics",
+            "bioinformatics"
+        ],
+        "github/swagnercarena/paltas": [
+            "simulation-based-inference",
+            "neural-network",
+            "astrophysics",
+            "cosmology",
+            "hierarchical-model"
+        ],
+        "github/bcgsc/btllib": [
+            "bioinformatics",
+            "genome",
+            "library",
+            "cpp",
+            "python",
+            "bloom-filter",
+            "algorithms",
+            "data-structures"
+        ],
+        "github/kevin218/Eureka": [
+            "jwst",
+            "exoplanets",
+            "python"
+        ],
+        "github/JieZheng-ShanghaiTech/PiLSL": [
+            "bioinformatics",
+            "data-science",
+            "drug-discovery",
+            "machine-learning"
+        ],
+        "github/LTLA/basilisk": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20003,7 +20089,26 @@
         "github/NiallJeffrey/BornRaytrace": "Python",
         "github/lucabaldini/ixpeobssim": "Python",
         "github/CosmoStat/mccd": "Python",
-        "github/wiederm/transformato": "Python"
+        "github/wiederm/transformato": "Python",
+        "gitlab/ags-data-format-wg/ags-python-library": "unknown",
+        "github/klb2/qmkpy": "Python",
+        "github/Beuth-Erdelt/DBMS-Benchmarker": "HTML",
+        "github/LTeinturier/Cloud-Killer-": "Python",
+        "github/LangeLab/SQuAPP": "R",
+        "github/ajshajib/LensingETC": "Jupyter Notebook",
+        "github/msaland/THInCR-Suite": "unknown",
+        "github/RECETOX/MSMetaEnhancer": "Python",
+        "github/Merck/pkglite": "R",
+        "github/phipsonlab/propeller-paper-analysis": "unknown",
+        "github/QingyuLiaib/PLA-MoRe": "Python",
+        "github/Qiskit/rustworkx": "Python",
+        "github/bancaditalia/black-it": "Python",
+        "github/phac-nml/staramr": "Python",
+        "github/swagnercarena/paltas": "Python",
+        "github/bcgsc/btllib": "C++",
+        "github/kevin218/Eureka": "Python",
+        "github/JieZheng-ShanghaiTech/PiLSL": "Python",
+        "github/LTLA/basilisk": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24278,7 +24383,26 @@
         "github/NiallJeffrey/BornRaytrace": "https://github.com/NiallJeffrey/BornRaytrace",
         "github/lucabaldini/ixpeobssim": "https://github.com/lucabaldini/ixpeobssim",
         "github/CosmoStat/mccd": "https://github.com/CosmoStat/mccd",
-        "github/wiederm/transformato": "https://github.com/wiederm/transformato"
+        "github/wiederm/transformato": "https://github.com/wiederm/transformato",
+        "gitlab/ags-data-format-wg/ags-python-library": "https://gitlab.com/ags-data-format-wg/ags-python-library",
+        "github/klb2/qmkpy": "https://github.com/klb2/qmkpy",
+        "github/Beuth-Erdelt/DBMS-Benchmarker": "https://github.com/Beuth-Erdelt/DBMS-Benchmarker",
+        "github/LTeinturier/Cloud-Killer-": "https://github.com/LTeinturier/Cloud-Killer-",
+        "github/LangeLab/SQuAPP": "https://github.com/LangeLab/SQuAPP",
+        "github/ajshajib/LensingETC": "https://github.com/ajshajib/LensingETC",
+        "github/msaland/THInCR-Suite": "https://github.com/msaland/THInCR-Suite",
+        "github/RECETOX/MSMetaEnhancer": "https://github.com/RECETOX/MSMetaEnhancer",
+        "github/Merck/pkglite": "https://github.com/Merck/pkglite",
+        "github/phipsonlab/propeller-paper-analysis": "https://github.com/phipsonlab/propeller-paper-analysis",
+        "github/QingyuLiaib/PLA-MoRe": "https://github.com/QingyuLiaib/PLA-MoRe",
+        "github/Qiskit/rustworkx": "https://github.com/Qiskit/rustworkx",
+        "github/bancaditalia/black-it": "https://github.com/bancaditalia/black-it",
+        "github/phac-nml/staramr": "https://github.com/phac-nml/staramr",
+        "github/swagnercarena/paltas": "https://github.com/swagnercarena/paltas",
+        "github/bcgsc/btllib": "https://github.com/bcgsc/btllib",
+        "github/kevin218/Eureka": "https://github.com/kevin218/Eureka",
+        "github/JieZheng-ShanghaiTech/PiLSL": "https://github.com/JieZheng-ShanghaiTech/PiLSL",
+        "github/LTLA/basilisk": "https://github.com/LTLA/basilisk"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28553,6 +28677,25 @@
         "github/NiallJeffrey/BornRaytrace": "BornRaytrace: simulating weak gravitational lensing effects",
         "github/lucabaldini/ixpeobssim": "Simulation and analysis framework for the Imaging X-ray Polarimetry Explorer",
         "github/CosmoStat/mccd": "Multi-CCD data-driven PSF modelling",
-        "github/wiederm/transformato": "Set up relative free energy calculations using a common scaffold"
+        "github/wiederm/transformato": "Set up relative free energy calculations using a common scaffold",
+        "gitlab/ags-data-format-wg/ags-python-library": "A library to read and write AGS files using Pandas DataFrames",
+        "github/klb2/qmkpy": "Python testbed for the Quadratic Multiple Knapsack Problem (QMKP)",
+        "github/Beuth-Erdelt/DBMS-Benchmarker": "DBMS-Benchmarker is a Python-based application-level blackbox benchmark tool for Database Management Systems (DBMS). It connects to a given list of DBMS (via JDBC) and runs a given list of parametrized and randomized (SQL) benchmark queries. Evaluations are available via a Python interface and on an interactive multi-dimensional dashboard.",
+        "github/LTeinturier/Cloud-Killer-": "Project cloud killer ",
+        "github/LangeLab/SQuAPP": "Shiny App allows streamlined analysis of multiple levels of proteomics data.",
+        "github/ajshajib/LensingETC": "Lensing Exposure Time Calculator",
+        "github/msaland/THInCR-Suite": null,
+        "github/RECETOX/MSMetaEnhancer": "Tool for mass spectra metadata annotation.",
+        "github/Merck/pkglite": "Compact Package Representations",
+        "github/phipsonlab/propeller-paper-analysis": "The website hosts the analysis and evaluation of different statistical methods for  determining differences in cell type proportions in single cell RNA-seq data.",
+        "github/QingyuLiaib/PLA-MoRe": null,
+        "github/Qiskit/rustworkx": "A high performance Python graph library implemented in Rust.",
+        "github/bancaditalia/black-it": "Black-box abm calibration kit by the Bank of Italy",
+        "github/phac-nml/staramr": "Scans genome contigs against the ResFinder, PlasmidFinder, and PointFinder databases.",
+        "github/swagnercarena/paltas": "Conduct simulation-based inference on strong gravitational lensing systems.",
+        "github/bcgsc/btllib": "Bioinformatics Technology Lab common code library",
+        "github/kevin218/Eureka": "Eureka! is a data reduction and analysis pipeline intended for time-series observations with the James Webb Space Telescope (JWST).",
+        "github/JieZheng-ShanghaiTech/PiLSL": "PiLSL is a pairwise interaction learning-based graph neural network (GNN) model for prediction of synthetic lethality (SL) as anti-cancer drug targets. It learns the representation of pairwise interaction between two genes from a knowledge graph (KG).",
+        "github/LTLA/basilisk": "Clone of the Bioconductor repository for the basilisk package."
     }
 }

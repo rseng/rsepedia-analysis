@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(cifpp VERSION 5.0.1 LANGUAGES CXX)
+project(cifpp VERSION 5.0.2 LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -35,8 +35,6 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
-
-# include(Dart)
 include(AddGitSubmodule)
 
 set(CXX_EXTENSIONS OFF)
@@ -59,11 +57,11 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
 
 # Lots of code depend on the availability of the components.cif file
-option(CIFPP_DOWNLOAD_CCD "Download the CCD file components.cif during installation" OFF)
+option(CIFPP_DOWNLOAD_CCD "Download the CCD file components.cif during installation" ON)
 
 # An optional cron script can be installed to keep the data files up-to-date
 if(UNIX)
-	option(CIFPP_INSTALL_UPDATE_SCRIPT "Install the script to update CCD and dictionary files" OFF)
+	option(CIFPP_INSTALL_UPDATE_SCRIPT "Install the script to update CCD and dictionary files" ON)
 endif()
 
 # When CCP4 is sourced in the environment, we can recreate the symmetry operations table
@@ -154,12 +152,15 @@ include(FindAtomic)
 list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPATOMIC_LIBRARY})
 
 if(NOT PDB_REDO_META)
-	find_package(gxrio REQUIRED)
+	find_package(gxrio QUIET)
+	if(NOT gxrio_FOUND)
+		add_git_submodule(gxrio EXCLUDE_FROM_ALL)
+	endif()
 endif()
 
 # Create a revision file, containing the current git version info
 include(VersionString)
-write_version_header("LibCIFPP")
+write_version_header(${PROJECT_SOURCE_DIR}/src/ "LibCIFPP")
 
 # SymOp data table
 if(CIFPP_RECREATE_SYMOP_DATA)
@@ -404,10 +405,6 @@ if(ENABLE_TESTING)
 
 		target_link_libraries(${CIFPP_TEST} PRIVATE Threads::Threads cifpp::cifpp Boost::boost)
 
-		if(CIFPP_USE_RSRC)
-			mrc_target_resources(${CIFPP_TEST} ${PROJECT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic)
-		endif()
-
 		if(MSVC)
 			# Specify unwind semantics so that MSVC knowns how to handle exceptions
 			target_compile_options(${CIFPP_TEST} PRIVATE /EHsc)
@@ -451,3 +448,13 @@ if(CIFPP_INSTALL_UPDATE_SCRIPT)
 
 	target_compile_definitions(cifpp PUBLIC CACHE_DIR="${CIFPP_CACHE_DIR}")
 endif()
+
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_SOURCE_TGZ ON)
+set(CPACK_SOURCE_TBZ2 OFF)
+set(CPACK_SOURCE_TXZ OFF)
+set(CPACK_SOURCE_TZ OFF)
+set(CPACK_SOURCE_IGNORE_FILES "/data/components.cif;/build;/.vscode;/.git;/regex/doc;/regex/example;/regex/meta;/regex/performance;/regex/test")
+set (CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
+set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_FILE_NAME})
+include(CPack)

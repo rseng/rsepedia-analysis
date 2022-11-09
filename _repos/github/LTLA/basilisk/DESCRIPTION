@@ -1,0 +1,30 @@
+Package: basilisk
+Version: 1.11.2
+Date: 2022-11-08
+Title: Freezing Python Dependencies Inside Bioconductor Packages
+Authors@R: c(person("Aaron", "Lun", role=c("aut", "cre", "cph"),
+        email="infinite.monkeys.with.keyboards@gmail.com"),
+        person("Vince", "Carey", role="ctb"))
+Imports: 
+    utils,
+    methods,
+    parallel,
+    reticulate,
+    dir.expiry,
+    basilisk.utils
+Suggests:
+    knitr,
+    rmarkdown,
+    BiocStyle,
+    testthat,
+    callr
+biocViews: Infrastructure
+Description: 
+    Installs a self-contained conda instance that is managed by the R/Bioconductor installation machinery.
+    This aims to provide a consistent Python environment that can be used reliably by Bioconductor packages.
+    Functions are also provided to enable smooth interoperability of multiple Python environments in a single R session.
+License: GPL-3
+RoxygenNote: 7.2.1
+StagedInstall: false
+VignetteBuilder: knitr
+BugReports: https://github.com/LTLA/basilisk/issues
