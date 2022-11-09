@@ -40,7 +40,6 @@ include(CMakePackageConfigHelpers)
 include(Dart)
 include(FindPkgConfig)
 include(GenerateExportHeader)
-include(AddGitSubmodule)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
@@ -128,7 +127,6 @@ endif()
 find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
 
 if(NOT PDB_REDO_META)
-	find_package(gxrio REQUIRED)
 	find_package(newuoa REQUIRED)
 	find_package(cifpp 5.0.0 REQUIRED)
 	find_package(zeep 5.1.7 REQUIRED)
@@ -138,7 +136,7 @@ pkg_check_modules(GSL gsl)
 
 # Create a revision file, containing the current git version info
 include(VersionString)
-write_version_header("LibPDBREDO")
+write_version_header("${PROJECT_SOURCE_DIR}/src" "LibPDBREDO")
 
 # Sources
 set(project_sources
@@ -190,7 +188,7 @@ target_include_directories(pdb-redo
 	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 	${CCP4_INCLUDE_DIRS})
-target_link_libraries(pdb-redo PUBLIC cifpp::cifpp zeep::zeep gxrio::gxrio newuoa::newuoa ${CCP4_LIBRARIES} ${GSL_LIBRARIES})
+target_link_libraries(pdb-redo PUBLIC cifpp::cifpp zeep::zeep newuoa::newuoa ${CCP4_LIBRARIES} ${GSL_LIBRARIES})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(pdb-redo PRIVATE -undefined dynamic_lookup)
@@ -313,3 +311,14 @@ if(ENABLE_TESTING)
 			COMMAND $<TARGET_FILE:${PDB_REDO_TEST}> -- ${PROJECT_SOURCE_DIR}/test)
 	endforeach()
 endif()
+
+# Tarball generation
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_SOURCE_TGZ ON)
+set(CPACK_SOURCE_TBZ2 OFF)
+set(CPACK_SOURCE_TXZ OFF)
+set(CPACK_SOURCE_TZ OFF)
+set(CPACK_SOURCE_IGNORE_FILES "/data/components.cif;/build;/.vscode;/.git;/regex/doc;/regex/example;/regex/meta;/regex/performance;/regex/test")
+set (CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
+set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_FILE_NAME})
+include(CPack)

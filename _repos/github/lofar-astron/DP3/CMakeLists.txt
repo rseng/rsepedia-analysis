@@ -560,7 +560,7 @@ target_link_libraries(makesourcedb ${SOURCEDB_LIBRARIES})
 add_executable(showsourcedb parmdb/showsourcedb.cc)
 target_link_libraries(showsourcedb ${SOURCEDB_LIBRARIES})
 
-add_executable(msoverview base/msoverview.cc)
+add_executable(msoverview base/msoverview.cc base/MS.cc)
 target_link_libraries(msoverview ${CASACORE_LIBRARIES})
 
 install(TARGETS DP3 makesourcedb showsourcedb msoverview DESTINATION bin)
@@ -616,6 +616,7 @@ if(BUILD_TESTING)
       ddecal/test/unit/tLLSSolver.cc
       ddecal/test/unit/tRotationConstraint.cc
       ddecal/test/unit/tSmoothnessConstraint.cc
+      ddecal/test/unit/tSolverBaseMatrix.cc
       ddecal/test/unit/tSolverFactory.cc
       ddecal/test/unit/tSolvers.cc
       steps/test/unit/mock/MockInput.cc
@@ -638,7 +639,7 @@ if(BUILD_TESTING)
       steps/test/unit/tStationAdder.cc
       steps/test/unit/tStepCommon.cc)
   if(${Python3_NumPy_FOUND})
-    list(APPEND TEST_FILENAMES "steps/test/unit/tPyStep.cc")
+    list(APPEND TEST_FILENAMES "pythondp3/test/unit/tPyStep.cc")
   else(${Python3_NumPy_FOUND})
     message(
       WARNING "NumPy not found on machine, tPyStep test is excluded from tests."
@@ -655,6 +656,7 @@ if(BUILD_TESTING)
       common/test/unit/tStringTools.cc
       base/test/unit/tDP3.cc
       base/test/unit/tDPInfo.cc
+      base/test/unit/tMs.cc
       base/test/unit/tSimulator.cc
       ddecal/test/unit/tSolutionResampler.cc
       ddecal/test/unit/tSolveData.cc
