@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(cifpp VERSION 5.0.2 LANGUAGES CXX)
+project(cifpp VERSION 5.0.4 LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -35,7 +35,6 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
-include(AddGitSubmodule)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
@@ -131,10 +130,10 @@ if(GXX_LIBSTDCPP)
 		${CMAKE_CURRENT_BINARY_DIR}/test ${PROJECT_SOURCE_DIR}/cmake/test-rx.cpp)
 
 	if(STD_REGEX_RUNNING STREQUAL FAILED_TO_RUN)
-		message(STATUS "You are probably trying to compile using the g++ standard library which contains a crashing std::regex implementation. Will try to use boost::regex instead")
+		message(STATUS "You are probably trying to compile using the g++ standard library which contains a crashing std::regex implementation. Will use boost::regex instead")
 
-		set(BOOST_REGEX_STANDALONE ON)
-		add_git_submodule(regex EXCLUDE_FROM_ALL)
+		add_subdirectory(regex EXCLUDE_FROM_ALL)
+		set(BOOST_REGEX ON)
 	endif()
 endif()
 
@@ -142,21 +141,34 @@ set(CMAKE_THREAD_PREFER_PTHREAD)
 set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
 
+if(MSVC)
+	# Avoid linking the shared library of zlib
+	# Search ZLIB_ROOT first if it is set.
+	if(ZLIB_ROOT)
+		set(_ZLIB_SEARCH_ROOT PATHS ${ZLIB_ROOT} NO_DEFAULT_PATH)
+		list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_ROOT)
+	endif()
+
+	# Normal search.
+	set(_ZLIB_x86 "(x86)")
+	set(_ZLIB_SEARCH_NORMAL
+		PATHS "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Zlib;InstallPath]"
+			"$ENV{ProgramFiles}/zlib"
+			"$ENV{ProgramFiles${_ZLIB_x86}}/zlib")
+	unset(_ZLIB_x86)
+	list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_NORMAL)
+
+	foreach(search ${_ZLIB_SEARCHES})
+    	find_library(ZLIB_LIBRARY NAMES zlibstatic NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
+	endforeach()
+endif()
 find_package(ZLIB REQUIRED)
-find_package(LibLZMA REQUIRED)
 
 include(FindFilesystem)
 list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPFS_LIBRARY})
 
 include(FindAtomic)
 list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPATOMIC_LIBRARY})
-
-if(NOT PDB_REDO_META)
-	find_package(gxrio QUIET)
-	if(NOT gxrio_FOUND)
-		add_git_submodule(gxrio EXCLUDE_FROM_ALL)
-	endif()
-endif()
 
 # Create a revision file, containing the current git version info
 include(VersionString)
@@ -165,7 +177,7 @@ write_version_header(${PROJECT_SOURCE_DIR}/src/ "LibCIFPP")
 # SymOp data table
 if(CIFPP_RECREATE_SYMOP_DATA)
 	# The tool to create the table
-	add_executable(symop-map-generator "${PROJECT_SOURCE_DIR}/tools/symop-map-generator.cpp")
+	add_executable(symop-map-generator "${PROJECT_SOURCE_DIR}/src/symop-map-generator.cpp")
 
 	add_custom_command(
 		OUTPUT ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
@@ -238,11 +250,16 @@ set(project_headers
 add_library(cifpp ${project_sources} ${project_headers} ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp)
 add_library(cifpp::cifpp ALIAS cifpp)
 
-set_target_properties(cifpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
-
-if(BOOST_REGEX_STANDALONE)
-	target_compile_definitions(cifpp PUBLIC USE_BOOST_REGEX=1 BOOST_REGEX_STANDALONE=1)
+if(BOOST_REGEX)
+	target_compile_definitions(cifpp PRIVATE USE_BOOST_REGEX=1 BOOST_REGEX_STANDALONE=1)
+	target_include_directories(cifpp PRIVATE regex/include)
 endif()
+
+if(MSVC)
+	target_compile_definitions(cifpp PUBLIC NOMINMAX=1)
+endif()
+
+set_target_properties(cifpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(cifpp
 	PUBLIC
@@ -250,18 +267,7 @@ target_include_directories(cifpp
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-target_link_libraries(cifpp PUBLIC
-	Threads::Threads
-	ZLIB::ZLIB
-	LibLZMA::LibLZMA
-	${CIFPP_REQUIRED_LIBRARIES})
-
-get_target_property(GXRIO_INCLUDE_DIR gxrio::gxrio INTERFACE_INCLUDE_DIRECTORIES)
-target_include_directories(cifpp PRIVATE ${GXRIO_INCLUDE_DIR})
-
-if(BOOST_REGEX_STANDALONE)
-	target_include_directories(cifpp PRIVATE regex/include)
-endif()
+target_link_libraries(cifpp PUBLIC Threads::Threads ZLIB::ZLIB ${CIFPP_REQUIRED_LIBRARIES})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(cifpp PRIVATE -undefined dynamic_lookup)
@@ -293,18 +299,16 @@ if(CIFPP_DOWNLOAD_CCD)
 	add_custom_target(COMPONENTS ALL DEPENDS ${COMPONENTS_CIF})
 endif()
 
-if(UNIX)
-	set(CIFPP_CACHE_DIR "/var/cache/libcifpp" CACHE STRING "The cache directory to use")
-	target_compile_definitions(cifpp PUBLIC CACHE_DIR="${CIFPP_CACHE_DIR}")
-endif()
-
-set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR})
-set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
-set(SHARE_INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/libcifpp)
-
-set(CIFPP_DATA_DIR "${CMAKE_INSTALL_PREFIX}/${SHARE_INSTALL_DIR}" CACHE STRING "The directory containing the provided data files")
-
+# Installation directories
+set(CIFPP_DATA_DIR "${CMAKE_INSTALL_FULL_DATADIR}/libcifpp")
 target_compile_definitions(cifpp PUBLIC DATA_DIR="${CIFPP_DATA_DIR}")
+
+if(UNIX)
+	set(CIFPP_CACHE_DIR "${CMAKE_INSTALL_FULL_LOCALSTATEDIR}/cache/libcifpp")
+	target_compile_definitions(cifpp PUBLIC CACHE_DIR="${CIFPP_CACHE_DIR}")
+
+	set(CIFPP_ETC_DIR "${CMAKE_INSTALL_FULL_SYSCONFDIR}")
+endif()
 
 # Install rules
 install(TARGETS cifpp
@@ -347,11 +351,13 @@ install(FILES
 	DESTINATION ${CIFPP_DATA_DIR}
 )
 
+set(CONFIG_TEMPLATE_FILE ${PROJECT_SOURCE_DIR}/cmake/cifppConfig.cmake.in)
+
 configure_package_config_file(
-	${PROJECT_SOURCE_DIR}/cmake/cifppConfig.cmake.in
+	${CONFIG_TEMPLATE_FILE}
 	${CMAKE_CURRENT_BINARY_DIR}/cifpp/cifppConfig.cmake
 	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cifpp
-	PATH_VARS INCLUDE_INSTALL_DIR LIBRARY_INSTALL_DIR SHARE_INSTALL_DIR
+	PATH_VARS CIFPP_DATA_DIR
 )
 
 install(FILES
@@ -421,11 +427,15 @@ if(ENABLE_TESTING)
 	endforeach()
 endif()
 
-message("Will install in ${CMAKE_INSTALL_PREFIX}")
-
 # Optionally install the update scripts for CCD and dictionary files
 if(CIFPP_INSTALL_UPDATE_SCRIPT)
-	set(CIFPP_CRON_DIR "$ENV{DESTDIR}/etc/cron.weekly")
+	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+		set(CIFPP_CRON_DIR "${CIFPP_ETC_DIR}/cron.weekly")
+	elseif(UNIX)	# assume all others are like FreeBSD... 
+		set(CIFPP_CRON_DIR "${CIFPP_ETC_DIR}/periodic/weekly")
+	else()
+		message(FATAL_ERROR "Don't know where to install the update script")
+	endif()
 
 	configure_file(${PROJECT_SOURCE_DIR}/tools/update-libcifpp-data.in update-libcifpp-data @ONLY)
 	install(
@@ -435,15 +445,15 @@ if(CIFPP_INSTALL_UPDATE_SCRIPT)
 	)
 
 	install(DIRECTORY DESTINATION ${CIFPP_CACHE_DIR})
-	install(DIRECTORY DESTINATION "$ENV{DESTDIR}/etc/libcifpp/cache-update.d")
+	install(DIRECTORY DESTINATION "${CIFPP_ETC_DIR}/libcifpp/cache-update.d")
 
 	# a config to, to make it complete
-	if(NOT EXISTS "$ENV{DESTDIR}/etc/libcifpp.conf")
+	if(NOT EXISTS "${CIFPP_ETC_DIR}/libcifpp.conf")
 		file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.conf [[# Uncomment the next line to enable automatic updates
 # update=true
 ]])
-		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.conf DESTINATION "$ENV{DESTDIR}/etc")
-		install(CODE "message(\"A configuration file has been written to $ENV{DESTDIR}/etc/libcifpp.conf, please edit this file to enable automatic updates\")")
+		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.conf DESTINATION "${CIFPP_ETC_DIR}")
+		install(CODE "message(\"A configuration file has been written to ${CIFPP_ETC_DIR}/libcifpp.conf, please edit this file to enable automatic updates\")")
 	endif()
 
 	target_compile_definitions(cifpp PUBLIC CACHE_DIR="${CIFPP_CACHE_DIR}")
@@ -454,7 +464,7 @@ set(CPACK_SOURCE_TGZ ON)
 set(CPACK_SOURCE_TBZ2 OFF)
 set(CPACK_SOURCE_TXZ OFF)
 set(CPACK_SOURCE_TZ OFF)
-set(CPACK_SOURCE_IGNORE_FILES "/data/components.cif;/build;/.vscode;/.git;/regex/doc;/regex/example;/regex/meta;/regex/performance;/regex/test")
-set (CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
-set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_FILE_NAME})
+set(CPACK_SOURCE_IGNORE_FILES "/data/components.cif;/build;/.vscode;/.git")
+set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_FILE_NAME})
 include(CPack)
