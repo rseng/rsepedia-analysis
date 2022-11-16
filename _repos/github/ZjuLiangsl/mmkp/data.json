@@ -1,0 +1,166 @@
+{
+    "package.json": {
+        "github/ZjuLiangsl/mmkp": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "antv": {
+            "credit": 0.02475,
+            "url": "https://github.com/ant-design-vue/antv#readme"
+        },
+        "form-create": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "tinymce": {
+            "credit": 0.0495,
+            "url": null
+        },
+        "ant-design-vue": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "axios": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "butterfly-dag": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "china-area-data": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "clipboard": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "codemirror": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "cron-parser": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "dayjs": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "dom-align": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "element-resize-detector": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "enquire.js": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "js-cookie": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "lodash.get": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "lodash.pick": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "md5": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "nprogress": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "react": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "react-dom": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "react-visual-modeling": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "sortablejs": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "viser-vue": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-area-linkage": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-cropper": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-i18n": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-loader": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-ls": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-photo-preview": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-router": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vue-splitpane": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vuedraggable": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vuera": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vuex": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vxe-table": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "vxe-table-plugin-antd": {
+            "credit": 0.02475,
+            "url": null
+        },
+        "xe-utils": {
+            "credit": 0.02475,
+            "url": null
+        }
+    }
+}

@@ -1,0 +1,8 @@
+numpy
+numfi
+matplotlib
+pandas
+openpyxl
+h5py
+pyyaml
+scipy

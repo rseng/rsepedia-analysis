@@ -15814,7 +15814,36 @@
             "drug-discovery",
             "machine-learning"
         ],
-        "github/LTLA/basilisk": []
+        "github/LTLA/basilisk": [],
+        "github/RomainFeron/mwga-utils": [],
+        "github/xinyiguan/py2lispIDyOM": [],
+        "github/Ajstros/pyripherals": [],
+        "github/zizroc/villager": [
+            "simulation",
+            "abm",
+            "agent-based-modeling"
+        ],
+        "github/IMMM-SFA/tell": [],
+        "github/cgrudz/DataAssimilationBenchmarks.jl": [],
+        "github/jkimlab/msPIPE": [],
+        "github/cwentland0/perform": [
+            "reduced-order-modeling",
+            "reacting-flow-simulations"
+        ],
+        "github/ZjuLiangsl/mmkp": [],
+        "github/gourabghoshroy/MPVNN": [],
+        "github/iipharma/pharmamind-molminer": [],
+        "github/zjupgx/modig": [],
+        "github/reznik-lab/MIRTH": [],
+        "github/biocore/unifrac-binaries": [],
+        "github/biocore/deblur": [],
+        "github/cistrome/MIRA": [],
+        "github/watts-dev/watts": [
+            "python",
+            "simulation",
+            "templates",
+            "nuclear-energy"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20108,7 +20137,24 @@
         "github/bcgsc/btllib": "C++",
         "github/kevin218/Eureka": "Python",
         "github/JieZheng-ShanghaiTech/PiLSL": "Python",
-        "github/LTLA/basilisk": "R"
+        "github/LTLA/basilisk": "R",
+        "github/RomainFeron/mwga-utils": "C++",
+        "github/xinyiguan/py2lispIDyOM": "Jupyter Notebook",
+        "github/Ajstros/pyripherals": "Python",
+        "github/zizroc/villager": "R",
+        "github/IMMM-SFA/tell": "Python",
+        "github/cgrudz/DataAssimilationBenchmarks.jl": "Julia",
+        "github/jkimlab/msPIPE": "HTML",
+        "github/cwentland0/perform": "Python",
+        "github/ZjuLiangsl/mmkp": "Vue",
+        "github/gourabghoshroy/MPVNN": "Python",
+        "github/iipharma/pharmamind-molminer": "unknown",
+        "github/zjupgx/modig": "Python",
+        "github/reznik-lab/MIRTH": "Jupyter Notebook",
+        "github/biocore/unifrac-binaries": "C++",
+        "github/biocore/deblur": "Python",
+        "github/cistrome/MIRA": "HTML",
+        "github/watts-dev/watts": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24402,7 +24448,24 @@
         "github/bcgsc/btllib": "https://github.com/bcgsc/btllib",
         "github/kevin218/Eureka": "https://github.com/kevin218/Eureka",
         "github/JieZheng-ShanghaiTech/PiLSL": "https://github.com/JieZheng-ShanghaiTech/PiLSL",
-        "github/LTLA/basilisk": "https://github.com/LTLA/basilisk"
+        "github/LTLA/basilisk": "https://github.com/LTLA/basilisk",
+        "github/RomainFeron/mwga-utils": "https://github.com/RomainFeron/mwga-utils",
+        "github/xinyiguan/py2lispIDyOM": "https://github.com/xinyiguan/py2lispIDyOM",
+        "github/Ajstros/pyripherals": "https://github.com/Ajstros/pyripherals",
+        "github/zizroc/villager": "https://github.com/zizroc/villager",
+        "github/IMMM-SFA/tell": "https://github.com/IMMM-SFA/tell",
+        "github/cgrudz/DataAssimilationBenchmarks.jl": "https://github.com/cgrudz/DataAssimilationBenchmarks.jl",
+        "github/jkimlab/msPIPE": "https://github.com/jkimlab/msPIPE",
+        "github/cwentland0/perform": "https://github.com/cwentland0/perform",
+        "github/ZjuLiangsl/mmkp": "https://github.com/ZjuLiangsl/mmkp",
+        "github/gourabghoshroy/MPVNN": "https://github.com/gourabghoshroy/MPVNN",
+        "github/iipharma/pharmamind-molminer": "https://github.com/iipharma/pharmamind-molminer",
+        "github/zjupgx/modig": "https://github.com/zjupgx/modig",
+        "github/reznik-lab/MIRTH": "https://github.com/reznik-lab/MIRTH",
+        "github/biocore/unifrac-binaries": "https://github.com/biocore/unifrac-binaries",
+        "github/biocore/deblur": "https://github.com/biocore/deblur",
+        "github/cistrome/MIRA": "https://github.com/cistrome/MIRA",
+        "github/watts-dev/watts": "https://github.com/watts-dev/watts"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28696,6 +28759,23 @@
         "github/bcgsc/btllib": "Bioinformatics Technology Lab common code library",
         "github/kevin218/Eureka": "Eureka! is a data reduction and analysis pipeline intended for time-series observations with the James Webb Space Telescope (JWST).",
         "github/JieZheng-ShanghaiTech/PiLSL": "PiLSL is a pairwise interaction learning-based graph neural network (GNN) model for prediction of synthetic lethality (SL) as anti-cancer drug targets. It learns the representation of pairwise interaction between two genes from a knowledge graph (KG).",
-        "github/LTLA/basilisk": "Clone of the Bioconductor repository for the basilisk package."
+        "github/LTLA/basilisk": "Clone of the Bioconductor repository for the basilisk package.",
+        "github/RomainFeron/mwga-utils": "Collection of utilities for processing Multispecies Whole Genome Alignments ",
+        "github/xinyiguan/py2lispIDyOM": "A Python package for IDyOM",
+        "github/Ajstros/pyripherals": "Python solution for communicating with peripheral ICs",
+        "github/zizroc/villager": "villager is an extensible agent based modeling (ABM) framework for the R language. It supports agents, agent aggregations and their associated resources, as well as flexible data management.",
+        "github/IMMM-SFA/tell": "A model to predict Total ELectricity Loads (TELL)",
+        "github/cgrudz/DataAssimilationBenchmarks.jl": "Package Information and Documentation",
+        "github/jkimlab/msPIPE": null,
+        "github/cwentland0/perform": "One-dimensional unsteady compressible reacting flow simulation framework, designed for simple prototyping and testing of novel reduced-order model methods.",
+        "github/ZjuLiangsl/mmkp": "A Mind Mapping Knowledgebase Prototyping Tool for Precision Medicine",
+        "github/gourabghoshroy/MPVNN": "MUTATED PATHWAY VISIBLE NEURAL NETWORK FOR CANCER SPECIFIC SURVIVAL RISK PREDICTION",
+        "github/iipharma/pharmamind-molminer": "PharmaMind\u00ae is an innovative drug discovery platform that integrates advanced artificial intelligence and computational simulation design techniques, which is suitable for real-world novel drug R&D.",
+        "github/zjupgx/modig": "MODIG: Integrating Multi-Omics and Multi-Dimensional Gene Network for Cancer Driver Gene Identification based on Graph Attention Network Model",
+        "github/reznik-lab/MIRTH": "Metabolite Imputation via Rank Transformation and Harmonization",
+        "github/biocore/unifrac-binaries": "Fast phylogenetic diversity calculations",
+        "github/biocore/deblur": "Deblur is a greedy deconvolution algorithm based on known read error profiles.",
+        "github/cistrome/MIRA": "Python package for analysis of multiomic single cell RNA-seq and ATAC-seq.",
+        "github/watts-dev/watts": "Workflow and Template Toolkit for Simulation (WATTS)"
     }
 }
