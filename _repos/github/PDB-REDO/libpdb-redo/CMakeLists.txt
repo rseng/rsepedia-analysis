@@ -116,10 +116,7 @@ else()
 	endif()
 
 	if(USE_RSRC STREQUAL "ON")
-		set(USE_RSRC 1)
-
 		message("Using resources compiled with ${MRC}")
-		add_compile_definitions(USE_RSRC)
 	endif()
 endif()
 
@@ -127,14 +124,8 @@ endif()
 find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
 
 if(NOT PDB_REDO_META)
-	find_package(newuoa QUIET)
-
-	if(NOT newuoa_FOUND)
-		add_subdirectory(newuoa EXCLUDE_FROM_ALL)
-	endif()
-
+	find_package(newuoa REQUIRED)
 	find_package(cifpp 5.0.0 REQUIRED)
-	find_package(zeep 5.1.7 REQUIRED)
 endif()
 
 pkg_check_modules(GSL gsl)

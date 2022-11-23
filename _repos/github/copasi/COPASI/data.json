@@ -1,0 +1,206 @@
+{
+    "CMakeLists.txt": {
+        "github/copasi/COPASI": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.0004304347826086935,
+            "url": "https://www.cmake.org"
+        },
+        "expat": {
+            "credit": 0.003981521739130432,
+            "url": "https://libexpat.github.io/"
+        },
+        "libsbml": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "libsedml": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "libcombine": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.0004304347826086935,
+            "url": "https://github.com/westes/flex"
+        },
+        "bison": {
+            "credit": 0.0046917391304347805,
+            "url": "https://www.gnu.org/software/bison/"
+        },
+        "clapack": {
+            "credit": 0.0004304347826086935,
+            "url": "https://www.netlib.org/clapack/"
+        },
+        "crossguid": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "nativejit": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "cpufeatures": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "openmp": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "raptor": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.0004304347826086935,
+            "url": "https://www.gnu.org/software/libiconv/"
+        },
+        "opengl": {
+            "credit": 0.043043478260869565,
+            "url": "https://www.opengl.org/"
+        },
+        "qcp": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "qt4": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "qwt": {
+            "credit": 0.0004304347826086935,
+            "url": "http://qwt.sourceforge.net/"
+        },
+        "qwtplot3d": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "mml": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "sbw": {
+            "credit": 0.043043478260869565,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.051921195652173915,
+            "url": "https://zlib.net"
+        },
+        "swig": {
+            "credit": 0.0004304347826086935,
+            "url": "http://www.swig.org"
+        },
+        "ninja": {
+            "credit": 3.551086956521746e-05,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.003551086956521739,
+            "url": "https://curl.se/"
+        },
+        "libarchive": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.04616413043478261,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "python": {
+            "credit": 0.005308875,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.003551086956521739,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.08416076086956523,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.021306521739130436,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "help2man": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "findutils": {
+            "credit": 0.004261304347826087,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.014914565217391304,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.014914565217391304,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.009587934782608696,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.009587934782608696,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.009587934782608696,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.010653260869565218,
+            "url": null
+        },
+        "atlas": {
+            "credit": 0.04261304347826087,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "yacc": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "re2c": {
+            "credit": 0.0017577880434782609,
+            "url": null
+        }
+    }
+}
