@@ -1,0 +1,226 @@
+{
+    "DESCRIPTION": {
+        "github/DrJCarson/BoundedCoalescent": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "ape": {
+            "credit": 0.008381871894409948,
+            "url": "http://ape-package.ird.fr/"
+        },
+        "Rcpp": {
+            "credit": 0.033759461180124226,
+            "url": "http://www.rcpp.org"
+        },
+        "phangorn": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/KlausVigo/phangorn"
+        },
+        "igraph": {
+            "credit": 0.0018567111801242218,
+            "url": "https://igraph.org"
+        },
+        "expm": {
+            "credit": 0.00035003571428571245,
+            "url": "http://R-Forge.R-project.org/projects/expm/"
+        },
+        "gee": {
+            "credit": 0.00035003571428571245,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.03651024689440994,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.21454132814440993,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.035003571428571426,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.06355925671583851,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.15976948975155278,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.046232488858695645,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.004681727678571427,
+            "url": "http://lattice.r-forge.r-project.org/"
+        },
+        "nlme": {
+            "credit": 0.00035003571428571245,
+            "url": "https://svn.r-project.org/R-packages/trunk/nlme/"
+        },
+        "R": {
+            "credit": 0.04430729243012422,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.006592339285714291,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.08745058928571428,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.006592339285714291,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.062004514751552796,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "xtable": {
+            "credit": 0.0015066754658385093,
+            "url": "http://xtable.r-forge.r-project.org/"
+        },
+        "seqLogo": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "seqinr": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.003431871894409938,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "Biostrings": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "quadprog": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.01036257903726708,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.006897225465838509,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.0015066754658385093,
+            "url": null
+        },
+        "digest": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "tcltk": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.0019251964285714285,
+            "url": null
+        },
+        "Rmpfr": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.025123813392857144,
+            "url": null
+        },
+        "chron": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "latticeExtra": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "KernSmooth": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "SASmixed": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "Hmisc": {
+            "credit": 0.004331691964285714,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.026952749999999998,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.026952749999999998,
+            "url": null
+        }
+    }
+}

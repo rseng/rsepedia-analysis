@@ -1,0 +1,118 @@
+{
+    "requirements.txt": {
+        "github/ggonnella/fastsubtrees": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "tqdm": {
+            "credit": 0.165,
+            "url": "https://tqdm.github.io"
+        },
+        "loguru": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/Delgan/loguru"
+        },
+        "docopt": {
+            "credit": 0.165,
+            "url": "http://docopt.org"
+        },
+        "schema": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/keleshev/schema"
+        },
+        "sh": {
+            "credit": 0.165,
+            "url": "https://github.com/amoffat/sh"
+        },
+        "ntdownload": {
+            "credit": 0.165,
+            "url": "https://github.com/ggonnella/fastsubtrees/tree/main/ntdowload"
+        },
+        "isort": {
+            "credit": 0.0001166785714285714,
+            "url": "https://pycqa.github.io/isort/"
+        },
+        "black": {
+            "credit": 0.011667857142857143,
+            "url": "https://black.readthedocs.io/en/stable/"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.011667857142857143,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinx-autobuild": {
+            "credit": 0.0001166785714285714,
+            "url": "https://github.com/executablebooks/sphinx-autobuild"
+        },
+        "Sphinx": {
+            "credit": 0.011667857142857143,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "pytest-cov": {
+            "credit": 0.013978092857142858,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.013978092857142858,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "tox-travis": {
+            "credit": 0.0001166785714285714,
+            "url": "https://github.com/tox-dev/tox-travis"
+        },
+        "tox": {
+            "credit": 0.023219035714285713,
+            "url": "https://tox.readthedocs.io"
+        },
+        "flake8": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "codecov": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/codecov"
+        },
+        "win32-setctime": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/win32-setctime"
+        },
+        "colorama": {
+            "credit": 0.016288328571428572,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "aiocontextvars": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/aiocontextvars"
+        },
+        "contextlib2": {
+            "credit": 0.16335,
+            "url": "https://pypi.org/project/contextlib2"
+        },
+        "setuptools": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "pip-api": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/pip-api"
+        },
+        "requirementslib": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/requirementslib"
+        },
+        "pipreqs": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/pipreqs"
+        },
+        "livereload": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/livereload"
+        },
+        "sphinx": {
+            "credit": 0.0023102357142857142,
+            "url": "https://pypi.org/project/sphinx"
+        }
+    }
+}

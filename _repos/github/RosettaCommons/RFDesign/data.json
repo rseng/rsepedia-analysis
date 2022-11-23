@@ -1,0 +1,58 @@
+{
+    "requirements.txt": {
+        "github/RosettaCommons/RFDesign": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "absl-py": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "biopython": {
+            "credit": 0.0008250000000000001,
+            "url": "https://biopython.org/"
+        },
+        "chex": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/deepmind/chex"
+        },
+        "dm-haiku": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/deepmind/dm-haiku"
+        },
+        "dm-tree": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/deepmind/tree"
+        },
+        "docker": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/docker/docker-py"
+        },
+        "immutabledict": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/corenting/immutabledict"
+        },
+        "jax": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/google/jax"
+        },
+        "ml-collections": {
+            "credit": 0.0008250000000000001,
+            "url": "https://github.com/google/ml_collections"
+        },
+        "numpy": {
+            "credit": 0.00164175,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0008250000000000001,
+            "url": "https://www.scipy.org"
+        },
+        "tensorflow-cpu": {
+            "credit": 0.0008250000000000001,
+            "url": "https://www.tensorflow.org/"
+        }
+    }
+}
