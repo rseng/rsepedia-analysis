@@ -27,7 +27,7 @@ cmake_minimum_required(VERSION 3.16)
 # set the project name
 project(pdb-redo VERSION 3.0.4 LANGUAGES CXX C)
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 # Unit tests
 option(ENABLE_TESTING "Build test exectuables" OFF)
@@ -125,10 +125,10 @@ find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
 
 if(NOT PDB_REDO_META)
 	find_package(newuoa REQUIRED)
-	find_package(cifpp 5.0.0 REQUIRED)
+	find_package(cifpp 5.0.4 REQUIRED)
 endif()
 
-pkg_check_modules(GSL gsl)
+pkg_check_modules(GSL gsl REQUIRED IMPORTED_TARGET)
 
 # Create a revision file, containing the current git version info
 include(VersionString)
@@ -147,6 +147,8 @@ set(project_sources
 	${PROJECT_SOURCE_DIR}/src/SkipList.cpp
 	${PROJECT_SOURCE_DIR}/src/Statistics.cpp
 	${PROJECT_SOURCE_DIR}/src/Symmetry-2.cpp
+	${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
+	${PROJECT_SOURCE_DIR}/src/Restraints.cpp
 )
 
 set(project_headers
@@ -161,19 +163,9 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/SkipList.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Statistics.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Symmetry-2.hpp
+	${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
+	${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
 )
-
-if(GSL_FOUND)
-	set(project_sources
-		${project_sources}
-		${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
-		${PROJECT_SOURCE_DIR}/src/Restraints.cpp)
-
-	set(project_headers
-		${project_headers}
-		${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
-		${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp)
-endif()
 
 add_library(pdb-redo ${project_sources} ${project_headers})
 add_library(pdb-redo::pdb-redo ALIAS pdb-redo)
@@ -184,7 +176,7 @@ target_include_directories(pdb-redo
 	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 	${CCP4_INCLUDE_DIRS})
-target_link_libraries(pdb-redo PUBLIC cifpp::cifpp zeep::zeep newuoa::newuoa ${CCP4_LIBRARIES} ${GSL_LIBRARIES})
+target_link_libraries(pdb-redo PUBLIC cifpp::cifpp newuoa::newuoa ${CCP4_LIBRARIES} ${GSL_LIBRARIES})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(pdb-redo PRIVATE -undefined dynamic_lookup)
@@ -192,9 +184,6 @@ endif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 
 set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR})
 set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
-
-generate_export_header(pdb-redo
-	EXPORT_FILE_NAME pdb-redo/pdb-redo_export.hpp)
 
 # Install rules
 install(TARGETS pdb-redo
@@ -216,13 +205,7 @@ install(
 	COMPONENT Devel
 )
 
-install(
-	FILES "${CMAKE_CURRENT_BINARY_DIR}/pdb-redo/pdb-redo_export.hpp"
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/pdb-redo
-	COMPONENT Devel
-)
-
-configure_package_config_file(Config.cmake.in
+configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/pdb-redoConfig.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/pdb-redo/pdb-redoConfig.cmake
 	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/pdb-redo
 	PATH_VARS INCLUDE_INSTALL_DIR LIBRARY_INSTALL_DIR
@@ -257,7 +240,7 @@ set(exec_prefix ${CMAKE_INSTALL_PREFIX})
 set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 set(includedir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libpdb-redo.pc.in
+configure_file(${PROJECT_SOURCE_DIR}/cmake/libpdb-redo.pc.in
 	${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc.in @ONLY)
 file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc
 	INPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc.in)
@@ -281,12 +264,12 @@ if(ENABLE_TESTING)
 
 	foreach(PDB_REDO_TEST IN LISTS PDB_REDO_tests)
 		set(PDB_REDO_TEST "${PDB_REDO_TEST}-test")
-		set(PDB_REDO_TEST_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/test/${PDB_REDO_TEST}.cpp")
+		set(PDB_REDO_TEST_SOURCE "${PROJECT_SOURCE_DIR}/test/${PDB_REDO_TEST}.cpp")
 
 		add_executable(${PDB_REDO_TEST} ${PDB_REDO_TEST_SOURCE} ${PDB_REDO_TEST_RESOURCE})
 
 		target_include_directories(${PDB_REDO_TEST} PRIVATE
-			${CMAKE_CURRENT_SOURCE_DIR}/include
+			${PROJECT_SOURCE_DIR}/include
 			${CMAKE_CURRENT_BINARY_DIR} # for config.h
 		)
 
@@ -309,7 +292,7 @@ if(ENABLE_TESTING)
 endif()
 
 # Tarball generation
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 set(CPACK_SOURCE_TGZ ON)
 set(CPACK_SOURCE_TBZ2 OFF)
 set(CPACK_SOURCE_TXZ OFF)

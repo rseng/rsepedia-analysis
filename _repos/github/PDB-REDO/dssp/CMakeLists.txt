@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.1.1 LANGUAGES CXX)
+project(mkdssp VERSION 4.2.0 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -96,29 +96,104 @@ set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
 
 if(NOT PDB_REDO_META)
-	find_package(libcfp REQUIRED)
+	find_package(libmcfp REQUIRED)
 	find_package(cifpp 5.0.4 REQUIRED)
 endif()
 
 # The DSSP code is in a separate library, optionally to be used by others
-add_library(dssp_library OBJECT ${PROJECT_SOURCE_DIR}/src/DSSP.cpp)
-add_library(dssp::dssp ALIAS dssp_library)
+add_library(dssp ${PROJECT_SOURCE_DIR}/src/dssp.cpp ${PROJECT_SOURCE_DIR}/include/dssp.hpp)
+add_library(dssp::dssp ALIAS dssp)
 
-target_link_libraries(dssp_library PRIVATE cifpp::cifpp)
+target_link_libraries(dssp PRIVATE cifpp::cifpp)
+
+target_include_directories(dssp
+	PUBLIC
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
 
 add_executable(mkdssp
-	${PROJECT_SOURCE_DIR}/src/dssp_wrapper.cpp
-	${PROJECT_SOURCE_DIR}/src/dssp_wrapper.hpp
-	${PROJECT_SOURCE_DIR}/src/mkdssp.cpp
-	$<TARGET_OBJECTS:dssp_library>)
+	${PROJECT_SOURCE_DIR}/src/dssp-io.cpp
+	${PROJECT_SOURCE_DIR}/src/dssp-io.hpp
+	${PROJECT_SOURCE_DIR}/src/mkdssp.cpp)
 
-target_include_directories(mkdssp PRIVATE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR}/date/include)
-target_link_libraries(mkdssp PRIVATE dssp_library cifpp::cifpp libcfp::libcfp)
+target_include_directories(mkdssp PRIVATE ${PROJECT_BINARY_DIR})
+target_link_libraries(mkdssp PRIVATE dssp cifpp::cifpp libmcfp::libmcfp dssp::dssp)
 
 if(USE_RSRC)
 	message("Using resources compiled with ${MRC}")
 	mrc_target_resources(mkdssp ${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic)
 endif()
+
+# Install rules
+install(TARGETS dssp
+	EXPORT dsspTargets
+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+	INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+if(MSVC AND BUILD_SHARED_LIBS)
+	install(
+		FILES $<TARGET_PDB_FILE:${PROJECT_NAME}>
+		DESTINATION ${CMAKE_INSTALL_LIBDIR}
+		OPTIONAL)
+endif()
+
+install(EXPORT dsspTargets
+	FILE "dsspTargets.cmake"
+	NAMESPACE dssp::
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dssp
+)
+
+install(
+	FILES include/dssp.hpp
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	COMPONENT Devel
+)
+
+set(CONFIG_TEMPLATE_FILE ${PROJECT_SOURCE_DIR}/cmake/dsspConfig.cmake.in)
+
+configure_package_config_file(
+	${CONFIG_TEMPLATE_FILE}
+	${CMAKE_CURRENT_BINARY_DIR}/dssp/dsspConfig.cmake
+	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dssp
+)
+
+install(FILES
+	"${CMAKE_CURRENT_BINARY_DIR}/dssp/dsspConfig.cmake"
+	"${CMAKE_CURRENT_BINARY_DIR}/dssp/dsspConfigVersion.cmake"
+	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/dssp
+	COMPONENT Devel
+)
+
+set(dssp_MAJOR_VERSION ${CMAKE_PROJECT_VERSION_MAJOR})
+set_target_properties(dssp PROPERTIES
+	VERSION ${PROJECT_VERSION}
+	SOVERSION ${dssp_MAJOR_VERSION}
+	INTERFACE_dssp_MAJOR_VERSION ${dssp_MAJOR_VERSION})
+
+set_property(TARGET dssp APPEND PROPERTY
+	COMPATIBLE_INTERFACE_STRING dssp_MAJOR_VERSION
+)
+
+write_basic_package_version_file(
+	"${CMAKE_CURRENT_BINARY_DIR}/dssp/dsspConfigVersion.cmake"
+	VERSION ${PROJECT_VERSION}
+	COMPATIBILITY AnyNewerVersion
+)
+
+# pkgconfig support
+set(prefix ${CMAKE_INSTALL_PREFIX})
+set(exec_prefix ${CMAKE_INSTALL_PREFIX})
+set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+set(includedir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/libdssp.pc.in
+	${CMAKE_CURRENT_BINARY_DIR}/libdssp.pc.in @ONLY)
+file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libdssp.pc
+	INPUT ${CMAKE_CURRENT_BINARY_DIR}/libdssp.pc.in)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libdssp.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 install(TARGETS ${PROJECT_NAME}
 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
@@ -140,7 +215,7 @@ if(ENABLE_TESTING)
 	# We still depend on boost for the testing headers-only library
 	find_package(Boost REQUIRED)
 
-	add_executable(unit-test-dssp ${PROJECT_SOURCE_DIR}/test/unit-test-dssp.cpp ${PROJECT_SOURCE_DIR}/src/dssp_wrapper.cpp)
+	add_executable(unit-test-dssp ${PROJECT_SOURCE_DIR}/test/unit-test-dssp.cpp ${PROJECT_SOURCE_DIR}/src/dssp-io.cpp)
 
 	if(USE_RSRC)
 		mrc_target_resources(unit-test-dssp ${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic)
@@ -151,7 +226,7 @@ if(ENABLE_TESTING)
 		${CMAKE_CURRENT_SOURCE_DIR}/include
 	)
 
-	target_link_libraries(unit-test-dssp PRIVATE dssp_library cifpp::cifpp Boost::boost)
+	target_link_libraries(unit-test-dssp PRIVATE dssp cifpp::cifpp Boost::boost)
 
 	if(MSVC)
 		# Specify unwind semantics so that MSVC knowns how to handle exceptions
@@ -163,15 +238,20 @@ if(ENABLE_TESTING)
 	add_test(NAME unit-test-dssp COMMAND $<TARGET_FILE:unit-test-dssp> -- ${PROJECT_SOURCE_DIR}/test)
 endif()
 
-option(DSSP_BUILD_INSTALLER "Build an installer" OFF)
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 
-if(DSSP_BUILD_INSTALLER)
-	include(InstallRequiredSystemLibraries)
-	set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+# Tarball generation
+set(CPACK_SOURCE_TGZ ON)
+set(CPACK_SOURCE_TBZ2 OFF)
+set(CPACK_SOURCE_TXZ OFF)
+set(CPACK_SOURCE_TZ OFF)
+set(CPACK_SOURCE_IGNORE_FILES "/data/components.cif;/build;/.vscode;/.git")
+set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}-${PROJECT_VERSION}")
+set(CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_FILE_NAME})
 
-	# NSIS options
-	set(CPACK_NSIS_MODIFY_PATH ON)
+# NSIS options
+set(CPACK_NSIS_MODIFY_PATH ON)
 
-	# configuration done, include CPack
-	include(CPack)
-endif()
+# configuration done, include CPack
+include(CPack)

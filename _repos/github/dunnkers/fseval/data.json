@@ -1,0 +1,194 @@
+{
+    "setup.py": {
+        "github/dunnkers/fseval": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "fseval": {
+            "credit": 0.11,
+            "url": "https://github.com/dunnkers/fseval"
+        },
+        "humanfriendly": {
+            "credit": 0.0011000000000000038,
+            "url": "https://humanfriendly.readthedocs.io"
+        },
+        "hydra-colorlog": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/facebookresearch/hydra/"
+        },
+        "hydra-core": {
+            "credit": 0.16444999999999999,
+            "url": "https://github.com/facebookresearch/hydra"
+        },
+        "antlr4-python3-runtime": {
+            "credit": 0.11,
+            "url": "http://www.antlr.org"
+        },
+        "overrides": {
+            "credit": 0.11,
+            "url": "https://github.com/mkorpela/overrides"
+        },
+        "shortuuid": {
+            "credit": 0.11,
+            "url": "https://github.com/skorokithakis/shortuuid/"
+        },
+        "omegaconf": {
+            "credit": 0.11,
+            "url": "https://github.com/omry/omegaconf"
+        },
+        "colorlog": {
+            "credit": 0.001644500000000007,
+            "url": "https://github.com/borntyping/python-colorlog"
+        },
+        "pyreadline3": {
+            "credit": 0.0363,
+            "url": "https://pypi.python.org/pypi/pyreadline3/"
+        },
+        "pyreadline": {
+            "credit": 0.0363,
+            "url": "http://ipython.org/pyreadline.html"
+        },
+        "monotonic": {
+            "credit": 0.0363,
+            "url": "https://github.com/atdt/monotonic"
+        },
+        "types-colorama": {
+            "credit": 0.02713425,
+            "url": "https://github.com/python/typeshed"
+        },
+        "pytest": {
+            "credit": 0.00916575,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "mypy": {
+            "credit": 0.00916575,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "flake8": {
+            "credit": 0.02713425,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "black": {
+            "credit": 0.00916575,
+            "url": "https://github.com/psf/black"
+        },
+        "colorama": {
+            "credit": 0.029639473557692305,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "xmlschema": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/xmlschema"
+        },
+        "requests": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "atomicwrites": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.005499973557692306,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.00112303125,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "lxml": {
+            "credit": 0.0029947499999999996,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "psutil": {
+            "credit": 0.0029947499999999996,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.004376942307692307,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "mypy-extensions": {
+            "credit": 0.004376942307692307,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "typing-extensions": {
+            "credit": 0.004376942307692307,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "uvloop": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/uvloop"
+        },
+        "tokenize-rt": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/tokenize-rt"
+        },
+        "ipython": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "aiohttp": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "dataclasses": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "pathspec": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "platformdirs": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/platformdirs"
+        },
+        "click": {
+            "credit": 0.0013821923076923076,
+            "url": "https://pypi.org/project/click"
+        }
+    }
+}

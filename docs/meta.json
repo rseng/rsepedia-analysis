@@ -15916,7 +15916,66 @@
             "bioinformatics",
             "genomics"
         ],
-        "github/RosettaCommons/RFDesign": []
+        "github/RosettaCommons/RFDesign": [],
+        "github/ylab-hi/ScanExitronLR": [
+            "python",
+            "bioinformatics-tool",
+            "long-read-data"
+        ],
+        "github/bow/crimson": [
+            "bioinformatics",
+            "json",
+            "yaml",
+            "converter"
+        ],
+        "github/telatin/bamtocov": [
+            "bioinformatics",
+            "bam",
+            "coverage",
+            "alignment",
+            "gff",
+            "bed",
+            "ngs"
+        ],
+        "github/bokulich-lab/q2-fondue": [],
+        "github/rauschenberger/transreg": [],
+        "github/mrvollger/fibertools-rs": [],
+        "github/masadcv/FastGeodis": [
+            "deep-learning",
+            "gpu",
+            "pytorch"
+        ],
+        "github/VIB-PSB/MINI-EX": [],
+        "github/hildebra/sdm": [],
+        "github/dunnkers/fseval": [
+            "benchmarks",
+            "feature-rankers",
+            "feature-selection",
+            "wandb",
+            "hydra",
+            "machine-learning",
+            "python",
+            "feature-ranking",
+            "benchmarking",
+            "benchmarking-framework",
+            "scikit-learn",
+            "automl"
+        ],
+        "github/rqtl/qtl2": [],
+        "github/UrbanRuralSystems/ur-scape": [],
+        "github/AP6YC/ClusterValidityIndices.jl": [],
+        "github/tensorly/viz": [
+            "tensor-methods",
+            "tensorly",
+            "tensors",
+            "visualization"
+        ],
+        "github/adriancorrendo/metrica": [],
+        "github/FergusDonnan/PAHDecomp": [],
+        "github/jgrembi/riskCommunicator": [],
+        "github/sylvainprigent/napari-tracks-reader": [
+            "napari-plugin"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20252,7 +20311,25 @@
         "github/Natsiopoulos/ARDL": "R",
         "github/jonathanHuwP/CrystalGrowthTracker": "Python",
         "github/mrvollger/rustybam": "Rust",
-        "github/RosettaCommons/RFDesign": "Python"
+        "github/RosettaCommons/RFDesign": "Python",
+        "github/ylab-hi/ScanExitronLR": "Python",
+        "github/bow/crimson": "Python",
+        "github/telatin/bamtocov": "Nim",
+        "github/bokulich-lab/q2-fondue": "Python",
+        "github/rauschenberger/transreg": "R",
+        "github/mrvollger/fibertools-rs": "Rust",
+        "github/masadcv/FastGeodis": "Python",
+        "github/VIB-PSB/MINI-EX": "Python",
+        "github/hildebra/sdm": "C++",
+        "github/dunnkers/fseval": "Python",
+        "github/rqtl/qtl2": "R",
+        "github/UrbanRuralSystems/ur-scape": "C#",
+        "github/AP6YC/ClusterValidityIndices.jl": "Julia",
+        "github/tensorly/viz": "Python",
+        "github/adriancorrendo/metrica": "R",
+        "github/FergusDonnan/PAHDecomp": "Python",
+        "github/jgrembi/riskCommunicator": "R",
+        "github/sylvainprigent/napari-tracks-reader": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24588,7 +24665,25 @@
         "github/Natsiopoulos/ARDL": "https://github.com/Natsiopoulos/ARDL",
         "github/jonathanHuwP/CrystalGrowthTracker": "https://github.com/jonathanHuwP/CrystalGrowthTracker",
         "github/mrvollger/rustybam": "https://github.com/mrvollger/rustybam",
-        "github/RosettaCommons/RFDesign": "https://github.com/RosettaCommons/RFDesign"
+        "github/RosettaCommons/RFDesign": "https://github.com/RosettaCommons/RFDesign",
+        "github/ylab-hi/ScanExitronLR": "https://github.com/ylab-hi/ScanExitronLR",
+        "github/bow/crimson": "https://github.com/bow/crimson",
+        "github/telatin/bamtocov": "https://github.com/telatin/bamtocov",
+        "github/bokulich-lab/q2-fondue": "https://github.com/bokulich-lab/q2-fondue",
+        "github/rauschenberger/transreg": "https://github.com/rauschenberger/transreg",
+        "github/mrvollger/fibertools-rs": "https://github.com/mrvollger/fibertools-rs",
+        "github/masadcv/FastGeodis": "https://github.com/masadcv/FastGeodis",
+        "github/VIB-PSB/MINI-EX": "https://github.com/VIB-PSB/MINI-EX",
+        "github/hildebra/sdm": "https://github.com/hildebra/sdm",
+        "github/dunnkers/fseval": "https://github.com/dunnkers/fseval",
+        "github/rqtl/qtl2": "https://github.com/rqtl/qtl2",
+        "github/UrbanRuralSystems/ur-scape": "https://github.com/UrbanRuralSystems/ur-scape",
+        "github/AP6YC/ClusterValidityIndices.jl": "https://github.com/AP6YC/ClusterValidityIndices.jl",
+        "github/tensorly/viz": "https://github.com/tensorly/viz",
+        "github/adriancorrendo/metrica": "https://github.com/adriancorrendo/metrica",
+        "github/FergusDonnan/PAHDecomp": "https://github.com/FergusDonnan/PAHDecomp",
+        "github/jgrembi/riskCommunicator": "https://github.com/jgrembi/riskCommunicator",
+        "github/sylvainprigent/napari-tracks-reader": "https://github.com/sylvainprigent/napari-tracks-reader"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -28924,6 +29019,24 @@
         "github/Natsiopoulos/ARDL": "ARDL, ECM and Bounds-Test for Cointegration",
         "github/jonathanHuwP/CrystalGrowthTracker": "Extract face growth rate data from x-ray video of growing crystals.",
         "github/mrvollger/rustybam": "bioinformatics toolkit in rust",
-        "github/RosettaCommons/RFDesign": "Protein hallucination and inpainting with RoseTTAFold"
+        "github/RosettaCommons/RFDesign": "Protein hallucination and inpainting with RoseTTAFold",
+        "github/ylab-hi/ScanExitronLR": "A package for the characterization and quantification of exitron splicing events in long-read RNA-seq",
+        "github/bow/crimson": "Bioinformatics tool outputs converter to JSON or YAML",
+        "github/telatin/bamtocov": "\ud83c\udfd4  coverage extraction from BAM/CRAM files, supporting targets \ud83d\udcca  \u00a0",
+        "github/bokulich-lab/q2-fondue": "Functions for reproducibly Obtaining and Normalizing Data re-Used from Elsewhere",
+        "github/rauschenberger/transreg": "Transfer learning",
+        "github/mrvollger/fibertools-rs": "Tools for fiberseq data written in rust. ",
+        "github/masadcv/FastGeodis": "Fast Implementation of Generalised Geodesic Distance Transform for CPU (OpenMP) and GPU (CUDA)",
+        "github/VIB-PSB/MINI-EX": "Motif-Informed Network Inference of cell type-specific gene regulatory networks in plants",
+        "github/hildebra/sdm": "Fast tool for sequence related tasks",
+        "github/dunnkers/fseval": "Benchmarking framework for Feature Selection and Feature Ranking algorithms \ud83d\ude80",
+        "github/rqtl/qtl2": "QTL analysis software for high-dimensional data and complex cross designs",
+        "github/UrbanRuralSystems/ur-scape": null,
+        "github/AP6YC/ClusterValidityIndices.jl": "A Julia package for Cluster Validity Indices (CVIs).",
+        "github/tensorly/viz": "Easy visualization and evaluation of matrix and tensor factorization models",
+        "github/adriancorrendo/metrica": "Prediction Performance Metrics",
+        "github/FergusDonnan/PAHDecomp": null,
+        "github/jgrembi/riskCommunicator": "An R package for estimating risk differences and relative risk measures",
+        "github/sylvainprigent/napari-tracks-reader": "napari reader plugin for tracking"
     }
 }
