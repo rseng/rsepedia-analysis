@@ -1,0 +1,14 @@
+Package: transreg
+Title: Penalised regression with multiple sets of prior effects
+Version: 0.99.1
+Authors@R: person("Armin","Rauschenberger",,"armin.rauschenberger@uni.lu",role=c("aut","cre"),comment=c(ORCID="0000-0001-6498-4801"))
+Description: Improves the predictive performance of ridge and lasso regression exploiting one or more sources of prior information on the importance and direction of effects.
+Imports: glmnet, joinet
+Suggests: knitr, testthat, rmarkdown
+Enhances: GRridge, fwelnet, glmtrans, mvtnorm, CVXR, ecpc, multiridge, scam, starnet, doMC, palasso, xtable, devtools
+VignetteBuilder: knitr
+License: GPL-3
+Encoding: UTF-8
+Roxygen: list(markdown=TRUE)
+RoxygenNote: 7.2.1
+Vignettes: analysis

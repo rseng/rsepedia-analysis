@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/Qiskit/rustworkx": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "rustworkx": {
+            "credit": 0.0099,
+            "url": "https://github.com/Qiskit/rustworkx"
+        }
+    }
+}

@@ -1,0 +1,150 @@
+{
+    "DESCRIPTION": {
+        "github/rqtl/qtl2": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rcpp": {
+            "credit": 0.023651100000000036,
+            "url": "http://www.rcpp.org"
+        },
+        "yaml": {
+            "credit": 0.214335,
+            "url": "https://github.com/vubiostat/r-yaml/"
+        },
+        "jsonlite": {
+            "credit": 0.198,
+            "url": "https://arxiv.org/abs/1403.2805"
+        },
+        "data.table": {
+            "credit": 0.0019800000000000373,
+            "url": "https://r-datatable.com"
+        },
+        "RSQLite": {
+            "credit": 0.0019800000000000095,
+            "url": "https://rsqlite.r-dbi.org"
+        },
+        "pkgKitten": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/eddelbuettel/pkgkitten"
+        },
+        "rbenchmark": {
+            "credit": 0.03267,
+            "url": "http://rbenchmark.googlecode.com"
+        },
+        "inline": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/eddelbuettel/inline"
+        },
+        "tinytest": {
+            "credit": 0.0218889,
+            "url": "https://github.com/markvanderloo/tinytest"
+        },
+        "utils": {
+            "credit": 0.0650133,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.07067609999999999,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.027225,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "knitr": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "nanotime": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "xts": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "R.utils": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "curl": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bit": {
+            "credit": 0.016335,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "R": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rvest": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "gh": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "gert": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "DBItest": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "memoise": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "roxygen2": {
+            "credit": 0.0107811,
+            "url": null
+        },
+        "whoami": {
+            "credit": 0.0107811,
+            "url": null
+        }
+    }
+}

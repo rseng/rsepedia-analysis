@@ -1,0 +1,114 @@
+{
+    "setup.py": {
+        "github/cagrikymk/JAX-ReaxFF": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "jax": {
+            "credit": 0.099,
+            "url": "https://github.com/google/jax"
+        },
+        "jaxlib": {
+            "credit": 0.099,
+            "url": "https://github.com/google/jax"
+        },
+        "numba": {
+            "credit": 0.099,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.11125125000000001,
+            "url": "https://www.numpy.org"
+        },
+        "tabulate": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/astanin/python-tabulate"
+        },
+        "flatbuffers": {
+            "credit": 0.099,
+            "url": "https://google.github.io/flatbuffers/"
+        },
+        "llvmlite": {
+            "credit": 0.099,
+            "url": "http://llvmlite.readthedocs.io"
+        },
+        "absl-py": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "opt_einsum": {
+            "credit": 0.0009900000000000048,
+            "url": "https://github.com/dgasmith/opt_einsum"
+        },
+        "typing_extensions": {
+            "credit": 0.099,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "wcwidth": {
+            "credit": 0.0009800999999999976,
+            "url": "https://github.com/jquast/wcwidth"
+        },
+        "six": {
+            "credit": 0.0995260921875,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "pytest-pep8": {
+            "credit": 0.01225125,
+            "url": "https://bitbucket.org/pytest-dev/pytest-pep8"
+        },
+        "pytest-cov": {
+            "credit": 0.0001225124999999997,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0137673421875,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "numpydoc": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinxcontrib-napoleon": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sphinxcontrib-napoleon"
+        },
+        "sphinx": {
+            "credit": 0.01225125,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "backports.functools-lru-cache": {
+            "credit": 0.0970299,
+            "url": "https://pypi.org/project/backports.functools-lru-cache"
+        },
+        "virtualenv": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "process-tests": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.0015160921875,
+            "url": "https://pypi.org/project/coverage"
+        }
+    }
+}

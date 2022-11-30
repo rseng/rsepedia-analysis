@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/jfowkes/pycutest": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pycutest": {
+            "credit": 0.0099,
+            "url": "https://github.com/jfowkes/pycutest/"
+        }
+    }
+}
