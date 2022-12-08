@@ -60,11 +60,15 @@ find_package(Python 3.7 REQUIRED)
 set(SPECTRE_PYTHON_PREFIX_PARENT "${CMAKE_BINARY_DIR}/bin/python")
 get_filename_component(
   SPECTRE_PYTHON_PREFIX_PARENT "${SPECTRE_PYTHON_PREFIX_PARENT}" ABSOLUTE)
-set(PYTHONPATH "${SPECTRE_PYTHON_PREFIX_PARENT}")
+set(SPECTRE_PYTHON_SITE_PACKAGES "${CMAKE_BINARY_DIR}/lib/\
+python${Python_VERSION_MAJOR}.${Python_VERSION_MINOR}/site-packages")
+set(PYTHONPATH "${SPECTRE_PYTHON_PREFIX_PARENT}:\
+${SPECTRE_PYTHON_SITE_PACKAGES}")
 if(DEFINED ENV{PYTHONPATH})
   set(PYTHONPATH "${PYTHONPATH}:$ENV{PYTHONPATH}")
 endif()
 message(STATUS "PYTHONPATH: ${PYTHONPATH}")
+include(BootstrapPyDeps)
 
 option(BUILD_DOCS "Enable building documentation" ON)
 option(
@@ -188,6 +192,7 @@ add_subdirectory(src)
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
+add_subdirectory(tools)
 
 include(PrintUsefulCMakeInfo)
 

@@ -1,0 +1,146 @@
+{
+    "setup.py": {
+        "github/milnus/Corekaburra": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Corekaburra": {
+            "credit": 0.11,
+            "url": "https://github.com/milnus/Corekaburra"
+        },
+        "biopython": {
+            "credit": 0.11,
+            "url": "https://biopython.org/"
+        },
+        "gffutils": {
+            "credit": 0.11,
+            "url": "https://github.com/daler/gffutils"
+        },
+        "networkx": {
+            "credit": 0.0011000000000000038,
+            "url": "https://networkx.org/"
+        },
+        "numpy": {
+            "credit": 0.115445,
+            "url": "https://www.numpy.org"
+        },
+        "argcomplete": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/kislyuk/argcomplete"
+        },
+        "argh": {
+            "credit": 0.11,
+            "url": "http://github.com/neithere/argh/"
+        },
+        "pyfaidx": {
+            "credit": 0.11,
+            "url": "http://mattshirley.com"
+        },
+        "simplejson": {
+            "credit": 0.11,
+            "url": "https://github.com/simplejson/simplejson"
+        },
+        "codecov": {
+            "credit": 5.445000000000016e-05,
+            "url": "https://github.com/codecov/codecov-python"
+        },
+        "pytest-cov": {
+            "credit": 0.005445,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sympy": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/sympy"
+        },
+        "pydot": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pydot"
+        },
+        "pygraphviz": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pygraphviz"
+        },
+        "lxml": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "texext": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/texext"
+        },
+        "nb2plots": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/nb2plots"
+        },
+        "pillow": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "numpydoc": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "pydata-sphinx-theme": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pydata-sphinx-theme"
+        },
+        "sphinx": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "mypy": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pre-commit": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pandas": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "scipy": {
+            "credit": 0.005445,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "wheel": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "pexpect": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/pexpect"
+        },
+        "flake8": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "coverage": {
+            "credit": 0.024475275,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "importlib-metadata": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "requests": {
+            "credit": 0.002695275,
+            "url": "https://pypi.org/project/requests"
+        }
+    }
+}
