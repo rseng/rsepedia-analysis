@@ -1,0 +1,322 @@
+{
+    "DESCRIPTION": {
+        "github/pydemull/activAnalyzer": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "dbplyr": {
+            "credit": 0.001650000000000003,
+            "url": "https://dbplyr.tidyverse.org/"
+        },
+        "dplyr": {
+            "credit": 0.005132963709677423,
+            "url": "https://dplyr.tidyverse.org"
+        },
+        "flextable": {
+            "credit": 0.00041250000000000314,
+            "url": "https://ardata-fr.github.io/flextable-book/"
+        },
+        "forcats": {
+            "credit": 0.00041250000000000314,
+            "url": "https://forcats.tidyverse.org"
+        },
+        "ggplot2": {
+            "credit": 0.04746129807692308,
+            "url": "https://ggplot2.tidyverse.org"
+        },
+        "golem": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "hms": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "lubridate": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.04720796370967743,
+            "url": null
+        },
+        "modelr": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "patchwork": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "PhysicalActivity": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "reactable": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0487786367866005,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.04380483870967743,
+            "url": null
+        },
+        "shiny": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "shinycssloaders": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "shinydashboard": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "shinydashboardPlus": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "shinyFeedback": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "shinyjs": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "stringr": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.04380483870967743,
+            "url": null
+        },
+        "zoo": {
+            "credit": 0.04125,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.0075286367866004966,
+            "url": null
+        },
+        "RPostgreSQL": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "RPostgres": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "RMariaDB": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "odbc": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "nycflights13": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "Lahman": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0075286367866004966,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.005957963709677419,
+            "url": null
+        },
+        "bit64": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "vctrs": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.004125511786600497,
+            "url": null
+        },
+        "tidyselect": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.005957963709677419,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.0075286367866004966,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "ellipsis": {
+            "credit": 0.0047204637096774195,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0025548387096774195,
+            "url": null
+        },
+        "blob": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "assertthat": {
+            "credit": 0.0013173387096774194,
+            "url": null
+        },
+        "R": {
+            "credit": 0.005957963709677419,
+            "url": null
+        },
+        "RMySQL": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "lobstr": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "callr": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "broom": {
+            "credit": 0.002808173076923077,
+            "url": null
+        },
+        "bench": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "pillar": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "generics": {
+            "credit": 0.0012374999999999999,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "locatexec": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "doconv": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "webshot": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "commonmark": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "equatags": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "magick": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "base64enc": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "gdtools": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "xml2": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "officer": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.001570673076923077,
+            "url": null
+        },
+        "readr": {
+            "credit": 0.003403125,
+            "url": null
+        }
+    }
+}

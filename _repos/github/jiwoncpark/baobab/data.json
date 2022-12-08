@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/jiwoncpark/baobab": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pybaobab": {
+            "credit": 0.0099,
+            "url": "https://github.com/jiwoncpark/baobab"
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/mtakahiro/gsf": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "gsf": {
+            "credit": 0.0099,
+            "url": "UNKNOWN"
+        }
+    }
+}
