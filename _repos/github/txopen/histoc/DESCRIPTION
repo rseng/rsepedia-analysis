@@ -1,0 +1,38 @@
+Package: histoc
+Title: Histocompatibility Functions for Organ Transplantation
+Version: 0.2.1
+Authors@R: c(
+    person("Bruno", "Lima", , "balima78@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9090-4457")),
+    person("Filipe", "Reis", ,"filipepintodosreis@gmail.com", role = "aut",
+            comment = c(ORCID = "0000-0002-8186-3910")),
+    person("TxOR", role = c("cph", "fnd"))
+    )
+Description: Provides functions to assess matches on organ transplantation. Histocompatibility analysis performed on kidney transplantation, allowing to simulate different kidney transplant allocation systems <doi:10.1016/j.trim.2022.101578>.
+License: MIT + file LICENSE
+BugReports: https://github.com/txopen/histoc/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Suggests:
+    covr,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Imports: 
+    dplyr,
+    stringr, 
+    magrittr,
+    tidyr,
+    utils,
+    data.table,
+    purrr,
+    rlang,
+    mockr,
+    tibble
+Depends: 
+    R (>= 4.1.0)
+LazyData: true
+Config/testthat/edition: 3
+URL: https://txopen.github.io/histoc/
+VignetteBuilder: knitr

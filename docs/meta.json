@@ -16061,7 +16061,34 @@
             "pulsars",
             "ionised-media",
             "radio-astronomy"
-        ]
+        ],
+        "github/ppsp-team/PyNM": [],
+        "github/CosmoStatGW/MGCosmoPop": [
+            "gravitational-waves",
+            "hierarchical-bayesian-analysis",
+            "cosmology"
+        ],
+        "github/viromelab/tracespipe": [
+            "virus",
+            "metagenomics",
+            "pipeline",
+            "forensics",
+            "clinical",
+            "virology",
+            "mtdna",
+            "multi-organ",
+            "ngs",
+            "ngs-pipeline"
+        ],
+        "github/RemoteSensingTools/vSmartMOM.jl": [],
+        "github/lh3/wgsim": [
+            "bioinformatics",
+            "genomics"
+        ],
+        "github/BiodataAnalysisGroup/UMIc": [],
+        "github/kathlandgren/SWAMPE": [],
+        "github/txopen/histoc": [],
+        "gitlab/treangenlab/vulcan": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20441,7 +20468,16 @@
         "github/njcuk9999/apero-drs": "Python",
         "github/ICAMS/strucscan": "Python",
         "github/blackjax-devs/blackjax": "Python",
-        "github/fjankowsk/scatfit": "Python"
+        "github/fjankowsk/scatfit": "Python",
+        "github/ppsp-team/PyNM": "Jupyter Notebook",
+        "github/CosmoStatGW/MGCosmoPop": "Python",
+        "github/viromelab/tracespipe": "Shell",
+        "github/RemoteSensingTools/vSmartMOM.jl": "Julia",
+        "github/lh3/wgsim": "C",
+        "github/BiodataAnalysisGroup/UMIc": "R",
+        "github/kathlandgren/SWAMPE": "Python",
+        "github/txopen/histoc": "R",
+        "gitlab/treangenlab/vulcan": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24821,7 +24857,16 @@
         "github/njcuk9999/apero-drs": "https://github.com/njcuk9999/apero-drs",
         "github/ICAMS/strucscan": "https://github.com/ICAMS/strucscan",
         "github/blackjax-devs/blackjax": "https://github.com/blackjax-devs/blackjax",
-        "github/fjankowsk/scatfit": "https://github.com/fjankowsk/scatfit"
+        "github/fjankowsk/scatfit": "https://github.com/fjankowsk/scatfit",
+        "github/ppsp-team/PyNM": "https://github.com/ppsp-team/PyNM",
+        "github/CosmoStatGW/MGCosmoPop": "https://github.com/CosmoStatGW/MGCosmoPop",
+        "github/viromelab/tracespipe": "https://github.com/viromelab/tracespipe",
+        "github/RemoteSensingTools/vSmartMOM.jl": "https://github.com/RemoteSensingTools/vSmartMOM.jl",
+        "github/lh3/wgsim": "https://github.com/lh3/wgsim",
+        "github/BiodataAnalysisGroup/UMIc": "https://github.com/BiodataAnalysisGroup/UMIc",
+        "github/kathlandgren/SWAMPE": "https://github.com/kathlandgren/SWAMPE",
+        "github/txopen/histoc": "https://github.com/txopen/histoc",
+        "gitlab/treangenlab/vulcan": "https://gitlab.com/treangenlab/vulcan"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29201,6 +29246,15 @@
         "github/njcuk9999/apero-drs": "A PipelinE to Reduce Observations - The DRS for SPIRou (CFHT)",
         "github/ICAMS/strucscan": "A lightweight python-based framework for high-throughput material simulation",
         "github/blackjax-devs/blackjax": "BlackJAX is a sampling library designed for ease of use, speed and modularity.",
-        "github/fjankowsk/scatfit": "Scattering fits of Fast Radio Burst and pulsar data."
+        "github/fjankowsk/scatfit": "Scattering fits of Fast Radio Burst and pulsar data.",
+        "github/ppsp-team/PyNM": "Lightweight Python implementation of Normative Modelling",
+        "github/CosmoStatGW/MGCosmoPop": "Modified Gravity and Cosmology with Binary Black Holes' Population models : hierarchical bayesian method for constraining modified GW propagation and BBH population models with GWs.",
+        "github/viromelab/tracespipe": "Reconstruction and analysis of viral and host genomes at multi-organ level",
+        "github/RemoteSensingTools/vSmartMOM.jl": "A full end-to-end modular software suite for radiative transfer and related atmospheric analysis",
+        "github/lh3/wgsim": "Reads simulator",
+        "github/BiodataAnalysisGroup/UMIc": "A framework implementing a method for UMI deduplication and reads correction.",
+        "github/kathlandgren/SWAMPE": "2D spectral-core shallow-water exoplanet atmosphere model",
+        "github/txopen/histoc": "Histocompatibility analysis performed by kidney allocation systems for transplantation",
+        "gitlab/treangenlab/vulcan": ""
     }
 }
