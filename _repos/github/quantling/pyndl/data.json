@@ -1,0 +1,126 @@
+{
+    "requirements.txt": {
+        "github/quantling/pyndl": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "sphinx": {
+            "credit": 0.3047785714285714,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "sphinx_rtd_theme": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/rtfd/sphinx_rtd_theme/"
+        },
+        "notebook": {
+            "credit": 0.001414285714285729,
+            "url": "http://jupyter.org"
+        },
+        "seaborn": {
+            "credit": 0.001414285714285729,
+            "url": "https://seaborn.pydata.org"
+        },
+        "numpydoc": {
+            "credit": 0.14142857142857143,
+            "url": "https://numpydoc.readthedocs.io"
+        },
+        "easydev": {
+            "credit": 0.14142857142857143,
+            "url": "http://github.com/cokelaer/easydev"
+        },
+        "nbsphinx": {
+            "credit": 0.001414285714285729,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "ipykernel": {
+            "credit": 0.010770329670329669,
+            "url": "https://ipython.org"
+        },
+        "pytest-console-scripts": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/pytest-console-scripts"
+        },
+        "pytest-tornasync": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/pytest-tornasync"
+        },
+        "requests": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pytest-cov": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "nbval": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/nbval"
+        },
+        "coverage": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "tornado": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "jupyter-server": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/jupyter-server"
+        },
+        "jupyterlab-server": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/jupyterlab-server"
+        },
+        "jupyterlab": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/jupyterlab"
+        },
+        "notebook-shim": {
+            "credit": 0.010770329670329669,
+            "url": "https://pypi.org/project/notebook-shim"
+        },
+        "matplotlib": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "pandas": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "scipy": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "numpy": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "traitlets": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "nbformat": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jinja2": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "docutils": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/docutils"
+        }
+    }
+}

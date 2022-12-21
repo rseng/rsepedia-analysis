@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/migp11/pyfastcore": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        },
+        "cobra": {
+            "credit": 0.00495,
+            "url": "https://opencobra.github.io/cobrapy"
+        }
+    }
+}

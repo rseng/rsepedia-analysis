@@ -16088,7 +16088,41 @@
         "github/BiodataAnalysisGroup/UMIc": [],
         "github/kathlandgren/SWAMPE": [],
         "github/txopen/histoc": [],
-        "gitlab/treangenlab/vulcan": []
+        "gitlab/treangenlab/vulcan": [],
+        "github/astro-informatics/sleplet": [
+            "manifolds",
+            "python",
+            "slepian-functions",
+            "sphere",
+            "wavelets"
+        ],
+        "github/siavashk/pycpd": [
+            "point-cloud",
+            "registration",
+            "expectation-maximization",
+            "python"
+        ],
+        "github/JuliaSmoothOptimizers/PDENLPModels.jl": [],
+        "github/domenico-simone/rmlst_api": [],
+        "github/quantling/pyndl": [],
+        "github/SYalouz/QuantNBody": [],
+        "github/freqtrade/freqtrade": [
+            "python",
+            "cryptocurrencies",
+            "trading-bot",
+            "telegram-bot",
+            "bitcoin",
+            "trade",
+            "cryptocurrency",
+            "algorithmic-trading",
+            "freqtrade"
+        ],
+        "github/danielenricocahall/elephas": [],
+        "github/wullm/fastdf": [],
+        "github/migp11/pyfastcore": [],
+        "github/CliMA/EnsembleKalmanProcesses.jl": [],
+        "github/mmore500/hstrat": [],
+        "gitlab/InspectorCell/inspectorcell": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20477,7 +20511,20 @@
         "github/BiodataAnalysisGroup/UMIc": "R",
         "github/kathlandgren/SWAMPE": "Python",
         "github/txopen/histoc": "R",
-        "gitlab/treangenlab/vulcan": "unknown"
+        "gitlab/treangenlab/vulcan": "unknown",
+        "github/astro-informatics/sleplet": "Python",
+        "github/siavashk/pycpd": "Python",
+        "github/JuliaSmoothOptimizers/PDENLPModels.jl": "Julia",
+        "github/domenico-simone/rmlst_api": "Python",
+        "github/quantling/pyndl": "Python",
+        "github/SYalouz/QuantNBody": "Python",
+        "github/freqtrade/freqtrade": "Python",
+        "github/danielenricocahall/elephas": "Python",
+        "github/wullm/fastdf": "C",
+        "github/migp11/pyfastcore": "Python",
+        "github/CliMA/EnsembleKalmanProcesses.jl": "Julia",
+        "github/mmore500/hstrat": "Python",
+        "gitlab/InspectorCell/inspectorcell": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24866,7 +24913,20 @@
         "github/BiodataAnalysisGroup/UMIc": "https://github.com/BiodataAnalysisGroup/UMIc",
         "github/kathlandgren/SWAMPE": "https://github.com/kathlandgren/SWAMPE",
         "github/txopen/histoc": "https://github.com/txopen/histoc",
-        "gitlab/treangenlab/vulcan": "https://gitlab.com/treangenlab/vulcan"
+        "gitlab/treangenlab/vulcan": "https://gitlab.com/treangenlab/vulcan",
+        "github/astro-informatics/sleplet": "https://github.com/astro-informatics/sleplet",
+        "github/siavashk/pycpd": "https://github.com/siavashk/pycpd",
+        "github/JuliaSmoothOptimizers/PDENLPModels.jl": "https://github.com/JuliaSmoothOptimizers/PDENLPModels.jl",
+        "github/domenico-simone/rmlst_api": "https://github.com/domenico-simone/rmlst_api",
+        "github/quantling/pyndl": "https://github.com/quantling/pyndl",
+        "github/SYalouz/QuantNBody": "https://github.com/SYalouz/QuantNBody",
+        "github/freqtrade/freqtrade": "https://github.com/freqtrade/freqtrade",
+        "github/danielenricocahall/elephas": "https://github.com/danielenricocahall/elephas",
+        "github/wullm/fastdf": "https://github.com/wullm/fastdf",
+        "github/migp11/pyfastcore": "https://github.com/migp11/pyfastcore",
+        "github/CliMA/EnsembleKalmanProcesses.jl": "https://github.com/CliMA/EnsembleKalmanProcesses.jl",
+        "github/mmore500/hstrat": "https://github.com/mmore500/hstrat",
+        "gitlab/InspectorCell/inspectorcell": "https://gitlab.com/InspectorCell/inspectorcell"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29255,6 +29315,19 @@
         "github/BiodataAnalysisGroup/UMIc": "A framework implementing a method for UMI deduplication and reads correction.",
         "github/kathlandgren/SWAMPE": "2D spectral-core shallow-water exoplanet atmosphere model",
         "github/txopen/histoc": "Histocompatibility analysis performed by kidney allocation systems for transplantation",
-        "gitlab/treangenlab/vulcan": ""
+        "gitlab/treangenlab/vulcan": "",
+        "github/astro-informatics/sleplet": "Slepian Scale-Discretised Wavelets",
+        "github/siavashk/pycpd": "Pure Numpy Implementation of the Coherent Point Drift Algorithm",
+        "github/JuliaSmoothOptimizers/PDENLPModels.jl": "A NLPModel API for optimization problems with PDE-constraints",
+        "github/domenico-simone/rmlst_api": "Run rmlst API through python script",
+        "github/quantling/pyndl": "pyndl implements a Naive discriminative learning which is a learning and classification models based on the Rescorla-Wagner equations in python3.",
+        "github/SYalouz/QuantNBody": "QuantNBody : a python package for quantum chemistry/physics to manipulate many-body operators and wave functions.",
+        "github/freqtrade/freqtrade": "Free, open source crypto trading bot",
+        "github/danielenricocahall/elephas": "Distributed Deep learning with Keras & Spark",
+        "github/wullm/fastdf": "Integrate neutrino geodesics in linear theory.",
+        "github/migp11/pyfastcore": "A python implementation of the context-specific model extraction method FastCore by Vlassis et al. (2014).",
+        "github/CliMA/EnsembleKalmanProcesses.jl": "Implements Optimization and approximate uncertainty quantification algorithms, Ensemble Kalman Inversion, and Ensemble Kalman Processes.",
+        "github/mmore500/hstrat": "hstrat enables phylogenetic inference on distributed digital evolution populations",
+        "gitlab/InspectorCell/inspectorcell": "InspectorCell provides an efficient workflow and graphical interface to generate high-quality training datasets from\r\nhighly multiplexed microscopy images."
     }
 }
