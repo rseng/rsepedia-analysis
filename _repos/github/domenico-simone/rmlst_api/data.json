@@ -1,0 +1,182 @@
+{
+    "setup.py": {
+        "github/domenico-simone/rmlst_api": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Click": {
+            "credit": 0.00990000000000002,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "importlib-metadata": {
+            "credit": 0.006806444464285744,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "colorama": {
+            "credit": 0.49005,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "importlib-resources": {
+            "credit": 0.0002695275000000018,
+            "url": "https://github.com/python/importlib_resources"
+        },
+        "pytest-mypy": {
+            "credit": 0.00817486533482143,
+            "url": "https://github.com/dbader/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.03485808783482142,
+            "url": "https://github.com/shopkeep/pytest-black"
+        },
+        "pytest-perf": {
+            "credit": 0.0002695275000000018,
+            "url": "https://github.com/jaraco/pytest-perf"
+        },
+        "flufl.flake8": {
+            "credit": 0.026952749999999998,
+            "url": "https://gitlab.com/warsaw/flufl.flake8"
+        },
+        "pyfakefs": {
+            "credit": 0.026952749999999998,
+            "url": "http://pyfakefs.org"
+        },
+        "packaging": {
+            "credit": 0.0019372289062500015,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "pytest-enabler": {
+            "credit": 0.00817486533482143,
+            "url": "https://github.com/jaraco/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.00817486533482143,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest-flake8": {
+            "credit": 0.00817486533482143,
+            "url": "https://github.com/tholo/pytest-flake8"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.00817486533482143,
+            "url": "https://github.com/jaraco/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.058205907522321416,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "ipython": {
+            "credit": 0.026952749999999998,
+            "url": "https://ipython.org"
+        },
+        "rst.linker": {
+            "credit": 0.03485808783482142,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.03485808783482142,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.03485808783482142,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.026952749999999998,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "zipp": {
+            "credit": 0.029378497499999996,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "mypy": {
+            "credit": 0.006670805624999999,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "filelock": {
+            "credit": 0.006670805624999999,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "attrs": {
+            "credit": 0.006670805624999999,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "jaraco.context": {
+            "credit": 0.0035736458705357137,
+            "url": "https://pypi.org/project/jaraco.context"
+        },
+        "more-itertools": {
+            "credit": 0.0016677014062499997,
+            "url": "https://pypi.org/project/more-itertools"
+        },
+        "jaraco.functools": {
+            "credit": 0.0035736458705357137,
+            "url": "https://pypi.org/project/jaraco.functools"
+        },
+        "tempora": {
+            "credit": 0.0016677014062499997,
+            "url": "https://pypi.org/project/tempora"
+        },
+        "pip-run": {
+            "credit": 0.0016677014062499997,
+            "url": "https://pypi.org/project/pip-run"
+        },
+        "pyparsing": {
+            "credit": 0.026683222499999996,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "types-toml": {
+            "credit": 0.001905944464285714,
+            "url": "https://pypi.org/project/types-toml"
+        },
+        "toml": {
+            "credit": 0.001905944464285714,
+            "url": "https://pypi.org/project/toml"
+        },
+        "virtualenv": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "pytest-xdist": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "six": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/six"
+        },
+        "process-tests": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/process-tests"
+        },
+        "hunter": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/hunter"
+        },
+        "fields": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/fields"
+        },
+        "coverage": {
+            "credit": 0.0033354028124999995,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "flake8": {
+            "credit": 0.013341611249999998,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "types-docutils": {
+            "credit": 0.001905944464285714,
+            "url": "https://pypi.org/project/types-docutils"
+        },
+        "pep517": {
+            "credit": 0.001905944464285714,
+            "url": "https://pypi.org/project/pep517"
+        },
+        "docutils": {
+            "credit": 0.001905944464285714,
+            "url": "https://pypi.org/project/docutils"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/SYalouz/QuantNBody": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://scipy.org/"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "numba": {
+            "credit": 0.0033000000000000004,
+            "url": "https://numba.pydata.org"
+        }
+    }
+}

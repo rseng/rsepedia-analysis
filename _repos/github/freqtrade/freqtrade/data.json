@@ -1,0 +1,246 @@
+{
+    "requirements.txt": {
+        "github/freqtrade/freqtrade": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.028250357142857143,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0329175,
+            "url": "https://pandas.pydata.org"
+        },
+        "pandas-ta": {
+            "credit": 0.02475,
+            "url": "https://github.com/twopirllc/pandas-ta"
+        },
+        "ccxt": {
+            "credit": 0.02475,
+            "url": "https://ccxt.com"
+        },
+        "cryptography": {
+            "credit": 0.0495,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "aiohttp": {
+            "credit": 0.02475,
+            "url": "https://github.com/aio-libs/aiohttp"
+        },
+        "SQLAlchemy": {
+            "credit": 0.02475,
+            "url": "https://www.sqlalchemy.org"
+        },
+        "python-telegram-bot": {
+            "credit": 0.02475,
+            "url": "https://python-telegram-bot.org/"
+        },
+        "arrow": {
+            "credit": 0.0329175,
+            "url": "https://arrow.readthedocs.io"
+        },
+        "cachetools": {
+            "credit": 0.02475,
+            "url": "https://github.com/tkem/cachetools/"
+        },
+        "requests": {
+            "credit": 0.00024750000000000466,
+            "url": "https://requests.readthedocs.io"
+        },
+        "urllib3": {
+            "credit": 0.028833750000000002,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "jsonschema": {
+            "credit": 0.02475,
+            "url": "https://python-jsonschema.readthedocs.io"
+        },
+        "TA-Lib": {
+            "credit": 0.0329175,
+            "url": "http://github.com/mrjbq7/ta-lib"
+        },
+        "technical": {
+            "credit": 0.00024750000000000466,
+            "url": "https://github.com/freqtrade/technical"
+        },
+        "tabulate": {
+            "credit": 0.02475,
+            "url": "https://pypi.org/project/tabulate/"
+        },
+        "pycoingecko": {
+            "credit": 0.02475,
+            "url": "https://github.com/man-c/pycoingecko"
+        },
+        "jinja2": {
+            "credit": 0.0002475000000000012,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "tables": {
+            "credit": 0.0002475000000000012,
+            "url": "https://www.pytables.org"
+        },
+        "blosc": {
+            "credit": 0.02475,
+            "url": "http://github.com/blosc/python-blosc"
+        },
+        "joblib": {
+            "credit": 0.02475,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "pyarrow": {
+            "credit": 0.02475,
+            "url": "https://arrow.apache.org/"
+        },
+        "py_find_1st": {
+            "credit": 0.02475,
+            "url": "http://github.com/roebel/py_find_1st"
+        },
+        "python-rapidjson": {
+            "credit": 0.02475,
+            "url": "https://github.com/python-rapidjson/python-rapidjson"
+        },
+        "orjson": {
+            "credit": 0.02475,
+            "url": "https://github.com/ijl/orjson"
+        },
+        "sdnotify": {
+            "credit": 0.02475,
+            "url": "https://github.com/bb4242/sdnotify"
+        },
+        "fastapi": {
+            "credit": 0.02475,
+            "url": "https://fastapi.tiangolo.com/"
+        },
+        "pydantic": {
+            "credit": 0.02475,
+            "url": "https://github.com/pydantic/pydantic"
+        },
+        "uvicorn": {
+            "credit": 0.02475,
+            "url": "https://www.uvicorn.org/"
+        },
+        "pyjwt": {
+            "credit": 0.02475,
+            "url": "https://github.com/jpadilla/pyjwt"
+        },
+        "aiofiles": {
+            "credit": 0.02475,
+            "url": "https://github.com/Tinche/aiofiles"
+        },
+        "psutil": {
+            "credit": 0.02475,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "colorama": {
+            "credit": 0.02475,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "questionary": {
+            "credit": 0.00024750000000000466,
+            "url": "https://github.com/tmbo/questionary"
+        },
+        "prompt-toolkit": {
+            "credit": 0.02475,
+            "url": "https://github.com/prompt-toolkit/python-prompt-toolkit"
+        },
+        "python-dateutil": {
+            "credit": 0.02475,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "schedule": {
+            "credit": 0.02475,
+            "url": "https://github.com/dbader/schedule"
+        },
+        "websockets": {
+            "credit": 0.02475,
+            "url": "https://github.com/aaugustin/websockets"
+        },
+        "janus": {
+            "credit": 0.0002475000000000012,
+            "url": "https://github.com/aio-libs/janus"
+        },
+        "chardet": {
+            "credit": 0.00408375,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PySocks": {
+            "credit": 0.00408375,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "certifi": {
+            "credit": 0.00408375,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "idna": {
+            "credit": 0.00408375,
+            "url": "https://github.com/kjd/idna"
+        },
+        "charset-normalizer": {
+            "credit": 4.08374999999999e-05,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "Babel": {
+            "credit": 0.01225125,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.01225125,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "ipython": {
+            "credit": 0.0035003571428571427,
+            "url": "https://ipython.org"
+        },
+        "numpydoc": {
+            "credit": 0.0035003571428571427,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0075841071428571424,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0035003571428571427,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "packaging": {
+            "credit": 0.0035003571428571427,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "numexpr": {
+            "credit": 0.0035003571428571427,
+            "url": "https://pypi.org/project/numexpr"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx-autobuild": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/sphinx-autobuild"
+        },
+        "Sphinx": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "prompt_toolkit": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/prompt_toolkit"
+        },
+        "typing-extensions": {
+            "credit": 0.0245025,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "unicodedata2": {
+            "credit": 0.0040429125,
+            "url": "https://pypi.org/project/unicodedata2"
+        }
+    }
+}

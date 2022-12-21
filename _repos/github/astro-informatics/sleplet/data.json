@@ -1,0 +1,166 @@
+{
+    "requirements.txt": {
+        "github/astro-informatics/sleplet": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cmocean": {
+            "credit": 0.0004950000000000024,
+            "url": "https://github.com/matplotlib/cmocean"
+        },
+        "gmpy2": {
+            "credit": 0.0495,
+            "url": "https://github.com/aleaxit/gmpy"
+        },
+        "hypothesis": {
+            "credit": 0.0495,
+            "url": "https://hypothesis.works"
+        },
+        "kaleido": {
+            "credit": 0.0004950000000000024,
+            "url": "https://pypi.org/project/kaleido"
+        },
+        "matplotlib": {
+            "credit": 0.057585825,
+            "url": "https://matplotlib.org"
+        },
+        "multiprocess": {
+            "credit": 0.0495,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "numba": {
+            "credit": 0.0495,
+            "url": "https://numba.pydata.org"
+        },
+        "numpy": {
+            "credit": 0.06543919038461539,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0495,
+            "url": "https://pandas.pydata.org"
+        },
+        "plotly": {
+            "credit": 0.0495,
+            "url": "https://plotly.com/python/"
+        },
+        "pre-commit": {
+            "credit": 0.0495,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "psutil": {
+            "credit": 0.0495,
+            "url": "https://github.com/giampaolo/psutil"
+        },
+        "pys2let": {
+            "credit": 0.0004950000000000024,
+            "url": "http://astro-informatics.github.io/s2let/"
+        },
+        "pyssht": {
+            "credit": 0.0004950000000000093,
+            "url": "http://astro-informatics.github.io/ssht/"
+        },
+        "pytest": {
+            "credit": 0.057353365384615385,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "python-box": {
+            "credit": 0.0495,
+            "url": "https://github.com/cdgriffith/Box"
+        },
+        "requests": {
+            "credit": 0.0004950000000000093,
+            "url": "https://requests.readthedocs.io"
+        },
+        "scipy": {
+            "credit": 0.057353365384615385,
+            "url": "https://scipy.org/"
+        },
+        "seaborn": {
+            "credit": 0.0495,
+            "url": "https://seaborn.pydata.org"
+        },
+        "setuptools": {
+            "credit": 0.057353365384615385,
+            "url": "https://github.com/pypa/setuptools"
+        },
+        "viscm": {
+            "credit": 0.0002450249999999994,
+            "url": "https://github.com/bids/viscm"
+        },
+        "colorspacious": {
+            "credit": 0.032588325,
+            "url": "https://github.com/njsmith/colorspacious"
+        },
+        "pathlib": {
+            "credit": 0.049005,
+            "url": "https://pathlib.readthedocs.org/"
+        },
+        "healpy": {
+            "credit": 0.0037696153846153847,
+            "url": "http://github.com/healpy"
+        },
+        "black": {
+            "credit": 0.0037696153846153847,
+            "url": "https://pypi.org/project/black"
+        },
+        "pip": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/pip"
+        },
+        "conan": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/conan"
+        },
+        "cython": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/cython"
+        },
+        "ninja": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/ninja"
+        },
+        "cmake": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/cmake"
+        },
+        "scikit-build": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/scikit-build"
+        },
+        "wheel": {
+            "credit": 0.007853365384615384,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "ducc0": {
+            "credit": 0.00408375,
+            "url": "https://pypi.org/project/ducc0"
+        },
+        "chardet": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/chardet"
+        },
+        "PySocks": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/PySocks"
+        },
+        "certifi": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/certifi"
+        },
+        "urllib3": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "idna": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/idna"
+        },
+        "charset-normalizer": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/charset-normalizer"
+        }
+    }
+}
