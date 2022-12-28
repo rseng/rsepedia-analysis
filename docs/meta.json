@@ -16122,7 +16122,50 @@
         "github/migp11/pyfastcore": [],
         "github/CliMA/EnsembleKalmanProcesses.jl": [],
         "github/mmore500/hstrat": [],
-        "gitlab/InspectorCell/inspectorcell": []
+        "gitlab/InspectorCell/inspectorcell": [],
+        "github/ELELAB/cancermuts": [],
+        "github/TeamPerie/CellDestiny": [],
+        "github/sebastian-zieba/PACMAN": [
+            "python",
+            "exoplanets",
+            "hst",
+            "astronomy",
+            "wfc3"
+        ],
+        "github/flu-crew/smot": [],
+        "github/jjmccollum/teiphy": [
+            "nexus",
+            "phylogenetics",
+            "python",
+            "tei-xml",
+            "text-encoding"
+        ],
+        "github/lanl/GLUE": [],
+        "github/yuansh3354/CaSee": [],
+        "github/aL3x-O-o-Hung/CAT-Net": [],
+        "github/gnudatalanguage/gdl": [
+            "astronomy",
+            "data-analysis",
+            "antlr",
+            "python",
+            "pv-wave",
+            "programming-language",
+            "geophysics",
+            "mapping",
+            "scientific-computing",
+            "scientific-visualization",
+            "plplot",
+            "gsl-library",
+            "plotting",
+            "netcdf",
+            "hdf5",
+            "hdf",
+            "dicom",
+            "fits-files",
+            "grib",
+            "eigen3"
+        ],
+        "github/zhongqiu1245/CCS-Net": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20524,7 +20567,17 @@
         "github/migp11/pyfastcore": "Python",
         "github/CliMA/EnsembleKalmanProcesses.jl": "Julia",
         "github/mmore500/hstrat": "Python",
-        "gitlab/InspectorCell/inspectorcell": "unknown"
+        "gitlab/InspectorCell/inspectorcell": "unknown",
+        "github/ELELAB/cancermuts": "Python",
+        "github/TeamPerie/CellDestiny": "R",
+        "github/sebastian-zieba/PACMAN": "Python",
+        "github/flu-crew/smot": "Python",
+        "github/jjmccollum/teiphy": "Python",
+        "github/lanl/GLUE": "Python",
+        "github/yuansh3354/CaSee": "Jupyter Notebook",
+        "github/aL3x-O-o-Hung/CAT-Net": "Python",
+        "github/gnudatalanguage/gdl": "C++",
+        "github/zhongqiu1245/CCS-Net": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24926,7 +24979,17 @@
         "github/migp11/pyfastcore": "https://github.com/migp11/pyfastcore",
         "github/CliMA/EnsembleKalmanProcesses.jl": "https://github.com/CliMA/EnsembleKalmanProcesses.jl",
         "github/mmore500/hstrat": "https://github.com/mmore500/hstrat",
-        "gitlab/InspectorCell/inspectorcell": "https://gitlab.com/InspectorCell/inspectorcell"
+        "gitlab/InspectorCell/inspectorcell": "https://gitlab.com/InspectorCell/inspectorcell",
+        "github/ELELAB/cancermuts": "https://github.com/ELELAB/cancermuts",
+        "github/TeamPerie/CellDestiny": "https://github.com/TeamPerie/CellDestiny",
+        "github/sebastian-zieba/PACMAN": "https://github.com/sebastian-zieba/PACMAN",
+        "github/flu-crew/smot": "https://github.com/flu-crew/smot",
+        "github/jjmccollum/teiphy": "https://github.com/jjmccollum/teiphy",
+        "github/lanl/GLUE": "https://github.com/lanl/GLUE",
+        "github/yuansh3354/CaSee": "https://github.com/yuansh3354/CaSee",
+        "github/aL3x-O-o-Hung/CAT-Net": "https://github.com/aL3x-O-o-Hung/CAT-Net",
+        "github/gnudatalanguage/gdl": "https://github.com/gnudatalanguage/gdl",
+        "github/zhongqiu1245/CCS-Net": "https://github.com/zhongqiu1245/CCS-Net"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29328,6 +29391,16 @@
         "github/migp11/pyfastcore": "A python implementation of the context-specific model extraction method FastCore by Vlassis et al. (2014).",
         "github/CliMA/EnsembleKalmanProcesses.jl": "Implements Optimization and approximate uncertainty quantification algorithms, Ensemble Kalman Inversion, and Ensemble Kalman Processes.",
         "github/mmore500/hstrat": "hstrat enables phylogenetic inference on distributed digital evolution populations",
-        "gitlab/InspectorCell/inspectorcell": "InspectorCell provides an efficient workflow and graphical interface to generate high-quality training datasets from\r\nhighly multiplexed microscopy images."
+        "gitlab/InspectorCell/inspectorcell": "InspectorCell provides an efficient workflow and graphical interface to generate high-quality training datasets from\r\nhighly multiplexed microscopy images.",
+        "github/ELELAB/cancermuts": "Software for the automatic annotation of cancer mutations",
+        "github/TeamPerie/CellDestiny": null,
+        "github/sebastian-zieba/PACMAN": "PACMAN is a pipeline to reduce and analyze data collected by Hubble Wide Field Camera 3 (HST/WFC3) using either the G102 or G141 grism.",
+        "github/flu-crew/smot": "Simple Manipulation Of Trees",
+        "github/jjmccollum/teiphy": "A Python package for converting TEI XML collations to NEXUS and other formats",
+        "github/lanl/GLUE": "Generic Learning User Enablement Code",
+        "github/yuansh3354/CaSee": null,
+        "github/aL3x-O-o-Hung/CAT-Net": null,
+        "github/gnudatalanguage/gdl": "GDL - GNU Data Language",
+        "github/zhongqiu1245/CCS-Net": null
     }
 }
