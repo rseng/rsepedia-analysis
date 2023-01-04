@@ -1,17 +1,17 @@
 {
-    "unknown": 136,
-    "Python": 1737,
-    "Jupyter Notebook": 325,
+    "unknown": 137,
+    "Python": 1745,
+    "Jupyter Notebook": 327,
     "Modelica": 1,
     "Shell": 25,
-    "HTML": 71,
+    "HTML": 72,
     "Perl": 44,
-    "R": 583,
-    "C++": 470,
+    "R": 588,
+    "C++": 472,
     "Java": 93,
     "C": 291,
     "Rust": 19,
-    "JavaScript": 74,
+    "JavaScript": 75,
     "AMPL": 1,
     "MATLAB": 36,
     "Haskell": 1,
@@ -74,5 +74,6 @@
     "Svelte": 1,
     "FreeMarker": 1,
     "Slash": 1,
-    "Component Pascal": 1
+    "Component Pascal": 1,
+    "ImageJ Macro": 1
 }

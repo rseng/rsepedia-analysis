@@ -16165,7 +16165,53 @@
             "grib",
             "eigen3"
         ],
-        "github/zhongqiu1245/CCS-Net": []
+        "github/zhongqiu1245/CCS-Net": [],
+        "github/MaudeDavidLab/GMEmbeddings": [],
+        "github/LCOGT/banzai-nres": [
+            "backend"
+        ],
+        "github/fkeruzore/panco2": [],
+        "github/IBMTRostock/GIFT": [],
+        "github/RavenGan/GR2D2": [],
+        "github/astrosupriyo/pyTANSPEC": [],
+        "github/AndreinaCastillo/Genie_manuscript_data_analysis": [],
+        "github/cbio-astar-tools/GeneCloudOmics": [],
+        "github/joshuakt/Oxygen-False-Positives": [],
+        "github/ropensci/daiquiri": [
+            "data-quality",
+            "initial-data-analysis",
+            "r",
+            "r-package",
+            "reproducible-research",
+            "rstats",
+            "temporal-data",
+            "time-series"
+        ],
+        "github/gmbrandt/xwavecal": [],
+        "github/LoganAMorrison/Hazma": [
+            "physics",
+            "quantum-field-theory",
+            "astrophysics",
+            "python"
+        ],
+        "github/arjunsavel/SImMER": [
+            "astronomy",
+            "astrophysics",
+            "python",
+            "astronomical-images",
+            "stars"
+        ],
+        "github/bodenlab/GRASP": [],
+        "github/fbreitwieser/krakenuniq": [
+            "bioinformatics",
+            "metagenomics"
+        ],
+        "github/statdivlab/rigr": [],
+        "github/jonaselgammal/GPry": [],
+        "github/sfarrens/sf_deconvolve": [],
+        "github/V-Bernal/GeneNetTools": [],
+        "github/MeasureTransport/MParT": [],
+        "github/javicarron/mtneedlet": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20577,7 +20623,28 @@
         "github/yuansh3354/CaSee": "Jupyter Notebook",
         "github/aL3x-O-o-Hung/CAT-Net": "Python",
         "github/gnudatalanguage/gdl": "C++",
-        "github/zhongqiu1245/CCS-Net": "Python"
+        "github/zhongqiu1245/CCS-Net": "Python",
+        "github/MaudeDavidLab/GMEmbeddings": "R",
+        "github/LCOGT/banzai-nres": "Python",
+        "github/fkeruzore/panco2": "Jupyter Notebook",
+        "github/IBMTRostock/GIFT": "ImageJ Macro",
+        "github/RavenGan/GR2D2": "R",
+        "github/astrosupriyo/pyTANSPEC": "Python",
+        "github/AndreinaCastillo/Genie_manuscript_data_analysis": "R",
+        "github/cbio-astar-tools/GeneCloudOmics": "unknown",
+        "github/joshuakt/Oxygen-False-Positives": "Python",
+        "github/ropensci/daiquiri": "R",
+        "github/gmbrandt/xwavecal": "Python",
+        "github/LoganAMorrison/Hazma": "Jupyter Notebook",
+        "github/arjunsavel/SImMER": "Python",
+        "github/bodenlab/GRASP": "JavaScript",
+        "github/fbreitwieser/krakenuniq": "C++",
+        "github/statdivlab/rigr": "R",
+        "github/jonaselgammal/GPry": "Python",
+        "github/sfarrens/sf_deconvolve": "Python",
+        "github/V-Bernal/GeneNetTools": "HTML",
+        "github/MeasureTransport/MParT": "C++",
+        "github/javicarron/mtneedlet": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -24989,7 +25056,28 @@
         "github/yuansh3354/CaSee": "https://github.com/yuansh3354/CaSee",
         "github/aL3x-O-o-Hung/CAT-Net": "https://github.com/aL3x-O-o-Hung/CAT-Net",
         "github/gnudatalanguage/gdl": "https://github.com/gnudatalanguage/gdl",
-        "github/zhongqiu1245/CCS-Net": "https://github.com/zhongqiu1245/CCS-Net"
+        "github/zhongqiu1245/CCS-Net": "https://github.com/zhongqiu1245/CCS-Net",
+        "github/MaudeDavidLab/GMEmbeddings": "https://github.com/MaudeDavidLab/GMEmbeddings",
+        "github/LCOGT/banzai-nres": "https://github.com/LCOGT/banzai-nres",
+        "github/fkeruzore/panco2": "https://github.com/fkeruzore/panco2",
+        "github/IBMTRostock/GIFT": "https://github.com/IBMTRostock/GIFT",
+        "github/RavenGan/GR2D2": "https://github.com/RavenGan/GR2D2",
+        "github/astrosupriyo/pyTANSPEC": "https://github.com/astrosupriyo/pyTANSPEC",
+        "github/AndreinaCastillo/Genie_manuscript_data_analysis": "https://github.com/AndreinaCastillo/Genie_manuscript_data_analysis",
+        "github/cbio-astar-tools/GeneCloudOmics": "https://github.com/cbio-astar-tools/GeneCloudOmics",
+        "github/joshuakt/Oxygen-False-Positives": "https://github.com/joshuakt/Oxygen-False-Positives",
+        "github/ropensci/daiquiri": "https://github.com/ropensci/daiquiri",
+        "github/gmbrandt/xwavecal": "https://github.com/gmbrandt/xwavecal",
+        "github/LoganAMorrison/Hazma": "https://github.com/LoganAMorrison/Hazma",
+        "github/arjunsavel/SImMER": "https://github.com/arjunsavel/SImMER",
+        "github/bodenlab/GRASP": "https://github.com/bodenlab/GRASP",
+        "github/fbreitwieser/krakenuniq": "https://github.com/fbreitwieser/krakenuniq",
+        "github/statdivlab/rigr": "https://github.com/statdivlab/rigr",
+        "github/jonaselgammal/GPry": "https://github.com/jonaselgammal/GPry",
+        "github/sfarrens/sf_deconvolve": "https://github.com/sfarrens/sf_deconvolve",
+        "github/V-Bernal/GeneNetTools": "https://github.com/V-Bernal/GeneNetTools",
+        "github/MeasureTransport/MParT": "https://github.com/MeasureTransport/MParT",
+        "github/javicarron/mtneedlet": "https://github.com/javicarron/mtneedlet"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29401,6 +29489,27 @@
         "github/yuansh3354/CaSee": null,
         "github/aL3x-O-o-Hung/CAT-Net": null,
         "github/gnudatalanguage/gdl": "GDL - GNU Data Language",
-        "github/zhongqiu1245/CCS-Net": null
+        "github/zhongqiu1245/CCS-Net": null,
+        "github/MaudeDavidLab/GMEmbeddings": null,
+        "github/LCOGT/banzai-nres": "BANZAI Data Reduction Pipeline for NRES",
+        "github/fkeruzore/panco2": "A Python library for pressure profile measurements in SZ observations of galaxy clusters.",
+        "github/IBMTRostock/GIFT": "This work comes from the Institute for Biomedical Engineering (https://ibmt.med.uni-rostock.de/en/) at the University Medical Center Rostock",
+        "github/RavenGan/GR2D2": "Take Monte Carlo samples from the posterior distribution based on the graphical R2D2 prior, to estimate the precision matrix for multivariate Gaussian data",
+        "github/astrosupriyo/pyTANSPEC": "Python tool for extracting 1D TANSPEC spectra from 2D image",
+        "github/AndreinaCastillo/Genie_manuscript_data_analysis": "Repository containing R code for the analysis of student pre- and post-recitation responses ",
+        "github/cbio-astar-tools/GeneCloudOmics": "A Biostatistical tool for Transcriptomics Analysis",
+        "github/joshuakt/Oxygen-False-Positives": "Python source code for planetary evolution model described in Krissansen-Totton et al. (2021; AGU Advances)",
+        "github/ropensci/daiquiri": "Data quality reporting for temporal datasets.",
+        "github/gmbrandt/xwavecal": "A library of routines for wavelength calibrating echelle spectrographs for high precision radial velocity work. A limited data-reduction pipeline is included.",
+        "github/LoganAMorrison/Hazma": "Python package for computing indirect detection constraints on sub-GeV dark matter.",
+        "github/arjunsavel/SImMER": "An open-source & modular reduction pipeline for astronomical images of point sources.",
+        "github/bodenlab/GRASP": "Graphical Representation of Ancestral Sequence Predictions",
+        "github/fbreitwieser/krakenuniq": "\ud83d\udc19 KrakenUniq: Metagenomics classifier with unique k-mer counting for more specific results",
+        "github/statdivlab/rigr": "Regression, Inference, and General Data Analysis Tools for R ",
+        "github/jonaselgammal/GPry": "A Package for Bayesian inference of expensive likelihoods with Gaussian Processes",
+        "github/sfarrens/sf_deconvolve": "A Python code designed for PSF deconvolution using a low-rank approximation and sparsity. The code can handle a fixed PSF for the entire field or a stack of PSFs for each galaxy position.",
+        "github/V-Bernal/GeneNetTools": "R package for Gaussian graphical models with (Ledoit Wolf) shrinkage ",
+        "github/MeasureTransport/MParT": "Monotone Parameterization Toolkit (MParT): A core library for constructing and using transport maps.",
+        "github/javicarron/mtneedlet": "This is a Python Package aimed at the use of needlets to filter spherical maps, detecting the maxima within the maps and analysing them using a multiple testing approach."
     }
 }

@@ -1,0 +1,150 @@
+{
+    "requirements.txt": {
+        "github/LoganAMorrison/Hazma": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.09,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.17909999999999998,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.000899999999999998,
+            "url": "https://www.scipy.org"
+        },
+        "Cython": {
+            "credit": 0.09,
+            "url": "http://cython.org/"
+        },
+        "numpydoc": {
+            "credit": 0.09,
+            "url": "https://numpydoc.readthedocs.io"
+        },
+        "flake8": {
+            "credit": 0.09,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "jupyter": {
+            "credit": 0.09,
+            "url": "http://jupyter.org"
+        },
+        "jupyter-client": {
+            "credit": 0.01575,
+            "url": "https://jupyter.org"
+        },
+        "jupyter-console": {
+            "credit": 0.000899999999999998,
+            "url": "https://jupyter.org"
+        },
+        "jupyter-core": {
+            "credit": 0.005142857142857141,
+            "url": "https://jupyter.org"
+        },
+        "jupytext": {
+            "credit": 0.09,
+            "url": "https://github.com/mwouts/jupytext"
+        },
+        "pytest-timeout": {
+            "credit": 4.242857142857173e-05,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.004242857142857143,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest-asyncio": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "pytest": {
+            "credit": 0.008443285714285714,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pre-commit": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "mypy": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "ipython": {
+            "credit": 0.019092857142857144,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "coverage": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "codecov": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/codecov"
+        },
+        "sphinxcontrib-github-alt": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/sphinxcontrib-github-alt"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "myst-parser": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/myst-parser"
+        },
+        "ipykernel": {
+            "credit": 0.019092857142857144,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "traitlets": {
+            "credit": 0.048792857142857145,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "tornado": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "pyzmq": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/pyzmq"
+        },
+        "python-dateutil": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "nest-asyncio": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/nest-asyncio"
+        },
+        "entrypoints": {
+            "credit": 0.004242857142857143,
+            "url": "https://pypi.org/project/entrypoints"
+        },
+        "pexpect": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pexpect"
+        },
+        "pygments": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "prompt-toolkit": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/prompt-toolkit"
+        },
+        "pywin32": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/pywin32"
+        }
+    }
+}
