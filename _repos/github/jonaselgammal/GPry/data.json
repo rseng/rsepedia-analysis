@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/jonaselgammal/GPry": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cobaya": {
+            "credit": 0.2475,
+            "url": "https://cobaya.readthedocs.io"
+        },
+        "scikit-learn": {
+            "credit": 0.002475000000000005,
+            "url": "http://scikit-learn.org"
+        },
+        "dill": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "mpi4py": {
+            "credit": 0.2475,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "pyamg": {
+            "credit": 0.0001166785714285714,
+            "url": "https://github.com/pyamg/pyamg"
+        },
+        "mypy": {
+            "credit": 0.0001166785714285714,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "black": {
+            "credit": 0.011667857142857143,
+            "url": "https://github.com/psf/black"
+        },
+        "flake8": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-cov": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.01551825,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "Pillow": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "seaborn": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "scikit-image": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "memory-profiler": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "pandas": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "threadpoolctl": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.011667857142857143,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "scipy": {
+            "credit": 0.01551825,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "numpy": {
+            "credit": 0.01551825,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "objgraph": {
+            "credit": 0.245025,
+            "url": "https://pypi.org/project/objgraph"
+        },
+        "lxml": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "psutil": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "tomli": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "typing-extensions": {
+            "credit": 0.0019251964285714287,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}
