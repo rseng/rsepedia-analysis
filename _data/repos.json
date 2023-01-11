@@ -16211,7 +16211,55 @@
         "github/sfarrens/sf_deconvolve": [],
         "github/V-Bernal/GeneNetTools": [],
         "github/MeasureTransport/MParT": [],
-        "github/javicarron/mtneedlet": []
+        "github/javicarron/mtneedlet": [],
+        "github/google/best": [
+            "bioinformatics",
+            "sequencing"
+        ],
+        "github/pmelchior/spender": [
+            "astronomy",
+            "autoencoder",
+            "spectroscopy"
+        ],
+        "github/webbjj/m2mcluster": [],
+        "github/agsreejith/CONTROL": [],
+        "github/kircherlab/ReMM": [],
+        "github/astrorama/sourcextractorplusplus": [
+            "astronomy",
+            "c-plus-plus",
+            "science",
+            "model-fitting"
+        ],
+        "github/dolaver/calsagos": [
+            "config",
+            "github-config"
+        ],
+        "github/yymao/abundancematching": [
+            "subhalo-abundance-matching",
+            "abundance-matching",
+            "python",
+            "deconvolution",
+            "astrophysics"
+        ],
+        "github/abeelen/powspec": [],
+        "github/dkoslicki/TAMPA": [],
+        "gitlab/leelamichaels/Tranquillity": [],
+        "gitlab/leelamichaels/Elysium": [],
+        "gitlab/leelamichaels/Infinity": [],
+        "gitlab/leelamichaels/Burning_Arrow": [],
+        "gitlab/leelamichaels/Omega": [],
+        "gitlab/esa/pyxel": [
+            "astronomy",
+            "camera",
+            "ccd",
+            "cmos",
+            "detector",
+            "imaging",
+            "mct",
+            "pixel",
+            "python",
+            "simulation"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20644,7 +20692,23 @@
         "github/sfarrens/sf_deconvolve": "Python",
         "github/V-Bernal/GeneNetTools": "HTML",
         "github/MeasureTransport/MParT": "C++",
-        "github/javicarron/mtneedlet": "Python"
+        "github/javicarron/mtneedlet": "Python",
+        "github/google/best": "Rust",
+        "github/pmelchior/spender": "Python",
+        "github/webbjj/m2mcluster": "Python",
+        "github/agsreejith/CONTROL": "IDL",
+        "github/kircherlab/ReMM": "Python",
+        "github/astrorama/sourcextractorplusplus": "C++",
+        "github/dolaver/calsagos": "Python",
+        "github/yymao/abundancematching": "Python",
+        "github/abeelen/powspec": "Python",
+        "github/dkoslicki/TAMPA": "Python",
+        "gitlab/leelamichaels/Tranquillity": "unknown",
+        "gitlab/leelamichaels/Elysium": "unknown",
+        "gitlab/leelamichaels/Infinity": "unknown",
+        "gitlab/leelamichaels/Burning_Arrow": "unknown",
+        "gitlab/leelamichaels/Omega": "unknown",
+        "gitlab/esa/pyxel": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -25077,7 +25141,23 @@
         "github/sfarrens/sf_deconvolve": "https://github.com/sfarrens/sf_deconvolve",
         "github/V-Bernal/GeneNetTools": "https://github.com/V-Bernal/GeneNetTools",
         "github/MeasureTransport/MParT": "https://github.com/MeasureTransport/MParT",
-        "github/javicarron/mtneedlet": "https://github.com/javicarron/mtneedlet"
+        "github/javicarron/mtneedlet": "https://github.com/javicarron/mtneedlet",
+        "github/google/best": "https://github.com/google/best",
+        "github/pmelchior/spender": "https://github.com/pmelchior/spender",
+        "github/webbjj/m2mcluster": "https://github.com/webbjj/m2mcluster",
+        "github/agsreejith/CONTROL": "https://github.com/agsreejith/CONTROL",
+        "github/kircherlab/ReMM": "https://github.com/kircherlab/ReMM",
+        "github/astrorama/sourcextractorplusplus": "https://github.com/astrorama/SourceXtractorPlusPlus",
+        "github/dolaver/calsagos": "https://github.com/dolaver/calsagos",
+        "github/yymao/abundancematching": "https://github.com/yymao/abundancematching",
+        "github/abeelen/powspec": "https://github.com/abeelen/powspec",
+        "github/dkoslicki/TAMPA": "https://github.com/dkoslicki/TAMPA",
+        "gitlab/leelamichaels/Tranquillity": "https://gitlab.com/leelamichaels/Tranquillity",
+        "gitlab/leelamichaels/Elysium": "https://gitlab.com/leelamichaels/Elysium",
+        "gitlab/leelamichaels/Infinity": "https://gitlab.com/leelamichaels/Infinity",
+        "gitlab/leelamichaels/Burning_Arrow": "https://gitlab.com/leelamichaels/Burning_Arrow",
+        "gitlab/leelamichaels/Omega": "https://gitlab.com/leelamichaels/Omega",
+        "gitlab/esa/pyxel": "https://gitlab.com/esa/pyxel"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29510,6 +29590,22 @@
         "github/sfarrens/sf_deconvolve": "A Python code designed for PSF deconvolution using a low-rank approximation and sparsity. The code can handle a fixed PSF for the entire field or a stack of PSFs for each galaxy position.",
         "github/V-Bernal/GeneNetTools": "R package for Gaussian graphical models with (Ledoit Wolf) shrinkage ",
         "github/MeasureTransport/MParT": "Monotone Parameterization Toolkit (MParT): A core library for constructing and using transport maps.",
-        "github/javicarron/mtneedlet": "This is a Python Package aimed at the use of needlets to filter spherical maps, detecting the maxima within the maps and analysing them using a multiple testing approach."
+        "github/javicarron/mtneedlet": "This is a Python Package aimed at the use of needlets to filter spherical maps, detecting the maxima within the maps and analysing them using a multiple testing approach.",
+        "github/google/best": "Bam Error Stats Tool (best): analysis of error types in aligned reads.",
+        "github/pmelchior/spender": "Spectrum encoder and decoder",
+        "github/webbjj/m2mcluster": "A code for made to measure modelling of star clusters",
+        "github/agsreejith/CONTROL": "V1.0 of CUTE data reduction pipeline",
+        "github/kircherlab/ReMM": "ReMM score snakemake workflow ",
+        "github/astrorama/sourcextractorplusplus": "SourceXtractor++, the next generation SExtractor",
+        "github/dolaver/calsagos": "Config files for my GitHub profile.",
+        "github/yymao/abundancematching": "A Python package for subhalo abundance matching (SHAM) with scatter.",
+        "github/abeelen/powspec": "Power and cross spectral density of 2D arrays",
+        "github/dkoslicki/TAMPA": "A collection of tools to visualize CAMI profiling outputs",
+        "gitlab/leelamichaels/Tranquillity": "Code Tranquillity release copy",
+        "gitlab/leelamichaels/Elysium": "Code Elysium release copy",
+        "gitlab/leelamichaels/Infinity": "Code Infinity release copy",
+        "gitlab/leelamichaels/Burning_Arrow": "Code Burning Arrow release copy",
+        "gitlab/leelamichaels/Omega": "Code Omega release copy",
+        "gitlab/esa/pyxel": "Pyxel is a general detector simulation framework. An easy-to-use framework that can simulate a variety of imaging detector effects combined on images (e.g. radiation and optical effects, noises) made by CCD or CMOS-based detectors."
     }
 }
