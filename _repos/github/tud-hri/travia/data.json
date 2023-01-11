@@ -1,0 +1,122 @@
+{
+    "requirements.txt": {
+        "github/tud-hri/travia": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "autograd": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/HIPS/autograd"
+        },
+        "cffi": {
+            "credit": 0.0005823529411764714,
+            "url": "http://cffi.readthedocs.org"
+        },
+        "cryptography": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "numpy": {
+            "credit": 0.06784411764705882,
+            "url": "https://www.numpy.org"
+        },
+        "opencv-python-headless": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/opencv/opencv-python"
+        },
+        "pandas": {
+            "credit": 0.0005823529411764714,
+            "url": "https://pandas.pydata.org"
+        },
+        "pycparser": {
+            "credit": 0.11588823529411765,
+            "url": "https://github.com/eliben/pycparser"
+        },
+        "pykalman": {
+            "credit": 0.05823529411764706,
+            "url": "http://pykalman.github.com"
+        },
+        "pyproj": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/pyproj4/pyproj"
+        },
+        "PyQt5": {
+            "credit": 0.0005823529411764714,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.08706176470588235,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "PyQt5-stubs": {
+            "credit": 0.0005823529411764714,
+            "url": "https://github.com/python-qt-tools/PyQt5-stubs"
+        },
+        "pyqtgraph": {
+            "credit": 0.05823529411764706,
+            "url": "http://www.pyqtgraph.org"
+        },
+        "python-dateutil": {
+            "credit": 0.06784411764705882,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "pytz": {
+            "credit": 0.06784411764705882,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "scipy": {
+            "credit": 0.05823529411764706,
+            "url": "https://scipy.org/"
+        },
+        "six": {
+            "credit": 0.05823529411764706,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "pytest-xdist": {
+            "credit": 9.60882352941169e-05,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.030411926470588234,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.009608823529411765,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.028826470588235294,
+            "url": "https://pypi.org/project/PyQt5-Qt5"
+        },
+        "pytest-xvfb": {
+            "credit": 0.01921764705882353,
+            "url": "https://pypi.org/project/pytest-xvfb"
+        },
+        "mypy": {
+            "credit": 0.01921764705882353,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "filelock": {
+            "credit": 0.0015854558823529413,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0015854558823529413,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0015854558823529413,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0015854558823529413,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0015854558823529413,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

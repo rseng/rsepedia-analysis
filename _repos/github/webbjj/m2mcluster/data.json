@@ -1,0 +1,78 @@
+{
+    "setup.py": {
+        "github/webbjj/m2mcluster": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "amuse-framework": {
+            "credit": 0.198,
+            "url": "http://www.amusecode.org/"
+        },
+        "numpy": {
+            "credit": 0.49962577500000005,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0024700500000000084,
+            "url": "https://www.scipy.org"
+        },
+        "galpy": {
+            "credit": 0.198,
+            "url": "http://github.com/jobovy/galpy"
+        },
+        "seaborn": {
+            "credit": 0.0019800000000000095,
+            "url": "https://seaborn.pydata.org"
+        },
+        "matplotlib": {
+            "credit": 0.049005,
+            "url": "https://matplotlib.org"
+        },
+        "pandas": {
+            "credit": 0.0004900499999999988,
+            "url": "https://pandas.pydata.org"
+        },
+        "pytest-xdist": {
+            "credit": 8.085824999999949e-05,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.009419986125,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.008085825,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "filelock": {
+            "credit": 0.001334161125,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.001334161125,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.001334161125,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.001334161125,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.001334161125,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}
