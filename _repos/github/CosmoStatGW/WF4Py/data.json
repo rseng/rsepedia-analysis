@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/CosmoStatGW/WF4Py": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.006567,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.scipy.org"
+        },
+        "h5py": {
+            "credit": 0.0033000000000000004,
+            "url": "http://www.h5py.org"
+        }
+    }
+}

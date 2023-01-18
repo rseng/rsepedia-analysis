@@ -16259,7 +16259,45 @@
             "pixel",
             "python",
             "simulation"
-        ]
+        ],
+        "github/szhorvat/IGraphM": [
+            "igraph",
+            "mathematica",
+            "mathematics",
+            "network-graph",
+            "graph-theory",
+            "raspberry-pi",
+            "network-analysis",
+            "graph-algorithms",
+            "wolfram-language"
+        ],
+        "github/valeriabonapersona/repair": [],
+        "github/tkonolige/city2ba": [
+            "bundle-adjustment"
+        ],
+        "github/wdecoster/chopper": [],
+        "github/MartianColonist/POSEIDON": [],
+        "github/cdanielmachado/reframed": [
+            "metabolism",
+            "modeling",
+            "python"
+        ],
+        "github/dparks1134/RefineM": [],
+        "github/CosmoStatGW/WF4Py": [
+            "gravitational-waves",
+            "waveforms"
+        ],
+        "github/Jacks0nJ/PyFPT": [
+            "cosmology",
+            "cython",
+            "first-passage-times",
+            "importance-sampling",
+            "inflation",
+            "stochastic"
+        ],
+        "github/ComputationalPhysiology/simcardems": [],
+        "gitlab/ProjectRHEA/flowsolverrhea": [],
+        "gitlab/programgreg/tagginglatencyestimator": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -20708,7 +20746,19 @@
         "gitlab/leelamichaels/Infinity": "unknown",
         "gitlab/leelamichaels/Burning_Arrow": "unknown",
         "gitlab/leelamichaels/Omega": "unknown",
-        "gitlab/esa/pyxel": "unknown"
+        "gitlab/esa/pyxel": "unknown",
+        "github/szhorvat/IGraphM": "Mathematica",
+        "github/valeriabonapersona/repair": "R",
+        "github/tkonolige/city2ba": "Rust",
+        "github/wdecoster/chopper": "Rust",
+        "github/MartianColonist/POSEIDON": "Python",
+        "github/cdanielmachado/reframed": "Python",
+        "github/dparks1134/RefineM": "Python",
+        "github/CosmoStatGW/WF4Py": "Jupyter Notebook",
+        "github/Jacks0nJ/PyFPT": "Python",
+        "github/ComputationalPhysiology/simcardems": "Python",
+        "gitlab/ProjectRHEA/flowsolverrhea": "unknown",
+        "gitlab/programgreg/tagginglatencyestimator": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -25157,7 +25207,19 @@
         "gitlab/leelamichaels/Infinity": "https://gitlab.com/leelamichaels/Infinity",
         "gitlab/leelamichaels/Burning_Arrow": "https://gitlab.com/leelamichaels/Burning_Arrow",
         "gitlab/leelamichaels/Omega": "https://gitlab.com/leelamichaels/Omega",
-        "gitlab/esa/pyxel": "https://gitlab.com/esa/pyxel"
+        "gitlab/esa/pyxel": "https://gitlab.com/esa/pyxel",
+        "github/szhorvat/IGraphM": "https://github.com/szhorvat/IGraphM",
+        "github/valeriabonapersona/repair": "https://github.com/valeriabonapersona/RePAIR",
+        "github/tkonolige/city2ba": "https://github.com/tkonolige/city2ba",
+        "github/wdecoster/chopper": "https://github.com/wdecoster/chopper",
+        "github/MartianColonist/POSEIDON": "https://github.com/MartianColonist/POSEIDON",
+        "github/cdanielmachado/reframed": "https://github.com/cdanielmachado/reframed",
+        "github/dparks1134/RefineM": "https://github.com/donovan-h-parks/RefineM",
+        "github/CosmoStatGW/WF4Py": "https://github.com/CosmoStatGW/WF4Py",
+        "github/Jacks0nJ/PyFPT": "https://github.com/Jacks0nJ/PyFPT",
+        "github/ComputationalPhysiology/simcardems": "https://github.com/ComputationalPhysiology/simcardems",
+        "gitlab/ProjectRHEA/flowsolverrhea": "https://gitlab.com/ProjectRHEA/flowsolverrhea",
+        "gitlab/programgreg/tagginglatencyestimator": "https://gitlab.com/programgreg/tagginglatencyestimator"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -29606,6 +29668,18 @@
         "gitlab/leelamichaels/Infinity": "Code Infinity release copy",
         "gitlab/leelamichaels/Burning_Arrow": "Code Burning Arrow release copy",
         "gitlab/leelamichaels/Omega": "Code Omega release copy",
-        "gitlab/esa/pyxel": "Pyxel is a general detector simulation framework. An easy-to-use framework that can simulate a variety of imaging detector effects combined on images (e.g. radiation and optical effects, noises) made by CCD or CMOS-based detectors."
+        "gitlab/esa/pyxel": "Pyxel is a general detector simulation framework. An easy-to-use framework that can simulate a variety of imaging detector effects combined on images (e.g. radiation and optical effects, noises) made by CCD or CMOS-based detectors.",
+        "github/szhorvat/IGraphM": "IGraph/M is the igraph interface for Mathematica",
+        "github/valeriabonapersona/repair": "Reduction from Prior Animal Informed Research",
+        "github/tkonolige/city2ba": "Tools for generating synthetic bundle adjustment datasets",
+        "github/wdecoster/chopper": "Rust implementation of NanoFilt+NanoLyse, both originally written in Python. This tool, intended for long read sequencing such as PacBio or ONT, filters and trims a fastq file.",
+        "github/MartianColonist/POSEIDON": "Multidimensional atmospheric retrieval of exoplanet spectra.",
+        "github/cdanielmachado/reframed": "ReFramed: metabolic modeling package",
+        "github/dparks1134/RefineM": "A toolbox for improving metagenome-assembled genomes.",
+        "github/CosmoStatGW/WF4Py": "Gravitational waves waveform models in pure Python language",
+        "github/Jacks0nJ/PyFPT": "Stochastic first-passage time (FPT) simulations using importance sampling.",
+        "github/ComputationalPhysiology/simcardems": "Simula Cardiac ElectroMechanics Solver",
+        "gitlab/ProjectRHEA/flowsolverrhea": "RHEA: an open-source Reproducible and Hybrid-architecture flow solver Engineered for Academia",
+        "gitlab/programgreg/tagginglatencyestimator": "Software to estimate the latency of the tagging process."
     }
 }
