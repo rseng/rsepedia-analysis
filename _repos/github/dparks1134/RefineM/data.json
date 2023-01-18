@@ -1,0 +1,54 @@
+{
+    "setup.py": {
+        "github/dparks1134/RefineM": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.002189,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0011,
+            "url": "https://www.scipy.org"
+        },
+        "dendropy": {
+            "credit": 0.0011,
+            "url": "http://packages.python.org/DendroPy/"
+        },
+        "matplotlib": {
+            "credit": 0.0011,
+            "url": "https://matplotlib.org"
+        },
+        "biolib": {
+            "credit": 0.0011,
+            "url": "http://pypi.python.org/pypi/biolib/"
+        },
+        "jinja2": {
+            "credit": 0.0011,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "mpld3": {
+            "credit": 0.0011,
+            "url": "http://mpld3.github.com"
+        },
+        "pysam": {
+            "credit": 0.0011,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "weightedstats": {
+            "credit": 0.0011,
+            "url": "https://github.com/tinybike/weightedstats"
+        },
+        "Babel": {
+            "credit": 0.0005445,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.0005445,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        }
+    }
+}
