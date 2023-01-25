@@ -9,6 +9,10 @@
 
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
+if (NOT EXISTS "${CMAKE_SOURCE_DIR}/src/whereami/.git" )
+  message(FATAL_ERROR "The src/whereami git submodule is not initialised.\n Please run `git submodule update --init`")
+endif()
+
 # Set some policies to fix warnings in newer versions of cmake
 # Since VERSION_GREATER_EQUAL is available only since 3.7, we use 
 # VERSION_GREATER combined with VERSION_EQUAL to achieve what we want
@@ -29,7 +33,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # X.X.X git becomes release X.X.X+1
-set(VERSION "1.0.1 Git")
+set(VERSION "1.0.2 Git")
 enable_testing()
 
 # cf issue 511, managing MultiArch on Debian ...
@@ -144,7 +148,14 @@ set(JPEGDIR "" CACHE PATH "GDL: Specify the JPEG directory tree")
 set(SZIPDIR "" CACHE PATH "GDL: Specify the SZip directory tree")
 
 set(GDL_DATA_DIR "/share/gnudatalanguage" CACHE PATH "GDL: data directory relative to CMAKE_INSTALL_PREFIX")
-
+set(GDL_LIB_DIR "" CACHE PATH "GDL: library directory relative to CMAKE_INSTALL_PREFIX")
+#define (for plplotdriver/CMakeLists.txt) the GDL_DRV_DIR where the drivers will be installed.
+#if GDL_LIB_DIR is empty, it will be the default (GDL_DATA_DIR/drivers) otherwise it is GDL_LIB_DIR (not GDL_LIB_DIR/drivers)
+if ( GDL_LIB_DIR STREQUAL "" OR NOT GDL_LIB_DIR)
+ set (GDL_DRV_DIR "${CMAKE_INSTALL_PREFIX}/${GDL_DATA_DIR}/drivers") # CACHE PATH "GDL: where the drivers will be installed.")
+else()
+ set (GDL_DRV_DIR "${GDL_LIB_DIR}" ) # CACHE PATH "GDL: where the drivers will be installed.")
+endif()
 # check for 64-bit OS
 if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
     set(HAVE_64BIT_OS 1)

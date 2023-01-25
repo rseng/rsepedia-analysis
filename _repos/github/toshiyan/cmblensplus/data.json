@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/toshiyan/cmblensplus": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "six": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/benjaminp/six"
+        }
+    }
+}

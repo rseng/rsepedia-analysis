@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/mgm8/pyngham": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "crc": {
+            "credit": 0.0099,
+            "url": "https://github.com/Nicoretti/crc"
+        }
+    }
+}
