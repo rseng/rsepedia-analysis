@@ -1,0 +1,17 @@
+Package: TwinEQTL
+Type: Package
+Title: TwinEQTL: Ultra Fast and Powerful Association Analysis 
+        for eQTL and GWAS in Twin Studies
+Version: 1.1
+Date: 2021-08-15
+Author: Andrey A Shabalin
+Maintainer: Andrey A Shabalin <andrey.shabalin@gmail.com>
+Description: A computationally efficient alternative,
+        to linear mixed-effects model (LMM) for twin
+        genome-wide association study (GWAS) and 
+        expression quantitative trait loci (eQTL) analyses.
+License: LGPL-3
+LazyLoad: yes
+URL: https://github.com/andreyshabalin/TwinEQTL
+Depends: R (>= 2.12.0), utils, stats
+NeedsCompilation: no
