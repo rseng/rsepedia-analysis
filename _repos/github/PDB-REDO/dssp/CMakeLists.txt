@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.2.1 LANGUAGES CXX)
+project(mkdssp VERSION 4.2.2 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -50,13 +50,20 @@ elseif(MSVC)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
 endif()
 
-if(NOT "$ENV{CCP4}" STREQUAL "")
-	set(CCP4 $ENV{CCP4})
-	list(PREPEND CMAKE_MODULE_PATH "${CCP4}/Lib")
-	list(APPEND CMAKE_PREFIX_PATH ${CCP4})
+# Optionally build a version to be installed inside CCP4
+option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
 
-	if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-		set(CMAKE_INSTALL_PREFIX ${CCP4})
+if(BUILD_FOR_CCP4)
+	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
+		message(FATAL_ERROR "A CCP4 built was requested but CCP4 was not sourced")
+	else()
+		list(APPEND CMAKE_MODULE_PATH "$ENV{CCP4}")
+		list(APPEND CMAKE_PREFIX_PATH "$ENV{CCP4}")
+		set(CMAKE_INSTALL_PREFIX "$ENV{CCP4}")
+
+		if(WIN32)
+			set(BUILD_SHARED_LIBS ON)
+		endif()
 	endif()
 endif()
 
@@ -83,12 +90,12 @@ include(VersionString)
 write_version_header("${PROJECT_SOURCE_DIR}/src")
 
 # Optionally use mrc to create resources
-find_package(Mrc)
+find_package(Mrc QUIET)
 
 if(MRC_FOUND)
 	option(USE_RSRC "Use mrc to create resources" ON)
 else()
-	message(WARNING "Not using resources since mrc was not found")
+	message(STATUS "Not using resources since mrc was not found")
 endif()
 
 set(CMAKE_THREAD_PREFER_PTHREAD)
@@ -97,7 +104,7 @@ find_package(Threads)
 
 if(NOT PDB_REDO_META)
 	find_package(libmcfp REQUIRED)
-	find_package(cifpp 5.0.4 REQUIRED)
+	find_package(cifpp 5.0.6 REQUIRED)
 endif()
 
 # The DSSP code is in a separate library, optionally to be used by others

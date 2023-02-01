@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(cifpp VERSION 5.0.6 LANGUAGES CXX)
+project(cifpp VERSION 5.0.7.1 LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -35,10 +35,13 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
+include(GenerateExportHeader)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+# set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers")
@@ -86,6 +89,7 @@ if(BUILD_FOR_CCP4)
 		list(APPEND CMAKE_MODULE_PATH "$ENV{CCP4}")
 		list(APPEND CMAKE_PREFIX_PATH "$ENV{CCP4}")
 		set(CMAKE_INSTALL_PREFIX "$ENV{CCP4}")
+		set(CMAKE_INSTALL_FULL_DATADIR "${CMAKE_INSTALL_PREFIX}/share/libcifpp")
 
 		if(WIN32)
 			set(BUILD_SHARED_LIBS ON)
@@ -170,6 +174,12 @@ list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPFS_LIBRARY})
 include(FindAtomic)
 list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPATOMIC_LIBRARY})
 
+if(MSVC)
+	# this dependency can go once MSVC supports std::experimental::is_detected
+	find_package(zeep 5.1.8 REQUIRED)
+	list(APPEND CIFPP_REQUIRED_LIBRARIES zeep::zeep)
+endif()
+
 # Create a revision file, containing the current git version info
 include(VersionString)
 write_version_header(${PROJECT_SOURCE_DIR}/src/ "LibCIFPP")
@@ -224,7 +234,6 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/cif++/datablock.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/file.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/validate.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/list.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/iterator.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/parser.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/forward_decl.hpp
@@ -249,6 +258,7 @@ set(project_headers
 
 add_library(cifpp ${project_sources} ${project_headers} ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp)
 add_library(cifpp::cifpp ALIAS cifpp)
+generate_export_header(cifpp EXPORT_FILE_NAME cif++/exports.hpp)
 
 if(BOOST_REGEX)
 	target_compile_definitions(cifpp PRIVATE USE_BOOST_REGEX=1 BOOST_REGEX_STANDALONE=1)
@@ -263,7 +273,7 @@ set_target_properties(cifpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(cifpp
 	PUBLIC
-	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${PROJECT_BINARY_DIR}>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
@@ -340,6 +350,12 @@ install(
 install(
 	FILES include/cif++.hpp
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	COMPONENT Devel
+)
+
+install(
+	FILES ${PROJECT_BINARY_DIR}/cif++/exports.hpp
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cif++
 	COMPONENT Devel
 )
 
