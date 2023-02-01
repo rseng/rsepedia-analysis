@@ -1,0 +1,174 @@
+{
+    "DESCRIPTION": {
+        "github/schochastics/signnet": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "igraph": {
+            "credit": 0.022517647058823555,
+            "url": "https://igraph.org"
+        },
+        "Matrix": {
+            "credit": 0.021450000000000025,
+            "url": "http://Matrix.R-forge.R-project.org/"
+        },
+        "Rcpp": {
+            "credit": 0.003300000000000025,
+            "url": "http://www.rcpp.org"
+        },
+        "digest": {
+            "credit": 0.0001815000000000011,
+            "url": "https://github.com/eddelbuettel/digest"
+        },
+        "withr": {
+            "credit": 0.0001815000000000011,
+            "url": "https://withr.r-lib.org"
+        },
+        "testthat": {
+            "credit": 0.019647374999999998,
+            "url": "https://testthat.r-lib.org"
+        },
+        "tcltk": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "stats4": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "scales": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "rgl": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "igraphdata": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "graph": {
+            "credit": 0.03736764705882353,
+            "url": null
+        },
+        "ape": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.09630977205882353,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.038865022058823535,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.01815,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.019647374999999998,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.038865022058823535,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.09331502205882353,
+            "url": null
+        },
+        "spdep": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "sp": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "maptools": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "SparseM": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "MatrixModels": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "expm": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.02071502205882353,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.01921764705882353,
+            "url": null
+        },
+        "R": {
+            "credit": 0.02520714705882353,
+            "url": null
+        },
+        "pkgKitten": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "rbenchmark": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "inline": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.058942125,
+            "url": null
+        },
+        "simplermarkdown": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "RSQLite": {
+            "credit": 0.0014973749999999998,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0014973749999999998,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.0014973749999999998,
+            "url": null
+        },
+        "DBI": {
+            "credit": 0.0014973749999999998,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0014973749999999998,
+            "url": null
+        }
+    }
+}

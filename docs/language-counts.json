@@ -1,12 +1,12 @@
 {
     "unknown": 147,
-    "Python": 1761,
+    "Python": 1772,
     "Jupyter Notebook": 330,
     "Modelica": 1,
     "Shell": 26,
     "HTML": 72,
     "Perl": 44,
-    "R": 594,
+    "R": 597,
     "C++": 475,
     "Java": 93,
     "C": 292,
@@ -76,5 +76,6 @@
     "Slash": 1,
     "Component Pascal": 1,
     "ImageJ Macro": 1,
-    "Yacc": 1
+    "Yacc": 1,
+    "Tcl": 1
 }
