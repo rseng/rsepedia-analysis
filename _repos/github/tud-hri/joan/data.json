@@ -1,0 +1,174 @@
+{
+    "requirements.txt": {
+        "github/tud-hri/joan": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.15238928571428573,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.0007071428571428645,
+            "url": "https://pandas.pydata.org"
+        },
+        "PyQt5": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.10571785714285714,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "hidapi": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/trezor/cython-hidapi"
+        },
+        "flake8": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/pycqa/flake8"
+        },
+        "keyboard": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/boppreh/keyboard"
+        },
+        "markdown_inline_graphviz_extension": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/cesaremorel/markdown-inline-graphviz"
+        },
+        "pymdown-extensions": {
+            "credit": 0.0007071428571428645,
+            "url": "https://github.com/facelessuser/pymdown-extensions"
+        },
+        "pyqtgraph": {
+            "credit": 0.0007071428571428645,
+            "url": "http://www.pyqtgraph.org"
+        },
+        "mkdocs": {
+            "credit": 0.0007071428571428645,
+            "url": "https://www.mkdocs.org"
+        },
+        "colour": {
+            "credit": 0.07071428571428572,
+            "url": "http://github.com/vaab/colour"
+        },
+        "wres": {
+            "credit": 0.07071428571428572,
+            "url": "https://github.com/jks-liu/wres"
+        },
+        "pathlib": {
+            "credit": 0.07071428571428572,
+            "url": "https://pathlib.readthedocs.org/"
+        },
+        "pytest-xdist": {
+            "credit": 0.0001166785714285714,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.01359305357142857,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.011667857142857141,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.035003571428571426,
+            "url": "https://pypi.org/project/PyQt5-Qt5"
+        },
+        "setuptools": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "importlib-metadata": {
+            "credit": 0.023866071428571427,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "pyflakes": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/pyflakes"
+        },
+        "pycodestyle": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/pycodestyle"
+        },
+        "mccabe": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/mccabe"
+        },
+        "pyobjc": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/pyobjc"
+        },
+        "Markdown": {
+            "credit": 0.1463785714285714,
+            "url": "https://pypi.org/project/Markdown"
+        },
+        "babel": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/babel"
+        },
+        "mergedeep": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/mergedeep"
+        },
+        "packaging": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "pyyaml-env-tag": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/pyyaml-env-tag"
+        },
+        "ghp-import": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/ghp-import"
+        },
+        "watchdog": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "PyYAML": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "Jinja2": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "click": {
+            "credit": 0.006364285714285714,
+            "url": "https://pypi.org/project/click"
+        },
+        "filelock": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0019251964285714282,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

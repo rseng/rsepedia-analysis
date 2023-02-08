@@ -112,7 +112,7 @@ find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
 
 if(NOT PDB_REDO_META)
 	find_package(newuoa REQUIRED)
-	find_package(cifpp 5.0.4 REQUIRED)
+	find_package(cifpp 5.0.8 REQUIRED)
 endif()
 
 find_package(GSL REQUIRED)

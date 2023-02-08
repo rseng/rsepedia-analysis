@@ -83,12 +83,12 @@ include(VersionString)
 write_version_header("${PROJECT_SOURCE_DIR}/src")
 
 # Optionally use mrc to create resources
-find_package(Mrc)
+find_package(Mrc QUIET)
 
 if(MRC_FOUND)
 	option(USE_RSRC "Use mrc to create resources" ON)
 else()
-	message(WARNING "Not using resources since mrc was not found")
+	message(STATUS "Not using resources since mrc was not found")
 endif()
 
 if(USE_RSRC)
@@ -97,7 +97,7 @@ endif()
 
 if(NOT PDB_REDO_META)
 	find_package(libmcfp REQUIRED)
-	find_package(cifpp 5.0.4 CONFIG REQUIRED)
+	find_package(cifpp 5.0.8 CONFIG REQUIRED)
 endif()
 
 list(APPEND programs
