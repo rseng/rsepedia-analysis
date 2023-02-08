@@ -58,13 +58,13 @@ endif(APPLE)
 # ----------------------------------------------------------------------------
 OPTION(DOWNLOAD_DATA "Download HERMES data files" ON)
 if(DOWNLOAD_DATA)
-    message("-- Downloading data file from heat.gssi.it ~ 130 MB")
+    message("-- Downloading data file from heat.gssi.it ~ 200 MB")
     file(DOWNLOAD
-        https://heat.gssi.it/hermes/data/hermes-data.tar.gz-CHECKSUM
+        https://zenodo.org/record/7603203/files/hermes-data.tar.gz-CHECKSUM
         ${CMAKE_BINARY_DIR}/hermes-data.tar.gz-CHECKSUM)
-    file(STRINGS ${CMAKE_BINARY_DIR}/hermes-data.tar.gz-CHECKSUM DATA_CHECKSUM LIMIT_COUNT 1 LENGTH_MINIMUM 32 LENGTH_MAXIMUM 32)
+        file(STRINGS ${CMAKE_BINARY_DIR}/hermes-data.tar.gz-CHECKSUM DATA_CHECKSUM LIMIT_COUNT 1 LENGTH_MINIMUM 32 LENGTH_MAXIMUM 32)
     file(DOWNLOAD
-        https://heat.gssi.it/hermes/data/hermes-data.tar.gz
+        https://zenodo.org/record/7603203/files/hermes-data.tar.gz 
         ${CMAKE_BINARY_DIR}/hermes-data.tar.gz
         EXPECTED_MD5 "${DATA_CHECKSUM}")
     message("-- Extracting data file")
@@ -129,6 +129,8 @@ if(ENABLE_SYS_CFITSIO)
         set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CFITSIO_C_FLAGS}")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CFITSIO_EXE_LINKER_FLAGS}")
         add_definitions(-DHERMES_HAVE_CFITSIO)
+    else()
+        message(FATAL_ERROR "CFITSIO is required.")
     endif(CFITSIO_FOUND)
 endif(ENABLE_SYS_CFITSIO)
 
@@ -342,7 +344,7 @@ target_link_libraries(hermes ${HERMES_EXTRA_LIBRARIES})
 # ----------------------------------------------------------------------------
 # Python
 # ----------------------------------------------------------------------------
-option(ENABLE_PYTHON "Create python library via Pybind11" ON)
+option(ENABLE_PYTHON "Create python library via Pybind11" OFF)
 find_package(PythonInterp)
 find_package(PythonLibs)
 

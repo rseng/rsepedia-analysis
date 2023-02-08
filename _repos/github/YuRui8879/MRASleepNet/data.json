@@ -1,0 +1,142 @@
+{
+    "requirements.txt": {
+        "github/YuRui8879/MRASleepNet": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.17063275862068966,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.34513562068965525,
+            "url": "https://www.numpy.org"
+        },
+        "torch": {
+            "credit": 0.0016500000000000126,
+            "url": "https://pytorch.org/"
+        },
+        "scipy": {
+            "credit": 0.010070974137931047,
+            "url": "https://www.scipy.org"
+        },
+        "argparse": {
+            "credit": 0.165,
+            "url": "https://github.com/ThomasWaldmann/argparse/"
+        },
+        "mne": {
+            "credit": 0.004438215517241392,
+            "url": "https://mne.tools/dev/"
+        },
+        "typing-extensions": {
+            "credit": 0.16335,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "imageio-ffmpeg": {
+            "credit": 0.005632758620689655,
+            "url": "https://github.com/imageio/imageio-ffmpeg"
+        },
+        "pybv": {
+            "credit": 5.6327586206896506e-05,
+            "url": "https://github.com/bids-standard/pybv"
+        },
+        "EDFlib-Python": {
+            "credit": 5.6327586206896506e-05,
+            "url": "https://www.teuniz.net/edflib_python/"
+        },
+        "eeglabio": {
+            "credit": 5.6327586206896506e-05,
+            "url": "https://github.com/jackz314/eeglabio"
+        },
+        "sphinx-gallery": {
+            "credit": 0.005632758620689655,
+            "url": "https://sphinx-gallery.github.io"
+        },
+        "nbclient": {
+            "credit": 0.005632758620689655,
+            "url": "https://nbclient.readthedocs.io/en/latest/"
+        },
+        "nitime": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/nitime"
+        },
+        "wheel": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/twine"
+        },
+        "check-manifest": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "pydocstyle": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pydocstyle"
+        },
+        "codespell": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/codespell"
+        },
+        "numpydoc": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "flake8-array-spacing": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/flake8-array-spacing"
+        },
+        "flake8": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pytest-harvest": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pytest-harvest"
+        },
+        "pytest-timeout": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pymatreader": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pymatreader"
+        },
+        "h5io": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/h5io"
+        },
+        "jinja2": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "packaging": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "decorator": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/decorator"
+        },
+        "pooch": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/pooch"
+        },
+        "tqdm": {
+            "credit": 0.005632758620689655,
+            "url": "https://pypi.org/project/tqdm"
+        }
+    }
+}

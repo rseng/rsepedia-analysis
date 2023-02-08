@@ -1,0 +1,11 @@
+# SPDX-FileCopyrightText: 2023 Dennis Gläser <dennis.glaeser@iws.uni-stuttgart.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+meshio[all]>=5.3
+black~=22.0
+colorama
+tox
+pytest
+flake8
+mypy
+lz4
