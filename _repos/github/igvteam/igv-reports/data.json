@@ -1,0 +1,94 @@
+{
+    "requirements.txt": {
+        "github/igvteam/igv-reports": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pysam": {
+            "credit": 0.33,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "intervalTree": {
+            "credit": 0.33,
+            "url": "https://github.com/chaimleib/intervaltree"
+        },
+        "requests": {
+            "credit": 0.003300000000000025,
+            "url": "https://requests.readthedocs.io"
+        },
+        "win-inet-pton": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.05180528571428571,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.0004667142857142856,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.05180528571428571,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.05180528571428571,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.0004667142857142856,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "unicodedata2": {
+            "credit": 0.00046204714285714293,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "ipaddress": {
+            "credit": 0.005133857142857143,
+            "url": "https://github.com/phihag/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.005133857142857143,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.005133857142857143,
+            "url": "https://pyopenssl.org/"
+        },
+        "brotlipy": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "pytest-randomly": {
+            "credit": 0.011435666785714286,
+            "url": "https://pypi.org/project/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.011435666785714286,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "coverage": {
+            "credit": 0.011435666785714286,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.011435666785714286,
+            "url": "https://pypi.org/project/pytest"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+pytest
+numpy
+cython
+pandas
+mpmath
+matplotlib
+scipy
+nbsphinx
+nbsphinx-link
+coverage
+pytest-cov
