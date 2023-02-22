@@ -1,0 +1,238 @@
+{
+    "DESCRIPTION": {
+        "github/s-abbas/robnptests": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "Rdpack": {
+            "credit": 0.0019799999999999818,
+            "url": "https://geobosh.github.io/Rdpack/"
+        },
+        "gtools": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/r-gregmisc/gtools"
+        },
+        "robustbase": {
+            "credit": 0.0019800000000000095,
+            "url": "http://robustbase.r-forge.r-project.org/"
+        },
+        "statmod": {
+            "credit": 0.0019799999999999818,
+            "url": "NA"
+        },
+        "checkmate": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/mllg/checkmate"
+        },
+        "gbRd": {
+            "credit": 0.0001960200000000016,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.0001960200000000016,
+            "url": "https://rprojroot.r-lib.org/"
+        },
+        "rstudioapi": {
+            "credit": 0.021976020000000002,
+            "url": "https://github.com/rstudio/rstudioapi"
+        },
+        "testthat": {
+            "credit": 0.041564407500000004,
+            "url": "https://testthat.r-lib.org"
+        },
+        "grDevices": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "rbibutils": {
+            "credit": 0.019602,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.06229080000000001,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.03900798,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.049222800000000004,
+            "url": null
+        },
+        "R": {
+            "credit": 0.08214054750000001,
+            "url": null
+        },
+        "taxize": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "SGP": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.043742407500000004,
+            "url": null
+        },
+        "gplots": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "car": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.0688248,
+            "url": null
+        },
+        "skewt": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "foreach": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "catdata": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "sfsmisc": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "reshape2": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "RColorBrewer": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "GGally": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.020908799999999998,
+            "url": null
+        },
+        "xtable": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "MPV": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "fit.models": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "robust": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "cluster": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "boot": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.047044800000000005,
+            "url": null
+        },
+        "grid": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "DEoptimR": {
+            "credit": 0.0078408,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.047044800000000005,
+            "url": null
+        },
+        "tweedie": {
+            "credit": 0.039204,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "tinytest": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "rmarkdown": {
+            "credit": 0.0219624075,
+            "url": null
+        },
+        "microbenchmark": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "data.table": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "fastmatch": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "R6": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "backports": {
+            "credit": 0.013068,
+            "url": null
+        },
+        "withr": {
+            "credit": 0.0024257475,
+            "url": null
+        },
+        "mockr": {
+            "credit": 0.0024257475,
+            "url": null
+        },
+        "lifecycle": {
+            "credit": 0.0024257475,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.0024257475,
+            "url": null
+        }
+    }
+}

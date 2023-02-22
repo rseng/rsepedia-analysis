@@ -1,0 +1,9 @@
+chaospy
+h5py
+inflection
+matplotlib
+numpy
+parse
+prettytable
+PyYAML
+scipy

@@ -1,0 +1,246 @@
+{
+    "CMakeLists.txt": {
+        "github/lorenzo-rovigatti/oxDNA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "doxygen": {
+            "credit": 0.00990000000000002,
+            "url": "https://www.doxygen.org"
+        },
+        "cmake": {
+            "credit": 0.0012251250000000075,
+            "url": "https://www.cmake.org"
+        },
+        "ninja": {
+            "credit": 0.0013261978125000077,
+            "url": "https://ninja-build.org/"
+        },
+        "python": {
+            "credit": 0.08147132296875,
+            "url": "https://www.python.org/"
+        },
+        "iconv": {
+            "credit": 0.0012251250000000075,
+            "url": "https://www.gnu.org/software/libiconv/"
+        },
+        "flex": {
+            "credit": 0.029974725000000004,
+            "url": "https://github.com/westes/flex"
+        },
+        "bison": {
+            "credit": 0.04210346250000001,
+            "url": "https://www.gnu.org/software/bison/"
+        },
+        "graphviz": {
+            "credit": 0.0012251250000000075,
+            "url": "http://www.graphviz.org"
+        },
+        "mscgen": {
+            "credit": 0.0012251250000000075,
+            "url": "https://www.mcternan.me.uk/mscgen/"
+        },
+        "curl": {
+            "credit": 0.010107281249999999,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.021337593749999998,
+            "url": null
+        },
+        "zlib": {
+            "credit": 0.021337593749999998,
+            "url": null
+        },
+        "libarchive": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "libuv": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "rhash": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.01684546875,
+            "url": null
+        },
+        "qt": {
+            "credit": 0.014599406249999999,
+            "url": null
+        },
+        "ncurses": {
+            "credit": 0.01684546875,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.010107281249999999,
+            "url": null
+        },
+        "re2c": {
+            "credit": 0.06564679171875,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.03548778749999999,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.018866925,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "gdbm": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "libnsl": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "libffi": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "tcl": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "tix": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "libxcrypt": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.19248755625,
+            "url": null
+        },
+        "help2man": {
+            "credit": 0.012128737499999999,
+            "url": null
+        },
+        "findutils": {
+            "credit": 0.012128737499999999,
+            "url": null
+        },
+        "diffutils": {
+            "credit": 0.042450581249999994,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.042450581249999994,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.0166208625,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.0166208625,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.0166208625,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.030321843749999997,
+            "url": null
+        },
+        "swig": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "java": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "groff": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "ghostscript": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "libgd": {
+            "credit": 0.028749599999999997,
+            "url": null
+        },
+        "fontconfig": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "gtkplus": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "gts": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "cairo": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "glib": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "pango": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "poppler": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.004492125,
+            "url": null
+        },
+        "sed": {
+            "credit": 0.004492125,
+            "url": null
+        }
+    }
+}

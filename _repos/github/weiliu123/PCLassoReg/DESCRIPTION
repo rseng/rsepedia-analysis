@@ -1,0 +1,22 @@
+Package: PCLassoReg
+Title: Group Regression Models for Risk Protein Complex Identification
+Version: 1.0.0
+Authors@R: 
+    person("Wei", "Liu", , "freelw@qq.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-5496-3641"))
+Description: Two protein complex-based group regression models (PCLasso and PCLasso2) for risk protein complex identification. PCLasso is a prognostic model that identifies risk protein complexes associated with survival. PCLasso2 is a classification model that identifies risk protein complexes associated with classes. For more information, see Wang and Liu (2021) <doi:10.1093/bib/bbab212>. 
+Depends: R (>= 3.5.0)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    survival,
+    grpreg
+URL: https://github.com/weiliu123/PCLassoReg
+BugReports: https://github.com/weiliu123/PCLassoReg/issues
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr

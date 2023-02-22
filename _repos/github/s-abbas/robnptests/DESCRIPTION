@@ -1,0 +1,50 @@
+Package: robnptests
+Version: 1.1.0
+Type: Package
+Title: Robust Nonparametric Two-Sample Tests for Location/Scale
+Authors@R: c(person(given = "Sermad", family = "Abbas", 
+    email = "abbas@statistik.tu-dortmund.de", role = c("aut", "cre"), 
+    comment = c(ORCID = "0000-0001-9162-9792")),
+    person(given = "Barbara", family = "Brune", email = "bbrune@statistik.tu-dortmund.de", role = "aut", 
+    comment = c(ORCID = "0000-0002-3154-8445")),
+    person(given = "Roland", family = "Fried", email = "fried@statistik.tu-dortmund.de", role = "aut",
+    comment = c(ORCID = "0000-0002-9830-9713")))
+Author: Sermad Abbas [aut, cre] (<https://orcid.org/0000-0001-9162-9792>),
+  Barbara Brune [aut] (<https://orcid.org/0000-0002-3154-8445>),
+  Roland Fried [aut] (<https://orcid.org/0000-0002-9830-9713>)
+Maintainer: Sermad Abbas <abbas@statistik.tu-dortmund.de>
+BugReports: https://github.com/s-abbas/robnptests/issues
+Description: Implementations of several robust nonparametric two-sample tests
+    for location or scale differences. The test statistics are based on robust
+    location and scale estimators, e.g. the sample median or the Hodges-Lehmann estimators
+    as described in Fried & Dehling (2011) <doi:10.1007/s10260-011-0164-1>.
+    The p-values can be computed via the permutation principle, the randomization principle, or by using
+    the asymptotic distributions of the test statistics under the null hypothesis, which ensures
+    (approximate) distribution independence of the test decision. To test for a difference in
+    scale, we apply the tests for location difference to transformed observations; see Fried (2012) <doi:10.1016/j.csda.2011.02.012>.
+    Random noise on a small range can be added to the original observations in order to
+    hold the significance level on data from discrete distributions.
+    The location tests assume homoscedasticity and the scale tests require the
+    location parameters to be zero.
+License: GPL (>= 2)
+Depends: R (>= 4.0.0)
+URL: https://github.com/s-abbas/robnptests
+Encoding: UTF-8
+RoxygenNote: 7.2.1
+Imports: 
+    Rdpack,
+    gtools,
+    robustbase,
+    statmod,
+    stats,
+    utils,
+    checkmate
+RdMacros: Rdpack
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    usethis,
+    covr
+VignetteBuilder: knitr
+Config/testthat/edition: 3

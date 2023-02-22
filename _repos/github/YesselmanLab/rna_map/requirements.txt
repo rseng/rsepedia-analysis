@@ -1,0 +1,14 @@
+colorlog
+click
+cloup
+plotly
+matplotlib
+numpy
+pandas
+tabulate
+pyyaml
+future
+pytest
+jsonschema
+flake8
+Flake8-pyproject
