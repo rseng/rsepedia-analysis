@@ -1,0 +1,40 @@
+Type: Package
+Package: PhaseTypeR
+Title: General-Purpose Phase-Type Functions
+Version: 1.0.5.9000
+Authors@R: c(
+    person("Iker", "Rivas-González", , "ikerrivas96@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0515-0628")),
+    person("Asger", "Hobolth", , "asger@math.au.dk", role = "aut"),
+    person("Lars Nørvang", "Andersen", , "larsa@math.au.dk", role = "aut"),
+    person("Colin", "Guetemme", , "colin.guetemme@live.fr", role = "aut")
+  )
+Maintainer: Iker Rivas-González <ikerrivas96@gmail.com>
+Description: General implementation of core function from phase-type
+    theory. 'PhaseTypeR' can be used to model continuous and discrete
+    phase-type distributions, both univariate and multivariate. The
+    package includes functions for outputting the mean and (co)variance of
+    phase-type distributions; their density, probability and quantile
+    functions; functions for random draws; functions for
+    reward-transformation; and functions for plotting the distributions as
+    networks. For more information on these functions please refer to
+    Bladt and Nielsen (2017, ISBN: 978-1-4939-8377-3) and Campillo Navarro
+    (2019)
+    <https://orbit.dtu.dk/en/publications/order-statistics-and-multivariate-discrete-phase-type-distributio>.
+License: GPL-3
+URL: https://rivasiker.github.io/PhaseTypeR/,
+    https://github.com/rivasiker/PhaseTypeR
+BugReports: https://github.com/rivasiker/PhaseTypeR/issues
+Imports: 
+    expm,
+    igraph,
+    methods
+Suggests: 
+    knitr,
+    partitions,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+RoxygenNote: 7.1.2

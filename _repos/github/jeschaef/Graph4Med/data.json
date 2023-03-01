@@ -1,0 +1,146 @@
+{
+    "requirements.txt": {
+        "github/jeschaef/Graph4Med": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "apscheduler": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/agronholm/apscheduler"
+        },
+        "neo4j": {
+            "credit": 0.14142857142857143,
+            "url": "https://neo4j.com/docs/api/python-driver/current/"
+        },
+        "neomodel": {
+            "credit": 0.001414285714285729,
+            "url": "https://neomodel.readthedocs.io"
+        },
+        "pandas": {
+            "credit": 0.001414285714285729,
+            "url": "https://pandas.pydata.org"
+        },
+        "python-dotenv": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "pytz": {
+            "credit": 0.1925448979591837,
+            "url": "http://pythonhosted.org/pytz"
+        },
+        "faker": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/joke2k/faker"
+        },
+        "kazoo": {
+            "credit": 0.007778571428571428,
+            "url": "https://kazoo.readthedocs.io"
+        },
+        "twisted": {
+            "credit": 0.007778571428571428,
+            "url": "https://twistedmatrix.com/"
+        },
+        "tornado": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "pytest-tornado5": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/pytest-tornado5"
+        },
+        "pytest-cov": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-asyncio": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "pytest": {
+            "credit": 0.05111632653061224,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sqlalchemy": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "rethinkdb": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/rethinkdb"
+        },
+        "redis": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/redis"
+        },
+        "pymongo": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/pymongo"
+        },
+        "gevent": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/gevent"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "tzlocal": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "six": {
+            "credit": 0.02778061224489796,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "Shapely": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/Shapely"
+        },
+        "pre-commit": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "neobolt": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/neobolt"
+        },
+        "neo4j-driver": {
+            "credit": 0.02000204081632653,
+            "url": "https://pypi.org/project/neo4j-driver"
+        },
+        "pytest-xdist": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "hypothesis": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "numpy": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "python-dateutil": {
+            "credit": 0.09334285714285713,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "click": {
+            "credit": 0.1400142857142857,
+            "url": "https://pypi.org/project/click"
+        },
+        "typing-extensions": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}

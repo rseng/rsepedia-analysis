@@ -1,0 +1,62 @@
+Package: OpenRepGrid.ic
+License: MIT + file LICENSE
+Title: Interpretive Clustering for Repertory Grids
+Type: Package
+LazyLoad: yes
+Authors@R: c(person(
+                given = "Mark", 
+                family = "Heckmann", 
+                email = "heckmann.mark@gmail.com", 
+                role = c("aut", "cre", "cph"),
+                comment = c(ORCID = "0000-0002-0736-7417") ),
+             person(
+                given = "Viv", 
+                family = "Burr", 
+                role = "aut"),
+             person(
+                given = "Nigel", 
+                family = "King", 
+                role = "aut")
+            )
+Description: Shiny UI to identify cliques of related constructs in repertory grid data. 
+    See Burr, King, & Heckmann (2020) <doi:10.1080/14780887.2020.1794088> for a description 
+    of the interpretive clustering (IC) method.
+Version: 0.6.1
+Date: 2022-10-25
+Imports:
+    graphics,
+    grDevices,
+    utils,
+    shiny,
+    shinyjs,
+    shinyBS,
+    shinythemes,
+    shinyWidgets,
+    shinydashboard,
+    shinydashboardPlus (>= 2.0.0),
+    shinycssloaders,
+    shinyFeedback,
+    rintrojs,
+    formattable,
+    openxlsx,
+    DT,
+    magrittr,
+    dplyr,
+    stringr,
+    reshape2,
+    scales,
+    splines,
+    igraph,
+    tidyr,
+    withr,
+    RColorBrewer,
+    tidyverse
+Suggests:
+    knitr,
+    rmarkdown,
+    covr,
+    testthat
+Encoding: UTF-8
+URL: https://github.com/markheckmann/OpenRepGrid.ic
+BugReports: https://github.com/markheckmann/OpenRepGrid.ic/issues
+RoxygenNote: 7.2.1
