@@ -1,0 +1,65 @@
+{
+  "name": "ggMob",
+  "version": "1.3.0",
+  "private": false,
+  "description": "Website for materials part of ggMOB journal article.",
+  "author": "jaime.ruiz@ufl.edu",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ruiz-HCI-Lab/ggMOB.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ruiz-HCI-Lab/ggMOB/issues"
+  },
+  "homepage": "https://ruiz-hci-lab.github.io/ggMOB/",
+  "scripts": {
+    "css-build": "npm run css",
+    "css-compile": "node-sass --include-path node_modules --output-style compressed --source-map true --source-map-contents true --precision 6 scss -o docs/assets/css/",
+    "css-compile-dev": "node-sass --include-path node_modules --source-map true --source-map-contents true --precision 6 scss -o docs/assets/css/",
+    "css-lint": "stylelint scss/",
+    "css-prefix": "postcss --replace docs/assets/css/site.css --use autoprefixer --map",
+    "css-purge": "purgecss --keyframes --css docs/assets/css/site.css --content index.html \"node_modules/bootstrap/js/dist/{util,modal}.js\" --output docs/assets/css/",
+    "css-watch": "nodemon -e scss -x \"npm run css-dev\"",
+    "css-test": "npm run css-lint && npm run css",
+    "css": "npm-run-all css-compile css-prefix",
+    "css-dev": "npm-run-all css-compile-dev css-prefix",
+    "copy-bootstrap": "copyfiles -f \"node_modules/bootstrap/dist/js/*\" \"docs/assets/bootstrap/\"",
+    "build": "npm-run-all copy-bootstrap css html-build",
+    "html-build": "html-includes --src src --dest docs",
+    "server": "sirv docs --dev --port 3000",
+    "html-watch": "html-includes --src src --dest docs --watch",
+    "start": "npm-run-all --parallel css-watch html-watch server",
+    "cz": "git-cz",
+    "release": "standard-version --no-verify"
+  },
+  "keywords": [],
+  "dependencies": {
+    "bootstrap": "^5.1.0",
+    "bootstrap-icons": "^1.5.0",
+    "@popperjs/core": "^2.10.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "commitizen": "^4.2.4",
+    "copyfiles": "^2.4.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "git-cz": "^4.7.6",
+    "html-includes": "^4.4.1",
+    "node-sass": "^6.0.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "purgecss": "^4.0.2",
+    "sirv-cli": "^1.0.11",
+    "standard-version": "^9.3.1",
+    "stylelint": "^13.12.0",
+    "stylelint-config-twbs-bootstrap": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

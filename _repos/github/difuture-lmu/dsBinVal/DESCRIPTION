@@ -1,0 +1,61 @@
+Package: dsBinVal
+Type: Package
+Title: ROC and Calibration Analysis for DataSHIELD
+Authors@R:
+    c(person(given = "Daniel",
+        family = "Schalk",
+        role = c("aut", "cre"),
+        email = "daniel.schalk@stat.uni-muenchen.de",
+        comment = c(ORCID = "0000-0003-0950-1947")))
+Version: 1.0.2
+License: LGPL-3
+Description: Methods to conduct distributed ROC and calibration analyses. The basis is the DataSHIELD
+    <https://www.datashield.org> infrastructure for distributed computing. This
+    package provides the calculation of the ROC-GLM <https://www.jstor.org/stable/2676973?seq=1> as well as
+    AUC confidence intervals <https://www.jstor.org/stable/2531595?seq=1>. To assess the calibration, methods
+    to calculate the Brier score and calibration curves are part of the package. Last part of the package are
+    methods to push models and predict models at the DataSHIELD server which is necessary for the analysis.
+    DataSHIELD uses an option `datashield.privacyLevel` to indicate the minimal amount of numbers required to
+    be allowed to share an aggregated value of these numbers. Instead of setting the option, we directly retrieve
+    the privacy level from the DESCRIPTION <https://github.com/difuture-lmu/dsBinVal/blob/master/DESCRIPTION>
+    file each time a function calls for it. This options is set to 5 by default. Methodological details can
+    be viewed in Schalk et al. (2022) <arXiv:2203.10828>.
+Depends:
+    R (>= 3.1.0)
+Imports:
+    DSI,
+    dsBase,
+    digest,
+    dsBaseClient,
+    checkmate,
+    stringr,
+    ggplot2,
+    DSOpal,
+    opalr
+Suggests:
+    testthat
+AggregateMethods:
+    calculateDistrGLMParts,
+    getNegativeScoresVar,
+    getPositiveScoresVar,
+    getNegativeScores,
+    getPositiveScores,
+    l2sens,
+    getDataSHIELDInfo,
+    brierScore,
+    calibrationCurve,
+    confusion,
+    internN,
+    internDim,
+    internSum,
+    internLength
+AssignMethods:
+    rocGLMFrame,
+    decodeBinary,
+    assignPredictModel,
+    removeMissings
+Remotes:
+    datashield/dsBaseClient,
+    datashield/dsBase
+Options: datashield.privacyLevel=5
+RoxygenNote: 7.1.1

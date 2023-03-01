@@ -1,0 +1,122 @@
+{
+    "setup.py": {
+        "github/wdecoster/nanoQC": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "bokeh": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/bokeh/bokeh"
+        },
+        "numpy": {
+            "credit": 0.37083750000000004,
+            "url": "https://www.numpy.org"
+        },
+        "biopython": {
+            "credit": 0.33,
+            "url": "https://biopython.org/"
+        },
+        "xyzservices": {
+            "credit": 0.0408375,
+            "url": "https://github.com/geopandas/xyzservices"
+        },
+        "typing-extensions": {
+            "credit": 0.0408375,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "tornado": {
+            "credit": 0.0408375,
+            "url": "http://www.tornadoweb.org/"
+        },
+        "PyYAML": {
+            "credit": 0.0408375,
+            "url": "https://pyyaml.org/"
+        },
+        "pillow": {
+            "credit": 0.0004083750000000025,
+            "url": "https://python-pillow.org"
+        },
+        "packaging": {
+            "credit": 0.0029351953125000023,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "Jinja2": {
+            "credit": 0.0004083750000000025,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "pytest-timeout": {
+            "credit": 2.526820312500006e-05,
+            "url": "https://github.com/pytest-dev/pytest-timeout"
+        },
+        "pytest-cov": {
+            "credit": 0.0025268203124999998,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.005028372421875,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyroma": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/pyroma"
+        },
+        "markdown2": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/markdown2"
+        },
+        "defusedxml": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/defusedxml"
+        },
+        "coverage": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "check-manifest": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/check-manifest"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx-removed-in": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinx-removed-in"
+        },
+        "sphinx-issues": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "olefile": {
+            "credit": 0.0025268203124999998,
+            "url": "https://pypi.org/project/olefile"
+        },
+        "pyparsing": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "Babel": {
+            "credit": 0.020214562499999998,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "MarkupSafe": {
+            "credit": 0.020214562499999998,
+            "url": "https://pypi.org/project/MarkupSafe"
+        }
+    }
+}

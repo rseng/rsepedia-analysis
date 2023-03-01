@@ -1,0 +1,102 @@
+{
+    "requirements.txt": {
+        "github/benjaminbolling/RSW": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.33,
+            "url": "https://www.numpy.org"
+        },
+        "pyexcel": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/pyexcel/pyexcel"
+        },
+        "PyQt5": {
+            "credit": 0.003300000000000025,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "pyexcel-xlsx": {
+            "credit": 0.0082631822625,
+            "url": "https://github.com/pyexcel/pyexcel-xlsx"
+        },
+        "pyexcel-xls": {
+            "credit": 0.0082631822625,
+            "url": "https://github.com/pyexcel/pyexcel-xls"
+        },
+        "pyexcel-ods3": {
+            "credit": 0.0082631822625,
+            "url": "https://github.com/pyexcel/pyexcel-ods3"
+        },
+        "texttable": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/foutaise/texttable/"
+        },
+        "pyexcel-io": {
+            "credit": 0.02095147810446429,
+            "url": "https://github.com/pyexcel/pyexcel-io"
+        },
+        "lml": {
+            "credit": 0.07156421839285715,
+            "url": "https://github.com/python-lml/lml"
+        },
+        "chardet": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.16335,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.16335,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "openpyxl": {
+            "credit": 0.00877918449375,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "xlwt": {
+            "credit": 0.021100345376785717,
+            "url": "http://www.python-excel.org/"
+        },
+        "xlrd": {
+            "credit": 0.005852789662499999,
+            "url": "http://www.python-excel.org/"
+        },
+        "pyexcel-ezodf": {
+            "credit": 0.021100345376785717,
+            "url": "https://github.com/pyexcel/pyexcel-ezodf"
+        },
+        "lxml": {
+            "credit": 0.021100345376785717,
+            "url": "https://lxml.de/"
+        },
+        "et-xmlfile": {
+            "credit": 0.022871333571428572,
+            "url": "https://foss.heptapod.net/openpyxl/et_xmlfile"
+        },
+        "pytest-cov": {
+            "credit": 0.003049511142857143,
+            "url": "https://github.com/pytest-dev/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.003049511142857143,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "sphinx": {
+            "credit": 0.003049511142857143,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "twine": {
+            "credit": 0.003049511142857143,
+            "url": "https://pypi.org/project/twine"
+        },
+        "wheel": {
+            "credit": 0.003049511142857143,
+            "url": "https://pypi.org/project/wheel"
+        }
+    }
+}
