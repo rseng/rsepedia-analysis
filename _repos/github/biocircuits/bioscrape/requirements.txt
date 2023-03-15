@@ -1,0 +1,12 @@
+matplotlib
+pytest
+numpy>=1.16.5
+scipy>=1.5.4
+Cython
+python-libsbml
+beautifulsoup4
+sympy
+emcee>=3.0.2
+lmfit
+pandas
+corner
