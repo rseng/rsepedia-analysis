@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/kingyin3613/RingsPy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.0099,
+            "url": "https://matplotlib.org"
+        }
+    }
+}

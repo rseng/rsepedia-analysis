@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.15)
 
 if(DEFINED ENV{CC})
   set(CC $ENV{CC})
@@ -224,10 +224,10 @@ if("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU")
     endif()
 
     set(WARNING_IGNORE_FLAGS "${WARNING_IGNORE_FLAGS} -Wno-unused-local-typedefs")
-    set(BOOST_TOOLSET "${CC}")
+    set(BOOST_TOOLSET "gcc")
     set(BOOST_CONFIGURE_TOOLSET "--with-toolset=gcc")
     set(BCXX_FLAGS "${CXXSTDFLAG} ${SCHAR_FLAG}")
-    set(BOOST_EXTRA_FLAGS toolset=${CC} cxxflags=${BCXX_FLAGS})
+    set(BOOST_EXTRA_FLAGS toolset=gcc cxxflags=${BCXX_FLAGS})
 # Tentatively, we support clang now
 elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
     set(CLANG TRUE)
@@ -580,22 +580,21 @@ set(EXTERNAL_LIBRARY_PATH $CMAKE_CURRENT_SOURCE_DIR/lib)
 #  set(SUFFARRAY_INCLUDE_DIRS ${SUFFARRAY_INCLUDE_DIR})
 #endif()
 
-
-find_package(Cereal)
+find_package(cereal "1.3.2")
 if (NOT CEREAL_FOUND)
-  message("Build system will fetch and build the Cereal serialization library")
+  message("Build system will fetch and build the cereal serialization library")
   message("==================================================================")
   include(ExternalProject)
   externalproject_add(libcereal
     DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external
-    DOWNLOAD_COMMAND curl -k -L https://github.com/USCiLab/cereal/archive/v1.3.0.tar.gz -o cereal-v1.3.0.tar.gz &&
-      ${SHASUM} 329ea3e3130b026c03a4acc50e168e7daff4e6e661bc6a7dfec0d77b570851d5 cereal-v1.3.0.tar.gz &&
-      tar -xzvf cereal-v1.3.0.tar.gz
+    DOWNLOAD_COMMAND curl -k -L https://github.com/USCiLab/cereal/archive/refs/tags/v1.3.2.tar.gz -o cereal-v1.3.2.tar.gz &&
+      ${SHASUM} 16a7ad9b31ba5880dac55d62b5d6f243c3ebc8d46a3514149e56b5e7ea81f85f cereal-v1.3.2.tar.gz &&
+      tar -xzvf cereal-v1.3.2.tar.gz
 
-    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/cereal-1.3.0
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/cereal-1.3.2
     INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/install
     #UPDATE_COMMAND sh -c "mkdir -p <SOURCE_DIR>/build"
-    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/cereal-1.3.0/build
+    BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/cereal-1.3.2/build
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND sh -c "mkdir -p <INSTALL_DIR>/include && cp -r <SOURCE_DIR>/include/cereal <INSTALL_DIR>/include"
@@ -662,7 +661,7 @@ tar -xzvf v2021.5.tar.gz
 SOURCE_DIR ${TBB_SOURCE_DIR}
 INSTALL_DIR ${TBB_INSTALL_DIR}
 PATCH_COMMAND "${TBB_PATCH_STEP}"
-CMAKE_ARGS -DCMAKE_CXX_FLAGS=${TBB_CXXFLAGS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> -DTBB_TEST=OFF -DTBB_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD}
+CMAKE_ARGS -DCMAKE_CXX_FLAGS=${TBB_CXXFLAGS} -DCMAKE_INSTALL_PREFIX=<INSTALL_DIR> -DTBB_TEST=OFF -DTBB_EXAMPLES=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_STANDARD=${CMAKE_CXX_STANDARD} -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER} -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
 BUILD_IN_SOURCE TRUE
 )
 
@@ -786,7 +785,7 @@ find_package(CURL)
 if (FETCH_STADEN)
   set(LIBSTADEN_FOUND FALSE)
 else ()
-  find_package(libstadenio)
+  find_package(libstadenio 1.14.15)
 endif()
 
 if (NOT LIBSTADENIO_FOUND)
@@ -794,12 +793,12 @@ if (NOT LIBSTADENIO_FOUND)
   message("==================================================================")
   externalproject_add(libstadenio
     DOWNLOAD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external
-    DOWNLOAD_COMMAND curl -k -L https://github.com/COMBINE-lab/staden-io_lib/archive/v1.14.8.1.tar.gz -o staden-io_lib-v1.14.8.tar.gz &&
-      ${SHASUM} f6f30eefa478cfb708f3109a35fb6ffa0e24951d9d971985df2cef5919dd0bc3 staden-io_lib-v1.14.8.tar.gz &&
-      mkdir -p staden-io_lib-1.14.8 &&
-      tar -xzf staden-io_lib-v1.14.8.tar.gz --strip-components=1 -C staden-io_lib-1.14.8 &&
+    DOWNLOAD_COMMAND curl -k -L https://github.com/jkbonfield/io_lib/releases/download/io_lib-1-14-15/io_lib-1.14.15.tar.gz -o staden-io_lib-v1.14.15.tar.gz &&
+      ${SHASUM} 20814c4365e1e2fe6630fb11d0df370dec4c5688af3871de7f1cb0129671401e staden-io_lib-v1.14.15.tar.gz &&
+      mkdir -p staden-io_lib-1.14.15 &&
+      tar -xzf staden-io_lib-v1.14.15.tar.gz --strip-components=1 -C staden-io_lib-1.14.15 &&
       rm -fr staden-io_lib &&
-      mv -f staden-io_lib-1.14.8 staden-io_lib
+      mv -f staden-io_lib-1.14.15 staden-io_lib
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/staden-io_lib
     INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/install
     CONFIGURE_COMMAND ./configure --enable-shared=no --without-libcurl --prefix=<INSTALL_DIR> LDFLAGS=${LIBSTADEN_LDFLAGS} CFLAGS=${LIBSTADEN_CFLAGS} CC=${CMAKE_C_COMPILER} CXX=${CMAKE_CXX_COMPILER}
@@ -814,7 +813,7 @@ if (NOT LIBSTADENIO_FOUND)
   endif()
 
   set(FETCHED_STADEN TRUE)
-  set(STADEN_LIBRARIES "${GAT_SOURCE_DIR}/external/install/lib/libstaden-read.a")
+  set(STADEN_LIBRARIES "${GAT_SOURCE_DIR}/external/install/lib/libstaden-read.a;${GAT_SOURCE_DIR}/external/install/lib/libhtscodecs.a")
 endif()
 
 if (ASAN_BUILD)
@@ -906,10 +905,19 @@ set(CPACK_SOURCE_IGNORE_FILES
 
 message("CPACK_SOURCE_IGNORE_FILES = ${CPACK_SOURCE_IGNORE_FILES}")
 
+# we will use this property later
+define_property(TARGET PROPERTY COMPACT_VECTOR_DIR INHERITED 
+   BRIEF_DOCS "the path to the directory containing the compact_vector include tree"
+   FULL_DOCS "the path to the directory containing the compact_vector include tree")
+
 # Recurse into pufferfish source directory 
 # and build the library 
 set(BUILD_PUFF_FOR_SALMON TRUE)
 add_subdirectory(external/pufferfish)
+
+# make sure we know the path to compact_vector
+get_property(COMPACT_VECTOR_INCLUDE_PATH TARGET graphdump PROPERTY COMPACT_VECTOR_DIR)
+message("fetched path for compact_vector as [${COMPACT_VECTOR_INCLUDE_PATH}]")
 
 # and then the main salmon source directory
 add_subdirectory(src)
