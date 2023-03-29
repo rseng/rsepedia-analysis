@@ -1,0 +1,134 @@
+{
+    "setup.py": {
+        "github/Hoohm/CITE-seq-Count": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "python-levenshtein": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/maxbachmann/python-Levenshtein"
+        },
+        "scipy": {
+            "credit": 0.0012375000000000025,
+            "url": "https://www.scipy.org"
+        },
+        "multiprocess": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/uqfoundation/multiprocess"
+        },
+        "umi_tools": {
+            "credit": 0.12375,
+            "url": "https://github.com/CGATOxford/UMI-tools"
+        },
+        "pytest": {
+            "credit": 0.14416875,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "pytest-dependency": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/RKrahl/pytest-dependency"
+        },
+        "pandas": {
+            "credit": 0.0012375000000000025,
+            "url": "https://pandas.pydata.org"
+        },
+        "pybktree": {
+            "credit": 0.12375,
+            "url": "https://github.com/Jetsetter/pybktree"
+        },
+        "Levenshtein": {
+            "credit": 0.0012251250000000075,
+            "url": "https://github.com/maxbachmann/Levenshtein"
+        },
+        "numpy": {
+            "credit": 0.14293125,
+            "url": "https://www.numpy.org"
+        },
+        "dill": {
+            "credit": 0.0012251250000000075,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "xmlschema": {
+            "credit": 0.0081675,
+            "url": "https://github.com/sissaschool/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.02858625,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "importlib-metadata": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "exceptiongroup": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/exceptiongroup"
+        },
+        "pluggy": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.0081675,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "pytest-xdist": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytz": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.02041875,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "rapidfuzz": {
+            "credit": 0.12128737499999999,
+            "url": "https://pypi.org/project/rapidfuzz"
+        },
+        "objgraph": {
+            "credit": 0.12128737499999999,
+            "url": "https://pypi.org/project/objgraph"
+        }
+    }
+}

@@ -1,0 +1,194 @@
+{
+    "setup.py": {
+        "github/UM-Bridge/umbridge": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "aiohttp": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/aio-libs/aiohttp"
+        },
+        "requests": {
+            "credit": 0.003300000000000025,
+            "url": "https://requests.readthedocs.io"
+        },
+        "asyncio": {
+            "credit": 0.33,
+            "url": "http://www.python.org/dev/peps/pep-3156/"
+        },
+        "cchardet": {
+            "credit": 0.02513076923076923,
+            "url": "https://github.com/PyYoshi/cChardet"
+        },
+        "Brotli": {
+            "credit": 0.02513076923076923,
+            "url": "https://github.com/google/brotli"
+        },
+        "aiodns": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/saghul/aiodns"
+        },
+        "typing-extensions": {
+            "credit": 0.05830338461538461,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "asynctest": {
+            "credit": 0.02513076923076923,
+            "url": "https://github.com/Martiusweb/asynctest/"
+        },
+        "idna-ssl": {
+            "credit": 0.02513076923076923,
+            "url": "https://github.com/aio-libs/idna-ssl"
+        },
+        "aiosignal": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/aio-libs/aiosignal"
+        },
+        "frozenlist": {
+            "credit": 0.050010230769230765,
+            "url": "https://github.com/aio-libs/frozenlist"
+        },
+        "yarl": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/aio-libs/yarl/"
+        },
+        "async-timeout": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/aio-libs/async-timeout"
+        },
+        "multidict": {
+            "credit": 0.03342392307692307,
+            "url": "https://github.com/aio-libs/multidict"
+        },
+        "charset-normalizer": {
+            "credit": 0.0007180219780219786,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "attrs": {
+            "credit": 0.00025130769230769304,
+            "url": "https://www.attrs.org/"
+        },
+        "win-inet-pton": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.05180528571428571,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "idna": {
+            "credit": 0.07241377302197802,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.04667142857142857,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.05180528571428571,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "urllib3": {
+            "credit": 0.0004667142857142856,
+            "url": "https://urllib3.readthedocs.io/"
+        },
+        "pycares": {
+            "credit": 0.0002487946153846149,
+            "url": "http://github.com/saghul/pycares"
+        },
+        "unicodedata2": {
+            "credit": 0.0464535089010989,
+            "url": "http://github.com/mikekap/unicodedata2"
+        },
+        "cloudpickle": {
+            "credit": 0.0019138047337278106,
+            "url": "https://github.com/cloudpipe/cloudpickle"
+        },
+        "pre-commit": {
+            "credit": 0.0019138047337278106,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "sphinx": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "furo": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/furo"
+        },
+        "zope.interface": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "pytest-mypy-plugins": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/pytest-mypy-plugins"
+        },
+        "mypy": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "six": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/six"
+        },
+        "pytest": {
+            "credit": 0.008071471464497042,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pympler": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/pympler"
+        },
+        "hypothesis": {
+            "credit": 0.0019138047337278106,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "coverage": {
+            "credit": 0.008071471464497042,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "ipaddress": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/ipaddress"
+        },
+        "cryptography": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "pyOpenSSL": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/pyOpenSSL"
+        },
+        "brotlipy": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotlipy"
+        },
+        "brotli": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotli"
+        },
+        "brotlicffi": {
+            "credit": 0.005133857142857143,
+            "url": "https://pypi.org/project/brotlicffi"
+        },
+        "cffi": {
+            "credit": 0.012315333461538461,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "pytest-randomly": {
+            "credit": 0.006157666730769231,
+            "url": "https://pypi.org/project/pytest-randomly"
+        },
+        "pytest-xdist": {
+            "credit": 0.006157666730769231,
+            "url": "https://pypi.org/project/pytest-xdist"
+        }
+    }
+}
