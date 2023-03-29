@@ -7,7 +7,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8.5)
 find_package(ElementsProject)
 
 set(USE_SPHINX OFF
-    CACHE STRING "Sphinx API documentation" 
+    CACHE STRING "Disable Sphinx documentation" 
     FORCE)
 
 #===============================================================================
@@ -16,5 +16,5 @@ set(USE_SPHINX OFF
 #                         elements_project(MyProject 1.0 USE Element 3.9)
 #===============================================================================
 
-elements_project(EleFits 5.1 USE Elements 6.1.1
+elements_project(EleFits 5.2 USE Elements 6.2.0
         DESCRIPTION "A modern C++ API on top of CFITSIO")

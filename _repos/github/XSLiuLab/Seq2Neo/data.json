@@ -1,0 +1,142 @@
+{
+    "setup.py": {
+        "github/XSLiuLab/Seq2Neo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "protobuf": {
+            "credit": 0.20691,
+            "url": "https://developers.google.com/protocol-buffers/"
+        },
+        "biopython": {
+            "credit": 0.23720400000000003,
+            "url": "https://biopython.org/"
+        },
+        "keras": {
+            "credit": 0.20691,
+            "url": "https://keras.io/"
+        },
+        "tensorflow": {
+            "credit": 0.0037441800000000093,
+            "url": "https://www.tensorflow.org/"
+        },
+        "agfusion": {
+            "credit": 0.0019799999999999818,
+            "url": "https://github.com/murphycj/AGFusion"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 8.909999999999994e-05,
+            "url": "https://github.com/tensorflow/io"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.00891,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorboard": {
+            "credit": 0.00891,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "grpcio": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "wrapt": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "typing-extensions": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "termcolor": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "six": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "packaging": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "numpy": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "libclang": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "jax": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/jax"
+        },
+        "h5py": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "google-pasta": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.00891,
+            "url": "https://pypi.org/project/absl-py"
+        },
+        "pyensembl": {
+            "credit": 0.039204,
+            "url": "https://pypi.org/project/pyensembl"
+        },
+        "future": {
+            "credit": 0.039204,
+            "url": "https://pypi.org/project/future"
+        },
+        "pandas": {
+            "credit": 0.039204,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "matplotlib": {
+            "credit": 0.039204,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "tensorflow-rocm": {
+            "credit": 0.00176418,
+            "url": "https://pypi.org/project/tensorflow-rocm"
+        },
+        "tensorflow-gpu": {
+            "credit": 0.00176418,
+            "url": "https://pypi.org/project/tensorflow-gpu"
+        },
+        "tensorflow-cpu": {
+            "credit": 0.00176418,
+            "url": "https://pypi.org/project/tensorflow-cpu"
+        },
+        "tensorflow-aarch64": {
+            "credit": 0.00176418,
+            "url": "https://pypi.org/project/tensorflow-aarch64"
+        }
+    }
+}

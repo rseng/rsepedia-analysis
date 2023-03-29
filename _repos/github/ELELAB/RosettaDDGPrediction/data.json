@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/ELELAB/RosettaDDGPrediction": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.11,
+            "url": "https://biopython.org/"
+        },
+        "dask": {
+            "credit": 0.008878571428571432,
+            "url": "https://github.com/dask/dask/"
+        },
+        "distributed": {
+            "credit": 0.008360000000000003,
+            "url": "https://distributed.dask.org"
+        },
+        "matplotlib": {
+            "credit": 0.13722499999999999,
+            "url": "https://matplotlib.org"
+        },
+        "MDAnalysis": {
+            "credit": 0.11,
+            "url": "https://www.mdanalysis.org"
+        },
+        "numpy": {
+            "credit": 0.162635,
+            "url": "https://www.numpy.org"
+        },
+        "pandas": {
+            "credit": 0.035585000000000006,
+            "url": "https://pandas.pydata.org"
+        },
+        "pyyaml": {
+            "credit": 0.12503857142857144,
+            "url": "https://pyyaml.org/"
+        },
+        "seaborn": {
+            "credit": 0.0011000000000000038,
+            "url": "https://seaborn.pydata.org"
+        },
+        "pre-commit": {
+            "credit": 0.00726,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "pytest-xdist": {
+            "credit": 0.02541,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.00726,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest": {
+            "credit": 0.02541,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "jinja2": {
+            "credit": 0.015038571428571429,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "bokeh": {
+            "credit": 0.00726,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "toolz": {
+            "credit": 0.015038571428571429,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "partd": {
+            "credit": 0.00726,
+            "url": "https://pypi.org/project/partd"
+        },
+        "packaging": {
+            "credit": 0.015038571428571429,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "fsspec": {
+            "credit": 0.00726,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "cloudpickle": {
+            "credit": 0.015038571428571429,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "zict": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/zict"
+        },
+        "urllib3": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "tornado": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "tblib": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/tblib"
+        },
+        "sortedcontainers": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "psutil": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "msgpack": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "click": {
+            "credit": 0.007778571428571428,
+            "url": "https://pypi.org/project/click"
+        },
+        "hypothesis": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.01815,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "scipy": {
+            "credit": 0.027225,
+            "url": "https://pypi.org/project/scipy"
+        }
+    }
+}
