@@ -1,0 +1,410 @@
+{
+    "CMakeLists.txt": {
+        "github/delphes/delphes": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.014323308620689678,
+            "url": "https://www.cmake.org"
+        },
+        "root": {
+            "credit": 0.023718750000000025,
+            "url": "https://root.cern.ch"
+        },
+        "pythia8": {
+            "credit": 0.00893275862068968,
+            "url": "http://home.thep.lu.se/Pythia/"
+        },
+        "ninja": {
+            "credit": 0.011295558620689657,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.00027225000000000166,
+            "url": "https://curl.se/"
+        },
+        "expat": {
+            "credit": 0.002345538461538463,
+            "url": "https://libexpat.github.io/"
+        },
+        "zlib": {
+            "credit": 0.04391529708222811,
+            "url": "https://zlib.net"
+        },
+        "libarchive": {
+            "credit": 0.00027225000000000166,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.00027225000000000166,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.027225,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "openssl": {
+            "credit": 0.010224359582228117,
+            "url": "https://www.openssl.org"
+        },
+        "qt": {
+            "credit": 0.03285775862068965,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.03285775862068965,
+            "url": null
+        },
+        "python": {
+            "credit": 0.06675288362068965,
+            "url": null
+        },
+        "py-sphinx": {
+            "credit": 0.027225,
+            "url": null
+        },
+        "gmake": {
+            "credit": 0.011023308620689655,
+            "url": null
+        },
+        "pkgconfig": {
+            "credit": 0.007878821120689654,
+            "url": null
+        },
+        "blas": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libice": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.007706047082228116,
+            "url": null
+        },
+        "nlohmann-json": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "xxhash": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.007706047082228116,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.007706047082228116,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libxext": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libxft": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libxpm": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libsm": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "ftgl": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "glew": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "gl2ps": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "glu": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "py-numpy": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "arrow": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "davix": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "dcap": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "cfitsio": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "fcgi": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "fftw": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "graphviz": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "gsl": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "jemalloc": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "mysql-client": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "oracle-instant-client": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "postgresql": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "pythia6": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "r": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "r-rcpp": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "r-rinside": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "shadow": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "tbb": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "unuran": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "vc": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "vdt": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "veccore": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.007706047082228116,
+            "url": null
+        },
+        "xrootd": {
+            "credit": 0.005632758620689655,
+            "url": null
+        },
+        "gnuconfig": {
+            "credit": 0.03551920096153846,
+            "url": null
+        },
+        "rsync": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "hepmc": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "hepmc3": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "evtgen": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "fastjet": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "lhapdf": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "boost": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "rivet": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "madgraph5amc": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "openmpi": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "mpich": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "hdf5": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "highfive": {
+            "credit": 0.02041875,
+            "url": null
+        },
+        "re2c": {
+            "credit": 0.013476374999999999,
+            "url": null
+        },
+        "gnutls": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "mbedtls": {
+            "credit": 0.004319350961538461,
+            "url": null
+        },
+        "nss": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libidn2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "nghttp2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libssh2": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libssh": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.0022460625,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "libiconv": {
+            "credit": 0.0020732884615384615,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.005390549999999999,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.006738187499999999,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.006738187499999999,
+            "url": null
+        }
+    }
+}
