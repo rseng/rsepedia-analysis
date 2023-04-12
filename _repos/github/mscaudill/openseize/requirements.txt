@@ -1,0 +1,9 @@
+# openseize default requirements
+requests
+wget
+numpy
+scipy
+matplotlib
+ipython
+notebook
+psutil

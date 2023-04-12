@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/bonsai-team/matam": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0099,
+            "url": "https://www.numpy.org"
+        }
+    }
+}
