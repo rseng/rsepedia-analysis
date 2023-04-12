@@ -17052,7 +17052,52 @@
             "python"
         ],
         "github/ycwu1030/EvoEMD": [],
-        "github/computational-chemical-biology/ChemWalker": []
+        "github/computational-chemical-biology/ChemWalker": [],
+        "github/bioturing/hera": [],
+        "github/mscaudill/openseize": [
+            "big-data",
+            "eeg",
+            "seizure",
+            "signal-processing"
+        ],
+        "github/biocore-ntnu/epic2": [],
+        "github/ydLiu-HIT/deSALT": [],
+        "github/ropensci/predictNMB": [],
+        "github/FitSNAP/FitSNAP": [],
+        "github/facebookresearch/segment-anything": [],
+        "github/gianthk/ciclope": [
+            "simulation",
+            "finite-elements",
+            "computed-tomography",
+            "python",
+            "engineering",
+            "biomechanics"
+        ],
+        "github/henry2004y/Vlasiator.jl": [],
+        "github/obertscheiderfhwn/RTMsim": [],
+        "github/kimpenn/VERSE": [],
+        "github/bonsai-team/matam": [
+            "metagenomics",
+            "assembly",
+            "bioinformatics",
+            "rrna"
+        ],
+        "github/studla/RYUTO": [],
+        "github/Zilong-Li/PCAone": [
+            "bioinformatics",
+            "population-genetics",
+            "pca",
+            "svd",
+            "scrna-seq",
+            "ukb"
+        ],
+        "github/ksahlin/strobealign": [
+            "alignment",
+            "illumina",
+            "bioinformatics",
+            "strobemers",
+            "short-read-mapping"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -21720,7 +21765,22 @@
         "github/natir/rustyread": "Jupyter Notebook",
         "github/moble/scri": "Python",
         "github/ycwu1030/EvoEMD": "C++",
-        "github/computational-chemical-biology/ChemWalker": "Jupyter Notebook"
+        "github/computational-chemical-biology/ChemWalker": "Jupyter Notebook",
+        "github/bioturing/hera": "C",
+        "github/mscaudill/openseize": "Python",
+        "github/biocore-ntnu/epic2": "Cython",
+        "github/ydLiu-HIT/deSALT": "C",
+        "github/ropensci/predictNMB": "R",
+        "github/FitSNAP/FitSNAP": "Jupyter Notebook",
+        "github/facebookresearch/segment-anything": "Jupyter Notebook",
+        "github/gianthk/ciclope": "Jupyter Notebook",
+        "github/henry2004y/Vlasiator.jl": "Julia",
+        "github/obertscheiderfhwn/RTMsim": "Julia",
+        "github/kimpenn/VERSE": "C",
+        "github/bonsai-team/matam": "Python",
+        "github/studla/RYUTO": "C++",
+        "github/Zilong-Li/PCAone": "C++",
+        "github/ksahlin/strobealign": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26388,7 +26448,22 @@
         "github/natir/rustyread": "https://github.com/natir/rustyread",
         "github/moble/scri": "https://github.com/moble/scri",
         "github/ycwu1030/EvoEMD": "https://github.com/ycwu1030/EvoEMD",
-        "github/computational-chemical-biology/ChemWalker": "https://github.com/computational-chemical-biology/ChemWalker"
+        "github/computational-chemical-biology/ChemWalker": "https://github.com/computational-chemical-biology/ChemWalker",
+        "github/bioturing/hera": "https://github.com/bioturing/hera",
+        "github/mscaudill/openseize": "https://github.com/mscaudill/openseize",
+        "github/biocore-ntnu/epic2": "https://github.com/biocore-ntnu/epic2",
+        "github/ydLiu-HIT/deSALT": "https://github.com/ydLiu-HIT/deSALT",
+        "github/ropensci/predictNMB": "https://github.com/ropensci/predictNMB",
+        "github/FitSNAP/FitSNAP": "https://github.com/FitSNAP/FitSNAP",
+        "github/facebookresearch/segment-anything": "https://github.com/facebookresearch/segment-anything",
+        "github/gianthk/ciclope": "https://github.com/gianthk/ciclope",
+        "github/henry2004y/Vlasiator.jl": "https://github.com/henry2004y/Vlasiator.jl",
+        "github/obertscheiderfhwn/RTMsim": "https://github.com/obertscheiderfhwn/RTMsim",
+        "github/kimpenn/VERSE": "https://github.com/kimpenn/VERSE",
+        "github/bonsai-team/matam": "https://github.com/bonsai-team/matam",
+        "github/studla/RYUTO": "https://github.com/studla/RYUTO",
+        "github/Zilong-Li/PCAone": "https://github.com/Zilong-Li/PCAone",
+        "github/ksahlin/strobealign": "https://github.com/ksahlin/strobealign"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31056,6 +31131,21 @@
         "github/natir/rustyread": "A long read simulator based on badread idea",
         "github/moble/scri": "Python/numba code for manipulating time-dependent functions of spin-weighted spherical harmonics",
         "github/ycwu1030/EvoEMD": "Evolution with an Early Matter-Dominated era",
-        "github/computational-chemical-biology/ChemWalker": null
+        "github/computational-chemical-biology/ChemWalker": null,
+        "github/bioturing/hera": "a bioinformatics tool that helps analyze RNA-seq data, providing base-to-base alignment BAM files, transcript abundance estimation, and fusion gene detection.",
+        "github/mscaudill/openseize": "Digital Signal Processing for Big EEGs",
+        "github/biocore-ntnu/epic2": "Ultraperformant reimplementation of SICER",
+        "github/ydLiu-HIT/deSALT": "deSALT - De Bruijn graph-based Spliced Aligner for Long Transcriptome reads",
+        "github/ropensci/predictNMB": null,
+        "github/FitSNAP/FitSNAP": "Software for generating SNAP machine-learning interatomic potentials",
+        "github/facebookresearch/segment-anything": "The repository provides code for running inference with the SegmentAnything Model (SAM), links for downloading the trained model checkpoints, and example notebooks that show how to use the model.",
+        "github/gianthk/ciclope": "Computed Tomography to Finite Elements",
+        "github/henry2004y/Vlasiator.jl": "Data processor for Vlasiator",
+        "github/obertscheiderfhwn/RTMsim": "RTMsim - A Julia module for filling simulations in Resin Transfer Moulding",
+        "github/kimpenn/VERSE": "A versatile and efficient RNA-Seq read counting tool",
+        "github/bonsai-team/matam": "Mapping-Assisted Targeted-Assembly for Metagenomics",
+        "github/studla/RYUTO": "Ryuto: Network-Flow based Transcriptome Reconstruction",
+        "github/Zilong-Li/PCAone": "Principal Component Analysis All in One",
+        "github/ksahlin/strobealign": "Aligns short reads using dynamic seed size with strobemers"
     }
 }
