@@ -17097,6 +17097,61 @@
             "bioinformatics",
             "strobemers",
             "short-read-mapping"
+        ],
+        "github/husseinaluie/FlowSieve": [],
+        "github/cbg-ethz/LolliPop": [],
+        "github/flekschas/regl-scatterplot": [
+            "scatterplot",
+            "visualization",
+            "2d",
+            "webgl",
+            "regl",
+            "scatter-plot"
+        ],
+        "github/Illumina/SpliceAI": [],
+        "github/tylertrimble/viswaternet": [],
+        "github/icesat2py/icepyx": [
+            "icesat-2",
+            "community-driven",
+            "python3",
+            "hacktoberfest",
+            "closember"
+        ],
+        "github/trygvrad/DF-XRM_viz": [],
+        "github/ttgump/scDHMap": [
+            "deep-learning",
+            "hyperbolic-embeddings",
+            "single-cell",
+            "dimensionality-reduction",
+            "manifold-learning",
+            "visualization"
+        ],
+        "github/ttgump/scDeepCluster_pytorch": [
+            "deep-learning",
+            "unsupervised-learning",
+            "single-cell-rna-seq",
+            "clustering",
+            "single-cell"
+        ],
+        "github/vocalpy/crowsetta": [
+            "dataset",
+            "annotation",
+            "csv",
+            "python",
+            "python3",
+            "annotation-format",
+            "birdsong",
+            "animal-communication",
+            "animal-vocalizations",
+            "bioacoustics",
+            "bioacoustic-analysis"
+        ],
+        "github/Yingjie4Science/SDGdetector": [
+            "r-package",
+            "sdg",
+            "sdgs",
+            "sustainable-development-goals",
+            "text-mining"
         ]
     },
     "language": {
@@ -21780,7 +21835,18 @@
         "github/bonsai-team/matam": "Python",
         "github/studla/RYUTO": "C++",
         "github/Zilong-Li/PCAone": "C++",
-        "github/ksahlin/strobealign": "C++"
+        "github/ksahlin/strobealign": "C++",
+        "github/husseinaluie/FlowSieve": "C++",
+        "github/cbg-ethz/LolliPop": "Jupyter Notebook",
+        "github/flekschas/regl-scatterplot": "JavaScript",
+        "github/Illumina/SpliceAI": "Python",
+        "github/tylertrimble/viswaternet": "Python",
+        "github/icesat2py/icepyx": "Python",
+        "github/trygvrad/DF-XRM_viz": "Jupyter Notebook",
+        "github/ttgump/scDHMap": "Jupyter Notebook",
+        "github/ttgump/scDeepCluster_pytorch": "Jupyter Notebook",
+        "github/vocalpy/crowsetta": "Python",
+        "github/Yingjie4Science/SDGdetector": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26463,7 +26529,18 @@
         "github/bonsai-team/matam": "https://github.com/bonsai-team/matam",
         "github/studla/RYUTO": "https://github.com/studla/RYUTO",
         "github/Zilong-Li/PCAone": "https://github.com/Zilong-Li/PCAone",
-        "github/ksahlin/strobealign": "https://github.com/ksahlin/strobealign"
+        "github/ksahlin/strobealign": "https://github.com/ksahlin/strobealign",
+        "github/husseinaluie/FlowSieve": "https://github.com/husseinaluie/FlowSieve",
+        "github/cbg-ethz/LolliPop": "https://github.com/cbg-ethz/LolliPop",
+        "github/flekschas/regl-scatterplot": "https://github.com/flekschas/regl-scatterplot",
+        "github/Illumina/SpliceAI": "https://github.com/Illumina/SpliceAI",
+        "github/tylertrimble/viswaternet": "https://github.com/tylertrimble/viswaternet",
+        "github/icesat2py/icepyx": "https://github.com/icesat2py/icepyx",
+        "github/trygvrad/DF-XRM_viz": "https://github.com/trygvrad/DF-XRM_viz",
+        "github/ttgump/scDHMap": "https://github.com/ttgump/scDHMap",
+        "github/ttgump/scDeepCluster_pytorch": "https://github.com/ttgump/scDeepCluster_pytorch",
+        "github/vocalpy/crowsetta": "https://github.com/vocalpy/crowsetta",
+        "github/Yingjie4Science/SDGdetector": "https://github.com/Yingjie4Science/SDGdetector"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31146,6 +31223,17 @@
         "github/bonsai-team/matam": "Mapping-Assisted Targeted-Assembly for Metagenomics",
         "github/studla/RYUTO": "Ryuto: Network-Flow based Transcriptome Reconstruction",
         "github/Zilong-Li/PCAone": "Principal Component Analysis All in One",
-        "github/ksahlin/strobealign": "Aligns short reads using dynamic seed size with strobemers"
+        "github/ksahlin/strobealign": "Aligns short reads using dynamic seed size with strobemers",
+        "github/husseinaluie/FlowSieve": "FlowSieve coarse-graining code base",
+        "github/cbg-ethz/LolliPop": "Deconvolution for Wastewater Genomics",
+        "github/flekschas/regl-scatterplot": "Scalable WebGL-based scatter plot library build with Regl",
+        "github/Illumina/SpliceAI": "A deep learning-based tool to identify splice variants",
+        "github/tylertrimble/viswaternet": "A Python package for easy generation and customization of water distribution network visualizations.",
+        "github/icesat2py/icepyx": "Python tools for obtaining and working with ICESat-2 data",
+        "github/trygvrad/DF-XRM_viz": "Visualization of DF-XRM",
+        "github/ttgump/scDHMap": "Model-based deep hyperbolic manifold learning for visualizing complex hierarchical structures in single-cell genomics data",
+        "github/ttgump/scDeepCluster_pytorch": "Pytorch implementation of scDeepCluster for Single Cell RNA-seq data",
+        "github/vocalpy/crowsetta": "A tool to work with any format for annotating vocalizations",
+        "github/Yingjie4Science/SDGdetector": "A novel R package that can identify and visualize 17 Sustainable Development Goals and associated 169 Targets in text"
     }
 }
