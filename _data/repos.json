@@ -17152,6 +17152,71 @@
             "sdgs",
             "sustainable-development-goals",
             "text-mining"
+        ],
+        "github/linuxscout/pyarabic": [
+            "nlp-library",
+            "arabic-language",
+            "text-processing"
+        ],
+        "github/biomed-AI/GraphBepi": [],
+        "github/markusbonse/applefy": [
+            "bootstrap",
+            "direct-imaging",
+            "exoplanet-detection",
+            "exoplanets",
+            "high-contrast-imaging",
+            "python"
+        ],
+        "github/parsotat/batanalysis": [],
+        "github/gpantel/MolPainter": [],
+        "github/Qiskit/qiskit-experiments": [
+            "qiskit"
+        ],
+        "github/biaslab/RxInfer.jl": [],
+        "github/tornede/py_experimenter": [
+            "database",
+            "executor",
+            "experiments",
+            "python"
+        ],
+        "github/ajeldorado/falco-python": [],
+        "github/ajeldorado/falco-matlab": [],
+        "github/jeremiah-corrado/fem_2d": [],
+        "github/cdfortenbach/JET": [],
+        "github/Gabaldonlab/crossmapper": [],
+        "github/Gabaldonlab/perSVade": [],
+        "github/Cascella-Group-UiO/HyMD": [
+            "hybrid-particle-field",
+            "coarse-grained",
+            "chemistry",
+            "physics",
+            "molecular-dynamics"
+        ],
+        "github/Yash-10/beta-sgp": [
+            "astronomy",
+            "image-restoration",
+            "mathematical-optimization"
+        ],
+        "github/biofold/PhD-SNPg": [],
+        "github/biofold/ddgun": [],
+        "github/PyPSA/linopy": [
+            "optimisation",
+            "python",
+            "optimization",
+            "xarray",
+            "cbc",
+            "gurobi",
+            "cplex",
+            "glpk",
+            "xpress",
+            "linear-optimization",
+            "linear-optimisation"
+        ],
+        "github/matthewholman/assist": [
+            "astrophysics",
+            "integrator",
+            "n-body",
+            "planetary-science"
         ]
     },
     "language": {
@@ -21846,7 +21911,27 @@
         "github/ttgump/scDHMap": "Jupyter Notebook",
         "github/ttgump/scDeepCluster_pytorch": "Jupyter Notebook",
         "github/vocalpy/crowsetta": "Python",
-        "github/Yingjie4Science/SDGdetector": "R"
+        "github/Yingjie4Science/SDGdetector": "R",
+        "github/linuxscout/pyarabic": "Python",
+        "github/biomed-AI/GraphBepi": "Python",
+        "github/markusbonse/applefy": "Python",
+        "github/parsotat/batanalysis": "Python",
+        "github/gpantel/MolPainter": "Python",
+        "github/Qiskit/qiskit-experiments": "Python",
+        "github/biaslab/RxInfer.jl": "Jupyter Notebook",
+        "github/tornede/py_experimenter": "Python",
+        "github/ajeldorado/falco-python": "Python",
+        "github/ajeldorado/falco-matlab": "MATLAB",
+        "github/jeremiah-corrado/fem_2d": "Rust",
+        "github/cdfortenbach/JET": "Python",
+        "github/Gabaldonlab/crossmapper": "Python",
+        "github/Gabaldonlab/perSVade": "Python",
+        "github/Cascella-Group-UiO/HyMD": "Python",
+        "github/Yash-10/beta-sgp": "Python",
+        "github/biofold/PhD-SNPg": "Python",
+        "github/biofold/ddgun": "Python",
+        "github/PyPSA/linopy": "Python",
+        "github/matthewholman/assist": "Jupyter Notebook"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26540,7 +26625,27 @@
         "github/ttgump/scDHMap": "https://github.com/ttgump/scDHMap",
         "github/ttgump/scDeepCluster_pytorch": "https://github.com/ttgump/scDeepCluster_pytorch",
         "github/vocalpy/crowsetta": "https://github.com/vocalpy/crowsetta",
-        "github/Yingjie4Science/SDGdetector": "https://github.com/Yingjie4Science/SDGdetector"
+        "github/Yingjie4Science/SDGdetector": "https://github.com/Yingjie4Science/SDGdetector",
+        "github/linuxscout/pyarabic": "https://github.com/linuxscout/pyarabic",
+        "github/biomed-AI/GraphBepi": "https://github.com/biomed-AI/GraphBepi",
+        "github/markusbonse/applefy": "https://github.com/markusbonse/applefy",
+        "github/parsotat/batanalysis": "https://github.com/parsotat/BatAnalysis",
+        "github/gpantel/MolPainter": "https://github.com/gpantel/MolPainter",
+        "github/Qiskit/qiskit-experiments": "https://github.com/Qiskit/qiskit-experiments",
+        "github/biaslab/RxInfer.jl": "https://github.com/biaslab/RxInfer.jl",
+        "github/tornede/py_experimenter": "https://github.com/tornede/py_experimenter",
+        "github/ajeldorado/falco-python": "https://github.com/ajeldorado/falco-python",
+        "github/ajeldorado/falco-matlab": "https://github.com/ajeldorado/falco-matlab",
+        "github/jeremiah-corrado/fem_2d": "https://github.com/jeremiah-corrado/fem_2d",
+        "github/cdfortenbach/JET": "https://github.com/cdfortenbach/JET",
+        "github/Gabaldonlab/crossmapper": "https://github.com/Gabaldonlab/crossmapper",
+        "github/Gabaldonlab/perSVade": "https://github.com/Gabaldonlab/perSVade",
+        "github/Cascella-Group-UiO/HyMD": "https://github.com/Cascella-Group-UiO/HyMD",
+        "github/Yash-10/beta-sgp": "https://github.com/Yash-10/beta-sgp",
+        "github/biofold/PhD-SNPg": "https://github.com/biofold/PhD-SNPg",
+        "github/biofold/ddgun": "https://github.com/biofold/ddgun",
+        "github/PyPSA/linopy": "https://github.com/PyPSA/linopy",
+        "github/matthewholman/assist": "https://github.com/matthewholman/assist"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31234,6 +31339,26 @@
         "github/ttgump/scDHMap": "Model-based deep hyperbolic manifold learning for visualizing complex hierarchical structures in single-cell genomics data",
         "github/ttgump/scDeepCluster_pytorch": "Pytorch implementation of scDeepCluster for Single Cell RNA-seq data",
         "github/vocalpy/crowsetta": "A tool to work with any format for annotating vocalizations",
-        "github/Yingjie4Science/SDGdetector": "A novel R package that can identify and visualize 17 Sustainable Development Goals and associated 169 Targets in text"
+        "github/Yingjie4Science/SDGdetector": "A novel R package that can identify and visualize 17 Sustainable Development Goals and associated 169 Targets in text",
+        "github/linuxscout/pyarabic": "pyarabic",
+        "github/biomed-AI/GraphBepi": null,
+        "github/markusbonse/applefy": "A Python package for calculating detection limits for exoplanet high contrast imaging (HCI) datasets.",
+        "github/parsotat/batanalysis": "A python HEASOFT wrapper for processing Swift-BAT data.",
+        "github/gpantel/MolPainter": "A Tool for Drawing Complex Planar Molecular Systems of Arbitrary Composition and Placement",
+        "github/Qiskit/qiskit-experiments": "Qiskit Experiments",
+        "github/biaslab/RxInfer.jl": "Julia package for automated Bayesian inference on a factor graph with reactive message passing",
+        "github/tornede/py_experimenter": "The PyExperimenter is a tool for the automatic execution of experiments, e.g. for machine learning (ML), capturing corresponding results in a unified manner in a database. ",
+        "github/ajeldorado/falco-python": "Fast Linearized Coronagraph Optimizer (FALCO) in Python 3",
+        "github/ajeldorado/falco-matlab": "Fast Linearized Coronagraph Optimizer (FALCO) in MATLAB",
+        "github/jeremiah-corrado/fem_2d": "A rust library for 2D Finite Element Method computations",
+        "github/cdfortenbach/JET": "Computer tool that can be used to optimize lists of exoplanet targets for atmospheric characterization by JWST.",
+        "github/Gabaldonlab/crossmapper": "Crossmapper software",
+        "github/Gabaldonlab/perSVade": "perSVade: personalized Structural Variation detection",
+        "github/Cascella-Group-UiO/HyMD": "Massively parallel hybrid particle-field molecular dynamics in Python.",
+        "github/Yash-10/beta-sgp": "Scaled Gradient Projection (SGP) algorithm with beta divergence",
+        "github/biofold/PhD-SNPg": null,
+        "github/biofold/ddgun": "predict stability change upon mutation",
+        "github/PyPSA/linopy": "Linear optimization with N-D labeled arrays in Python",
+        "github/matthewholman/assist": "ASSIST is a software package for ephemeris-quality integrations of test particles."
     }
 }
