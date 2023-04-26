@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/gpantel/MolPainter": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "toml": {
+            "credit": 0.002475,
+            "url": "https://github.com/uiri/toml"
+        },
+        "MDAnalysis": {
+            "credit": 0.002475,
+            "url": "https://www.mdanalysis.org"
+        }
+    }
+}
