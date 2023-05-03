@@ -1,0 +1,14 @@
+{
+    "requirements.txt": {
+        "github/ihmwg/python-modelcif": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ihm": {
+            "credit": 0.0099,
+            "url": "https://github.com/ihmwg/python-ihm"
+        }
+    }
+}
