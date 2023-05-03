@@ -1,0 +1,25 @@
+matplotlib
+seaborn~=0.11.2
+numpy >= 1.20
+pandas
+flask
+flask-cors
+flask_sock
+openpyxl
+xlrd==1.2.0
+networkx
+chardet~=4.0.0
+sqlalchemy~=1.4
+astunparse
+pprintast
+sphinx
+sphinx-autobuild
+sphinx-markdown-tables
+sphinx-rtd-theme
+pytest
+termcolor
+cython
+setuptools
+cloudpickle~=2.0
+scikit-opt~=0.6
+rpyc
