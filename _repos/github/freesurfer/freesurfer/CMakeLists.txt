@@ -795,6 +795,8 @@ if(NOT MINIMAL)
     tridec
     ventfix
     pointset2label
+    recon_all_clinical
+    mri_segment_thalamic_nuclei_dti_cnn
   )
 endif()
 
