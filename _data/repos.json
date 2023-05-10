@@ -17268,7 +17268,56 @@
         ],
         "github/JFFleming/RCFV_Reader": [],
         "github/aksholokhov/pysr3": [],
-        "github/konradhoeffner/hdt": []
+        "github/konradhoeffner/hdt": [],
+        "gitlab/cosmograil/starred": [
+            "Deconvolution",
+            "astronomy",
+            "psf",
+            "python"
+        ],
+        "github/witseie/fpgaperm": [],
+        "github/prashjet/popkinmocks": [
+            "astronomy",
+            "astrophysics",
+            "datacube",
+            "galaxy",
+            "python",
+            "spectroscopy",
+            "stellar-kinematics",
+            "stellar-populations"
+        ],
+        "github/iric-soft/km": [],
+        "github/Zstone19/pypetal": [
+            "agn",
+            "astronomy",
+            "drw",
+            "gaussian-processes",
+            "modeling",
+            "python",
+            "time-series",
+            "pipeline"
+        ],
+        "github/BiodataAnalysisGroup/kmerAnalyzer": [
+            "k-mers",
+            "unsupervised-learning",
+            "phylogenetics",
+            "feature-selection",
+            "sars-cov-2"
+        ],
+        "github/sheinasim/HiFiAdapterFilt": [],
+        "github/exciting/excitingtools": [],
+        "github/fzi-forschungszentrum-informatik/TSInterpret": [
+            "counterfactual-explanations",
+            "explainable-ai",
+            "explainable-artificial-intelligence",
+            "explainable-ml",
+            "feature-attribution",
+            "interpretability",
+            "interpretable-machine-learning",
+            "interpretable-ml",
+            "time-series"
+        ],
+        "github/PaulRitsche/DLTrack": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -21995,7 +22044,17 @@
         "github/HLasse/TextDescriptives": "Python",
         "github/JFFleming/RCFV_Reader": "Perl",
         "github/aksholokhov/pysr3": "Python",
-        "github/konradhoeffner/hdt": "Rust"
+        "github/konradhoeffner/hdt": "Rust",
+        "gitlab/cosmograil/starred": "unknown",
+        "github/witseie/fpgaperm": "C++",
+        "github/prashjet/popkinmocks": "Python",
+        "github/iric-soft/km": "Python",
+        "github/Zstone19/pypetal": "Python",
+        "github/BiodataAnalysisGroup/kmerAnalyzer": "Python",
+        "github/sheinasim/HiFiAdapterFilt": "Shell",
+        "github/exciting/excitingtools": "Python",
+        "github/fzi-forschungszentrum-informatik/TSInterpret": "Python",
+        "github/PaulRitsche/DLTrack": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26722,7 +26781,17 @@
         "github/HLasse/TextDescriptives": "https://github.com/HLasse/TextDescriptives",
         "github/JFFleming/RCFV_Reader": "https://github.com/JFFleming/RCFV_Reader",
         "github/aksholokhov/pysr3": "https://github.com/aksholokhov/pysr3",
-        "github/konradhoeffner/hdt": "https://github.com/KonradHoeffner/hdt"
+        "github/konradhoeffner/hdt": "https://github.com/KonradHoeffner/hdt",
+        "gitlab/cosmograil/starred": "https://gitlab.com/cosmograil/starred",
+        "github/witseie/fpgaperm": "https://github.com/witseie/fpgaperm",
+        "github/prashjet/popkinmocks": "https://github.com/prashjet/popkinmocks",
+        "github/iric-soft/km": "https://github.com/iric-soft/km",
+        "github/Zstone19/pypetal": "https://github.com/Zstone19/pypetal",
+        "github/BiodataAnalysisGroup/kmerAnalyzer": "https://github.com/BiodataAnalysisGroup/kmerAnalyzer",
+        "github/sheinasim/HiFiAdapterFilt": "https://github.com/sheinasim/HiFiAdapterFilt",
+        "github/exciting/excitingtools": "https://github.com/exciting/excitingtools",
+        "github/fzi-forschungszentrum-informatik/TSInterpret": "https://github.com/fzi-forschungszentrum-informatik/TSInterpret",
+        "github/PaulRitsche/DLTrack": "https://github.com/PaulRitsche/DL_Track_US"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31449,6 +31518,16 @@
         "github/HLasse/TextDescriptives": "A Python library for calculating a large variety of metrics from text",
         "github/JFFleming/RCFV_Reader": "RCFV reader is a new software to quickly calculate normalised relative compositional frequency variability.",
         "github/aksholokhov/pysr3": "SciKit-Learn compatible library for training mixed-effects models.",
-        "github/konradhoeffner/hdt": "Library for the Header Dictionary Triples (HDT) compression file format for RDF data."
+        "github/konradhoeffner/hdt": "Library for the Header Dictionary Triples (HDT) compression file format for RDF data.",
+        "gitlab/cosmograil/starred": "A two-channel deconvolution method with Starlet regularization",
+        "github/witseie/fpgaperm": "Permutation testing for GWAS using FPGAs",
+        "github/prashjet/popkinmocks": "Create mock IFU datacubes for stellar population and kinematic modelling.",
+        "github/iric-soft/km": "km : a software for RNA-seq investigation using k-mer decomposition",
+        "github/Zstone19/pypetal": "A pipeline for estimating AGN time lags",
+        "github/BiodataAnalysisGroup/kmerAnalyzer": "An alignment-free method capable of processing and counting k-mers in a reasonable time, while evaluating multiple values of the k parameter concurrently.",
+        "github/sheinasim/HiFiAdapterFilt": "Remove CCS reads with remnant PacBio adapter sequences and convert outputs to a compressed .fastq (.fastq.gz).",
+        "github/exciting/excitingtools": "An exciting Workflow Tool",
+        "github/fzi-forschungszentrum-informatik/TSInterpret": "An Open-Source Library for the interpretability of time series classifiers",
+        "github/PaulRitsche/DLTrack": "This repositories contains code for automatic analysis of human lower limb ultrasonography images."
     }
 }
