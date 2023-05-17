@@ -1,0 +1,34 @@
+Package: climatrends
+Type: Package
+Title: Climate Variability Indices for Ecological Modelling
+Version: 1.0
+Authors@R: c(person("Kauê", "de Sousa", 
+        email = "desousa.kaue@gmail.com", role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-7571-7845")),
+        person("Jacob", "van Etten", role = c("ctb", "ths"),
+        comment = c(ORCID = "0000-0001-7554-2558")),
+        person("Svein Ø.", "Solberg", role = c("ctb","ths"),
+        comment = c(ORCID = "0000-0002-4491-4483")))
+URL: https://agrdatasci.github.io/climatrends/
+BugReports: https://github.com/agrdatasci/climatrends/issues
+Description: Supports analysis of trends in climate change,
+        ecological and crop modelling.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 3.5.0), 
+    methods
+Imports:
+    stats,
+    nasapower
+Suggests:
+    ag5Tools,
+    chirps,
+    knitr,
+    rmarkdown,
+    sf,
+    testthat
+Language: en-GB
+RoxygenNote: 7.2.1
+VignetteBuilder: knitr
