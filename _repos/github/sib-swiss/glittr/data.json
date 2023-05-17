@@ -1,0 +1,158 @@
+{
+    "package.json": {
+        "github/sib-swiss/glittr": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "sortablejs": {
+            "credit": 0.00990000000000002,
+            "url": "https://github.com/SortableJS/Sortable#readme"
+        },
+        "uglify-js": {
+            "credit": 0.0891,
+            "url": "https://github.com/mishoo/UglifyJS#readme"
+        },
+        "testcafe-reporter-xunit": {
+            "credit": 0.0008910000000000029,
+            "url": "https://github.com/DevExpress/testcafe-reporter-xunit#readme"
+        },
+        "testcafe-browser-provider-saucelabs": {
+            "credit": 0.0008910000000000029,
+            "url": "https://github.com/DevExpress/testcafe-browser-provider-saucelabs"
+        },
+        "testcafe": {
+            "credit": 0.10537666071428571,
+            "url": "https://testcafe.io/"
+        },
+        "rollup-plugin-node-resolve": {
+            "credit": 0.0891,
+            "url": null
+        },
+        "rollup-plugin-json": {
+            "credit": 0.0891,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.0891,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.0891,
+            "url": null
+        },
+        "": {
+            "credit": 0.2673,
+            "url": null
+        },
+        "read-file-relative": {
+            "credit": 0.012601285714285714,
+            "url": null
+        },
+        "publish-please": {
+            "credit": 0.016276660714285712,
+            "url": null
+        },
+        "normalize-newline": {
+            "credit": 0.012601285714285714,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.016276660714285712,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.012601285714285714,
+            "url": null
+        },
+        "callsite-record": {
+            "credit": 0.012601285714285714,
+            "url": null
+        },
+        "tmp": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "gulp-eslint": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "gulp-babel": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "gulp": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "del": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "cross-spawn": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-preset-stage-3": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-preset-es2015-loose": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-preset-es2015": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-plugin-transform-runtime": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-plugin-add-module-exports": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "saucelabs-connector": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "request": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "pinkie": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "pify": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "desired-capabilities": {
+            "credit": 0.003675375,
+            "url": null
+        },
+        "babel-runtime": {
+            "credit": 0.003675375,
+            "url": null
+        }
+    }
+}

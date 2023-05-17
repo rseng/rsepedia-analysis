@@ -17317,7 +17317,71 @@
             "interpretable-ml",
             "time-series"
         ],
-        "github/PaulRitsche/DLTrack": []
+        "github/PaulRitsche/DLTrack": [],
+        "github/julie-forman-kay-lab/SPyCi-PDB": [],
+        "github/hasindu2008/slow5tools": [],
+        "github/c-zhou/yahs": [],
+        "github/hildebra/LCA": [],
+        "github/harrispopgen/mutyper": [],
+        "github/beebdev/HARU": [],
+        "github/rpetit3/fastq-dl": [],
+        "github/elliohow/fMRI_ROI_Analysis_Tool": [
+            "fmri",
+            "fmri-preprocessing",
+            "python",
+            "neuroimaging",
+            "brain-imaging",
+            "fmri-roi-analysis"
+        ],
+        "github/jspsych/jspsych": [
+            "javascript",
+            "experiments",
+            "science",
+            "psychology",
+            "psychology-experiments",
+            "research",
+            "jspsych",
+            "experimental-design"
+        ],
+        "github/trichter/yam": [],
+        "github/graphnet-team/graphnet": [
+            "astrophysics",
+            "deep-learning",
+            "gpu",
+            "high-energy-physics",
+            "machine-learning",
+            "neural-network",
+            "particle-physics",
+            "physics-analysis",
+            "python",
+            "pytorch",
+            "neutrino-oscillations",
+            "neutrino-physics",
+            "neutrinos",
+            "graph-neural-network"
+        ],
+        "github/AgrDataSci/climatrends": [
+            "climate-data",
+            "climatology",
+            "timeseries-analysis"
+        ],
+        "github/sib-swiss/glittr": [],
+        "github/santeripuranen/SpydrPick": [],
+        "github/muctadir/lama": [
+            "angular",
+            "docker",
+            "python",
+            "qualitative-research",
+            "thematic-analysis",
+            "qualitative-analysis",
+            "text-labeling"
+        ],
+        "github/zavolanlab/PAQR2": [
+            "bioinformatics",
+            "snakemake",
+            "rna-seq-pipeline",
+            "polyadenylation"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -22054,7 +22118,23 @@
         "github/sheinasim/HiFiAdapterFilt": "Shell",
         "github/exciting/excitingtools": "Python",
         "github/fzi-forschungszentrum-informatik/TSInterpret": "Python",
-        "github/PaulRitsche/DLTrack": "Python"
+        "github/PaulRitsche/DLTrack": "Python",
+        "github/julie-forman-kay-lab/SPyCi-PDB": "Python",
+        "github/hasindu2008/slow5tools": "C",
+        "github/c-zhou/yahs": "C",
+        "github/hildebra/LCA": "C++",
+        "github/harrispopgen/mutyper": "Python",
+        "github/beebdev/HARU": "Verilog",
+        "github/rpetit3/fastq-dl": "Python",
+        "github/elliohow/fMRI_ROI_Analysis_Tool": "Python",
+        "github/jspsych/jspsych": "TypeScript",
+        "github/trichter/yam": "Python",
+        "github/graphnet-team/graphnet": "Python",
+        "github/AgrDataSci/climatrends": "R",
+        "github/sib-swiss/glittr": "PHP",
+        "github/santeripuranen/SpydrPick": "C++",
+        "github/muctadir/lama": "TypeScript",
+        "github/zavolanlab/PAQR2": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26791,7 +26871,23 @@
         "github/sheinasim/HiFiAdapterFilt": "https://github.com/sheinasim/HiFiAdapterFilt",
         "github/exciting/excitingtools": "https://github.com/exciting/excitingtools",
         "github/fzi-forschungszentrum-informatik/TSInterpret": "https://github.com/fzi-forschungszentrum-informatik/TSInterpret",
-        "github/PaulRitsche/DLTrack": "https://github.com/PaulRitsche/DL_Track_US"
+        "github/PaulRitsche/DLTrack": "https://github.com/PaulRitsche/DL_Track_US",
+        "github/julie-forman-kay-lab/SPyCi-PDB": "https://github.com/julie-forman-kay-lab/SPyCi-PDB",
+        "github/hasindu2008/slow5tools": "https://github.com/hasindu2008/slow5tools",
+        "github/c-zhou/yahs": "https://github.com/c-zhou/yahs",
+        "github/hildebra/LCA": "https://github.com/hildebra/LCA",
+        "github/harrispopgen/mutyper": "https://github.com/harrispopgen/mutyper",
+        "github/beebdev/HARU": "https://github.com/beebdev/HARU",
+        "github/rpetit3/fastq-dl": "https://github.com/rpetit3/fastq-dl",
+        "github/elliohow/fMRI_ROI_Analysis_Tool": "https://github.com/elliohow/fMRI_ROI_Analysis_Tool",
+        "github/jspsych/jspsych": "https://github.com/jspsych/jsPsych",
+        "github/trichter/yam": "https://github.com/trichter/yam",
+        "github/graphnet-team/graphnet": "https://github.com/graphnet-team/graphnet",
+        "github/AgrDataSci/climatrends": "https://github.com/AgrDataSci/climatrends",
+        "github/sib-swiss/glittr": "https://github.com/sib-swiss/glittr",
+        "github/santeripuranen/SpydrPick": "https://github.com/santeripuranen/SpydrPick",
+        "github/muctadir/lama": "https://github.com/muctadir/lama",
+        "github/zavolanlab/PAQR2": "https://github.com/zavolanlab/PAQR2"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31528,6 +31624,22 @@
         "github/sheinasim/HiFiAdapterFilt": "Remove CCS reads with remnant PacBio adapter sequences and convert outputs to a compressed .fastq (.fastq.gz).",
         "github/exciting/excitingtools": "An exciting Workflow Tool",
         "github/fzi-forschungszentrum-informatik/TSInterpret": "An Open-Source Library for the interpretability of time series classifiers",
-        "github/PaulRitsche/DLTrack": "This repositories contains code for automatic analysis of human lower limb ultrasonography images."
+        "github/PaulRitsche/DLTrack": "This repositories contains code for automatic analysis of human lower limb ultrasonography images.",
+        "github/julie-forman-kay-lab/SPyCi-PDB": "Structural Python (Back) Calculator Interface for PDBs",
+        "github/hasindu2008/slow5tools": "Slow5tools is a toolkit for converting (FAST5 <-> SLOW5), compressing, viewing, indexing and manipulating data in SLOW5 format.",
+        "github/c-zhou/yahs": "Yet another Hi-C scaffolding tool",
+        "github/hildebra/LCA": "least common ancestor evaluation given tax database and ",
+        "github/harrispopgen/mutyper": "Ancestral k-mer mutation types for SNP data",
+        "github/beebdev/HARU": "Hardware Accelerated Read Until",
+        "github/rpetit3/fastq-dl": "Download FASTQ files from SRA or ENA repositories.",
+        "github/elliohow/fMRI_ROI_Analysis_Tool": "An analysis tool that uses per-voxel statistical maps in conjunction with FSL atlases to create per-region statistical maps. Current usage includes the creation of regional maps of temporal signal to noise ratio.",
+        "github/jspsych/jspsych": "Create behavioral experiments in a browser using JavaScript",
+        "github/trichter/yam": "Yet another monitoring tool using correlations of ambient noise",
+        "github/graphnet-team/graphnet": "Graph neural networks for neutrino telescope event reconstruction",
+        "github/AgrDataSci/climatrends": "Climate Variability Indices for Ecological Modelling",
+        "github/sib-swiss/glittr": "A web application for finding and comparing bioinformatics training materials on GitHub and GitLab",
+        "github/santeripuranen/SpydrPick": "SpydrPick: mutual information based detection of pairs of genomic loci co-evolving under a shared selective pressure.",
+        "github/muctadir/lama": "LaMa, short for Labelling Machine, is an web application developed for aiding in thematic analysis of qualitative data. ",
+        "github/zavolanlab/PAQR2": "Updated version of PAQR, which was previously available in the PAQR_KAPAC joint repository."
     }
 }
