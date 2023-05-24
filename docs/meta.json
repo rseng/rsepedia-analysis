@@ -17381,7 +17381,98 @@
             "snakemake",
             "rna-seq-pipeline",
             "polyadenylation"
-        ]
+        ],
+        "github/vatlab/sos-notebook": [
+            "jupyter-kernels"
+        ],
+        "github/Ouranosinc/xclim": [
+            "climate-analysis",
+            "climate-science",
+            "python",
+            "xarray",
+            "icclim",
+            "netcdf4",
+            "xclim",
+            "anuclim",
+            "dask"
+        ],
+        "github/nialov/fractopo": [
+            "analysis",
+            "fracture",
+            "geology",
+            "topology",
+            "geometry",
+            "spatial-analysis",
+            "fractopo",
+            "python"
+        ],
+        "github/webbjj/clustertools": [],
+        "github/alawryaguila/multi-view-AE": [],
+        "github/WBK-Robotics/pybullet_industrial": [
+            "industrial-automation",
+            "robotics",
+            "simulation-framework"
+        ],
+        "github/tibordome/cosmic_profiles": [
+            "astronomy",
+            "cosmological-simulations",
+            "point-cloud"
+        ],
+        "github/ictr/covid19-outbreak-simulator": [
+            "covid-19",
+            "simulation",
+            "quarantine",
+            "virus",
+            "outbreak",
+            "simulate-scenarios",
+            "population-model"
+        ],
+        "github/ComplexGroupInteractions/xgi": [
+            "hypergraphs"
+        ],
+        "github/gymreklab/chips": [],
+        "github/BoPeng/simuPOP": [],
+        "github/edgardomortiz/Captus": [
+            "ngs",
+            "phylogenomics",
+            "alignment",
+            "genome-skimming",
+            "high-throughput-sequencing",
+            "hybridization-capture",
+            "next-generation-sequencing",
+            "phylogenetics",
+            "rna-seq",
+            "whole-genome-sequencing",
+            "phylotranscriptomics",
+            "targeted-capture",
+            "orthologs",
+            "paralogs"
+        ],
+        "github/Gabaldonlab/jloh": [
+            "heterozygosity",
+            "bioinformatics",
+            "genomics"
+        ],
+        "github/KVSlab/VaMPy": [
+            "vascular",
+            "pre-processing",
+            "post-processing",
+            "computational-fluid-dynamics"
+        ],
+        "github/algolab/shark": [
+            "bioinformatics",
+            "rna-seq",
+            "alignment-free",
+            "filtering"
+        ],
+        "github/AngryMaciek/hypercomplex": [
+            "algebra",
+            "mathematics",
+            "precision",
+            "cryptography",
+            "post-quantum-cryptography"
+        ],
+        "gitlab/pvst/asi": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -22134,7 +22225,24 @@
         "github/sib-swiss/glittr": "PHP",
         "github/santeripuranen/SpydrPick": "C++",
         "github/muctadir/lama": "TypeScript",
-        "github/zavolanlab/PAQR2": "Python"
+        "github/zavolanlab/PAQR2": "Python",
+        "github/vatlab/sos-notebook": "CSS",
+        "github/Ouranosinc/xclim": "Python",
+        "github/nialov/fractopo": "Python",
+        "github/webbjj/clustertools": "Python",
+        "github/alawryaguila/multi-view-AE": "Python",
+        "github/WBK-Robotics/pybullet_industrial": "Python",
+        "github/tibordome/cosmic_profiles": "Cython",
+        "github/ictr/covid19-outbreak-simulator": "Jupyter Notebook",
+        "github/ComplexGroupInteractions/xgi": "Jupyter Notebook",
+        "github/gymreklab/chips": "Jupyter Notebook",
+        "github/BoPeng/simuPOP": "C++",
+        "github/edgardomortiz/Captus": "Python",
+        "github/Gabaldonlab/jloh": "Python",
+        "github/KVSlab/VaMPy": "Python",
+        "github/algolab/shark": "C++",
+        "github/AngryMaciek/hypercomplex": "C++",
+        "gitlab/pvst/asi": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -26887,7 +26995,24 @@
         "github/sib-swiss/glittr": "https://github.com/sib-swiss/glittr",
         "github/santeripuranen/SpydrPick": "https://github.com/santeripuranen/SpydrPick",
         "github/muctadir/lama": "https://github.com/muctadir/lama",
-        "github/zavolanlab/PAQR2": "https://github.com/zavolanlab/PAQR2"
+        "github/zavolanlab/PAQR2": "https://github.com/zavolanlab/PAQR2",
+        "github/vatlab/sos-notebook": "https://github.com/vatlab/sos-notebook",
+        "github/Ouranosinc/xclim": "https://github.com/Ouranosinc/xclim",
+        "github/nialov/fractopo": "https://github.com/nialov/fractopo",
+        "github/webbjj/clustertools": "https://github.com/webbjj/clustertools",
+        "github/alawryaguila/multi-view-AE": "https://github.com/alawryaguila/multi-view-AE",
+        "github/WBK-Robotics/pybullet_industrial": "https://github.com/WBK-Robotics/pybullet_industrial",
+        "github/tibordome/cosmic_profiles": "https://github.com/tibordome/cosmic_profiles",
+        "github/ictr/covid19-outbreak-simulator": "https://github.com/ictr/covid19-outbreak-simulator",
+        "github/ComplexGroupInteractions/xgi": "https://github.com/xgi-org/xgi",
+        "github/gymreklab/chips": "https://github.com/gymreklab/chips",
+        "github/BoPeng/simuPOP": "https://github.com/BoPeng/simuPOP",
+        "github/edgardomortiz/Captus": "https://github.com/edgardomortiz/Captus",
+        "github/Gabaldonlab/jloh": "https://github.com/Gabaldonlab/jloh",
+        "github/KVSlab/VaMPy": "https://github.com/KVSlab/VaMPy",
+        "github/algolab/shark": "https://github.com/AlgoLab/shark",
+        "github/AngryMaciek/hypercomplex": "https://github.com/AngryMaciek/hypercomplex",
+        "gitlab/pvst/asi": "https://gitlab.com/pvst/asi"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31640,6 +31765,23 @@
         "github/sib-swiss/glittr": "A web application for finding and comparing bioinformatics training materials on GitHub and GitLab",
         "github/santeripuranen/SpydrPick": "SpydrPick: mutual information based detection of pairs of genomic loci co-evolving under a shared selective pressure.",
         "github/muctadir/lama": "LaMa, short for Labelling Machine, is an web application developed for aiding in thematic analysis of qualitative data. ",
-        "github/zavolanlab/PAQR2": "Updated version of PAQR, which was previously available in the PAQR_KAPAC joint repository."
+        "github/zavolanlab/PAQR2": "Updated version of PAQR, which was previously available in the PAQR_KAPAC joint repository.",
+        "github/vatlab/sos-notebook": "Multi-language Jupyter Notebook",
+        "github/Ouranosinc/xclim": "Library of derived climate variables, ie climate indicators, based on xarray. ",
+        "github/nialov/fractopo": "fractopo is a Python package with tools for validating and analyzing lineament and fracture trace maps",
+        "github/webbjj/clustertools": "A Python package with tools for analysing star clusters.",
+        "github/alawryaguila/multi-view-AE": null,
+        "github/WBK-Robotics/pybullet_industrial": "A simulation package extending pybullet for industrial robot applications",
+        "github/tibordome/cosmic_profiles": "Implements 3D point cloud algorithms for estimation and fitting of shape and density profiles",
+        "github/ictr/covid19-outbreak-simulator": "Population-based Forward-time Simulator for the Outbreak of COVID-19",
+        "github/ComplexGroupInteractions/xgi": "CompleX Group Interactions (XGI) provides an ecosystem for the analysis and representation of complex systems with group interactions.",
+        "github/gymreklab/chips": "Simulation tool for ChIP- and other -seq experiments",
+        "github/BoPeng/simuPOP": "A general-purpose forward-time population genetics simulation environment.",
+        "github/edgardomortiz/Captus": "Assembly of Phylogenomic Datasets from High-Throughput Sequencing data",
+        "github/Gabaldonlab/jloh": "A tool to extract LOH blocks from VCF, BAM and FASTA data",
+        "github/KVSlab/VaMPy": "A collection of tools for pre-processing, simulating, and post-processing vascular morphologies.",
+        "github/algolab/shark": "Mapping-free software for fishing relevant reads in an RNA-Seq sample",
+        "github/AngryMaciek/hypercomplex": "Abstract & fast header-only C++ template library for lattice-based cryptosystems in high-dimensional algebras",
+        "gitlab/pvst/asi": "Atomic Simulations Interface"
     }
 }
