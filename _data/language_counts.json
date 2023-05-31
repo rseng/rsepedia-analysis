@@ -1,16 +1,16 @@
 {
     "unknown": 157,
-    "Python": 1909,
-    "Jupyter Notebook": 360,
+    "Python": 1913,
+    "Jupyter Notebook": 363,
     "Modelica": 1,
     "Shell": 28,
     "HTML": 77,
     "Perl": 45,
-    "R": 613,
-    "C++": 505,
+    "R": 615,
+    "C++": 507,
     "Java": 97,
     "C": 301,
-    "Rust": 26,
+    "Rust": 27,
     "JavaScript": 78,
     "AMPL": 1,
     "MATLAB": 37,
@@ -30,7 +30,7 @@
     "Pascal": 1,
     "TSQL": 2,
     "Kotlin": 2,
-    "Go": 22,
+    "Go": 24,
     "PostScript": 3,
     "Nextflow": 8,
     "CSS": 5,
@@ -79,5 +79,6 @@
     "Yacc": 1,
     "Tcl": 2,
     "mupad": 1,
-    "Swift": 1
+    "Swift": 1,
+    "wdl": 1
 }
