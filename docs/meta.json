@@ -17472,7 +17472,50 @@
             "cryptography",
             "post-quantum-cryptography"
         ],
-        "gitlab/pvst/asi": []
+        "gitlab/pvst/asi": [],
+        "github/moldyn/msmhelper": [],
+        "github/bioexcel/biobb_wf_flexdyn": [],
+        "github/ZhenjiangFan/DAG-deepVASE": [],
+        "github/spglib/spgrep": [
+            "crystallography",
+            "group-theory",
+            "irreducible-representations",
+            "materials-science",
+            "python",
+            "representation-theory"
+        ],
+        "github/highamm/sptotal": [],
+        "github/shenwei356/unikmer": [
+            "kmer",
+            "golang",
+            "unique",
+            "union",
+            "intersection",
+            "difference",
+            "unik",
+            "k-mer",
+            "set"
+        ],
+        "github/jean-pierreBoth/gsearch": [
+            "average-nucleotide-identity",
+            "nearest-neighbor-search",
+            "probminhash-similarity"
+        ],
+        "github/chombo-discharge/chombo-discharge": [],
+        "github/Sarc-Graph/sarcgraph": [],
+        "github/JGCRI/osiris": [],
+        "github/citiususc/veryfasttree": [],
+        "github/citiususc/BigSeqKit": [],
+        "github/USNavalResearchLaboratory/eispac": [],
+        "github/Cristianetaniguti/Reads2Map": [
+            "genotyping-by-sequencing",
+            "haplotypes",
+            "linkage-mapping",
+            "pipelines",
+            "variant-calling",
+            "wdl"
+        ],
+        "github/vinisalazar/metaphor": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -22242,7 +22285,22 @@
         "github/KVSlab/VaMPy": "Python",
         "github/algolab/shark": "C++",
         "github/AngryMaciek/hypercomplex": "C++",
-        "gitlab/pvst/asi": "unknown"
+        "gitlab/pvst/asi": "unknown",
+        "github/moldyn/msmhelper": "Python",
+        "github/bioexcel/biobb_wf_flexdyn": "Jupyter Notebook",
+        "github/ZhenjiangFan/DAG-deepVASE": "Jupyter Notebook",
+        "github/spglib/spgrep": "Python",
+        "github/highamm/sptotal": "R",
+        "github/shenwei356/unikmer": "Go",
+        "github/jean-pierreBoth/gsearch": "Rust",
+        "github/chombo-discharge/chombo-discharge": "C++",
+        "github/Sarc-Graph/sarcgraph": "Jupyter Notebook",
+        "github/JGCRI/osiris": "R",
+        "github/citiususc/veryfasttree": "C++",
+        "github/citiususc/BigSeqKit": "Go",
+        "github/USNavalResearchLaboratory/eispac": "Python",
+        "github/Cristianetaniguti/Reads2Map": "wdl",
+        "github/vinisalazar/metaphor": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -27012,7 +27070,22 @@
         "github/KVSlab/VaMPy": "https://github.com/KVSlab/VaMPy",
         "github/algolab/shark": "https://github.com/AlgoLab/shark",
         "github/AngryMaciek/hypercomplex": "https://github.com/AngryMaciek/hypercomplex",
-        "gitlab/pvst/asi": "https://gitlab.com/pvst/asi"
+        "gitlab/pvst/asi": "https://gitlab.com/pvst/asi",
+        "github/moldyn/msmhelper": "https://github.com/moldyn/msmhelper",
+        "github/bioexcel/biobb_wf_flexdyn": "https://github.com/bioexcel/biobb_wf_flexdyn",
+        "github/ZhenjiangFan/DAG-deepVASE": "https://github.com/ZhenjiangFan/DAG-deepVASE",
+        "github/spglib/spgrep": "https://github.com/spglib/spgrep",
+        "github/highamm/sptotal": "https://github.com/highamm/sptotal",
+        "github/shenwei356/unikmer": "https://github.com/shenwei356/unikmer",
+        "github/jean-pierreBoth/gsearch": "https://github.com/jean-pierreBoth/gsearch",
+        "github/chombo-discharge/chombo-discharge": "https://github.com/chombo-discharge/chombo-discharge",
+        "github/Sarc-Graph/sarcgraph": "https://github.com/Sarc-Graph/sarcgraph",
+        "github/JGCRI/osiris": "https://github.com/JGCRI/osiris",
+        "github/citiususc/veryfasttree": "https://github.com/citiususc/veryfasttree",
+        "github/citiususc/BigSeqKit": "https://github.com/citiususc/BigSeqKit",
+        "github/USNavalResearchLaboratory/eispac": "https://github.com/USNavalResearchLaboratory/eispac",
+        "github/Cristianetaniguti/Reads2Map": "https://github.com/Cristianetaniguti/Reads2Map",
+        "github/vinisalazar/metaphor": "https://github.com/vinisalazar/metaphor"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -31782,6 +31855,21 @@
         "github/KVSlab/VaMPy": "A collection of tools for pre-processing, simulating, and post-processing vascular morphologies.",
         "github/algolab/shark": "Mapping-free software for fishing relevant reads in an RNA-Seq sample",
         "github/AngryMaciek/hypercomplex": "Abstract & fast header-only C++ template library for lattice-based cryptosystems in high-dimensional algebras",
-        "gitlab/pvst/asi": "Atomic Simulations Interface"
+        "gitlab/pvst/asi": "Atomic Simulations Interface",
+        "github/moldyn/msmhelper": "Helper function for Markov State Models",
+        "github/bioexcel/biobb_wf_flexdyn": null,
+        "github/ZhenjiangFan/DAG-deepVASE": null,
+        "github/spglib/spgrep": "On-the-fly generator of space-group irreducible representations",
+        "github/highamm/sptotal": "Package for Fitting Spatial Linear Models and Predicting Total Abundances for Finite Populations",
+        "github/shenwei356/unikmer": "Toolkit for k-mer with taxonomic information",
+        "github/jean-pierreBoth/gsearch": "Approximate nearest neighbour search for microbial genomes based on hash metric",
+        "github/chombo-discharge/chombo-discharge": "Beta release of chombo-discharge, a research code for low-temperature plasma which uses a Cartesian cut-cell formalism.",
+        "github/Sarc-Graph/sarcgraph": null,
+        "github/JGCRI/osiris": "Processes climate impacts on agricultural yields for GCAM",
+        "github/citiususc/veryfasttree": "Speeding up the estimation of phylogenetic trees for large alignments through parallelization and vectorization strategies",
+        "github/citiususc/BigSeqKit": "BigSeqKit: a parallel Big Data toolkit to process FASTA and FASTQ files at scale",
+        "github/USNavalResearchLaboratory/eispac": "Read the Docs",
+        "github/Cristianetaniguti/Reads2Map": "WDL workflows to build genetic maps from sequencing reads",
+        "github/vinisalazar/metaphor": "Metaphor: a general-purpose workflow for assembly and binning of metagenomes"
     }
 }

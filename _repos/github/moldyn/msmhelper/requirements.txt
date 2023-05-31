@@ -1,0 +1,7 @@
+numba>=0.54.0
+numpy>=1.21.0
+pandas
+scipy
+decorit
+click
+prettypyplot

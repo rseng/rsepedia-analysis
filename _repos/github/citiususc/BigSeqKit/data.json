@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/citiususc/BigSeqKit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "ignis-core": {
+            "credit": 0.0099,
+            "url": "https://pypi.org/project/ignis-core"
+        }
+    }
+}
