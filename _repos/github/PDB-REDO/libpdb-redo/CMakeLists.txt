@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(pdb-redo VERSION 3.0.5 LANGUAGES CXX C)
+project(pdb-redo VERSION 3.0.6 LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -38,6 +38,7 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
+include(Dart)
 include(GenerateExportHeader)
 
 set(CXX_EXTENSIONS OFF)
@@ -108,14 +109,14 @@ if(MSVC)
 endif()
 
 # Libraries
+find_package(Eigen3 REQUIRED)
 find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
+find_package(GSL REQUIRED)
 
 if(NOT PDB_REDO_META)
 	find_package(newuoa REQUIRED)
 	find_package(cifpp 5.0.8 REQUIRED)
 endif()
-
-find_package(GSL REQUIRED)
 
 # Create a revision file, containing the current git version info
 include(VersionString)
@@ -133,7 +134,6 @@ set(project_sources
 	${PROJECT_SOURCE_DIR}/src/ResolutionCalculator.cpp
 	${PROJECT_SOURCE_DIR}/src/SkipList.cpp
 	${PROJECT_SOURCE_DIR}/src/Statistics.cpp
-	${PROJECT_SOURCE_DIR}/src/Symmetry-2.cpp
 	${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
 	${PROJECT_SOURCE_DIR}/src/Restraints.cpp
 )
@@ -149,7 +149,6 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/ResolutionCalculator.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/SkipList.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Statistics.hpp
-	${PROJECT_SOURCE_DIR}/include/pdb-redo/Symmetry-2.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
 )
@@ -161,10 +160,10 @@ generate_export_header(pdb-redo EXPORT_FILE_NAME pdb-redo/exports.hpp)
 
 target_include_directories(pdb-redo
 	PUBLIC
-	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${PROJECT_BINARY_DIR}>"
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${EIGEN3_INCLUDE_DIR}>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 	${CCP4_INCLUDE_DIRS})
-target_link_libraries(pdb-redo PUBLIC cifpp::cifpp newuoa::newuoa ${CCP4_LIBRARIES} ${GSL_LIBRARIES})
+target_link_libraries(pdb-redo PUBLIC cifpp::cifpp newuoa::newuoa ${CCP4_LIBRARIES} GSL::gsl)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(pdb-redo PRIVATE -undefined dynamic_lookup)

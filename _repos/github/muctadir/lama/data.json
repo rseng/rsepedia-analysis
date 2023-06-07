@@ -1,0 +1,258 @@
+{
+    "requirements.txt": {
+        "github/muctadir/lama": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "alembic": {
+            "credit": 0.043890000000000005,
+            "url": "https://alembic.sqlalchemy.org"
+        },
+        "attrs": {
+            "credit": 0.00032999999999999696,
+            "url": "https://www.attrs.org/"
+        },
+        "click": {
+            "credit": 0.03766714285714286,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "coverage": {
+            "credit": 0.006926826923076921,
+            "url": "https://github.com/nedbat/coveragepy"
+        },
+        "Flask": {
+            "credit": 0.043890000000000005,
+            "url": "https://flask.palletsprojects.com"
+        },
+        "Flask-Cors": {
+            "credit": 0.00032999999999999696,
+            "url": "https://github.com/corydolphin/flask-cors"
+        },
+        "flask-marshmallow": {
+            "credit": 0.033,
+            "url": "https://github.com/marshmallow-code/flask-marshmallow"
+        },
+        "Flask-Migrate": {
+            "credit": 0.00032999999999999696,
+            "url": "https://github.com/miguelgrinberg/flask-migrate"
+        },
+        "Flask-SQLAlchemy": {
+            "credit": 0.011219999999999999,
+            "url": "https://flask-sqlalchemy.palletsprojects.com"
+        },
+        "greenlet": {
+            "credit": 0.033,
+            "url": "https://greenlet.readthedocs.io/"
+        },
+        "iniconfig": {
+            "credit": 0.033,
+            "url": "http://github.com/RonnyPfannschmidt/iniconfig"
+        },
+        "itsdangerous": {
+            "credit": 0.03766714285714286,
+            "url": "https://palletsprojects.com/p/itsdangerous/"
+        },
+        "Jinja2": {
+            "credit": 0.0049971428571428545,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "Mako": {
+            "credit": 0.033,
+            "url": "https://www.makotemplates.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.06567,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "marshmallow": {
+            "credit": 0.0030524999999999975,
+            "url": "https://github.com/marshmallow-code/marshmallow"
+        },
+        "marshmallow-sqlalchemy": {
+            "credit": 0.00032999999999999696,
+            "url": "https://github.com/marshmallow-code/marshmallow-sqlalchemy"
+        },
+        "mysqlclient": {
+            "credit": 0.033,
+            "url": "https://github.com/PyMySQL/mysqlclient"
+        },
+        "numpy": {
+            "credit": 0.033,
+            "url": "https://www.numpy.org"
+        },
+        "packaging": {
+            "credit": 0.005386071428571426,
+            "url": "https://github.com/pypa/packaging"
+        },
+        "pluggy": {
+            "credit": 0.00032999999999999696,
+            "url": "https://github.com/pytest-dev/pluggy"
+        },
+        "py": {
+            "credit": 0.033,
+            "url": "https://py.readthedocs.io/"
+        },
+        "PyJWT": {
+            "credit": 0.00032999999999999696,
+            "url": "https://github.com/jpadilla/pyjwt"
+        },
+        "pyparsing": {
+            "credit": 0.033,
+            "url": "https://pypi.org/project/pyparsing"
+        },
+        "pytest": {
+            "credit": 0.05118689835164836,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "python-dotenv": {
+            "credit": 0.0049971428571428545,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "six": {
+            "credit": 0.035513076923076925,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "SQLAlchemy": {
+            "credit": 0.05205750000000001,
+            "url": "https://www.sqlalchemy.org"
+        },
+        "tomli": {
+            "credit": 0.06567,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "Werkzeug": {
+            "credit": 0.0049971428571428545,
+            "url": "https://werkzeug.palletsprojects.com"
+        },
+        "cloudpickle": {
+            "credit": 0.0025130769230769234,
+            "url": "https://github.com/cloudpipe/cloudpickle"
+        },
+        "pre-commit": {
+            "credit": 0.018186898351648353,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.0025130769230769234,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "sphinx": {
+            "credit": 0.011652898351648353,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "furo": {
+            "credit": 0.0025130769230769234,
+            "url": "https://pypi.org/project/furo"
+        },
+        "zope.interface": {
+            "credit": 0.006596826923076924,
+            "url": "https://pypi.org/project/zope.interface"
+        },
+        "pytest-mypy-plugins": {
+            "credit": 0.0025130769230769234,
+            "url": "https://pypi.org/project/pytest-mypy-plugins"
+        },
+        "mypy": {
+            "credit": 0.004846648351648352,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pympler": {
+            "credit": 0.0025130769230769234,
+            "url": "https://pypi.org/project/pympler"
+        },
+        "hypothesis": {
+            "credit": 0.0025130769230769234,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "importlib-metadata": {
+            "credit": 0.02753614285714286,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "colorama": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "asgiref": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/asgiref"
+        },
+        "Six": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/Six"
+        },
+        "Babel": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "autodocsumm": {
+            "credit": 0.0023335714285714288,
+            "url": "https://pypi.org/project/autodocsumm"
+        },
+        "sphinx-version-warning": {
+            "credit": 0.0023335714285714288,
+            "url": "https://pypi.org/project/sphinx-version-warning"
+        },
+        "alabaster": {
+            "credit": 0.005056071428571429,
+            "url": "https://pypi.org/project/alabaster"
+        },
+        "sphinx-issues": {
+            "credit": 0.005056071428571429,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "tox": {
+            "credit": 0.011590071428571429,
+            "url": "https://pypi.org/project/tox"
+        },
+        "flake8-bugbear": {
+            "credit": 0.005056071428571429,
+            "url": "https://pypi.org/project/flake8-bugbear"
+        },
+        "flake8": {
+            "credit": 0.005056071428571429,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "simplejson": {
+            "credit": 0.0023335714285714288,
+            "url": "https://pypi.org/project/simplejson"
+        },
+        "pytz": {
+            "credit": 0.0023335714285714288,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "pytest-lazy-fixture": {
+            "credit": 0.0027225000000000005,
+            "url": "https://pypi.org/project/pytest-lazy-fixture"
+        },
+        "pytest-benchmark": {
+            "credit": 0.006534000000000001,
+            "url": "https://pypi.org/project/pytest-benchmark"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "cryptography": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/cryptography"
+        },
+        "typing-extensions": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "jinja2": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "railroad-diagrams": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/railroad-diagrams"
+        },
+        "watchdog": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/watchdog"
+        }
+    }
+}
