@@ -1,0 +1,122 @@
+{
+    "requirements.txt": {
+        "gitlab/binary_c/binary_c-python": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "astropy": {
+            "credit": 0.03413793103448276,
+            "url": "http://astropy.org"
+        },
+        "cachetools": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/cachetools"
+        },
+        "colorama": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "compress_pickle": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/compress_pickle"
+        },
+        "datasize": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/datasize"
+        },
+        "diskcache": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/diskcache"
+        },
+        "flufl.lock": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/flufl.lock"
+        },
+        "h5py": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "halo": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/halo"
+        },
+        "humanize": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/humanize"
+        },
+        "ipykernel": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "ipython": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "jupyter": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/jupyter"
+        },
+        "lib_programname": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/lib_programname"
+        },
+        "matplotlib": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "msgpack": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "numpy": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "pandas": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "pathos": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pathos"
+        },
+        "psutil": {
+            "credit": 0.06827586206896552,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "py_rinterpolate": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/py_rinterpolate"
+        },
+        "seaborn": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "setproctitle": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "str2bool": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/str2bool"
+        },
+        "simplejson": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/simplejson"
+        },
+        "strip-ansi": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/strip-ansi"
+        },
+        "voluptuous": {
+            "credit": 0.03413793103448276,
+            "url": "https://pypi.org/project/voluptuous"
+        }
+    }
+}

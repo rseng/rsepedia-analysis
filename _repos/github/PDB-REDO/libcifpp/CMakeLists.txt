@@ -35,14 +35,15 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
+include(Dart)
 include(GenerateExportHeader)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 # set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
-
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers")
 elseif(MSVC)
@@ -102,11 +103,22 @@ if(MSVC)
 	add_compile_options(/permissive-)
 
 	macro(get_WIN32_WINNT version)
-		if(WIN32 AND CMAKE_SYSTEM_VERSION)
+		if(CMAKE_SYSTEM_VERSION)
 			set(ver ${CMAKE_SYSTEM_VERSION})
-			string(REPLACE "." "" ver ${ver})
-			string(REGEX REPLACE "([0-9])" "0\\1" ver ${ver})
+			string(REGEX MATCH "^([0-9]+).([0-9])" ver ${ver})
+			string(REGEX MATCH "^([0-9]+)" verMajor ${ver})
 
+			# Check for Windows 10, b/c we'll need to convert to hex 'A'.
+			if("${verMajor}" MATCHES "10")
+				set(verMajor "A")
+				string(REGEX REPLACE "^([0-9]+)" ${verMajor} ver ${ver})
+			endif()
+
+			# Remove all remaining '.' characters.
+			string(REPLACE "." "" ver ${ver})
+
+			# Prepend each digit with a zero.
+			string(REGEX REPLACE "([0-9A-Z])" "0\\1" ver ${ver})
 			set(${version} "0x${ver}")
 		endif()
 	endmacro()
@@ -157,16 +169,19 @@ if(MSVC)
 	set(_ZLIB_x86 "(x86)")
 	set(_ZLIB_SEARCH_NORMAL
 		PATHS "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GnuWin32\\Zlib;InstallPath]"
-			"$ENV{ProgramFiles}/zlib"
-			"$ENV{ProgramFiles${_ZLIB_x86}}/zlib")
+		"$ENV{ProgramFiles}/zlib"
+		"$ENV{ProgramFiles${_ZLIB_x86}}/zlib")
 	unset(_ZLIB_x86)
 	list(APPEND _ZLIB_SEARCHES _ZLIB_SEARCH_NORMAL)
 
 	foreach(search ${_ZLIB_SEARCHES})
-    	find_library(ZLIB_LIBRARY NAMES zlibstatic NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
+		find_library(ZLIB_LIBRARY NAMES zlibstatic NAMES_PER_DIR ${${search}} PATH_SUFFIXES lib)
 	endforeach()
 endif()
+
 find_package(ZLIB REQUIRED)
+
+find_package(Eigen3 REQUIRED)
 
 include(FindFilesystem)
 list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPFS_LIBRARY})
@@ -191,12 +206,12 @@ if(CIFPP_RECREATE_SYMOP_DATA)
 
 	add_custom_command(
 		OUTPUT ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
-		COMMAND $<TARGET_FILE:symop-map-generator> $ENV{CLIBD}/syminfo.lib ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
+		COMMAND $<TARGET_FILE:symop-map-generator> $ENV{CLIBD}/syminfo.lib $ENV{CLIBD}/symop.lib ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
 	)
 
 	add_custom_target(
 		OUTPUT ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
-		DEPENDS symop-map-generator "$ENV{CLIBD}/syminfo.lib"
+		DEPENDS symop-map-generator "$ENV{CLIBD}/syminfo.lib" "$ENV{CLIBD}/symop.lib"
 	)
 endif()
 
@@ -273,7 +288,7 @@ set_target_properties(cifpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(cifpp
 	PUBLIC
-	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${PROJECT_BINARY_DIR}>"
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${PROJECT_BINARY_DIR};${EIGEN3_INCLUDE_DIR}>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
@@ -416,8 +431,7 @@ if(ENABLE_TESTING)
 
 	find_package(Boost REQUIRED)
 
-	list(APPEND CIFPP_tests unit-v2 unit-3d format model rename-compound sugar
-	)
+	list(APPEND CIFPP_tests unit-v2 unit-3d format model rename-compound sugar spinner)
 
 	foreach(CIFPP_TEST IN LISTS CIFPP_tests)
 		set(CIFPP_TEST "${CIFPP_TEST}-test")
@@ -436,10 +450,10 @@ if(ENABLE_TESTING)
 
 		add_custom_command(
 			OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Run${CIFPP_TEST}.touch
-			COMMAND $<TARGET_FILE:${CIFPP_TEST}> -- ${PROJECT_SOURCE_DIR}/test)
+			COMMAND $<TARGET_FILE:${CIFPP_TEST}> -- ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 		add_test(NAME ${CIFPP_TEST}
-			COMMAND $<TARGET_FILE:${CIFPP_TEST}> -- ${PROJECT_SOURCE_DIR}/test)
+			COMMAND $<TARGET_FILE:${CIFPP_TEST}> -- ${CMAKE_CURRENT_SOURCE_DIR}/test)
 	endforeach()
 endif()
 
@@ -447,7 +461,7 @@ endif()
 if(CIFPP_INSTALL_UPDATE_SCRIPT)
 	if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 		set(CIFPP_CRON_DIR "${CIFPP_ETC_DIR}/cron.weekly")
-	elseif(UNIX)	# assume all others are like FreeBSD... 
+	elseif(UNIX) # assume all others are like FreeBSD...
 		set(CIFPP_CRON_DIR "${CIFPP_ETC_DIR}/periodic/weekly")
 	else()
 		message(FATAL_ERROR "Don't know where to install the update script")

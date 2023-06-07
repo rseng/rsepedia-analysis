@@ -1,0 +1,13 @@
+-c https://raw.githubusercontent.com/ska-sa/katsdpdockerbase/master/docker-base-build/base-requirements.txt
+
+botocore
+cityhash
+dask[array]
+h5py
+numba
+numpy
+pyjwt
+requests
+
+katpoint @ git+https://github.com/ska-sa/katpoint
+katsdptelstate[rdb] @ git+https://github.com/ska-sa/katsdptelstate
