@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.2.2.1 LANGUAGES CXX)
+project(mkdssp VERSION 4.3.2 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -52,6 +52,7 @@ endif()
 
 # Optionally build a version to be installed inside CCP4
 option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
+option(BUILD_WEBSERVER "Add code to run dssp as a web service" OFF)
 
 if(BUILD_FOR_CCP4)
 	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
@@ -104,14 +105,20 @@ find_package(Threads)
 
 if(NOT PDB_REDO_META)
 	find_package(libmcfp REQUIRED)
-	find_package(cifpp 5.0.8 REQUIRED)
+	find_package(cifpp 5.1.0 REQUIRED)
 endif()
 
 # The DSSP code is in a separate library, optionally to be used by others
-add_library(dssp ${PROJECT_SOURCE_DIR}/src/dssp.cpp ${PROJECT_SOURCE_DIR}/include/dssp.hpp)
+add_library(dssp
+	${PROJECT_SOURCE_DIR}/src/dssp.cpp
+	${PROJECT_SOURCE_DIR}/include/dssp.hpp
+	${PROJECT_SOURCE_DIR}/src/dssp-io.cpp
+	${PROJECT_SOURCE_DIR}/src/dssp-io.hpp
+)
+
 add_library(dssp::dssp ALIAS dssp)
 
-target_link_libraries(dssp PRIVATE cifpp::cifpp)
+target_link_libraries(dssp PUBLIC cifpp::cifpp)
 
 target_include_directories(dssp
 	PUBLIC
@@ -119,17 +126,15 @@ target_include_directories(dssp
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-add_executable(mkdssp
-	${PROJECT_SOURCE_DIR}/src/dssp-io.cpp
-	${PROJECT_SOURCE_DIR}/src/dssp-io.hpp
-	${PROJECT_SOURCE_DIR}/src/mkdssp.cpp)
+add_executable(mkdssp ${PROJECT_SOURCE_DIR}/src/mkdssp.cpp)
 
-target_include_directories(mkdssp PRIVATE ${PROJECT_BINARY_DIR})
-target_link_libraries(mkdssp PRIVATE dssp cifpp::cifpp libmcfp::libmcfp dssp::dssp)
+target_link_libraries(mkdssp PRIVATE libmcfp::libmcfp dssp::dssp)
 
 if(USE_RSRC)
-	message("Using resources compiled with ${MRC}")
-	mrc_target_resources(mkdssp ${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic)
+	mrc_target_resources(mkdssp
+		${CIFPP_SHARE_DIR}/mmcif_pdbx.dic
+		${CIFPP_SHARE_DIR}/mmcif_ddl.dic
+		${PROJECT_SOURCE_DIR}/mmcif_pdbx/dssp-extension.dic)
 endif()
 
 # Install rules
@@ -207,6 +212,41 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 # manual
+find_program(PANDOC pandoc)
+
+if(PANDOC)
+	file(GENERATE OUTPUT ${PROJECT_BINARY_DIR}/pandoc-md.sh
+		CONTENT "${PANDOC} ${PROJECT_SOURCE_DIR}/doc/mkdssp.1 -t markdown | sed -e \"s/\\\\\\' \\\\\\' (space)/  ' ' (space)/\" > ${PROJECT_SOURCE_DIR}/doc/mkdssp.md"
+		FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
+
+	add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.md
+		DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
+		COMMAND "${PROJECT_BINARY_DIR}/pandoc-md.sh"
+		WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
+		VERBATIM)
+
+	add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.html
+		DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
+		COMMAND ${PANDOC} -o mkdssp.html mkdssp.1
+		WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
+		VERBATIM)
+
+	add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.pdf
+		DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
+		COMMAND ${PANDOC} -o mkdssp.pdf mkdssp.1 -t html
+		WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
+		VERBATIM)
+
+	add_custom_target(doc_files DEPENDS
+		${PROJECT_SOURCE_DIR}/doc/mkdssp.html
+		${PROJECT_SOURCE_DIR}/doc/mkdssp.pdf
+		${PROJECT_SOURCE_DIR}/doc/mkdssp.md)
+	
+	add_dependencies(mkdssp doc_files)
+else()
+	message(STATUS "Could not find pandoc, cannot recreate documentation files")
+endif()
+
 if(UNIX)
 	install(FILES doc/mkdssp.1
 		DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1)
