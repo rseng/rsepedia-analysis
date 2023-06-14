@@ -5,7 +5,7 @@
 # Top level CMake file for sortmerna
 #===============================================================================
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.21)
 project(sortmerna CXX C)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -57,10 +57,10 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules/")
 
 set(EXTERNAL_DEPS ${CMAKE_SOURCE_DIR}/3rdparty CACHE PATH "Installation directory for 3rd party dependencies")
 set(ZLIB_URL https://github.com/madler/zlib.git CACHE STRING "ZLib GitHub URL")
-set(ZLIB_ROOT ${EXTERNAL_DEPS}/zlib CACHE PATH "ZLIB installation directory")
+#set(ZLIB_ROOT ${EXTERNAL_DEPS}/zlib CACHE PATH "ZLIB installation directory")
 set(ROCKSDB_URL https://github.com/facebook/rocksdb.git CACHE STRING "RocksDB GitHub URL")
 set(ROCKSDB_SRC ${EXTERNAL_DEPS}/rocksdb CACHE PATH "RocksDB source root directory")
-set(ROCKSDB_HOME ${EXTERNAL_DEPS}/rocksdb/dist CACHE PATH "RocksDB installation directory")
+set(ROCKSDB_DIST ${EXTERNAL_DEPS}/rocksdb/dist CACHE PATH "RocksDB installation directory")
 #set(RAPIDJSON_URL https://github.com/Tencent/rapidjson CACHE STRING "RapidJSON GitHub URL")
 #set(RAPIDJSON_HOME ${EXTERNAL_DEPS}/rocksdb CACHE PATH "RapidJSON installation directory")
 set(DIRENTWIN_URL https://github.com/tronkko/dirent CACHE STRING "Dirent-Windows interface GitHub URL")
@@ -69,47 +69,8 @@ set(CONCURRENTQUEUE_URL https://github.com/cameron314/concurrentqueue CACHE STRI
 set(CONCURRENTQUEUE_HOME ${EXTERNAL_DEPS}/concurrentqueue CACHE PATH "Concurrent queue library installation directory")
 #set(gflags_DIR  ${EXTERNAL_DEPS}/gflags/dist/lib/cmake/gflags CACHE PATH "GFlags library configuration")
 
-option(ROCKSDB_STATIC "Use static RocksDB library" ON)
+option(ROCKSDB_USE_STATIC_LIBS "Use static RocksDB library" ON)
 option(ZLIB_STATIC "Use static ZLib library" ON)
-
-option(PORTABLE "Build portable/statically linked executable" ON)
-
-option(WITH_MD_LIBRARY "build with MD" ON)
-if(WIN32 AND MSVC)
-  if(NOT WITH_MD_LIBRARY)
-	foreach(flag_var
-		CMAKE_CXX_FLAGS 
-		CMAKE_CXX_FLAGS_DEBUG 
-		CMAKE_CXX_FLAGS_RELEASE
-		CMAKE_CXX_FLAGS_MINSIZEREL 
-		CMAKE_CXX_FLAGS_RELWITHDEBINFO
-		CMAKE_C_FLAGS 
-		CMAKE_C_FLAGS_DEBUG 
-		CMAKE_C_FLAGS_RELEASE
-		CMAKE_C_FLAGS_MINSIZEREL 
-		CMAKE_C_FLAGS_RELWITHDEBINFO)
-	   if(${flag_var} MATCHES "/MD")
-		  string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-	   endif()
-	endforeach(flag_var)
-  endif()
-endif()
-
-option(WITH_RUNTIME_DEBUG "Build with MDd/MTd on Windows. Ignored on non-Windows" OFF)
-if(WIN32 AND MSVC)
-  if(NOT WITH_RUNTIME_DEBUG)
-	foreach(flag_var
-		CMAKE_CXX_FLAGS_DEBUG 
-		CMAKE_C_FLAGS_DEBUG
-		)
-	   if(${flag_var} MATCHES "/MDd")
-		  string(REGEX REPLACE "/MDd" "/MD" ${flag_var} "${${flag_var}}")
-		elseif(${flag_var} MATCHES "/MTd")
-		  string(REGEX REPLACE "/MTd" "/MT" ${flag_var} "${${flag_var}}")
-	   endif()
-	endforeach(flag_var)
-  endif()
-endif()
 
 message("CMAKE_CXX_FLAGS_DEBUG: ${CMAKE_CXX_FLAGS_DEBUG}")
 message("CMAKE_C_FLAGS_DEBUG: ${CMAKE_C_FLAGS_DEBUG}")
