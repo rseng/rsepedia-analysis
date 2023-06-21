@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(cifpp VERSION 5.1.0.1 LANGUAGES CXX)
+project(cifpp VERSION 5.1.1 LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -307,18 +307,7 @@ if(CIFPP_DOWNLOAD_CCD)
 			file(MAKE_DIRECTORY ${PROJECT_SOURCE_DIR}/data/)
 		endif()
 
-		find_program(GUNZIP gunzip)
-
-		if(GUNZIP)
-			file(DOWNLOAD ftp://ftp.wwpdb.org/pub/pdb/data/monomers/components.cif.gz ${COMPONENTS_CIF}.gz
-				SHOW_PROGRESS)
-			add_custom_command(OUTPUT ${COMPONENTS_CIF}
-				COMMAND ${GUNZIP} ${COMPONENTS_CIF}.gz
-				WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/data/)
-		else()
-			file(DOWNLOAD ftp://ftp.wwpdb.org/pub/pdb/data/monomers/components.cif ${COMPONENTS_CIF}
-				SHOW_PROGRESS)
-		endif()
+		file(DOWNLOAD https://ftp.wwpdb.org/pub/pdb/data/monomers/components.cif ${COMPONENTS_CIF} SHOW_PROGRESS)
 	endif()
 
 	add_custom_target(COMPONENTS ALL DEPENDS ${COMPONENTS_CIF})
