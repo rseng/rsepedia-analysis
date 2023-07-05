@@ -102,6 +102,10 @@ def main():
             continue
 
         repo = pedia.get(reponame[0])
+        if "data" not in repo.data:
+            print(f'WARNING: skipping repository {reponame[0]}, does not have "data" key.')
+            continue
+
         meta["topics"][repo.uid] = repo.data["data"].get("topics", [])
         meta["language"][repo.uid] = repo.data["data"].get("language", "unknown")
         meta["url"][repo.uid] = repo.url
