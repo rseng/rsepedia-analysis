@@ -1,0 +1,11 @@
+numpy
+cython
+pytest
+pylint
+pycodestyle
+scipy
+matplotlib
+coveralls
+astropy
+sphinx
+coloredlogs

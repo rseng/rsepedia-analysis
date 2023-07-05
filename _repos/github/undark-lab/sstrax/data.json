@@ -1,0 +1,110 @@
+{
+    "setup.py": {
+        "github/undark-lab/sstrax": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "jax": {
+            "credit": 0.2969634642857143,
+            "url": "https://github.com/google/jax"
+        },
+        "jaxlib": {
+            "credit": 0.0018833571428571554,
+            "url": "https://github.com/google/jax"
+        },
+        "jaxtyping": {
+            "credit": 0.02860275000000001,
+            "url": "https://pypi.org/project/jaxtyping"
+        },
+        "diffrax": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/patrick-kidger/diffrax"
+        },
+        "chex": {
+            "credit": 0.0016500000000000126,
+            "url": "https://github.com/deepmind/chex"
+        },
+        "numpy": {
+            "credit": 0.3298279285714286,
+            "url": "https://www.numpy.org"
+        },
+        "flatbuffers": {
+            "credit": 0.04661308928571428,
+            "url": "https://google.github.io/flatbuffers/"
+        },
+        "absl-py": {
+            "credit": 0.06994880357142857,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "scipy": {
+            "credit": 0.006183964285714288,
+            "url": "https://www.scipy.org"
+        },
+        "typing-extensions": {
+            "credit": 0.11370987964285714,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "typeguard": {
+            "credit": 0.0005445000000000033,
+            "url": "https://pypi.org/project/typeguard"
+        },
+        "equinox": {
+            "credit": 0.000816750000000005,
+            "url": "https://pypi.org/project/equinox"
+        },
+        "toolz": {
+            "credit": 0.023335714285714286,
+            "url": "https://github.com/pytoolz/toolz/"
+        },
+        "dm-tree": {
+            "credit": 0.023335714285714286,
+            "url": "https://github.com/deepmind/tree"
+        },
+        "mypy": {
+            "credit": 7.700785714285716e-05,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "pytest": {
+            "credit": 0.007700785714285714,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.007700785714285714,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.007700785714285714,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "packaging": {
+            "credit": 0.007700785714285714,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "importlib-metadata": {
+            "credit": 0.007700785714285714,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "lxml": {
+            "credit": 0.0012706296428571429,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "psutil": {
+            "credit": 0.0012706296428571429,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "typed-ast": {
+            "credit": 0.0012706296428571429,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "tomli": {
+            "credit": 0.0012706296428571429,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "mypy-extensions": {
+            "credit": 0.0012706296428571429,
+            "url": "https://pypi.org/project/mypy-extensions"
+        }
+    }
+}

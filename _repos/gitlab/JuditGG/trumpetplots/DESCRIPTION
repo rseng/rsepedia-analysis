@@ -1,0 +1,19 @@
+Package: TrumpetPlots
+Title: Visualization of Genetic Association Studies
+Version: 0.0.1.1
+Authors@R: 
+    c(person(given = "Judit", family = "García-González", email = "judit.garciagonzalez@mssm.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6245-740X")),
+      person(given = "Lathan", family = "Liou", email = "lathan.liou@icahn.mssm.edu", role = c("ctb")))
+Description: Visualizes the relationship between allele frequency and effect size in genetic association studies. The input is a data frame containing association results. The output is a plot with the effect size of risk variants in the Y axis, and the allele frequency spectrum in the X axis. Corte et al (2023) <doi:10.1101/2023.04.21.23288923>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10),
+    data.table,
+    ggplot2,
+    magrittr,
+    stats,
+    purrr (>= 1.0.1)
+LazyData: true

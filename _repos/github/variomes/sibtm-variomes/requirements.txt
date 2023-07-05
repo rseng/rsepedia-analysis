@@ -1,0 +1,8 @@
+# Needed packages/versions
+elasticsearch
+numpy
+pandas
+pymongo
+pysolr
+requests
+flask

@@ -1,0 +1,22 @@
+Package: dmethr
+Type: Package
+Title: dmethr: a 3-step pipeline to explore DNA methylation controlled gene expression from omics data
+Description: Hunting DNA methylation repression of transcriptional activity and its reactivation in a demethylating context.
+Version: 0.0.0.1
+Date: 2021-07-20
+Authors@R: c(
+    person("Florence", "Pittion", ,"florence.pittion@gmail.com", c("aut","cph")),
+    person("Florent", "Chuffart", ,"florent.chuffart@gmail.com", c("aut", "cre", "cph"))
+    )
+Maintainer: Florent Chuffart <florent.chuffart@gmail.com>
+License: GPL
+Encoding: UTF-8
+LazyData: TRUE
+Imports:
+    memoise, igraph, gplots, survival, grDevices, utils
+Depends:
+    methods
+RoxygenNote: 7.1.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

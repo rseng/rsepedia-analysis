@@ -1,0 +1,206 @@
+{
+    "package.json": {
+        "github/CDSP-SCPO/WPSS-for-ESS-webpanel": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "bootstrap": {
+            "credit": 0.02945250000000001,
+            "url": "https://getbootstrap.com/"
+        },
+        "bootstrap-icons": {
+            "credit": 0.00495000000000001,
+            "url": "https://icons.getbootstrap.com/"
+        },
+        "vnu-jar": {
+            "credit": 0.03450352040816326,
+            "url": "https://github.com/validator/validator#readme"
+        },
+        "terser": {
+            "credit": 0.010001020408163265,
+            "url": "https://terser.org"
+        },
+        "stylelint-config-twbs-bootstrap": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "stylelint": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "shelljs": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "sass-true": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "rtlcss": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "rollup-plugin-istanbul": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "postcss-cli": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "postcss": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "npm-run-all2": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "nodemon": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "lockfile-lint": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "karma-rollup-preprocessor": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-jasmine-html-reporter": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-jasmine": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-firefox-launcher": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-detect-browsers": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-coverage-istanbul-reporter": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-chrome-launcher": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma-browserstack-launcher": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "karma": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "jquery": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "jasmine": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "ip": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "hugo-bin": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "hammer-simulator": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "globby": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "find-unused-sass-variables": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "eslint-plugin-unicorn": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "eslint-plugin-html": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "eslint-config-xo": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "clean-css-cli": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "bundlewatch": {
+            "credit": 0.010001020408163265,
+            "url": null
+        },
+        "autoprefixer": {
+            "credit": 0.03450352040816326,
+            "url": null
+        },
+        "": {
+            "credit": 0.10451066326530611,
+            "url": null
+        },
+        "svgo": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "svg-sprite": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "picocolors": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "fuse.js": {
+            "credit": 0.0245025,
+            "url": null
+        },
+        "clipboard": {
+            "credit": 0.0245025,
+            "url": null
+        }
+    }
+}

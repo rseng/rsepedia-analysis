@@ -1,0 +1,126 @@
+{
+    "Gemfile": {
+        "github/odelaneau/GLIMPSE": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "spec": {
+            "credit": 0.00495000000000001,
+            "url": "https://github.com/bootstraponline/spec"
+        },
+        "webrick": {
+            "credit": 0.495,
+            "url": "https://github.com/ruby/webrick"
+        },
+        "hoe": {
+            "credit": 0.027785726372250005,
+            "url": "http://www.zenspider.com/projects/hoe.html"
+        },
+        "rdoc": {
+            "credit": 0.02832478137225001,
+            "url": "https://ruby.github.io/rdoc"
+        },
+        "chronic_duration": {
+            "credit": 0.00163350000000001,
+            "url": "https://github.com/hpoydar/chronic_duration"
+        },
+        "rake": {
+            "credit": 0.202836626128125,
+            "url": "https://github.com/ruby/rake"
+        },
+        "simplecov": {
+            "credit": 0.0005390550000000105,
+            "url": "https://github.com/simplecov-ruby/simplecov"
+        },
+        "psych": {
+            "credit": 0.0021508294500000025,
+            "url": "https://github.com/ruby/psych"
+        },
+        "rspec": {
+            "credit": 0.0005390550000000105,
+            "url": "http://github.com/rspec"
+        },
+        "numerizer": {
+            "credit": 0.053905499999999995,
+            "url": "http://github.com/jduff/numerizer"
+        },
+        "simplecov_json_formatter": {
+            "credit": 0.017788814999999996,
+            "url": "https://github.com/fede-moya/simplecov_json_formatter"
+        },
+        "simplecov-html": {
+            "credit": 0.017788814999999996,
+            "url": "https://github.com/simplecov-ruby/simplecov-html"
+        },
+        "docile": {
+            "credit": 0.017788814999999996,
+            "url": "https://ms-ati.github.io/docile/"
+        },
+        "jar-dependencies": {
+            "credit": 0.0021293211554999983,
+            "url": "https://github.com/mkristian/jar-dependencies"
+        },
+        "rspec-mocks": {
+            "credit": 0.00017788814999999958,
+            "url": "https://github.com/rspec/rspec-mocks"
+        },
+        "rspec-expectations": {
+            "credit": 0.00017788814999999958,
+            "url": "https://github.com/rspec/rspec-expectations"
+        },
+        "rspec-core": {
+            "credit": 0.00017788814999999958,
+            "url": "https://github.com/rspec/rspec-core"
+        },
+        "ruby-maven": {
+            "credit": 0.017963145386999998,
+            "url": "https://github.com/takari/ruby-maven"
+        },
+        "minitest": {
+            "credit": 0.04322504156849999,
+            "url": "https://github.com/seattlerb/minitest"
+        },
+        "rspec-support": {
+            "credit": 0.0049212756697499995,
+            "url": "https://github.com/rspec/rspec-support"
+        },
+        "diff-lcs": {
+            "credit": 0.005870308949999999,
+            "url": "https://github.com/halostatue/diff-lcs"
+        },
+        "cucumber": {
+            "credit": 0.007827078599999999,
+            "url": null
+        },
+        "aruba": {
+            "credit": 0.007827078599999999,
+            "url": null
+        },
+        "thread_order": {
+            "credit": 0.0034096711151249993,
+            "url": null
+        },
+        "rr": {
+            "credit": 0.0019567696499999997,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.0019567696499999997,
+            "url": null
+        },
+        "flexmock": {
+            "credit": 0.0019567696499999997,
+            "url": null
+        },
+        "coderay": {
+            "credit": 0.0019567696499999997,
+            "url": null
+        },
+        "ruby-maven-libs": {
+            "credit": 0.017434817581499996,
+            "url": null
+        }
+    }
+}

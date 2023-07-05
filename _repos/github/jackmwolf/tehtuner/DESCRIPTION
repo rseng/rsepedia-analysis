@@ -1,0 +1,43 @@
+Package: tehtuner
+Title: Fit and Tune Models to Detect Treatment Effect Heterogeneity
+Version: 0.3.2
+Authors@R: 
+    person(given = "Jack",
+           family = "Wolf",
+           role = c("aut", "cre"),
+           email = "jackwolf910@gmail.com",
+           comment = c(ORCID = "0000-0002-8919-8740"))
+Description: Implements methods to fit Virtual Twins models (Foster et al. 
+  (2011) <doi:10.1002/sim.4322>) for identifying subgroups with differential
+  effects in the context of clinical trials while controlling the probability
+  of falsely detecting a differential effect when the conditional average
+  treatment effect is uniform across the study population using parameter
+  selection methods proposed in Wolf et al. (2022) 
+  <doi:10.1177/17407745221095855>.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    party,
+    glmnet,
+    Rdpack,
+    rpart,
+    stringr,
+    SuperLearner,
+    randomForestSRC,
+    earth,
+    foreach
+RdMacros: Rdpack
+Suggests: 
+    knitr,
+    rmarkdown,
+    spelling,
+    testthat (>= 3.0.0)
+Language: en-US
+URL: https://github.com/jackmwolf/tehtuner
+BugReports: https://github.com/jackmwolf/tehtuner/issues
+Config/testthat/edition: 3

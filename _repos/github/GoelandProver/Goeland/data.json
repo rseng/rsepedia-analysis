@@ -1,0 +1,8 @@
+{
+    "go.mod": {
+        "github/GoelandProver/Goeland": {
+            "credit": 0.01,
+            "url": "https://github/GoelandProver/Goeland"
+        }
+    }
+}
