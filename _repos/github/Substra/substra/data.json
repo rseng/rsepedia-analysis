@@ -1,0 +1,238 @@
+{
+    "setup.py": {
+        "github/Substra/substra": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "requests": {
+            "credit": 0.001789323979591851,
+            "url": "https://requests.readthedocs.io"
+        },
+        "urllib3": {
+            "credit": 0.00691841873177844,
+            "url": "https://urllib3.readthedocs.io"
+        },
+        "docker": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/docker/docker-py"
+        },
+        "pyyaml": {
+            "credit": 0.14142857142857143,
+            "url": "https://pyyaml.org/"
+        },
+        "pydantic": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/samuelcolvin/pydantic"
+        },
+        "tqdm": {
+            "credit": 0.001414285714285729,
+            "url": "https://tqdm.github.io"
+        },
+        "python-slugify": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/un33k/python-slugify"
+        },
+        "win-inet-pton": {
+            "credit": 0.025306153425655974,
+            "url": "https://github.com/hickeroar/win_inet_pton"
+        },
+        "PySocks": {
+            "credit": 0.025306153425655974,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "charset-normalizer": {
+            "credit": 0.005504133017492712,
+            "url": "https://github.com/ousret/charset_normalizer"
+        },
+        "idna": {
+            "credit": 0.08039232944606414,
+            "url": "https://github.com/kjd/idna"
+        },
+        "chardet": {
+            "credit": 0.025306153425655974,
+            "url": "https://github.com/chardet/chardet"
+        },
+        "certifi": {
+            "credit": 0.04306352077259475,
+            "url": "https://certifiio.readthedocs.io/en/latest/"
+        },
+        "zstandard": {
+            "credit": 0.0023557959183673465,
+            "url": "https://github.com/indygreg/python-zstandard"
+        },
+        "pysocks": {
+            "credit": 0.017757367346938772,
+            "url": "https://github.com/Anorov/PySocks"
+        },
+        "urllib3-secure-extra": {
+            "credit": 0.017757367346938772,
+            "url": "https://github.com/urllib3/urllib3/issues/2680"
+        },
+        "pyopenssl": {
+            "credit": 0.0023557959183673465,
+            "url": "https://pyopenssl.org/"
+        },
+        "cryptography": {
+            "credit": 0.04610192602040816,
+            "url": "https://github.com/pyca/cryptography"
+        },
+        "brotlicffi": {
+            "credit": 0.0023557959183673465,
+            "url": "https://github.com/python-hyper/brotlicffi"
+        },
+        "brotli": {
+            "credit": 0.017757367346938772,
+            "url": "https://github.com/google/brotli"
+        },
+        "pyOpenSSL": {
+            "credit": 0.00020002040816326574,
+            "url": "https://pyopenssl.org/"
+        },
+        "paramiko": {
+            "credit": 0.00020002040816326574,
+            "url": "https://paramiko.org"
+        },
+        "pywin32": {
+            "credit": 0.022477293367346936,
+            "url": "https://github.com/mhammond/pywin32"
+        },
+        "websocket-client": {
+            "credit": 0.00020002040816326574,
+            "url": "https://github.com/websocket-client/websocket-client.git"
+        },
+        "email-validator": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/JoshData/python-email-validator"
+        },
+        "python-dotenv": {
+            "credit": 0.00035003571428571245,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "dataclasses": {
+            "credit": 0.035003571428571426,
+            "url": "https://github.com/ericvsmith/dataclasses"
+        },
+        "typing-extensions": {
+            "credit": 0.035003571428571426,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "slack-sdk": {
+            "credit": 0.017501785714285713,
+            "url": "https://github.com/slackapi/python-slack-sdk"
+        },
+        "ipywidgets": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/ipywidgets"
+        },
+        "wheel": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "twine": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/twine"
+        },
+        "py-make": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/py-make"
+        },
+        "importlib-resources": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "colorama": {
+            "credit": 0.017501785714285713,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "Unidecode": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/Unidecode"
+        },
+        "text-unidecode": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/text-unidecode"
+        },
+        "unicodedata2": {
+            "credit": 0.019802020408163264,
+            "url": "https://pypi.org/project/unicodedata2"
+        },
+        "cffi": {
+            "credit": 0.02310235714285714,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "pytest": {
+            "credit": 0.0058672653061224486,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pretend": {
+            "credit": 0.0058672653061224486,
+            "url": "https://pypi.org/project/pretend"
+        },
+        "flaky": {
+            "credit": 0.0058672653061224486,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.009827669387755101,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0058672653061224486,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "enum34": {
+            "credit": 0.007700785714285714,
+            "url": "https://pypi.org/project/enum34"
+        },
+        "gssapi": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/gssapi"
+        },
+        "invoke": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/invoke"
+        },
+        "pyasn1": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/pyasn1"
+        },
+        "six": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/six"
+        },
+        "pynacl": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/pynacl"
+        },
+        "bcrypt": {
+            "credit": 0.002475252551020408,
+            "url": "https://pypi.org/project/bcrypt"
+        },
+        "websockets": {
+            "credit": 0.003960404081632653,
+            "url": "https://pypi.org/project/websockets"
+        },
+        "wsaccel": {
+            "credit": 0.003960404081632653,
+            "url": "https://pypi.org/project/wsaccel"
+        },
+        "python-socks": {
+            "credit": 0.003960404081632653,
+            "url": "https://pypi.org/project/python-socks"
+        },
+        "Sphinx": {
+            "credit": 0.003960404081632653,
+            "url": "https://pypi.org/project/Sphinx"
+        },
+        "dnspython": {
+            "credit": 0.017326767857142857,
+            "url": "https://pypi.org/project/dnspython"
+        },
+        "click": {
+            "credit": 0.03465353571428571,
+            "url": "https://pypi.org/project/click"
+        }
+    }
+}

@@ -1,0 +1,362 @@
+{
+    "DESCRIPTION": {
+        "github/jackmwolf/tehtuner": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "party": {
+            "credit": 0.112475,
+            "url": "http://party.R-forge.R-project.org"
+        },
+        "glmnet": {
+            "credit": 0.0035750000000000035,
+            "url": "https://glmnet.stanford.edu"
+        },
+        "Rdpack": {
+            "credit": 0.0011000000000000038,
+            "url": "https://geobosh.github.io/Rdpack/"
+        },
+        "rpart": {
+            "credit": 0.0035750000000000035,
+            "url": "https://github.com/bethatkinson/rpart"
+        },
+        "stringr": {
+            "credit": 0.0011000000000000038,
+            "url": "http://stringr.tidyverse.org"
+        },
+        "SuperLearner": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/ecpolley/SuperLearner"
+        },
+        "randomForestSRC": {
+            "credit": 0.0011000000000000038,
+            "url": "https://www.randomforestsrc.org/"
+        },
+        "earth": {
+            "credit": 0.0035750000000000035,
+            "url": "http://www.milbo.users.sonic.net/earth/"
+        },
+        "foreach": {
+            "credit": 0.00947692307692308,
+            "url": "https://github.com/RevolutionAnalytics/foreach"
+        },
+        "rmarkdown": {
+            "credit": 0.03263192307692307,
+            "url": "https://github.com/rstudio/rmarkdown"
+        },
+        "xfun": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "testthat": {
+            "credit": 0.04352192307692308,
+            "url": null
+        },
+        "lars": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "knitr": {
+            "credit": 0.03263192307692307,
+            "url": null
+        },
+        "Rcpp": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "survival": {
+            "credit": 0.03923192307692308,
+            "url": null
+        },
+        "shape": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "utils": {
+            "credit": 0.030156923076923078,
+            "url": null
+        },
+        "methods": {
+            "credit": 0.019266923076923077,
+            "url": null
+        },
+        "Matrix": {
+            "credit": 0.008376923076923077,
+            "url": null
+        },
+        "R": {
+            "credit": 0.08798942307692308,
+            "url": null
+        },
+        "gbRd": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rprojroot": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "rstudioapi": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "grDevices": {
+            "credit": 0.032670000000000005,
+            "url": null
+        },
+        "rbibutils": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "tools": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "stats": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "graphics": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "htmlwidgets": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "htmltools": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "covr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "stringi": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "magrittr": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "glue": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "xgboost": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "sva": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "spls": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "speedglm": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "SIS": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "ROCR": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "RhpcBLASctl": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "ranger": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "randomForest": {
+            "credit": 0.013365,
+            "url": null
+        },
+        "quadprog": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "prettydoc": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "polspline": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "nnet": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "nloptr": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "mlbench": {
+            "credit": 0.01155,
+            "url": null
+        },
+        "MASS": {
+            "credit": 0.016087499999999998,
+            "url": null
+        },
+        "LogicReg": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "lattice": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "kernlab": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "KernelKnn": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "ipred": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "genefilter": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "gbm": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "gam": {
+            "credit": 0.016087499999999998,
+            "url": null
+        },
+        "extraTrees": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "e1071": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "devtools": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "class": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "caret": {
+            "credit": 0.01155,
+            "url": null
+        },
+        "bigmemory": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "biglasso": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "bartMachine": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "arm": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "cvAUC": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "nnls": {
+            "credit": 0.0024749999999999998,
+            "url": null
+        },
+        "cluster": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "imbalance": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "akima": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "prodlim": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "pec": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "DiagrammeR": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "data.tree": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.009075,
+            "url": null
+        },
+        "mda": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "mgcv": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "TeachingDemos": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "plotmo": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "Formula": {
+            "credit": 0.0136125,
+            "url": null
+        },
+        "doParallel": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "doMC": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "iterators": {
+            "credit": 0.01089,
+            "url": null
+        },
+        "codetools": {
+            "credit": 0.01089,
+            "url": null
+        }
+    }
+}

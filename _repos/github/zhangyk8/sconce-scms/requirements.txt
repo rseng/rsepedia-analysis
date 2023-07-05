@@ -1,0 +1,7 @@
+numpy
+scipy
+ray[default]
+scikit-learn
+sphinx>=1.4
+ipykernel
+nbsphinx

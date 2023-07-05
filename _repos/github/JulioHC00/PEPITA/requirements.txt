@@ -1,0 +1,8 @@
+numpy
+pymc3
+exoplanet
+matplotlib
+mkdocs >= 1.2.2
+sphinx-rtd-theme
+nbsphinx
+pepita

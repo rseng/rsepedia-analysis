@@ -1,0 +1,4 @@
+sphinx
+sphinx_astropy
+furo
+sphinxcontrib-mermaid

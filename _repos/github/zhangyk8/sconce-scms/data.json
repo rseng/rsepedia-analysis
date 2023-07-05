@@ -1,0 +1,346 @@
+{
+    "requirements.txt": {
+        "github/zhangyk8/sconce-scms": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.2905329318936877,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.010504360465116293,
+            "url": "https://www.scipy.org"
+        },
+        "ray": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/ray-project/ray"
+        },
+        "scikit-learn": {
+            "credit": 0.001414285714285729,
+            "url": "http://scikit-learn.org"
+        },
+        "sphinx": {
+            "credit": 0.17059821428571428,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "ipykernel": {
+            "credit": 0.001414285714285729,
+            "url": "https://ipython.org"
+        },
+        "nbsphinx": {
+            "credit": 0.001414285714285729,
+            "url": "https://nbsphinx.readthedocs.io/"
+        },
+        "urllib3": {
+            "credit": 0.003256146179401993,
+            "url": "https://urllib3.readthedocs.io"
+        },
+        "uvicorn": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/uvicorn"
+        },
+        "opentelemetry-exporter-otlp": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/opentelemetry-exporter-otlp"
+        },
+        "tabulate": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/tabulate"
+        },
+        "prometheus-client": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/prometheus-client"
+        },
+        "ray-cpp": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/ray-cpp"
+        },
+        "colorful": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/colorful"
+        },
+        "aiohttp": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "starlette": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/starlette"
+        },
+        "pandas": {
+            "credit": 0.009090074750830564,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "dm-tree": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/dm-tree"
+        },
+        "fastapi": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/fastapi"
+        },
+        "matplotlib": {
+            "credit": 0.009090074750830564,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "smart-open": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/smart-open"
+        },
+        "gpustat": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/gpustat"
+        },
+        "kubernetes": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/kubernetes"
+        },
+        "opentelemetry-api": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/opentelemetry-api"
+        },
+        "pyarrow": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "lz4": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/lz4"
+        },
+        "fsspec": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "scikit-image": {
+            "credit": 0.009090074750830564,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "opencensus": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/opencensus"
+        },
+        "tensorboardX": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/tensorboardX"
+        },
+        "aiorwlock": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/aiorwlock"
+        },
+        "py-spy": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/py-spy"
+        },
+        "aiohttp-cors": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/aiohttp-cors"
+        },
+        "gym": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/gym"
+        },
+        "opentelemetry-sdk": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/opentelemetry-sdk"
+        },
+        "dataclasses": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "virtualenv": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/virtualenv"
+        },
+        "requests": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/requests"
+        },
+        "frozenlist": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/frozenlist"
+        },
+        "aiosignal": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/aiosignal"
+        },
+        "pyyaml": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "protobuf": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "msgpack": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "jsonschema": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/jsonschema"
+        },
+        "grpcio": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "filelock": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "click": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/click"
+        },
+        "attrs": {
+            "credit": 0.003256146179401993,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "pyamg": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/pyamg"
+        },
+        "mypy": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "black": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/black"
+        },
+        "ruff": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/ruff"
+        },
+        "pytest-cov": {
+            "credit": 0.014584821428571426,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.014584821428571426,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "plotly": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/plotly"
+        },
+        "sphinxext-opengraph": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/sphinxext-opengraph"
+        },
+        "sphinx-prompt": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/sphinx-prompt"
+        },
+        "pooch": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/pooch"
+        },
+        "Pillow": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "numpydoc": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-gallery": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "seaborn": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/seaborn"
+        },
+        "memory-profiler": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/memory-profiler"
+        },
+        "threadpoolctl": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/threadpoolctl"
+        },
+        "joblib": {
+            "credit": 0.005833928571428571,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "pytest-timeout": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pre-commit": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "ipyparallel": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/ipyparallel"
+        },
+        "flaky": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/flaky"
+        },
+        "appnope": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/appnope"
+        },
+        "packaging": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "nest-asyncio": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/nest-asyncio"
+        },
+        "psutil": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "matplotlib-inline": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/matplotlib-inline"
+        },
+        "tornado": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "jupyter-client": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/jupyter-client"
+        },
+        "traitlets": {
+            "credit": 0.03208660714285714,
+            "url": "https://pypi.org/project/traitlets"
+        },
+        "ipython": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "debugpy": {
+            "credit": 0.008750892857142856,
+            "url": "https://pypi.org/project/debugpy"
+        },
+        "nbformat": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "jinja2": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "docutils": {
+            "credit": 0.023335714285714283,
+            "url": "https://pypi.org/project/docutils"
+        }
+    }
+}

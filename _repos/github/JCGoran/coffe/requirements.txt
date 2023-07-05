@@ -1,0 +1,9 @@
+c-compiler
+gsl
+fftw
+make
+automake
+autoconf
+autoconf-archive
+cython
+libconfig

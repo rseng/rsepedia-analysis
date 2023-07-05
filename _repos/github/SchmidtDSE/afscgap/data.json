@@ -1,0 +1,590 @@
+{
+    "package.json": {
+        "github/SchmidtDSE/afscgap": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "grunt": {
+            "credit": 0.0652385503846154,
+            "url": "https://gruntjs.com/"
+        },
+        "grunt-contrib-connect": {
+            "credit": 0.03597000000000002,
+            "url": "https://github.com/gruntjs/grunt-contrib-connect#readme"
+        },
+        "grunt-contrib-qunit": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/gruntjs/grunt-contrib-qunit#readme"
+        },
+        "through2": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/rvagg/through2#readme"
+        },
+        "temporary": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/vesln/temporary"
+        },
+        "grunt-eslint": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/sindresorhus/grunt-eslint#readme"
+        },
+        "grunt-contrib-watch": {
+            "credit": 0.006438503076923076,
+            "url": "https://github.com/gruntjs/grunt-contrib-watch#readme"
+        },
+        "grunt-contrib-nodeunit": {
+            "credit": 0.012306537692307691,
+            "url": "https://github.com/gruntjs/grunt-contrib-nodeunit#readme"
+        },
+        "eslint-config-grunt": {
+            "credit": 0.0014073230769230765,
+            "url": "http://gruntjs.com/contributing#syntax"
+        },
+        "difflet": {
+            "credit": 0.03407732307692307,
+            "url": "https://github.com/substack/difflet#readme"
+        },
+        "nopt": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/npm/nopt#readme"
+        },
+        "minimatch": {
+            "credit": 0.0024180512019230764,
+            "url": "https://github.com/isaacs/minimatch#readme"
+        },
+        "js-yaml": {
+            "credit": 0.017578973076923077,
+            "url": "https://github.com/nodeca/js-yaml#readme"
+        },
+        "iconv-lite": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/ashtuchkin/iconv-lite"
+        },
+        "grunt-legacy-util": {
+            "credit": 0.017578973076923077,
+            "url": "http://gruntjs.com/"
+        },
+        "grunt-legacy-log": {
+            "credit": 0.0014073230769230765,
+            "url": "http://gruntjs.com/"
+        },
+        "grunt-known-options": {
+            "credit": 0.017578973076923077,
+            "url": "http://gruntjs.com/"
+        },
+        "grunt-cli": {
+            "credit": 0.024080303076923076,
+            "url": "https://github.com/gruntjs/grunt-cli#readme"
+        },
+        "glob": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/isaacs/node-glob#readme"
+        },
+        "findup-sync": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/gulpjs/findup-sync#readme"
+        },
+        "exit": {
+            "credit": 0.0014073230769230765,
+            "url": null
+        },
+        "eventemitter2": {
+            "credit": 0.03407732307692307,
+            "url": "https://github.com/hij1nx/EventEmitter2#readme"
+        },
+        "dateformat": {
+            "credit": 0.0014073230769230765,
+            "url": "https://github.com/felixge/node-dateformat"
+        },
+        "grunt-contrib-jshint": {
+            "credit": 0.05455764346153847,
+            "url": "https://github.com/gruntjs/grunt-contrib-jshint#readme"
+        },
+        "grunt-contrib-internal": {
+            "credit": 0.045379886538461534,
+            "url": "https://github.com/gruntjs/grunt-contrib-internal#readme"
+        },
+        "serve-static": {
+            "credit": 0.03010666153846154,
+            "url": "https://github.com/expressjs/serve-static#readme"
+        },
+        "serve-index": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/expressjs/serve-index#readme"
+        },
+        "portscanner": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/baalexander/node-portscanner"
+        },
+        "opn": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/sindresorhus/open#readme"
+        },
+        "node-http2": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/kaazing/node-http2"
+        },
+        "morgan": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/expressjs/morgan#readme"
+        },
+        "connect-livereload": {
+            "credit": 0.00025130769230769304,
+            "url": "https://github.com/intesso/connect-livereload#readme"
+        },
+        "connect": {
+            "credit": 0.0052272,
+            "url": "https://github.com/senchalabs/connect#readme"
+        },
+        "async": {
+            "credit": 0.03195197802197802,
+            "url": "https://caolan.github.io/async/"
+        },
+        "qunit": {
+            "credit": 0.03267,
+            "url": "https://qunitjs.com"
+        },
+        "grunt-shell": {
+            "credit": 0.03590433,
+            "url": null
+        },
+        "puppeteer": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "p-each-series": {
+            "credit": 0.03267,
+            "url": null
+        },
+        "stream-spigot": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "standard": {
+            "credit": 0.005351058791208792,
+            "url": null
+        },
+        "polendina": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.029719019423076923,
+            "url": null
+        },
+        "hundreds": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.008846030769230769,
+            "url": null
+        },
+        "buffer": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "bl": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "readable-stream": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.00539055,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.020783235906593405,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.007380906923076923,
+            "url": null
+        },
+        "underscore.string": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "tiny-lr": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "gaze": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "lodash": {
+            "credit": 0.003267,
+            "url": null
+        },
+        "grunt-jscs": {
+            "credit": 0.00147015,
+            "url": null
+        },
+        "tap": {
+            "credit": 0.016477460048076924,
+            "url": null
+        },
+        "grunt-contrib-clean": {
+            "credit": 0.006841851923076923,
+            "url": null
+        },
+        "nodeunit-x": {
+            "credit": 0.006841851923076923,
+            "url": null
+        },
+        "eslint-plugin-pabigot": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "ent": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "traverse": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "charm": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "deep-is": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "": {
+            "credit": 0.023853183750000003,
+            "url": null
+        },
+        "abbrev": {
+            "credit": 0.0040429125,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.002358365625,
+            "url": null
+        },
+        "typedoc": {
+            "credit": 0.002358365625,
+            "url": null
+        },
+        "ts-node": {
+            "credit": 0.002358365625,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.002358365625,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.002358365625,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.0013476375,
+            "url": null
+        },
+        "c8": {
+            "credit": 0.004155215625,
+            "url": null
+        },
+        "brace-expansion": {
+            "credit": 0.0013476375,
+            "url": null
+        },
+        "unorm": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "request": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "errto": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "safer-buffer": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "hooker": {
+            "credit": 0.005943426923076923,
+            "url": null
+        },
+        "grunt-legacy-log-utils": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "colors": {
+            "credit": 0.00179685,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "memfs": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "path-scurry": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "minipass": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "jackspeak": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "foreground-child": {
+            "credit": 0.001010728125,
+            "url": null
+        },
+        "resolve": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.012158355906593407,
+            "url": null
+        },
+        "normalize-path": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "homedir-polyfill": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "expect": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "eslint-plugin-node": {
+            "credit": 0.0027989394230769227,
+            "url": null
+        },
+        "eslint-config-gulp": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "resolve-dir": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "micromatch": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "is-glob": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "detect-file": {
+            "credit": 0.0012439730769230768,
+            "url": null
+        },
+        "which": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "nodeunit": {
+            "credit": 0.002695275,
+            "url": null
+        },
+        "coveralls": {
+            "credit": 0.002695275,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.002695275,
+            "url": null
+        },
+        "benchmark": {
+            "credit": 0.002695275,
+            "url": null
+        },
+        "uglify-js": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "jshint": {
+            "credit": 0.005805207692307692,
+            "url": null
+        },
+        "read-package-json": {
+            "credit": 0.008293153846153846,
+            "url": null
+        },
+        "accepts": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "batch": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "debug": {
+            "credit": 0.006926668269230769,
+            "url": null
+        },
+        "escape-html": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "http-errors": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "mime-types": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "parseurl": {
+            "credit": 0.0053717019230769235,
+            "url": null
+        },
+        "after": {
+            "credit": 0.002261769230769231,
+            "url": null
+        },
+        "istanbul": {
+            "credit": 0.0039204,
+            "url": null
+        },
+        "supertest": {
+            "credit": 0.011902560576923078,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.011847362637362637,
+            "url": null
+        },
+        "is-number-like": {
+            "credit": 0.0035542087912087913,
+            "url": null
+        },
+        "eslint-config-standard": {
+            "credit": 0.005109175137362637,
+            "url": null
+        },
+        "xo": {
+            "credit": 0.008293153846153846,
+            "url": null
+        },
+        "is-wsl": {
+            "credit": 0.008293153846153846,
+            "url": null
+        },
+        "events": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "websocket-stream": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "assert": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "https-browserify": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "setimmediate": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "stream-browserify": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "timers-browserify": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "url": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "bunyan": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "docco": {
+            "credit": 0.0016586307692307693,
+            "url": null
+        },
+        "split": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "eslint-plugin-standard": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "eslint-plugin-promise": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "eslint-plugin-markdown": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "on-headers": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "on-finished": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "depd": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "basic-auth": {
+            "credit": 0.0015549663461538461,
+            "url": null
+        },
+        "express": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "utils-merge": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        },
+        "finalhandler": {
+            "credit": 0.0031099326923076922,
+            "url": null
+        }
+    }
+}

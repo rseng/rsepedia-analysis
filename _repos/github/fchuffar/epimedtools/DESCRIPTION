@@ -1,0 +1,36 @@
+Package: epimedtools
+Type: Package
+Title: Useful Tools Allowing Multi-Omics Analysis
+Description: A set of useful tools encapsulating some 'GEOquery' functions. This package relies on RC, caching features and memoisation to simplify, homogenize and speed up multi-omic analysis.
+Version: 0.0.1.9004
+Date: 2016-01-26
+Authors@R: c(
+    person("Florent", "Chuffart", ,"florent.chuffart@gmail.com", c("aut", "cre", "cph")),
+    person("Bernard", "Ycart", ,"bernard.ycart@imag.fr", "aut")
+    )
+Maintainer: Florent Chuffart <florent.chuffart@gmail.com>
+License: CeCILL
+LazyData: TRUE
+Imports:
+    seqinr,
+    gplots, 
+    shiny,
+    Biobase,
+    beanplot,
+    memoise,
+    affy,
+    survival,
+    GEOquery,
+    nortest,
+    DBI,
+    jsonlite,
+    httr,  
+    gtools
+Depends:
+    methods
+RoxygenNote: 6.1.1
+Suggests: knitr,
+    rmarkdown,
+    epimeddata,
+    testthat
+VignetteBuilder: knitr
