@@ -1,0 +1,20 @@
+Package: protopackage
+Type: Package
+Title: protopackage: package prototype
+Description: An empty R package build as a prototype. It illustrates development practices in R: documentation, literate programming, testing, versioning, continuous integration.
+Version: 0.0.1
+Date: 2023-01-10
+Authors@R: c(
+    person("Florent", "Chuffart", ,"florent.chuffart@gmail.com", c("aut", "cre", "cph")),
+    person("Magali", "Richard", ,"magali.richard@univ-grenoble-alpes.fr", "aut")
+    )
+Maintainer: Florent Chuffart <florent.chuffart@gmail.com>
+License: GPL  (>=3)
+LazyData: TRUE
+Encoding: UTF-8
+Imports:
+    stats,
+RoxygenNote: 6.1.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
