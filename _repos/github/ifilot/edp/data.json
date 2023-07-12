@@ -1,0 +1,18 @@
+{
+    "requirements.txt": {
+        "github/ifilot/edp": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.00495,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

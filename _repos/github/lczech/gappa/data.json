@@ -1,0 +1,478 @@
+{
+    "CMakeLists.txt": {
+        "github/lczech/gappa": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "spack": {
+        "cmake": {
+            "credit": 0.07120525500000002,
+            "url": "https://www.cmake.org"
+        },
+        "ninja": {
+            "credit": 0.020370487500000003,
+            "url": "https://ninja-build.org/"
+        },
+        "curl": {
+            "credit": 0.0008910000000000029,
+            "url": "https://curl.se/"
+        },
+        "zlib": {
+            "credit": 0.11768465688873628,
+            "url": "https://zlib.net"
+        },
+        "expat": {
+            "credit": 0.015002555192307695,
+            "url": "https://libexpat.github.io/"
+        },
+        "libarchive": {
+            "credit": 0.0008910000000000029,
+            "url": "https://www.libarchive.org"
+        },
+        "libuv": {
+            "credit": 0.0008910000000000029,
+            "url": "https://libuv.org"
+        },
+        "rhash": {
+            "credit": 0.0891,
+            "url": "https://sourceforge.net/projects/rhash/"
+        },
+        "qt": {
+            "credit": 0.0008910000000000029,
+            "url": "https://qt.io"
+        },
+        "ncurses": {
+            "credit": 0.008217247500000002,
+            "url": "https://invisible-island.net/ncurses/ncurses.html"
+        },
+        "python": {
+            "credit": 0.010336713750000004,
+            "url": "https://www.python.org/"
+        },
+        "py-sphinx": {
+            "credit": 0.0008910000000000029,
+            "url": "https://www.sphinx-doc.org/en/master/"
+        },
+        "re2c": {
+            "credit": 0.000441045000000001,
+            "url": "https://re2c.org/index.html"
+        },
+        "gnuconfig": {
+            "credit": 0.10911824876373626,
+            "url": "https://www.gnu.org/software/config/"
+        },
+        "pkgconfig": {
+            "credit": 0.05802016982142857,
+            "url": "http://pkgconf.org/"
+        },
+        "gnutls": {
+            "credit": 7.350750000000017e-05,
+            "url": "https://www.gnutls.org"
+        },
+        "mbedtls": {
+            "credit": 0.006858815192307692,
+            "url": "https://tls.mbed.org"
+        },
+        "nss": {
+            "credit": 0.001911195,
+            "url": "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
+        },
+        "openssl": {
+            "credit": 0.01602275019230769,
+            "url": "https://www.openssl.org"
+        },
+        "libidn2": {
+            "credit": 0.0011131135714285716,
+            "url": "https://gitlab.com/libidn/libidn2"
+        },
+        "nghttp2": {
+            "credit": 7.350750000000017e-05,
+            "url": "https://nghttp2.org/"
+        },
+        "libssh2": {
+            "credit": 0.00735075,
+            "url": "https://www.libssh2.org/"
+        },
+        "libssh": {
+            "credit": 0.00735075,
+            "url": null
+        },
+        "krb5": {
+            "credit": 0.00735075,
+            "url": null
+        },
+        "gmake": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "libbsd": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "bzip2": {
+            "credit": 0.014111555192307692,
+            "url": null
+        },
+        "lz4": {
+            "credit": 0.006785307692307692,
+            "url": null
+        },
+        "lzo": {
+            "credit": 0.006785307692307692,
+            "url": null
+        },
+        "xz": {
+            "credit": 0.014111555192307692,
+            "url": null
+        },
+        "zstd": {
+            "credit": 0.008622995192307692,
+            "url": null
+        },
+        "nettle": {
+            "credit": 0.007824913763736263,
+            "url": null
+        },
+        "libxml2": {
+            "credit": 0.008622995192307692,
+            "url": null
+        },
+        "iconv": {
+            "credit": 0.006785307692307692,
+            "url": null
+        },
+        "automake": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "autoconf": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "libtool": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "m4": {
+            "credit": 0.0176418,
+            "url": null
+        },
+        "icu4c": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "jpeg": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libmng": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libtiff": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "freetype": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "gtkplus": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "sqlite": {
+            "credit": 0.0115896825,
+            "url": null
+        },
+        "libpng": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libsm": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "pcre": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "inputproto": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "glib": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "dbus": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "assimp": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "harfbuzz": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "double-conversion": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "pcre2": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "llvm": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "flex": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "bison": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "gperf": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libdrm": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxcomposite": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxcursor": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxi": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxtst": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxrandr": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxdamage": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "gettext": {
+            "credit": 0.010203541071428571,
+            "url": null
+        },
+        "fontconfig": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libx11": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxcb": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxkbcommon": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "xcb-util-image": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "xcb-util-keysyms": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "xcb-util-renderutil": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "xcb-util-wm": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxext": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "libxrender": {
+            "credit": 0.0018376875,
+            "url": null
+        },
+        "readline": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "gdbm": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "libnsl": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "libffi": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "tk": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "tcl": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "uuid": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "tix": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "libxcrypt": {
+            "credit": 0.007326247499999999,
+            "url": null
+        },
+        "py-pip": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-wheel": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-flit-core": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-setuptools": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-applehelp": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-devhelp": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-jsmath": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-htmlhelp": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-serializinghtml": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-qthelp": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-jinja2": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-pygments": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-docutils": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-snowballstemmer": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-babel": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-alabaster": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-imagesize": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-requests": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-packaging": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-importlib-metadata": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-colorama": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinxcontrib-websupport": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-six": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "py-sphinx-rtd-theme": {
+            "credit": 0.00352836,
+            "url": null
+        },
+        "guile": {
+            "credit": 0.0010396060714285714,
+            "url": null
+        },
+        "perl": {
+            "credit": 0.005457931875,
+            "url": null
+        },
+        "nspr": {
+            "credit": 0.0024257475,
+            "url": null
+        },
+        "ca-certificates-mozilla": {
+            "credit": 0.0018193106249999999,
+            "url": null
+        },
+        "nasm": {
+            "credit": 0.0018193106249999999,
+            "url": null
+        },
+        "libunistring": {
+            "credit": 0.0036386212499999997,
+            "url": null
+        }
+    }
+}
