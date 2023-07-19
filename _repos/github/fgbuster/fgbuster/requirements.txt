@@ -1,0 +1,11 @@
+sphinx
+numdifftools
+travis-sphinx
+healpy
+scipy==1.2
+numpy
+sympy>=1.1.1
+six
+pysm3
+parameterized
+tqdm
