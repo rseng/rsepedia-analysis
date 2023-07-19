@@ -17952,7 +17952,43 @@
         "github/JulianBMunoz/RelicFast": [],
         "github/EdanRein/pyPplusS": [],
         "github/cconroy20/alf": [],
-        "github/mtceballos/SIRENAdoc": []
+        "github/mtceballos/SIRENAdoc": [],
+        "github/ulebreui/shark": [],
+        "github/oliverphilcox/PolyBin": [],
+        "github/fgbuster/fgbuster": [],
+        "github/Extraweich/homopy": [],
+        "github/eXtremeGravityInstitute/LISA-Massive-Black-Hole": [],
+        "github/DMGW-Goethe/imripy": [],
+        "github/hpc4cmb/toast": [],
+        "github/taxprofiler/taxpasta": [
+            "metagenomics",
+            "python",
+            "standardisation",
+            "bioinformatics",
+            "profiling",
+            "classification",
+            "metagenomic-classification",
+            "taxonomic-classifications",
+            "taxonomic-profiling"
+        ],
+        "github/lgbouma/gyro-interp": [],
+        "github/jrenaud90/TidalPy": [
+            "science-research",
+            "tides",
+            "exoplanets",
+            "planetary-science",
+            "orbital-mechanics",
+            "orbital-dynamics"
+        ],
+        "github/marbl/MashMap": [],
+        "github/geodynamics/burnman": [],
+        "github/QuaCaTeam/quaca": [
+            "physics",
+            "fluctuations",
+            "integration",
+            "casimir",
+            "quantum"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -22882,7 +22918,20 @@
         "github/JulianBMunoz/RelicFast": "C",
         "github/EdanRein/pyPplusS": "Python",
         "github/cconroy20/alf": "Fortran",
-        "github/mtceballos/SIRENAdoc": "HTML"
+        "github/mtceballos/SIRENAdoc": "HTML",
+        "github/ulebreui/shark": "Fortran",
+        "github/oliverphilcox/PolyBin": "Jupyter Notebook",
+        "github/fgbuster/fgbuster": "Python",
+        "github/Extraweich/homopy": "Python",
+        "github/eXtremeGravityInstitute/LISA-Massive-Black-Hole": "C",
+        "github/DMGW-Goethe/imripy": "Jupyter Notebook",
+        "github/hpc4cmb/toast": "C++",
+        "github/taxprofiler/taxpasta": "Python",
+        "github/lgbouma/gyro-interp": "Python",
+        "github/jrenaud90/TidalPy": "Jupyter Notebook",
+        "github/marbl/MashMap": "C++",
+        "github/geodynamics/burnman": "Python",
+        "github/QuaCaTeam/quaca": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -27812,7 +27861,20 @@
         "github/JulianBMunoz/RelicFast": "https://github.com/JulianBMunoz/RelicFast",
         "github/EdanRein/pyPplusS": "https://github.com/EdanRein/pyPplusS",
         "github/cconroy20/alf": "https://github.com/cconroy20/alf",
-        "github/mtceballos/SIRENAdoc": "https://github.com/mtceballos/SIRENAdoc"
+        "github/mtceballos/SIRENAdoc": "https://github.com/mtceballos/SIRENAdoc",
+        "github/ulebreui/shark": "https://github.com/ulebreui/shark",
+        "github/oliverphilcox/PolyBin": "https://github.com/oliverphilcox/PolyBin",
+        "github/fgbuster/fgbuster": "https://github.com/fgbuster/fgbuster",
+        "github/Extraweich/homopy": "https://github.com/Extraweich/homopy",
+        "github/eXtremeGravityInstitute/LISA-Massive-Black-Hole": "https://github.com/eXtremeGravityInstitute/LISA-Massive-Black-Hole",
+        "github/DMGW-Goethe/imripy": "https://github.com/DMGW-Goethe/imripy",
+        "github/hpc4cmb/toast": "https://github.com/hpc4cmb/toast",
+        "github/taxprofiler/taxpasta": "https://github.com/taxprofiler/taxpasta",
+        "github/lgbouma/gyro-interp": "https://github.com/lgbouma/gyro-interp",
+        "github/jrenaud90/TidalPy": "https://github.com/jrenaud90/TidalPy",
+        "github/marbl/MashMap": "https://github.com/marbl/MashMap",
+        "github/geodynamics/burnman": "https://github.com/geodynamics/burnman",
+        "github/QuaCaTeam/quaca": "https://github.com/QuaCaTeam/quaca"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -32742,6 +32804,19 @@
         "github/JulianBMunoz/RelicFast": "Code to find scale-dependent halo bias quickly and accurately",
         "github/EdanRein/pyPplusS": "pyPplusS code package for modeling exoplanets with rings",
         "github/cconroy20/alf": "Absorption Line Fitter",
-        "github/mtceballos/SIRENAdoc": "SIRENA documentation"
+        "github/mtceballos/SIRENAdoc": "SIRENA documentation",
+        "github/ulebreui/shark": "This is the public repository of the shark code (Lebreuilly et al., 2023)",
+        "github/oliverphilcox/PolyBin": "Binned polyspectrum estimation on the full sky, optionally polarized and mask-deconvolved",
+        "github/fgbuster/fgbuster": "Parametric component separation for Cosmic Microwave Background observations",
+        "github/Extraweich/homopy": "Your solution for stiffness problems",
+        "github/eXtremeGravityInstitute/LISA-Massive-Black-Hole": null,
+        "github/DMGW-Goethe/imripy": "A python code able to simulate Intermediate Mass Ratio Inspirals (IMRI)",
+        "github/hpc4cmb/toast": "Time Ordered Astrophysics Scalable Tools",
+        "github/taxprofiler/taxpasta": "TAXnomic Profile Aggregation and STAndardisation",
+        "github/lgbouma/gyro-interp": "Gyrochronology via interpolation of open cluster rotation sequences.",
+        "github/jrenaud90/TidalPy": "Software suite to perform solid-body tidal dissipation calculations for rocky and icy worlds",
+        "github/marbl/MashMap": "A fast approximate aligner for long DNA sequences",
+        "github/geodynamics/burnman": "BurnMan is a library for modeling mantle thermodynamics and thermoelasticity constrained by mineral physics experiments.",
+        "github/QuaCaTeam/quaca": "QuaCa is an open-source library which provides fast calculations of nonequilibrium atom-surface interactions."
     }
 }
