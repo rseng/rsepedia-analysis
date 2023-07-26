@@ -17988,6 +17988,91 @@
             "integration",
             "casimir",
             "quantum"
+        ],
+        "github/codemeleon/seqPanther": [],
+        "github/ECP-WarpX/WarpX": [
+            "laser",
+            "plasma",
+            "physics",
+            "gpu",
+            "simulation",
+            "particle-in-cell",
+            "pic",
+            "research"
+        ],
+        "github/mkplummer/Imber": [],
+        "github/mdolab/pygeo": [
+            "mach"
+        ],
+        "github/mathLab/PINA": [
+            "physics-informed-neural-networks",
+            "modeling",
+            "machine-learning",
+            "deep-learning",
+            "python",
+            "pytorch",
+            "differential-equations",
+            "neural-network",
+            "ode",
+            "pde",
+            "physics-informed",
+            "hacktoberfest",
+            "lightining",
+            "pinn"
+        ],
+        "github/carlodev/SyntheticEddyMethod.jl": [],
+        "github/mlujnie/simple": [],
+        "github/esquivas/guacho": [],
+        "github/paulbrodersen/netgraph": [
+            "network",
+            "visualization",
+            "network-analysis",
+            "publication-quality-plots",
+            "graph",
+            "graph-tool",
+            "igraph",
+            "matplotlib",
+            "network-science",
+            "networkx",
+            "python"
+        ],
+        "github/mpi4py/shmem4py": [],
+        "github/rribeiro-sci/pygomodo": [
+            "bioinformatics",
+            "bioinformatics-pipeline",
+            "bioinformatics-tool",
+            "gpcr",
+            "homology-modeling",
+            "molecular-docking"
+        ],
+        "github/roualdes/bridgestan": [
+            "c",
+            "cpp",
+            "julia",
+            "python",
+            "r",
+            "stan"
+        ],
+        "github/msyazwanfaid/hilalpy": [],
+        "github/dib-lab/dammit": [
+            "annotation",
+            "transcriptomics",
+            "bioinformatics"
+        ],
+        "github/bcgsc/goldrush": [
+            "bioinformatics",
+            "bioinformatics-tool",
+            "genome-assembly",
+            "long-read-sequencing"
+        ],
+        "github/bcgsc/tigmint": [
+            "misassembly-correction",
+            "genome-scaffolding",
+            "genome-assembly",
+            "linked-reads",
+            "10xgenomics",
+            "bioinformatics",
+            "bioinformatics-tool"
         ]
     },
     "language": {
@@ -22931,7 +23016,23 @@
         "github/jrenaud90/TidalPy": "Jupyter Notebook",
         "github/marbl/MashMap": "C++",
         "github/geodynamics/burnman": "Python",
-        "github/QuaCaTeam/quaca": "C++"
+        "github/QuaCaTeam/quaca": "C++",
+        "github/codemeleon/seqPanther": "Python",
+        "github/ECP-WarpX/WarpX": "C++",
+        "github/mkplummer/Imber": "Jupyter Notebook",
+        "github/mdolab/pygeo": "Python",
+        "github/mathLab/PINA": "Python",
+        "github/carlodev/SyntheticEddyMethod.jl": "Julia",
+        "github/mlujnie/simple": "Python",
+        "github/esquivas/guacho": "Fortran",
+        "github/paulbrodersen/netgraph": "Python",
+        "github/mpi4py/shmem4py": "Python",
+        "github/rribeiro-sci/pygomodo": "Python",
+        "github/roualdes/bridgestan": "Python",
+        "github/msyazwanfaid/hilalpy": "Jupyter Notebook",
+        "github/dib-lab/dammit": "Python",
+        "github/bcgsc/goldrush": "C++",
+        "github/bcgsc/tigmint": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -27874,7 +27975,23 @@
         "github/jrenaud90/TidalPy": "https://github.com/jrenaud90/TidalPy",
         "github/marbl/MashMap": "https://github.com/marbl/MashMap",
         "github/geodynamics/burnman": "https://github.com/geodynamics/burnman",
-        "github/QuaCaTeam/quaca": "https://github.com/QuaCaTeam/quaca"
+        "github/QuaCaTeam/quaca": "https://github.com/QuaCaTeam/quaca",
+        "github/codemeleon/seqPanther": "https://github.com/codemeleon/seqPanther",
+        "github/ECP-WarpX/WarpX": "https://github.com/ECP-WarpX/WarpX",
+        "github/mkplummer/Imber": "https://github.com/mkplummer/Imber",
+        "github/mdolab/pygeo": "https://github.com/mdolab/pygeo",
+        "github/mathLab/PINA": "https://github.com/mathLab/PINA",
+        "github/carlodev/SyntheticEddyMethod.jl": "https://github.com/carlodev/SyntheticEddyMethod.jl",
+        "github/mlujnie/simple": "https://github.com/mlujnie/simple",
+        "github/esquivas/guacho": "https://github.com/esquivas/guacho",
+        "github/paulbrodersen/netgraph": "https://github.com/paulbrodersen/netgraph",
+        "github/mpi4py/shmem4py": "https://github.com/mpi4py/shmem4py",
+        "github/rribeiro-sci/pygomodo": "https://github.com/rribeiro-sci/pygomodo",
+        "github/roualdes/bridgestan": "https://github.com/roualdes/bridgestan",
+        "github/msyazwanfaid/hilalpy": "https://github.com/msyazwanfaid/hilalpy",
+        "github/dib-lab/dammit": "https://github.com/dib-lab/dammit",
+        "github/bcgsc/goldrush": "https://github.com/bcgsc/goldrush",
+        "github/bcgsc/tigmint": "https://github.com/bcgsc/tigmint"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -32817,6 +32934,22 @@
         "github/jrenaud90/TidalPy": "Software suite to perform solid-body tidal dissipation calculations for rocky and icy worlds",
         "github/marbl/MashMap": "A fast approximate aligner for long DNA sequences",
         "github/geodynamics/burnman": "BurnMan is a library for modeling mantle thermodynamics and thermoelasticity constrained by mineral physics experiments.",
-        "github/QuaCaTeam/quaca": "QuaCa is an open-source library which provides fast calculations of nonequilibrium atom-surface interactions."
+        "github/QuaCaTeam/quaca": "QuaCa is an open-source library which provides fast calculations of nonequilibrium atom-surface interactions.",
+        "github/codemeleon/seqPanther": "Variant Caller and Patcher",
+        "github/ECP-WarpX/WarpX": "WarpX is an advanced, time-based electromagnetic & electrostatic Particle-In-Cell code.",
+        "github/mkplummer/Imber": "Python module for both numerical simulation of stellar/substellar surfaces and fitting the resulting spectral line profiles and photometric light curves with analytical models.",
+        "github/mdolab/pygeo": "pyGeo provides geometric design variables and constraints suitable for gradient-based optimization.",
+        "github/mathLab/PINA": "Physics-Informed Neural networks for Advanced modeling",
+        "github/carlodev/SyntheticEddyMethod.jl": null,
+        "github/mlujnie/simple": "Simple Intensity Map Producer for Line Emission (public code)",
+        "github/esquivas/guacho": "A 3D uniform mesh parallel HD/MHD code for astrophysics",
+        "github/paulbrodersen/netgraph": "Publication-quality network visualisations in python",
+        "github/mpi4py/shmem4py": null,
+        "github/rribeiro-sci/pygomodo": "GPCRs modeling and docking with python",
+        "github/roualdes/bridgestan": "BridgeStan provides efficient in-memory access through Python, Julia, and R to the methods of a Stan model.",
+        "github/msyazwanfaid/hilalpy": "A package to analyse the data of Moon sighting for lunar crescent visibility criterion",
+        "github/dib-lab/dammit": "just annotate it, dammit!",
+        "github/bcgsc/goldrush": "Linear-time de novo Long Read Assembler",
+        "github/bcgsc/tigmint": "\u26d3 Correct misassemblies using linked AND long reads"
     }
 }

@@ -1,0 +1,30 @@
+{
+    "requirements.txt": {
+        "github/paulbrodersen/netgraph": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0039402,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00198,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.00198,
+            "url": "https://matplotlib.org"
+        },
+        "rectangle-packer": {
+            "credit": 0.00198,
+            "url": "https://github.com/Penlect/rectangle-packer"
+        },
+        "grandalf": {
+            "credit": 0.00198,
+            "url": "https://github.com/bdcht/grandalf"
+        }
+    }
+}
