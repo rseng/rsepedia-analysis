@@ -1,0 +1,5 @@
+intervaltree
+pybedtools
+pysam
+numpy
+btllib <=1.4.10

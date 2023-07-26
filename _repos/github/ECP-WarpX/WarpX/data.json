@@ -1,0 +1,26 @@
+{
+    "requirements.txt": {
+        "github/ECP-WarpX/WarpX": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.006550665000000001,
+            "url": "https://www.numpy.org"
+        },
+        "periodictable": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/pkienzle/periodictable"
+        },
+        "picmistandard": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/picmi-standard/picmi"
+        },
+        "scipy": {
+            "credit": 0.0016335,
+            "url": "https://www.scipy.org"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/mlujnie/simple": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "mpi4py": {
+            "credit": 0.00495,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        },
+        "numpy": {
+            "credit": 0.00495,
+            "url": "https://www.numpy.org"
+        }
+    }
+}
