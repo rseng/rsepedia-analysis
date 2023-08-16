@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(density-fitness VERSION 1.0.9 LANGUAGES CXX)
+project(density-fitness VERSION 1.0.10 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -88,7 +88,7 @@ endif()
 
 # Create a revision file, containing the current git version info
 include(VersionString)
-write_version_header()
+write_version_header("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # Optionally use mrc to create resources
 find_package(Mrc QUIET)

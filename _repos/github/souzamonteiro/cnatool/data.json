@@ -1,0 +1,430 @@
+{
+    "package.json": {
+        "github/souzamonteiro/cnatool": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "algebrite": {
+            "credit": 0.12375,
+            "url": "https://github.com/davidedc/Algebrite#readme"
+        },
+        "cross-blob": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/Richienb/cross-blob#readme"
+        },
+        "glob": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/isaacs/node-glob#readme"
+        },
+        "gpu.js": {
+            "credit": 0.0012374999999999886,
+            "url": "http://gpu.rocks/"
+        },
+        "jsdoc": {
+            "credit": 0.0012375000000000025,
+            "url": "https://github.com/jsdoc/jsdoc#readme"
+        },
+        "jsdom": {
+            "credit": 0.004702853571428574,
+            "url": "https://github.com/jsdom/jsdom#readme"
+        },
+        "web-worker": {
+            "credit": 0.12375,
+            "url": "https://github.com/developit/web-worker"
+        },
+        "websql": {
+            "credit": 0.12375,
+            "url": "https://github.com/nolanlawson/node-websql#readme"
+        },
+        "xo": {
+            "credit": 0.03309587678571428,
+            "url": "https://github.com/xojs/xo#readme"
+        },
+        "is-blob": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/sindresorhus/is-blob#readme"
+        },
+        "get-stream": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/sindresorhus/get-stream#readme"
+        },
+        "eslint-config-richienb": {
+            "credit": 0.00017501785714285623,
+            "url": ""
+        },
+        "ava": {
+            "credit": 0.024432492857142857,
+            "url": "https://avajs.dev"
+        },
+        "fetch-blob": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/node-fetch/fetch-blob#readme"
+        },
+        "blob-polyfill": {
+            "credit": 0.00017501785714285623,
+            "url": "https://github.com/bjornstar/blob-polyfill"
+        },
+        "typescript": {
+            "credit": 0.011988723214285714,
+            "url": "https://www.typescriptlang.org/"
+        },
+        "typedoc": {
+            "credit": 0.00765703125,
+            "url": "https://typedoc.org"
+        },
+        "ts-node": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "tap": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "mkdirp": {
+            "credit": 0.01378265625,
+            "url": null
+        },
+        "memfs": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "c8": {
+            "credit": 0.017315353649068325,
+            "url": null
+        },
+        "": {
+            "credit": 0.05404007454150578,
+            "url": null
+        },
+        "path-scurry": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "minipass": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "minimatch": {
+            "credit": 0.010968179898648648,
+            "url": null
+        },
+        "jackspeak": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "foreground-child": {
+            "credit": 0.00765703125,
+            "url": null
+        },
+        "vinyl-source-stream": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "vinyl-buffer": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "sinon": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "read-dir-deep": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "qunit": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "merge-stream": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-uglify-es": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-strip-comments": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-replace": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-rename": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-jsbeautifier": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-header": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp-concat": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gulp": {
+            "credit": 0.011452255434782609,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "browser-sync": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "benchmark": {
+            "credit": 0.008637779083431257,
+            "url": null
+        },
+        "webgpu": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gpu-mock.js": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gl-wiretap": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "gl": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "acorn": {
+            "credit": 0.005326630434782609,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "gulp-json-editor": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "gulp-eslint": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "ajv": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "underscore": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "strip-json-comments": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "requizzle": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "marked": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "markdown-it-anchor": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "markdown-it": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "klaw": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "js2xmlparser": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "escape-string-regexp": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "catharsis": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "bluebird": {
+            "credit": 0.006125625,
+            "url": null
+        },
+        "yargs": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "webidl2js": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "server-destroy": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "pngjs": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "mocha-sugar-free": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.009086737934362935,
+            "url": null
+        },
+        "js-yaml": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "eslint-plugin-jsdom-internal": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "eslint-plugin-html": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.009086737934362935,
+            "url": null
+        },
+        "chai": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "xml-name-validator": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "ws": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "whatwg-url": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "whatwg-mimetype": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "whatwg-encoding": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "webidl-conversions": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "w3c-xmlserializer": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "tough-cookie": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "symbol-tree": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "saxes": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "rrweb-cssom": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "parse5": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "nwsapi": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "is-potential-custom-element-name": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "https-proxy-agent": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "http-proxy-agent": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "html-encoding-sniffer": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "form-data": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "domexception": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "decimal.js": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "data-urls": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "cssstyle": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "abab": {
+            "credit": 0.0033111486486486486,
+            "url": null
+        },
+        "tsd": {
+            "credit": 0.006930707142857142,
+            "url": null
+        },
+        "into-stream": {
+            "credit": 0.003465353571428571,
+            "url": null
+        },
+        "eslint-config-xo-nextjs": {
+            "credit": 0.008663383928571428,
+            "url": null
+        },
+        "node-domexception": {
+            "credit": 0.004331691964285714,
+            "url": null
+        }
+    }
+}

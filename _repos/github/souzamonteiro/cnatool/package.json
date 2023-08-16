@@ -1,0 +1,53 @@
+{
+    "name": "cnatool",
+    "version": "2.1.1",
+    "description": "Complex Network Analysis Tool.",
+    "keywords": [
+        "maia",
+        "maiascript",
+        "programming language",
+        "scientific computing",
+        "complex network",
+        "complex network analysis",
+        "semantic network",
+        "semantic network analysis",
+        "smallword",
+        "scale-free",
+        "clustering",
+        "shortest path"
+    ],
+    "author": "The MaiaScript Team (https://www.maiascript.com)",
+    "license": "Apache-2.0",
+    "homepage": "https://www.maiascript.com",
+    "bugs": {
+        "url": "https://github.com/souzamonteiro/cnatool/issues"
+    },
+    "main": "bin/cnatool.js",
+    "bin": {
+        "cnatool": "./bin/cnatool.js"
+    },
+    "dependencies": {
+        "algebrite": "^1.3.1",
+        "cross-blob": "^2.0.0",
+        "glob": "^7.1.6",
+        "gpu.js": "^2.4.0",
+        "jsdoc": "^4.0.2",
+        "jsdom": "^16.2.2",
+        "web-worker": "^1.0.0",
+        "websql": "^2.0.3"
+    },
+    "scripts": {
+        "build": "./build.sh",
+        "test": "./test.sh"
+    },
+    "directories": {
+        "example": "examples"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/souzamonteiro/cnatool.git"
+    },
+    "devDependencies": {
+        "sigma": "^1.2.1"
+    }
+}

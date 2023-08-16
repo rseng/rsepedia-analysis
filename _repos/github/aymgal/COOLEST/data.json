@@ -1,0 +1,122 @@
+{
+    "Gemfile": {
+        "github/aymgal/COOLEST": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "coveralls": {
+            "credit": 0.00990000000000002,
+            "url": "https://coveralls.io"
+        },
+        "tins": {
+            "credit": 0.027609212812500006,
+            "url": "https://github.com/flori/tins"
+        },
+        "thor": {
+            "credit": 0.00163350000000001,
+            "url": "http://whatisthor.com/"
+        },
+        "term-ansicolor": {
+            "credit": 0.01239775453125001,
+            "url": "http://flori.github.com/term-ansicolor"
+        },
+        "simplecov": {
+            "credit": 0.015581548125000011,
+            "url": "https://github.com/simplecov-ruby/simplecov"
+        },
+        "json": {
+            "credit": 0.16335,
+            "url": "http://flori.github.io/json/"
+        },
+        "bundler": {
+            "credit": 0.34284419699062496,
+            "url": "https://bundler.io/"
+        },
+        "sync": {
+            "credit": 0.00520524984375,
+            "url": "https://github.com/ruby/sync"
+        },
+        "utils": {
+            "credit": 0.005205249843749996,
+            "url": "http://github.com/flori/utils"
+        },
+        "test-unit": {
+            "credit": 0.010679353368750002,
+            "url": "http://test-unit.github.io/"
+        },
+        "gem_hadar": {
+            "credit": 0.03118096265625,
+            "url": "http://github.com/flori/gem_hadar"
+        },
+        "debug": {
+            "credit": 0.00742885171875,
+            "url": "https://github.com/ruby/debug"
+        },
+        "all_images": {
+            "credit": 0.00742885171875,
+            "url": "http://github.com/flori/all_images"
+        },
+        "simplecov_json_formatter": {
+            "credit": 0.07391791687499999,
+            "url": "https://github.com/fede-moya/simplecov_json_formatter"
+        },
+        "simplecov-html": {
+            "credit": 0.07391791687499999,
+            "url": "https://github.com/simplecov-ruby/simplecov-html"
+        },
+        "docile": {
+            "credit": 0.07391791687499999,
+            "url": "https://ms-ati.github.io/docile/"
+        },
+        "rake": {
+            "credit": 0.036122412459374996,
+            "url": "https://github.com/ruby/rake"
+        },
+        "search_ui": {
+            "credit": 0.002223601875,
+            "url": null
+        },
+        "pstree": {
+            "credit": 0.002223601875,
+            "url": null
+        },
+        "mize": {
+            "credit": 0.002223601875,
+            "url": null
+        },
+        "infobar": {
+            "credit": 0.002223601875,
+            "url": null
+        },
+        "power_assert": {
+            "credit": 0.011106891365624998,
+            "url": null
+        },
+        "yard": {
+            "credit": 0.026116204021875,
+            "url": null
+        },
+        "packnga": {
+            "credit": 0.011106891365624998,
+            "url": null
+        },
+        "kramdown": {
+            "credit": 0.011106891365624998,
+            "url": null
+        },
+        "reline": {
+            "credit": 0.010006208437499999,
+            "url": null
+        },
+        "irb": {
+            "credit": 0.010006208437499999,
+            "url": null
+        },
+        "rspec": {
+            "credit": 0.0033354028124999995,
+            "url": null
+        }
+    }
+}

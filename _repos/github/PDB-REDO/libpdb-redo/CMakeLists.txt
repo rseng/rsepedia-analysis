@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(pdb-redo VERSION 3.0.6 LANGUAGES CXX C)
+project(libpdb-redo VERSION 3.0.7 LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -42,7 +42,7 @@ include(Dart)
 include(GenerateExportHeader)
 
 set(CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -120,7 +120,7 @@ endif()
 
 # Create a revision file, containing the current git version info
 include(VersionString)
-write_version_header("${PROJECT_SOURCE_DIR}/src" "LibPDBREDO")
+write_version_header("${PROJECT_SOURCE_DIR}/src" LIB_NAME "LibPDBREDO")
 
 # Sources
 set(project_sources
@@ -136,6 +136,7 @@ set(project_sources
 	${PROJECT_SOURCE_DIR}/src/Statistics.cpp
 	${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
 	${PROJECT_SOURCE_DIR}/src/Restraints.cpp
+	${PROJECT_SOURCE_DIR}/src/Version.cpp
 )
 
 set(project_headers
@@ -151,6 +152,7 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Statistics.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
+	${PROJECT_SOURCE_DIR}/include/pdb-redo/Version.hpp
 )
 
 add_library(pdb-redo ${project_sources} ${project_headers})
