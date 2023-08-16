@@ -120,6 +120,8 @@ set(LIB_SOURCE_FILES
     dorado/nn/ModBaseRunner.h
     dorado/nn/Runners.cpp
     dorado/nn/Runners.h
+    dorado/read_pipeline/Pipelines.cpp
+    dorado/read_pipeline/Pipelines.h
     dorado/read_pipeline/FakeDataLoader.cpp
     dorado/read_pipeline/FakeDataLoader.h
     dorado/read_pipeline/ReadPipeline.cpp
@@ -151,6 +153,8 @@ set(LIB_SOURCE_FILES
     dorado/read_pipeline/ProgressTracker.h
     dorado/read_pipeline/ResumeLoaderNode.cpp
     dorado/read_pipeline/ResumeLoaderNode.h
+    dorado/read_pipeline/DuplexReadTaggingNode.cpp
+    dorado/read_pipeline/DuplexReadTaggingNode.h
     dorado/decode/beam_search.cpp
     dorado/decode/fast_hash.cpp
     dorado/decode/fast_hash.h
@@ -328,6 +332,10 @@ if(NOT DORADO_LIB_ONLY)
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
     )
+
+    if(MSVC)
+        set_target_properties(dorado PROPERTIES LINK_OPTIONS "/ignore:4099")
+    endif()
 
     target_precompile_headers(dorado REUSE_FROM dorado_lib)
 

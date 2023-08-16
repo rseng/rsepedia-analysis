@@ -1,0 +1,52 @@
+Package: multiWGCNA
+Type: Package
+Title: multiWGCNA
+Version: 0.99.4
+Authors@R: c(
+    person("Dario", "Tommasini", email="dtommasini0@gmail.com", 
+      role = c("aut","cre"), 
+      comment = c(ORCID = "0000-0002-1214-6547")),
+    person("Brent", "Fogel", role = c("aut","ctb")))
+Description: An R package for deeping mining gene co-expression networks in 
+    multi-trait expression data. Provides functions for analyzing, comparing, 
+    and visualizing WGCNA networks across conditions. multiWGCNA was designed
+    to handle the common case where there are multiple biologically meaningful 
+    sample traits, such as disease vs wildtype across development or anatomical 
+    region.   
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    BiocStyle,
+    doParallel,
+    ExperimentHub,
+    knitr,
+    markdown,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vegan
+VignetteBuilder: knitr
+RoxygenNote: 7.2.3
+biocViews: Sequencing, RNASeq, GeneExpression, DifferentialExpression, 
+    Regression, Clustering
+Imports: 
+    stringr,
+    readr,
+    WGCNA,
+    dplyr,
+    reshape2,
+    data.table,
+    patchwork,
+    scales,
+    igraph,
+    flashClust,
+    ggplot2,
+    dcanr,
+    cowplot,
+    ggrepel,
+    methods,
+    SummarizedExperiment
+Depends: 
+    R (>= 4.3.0),
+    ggalluvial
+Config/testthat/edition: 3

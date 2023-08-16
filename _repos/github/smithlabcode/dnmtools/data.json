@@ -1,0 +1,238 @@
+{
+    "requirements.txt": {
+        "github/smithlabcode/dnmtools": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "jinja2": {
+            "credit": 0.013028125000000002,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "mkdocs": {
+            "credit": 0.0187,
+            "url": "https://www.mkdocs.org"
+        },
+        "babel": {
+            "credit": 0.0005840312500000021,
+            "url": "https://babel.pocoo.org/"
+        },
+        "click": {
+            "credit": 0.003953125000000002,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "Jinja2": {
+            "credit": 0.0005500000000000019,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "Markdown": {
+            "credit": 0.055,
+            "url": "https://Python-Markdown.github.io/"
+        },
+        "PyYAML": {
+            "credit": 0.055,
+            "url": "https://pyyaml.org/"
+        },
+        "watchdog": {
+            "credit": 0.058403125,
+            "url": "https://github.com/gorakhargosh/watchdog"
+        },
+        "mdx_gh_links": {
+            "credit": 0.0005500000000000019,
+            "url": "https://pypi.org/project/mdx-gh-links/"
+        },
+        "ghp-import": {
+            "credit": 0.003953125000000002,
+            "url": "https://github.com/c-w/ghp-import"
+        },
+        "pyyaml_env_tag": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/waylan/pyyaml-env-tag"
+        },
+        "mkdocs-redirects": {
+            "credit": 0.055,
+            "url": "https://github.com/datarobot/mkdocs-redirects"
+        },
+        "importlib_metadata": {
+            "credit": 0.0005500000000000019,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "packaging": {
+            "credit": 0.06099598214285714,
+            "url": "https://packaging.pypa.io/"
+        },
+        "mergedeep": {
+            "credit": 0.058403125,
+            "url": "https://github.com/clarketm/mergedeep"
+        },
+        "pygments": {
+            "credit": 0.009625000000000002,
+            "url": "https://pygments.org"
+        },
+        "pymdown-extensions": {
+            "credit": 0.009625000000000002,
+            "url": "https://github.com/facelessuser/pymdown-extensions"
+        },
+        "mkdocs-material": {
+            "credit": 0.0005500000000000019,
+            "url": "https://squidfunk.github.io/mkdocs-material/"
+        },
+        "Babel": {
+            "credit": 0.05445,
+            "url": "http://babel.pocoo.org/"
+        },
+        "MarkupSafe": {
+            "credit": 0.05445,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "typing-extensions": {
+            "credit": 0.005995982142857143,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "pyyaml": {
+            "credit": 0.07029721875,
+            "url": "https://pyyaml.org/"
+        },
+        "pyyaml-env-tag": {
+            "credit": 3.403125000000021e-05,
+            "url": "https://github.com/waylan/pyyaml-env-tag"
+        },
+        "platformdirs": {
+            "credit": 0.003403125,
+            "url": "https://github.com/platformdirs/platformdirs"
+        },
+        "pathspec": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "markupsafe": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/markupsafe"
+        },
+        "markdown": {
+            "credit": 0.077818125,
+            "url": "https://pypi.org/project/markdown"
+        },
+        "importlib-metadata": {
+            "credit": 0.094153125,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "colorama": {
+            "credit": 0.030628125,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "pytz": {
+            "credit": 0.057819093749999995,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "coverage": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "mdx-gh-links": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/mdx-gh-links"
+        },
+        "mkdocs-nature": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/mkdocs-nature"
+        },
+        "wheel": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "flake8": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "twine": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/twine"
+        },
+        "python-dateutil": {
+            "credit": 0.01089,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "importlib-resources": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "pytest-mypy": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "pytest-perf": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-perf"
+        },
+        "flufl.flake8": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/flufl.flake8"
+        },
+        "pyfakefs": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pyfakefs"
+        },
+        "pytest-ruff": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-ruff"
+        },
+        "pytest-enabler": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "ipython": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "jaraco.tidelift": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/jaraco.tidelift"
+        },
+        "sphinx-lint": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/sphinx-lint"
+        },
+        "furo": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/furo"
+        },
+        "rst.linker": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "zipp": {
+            "credit": 0.002592857142857143,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "mkdocs-material-extensions": {
+            "credit": 0.009075,
+            "url": "https://pypi.org/project/mkdocs-material-extensions"
+        }
+    }
+}

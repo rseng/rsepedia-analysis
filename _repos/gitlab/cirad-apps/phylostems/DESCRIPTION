@@ -1,0 +1,50 @@
+Package: phylostems
+Title: Phylogenetic scaling of temporal signal
+Date: 2020-08-16
+Version: 0.1.1
+Authors@R: c(
+    person(given = "Anna",
+        family = "Doizy",
+        role = c("aut", "cre"),
+        email = "phylostems@gmail.com", 
+        comment = c(ORCID="0000-0002-2866-6918")),
+    person(given = "Amaury",
+        family = "Prin",
+        role = "aut"),
+    person(given = "Frédéric",
+        family = "Chiroleu",
+        role = "aut"),
+    person(given = "Guillaume",
+        family = "Cornu",
+        role = "aut", 
+        comment = c(ORCID="0000-0002-7523-5176")),
+    person(given = "Adrien",
+        family = "Rieux",
+        role = "aut")
+    )
+Description: Graphical tool developped by CIRAD (UMR PVBMT) to explore temporal signal at various evolutionary scales in heterochronous nucleic acid sequences datasets.
+License: MIT + file LICENSE
+Imports:
+    shiny,
+    shinydashboard,
+    shinycssloaders,
+    shinyalert,
+    shinyhelper,
+    shinyWidgets,
+    shinyjs,
+    DT,
+    ape,
+    plotly,
+    stringr,
+    dplyr,
+    lubridate,
+    ggtree
+Remotes: bioc::release/ggtree
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+URL: https://gitlab.com/cirad-apps/phylostems
+BugReports: https://gitlab.com/cirad-apps/phylostems/issues
+Depends: 
+    R (>= 2.10)
