@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/bcgsc/tigmint": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "intervaltree": {
+            "credit": 0.00198,
+            "url": "https://github.com/chaimleib/intervaltree"
+        },
+        "pybedtools": {
+            "credit": 0.00198,
+            "url": "https://github.com/daler/pybedtools"
+        },
+        "pysam": {
+            "credit": 0.00198,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "statistics": {
+            "credit": 0.00198,
+            "url": "UNKNOWN"
+        },
+        "numpy": {
+            "credit": 0.00198,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

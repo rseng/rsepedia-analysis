@@ -1,0 +1,186 @@
+{
+    "setup.py": {
+        "github/thomas0809/MolScribe": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.3396375,
+            "url": "https://www.numpy.org"
+        },
+        "torch": {
+            "credit": 0.026144999999999998,
+            "url": "https://pytorch.org/"
+        },
+        "pandas": {
+            "credit": 0.000899999999999998,
+            "url": "https://pandas.pydata.org"
+        },
+        "matplotlib": {
+            "credit": 0.09,
+            "url": "https://matplotlib.org"
+        },
+        "opencv-python": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/opencv/opencv-python"
+        },
+        "SmilesPE": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/XinhaoLi74/SmilesPE"
+        },
+        "OpenNMT-py": {
+            "credit": 0.000899999999999998,
+            "url": "https://opennmt.net/"
+        },
+        "rdkit-pypi": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/kuelumbus/rdkit-pypi"
+        },
+        "albumentations": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/albumentations-team/albumentations"
+        },
+        "timm": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/huggingface/pytorch-image-models"
+        },
+        "typing-extensions": {
+            "credit": 0.0891,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "pytest-xdist": {
+            "credit": 0.00014849999999999933,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.02843775,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.01485,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "gensim": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/gensim"
+        },
+        "fastprogress": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/fastprogress"
+        },
+        "fasttext-wheel": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/fasttext-wheel"
+        },
+        "pyahocorasick": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pyahocorasick"
+        },
+        "rapidfuzz": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/rapidfuzz"
+        },
+        "sacrebleu": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/sacrebleu"
+        },
+        "pyyaml": {
+            "credit": 0.025245,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "pyonmttok": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/pyonmttok"
+        },
+        "waitress": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/waitress"
+        },
+        "flask": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flask"
+        },
+        "tensorboard": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/tensorboard"
+        },
+        "ctranslate2": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/ctranslate2"
+        },
+        "configargparse": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/configargparse"
+        },
+        "Pillow": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/Pillow"
+        },
+        "imgaug": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/imgaug"
+        },
+        "opencv-python-headless": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/opencv-python-headless"
+        },
+        "qudida": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/qudida"
+        },
+        "PyYAML": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/PyYAML"
+        },
+        "scikit-image": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/scikit-image"
+        },
+        "scipy": {
+            "credit": 0.0111375,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "safetensors": {
+            "credit": 0.01782,
+            "url": "https://pypi.org/project/safetensors"
+        },
+        "huggingface-hub": {
+            "credit": 0.01782,
+            "url": "https://pypi.org/project/huggingface-hub"
+        },
+        "torchvision": {
+            "credit": 0.01782,
+            "url": "https://pypi.org/project/torchvision"
+        },
+        "filelock": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.00245025,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}
