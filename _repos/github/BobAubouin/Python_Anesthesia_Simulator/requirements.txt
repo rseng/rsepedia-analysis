@@ -1,0 +1,5 @@
+numpy==1.25.0
+control==0.9.4
+matplotlib==3.7.1
+casadi==3.6.3
+pandas==1.4.3
