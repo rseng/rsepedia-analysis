@@ -1,0 +1,106 @@
+{
+    "requirements.txt": {
+        "github/ethicsai/ethical-smart-grid": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "gymnasium": {
+            "credit": 0.0049499999999999544,
+            "url": "https://farama.org"
+        },
+        "numpy": {
+            "credit": 0.5163065217391304,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.021306521739130436,
+            "url": "https://scipy.org/"
+        },
+        "pytest": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "torch": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/torch"
+        },
+        "moviepy": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/moviepy"
+        },
+        "matplotlib": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "opencv-python": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/opencv-python"
+        },
+        "lz4": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/lz4"
+        },
+        "jaxlib": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/jaxlib"
+        },
+        "jax": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/jax"
+        },
+        "imageio": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/imageio"
+        },
+        "mujoco": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/mujoco"
+        },
+        "cython": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/cython"
+        },
+        "mujoco-py": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/mujoco-py"
+        },
+        "swig": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/swig"
+        },
+        "pygame": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/pygame"
+        },
+        "box2d-py": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/box2d-py"
+        },
+        "shimmy": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/shimmy"
+        },
+        "autorom": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/autorom"
+        },
+        "importlib-metadata": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "farama-notifications": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/farama-notifications"
+        },
+        "typing-extensions": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "cloudpickle": {
+            "credit": 0.021306521739130436,
+            "url": "https://pypi.org/project/cloudpickle"
+        }
+    }
+}

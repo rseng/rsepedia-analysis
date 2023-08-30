@@ -111,6 +111,7 @@ endif()
 message(STATUS "SMOOTHXG CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 message(STATUS "SMOOTHXG CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 message(STATUS "SMOOTHXG CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+message(STATUS "SMOOTHXG CMAKE_EXE_LINKER_FLAGS: ${CMAKE_EXE_LINKER_FLAGS}")
 
 # Set the output folder
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
@@ -335,6 +336,9 @@ add_library(smoothxg_objs OBJECT
   src/tempfile.cpp
   deps/xxHash/xxhash.c
   src/xg.cpp
+  src/dna.cpp
+  src/pos.cpp
+  src/seqindex.cpp
   src/chain.cpp
   src/prep.cpp
   src/cleanup.cpp

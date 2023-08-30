@@ -1,0 +1,42 @@
+Package: FuzzyClass
+Title: Fuzzy and Non-Fuzzy Classifiers
+Version: 0.1.5
+Authors@R:
+    c(person("Jodavid", "Ferreira", email = "jodavid@protonmail.com",role = c("aut","cre"), comment = c(ORCID = "0000-0002-2131-6464")),
+      person("Ronei", "Moraes", email = "ronei@de.ufpb.br",role = c("ctb"), comment = c(ORCID = "0000-0001-8436-8950")),
+      person("Arthur", "Ricardo", email = "arthur.ricardo17@gmail.com",role = c("ctb")))
+Description: It provides classifiers which can be used for discrete variables and for continuous variables based on the Naive Bayes and Fuzzy Naive Bayes hypothesis. Those methods were developed by researchers belong to the 'Laboratory of Technologies for Virtual Teaching and Statistics (LabTEVE)' and 'Laboratory of Applied Statistics to Image Processing and Geoprocessing (LEAPIG)' at 'Federal University of Paraiba, Brazil'. They considered some statistical distributions and their papers were published in the scientific literature, as for instance, the Gaussian classifier using fuzzy parameters, proposed by 'Moraes, Ferreira and Machado' (2021) <doi:10.1007/s40815-020-00936-4>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+    caTools,
+    doParallel,
+    e1071,
+    EnvStats,
+    foreach,
+    MASS,
+    mvtnorm,
+    parallel,
+    purrr,
+    Rdpack,
+    rootSolve,
+    stats,
+    trapezoid
+RdMacros:
+    Rdpack
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    maxLik,
+    dplyr
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+URL: https://github.com/leapigufpb/FuzzyClass
+BugReports: https://github.com/leapigufpb/FuzzyClass/issues
+Language: en-US

@@ -1,0 +1,134 @@
+{
+    "requirements.txt": {
+        "github/geoelements/gns": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "absl-py": {
+            "credit": 0.0825,
+            "url": "https://github.com/abseil/abseil-py"
+        },
+        "autopep8": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/hhatto/autopep8"
+        },
+        "numpy": {
+            "credit": 0.16417500000000002,
+            "url": "https://www.numpy.org"
+        },
+        "dm-tree": {
+            "credit": 0.0825,
+            "url": "https://github.com/deepmind/tree"
+        },
+        "matplotlib": {
+            "credit": 0.0825,
+            "url": "https://matplotlib.org"
+        },
+        "pyevtk": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/pyscience-projects/pyevtk"
+        },
+        "pytest": {
+            "credit": 0.0008250000000000063,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "torch": {
+            "credit": 0.0008250000000000063,
+            "url": "https://pytorch.org/"
+        },
+        "torch_geometric": {
+            "credit": 0.0825,
+            "url": "https://pyg.org"
+        },
+        "torch_sparse": {
+            "credit": 0.0825,
+            "url": "https://github.com/rusty1s/pytorch_sparse"
+        },
+        "torch_scatter": {
+            "credit": 0.0825,
+            "url": "https://github.com/rusty1s/pytorch_scatter"
+        },
+        "torch-cluster": {
+            "credit": 0.0825,
+            "url": "https://github.com/rusty1s/pytorch_cluster"
+        },
+        "toml": {
+            "credit": 0.0408375,
+            "url": "https://github.com/uiri/toml"
+        },
+        "pycodestyle": {
+            "credit": 0.0408375,
+            "url": "https://pycodestyle.pycqa.org/"
+        },
+        "xmlschema": {
+            "credit": 0.0051046875,
+            "url": "https://github.com/sissaschool/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.0051046875,
+            "url": "https://pypi.org/project/attrs"
+        },
+        "typing-extensions": {
+            "credit": 0.081675,
+            "url": "https://pypi.org/project/typing-extensions"
+        }
+    }
+}
