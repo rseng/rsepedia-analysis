@@ -1,0 +1,14 @@
+{
+    "DESCRIPTION": {
+        "github/AgrDataSci/climatrends": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "nasapower": {
+            "credit": 0.0099,
+            "url": "https://docs.ropensci.org/nasapower/"
+        }
+    }
+}

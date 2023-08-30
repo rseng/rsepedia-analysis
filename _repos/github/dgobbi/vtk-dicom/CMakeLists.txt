@@ -8,13 +8,10 @@ cmake_minimum_required(VERSION 3.12)
 set(DICOM_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
 set(CMAKE_MODULE_PATH ${DICOM_CMAKE_DIR} ${CMAKE_MODULE_PATH})
 
-# Use ctest for dashboard submissions
-include(CTest)
-
 # Project version
 set(DICOM_MAJOR_VERSION 0)
 set(DICOM_MINOR_VERSION 8)
-set(DICOM_PATCH_VERSION 14)
+set(DICOM_PATCH_VERSION 15)
 set(DICOM_SHORT_VERSION "${DICOM_MAJOR_VERSION}.${DICOM_MINOR_VERSION}")
 set(DICOM_VERSION "${DICOM_SHORT_VERSION}.${DICOM_PATCH_VERSION}")
 
@@ -51,10 +48,11 @@ if(DEFINED VTK_MODULE_ENABLE_VTK_DICOM AND NOT DICOM_EXTERNAL_BUILD)
   # To set DICOM_USE_VTKZLIB in vtkDICOMConfig.h
   set(DICOM_USE_VTKZLIB ON)
 
+  # Make executable programs a configurable option
   option(BUILD_DICOM_PROGRAMS "Build the vtkDICOM tools" OFF)
-  option(BUILD_DICOM_EXAMPLES "Build the vtkDICOM examples" OFF)
   set(BUILD_PROGRAMS ${BUILD_DICOM_PROGRAMS})
-  set(BUILD_EXAMPLES ${BUILD_DICOM_EXAMPLES})
+  # An external build is required for the examples
+  set(BUILD_EXAMPLES OFF)
 
 elseif(Module_vtkDICOM)
   # When building as a remote module for older versions of VTK
@@ -103,8 +101,13 @@ else()
 
   option(BUILD_SHARED_LIBS "Build shared libraries." OFF)
 
-  # Which parts of the package to build
+  # Use ctest for dashboard submissions
   option(BUILD_TESTING "Build the tests" OFF)
+  if(BUILD_TESTING)
+    include(CTest)
+  endif()
+
+  # Which parts of the package to build
   option(BUILD_PROGRAMS "Build some useful DICOM tools" ON)
   option(BUILD_EXAMPLES "Build the examples" OFF)
 

@@ -1,0 +1,59 @@
+Package: occupationMeasurement
+Title: Interactively Measure Occupations in Interviews and Beyond
+Version: 0.3.0
+Authors@R: c(
+        person(
+            "Jan", "Simson", ,
+            "jan.simson@lmu.de",
+            role = c("aut", "cre"),
+            comment = c(ORCID = "0000-0002-9406-7761")
+        ),
+        person(
+            "Olga", "Kononykhina", ,
+            "olga.kononykhina@stat.uni-muenchen.de",
+            role = c("aut")
+        ),
+        person(
+            "Malte", "Schierholz", ,
+            "malte.schierholz@stat.uni-muenchen.de",
+            role = c("aut", "cph"),
+            comment = c(ORCID = "0000-0003-4058-1543")
+        )
+    )
+Description: Perform interactive occupation coding during interviews as
+    described in Peycheva, D., Sakshaug, J., Calderwood, L. (2021) <doi:10.2478/jos-2021-0042>
+    and Schierholz, M., Gensicke, M., Tschersich, N., Kreuter, F. (2018) <doi:10.1111/rssa.12297>.
+    Generate suggestions for occupational categories based on free text
+    input, with pre-trained machine learning models in German and a ready-to-use
+    shiny application provided for quick and easy data collection.
+License: MIT + file LICENSE
+URL: https://occupationMeasurement.github.io/occupationMeasurement/,
+    https://github.com/occupationMeasurement/occupationMeasurement
+BugReports: https://github.com/occupationMeasurement/occupationMeasurement/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports:
+    data.table (>= 1.14.2),
+    digest,
+    shiny (>= 1.7.1),
+    stringdist (>= 0.9.8),
+    stringr (>= 1.4.0),
+    text2vec (>= 0.6.1),
+    tm (>= 0.7.8)
+Suggests:
+    plumber,
+    knitr,
+    mvtnorm,
+    callr,
+    devtools,
+    httr,
+    sessioninfo,
+    shinytest2,
+    testthat,
+    withr
+Depends:
+    R (>= 4.1)
+LazyData: true
+VignetteBuilder: knitr
+Config/testthat/edition: 3

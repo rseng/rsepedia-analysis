@@ -1,0 +1,39 @@
+Package: SCOM
+Type: Package
+Title: Inferring ncRNA synergistic competition
+Version: 0.99.0
+Authors@R: 
+    person(given = "Junpeng", 
+           family = "Zhang", 
+           role=c("aut", "cre"), 
+           email = "zhangjunpeng411@gmail.com")
+Description: The package aims to infer ncRNA synergistic competition from transcriptomics data and putative miRNA-target interactions.
+    It provides several functions to study ncRNA synergistic competition, including a function for inferring ceRNA networks 
+    , and a function to identify ncRNA synergistic competition networks, as well as several functions to conduct downstream
+    analysis of the synergistic competition ncRNAs.
+Depends: R (>= 4.3.0)
+License: GPL-3
+URL: https://github.com/zhangjunpeng411/SCOM
+Encoding: UTF-8
+biocViews: GeneExpression, BiomedicalInformatics, 
+           Clustering, GeneSetEnrichment, Microarray, 
+	         Software, GeneRegulation, GeneTarget
+RoxygenNote: 7.2.3
+Imports: SPONGE,
+    doParallel,
+    e1071,
+    foreach,
+    parallel,
+    igraph,
+    mldr,
+    utiml,
+    WGCNA,
+    corpcor,
+    stringr,
+    stats
+Suggests: BiocStyle, 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+BugReports: https://github.com/zhangjunpeng411/SCOM/issues

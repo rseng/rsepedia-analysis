@@ -1,0 +1,52 @@
+Package: discourseGT
+Title: Analyze Group Patterns using Graph Theory in Educational Settings
+Version: 1.2.0
+Authors@R: c(
+    person("Albert", "Chai", , "albertchai@ucsd.edu", role = "aut"),
+    person("Andrew", "Lee", , "aleet383@ucla.edu", role = "aut"),
+    person("Joshua", "Le", , "jpl038@ucsd.edu", role = "aut"),
+    person("Katherine", "Ly", , "ktl045@ucsd.edu", role = "ctb"),
+    person("Kevin", "Banh", , "kebanh@ucsd.edu", role = "ctb"),
+    person("Priya", "Pahal", , "ppahal@ucsd.edu", role = "ctb"),
+    person("Jitarth", "Sheth", , "jhsheth@ucsd.edu", role = "aut"),
+    person("Qi", "Cui", , "q1cui@ucsd.edu", role = c("aut", "cre")),
+    person("Stanley", "Lo", , "smlo@ucsd.edu", role = "aut")
+  )
+Description: Analyzes group patterns using discourse analysis data with
+    graph theory mathematics. Takes the order of which individuals talk
+    and converts it to a network edge and weight list. Returns the
+    density, centrality, centralization, and subgroup information for each
+    group. Based on the analytical framework laid out in Chai et al.
+    (2019) <doi:10.1187/cbe.18-11-0222>.
+License: MIT + file LICENSE
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    dplyr,
+    GGally,
+    ggplot2,
+    ggrepel,
+    graphics,
+    igraph,
+    network,
+    stats,
+    utils
+Suggests: 
+    BiocManager,
+    formatR,
+    ggpubr,
+    knitr,
+    markdown,
+    R.rsp,
+    rmarkdown,
+    rticles,
+    sna,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr,
+    R.rsp
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

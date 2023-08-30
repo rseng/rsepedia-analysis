@@ -1,0 +1,486 @@
+{
+    "package.json": {
+        "github/FINNGEN/lavaa-react": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "config": {
+            "credit": 0.0011000000000000038,
+            "url": "http://github.com/node-config/node-config.git"
+        },
+        "d3": {
+            "credit": 0.0011000000000000038,
+            "url": "https://d3js.org"
+        },
+        "d3-v6-tip": {
+            "credit": 0.11,
+            "url": "https://github.com/bumbeishvili/d3.tip-for-d3.v6"
+        },
+        "line-height": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/twolfson/line-height"
+        },
+        "react": {
+            "credit": 0.004730000000000003,
+            "url": "https://reactjs.org/"
+        },
+        "react-dom": {
+            "credit": 0.004730000000000003,
+            "url": "https://reactjs.org/"
+        },
+        "react-perfect-scrollbar": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/goldenyz/react-perfect-scrollbar"
+        },
+        "simplebar-react": {
+            "credit": 0.0011000000000000038,
+            "url": "https://grsmto.github.io/simplebar/"
+        },
+        "web-vitals": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/GoogleChrome/web-vitals#readme"
+        },
+        "x2js": {
+            "credit": 0.007778571428571428,
+            "url": "https://github.com/x2js/x2js#readme"
+        },
+        "vows": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "underscore": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.011967032967032967,
+            "url": null
+        },
+        "ts-node": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "toml": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "semver": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "properties": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "js-yaml": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "hjson": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "cson": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "coffeescript": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "": {
+            "credit": 0.09927318681318685,
+            "url": null
+        },
+        "json5": {
+            "credit": 0.007778571428571428,
+            "url": null
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.007213461538461538,
+            "url": null
+        },
+        "rollup": {
+            "credit": 0.007213461538461538,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.00847,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.010843461538461538,
+            "url": null
+        },
+        "d3-zoom": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-transition": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-timer": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-time-format": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-time": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-shape": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-selection": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-scale-chromatic": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-scale": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-random": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-quadtree": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-polygon": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-path": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-interpolate": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-hierarchy": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-geo": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-format": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-force": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-fetch": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-ease": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-dsv": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-drag": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-dispatch": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-delaunay": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-contour": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-color": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-chord": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-brush": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-axis": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "d3-array": {
+            "credit": 0.003025,
+            "url": null
+        },
+        "xvfb-maybe": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "twolfson-style": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "proclaim": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "karma-phantomjs-launcher": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "karma-mocha": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "karma-chrome-launcher": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "karma-browserify": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "karma": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "jshint": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "jscs": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "foundry-release-npm": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "foundry-release-git": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "foundry-release-component": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "foundry": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "domify": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "css-controls": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "browserify": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "brfs": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "computed-style": {
+            "credit": 0.005445,
+            "url": null
+        },
+        "loose-envify": {
+            "credit": 0.16335,
+            "url": null
+        },
+        "scheduler": {
+            "credit": 0.05445,
+            "url": null
+        },
+        "webpack-dev-server": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "webpack": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "style-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "sass-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "postcss-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "node-sass": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "file-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "extract-text-webpack-plugin": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "eslint-plugin-react": {
+            "credit": 0.025410000000000002,
+            "url": null
+        },
+        "eslint-plugin-jsx-a11y": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "eslint-config-airbnb": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "css-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "cross-env": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "copyfiles": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-preset-stage-2": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-preset-react": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-preset-env": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-plugin-add-module-exports": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-loader": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-eslint": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-core": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "babel-cli": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "autoprefixer": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "prop-types": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "perfect-scrollbar": {
+            "credit": 0.00363,
+            "url": null
+        },
+        "eslint-config-react-app": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "simplebar-core": {
+            "credit": 0.02178,
+            "url": null
+        },
+        "wdio-chromedriver-service": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "selenium-standalone": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "rollup-plugin-babel": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "nunjucks": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "lint-staged": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "husky": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "fs-extra": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "express": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "chromedriver": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        },
+        "body-parser": {
+            "credit": 0.0041884615384615385,
+            "url": null
+        }
+    }
+}
