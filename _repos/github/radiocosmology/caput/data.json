@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/radiocosmology/caput": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "cython": {
+            "credit": 0.0099,
+            "url": "http://cython.org/"
+        }
+    }
+}

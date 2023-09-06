@@ -1,0 +1,10 @@
+2to3==1.0
+biopython==1.80
+st-pages==0.3.2
+stmol==0.0.9
+streamlit==1.17.0
+streamlit-aggrid==0.2.3.post2
+matplotlib
+colorcet
+streamlit-authenticator==0.2.1
+streamlit-plotly-events==0.0.6
