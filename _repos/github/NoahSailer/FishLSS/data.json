@@ -1,0 +1,82 @@
+{
+    "setup.py": {
+        "github/NoahSailer/FishLSS": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.8805984,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.004389000000000032,
+            "url": "https://www.scipy.org"
+        },
+        "pyfftw": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/pyFFTW/pyFFTW"
+        },
+        "dask": {
+            "credit": 0.0010890000000000066,
+            "url": "https://github.com/dask/dask/"
+        },
+        "pre-commit": {
+            "credit": 0.007187399999999999,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "pytest-xdist": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "jinja2": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "distributed": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/distributed"
+        },
+        "bokeh": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "toolz": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "pyyaml": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "partd": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/partd"
+        },
+        "packaging": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "fsspec": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "cloudpickle": {
+            "credit": 0.007187399999999999,
+            "url": "https://pypi.org/project/cloudpickle"
+        }
+    }
+}
