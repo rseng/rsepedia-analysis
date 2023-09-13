@@ -1,0 +1,8 @@
+wheel
+numpy
+pandas
+pyqt5
+pyopengl
+pyglm
+pyopengl-accelerate
+gdal
