@@ -18409,7 +18409,72 @@
             "quasar",
             "uncertainty-quantification"
         ],
-        "github/theislab/scvelo": []
+        "github/theislab/scvelo": [],
+        "github/henrikdvn/CRSocket": [],
+        "github/RasmussenLab/vamb": [],
+        "github/SarveshVGharat/Plages-Identification": [],
+        "github/Guo-Jian-Wang/colfi": [],
+        "github/STOmics/EAGS": [],
+        "github/Yash-10/Periodogram-Comparison-Optimize-Planet-Detection": [
+            "exoplanet-transits",
+            "extreme-value-statistics",
+            "periodogram"
+        ],
+        "github/PlanetHunters/tkmatrix": [],
+        "github/ACEnglish/truvari": [
+            "structural-variation",
+            "vcf",
+            "bioinformatics",
+            "data-science",
+            "genomics",
+            "vcf-comparison",
+            "annotation-tool",
+            "benchmark-scripts",
+            "sequencing-data",
+            "sv-merging"
+        ],
+        "github/kanaverse/kana": [
+            "single-cell",
+            "interactive-visualizations",
+            "exploratory-data-analysis",
+            "webassembly",
+            "rna-seq",
+            "cite-seq",
+            "bioinformatics",
+            "interactive-analysis"
+        ],
+        "github/miniufo/xinvert": [
+            "successive-over-relaxation",
+            "inversion-problem",
+            "atmospheric-science",
+            "oceanography",
+            "meteorology",
+            "omega-equation",
+            "gill-matsuno-model",
+            "munk-stommel",
+            "wind-driven-circulation",
+            "eliassen-model",
+            "pv-inversion",
+            "streamfunction",
+            "velocity-potential",
+            "geophysical-fluid-dynamics",
+            "poisson-equation"
+        ],
+        "github/palaeoware/revosim": [],
+        "github/Degiacomi-Lab/molearn": [
+            "machine-learning",
+            "molecular-dynamics",
+            "molecular-modeling",
+            "protein-structure"
+        ],
+        "github/NETL-RIC/URC-Assessment-Method": [],
+        "github/jbussemaker/SBArchOpt": [
+            "architecture",
+            "multi-objective",
+            "optimization",
+            "sbo",
+            "system"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23470,7 +23535,21 @@
         "github/tyo-nu/pickaxe_paper": "Jupyter Notebook",
         "github/GENtle-persons/gentle-m": "C++",
         "github/yongsukyee/uncertain_blackholemass": "Jupyter Notebook",
-        "github/theislab/scvelo": "Python"
+        "github/theislab/scvelo": "Python",
+        "github/henrikdvn/CRSocket": "JavaScript",
+        "github/RasmussenLab/vamb": "Python",
+        "github/SarveshVGharat/Plages-Identification": "Jupyter Notebook",
+        "github/Guo-Jian-Wang/colfi": "Python",
+        "github/STOmics/EAGS": "Python",
+        "github/Yash-10/Periodogram-Comparison-Optimize-Planet-Detection": "Jupyter Notebook",
+        "github/PlanetHunters/tkmatrix": "Python",
+        "github/ACEnglish/truvari": "Python",
+        "github/kanaverse/kana": "JavaScript",
+        "github/miniufo/xinvert": "Python",
+        "github/palaeoware/revosim": "C++",
+        "github/Degiacomi-Lab/molearn": "Python",
+        "github/NETL-RIC/URC-Assessment-Method": "Python",
+        "github/jbussemaker/SBArchOpt": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -28531,7 +28610,21 @@
         "github/tyo-nu/pickaxe_paper": "https://github.com/tyo-nu/pickaxe_paper",
         "github/GENtle-persons/gentle-m": "https://github.com/GENtle-persons/gentle-m",
         "github/yongsukyee/uncertain_blackholemass": "https://github.com/yongsukyee/uncertain_blackholemass",
-        "github/theislab/scvelo": "https://github.com/theislab/scvelo"
+        "github/theislab/scvelo": "https://github.com/theislab/scvelo",
+        "github/henrikdvn/CRSocket": "https://github.com/henrikdvn/CRSocket",
+        "github/RasmussenLab/vamb": "https://github.com/RasmussenLab/vamb",
+        "github/SarveshVGharat/Plages-Identification": "https://github.com/SarveshVGharat/Plages-Identification",
+        "github/Guo-Jian-Wang/colfi": "https://github.com/Guo-Jian-Wang/colfi",
+        "github/STOmics/EAGS": "https://github.com/STOmics/EAGS",
+        "github/Yash-10/Periodogram-Comparison-Optimize-Planet-Detection": "https://github.com/Yash-10/Periodogram-Comparison-Optimize-Planet-Detection",
+        "github/PlanetHunters/tkmatrix": "https://github.com/PlanetHunters/tkmatrix",
+        "github/ACEnglish/truvari": "https://github.com/ACEnglish/truvari",
+        "github/kanaverse/kana": "https://github.com/kanaverse/kana",
+        "github/miniufo/xinvert": "https://github.com/miniufo/xinvert",
+        "github/palaeoware/revosim": "https://github.com/palaeoware/revosim",
+        "github/Degiacomi-Lab/molearn": "https://github.com/Degiacomi-Lab/molearn",
+        "github/NETL-RIC/URC-Assessment-Method": "https://github.com/NETL-RIC/URC-Assessment-Method",
+        "github/jbussemaker/SBArchOpt": "https://github.com/jbussemaker/SBArchOpt"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -33592,6 +33685,20 @@
         "github/tyo-nu/pickaxe_paper": null,
         "github/GENtle-persons/gentle-m": null,
         "github/yongsukyee/uncertain_blackholemass": "Uncertainty quantification of black hole mass estimation",
-        "github/theislab/scvelo": "RNA Velocity generalized through dynamical modeling"
+        "github/theislab/scvelo": "RNA Velocity generalized through dynamical modeling",
+        "github/henrikdvn/CRSocket": "Controller-Responder Socket",
+        "github/RasmussenLab/vamb": "Variational autoencoder for metagenomic binning",
+        "github/SarveshVGharat/Plages-Identification": null,
+        "github/Guo-Jian-Wang/colfi": "Likelihood-free Inference with neural density estimators",
+        "github/STOmics/EAGS": "EAGS:efficient and adaptive Gaussian smoothing",
+        "github/Yash-10/Periodogram-Comparison-Optimize-Planet-Detection": "Extreme Value Theory for comparing periodograms: Optimizing future transiting exoplanet surveys",
+        "github/PlanetHunters/tkmatrix": "Transits Inject and Recovery Multi-phase Analysis",
+        "github/ACEnglish/truvari": "Structural variant toolkit for VCFs",
+        "github/kanaverse/kana": "Single cell analysis in the browser",
+        "github/miniufo/xinvert": "Invert geophysical fluid dynamic problems (elliptic partial differential equations) using SOR iteration method.",
+        "github/palaeoware/revosim": "REvoSim - The [R]apid [Evo]lutionary [Sim]ulator - An individual-based evolutionary model",
+        "github/Degiacomi-Lab/molearn": "protein conformational spaces meet machine learning",
+        "github/NETL-RIC/URC-Assessment-Method": "Tool for evaluating the potential occurrence of URC resources using a series of validated heuristics.",
+        "github/jbussemaker/SBArchOpt": "Surrogate-Based Architecture Optimization toolbox"
     }
 }
