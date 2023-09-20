@@ -18474,7 +18474,74 @@
             "optimization",
             "sbo",
             "system"
-        ]
+        ],
+        "gitlab/pythia-uq/pythia": [],
+        "github/BradhamLab/icat": [
+            "clustering",
+            "machine-learning",
+            "self-supervised-learning",
+            "semi-supervised-learning",
+            "single-cell",
+            "single-cell-analysis",
+            "single-cell-rna-seq"
+        ],
+        "github/tikk3r/lofar-h5plot": [],
+        "github/LalResearchGroup/CNV-clinviewer": [],
+        "github/seqcode/allo": [],
+        "github/APGG-Lab/APGG": [
+            "genetic-algorithm",
+            "genetic-programming",
+            "public-goods-game"
+        ],
+        "github/atzberg/mlmod": [
+            "data-science",
+            "machine-learning",
+            "scientific-computation",
+            "simulations"
+        ],
+        "github/CQCL/qujax": [
+            "jax",
+            "python",
+            "quantum"
+        ],
+        "github/JD2112/methylr": [
+            "r",
+            "shiny-apps",
+            "dna-methylation",
+            "docker-container",
+            "documentation",
+            "illumina",
+            "testdata",
+            "web-server"
+        ],
+        "github/Sydney-Informatics-Hub/geodata-harvester": [],
+        "github/rx-li/EasyCellType": [],
+        "github/quinlanW/dbMisLoc": [],
+        "github/CMakePP/CMakePPLang": [
+            "object-oriented-programming",
+            "cmake"
+        ],
+        "github/auctus-team/pycapacity": [
+            "biomechanics",
+            "linear-algebra",
+            "polytope",
+            "robotics",
+            "pip-package",
+            "real-time"
+        ],
+        "github/pysersic/pysersic": [],
+        "github/opengeos/segment-geospatial": [
+            "artificial-intelligence",
+            "deep-learning",
+            "machine-learning",
+            "segmentation",
+            "geopython",
+            "geospatial",
+            "segment-anything"
+        ],
+        "github/TheFischerLab/FLEXR": [],
+        "github/pnsaevik/effluent": [],
+        "github/daiqile96/OTTERS_paper": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23549,7 +23616,26 @@
         "github/palaeoware/revosim": "C++",
         "github/Degiacomi-Lab/molearn": "Python",
         "github/NETL-RIC/URC-Assessment-Method": "Python",
-        "github/jbussemaker/SBArchOpt": "Python"
+        "github/jbussemaker/SBArchOpt": "Python",
+        "gitlab/pythia-uq/pythia": "unknown",
+        "github/BradhamLab/icat": "Python",
+        "github/tikk3r/lofar-h5plot": "Python",
+        "github/LalResearchGroup/CNV-clinviewer": "R",
+        "github/seqcode/allo": "Python",
+        "github/APGG-Lab/APGG": "C++",
+        "github/atzberg/mlmod": "C++",
+        "github/CQCL/qujax": "Python",
+        "github/JD2112/methylr": "HTML",
+        "github/Sydney-Informatics-Hub/geodata-harvester": "Jupyter Notebook",
+        "github/rx-li/EasyCellType": "R",
+        "github/quinlanW/dbMisLoc": "Vue",
+        "github/CMakePP/CMakePPLang": "CMake",
+        "github/auctus-team/pycapacity": "Python",
+        "github/pysersic/pysersic": "Python",
+        "github/opengeos/segment-geospatial": "Python",
+        "github/TheFischerLab/FLEXR": "Python",
+        "github/pnsaevik/effluent": "Python",
+        "github/daiqile96/OTTERS_paper": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -28624,7 +28710,26 @@
         "github/palaeoware/revosim": "https://github.com/palaeoware/revosim",
         "github/Degiacomi-Lab/molearn": "https://github.com/Degiacomi-Lab/molearn",
         "github/NETL-RIC/URC-Assessment-Method": "https://github.com/NETL-RIC/URC-Assessment-Method",
-        "github/jbussemaker/SBArchOpt": "https://github.com/jbussemaker/SBArchOpt"
+        "github/jbussemaker/SBArchOpt": "https://github.com/jbussemaker/SBArchOpt",
+        "gitlab/pythia-uq/pythia": "https://gitlab.com/pythia-uq/pythia",
+        "github/BradhamLab/icat": "https://github.com/BradhamLab/icat",
+        "github/tikk3r/lofar-h5plot": "https://github.com/tikk3r/lofar-h5plot",
+        "github/LalResearchGroup/CNV-clinviewer": "https://github.com/LalResearchGroup/CNV-clinviewer",
+        "github/seqcode/allo": "https://github.com/seqcode/allo",
+        "github/APGG-Lab/APGG": "https://github.com/APGG-Lab/APGG",
+        "github/atzberg/mlmod": "https://github.com/atzberg/mlmod",
+        "github/CQCL/qujax": "https://github.com/CQCL/qujax",
+        "github/JD2112/methylr": "https://github.com/JD2112/methylr",
+        "github/Sydney-Informatics-Hub/geodata-harvester": "https://github.com/Sydney-Informatics-Hub/geodata-harvester",
+        "github/rx-li/EasyCellType": "https://github.com/rx-li/EasyCellType",
+        "github/quinlanW/dbMisLoc": "https://github.com/quinlanW/dbMisLoc",
+        "github/CMakePP/CMakePPLang": "https://github.com/CMakePP/CMakePPLang",
+        "github/auctus-team/pycapacity": "https://github.com/auctus-team/pycapacity",
+        "github/pysersic/pysersic": "https://github.com/pysersic/pysersic",
+        "github/opengeos/segment-geospatial": "https://github.com/opengeos/segment-geospatial",
+        "github/TheFischerLab/FLEXR": "https://github.com/TheFischerLab/FLEXR",
+        "github/pnsaevik/effluent": "https://github.com/pnsaevik/effluent",
+        "github/daiqile96/OTTERS_paper": "https://github.com/daiqile96/OTTERS_paper"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -33699,6 +33804,25 @@
         "github/palaeoware/revosim": "REvoSim - The [R]apid [Evo]lutionary [Sim]ulator - An individual-based evolutionary model",
         "github/Degiacomi-Lab/molearn": "protein conformational spaces meet machine learning",
         "github/NETL-RIC/URC-Assessment-Method": "Tool for evaluating the potential occurrence of URC resources using a series of validated heuristics.",
-        "github/jbussemaker/SBArchOpt": "Surrogate-Based Architecture Optimization toolbox"
+        "github/jbussemaker/SBArchOpt": "Surrogate-Based Architecture Optimization toolbox",
+        "gitlab/pythia-uq/pythia": "PyThia Uncertainty Quantification Toolbox",
+        "github/BradhamLab/icat": "Identifying Cell-states Across Treatments",
+        "github/tikk3r/lofar-h5plot": "A small GUI for plotting H5Parms produced during LOFAR calibration.",
+        "github/LalResearchGroup/CNV-clinviewer": null,
+        "github/seqcode/allo": "Allo: a multi-mapped read rescue strategy for peak based gene regulatory analyses",
+        "github/APGG-Lab/APGG": "A Modular Toolkit for Public Goods Game Computation",
+        "github/atzberg/mlmod": "Machine learning package for data-driven modeling and simulation in LAMMPs.",
+        "github/CQCL/qujax": "Simulating quantum circuits with JAX",
+        "github/JD2112/methylr": "methylR: a single shiny solution from sequencer data to pathway analysis",
+        "github/Sydney-Informatics-Hub/geodata-harvester": "Jumpstart your geospatial analysis with a ready-made set of spatial-temporal aligned raster maps and data frames",
+        "github/rx-li/EasyCellType": null,
+        "github/quinlanW/dbMisLoc": null,
+        "github/CMakePP/CMakePPLang": "Object-oriented extension to the CMake language.",
+        "github/auctus-team/pycapacity": "An efficient task-space capacity calculation package for robotics and biomechanics",
+        "github/pysersic/pysersic": "Bayesian fitting of Sersic profiles to galaxy images accelerated with jax",
+        "github/opengeos/segment-geospatial": "A Python package for segmenting geospatial data with the Segment Anything Model (SAM)",
+        "github/TheFischerLab/FLEXR": "Multi-conformer modeling of crystallographic protein structures",
+        "github/pnsaevik/effluent": null,
+        "github/daiqile96/OTTERS_paper": null
     }
 }

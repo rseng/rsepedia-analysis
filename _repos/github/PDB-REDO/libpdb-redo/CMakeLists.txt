@@ -25,12 +25,9 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(libpdb-redo VERSION 3.0.7 LANGUAGES CXX C)
+project(libpdb-redo VERSION 3.1.0 LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
-
-# Unit tests
-option(ENABLE_TESTING "Build test exectuables" OFF)
 
 include(GNUInstallDirs)
 include(CheckFunctionExists)
@@ -38,8 +35,8 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
-include(Dart)
 include(GenerateExportHeader)
+include(CTest)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
@@ -60,10 +57,6 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 # Optionally build a version to be installed inside CCP4
 option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
 
-
-# Unit tests
-option(ENABLE_TESTING "Build test exectuables" OFF)
-
 if(BUILD_FOR_CCP4)
 	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
 		message(FATAL_ERROR "A CCP4 built was requested but CCP4 was not sourced")
@@ -78,7 +71,6 @@ if(BUILD_FOR_CCP4)
 		endif()
 	endif("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
 endif()
-
 
 # Check if CCP4 is available
 if(EXISTS "$ENV{CCP4}")
@@ -136,6 +128,7 @@ set(project_sources
 	${PROJECT_SOURCE_DIR}/src/Statistics.cpp
 	${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
 	${PROJECT_SOURCE_DIR}/src/Restraints.cpp
+	${PROJECT_SOURCE_DIR}/src/TLS.cpp
 	${PROJECT_SOURCE_DIR}/src/Version.cpp
 )
 
@@ -152,6 +145,7 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Statistics.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
+	${PROJECT_SOURCE_DIR}/include/pdb-redo/TLS.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Version.hpp
 )
 
@@ -213,11 +207,10 @@ install(FILES
 	COMPONENT Devel
 )
 
-set(pdb-redo_MAJOR_VERSION ${CMAKE_PROJECT_VERSION_MAJOR})
 set_target_properties(pdb-redo PROPERTIES
 	VERSION ${PROJECT_VERSION}
-	SOVERSION ${pdb-redo_MAJOR_VERSION}
-	INTERFACE_pdb-redo_MAJOR_VERSION ${pdb-redo_MAJOR_VERSION})
+	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+	INTERFACE_pdb-redo_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 
 set_property(TARGET pdb-redo APPEND PROPERTY
 	COMPATIBLE_INTERFACE_STRING pdb-redo_MAJOR_VERSION
@@ -241,9 +234,7 @@ file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc
 	INPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc.in)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-if(ENABLE_TESTING)
-	enable_testing()
-
+if(BUILD_TESTING)
 	list(APPEND PDB_REDO_tests pdb-redo-unit rsr)
 
 	foreach(PDB_REDO_TEST IN LISTS PDB_REDO_tests)

@@ -1,0 +1,174 @@
+{
+    "setup.py": {
+        "github/seqcode/allo": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.254925,
+            "url": "https://www.numpy.org"
+        },
+        "joblib": {
+            "credit": 0.2475,
+            "url": "https://joblib.readthedocs.io"
+        },
+        "tensorflow": {
+            "credit": 0.003945150000000005,
+            "url": "https://www.tensorflow.org/"
+        },
+        "pysam": {
+            "credit": 0.2475,
+            "url": "https://github.com/pysam-developers/pysam"
+        },
+        "tensorrt": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/tensorrt"
+        },
+        "nvidia-cuda-nvcc-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cuda-cupti-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-nccl-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cusparse-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cusolver-cu11": {
+            "credit": 7.424999999999966e-05,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-curand-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cudnn-cu11": {
+            "credit": 7.424999999999966e-05,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cufft-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cublas-cu11": {
+            "credit": 0.018451125000000002,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "nvidia-cuda-runtime-cu11": {
+            "credit": 0.007425,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "tensorflow-io-gcs-filesystem": {
+            "credit": 7.424999999999966e-05,
+            "url": "https://github.com/tensorflow/io"
+        },
+        "keras": {
+            "credit": 0.007425,
+            "url": "https://keras.io/"
+        },
+        "tensorflow-estimator": {
+            "credit": 0.007425,
+            "url": "https://www.tensorflow.org/"
+        },
+        "tensorboard": {
+            "credit": 0.007425,
+            "url": "https://github.com/tensorflow/tensorboard"
+        },
+        "grpcio": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/grpcio"
+        },
+        "wrapt": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/wrapt"
+        },
+        "typing-extensions": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "termcolor": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "six": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/six"
+        },
+        "setuptools": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "protobuf": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "packaging": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "opt-einsum": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/opt-einsum"
+        },
+        "ml-dtypes": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/ml-dtypes"
+        },
+        "libclang": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/libclang"
+        },
+        "h5py": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "google-pasta": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/google-pasta"
+        },
+        "gast": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/gast"
+        },
+        "flatbuffers": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/flatbuffers"
+        },
+        "astunparse": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/astunparse"
+        },
+        "absl-py": {
+            "credit": 0.007425,
+            "url": "https://pypi.org/project/absl-py"
+        },
+        "nvidia-cuda-nvrtc-cu11": {
+            "credit": 0.0036753750000000003,
+            "url": "https://pypi.org/project/nvidia-cuda-nvrtc-cu11"
+        },
+        "tensorflow-rocm": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-rocm"
+        },
+        "tensorflow-gpu": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-gpu"
+        },
+        "tensorflow-cpu": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-cpu"
+        },
+        "tensorflow-aarch64": {
+            "credit": 0.0014701500000000001,
+            "url": "https://pypi.org/project/tensorflow-aarch64"
+        }
+    }
+}
