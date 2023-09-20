@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(libcifpp VERSION 5.1.2 LANGUAGES CXX)
+project(libcifpp VERSION 5.2.2 LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -35,8 +35,8 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(CheckCXXSourceCompiles)
-include(Dart)
 include(GenerateExportHeader)
+include(CTest)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 20)
@@ -52,6 +52,9 @@ endif()
 
 # Building shared libraries?
 option(BUILD_SHARED_LIBS "Build a shared library instead of a static one" OFF)
+
+# Build documentation?
+option(BUILD_DOCUMENTATION "Build the documentation" OFF)
 
 # We do not want to write an export file for all our symbols...
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -81,8 +84,6 @@ else()
 endif()
 
 # Unit tests
-option(ENABLE_TESTING "Build test exectuables" OFF)
-
 if(BUILD_FOR_CCP4)
 	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
 		message(FATAL_ERROR "A CCP4 built was requested but CCP4 was not sourced")
@@ -238,8 +239,9 @@ set(project_sources
 
 	${PROJECT_SOURCE_DIR}/src/pdb/cif2pdb.cpp
 	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif.cpp
+	${PROJECT_SOURCE_DIR}/src/pdb/pdb_record.hpp
+	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.hpp
 	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/tls.cpp
 )
 
 set(project_headers
@@ -264,16 +266,17 @@ set(project_headers
 
 	${PROJECT_SOURCE_DIR}/include/cif++/model.hpp
 
+	${PROJECT_SOURCE_DIR}/include/cif++/pdb.hpp
+
 	${PROJECT_SOURCE_DIR}/include/cif++/pdb/cif2pdb.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/pdb/io.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/pdb/pdb2cif.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb/pdb2cif_remark_3.hpp
 	${PROJECT_SOURCE_DIR}/include/cif++/pdb/tls.hpp
 )
 
 add_library(cifpp ${project_sources} ${project_headers} ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp)
 add_library(cifpp::cifpp ALIAS cifpp)
-generate_export_header(cifpp EXPORT_FILE_NAME cif++/exports.hpp)
+generate_export_header(cifpp EXPORT_FILE_NAME ${PROJECT_SOURCE_DIR}/include/cif++/exports.hpp)
 
 if(BOOST_REGEX)
 	target_compile_definitions(cifpp PRIVATE USE_BOOST_REGEX=1 BOOST_REGEX_STANDALONE=1)
@@ -292,7 +295,7 @@ target_include_directories(cifpp
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-target_link_libraries(cifpp PUBLIC Threads::Threads ZLIB::ZLIB Eigen3::Eigen ${CIFPP_REQUIRED_LIBRARIES})
+target_link_libraries(cifpp PUBLIC Threads::Threads ZLIB::ZLIB ${CIFPP_REQUIRED_LIBRARIES})
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(cifpp PRIVATE -undefined dynamic_lookup)
@@ -357,12 +360,6 @@ install(
 	COMPONENT Devel
 )
 
-install(
-	FILES ${PROJECT_BINARY_DIR}/cif++/exports.hpp
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cif++
-	COMPONENT Devel
-)
-
 install(FILES
 	${PROJECT_SOURCE_DIR}/rsrc/mmcif_ddl.dic
 	${PROJECT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic
@@ -397,11 +394,10 @@ install(FILES
 	COMPONENT Devel
 )
 
-set(cifpp_MAJOR_VERSION ${CMAKE_PROJECT_VERSION_MAJOR})
 set_target_properties(cifpp PROPERTIES
 	VERSION ${PROJECT_VERSION}
-	SOVERSION ${cifpp_MAJOR_VERSION}
-	INTERFACE_cifpp_MAJOR_VERSION ${cifpp_MAJOR_VERSION})
+	SOVERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+	INTERFACE_cifpp_MAJOR_VERSION ${PROJECT_VERSION_MAJOR})
 
 set_property(TARGET cifpp APPEND PROPERTY
 	COMPATIBLE_INTERFACE_STRING cifpp_MAJOR_VERSION
@@ -413,21 +409,7 @@ write_basic_package_version_file(
 	COMPATIBILITY AnyNewerVersion
 )
 
-# pkgconfig support
-set(prefix ${CMAKE_INSTALL_PREFIX})
-set(exec_prefix ${CMAKE_INSTALL_PREFIX})
-set(libdir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
-set(includedir ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/libcifpp.pc.in
-	${CMAKE_CURRENT_BINARY_DIR}/libcifpp.pc.in @ONLY)
-file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.pc
-	INPUT ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.pc.in)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libcifpp.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-
-if(ENABLE_TESTING)
-	enable_testing()
-
+if(BUILD_TESTING)
 	find_package(Boost REQUIRED)
 
 	list(APPEND CIFPP_tests unit-v2 unit-3d format model rename-compound sugar spinner)
@@ -486,6 +468,10 @@ if(CIFPP_INSTALL_UPDATE_SCRIPT)
 	endif()
 
 	target_compile_definitions(cifpp PUBLIC CACHE_DIR="${CIFPP_CACHE_DIR}")
+endif()
+
+if(BUILD_DOCUMENTATION)
+	add_subdirectory(docs)
 endif()
 
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")

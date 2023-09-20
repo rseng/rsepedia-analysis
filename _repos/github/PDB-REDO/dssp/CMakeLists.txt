@@ -34,9 +34,9 @@ include(CheckFunctionExists)
 include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
-include(Dart)
 include(FindFilesystem)
 include(GenerateExportHeader)
+include(CTest)
 
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 17)
@@ -52,7 +52,7 @@ endif()
 
 # Optionally build a version to be installed inside CCP4
 option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
-option(GENERATE_DOCUMENTATION "Generate the documentation files using pandoc" OFF)
+option(BUILD_DOCUMENTATION "Generate the documentation files using pandoc" OFF)
 
 if(BUILD_FOR_CCP4)
 	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
@@ -105,7 +105,7 @@ find_package(Threads)
 
 if(NOT PDB_REDO_META)
 	find_package(libmcfp REQUIRED)
-	find_package(cifpp 5.1.0 REQUIRED)
+	find_package(cifpp 5.2.0 REQUIRED)
 endif()
 
 add_subdirectory(libdssp)
@@ -126,7 +126,7 @@ install(TARGETS ${PROJECT_NAME}
 	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
 )
 
-if(GENERATE_DOCUMENTATION)
+if(BUILD_DOCUMENTATION)
 	# manual
 	find_program(PANDOC pandoc)
 
@@ -175,7 +175,7 @@ if(EXISTS "${CCP4}/html")
 endif()
 
 # test
-if(ENABLE_TESTING)
+if(BUILD_TESTING)
 	# We still depend on boost for the testing headers-only library
 	find_package(Boost REQUIRED)
 
