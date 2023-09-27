@@ -18541,7 +18541,69 @@
         ],
         "github/TheFischerLab/FLEXR": [],
         "github/pnsaevik/effluent": [],
-        "github/daiqile96/OTTERS_paper": []
+        "github/daiqile96/OTTERS_paper": [],
+        "github/NREL/G2Aero": [],
+        "github/jacobblum/simDRIFT": [],
+        "github/BioComputingUP/ring-pymol": [
+            "bioinformatics",
+            "pymol",
+            "plugin"
+        ],
+        "github/ianvcaldas/smalldisco": [],
+        "github/stefanradev93/BayesFlow": [
+            "bayesian-inference",
+            "deep-learning",
+            "model-comparison",
+            "amortized-inference",
+            "simulation-based",
+            "invertible-networks",
+            "parameter-estimation",
+            "likelihood-free",
+            "uncertainty-quantification"
+        ],
+        "github/SESMG/SESMG": [],
+        "github/zpliulab/GeoBind": [],
+        "github/arviz-devs/preliz": [],
+        "github/Ambuj-UF/APOP": [],
+        "github/bioAI-Oslo/Spikeometric": [],
+        "github/Nicole-DH/ACP-MLC": [
+            "anticancer-peptides",
+            "machine-learning",
+            "multilabel-classification",
+            "sequence-analysis"
+        ],
+        "github/liniguez/Insplico_simulations": [],
+        "github/sunpy/ndcube": [
+            "sunpy",
+            "nddata",
+            "wcs",
+            "numfocus",
+            "astropy"
+        ],
+        "github/HannahMDoherty/ChemGAPP": [],
+        "github/ptriska/WavesDash": [],
+        "github/PixelgenTechnologies/pixelator": [
+            "molecular-pixelation",
+            "pixelgen-technologies",
+            "protein",
+            "proteomics",
+            "single-cell",
+            "single-cell-omics",
+            "spatial"
+        ],
+        "github/jodyphelan/tb-ml": [
+            "amr",
+            "ml"
+        ],
+        "github/yupidevs/pactus": [
+            "classification",
+            "classification-models",
+            "evaluation-framework",
+            "trajectory",
+            "trajectory-analysis",
+            "transformers",
+            "python"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23635,7 +23697,25 @@
         "github/opengeos/segment-geospatial": "Python",
         "github/TheFischerLab/FLEXR": "Python",
         "github/pnsaevik/effluent": "Python",
-        "github/daiqile96/OTTERS_paper": "R"
+        "github/daiqile96/OTTERS_paper": "R",
+        "github/NREL/G2Aero": "HTML",
+        "github/jacobblum/simDRIFT": "Python",
+        "github/BioComputingUP/ring-pymol": "Python",
+        "github/ianvcaldas/smalldisco": "Python",
+        "github/stefanradev93/BayesFlow": "Python",
+        "github/SESMG/SESMG": "Python",
+        "github/zpliulab/GeoBind": "Python",
+        "github/arviz-devs/preliz": "Python",
+        "github/Ambuj-UF/APOP": "Python",
+        "github/bioAI-Oslo/Spikeometric": "Python",
+        "github/Nicole-DH/ACP-MLC": "unknown",
+        "github/liniguez/Insplico_simulations": "unknown",
+        "github/sunpy/ndcube": "Python",
+        "github/HannahMDoherty/ChemGAPP": "Python",
+        "github/ptriska/WavesDash": "Python",
+        "github/PixelgenTechnologies/pixelator": "Python",
+        "github/jodyphelan/tb-ml": "Python",
+        "github/yupidevs/pactus": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -28729,7 +28809,25 @@
         "github/opengeos/segment-geospatial": "https://github.com/opengeos/segment-geospatial",
         "github/TheFischerLab/FLEXR": "https://github.com/TheFischerLab/FLEXR",
         "github/pnsaevik/effluent": "https://github.com/pnsaevik/effluent",
-        "github/daiqile96/OTTERS_paper": "https://github.com/daiqile96/OTTERS_paper"
+        "github/daiqile96/OTTERS_paper": "https://github.com/daiqile96/OTTERS_paper",
+        "github/NREL/G2Aero": "https://github.com/NREL/G2Aero",
+        "github/jacobblum/simDRIFT": "https://github.com/jacobblum/simDRIFT",
+        "github/BioComputingUP/ring-pymol": "https://github.com/BioComputingUP/ring-pymol",
+        "github/ianvcaldas/smalldisco": "https://github.com/ianvcaldas/smalldisco",
+        "github/stefanradev93/BayesFlow": "https://github.com/stefanradev93/BayesFlow",
+        "github/SESMG/SESMG": "https://github.com/SESMG/SESMG",
+        "github/zpliulab/GeoBind": "https://github.com/zpliulab/GeoBind",
+        "github/arviz-devs/preliz": "https://github.com/arviz-devs/preliz",
+        "github/Ambuj-UF/APOP": "https://github.com/Ambuj-UF/APOP",
+        "github/bioAI-Oslo/Spikeometric": "https://github.com/bioAI-Oslo/Spikeometric",
+        "github/Nicole-DH/ACP-MLC": "https://github.com/Nicole-DH/ACP-MLC",
+        "github/liniguez/Insplico_simulations": "https://github.com/liniguez/Insplico_simulations",
+        "github/sunpy/ndcube": "https://github.com/sunpy/ndcube",
+        "github/HannahMDoherty/ChemGAPP": "https://github.com/HannahMDoherty/ChemGAPP",
+        "github/ptriska/WavesDash": "https://github.com/ptriska/WavesDash",
+        "github/PixelgenTechnologies/pixelator": "https://github.com/PixelgenTechnologies/pixelator",
+        "github/jodyphelan/tb-ml": "https://github.com/jodyphelan/tb-ml",
+        "github/yupidevs/pactus": "https://github.com/yupidevs/pactus"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -33823,6 +33921,24 @@
         "github/opengeos/segment-geospatial": "A Python package for segmenting geospatial data with the Segment Anything Model (SAM)",
         "github/TheFischerLab/FLEXR": "Multi-conformer modeling of crystallographic protein structures",
         "github/pnsaevik/effluent": null,
-        "github/daiqile96/OTTERS_paper": null
+        "github/daiqile96/OTTERS_paper": null,
+        "github/NREL/G2Aero": "Separable shape tensors for aerodynamic design",
+        "github/jacobblum/simDRIFT": "simDRIFT - A software package for massively parallel forward simulation of Pulsed Gradient Spin Echo diffusion weighted MRI experiments on biophysically accurate tissue systems. ",
+        "github/BioComputingUP/ring-pymol": "This is the public repository for the RING PyMOL plugin developed by the BioComputing UP laboratory at the University of Padua",
+        "github/ianvcaldas/smalldisco": "Discovery of siRNA regions and small RNA tail quantification",
+        "github/stefanradev93/BayesFlow": "A Python library for amortized Bayesian workflows using generative neural networks.",
+        "github/SESMG/SESMG": "Model generator for the optimization of energy systems, based on the modeling framework oemof. No programming skills are required to use it, as the parameters are entered using spreadsheets (e.g. Excel, LibreOffice).",
+        "github/zpliulab/GeoBind": "Segmentation of nucleic acid binding interface on protein surface with geometric deep learning",
+        "github/arviz-devs/preliz": "Tools to help you pick a prior",
+        "github/Ambuj-UF/APOP": "Allostery pocket prediction",
+        "github/bioAI-Oslo/Spikeometric": "Spiking Neural Network Simulator based on Generalized Linear Models",
+        "github/Nicole-DH/ACP-MLC": "ACP-MLC: A two-level prediction engine for identification of anticancer peptides and multi-label classification of their functional types",
+        "github/liniguez/Insplico_simulations": null,
+        "github/sunpy/ndcube": "A base package for multi-dimensional contiguous and non-contiguous coordinate-aware arrays. Maintainers: @danryanirish & @Cadair",
+        "github/HannahMDoherty/ChemGAPP": "A package and series of Streamlit apps for analysing chemical genomic screen data",
+        "github/ptriska/WavesDash": "A web application for visualization of wastewater sequencing results",
+        "github/PixelgenTechnologies/pixelator": "A command-line tool and library to process and analyze sequencing data from Molecular Pixelation (MPX) assays.",
+        "github/jodyphelan/tb-ml": "A simple tool for creating machine learning antimicrobial resistance prediction pipelines using Docker containers for M. tuberculosis",
+        "github/yupidevs/pactus": "Framework to evaluate Trajectory Classification Algorithms"
     }
 }

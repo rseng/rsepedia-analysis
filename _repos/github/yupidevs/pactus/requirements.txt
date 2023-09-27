@@ -1,0 +1,6 @@
+numpy
+yupi
+tensorflow
+scikit-learn
+xgboost
+GitPython
