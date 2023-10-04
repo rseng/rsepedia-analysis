@@ -1,0 +1,466 @@
+{
+    "requirements.txt": {
+        "github/SESMG/SESMG": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "streamlit": {
+            "credit": 0.014025000000000003,
+            "url": "https://streamlit.io"
+        },
+        "streamlit-aggrid": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/PablocFonseca/streamlit-aggrid"
+        },
+        "oemof.solph": {
+            "credit": 0.011983125000000002,
+            "url": "https://oemof.org"
+        },
+        "openpyxl": {
+            "credit": 0.00041250000000000314,
+            "url": "https://openpyxl.readthedocs.io"
+        },
+        "oemof.thermal": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/oemof/oemof-thermal"
+        },
+        "feedinlib": {
+            "credit": 0.00041250000000000314,
+            "url": "http://github.com/oemof/feedinlib"
+        },
+        "open_fred-cli": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/open-fred/cli"
+        },
+        "geocoder": {
+            "credit": 0.04125,
+            "url": "https://github.com/DenisCarriere/geocoder"
+        },
+        "shapely": {
+            "credit": 0.00041250000000000314,
+            "url": "https://shapely.readthedocs.io/en/stable/"
+        },
+        "demandlib": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/oemof/demandlib"
+        },
+        "richardsonpy": {
+            "credit": 0.04125,
+            "url": "https://github.com/RWTH-EBC/richardsonpy"
+        },
+        "graphviz": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/xflr6/graphviz"
+        },
+        "scikit-learn-extra": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/scikit-learn-contrib/scikit-learn-extra"
+        },
+        "memory-profiler": {
+            "credit": 0.00041250000000000314,
+            "url": "https://github.com/pythonprofilers/memory_profiler"
+        },
+        "dhnx": {
+            "credit": 0.00041250000000000314,
+            "url": "https://pypi.org/project/dhnx"
+        },
+        "sympy": {
+            "credit": 0.00041250000000000314,
+            "url": "https://sympy.org"
+        },
+        "xlsxwriter": {
+            "credit": 0.04125,
+            "url": "https://github.com/jmcnamara/XlsxWriter"
+        },
+        "seaborn": {
+            "credit": 0.00041250000000000314,
+            "url": "https://seaborn.pydata.org"
+        },
+        "dash": {
+            "credit": 0.04125,
+            "url": "https://plotly.com/dash"
+        },
+        "dash_canvas": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/dash_canvas"
+        },
+        "h5py": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/h5py"
+        },
+        "pandas": {
+            "credit": 0.0815335367647059,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "pytest": {
+            "credit": 0.07178013291855202,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pyside6": {
+            "credit": 0.04125,
+            "url": "https://pypi.org/project/pyside6"
+        },
+        "snowflake-connector-python": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/snowflake-connector-python"
+        },
+        "snowflake-snowpark-python": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/snowflake-snowpark-python"
+        },
+        "watchdog": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "tornado": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "pydeck": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/pydeck"
+        },
+        "gitpython": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/gitpython"
+        },
+        "validators": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/validators"
+        },
+        "tzlocal": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "typing-extensions": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "toml": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/toml"
+        },
+        "tenacity": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/tenacity"
+        },
+        "rich": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/rich"
+        },
+        "requests": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/requests"
+        },
+        "python-dateutil": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "pyarrow": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "protobuf": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/protobuf"
+        },
+        "pillow": {
+            "credit": 0.008749125,
+            "url": "https://pypi.org/project/pillow"
+        },
+        "packaging": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "numpy": {
+            "credit": 0.03718978676470588,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "importlib-metadata": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "click": {
+            "credit": 0.005346,
+            "url": "https://pypi.org/project/click"
+        },
+        "cachetools": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/cachetools"
+        },
+        "blinker": {
+            "credit": 0.004035705882352941,
+            "url": "https://pypi.org/project/blinker"
+        },
+        "altair": {
+            "credit": 0.0016335,
+            "url": "https://pypi.org/project/altair"
+        },
+        "python-decouple": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/python-decouple"
+        },
+        "oemof": {
+            "credit": 0.006114705882352941,
+            "url": "https://pypi.org/project/oemof"
+        },
+        "termcolor": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/termcolor"
+        },
+        "sphinx-design": {
+            "credit": 0.004258455882352941,
+            "url": "https://pypi.org/project/sphinx-design"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.004258455882352941,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.018464507918552038,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.028127927036199096,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "nbformat": {
+            "credit": 0.004804411764705883,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "matplotlib": {
+            "credit": 0.028750036764705885,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "oemof.network": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/oemof.network"
+        },
+        "oemof.tools": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/oemof.tools"
+        },
+        "networkx": {
+            "credit": 0.005805330882352942,
+            "url": "https://pypi.org/project/networkx"
+        },
+        "pyomo": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/pyomo"
+        },
+        "dill": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/dill"
+        },
+        "et-xmlfile": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/et-xmlfile"
+        },
+        "pvlib": {
+            "credit": 0.010569705882352941,
+            "url": "https://pypi.org/project/pvlib"
+        },
+        "punch.py": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/punch.py"
+        },
+        "jupyter": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/jupyter"
+        },
+        "descartes": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/descartes"
+        },
+        "xarray": {
+            "credit": 0.006114705882352941,
+            "url": "https://pypi.org/project/xarray"
+        },
+        "windpowerlib": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/windpowerlib"
+        },
+        "tables": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/tables"
+        },
+        "open-FRED-cli": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/open-FRED-cli"
+        },
+        "oedialect": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/oedialect"
+        },
+        "geopandas": {
+            "credit": 0.005805330882352942,
+            "url": "https://pypi.org/project/geopandas"
+        },
+        "cdsapi": {
+            "credit": 0.0024022058823529413,
+            "url": "https://pypi.org/project/cdsapi"
+        },
+        "toolz": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "oemof.db": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/oemof.db"
+        },
+        "netCDF4": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/netCDF4"
+        },
+        "dask": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/dask"
+        },
+        "alembic": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/alembic"
+        },
+        "SQLAlchemy": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/SQLAlchemy"
+        },
+        "Shapely": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/Shapely"
+        },
+        "GeoAlchemy2": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/GeoAlchemy2"
+        },
+        "numpydoc": {
+            "credit": 0.015778125,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "coverage": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest-cov": {
+            "credit": 0.008710096153846153,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "mock": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/mock"
+        },
+        "pytest-mock": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/pytest-mock"
+        },
+        "sphinx-autodoc-typehints": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/sphinx-autodoc-typehints"
+        },
+        "twine": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/twine"
+        },
+        "wheel": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/wheel"
+        },
+        "pep8-naming": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/pep8-naming"
+        },
+        "flake8": {
+            "credit": 0.004997596153846154,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "tox": {
+            "credit": 0.003141346153846154,
+            "url": "https://pypi.org/project/tox"
+        },
+        "sphinx-gallery": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/sphinx-gallery"
+        },
+        "scikit-learn": {
+            "credit": 0.0037125,
+            "url": "https://pypi.org/project/scikit-learn"
+        },
+        "scipy": {
+            "credit": 0.008971875,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "psutil": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "CoolProp": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/CoolProp"
+        },
+        "osmnx": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/osmnx"
+        },
+        "cartopy": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/cartopy"
+        },
+        "addict": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/addict"
+        },
+        "folium": {
+            "credit": 0.003403125,
+            "url": "https://pypi.org/project/folium"
+        },
+        "mpmath": {
+            "credit": 0.0408375,
+            "url": "https://pypi.org/project/mpmath"
+        },
+        "statsmodels": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/statsmodels"
+        },
+        "pydata_sphinx_theme": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/pydata_sphinx_theme"
+        },
+        "pyyaml": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "sphinx-issues": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/sphinx-issues"
+        },
+        "ipykernel": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "nbconvert": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "flit": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/flit"
+        },
+        "pre-commit": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "pandas-stubs": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/pandas-stubs"
+        },
+        "mypy": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pytest-xdist": {
+            "credit": 0.00185625,
+            "url": "https://pypi.org/project/pytest-xdist"
+        }
+    }
+}
