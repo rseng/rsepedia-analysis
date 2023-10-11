@@ -23,6 +23,12 @@ jobs:
         pip install -r requirements.txt
         python -m nltk.downloader popular
         rse --version
+      
+    - name: Make Space
+      run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
 
     - name: Load CiteLang Cache
       uses: actions/cache@v3
