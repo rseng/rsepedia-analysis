@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(libpdb-redo VERSION 3.1.0 LANGUAGES CXX C)
+project(libpdb-redo VERSION 3.1.1 LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 

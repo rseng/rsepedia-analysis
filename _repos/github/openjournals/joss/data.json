@@ -1,0 +1,506 @@
+{
+    "Gemfile": {
+        "github/openjournals/joss": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "aasm": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/aasm/aasm"
+        },
+        "chartkick": {
+            "credit": 0.022,
+            "url": "https://chartkick.com"
+        },
+        "bootsnap": {
+            "credit": 0.022,
+            "url": "https://github.com/Shopify/bootsnap"
+        },
+        "dotenv": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/bkeepers/dotenv"
+        },
+        "google_drive": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/gimite/google-drive-ruby"
+        },
+        "groupdate": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/ankane/groupdate"
+        },
+        "honeybadger": {
+            "credit": 0.022,
+            "url": "https://www.honeybadger.io/for/ruby/"
+        },
+        "html-pipeline": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/jch/html-pipeline"
+        },
+        "commonmarker": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/gjtorikian/commonmarker"
+        },
+        "net-sftp": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/net-ssh/net-sftp"
+        },
+        "octicons_helper": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/primer/octicons"
+        },
+        "omniauth-orcid": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/datacite/omniauth-orcid"
+        },
+        "omniauth-rails_csrf_protection": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/cookpad/omniauth-rails_csrf_protection"
+        },
+        "octokit": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/octokit/octokit.rb"
+        },
+        "pdf-reader": {
+            "credit": 0.00022000000000000491,
+            "url": "https://github.com/yob/pdf-reader"
+        },
+        "pg": {
+            "credit": 0.022,
+            "url": "https://github.com/ged/ruby-pg"
+        },
+        "pagy": {
+            "credit": 0.022,
+            "url": "https://github.com/ddnexus/pagy"
+        },
+        "rails": {
+            "credit": 0.003850000000000001,
+            "url": "https://rubyonrails.org"
+        },
+        "importmap-rails": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/rails/importmap-rails"
+        },
+        "turbo-rails": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/hotwired/turbo-rails"
+        },
+        "stimulus-rails": {
+            "credit": 0.00022000000000000144,
+            "url": "https://stimulus.hotwired.dev"
+        },
+        "responders": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/heartcombo/responders"
+        },
+        "newrelic_rpm": {
+            "credit": 0.00022000000000000144,
+            "url": "https://newrelic.com/ruby"
+        },
+        "sanitize": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/rgrove/sanitize/"
+        },
+        "searchkick": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/ankane/searchkick"
+        },
+        "elasticsearch": {
+            "credit": 0.00022000000000000144,
+            "url": "https://www.elastic.co/guide/en/elasticsearch/client/ruby-api/current/index.html"
+        },
+        "uglifier": {
+            "credit": 0.0033314285714285724,
+            "url": "http://github.com/lautis/uglifier"
+        },
+        "jbuilder": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/rails/jbuilder"
+        },
+        "issue": {
+            "credit": 0.00022000000000000144,
+            "url": "http://github.com/xuanxu/issue"
+        },
+        "active_link_to": {
+            "credit": 0.00022000000000000144,
+            "url": "http://github.com/comfy/active_link_to"
+        },
+        "mini_racer": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/discourse/mini_racer"
+        },
+        "sprockets-rails": {
+            "credit": 0.0026400000000000013,
+            "url": "https://github.com/rails/sprockets-rails"
+        },
+        "sassc-rails": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/sass/sassc-rails"
+        },
+        "puma": {
+            "credit": 0.00022000000000000144,
+            "url": "https://puma.io"
+        },
+        "redis": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/redis/redis-rb"
+        },
+        "pry-byebug": {
+            "credit": 0.00022000000000000144,
+            "url": "https://github.com/deivid-rodriguez/pry-byebug"
+        },
+        "capybara": {
+            "credit": 0.022,
+            "url": "https://github.com/teamcapybara/capybara"
+        },
+        "factory_bot_rails": {
+            "credit": 0.022,
+            "url": null
+        },
+        "rspec-rails": {
+            "credit": 0.022,
+            "url": null
+        },
+        "selenium-webdriver": {
+            "credit": 0.022,
+            "url": null
+        },
+        "webmock": {
+            "credit": 0.0265375,
+            "url": null
+        },
+        "vcr": {
+            "credit": 0.022,
+            "url": null
+        },
+        "web-console": {
+            "credit": 0.022,
+            "url": null
+        },
+        "spring": {
+            "credit": 0.022,
+            "url": null
+        },
+        "spring-commands-rspec": {
+            "credit": 0.022,
+            "url": null
+        },
+        "concurrent-ruby": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "simplecov": {
+            "credit": 0.008513214285714284,
+            "url": null
+        },
+        "sdoc": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "rspec": {
+            "credit": 0.025998499999999994,
+            "url": null
+        },
+        "rake": {
+            "credit": 0.05706957142857142,
+            "url": null
+        },
+        "pry": {
+            "credit": 0.019524999999999997,
+            "url": null
+        },
+        "generator_spec": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "appraisal": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "standard": {
+            "credit": 0.007259999999999999,
+            "url": null
+        },
+        "nokogiri": {
+            "credit": 0.00855642857142857,
+            "url": null
+        },
+        "googleauth": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "google-apis-sheets_v4": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "google-apis-drive_v3": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "test-unit": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "rspec-mocks": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "activesupport": {
+            "credit": 0.03745681318681318,
+            "url": null
+        },
+        "zeitwerk": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "selma": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "rake-compiler": {
+            "credit": 0.014519999999999998,
+            "url": null
+        },
+        "net-ssh": {
+            "credit": 0.007259999999999999,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.011235714285714285,
+            "url": null
+        },
+        "minitest": {
+            "credit": 0.021520714285714282,
+            "url": null
+        },
+        "railties": {
+            "credit": 0.06528681318681319,
+            "url": null
+        },
+        "octicons": {
+            "credit": 0.007259999999999999,
+            "url": null
+        },
+        "actionview": {
+            "credit": 0.019825384615384613,
+            "url": null
+        },
+        "bundler": {
+            "credit": 0.0218045989010989,
+            "url": null
+        },
+        "codeclimate-test-reporter": {
+            "credit": 0.0027224999999999997,
+            "url": null
+        },
+        "rack-test": {
+            "credit": 0.0027224999999999997,
+            "url": null
+        },
+        "omniauth-oauth2": {
+            "credit": 0.0027224999999999997,
+            "url": null
+        },
+        "ruby_dig": {
+            "credit": 0.0027224999999999997,
+            "url": null
+        },
+        "omniauth": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "actionpack": {
+            "credit": 0.04834681318681318,
+            "url": null
+        },
+        "sawyer": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "faraday": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "ttfunk": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "ruby-rc4": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "hashery": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "Ascii85": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "afm": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "rdoc": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "morecane": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "cane": {
+            "credit": 0.0019799999999999996,
+            "url": null
+        },
+        "activestorage": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "activerecord": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "activemodel": {
+            "credit": 0.012565384615384614,
+            "url": null
+        },
+        "activejob": {
+            "credit": 0.008935384615384614,
+            "url": null
+        },
+        "actiontext": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "actionmailer": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "actionmailbox": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "actioncable": {
+            "credit": 0.0016753846153846153,
+            "url": null
+        },
+        "yard": {
+            "credit": 0.003370714285714285,
+            "url": null
+        },
+        "warning": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rubocop-rake": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rubocop-performance": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rubocop-minitest": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rubocop-ast": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rubocop": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "rack": {
+            "credit": 0.007000714285714285,
+            "url": null
+        },
+        "minitest-stub-const": {
+            "credit": 0.0015557142857142855,
+            "url": null
+        },
+        "crass": {
+            "credit": 0.005444999999999999,
+            "url": null
+        },
+        "hashie": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "elasticsearch-transport": {
+            "credit": 0.0018149999999999998,
+            "url": null
+        },
+        "elasticsearch-api": {
+            "credit": 0.0018149999999999998,
+            "url": null
+        },
+        "ruby-prof": {
+            "credit": 0.0018149999999999998,
+            "url": null
+        },
+        "require-prof": {
+            "credit": 0.0018149999999999998,
+            "url": null
+        },
+        "byebug": {
+            "credit": 0.012704999999999998,
+            "url": null
+        },
+        "execjs": {
+            "credit": 0.004356,
+            "url": null
+        },
+        "sourcemap": {
+            "credit": 0.004356,
+            "url": null
+        },
+        "openssl": {
+            "credit": 0.005444999999999999,
+            "url": null
+        },
+        "addressable": {
+            "credit": 0.010889999999999999,
+            "url": null
+        },
+        "libv8-node": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "m": {
+            "credit": 0.0036299999999999995,
+            "url": null
+        },
+        "sprockets": {
+            "credit": 0.005531428571428571,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.003111428571428571,
+            "url": null
+        },
+        "tilt": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "sassc": {
+            "credit": 0.00242,
+            "url": null
+        },
+        "nio4r": {
+            "credit": 0.021779999999999997,
+            "url": null
+        },
+        "redis-client": {
+            "credit": 0.021779999999999997,
+            "url": null
+        }
+    }
+}
