@@ -336,16 +336,18 @@ endif(APPLE)
 # Download data files (interaction data, masses, decay data ...)
 # ----------------------------------------------------------------------------
 OPTION(DOWNLOAD_DATA "Download CRPropa data files" ON)
-set(CRPROPA_DATAFILE_VER "2022-07-06")
+set(CRPROPA_DATAFILE_VER "2023-10-20")
 if(DOWNLOAD_DATA)
-  message("-- Downloading data file from crpropa.desy.de ~ 65 MB")
+  message("-- Downloading data files from sciebo ~ 73 MB")
   file(DOWNLOAD
-    https://www.desy.de/~crpropa/data/interaction_data/data-${CRPROPA_DATAFILE_VER}.tar.gz-CHECKSUM
-    ${CMAKE_BINARY_DIR}/data-${CRPROPA_DATAFILE_VER}.tar.gz-CHECKSUM)
+  https://ruhr-uni-bochum.sciebo.de/public.php/webdav/data-${CRPROPA_DATAFILE_VER}.tar.gz-CHECKSUM
+    ${CMAKE_BINARY_DIR}/data-${CRPROPA_DATAFILE_VER}.tar.gz-CHECKSUM 
+    USERPWD "3juW9sntQX2IWBS")
   file(STRINGS ${CMAKE_BINARY_DIR}/data-${CRPROPA_DATAFILE_VER}.tar.gz-CHECKSUM DATA_CHECKSUM LIMIT_COUNT 1 LENGTH_MINIMUM 32 LENGTH_MAXIMUM 32)
   file(DOWNLOAD
-    https://www.desy.de/~crpropa/data/interaction_data/data-${CRPROPA_DATAFILE_VER}.tar.gz
+  https://ruhr-uni-bochum.sciebo.de/public.php/webdav/data-${CRPROPA_DATAFILE_VER}.tar.gz
     ${CMAKE_BINARY_DIR}/data-${CRPROPA_DATAFILE_VER}.tar.gz
+    USERPWD "3juW9sntQX2IWBS"
     EXPECTED_MD5 "${DATA_CHECKSUM}")
   message("-- Extracting data file")
 else()
@@ -400,6 +402,7 @@ add_library(crpropa SHARED
   src/module/ElasticScattering.cpp
   src/module/ElectronPairProduction.cpp
   src/module/HDF5Output.cpp
+  src/module/MomentumDiffusion.cpp
   src/module/NuclearDecay.cpp
   src/module/Observer.cpp
   src/module/Output.cpp
@@ -679,6 +682,9 @@ if(ENABLE_TESTING)
 
     CONFIGURE_FILE(test/testDiffusionSDE.py testDiffusionSDE.py COPYONLY)
     add_test(testDiffusionSDE ${PYTHON_EXECUTABLE} testDiffusionSDE.py)
+
+    CONFIGURE_FILE(test/testMomentumDiffusion.py testMomentumDiffusion.py COPYONLY)
+    add_test(testMomentumDiffusion ${PYTHON_EXECUTABLE} testMomentumDiffusion.py)
 
     CONFIGURE_FILE(test/testPythonExtension.py testPythonExtension.py COPYONLY)
     add_test(testPythonExtension ${PYTHON_EXECUTABLE} testPythonExtension.py)
