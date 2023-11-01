@@ -18699,7 +18699,31 @@
         "github/skiehl/lcsim": [],
         "github/skiehl/wwz": [],
         "github/TravisWheelerLab/NINJA": [],
-        "github/RECETOX/recetox-msfinder": []
+        "github/RECETOX/recetox-msfinder": [],
+        "github/frescigno/magpy_rv": [],
+        "github/SCIInstitute/UncertainSCI": [],
+        "github/stammler/dustpylib": [
+            "astrophysics",
+            "planetary-science",
+            "python"
+        ],
+        "github/hyosubkim/bayes-toolbox": [
+            "bayesian-inference",
+            "bayesian-statistics",
+            "kruschke",
+            "probabilistic-programming",
+            "python",
+            "statistics"
+        ],
+        "github/LTLA/gesel.js": [],
+        "github/mgcooper/baseflow": [
+            "baseflow",
+            "groundwater",
+            "hydrology"
+        ],
+        "github/ORNL/curifactory": [],
+        "github/Qiskit-Extensions/qiskit-dynamics": [],
+        "github/gmrandazzo/libscientific": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23843,7 +23867,16 @@
         "github/skiehl/lcsim": "Jupyter Notebook",
         "github/skiehl/wwz": "Jupyter Notebook",
         "github/TravisWheelerLab/NINJA": "C++",
-        "github/RECETOX/recetox-msfinder": "C#"
+        "github/RECETOX/recetox-msfinder": "C#",
+        "github/frescigno/magpy_rv": "Jupyter Notebook",
+        "github/SCIInstitute/UncertainSCI": "Python",
+        "github/stammler/dustpylib": "Python",
+        "github/hyosubkim/bayes-toolbox": "Python",
+        "github/LTLA/gesel.js": "JavaScript",
+        "github/mgcooper/baseflow": "HTML",
+        "github/ORNL/curifactory": "Python",
+        "github/Qiskit-Extensions/qiskit-dynamics": "Python",
+        "github/gmrandazzo/libscientific": "C"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -28987,7 +29020,16 @@
         "github/skiehl/lcsim": "https://github.com/skiehl/lcsim",
         "github/skiehl/wwz": "https://github.com/skiehl/wwz",
         "github/TravisWheelerLab/NINJA": "https://github.com/TravisWheelerLab/NINJA",
-        "github/RECETOX/recetox-msfinder": "https://github.com/RECETOX/recetox-msfinder"
+        "github/RECETOX/recetox-msfinder": "https://github.com/RECETOX/recetox-msfinder",
+        "github/frescigno/magpy_rv": "https://github.com/frescigno/magpy_rv",
+        "github/SCIInstitute/UncertainSCI": "https://github.com/SCIInstitute/UncertainSCI",
+        "github/stammler/dustpylib": "https://github.com/stammler/dustpylib",
+        "github/hyosubkim/bayes-toolbox": "https://github.com/hyosubkim/bayes-toolbox",
+        "github/LTLA/gesel.js": "https://github.com/LTLA/gesel.js",
+        "github/mgcooper/baseflow": "https://github.com/mgcooper/baseflow",
+        "github/ORNL/curifactory": "https://github.com/ORNL/curifactory",
+        "github/Qiskit-Extensions/qiskit-dynamics": "https://github.com/Qiskit-Extensions/qiskit-dynamics",
+        "github/gmrandazzo/libscientific": "https://github.com/gmrandazzo/libscientific"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34131,6 +34173,15 @@
         "github/skiehl/lcsim": "Blazar light curve simulation package",
         "github/skiehl/wwz": "Weighted wavelet z-transform (WWZ) analysis package",
         "github/TravisWheelerLab/NINJA": "Nearly Infinite Neighbor Joining Application",
-        "github/RECETOX/recetox-msfinder": null
+        "github/RECETOX/recetox-msfinder": null,
+        "github/frescigno/magpy_rv": "Modelling Activity with Gaussian process regression in Python",
+        "github/SCIInstitute/UncertainSCI": null,
+        "github/stammler/dustpylib": "Library with auxiliary modules for DustPy",
+        "github/hyosubkim/bayes-toolbox": "bayes-toolbox",
+        "github/LTLA/gesel.js": "Client-side gene set queries.",
+        "github/mgcooper/baseflow": "baseflow recession analysis toolbox",
+        "github/ORNL/curifactory": "An experiment workflow and organization tool.",
+        "github/Qiskit-Extensions/qiskit-dynamics": "Tools for building and solving models of quantum systems in Qiskit",
+        "github/gmrandazzo/libscientific": "Libscientific is a C framework  for multivariate and other statistical analysis"
     }
 }

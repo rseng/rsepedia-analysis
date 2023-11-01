@@ -1,0 +1,126 @@
+{
+    "package.json": {
+        "github/LTLA/gesel.js": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "pako": {
+            "credit": 0.00990000000000002,
+            "url": "https://github.com/nodeca/pako#readme"
+        },
+        "shelljs": {
+            "credit": 0.0007539230769230826,
+            "url": "http://github.com/shelljs/shelljs"
+        },
+        "rollup-plugin-terser": {
+            "credit": 0.0007539230769230826,
+            "url": "https://github.com/TrySound/rollup-plugin-terser"
+        },
+        "rollup": {
+            "credit": 0.08472210576923077,
+            "url": "https://rollupjs.org/"
+        },
+        "nyc": {
+            "credit": 0.0803682,
+            "url": null
+        },
+        "ndoc": {
+            "credit": 0.07539230769230769,
+            "url": null
+        },
+        "multiparty": {
+            "credit": 0.07539230769230769,
+            "url": null
+        },
+        "mocha": {
+            "credit": 0.07539230769230769,
+            "url": null
+        },
+        "gh-pages": {
+            "credit": 0.07539230769230769,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.0803682,
+            "url": null
+        },
+        "": {
+            "credit": 0.3202288269230769,
+            "url": null
+        },
+        "travis-check-changes": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "shx": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "shelljs-release": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "shelljs-changelog": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "eslint-config-airbnb-base": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "coffee-script": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "codecov": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "rechoir": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "interpret": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "glob": {
+            "credit": 0.004975892307692307,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.009329798076923076,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.009329798076923076,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.009329798076923076,
+            "url": null
+        },
+        "serialize-javascript": {
+            "credit": 0.009329798076923076,
+            "url": null
+        },
+        "jest-worker": {
+            "credit": 0.009329798076923076,
+            "url": null
+        }
+    }
+}
