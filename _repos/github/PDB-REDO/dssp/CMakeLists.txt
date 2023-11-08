@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.4.4 LANGUAGES CXX)
+project(mkdssp VERSION 4.4.5 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -35,7 +35,6 @@ include(CheckIncludeFiles)
 include(CheckLibraryExists)
 include(CMakePackageConfigHelpers)
 include(FindFilesystem)
-include(GenerateExportHeader)
 include(CTest)
 
 set(CXX_EXTENSIONS OFF)
@@ -71,6 +70,7 @@ endif()
 if(MSVC)
 	# make msvc standards compliant...
 	add_compile_options(/permissive-)
+	add_link_options(/NODEFAULTLIB:library)
 
 	macro(get_WIN32_WINNT version)
 		if(WIN32 AND CMAKE_SYSTEM_VERSION)

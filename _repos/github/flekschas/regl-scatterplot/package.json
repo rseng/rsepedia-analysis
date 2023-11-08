@@ -1,6 +1,6 @@
 {
   "name": "regl-scatterplot",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "A WebGL-Powered Scalable Interactive Scatter Plot Library",
   "author": "Fritz Lekschas",
   "keywords": [
@@ -57,6 +57,7 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
+    "@types/d3-scale": "^4.0.6",
     "@types/node": "^20.3.1",
     "acorn": "^8.9.0",
     "apache-arrow": "^12.0.1",
