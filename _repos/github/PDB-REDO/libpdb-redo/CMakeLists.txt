@@ -25,7 +25,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # set the project name
-project(libpdb-redo VERSION 3.1.1 LANGUAGES CXX C)
+project(libpdb-redo VERSION 3.1.2 LANGUAGES CXX C)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
@@ -57,6 +57,9 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 # Optionally build a version to be installed inside CCP4
 option(BUILD_FOR_CCP4 "Build a version to be installed in CCP4" OFF)
 
+# Optionally leave out the minimizer
+option(BUILD_MINIMIZER "Build the minimizer code" ON)
+
 if(BUILD_FOR_CCP4)
 	if("$ENV{CCP4}" STREQUAL "" OR NOT EXISTS $ENV{CCP4})
 		message(FATAL_ERROR "A CCP4 built was requested but CCP4 was not sourced")
@@ -85,6 +88,7 @@ endif()
 if(MSVC)
 	# make msvc standards compliant...
 	add_compile_options(/permissive-)
+	add_link_options(/NODEFAULTLIB:library)
 
 	macro(get_WIN32_WINNT version)
 		if(WIN32 AND CMAKE_SYSTEM_VERSION)
@@ -103,7 +107,10 @@ endif()
 # Libraries
 find_package(Eigen3 REQUIRED)
 find_package(CCP4 REQUIRED ccp4c clipper-core clipper-ccp4 clipper-contrib)
-find_package(GSL REQUIRED)
+
+if(BUILD_MINIMIZER)
+	find_package(GSL REQUIRED)
+endif()
 
 if(NOT PDB_REDO_META)
 	find_package(newuoa REQUIRED)
@@ -115,7 +122,7 @@ include(VersionString)
 write_version_header("${PROJECT_SOURCE_DIR}/src" LIB_NAME "LibPDBREDO")
 
 # Sources
-set(project_sources
+list(APPEND project_sources
 	${PROJECT_SOURCE_DIR}/src/AtomShape.cpp
 	${PROJECT_SOURCE_DIR}/src/BondMap.cpp
 	${PROJECT_SOURCE_DIR}/src/ClipperWrapper.cpp
@@ -126,13 +133,11 @@ set(project_sources
 	${PROJECT_SOURCE_DIR}/src/ResolutionCalculator.cpp
 	${PROJECT_SOURCE_DIR}/src/SkipList.cpp
 	${PROJECT_SOURCE_DIR}/src/Statistics.cpp
-	${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
-	${PROJECT_SOURCE_DIR}/src/Restraints.cpp
 	${PROJECT_SOURCE_DIR}/src/TLS.cpp
 	${PROJECT_SOURCE_DIR}/src/Version.cpp
 )
 
-set(project_headers
+list(APPEND project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/AtomShape.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/BondMap.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/ClipperWrapper.hpp
@@ -143,23 +148,36 @@ set(project_headers
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/ResolutionCalculator.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/SkipList.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Statistics.hpp
-	${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
-	${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/TLS.hpp
 	${PROJECT_SOURCE_DIR}/include/pdb-redo/Version.hpp
 )
 
+if(BUILD_MINIMIZER)
+	list(APPEND project_sources
+		${PROJECT_SOURCE_DIR}/src/Minimizer.cpp
+		${PROJECT_SOURCE_DIR}/src/Restraints.cpp
+	)
+
+	list(APPEND project_headers
+		${PROJECT_SOURCE_DIR}/include/pdb-redo/Minimizer.hpp
+		${PROJECT_SOURCE_DIR}/include/pdb-redo/Restraints.hpp
+	)
+endif()
+
 add_library(pdb-redo ${project_sources} ${project_headers})
 add_library(pdb-redo::pdb-redo ALIAS pdb-redo)
 set_target_properties(pdb-redo PROPERTIES POSITION_INDEPENDENT_CODE ON)
-generate_export_header(pdb-redo EXPORT_FILE_NAME pdb-redo/exports.hpp)
+generate_export_header(pdb-redo EXPORT_FILE_NAME ${PROJECT_SOURCE_DIR}/include/pdb-redo/exports.hpp)
 
 target_include_directories(pdb-redo
 	PUBLIC
-	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include;${EIGEN3_INCLUDE_DIR}>"
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 	${CCP4_INCLUDE_DIRS})
-target_link_libraries(pdb-redo PUBLIC cifpp::cifpp newuoa::newuoa ${CCP4_LIBRARIES} GSL::gsl)
+target_link_libraries(pdb-redo PUBLIC cifpp::cifpp newuoa::newuoa ${CCP4_LIBRARIES} PRIVATE Eigen3::Eigen)
+if(BUILD_MINIMIZER)
+	target_link_libraries(pdb-redo PUBLIC GSL::gsl)
+endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 	target_link_options(pdb-redo PRIVATE -undefined dynamic_lookup)
@@ -188,11 +206,9 @@ install(
 	COMPONENT Devel
 )
 
-install(
-	FILES ${PROJECT_BINARY_DIR}/pdb-redo/exports.hpp
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/pdb-redo/
-	COMPONENT Devel
-)
+if(BUILD_MINIMIZER)
+	set(FIND_DEPENDENCY_GSL "find_dependency(GSL REQUIRED)")
+endif()
 
 configure_package_config_file(${PROJECT_SOURCE_DIR}/cmake/pdb-redoConfig.cmake.in
 	${CMAKE_CURRENT_BINARY_DIR}/pdb-redo/pdb-redoConfig.cmake
@@ -234,7 +250,7 @@ file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc
 	INPUT ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc.in)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libpdb-redo.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
-if(BUILD_TESTING)
+if(BUILD_TESTING AND NOT MSVC)
 	list(APPEND PDB_REDO_tests pdb-redo-unit rsr)
 
 	foreach(PDB_REDO_TEST IN LISTS PDB_REDO_tests)

@@ -1,0 +1,22 @@
+{
+    "requirements.txt": {
+        "github/damar-wicaksono/uqtestfuns": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "jupyter-book": {
+            "credit": 0.0033000000000000004,
+            "url": "https://executablebooks.org/"
+        },
+        "matplotlib": {
+            "credit": 0.0033000000000000004,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://numpy.org"
+        }
+    }
+}

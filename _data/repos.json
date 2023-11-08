@@ -18723,7 +18723,41 @@
         ],
         "github/ORNL/curifactory": [],
         "github/Qiskit-Extensions/qiskit-dynamics": [],
-        "github/gmrandazzo/libscientific": []
+        "github/gmrandazzo/libscientific": [],
+        "github/dzerbino/velvet": [],
+        "github/SJ001/AI-Feynman": [],
+        "github/kjschmidlab/GGoutlieR": [],
+        "github/jet-net/JetNet": [],
+        "github/v-morello/riptide": [],
+        "github/v-morello/clfd": [],
+        "github/nmfs-fish-tools/ssmse": [
+            "stock-synthesis"
+        ],
+        "github/IlianPihlajamaa/ModeCouplingTheory.jl": [
+            "differential-equations",
+            "julia"
+        ],
+        "github/damar-wicaksono/uqtestfuns": [
+            "python",
+            "uncertainty-quantification",
+            "metamodeling",
+            "sensitivity-analysis",
+            "test-functions",
+            "reliability-analysis"
+        ],
+        "github/ACTCollaboration/zCluster": [
+            "astrophysics",
+            "python"
+        ],
+        "github/VChristiaens/vcal_sphere": [],
+        "github/AMReX-Combustion/PeleLMeX": [
+            "amrex",
+            "combustion",
+            "low-mach-number",
+            "gpu-acceleration"
+        ],
+        "github/raghuastro/GRIZZLY": [],
+        "gitlab/kmrajwade/iqrm_apollo": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23876,7 +23910,21 @@
         "github/mgcooper/baseflow": "HTML",
         "github/ORNL/curifactory": "Python",
         "github/Qiskit-Extensions/qiskit-dynamics": "Python",
-        "github/gmrandazzo/libscientific": "C"
+        "github/gmrandazzo/libscientific": "C",
+        "github/dzerbino/velvet": "C",
+        "github/SJ001/AI-Feynman": "Python",
+        "github/kjschmidlab/GGoutlieR": "R",
+        "github/jet-net/JetNet": "Jupyter Notebook",
+        "github/v-morello/riptide": "Python",
+        "github/v-morello/clfd": "Python",
+        "github/nmfs-fish-tools/ssmse": "R",
+        "github/IlianPihlajamaa/ModeCouplingTheory.jl": "Julia",
+        "github/damar-wicaksono/uqtestfuns": "Python",
+        "github/ACTCollaboration/zCluster": "Python",
+        "github/VChristiaens/vcal_sphere": "Python",
+        "github/AMReX-Combustion/PeleLMeX": "C++",
+        "github/raghuastro/GRIZZLY": "Fortran",
+        "gitlab/kmrajwade/iqrm_apollo": "unknown"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29029,7 +29077,21 @@
         "github/mgcooper/baseflow": "https://github.com/mgcooper/baseflow",
         "github/ORNL/curifactory": "https://github.com/ORNL/curifactory",
         "github/Qiskit-Extensions/qiskit-dynamics": "https://github.com/Qiskit-Extensions/qiskit-dynamics",
-        "github/gmrandazzo/libscientific": "https://github.com/gmrandazzo/libscientific"
+        "github/gmrandazzo/libscientific": "https://github.com/gmrandazzo/libscientific",
+        "github/dzerbino/velvet": "https://github.com/dzerbino/velvet",
+        "github/SJ001/AI-Feynman": "https://github.com/SJ001/AI-Feynman",
+        "github/kjschmidlab/GGoutlieR": "https://github.com/kjschmidlab/GGoutlieR",
+        "github/jet-net/JetNet": "https://github.com/jet-net/JetNet",
+        "github/v-morello/riptide": "https://github.com/v-morello/riptide",
+        "github/v-morello/clfd": "https://github.com/v-morello/clfd",
+        "github/nmfs-fish-tools/ssmse": "https://github.com/nmfs-fish-tools/SSMSE",
+        "github/IlianPihlajamaa/ModeCouplingTheory.jl": "https://github.com/IlianPihlajamaa/ModeCouplingTheory.jl",
+        "github/damar-wicaksono/uqtestfuns": "https://github.com/damar-wicaksono/uqtestfuns",
+        "github/ACTCollaboration/zCluster": "https://github.com/ACTCollaboration/zCluster",
+        "github/VChristiaens/vcal_sphere": "https://github.com/VChristiaens/vcal_sphere",
+        "github/AMReX-Combustion/PeleLMeX": "https://github.com/AMReX-Combustion/PeleLMeX",
+        "github/raghuastro/GRIZZLY": "https://github.com/raghuastro/GRIZZLY",
+        "gitlab/kmrajwade/iqrm_apollo": "https://gitlab.com/kmrajwade/iqrm_apollo"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34182,6 +34244,20 @@
         "github/mgcooper/baseflow": "baseflow recession analysis toolbox",
         "github/ORNL/curifactory": "An experiment workflow and organization tool.",
         "github/Qiskit-Extensions/qiskit-dynamics": "Tools for building and solving models of quantum systems in Qiskit",
-        "github/gmrandazzo/libscientific": "Libscientific is a C framework  for multivariate and other statistical analysis"
+        "github/gmrandazzo/libscientific": "Libscientific is a C framework  for multivariate and other statistical analysis",
+        "github/dzerbino/velvet": "Short read de novo assembler using de Bruijn graphs, as published in: D.R. Zerbino and E. Birney. 2008. Velvet: algorithms for de novo short read assembly using de Bruijn graphs. Genome Research, 18: 821-829",
+        "github/SJ001/AI-Feynman": null,
+        "github/kjschmidlab/GGoutlieR": null,
+        "github/jet-net/JetNet": "For developing and reproducing ML + HEP projects.",
+        "github/v-morello/riptide": "Pulsar searching with the Fast Folding Algorithm (FFA)",
+        "github/v-morello/clfd": " Smart RFI removal algorithms to be used on folded pulsar search and timing data",
+        "github/nmfs-fish-tools/ssmse": "Management Strategy Evaluation (MSE) using Stock Synthesis (SS3)",
+        "github/IlianPihlajamaa/ModeCouplingTheory.jl": "A generic and fast solver of mode-coupling theory-like integrodifferential equations",
+        "github/damar-wicaksono/uqtestfuns": "A Python3 library of test functions from the uncertainty quantification community with a common interface for validation and benchmarking purposes.",
+        "github/ACTCollaboration/zCluster": "A package for measuring galaxy cluster photometric redshifts using data from large public surveys.",
+        "github/VChristiaens/vcal_sphere": "Pipeline for calibration, pre-processing and post-processing of SPHERE IRDIS and IFS data, based on VIP routines..",
+        "github/AMReX-Combustion/PeleLMeX": "An adaptive mesh hydrodynamics simulation code for low Mach number reacting flows without level sub-cycling.",
+        "github/raghuastro/GRIZZLY": null,
+        "gitlab/kmrajwade/iqrm_apollo": "A standalone code to clean narrow-band RFI using Inter-Quartile Range Mitigation (IQRM) algorithm. The code works on SIGPROC format data and outputs a cleaned SIGRPOC format file. The output file is compatible with other standard pulsar software."
     }
 }

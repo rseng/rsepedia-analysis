@@ -1,0 +1,42 @@
+Package: GGoutlieR
+Type: Package
+Title: Identify Individuals with Unusual Geo-Genetic Patterns
+Version: 1.0.2
+Authors@R:
+  c(person(given = "Che-Wei",
+           family = "Chang",
+           role = c("aut", "cre"),
+           email = "cheweichang92@gmail.com",
+           comment = c(ORCID = "0000-0001-6704-3732")),
+    person(given = "Karl",
+           family = "Schmid",
+           role = c("ths"),
+           email = "karl.schmid@uni-hohenheim.de",
+           comment = c(ORCID = "0000-0001-5129-895X"),
+           ))
+Description: Identify and visualize individuals with unusual association patterns of genetics and geography using the approach of Chang and Schmid (2023) <doi:10.1101/2023.04.06.535838>. It detects potential outliers that violate the isolation-by-distance assumption using the K-nearest neighbor approach. You can obtain a table of outliers with statistics and visualize unusual geo-genetic patterns on a geographical map. This is useful for landscape genomics studies to discover individuals with unusual geography and genetics associations from a large biological sample.
+License: MIT + file LICENSE
+Depends:
+    R (>= 3.5.0)
+Imports:
+    stats4, 
+    FastKNN,
+    foreach,
+    doParallel,
+    parallel,
+    scales,
+    RColorBrewer,
+    ggforce, 
+    rlang, 
+    stats, 
+    tidyr, 
+    utils,
+    rnaturalearth,
+    sf,
+    ggplot2,
+    cowplot
+Suggests:
+    rnaturalearthdata
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
