@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/precice/micro-manager": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "pyprecice": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/precice/python-bindings"
+        },
+        "numpy": {
+            "credit": 0.0033000000000000004,
+            "url": "https://www.numpy.org"
+        },
+        "mpi4py": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/mpi4py/mpi4py/"
+        }
+    }
+}

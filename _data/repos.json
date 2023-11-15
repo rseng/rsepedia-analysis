@@ -18757,7 +18757,95 @@
             "gpu-acceleration"
         ],
         "github/raghuastro/GRIZZLY": [],
-        "gitlab/kmrajwade/iqrm_apollo": []
+        "gitlab/kmrajwade/iqrm_apollo": [],
+        "github/labxscut/ksak": [],
+        "github/Valires/er-evaluation": [
+            "data-science",
+            "deduplication",
+            "disambiguation",
+            "duplicate-detection",
+            "entity-resolution",
+            "evaluation",
+            "fuzzy-matching",
+            "matching",
+            "ml-evaluation",
+            "ml-testing",
+            "record-linkage",
+            "statistics",
+            "inventor-name-disambiguation",
+            "author-name-disambiguation"
+        ],
+        "github/morisUtokyo/uTR": [],
+        "github/wjakethompson/measr": [
+            "bayesian",
+            "cdm",
+            "cmdstanr",
+            "cognitive-diagnostic-models",
+            "dcm",
+            "r",
+            "r-package",
+            "rstan",
+            "rstats",
+            "stan",
+            "diagnostic-classification-models",
+            "cognitive-diagnosis",
+            "psychometrics"
+        ],
+        "github/UoMMIB/TFBMiner": [],
+        "github/dieghernan/tidyterra": [
+            "ggplot-extension",
+            "r-package",
+            "r-spatial",
+            "rspatial",
+            "rstats",
+            "rstats-package",
+            "terra",
+            "cran",
+            "cran-r",
+            "r"
+        ],
+        "github/JustinYKC/FEPOPS": [],
+        "github/TheJacksonLaboratory/drug-synergy": [],
+        "github/changliao1025/pyflowline": [
+            "hydrology",
+            "gis",
+            "river",
+            "graph",
+            "earth-system-model"
+        ],
+        "github/JacksonBurns/astartes": [
+            "ai",
+            "ml",
+            "data-science",
+            "machine-learning",
+            "sampling",
+            "python"
+        ],
+        "github/teoxxx/nemiss_pbl": [],
+        "github/blind-contours/SuperNOVA": [
+            "machine-learning",
+            "variable-importance",
+            "interactions",
+            "targeted-learning",
+            "statistics",
+            "mixed-exposure"
+        ],
+        "github/ToyotaCRDL/mahos": [],
+        "github/hz1010/FIPRESCI_data_analysis": [],
+        "github/lnscan/mitoSplitter": [],
+        "github/precice/micro-manager": [
+            "coupling",
+            "macro-micro",
+            "multiphysics",
+            "multiscale",
+            "research-and-development"
+        ],
+        "github/MikeSWang/Triumvirate": [
+            "python",
+            "cpp",
+            "cosmology",
+            "cython"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -23924,7 +24012,24 @@
         "github/VChristiaens/vcal_sphere": "Python",
         "github/AMReX-Combustion/PeleLMeX": "C++",
         "github/raghuastro/GRIZZLY": "Fortran",
-        "gitlab/kmrajwade/iqrm_apollo": "unknown"
+        "gitlab/kmrajwade/iqrm_apollo": "unknown",
+        "github/labxscut/ksak": "C#",
+        "github/Valires/er-evaluation": "Python",
+        "github/morisUtokyo/uTR": "C",
+        "github/wjakethompson/measr": "R",
+        "github/UoMMIB/TFBMiner": "Python",
+        "github/dieghernan/tidyterra": "R",
+        "github/JustinYKC/FEPOPS": "Python",
+        "github/TheJacksonLaboratory/drug-synergy": "Jupyter Notebook",
+        "github/changliao1025/pyflowline": "Jupyter Notebook",
+        "github/JacksonBurns/astartes": "Python",
+        "github/teoxxx/nemiss_pbl": "Mathematica",
+        "github/blind-contours/SuperNOVA": "R",
+        "github/ToyotaCRDL/mahos": "Python",
+        "github/hz1010/FIPRESCI_data_analysis": "R",
+        "github/lnscan/mitoSplitter": "JavaScript",
+        "github/precice/micro-manager": "Python",
+        "github/MikeSWang/Triumvirate": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29091,7 +29196,24 @@
         "github/VChristiaens/vcal_sphere": "https://github.com/VChristiaens/vcal_sphere",
         "github/AMReX-Combustion/PeleLMeX": "https://github.com/AMReX-Combustion/PeleLMeX",
         "github/raghuastro/GRIZZLY": "https://github.com/raghuastro/GRIZZLY",
-        "gitlab/kmrajwade/iqrm_apollo": "https://gitlab.com/kmrajwade/iqrm_apollo"
+        "gitlab/kmrajwade/iqrm_apollo": "https://gitlab.com/kmrajwade/iqrm_apollo",
+        "github/labxscut/ksak": "https://github.com/labxscut/ksak",
+        "github/Valires/er-evaluation": "https://github.com/Valires/er-evaluation",
+        "github/morisUtokyo/uTR": "https://github.com/morisUtokyo/uTR",
+        "github/wjakethompson/measr": "https://github.com/wjakethompson/measr",
+        "github/UoMMIB/TFBMiner": "https://github.com/UoMMIB/TFBMiner",
+        "github/dieghernan/tidyterra": "https://github.com/dieghernan/tidyterra",
+        "github/JustinYKC/FEPOPS": "https://github.com/JustinYKC/FEPOPS",
+        "github/TheJacksonLaboratory/drug-synergy": "https://github.com/TheJacksonLaboratory/drug-synergy",
+        "github/changliao1025/pyflowline": "https://github.com/changliao1025/pyflowline",
+        "github/JacksonBurns/astartes": "https://github.com/JacksonBurns/astartes",
+        "github/teoxxx/nemiss_pbl": "https://github.com/teoxxx/nemiss_pbl",
+        "github/blind-contours/SuperNOVA": "https://github.com/blind-contours/SuperNOVA",
+        "github/ToyotaCRDL/mahos": "https://github.com/ToyotaCRDL/mahos",
+        "github/hz1010/FIPRESCI_data_analysis": "https://github.com/hz1010/FIPRESCI_data_analysis",
+        "github/lnscan/mitoSplitter": "https://github.com/lnscan/mitoSplitter",
+        "github/precice/micro-manager": "https://github.com/precice/micro-manager",
+        "github/MikeSWang/Triumvirate": "https://github.com/MikeSWang/Triumvirate"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34258,6 +34380,23 @@
         "github/VChristiaens/vcal_sphere": "Pipeline for calibration, pre-processing and post-processing of SPHERE IRDIS and IFS data, based on VIP routines..",
         "github/AMReX-Combustion/PeleLMeX": "An adaptive mesh hydrodynamics simulation code for low Mach number reacting flows without level sub-cycling.",
         "github/raghuastro/GRIZZLY": null,
-        "gitlab/kmrajwade/iqrm_apollo": "A standalone code to clean narrow-band RFI using Inter-Quartile Range Mitigation (IQRM) algorithm. The code works on SIGPROC format data and outputs a cleaned SIGRPOC format file. The output file is compatible with other standard pulsar software."
+        "gitlab/kmrajwade/iqrm_apollo": "A standalone code to clean narrow-band RFI using Inter-Quartile Range Mitigation (IQRM) algorithm. The code works on SIGPROC format data and outputs a cleaned SIGRPOC format file. The output file is compatible with other standard pulsar software.",
+        "github/labxscut/ksak": null,
+        "github/Valires/er-evaluation": "An End-to-End Evaluation Framework for Entity Resolution Systems",
+        "github/morisUtokyo/uTR": "Detect key Units in mosaic Tandem Repeats from representative reads from the same locus ",
+        "github/wjakethompson/measr": "R package for the Bayesian estimation of diagnostic classification models using Stan",
+        "github/UoMMIB/TFBMiner": "TFBMiner is a data acquisition and analysis pipeline for the rapid identification of putative transcription factor-based biosensors.",
+        "github/dieghernan/tidyterra": "tidyverse and ggplot2 methods for terra spatial objects",
+        "github/JustinYKC/FEPOPS": "Python implementation of the FEPOPS molecular descriptors",
+        "github/TheJacksonLaboratory/drug-synergy": "Drug synergy prediction tool",
+        "github/changliao1025/pyflowline": "A mesh independent river network generator for hydrologic models",
+        "github/JacksonBurns/astartes": "Better Data Splits for Machine Learning",
+        "github/teoxxx/nemiss_pbl": "nemiss neutrino emission from hydrocode data describing a simulated stellar binary system",
+        "github/blind-contours/SuperNOVA": ":dizzy: :dart: Automatic identification of variable and interaction importance using basis functions and non-parametric estimation of interactions/effect modification using joint stochastic interventions.",
+        "github/ToyotaCRDL/mahos": "Measurement Automation Handling and Orchestration System",
+        "github/hz1010/FIPRESCI_data_analysis": "Code for FIPERSCI data",
+        "github/lnscan/mitoSplitter": null,
+        "github/precice/micro-manager": "A manager tool to facilitate two-scale coupling in multi-physics simulations using preCICE.",
+        "github/MikeSWang/Triumvirate": "A Python/C++ package for three-point clustering measurements in LSS analyses"
     }
 }

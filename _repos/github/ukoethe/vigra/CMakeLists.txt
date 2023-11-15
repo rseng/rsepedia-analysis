@@ -31,6 +31,9 @@ if(SUPPRESS_3RD_PARTY_WARNINGS)
     set(SUPPRESS_WARNINGS SYSTEM)
 endif()
 
+set(CMAKE_CXX_STANDARD 11 CACHE STRING "The CXX standard used for the project")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 IF(VIGRA_STATIC_LIB)
     SET(LIBTYPE STATIC)
     ADD_DEFINITIONS(-DVIGRA_STATIC_LIB)
@@ -404,6 +407,7 @@ EXPORT(TARGETS vigraimpex FILE vigra-targets.cmake)
 MESSAGE( STATUS "---------------------------------------------------------" )
 MESSAGE( STATUS "VIGRA configuration information:" )
 MESSAGE( STATUS "---------------------------------------------------------" )
+MESSAGE( STATUS "  Using CXX strandard: ${CMAKE_CXX_STANDARD}" )
 
 IF(ZLIB_FOUND)
     MESSAGE( STATUS "  Using ZLIB  libraries: ${ZLIB_LIBRARIES}" )

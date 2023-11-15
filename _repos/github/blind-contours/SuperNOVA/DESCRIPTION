@@ -1,0 +1,45 @@
+Package: SuperNOVA
+Title: Semi-Parametric Identification and Estimation of Interaction and Effect Modification in Mixed Exposures using Stochastic Interventions
+Version: v1.0.0
+Authors@R: 
+    person(given = "David",
+           family = "McCoy",
+           role = c("aut", "cre"),
+           email = "david_mccoy@berkeley.edu",
+           comment = c(ORCID = "0000-0002-5515-6307"))
+Description: A methodology for mixed exposure analysis that leverages
+    data-adaptive target parameters, CV-TMLE, stochastic interventions and basis function decomposition.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    assertthat,
+    cvTools,
+    data.table,
+    dplyr,
+    foreach,
+    future,
+    ggplot2,
+    magrittr,
+    MASS,
+    Rdpack,
+    rlang,
+    sl3,
+    stringr,
+    partykit,
+    furrr,
+    purrr,
+    polspline,
+    pracma,
+    haldensify
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0),
+    kableExtra,
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+Config/testthat/edition: 3
