@@ -8,7 +8,7 @@ else(APPLE)
 endif(APPLE)
 
 project(CRPropa Fortran C CXX)
-set(CRPROPA_RELEASE_VERSION 3.2+)  # Update for new release
+set(CRPROPA_RELEASE_VERSION 3.2.1+)  # Update for new release
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
@@ -232,7 +232,7 @@ if(FFTW3F_FOUND)
 endif(FFTW3F_FOUND)
 
 # Quimby (optional for SPH magnetic fields)
-option(ENABLE_QUIMBY "Quimby Support" ON)
+option(ENABLE_QUIMBY "Quimby Support" OFF)
 if(ENABLE_QUIMBY)
   find_package(Quimby)
   if(QUIMBY_FOUND)
