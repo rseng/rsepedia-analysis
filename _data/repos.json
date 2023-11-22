@@ -18845,7 +18845,48 @@
             "cpp",
             "cosmology",
             "cython"
-        ]
+        ],
+        "github/Joost987/MONDPMesh": [],
+        "github/orbisgis/lczexplore": [
+            "climate-change",
+            "environment",
+            "r-spatial",
+            "geoclimate"
+        ],
+        "github/scikit-tda/DREiMac": [],
+        "github/zhangjunpeng411/Scan": [
+            "gene-regulation",
+            "mirna",
+            "mirna-targets",
+            "single-cell-analysis",
+            "single-cell-rna-seq"
+        ],
+        "github/sandialabs/pvOps": [],
+        "github/DEIB-GECO/genereg": [],
+        "github/DEIB-GECO/GeneNetFusion": [
+            "co-expression",
+            "complex-networks",
+            "gene-network-inference",
+            "gene-expression-profiles",
+            "network-fusion",
+            "biomarkers"
+        ],
+        "github/DEIB-GECO/BC_Intrinsic_subtyping": [],
+        "github/DEIB-GECO/OpenGDC": [],
+        "github/spiketools/spiketools": [
+            "neuroscience",
+            "spikes",
+            "single-unit",
+            "spike-analysis",
+            "python",
+            "data-analysis"
+        ],
+        "github/younglab/origami": [
+            "chia-pet",
+            "chromatin",
+            "chromatin-interaction"
+        ],
+        "github/ericsteinbring/Special-Blurring": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -24029,7 +24070,19 @@
         "github/hz1010/FIPRESCI_data_analysis": "R",
         "github/lnscan/mitoSplitter": "JavaScript",
         "github/precice/micro-manager": "Python",
-        "github/MikeSWang/Triumvirate": "C++"
+        "github/MikeSWang/Triumvirate": "C++",
+        "github/Joost987/MONDPMesh": "Python",
+        "github/orbisgis/lczexplore": "R",
+        "github/scikit-tda/DREiMac": "Python",
+        "github/zhangjunpeng411/Scan": "R",
+        "github/sandialabs/pvOps": "Jupyter Notebook",
+        "github/DEIB-GECO/genereg": "Python",
+        "github/DEIB-GECO/GeneNetFusion": "Jupyter Notebook",
+        "github/DEIB-GECO/BC_Intrinsic_subtyping": "unknown",
+        "github/DEIB-GECO/OpenGDC": "Java",
+        "github/spiketools/spiketools": "Python",
+        "github/younglab/origami": "Shell",
+        "github/ericsteinbring/Special-Blurring": "IDL"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29213,7 +29266,19 @@
         "github/hz1010/FIPRESCI_data_analysis": "https://github.com/hz1010/FIPRESCI_data_analysis",
         "github/lnscan/mitoSplitter": "https://github.com/lnscan/mitoSplitter",
         "github/precice/micro-manager": "https://github.com/precice/micro-manager",
-        "github/MikeSWang/Triumvirate": "https://github.com/MikeSWang/Triumvirate"
+        "github/MikeSWang/Triumvirate": "https://github.com/MikeSWang/Triumvirate",
+        "github/Joost987/MONDPMesh": "https://github.com/Joost987/MONDPMesh",
+        "github/orbisgis/lczexplore": "https://github.com/orbisgis/lczexplore",
+        "github/scikit-tda/DREiMac": "https://github.com/scikit-tda/DREiMac",
+        "github/zhangjunpeng411/Scan": "https://github.com/zhangjunpeng411/Scan",
+        "github/sandialabs/pvOps": "https://github.com/sandialabs/pvOps",
+        "github/DEIB-GECO/genereg": "https://github.com/DEIB-GECO/genereg",
+        "github/DEIB-GECO/GeneNetFusion": "https://github.com/DEIB-GECO/GeneNetFusion",
+        "github/DEIB-GECO/BC_Intrinsic_subtyping": "https://github.com/DEIB-GECO/BC_Intrinsic_subtyping",
+        "github/DEIB-GECO/OpenGDC": "https://github.com/DEIB-GECO/OpenGDC",
+        "github/spiketools/spiketools": "https://github.com/spiketools/spiketools",
+        "github/younglab/origami": "https://github.com/younglab/origami",
+        "github/ericsteinbring/Special-Blurring": "https://github.com/ericsteinbring/Special-Blurring"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34397,6 +34462,18 @@
         "github/hz1010/FIPRESCI_data_analysis": "Code for FIPERSCI data",
         "github/lnscan/mitoSplitter": null,
         "github/precice/micro-manager": "A manager tool to facilitate two-scale coupling in multi-physics simulations using preCICE.",
-        "github/MikeSWang/Triumvirate": "A Python/C++ package for three-point clustering measurements in LSS analyses"
+        "github/MikeSWang/Triumvirate": "A Python/C++ package for three-point clustering measurements in LSS analyses",
+        "github/Joost987/MONDPMesh": "Particle mesh code for modified Newtonian dynamics simulations",
+        "github/orbisgis/lczexplore": null,
+        "github/scikit-tda/DREiMac": "Dimensionality Reduction with Eilenberg-MacLane Coordinates",
+        "github/zhangjunpeng411/Scan": "Scanning sample-specific miRNA regulation from bulk and single-cell RNA-sequencing data",
+        "github/sandialabs/pvOps": "A set of documented functions for supporting operations research of photovoltaic energy systems. ",
+        "github/DEIB-GECO/genereg": "Python library for the analysis of gene expression regulation systems of genes of interest in TCGA cancers.",
+        "github/DEIB-GECO/GeneNetFusion": null,
+        "github/DEIB-GECO/BC_Intrinsic_subtyping": null,
+        "github/DEIB-GECO/OpenGDC": "An open-source Java tool to automatically extract and convert all clinical and genomic data from the Genomic Data Commons to BED, GTF, CSV, and JSON format",
+        "github/spiketools/spiketools": "Tools for analyzing spiking data.",
+        "github/younglab/origami": "Statistical Modeling of ChIA-PET interactions",
+        "github/ericsteinbring/Special-Blurring": "Calculates the effect of quantum-foam blurring, appropriate for the special gamma-ray burst GRB221009A."
     }
 }
