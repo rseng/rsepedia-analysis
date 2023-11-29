@@ -1,0 +1,26 @@
+{
+    "setup.py": {
+        "github/ChenfuShi/HiChIP_peaks": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.004925250000000001,
+            "url": "https://www.numpy.org"
+        },
+        "statsmodels": {
+            "credit": 0.002475,
+            "url": "https://www.statsmodels.org/"
+        },
+        "matplotlib": {
+            "credit": 0.002475,
+            "url": "https://matplotlib.org"
+        }
+    }
+}
