@@ -18886,7 +18886,86 @@
             "chromatin",
             "chromatin-interaction"
         ],
-        "github/ericsteinbring/Special-Blurring": []
+        "github/ericsteinbring/Special-Blurring": [],
+        "gitlab/habermann_lab/phasik": [],
+        "github/hdeeg/KvW": [],
+        "github/2decomp-fft/2decomp-fft": [
+            "fast-fourier-transform",
+            "finite-difference-method",
+            "pencil-decomposition"
+        ],
+        "github/sbi-dev/sbi": [
+            "simulation-based-inference",
+            "likelihood-free-inference",
+            "bayesian-inference",
+            "parameter-estimation",
+            "pytorch",
+            "machine-learning"
+        ],
+        "github/ChenfuShi/HiChIP_peaks": [
+            "bioinformatics",
+            "bioinformatics-tool",
+            "hichip"
+        ],
+        "github/institut-de-genomique/HAPO-G": [
+            "genomics",
+            "polishing",
+            "bioinformatics",
+            "genome"
+        ],
+        "github/Xomics/ACTIONdemonstrator_workflow": [],
+        "github/espnet/espnet": [
+            "deep-learning",
+            "end-to-end",
+            "chainer",
+            "pytorch",
+            "kaldi",
+            "speech-recognition",
+            "speech-synthesis",
+            "speech-translation",
+            "machine-translation",
+            "voice-conversion",
+            "speech-enhancement",
+            "speech-separation",
+            "singing-voice-synthesis",
+            "speaker-diarization",
+            "spoken-language-understanding"
+        ],
+        "github/DEIB-GECO/CombSAFE": [
+            "epigenetics",
+            "semantic-annotation",
+            "big-data-analysis",
+            "chromatin-state"
+        ],
+        "github/DEIB-GECO/CRIS_single-sample": [
+            "bioinformatics",
+            "oncogenomics"
+        ],
+        "github/DEIB-GECO/ReRa": [],
+        "github/introlab/opentera": [
+            "python",
+            "server",
+            "healthcare",
+            "iot",
+            "telerehabilitation",
+            "telepresence",
+            "videoconference",
+            "micro-services",
+            "webrtc",
+            "redis",
+            "flask",
+            "twisted",
+            "robotics"
+        ],
+        "github/FunctionalUrology/MLcps": [],
+        "github/pedronachtigall/ToxCodAn-Genome": [],
+        "github/r3w0p/bobocep": [
+            "internet-of-things",
+            "complex-event-processing",
+            "edge-computing",
+            "fault-tolerance",
+            "distributed-systems"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -24082,7 +24161,22 @@
         "github/DEIB-GECO/OpenGDC": "Java",
         "github/spiketools/spiketools": "Python",
         "github/younglab/origami": "Shell",
-        "github/ericsteinbring/Special-Blurring": "IDL"
+        "github/ericsteinbring/Special-Blurring": "IDL",
+        "gitlab/habermann_lab/phasik": "unknown",
+        "github/hdeeg/KvW": "Prolog",
+        "github/2decomp-fft/2decomp-fft": "Fortran",
+        "github/sbi-dev/sbi": "Python",
+        "github/ChenfuShi/HiChIP_peaks": "HTML",
+        "github/institut-de-genomique/HAPO-G": "C",
+        "github/Xomics/ACTIONdemonstrator_workflow": "Jupyter Notebook",
+        "github/espnet/espnet": "Python",
+        "github/DEIB-GECO/CombSAFE": "Python",
+        "github/DEIB-GECO/CRIS_single-sample": "R",
+        "github/DEIB-GECO/ReRa": "Jupyter Notebook",
+        "github/introlab/opentera": "Python",
+        "github/FunctionalUrology/MLcps": "HTML",
+        "github/pedronachtigall/ToxCodAn-Genome": "Python",
+        "github/r3w0p/bobocep": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29278,7 +29372,22 @@
         "github/DEIB-GECO/OpenGDC": "https://github.com/DEIB-GECO/OpenGDC",
         "github/spiketools/spiketools": "https://github.com/spiketools/spiketools",
         "github/younglab/origami": "https://github.com/younglab/origami",
-        "github/ericsteinbring/Special-Blurring": "https://github.com/ericsteinbring/Special-Blurring"
+        "github/ericsteinbring/Special-Blurring": "https://github.com/ericsteinbring/Special-Blurring",
+        "gitlab/habermann_lab/phasik": "https://gitlab.com/habermann_lab/phasik",
+        "github/hdeeg/KvW": "https://github.com/hdeeg/KvW",
+        "github/2decomp-fft/2decomp-fft": "https://github.com/2decomp-fft/2decomp-fft",
+        "github/sbi-dev/sbi": "https://github.com/sbi-dev/sbi",
+        "github/ChenfuShi/HiChIP_peaks": "https://github.com/ChenfuShi/HiChIP_peaks",
+        "github/institut-de-genomique/HAPO-G": "https://github.com/institut-de-genomique/HAPO-G",
+        "github/Xomics/ACTIONdemonstrator_workflow": "https://github.com/Xomics/ACTIONdemonstrator_workflow",
+        "github/espnet/espnet": "https://github.com/espnet/espnet",
+        "github/DEIB-GECO/CombSAFE": "https://github.com/DEIB-GECO/CombSAFE",
+        "github/DEIB-GECO/CRIS_single-sample": "https://github.com/DEIB-GECO/CRIS_single-sample",
+        "github/DEIB-GECO/ReRa": "https://github.com/DEIB-GECO/ReRa",
+        "github/introlab/opentera": "https://github.com/introlab/opentera",
+        "github/FunctionalUrology/MLcps": "https://github.com/FunctionalUrology/MLcps",
+        "github/pedronachtigall/ToxCodAn-Genome": "https://github.com/pedronachtigall/ToxCodAn-Genome",
+        "github/r3w0p/bobocep": "https://github.com/r3w0p/bobocep"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34474,6 +34583,21 @@
         "github/DEIB-GECO/OpenGDC": "An open-source Java tool to automatically extract and convert all clinical and genomic data from the Genomic Data Commons to BED, GTF, CSV, and JSON format",
         "github/spiketools/spiketools": "Tools for analyzing spiking data.",
         "github/younglab/origami": "Statistical Modeling of ChIA-PET interactions",
-        "github/ericsteinbring/Special-Blurring": "Calculates the effect of quantum-foam blurring, appropriate for the special gamma-ray burst GRB221009A."
+        "github/ericsteinbring/Special-Blurring": "Calculates the effect of quantum-foam blurring, appropriate for the special gamma-ray burst GRB221009A.",
+        "gitlab/habermann_lab/phasik": "Scientific tools for extracting cyclic data via hierarchical clustering",
+        "github/hdeeg/KvW": "Kwee Van Woerden algorithm for eclipse or transit minimum timing, with improved error calculation",
+        "github/2decomp-fft/2decomp-fft": "The 2DECOMP&FFT library provides access to a slabs and pencil decompositions as well as FFTs. ",
+        "github/sbi-dev/sbi": "Simulation-based inference toolkit",
+        "github/ChenfuShi/HiChIP_peaks": "A tool to analyse HiChIP data",
+        "github/institut-de-genomique/HAPO-G": "Hapo-G is a tool that aims to improve the quality of genome assemblies by polishing the consensus with accurate reads.",
+        "github/Xomics/ACTIONdemonstrator_workflow": "X-omics ACTION demonstrator multi-omics analysis workflow",
+        "github/espnet/espnet": "End-to-End Speech Processing Toolkit",
+        "github/DEIB-GECO/CombSAFE": "Combinatorial and Semantic Analysis of Functional Elements",
+        "github/DEIB-GECO/CRIS_single-sample": "Single-sample classifiers for CRIS on colorectal cancer data",
+        "github/DEIB-GECO/ReRa": "Supervised Relevance-Redundancy assessments for feature selection in omics-based classification",
+        "github/introlab/opentera": "OpenTera - Open TeleRehabilitation Server and Micro-Services",
+        "github/FunctionalUrology/MLcps": null,
+        "github/pedronachtigall/ToxCodAn-Genome": "Toxin genes annotation in genome assembly",
+        "github/r3w0p/bobocep": "A fault-tolerant Complex Event Processing engine designed for edge computing in Internet of Things systems."
     }
 }
