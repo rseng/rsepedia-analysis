@@ -1,0 +1,13 @@
+numpy>=1.7.0
+scipy>=0.16
+matplotlib
+PyYAML
+statsmodels
+patsy
+pandas>=0.17.0
+PyAstronomy
+astropy
+periodictable==1.5.2
+setuptools
+nose
+coverage

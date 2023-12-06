@@ -18965,7 +18965,58 @@
             "edge-computing",
             "fault-tolerance",
             "distributed-systems"
-        ]
+        ],
+        "github/v-morello/iqrm": [],
+        "github/mr-superonion/FPFS": [],
+        "github/HoBeZwe/SphericalScattering.jl": [
+            "dipole",
+            "electromagnetics",
+            "hertzian",
+            "julia",
+            "mie-scattering",
+            "plane-wave",
+            "scattering",
+            "sphere",
+            "spherical",
+            "fitzgerald",
+            "mie-series",
+            "ring-current",
+            "spherical-waves",
+            "time-harmonic"
+        ],
+        "github/MariaTsantaki/FASMA-synthesis": [],
+        "github/LCOGT/neoexchange": [
+            "backend",
+            "end-user",
+            "astronomy",
+            "asteroids"
+        ],
+        "github/DEIB-GECO/MutViz": [],
+        "github/NeotomaDB/neotoma2": [
+            "neotoma",
+            "paleoecology",
+            "rstats",
+            "r",
+            "earthcube",
+            "nsf"
+        ],
+        "github/LMBooth/pybci": [
+            "bci",
+            "brain-computer-interface",
+            "human-computer-interaction",
+            "labstreaminglayer",
+            "machine-learning",
+            "lsl",
+            "pytorch",
+            "sklearn",
+            "tensorflow",
+            "human-machine-interface",
+            "python",
+            "python-brain-computer-interface"
+        ],
+        "github/mraveri/tensiometer": [],
+        "github/teoxxx/nemiss_proper": [],
+        "github/Hi-COLACode/Hi-COLA": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -24176,7 +24227,18 @@
         "github/introlab/opentera": "Python",
         "github/FunctionalUrology/MLcps": "HTML",
         "github/pedronachtigall/ToxCodAn-Genome": "Python",
-        "github/r3w0p/bobocep": "Python"
+        "github/r3w0p/bobocep": "Python",
+        "github/v-morello/iqrm": "Python",
+        "github/mr-superonion/FPFS": "Python",
+        "github/HoBeZwe/SphericalScattering.jl": "Julia",
+        "github/MariaTsantaki/FASMA-synthesis": "Python",
+        "github/LCOGT/neoexchange": "Python",
+        "github/DEIB-GECO/MutViz": "JavaScript",
+        "github/NeotomaDB/neotoma2": "R",
+        "github/LMBooth/pybci": "Python",
+        "github/mraveri/tensiometer": "Python",
+        "github/teoxxx/nemiss_proper": "Mathematica",
+        "github/Hi-COLACode/Hi-COLA": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29387,7 +29449,18 @@
         "github/introlab/opentera": "https://github.com/introlab/opentera",
         "github/FunctionalUrology/MLcps": "https://github.com/FunctionalUrology/MLcps",
         "github/pedronachtigall/ToxCodAn-Genome": "https://github.com/pedronachtigall/ToxCodAn-Genome",
-        "github/r3w0p/bobocep": "https://github.com/r3w0p/bobocep"
+        "github/r3w0p/bobocep": "https://github.com/r3w0p/bobocep",
+        "github/v-morello/iqrm": "https://github.com/v-morello/iqrm",
+        "github/mr-superonion/FPFS": "https://github.com/mr-superonion/FPFS",
+        "github/HoBeZwe/SphericalScattering.jl": "https://github.com/HoBeZwe/SphericalScattering.jl",
+        "github/MariaTsantaki/FASMA-synthesis": "https://github.com/MariaTsantaki/FASMA-synthesis",
+        "github/LCOGT/neoexchange": "https://github.com/LCOGT/neoexchange",
+        "github/DEIB-GECO/MutViz": "https://github.com/DEIB-GECO/MutViz",
+        "github/NeotomaDB/neotoma2": "https://github.com/NeotomaDB/neotoma2",
+        "github/LMBooth/pybci": "https://github.com/LMBooth/pybci",
+        "github/mraveri/tensiometer": "https://github.com/mraveri/tensiometer",
+        "github/teoxxx/nemiss_proper": "https://github.com/teoxxx/nemiss_proper",
+        "github/Hi-COLACode/Hi-COLA": "https://github.com/Hi-COLACode/Hi-COLA"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34598,6 +34671,17 @@
         "github/introlab/opentera": "OpenTera - Open TeleRehabilitation Server and Micro-Services",
         "github/FunctionalUrology/MLcps": null,
         "github/pedronachtigall/ToxCodAn-Genome": "Toxin genes annotation in genome assembly",
-        "github/r3w0p/bobocep": "A fault-tolerant Complex Event Processing engine designed for edge computing in Internet of Things systems."
+        "github/r3w0p/bobocep": "A fault-tolerant Complex Event Processing engine designed for edge computing in Internet of Things systems.",
+        "github/v-morello/iqrm": "A minimal implementation of the IQRM interference flagging algorithm for radio pulsar and transient searches",
+        "github/mr-superonion/FPFS": "A fast, accurate estimator for small shear distortion.",
+        "github/HoBeZwe/SphericalScattering.jl": "This package provides semi-analytical solutions to the scattering of time harmonic and static electromagnetic fields from spherical objects.",
+        "github/MariaTsantaki/FASMA-synthesis": "Python code for stellar spectral analysis",
+        "github/LCOGT/neoexchange": "NEO observing portal",
+        "github/DEIB-GECO/MutViz": "MutViz - Analysis and Visualization of Mutation Enrichments for Selected Genomic Regions and Cancer Types",
+        "github/NeotomaDB/neotoma2": "Repository for the updated neotoma R package.",
+        "github/LMBooth/pybci": "Create real-time BCI's with the LSL, PyTorch, SKLearn and TensorFlow packages.",
+        "github/mraveri/tensiometer": null,
+        "github/teoxxx/nemiss_proper": "nemiss code repo 2023",
+        "github/Hi-COLACode/Hi-COLA": "Hi-COLA simulates cosmological large-scale structure for a wide class of Horndeski theories. Built using a COLA solver forked from FML by HAWinther."
     }
 }

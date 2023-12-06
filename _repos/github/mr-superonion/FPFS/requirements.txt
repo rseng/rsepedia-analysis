@@ -1,0 +1,9 @@
+astropy
+fitsio
+flake8
+galsim
+matplotlib
+numpy
+pytest
+schwimmbad
+scipy

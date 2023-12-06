@@ -1,0 +1,222 @@
+{
+    "requirements.txt": {
+        "github/DEIB-GECO/MutViz": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "Click": {
+            "credit": 0.0006599999999999939,
+            "url": "https://palletsprojects.com/p/click/"
+        },
+        "Flask": {
+            "credit": 0.082335,
+            "url": "https://palletsprojects.com/p/flask"
+        },
+        "Flask-Cors": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/corydolphin/flask-cors"
+        },
+        "flask-sqlacodegen": {
+            "credit": 0.0006599999999999939,
+            "url": "https://pypi.org/project/flask-sqlacodegen"
+        },
+        "Flask-SQLAlchemy": {
+            "credit": 0.0006599999999999939,
+            "url": "https://flask-sqlalchemy.palletsprojects.com"
+        },
+        "inflect": {
+            "credit": 0.03333,
+            "url": "https://github.com/jaraco/inflect"
+        },
+        "itsdangerous": {
+            "credit": 0.07533428571428571,
+            "url": "https://palletsprojects.com/p/itsdangerous/"
+        },
+        "Jinja2": {
+            "credit": 0.009994285714285709,
+            "url": "https://palletsprojects.com/p/jinja/"
+        },
+        "MarkupSafe": {
+            "credit": 0.13134,
+            "url": "https://palletsprojects.com/p/markupsafe/"
+        },
+        "psycopg2-binary": {
+            "credit": 0.066,
+            "url": "https://psycopg.org/"
+        },
+        "six": {
+            "credit": 0.066,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "SQLAlchemy": {
+            "credit": 0.09867000000000001,
+            "url": "https://www.sqlalchemy.org"
+        },
+        "Werkzeug": {
+            "credit": 0.009994285714285709,
+            "url": "https://werkzeug.palletsprojects.com"
+        },
+        "Flask-Executor": {
+            "credit": 0.0006599999999999939,
+            "url": "https://github.com/dchevell/flask-executor"
+        },
+        "scipy": {
+            "credit": 0.0006599999999999939,
+            "url": "https://www.scipy.org"
+        },
+        "importlib-metadata": {
+            "credit": 0.009660985714285714,
+            "url": "https://github.com/python/importlib_metadata"
+        },
+        "colorama": {
+            "credit": 0.032670000000000005,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "python-dotenv": {
+            "credit": 9.334285714285642e-05,
+            "url": "https://github.com/theskumar/python-dotenv"
+        },
+        "asgiref": {
+            "credit": 9.334285714285642e-05,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "click": {
+            "credit": 0.018575228571428574,
+            "url": "https://pypi.org/project/click"
+        },
+        "sqlalchemy": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/sqlalchemy"
+        },
+        "flask": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/flask"
+        },
+        "pytest-mypy": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "pytest-black": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-black"
+        },
+        "pygments": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "pytest-ruff": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/pytest-ruff"
+        },
+        "pytest-enabler": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.024525835714285717,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "jaraco.tidelift": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/jaraco.tidelift"
+        },
+        "sphinx-lint": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/sphinx-lint"
+        },
+        "furo": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/furo"
+        },
+        "rst.linker": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "sphinx": {
+            "credit": 0.005880600000000001,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "typing-extensions": {
+            "credit": 0.008190835714285714,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "pydantic": {
+            "credit": 0.004083750000000001,
+            "url": "https://pypi.org/project/pydantic"
+        },
+        "Babel": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/Babel"
+        },
+        "watchdog": {
+            "credit": 0.032670000000000005,
+            "url": "https://pypi.org/project/watchdog"
+        },
+        "flask-sqlalchemy": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/flask-sqlalchemy"
+        },
+        "futures": {
+            "credit": 0.016335000000000002,
+            "url": "https://pypi.org/project/futures"
+        },
+        "numpy": {
+            "credit": 0.06534000000000001,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "importlib-resources": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "pytest-perf": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/pytest-perf"
+        },
+        "flufl.flake8": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/flufl.flake8"
+        },
+        "pyfakefs": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/pyfakefs"
+        },
+        "packaging": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "pytest-flake8": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/pytest-flake8"
+        },
+        "ipython": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "zipp": {
+            "credit": 0.0017968500000000002,
+            "url": "https://pypi.org/project/zipp"
+        },
+        "mypy": {
+            "credit": 0.0023102357142857147,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "pytest-asyncio": {
+            "credit": 0.0023102357142857147,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        }
+    }
+}
