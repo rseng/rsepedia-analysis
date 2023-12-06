@@ -1,0 +1,52 @@
+Package: neotoma2
+Title: Working with the Neotoma Paleoecology Database
+Date: 2023-08-16
+Version: 1.0.3
+Authors@R:
+    c(person(given = "Dominguez Vidana",
+             family = "Socorro",
+             role = c("aut"),
+             email = "s.dominguez@ht-data.com",
+             comment = structure("0000-0002-7926-4935", .Names = "ORCID")),
+      person(given = "Simon",
+             family = "Goring",
+             role = c("aut", "cre"),
+             email = "goring@wisc.edu",
+             comment = structure("0000-0002-2700-4605", .Names = "ORCID")))
+URL: https://github.com/NeotomaDB/neotoma2
+BugReports: https://github.com/NeotomaDB/neotoma2/issues
+Description: Access and manipulation of data using the Neotoma Paleoecology Database.
+        <https://api.neotomadb.org/api-docs/>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests:
+    testthat,
+    knitr,
+    pkgdown,
+    rmarkdown,
+    Bchron,
+    ggplot2,
+    covr
+Imports:
+    rlang,
+    magrittr,
+    sf,
+    geojsonsf,
+    purrr,
+    lubridate,
+    httr,
+    jsonlite,
+    methods,
+    dplyr,
+    gtools,
+    leaflet,
+    mapview,
+    assertthat,
+    stringr,
+    progress,
+    wk,
+    uuid,
+    tidyr
+VignetteBuilder: knitr
