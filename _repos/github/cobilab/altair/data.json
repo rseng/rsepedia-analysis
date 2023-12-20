@@ -1,0 +1,102 @@
+{
+    "requirements.txt": {
+        "github/cobilab/altair": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.165,
+            "url": "https://matplotlib.org"
+        },
+        "matplotlib-inline": {
+            "credit": 0.0008250000000000063,
+            "url": "https://github.com/ipython/matplotlib-inline"
+        },
+        "Cython": {
+            "credit": 0.0825,
+            "url": "https://cython.org/"
+        },
+        "numba": {
+            "credit": 0.165,
+            "url": "https://numba.pydata.org"
+        },
+        "PyQt5": {
+            "credit": 0.0008250000000000063,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.1233375,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "ete3": {
+            "credit": 0.0825,
+            "url": "http://etetoolkit.org"
+        },
+        "numpy": {
+            "credit": 0.0961125,
+            "url": "https://www.numpy.org"
+        },
+        "scikit-bio": {
+            "credit": 0.0825,
+            "url": "http://scikit-bio.org"
+        },
+        "pandas": {
+            "credit": 0.0008250000000000063,
+            "url": "https://pandas.pydata.org"
+        },
+        "traitlets": {
+            "credit": 0.000816750000000005,
+            "url": "https://traitlets.readthedocs.io/"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.0408375,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "pytest-xdist": {
+            "credit": 0.00013612500000000083,
+            "url": "https://github.com/pytest-dev/pytest-xdist"
+        },
+        "pytest": {
+            "credit": 0.056287687499999996,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "hypothesis": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "pytz": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "python-dateutil": {
+            "credit": 0.0136125,
+            "url": "https://pypi.org/project/python-dateutil"
+        },
+        "pre-commit": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "filelock": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setproctitle": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/setproctitle"
+        },
+        "psutil": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "pytest-forked": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/pytest-forked"
+        },
+        "execnet": {
+            "credit": 0.0022460625,
+            "url": "https://pypi.org/project/execnet"
+        }
+    }
+}

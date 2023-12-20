@@ -49,6 +49,7 @@ option(INSTALL_PYTHON_DEPENDENCIES "Install python package dependencies" ON)
 option(BUILD_FORTRAN "Build subdirs with source using gfortran" ON)
 option(PATCH_FSPYTHON "Build subdirs with source using gfortran" OFF)
 option(FSPYTHON_BUILD_REQ "Pip will use requirmenets files with a snapshot of pkg revisions when installing pkgs into fspython" OFF)
+option(FSL_INSTALL "force install of FSL binaries for linux platforms only" OFF)
 
 #  Modern compilers on new platforms often provide many more warnings than older compilers
 #  for example the gcc 7.5.0 compiler warnings about falling through switch statements
@@ -369,6 +370,9 @@ endif()
 
 find_package(ITK HINTS ${ITK_DIR} REQUIRED)
 message(STATUS "For HOST_OS=${HOST_OS} ITK_DIR=${ITK_DIR}")
+
+# ------ list where the build tree is ------
+message(STATUS "Compiling source under build tree ${CMAKE_BINARY_DIR}")
 
 # --------------------------------------------------
 #              global system information
@@ -767,6 +771,7 @@ if(NOT MINIMAL)
     mri_volsynth
     mri_warp_convert
     mri_wbc
+    mri_WMHsynthseg
     mri_xvolavg
     mri_z2p
     mris2rgb
