@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/jonescompneurolab/hnn-core": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.00981349875,
+            "url": "https://www.numpy.org"
+        },
+        "NEURON": {
+            "credit": 0.002475,
+            "url": "https://neuron.yale.edu/neuron/"
+        },
+        "scipy": {
+            "credit": 0.002475,
+            "url": "https://www.scipy.org"
+        },
+        "h5io": {
+            "credit": 0.002475,
+            "url": "http://h5io.github.io"
+        },
+        "h5py": {
+            "credit": 0.001225125,
+            "url": "http://www.h5py.org"
+        }
+    }
+}

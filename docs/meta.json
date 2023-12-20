@@ -19016,7 +19016,131 @@
         ],
         "github/mraveri/tensiometer": [],
         "github/teoxxx/nemiss_proper": [],
-        "github/Hi-COLACode/Hi-COLA": []
+        "github/Hi-COLACode/Hi-COLA": [],
+        "gitlab/robizzard/libcdict": [],
+        "github/HKU-BAL/Clair3": [
+            "deep-learning",
+            "variant-calling",
+            "computational-biology",
+            "nanopore",
+            "long-reads",
+            "genomics",
+            "ont-data",
+            "ont-models",
+            "illumina",
+            "pacbio",
+            "variant-detection"
+        ],
+        "github/OpenWaterAnalytics/EPyT": [
+            "epanet",
+            "epanet-matlab-toolkit",
+            "network",
+            "python",
+            "simulation",
+            "water",
+            "epanet-python-toolkit"
+        ],
+        "github/NSAPH-Software/CRE": [],
+        "github/theislab/scCODA": [
+            "tensorflow",
+            "compositional-changes",
+            "statistical-analysis",
+            "single-cell-rna-seq"
+        ],
+        "github/ishinder/EASTR": [],
+        "github/CyclotronResearchCentre/bidsme": [
+            "bids",
+            "mri-data",
+            "dicom",
+            "nifti",
+            "eeg",
+            "brainvision"
+        ],
+        "github/ulilautenschlager/crimp": [],
+        "github/bluenote-1577/sylph": [
+            "average-nucleotide-identity",
+            "k-mer",
+            "metagenomics",
+            "sketching-algorithm",
+            "taxonomic-classification"
+        ],
+        "github/sebastien-plutniak/archeoviz": [
+            "archaeology",
+            "archeology",
+            "data-visualization",
+            "r",
+            "r-package",
+            "rstats"
+        ],
+        "github/lys-devel/lys": [],
+        "github/UNSW-CEEM/NEMSEER": [
+            "energy",
+            "python",
+            "aemo",
+            "pasa",
+            "forecast",
+            "national-electricity-market",
+            "nem",
+            "pre-dispatch",
+            "australia",
+            "nemweb"
+        ],
+        "github/cobilab/altair": [
+            "alignment-free",
+            "spatial-temportal",
+            "toolkit",
+            "data-analysis"
+        ],
+        "github/cmelab/flowerMD": [
+            "hoomd-blue",
+            "molecular-dynamics",
+            "molecular-dynamics-simulation",
+            "mosdef-hub",
+            "polymer",
+            "simulation"
+        ],
+        "github/pudu-py/pudu": [],
+        "github/DEIB-GECO/VarSum": [],
+        "github/samirmartins/pydaq": [
+            "national-instruments",
+            "nidaq",
+            "nidaqmx",
+            "pysimplegui",
+            "python",
+            "step-response",
+            "arduino",
+            "arduino-library",
+            "graphical-user-interface",
+            "real-datasets"
+        ],
+        "github/akashdhruv/BoxKit": [],
+        "github/the-rccg/hw2d": [
+            "fluid-dynamics",
+            "fluid-simulation",
+            "fusion",
+            "plasma-physics",
+            "simulations"
+        ],
+        "github/jonescompneurolab/hnn-core": [
+            "neuron-simulator",
+            "eeg",
+            "meg",
+            "computational-modeling"
+        ],
+        "github/Mulan-94/smops": [],
+        "github/anderslogg/geco": [
+            "axisymmetric",
+            "einstein-vlasov",
+            "fem",
+            "fenics",
+            "general-relativity",
+            "vlasov-poisson"
+        ],
+        "github/jrkerns/pylinac": [
+            "python",
+            "medical-physics",
+            "radiation-oncology"
+        ]
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -24238,7 +24362,30 @@
         "github/LMBooth/pybci": "Python",
         "github/mraveri/tensiometer": "Python",
         "github/teoxxx/nemiss_proper": "Mathematica",
-        "github/Hi-COLACode/Hi-COLA": "C++"
+        "github/Hi-COLACode/Hi-COLA": "C++",
+        "gitlab/robizzard/libcdict": "unknown",
+        "github/HKU-BAL/Clair3": "Python",
+        "github/OpenWaterAnalytics/EPyT": "Jupyter Notebook",
+        "github/NSAPH-Software/CRE": "R",
+        "github/theislab/scCODA": "Jupyter Notebook",
+        "github/ishinder/EASTR": "Python",
+        "github/CyclotronResearchCentre/bidsme": "Python",
+        "github/ulilautenschlager/crimp": "C",
+        "github/bluenote-1577/sylph": "Rust",
+        "github/sebastien-plutniak/archeoviz": "R",
+        "github/lys-devel/lys": "Python",
+        "github/UNSW-CEEM/NEMSEER": "Python",
+        "github/cobilab/altair": "C",
+        "github/cmelab/flowerMD": "Jupyter Notebook",
+        "github/pudu-py/pudu": "Python",
+        "github/DEIB-GECO/VarSum": "Python",
+        "github/samirmartins/pydaq": "Python",
+        "github/akashdhruv/BoxKit": "Python",
+        "github/the-rccg/hw2d": "Python",
+        "github/jonescompneurolab/hnn-core": "Python",
+        "github/Mulan-94/smops": "Python",
+        "github/anderslogg/geco": "Python",
+        "github/jrkerns/pylinac": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29460,7 +29607,30 @@
         "github/LMBooth/pybci": "https://github.com/LMBooth/pybci",
         "github/mraveri/tensiometer": "https://github.com/mraveri/tensiometer",
         "github/teoxxx/nemiss_proper": "https://github.com/teoxxx/nemiss_proper",
-        "github/Hi-COLACode/Hi-COLA": "https://github.com/Hi-COLACode/Hi-COLA"
+        "github/Hi-COLACode/Hi-COLA": "https://github.com/Hi-COLACode/Hi-COLA",
+        "gitlab/robizzard/libcdict": "https://gitlab.com/rob.izzard/libcdict",
+        "github/HKU-BAL/Clair3": "https://github.com/HKU-BAL/Clair3",
+        "github/OpenWaterAnalytics/EPyT": "https://github.com/OpenWaterAnalytics/EPyT",
+        "github/NSAPH-Software/CRE": "https://github.com/NSAPH-Software/CRE",
+        "github/theislab/scCODA": "https://github.com/theislab/scCODA",
+        "github/ishinder/EASTR": "https://github.com/ishinder/EASTR",
+        "github/CyclotronResearchCentre/bidsme": "https://github.com/CyclotronResearchCentre/bidsme",
+        "github/ulilautenschlager/crimp": "https://github.com/ulilautenschlager/crimp",
+        "github/bluenote-1577/sylph": "https://github.com/bluenote-1577/sylph",
+        "github/sebastien-plutniak/archeoviz": "https://github.com/sebastien-plutniak/archeoviz",
+        "github/lys-devel/lys": "https://github.com/lys-devel/lys",
+        "github/UNSW-CEEM/NEMSEER": "https://github.com/UNSW-CEEM/NEMSEER",
+        "github/cobilab/altair": "https://github.com/cobilab/altair",
+        "github/cmelab/flowerMD": "https://github.com/cmelab/flowerMD",
+        "github/pudu-py/pudu": "https://github.com/pudu-py/pudu",
+        "github/DEIB-GECO/VarSum": "https://github.com/DEIB-GECO/VarSum",
+        "github/samirmartins/pydaq": "https://github.com/samirmartins/pydaq",
+        "github/akashdhruv/BoxKit": "https://github.com/Box-Tools/BoxKit",
+        "github/the-rccg/hw2d": "https://github.com/the-rccg/hw2d",
+        "github/jonescompneurolab/hnn-core": "https://github.com/jonescompneurolab/hnn-core",
+        "github/Mulan-94/smops": "https://github.com/Mulan-94/smops",
+        "github/anderslogg/geco": "https://github.com/anderslogg/geco",
+        "github/jrkerns/pylinac": "https://github.com/jrkerns/pylinac"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34682,6 +34852,29 @@
         "github/LMBooth/pybci": "Create real-time BCI's with the LSL, PyTorch, SKLearn and TensorFlow packages.",
         "github/mraveri/tensiometer": null,
         "github/teoxxx/nemiss_proper": "nemiss code repo 2023",
-        "github/Hi-COLACode/Hi-COLA": "Hi-COLA simulates cosmological large-scale structure for a wide class of Horndeski theories. Built using a COLA solver forked from FML by HAWinther."
+        "github/Hi-COLACode/Hi-COLA": "Hi-COLA simulates cosmological large-scale structure for a wide class of Horndeski theories. Built using a COLA solver forked from FML by HAWinther.",
+        "gitlab/robizzard/libcdict": "A generic associative array, also know as dictionary or hash, library in C, based on uthash and extended to be more user friendly and include integration features such as JSON output.",
+        "github/HKU-BAL/Clair3": "Clair3 - Symphonizing pileup and full-alignment for high-performance long-read variant calling",
+        "github/OpenWaterAnalytics/EPyT": "EPyT: An EPANET-Python Toolkit for Smart Water Network Simulations",
+        "github/NSAPH-Software/CRE": "The Causal Rule Ensemble Method",
+        "github/theislab/scCODA": "A Bayesian model for compositional single-cell data analysis",
+        "github/ishinder/EASTR": "Emending Alignment of Spliced Transcript Reads",
+        "github/CyclotronResearchCentre/bidsme": "Flexible bidsificator for multimodal datasets",
+        "github/ulilautenschlager/crimp": "Cluster relabeling based on impurity minimization",
+        "github/bluenote-1577/sylph": "ultrafast ANI querying and taxonomic profiling for metagenomic shotgun samples  by abundance-corrected minhash.",
+        "github/sebastien-plutniak/archeoviz": "Visualisation, Exploration, and Web Communication of Archaeological Spatial Data",
+        "github/lys-devel/lys": "Interactive multi-dimensional data analysis and visualization",
+        "github/UNSW-CEEM/NEMSEER": "A package for downloading and handling forecasts for the National Electricity Market (NEM) from the Australian Energy Market Operator (AEMO).",
+        "github/cobilab/altair": "AltaiR: a C toolkit for alignment-free and spatial-temporal analysis of multi-FASTA data",
+        "github/cmelab/flowerMD": "Flexible Library of Organic Workflows and Extensible Recipes for Molecular Dynamics.",
+        "github/pudu-py/pudu": "A Python library for explainability of machine learinng algorithms in an agnostic, deterministic, and simple way.",
+        "github/DEIB-GECO/VarSum": "Data summarization tool for 1000 Genomes Project data",
+        "github/samirmartins/pydaq": "Data Acquisition and Experimental Analysis with Python and Graphical User Interface",
+        "github/akashdhruv/BoxKit": "A Python library to manage analysis of block-structured simulation datasets.",
+        "github/the-rccg/hw2d": "Reference implementation for the Hasegawa-Wakatani model of plasma turbulence inside nuclear fusion reactors in two dimensions",
+        "github/jonescompneurolab/hnn-core": "Simulation and optimization of neural circuits for MEG/EEG source estimates",
+        "github/Mulan-94/smops": "Interpolate FITS model images over higher frequency intervals",
+        "github/anderslogg/geco": "A collection of solvers for the Einstein-Vlasov equations",
+        "github/jrkerns/pylinac": "A TG-142 toolkit for doing routine linear accelerator quality assurance"
     }
 }
