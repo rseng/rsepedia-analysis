@@ -19140,6 +19140,42 @@
             "python",
             "medical-physics",
             "radiation-oncology"
+        ],
+        "github/Libensemble/libensemble": [],
+        "github/adrientaudiere/MiscMetabar": [
+            "ecology",
+            "metabarcoding",
+            "ngs-analysis",
+            "package",
+            "r"
+        ],
+        "github/jumphone/inferloop": [
+            "chromatin-structure",
+            "scatac-seq",
+            "single-cell-3d-genome-structure",
+            "single-cell-chromatin-accessibility",
+            "single-cell-multi-omics",
+            "spatial-chromatin-accessibility"
+        ],
+        "github/MaceKuailv/seaduck": [],
+        "github/dirostri/CREPE": [],
+        "github/parafields/parafields": [
+            "hacktoberfest",
+            "iwr-hacktoberfest"
+        ],
+        "github/CederGroupHub/sparse-lm": [],
+        "github/UgoLomoio/gtex_visualizer": [],
+        "github/liuhong-jia/scAnno": [],
+        "github/nekokoe/Plasmer": [
+            "bioinformatics",
+            "plasmid"
+        ],
+        "github/interactivereport/scRNASequest": [],
+        "github/OSeMOSYS/otoole": [
+            "energy",
+            "osemosys",
+            "energy-system-modelling",
+            "energy-system"
         ]
     },
     "language": {
@@ -24385,7 +24421,19 @@
         "github/jonescompneurolab/hnn-core": "Python",
         "github/Mulan-94/smops": "Python",
         "github/anderslogg/geco": "Python",
-        "github/jrkerns/pylinac": "Python"
+        "github/jrkerns/pylinac": "Python",
+        "github/Libensemble/libensemble": "Python",
+        "github/adrientaudiere/MiscMetabar": "R",
+        "github/jumphone/inferloop": "R",
+        "github/MaceKuailv/seaduck": "Python",
+        "github/dirostri/CREPE": "R",
+        "github/parafields/parafields": "Python",
+        "github/CederGroupHub/sparse-lm": "Python",
+        "github/UgoLomoio/gtex_visualizer": "Python",
+        "github/liuhong-jia/scAnno": "R",
+        "github/nekokoe/Plasmer": "Perl",
+        "github/interactivereport/scRNASequest": "R",
+        "github/OSeMOSYS/otoole": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -29630,7 +29678,19 @@
         "github/jonescompneurolab/hnn-core": "https://github.com/jonescompneurolab/hnn-core",
         "github/Mulan-94/smops": "https://github.com/Mulan-94/smops",
         "github/anderslogg/geco": "https://github.com/anderslogg/geco",
-        "github/jrkerns/pylinac": "https://github.com/jrkerns/pylinac"
+        "github/jrkerns/pylinac": "https://github.com/jrkerns/pylinac",
+        "github/Libensemble/libensemble": "https://github.com/Libensemble/libensemble",
+        "github/adrientaudiere/MiscMetabar": "https://github.com/adrientaudiere/MiscMetabar",
+        "github/jumphone/inferloop": "https://github.com/jumphone/InferLoop",
+        "github/MaceKuailv/seaduck": "https://github.com/MaceKuailv/seaduck",
+        "github/dirostri/CREPE": "https://github.com/dirostri/CREPE",
+        "github/parafields/parafields": "https://github.com/parafields/parafields",
+        "github/CederGroupHub/sparse-lm": "https://github.com/CederGroupHub/sparse-lm",
+        "github/UgoLomoio/gtex_visualizer": "https://github.com/UgoLomoio/gtex_visualizer",
+        "github/liuhong-jia/scAnno": "https://github.com/liuhong-jia/scAnno",
+        "github/nekokoe/Plasmer": "https://github.com/nekokoe/Plasmer",
+        "github/interactivereport/scRNASequest": "https://github.com/interactivereport/scRNAsequest",
+        "github/OSeMOSYS/otoole": "https://github.com/OSeMOSYS/otoole"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -34875,6 +34935,18 @@
         "github/jonescompneurolab/hnn-core": "Simulation and optimization of neural circuits for MEG/EEG source estimates",
         "github/Mulan-94/smops": "Interpolate FITS model images over higher frequency intervals",
         "github/anderslogg/geco": "A collection of solvers for the Einstein-Vlasov equations",
-        "github/jrkerns/pylinac": "A TG-142 toolkit for doing routine linear accelerator quality assurance"
+        "github/jrkerns/pylinac": "A TG-142 toolkit for doing routine linear accelerator quality assurance",
+        "github/Libensemble/libensemble": "A Python toolkit for coordinating asynchronous and dynamic ensembles of calculations.",
+        "github/adrientaudiere/MiscMetabar": "R package MiscMetabar: Miscellaneous functions for metabarcoding analysis",
+        "github/jumphone/inferloop": "InferLoop: leveraging single-cell chromatin accessibility for the signal of chromatin loop",
+        "github/MaceKuailv/seaduck": "A python package that interpolates data from ocean dataset from both Eulerian and Lagrangian perspective.",
+        "github/dirostri/CREPE": "GitHub Repository for CREPE: A tool for Transcription Factor Cataloguing",
+        "github/parafields/parafields": "Parallel Parameter Field Generator for Python",
+        "github/CederGroupHub/sparse-lm": "Sparse Linear Regression Models",
+        "github/UgoLomoio/gtex_visualizer": null,
+        "github/liuhong-jia/scAnno": null,
+        "github/nekokoe/Plasmer": "An accurate and sensitive bacterial plasmid identification tool based on deep machine-learning of shared k-mers and genomic features.",
+        "github/interactivereport/scRNASequest": "scRNASequest: an ecosystem of scRNA-seq analysis, visualization and publishing",
+        "github/OSeMOSYS/otoole": "OSeMOSYS Tools for Energy"
     }
 }
