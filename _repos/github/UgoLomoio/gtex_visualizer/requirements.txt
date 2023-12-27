@@ -1,0 +1,11 @@
+plotly
+requests
+dash==2.6.2
+ipywidgets
+pandas 
+numpy
+gunicorn
+scipy
+networkx
+sklearn
+cdlib
