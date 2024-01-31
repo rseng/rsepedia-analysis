@@ -1,0 +1,142 @@
+{
+    "setup.py": {
+        "github/jonas-fuchs/varVAMP": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.2475,
+            "url": "https://biopython.org/"
+        },
+        "matplotlib": {
+            "credit": 0.2475,
+            "url": "https://matplotlib.org"
+        },
+        "primer3-py": {
+            "credit": 0.2475,
+            "url": "https://github.com/libnano/primer3-py"
+        },
+        "seqfold": {
+            "credit": 0.002475000000000005,
+            "url": "https://github.com/Lattice-Automation/seqfold"
+        },
+        "bumpversion": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/peritus/bumpversion"
+        },
+        "pylint": {
+            "credit": 0.000816750000000005,
+            "url": "http://pylint.pycqa.org"
+        },
+        "black": {
+            "credit": 0.000816750000000005,
+            "url": "https://github.com/psf/black"
+        },
+        "bump2version": {
+            "credit": 0.08085824999999999,
+            "url": "https://github.com/c4urself/bump2version"
+        },
+        "gitpython": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://github.com/gitpython-developers/GitPython"
+        },
+        "colorama": {
+            "credit": 0.016982996884615385,
+            "url": "https://github.com/tartley/colorama"
+        },
+        "tomli": {
+            "credit": 0.015204115384615384,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "typing-extensions": {
+            "credit": 0.02854572663461538,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "mccabe": {
+            "credit": 0.00898425,
+            "url": "https://github.com/pycqa/mccabe"
+        },
+        "isort": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://pycqa.github.io/isort/"
+        },
+        "astroid": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://pylint.readthedocs.io/projects/astroid/en/latest/"
+        },
+        "platformdirs": {
+            "credit": 0.015204115384615384,
+            "url": "https://platformdirs.readthedocs.io"
+        },
+        "dill": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://github.com/uqfoundation/dill"
+        },
+        "uvloop": {
+            "credit": 0.0062198653846153844,
+            "url": "http://github.com/MagicStack/uvloop"
+        },
+        "tokenize-rt": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/tokenize-rt"
+        },
+        "ipython": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "aiohttp": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/aiohttp"
+        },
+        "typed-ast": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/typed-ast"
+        },
+        "dataclasses": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "mypy-extensions": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/mypy-extensions"
+        },
+        "pathspec": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/pathspec"
+        },
+        "click": {
+            "credit": 0.0062198653846153844,
+            "url": "https://pypi.org/project/click"
+        },
+        "gitdb": {
+            "credit": 0.00444720375,
+            "url": "https://pypi.org/project/gitdb"
+        },
+        "setuptools": {
+            "credit": 0.0017788815,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "pip-api": {
+            "credit": 0.0017788815,
+            "url": "https://pypi.org/project/pip-api"
+        },
+        "requirementslib": {
+            "credit": 0.0017788815,
+            "url": "https://pypi.org/project/requirementslib"
+        },
+        "pipreqs": {
+            "credit": 0.0017788815,
+            "url": "https://pypi.org/project/pipreqs"
+        },
+        "gprof2dot": {
+            "credit": 0.00444720375,
+            "url": "https://pypi.org/project/gprof2dot"
+        },
+        "objgraph": {
+            "credit": 0.00444720375,
+            "url": "https://pypi.org/project/objgraph"
+        }
+    }
+}

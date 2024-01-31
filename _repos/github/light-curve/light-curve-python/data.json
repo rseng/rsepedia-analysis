@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/light-curve/light-curve-python": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "requirement": {
+            "credit": 0.0099,
+            "url": "http://github.com/storborg/funniest"
+        }
+    }
+}

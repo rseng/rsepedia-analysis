@@ -1,0 +1,178 @@
+{
+    "requirements.txt": {
+        "github/COMBINE-lab/simpleaf": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "furo": {
+            "credit": 0.050329125000000016,
+            "url": "https://pradyunsg.me/furo/quickstart"
+        },
+        "pygments": {
+            "credit": 0.245025,
+            "url": "https://pygments.org/"
+        },
+        "sphinx-basic-ng": {
+            "credit": 0.002450250000000015,
+            "url": "https://github.com/pradyunsg/sphinx-basic-ng"
+        },
+        "sphinx": {
+            "credit": 0.042879374999999983,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "beautifulsoup4": {
+            "credit": 0.002450250000000015,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "ipython": {
+            "credit": 0.040429124999999996,
+            "url": "https://ipython.org"
+        },
+        "sphinx-inline-tabs": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/sphinx-inline-tabs"
+        },
+        "sphinx-copybutton": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/sphinx-copybutton"
+        },
+        "myst-parser": {
+            "credit": 0.040429124999999996,
+            "url": "https://pypi.org/project/myst-parser"
+        },
+        "filelock": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/filelock"
+        },
+        "setuptools": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/setuptools"
+        },
+        "cython": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/cython"
+        },
+        "html5lib": {
+            "credit": 0.08868324193548387,
+            "url": "https://pypi.org/project/html5lib"
+        },
+        "pytest": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "types-requests": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/types-requests"
+        },
+        "docutils-stubs": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/docutils-stubs"
+        },
+        "sphinx-lint": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinx-lint"
+        },
+        "mypy": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/mypy"
+        },
+        "ruff": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/ruff"
+        },
+        "isort": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/isort"
+        },
+        "flake8-simplify": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/flake8-simplify"
+        },
+        "flake8": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "sphinxcontrib-websupport": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-websupport"
+        },
+        "colorama": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "importlib-metadata": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "packaging": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "requests": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/requests"
+        },
+        "imagesize": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/imagesize"
+        },
+        "alabaster": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/alabaster"
+        },
+        "babel": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/babel"
+        },
+        "snowballstemmer": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/snowballstemmer"
+        },
+        "docutils": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/docutils"
+        },
+        "Pygments": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/Pygments"
+        },
+        "Jinja2": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "sphinxcontrib-qthelp": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-qthelp"
+        },
+        "sphinxcontrib-serializinghtml": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-serializinghtml"
+        },
+        "sphinxcontrib-htmlhelp": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-htmlhelp"
+        },
+        "sphinxcontrib-jsmath": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-jsmath"
+        },
+        "sphinxcontrib-devhelp": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-devhelp"
+        },
+        "sphinxcontrib-applehelp": {
+            "credit": 0.00782499193548387,
+            "url": "https://pypi.org/project/sphinxcontrib-applehelp"
+        },
+        "lxml": {
+            "credit": 0.08085824999999999,
+            "url": "https://pypi.org/project/lxml"
+        },
+        "soupsieve": {
+            "credit": 0.08085824999999999,
+            "url": "https://pypi.org/project/soupsieve"
+        }
+    }
+}
