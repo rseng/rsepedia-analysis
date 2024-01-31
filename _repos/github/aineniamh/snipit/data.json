@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/aineniamh/snipit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.00495,
+            "url": "https://biopython.org/"
+        },
+        "matplotlib": {
+            "credit": 0.00495,
+            "url": "https://matplotlib.org"
+        },
+        "numpy": {
+            "credit": 0.0049005,
+            "url": "https://www.numpy.org"
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "setup.py": {
+        "github/wen-jams/bsavi": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "holoviews": {
+            "credit": 0.165,
+            "url": "https://www.holoviews.org"
+        },
+        "bokeh": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "panel": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/panel"
+        },
+        "spatialpandas": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/spatialpandas"
+        },
+        "dask": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/dask"
+        },
+        "param": {
+            "credit": 0.165,
+            "url": "https://pypi.org/project/param"
+        }
+    }
+}
