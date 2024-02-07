@@ -72,6 +72,7 @@ foreach(CMD
     protein_translator
     surface_residue_finder
     system_translator
+    traj_prep
     traj_time
     zcoord
     lipid_flip
@@ -119,6 +120,7 @@ foreach(CMD
     bilayer_free_energy
     histogram
     data_averager
+    bonds_generator
     )
   add_executable(${CMD} src/other_tools/${CMD}.cpp)
 endforeach()

@@ -1,9 +1,9 @@
 {
-    "python_deps": 4771,
+    "python_deps": 4840,
     "cpp_deps": 441,
-    "r_deps": 2226,
+    "r_deps": 2227,
     "js_deps": 1690,
     "go_deps": 246,
-    "total_repos": 5255,
-    "total_parsed": 2686
+    "total_repos": 5312,
+    "total_parsed": 2718
 }

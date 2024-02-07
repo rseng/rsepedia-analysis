@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+statsmodels
+emcee
+dill
+pathos
+corner
+h5py
+scipy
+numba
+george
+astropy
+tqdm

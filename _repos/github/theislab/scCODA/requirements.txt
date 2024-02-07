@@ -1,0 +1,14 @@
+numpy>=1.21
+pandas>=1.0
+seaborn
+matplotlib>=3.0
+tensorflow>=2.8
+tensorflow-probability>=0.16
+arviz>=0.11
+scipy
+anndata
+patsy
+scanpy
+statsmodels
+rpy2
+scikit-bio

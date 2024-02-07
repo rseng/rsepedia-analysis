@@ -1,0 +1,114 @@
+{
+    "requirements.txt": {
+        "github/radis/radis": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "lxml": {
+            "credit": 0.0011898425000000032,
+            "url": "https://lxml.de/"
+        },
+        "hjson": {
+            "credit": 0.11,
+            "url": "http://github.com/hjson/hjson-py"
+        },
+        "publib": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/erwanp/publib"
+        },
+        "hitran-api": {
+            "credit": 0.11,
+            "url": "https://pypi.org/project/hitran-api"
+        },
+        "peakutils": {
+            "credit": 0.0011000000000000038,
+            "url": "https://bitbucket.org/lucashnegri/peakutils"
+        },
+        "ruamel.yaml": {
+            "credit": 0.0011898425000000032,
+            "url": "https://sourceforge.net/p/ruamel-yaml/"
+        },
+        "json-tricks": {
+            "credit": 0.11,
+            "url": "https://github.com/mverleg/pyjson_tricks"
+        },
+        "mpldatacursor": {
+            "credit": 0.0011000000000000038,
+            "url": "https://github.com/joferkington/mpldatacursor/"
+        },
+        "nvidia-cufft-cu11": {
+            "credit": 0.11,
+            "url": "https://developer.nvidia.com/cuda-zone"
+        },
+        "Cython": {
+            "credit": 0.029448601875,
+            "url": "https://cython.org/"
+        },
+        "BeautifulSoup4": {
+            "credit": 0.0024958518750000016,
+            "url": "https://www.crummy.com/software/BeautifulSoup/bs4/"
+        },
+        "html5lib": {
+            "credit": 0.002585694375000001,
+            "url": "https://github.com/html5lib/html5lib-python"
+        },
+        "cssselect": {
+            "credit": 0.029448601875,
+            "url": "https://github.com/scrapy/cssselect"
+        },
+        "six": {
+            "credit": 0.07237357875,
+            "url": "https://github.com/benjaminp/six"
+        },
+        "matplotlib": {
+            "credit": 0.1089,
+            "url": "https://matplotlib.org"
+        },
+        "scipy": {
+            "credit": 0.0005445000000000033,
+            "url": "https://www.scipy.org"
+        },
+        "numpy": {
+            "credit": 0.1628055,
+            "url": "https://www.numpy.org"
+        },
+        "ruamel.yaml.jinja2": {
+            "credit": 0.029448601875,
+            "url": "https://sourceforge.net/p/ruamel-yaml-jinja2/code/ci/default/tree"
+        },
+        "mercurial": {
+            "credit": 0.029448601875,
+            "url": "https://mercurial-scm.org/"
+        },
+        "ryd": {
+            "credit": 0.0024958518750000016,
+            "url": "https://sourceforge.net/p/ryd/"
+        },
+        "ruamel.yaml.clib": {
+            "credit": 0.029448601875,
+            "url": "https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree"
+        },
+        "soupsieve": {
+            "credit": 8.984249999999944e-05,
+            "url": "https://facelessuser.github.io/soupsieve/"
+        },
+        "webencodings": {
+            "credit": 0.01792357875,
+            "url": "https://github.com/SimonSapin/python-webencodings"
+        },
+        "ruamel.yaml.split": {
+            "credit": 0.00898425,
+            "url": "https://sourceforge.net/p/ruamel-yaml-split/code/ci/default/tree"
+        },
+        "ruamel.std.pathlib": {
+            "credit": 0.00898425,
+            "url": "https://sourceforge.net/p/ruamel-std-pathlib/code/ci/default/tree"
+        },
+        "backports-functools-lru-cache": {
+            "credit": 0.0088944075,
+            "url": "https://pypi.org/project/backports-functools-lru-cache"
+        }
+    }
+}

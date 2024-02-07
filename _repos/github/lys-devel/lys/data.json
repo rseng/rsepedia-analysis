@@ -1,0 +1,194 @@
+{
+    "requirements.txt": {
+        "github/lys-devel/lys": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.3735925714285714,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.013628571428571426,
+            "url": "https://www.scipy.org"
+        },
+        "opencv-python-headless": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/opencv/opencv-python"
+        },
+        "PyQt5": {
+            "credit": 0.000899999999999998,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "matplotlib": {
+            "credit": 0.09,
+            "url": "https://matplotlib.org"
+        },
+        "pyqtgraph": {
+            "credit": 0.000899999999999998,
+            "url": "http://www.pyqtgraph.org"
+        },
+        "dask": {
+            "credit": 0.03942514285714285,
+            "url": "https://github.com/dask/dask/"
+        },
+        "distributed": {
+            "credit": 0.0044639999999999975,
+            "url": "https://distributed.dask.org"
+        },
+        "dask-image": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/dask/dask-image"
+        },
+        "autopep8": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/hhatto/autopep8"
+        },
+        "QtPy": {
+            "credit": 0.000899999999999998,
+            "url": "https://github.com/spyder-ide/qtpy"
+        },
+        "PyQt5-Qt5": {
+            "credit": 0.04455,
+            "url": "https://www.riverbankcomputing.com/software/pyqt/"
+        },
+        "PyQt5-sip": {
+            "credit": 0.04455,
+            "url": "https://www.riverbankcomputing.com/software/sip/"
+        },
+        "pre-commit": {
+            "credit": 0.003564,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "pytest-xdist": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-timeout": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest-cov": {
+            "credit": 0.025839,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.025839,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.01985657142857143,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "jinja2": {
+            "credit": 0.009504,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "bokeh": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "lz4": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/lz4"
+        },
+        "pyarrow-hotfix": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/pyarrow-hotfix"
+        },
+        "pyarrow": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "importlib-metadata": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "toolz": {
+            "credit": 0.009504,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "pyyaml": {
+            "credit": 0.009504,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "partd": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/partd"
+        },
+        "packaging": {
+            "credit": 0.031779,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "fsspec": {
+            "credit": 0.003564,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "cloudpickle": {
+            "credit": 0.009504,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "click": {
+            "credit": 0.009504,
+            "url": "https://pypi.org/project/click"
+        },
+        "zict": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/zict"
+        },
+        "urllib3": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/urllib3"
+        },
+        "tornado": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/tornado"
+        },
+        "tblib": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/tblib"
+        },
+        "sortedcontainers": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/sortedcontainers"
+        },
+        "psutil": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/psutil"
+        },
+        "msgpack": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/msgpack"
+        },
+        "locket": {
+            "credit": 0.00594,
+            "url": "https://pypi.org/project/locket"
+        },
+        "tifffile": {
+            "credit": 0.012728571428571428,
+            "url": "https://pypi.org/project/tifffile"
+        },
+        "pims": {
+            "credit": 0.012728571428571428,
+            "url": "https://pypi.org/project/pims"
+        },
+        "toml": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/toml"
+        },
+        "pycodestyle": {
+            "credit": 0.04455,
+            "url": "https://pypi.org/project/pycodestyle"
+        },
+        "pytest-qt": {
+            "credit": 0.022275,
+            "url": "https://pypi.org/project/pytest-qt"
+        }
+    }
+}
