@@ -1,0 +1,13 @@
+globus-sdk>=3,<4
+requests>=2.18.4
+six>=1.11.0
+h5py>=2.10.0
+numpy>=1.15.4
+pandas>=0.23.4
+pydantic<2.0.0
+mdf_forge>=0.8.0
+mdf-connect-client>=0.4.0
+json2table>=1.1.5
+torch>=1.8.0
+tensorflow>=2
+tqdm>=4.64
