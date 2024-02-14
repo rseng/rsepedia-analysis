@@ -99,6 +99,7 @@ include(SetupFormaline)
 include(SetupGitHooks)
 include(SetBuildType)
 include(SetupPic)
+include(SetupLinkTimeOptimization)
 include(SetCxxStandard)
 include(StripSymbols)
 # We need Boost for InfoAtLink
@@ -144,6 +145,7 @@ include(SetupLibsharp)
 include(SetupXsimd)
 include(SetupYamlCpp)
 include(SetupOpenMP)
+include(SetupParaView)
 
 include(SetupLIBCXXCharm)
 # The precompiled header must be setup after all libraries have been found
