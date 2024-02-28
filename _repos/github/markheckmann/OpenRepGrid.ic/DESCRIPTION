@@ -21,8 +21,8 @@ Authors@R: c(person(
 Description: Shiny UI to identify cliques of related constructs in repertory grid data. 
     See Burr, King, & Heckmann (2020) <doi:10.1080/14780887.2020.1794088> for a description 
     of the interpretive clustering (IC) method.
-Version: 0.6.1
-Date: 2022-10-25
+Version: 0.6.2
+Date: 2024-02-18
 Imports:
     graphics,
     grDevices,
@@ -59,4 +59,4 @@ Suggests:
 Encoding: UTF-8
 URL: https://github.com/markheckmann/OpenRepGrid.ic
 BugReports: https://github.com/markheckmann/OpenRepGrid.ic/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.0
