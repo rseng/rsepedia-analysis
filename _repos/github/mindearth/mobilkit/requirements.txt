@@ -1,0 +1,15 @@
+distributed[full]==2023.5.0
+dask[full]==2023.5.0
+click
+geopandas
+descartes
+rtree
+Fiona
+geojson
+haversine
+joblib
+matplotlib
+pyarrow
+scikit-learn
+scipy
+seaborn
