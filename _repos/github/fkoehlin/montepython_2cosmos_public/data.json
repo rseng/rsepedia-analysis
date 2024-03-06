@@ -1,0 +1,22 @@
+{
+    "setup.py": {
+        "github/fkoehlin/montepython_2cosmos_public": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "argparse": {
+            "credit": 0.0033000000000000004,
+            "url": "https://github.com/ThomasWaldmann/argparse/"
+        },
+        "pypolychord": {
+            "credit": 0.0033000000000000004,
+            "url": "https://ccpforge.cse.rl.ac.uk/gf/project/polychord/"
+        },
+        "pymultinest": {
+            "credit": 0.0033000000000000004,
+            "url": "https://johannesbuchner.github.io/PyMultiNest/"
+        }
+    }
+}
