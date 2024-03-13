@@ -41,16 +41,18 @@ if ("${TARGET_ARCH}" MATCHES "x86_64|i386")
 endif()
 if ("${TARGET_ARCH}" MATCHES "arm")
     set(ARM ON)
-    if ("${TARGET_ARCH}" MATCHES "armv8")
-        add_definitions(-D__ARM64__=1)
-    else()
-        add_definitions(-D__ARM__=1)
-    endif()
+    # OpenMM only supports 64-bit ARM
+    add_definitions(-D__ARM64__=1)
 endif()
 if ("${TARGET_ARCH}" MATCHES "ppc")
     set(PPC ON)
     add_definitions(-D__PPC__=1)
 endif()
+if ("${TARGET_ARCH}" MATCHES "loongarch64")
+    set(LOONGARCH64 ON)
+    add_definitions(-D__LOONGARCH64__=1 -mlsx)
+endif()
+
 
 # Where to install
 IF(WIN32)

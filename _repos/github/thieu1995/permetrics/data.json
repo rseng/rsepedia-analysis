@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/thieu1995/permetrics": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.0099,
+            "url": "https://www.numpy.org"
+        }
+    }
+}
