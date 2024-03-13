@@ -1,0 +1,66 @@
+{
+    "DESCRIPTION": {
+        "github/konfound-project/konfound": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "broom": {
+            "credit": 0.07071428571428572,
+            "url": "https://broom.tidymodels.org/"
+        },
+        "broom.mixed": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "crayon": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "dplyr": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "ggplot2": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "lavaan": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "purrr": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "rlang": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "tidyr": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "lme4": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "margins": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "tibble": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "ggrepel": {
+            "credit": 0.07071428571428572,
+            "url": null
+        },
+        "pbkrtest": {
+            "credit": 0.07071428571428572,
+            "url": null
+        }
+    }
+}

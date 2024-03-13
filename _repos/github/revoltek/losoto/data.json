@@ -1,0 +1,122 @@
+{
+    "setup.py": {
+        "github/revoltek/losoto": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.36700714285714287,
+            "url": "https://www.numpy.org"
+        },
+        "cython": {
+            "credit": 0.14142857142857143,
+            "url": "http://cython.org/"
+        },
+        "tables": {
+            "credit": 0.001414285714285729,
+            "url": "http://www.pytables.org"
+        },
+        "configparser": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/jaraco/configparser/"
+        },
+        "scipy": {
+            "credit": 0.001414285714285729,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.14142857142857143,
+            "url": "https://matplotlib.org"
+        },
+        "python-casacore": {
+            "credit": 0.001414285714285729,
+            "url": "https://github.com/casacore/python-casacore"
+        },
+        "ipython": {
+            "credit": 0.015557142857142856,
+            "url": "https://ipython.org"
+        },
+        "numpydoc": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/numpydoc"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.035559183673469386,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "blosc2": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/blosc2"
+        },
+        "py-cpuinfo": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/py-cpuinfo"
+        },
+        "packaging": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "numexpr": {
+            "credit": 0.015557142857142856,
+            "url": "https://pypi.org/project/numexpr"
+        },
+        "pytest-mypy": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest-mypy"
+        },
+        "types-backports": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/types-backports"
+        },
+        "pytest-ruff": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest-ruff"
+        },
+        "pytest-enabler": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest-enabler"
+        },
+        "pytest-cov": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest-checkdocs": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest-checkdocs"
+        },
+        "pytest": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "jaraco.tidelift": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/jaraco.tidelift"
+        },
+        "sphinx-lint": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/sphinx-lint"
+        },
+        "furo": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/furo"
+        },
+        "rst.linker": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/rst.linker"
+        },
+        "jaraco.packaging": {
+            "credit": 0.010001020408163265,
+            "url": "https://pypi.org/project/jaraco.packaging"
+        },
+        "six": {
+            "credit": 0.07000714285714285,
+            "url": "https://pypi.org/project/six"
+        }
+    }
+}

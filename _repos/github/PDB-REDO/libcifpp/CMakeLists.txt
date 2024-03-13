@@ -27,7 +27,7 @@ cmake_minimum_required(VERSION 3.16)
 # set the project name
 project(
 	libcifpp
-	VERSION 7.0.0
+	VERSION 7.0.3
 	LANGUAGES CXX)
 
 list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -164,7 +164,7 @@ if(GXX_LIBSTDCPP)
 
 	try_run(STD_REGEX_RUNNING STD_REGEX_COMPILING
 		${CMAKE_CURRENT_BINARY_DIR}/test
-		${PROJECT_SOURCE_DIR}/cmake/test-rx.cpp)
+		${CMAKE_CURRENT_SOURCE_DIR}/cmake/test-rx.cpp)
 
 	if(STD_REGEX_RUNNING STREQUAL FAILED_TO_RUN)
 		message(
@@ -255,88 +255,100 @@ list(APPEND CIFPP_REQUIRED_LIBRARIES ${STDCPPATOMIC_LIBRARY})
 
 # Create a revision file, containing the current git version info
 include(VersionString)
-write_version_header(${PROJECT_SOURCE_DIR}/src/ LIB_NAME "LibCIFPP")
+write_version_header(${CMAKE_CURRENT_SOURCE_DIR}/src/ LIB_NAME "LibCIFPP")
 
 # SymOp data table
 if(CIFPP_RECREATE_SYMOP_DATA)
 	# The tool to create the table
 	add_executable(symop-map-generator
-		"${PROJECT_SOURCE_DIR}/src/symop-map-generator.cpp")
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/symop-map-generator.cpp")
 
 	add_custom_command(
-		OUTPUT ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
+		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/symop_table_data.hpp
 		COMMAND
 		$<TARGET_FILE:symop-map-generator> $ENV{CLIBD}/syminfo.lib
-		$ENV{CLIBD}/symop.lib ${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp)
+		$ENV{CLIBD}/symop.lib ${CMAKE_CURRENT_SOURCE_DIR}/src/symop_table_data.hpp)
 
 	add_custom_target(
 		OUTPUT
-		${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp
+		${CMAKE_CURRENT_SOURCE_DIR}/src/symop_table_data.hpp
 		DEPENDS symop-map-generator "$ENV{CLIBD}/syminfo.lib"
 		"$ENV{CLIBD}/symop.lib")
 endif()
 
 # Sources
 set(project_sources
-	${PROJECT_SOURCE_DIR}/src/category.cpp
-	${PROJECT_SOURCE_DIR}/src/condition.cpp
-	${PROJECT_SOURCE_DIR}/src/datablock.cpp
-	${PROJECT_SOURCE_DIR}/src/dictionary_parser.cpp
-	${PROJECT_SOURCE_DIR}/src/file.cpp
-	${PROJECT_SOURCE_DIR}/src/item.cpp
-	${PROJECT_SOURCE_DIR}/src/parser.cpp
-	${PROJECT_SOURCE_DIR}/src/row.cpp
-	${PROJECT_SOURCE_DIR}/src/validate.cpp
-	${PROJECT_SOURCE_DIR}/src/text.cpp
-	${PROJECT_SOURCE_DIR}/src/utilities.cpp
-	${PROJECT_SOURCE_DIR}/src/atom_type.cpp
-	${PROJECT_SOURCE_DIR}/src/compound.cpp
-	${PROJECT_SOURCE_DIR}/src/point.cpp
-	${PROJECT_SOURCE_DIR}/src/symmetry.cpp
-	${PROJECT_SOURCE_DIR}/src/model.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/cif2pdb.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/pdb_record.hpp
-	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.hpp
-	${PROJECT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/reconstruct.cpp
-	${PROJECT_SOURCE_DIR}/src/pdb/validate-pdbx.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/category.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/condition.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/datablock.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/dictionary_parser.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/file.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/item.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/parser.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/row.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/validate.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/text.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/utilities.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/atom_type.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/compound.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/point.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/symmetry.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/model.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/cif2pdb.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/pdb2cif.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/pdb_record.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/pdb2cif_remark_3.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/reconstruct.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/pdb/validate-pdbx.cpp
 )
 
 set(project_headers
-	${PROJECT_SOURCE_DIR}/include/cif++.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/utilities.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/item.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/datablock.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/file.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/validate.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/iterator.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/parser.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/forward_decl.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/dictionary_parser.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/condition.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/category.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/row.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/atom_type.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/compound.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/point.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/symmetry.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/model.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb/cif2pdb.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb/io.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb/pdb2cif.hpp
-	${PROJECT_SOURCE_DIR}/include/cif++/pdb/tls.hpp)
+	include/cif++.hpp
+	include/cif++/utilities.hpp
+	include/cif++/item.hpp
+	include/cif++/datablock.hpp
+	include/cif++/exports.hpp
+	include/cif++/file.hpp
+	include/cif++/validate.hpp
+	include/cif++/iterator.hpp
+	include/cif++/parser.hpp
+	include/cif++/forward_decl.hpp
+	include/cif++/dictionary_parser.hpp
+	include/cif++/condition.hpp
+	include/cif++/category.hpp
+	include/cif++/row.hpp
+	include/cif++/atom_type.hpp
+	include/cif++/compound.hpp
+	include/cif++/point.hpp
+	include/cif++/symmetry.hpp
+	include/cif++/model.hpp
+	include/cif++/pdb.hpp
+	include/cif++/pdb/cif2pdb.hpp
+	include/cif++/pdb/io.hpp
+	include/cif++/pdb/pdb2cif.hpp
+	include/cif++/pdb/tls.hpp)
 
-add_library(cifpp ${project_sources} ${project_headers}
-	${PROJECT_SOURCE_DIR}/src/symop_table_data.hpp)
+add_library(cifpp STATIC)
 add_library(cifpp::cifpp ALIAS cifpp)
+
+target_sources(cifpp
+	PRIVATE ${project_sources}
+	${CMAKE_CURRENT_SOURCE_DIR}/src/symop_table_data.hpp
+	PUBLIC
+	FILE_SET cifpp_headers TYPE HEADERS
+	BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include
+	FILES ${project_headers}
+)
+
+# The code now really requires C++20
+target_compile_features(cifpp PUBLIC cxx_std_20)
 
 set(CMAKE_DEBUG_POSTFIX d)
 set_target_properties(cifpp PROPERTIES DEBUG_POSTFIX "d")
 
 generate_export_header(cifpp EXPORT_FILE_NAME
-	${PROJECT_SOURCE_DIR}/include/cif++/exports.hpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/include/cif++/exports.hpp)
 
 if(BOOST_REGEX)
 	target_compile_definitions(cifpp PRIVATE USE_BOOST_REGEX=1
@@ -353,7 +365,7 @@ set_target_properties(cifpp PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 target_include_directories(
 	cifpp
-	PUBLIC "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
+	PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
 	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 	PRIVATE "${BOOST_REGEX_INCLUDE_DIR}" "${EIGEN_INCLUDE_DIR}")
 
@@ -366,7 +378,7 @@ endif(CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
 
 if(CIFPP_DOWNLOAD_CCD)
 	# download the components.cif file from CCD
-	set(COMPONENTS_CIF ${PROJECT_SOURCE_DIR}/rsrc/components.cif)
+	set(COMPONENTS_CIF ${CMAKE_CURRENT_SOURCE_DIR}/rsrc/components.cif)
 
 	if(EXISTS ${COMPONENTS_CIF})
 		file(SIZE ${COMPONENTS_CIF} CCD_FILE_SIZE)
@@ -401,7 +413,7 @@ if(CIFPP_DOWNLOAD_CCD)
 			add_custom_command(
 				OUTPUT ${COMPONENTS_CIF}
 				COMMAND "${GUNZIP}" ${COMPONENTS_CIF}.gz
-				WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/rsrc/)
+				WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/rsrc/)
 
 			add_custom_target(COMPONENTS ALL DEPENDS ${COMPONENTS_CIF})
 		endif()
@@ -452,14 +464,9 @@ else()
 endif()
 
 # Install rules
-install(
-	TARGETS cifpp
-	EXPORT cifpp-targets
-	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-	INCLUDES
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(TARGETS cifpp
+	EXPORT cifpp
+	FILE_SET cifpp_headers DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 if(MSVC AND BUILD_SHARED_LIBS)
 	install(
@@ -479,50 +486,38 @@ if(OLD_CONFIG_FILES)
 	install(CODE "file(REMOVE ${OLD_CONFIG_FILES})")
 endif()
 
-install(
-	EXPORT cifpp-targets
-	FILE "cifpp-targets.cmake"
+install(EXPORT cifpp
 	NAMESPACE cifpp::
-	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cifpp)
+	FILE "cifpp-targets.cmake"
+	DESTINATION lib/cmake/cifpp)
 
-install(
-	DIRECTORY include/cif++
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-	COMPONENT Devel)
-
-install(
-	FILES include/cif++.hpp
-	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-	COMPONENT Devel)
-
-if(CIFPP_DATA_DIR)
+if(CIFPP_DATA_DIR AND CIFPP_DOWNLOAD_CCD)
 	install(
-		FILES ${PROJECT_SOURCE_DIR}/rsrc/mmcif_ddl.dic
-		${PROJECT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic
-		${PROJECT_SOURCE_DIR}/rsrc/mmcif_ma.dic ${COMPONENTS_CIF}
+		FILES ${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_ddl.dic
+		${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic
+		${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_ma.dic ${COMPONENTS_CIF}
 		DESTINATION ${CIFPP_DATA_DIR})
 endif()
 
-if(CIFPP_CACHE_DIR)
+if(CIFPP_CACHE_DIR AND CIFPP_DOWNLOAD_CCD)
 	install(
-		FILES ${PROJECT_SOURCE_DIR}/rsrc/mmcif_ddl.dic
-		${PROJECT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic
-		${PROJECT_SOURCE_DIR}/rsrc/mmcif_ma.dic ${COMPONENTS_CIF}
+		FILES ${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_ddl.dic
+		${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_pdbx.dic
+		${CMAKE_CURRENT_SOURCE_DIR}/rsrc/mmcif_ma.dic ${COMPONENTS_CIF}
 		DESTINATION ${CIFPP_CACHE_DIR})
 endif()
 
-set(CONFIG_TEMPLATE_FILE ${PROJECT_SOURCE_DIR}/cmake/cifpp-config.cmake.in)
+set(CONFIG_TEMPLATE_FILE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cifpp-config.cmake.in)
 
 configure_package_config_file(
 	${CONFIG_TEMPLATE_FILE} ${CMAKE_CURRENT_BINARY_DIR}/cifpp/cifpp-config.cmake
-	INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cifpp
+	INSTALL_DESTINATION lib/cmake/cifpp
 	PATH_VARS CIFPP_DATA_DIR)
 
 install(
 	FILES "${CMAKE_CURRENT_BINARY_DIR}/cifpp/cifpp-config.cmake"
 	"${CMAKE_CURRENT_BINARY_DIR}/cifpp/cifpp-config-version.cmake"
-	DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cifpp
-	COMPONENT Devel)
+	DESTINATION lib/cmake/cifpp)
 
 set_target_properties(
 	cifpp
@@ -542,7 +537,7 @@ write_basic_package_version_file(
 
 # In case we're included as sub_directory:
 if(NOT PROJECT_IS_TOP_LEVEL)
-	set(CIFPP_SHARE_DIR ${PROJECT_SOURCE_DIR}/rsrc PARENT_SCOPE)
+	set(CIFPP_SHARE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/rsrc PARENT_SCOPE)
 endif()
 
 if(BUILD_TESTING)
@@ -570,7 +565,7 @@ if(CIFPP_INSTALL_UPDATE_SCRIPT)
 		message(FATAL_ERROR "Don't know where to install the update script")
 	endif()
 
-	configure_file(${PROJECT_SOURCE_DIR}/tools/update-libcifpp-data.in
+	configure_file(${CMAKE_CURRENT_SOURCE_DIR}/tools/update-libcifpp-data.in
 		update-libcifpp-data @ONLY)
 	install(
 		FILES ${CMAKE_CURRENT_BINARY_DIR}/update-libcifpp-data
