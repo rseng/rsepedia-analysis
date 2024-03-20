@@ -1,0 +1,12 @@
+pandas
+numpy
+numba
+matplotlib
+astropy
+jplephem
+scipy
+pint-pulsar
+SciencePlots
+Cython>=0.14
+tk
+tqdm

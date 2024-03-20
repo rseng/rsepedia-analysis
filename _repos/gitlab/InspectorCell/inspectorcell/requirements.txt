@@ -1,0 +1,17 @@
+AnyQt==0.0.13
+bottleneck==1.3.2
+dataclasses==0.6
+h5py==3.4.0
+miscmics @ git+https://gitlab.com/InspectorCell/miscmics.git@release
+numpy==1.21.4
+Orange3>=3.25.1
+orange3-imageanalytics==0.6.0
+pathlib==1.0.1
+opencv-python==4.5.3.56
+PyQt5==5.12.3
+pyqt5-sip==4.19.18
+pyqtgraph==0.10.0
+pytest==6.2.5
+pytest-qt==4.0.2
+wheel==0.37.0
+sortedcontainers
