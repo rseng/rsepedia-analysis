@@ -19639,7 +19639,75 @@
             "meteorology",
             "python",
             "toolkit"
-        ]
+        ],
+        "github/pylops/pyproximal": [
+            "proximal-algorithms",
+            "linear-algebra",
+            "inverse-problems",
+            "python"
+        ],
+        "github/BonsonW/slow5curl": [
+            "api",
+            "c",
+            "fetching-data-from-server",
+            "library",
+            "slow5",
+            "tool",
+            "blow5",
+            "command-line-tool",
+            "curl"
+        ],
+        "github/FAU-LAP/NOMAD-CAMELS": [],
+        "github/lskatz/fasten": [
+            "bioinformatics",
+            "fastq-files",
+            "rust"
+        ],
+        "github/NSAPH-Software/GPCERF": [],
+        "github/RJArthern/WAVI.jl": [],
+        "github/chadagreene/Tide-Model-Driver": [],
+        "github/tvwenger/kinematic_scaleheight": [],
+        "github/GenomePathogenAnalysisService/read-it-and-keep": [],
+        "github/FrederickHuangLin/ANCOMBC": [
+            "ancom",
+            "differential-abundance-analysis",
+            "microbiome",
+            "normalization",
+            "sequencing",
+            "correlation",
+            "secom",
+            "ancombc",
+            "ancombc2"
+        ],
+        "github/moritzobenauer/ProjectRaccoon": [
+            "molecular-dynamics-simulation",
+            "molecular-modeling",
+            "cheminformatics",
+            "pdb-files"
+        ],
+        "github/songweizhi/Binning_refiner": [
+            "metagenomics",
+            "binning",
+            "refinement",
+            "binning-refiner",
+            "bioinformatics"
+        ],
+        "github/seamplex/feenox": [
+            "finite-elements",
+            "hpc",
+            "numerical-methods",
+            "ode-solver",
+            "pde-solver"
+        ],
+        "github/FabianPlum/OmniTrax": [
+            "blender",
+            "deeplabcut",
+            "deeplearning",
+            "object-detection",
+            "tracking",
+            "yolo"
+        ],
+        "github/EddyRivasLab/infernal": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -25016,7 +25084,22 @@
         "github/fkoehlin/montepython_2cosmos_public": "Python",
         "github/AlexanderJuestel/pyheatdemand": "Python",
         "github/aibhleog/baryon-sweep": "Jupyter Notebook",
-        "github/vergauwenthomas/MetObs_toolkit": "Jupyter Notebook"
+        "github/vergauwenthomas/MetObs_toolkit": "Jupyter Notebook",
+        "github/pylops/pyproximal": "Python",
+        "github/BonsonW/slow5curl": "C",
+        "github/FAU-LAP/NOMAD-CAMELS": "Python",
+        "github/lskatz/fasten": "Rust",
+        "github/NSAPH-Software/GPCERF": "R",
+        "github/RJArthern/WAVI.jl": "Julia",
+        "github/chadagreene/Tide-Model-Driver": "MATLAB",
+        "github/tvwenger/kinematic_scaleheight": "Python",
+        "github/GenomePathogenAnalysisService/read-it-and-keep": "C",
+        "github/FrederickHuangLin/ANCOMBC": "R",
+        "github/moritzobenauer/ProjectRaccoon": "Jupyter Notebook",
+        "github/songweizhi/Binning_refiner": "Python",
+        "github/seamplex/feenox": "C",
+        "github/FabianPlum/OmniTrax": "Python",
+        "github/EddyRivasLab/infernal": "C"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -30393,7 +30476,22 @@
         "github/fkoehlin/montepython_2cosmos_public": "https://github.com/fkoehlin/montepython_2cosmos_public",
         "github/AlexanderJuestel/pyheatdemand": "https://github.com/AlexanderJuestel/pyheatdemand",
         "github/aibhleog/baryon-sweep": "https://github.com/aibhleog/baryon-sweep",
-        "github/vergauwenthomas/MetObs_toolkit": "https://github.com/vergauwenthomas/MetObs_toolkit"
+        "github/vergauwenthomas/MetObs_toolkit": "https://github.com/vergauwenthomas/MetObs_toolkit",
+        "github/pylops/pyproximal": "https://github.com/PyLops/pyproximal",
+        "github/BonsonW/slow5curl": "https://github.com/BonsonW/slow5curl",
+        "github/FAU-LAP/NOMAD-CAMELS": "https://github.com/FAU-LAP/NOMAD-CAMELS",
+        "github/lskatz/fasten": "https://github.com/lskatz/fasten",
+        "github/NSAPH-Software/GPCERF": "https://github.com/NSAPH-Software/GPCERF",
+        "github/RJArthern/WAVI.jl": "https://github.com/RJArthern/WAVI.jl",
+        "github/chadagreene/Tide-Model-Driver": "https://github.com/chadagreene/Tide-Model-Driver",
+        "github/tvwenger/kinematic_scaleheight": "https://github.com/tvwenger/kinematic_scaleheight",
+        "github/GenomePathogenAnalysisService/read-it-and-keep": "https://github.com/GlobalPathogenAnalysisService/read-it-and-keep",
+        "github/FrederickHuangLin/ANCOMBC": "https://github.com/FrederickHuangLin/ANCOMBC",
+        "github/moritzobenauer/ProjectRaccoon": "https://github.com/moritzobenauer/ProjectRaccoon",
+        "github/songweizhi/Binning_refiner": "https://github.com/songweizhi/Binning_refiner",
+        "github/seamplex/feenox": "https://github.com/seamplex/feenox",
+        "github/FabianPlum/OmniTrax": "https://github.com/FabianPlum/OmniTrax",
+        "github/EddyRivasLab/infernal": "https://github.com/EddyRivasLab/infernal"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -35770,6 +35868,21 @@
         "github/fkoehlin/montepython_2cosmos_public": "Public repository for the Monte Python Code modified to work with two independent cosmological parameter sets and independent cosmological calculations per likelihood.",
         "github/AlexanderJuestel/pyheatdemand": "Processing Tool for Heat Demand Data",
         "github/aibhleog/baryon-sweep": "a custom outlier rejection algorithm for JWST/NIRSpec IFS data, described in Hutchison et al. (submitted to PASP)",
-        "github/vergauwenthomas/MetObs_toolkit": "A toolkit for using non-traditional meteorological observations"
+        "github/vergauwenthomas/MetObs_toolkit": "A toolkit for using non-traditional meteorological observations",
+        "github/pylops/pyproximal": "PyProximal \u2013 Proximal Operators and Algorithms in Python",
+        "github/BonsonW/slow5curl": "A library and tool for accessing remote BLOW5 files.",
+        "github/FAU-LAP/NOMAD-CAMELS": "We are developing a configurable measurement software (CAMELS), targeted towards the requirements of experimental solid-state physics. Here many experiments utilize a multitude of measurement devices used in dynamically changing setups.",
+        "github/lskatz/fasten": ":construction_worker: Fasten toolkit, for streaming operations on fastq files",
+        "github/NSAPH-Software/GPCERF": null,
+        "github/RJArthern/WAVI.jl": "WAVI ice sheet model",
+        "github/chadagreene/Tide-Model-Driver": "Tide Model Driver for MATLAB, version 3.0",
+        "github/tvwenger/kinematic_scaleheight": "Use MCMC methods to kinematically estimate the vertical distribution of clouds in the Galactic plane",
+        "github/GenomePathogenAnalysisService/read-it-and-keep": "Read contamination removal",
+        "github/FrederickHuangLin/ANCOMBC": "Differential abundance (DA) and correlation analyses for microbial absolute abundance data",
+        "github/moritzobenauer/ProjectRaccoon": "Automated construction of atomistic and coarse-grained models in the PDB format for polymer peptide conjugates.",
+        "github/songweizhi/Binning_refiner": "Improving genome bins through the combination of different binning programs ",
+        "github/seamplex/feenox": "Cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool",
+        "github/FabianPlum/OmniTrax": "Deep learning-driven multi animal tracking and pose estimation add-on for Blender",
+        "github/EddyRivasLab/infernal": "RNA secondary structure/sequence profiles for homology search and alignment"
     }
 }

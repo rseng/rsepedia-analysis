@@ -25,23 +25,13 @@
 cmake_minimum_required(VERSION 3.15)
 
 # set the project name
-project(mkdssp VERSION 4.4.5 LANGUAGES CXX)
+project(mkdssp VERSION 4.4.6 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-include(GNUInstallDirs)
-include(CheckFunctionExists)
-include(CheckIncludeFiles)
-include(CheckLibraryExists)
-include(CMakePackageConfigHelpers)
-include(FindFilesystem)
 include(CTest)
-
-set(CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-find_package(Filesystem REQUIRED)
+include(FetchContent)
+include(VersionString)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers")
@@ -84,11 +74,16 @@ if(MSVC)
 
 	get_WIN32_WINNT(ver)
 	add_definitions(-D_WIN32_WINNT=${ver})
+
+	if(BUILD_SHARED_LIBS)
+		set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+	else()
+		set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif()
 endif()
 
 # Create a revision file, containing the current git version info
-include(VersionString)
-write_version_header("${PROJECT_SOURCE_DIR}/src")
+write_version_header("${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 # Optionally use mrc to create resources
 find_package(Mrc QUIET)
@@ -104,13 +99,33 @@ set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
 
 if(NOT PDB_REDO_META)
-	find_package(libmcfp REQUIRED)
-	find_package(cifpp 5.2.0 REQUIRED)
+	if(CMAKE_VERSION GREATER_EQUAL 3.28)
+		set(EXLC "EXCLUDE_FROM_ALL")
+	endif()
+
+	FetchContent_Declare(
+		libmcfp
+		${EXLC}
+		GIT_REPOSITORY https://github.com/mhekkel/libmcfp
+		GIT_TAG v1.3.1)
+
+	FetchContent_MakeAvailable(libmcfp)
+
+	set(CIFPP_DOWNLOAD_CCD OFF)
+
+	FetchContent_Declare(
+		cifpp
+		${EXLC}
+		GIT_REPOSITORY https://github.com/pdb-redo/libcifpp.git
+		GIT_TAG v7.0.3
+	)
+
+	FetchContent_MakeAvailable(cifpp)
 endif()
 
 add_subdirectory(libdssp)
 
-add_executable(mkdssp ${PROJECT_SOURCE_DIR}/src/mkdssp.cpp)
+add_executable(mkdssp ${CMAKE_CURRENT_SOURCE_DIR}/src/mkdssp.cpp)
 
 target_link_libraries(mkdssp PRIVATE libmcfp::libmcfp dssp::dssp)
 
@@ -118,55 +133,21 @@ if(USE_RSRC)
 	mrc_target_resources(mkdssp
 		${CIFPP_SHARE_DIR}/mmcif_pdbx.dic
 		${CIFPP_SHARE_DIR}/mmcif_ddl.dic
-		${PROJECT_SOURCE_DIR}/libdssp/mmcif_pdbx/dssp-extension.dic)
+		${CMAKE_CURRENT_SOURCE_DIR}/libdssp/mmcif_pdbx/dssp-extension.dic)
 endif()
 
 # Install rules
 install(TARGETS ${PROJECT_NAME}
-	RUNTIME DESTINATION ${BIN_INSTALL_DIR}
+	RUNTIME DESTINATION bin
 )
 
 if(BUILD_DOCUMENTATION)
-	# manual
-	find_program(PANDOC pandoc)
-
-	if(PANDOC)
-		file(GENERATE OUTPUT ${PROJECT_BINARY_DIR}/pandoc-md.sh
-			CONTENT "${PANDOC} ${PROJECT_SOURCE_DIR}/doc/mkdssp.1 -t markdown | sed -e \"s/\\\\\\' \\\\\\' (space)/  ' ' (space)/\" > ${PROJECT_SOURCE_DIR}/doc/mkdssp.md"
-			FILE_PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ)
-
-		add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.md
-			DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
-			COMMAND "${PROJECT_BINARY_DIR}/pandoc-md.sh"
-			WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
-			VERBATIM)
-
-		add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.html
-			DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
-			COMMAND ${PANDOC} -o mkdssp.html mkdssp.1
-			WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
-			VERBATIM)
-
-		add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/doc/mkdssp.pdf
-			DEPENDS ${PROJECT_SOURCE_DIR}/doc/mkdssp.1
-			COMMAND ${PANDOC} -o mkdssp.pdf mkdssp.1 -t html
-			WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc/
-			VERBATIM)
-
-		add_custom_target(doc_files DEPENDS
-			${PROJECT_SOURCE_DIR}/doc/mkdssp.html
-			${PROJECT_SOURCE_DIR}/doc/mkdssp.pdf
-			${PROJECT_SOURCE_DIR}/doc/mkdssp.md)
-		
-		add_dependencies(mkdssp doc_files)
-	else()
-		message(STATUS "Could not find pandoc, cannot recreate documentation files")
-	endif()
+	add_subdirectory(doc)
 endif()
 
 if(UNIX)
 	install(FILES doc/mkdssp.1
-		DESTINATION ${CMAKE_INSTALL_DATADIR}/man/man1)
+		DESTINATION share/man/man1)
 endif()
 
 if(EXISTS "${CCP4}/html")
@@ -176,32 +157,7 @@ endif()
 
 # test
 if(BUILD_TESTING)
-	# We still depend on boost for the testing headers-only library
-	find_package(Boost REQUIRED)
-
-	add_executable(unit-test-dssp ${PROJECT_SOURCE_DIR}/test/unit-test-dssp.cpp ${PROJECT_SOURCE_DIR}/libdssp/src/dssp-io.cpp)
-
-	if(USE_RSRC)
-		mrc_target_resources(unit-test-dssp
-			${CIFPP_SHARE_DIR}/mmcif_pdbx.dic ${CIFPP_SHARE_DIR}/mmcif_ddl.dic
-			${CMAKE_CURRENT_SOURCE_DIR}/libdssp/mmcif_pdbx/dssp-extension.dic)
-	endif()
-
-	target_include_directories(unit-test-dssp PRIVATE
-		${CMAKE_CURRENT_SOURCE_DIR}/src
-		${CMAKE_CURRENT_SOURCE_DIR}/include
-	)
-
-	target_link_libraries(unit-test-dssp PRIVATE dssp cifpp::cifpp Boost::boost)
-
-	if(MSVC)
-		# Specify unwind semantics so that MSVC knowns how to handle exceptions
-		target_compile_options(unit-test-dssp PRIVATE /EHsc)
-	endif()
-
-	enable_testing()
-
-	add_test(NAME unit-test-dssp COMMAND $<TARGET_FILE:unit-test-dssp> -- ${PROJECT_SOURCE_DIR}/test)
+	add_subdirectory(test)
 endif()
 
 include(InstallRequiredSystemLibraries)

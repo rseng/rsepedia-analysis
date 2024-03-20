@@ -1,0 +1,110 @@
+{
+    "setup.py": {
+        "github/tvwenger/kinematic_scaleheight": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.43736220000000003,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.00219780000000001,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.211068,
+            "url": "https://matplotlib.org"
+        },
+        "pymc": {
+            "credit": 0.0019800000000000095,
+            "url": "http://github.com/pymc-devs/pymc"
+        },
+        "corner": {
+            "credit": 0.0019800000000000095,
+            "url": "https://corner.readthedocs.io"
+        },
+        "typing-extensions": {
+            "credit": 0.02178,
+            "url": "https://typing.readthedocs.io/"
+        },
+        "pytensor": {
+            "credit": 0.02178,
+            "url": "https://github.com/pymc-devs/pytensor"
+        },
+        "pandas": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "fastprogress": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/fastprogress"
+        },
+        "cloudpickle": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "cachetools": {
+            "credit": 0.02178,
+            "url": "https://pypi.org/project/cachetools"
+        },
+        "arviz": {
+            "credit": 0.034848000000000004,
+            "url": "https://pypi.org/project/arviz"
+        },
+        "twine": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/twine"
+        },
+        "pep517": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/pep517"
+        },
+        "flake8": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "pre-commit": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "sphinx-book-theme": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/sphinx-book-theme"
+        },
+        "myst-nb": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/myst-nb"
+        },
+        "pandoc": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/pandoc"
+        },
+        "sphinx": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "toml": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/toml"
+        },
+        "isort": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/isort"
+        },
+        "black": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/black"
+        },
+        "pytest-cov": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.013068,
+            "url": "https://pypi.org/project/pytest"
+        }
+    }
+}

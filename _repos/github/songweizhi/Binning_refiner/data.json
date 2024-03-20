@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "github/songweizhi/Binning_refiner": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "biopython": {
+            "credit": 0.0099,
+            "url": "https://biopython.org/"
+        }
+    }
+}
