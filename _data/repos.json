@@ -19707,7 +19707,67 @@
             "tracking",
             "yolo"
         ],
-        "github/EddyRivasLab/infernal": []
+        "github/EddyRivasLab/infernal": [],
+        "github/JuliaAI/Imbalance.jl": [
+            "class-imbalance",
+            "classification",
+            "machine-learning"
+        ],
+        "github/Junwu302/HiFun": [],
+        "github/etiennepayet/nti": [],
+        "github/alejandroaviles/fkpt": [],
+        "github/suneeshjacob/ACRoD": [],
+        "github/uw-comphys/shapelets": [],
+        "github/firedrakeproject/checkpoint_schedules": [],
+        "github/wwood/kingfisher-download": [
+            "sra",
+            "aspera-client",
+            "fastq-files"
+        ],
+        "github/frank1010111/pywaterflood": [
+            "python",
+            "petroleum-engineering",
+            "reservoir",
+            "rust"
+        ],
+        "github/CompGenomeLab/boquila": [],
+        "github/UTEL-UIUC/gtfs_segments": [
+            "bus",
+            "stop",
+            "distribution",
+            "gtfs-feed",
+            "python",
+            "transit",
+            "transit-data"
+        ],
+        "github/nabeelre/BTSbot": [
+            "astronomy",
+            "astrophysics",
+            "computer-vision",
+            "time-domain-astronomy",
+            "transient-astronomy",
+            "ztf"
+        ],
+        "github/MedMaxLab/selfEEG": [
+            "deep-learning",
+            "eeg",
+            "self-supervised-learning"
+        ],
+        "github/Open-Minds-Lab/MRdataset": [
+            "neuroimaging",
+            "mri",
+            "neuroscience",
+            "quality-control",
+            "niqc"
+        ],
+        "github/ahudde/greeks": [
+            "option",
+            "greeks",
+            "asian-option",
+            "r-package",
+            "implied-volatility"
+        ],
+        "github/Jashcraf/poke": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -25099,7 +25159,23 @@
         "github/songweizhi/Binning_refiner": "Python",
         "github/seamplex/feenox": "C",
         "github/FabianPlum/OmniTrax": "Python",
-        "github/EddyRivasLab/infernal": "C"
+        "github/EddyRivasLab/infernal": "C",
+        "github/JuliaAI/Imbalance.jl": "Julia",
+        "github/Junwu302/HiFun": "Python",
+        "github/etiennepayet/nti": "Java",
+        "github/alejandroaviles/fkpt": "C",
+        "github/suneeshjacob/ACRoD": "Python",
+        "github/uw-comphys/shapelets": "Python",
+        "github/firedrakeproject/checkpoint_schedules": "Python",
+        "github/wwood/kingfisher-download": "Python",
+        "github/frank1010111/pywaterflood": "Python",
+        "github/CompGenomeLab/boquila": "Rust",
+        "github/UTEL-UIUC/gtfs_segments": "Python",
+        "github/nabeelre/BTSbot": "Python",
+        "github/MedMaxLab/selfEEG": "Python",
+        "github/Open-Minds-Lab/MRdataset": "Python",
+        "github/ahudde/greeks": "R",
+        "github/Jashcraf/poke": "Jupyter Notebook"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -30491,7 +30567,23 @@
         "github/songweizhi/Binning_refiner": "https://github.com/songweizhi/Binning_refiner",
         "github/seamplex/feenox": "https://github.com/seamplex/feenox",
         "github/FabianPlum/OmniTrax": "https://github.com/FabianPlum/OmniTrax",
-        "github/EddyRivasLab/infernal": "https://github.com/EddyRivasLab/infernal"
+        "github/EddyRivasLab/infernal": "https://github.com/EddyRivasLab/infernal",
+        "github/JuliaAI/Imbalance.jl": "https://github.com/JuliaAI/Imbalance.jl",
+        "github/Junwu302/HiFun": "https://github.com/Junwu302/HiFun",
+        "github/etiennepayet/nti": "https://github.com/etiennepayet/nti",
+        "github/alejandroaviles/fkpt": "https://github.com/alejandroaviles/fkpt",
+        "github/suneeshjacob/ACRoD": "https://github.com/suneeshjacob/ACRoD",
+        "github/uw-comphys/shapelets": "https://github.com/uw-comphys/shapelets",
+        "github/firedrakeproject/checkpoint_schedules": "https://github.com/firedrakeproject/checkpoint_schedules",
+        "github/wwood/kingfisher-download": "https://github.com/wwood/kingfisher-download",
+        "github/frank1010111/pywaterflood": "https://github.com/frank1010111/pywaterflood",
+        "github/CompGenomeLab/boquila": "https://github.com/CompGenomeLab/boquila",
+        "github/UTEL-UIUC/gtfs_segments": "https://github.com/UTEL-UIUC/gtfs_segments",
+        "github/nabeelre/BTSbot": "https://github.com/nabeelre/BTSbot",
+        "github/MedMaxLab/selfEEG": "https://github.com/MedMaxLab/selfEEG",
+        "github/Open-Minds-Lab/MRdataset": "https://github.com/Open-Minds-Lab/MRdataset",
+        "github/ahudde/greeks": "https://github.com/ahudde/greeks",
+        "github/Jashcraf/poke": "https://github.com/Jashcraf/poke"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -35883,6 +35975,22 @@
         "github/songweizhi/Binning_refiner": "Improving genome bins through the combination of different binning programs ",
         "github/seamplex/feenox": "Cloud-first free no-fee no-X uniX-like finite-element(ish) computational engineering tool",
         "github/FabianPlum/OmniTrax": "Deep learning-driven multi animal tracking and pose estimation add-on for Blender",
-        "github/EddyRivasLab/infernal": "RNA secondary structure/sequence profiles for homology search and alignment"
+        "github/EddyRivasLab/infernal": "RNA secondary structure/sequence profiles for homology search and alignment",
+        "github/JuliaAI/Imbalance.jl": "A Julia toolbox with resampling methods to correct for class imbalance.",
+        "github/Junwu302/HiFun": "Homology Independent Protein Function prediction on Protein-Language Self-Attention Model",
+        "github/etiennepayet/nti": null,
+        "github/alejandroaviles/fkpt": "Perturbation theory with \"fk\"-Kernels",
+        "github/suneeshjacob/ACRoD": "Automatic Computation for Robot Design",
+        "github/uw-comphys/shapelets": "shapelets is a python package that implements several shapelet functions and some of their significant applications in science and astronomy.",
+        "github/firedrakeproject/checkpoint_schedules": "Schedules for incremental checkpointing of adjoint simulations.",
+        "github/wwood/kingfisher-download": "Easier download/extract of FASTA/Q read data and metadata from the ENA, NCBI, AWS or GCP.",
+        "github/frank1010111/pywaterflood": "Capacitance resistance models for waterflood connectivity",
+        "github/CompGenomeLab/boquila": "NGS read simulator to eliminate read nucleotide bias in sequence analysis.",
+        "github/UTEL-UIUC/gtfs_segments": "GTFS Segments: A fast and efficient library to generate bus stop spacings",
+        "github/nabeelre/BTSbot": "Automated identification of supernovae with multi-modal deep learning",
+        "github/MedMaxLab/selfEEG": "selfEEG: a Python library for Self-Supervised Learning on Electroencephalography (EEG) data",
+        "github/Open-Minds-Lab/MRdataset": "MRdataset : unified interface to various neuroimaging dataset formats",
+        "github/ahudde/greeks": "Sensitivities of Prices of Financial Options and Implied Volatilites",
+        "github/Jashcraf/poke": "Poke (pronounced poh-keh) is a Polarization Ray Tracing and Gaussian Beamlet module for Python"
     }
 }
