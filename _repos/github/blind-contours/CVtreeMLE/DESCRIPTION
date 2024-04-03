@@ -32,7 +32,10 @@ Imports:
     viridis,
     assertthat,
     foreach,
-    ranger
+    ranger,
+    arm,
+    xgboost,
+    nnls
 Suggests:
     rmarkdown,
     knitr,
@@ -43,7 +46,7 @@ Suggests:
     covr,
     xgboost,
     nnls
-Remotes: tlverse/sl3@devel
+Remotes: github::tlverse/sl3@devel,
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

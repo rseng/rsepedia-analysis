@@ -1,0 +1,100 @@
+Package: simChef
+Title: Intensive Computational Experiments Made Easy
+Version: 0.1.0.9000
+Authors@R: c(
+    person("Tiffany", "Tang", , "ttang4@nd.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8079-6867")),
+    person("James", "Duncan", , "jpduncan@berkeley.edu", role = c("aut"),
+           comment = c(ORCID = "0000-0003-3297-681X")),
+    person("Corrine F.", "Elliott", role = "ctb",
+           comment = c(ORCID = "0000-0001-7935-9945")),
+    person("Philippe", "Boileau", role = "ctb",
+           comment = c(ORCID = "0000-0002-4850-2507")),
+    person("Yu", "Bin", role = "ths",
+           comment = c(ORCID = "0000-0002-8888-4060"))
+  )
+Description: Helps cook up the code necessary to create a fully-realized,
+    high-quality, reproducible, and transparently documented simulation
+    experiment.
+License: GPL (>= 3)
+URL: https://yu-group.github.io/simChef
+BugReports: https://github.com/Yu-Group/simChef/issues
+Imports:
+    data.table,
+    dplyr (>= 1.1.0),
+    future,
+    future.apply,
+    knitr,
+    lifecycle,
+    magrittr,
+    methods,
+    purrr,
+    R.utils,
+    assertthat,
+    usethis,
+    renv,
+    R6,
+    rlang,
+    rmarkdown,
+    stringr,
+    testthat (>= 3.1.0),
+    tibble,
+    tidyr,
+    tidyselect,
+    vthemes (>= 0.1.0),
+    yardstick
+Suggests:
+    broom,
+    callr,
+    devtools,
+    fontawesome,
+    fs,
+    future.callr,
+    ggplot2,
+    glmnet,
+    here,
+    htmltools,
+    lobstr,
+    MASS,
+    plotly,
+    progressr (>= 0.9.0),
+    ranger,
+    rstudioapi,
+    vdiffr,
+    withr (>= 2.5.0),
+    ymlthis
+VignetteBuilder: 
+    knitr
+Remotes:
+    Yu-Group/vthemes
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Collate: 
+    'dgp.R'
+    'docs.R'
+    'evaluator-lib-feature-selection.R'
+    'evaluator-lib-inference.R'
+    'evaluator-lib-prediction.R'
+    'evaluator-lib-utils.R'
+    'evaluator.R'
+    'experiment-helpers.R'
+    'experiment-utils.R'
+    'utils.R'
+    'experiment.R'
+    'globals.R'
+    'init-dir.R'
+    'method.R'
+    'reexport-magrittr.R'
+    'run-tests.R'
+    'signals.R'
+    'use_templates.R'
+    'utils-rmd.R'
+    'utils-templates.R'
+    'visualizer-lib-feature-selection.R'
+    'visualizer-lib-inference.R'
+    'visualizer-lib-prediction.R'
+    'visualizer-lib-utils.R'
+    'visualizer.R'
+    'zzz.R'
