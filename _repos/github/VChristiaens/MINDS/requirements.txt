@@ -1,0 +1,7 @@
+vip_hci>1.4.0
+opencv-python
+jwst>1.13.0
+spectres
+pybaselines
+scipy<1.10
+ipywidgets>=8

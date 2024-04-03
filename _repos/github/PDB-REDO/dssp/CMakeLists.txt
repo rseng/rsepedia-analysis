@@ -22,15 +22,14 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.23)
 
 # set the project name
-project(mkdssp VERSION 4.4.6 LANGUAGES CXX)
+project(mkdssp VERSION 4.4.7 LANGUAGES CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(CTest)
-include(FetchContent)
 include(VersionString)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -97,8 +96,11 @@ endif()
 set(CMAKE_THREAD_PREFER_PTHREAD)
 set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
+find_package(libmcfp QUIET)
 
-if(NOT PDB_REDO_META)
+if(NOT libmcfp_FOUND)
+	include(FetchContent)
+
 	if(CMAKE_VERSION GREATER_EQUAL 3.28)
 		set(EXLC "EXCLUDE_FROM_ALL")
 	endif()
@@ -110,7 +112,11 @@ if(NOT PDB_REDO_META)
 		GIT_TAG v1.3.1)
 
 	FetchContent_MakeAvailable(libmcfp)
+endif()
 
+find_package(cifpp 7 QUIET)
+
+if(NOT cifpp_FOUND)
 	set(CIFPP_DOWNLOAD_CCD OFF)
 
 	FetchContent_Declare(
