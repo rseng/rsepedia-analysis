@@ -98,7 +98,7 @@ set(THREADS_PREFER_PTHREAD_FLAG)
 find_package(Threads)
 find_package(libmcfp QUIET)
 
-if(NOT libmcfp_FOUND)
+if(NOT (libmcfp_FOUND OR TARGET libmcfp))
 	include(FetchContent)
 
 	if(CMAKE_VERSION GREATER_EQUAL 3.28)
@@ -114,19 +114,21 @@ if(NOT libmcfp_FOUND)
 	FetchContent_MakeAvailable(libmcfp)
 endif()
 
-find_package(cifpp 7 QUIET)
+if(NOT TARGET cifpp AND NOT cifpp_FOUND)
+	find_package(cifpp 7 QUIET)
 
-if(NOT cifpp_FOUND)
-	set(CIFPP_DOWNLOAD_CCD OFF)
+	if(NOT cifpp_FOUND)
+		set(CIFPP_DOWNLOAD_CCD OFF)
 
-	FetchContent_Declare(
-		cifpp
-		${EXLC}
-		GIT_REPOSITORY https://github.com/pdb-redo/libcifpp.git
-		GIT_TAG v7.0.3
-	)
+		FetchContent_Declare(
+			cifpp
+			${EXLC}
+			GIT_REPOSITORY https://github.com/pdb-redo/libcifpp.git
+			GIT_TAG v7.0.3
+		)
 
-	FetchContent_MakeAvailable(cifpp)
+		FetchContent_MakeAvailable(cifpp)
+	endif()
 endif()
 
 add_subdirectory(libdssp)
