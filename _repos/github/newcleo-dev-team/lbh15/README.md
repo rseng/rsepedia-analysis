@@ -1,0 +1,86 @@
+---
+title: github/newcleo-dev-team/lbh15
+layout: repo
+tipue_search_active: true
+exclude_from_search: true
+---
+# Software Credit
+
+|Manager|Name|Credit|
+|-------|----|------|
+|pypi|[numpy](https://www.numpy.org)|0.198|
+|pypi|[docutils](https://pypi.org/project/docutils)|0.074|
+|pypi|[importlib-metadata](https://pypi.org/project/importlib-metadata)|0.039|
+|pypi|[sphinx](https://www.sphinx-doc.org/)|0.037|
+|pypi|[dataclasses](https://pypi.org/project/dataclasses)|0.033|
+|pypi|[pybtex-docutils](https://pypi.org/project/pybtex-docutils)|0.033|
+|pypi|[pybtex](https://pypi.org/project/pybtex)|0.033|
+|pypi|[Sphinx](https://pypi.org/project/Sphinx)|0.033|
+|pypi|[wheel](https://pypi.org/project/wheel)|0.028|
+|pypi|[bump2version](https://pypi.org/project/bump2version)|0.028|
+|pypi|[sphinxcontrib-httpdomain](https://pypi.org/project/sphinxcontrib-httpdomain)|0.028|
+|pypi|[transifex-client](https://pypi.org/project/transifex-client)|0.028|
+|pypi|[sphinxcontrib-jquery](https://pypi.org/project/sphinxcontrib-jquery)|0.028|
+|pypi|[pytest](https://pypi.org/project/pytest)|0.014|
+|setup.py|github/newcleo-dev-team/lbh15|0.01|
+|pypi|[pygments](https://pypi.org/project/pygments)|0.007|
+|pypi|[sphinx-pytest](https://pypi.org/project/sphinx-pytest)|0.007|
+|pypi|[pytest-param-files](https://pypi.org/project/pytest-param-files)|0.007|
+|pypi|[pytest-regressions](https://pypi.org/project/pytest-regressions)|0.007|
+|pypi|[pytest-cov](https://pypi.org/project/pytest-cov)|0.007|
+|pypi|[coverage](https://pypi.org/project/coverage)|0.007|
+|pypi|[beautifulsoup4](https://pypi.org/project/beautifulsoup4)|0.007|
+|pypi|[sphinx-togglebutton](https://pypi.org/project/sphinx-togglebutton)|0.007|
+|pypi|[sphinx-autodoc2](https://pypi.org/project/sphinx-autodoc2)|0.007|
+|pypi|[sphinx-tippy](https://pypi.org/project/sphinx-tippy)|0.007|
+|pypi|[sphinx-pyscript](https://pypi.org/project/sphinx-pyscript)|0.007|
+|pypi|[sphinxext-opengraph](https://pypi.org/project/sphinxext-opengraph)|0.007|
+|pypi|[sphinxext-rediraffe](https://pypi.org/project/sphinxext-rediraffe)|0.007|
+|pypi|[sphinx-copybutton](https://pypi.org/project/sphinx-copybutton)|0.007|
+|pypi|[sphinx-design2](https://pypi.org/project/sphinx-design2)|0.007|
+|pypi|[pydata-sphinx-theme](https://pypi.org/project/pydata-sphinx-theme)|0.007|
+|pypi|[sphinx-book-theme](https://pypi.org/project/sphinx-book-theme)|0.007|
+|pypi|[ipython](https://pypi.org/project/ipython)|0.007|
+|pypi|[linkify-it-py](https://pypi.org/project/linkify-it-py)|0.007|
+|pypi|[pre-commit](https://pypi.org/project/pre-commit)|0.007|
+|pypi|[pyyaml](https://pypi.org/project/pyyaml)|0.007|
+|pypi|[mdit-py-plugins](https://pypi.org/project/mdit-py-plugins)|0.007|
+|pypi|[markdown-it-py](https://pypi.org/project/markdown-it-py)|0.007|
+|pypi|[jinja2](https://pypi.org/project/jinja2)|0.007|
+|pypi|[filelock](https://github.com/tox-dev/py-filelock)|0.006|
+|pypi|[setuptools](https://pypi.org/project/setuptools)|0.006|
+|pypi|[cython](https://pypi.org/project/cython)|0.006|
+|pypi|[html5lib](https://pypi.org/project/html5lib)|0.006|
+|pypi|[types-requests](https://pypi.org/project/types-requests)|0.006|
+|pypi|[docutils-stubs](https://pypi.org/project/docutils-stubs)|0.006|
+|pypi|[sphinx-lint](https://pypi.org/project/sphinx-lint)|0.006|
+|pypi|[mypy](https://pypi.org/project/mypy)|0.006|
+|pypi|[ruff](https://pypi.org/project/ruff)|0.006|
+|pypi|[isort](https://pypi.org/project/isort)|0.006|
+|pypi|[flake8-simplify](https://pypi.org/project/flake8-simplify)|0.006|
+|pypi|[flake8](https://pypi.org/project/flake8)|0.006|
+|pypi|[sphinxcontrib-websupport](https://pypi.org/project/sphinxcontrib-websupport)|0.006|
+|pypi|[colorama](https://pypi.org/project/colorama)|0.006|
+|pypi|[packaging](https://pypi.org/project/packaging)|0.006|
+|pypi|[requests](https://pypi.org/project/requests)|0.006|
+|pypi|[imagesize](https://pypi.org/project/imagesize)|0.006|
+|pypi|[alabaster](https://pypi.org/project/alabaster)|0.006|
+|pypi|[babel](https://pypi.org/project/babel)|0.006|
+|pypi|[snowballstemmer](https://pypi.org/project/snowballstemmer)|0.006|
+|pypi|[Pygments](https://pypi.org/project/Pygments)|0.006|
+|pypi|[Jinja2](https://pypi.org/project/Jinja2)|0.006|
+|pypi|[sphinxcontrib-qthelp](https://pypi.org/project/sphinxcontrib-qthelp)|0.006|
+|pypi|[sphinxcontrib-serializinghtml](https://pypi.org/project/sphinxcontrib-serializinghtml)|0.006|
+|pypi|[sphinxcontrib-htmlhelp](https://pypi.org/project/sphinxcontrib-htmlhelp)|0.006|
+|pypi|[sphinxcontrib-jsmath](https://pypi.org/project/sphinxcontrib-jsmath)|0.006|
+|pypi|[sphinxcontrib-devhelp](https://pypi.org/project/sphinxcontrib-devhelp)|0.006|
+|pypi|[sphinxcontrib-applehelp](https://pypi.org/project/sphinxcontrib-applehelp)|0.006|
+|pypi|[sphinxcontrib-bibtex](https://github.com/mcmtroffaes/sphinxcontrib-bibtex)|0.002|
+|pypi|[sphinx-rtd-theme](https://github.com/readthedocs/sphinx_rtd_theme)|0.002|
+|pypi|[myst-parser](https://github.com/executablebooks/MyST-Parser)|0.002|
+
+
+> Note that credit values are rounded and expanded (so shared dependencies are represented as one record) and may not add to 1.0. Rounded values that hit zero are removed.
+
+
+- Generated by [CiteLang](https://github.com/vsoch/citelang)

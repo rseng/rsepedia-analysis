@@ -1,0 +1,126 @@
+{
+    "setup.py": {
+        "github/theonefromnowhere/FitCov": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.3421,
+            "url": "https://www.numpy.org"
+        },
+        "pycorr": {
+            "credit": 0.33,
+            "url": "https://github.com/MavericksDS/pycorr"
+        },
+        "iminuit": {
+            "credit": 0.003300000000000025,
+            "url": "http://github.com/scikit-hep/iminuit"
+        },
+        "resample": {
+            "credit": 0.0121,
+            "url": "http://github.com/resample-project/resample"
+        },
+        "boost-histogram": {
+            "credit": 0.0121,
+            "url": "https://github.com/scikit-hep/boost-histogram"
+        },
+        "tabulate": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/tabulate"
+        },
+        "scipy": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/scipy"
+        },
+        "pytest-xdist": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-cov": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pylint": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pylint"
+        },
+        "pydocstyle": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pydocstyle"
+        },
+        "pre-commit": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "numba-stats": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/numba-stats"
+        },
+        "numba": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/numba"
+        },
+        "nbformat": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/nbformat"
+        },
+        "nbconvert": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/nbconvert"
+        },
+        "matplotlib": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/matplotlib"
+        },
+        "jupyter-client": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/jupyter-client"
+        },
+        "joblib": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/joblib"
+        },
+        "jaxlib": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/jaxlib"
+        },
+        "jax": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/jax"
+        },
+        "ipykernel": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/ipykernel"
+        },
+        "flake8": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/flake8"
+        },
+        "cython": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/cython"
+        },
+        "nbsphinx": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/nbsphinx"
+        },
+        "Jinja2": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/Jinja2"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/sphinx-rtd-theme"
+        },
+        "sphinx": {
+            "credit": 0.0121,
+            "url": "https://pypi.org/project/sphinx"
+        }
+    }
+}

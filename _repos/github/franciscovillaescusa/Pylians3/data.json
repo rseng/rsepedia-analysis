@@ -1,0 +1,138 @@
+{
+    "setup.py": {
+        "github/franciscovillaescusa/Pylians3": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "h5py": {
+            "credit": 0.0023720400000000127,
+            "url": "http://www.h5py.org"
+        },
+        "pyfftw": {
+            "credit": 0.0019800000000000373,
+            "url": "https://github.com/pyFFTW/pyFFTW"
+        },
+        "scipy": {
+            "credit": 0.002633400000000008,
+            "url": "https://www.scipy.org"
+        },
+        "hdf5plugin": {
+            "credit": 0.0019799999999999818,
+            "url": "https://github.com/silx-kit/hdf5plugin"
+        },
+        "Cython": {
+            "credit": 0.198,
+            "url": "https://cython.org/"
+        },
+        "numpy": {
+            "credit": 0.58016810412,
+            "url": "https://www.numpy.org"
+        },
+        "dask": {
+            "credit": 0.06534,
+            "url": "https://github.com/dask/dask/"
+        },
+        "blosc2-grok": {
+            "credit": 0.0003920400000000032,
+            "url": "https://github.com/Blosc/blosc2_grok"
+        },
+        "blosc2": {
+            "credit": 0.0005860998000000034,
+            "url": "https://github.com/Blosc/python-blosc2"
+        },
+        "sphinx-rtd-theme": {
+            "credit": 0.039204,
+            "url": "https://github.com/readthedocs/sphinx_rtd_theme"
+        },
+        "sphinx": {
+            "credit": 0.039204,
+            "url": "https://www.sphinx-doc.org/"
+        },
+        "pytest": {
+            "credit": 0.00019405980000000017,
+            "url": "https://docs.pytest.org/en/latest/"
+        },
+        "py-cpuinfo": {
+            "credit": 0.01160477604,
+            "url": "https://github.com/workhorsy/py-cpuinfo"
+        },
+        "numexpr": {
+            "credit": 0.01160477604,
+            "url": "https://github.com/pydata/numexpr"
+        },
+        "msgpack": {
+            "credit": 0.01160477604,
+            "url": "https://msgpack.org/"
+        },
+        "ndindex": {
+            "credit": 0.00392000796,
+            "url": "https://quansight-labs.github.io/ndindex/"
+        },
+        "xmlschema": {
+            "credit": 0.0012007450125,
+            "url": "https://github.com/sissaschool/xmlschema"
+        },
+        "requests": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/requests"
+        },
+        "pygments": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/pygments"
+        },
+        "nose": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/nose"
+        },
+        "mock": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/mock"
+        },
+        "hypothesis": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "argcomplete": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/argcomplete"
+        },
+        "colorama": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/colorama"
+        },
+        "atomicwrites": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/atomicwrites"
+        },
+        "importlib-metadata": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "tomli": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "py": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/py"
+        },
+        "pluggy": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/pluggy"
+        },
+        "packaging": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "iniconfig": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/iniconfig"
+        },
+        "attrs": {
+            "credit": 0.0012007450125,
+            "url": "https://pypi.org/project/attrs"
+        }
+    }
+}
