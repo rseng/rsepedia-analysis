@@ -1,0 +1,14 @@
+{
+    "DESCRIPTION": {
+        "github/tesselle/aion": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "cran": {
+        "arkhe": {
+            "credit": 0.0099,
+            "url": "https://packages.tesselle.org/arkhe/"
+        }
+    }
+}
