@@ -19932,6 +19932,57 @@
             "normalizing-flows",
             "variational-inference",
             "computational-expensive-models"
+        ],
+        "github/caimeng2/seesus": [
+            "classification",
+            "regular-expressions",
+            "sdg",
+            "sustainability",
+            "sustainability-developoment-goals",
+            "text-mining"
+        ],
+        "github/ABSESpy/ABSESpy": [],
+        "github/lh3/bfc": [
+            "bioinformatics",
+            "genomics"
+        ],
+        "github/alphapsa/PIPE": [],
+        "github/solislemuslab/minaa": [
+            "graal",
+            "graph-algorithm",
+            "graphlets",
+            "interaction-network",
+            "microbiome",
+            "network-alignment",
+            "orca"
+        ],
+        "github/tesselle/aion": [
+            "archaeological-science",
+            "archaeology",
+            "r-package",
+            "chronology",
+            "time-series"
+        ],
+        "github/GRChombo/GRDzhadzha": [],
+        "github/KenethGarcia/ClassiPyGRB": [
+            "grbs",
+            "machine-learning",
+            "machine-learning-algorithms",
+            "astrophysics",
+            "unsupervised-learning",
+            "unsupervised-machine-learning"
+        ],
+        "github/CEMeNT-PSAAP/MCDC": [
+            "high-performance-computing",
+            "monte-carlo-simulation",
+            "neutron-transport",
+            "neutronics",
+            "nuclear-engineering",
+            "particle-transport",
+            "radiation-transport",
+            "parallel",
+            "python",
+            "simulation"
         ]
     },
     "language": {
@@ -25382,7 +25433,16 @@
         "github/ewels/MultiQC": "JavaScript",
         "github/pjcigan/pysymlog": "Python",
         "github/pjcigan/obsplanning": "Python",
-        "github/desResLab/LINFA": "Python"
+        "github/desResLab/LINFA": "Python",
+        "github/caimeng2/seesus": "Python",
+        "github/ABSESpy/ABSESpy": "Python",
+        "github/lh3/bfc": "TeX",
+        "github/alphapsa/PIPE": "Python",
+        "github/solislemuslab/minaa": "C++",
+        "github/tesselle/aion": "R",
+        "github/GRChombo/GRDzhadzha": "C++",
+        "github/KenethGarcia/ClassiPyGRB": "Python",
+        "github/CEMeNT-PSAAP/MCDC": "Python"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -30832,7 +30892,16 @@
         "github/ewels/MultiQC": "https://github.com/MultiQC/MultiQC",
         "github/pjcigan/pysymlog": "https://github.com/pjcigan/pysymlog",
         "github/pjcigan/obsplanning": "https://github.com/pjcigan/obsplanning",
-        "github/desResLab/LINFA": "https://github.com/desResLab/LINFA"
+        "github/desResLab/LINFA": "https://github.com/desResLab/LINFA",
+        "github/caimeng2/seesus": "https://github.com/caimeng2/seesus",
+        "github/ABSESpy/ABSESpy": "https://github.com/ABSESpy/ABSESpy",
+        "github/lh3/bfc": "https://github.com/lh3/bfc",
+        "github/alphapsa/PIPE": "https://github.com/alphapsa/PIPE",
+        "github/solislemuslab/minaa": "https://github.com/solislemuslab/minaa",
+        "github/tesselle/aion": "https://github.com/tesselle/aion",
+        "github/GRChombo/GRDzhadzha": "https://github.com/GRTLCollaboration/GRDzhadzha",
+        "github/KenethGarcia/ClassiPyGRB": "https://github.com/KenethGarcia/ClassiPyGRB",
+        "github/CEMeNT-PSAAP/MCDC": "https://github.com/CEMeNT-PSAAP/MCDC"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -36282,6 +36351,15 @@
         "github/ewels/MultiQC": "Aggregate results from bioinformatics analyses across many samples into a single report.",
         "github/pjcigan/pysymlog": "Utilities for plotting in matplotlib, plotly, etc. using a symmetric or signed log transform. This allows the plotting of positive and negative data with a pseudo-log axis scale or stretch. ",
         "github/pjcigan/obsplanning": "Python tools for planning astronomical observations",
-        "github/desResLab/LINFA": "A Python library for variational inference with normalizing flow and annealing"
+        "github/desResLab/LINFA": "A Python library for variational inference with normalizing flow and annealing",
+        "github/caimeng2/seesus": "A Python package that identifies 17 Sustainable Development Goals and their 169 Targets in text, and classifies into social, environmental, and economic sustainability.",
+        "github/ABSESpy/ABSESpy": "An Agent-based Social-ecological System python framework for coupling human-nature researches. ",
+        "github/lh3/bfc": "High-performance error correction for Illumina resequencing data",
+        "github/alphapsa/PIPE": "PSF Imagette Photometric Extraction - PSF photometry for CHEOPS data",
+        "github/solislemuslab/minaa": "MiNAA aligns a pair of networks based their topologies and biologies.",
+        "github/tesselle/aion": ":stopwatch: Archaeological Time Series",
+        "github/GRChombo/GRDzhadzha": "A code to evolve matter on curved spacetimes with an analytic time and space dependence, e.g. black holes",
+        "github/KenethGarcia/ClassiPyGRB": "This repository contains all the updates, code, and documentation related to ClassiPyGRB.",
+        "github/CEMeNT-PSAAP/MCDC": "MC/DC: Monte Carlo Dynamic Code"
     }
 }
