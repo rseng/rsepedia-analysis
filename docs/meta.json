@@ -19983,6 +19983,71 @@
             "parallel",
             "python",
             "simulation"
+        ],
+        "github/TravisWheelerLab/VIBES": [],
+        "github/robbievanleeuwen/section-properties": [
+            "structural-engineering",
+            "finite-element-analysis",
+            "finite-element-method",
+            "computational-mechanics",
+            "python",
+            "cross-section",
+            "stress-analysis"
+        ],
+        "github/metabolomicsworkbench/MetGENE": [],
+        "github/MatthijsHak/MetalDock": [],
+        "github/CEA-MetroCarac/fitspy": [
+            "decomposition",
+            "fitting",
+            "gaussian",
+            "lmfit",
+            "lorentzian",
+            "map",
+            "python",
+            "spectral-analysis",
+            "spectrum"
+        ],
+        "github/s-will/LocARNA": [
+            "alignment",
+            "rna-structure-prediction",
+            "rna-structural-analysis"
+        ],
+        "github/tberlok/paicos": [],
+        "github/lemene/PECAT": [],
+        "github/PopGenClustering/Clumppling": [],
+        "github/Markusjsommer/BalrogCPP": [],
+        "github/eisascience/HISTA": [],
+        "github/chemprop/chemprop_benchmark": [],
+        "github/tomoyukif/MCPtaggR": [],
+        "github/musoke/UltraDark.jl": [
+            "cosmology",
+            "julia"
+        ],
+        "github/mikejohnson51/AHGestimation": [],
+        "github/SMTG-Bham/doped": [
+            "ab-initio",
+            "computational-chemistry",
+            "computational-materials-science",
+            "defect-formation-energy",
+            "defects",
+            "dft",
+            "doping",
+            "fermi-level",
+            "point-defects",
+            "pymatgen",
+            "semiconductors",
+            "vasp",
+            "defect-calculation",
+            "defect-levels",
+            "defect-thermodynamics",
+            "shakenbreak",
+            "transition-levels"
+        ],
+        "github/hpc-maths/samurai": [
+            "adaptive-mesh-refinement",
+            "amr",
+            "cartesian",
+            "scientific-computing"
         ]
     },
     "language": {
@@ -25442,7 +25507,24 @@
         "github/tesselle/aion": "R",
         "github/GRChombo/GRDzhadzha": "C++",
         "github/KenethGarcia/ClassiPyGRB": "Python",
-        "github/CEMeNT-PSAAP/MCDC": "Python"
+        "github/CEMeNT-PSAAP/MCDC": "Python",
+        "github/TravisWheelerLab/VIBES": "HTML",
+        "github/robbievanleeuwen/section-properties": "Python",
+        "github/metabolomicsworkbench/MetGENE": "PHP",
+        "github/MatthijsHak/MetalDock": "Python",
+        "github/CEA-MetroCarac/fitspy": "Python",
+        "github/s-will/LocARNA": "C++",
+        "github/tberlok/paicos": "Jupyter Notebook",
+        "github/lemene/PECAT": "C++",
+        "github/PopGenClustering/Clumppling": "Python",
+        "github/Markusjsommer/BalrogCPP": "C++",
+        "github/eisascience/HISTA": "HTML",
+        "github/chemprop/chemprop_benchmark": "Shell",
+        "github/tomoyukif/MCPtaggR": "R",
+        "github/musoke/UltraDark.jl": "Julia",
+        "github/mikejohnson51/AHGestimation": "HTML",
+        "github/SMTG-Bham/doped": "Python",
+        "github/hpc-maths/samurai": "C++"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -30901,7 +30983,24 @@
         "github/tesselle/aion": "https://github.com/tesselle/aion",
         "github/GRChombo/GRDzhadzha": "https://github.com/GRTLCollaboration/GRDzhadzha",
         "github/KenethGarcia/ClassiPyGRB": "https://github.com/KenethGarcia/ClassiPyGRB",
-        "github/CEMeNT-PSAAP/MCDC": "https://github.com/CEMeNT-PSAAP/MCDC"
+        "github/CEMeNT-PSAAP/MCDC": "https://github.com/CEMeNT-PSAAP/MCDC",
+        "github/TravisWheelerLab/VIBES": "https://github.com/TravisWheelerLab/VIBES",
+        "github/robbievanleeuwen/section-properties": "https://github.com/robbievanleeuwen/section-properties",
+        "github/metabolomicsworkbench/MetGENE": "https://github.com/metabolomicsworkbench/MetGENE",
+        "github/MatthijsHak/MetalDock": "https://github.com/MatthijsHak/MetalDock",
+        "github/CEA-MetroCarac/fitspy": "https://github.com/CEA-MetroCarac/fitspy",
+        "github/s-will/LocARNA": "https://github.com/s-will/LocARNA",
+        "github/tberlok/paicos": "https://github.com/tberlok/paicos",
+        "github/lemene/PECAT": "https://github.com/lemene/PECAT",
+        "github/PopGenClustering/Clumppling": "https://github.com/PopGenClustering/Clumppling",
+        "github/Markusjsommer/BalrogCPP": "https://github.com/Markusjsommer/BalrogCPP",
+        "github/eisascience/HISTA": "https://github.com/eisascience/HISTA",
+        "github/chemprop/chemprop_benchmark": "https://github.com/chemprop/chemprop_benchmark",
+        "github/tomoyukif/MCPtaggR": "https://github.com/tomoyukif/MCPtaggR",
+        "github/musoke/UltraDark.jl": "https://github.com/musoke/UltraDark.jl",
+        "github/mikejohnson51/AHGestimation": "https://github.com/mikejohnson51/AHGestimation",
+        "github/SMTG-Bham/doped": "https://github.com/SMTG-Bham/doped",
+        "github/hpc-maths/samurai": "https://github.com/hpc-maths/samurai"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -36360,6 +36459,23 @@
         "github/tesselle/aion": ":stopwatch: Archaeological Time Series",
         "github/GRChombo/GRDzhadzha": "A code to evolve matter on curved spacetimes with an analytic time and space dependence, e.g. black holes",
         "github/KenethGarcia/ClassiPyGRB": "This repository contains all the updates, code, and documentation related to ClassiPyGRB.",
-        "github/CEMeNT-PSAAP/MCDC": "MC/DC: Monte Carlo Dynamic Code"
+        "github/CEMeNT-PSAAP/MCDC": "MC/DC: Monte Carlo Dynamic Code",
+        "github/TravisWheelerLab/VIBES": "Viral Integrations in Bacterial genomES",
+        "github/robbievanleeuwen/section-properties": "Analysis of an arbitrary cross-section in python using the finite element method.",
+        "github/metabolomicsworkbench/MetGENE": "Gene-centric Metabolomics Information Retrieval Tool",
+        "github/MatthijsHak/MetalDock": "Dock organometallic compounds to proteins/DNA/biomolecules",
+        "github/CEA-MetroCarac/fitspy": "Generic tool dedicated to fit spectra in python ",
+        "github/s-will/LocARNA": "Alignment of RNAs",
+        "github/tberlok/paicos": "An object-oriented Python package for analysis of (cosmological) simulations performed with Arepo",
+        "github/lemene/PECAT": "PECAT, a phased error correct and assembly tool",
+        "github/PopGenClustering/Clumppling": null,
+        "github/Markusjsommer/BalrogCPP": "A universal protein model for prokaryotic gene prediction",
+        "github/eisascience/HISTA": "Human Infertility Single-cell Testis Atlas",
+        "github/chemprop/chemprop_benchmark": " Chemprop benchmarking scripts and data",
+        "github/tomoyukif/MCPtaggR": null,
+        "github/musoke/UltraDark.jl": "Simulations of cosmological scalar fields",
+        "github/mikejohnson51/AHGestimation": "Estimating robust, mass conserving AHG relationships",
+        "github/SMTG-Bham/doped": "doped is a Python software for the generation, pre-/post-processing and analysis of defect supercell calculations, implementing the defect simulation workflow in an efficient, reproducible, user-friendly yet powerful and fully-customisable manner.",
+        "github/hpc-maths/samurai": "Intervals coupled with algebra of set to handle adaptive mesh refinement and operators on it."
     }
 }

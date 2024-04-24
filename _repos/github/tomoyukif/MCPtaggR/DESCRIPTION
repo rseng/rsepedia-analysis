@@ -1,0 +1,18 @@
+Package: MCPtaggR
+Title: Mappable-collinear-polymorphic tag genotyping pipeline
+Version: 1.0.0
+Authors@R: 
+    person("Tomoyuki", "Furuta", , "f.tomoyuki@okayama-u.ac.jp", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package provides functions to perform 
+    Mappable-collinear-polymorphic tag genotyping (MCPtagg).
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Imports: BSgenome, BiocGenerics, Biostrings, DECIPHER, GenomeInfoDb, 
+    GenomicAlignments, GenomicRanges, IRanges, Rsamtools, Rsubread, S4Vectors, 
+    SNPRelate, SeqArray, XVector, data.table, dplyr, gdsfmt, methods
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+VignetteBuilder: knitr
