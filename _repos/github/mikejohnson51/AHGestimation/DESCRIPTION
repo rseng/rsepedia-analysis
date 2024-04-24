@@ -1,0 +1,44 @@
+Package: AHGestimation
+Title: An R package for Computing Robust, Mass Preserving Hydraulic Geometries and Rating Curves
+Description: Compute mass preserving 'At a station Hydraulic Geometry' (AHG) fits from river measurements.
+Version: 0.2
+Authors@R: 
+    c(person(given = "Mike", 
+             family = "Johnson", 
+             role = c("aut", "cre"), 
+             email = "jjohnson@lynker.com", 
+             comment = c(ORCID = "0000-0002-5288-8350")),
+      person(given = "Arash", 
+             family = "Modaresi Rad", 
+             role = c("ctb"), 
+             comment = c(ORCID = "0000-0002-6030-7923")),
+      person(given = "NOAA OWP",  role = "fnd"),
+      person(given = "NSF",  role = "fnd"))
+Maintainer: Mike Johnson <jjohnson@lynker.com>
+BugReports: https://github.com/mikejohnson51/AHGestimation/issues
+URL: https://github.com/mikejohnson51/AHGestimation
+Depends: 
+    R(>= 4.2.0)
+Imports: 
+    DescTools,
+    dplyr,
+    mco,
+    stats
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Suggests: 
+    distill,
+    DT,
+    scatterplot3d,
+    ggplot2,
+    ggrepel,
+    kableExtra,
+    knitr,
+    patchwork,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    tidyr
+Config/testthat/edition: 3
+VignetteBuilder: knitr

@@ -1,5 +1,5 @@
 # Project configuration
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.15)
 project(dtcc-builder)
 
 # Note: To building in Debug mode, use cmake .. -DCMAKE_BUILD_TYPE=Debug
@@ -56,15 +56,20 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 # Add clang tools
 include(cmake/clang-cxx-dev-tools.cmake)
 
+# # set(PYBIND11_FINDPYTHON ON)
+set(Python_FIND_VIRTUALENV ONLY)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+message("Python3_EXECUTABLE " ${Python3_EXECUTABLE})
+
 # # Find pybind11
 execute_process(COMMAND python -c "import site; print([s for s in site.getsitepackages() if 'site-packages' in s][0])" OUTPUT_VARIABLE PYTHON_SITE_PACKAGES OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(pybind11_DIR ${PYTHON_SITE_PACKAGES}/pybind11/share/cmake/pybind11)
-
-# set(PYBIND11_FINDPYTHON ON)
-message("Pybind11 DIR " ${pybind11_DIR})
+message("pybind11_DIR " ${pybind11_DIR})
 find_package(pybind11 REQUIRED)
+message("pybind11_INCLUDE_DIRS " ${pybind11_INCLUDE_DIRS})
 
 # Set include directories
+include_directories(${pybind11_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/src/cpp/include)
 include_directories(${CMAKE_SOURCE_DIR}/src/cpp/include/citymodel)
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/src/cpp/external)
