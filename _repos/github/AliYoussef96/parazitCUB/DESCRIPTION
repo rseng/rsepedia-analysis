@@ -1,0 +1,18 @@
+Package: parazitCUB
+Title: parasites-Host Codon Usage Co-Adaptation Analysis
+Version: 1.0.0
+Authors@R: c(
+    person(given = "Ali",family = "Mostafa Anwar",role = c("aut", "cre"),email = "aliali.mostafa99@gmail.com"),
+    person(given = "Salma",family = "Bayoumi",role = c("aut", "cre"), email = "salma.ismail.hamed@gmail.com"))
+Author: Ali Mostafa Anwar [aut, cre], Salma Bayoumi [aut, cre]
+Maintainer: Ali Mostafa Anwar <aliali.mostafa99@gmail.com>
+Description: Streamlines the process of investigating the adaptations of parasites' Codon Usage Bias (CUB) within the R environment
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+biocViews:
+Imports: Biostrings, coRdon , ggplot2, seqinr, stringr, ggsci, pheatmap, RColorBrewer, reshape2, factoextra, ggpmisc, ggpubr
+RoxygenNote: 7.2.3
+Suggests: testthat
+NeedsCompilation: no
+Packaged: 2023-10-07 11:21:07 UTC; ali

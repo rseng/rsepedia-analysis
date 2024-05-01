@@ -20048,7 +20048,59 @@
             "amr",
             "cartesian",
             "scientific-computing"
-        ]
+        ],
+        "github/equitable-equations/fqar": [],
+        "github/CSi-Studio/G-Aligner": [],
+        "github/range-et/PGL": [
+            "data-visualization",
+            "graph",
+            "graph-theory",
+            "visualization",
+            "webgl"
+        ],
+        "github/whybsml/whybsml": [],
+        "github/DamynChipman/EllipticForest": [],
+        "github/bc3LC/gcamreport": [],
+        "github/arup-group/pam": [
+            "cml",
+            "transit",
+            "arup",
+            "city-modelling",
+            "city-modelling-lab"
+        ],
+        "github/IMMM-SFA/statemodify": [],
+        "github/RenneLab/hybkit": [
+            "genomics",
+            "bioinformatics",
+            "bioinformatics-tool",
+            "bioinformatics-pipeline",
+            "ribonomics",
+            "hyb",
+            "clash",
+            "qclash"
+        ],
+        "github/AliYoussef96/parazitCUB": [],
+        "github/KennethEnevoldsen/augmenty": [
+            "augmentation",
+            "spacy-extension",
+            "spacy",
+            "nlp",
+            "nlproc",
+            "natural-language-processing",
+            "python",
+            "text-classification",
+            "training-data",
+            "text-augmentation",
+            "spacy-nlp"
+        ],
+        "github/LMJL-Alea/ktest": [],
+        "github/3top1a/biotools-linter": [
+            "biotools",
+            "linter"
+        ],
+        "github/JGCRI/gcamfaostat": [],
+        "github/oliverphilcox/PolyBin3D": [],
+        "github/David-McKenna/udpPacketManager": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -25524,7 +25576,23 @@
         "github/musoke/UltraDark.jl": "Julia",
         "github/mikejohnson51/AHGestimation": "HTML",
         "github/SMTG-Bham/doped": "Python",
-        "github/hpc-maths/samurai": "C++"
+        "github/hpc-maths/samurai": "C++",
+        "github/equitable-equations/fqar": "R",
+        "github/CSi-Studio/G-Aligner": "Python",
+        "github/range-et/PGL": "JavaScript",
+        "github/whybsml/whybsml": "OCaml",
+        "github/DamynChipman/EllipticForest": "C++",
+        "github/bc3LC/gcamreport": "R",
+        "github/arup-group/pam": "Python",
+        "github/IMMM-SFA/statemodify": "Jupyter Notebook",
+        "github/RenneLab/hybkit": "Python",
+        "github/AliYoussef96/parazitCUB": "R",
+        "github/KennethEnevoldsen/augmenty": "Python",
+        "github/LMJL-Alea/ktest": "Jupyter Notebook",
+        "github/3top1a/biotools-linter": "Python",
+        "github/JGCRI/gcamfaostat": "R",
+        "github/oliverphilcox/PolyBin3D": "Jupyter Notebook",
+        "github/David-McKenna/udpPacketManager": "C"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -31000,7 +31068,23 @@
         "github/musoke/UltraDark.jl": "https://github.com/musoke/UltraDark.jl",
         "github/mikejohnson51/AHGestimation": "https://github.com/mikejohnson51/AHGestimation",
         "github/SMTG-Bham/doped": "https://github.com/SMTG-Bham/doped",
-        "github/hpc-maths/samurai": "https://github.com/hpc-maths/samurai"
+        "github/hpc-maths/samurai": "https://github.com/hpc-maths/samurai",
+        "github/equitable-equations/fqar": "https://github.com/equitable-equations/fqar",
+        "github/CSi-Studio/G-Aligner": "https://github.com/CSi-Studio/G-Aligner",
+        "github/range-et/PGL": "https://github.com/range-et/PGL",
+        "github/whybsml/whybsml": "https://github.com/whybsml/whybsml",
+        "github/DamynChipman/EllipticForest": "https://github.com/DamynChipman/EllipticForest",
+        "github/bc3LC/gcamreport": "https://github.com/bc3LC/gcamreport",
+        "github/arup-group/pam": "https://github.com/arup-group/pam",
+        "github/IMMM-SFA/statemodify": "https://github.com/IMMM-SFA/statemodify",
+        "github/RenneLab/hybkit": "https://github.com/RenneLab/hybkit",
+        "github/AliYoussef96/parazitCUB": "https://github.com/AliYoussef96/parazitCUB",
+        "github/KennethEnevoldsen/augmenty": "https://github.com/KennethEnevoldsen/augmenty",
+        "github/LMJL-Alea/ktest": "https://github.com/LMJL-Alea/ktest",
+        "github/3top1a/biotools-linter": "https://github.com/3top1a/biotools-linter",
+        "github/JGCRI/gcamfaostat": "https://github.com/JGCRI/gcamfaostat",
+        "github/oliverphilcox/PolyBin3D": "https://github.com/oliverphilcox/PolyBin3D",
+        "github/David-McKenna/udpPacketManager": "https://github.com/David-McKenna/udpPacketManager"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -36476,6 +36560,22 @@
         "github/musoke/UltraDark.jl": "Simulations of cosmological scalar fields",
         "github/mikejohnson51/AHGestimation": "Estimating robust, mass conserving AHG relationships",
         "github/SMTG-Bham/doped": "doped is a Python software for the generation, pre-/post-processing and analysis of defect supercell calculations, implementing the defect simulation workflow in an efficient, reproducible, user-friendly yet powerful and fully-customisable manner.",
-        "github/hpc-maths/samurai": "Intervals coupled with algebra of set to handle adaptive mesh refinement and operators on it."
+        "github/hpc-maths/samurai": "Intervals coupled with algebra of set to handle adaptive mesh refinement and operators on it.",
+        "github/equitable-equations/fqar": "The fqar package provides R tools for downloading and analyzing floristic quality assessment data from www.universalFQA.org",
+        "github/CSi-Studio/G-Aligner": "G-Aligner: a graph-based feature alignment method for untargeted LC-MS-based metabolomics",
+        "github/range-et/PGL": "The Plebeian Graph Library: A WebGL based network visusalisation and diagnostics package",
+        "github/whybsml/whybsml": null,
+        "github/DamynChipman/EllipticForest": "A Direct Solver for Elliptic Partial Differential Equations on a Forest of Quadtree Meshes",
+        "github/bc3LC/gcamreport": "Package to process GCAM results and standardize the format",
+        "github/arup-group/pam": "Generate and modify transport demand scenarios via a Python API.",
+        "github/IMMM-SFA/statemodify": "A package to modify StateMod's input and output files for exploratory modeling",
+        "github/RenneLab/hybkit": "Toolkit for analysis of \".hyb\" format nucleotide sequence data from chimeric RNA experiments.",
+        "github/AliYoussef96/parazitCUB": "parazitCUB streamlines the process of investigating the adaptations of parasites' Codon Usage Bias (CUB) within the R environment",
+        "github/KennethEnevoldsen/augmenty": "Augmenty is an augmentation library based on spaCy for augmenting texts.",
+        "github/LMJL-Alea/ktest": null,
+        "github/3top1a/biotools-linter": "This website serves to help bio.tools database editors and maintainers help with data quality by searching for common quantifiable errors.",
+        "github/JGCRI/gcamfaostat": "An R package to prepare, process, and synthesize FAOSTAT data for global agroeconomic and multisector dynamic modeling",
+        "github/oliverphilcox/PolyBin3D": "Binned polyspectrum estimation for 3D large-scale structure, optionally mask-deconvolved ",
+        "github/David-McKenna/udpPacketManager": "C Library for handling CEP packet data from an international LOFAR station"
     }
 }

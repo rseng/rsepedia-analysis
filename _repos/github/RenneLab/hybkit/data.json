@@ -1,0 +1,18 @@
+{
+    "setup.py": {
+        "github/RenneLab/hybkit": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "matplotlib": {
+            "credit": 0.00495,
+            "url": "https://matplotlib.org"
+        },
+        "biopython": {
+            "credit": 0.00495,
+            "url": "https://biopython.org/"
+        }
+    }
+}
