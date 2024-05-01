@@ -1,0 +1,37 @@
+Package: fqar
+Type: Package
+Title: Floristic Quality Assessment Tools for R
+Version: 0.5.3
+Authors@R: c(
+  person("Andrew", "Gard", , email = "agard@lakeforest.edu", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0003-4434-0755")),
+  person("Alexia", "Myers", , email = "myersaj@lakeforest.edu", role = c("aut")),
+  person("Irene", "Luwabelwa", , email = "luwabelwaffa55@lakeforest.edu", role = c("aut"))
+  )
+Description: Tools for downloading and analyzing floristic quality assessment data. 
+  See Freyman et al. (2015) <doi:10.1111/2041-210X.12491> for more information 
+  about floristic quality assessment and the associated database.  
+License: MIT + file LICENSE
+Encoding: UTF-8
+Language: en_US
+LazyData: true
+Imports: 
+    dplyr,
+    ggplot2,
+    httr,
+    jsonlite,
+    memoise,
+    rlang,
+    tidyr,
+    tidyselect
+RoxygenNote: 7.3.1
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Depends: 
+    R (>= 4.1.0)
+VignetteBuilder: knitr
+URL: https://github.com/equitable-equations/fqar/
+BugReports: https://github.com/equitable-equations/fqar/issues
+Config/testthat/edition: 3

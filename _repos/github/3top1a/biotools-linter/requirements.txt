@@ -1,0 +1,8 @@
+argparse
+requests
+colorlog
+psycopg2
+colorlog
+owlready2
+cacheout
+aiohttp

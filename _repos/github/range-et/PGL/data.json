@@ -1,0 +1,250 @@
+{
+    "package.json": {
+        "github/range-et/PGL": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "npm": {
+        "three": {
+            "credit": 0.00990000000000002,
+            "url": "https://threejs.org/"
+        },
+        "servez": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/greggman/servez-cli#readme"
+        },
+        "rollup-plugin-visualizer": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/btd/rollup-plugin-visualizer"
+        },
+        "rollup-plugin-filesize": {
+            "credit": 0.0004900499999999988,
+            "url": "https://github.com/ritz078/rollup-plugin-filesize#readme"
+        },
+        "rollup": {
+            "credit": 0.052023708,
+            "url": "https://rollupjs.org/"
+        },
+        "qunit": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "puppeteer": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "pixelmatch": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "magic-string": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "jimp": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "failonlyreporter": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "eslint-plugin-import": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "eslint-plugin-html": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "eslint-plugin-compat": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "eslint-config-mdcs": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "eslint": {
+            "credit": 0.052023708,
+            "url": null
+        },
+        "dpdm": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "concurrently": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "chalk": {
+            "credit": 0.049005,
+            "url": null
+        },
+        "": {
+            "credit": 0.1348813619999998,
+            "url": null
+        },
+        "servez-lib": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "commander": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "color-support": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "ansi-colors": {
+            "credit": 0.0121287375,
+            "url": null
+        },
+        "typescript": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "ts-jest": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "sass": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "rollup-plugin-postcss": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "prettier": {
+            "credit": 0.003018708,
+            "url": null
+        },
+        "preact": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "postcss-url": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "postcss": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "picomatch-browser": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "npm-run-all": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "jest": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "eslint-plugin-prettier": {
+            "credit": 0.003018708,
+            "url": null
+        },
+        "eslint-config-prettier": {
+            "credit": 0.003018708,
+            "url": null
+        },
+        "del-cli": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-shape": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-scale": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-hierarchy": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-force": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-color": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "d3-array": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "bytes": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "yargs": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "source-map": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "picomatch": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "open": {
+            "credit": 0.00107811,
+            "url": null
+        },
+        "rimraf": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "nyc": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "esm": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "ava": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "terser": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "pacote": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "gzip-size": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "filesize": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "colors": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "brotli-size": {
+            "credit": 0.001940598,
+            "url": null
+        },
+        "boxen": {
+            "credit": 0.001940598,
+            "url": null
+        }
+    }
+}
