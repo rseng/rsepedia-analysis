@@ -1,0 +1,37 @@
+{
+  "name": "thresholdmann",
+  "version": "1.0.0",
+  "description": "A Web tool for interactively creating adaptive thresholds to segment nifti images.",
+  "main": "thresholdmann.js",
+  "scripts": {
+    "start": "http-server .",
+    "test": "npm run install:browsers; mocha --require fixtures.mjs --exit",
+    "install:browsers": "npx playwright install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neuroanatomy/thresholdmann.git"
+  },
+  "keywords": [
+    "MRI",
+    "neuroimaging",
+    "threshold",
+    "Web",
+    "tool",
+    "interactive"
+  ],
+  "author": "Roberto Toro <rto@braincatalogue.org> (https://neuroanatomy.github.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neuroanatomy/thresholdmann/issues"
+  },
+  "homepage": "https://github.com/neuroanatomy/thresholdmann#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.41.2",
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
+    "eslint-config-naat": "github:neuroanatomy/eslint-config-naat",
+    "http-server": "^14.1.1"
+  }
+}

@@ -1,0 +1,30 @@
+{
+    "setup.py": {
+        "github/oliverphilcox/EffectiveHalos": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.005240466,
+            "url": "https://www.numpy.org"
+        },
+        "scipy": {
+            "credit": 0.0026334,
+            "url": "https://www.scipy.org"
+        },
+        "matplotlib": {
+            "credit": 0.0026334,
+            "url": "https://matplotlib.org"
+        },
+        "mcfit": {
+            "credit": 0.00198,
+            "url": "https://github.com/eelregit/mcfit"
+        },
+        "fast-pt": {
+            "credit": 0.00198,
+            "url": "https://github.com/JoeMcEwen/FAST-PT"
+        }
+    }
+}

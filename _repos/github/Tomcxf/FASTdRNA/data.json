@@ -1,0 +1,286 @@
+{
+    "Gemfile": {
+        "github/Tomcxf/FASTdRNA": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "rubygems": {
+        "jekyll": {
+            "credit": 0.005562032142857182,
+            "url": "https://jekyllrb.com"
+        },
+        "jekyll-feed": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/jekyll/jekyll-feed"
+        },
+        "jekyll-readme-index": {
+            "credit": 0.0019800000000000373,
+            "url": "https://github.com/benbalter/jekyll-readme-index"
+        },
+        "jemoji": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/jekyll/jemoji"
+        },
+        "webrick": {
+            "credit": 0.0019800000000000095,
+            "url": "https://github.com/ruby/webrick"
+        },
+        "safe_yaml": {
+            "credit": 0.02365074642857143,
+            "url": "https://github.com/dtao/safe_yaml"
+        },
+        "rouge": {
+            "credit": 0.027693658928571428,
+            "url": "http://rouge.jneen.net/"
+        },
+        "pathutil": {
+            "credit": 0.007479096428571428,
+            "url": "http://github.com/envygeeks/pathutil"
+        },
+        "mercenary": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/jekyll/mercenary"
+        },
+        "liquid": {
+            "credit": 0.007479096428571428,
+            "url": "http://www.liquidmarkup.org"
+        },
+        "kramdown": {
+            "credit": 0.007479096428571428,
+            "url": "http://kramdown.gettalong.org"
+        },
+        "jekyll-watch": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/jekyll/jekyll-watch"
+        },
+        "jekyll-sass-converter": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/jekyll/jekyll-sass-converter"
+        },
+        "i18n": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/ruby-i18n/i18n"
+        },
+        "em-websocket": {
+            "credit": 0.007479096428571428,
+            "url": "http://github.com/igrigorik/em-websocket"
+        },
+        "colorator": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/octopress/colorator"
+        },
+        "addressable": {
+            "credit": 0.007479096428571428,
+            "url": "https://github.com/sporkmonger/addressable"
+        },
+        "typhoeus": {
+            "credit": 0.00028002857142857274,
+            "url": "https://github.com/typhoeus/typhoeus"
+        },
+        "rubocop-jekyll": {
+            "credit": 0.006856791267857144,
+            "url": "https://github.com/jekyll/rubocop-jekyll"
+        },
+        "rspec": {
+            "credit": 0.023028441267857143,
+            "url": "http://github.com/rspec"
+        },
+        "rake": {
+            "credit": 0.27362545561607143,
+            "url": "https://github.com/ruby/rake"
+        },
+        "nokogiri": {
+            "credit": 0.00028002857142857274,
+            "url": "https://nokogiri.org"
+        },
+        "bundler": {
+            "credit": 0.08083978561607143,
+            "url": "https://bundler.io/"
+        },
+        "rubocop-rspec": {
+            "credit": 0.0003266999999999992,
+            "url": "https://github.com/rubocop/rubocop-rspec"
+        },
+        "rubocop-performance": {
+            "credit": 0.047762577401785716,
+            "url": "https://docs.rubocop.org/rubocop-performance/"
+        },
+        "rubocop": {
+            "credit": 0.07202005240178572,
+            "url": "https://rubocop.org/"
+        },
+        "html-pipeline": {
+            "credit": 0.00028002857142857274,
+            "url": "https://github.com/gjtorikian/html-pipeline"
+        },
+        "gemoji": {
+            "credit": 0.028002857142857142,
+            "url": "https://github.com/github/gemoji"
+        },
+        "forwardable-extended": {
+            "credit": 0.01617165,
+            "url": "http://github.com/envygeeks/forwardable-extended"
+        },
+        "minitest": {
+            "credit": 0.0056639278928571415,
+            "url": "https://github.com/seattlerb/minitest"
+        },
+        "rexml": {
+            "credit": 0.0032747591249999994,
+            "url": "https://github.com/ruby/rexml"
+        },
+        "stringex": {
+            "credit": 0.0040429125,
+            "url": "http://github.com/rsl/stringex"
+        },
+        "listen": {
+            "credit": 0.002695275,
+            "url": null
+        },
+        "sassc": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "concurrent-ruby": {
+            "credit": 0.01617165,
+            "url": null
+        },
+        "http_parser.rb": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "eventmachine": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "public_suffix": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "ethon": {
+            "credit": 0.02772282857142857,
+            "url": null
+        },
+        "rspec-mocks": {
+            "credit": 0.030597146839285713,
+            "url": null
+        },
+        "rspec-expectations": {
+            "credit": 0.030597146839285713,
+            "url": null
+        },
+        "rspec-core": {
+            "credit": 0.030597146839285713,
+            "url": null
+        },
+        "racc": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "mini_portile2": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "simplecov": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "ruby_memcheck": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rubocop-shopify": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rubocop-rake": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rubocop-minitest": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rexical": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rdoc": {
+            "credit": 0.005542640517857142,
+            "url": null
+        },
+        "rake-compiler-dock": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rake-compiler": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "minitest-reporters": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "hoe-markdown": {
+            "credit": 0.0015401571428571427,
+            "url": null
+        },
+        "rubocop-rspec_rails": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "rubocop-factory_bot": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "rubocop-capybara": {
+            "credit": 0.008085825,
+            "url": null
+        },
+        "rubocop-ast": {
+            "credit": 0.01940598,
+            "url": null
+        },
+        "unicode-display_width": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "ruby-progressbar": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "regexp_parser": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "rainbow": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "parser": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "parallel": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "json": {
+            "credit": 0.0032343299999999997,
+            "url": null
+        },
+        "zeitwerk": {
+            "credit": 0.013861414285714285,
+            "url": null
+        },
+        "selma": {
+            "credit": 0.013861414285714285,
+            "url": null
+        },
+        "hoe": {
+            "credit": 0.004002483375,
+            "url": null
+        }
+    }
+}
