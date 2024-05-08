@@ -1,0 +1,14 @@
+{
+    "setup.py": {
+        "gitlab/burstcube/mhealpy": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "healpy": {
+            "credit": 0.0099,
+            "url": "http://github.com/healpy"
+        }
+    }
+}

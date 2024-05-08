@@ -1,0 +1,114 @@
+{
+    "setup.py": {
+        "github/carronj/LensIt": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "numpy": {
+            "credit": 0.877557576923077,
+            "url": "https://www.numpy.org"
+        },
+        "pyfftw": {
+            "credit": 0.003300000000000025,
+            "url": "https://github.com/pyFFTW/pyFFTW"
+        },
+        "scipy": {
+            "credit": 0.004389000000000032,
+            "url": "https://www.scipy.org"
+        },
+        "dask": {
+            "credit": 0.009382153846153853,
+            "url": "https://github.com/dask/dask/"
+        },
+        "pre-commit": {
+            "credit": 0.004146576923076923,
+            "url": "https://github.com/pre-commit/pre-commit"
+        },
+        "pytest-xdist": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pytest-xdist"
+        },
+        "pytest-timeout": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pytest-timeout"
+        },
+        "pytest-rerunfailures": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pytest-rerunfailures"
+        },
+        "pytest-cov": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "pytest": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.008293153846153846,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "distributed": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/distributed"
+        },
+        "jinja2": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "bokeh": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/bokeh"
+        },
+        "dask-expr": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/dask-expr"
+        },
+        "lz4": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/lz4"
+        },
+        "pyarrow-hotfix": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pyarrow-hotfix"
+        },
+        "pyarrow": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pyarrow"
+        },
+        "importlib-metadata": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/importlib-metadata"
+        },
+        "toolz": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/toolz"
+        },
+        "pyyaml": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/pyyaml"
+        },
+        "partd": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/partd"
+        },
+        "packaging": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "fsspec": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/fsspec"
+        },
+        "cloudpickle": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/cloudpickle"
+        },
+        "click": {
+            "credit": 0.004146576923076923,
+            "url": "https://pypi.org/project/click"
+        }
+    }
+}
