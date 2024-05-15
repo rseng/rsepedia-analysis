@@ -20211,7 +20211,65 @@
         "github/cvjena/JeFaPaTo": [],
         "github/DariaGangardt/pAGN": [],
         "github/iain-mcdonald/PySSED": [],
-        "github/haowang-astro/jetsimpy": []
+        "github/haowang-astro/jetsimpy": [],
+        "github/MultiQC/MultiQC": [
+            "bioinformatics",
+            "analysis",
+            "pypi",
+            "bioconda",
+            "multiqc",
+            "python",
+            "data-visualization",
+            "quality-control",
+            "reporting",
+            "seqera",
+            "vizualisation"
+        ],
+        "github/Bioinformatics-Munich/scas_dashboard": [],
+        "github/tahirulqamar/Deep-HPI-pred": [],
+        "github/MFaymon/spINAR": [
+            "bootstrapping",
+            "count-data",
+            "parametric-estimation",
+            "penalization",
+            "semiparametric-estimation",
+            "simulation",
+            "time-series",
+            "validation"
+        ],
+        "github/nicokurtovic/SIMIO": [],
+        "github/pinellolab/CRISPResso2": [
+            "genome-editing",
+            "quantification",
+            "amplicon-sequences"
+        ],
+        "github/p-slash/qsonic": [],
+        "github/FabioRigamonti/pyADfit": [],
+        "github/CliMA/CalibrateEmulateSample.jl": [],
+        "github/rasg-affiliates/21cmSense": [],
+        "github/JGCRI/stitches": [],
+        "github/AnkitBarik/planetMagFields": [
+            "plotting",
+            "planetary-science",
+            "magnetic-fields",
+            "planetary-data",
+            "planetary",
+            "python",
+            "matplotlib"
+        ],
+        "github/GalagaBits/JWST-FGS-Spelunker": [
+            "fgs",
+            "guidestar",
+            "jwst"
+        ],
+        "github/cnellington/Contextualized": [
+            "machine-learning",
+            "statistics",
+            "bioinformatics",
+            "medical-informatics"
+        ],
+        "github/vicruiser/3Dmapper": [],
+        "github/molgenis/vibe-suppl": []
     },
     "language": {
         "gitlab/chiemotono/mdcontactcom": "unknown",
@@ -25744,7 +25802,23 @@
         "github/cvjena/JeFaPaTo": "Python",
         "github/DariaGangardt/pAGN": "Jupyter Notebook",
         "github/iain-mcdonald/PySSED": "Python",
-        "github/haowang-astro/jetsimpy": "C++"
+        "github/haowang-astro/jetsimpy": "C++",
+        "github/MultiQC/MultiQC": "JavaScript",
+        "github/Bioinformatics-Munich/scas_dashboard": "R",
+        "github/tahirulqamar/Deep-HPI-pred": "R",
+        "github/MFaymon/spINAR": "R",
+        "github/nicokurtovic/SIMIO": "Python",
+        "github/pinellolab/CRISPResso2": "Python",
+        "github/p-slash/qsonic": "Python",
+        "github/FabioRigamonti/pyADfit": "Python",
+        "github/CliMA/CalibrateEmulateSample.jl": "Julia",
+        "github/rasg-affiliates/21cmSense": "Python",
+        "github/JGCRI/stitches": "Jupyter Notebook",
+        "github/AnkitBarik/planetMagFields": "Python",
+        "github/GalagaBits/JWST-FGS-Spelunker": "Python",
+        "github/cnellington/Contextualized": "Python",
+        "github/vicruiser/3Dmapper": "Python",
+        "github/molgenis/vibe-suppl": "R"
     },
     "url": {
         "gitlab/chiemotono/mdcontactcom": "https://gitlab.com/chiemotono/mdcontactcom",
@@ -31277,7 +31351,23 @@
         "github/cvjena/JeFaPaTo": "https://github.com/cvjena/JeFaPaTo",
         "github/DariaGangardt/pAGN": "https://github.com/DariaGangardt/pAGN",
         "github/iain-mcdonald/PySSED": "https://github.com/iain-mcdonald/PySSED",
-        "github/haowang-astro/jetsimpy": "https://github.com/haowang-astro/jetsimpy"
+        "github/haowang-astro/jetsimpy": "https://github.com/haowang-astro/jetsimpy",
+        "github/MultiQC/MultiQC": "https://github.com/MultiQC/MultiQC",
+        "github/Bioinformatics-Munich/scas_dashboard": "https://github.com/Bioinformatics-Munich/scas_dashboard",
+        "github/tahirulqamar/Deep-HPI-pred": "https://github.com/tahirulqamar/Deep-HPI-pred",
+        "github/MFaymon/spINAR": "https://github.com/MFaymon/spINAR",
+        "github/nicokurtovic/SIMIO": "https://github.com/nicokurtovic/SIMIO",
+        "github/pinellolab/CRISPResso2": "https://github.com/pinellolab/CRISPResso2",
+        "github/p-slash/qsonic": "https://github.com/p-slash/qsonic",
+        "github/FabioRigamonti/pyADfit": "https://github.com/FabioRigamonti/pyADfit",
+        "github/CliMA/CalibrateEmulateSample.jl": "https://github.com/CliMA/CalibrateEmulateSample.jl",
+        "github/rasg-affiliates/21cmSense": "https://github.com/rasg-affiliates/21cmSense",
+        "github/JGCRI/stitches": "https://github.com/JGCRI/stitches",
+        "github/AnkitBarik/planetMagFields": "https://github.com/AnkitBarik/planetMagFields",
+        "github/GalagaBits/JWST-FGS-Spelunker": "https://github.com/GalagaBits/JWST-FGS-Spelunker",
+        "github/cnellington/Contextualized": "https://github.com/cnellington/Contextualized",
+        "github/vicruiser/3Dmapper": "https://github.com/vicruiser/3Dmapper",
+        "github/molgenis/vibe-suppl": "https://github.com/molgenis/vibe-suppl"
     },
     "description": {
         "gitlab/chiemotono/mdcontactcom": "",
@@ -36810,6 +36900,22 @@
         "github/cvjena/JeFaPaTo": "JeFaPaTo - A tool for the analysis of facial features",
         "github/DariaGangardt/pAGN": "Python package to solve AGN disk model equations.",
         "github/iain-mcdonald/PySSED": null,
-        "github/haowang-astro/jetsimpy": "A hydrodynamic model of gamma-ray burst jet and afterglow"
+        "github/haowang-astro/jetsimpy": "A hydrodynamic model of gamma-ray burst jet and afterglow",
+        "github/MultiQC/MultiQC": "Aggregate results from bioinformatics analyses across many samples into a single report.",
+        "github/Bioinformatics-Munich/scas_dashboard": "SCAS dashboard: A tool to intuitively and interactively analyze Slurm cluster usage",
+        "github/tahirulqamar/Deep-HPI-pred": null,
+        "github/MFaymon/spINAR": "Semiparametric and parametric estimation and bootstrapping of integer-valued autoregressive (INAR) models.",
+        "github/nicokurtovic/SIMIO": "SIMIO: from SIMulatIons to Observations",
+        "github/pinellolab/CRISPResso2": "Analysis of deep sequencing data for rapid and intuitive interpretation of genome editing experiments",
+        "github/p-slash/qsonic": "Continuum fitting for DESI",
+        "github/FabioRigamonti/pyADfit": "A nested sampling approach to QSO accretion disc fitting.",
+        "github/CliMA/CalibrateEmulateSample.jl": "Stochastic Optimization, Learning, Uncertainty and Sampling",
+        "github/rasg-affiliates/21cmSense": "Code for calculating the sensitivity of 21cm experiments to the EoR power spectrum",
+        "github/JGCRI/stitches": "Amalgamate existing climate data to create monthly climate variable fields.",
+        "github/AnkitBarik/planetMagFields": "Routines to plot magnetic fields of planets in our solar system",
+        "github/GalagaBits/JWST-FGS-Spelunker": "JWST FGS Spelunker is a package that assists and finds technical anomalies from the JWST and stellar properties from guidestars.",
+        "github/cnellington/Contextualized": "An SKLearn-style toolbox for estimating and analyzing models, distributions, and functions with context-specific parameters.",
+        "github/vicruiser/3Dmapper": "Map genetic variants and protein positions to protein interfaces in 3D",
+        "github/molgenis/vibe-suppl": "Variant Interpretation using Biological Evidence - supplemental files"
     }
 }
