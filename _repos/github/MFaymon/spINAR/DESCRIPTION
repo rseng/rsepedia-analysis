@@ -1,0 +1,50 @@
+Package: spINAR
+Type: Package
+Title: (Semi)Parametric Estimation and Bootstrapping of INAR Models
+Version: 0.2.0
+Date: 2024-04-08
+Authors@R: c(person(given = "Maxime",
+           family = "Faymonville",
+           role = c("aut", "cre"),
+           email = "faymonville@statistik.tu-dortmund.de",
+	     comment = c(ORCID = "0000-0001-5565-0711")),
+    person(given = "Javiera",
+           family = "Riffo",
+           role = "aut",
+           email = "javiera.riffo@tu-dortmund.de",
+	     comment = c(ORCID = "0000-0002-5372-7196")),
+    person(given = "Jonas",
+           family = "Rieger",
+           role = "aut",
+           email = "rieger@statistik.tu-dortmund.de",
+           comment = c(ORCID = "0000-0002-0007-4478")),
+    person(given = "Carsten",
+           family = "Jentsch",
+           role = "aut",
+           email = "jentsch@statistik.tu-dortmund.de",
+           comment = c(ORCID = "0000-0001-7824-1697")),
+    person(given = "Christian H.",
+           family = "Weiß",
+           role = "ctb",
+           email = "weissc@hsu-hh.de",
+           comment = c(ORCID = "0000-0001-8739-6631")))
+Maintainer: Maxime Faymonville <faymonville@statistik.tu-dortmund.de>
+Description: Semiparametric and parametric estimation of INAR models including a finite sample refinement (Faymonville et al. (2022) <doi:10.1007/s10260-022-00655-0>) for the semiparametric setting introduced in Drost et al. (2009) <doi:10.1111/j.1467-9868.2008.00687.x>, different procedures to bootstrap INAR data (Jentsch, C. and Weiß, C.H. (2017) <doi:10.3150/18-BEJ1057>) and flexible simulation of INAR data.
+License: GPL (>= 3)
+Encoding: UTF-8
+Depends:
+	R (>= 3.6.0)
+Imports:
+	checkmate (>= 1.8.5),
+	progress,
+	stats
+LazyData: true
+RoxygenNote: 7.2.3
+URL: https://github.com/MFaymon/spINAR
+BugReports: https://github.com/MFaymon/spINAR/issues
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

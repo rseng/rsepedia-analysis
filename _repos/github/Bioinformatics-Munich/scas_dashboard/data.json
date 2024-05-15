@@ -1,0 +1,198 @@
+{
+    "requirements.txt": {
+        "github/Bioinformatics-Munich/scas_dashboard": {
+            "credit": 0.01,
+            "url": null
+        }
+    },
+    "pypi": {
+        "psycopg2-binary": {
+            "credit": 0.099,
+            "url": "https://psycopg.org/"
+        },
+        "gunicorn": {
+            "credit": 0.099,
+            "url": "https://gunicorn.org"
+        },
+        "django": {
+            "credit": 0.01128104999999999,
+            "url": "https://www.djangoproject.com/"
+        },
+        "djangorestframework": {
+            "credit": 0.010791000000000005,
+            "url": "https://www.django-rest-framework.org/"
+        },
+        "rpy2": {
+            "credit": 0.0009899999999999909,
+            "url": "https://rpy2.github.io"
+        },
+        "psycopg2": {
+            "credit": 0.099,
+            "url": "https://psycopg.org/"
+        },
+        "networkx": {
+            "credit": 0.099,
+            "url": "https://networkx.org/"
+        },
+        "pyyaml": {
+            "credit": 0.10880100000000001,
+            "url": "https://pyyaml.org/"
+        },
+        "python-dateutil": {
+            "credit": 0.099,
+            "url": "https://github.com/dateutil/dateutil"
+        },
+        "drf-yasg": {
+            "credit": 0.0009899999999999909,
+            "url": "https://github.com/axnsan12/drf-yasg"
+        },
+        "bcrypt": {
+            "credit": 0.029304990000000003,
+            "url": "https://github.com/pyca/bcrypt/"
+        },
+        "argon2-cffi": {
+            "credit": 0.009899010000000001,
+            "url": "https://argon2-cffi.readthedocs.io/"
+        },
+        "tzdata": {
+            "credit": 0.053562465000000004,
+            "url": "https://github.com/python/tzdata"
+        },
+        "sqlparse": {
+            "credit": 0.029304990000000003,
+            "url": "https://github.com/andialbrecht/sqlparse"
+        },
+        "asgiref": {
+            "credit": 0.009899010000000001,
+            "url": "https://github.com/django/asgiref/"
+        },
+        "backports.zoneinfo": {
+            "credit": 0.005157192857142856,
+            "url": "https://github.com/pganssle/zoneinfo"
+        },
+        "types-tzlocal": {
+            "credit": 4.667142857142821e-05,
+            "url": "https://github.com/python/typeshed"
+        },
+        "mypy": {
+            "credit": 0.009518637857142857,
+            "url": "http://www.mypy-lang.org/"
+        },
+        "pytest-cov": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/pytest-cov"
+        },
+        "coverage": {
+            "credit": 0.006284307857142858,
+            "url": "https://pypi.org/project/coverage"
+        },
+        "pytest": {
+            "credit": 0.020470088571428572,
+            "url": "https://pypi.org/project/pytest"
+        },
+        "pandas": {
+            "credit": 0.014001428571428573,
+            "url": "https://pypi.org/project/pandas"
+        },
+        "numpy": {
+            "credit": 0.014001428571428573,
+            "url": "https://pypi.org/project/numpy"
+        },
+        "ipython": {
+            "credit": 0.009334285714285715,
+            "url": "https://pypi.org/project/ipython"
+        },
+        "typing-extensions": {
+            "credit": 0.011135802857142857,
+            "url": "https://pypi.org/project/typing-extensions"
+        },
+        "packaging": {
+            "credit": 0.014468142857142858,
+            "url": "https://pypi.org/project/packaging"
+        },
+        "tzlocal": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/tzlocal"
+        },
+        "jinja2": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/jinja2"
+        },
+        "cffi": {
+            "credit": 0.0046671428571428576,
+            "url": "https://pypi.org/project/cffi"
+        },
+        "swagger-spec-validator": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/swagger-spec-validator"
+        },
+        "coreschema": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/coreschema"
+        },
+        "coreapi": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/coreapi"
+        },
+        "uritemplate": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/uritemplate"
+        },
+        "pytz": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/pytz"
+        },
+        "inflection": {
+            "credit": 0.009801,
+            "url": "https://pypi.org/project/inflection"
+        },
+        "furo": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/furo"
+        },
+        "sphinx-notfound-page": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/sphinx-notfound-page"
+        },
+        "sphinx": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/sphinx"
+        },
+        "hypothesis": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/hypothesis"
+        },
+        "tomli": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/tomli"
+        },
+        "cogapp": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/cogapp"
+        },
+        "pre-commit": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/pre-commit"
+        },
+        "dataclasses": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/dataclasses"
+        },
+        "argon2-cffi-bindings": {
+            "credit": 0.001617165,
+            "url": "https://pypi.org/project/argon2-cffi-bindings"
+        },
+        "pytest-asyncio": {
+            "credit": 0.004851495,
+            "url": "https://pypi.org/project/pytest-asyncio"
+        },
+        "importlib-resources": {
+            "credit": 0.024257475,
+            "url": "https://pypi.org/project/importlib-resources"
+        },
+        "types-pytz": {
+            "credit": 0.004620471428571429,
+            "url": "https://pypi.org/project/types-pytz"
+        }
+    }
+}

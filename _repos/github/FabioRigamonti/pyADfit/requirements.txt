@@ -1,0 +1,9 @@
+numpy
+scipy
+matplotlib
+raynest
+CPNest
+nessai
+h5py
+pandas
+setuptools
